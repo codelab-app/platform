@@ -14,7 +14,6 @@ import {
 import {
   DATA_ELEMENT_ID,
   isAtomRef,
-  isComponent,
   isComponentRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
@@ -27,9 +26,7 @@ import {
   mapDeep,
 } from '@codelab/shared/utils'
 import get from 'lodash/get'
-import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
-import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -99,8 +96,6 @@ export class RuntimeElementPropsModel
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    console.log(this.urlProps, this.urlProps?.['urlKey'])
-
     const componentProps = isRuntimeComponent(this.closestRuntimeContainerNode)
       ? this.closestRuntimeContainerNode.runtimeProps.componentEvaluatedProps
       : {}

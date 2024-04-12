@@ -1,29 +1,15 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import './styles.css'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
-import {
-  LexicalComposerContext,
-  useLexicalComposerContext,
-} from '@lexical/react/LexicalComposerContext'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import type { EditorState, LexicalEditor } from 'lexical'
-import {
-  $createParagraphNode,
-  $createTextNode,
-  $getRoot,
-  $getSelection,
-} from 'lexical'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback } from 'react'
 import { exampleTheme } from './example-theme'
 import { OnInitPlugin } from './OnInitPlugin'
 import { ToolbarPlugin } from './plugins/ToolbarPlugin'
-import { TreeViewPlugin } from './plugins/TreeViewPlugin'
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -53,13 +39,7 @@ export interface TextEditorProps {
   readOnly?: boolean
 }
 
-const Editor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
-  console.log(data)
-
-  const { propService, runtimeElementService } = useStore()
-  const runtimeElement = runtimeElementService.runtimeElement(compositeKey)
-  const element = runtimeElement.element.current
-
+export const TextEditor = ({ data }: TextEditorProps) => {
   const onChange = useCallback(
     (
       _editorState: EditorState,
@@ -76,15 +56,6 @@ const Editor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
         const textContent = _editorState._nodeMap.get('root')?.getTextContent()
 
         console.log(textContent)
-
-        const props = element.props
-        const renderType = element.renderType.current
-
-        void propService.updateWithDefaultValuesApplied(props, {
-          data: { ...props.data.data, customText: JSON.stringify(textContent) },
-          defaultValues: renderType.api.current.defaultValues,
-          id: props.id,
-        })
       })
     },
     [],
@@ -93,7 +64,7 @@ const Editor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
-        {/* <ToolbarPlugin /> */}
+        <ToolbarPlugin />
         <OnChangePlugin onChange={onChange} />
         <OnInitPlugin data={data} />
         <div className="editor-inner">
@@ -112,4 +83,4 @@ const Editor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
   )
 }
 
-export default Editor
+TextEditor.displayName = 'TextEditor'

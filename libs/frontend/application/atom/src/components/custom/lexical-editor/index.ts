@@ -1,1 +1,2 @@
-export * from './LexicalEditor'
+export * from './TextEditor'
+export * from './TextRenderer'

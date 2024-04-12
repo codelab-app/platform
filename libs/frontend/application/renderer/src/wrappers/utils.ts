@@ -6,25 +6,27 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'
 import isNil from 'lodash/isNil'
-import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
 
-const TextEditor = dynamic(() => import('../text-editor/TextEditor'), {
-  ssr: false,
-})
-
-const LexcialTextEditor = dynamic(
-  () => import('../lexical-editor/LexicalEditor'),
+const LexicalTextEditor = dynamic(
+  () =>
+    import('@codelab/frontend/application/atom').then((mod) => mod.TextEditor),
   {
     ssr: false,
   },
 )
 
-const TextRenderer = dynamic(() => import('../text-editor/TextRenderer'), {
-  ssr: false,
-})
+const LexicalTextRenderer = dynamic(
+  () =>
+    import('@codelab/frontend/application/atom').then(
+      (mod) => mod.TextRenderer,
+    ),
+  {
+    ssr: false,
+  },
+)
 
 /**
  * Fragments can only have the `key` prop
@@ -58,15 +60,15 @@ export const createTextEditor = (
   compositeKey: string,
   readOnly?: boolean,
 ) => {
-  return React.createElement(LexcialTextEditor, {
+  return React.createElement(LexicalTextEditor, {
     compositeKey,
     data: customText,
     readOnly,
   })
 }
 
-export const createTextRenderer = (customText: string) =>
-  React.createElement(TextRenderer, { data: customText })
+export const createTextRenderer = (data: string) =>
+  React.createElement(LexicalTextRenderer, { data })
 
 export const generateTailwindClasses = (
   classNames: Nullable<Array<string>> | undefined,
