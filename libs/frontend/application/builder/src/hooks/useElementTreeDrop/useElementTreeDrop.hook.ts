@@ -23,23 +23,29 @@ export interface UseElementTreeDropProps {
  * This can be optimized by batching data changes in the API
  */
 export const useElementTreeDrop = () => {
-  const { elementService } = useStore()
+  const { elementService, runtimeElementService } = useStore()
   const { validateParentForMove } = useRequiredParentValidator()
 
   const handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop'] = async (
     info,
   ) => {
-    const draggedElementId = info.dragNode.key.toString()
-    const draggedElement = elementService.element(draggedElementId)
+    const runtimeDraggedElement = runtimeElementService.runtimeElement(
+      info.dragNode.key.toString(),
+    )
+
+    const runtimeDropElement = runtimeElementService.runtimeElement(
+      info.node.key.toString(),
+    )
+
+    const draggedElement = runtimeDraggedElement.element.current
     const draggedRootId = info.dragNode.rootKey?.toString()
-    const dropElementId = info.node.key.toString()
-    const dropElement = elementService.element(dropElementId)
+    const dropElement = runtimeDropElement.element.current
     const dropRootId = info.node.rootKey?.toString()
 
     // check if the dropNode lives in a different component
     // move the element into the other component
     if (draggedRootId !== dropRootId) {
-      if (draggedElementId === draggedRootId) {
+      if (draggedElement.id === draggedRootId) {
         // We can't move the root because the drag component
         // can't stay without a root element
         return
@@ -54,7 +60,7 @@ export const useElementTreeDrop = () => {
       return
     }
 
-    if (!validateParentForMove(draggedElementId, dropElementId)) {
+    if (!validateParentForMove(draggedElement.id, dropElement.id)) {
       return
     }
 
