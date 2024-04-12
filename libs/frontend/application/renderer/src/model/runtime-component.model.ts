@@ -138,7 +138,6 @@ export class RuntimeComponentModel
       key: this.compositeKey,
       primaryTitle: this.component.current.name,
       rootKey: this.component.current.id,
-      // child mapper instances are display component without children
       selectable: !this.isChildMapperComponentInstance,
       type: IRuntimeNodeType.Component,
     }
