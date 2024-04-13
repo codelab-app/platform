@@ -36,14 +36,16 @@ export const TextEditorWrapper = observer<{
       // consider changes only in edit mode
       // because props evaluation triggers change too
       if (lexicalEditor.isEditable()) {
-        const htmlString = $generateHtmlFromNodes(lexicalEditor)
-        const props = element.props
-        const renderType = element.renderType.current
+        state.read(() => {
+          const htmlString = $generateHtmlFromNodes(lexicalEditor)
+          const props = element.props
+          const renderType = element.renderType.current
 
-        void propService.updateWithDefaultValuesApplied(props, {
-          data: { ...props.data.data, children: htmlString },
-          defaultValues: renderType.api.current.defaultValues,
-          id: props.id,
+          void propService.updateWithDefaultValuesApplied(props, {
+            data: { ...props.data.data, children: htmlString },
+            defaultValues: renderType.api.current.defaultValues,
+            id: props.id,
+          })
         })
       }
     },
