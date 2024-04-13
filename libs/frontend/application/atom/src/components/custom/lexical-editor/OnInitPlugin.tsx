@@ -24,7 +24,7 @@ export const OnInitPlugin = ({
         $insertNodes(nodes)
       }
     })
-  }, [])
+  }, [data])
 
   useEffect(() => {
     editor.setEditable(editable)
