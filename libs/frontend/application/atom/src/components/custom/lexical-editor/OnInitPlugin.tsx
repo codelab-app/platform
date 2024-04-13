@@ -15,16 +15,12 @@ export const OnInitPlugin = ({
   useEffect(() => {
     editor.update(() => {
       if (data) {
-        // In the browser you can use the native DOMParser API to parse the HTML string.
         const parser = new DOMParser()
         const dom = parser.parseFromString(data, 'text/html')
-        // Once you have the DOM instance it's easy to generate LexicalNodes.
         const nodes = $generateNodesFromDOM(editor, dom)
 
-        // Select the root
         $getRoot().select()
-
-        // Insert them at a selection.
+        $getRoot().clear()
         $insertNodes(nodes)
       }
     })
