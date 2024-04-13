@@ -56,11 +56,7 @@ describe('State variables sharing between pages', () => {
   })
 
   it('should setup the pages that will share states', () => {
-    cy.visit(
-      `/components/${slugify(
-        COMPONENT_NAME,
-      )}/builder?primarySidebarKey=explorer`,
-    )
+    cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
 
     cy.waitForSpinners()
 
