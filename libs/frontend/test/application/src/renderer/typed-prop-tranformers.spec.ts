@@ -3,7 +3,7 @@ import {
   IElementRenderTypeKind,
   IPrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
-import { screen } from '@testing-library/dom'
+import { screen, waitFor } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React, { isValidElement } from 'react'

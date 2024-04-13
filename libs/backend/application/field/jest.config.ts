@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'backend-application-field',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../jest.preset.ts',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

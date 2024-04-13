@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'frontend-application-dnd',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../jest.preset.ts',
   testEnvironment: 'jsdom',
   transform: {
     '^.+.[tj]sx?$': [

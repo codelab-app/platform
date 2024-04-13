@@ -31,6 +31,10 @@ import { ComponentApplicationService } from '@codelab/frontend/application/compo
 import { ElementService } from '@codelab/frontend/application/element'
 import { PageApplicationService } from '@codelab/frontend/application/page'
 import {
+  PropService,
+  propServiceContext,
+} from '@codelab/frontend/application/prop'
+import {
   RendererApplicationService,
   RuntimeComponentService,
   RuntimeElementService,
@@ -74,6 +78,7 @@ export const rootApplicationStore = createTestRootStore({
     elementServiceContext,
     fieldDomainServiceContext,
     pageDomainServiceContext,
+    propServiceContext,
     rendererServiceContext,
     resourceDomainServiceContext,
     routerServiceContext,
@@ -92,6 +97,7 @@ export const rootApplicationStore = createTestRootStore({
     elementService: new ElementService({}),
     fieldService: new FieldService({}),
     pageService: new PageApplicationService({}),
+    propService: new PropService({}),
     rendererService: new RendererApplicationService({}),
     resourceService: new ResourceService({}),
     routerService: new RouterService({}),

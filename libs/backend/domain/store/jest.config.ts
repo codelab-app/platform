@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'backend-domain-store',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../jest.preset.ts',
   testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [

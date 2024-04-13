@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 /* eslint-disable @typescript-eslint/member-ordering */
 import type {
   IRendererDto,
@@ -54,7 +56,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { rendererFactory } from '../setup/renderer.test.factory'
 import { rootApplicationStore } from './root.test.store'
@@ -63,15 +64,15 @@ export class TestBed {
   static Create() {
     const testBed = new TestBed()
 
-    /**
-     * Create default data
-     */
-    testBed.clear()
+    // Mock it so we don't trigger any api calls
+    // testBed.rootStore.propService.updateWithDefaultValuesApplied = jest.fn()
 
     return testBed
   }
 
   private constructor() {
+    this.clear()
+
     const reactFragment = this.addAtom({
       name: IAtomType.ReactFragment,
       type: IAtomType.ReactFragment,
@@ -94,6 +95,8 @@ export class TestBed {
   }
 
   addApp(dto: Partial<IAppDto>) {
+    // console.log('addApp', dto)
+
     return appFactory(this.rootStore.appService.appDomainService)(dto)
   }
 
@@ -121,10 +124,7 @@ export class TestBed {
       id,
       rootElement: this.addElement({
         parentComponent: { id },
-        renderType: {
-          __typename: IElementRenderTypeKind.Atom,
-          id: this.addAtom({ type: IAtomType.ReactFragment }).id,
-        },
+        renderType: this.atomRefs.get(IAtomType.ReactFragment),
       }),
       store: this.addStore({}),
     })
@@ -147,6 +147,8 @@ export class TestBed {
   }
 
   addPage(dto: Partial<IPageDto>) {
+    // console.log('addPage', dto)
+
     return pageFactory(this.rootStore.pageService.pageDomainService)(dto)
   }
 
@@ -179,6 +181,36 @@ export class TestBed {
       runtimeProviderPage:
         pageKind === IPageKind.Regular ? renderer.runtimePage : undefined,
     }
+  }
+
+  setupComponent() {
+    const componentId = 'component-id'
+    const rootElementId = 'root-element-id'
+    const componentName = 'Component Name'
+
+    const component = this.addComponent({
+      id: componentId,
+      name: componentName,
+      rootElement: this.addElement({
+        closestContainerNode: { id: componentId },
+        name: ROOT_ELEMENT_NAME,
+        parentComponent: { id: componentId },
+        renderType: this.atomRefs.get(IAtomType.HtmlDiv),
+      }),
+      store: this.addStore({
+        component: { id: componentId },
+        name: Store.createName({ name: componentName }),
+      }),
+    })
+
+    const renderer = this.addRenderer({
+      containerNode: component,
+      rendererType: RendererType.Preview,
+    })
+
+    const runtimeComponent = renderer.runtimeComponent!
+
+    return { component, renderer, runtimeComponent }
   }
 
   addPageRegular({
@@ -233,6 +265,8 @@ export class TestBed {
   }
 
   addRenderer(dto: Partial<IRendererDto>) {
+    // console.log('addRenderer', dto)
+
     const renderer = rendererFactory(this.rootStore.rendererService)(dto)
 
     this.rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
@@ -273,5 +307,5 @@ export class TestBed {
 
   private atomRefs: Map<string, IAtomRenderType> = new Map()
 
-  private rootStore: IRootStore = rootApplicationStore
+  rootStore: IRootStore = rootApplicationStore
 }

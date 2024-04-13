@@ -43,7 +43,10 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
     })
     .compile()
 
-  const nestApp = module.createNestApplication()
+  const nestApp = module.createNestApplication({
+    logger: false,
+  })
+
   const commandBus = module.get<CommandBus>(CommandBus)
   const userDomainService = module.get(UserDomainService)
   const requestContextMiddleware = module.get(RequestContextMiddleware)

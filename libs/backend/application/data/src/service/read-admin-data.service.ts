@@ -6,8 +6,6 @@ import fs from 'fs'
 import path from 'path'
 import { MigrationDataService } from './migration-data.service'
 
-const RANDOM_ATOMS_COUNT = 25
-
 @Injectable({
   scope: Scope.TRANSIENT,
 })
@@ -22,16 +20,7 @@ export class ReadAdminDataService {
       .readdirSync(this.migrationDataService.atomsPath)
       .filter((filename) => path.extname(filename) === '.json')
 
-    if (!this.partiallySeed) {
-      return atomFileNames
-    }
-
-    const randomAtomNames = atomFileNames
-      .sort(() => Math.random() - 0.5)
-      .slice(0, RANDOM_ATOMS_COUNT)
-
-    // always include HtmlLink atom, since components import depends on it
-    return [...randomAtomNames, 'HtmlLink.json']
+    return atomFileNames
   }
 
   get atoms() {
@@ -92,6 +81,4 @@ export class ReadAdminDataService {
       this.validationService.validateAndClean(ITag, tag),
     )
   }
-
-  partiallySeed = false
 }
