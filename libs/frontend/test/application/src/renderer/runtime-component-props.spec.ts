@@ -2,7 +2,6 @@ import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/applicat
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -68,7 +67,7 @@ describe('Runtime Component props', () => {
 
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
-      const { element, runtimeElement } = setupRuntimeElement(testBed)
+      const { element, runtimeElement } = testBed.setupRuntimeElement()
       const runtimeProps = runtimeElement.runtimeProps
       const component = testBed.addComponent({ name: 'component' })
 
@@ -90,7 +89,7 @@ describe('Runtime Component props', () => {
     })
 
     it('should resolve child mapper prop', () => {
-      const { element, runtimeElement } = setupRuntimeElement(testBed)
+      const { element, runtimeElement } = testBed.setupRuntimeElement()
       const component = testBed.addComponent({ name: 'component' })
       const propKey = 'childMapperProp'
       const propsArray = ['p01', 'p02', 'p03']

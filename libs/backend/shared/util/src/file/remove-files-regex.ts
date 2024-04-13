@@ -1,9 +1,9 @@
 import fs from 'fs'
-import * as glob from 'glob'
+import { sync } from 'glob'
 import path from 'path'
 
 export const deleteFilesSync = (directory: string, pattern: string) => {
-  const files = glob.sync(pattern, { cwd: directory })
+  const files = sync(pattern, { cwd: directory })
 
   files.forEach((file) => {
     const fullPath = path.join(directory, file)

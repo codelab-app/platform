@@ -236,6 +236,26 @@ export class TestBed {
     })
   }
 
+  setupRuntimeElement(
+    rendererType: RendererType = RendererType.Preview,
+    pageKind: IPageKind = IPageKind.Regular,
+  ) {
+    const { page, rendered, renderer, runtimePage } = this.setupPage(
+      rendererType,
+      pageKind,
+    )
+
+    const runtimeElement = runtimePage!.runtimeRootElement
+
+    return {
+      element: page.rootElement.current,
+      page,
+      rendered,
+      renderer,
+      runtimeElement,
+    }
+  }
+
   addPrimitiveType(dto: Partial<IPrimitiveTypeDto>) {
     return primitiveTypeFactory(this.rootStore.typeService.typeDomainService)(
       dto,
