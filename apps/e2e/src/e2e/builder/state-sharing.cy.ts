@@ -57,7 +57,7 @@ describe('State variables sharing between pages', () => {
 
   it('should setup the pages that will share states', () => {
     cy.visit(
-      `/apps/cypress/${slugify(app.name)}/components/${slugify(
+      `/components/${slugify(
         COMPONENT_NAME,
       )}/builder?primarySidebarKey=explorer`,
     )

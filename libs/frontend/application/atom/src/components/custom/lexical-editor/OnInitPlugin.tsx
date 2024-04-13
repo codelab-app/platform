@@ -1,4 +1,6 @@
+import { $generateNodesFromDOM } from '@lexical/html'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { $getRoot, $insertNodes } from 'lexical'
 import { useEffect } from 'react'
 
 export const OnInitPlugin = ({
@@ -13,9 +15,17 @@ export const OnInitPlugin = ({
   useEffect(() => {
     editor.update(() => {
       if (data) {
-        const editorState = editor.parseEditorState(data)
+        // In the browser you can use the native DOMParser API to parse the HTML string.
+        const parser = new DOMParser()
+        const dom = parser.parseFromString(data, 'text/html')
+        // Once you have the DOM instance it's easy to generate LexicalNodes.
+        const nodes = $generateNodesFromDOM(editor, dom)
 
-        editor.setEditorState(editorState)
+        // Select the root
+        $getRoot().select()
+
+        // Insert them at a selection.
+        $insertNodes(nodes)
       }
     })
   }, [])
