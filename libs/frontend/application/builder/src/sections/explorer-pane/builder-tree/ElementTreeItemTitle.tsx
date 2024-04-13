@@ -13,12 +13,12 @@ export const ElementTreeItemTitle = observer<{
   data: IElementTreeViewDataNode
 }>(({ data }) => {
   return data.type === IRuntimeNodeType.Element ? (
-    // Add CSS to disable hover if node is un-selectable
     <ElementContextMenu treeNode={data}>
       <ElementTreeItemElementTitle treeNode={data} />
     </ElementContextMenu>
   ) : (
     <CuiTreeItem
+      icon={<BorderOuterOutlined />}
       primaryTitle={data.primaryTitle}
       secondaryTitle={data.secondaryTitle}
     />
