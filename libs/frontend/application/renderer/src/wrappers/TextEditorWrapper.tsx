@@ -32,15 +32,19 @@ export const TextEditorWrapper = observer<{
 
   const onChange = useCallback(
     (state: EditorState, lexicalEditor: LexicalEditor, tags: Set<string>) => {
-      const textContent = state.toJSON()
-      const props = element.props
-      const renderType = element.renderType.current
+      // consider changes only in edit mode
+      // because props evaluation triggers change too
+      if (lexicalEditor.isEditable()) {
+        const textContent = state.toJSON()
+        const props = element.props
+        const renderType = element.renderType.current
 
-      void propService.updateWithDefaultValuesApplied(props, {
-        data: { ...props.data.data, children: JSON.stringify(textContent) },
-        defaultValues: renderType.api.current.defaultValues,
-        id: props.id,
-      })
+        void propService.updateWithDefaultValuesApplied(props, {
+          data: { ...props.data.data, children: JSON.stringify(textContent) },
+          defaultValues: renderType.api.current.defaultValues,
+          id: props.id,
+        })
+      }
     },
     [],
   )
