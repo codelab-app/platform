@@ -136,7 +136,9 @@ export class RuntimeComponentModel
       component: { id: this.component.current.id },
       isChildMapperComponentInstance: this.isChildMapperComponentInstance,
       key: this.compositeKey,
-      primaryTitle: this.component.current.name,
+      primaryTitle: this.isChildMapperComponentInstance
+        ? `${this.component.current.name} ${this.childMapperIndex}`
+        : this.component.current.name,
       rootKey: this.component.current.id,
       selectable: !this.isChildMapperComponentInstance,
       type: IRuntimeNodeType.Component,
