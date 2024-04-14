@@ -327,13 +327,15 @@ export class RuntimeElementModel
 
     const element = this.element.current
     const primaryTitle = element.treeTitle.primary
-    const secondaryTitle = element.treeTitle.secondary
 
     const componentMeta = this.component
       ? `instance of ${this.component.name}`
       : undefined
 
     const atomMeta = element.atomName ? `${element.atomName}` : undefined
+
+    const secondaryTitle =
+      componentMeta ?? atomMeta ?? element.treeTitle.secondary
 
     const errorMessage = element.renderingMetadata?.error
       ? `Error: ${element.renderingMetadata.error.message}`

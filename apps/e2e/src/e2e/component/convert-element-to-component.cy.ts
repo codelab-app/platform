@@ -37,11 +37,7 @@ describe('Converting an element to a component', () => {
   })
 
   it('should still have the descendant elements of the component', () => {
-    cy.visit(
-      `/apps/cypress/${slugify(app.name)}/components/${slugify(
-        elementContainerCreateData.name,
-      )}/builder?primarySidebarKey=explorer`,
-    )
+    cy.visit(`/components/${slugify(elementContainerCreateData.name)}/builder`)
 
     // the element descendants should still be in correct order
     // Container -> Row -> Col -> Text
