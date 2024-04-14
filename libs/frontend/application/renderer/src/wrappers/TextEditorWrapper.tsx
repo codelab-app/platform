@@ -22,7 +22,6 @@ export const TextEditorWrapper = observer<{
 }>(({ runtimeElement }) => {
   const { propService, rendererService } = useStore()
   const element = runtimeElement.element.current
-  const data = runtimeElement.runtimeProps.evaluatedProps['children']
   const renderer = rendererService.activeRenderer?.current
 
   const isBuilderRenderer =
@@ -56,9 +55,13 @@ export const TextEditorWrapper = observer<{
     element.setIsTextContentEditable(false)
   }, [])
 
+  const data = editable
+    ? element.props.values['children']
+    : runtimeElement.runtimeProps.evaluatedProps['children']
+
   return (
     <LexicalTextEditor
-      config={{ editable }}
+      config={{ editable, namespace: `${element.id}-editor` }}
       data={data}
       onChange={onChange}
       onClose={onClose}
