@@ -1,11 +1,11 @@
-import { $generateNodesFromDOM } from '@lexical/html'
-import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html'
 import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
+import { useDebouncedCallback } from '@react-hookz/web'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { $getRoot, $insertNodes } from 'lexical'
 import React, { useCallback, useEffect } from 'react'
@@ -21,6 +21,12 @@ export const OnInitPlugin = ({ config, data, onChange }: OnInitPluginProps) => {
 
   const updateValue = useCallback(() => {
     editor.update(() => {
+      const currentState = $generateHtmlFromNodes(editor)
+
+      if (currentState === data) {
+        return
+      }
+
       const parser = new DOMParser()
       const dom = parser.parseFromString(data || '', 'text/html')
       const nodes = $generateNodesFromDOM(editor, dom)
@@ -31,23 +37,25 @@ export const OnInitPlugin = ({ config, data, onChange }: OnInitPluginProps) => {
     })
   }, [data, editor])
 
+  /**
+   * We set the initial value on first render in both modes edit and read
+   */
   useEffect(() => {
     updateValue()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [data])
 
   useEffect(() => {
     editor.setEditable(Boolean(config.editable))
-    updateValue()
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor, config.editable])
 
+  const debouncedOnChange = useDebouncedCallback(onChange, [], 500)
+
   return config.editable ? (
     <>
-      <OnChangePlugin onChange={onChange} />
+      <OnChangePlugin ignoreSelectionChange onChange={debouncedOnChange} />
       <HistoryPlugin />
-      <AutoFocusPlugin />
       <ClearEditorPlugin />
       <TabIndentationPlugin />
     </>
