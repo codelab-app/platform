@@ -80,7 +80,7 @@ export const ToolbarPlugin = ({ onClose }: { onClose(): void }) => {
   }, [editor, updateToolbar])
 
   return (
-    <div className="toolbar" ref={toolbarRef}>
+    <div className="toolbar" id="lexical-toolbar" ref={toolbarRef}>
       <button
         aria-label="Undo"
         className="toolbar-item spaced"

@@ -1,38 +1,60 @@
-import { $generateNodesFromDOM } from '@lexical/html'
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html'
+import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin'
+import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
+import type { EditorState, LexicalEditor } from 'lexical'
 import { $getRoot, $insertNodes } from 'lexical'
-import { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
-export const OnInitPlugin = ({
-  data,
-  editable,
-}: {
-  editable: boolean
+interface OnInitPluginProps {
+  config: InitialConfigType
   data: string | undefined
-}) => {
+  onChange(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
+}
+
+export const OnInitPlugin = ({ config, data, onChange }: OnInitPluginProps) => {
   const [editor] = useLexicalComposerContext()
 
-  useEffect(() => {
+  const updateValue = useCallback(() => {
     editor.update(() => {
-      if (data) {
-        // In the browser you can use the native DOMParser API to parse the HTML string.
-        const parser = new DOMParser()
-        const dom = parser.parseFromString(data, 'text/html')
-        // Once you have the DOM instance it's easy to generate LexicalNodes.
-        const nodes = $generateNodesFromDOM(editor, dom)
+      const currentState = $generateHtmlFromNodes(editor)
 
-        // Select the root
-        $getRoot().select()
-
-        // Insert them at a selection.
-        $insertNodes(nodes)
+      if (currentState === data) {
+        return
       }
+
+      const parser = new DOMParser()
+      const dom = parser.parseFromString(data || '', 'text/html')
+      const nodes = $generateNodesFromDOM(editor, dom)
+
+      $getRoot().select()
+      $getRoot().clear()
+      $insertNodes(nodes)
     })
-  }, [])
+  }, [data, editor])
+
+  /**
+   * We set the initial value on first render in both modes edit and read
+   */
+  useEffect(() => {
+    updateValue()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   useEffect(() => {
-    editor.setEditable(editable)
-  }, [editor, editable])
+    editor.setEditable(Boolean(config.editable))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor, config.editable])
 
-  return null
+  return config.editable ? (
+    <>
+      <OnChangePlugin ignoreSelectionChange onChange={onChange} />
+      <HistoryPlugin />
+      <ClearEditorPlugin />
+      <TabIndentationPlugin />
+    </>
+  ) : null
 }

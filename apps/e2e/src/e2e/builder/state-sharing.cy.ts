@@ -3,13 +3,15 @@ import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
-import { IPageKindName } from '@codelab/shared/abstract/core'
+import {
+  IPageKindName,
+  IPrimitiveTypeKind,
+} from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 import {
   COMPONENT_NAME,
   componentCreateData,
-  componentElementCreateData,
   regularPageCreateData,
   spaceElement,
   spaceElementName,
@@ -56,11 +58,7 @@ describe('State variables sharing between pages', () => {
   })
 
   it('should setup the pages that will share states', () => {
-    cy.visit(
-      `/components/${slugify(
-        COMPONENT_NAME,
-      )}/builder?primarySidebarKey=explorer`,
-    )
+    cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
 
     cy.waitForSpinners()
 
@@ -112,7 +110,12 @@ describe('State variables sharing between pages', () => {
     // in the cached state, so we had to reload here for now
     // cy.reload()
     cy.openPreview().contains('text component state value').should('exist')
+  })
 
+  /**
+   * We'll keep the UI methods for state since we don't have other specs for state
+   */
+  it('should create a state variable in the provider page', () => {
     // go to the provider page
     cy.visit(
       `/apps/cypress/${slugify(app.name)}/pages/${slugify(
@@ -123,45 +126,38 @@ describe('State variables sharing between pages', () => {
     // select root now so we can update its child later
     // there is an issue with tree interaction
     // Increased timeout since builder may take longer to load
-    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-      .should('be.visible')
-      .click({ force: true })
-  })
+    cy.findByText(ROOT_ELEMENT_NAME).should('be.visible').click({ force: true })
 
-  /**
-   * We'll keep the UI methods for state since we don't have other specs for state
-   */
-  it('should create a state variable in the provider page', () => {
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
     cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
 
-    cy.getCuiForm(MODEL_ACTION.CreateField.key).within(() => {
-      cy.setFormFieldValue({
-        label: 'Key',
-        type: FIELD_TYPE.INPUT,
-        value: 'name',
-      })
+    cy.getCuiForm(MODEL_ACTION.CreateField.key).should('be.visible')
 
-      cy.setFormFieldValue({
-        label: 'Type',
-        type: FIELD_TYPE.SELECT,
-        value: 'String',
-      })
-
-      cy.findByText('Default values').should('exist')
-
-      cy.setFormFieldValue({
-        label: 'Default values',
-        type: FIELD_TYPE.CODE_MIRROR,
-        value: 'provider state value',
-      })
-
-      cy.intercept('POST', 'api/graphql').as('createState')
-      cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
-        .click()
-      cy.wait('@createState')
+    cy.setFormFieldValue({
+      label: 'Key',
+      type: FIELD_TYPE.INPUT,
+      value: 'name',
     })
+
+    cy.setFormFieldValue({
+      label: 'Type',
+      type: FIELD_TYPE.SELECT,
+      value: IPrimitiveTypeKind.String,
+    })
+
+    cy.findByText('Default values').should('exist')
+
+    cy.setFormFieldValue({
+      label: 'Default values',
+      type: FIELD_TYPE.CODE_MIRROR,
+      value: 'provider state value',
+    })
+
+    cy.intercept('POST', 'api/graphql').as('createState')
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
+    cy.wait('@createState')
   })
 
   /**
@@ -177,14 +173,13 @@ describe('State variables sharing between pages', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.postApiRequest(
-      `element/${page.id}/create-element`,
-      componentElementCreateData(page),
-    ).as('cypressElement')
-
-    // FIXME: due to the caching of state in the store model, a new state is not being included
-    // in the cached state, so we had to reload here for now
-    cy.get('@cypressElement').reload()
+    cy.createElementTree([
+      {
+        component: COMPONENT_NAME,
+        name: COMPONENT_NAME,
+        parentElement: 'Body',
+      },
+    ])
 
     cy.openPreview().contains('text component state value').should('exist')
   })

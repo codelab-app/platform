@@ -1,23 +1,20 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import './styles.css'
 import { mergeProps } from '@codelab/frontend/domain/prop'
-import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
-import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
+import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
-import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
+import { Popover } from 'antd'
 import type { EditorState, LexicalEditor } from 'lexical'
-import React from 'react'
+import React, { useRef } from 'react'
 import { OnInitPlugin } from './OnInitPlugin'
 import { ToolbarPlugin } from './plugins/ToolbarPlugin'
 import { defaultEditorTheme } from './theme'
 
-const editorConfig: InitialConfigType = {
+const defaultConfig: InitialConfigType = {
   editable: true,
   namespace: 'TextEditor',
   // Handling of errors during update
@@ -25,7 +22,6 @@ const editorConfig: InitialConfigType = {
     console.error(error)
     throw error
   },
-
   theme: defaultEditorTheme,
 }
 
@@ -40,26 +36,38 @@ export const TextEditor = ({
   config = {},
   data,
   onChange,
-  onClose: close = () => null,
+  onClose = () => null,
 }: TextEditorProps) => {
+  const editorConfig = mergeProps<InitialConfigType>(defaultConfig, config)
+  const editorRef = useRef<LexicalEditor>(null)
+
   return (
-    <LexicalComposer initialConfig={mergeProps(editorConfig, config)}>
-      <div className="editor-container">
-        <OnInitPlugin data={data} editable={Boolean(config.editable)} />
-        {config.editable && <ToolbarPlugin onClose={close} />}
-        <OnChangePlugin onChange={onChange} />
-        <div className="editor-inner">
-          <RichTextPlugin
-            ErrorBoundary={LexicalErrorBoundary}
-            contentEditable={<ContentEditable className="editor-input" />}
-            placeholder={null}
-          />
-          <HistoryPlugin />
-          <AutoFocusPlugin />
-          <ClearEditorPlugin />
-          <TabIndentationPlugin />
+    <LexicalComposer initialConfig={editorConfig}>
+      <Popover
+        afterOpenChange={() => {
+          editorRef.current?.focus()
+        }}
+        arrow={false}
+        content={<ToolbarPlugin onClose={onClose} />}
+        open={editorConfig.editable}
+      >
+        <OnInitPlugin config={editorConfig} data={data} onChange={onChange} />
+
+        <div
+          className={`editor-container ${
+            editorConfig.editable ? 'editable' : ''
+          }`}
+        >
+          <div className="editor-inner">
+            <EditorRefPlugin editorRef={editorRef} />
+            <RichTextPlugin
+              ErrorBoundary={LexicalErrorBoundary}
+              contentEditable={<ContentEditable className="editor-input" />}
+              placeholder={null}
+            />
+          </div>
         </div>
-      </div>
+      </Popover>
     </LexicalComposer>
   )
 }

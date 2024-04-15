@@ -3,7 +3,6 @@ import type {
   ICreateComponentData,
   ICreateElementData,
   ICreatePageData,
-  IPageDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
@@ -41,12 +40,3 @@ export const componentCreateData: ICreateComponentData = {
   id: v4(),
   name: COMPONENT_NAME,
 }
-
-export const componentElementCreateData = (
-  page: IPageDto,
-): ICreateElementData => ({
-  component: COMPONENT_NAME,
-  id: v4(),
-  name: COMPONENT_NAME,
-  parentElement: { id: page.rootElement.id },
-})

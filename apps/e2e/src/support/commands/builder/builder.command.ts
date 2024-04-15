@@ -1,7 +1,10 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
-import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
+import {
+  type ICreateCypressElementData,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
 
@@ -16,7 +19,13 @@ export const createElementTree = (
   return cy
     .wrap(elements)
     .each(
-      ({ atom, name, parentElement, propsData }: ICreateCypressElementData) => {
+      ({
+        atom,
+        component,
+        name,
+        parentElement,
+        propsData,
+      }: ICreateCypressElementData) => {
         cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
           .getCuiSkeleton()
           .should('not.be.visible')
@@ -30,15 +39,31 @@ export const createElementTree = (
           value: parentElement,
         })
 
-        if (!atom) {
-          throw new Error('Missing atom')
+        if (!atom && !component) {
+          throw new Error('Missing atom and component')
         }
 
-        cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
-          label: 'Atom',
-          type: FIELD_TYPE.SELECT,
-          value: atom,
-        })
+        if (atom) {
+          cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
+            label: 'Atom',
+            type: FIELD_TYPE.SELECT,
+            value: atom,
+          })
+        }
+
+        if (component) {
+          cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
+            label: 'Render Type',
+            type: FIELD_TYPE.SELECT,
+            value: IElementRenderTypeKind.Component,
+          })
+
+          cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
+            label: 'Component',
+            type: FIELD_TYPE.SELECT,
+            value: component,
+          })
+        }
 
         if (propsData) {
           cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
