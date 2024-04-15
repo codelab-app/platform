@@ -40,13 +40,23 @@ describe('Converting an element to a component', () => {
     cy.visit(`/components/${slugify(elementContainerCreateData.name)}/builder`)
 
     // the element descendants should still be in correct order
-    // Container -> Row -> Col -> Text
+    // Container Root -> Row -> Col -> Text
     // root element which is the Container
-    cy.getCuiTreeItemByPrimaryTitle(elementContainerCreateData.name).should(
-      'be.visible',
+
+    // Container Root element which is the first child and is already shown initially
+    cy.getCuiTreeItemByPrimaryTitle(
+      `${elementContainerCreateData.name} Root`,
+    ).should('exist')
+
+    // this is the child of the Container Root element and has to expand before it can be seen
+    cy.getCuiTreeItemByPrimaryTitle(elementRowCreateData.name).should(
+      'not.exist',
     )
 
-    // Row element which is the first child and is already shown initially
+    cy.getCuiTreeItemByPrimaryTitle(
+      `${elementContainerCreateData.name} Root`,
+    ).click()
+
     cy.getCuiTreeItemByPrimaryTitle(elementRowCreateData.name).should('exist')
 
     // this is the child of the Row element and has to expand before it can be seen

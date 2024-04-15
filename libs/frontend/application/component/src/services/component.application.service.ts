@@ -130,7 +130,8 @@ export class ComponentApplicationService
           //   id,
           // },
           id: v4(),
-          name: `${name} Root`,
+          // we don't append 'Root' here to include the case of existing element
+          name,
           parentComponent: { id },
           props: {
             data: '{}',
@@ -141,6 +142,8 @@ export class ComponentApplicationService
             id: fragmentAtom.id,
           },
         })
+
+    rootElementModel.writeCache({ name: `${name} Root` })
 
     const component = this.componentDomainService.hydrate({
       api,
