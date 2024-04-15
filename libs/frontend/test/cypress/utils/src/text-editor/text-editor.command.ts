@@ -16,5 +16,5 @@ export const typeIntoTextEditor = (content: string, parentId?: string) => {
   cy.get(id).find(editorSelector).type(content, {
     parseSpecialCharSequences: false,
   })
-  cy.get(id).find(editorCloseButtonSelector).click()
+  cy.get('#lexical-toolbar').find(editorCloseButtonSelector).click()
 }
