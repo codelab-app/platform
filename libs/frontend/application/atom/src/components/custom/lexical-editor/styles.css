@@ -55,14 +55,21 @@ h1 {
 .editor-container {
   margin: auto;
   border-radius: 2px;
-  max-width: 600px;
   color: #000;
   position: relative;
   line-height: 20px;
   font-weight: 400;
   text-align: left;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+}
+
+.editor-container.editable {
+  min-height: 30px;
+  min-width: 30px;
+}
+
+.editor-container.editable .editor-inner {
+  height: 100%;
+  width: 100%;
 }
 
 .editor-inner {
