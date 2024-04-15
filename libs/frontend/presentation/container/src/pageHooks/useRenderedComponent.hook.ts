@@ -51,9 +51,7 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     })
 
     if (renderer.runtimeComponent) {
-      builderService.selectElementNode(
-        renderer.runtimeRootContainerNode.runtimeRootElement,
-      )
+      builderService.selectComponentNode(renderer.runtimeComponent)
     }
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))
