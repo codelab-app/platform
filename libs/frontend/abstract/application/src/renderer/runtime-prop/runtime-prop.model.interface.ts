@@ -1,5 +1,6 @@
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
+import type { ReactNode } from 'react'
 import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimePageModel } from '../runtime-page'
 
@@ -52,7 +53,7 @@ export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
    * Evaluated Props for child mapper
    */
   evaluatedChildMapperProps?: Array<IPropData>
-
+  renderedChildrenProp: ReactNode
   // eslint-disable-next-line @typescript-eslint/ban-types
   getActionRunner(actionName: string): Function
 }

@@ -18,7 +18,7 @@ import {
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend/domain/prop'
-import { type IPropData } from '@codelab/shared/abstract/core'
+import { type IPropData, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
@@ -30,6 +30,8 @@ import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import React, { ReactNode } from 'react'
+import { TextEditorWrapper } from '../wrappers/TextEditorWrapper'
 
 const create = (dto: IRuntimeElementPropDTO) =>
   new RuntimeElementPropsModel(dto)
@@ -142,6 +144,25 @@ export class RuntimeElementPropsModel
   @computed
   get providerStore() {
     return this.runtimeStore.runtimeProviderStore?.current
+  }
+
+  @computed
+  get renderedChildrenProp(): ReactNode {
+    const childrenProp = this.element.props.get('children')
+
+    const isRichText =
+      childrenProp &&
+      isTypedProp(childrenProp) &&
+      childrenProp.kind === ITypeKind.RichTextType
+
+    /**
+     * If not rich text then it is react node then return it directly
+     */
+    return isRichText
+      ? React.createElement(TextEditorWrapper, {
+          runtimeElement: this.runtimeElement.current,
+        })
+      : this.evaluatedProps['children']
   }
 
   /**

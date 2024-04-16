@@ -75,6 +75,16 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType !== RendererType.Production &&
       renderer.rendererType !== RendererType.Preview
 
+    /**
+     * children can be either
+     *  - a sub tree of elements
+     *  - children prop value
+     */
+
+    const children =
+      runtimeElement.renderChildren ??
+      runtimeElement.runtimeProps.renderedChildrenProp
+
     return (
       <ErrorBoundary
         fallbackRender={() => null}

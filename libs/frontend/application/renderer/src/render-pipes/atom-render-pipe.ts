@@ -8,9 +8,7 @@ import { isAtom } from '@codelab/frontend/abstract/domain'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import React from 'react'
 import { atomFactory } from '../atoms'
-import { TextEditorWrapper } from '../wrappers/TextEditorWrapper'
 import { RenderOutput } from './render-output'
 import { BaseRenderPipe } from './render-pipe.base'
 
@@ -56,10 +54,6 @@ export class AtomRenderPipe
         element: element.name,
       })
     }
-
-    const childrenProp = React.createElement(TextEditorWrapper, {
-      runtimeElement,
-    })
 
     return RenderOutput.withAtom({
       atomType,

@@ -232,7 +232,17 @@ export class RuntimeElementModel
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
-    return compact(this.children.map((child) => child.render))
+    const rendered = compact(this.children.map((child) => child.render))
+
+    if (!rendered.length) {
+      return undefined
+    }
+
+    /*
+     * If we have only one child, just return it.
+     * Ant Design doesn't handle array children well in some cases, like Forms
+     */
+    return rendered.length === 1 ? rendered[0] : rendered
   }
 
   @computed
