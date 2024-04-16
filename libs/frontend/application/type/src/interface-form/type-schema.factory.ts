@@ -12,6 +12,7 @@ import type {
   IPrimitiveTypeModel,
   IReactNodeTypeModel,
   IRenderPropTypeModel,
+  IRichTextTypeModel,
   ITypeModel,
   IUnionTypeModel,
 } from '@codelab/frontend/abstract/domain'
@@ -58,6 +59,8 @@ export class TypeSchemaFactory {
         return this.fromPageType(type, context)
       case ITypeKind.RenderPropType:
         return this.fromRenderPropType(type, context)
+      case ITypeKind.RichTextType:
+        return this.fromRichTextType(type, context)
       case ITypeKind.PrimitiveType:
         return this.fromPrimitiveType(type, context)
       case ITypeKind.ReactNodeType:
@@ -290,6 +293,13 @@ export class TypeSchemaFactory {
 
   private fromRenderPropType(
     type: IRenderPropTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.transformTypedPropType(type, context)
+  }
+
+  private fromRichTextType(
+    type: IRichTextTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     return this.transformTypedPropType(type, context)

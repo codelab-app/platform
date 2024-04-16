@@ -26,6 +26,7 @@ export const typeSchema = gql`
     PageType
     AppType
     ActionType
+    RichTextType
   }
 
   type TypeReference {
@@ -285,6 +286,16 @@ export const typeSchema = gql`
   }
 
   """
+  Allows picking a app from the list of apps
+  """
+  type RichTextType implements IBaseType @node(labels: ["Type", "RichTextType"]) ${authOwnerOrAdmin} {
+    id: ID!
+    kind: TypeKind! @default(value: RichTextType)
+    name: String!
+    owner: User!
+  }
+
+  """
   Allows picking a action from the list of actions
   """
   type ActionType implements IBaseType @node(labels: ["Type", "ActionType"]) ${authOwnerOrAdmin} {
@@ -327,5 +338,6 @@ export const typeSchema = gql`
     LambdaType |
     PageType |
     AppType |
+    RichTextType |
     CodeMirrorType
 `

@@ -93,6 +93,9 @@ export type Query = {
   appTypes: Array<AppType>
   appTypesConnection: AppTypesConnection
   appTypesAggregate: AppTypeAggregateSelection
+  richTextTypes: Array<RichTextType>
+  richTextTypesConnection: RichTextTypesConnection
+  richTextTypesAggregate: RichTextTypeAggregateSelection
   actionTypes: Array<ActionType>
   actionTypesConnection: ActionTypesConnection
   actionTypesAggregate: ActionTypeAggregateSelection
@@ -458,6 +461,22 @@ export type QueryAppTypesAggregateArgs = {
   where?: InputMaybe<AppTypeWhere>
 }
 
+export type QueryRichTextTypesArgs = {
+  where?: InputMaybe<RichTextTypeWhere>
+  options?: InputMaybe<RichTextTypeOptions>
+}
+
+export type QueryRichTextTypesConnectionArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>
+  after?: InputMaybe<Scalars['String']['input']>
+  where?: InputMaybe<RichTextTypeWhere>
+  sort?: InputMaybe<Array<InputMaybe<RichTextTypeSort>>>
+}
+
+export type QueryRichTextTypesAggregateArgs = {
+  where?: InputMaybe<RichTextTypeWhere>
+}
+
 export type QueryActionTypesArgs = {
   where?: InputMaybe<ActionTypeWhere>
   options?: InputMaybe<ActionTypeOptions>
@@ -782,6 +801,9 @@ export type Mutation = {
   createAppTypes: CreateAppTypesMutationResponse
   deleteAppTypes: DeleteInfo
   updateAppTypes: UpdateAppTypesMutationResponse
+  createRichTextTypes: CreateRichTextTypesMutationResponse
+  deleteRichTextTypes: DeleteInfo
+  updateRichTextTypes: UpdateRichTextTypesMutationResponse
   createActionTypes: CreateActionTypesMutationResponse
   deleteActionTypes: DeleteInfo
   updateActionTypes: UpdateActionTypesMutationResponse
@@ -1178,6 +1200,25 @@ export type MutationUpdateAppTypesArgs = {
   create?: InputMaybe<AppTypeRelationInput>
   delete?: InputMaybe<AppTypeDeleteInput>
   connectOrCreate?: InputMaybe<AppTypeConnectOrCreateInput>
+}
+
+export type MutationCreateRichTextTypesArgs = {
+  input: Array<RichTextTypeCreateInput>
+}
+
+export type MutationDeleteRichTextTypesArgs = {
+  where?: InputMaybe<RichTextTypeWhere>
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+}
+
+export type MutationUpdateRichTextTypesArgs = {
+  where?: InputMaybe<RichTextTypeWhere>
+  update?: InputMaybe<RichTextTypeUpdateInput>
+  connect?: InputMaybe<RichTextTypeConnectInput>
+  disconnect?: InputMaybe<RichTextTypeDisconnectInput>
+  create?: InputMaybe<RichTextTypeRelationInput>
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+  connectOrCreate?: InputMaybe<RichTextTypeConnectOrCreateInput>
 }
 
 export type MutationCreateActionTypesArgs = {
@@ -1924,6 +1965,7 @@ export enum TypeKind {
   PageType = 'PageType',
   AppType = 'AppType',
   ActionType = 'ActionType',
+  RichTextType = 'RichTextType',
 }
 
 export type AnyAction = ApiAction | CodeAction
@@ -1941,6 +1983,7 @@ export type AnyType =
   | LambdaType
   | PageType
   | AppType
+  | RichTextType
   | CodeMirrorType
 
 export type ContainerNode = Page | Component
@@ -3843,6 +3886,12 @@ export type CreateResourcesMutationResponse = {
   __typename: 'CreateResourcesMutationResponse'
   info: CreateInfo
   resources: Array<Resource>
+}
+
+export type CreateRichTextTypesMutationResponse = {
+  __typename: 'CreateRichTextTypesMutationResponse'
+  info: CreateInfo
+  richTextTypes: Array<RichTextType>
 }
 
 export type CreateStoresMutationResponse = {
@@ -6554,6 +6603,73 @@ export type ResourceUserOwnerNodeAggregateSelection = {
   username: StringAggregateSelectionNonNullable
 }
 
+/** Allows picking a app from the list of apps */
+export type RichTextType = IBaseType & {
+  __typename: 'RichTextType'
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  ownerAggregate?: Maybe<RichTextTypeUserOwnerAggregationSelection>
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
+}
+
+/** Allows picking a app from the list of apps */
+export type RichTextTypeOwnerAggregateArgs = {
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** Allows picking a app from the list of apps */
+export type RichTextTypeOwnerArgs = {
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** Allows picking a app from the list of apps */
+export type RichTextTypeOwnerConnectionArgs = {
+  where?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']['input']>
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  sort?: InputMaybe<Array<IBaseTypeOwnerConnectionSort>>
+}
+
+export type RichTextTypeAggregateSelection = {
+  __typename: 'RichTextTypeAggregateSelection'
+  count: Scalars['Int']['output']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type RichTextTypeEdge = {
+  __typename: 'RichTextTypeEdge'
+  cursor: Scalars['String']['output']
+  node: RichTextType
+}
+
+export type RichTextTypesConnection = {
+  __typename: 'RichTextTypesConnection'
+  totalCount: Scalars['Int']['output']
+  pageInfo: PageInfo
+  edges: Array<RichTextTypeEdge>
+}
+
+export type RichTextTypeUserOwnerAggregationSelection = {
+  __typename: 'RichTextTypeUserOwnerAggregationSelection'
+  count: Scalars['Int']['output']
+  node?: Maybe<RichTextTypeUserOwnerNodeAggregateSelection>
+}
+
+export type RichTextTypeUserOwnerNodeAggregateSelection = {
+  __typename: 'RichTextTypeUserOwnerNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
+}
+
 export type Store = {
   __typename: 'Store'
   id: Scalars['ID']['output']
@@ -7192,6 +7308,12 @@ export type UpdateResourcesMutationResponse = {
   __typename: 'UpdateResourcesMutationResponse'
   info: UpdateInfo
   resources: Array<Resource>
+}
+
+export type UpdateRichTextTypesMutationResponse = {
+  __typename: 'UpdateRichTextTypesMutationResponse'
+  info: UpdateInfo
+  richTextTypes: Array<RichTextType>
 }
 
 export type UpdateStoresMutationResponse = {
@@ -7916,6 +8038,7 @@ export type AnyTypeWhere = {
   LambdaType?: InputMaybe<LambdaTypeWhere>
   PageType?: InputMaybe<PageTypeWhere>
   AppType?: InputMaybe<AppTypeWhere>
+  RichTextType?: InputMaybe<RichTextTypeWhere>
   CodeMirrorType?: InputMaybe<CodeMirrorTypeWhere>
 }
 
@@ -22262,6 +22385,7 @@ export type IBaseTypeCreateInput = {
   LambdaType?: InputMaybe<LambdaTypeCreateInput>
   PageType?: InputMaybe<PageTypeCreateInput>
   AppType?: InputMaybe<AppTypeCreateInput>
+  RichTextType?: InputMaybe<RichTextTypeCreateInput>
   ActionType?: InputMaybe<ActionTypeCreateInput>
   CodeMirrorType?: InputMaybe<CodeMirrorTypeCreateInput>
 }
@@ -22288,6 +22412,7 @@ export type IBaseTypeImplementationsConnectInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeConnectInput>>
   PageType?: InputMaybe<Array<PageTypeConnectInput>>
   AppType?: InputMaybe<Array<AppTypeConnectInput>>
+  RichTextType?: InputMaybe<Array<RichTextTypeConnectInput>>
   ActionType?: InputMaybe<Array<ActionTypeConnectInput>>
   CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeConnectInput>>
 }
@@ -22304,6 +22429,7 @@ export type IBaseTypeImplementationsDeleteInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeDeleteInput>>
   PageType?: InputMaybe<Array<PageTypeDeleteInput>>
   AppType?: InputMaybe<Array<AppTypeDeleteInput>>
+  RichTextType?: InputMaybe<Array<RichTextTypeDeleteInput>>
   ActionType?: InputMaybe<Array<ActionTypeDeleteInput>>
   CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeDeleteInput>>
 }
@@ -22320,6 +22446,7 @@ export type IBaseTypeImplementationsDisconnectInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeDisconnectInput>>
   PageType?: InputMaybe<Array<PageTypeDisconnectInput>>
   AppType?: InputMaybe<Array<AppTypeDisconnectInput>>
+  RichTextType?: InputMaybe<Array<RichTextTypeDisconnectInput>>
   ActionType?: InputMaybe<Array<ActionTypeDisconnectInput>>
   CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeDisconnectInput>>
 }
@@ -22336,6 +22463,7 @@ export type IBaseTypeImplementationsUpdateInput = {
   LambdaType?: InputMaybe<LambdaTypeUpdateInput>
   PageType?: InputMaybe<PageTypeUpdateInput>
   AppType?: InputMaybe<AppTypeUpdateInput>
+  RichTextType?: InputMaybe<RichTextTypeUpdateInput>
   ActionType?: InputMaybe<ActionTypeUpdateInput>
   CodeMirrorType?: InputMaybe<CodeMirrorTypeUpdateInput>
 }
@@ -22352,6 +22480,7 @@ export type IBaseTypeImplementationsWhere = {
   LambdaType?: InputMaybe<LambdaTypeWhere>
   PageType?: InputMaybe<PageTypeWhere>
   AppType?: InputMaybe<AppTypeWhere>
+  RichTextType?: InputMaybe<RichTextTypeWhere>
   ActionType?: InputMaybe<ActionTypeWhere>
   CodeMirrorType?: InputMaybe<CodeMirrorTypeWhere>
 }
@@ -28221,6 +28350,292 @@ export type ResourceWhere = {
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
+export type RichTextTypeConnectInput = {
+  owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
+}
+
+export type RichTextTypeConnectOrCreateInput = {
+  owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+}
+
+export type RichTextTypeConnectWhere = {
+  node: RichTextTypeWhere
+}
+
+export type RichTextTypeCreateInput = {
+  id: Scalars['ID']['input']
+  kind?: TypeKind
+  name: Scalars['String']['input']
+  owner?: InputMaybe<IBaseTypeOwnerFieldInput>
+}
+
+export type RichTextTypeDeleteInput = {
+  owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type RichTextTypeDisconnectInput = {
+  owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
+}
+
+export type RichTextTypeOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more RichTextTypeSort objects to sort RichTextTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<RichTextTypeSort>>
+}
+
+export type RichTextTypeOwnerAggregateInput = {
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  AND?: InputMaybe<Array<RichTextTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<RichTextTypeOwnerAggregateInput>>
+  NOT?: InputMaybe<RichTextTypeOwnerAggregateInput>
+  node?: InputMaybe<RichTextTypeOwnerNodeAggregationWhereInput>
+}
+
+export type RichTextTypeOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<RichTextTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<RichTextTypeOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<RichTextTypeOwnerNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  auth0Id_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  auth0Id_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  auth0Id_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  auth0Id_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  email_EQUAL?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  email_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  email_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  email_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  email_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  username_EQUAL?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  username_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  username_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  username_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  username_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  username_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type RichTextTypeRelationInput = {
+  owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+/** Fields to sort RichTextTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RichTextTypeSort object. */
+export type RichTextTypeSort = {
+  id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type RichTextTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  name?: InputMaybe<Scalars['String']['input']>
+  owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type RichTextTypeWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_MATCHES?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
+  name?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  name_NOT?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_MATCHES?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  OR?: InputMaybe<Array<RichTextTypeWhere>>
+  AND?: InputMaybe<Array<RichTextTypeWhere>>
+  NOT?: InputMaybe<RichTextTypeWhere>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<RichTextTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+}
+
 export type StoreActionsApiActionConnectFieldInput = {
   where?: InputMaybe<ApiActionConnectWhere>
   connect?: InputMaybe<Array<ApiActionConnectInput>>
@@ -30236,6 +30651,9 @@ export type UnionTypeTypesOfUnionTypeConnectInput = {
     Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>
   >
   AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput>>
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput>
+  >
   CodeMirrorType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput>
   >
@@ -30254,6 +30672,7 @@ export type UnionTypeTypesOfUnionTypeConnectionWhere = {
   LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>
   PageType?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>
   AppType?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>
+  RichTextType?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
   CodeMirrorType?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>
 }
 
@@ -30310,6 +30729,9 @@ export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
     Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>
   >
   AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput>
+  >
   CodeMirrorType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>
   >
@@ -30328,6 +30750,7 @@ export type UnionTypeTypesOfUnionTypeCreateInput = {
   LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeFieldInput>
   PageType?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeFieldInput>
   AppType?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeFieldInput>
+  RichTextType?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeFieldInput>
   CodeMirrorType?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput>
 }
 
@@ -30366,6 +30789,9 @@ export type UnionTypeTypesOfUnionTypeDeleteInput = {
     Array<UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput>
   >
   AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput>>
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput>
+  >
   CodeMirrorType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput>
   >
@@ -30407,6 +30833,9 @@ export type UnionTypeTypesOfUnionTypeDisconnectInput = {
   >
   AppType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput>
+  >
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput>
   >
   CodeMirrorType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput>
@@ -30915,6 +31344,64 @@ export type UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput = {
   >
 }
 
+export type UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput = {
+  where?: InputMaybe<RichTextTypeConnectWhere>
+  connect?: InputMaybe<Array<RichTextTypeConnectInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere = {
+  node?: InputMaybe<RichTextTypeWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<RichTextTypeWhere>
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>>
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>>
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput = {
+  node: RichTextTypeCreateInput
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+  disconnect?: InputMaybe<RichTextTypeDisconnectInput>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeFieldInput = {
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput>
+  >
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput = {
+  node?: InputMaybe<RichTextTypeUpdateInput>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput>
+  >
+  disconnect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput>
+  >
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput>
+  delete?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput>
+  >
+}
+
 export type UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput = {
   where?: InputMaybe<UnionTypeConnectWhere>
   connect?: InputMaybe<Array<UnionTypeConnectInput>>
@@ -31018,6 +31505,9 @@ export type UnionTypeTypesOfUnionTypeUpdateInput = {
     Array<UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput>
   >
   AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput>>
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput>
+  >
   CodeMirrorType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput>
   >
@@ -34006,6 +34496,74 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
+export interface RichTextTypeAggregateSelectionInput {
+  count?: boolean
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
+}
+
+export declare class RichTextTypeModel {
+  public find(args?: {
+    where?: RichTextTypeWhere
+
+    options?: RichTextTypeOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<RichTextType[]>
+  public create(args: {
+    input: RichTextTypeCreateInput[]
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateRichTextTypesMutationResponse>
+  public update(args: {
+    where?: RichTextTypeWhere
+    update?: RichTextTypeUpdateInput
+    connect?: RichTextTypeConnectInput
+    disconnect?: RichTextTypeDisconnectInput
+    create?: RichTextTypeCreateInput
+    connectOrCreate?: RichTextTypeConnectOrCreateInput
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateRichTextTypesMutationResponse>
+  public delete(args: {
+    where?: RichTextTypeWhere
+    delete?: RichTextTypeDeleteInput
+    context?: any
+    rootValue?: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+  public aggregate(args: {
+    where?: RichTextTypeWhere
+
+    aggregate: RichTextTypeAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<RichTextTypeAggregateSelection>
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface ActionTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
@@ -35088,6 +35646,7 @@ export interface ModelMap {
   LambdaType: LambdaTypeModel
   PageType: PageTypeModel
   AppType: AppTypeModel
+  RichTextType: RichTextTypeModel
   ActionType: ActionTypeModel
   CodeMirrorType: CodeMirrorTypeModel
   Tag: TagModel

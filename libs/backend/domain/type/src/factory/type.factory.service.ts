@@ -6,6 +6,7 @@ import type {
   PrimitiveTypeWhere,
   ReactNodeTypeWhere,
   RenderPropTypeWhere,
+  RichTextTypeWhere,
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
@@ -24,6 +25,7 @@ import {
   PrimitiveType,
   ReactNodeType,
   RenderPropType,
+  RichTextType,
   UnionType,
 } from '../model'
 import { ArrayType } from '../model/array-type.model'
@@ -35,6 +37,7 @@ import {
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
 } from '../repository'
 import { UnionTypeRepository } from '../repository/union-type.repo.service'
 
@@ -49,6 +52,7 @@ export class TypeFactory {
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly reactNodeTypeRepository: ReactNodeTypeRepository,
     private readonly renderPropTypeRepository: RenderPropTypeRepository,
+    private readonly richTextTypeRepository: RichTextTypeRepository,
     private readonly actionTypeRepository: ActionTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
@@ -163,6 +167,15 @@ export class TypeFactory {
         return (await this.renderPropTypeRepository.save(
           renderPropType,
           where as RenderPropTypeWhere,
+        )) as T
+      }
+
+      case ITypeKind.RichTextType: {
+        const richTextType = new RichTextType(type)
+
+        return (await this.richTextTypeRepository.save(
+          richTextType,
+          where as RichTextTypeWhere,
         )) as T
       }
 

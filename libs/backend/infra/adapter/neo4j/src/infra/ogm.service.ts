@@ -26,6 +26,7 @@ import type {
   RedirectModel,
   RenderPropTypeModel,
   ResourceModel,
+  RichTextTypeModel,
   StoreModel,
   TagModel,
   UnionTypeModel,
@@ -147,6 +148,10 @@ export class OgmService {
     return (this.resource ??= this.ogm.model('Resource'))
   }
 
+  get RichTextType() {
+    return (this.richTextType ??= this.ogm.model('RichTextType'))
+  }
+
   get Store() {
     return (this.store ??= this.ogm.model('Store'))
   }
@@ -251,6 +256,8 @@ export class OgmService {
   private renderPropType: RenderPropTypeModel | undefined
 
   private resource: ResourceModel | undefined
+
+  private richTextType: RichTextTypeModel | undefined
 
   private store: StoreModel | undefined
 

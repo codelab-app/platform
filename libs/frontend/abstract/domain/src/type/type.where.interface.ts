@@ -12,6 +12,7 @@ export type ITypeWhere = cg.ActionTypeWhere &
   cg.PrimitiveTypeWhere &
   cg.ReactNodeTypeWhere &
   cg.RenderPropTypeWhere &
+  cg.RichTextTypeWhere &
   cg.UnionTypeWhere
 
 //
@@ -28,4 +29,5 @@ export type IAllTypesOptions = cg.AppTypeOptions &
   cg.PrimitiveTypeOptions &
   cg.ReactNodeTypeOptions &
   cg.RenderPropTypeOptions &
+  cg.RichTextTypeOptions &
   cg.UnionTypeOptions

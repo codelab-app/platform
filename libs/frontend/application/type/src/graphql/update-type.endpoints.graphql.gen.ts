@@ -144,6 +144,19 @@ export type UpdateAppTypesMutationVariables = Types.Exact<{
 
 export type UpdateAppTypesMutation = { types: { types: Array<{ id: string }> } }
 
+export type UpdateRichTextTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.RichTextTypeConnectInput>
+  create?: Types.InputMaybe<Types.RichTextTypeRelationInput>
+  delete?: Types.InputMaybe<Types.RichTextTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.RichTextTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.RichTextTypeUpdateInput>
+  where?: Types.InputMaybe<Types.RichTextTypeWhere>
+}>
+
+export type UpdateRichTextTypesMutation = {
+  types: { types: Array<{ id: string }> }
+}
+
 export type UpdateActionTypesMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.ActionTypeConnectInput>
   create?: Types.InputMaybe<Types.ActionTypeRelationInput>
@@ -423,6 +436,29 @@ export const UpdateAppTypesDocument = gql`
     }
   }
 `
+export const UpdateRichTextTypesDocument = gql`
+  mutation UpdateRichTextTypes(
+    $connect: RichTextTypeConnectInput
+    $create: RichTextTypeRelationInput
+    $delete: RichTextTypeDeleteInput
+    $disconnect: RichTextTypeDisconnectInput
+    $update: RichTextTypeUpdateInput
+    $where: RichTextTypeWhere
+  ) {
+    types: updateRichTextTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: richTextTypes {
+        id
+      }
+    }
+  }
+`
 export const UpdateActionTypesDocument = gql`
   mutation UpdateActionTypes(
     $connect: ActionTypeConnectInput
@@ -661,6 +697,22 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'UpdateAppTypes',
+        'mutation',
+        variables,
+      )
+    },
+    UpdateRichTextTypes(
+      variables?: UpdateRichTextTypesMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateRichTextTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateRichTextTypesMutation>(
+            UpdateRichTextTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateRichTextTypes',
         'mutation',
         variables,
       )

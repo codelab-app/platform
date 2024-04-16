@@ -13,6 +13,7 @@ import {
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropType_Fragment,
+  Type_RichTextType_Fragment,
   Type_UnionType_Fragment,
 } from '../type/fragments/type.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
@@ -53,6 +54,7 @@ export type ElementFragment = {
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropType_Fragment
+    | Type_RichTextType_Fragment
     | Type_UnionType_Fragment
   >
   firstChild?: { id: string } | null
@@ -99,6 +101,7 @@ export type ElementProductionFragment = {
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropType_Fragment
+    | Type_RichTextType_Fragment
     | Type_UnionType_Fragment
   >
   firstChild?: { id: string } | null

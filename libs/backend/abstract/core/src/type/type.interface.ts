@@ -13,6 +13,8 @@ import type {
   ReactNodeTypeWhere,
   RenderPropType,
   RenderPropTypeWhere,
+  RichTextType,
+  RichTextTypeWhere,
   UnionType,
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -29,6 +31,7 @@ export type ITypeWhere =
   | PrimitiveTypeWhere
   | ReactNodeTypeWhere
   | RenderPropTypeWhere
+  | RichTextTypeWhere
   | UnionTypeWhere
 
 export type IType =
@@ -39,4 +42,5 @@ export type IType =
   | PrimitiveType
   | ReactNodeType
   | RenderPropType
+  | RichTextType
   | UnionType

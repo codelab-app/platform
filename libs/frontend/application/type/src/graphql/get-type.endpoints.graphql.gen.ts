@@ -13,6 +13,7 @@ import {
   BaseType_PrimitiveType_Fragment,
   BaseType_ReactNodeType_Fragment,
   BaseType_RenderPropType_Fragment,
+  BaseType_RichTextType_Fragment,
   BaseType_UnionType_Fragment,
 } from '../../../../abstract/domain/src/type/fragments/base-type.fragment.graphql.gen'
 import {
@@ -28,6 +29,7 @@ import {
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropType_Fragment,
+  Type_RichTextType_Fragment,
   Type_UnionType_Fragment,
 } from '../../../../abstract/domain/src/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
@@ -57,6 +59,7 @@ export type GetBaseTypesQuery = {
       | BaseType_PrimitiveType_Fragment
       | BaseType_ReactNodeType_Fragment
       | BaseType_RenderPropType_Fragment
+      | BaseType_RichTextType_Fragment
       | BaseType_UnionType_Fragment
     >
   }
@@ -80,6 +83,7 @@ export type GetTypesQuery = {
   pageTypes: Array<Type_PageType_Fragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
+  richTextTypes: Array<Type_RichTextType_Fragment>
   renderPropTypes: Array<Type_RenderPropType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
 }
@@ -213,6 +217,7 @@ export type GetTypeOptionsQuery = {
       | { id: string; kind: Types.TypeKind; name: string }
       | { id: string; kind: Types.TypeKind; name: string }
       | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
     >
   }
 }
@@ -261,6 +266,9 @@ export const GetTypesDocument = gql`
       ...Type
     }
     reactNodeTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    richTextTypes(where: { id_IN: $ids }) {
       ...Type
     }
     renderPropTypes(where: { id_IN: $ids }) {

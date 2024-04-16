@@ -20,34 +20,11 @@ import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
-export type ArrayTypeFragment = {
-  itemType:
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-} & BaseType_ArrayType_Fragment
+export type RichTextTypeFragment = BaseType_RichTextType_Fragment
 
-export const ArrayTypeFragmentDoc = gql`
-  fragment ArrayType on ArrayType {
+export const RichTextTypeFragmentDoc = gql`
+  fragment RichTextType on RichTextType {
     ...BaseType
-    itemType {
-      ... on IBaseType {
-        id
-        kind
-        name
-      }
-    }
   }
   ${BaseTypeFragmentDoc}
 `

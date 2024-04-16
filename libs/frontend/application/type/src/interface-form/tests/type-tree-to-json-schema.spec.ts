@@ -15,6 +15,7 @@ import {
   pageTypeExpectedSchema,
   reactNodeTypeExpectedSchema,
   renderPropTypeExpectedSchema,
+  richTextTypeExpectedSchema,
   stringTypeExpectedSchema,
   unionTypeExpectedSchema,
 } from './schema.data'
@@ -32,6 +33,7 @@ import {
   pageType,
   reactNodeType,
   renderPropType,
+  richTextType,
   stringType,
   unionType,
 } from './setup-store'
@@ -63,6 +65,14 @@ describe('Type tree to json schema', () => {
     const jsonSchema = transformer.transform(renderPropType)
 
     expect(jsonSchema).toEqual(renderPropTypeExpectedSchema)
+
+    ajv.compile(jsonSchema)
+  })
+
+  it('should transform RichTextType', () => {
+    const jsonSchema = transformer.transform(richTextType)
+
+    expect(jsonSchema).toEqual(richTextTypeExpectedSchema)
 
     ajv.compile(jsonSchema)
   })

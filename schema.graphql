@@ -238,6 +238,7 @@ union AnyType =
   | PrimitiveType
   | ReactNodeType
   | RenderPropType
+  | RichTextType
   | UnionType
 
 input AnyTypeWhere {
@@ -253,6 +254,7 @@ input AnyTypeWhere {
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
   RenderPropType: RenderPropTypeWhere
+  RichTextType: RichTextTypeWhere
   UnionType: UnionTypeWhere
 }
 
@@ -6560,6 +6562,11 @@ type CreateResourcesMutationResponse {
   resources: [Resource!]!
 }
 
+type CreateRichTextTypesMutationResponse {
+  info: CreateInfo!
+  richTextTypes: [RichTextType!]!
+}
+
 type CreateStoresMutationResponse {
   info: CreateInfo!
   stores: [Store!]!
@@ -11374,6 +11381,7 @@ input IBaseTypeCreateInput {
   PrimitiveType: PrimitiveTypeCreateInput
   ReactNodeType: ReactNodeTypeCreateInput
   RenderPropType: RenderPropTypeCreateInput
+  RichTextType: RichTextTypeCreateInput
   UnionType: UnionTypeCreateInput
 }
 
@@ -11400,6 +11408,7 @@ input IBaseTypeImplementationsConnectInput {
   PrimitiveType: [PrimitiveTypeConnectInput!]
   ReactNodeType: [ReactNodeTypeConnectInput!]
   RenderPropType: [RenderPropTypeConnectInput!]
+  RichTextType: [RichTextTypeConnectInput!]
   UnionType: [UnionTypeConnectInput!]
 }
 
@@ -11416,6 +11425,7 @@ input IBaseTypeImplementationsDeleteInput {
   PrimitiveType: [PrimitiveTypeDeleteInput!]
   ReactNodeType: [ReactNodeTypeDeleteInput!]
   RenderPropType: [RenderPropTypeDeleteInput!]
+  RichTextType: [RichTextTypeDeleteInput!]
   UnionType: [UnionTypeDeleteInput!]
 }
 
@@ -11432,6 +11442,7 @@ input IBaseTypeImplementationsDisconnectInput {
   PrimitiveType: [PrimitiveTypeDisconnectInput!]
   ReactNodeType: [ReactNodeTypeDisconnectInput!]
   RenderPropType: [RenderPropTypeDisconnectInput!]
+  RichTextType: [RichTextTypeDisconnectInput!]
   UnionType: [UnionTypeDisconnectInput!]
 }
 
@@ -11448,6 +11459,7 @@ input IBaseTypeImplementationsUpdateInput {
   PrimitiveType: PrimitiveTypeUpdateInput
   ReactNodeType: ReactNodeTypeUpdateInput
   RenderPropType: RenderPropTypeUpdateInput
+  RichTextType: RichTextTypeUpdateInput
   UnionType: UnionTypeUpdateInput
 }
 
@@ -11464,6 +11476,7 @@ input IBaseTypeImplementationsWhere {
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
   RenderPropType: RenderPropTypeWhere
+  RichTextType: RichTextTypeWhere
   UnionType: UnionTypeWhere
 }
 
@@ -12858,6 +12871,9 @@ type Mutation {
   createResources(
     input: [ResourceCreateInput!]!
   ): CreateResourcesMutationResponse!
+  createRichTextTypes(
+    input: [RichTextTypeCreateInput!]!
+  ): CreateRichTextTypesMutationResponse!
   createStores(input: [StoreCreateInput!]!): CreateStoresMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
@@ -12948,6 +12964,10 @@ type Mutation {
   deleteResources(
     delete: ResourceDeleteInput
     where: ResourceWhere
+  ): DeleteInfo!
+  deleteRichTextTypes(
+    delete: RichTextTypeDeleteInput
+    where: RichTextTypeWhere
   ): DeleteInfo!
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
@@ -13198,6 +13218,15 @@ type Mutation {
     update: ResourceUpdateInput
     where: ResourceWhere
   ): UpdateResourcesMutationResponse!
+  updateRichTextTypes(
+    connect: RichTextTypeConnectInput
+    connectOrCreate: RichTextTypeConnectOrCreateInput
+    create: RichTextTypeRelationInput
+    delete: RichTextTypeDeleteInput
+    disconnect: RichTextTypeDisconnectInput
+    update: RichTextTypeUpdateInput
+    where: RichTextTypeWhere
+  ): UpdateRichTextTypesMutationResponse!
   updateStores(
     connect: StoreConnectInput
     create: StoreRelationInput
@@ -15019,6 +15048,19 @@ type Query {
     sort: [ResourceSort]
     where: ResourceWhere
   ): ResourcesConnection!
+  richTextTypes(
+    options: RichTextTypeOptions
+    where: RichTextTypeWhere
+  ): [RichTextType!]!
+  richTextTypesAggregate(
+    where: RichTextTypeWhere
+  ): RichTextTypeAggregateSelection!
+  richTextTypesConnection(
+    after: String
+    first: Int
+    sort: [RichTextTypeSort]
+    where: RichTextTypeWhere
+  ): RichTextTypesConnection!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
   storesConnection(
@@ -16463,6 +16505,200 @@ type ResourcesConnection {
   totalCount: Int!
 }
 
+"""
+Allows picking a app from the list of apps
+"""
+type RichTextType implements IBaseType {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): RichTextTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeOwnerConnectionSort!]
+    where: IBaseTypeOwnerConnectionWhere
+  ): IBaseTypeOwnerConnection!
+}
+
+type RichTextTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input RichTextTypeConnectInput {
+  owner: IBaseTypeOwnerConnectFieldInput
+}
+
+input RichTextTypeConnectOrCreateInput {
+  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+}
+
+input RichTextTypeConnectWhere {
+  node: RichTextTypeWhere!
+}
+
+input RichTextTypeCreateInput {
+  id: ID!
+  kind: TypeKind! = RichTextType
+  name: String!
+  owner: IBaseTypeOwnerFieldInput
+}
+
+input RichTextTypeDeleteInput {
+  owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+input RichTextTypeDisconnectInput {
+  owner: IBaseTypeOwnerDisconnectFieldInput
+}
+
+type RichTextTypeEdge {
+  cursor: String!
+  node: RichTextType!
+}
+
+input RichTextTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more RichTextTypeSort objects to sort RichTextTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [RichTextTypeSort!]
+}
+
+input RichTextTypeOwnerAggregateInput {
+  AND: [RichTextTypeOwnerAggregateInput!]
+  NOT: RichTextTypeOwnerAggregateInput
+  OR: [RichTextTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: RichTextTypeOwnerNodeAggregationWhereInput
+}
+
+input RichTextTypeOwnerNodeAggregationWhereInput {
+  AND: [RichTextTypeOwnerNodeAggregationWhereInput!]
+  NOT: RichTextTypeOwnerNodeAggregationWhereInput
+  OR: [RichTextTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
+}
+
+input RichTextTypeRelationInput {
+  owner: IBaseTypeOwnerCreateFieldInput
+}
+
+"""
+Fields to sort RichTextTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RichTextTypeSort object.
+"""
+input RichTextTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  name: SortDirection
+}
+
+input RichTextTypeUpdateInput {
+  id: ID
+  name: String
+  owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type RichTextTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: RichTextTypeUserOwnerNodeAggregateSelection
+}
+
+type RichTextTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
+}
+
+input RichTextTypeWhere {
+  AND: [RichTextTypeWhere!]
+  NOT: RichTextTypeWhere
+  OR: [RichTextTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: RichTextTypeOwnerAggregateInput
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+type RichTextTypesConnection {
+  edges: [RichTextTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 enum Role {
   Admin
   User
@@ -17754,6 +17990,7 @@ enum TypeKind {
   PrimitiveType
   ReactNodeType
   RenderPropType
+  RichTextType
   UnionType
 }
 
@@ -18205,6 +18442,7 @@ input UnionTypeTypesOfUnionTypeConnectInput {
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
+  RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput!]
 }
 
@@ -18235,6 +18473,7 @@ input UnionTypeTypesOfUnionTypeConnectionWhere {
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
+  RichTextType: UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere
 }
 
@@ -18251,6 +18490,7 @@ input UnionTypeTypesOfUnionTypeCreateFieldInput {
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput!]
+  RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput!]
 }
 
@@ -18267,6 +18507,7 @@ input UnionTypeTypesOfUnionTypeCreateInput {
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput
+  RichTextType: UnionTypeTypesOfUnionTypeRichTextTypeFieldInput
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeFieldInput
 }
 
@@ -18283,6 +18524,7 @@ input UnionTypeTypesOfUnionTypeDeleteInput {
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDeleteFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput!]
+  RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput!]
 }
 
@@ -18299,6 +18541,7 @@ input UnionTypeTypesOfUnionTypeDisconnectInput {
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDisconnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput!]
+  RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput!]
 }
 
@@ -18692,6 +18935,50 @@ input UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
 }
 
+input UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput {
+  connect: [RichTextTypeConnectInput!]
+  where: RichTextTypeConnectWhere
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere {
+  AND: [UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere!]
+  NOT: UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere
+  OR: [UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere!]
+  node: RichTextTypeWhere
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput {
+  node: RichTextTypeCreateInput!
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput {
+  delete: RichTextTypeDeleteInput
+  where: UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput {
+  disconnect: RichTextTypeDisconnectInput
+  where: UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput {
+  node: RichTextTypeUpdateInput
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput!]
+  delete: [UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput!]
+  disconnect: [UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput!]
+  update: UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput
+  where: UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere
+}
+
 input UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput {
   connect: [UnionTypeConnectInput!]
   where: UnionTypeConnectWhere
@@ -18760,6 +19047,7 @@ input UnionTypeTypesOfUnionTypeUpdateInput {
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeUpdateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput!]
+  RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput!]
 }
 
@@ -18989,6 +19277,11 @@ type UpdateRenderPropTypesMutationResponse {
 type UpdateResourcesMutationResponse {
   info: UpdateInfo!
   resources: [Resource!]!
+}
+
+type UpdateRichTextTypesMutationResponse {
+  info: UpdateInfo!
+  richTextTypes: [RichTextType!]!
 }
 
 type UpdateStoresMutationResponse {

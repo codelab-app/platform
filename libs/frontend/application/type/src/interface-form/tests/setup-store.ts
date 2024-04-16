@@ -15,6 +15,7 @@ import {
   PrimitiveType,
   ReactNodeType,
   RenderPropType,
+  RichTextType,
   TypeDomainService,
   UnionType,
 } from '@codelab/frontend/domain/type'
@@ -73,6 +74,12 @@ export const renderPropType = new RenderPropType({
   id: v4(),
   kind: ITypeKind.RenderPropType,
   name: 'Render prop type',
+})
+
+export const richTextType = new RichTextType({
+  id: v4(),
+  kind: ITypeKind.RichTextType,
+  name: 'Rich text type',
 })
 
 export const reactNodeType = new ReactNodeType({

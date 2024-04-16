@@ -31,6 +31,9 @@ export const exportReactNodeTypeSelectionSet = `
 export const exportRenderPropTypeSelectionSet = `
   ${exportBaseTypeSelection}
 `
+export const exportRichTextTypeSelectionSet = `
+  ${exportBaseTypeSelection}
+`
 
 export const exportActionTypeSelectionSet = `
   ${exportBaseTypeSelection}

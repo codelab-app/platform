@@ -1,0 +1,3 @@
+fragment RichTextType on RichTextType {
+  ...BaseType
+}

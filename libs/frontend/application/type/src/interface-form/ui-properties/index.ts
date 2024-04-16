@@ -10,6 +10,7 @@ import { enumTypeUiProperties } from './enum-type-ui-properties'
 import { lambdaTypeUiProperties } from './lambda-type-ui-properties'
 import { pageTypeUiProperties } from './page-type-ui-properties'
 import { primitiveTypeUiProperties } from './primative-ui-properties'
+import { richTextTypeUiProperties } from './rich-text-type-ui-properties'
 import { selectComponentUiProperties } from './select-component-ui-properties'
 import { unionTypeUiProperties } from './union-type-ui-properties'
 
@@ -33,6 +34,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.PageType]: pageTypeUiProperties,
   [ITypeKind.EnumType]: enumTypeUiProperties,
   [ITypeKind.ArrayType]: arrayTypeUiProperties,
+  [ITypeKind.RichTextType]: richTextTypeUiProperties,
 }
 
 export const getUiProperties = (

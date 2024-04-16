@@ -13,6 +13,7 @@ import {
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
   TypeFactory,
   UnionType,
 } from '@codelab/backend/domain/type'
@@ -53,6 +54,8 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
 
   arrayTypeRegex = /\[\]$/
 
+  richTextTypeRegex = /\[\]$/
+
   booleanTypeRegex = /^boolean$/
 
   containsInterfaceTypeRegex = /{[\s\S]*}/
@@ -79,6 +82,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     private actionTypeRepository: ActionTypeRepository,
     private reactNodeTypeRepository: ReactNodeTypeRepository,
     private renderPropTypeRepository: RenderPropTypeRepository,
+    private richTextTypeRepository: RichTextTypeRepository,
     private typeFactory: TypeFactory,
   ) {}
 
@@ -109,6 +113,10 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       {
         check: this.isBooleanType.bind(this),
         transform: this.booleanType.bind(this),
+      },
+      {
+        check: this.isRichTextType.bind(this),
+        transform: this.richTextType.bind(this),
       },
       {
         check: this.isNumberType.bind(this),
@@ -252,6 +260,14 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     })
   }
 
+  async richTextType() {
+    return await this.richTextTypeRepository.findOneOrFail({
+      where: {
+        name: ITypeKind.RichTextType,
+      },
+    })
+  }
+
   async stringType() {
     return await this.primitiveTypeRepository.findOneOrFail({
       where: {
@@ -306,6 +322,10 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
 
   private isArrayType(type: string) {
     return this.arrayTypeRegex.test(type)
+  }
+
+  private isRichTextType(type: string) {
+    return this.richTextTypeRegex.test(type)
   }
 
   private isBooleanType(type: string) {

@@ -10,6 +10,7 @@ import {
   intType,
   reactNodeType,
   renderPropType,
+  richTextType,
   stringFieldWithDefaultValue,
   stringType,
 } from './setup-store'
@@ -50,6 +51,10 @@ export const renderPropTypeExpectedSchema = {
 
 export const reactNodeTypeExpectedSchema = {
   ...createTypedPropTypeExpectedSchema(reactNodeType.kind, reactNodeType.id),
+}
+
+export const richTextTypeExpectedSchema = {
+  ...createTypedPropTypeExpectedSchema(richTextType.kind, richTextType.id),
 }
 
 export const codeMirrorTypeExpectedSchema = {

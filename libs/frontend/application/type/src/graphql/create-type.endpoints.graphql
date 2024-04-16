@@ -87,6 +87,14 @@ mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
   }
 }
 
+mutation CreateRicTextTypes($input: [RichTextTypeCreateInput!]!) {
+  types: createRichTextTypes(input: $input) {
+    types: richTextTypes {
+      id
+    }
+  }
+}
+
 mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {
   types: createActionTypes(input: $input) {
     types: actionTypes {

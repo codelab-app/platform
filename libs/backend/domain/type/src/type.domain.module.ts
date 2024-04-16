@@ -10,6 +10,7 @@ import {
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
   UnionTypeRepository,
 } from './repository'
 import { TypeDomainService } from './service'
@@ -23,6 +24,7 @@ const typeRepositories = [
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
   UnionTypeRepository,
 ]
 
