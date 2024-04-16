@@ -361,7 +361,11 @@ export class TypeSchemaFactory {
    * Produces a {@link TypedProp} shaped schema
    */
   private transformTypedPropType(
-    type: IActionTypeModel | IReactNodeTypeModel | IRenderPropTypeModel,
+    type:
+      | IActionTypeModel
+      | IReactNodeTypeModel
+      | IRenderPropTypeModel
+      | IRichTextTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)

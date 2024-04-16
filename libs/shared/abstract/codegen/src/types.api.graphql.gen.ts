@@ -22474,6 +22474,7 @@ export type GetAppDevelopmentQuery = {
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
+  richTextTypes: Array<RichTextTypeFragment>
   redirects: Array<RedirectFragment>
   renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>

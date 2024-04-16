@@ -205,10 +205,8 @@ export class RuntimeElementModel
 
     // Render the element to an intermediate output
     const renderOutput = this.renderer.renderPipe.render(this)
-    const children = this.renderChildren
 
     const wrapperProps: ElementWrapperProps = {
-      children,
       errorBoundary: {
         onError: ({ message, stack }) => {
           this.element.current.setRenderingError({ message, stack })
@@ -234,31 +232,7 @@ export class RuntimeElementModel
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
-    const renderedChildren = compact(this.children.map((child) => child.render))
-    const hasNoChildren = this.children.length === 0
-    const hasOneChild = this.children.length === 1
-
-    if (hasNoChildren) {
-      // Inject children prop or text, but only if we have no regular children
-      // (children from props has precedence)
-      const children = this.runtimeProps.evaluatedProps['children']
-
-      /*
-       * It's important to be undefined if we have no children to display,
-       * since void components like input will throw an error if their children prop isn't undefined
-       */
-      return undefined
-    }
-
-    /*
-     * If we have only one child, just return it.
-     * Ant Design doesn't handle array children well in some cases, like Forms
-     */
-    if (hasOneChild) {
-      return renderedChildren[0]
-    }
-
-    return renderedChildren
+    return compact(this.children.map((child) => child.render))
   }
 
   @computed

@@ -9,9 +9,9 @@ import { observer } from 'mobx-react-lite'
 import dynamic from 'next/dynamic'
 import React, { useCallback } from 'react'
 
-const LexicalTextEditor = dynamic(
+const TextEditor = dynamic(
   () =>
-    import('@codelab/frontend/application/atom').then((mod) => mod.TextEditor),
+    import('@codelab/frontend/presentation/view').then((mod) => mod.TextEditor),
   {
     ssr: false,
   },
@@ -60,7 +60,7 @@ export const TextEditorWrapper = observer<{
     : runtimeElement.runtimeProps.evaluatedProps['children']
 
   return (
-    <LexicalTextEditor
+    <TextEditor
       config={{ editable, namespace: `${element.id}-editor` }}
       data={data}
       onChange={onChange}

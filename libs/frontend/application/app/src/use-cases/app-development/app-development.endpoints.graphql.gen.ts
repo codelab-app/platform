@@ -5,6 +5,7 @@ import { AppDevelopmentFragment } from '../../../../../abstract/domain/src/app/a
 import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
+import { RichTextTypeFragment } from '../../../../../abstract/domain/src/type/fragments/rich-text-type.fragment.graphql.gen'
 import {
   AtomDevelopmentFragment,
   AtomProductionFragment,
@@ -20,6 +21,7 @@ import { AppDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/ap
 import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
+import { RichTextTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/rich-text-type.fragment.graphql.gen'
 import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
@@ -42,6 +44,7 @@ export type GetAppDevelopmentQuery = {
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
+  richTextTypes: Array<RichTextTypeFragment>
   redirects: Array<RedirectFragment>
   renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
@@ -70,6 +73,9 @@ export const GetAppDevelopmentDocument = gql`
     reactNodeTypes {
       ...ReactNodeType
     }
+    richTextTypes {
+      ...RichTextType
+    }
     redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
       ...Redirect
     }
@@ -87,6 +93,7 @@ export const GetAppDevelopmentDocument = gql`
   ${ComponentDevelopmentFragmentDoc}
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
+  ${RichTextTypeFragmentDoc}
   ${RedirectFragmentDoc}
   ${RenderPropTypeFragmentDoc}
   ${ResourceFragmentDoc}

@@ -18,7 +18,7 @@ import {
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend/domain/prop'
-import type { IPropData } from '@codelab/shared/abstract/core'
+import { type IPropData } from '@codelab/shared/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
