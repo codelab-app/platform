@@ -92,6 +92,9 @@ export class RuntimeComponentModel
     }
 
     const instanceElement = this.runtimeParent.current
+    /**
+     * These render only linked elements, not child mappers which are virtually linked via props
+     */
     const instanceElementChildren = instanceElement.element.current.children
 
     return instanceElementChildren.map((child) =>

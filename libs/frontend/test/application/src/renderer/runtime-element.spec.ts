@@ -16,28 +16,48 @@ describe('Runtime Element', () => {
   })
 
   it('should create element runtime node', () => {
-    const { runtimeElementService } = rootApplicationStore
-    const { page, runtimePage } = testBed.setupPage()
-    const rootElement = page.rootElement.current
-
-    const runtimeElement = runtimeElementService.elements.get(
-      RuntimeElementModel.compositeKey(rootElement, runtimePage!),
-    )
+    const { page, rootElement, runtimePage, runtimeRootElement } =
+      testBed.setupRuntimeElement()
 
     // Test the creation of element node
-    expect(runtimeElement?.element.id).toBe(rootElement.id)
+    expect(runtimeRootElement.element.id).toBe(rootElement.id)
 
     // Test the creation of link with container node
-    expect(runtimeElement?.closestContainerNode.current.compositeKey).toBe(
+    expect(runtimeRootElement.closestContainerNode.current.compositeKey).toBe(
       runtimePage?.compositeKey,
     )
   })
 
+  it.skip('should create children with text injection', () => {
+    const { rendered, rootElement, runtimeRootElement } =
+      testBed.setupRuntimeElement()
+
+    const divRenderType = testBed.getDivAtom()
+
+    rootElement.writeCache({ renderType: divRenderType })
+    rootElement.props.set('children', 'text')
+
+    // console.log(runtimeRootElement.runtimeProps.evaluatedProps)
+
+    // console.log(rendered?.props.children)
+    // console.log(rendered?.props.children.props)
+
+    const { debug } = render(
+      React.createElement(
+        StoreProvider,
+        { value: rootApplicationStore },
+        rendered,
+      ),
+    )
+
+    debug()
+
+    expect(true).toBeFalsy()
+  })
+
   it('should add element runtime child', () => {
-    const { renderer } = testBed.setupPage()
-    const runtimePage = renderer.runtimeRootContainerNode
-    const runtimeRootElement = runtimePage.runtimeRootElement
-    const rootElement = runtimeRootElement.element.current
+    const { rootElement, runtimePage, runtimeRootElement } =
+      testBed.setupRuntimeElement()
 
     const childElement = testBed.addElement({
       name: 'child-element',
@@ -50,7 +70,7 @@ describe('Runtime Element', () => {
 
     const childCompositeKey = RuntimeElementModel.compositeKey(
       childElement,
-      runtimePage,
+      runtimePage!,
     )
 
     expect(runtimeChildElement?.compositeKey).toBe(childCompositeKey)

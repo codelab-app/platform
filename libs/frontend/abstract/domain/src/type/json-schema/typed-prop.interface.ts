@@ -20,6 +20,9 @@ export interface TypedProp {
   value?: TypedProp | string
 }
 
+/**
+ * Tells us whether this JSON data is representing a `TypedProp`
+ */
 export const isTypedProp = (prop: IPropData): prop is TypedProp => {
   if (!isPlainObject(prop)) {
     return false

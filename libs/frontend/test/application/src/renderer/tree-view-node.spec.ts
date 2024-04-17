@@ -63,10 +63,7 @@ describe('TreeViewNode', () => {
 
     const childElement = testBed.addElement({
       parentElement: rootElement,
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: testBed.getDivAtom()!.id,
-      },
+      renderType: testBed.getDivAtom(),
     })
 
     childElement.attachAsFirstChild(rootElement)
@@ -91,10 +88,7 @@ describe('TreeViewNode', () => {
 
     const childElement = testBed.addElement({
       parentElement: rootElement,
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: testBed.getDivAtom()!.id,
-      },
+      renderType: testBed.getDivAtom(),
     })
 
     childElement.attachAsFirstChild(rootElement)
@@ -139,10 +133,7 @@ describe('TreeViewNode', () => {
 
     const instanceElement = testBed.addElement({
       parentElement: rootElement,
-      renderType: {
-        __typename: IElementRenderTypeKind.Component,
-        id: component.id,
-      },
+      renderType: component,
     })
 
     instanceElement.attachAsFirstChild(rootElement)
@@ -173,10 +164,7 @@ describe('TreeViewNode', () => {
 
     const instanceElement = testBed.addElement({
       parentElement: rootElement,
-      renderType: {
-        __typename: IElementRenderTypeKind.Component,
-        id: component.id,
-      },
+      renderType: component,
     })
 
     instanceElement.attachAsFirstChild(rootElement)
@@ -206,42 +194,27 @@ describe('TreeViewNode', () => {
 
     const instanceElement = testBed.addElement({
       parentElement: rootElement,
-      renderType: {
-        __typename: IElementRenderTypeKind.Component,
-        id: component.id,
-      },
+      renderType: component,
     })
 
     const instanceElementChild = testBed.addElement({
       parentElement: instanceElement,
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: testBed.getDivAtom()!.id,
-      },
+      renderType: testBed.getDivAtom(),
     })
 
     const secondChild = testBed.addElement({
       prevSibling: instanceElementChild,
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: testBed.getDivAtom()!.id,
-      },
+      renderType: testBed.getDivAtom(),
     })
 
     const thirdChild = testBed.addElement({
       prevSibling: secondChild,
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: testBed.getDivAtom()!.id,
-      },
+      renderType: testBed.getDivAtom(),
     })
 
     const fourthChild = testBed.addElement({
       prevSibling: thirdChild,
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: testBed.getDivAtom()!.id,
-      },
+      renderType: testBed.getDivAtom(),
     })
 
     instanceElement.attachAsFirstChild(rootElement)

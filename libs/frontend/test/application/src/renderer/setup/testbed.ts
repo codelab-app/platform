@@ -1,6 +1,5 @@
 /// <reference types="jest" />
 
-/* eslint-disable @typescript-eslint/member-ordering */
 import type {
   IRendererDto,
   IRootStore,
@@ -61,6 +60,8 @@ import { rendererFactory } from '../setup/renderer.test.factory'
 import { rootApplicationStore } from './root.test.store'
 
 export class TestBed {
+  // component:
+
   static Create() {
     const testBed = new TestBed()
 
@@ -152,67 +153,6 @@ export class TestBed {
     return pageFactory(this.rootStore.pageService.pageDomainService)(dto)
   }
 
-  setupPage(
-    rendererType: RendererType = RendererType.Preview,
-    pageKind: IPageKind = IPageKind.Regular,
-  ) {
-    const app = this.addApp({})
-
-    const page =
-      pageKind === IPageKind.Regular
-        ? this.addPageRegular({ app })
-        : app.providerPage
-
-    const renderer = this.addRenderer({
-      containerNode: page,
-      id: v4(),
-      rendererType,
-    })
-
-    return {
-      app,
-      page,
-      rendered: renderer.render,
-      renderer,
-      runtimePage:
-        pageKind === IPageKind.Regular
-          ? renderer.runtimePage?.childPage?.current
-          : renderer.runtimePage,
-      runtimeProviderPage:
-        pageKind === IPageKind.Regular ? renderer.runtimePage : undefined,
-    }
-  }
-
-  setupComponent() {
-    const componentId = 'component-id'
-    const rootElementId = 'root-element-id'
-    const componentName = 'Component Name'
-
-    const component = this.addComponent({
-      id: componentId,
-      name: componentName,
-      rootElement: this.addElement({
-        closestContainerNode: { id: componentId },
-        name: ROOT_ELEMENT_NAME,
-        parentComponent: { id: componentId },
-        renderType: this.atomRefs.get(IAtomType.HtmlDiv),
-      }),
-      store: this.addStore({
-        component: { id: componentId },
-        name: Store.createName({ name: componentName }),
-      }),
-    })
-
-    const renderer = this.addRenderer({
-      containerNode: component,
-      rendererType: RendererType.Preview,
-    })
-
-    const runtimeComponent = renderer.runtimeComponent!
-
-    return { component, renderer, runtimeComponent }
-  }
-
   addPageRegular({
     app,
     id = v4(),
@@ -236,26 +176,6 @@ export class TestBed {
     })
   }
 
-  setupRuntimeElement(
-    rendererType: RendererType = RendererType.Preview,
-    pageKind: IPageKind = IPageKind.Regular,
-  ) {
-    const { page, rendered, renderer, runtimePage } = this.setupPage(
-      rendererType,
-      pageKind,
-    )
-
-    const runtimeElement = runtimePage!.runtimeRootElement
-
-    return {
-      element: page.rootElement.current,
-      page,
-      rendered,
-      renderer,
-      runtimeElement,
-    }
-  }
-
   addPrimitiveType(dto: Partial<IPrimitiveTypeDto>) {
     return primitiveTypeFactory(this.rootStore.typeService.typeDomainService)(
       dto,
@@ -276,12 +196,6 @@ export class TestBed {
     return renderPropsTypeFactory(this.rootStore.typeService.typeDomainService)(
       dto,
     )
-  }
-
-  setupRenderer(dto: Partial<IRendererDto>) {
-    this.addRenderer(dto)
-
-    return this
   }
 
   addRenderer(dto: Partial<IRendererDto>) {
@@ -325,7 +239,123 @@ export class TestBed {
     )
   }
 
+  setupComponent() {
+    const componentId = 'component-id'
+    const rootElementId = 'root-element-id'
+    const componentName = 'Component Name'
+
+    const component = this.addComponent({
+      id: componentId,
+      name: componentName,
+      rootElement: this.addElement({
+        closestContainerNode: { id: componentId },
+        name: ROOT_ELEMENT_NAME,
+        parentComponent: { id: componentId },
+        renderType: this.atomRefs.get(IAtomType.HtmlDiv),
+      }),
+      store: this.addStore({
+        component: { id: componentId },
+        name: Store.createName({ name: componentName }),
+      }),
+    })
+
+    const renderer = this.addRenderer({
+      containerNode: component,
+      rendererType: RendererType.Preview,
+    })
+
+    const runtimeComponent = renderer.runtimeComponent!
+
+    return { component, renderer, runtimeComponent }
+  }
+
+  setupPage(
+    rendererType: RendererType = RendererType.Preview,
+    pageKind: IPageKind = IPageKind.Regular,
+  ) {
+    const app = this.addApp({})
+
+    const page =
+      pageKind === IPageKind.Regular
+        ? this.addPageRegular({ app })
+        : app.providerPage
+
+    const renderer = this.addRenderer({
+      containerNode: page,
+      id: v4(),
+      rendererType,
+    })
+
+    return {
+      app,
+      page,
+      rendered: renderer.render,
+      renderer,
+      runtimePage:
+        pageKind === IPageKind.Regular
+          ? renderer.runtimePage?.childPage?.current
+          : renderer.runtimePage,
+      runtimeProviderPage:
+        pageKind === IPageKind.Regular ? renderer.runtimePage : undefined,
+    }
+  }
+
+  setupRuntimeComponent(
+    rendererType: RendererType = RendererType.Preview,
+    pageKind: IPageKind = IPageKind.Regular,
+  ) {
+    const { page, rendered, renderer, runtimePage } = this.setupPage(
+      rendererType,
+      pageKind,
+    )
+
+    const rootElement = page.rootElement.current
+
+    const component =
+      this.rootStore.componentService.componentDomainService.add({
+        id: v4(),
+        name: 'Component',
+      })
+
+    const runtimeRootElement = runtimePage!.runtimeRootElement
+
+    rootElement.writeCache({ renderType: component })
+
+    return {
+      component,
+      page,
+      rendered,
+      renderer,
+      rootElement,
+      runtimeRootElement: runtimeRootElement,
+    }
+  }
+
+  setupRuntimeElement(
+    rendererType: RendererType = RendererType.Preview,
+    pageKind: IPageKind = IPageKind.Regular,
+  ) {
+    const { page, rendered, renderer, runtimePage } = this.setupPage(
+      rendererType,
+      pageKind,
+    )
+
+    const runtimeRootElement = runtimePage!.runtimeRootElement
+
+    return {
+      page,
+      rendered,
+      renderer,
+      rootElement: page.rootElement.current,
+      runtimePage,
+      runtimeRootElement: runtimeRootElement,
+    }
+  }
+
+  /**
+   * Used for keeping references by ID
+   */
   private atomRefs: Map<string, IAtomRenderType> = new Map()
 
-  rootStore: IRootStore = rootApplicationStore
+  private rootStore: IRootStore = rootApplicationStore
 }

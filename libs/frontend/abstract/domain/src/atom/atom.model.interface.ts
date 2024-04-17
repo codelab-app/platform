@@ -2,7 +2,12 @@ import type {
   AtomCreateInput,
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAtom, IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
+import type {
+  IAtom,
+  IAtomDto,
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ICacheService } from '../shared'
@@ -17,6 +22,7 @@ export interface IAtomModel
       'toDeleteInput'
     >,
     IAtomDto {
+  __typename: IElementRenderTypeKind.Atom
   allowRichTextInjection: boolean
   api: Ref<IInterfaceTypeModel>
   library: {

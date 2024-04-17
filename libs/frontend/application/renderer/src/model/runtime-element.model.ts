@@ -27,7 +27,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
+import { cLog, evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -70,6 +70,9 @@ const compositeKey = (
 
 const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)
 
+/**
+ * In cases of `childMapper`, the `runtimeElement's` renderType matters. If `component` type, then these children are not rendered nor passed to component to render
+ */
 @model('@codelab/RuntimeElement')
 export class RuntimeElementModel
   extends Model({
@@ -201,6 +204,8 @@ export class RuntimeElementModel
     // Render the element to an intermediate output
     const renderOutput = this.renderer.renderPipe.render(this)
     const children = this.renderChildren
+
+    console.log(children.key, children.props.renderOutput)
 
     const wrapperProps: ElementWrapperProps = {
       children,
