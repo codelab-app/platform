@@ -17,7 +17,10 @@ patchNestJsSwagger()
 applyFormats()
 
 const bootstrap = async () => {
-  const app = await NestFactory.create(RootModule)
+  const app = await NestFactory.create(RootModule, {
+    // logger: false,
+  })
+
   /**
    * Add global prefix
    */

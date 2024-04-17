@@ -25,6 +25,7 @@ import { CodelabLoggerService } from './pino.logger.service'
           pinoHttp: {
             // Disable HTTP requests logging
             autoLogging: false,
+            enabled: false,
             level: config.level,
             /**
              * https://stackoverflow.com/a/74100511/2159920

@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/filename-case */
-import '@testing-library/jest-dom'
 import { screen } from '@testing-library/dom'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'

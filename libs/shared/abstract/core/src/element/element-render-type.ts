@@ -11,8 +11,12 @@ export const IComponentID = Type.String()
 
 export const IAtomID = Type.String()
 
+const IAtomRenderType = IDiscriminatedRef(`${IElementRenderTypeKind.Atom}`)
+
+export type IAtomRenderType = Static<typeof IAtomRenderType>
+
 export const IElementRenderTypeDto = Type.Union([
-  IDiscriminatedRef(`${IElementRenderTypeKind.Atom}`),
+  IAtomRenderType,
   IDiscriminatedRef(`${IElementRenderTypeKind.Component}`),
 ])
 

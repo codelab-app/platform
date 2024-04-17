@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'cli',
-  preset: '../../jest.preset.js',
+  preset: '../../jest.preset.ts',
   testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [

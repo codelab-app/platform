@@ -89,73 +89,14 @@ export class ComponentApplicationService
     this: ComponentApplicationService,
     { id, name, rootElement }: ICreateComponentData,
   ) {
-    const storeApi = this.typeService.typeDomainService.hydrateInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${name} Store`),
-    })
-
-    const store = this.storeService.storeDomainService.hydrate({
-      api: typeRef<IInterfaceTypeModel>(storeApi.id),
-      id: v4(),
-      name: Store.createName({ name }),
-    })
-
-    const fragmentAtom = this.atomService.atomDomainService.defaultRenderType
-
-    this.atomService.atomDomainService.hydrate(fragmentAtom)
-
-    const api = this.typeService.typeDomainService.hydrateInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(name),
-    })
-
-    const componentProps: IPropDto = {
-      data: '{}',
-      id: v4(),
-    }
-
-    /**
-     * create rootElement in case it doesn't already exist
-     * Unlike other models such rootElement could exist before component (convertElementToComponent)
-     * connectOrCreate can't handle sub-models like props for element
-     * the only choice left is to create rootElement here if it is not provided
-     * */
-    const rootElementModel: IElementModel = rootElement
-      ? this.elementService.elementDomainService.element(rootElement.id)
-      : this.elementService.elementDomainService.hydrate({
-          // Doesn't seem needed in hydrate
-          // closestContainerNode: {
-          //   id,
-          // },
-          id: v4(),
-          // we don't append 'Root' here to include the case of existing element
-          name,
-          parentComponent: { id },
-          props: {
-            data: '{}',
-            id: v4(),
-          },
-          renderType: {
-            __typename: IElementRenderTypeKind.Atom,
-            id: fragmentAtom.id,
-          },
-        })
-
-    rootElementModel.writeCache({ name: `${name} Root` })
-
-    const component = this.componentDomainService.hydrate({
-      api,
-      id,
-      name,
-      props: componentProps,
-      rootElement: rootElementModel,
-      store,
-    })
+    const component = this.componentDomainService.add({ id, name, rootElement })
 
     if (!rootElement) {
-      yield* _await(this.elementService.elementRepository.add(rootElementModel))
+      yield* _await(
+        this.elementService.elementRepository.add(
+          component.rootElement.current,
+        ),
+      )
     }
 
     yield* _await(this.componentRepository.add(component))

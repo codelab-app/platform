@@ -19,7 +19,7 @@ export default {
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/shared/utils',
-  preset: '../../../jest.preset.js',
+  preset: '../../../jest.preset.ts',
   reporters: [
     'default',
     [

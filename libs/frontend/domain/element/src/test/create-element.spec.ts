@@ -28,10 +28,7 @@ describe('Create element', () => {
       data: '{}',
       id: v4(),
     },
-    renderType: {
-      __typename: 'Atom',
-      id: atomReactFragmentDto.id,
-    },
+    renderType: atomReactFragmentDto,
   } as const
 
   pageDomainService.hydrate(pageDto)

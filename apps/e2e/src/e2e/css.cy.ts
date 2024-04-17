@@ -19,9 +19,9 @@ const typeIntoEditor = (css: string) => {
   cy.get('[aria-label="format-painter"]').click()
   cy.waitForSpinners()
 
-  cy.get('[role="textbox"]').first().click()
-  cy.get('[role="textbox"]').first().clear()
-  cy.get('[role="textbox"]').first().type(css)
+  cy.get('.cm-scroller [role="textbox"]').first().click()
+  cy.get('.cm-scroller [role="textbox"]').first().clear()
+  cy.get('.cm-scroller [role="textbox"]').first().type(css)
 }
 
 describe('CSS CRUD', () => {
@@ -31,7 +31,6 @@ describe('CSS CRUD', () => {
     cy.postApiRequest<App>('/app/seed-cypress-app').then(
       ({ body }) => (app = body),
     )
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
   })
 
   describe('Add css string', () => {
@@ -41,7 +40,9 @@ describe('CSS CRUD', () => {
           IPageKindName.Provider,
         )}/builder`,
       )
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
       cy.waitForSpinners()
+
       cy.createElementTree([
         {
           atom: IAtomType.AntDesignButton,

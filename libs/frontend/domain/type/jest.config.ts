@@ -1,6 +1,6 @@
 export default {
   displayName: 'frontend-domain-type',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../jest.preset.ts',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

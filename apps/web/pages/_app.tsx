@@ -14,6 +14,7 @@ import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { getEnv } from '@codelab/shared/config'
 import { isBrowser } from '@codelab/shared/utils'
 import { App as AntdApp, ConfigProvider } from 'antd'
+import isBoolean from 'lodash/isBoolean'
 import set from 'lodash/set'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
@@ -27,7 +28,10 @@ setGlobalConfig({
 /**
  * Need to paste here for it to work with mobx
  */
-if (getEnv().endpoint.isLocal && process.env['NEXT_WEB_ENABLE_WDYR']) {
+if (
+  getEnv().endpoint.isLocal &&
+  isBoolean(process.env['NEXT_WEB_ENABLE_WDYR'])
+) {
   console.log('Enable WDYR...')
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires

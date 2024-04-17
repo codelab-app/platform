@@ -30,9 +30,6 @@ export class ImportAdminDataHandler
       this.readAdminDataService.migrationDataService.basePaths = baseDataPaths
     }
 
-    this.readAdminDataService.partiallySeed =
-      process.env['NX_TASK_TARGET_CONFIGURATION'] === Stage.CI
-
     /**
      * System types must be seeded first, so other types can reference it
      */

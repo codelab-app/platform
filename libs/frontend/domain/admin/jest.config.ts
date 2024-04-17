@@ -18,7 +18,7 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/domain/admin',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../jest.preset.ts',
   reporters: [
     'default',
     [

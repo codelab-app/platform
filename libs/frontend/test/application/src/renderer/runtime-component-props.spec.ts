@@ -1,22 +1,23 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
+import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { act, render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupComponent, setupRuntimeElement } from './setup'
+import React from 'react'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
-let testbed: TestBed
+let testBed: TestBed
 
 describe('Runtime Component props', () => {
   beforeEach(() => {
-    rootApplicationStore.clear()
-    testbed = new TestBed()
+    testBed = TestBed.Create()
   })
 
   describe('RuntimeProps.props', () => {
     it('should contain system props', () => {
-      const { component, renderer, runtimeComponent } = setupComponent(testbed)
+      const { component, renderer, runtimeComponent } = testBed.setupComponent()
       const runtimeProps = runtimeComponent.runtimeProps
 
       expect(runtimeProps.props).toMatchObject({
@@ -26,22 +27,22 @@ describe('Runtime Component props', () => {
     })
 
     it('should contain component props', () => {
-      const { component, runtimeComponent } = setupComponent(testbed)
+      const { component, runtimeComponent } = testBed.setupComponent()
       const runtimeProps = runtimeComponent.runtimeProps
 
       expect(runtimeProps.props).toMatchObject(component.props.values)
     })
 
     it('should contain default props', () => {
-      const { component, runtimeComponent } = setupComponent(testbed)
+      const { component, runtimeComponent } = testBed.setupComponent()
       const runtimeProps = runtimeComponent.runtimeProps
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = '"field-value"'
 
-      const field = testbed.addField({
+      const field = testBed.addField({
         api: component.api.current,
         defaultValues: fieldDefaultValue,
-        fieldType: testbed.getStringType(),
+        fieldType: testBed.getStringType(),
         key: fieldKey,
       })
 
@@ -56,7 +57,7 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.evaluatedProps', () => {
     // expressions are evaluated with empty context
     it('should evaluate basic state field expression', () => {
-      const { component, runtimeComponent } = setupComponent(testbed)
+      const { component, runtimeComponent } = testBed.setupComponent()
       const fieldKey = 'fieldKey'
 
       component.props.set(fieldKey, '{{10 - 2}}')
@@ -69,18 +70,10 @@ describe('Runtime Component props', () => {
 
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
-      const { element, runtimeElement } = setupRuntimeElement(testbed)
-      const runtimeProps = runtimeElement.runtimeProps
-      const component = testbed.addComponent({ name: 'component' })
+      const { runtimeRootElement } = testBed.setupRuntimeComponent()
+      const runtimeProps = runtimeRootElement.runtimeProps
 
-      element.writeCache({
-        renderType: {
-          __typename: IElementRenderTypeKind.Component,
-          id: component.id,
-        },
-      })
-
-      const runtimeComponent = runtimeElement
+      const runtimeComponent = runtimeRootElement
         .children[0] as IRuntimeComponentModel
 
       const componentRuntimeProps = runtimeComponent.runtimeProps
@@ -91,29 +84,30 @@ describe('Runtime Component props', () => {
     })
 
     it('should resolve child mapper prop', () => {
-      const { element, runtimeElement } = setupRuntimeElement(testbed)
-      const component = testbed.addComponent({ name: 'component' })
-      const propKey = 'childMapperProp'
-      const propsArray = ['p01', 'p02', 'p03']
+      const { component, rendered, rootElement, runtimeRootElement } =
+        testBed.setupRuntimeComponent()
 
-      element.writeCache({
+      const propKey = 'childMapperProp'
+      const propsValue = ['p01', 'p02', 'p03']
+
+      rootElement.writeCache({
         childMapperComponent: component,
         childMapperPropKey: `props.${propKey}`,
       })
 
-      element.props.set(propKey, propsArray)
+      rootElement.props.set(propKey, propsValue)
 
       const runtimeChildren =
-        runtimeElement.children as Array<IRuntimeComponentModel>
+        runtimeRootElement.children as Array<IRuntimeComponentModel>
 
       expect(runtimeChildren[0]?.runtimeProps?.childMapperProp).toBe(
-        propsArray[0],
+        propsValue[0],
       )
       expect(runtimeChildren[1]?.runtimeProps?.childMapperProp).toBe(
-        propsArray[1],
+        propsValue[1],
       )
       expect(runtimeChildren[1]?.runtimeProps?.childMapperProp).toBe(
-        propsArray[1],
+        propsValue[1],
       )
     })
   })

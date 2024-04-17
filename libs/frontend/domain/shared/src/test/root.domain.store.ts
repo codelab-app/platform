@@ -19,7 +19,7 @@ export const createRootDomainStore = ({
   context,
   store,
 }: IRootDomainStoreDto) => {
-  @model('@codelab/TestRootStore')
+  @model('@codelab/TestRootDomainStore')
   class RootDomainStore
     extends Model({
       appDomainService: prop<IAppDomainService | undefined>(undefined),

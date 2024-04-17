@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'frontend-presentation-codelab-ui',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../jest.preset.ts',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

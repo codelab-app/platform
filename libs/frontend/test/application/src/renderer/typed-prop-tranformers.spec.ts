@@ -3,122 +3,117 @@ import {
   IElementRenderTypeKind,
   IPrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
-import { screen } from '@testing-library/dom'
+import { screen, waitFor } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React, { isValidElement } from 'react'
-import { setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
-let testbed: TestBed
+let testBed: TestBed
 
 describe('TypedPropTransformers', () => {
   beforeEach(() => {
-    rootApplicationStore.clear()
-    testbed = new TestBed()
+    testBed = TestBed.Create()
   })
 
   it('should apply default typed prop transformer', () => {
-    const integerType = testbed.addPrimitiveType({
+    const integerType = testBed.addPrimitiveType({
       name: IPrimitiveTypeKind.Integer,
       primitiveKind: IPrimitiveTypeKind.Integer,
     })
 
-    const { element, runtimeElement } = setupRuntimeElement(testbed)
+    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
     const propKey = 'propKey'
     const propValue = 'propValue'
 
-    element.props.set(propKey, {
+    rootElement.props.set(propKey, {
       kind: integerType.kind,
       type: integerType.id,
       value: propValue,
     })
 
-    expect(runtimeElement.runtimeProps.evaluatedProps).toMatchObject({
+    expect(runtimeRootElement.runtimeProps.evaluatedProps).toMatchObject({
       [propKey]: propValue,
     })
   })
 
   it('should render props when kind is ReactNodeType', async () => {
-    const { element, runtimeElement } = setupRuntimeElement(testbed)
+    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
     const propKey = 'someNode'
-    const reactNodeType = testbed.addReactNode({})
-    const component = testbed.addComponent({})
+    const reactNodeType = testBed.addReactNode({})
+    const component = testBed.addComponent({})
 
-    element.props.set(propKey, {
+    rootElement.props.set(propKey, {
       kind: reactNodeType.kind,
       type: reactNodeType.id,
       value: component.id,
     })
 
-    const renderedProp = runtimeElement.runtimeProps.evaluatedProps[propKey]
+    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp)).toBe(true)
   })
 
   it('should render props when kind is RenderPropsType', async () => {
-    const { element, runtimeElement } = setupRuntimeElement(testbed)
+    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
     const propKey = 'someNode'
-    const renderPropsType = testbed.addRenderProps({})
-    const component = testbed.addComponent({})
+    const renderPropsType = testBed.addRenderProps({})
+    const component = testBed.addComponent({})
 
-    element.props.set(propKey, {
+    rootElement.props.set(propKey, {
       kind: renderPropsType.kind,
       type: renderPropsType.id,
       value: component.id,
     })
 
-    expect(runtimeElement.runtimeProps.evaluatedProps).toMatchObject({
+    expect(runtimeRootElement.runtimeProps.evaluatedProps).toMatchObject({
       [propKey]: expect.any(Function),
     })
 
-    const renderedProp = runtimeElement.runtimeProps.evaluatedProps[propKey]
+    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp())).toBe(true)
   })
 
   it('should pass props to render props component', async () => {
-    const { element, runtimeElement } = setupRuntimeElement(testbed)
+    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
     const propKey = 'someNode'
     const textPropKey = 'text'
     const textPropValue = 'some text value'
     const childrenExpression = `{{componentProps.${textPropKey}}}`
-    const renderPropsType = testbed.addRenderProps({})
-    const api = testbed.addInterfaceType({})
+    const renderPropsType = testBed.addRenderProps({})
+    const api = testBed.addInterfaceType({})
 
     api.writeCache({
       fields: [
-        testbed.addField({
+        testBed.addField({
           api,
           defaultValues: JSON.stringify('some default value'),
-          fieldType: testbed.getStringType(),
+          fieldType: testBed.getStringType(),
           key: textPropKey,
         }),
       ],
     })
 
-    const component = testbed.addComponent({ api })
+    const component = testBed.addComponent({ api })
 
-    const childElement = testbed.addElement({
+    const childElement = testBed.addElement({
       parentElement: component.rootElement.current,
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: testbed.getDivAtom()!.id,
-      },
+      renderType: testBed.getDivAtom(),
     })
 
     childElement.props.set('children', childrenExpression)
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 
-    element.props.set(propKey, {
+    rootElement.props.set(propKey, {
       kind: renderPropsType.kind,
       type: renderPropsType.id,
       value: component.id,
     })
 
-    const renderedProp = runtimeElement.runtimeProps.evaluatedProps[propKey]
+    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
 
     render(
       React.createElement(
