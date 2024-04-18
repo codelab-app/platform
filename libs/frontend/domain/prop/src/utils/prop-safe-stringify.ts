@@ -10,10 +10,6 @@ export const propSafeStringify = (props: object, maskFunctions = true) => {
   const cache = new WeakMap<object, boolean>()
 
   const replacer = (key: string, value: object) => {
-    if (key === 'children' && isObjectLike(value)) {
-      return
-    }
-
     // handle ReactNodeType
     if (React.isValidElement(value)) {
       return 'React element'

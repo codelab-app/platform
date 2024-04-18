@@ -118,6 +118,15 @@ query GetReactNodeTypes(
   }
 }
 
+query GetRichTextTypes(
+  $options: RichTextTypeOptions
+  $where: RichTextTypeWhere
+) {
+  types: richTextTypes(options: $options, where: $where) {
+    ...RichTextType
+  }
+}
+
 query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
   types: enumTypes(options: $options, where: $where) {
     ...Type

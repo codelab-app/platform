@@ -40,6 +40,12 @@
     "name": "ReactNodeType"
   },
   {
+    "__typename": "RichTextType",
+    "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+    "kind": "RichTextType",
+    "name": "RichTextType"
+  },
+  {
     "__typename": "ActionType",
     "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
     "kind": "ActionType",

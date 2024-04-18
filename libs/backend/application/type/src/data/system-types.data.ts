@@ -57,4 +57,10 @@ export const systemTypesData = () => ({
     kind: ITypeKind.ActionType,
     name: ITypeKind.ActionType,
   } as const,
+  [ITypeKind.RichTextType]: {
+    __typename: `${ITypeKind.RichTextType}`,
+    id: v4(),
+    kind: ITypeKind.RichTextType,
+    name: ITypeKind.RichTextType,
+  } as const,
 })

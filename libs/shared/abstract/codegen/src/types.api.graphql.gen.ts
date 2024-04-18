@@ -23359,6 +23359,13 @@ export type GetReactNodeTypesQueryVariables = Exact<{
 
 export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> }
 
+export type GetRichTextTypesQueryVariables = Exact<{
+  options?: InputMaybe<RichTextTypeOptions>
+  where?: InputMaybe<RichTextTypeWhere>
+}>
+
+export type GetRichTextTypesQuery = { types: Array<RichTextTypeFragment> }
+
 export type GetEnumTypesQueryVariables = Exact<{
   options?: InputMaybe<EnumTypeOptions>
   where?: InputMaybe<EnumTypeWhere>

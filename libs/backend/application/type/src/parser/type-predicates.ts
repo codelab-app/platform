@@ -7,6 +7,7 @@ import {
   primitiveTypesRegex,
   reactNodeTypeRegex,
   renderPropRegexes,
+  richTextTypeRegex,
   unionTypeRegex,
 } from './matchers'
 
@@ -52,6 +53,10 @@ export const isUnionType: IsTypePredicates = (fieldType) => {
 
 export const isReactNodeType: IsTypePredicates = (fieldType) => {
   return reactNodeTypeRegex.test(fieldType)
+}
+
+export const isRichTextType: IsTypePredicates = (fieldType) => {
+  return richTextTypeRegex.test(fieldType)
 }
 
 export const isActionType: IsTypePredicates = (fieldType) => {

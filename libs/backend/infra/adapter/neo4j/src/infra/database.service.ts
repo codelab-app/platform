@@ -84,6 +84,7 @@ export class DatabaseService {
         OR (n:PrimitiveType)
         OR (n:RenderPropType)
         OR (n:ReactNodeType)
+        OR (n:RichTextType)
         OR (n:Type|Field|EnumTypeValue)-[:ATOM_API|FIELD_TYPE|INTERFACE_FIELD|ALLOWED_VALUE*1..5]-(:Atom)
       )
       DETACH DELETE n

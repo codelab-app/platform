@@ -49,7 +49,7 @@ export const TextEditor = ({
         }}
         arrow={false}
         content={<ToolbarPlugin onClose={onClose} />}
-        open={editorConfig.editable}
+        open={false}
       >
         <OnInitPlugin config={editorConfig} data={data} onChange={onChange} />
         <div

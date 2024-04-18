@@ -104,6 +104,7 @@ export const getAllTypes = async (
     primitiveTypes,
     reactNodeTypes,
     renderPropTypes,
+    richTextTypes,
     unionTypes,
   } = await getTypeApi.GetTypes({ ids })
 
@@ -115,6 +116,7 @@ export const getAllTypes = async (
     ...elementTypes,
     ...renderPropTypes,
     ...reactNodeTypes,
+    ...richTextTypes,
     ...enumTypes,
     ...lambdaTypes,
     ...pageTypes,

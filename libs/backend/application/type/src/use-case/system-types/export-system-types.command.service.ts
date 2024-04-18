@@ -4,6 +4,7 @@ import {
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
 } from '@codelab/backend/domain/type'
 import type { IType } from '@codelab/shared/abstract/core'
 import {
@@ -11,6 +12,7 @@ import {
   IPrimitiveType,
   IReactNodeType,
   IRenderPropType,
+  IRichTextType,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -39,6 +41,7 @@ export class ExportSystemTypesHandler
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,
     private reactNodeTypeRepository: ReactNodeTypeRepository,
+    private richTextTypeRepository: RichTextTypeRepository,
     private renderPropTypeRepository: RenderPropTypeRepository,
     private actionTypeRepository: ActionTypeRepository,
   ) {}
@@ -63,6 +66,17 @@ export class ExportSystemTypesHandler
         sort: [{ name: SortDirection.Asc }],
       },
       schema: IReactNodeType,
+    })
+
+    /**
+     * Rich Text Type
+     */
+    // Only 1 here
+    const richTextTypes = await this.richTextTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: IRichTextType,
     })
 
     /**
@@ -97,6 +111,7 @@ export class ExportSystemTypesHandler
       ...renderPropTypes,
       ...reactNodeTypes,
       ...actionTypes,
+      ...richTextTypes,
     ]
   }
 }

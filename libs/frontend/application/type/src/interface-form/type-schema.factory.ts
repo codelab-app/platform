@@ -311,31 +311,14 @@ export class TypeSchemaFactory {
   ): JsonSchema {
     // This is the extra for the union type. Not to be confused with the extra for the value type
     const extra = this.getExtraProperties(type, context)
-    const label: string | undefined = extra?.label
-    const labelWithQuotes = label ? `"${label}" ` : ''
-    const typeLabel = `${labelWithQuotes}Type`
 
     return {
       ...extra,
-      oneOf: type.typesOfUnionType.map((innerType) => {
-        const valueSchema = this.transform(innerType.current)
-
-        const properties = TypeSchemaFactory.schemaForTypedProp(
-          innerType.current,
-          valueSchema,
-          typeLabel,
-        )
-
-        return {
-          label: '',
-          properties,
-          ...context?.validationRules?.general,
-          required: ['type'],
-          type: 'object',
-          // We use this as label of the select field item
-          typeName: innerType.current.name,
-        }
-      }),
+      oneOf: type.typesOfUnionType.map((innerType) => ({
+        ...this.transform(innerType.current),
+        // We use this as label of the select type field item
+        typeName: innerType.current.name,
+      })),
     }
   }
 

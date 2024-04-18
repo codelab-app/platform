@@ -97,6 +97,10 @@ export class TypeFactory {
         return (await this.reactNodeTypeRepository).findOne({ where: { id } })
       }
 
+      case ITypeKind.RichTextType: {
+        return (await this.richTextTypeRepository).findOne({ where: { id } })
+      }
+
       case ITypeKind.RenderPropType: {
         return (await this.renderPropTypeRepository).findOne({ where: { id } })
       }

@@ -52,4 +52,6 @@ export const interfaceTypeRegex = /^\{.+}$/
  */
 export const reactNodeTypeRegex = /(([:|=>] (ReactNode|HTMLElement))|ReactNode)/
 
+export const richTextTypeRegex = /\[\]$/
+
 export const renderPropRegexes = [arrowFnReturnReactNode, es5FnReturnReactNode]

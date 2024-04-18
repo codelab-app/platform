@@ -4,6 +4,7 @@ import type {
   PrimitiveType,
   ReactNodeType,
   RenderPropType,
+  RichTextType,
   UnionType,
 } from '@codelab/backend/abstract/codegen'
 import type { IAtomDto, IFieldDto } from '@codelab/shared/abstract/core'
@@ -23,6 +24,7 @@ export interface ITypeTransformer {
   numberType(type: string): Promise<PrimitiveType>
   reactNodeType(type: string): Promise<ReactNodeType>
   renderPropType(type: string): Promise<RenderPropType>
+  richTextType(type: string): Promise<RichTextType>
   stringType(type: string): Promise<PrimitiveType>
   unionType(
     type: string,

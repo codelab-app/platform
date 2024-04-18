@@ -54,6 +54,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
 
   arrayTypeRegex = /\[\]$/
 
+  // FIXME: write correct regex for rich text
   richTextTypeRegex = /\[\]$/
 
   booleanTypeRegex = /^boolean$/

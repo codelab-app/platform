@@ -38,6 +38,7 @@ const getFilteredTypes = (typesOfUnionType: Array<ITypeMaybeRef>) => ({
   primitiveTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.PrimitiveType),
   reactNodeTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.ReactNodeType),
   renderPropTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.RenderPropType),
+  richTextTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.RichTextType),
 })
 
 @Injectable()
@@ -71,6 +72,7 @@ export class UnionTypeRepository extends AbstractRepository<
               primitiveTypeIds,
               reactNodeTypeIds,
               renderPropTypeIds,
+              richTextTypeIds,
             } = getFilteredTypes(typesOfUnionType)
 
             return {
@@ -85,6 +87,7 @@ export class UnionTypeRepository extends AbstractRepository<
                 PrimitiveType: connectNodeIds(primitiveTypeIds),
                 ReactNodeType: connectNodeIds(reactNodeTypeIds),
                 RenderPropType: connectNodeIds(renderPropTypeIds),
+                RichTextType: connectNodeIds(richTextTypeIds),
               },
             }
           },
@@ -120,6 +123,7 @@ export class UnionTypeRepository extends AbstractRepository<
       primitiveTypeIds,
       reactNodeTypeIds,
       renderPropTypeIds,
+      richTextTypeIds,
     } = getFilteredTypes(typesOfUnionType)
 
     return (
@@ -136,6 +140,7 @@ export class UnionTypeRepository extends AbstractRepository<
             PrimitiveType: reconnectNodeIds(primitiveTypeIds),
             ReactNodeType: reconnectNodeIds(reactNodeTypeIds),
             RenderPropType: reconnectNodeIds(renderPropTypeIds),
+            RichTextType: reconnectNodeIds(richTextTypeIds),
           },
         },
         where,
