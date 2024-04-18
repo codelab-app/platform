@@ -48,17 +48,6 @@ import type { IRouterService } from './router.service.interface'
 /**
  * Initial data to be injected into store
  */
-export type RootStoreData = IPageProps
-
-export interface IRootStoreDto {
-  context: IRootStoreContext
-  store: IRootStore
-}
-
-export interface IRootStoreDtoTest {
-  context: Partial<IRootStoreContext>
-  store: Partial<IRootStore>
-}
 
 export interface IRootStore {
   actionService: IActionService

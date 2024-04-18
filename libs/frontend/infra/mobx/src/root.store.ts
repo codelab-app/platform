@@ -10,6 +10,7 @@ import type {
   IElementService,
   IFieldService,
   IPageApplicationService,
+  IPageProps,
   IPropService,
   IRedirectService,
   IRendererService,
@@ -24,7 +25,6 @@ import type {
   ITracerService,
   ITypeService,
   IUserService,
-  RootStoreData,
 } from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
@@ -110,7 +110,7 @@ import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createRootStore = ({ router, user }: RootStoreData) => {
+export const createRootStore = ({ router = {}, user }: IPageProps) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({

@@ -2,8 +2,8 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
-import { rootApplicationStore } from './setup/root.test.store'
-import { TestBed } from './setup/testbed'
+import { rootApplicationStore } from '../../../../application/test/src/root.test.store'
+import { TestBed } from '../../../../application/test/src/test-bed'
 
 let testBed: TestBed
 

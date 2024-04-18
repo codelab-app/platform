@@ -1,23 +1,25 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import {
+  createTestApplicationForRenderer,
+  TestBed,
+} from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
-import { rootApplicationStore } from './setup/root.test.store'
-import { TestBed } from './setup/testbed'
-
-let testBed: TestBed
 
 describe('Runtime Element', () => {
+  const testApplication = createTestApplicationForRenderer()
+
   beforeEach(() => {
-    testBed = TestBed.Create()
+    testApplication.clear()
   })
 
   it('should create element runtime node', () => {
     const { page, rootElement, runtimePage, runtimeRootElement } =
-      testBed.setupRuntimeElement()
+      testApplication.setupRuntimeElement()
 
     // Test the creation of element node
     expect(runtimeRootElement.element.id).toBe(rootElement.id)
@@ -28,10 +30,9 @@ describe('Runtime Element', () => {
     )
   })
 
-  it.skip('should create children with text injection', () => {
-    const { rendered, rootElement, runtimeRootElement } =
-      testBed.setupRuntimeElement()
-
+  it.only('should create children with text injection', () => {
+    const { page, rendered, renderer, runtimePage } = testBed.setupPage()
+    const rootElement = page.rootElement.current
     const divRenderType = testBed.getDivAtom()
 
     rootElement.writeCache({ renderType: divRenderType })
@@ -42,11 +43,12 @@ describe('Runtime Element', () => {
     // console.log(rendered?.props.children)
     // console.log(rendered?.props.children.props)
 
+    // render itself adds `body > div`
     const { debug } = render(
       React.createElement(
         StoreProvider,
         { value: rootApplicationStore },
-        rendered,
+        rootApplicationStore.rendererService.activeRenderer?.current.render,
       ),
     )
 

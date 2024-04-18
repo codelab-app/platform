@@ -22,7 +22,7 @@ export type IAppProps<T = object> = Overwrite<
 export interface IPageProps {
   router: IRouterProps
   // Could be undefined during production build steps
-  user: Auth0IdToken
+  user?: Auth0IdToken
 }
 
 // export type NextPageWithLayout<P extends object, IP = P> = NextPage<P, IP> & {

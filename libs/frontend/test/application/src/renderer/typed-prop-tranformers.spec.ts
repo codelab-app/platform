@@ -7,8 +7,8 @@ import { screen, waitFor } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React, { isValidElement } from 'react'
-import { rootApplicationStore } from './setup/root.test.store'
-import { TestBed } from './setup/testbed'
+import { rootApplicationStore } from '../../../../application/test/src/root.test.store'
+import { TestBed } from '../../../../application/test/src/test-bed'
 
 let testBed: TestBed
 

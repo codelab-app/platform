@@ -1,6 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { TestBed } from '../renderer/setup/testbed'
+import { TestBed } from '../../../../application/test/src/test-bed'
 
 let testBed: TestBed
 
