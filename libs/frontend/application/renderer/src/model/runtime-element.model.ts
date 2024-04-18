@@ -205,8 +205,6 @@ export class RuntimeElementModel
     const renderOutput = this.renderer.renderPipe.render(this)
     const children = this.renderChildren
 
-    console.log(children.key, children.props.renderOutput)
-
     const wrapperProps: ElementWrapperProps = {
       children,
       errorBoundary: {
