@@ -24,7 +24,9 @@ export const RichTextField = connectField<RichTextConnectFieldProps>(
       namespace: props.name,
     }
 
-    return <TextEditor config={config} data={props.value} onChange={onChange} />
+    return (
+      <TextEditor config={config} onChange={onChange} value={props.value} />
+    )
   },
   { kind: 'leaf' },
 )

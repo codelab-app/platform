@@ -51,20 +51,21 @@ export const TextEditorWrapper = observer<{
     [],
   )
 
-  const onClose = useCallback(() => {
+  const onExitEditing = useCallback(() => {
     element.setIsTextContentEditable(false)
   }, [])
 
-  const data = editable
+  const value = editable
     ? element.props.values['children']
     : runtimeElement.runtimeProps.evaluatedProps['children']
 
   return (
     <TextEditor
       config={{ editable, namespace: `${element.id}-editor` }}
-      data={data}
+      floatingToolbar
       onChange={onChange}
-      onClose={onClose}
+      onExitEditing={onExitEditing}
+      value={value}
     />
   )
 })

@@ -4,14 +4,12 @@ import { mergeProps } from '@codelab/frontend/domain/prop'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
-import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
-import { Popover } from 'antd'
 import type { EditorState, LexicalEditor } from 'lexical'
-import React, { useRef } from 'react'
-import { OnInitPlugin } from './OnInitPlugin'
-import { ToolbarPlugin } from './plugins/ToolbarPlugin'
+import React from 'react'
+import { OnInitPlugin } from './plugins'
+import { TextEditorToolbar } from './TextEditorToolbar'
 import { defaultEditorTheme } from './theme'
 
 const defaultConfig: InitialConfigType = {
@@ -27,38 +25,35 @@ const defaultConfig: InitialConfigType = {
 
 export interface TextEditorProps {
   config?: Partial<InitialConfigType>
-  data?: string
+  floatingToolbar?: boolean
+  value?: string
   onChange(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
-  onClose?(): void
+  onExitEditing?(): void
 }
 
 export const TextEditor = ({
   config = {},
-  data,
+  floatingToolbar = false,
   onChange,
-  onClose = () => null,
+  onExitEditing,
+  value,
 }: TextEditorProps) => {
   const editorConfig = mergeProps<InitialConfigType>(defaultConfig, config)
-  const editorRef = useRef<LexicalEditor>(null)
 
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <Popover
-        afterOpenChange={() => {
-          editorRef.current?.focus()
-        }}
-        arrow={false}
-        content={<ToolbarPlugin onClose={onClose} />}
-        open={false}
+      <TextEditorToolbar
+        editable={Boolean(editorConfig.editable)}
+        floatingToolbar={Boolean(floatingToolbar)}
+        onExitEditing={onExitEditing}
       >
-        <OnInitPlugin config={editorConfig} data={data} onChange={onChange} />
+        <OnInitPlugin config={editorConfig} onChange={onChange} value={value} />
         <div
           className={`editor-container${
             editorConfig.editable ? ' editable' : ''
           }`}
         >
           <div className="editor-inner">
-            <EditorRefPlugin editorRef={editorRef} />
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={<ContentEditable className="editor-input" />}
@@ -66,7 +61,7 @@ export const TextEditor = ({
             />
           </div>
         </div>
-      </Popover>
+      </TextEditorToolbar>
     </LexicalComposer>
   )
 }

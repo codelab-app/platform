@@ -1,5 +1,18 @@
+import AlignCenterOutlined from '@ant-design/icons/AlignCenterOutlined'
+import AlignLeftOutlined from '@ant-design/icons/AlignLeftOutlined'
+import AlignRightOutlined from '@ant-design/icons/AlignRightOutlined'
+import BoldOutlined from '@ant-design/icons/BoldOutlined'
+import CheckOutlined from '@ant-design/icons/CheckOutlined'
+import ItalicOutlined from '@ant-design/icons/ItalicOutlined'
+import RedoOutlined from '@ant-design/icons/RedoOutlined'
+import StrikethroughOutlined from '@ant-design/icons/StrikethroughOutlined'
+import UnderlineOutlined from '@ant-design/icons/UnderlineOutlined'
+import UndoOutlined from '@ant-design/icons/UndoOutlined'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { mergeRegister } from '@lexical/utils'
+import { Button, Divider, Flex, Segmented } from 'antd'
+import type { SegmentedOptions } from 'antd/lib/segmented'
+import type { ElementFormatType } from 'lexical'
 import {
   $getSelection,
   $isRangeSelection,
@@ -13,14 +26,17 @@ import {
 } from 'lexical'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
+import { AlignJustifyOutline } from './Icons'
 
 const LowPriority = 1
 
-const Divider = () => {
-  return <div className="divider" />
-}
+// TODO: add more features and fixes
 
-export const ToolbarPlugin = ({ onClose }: { onClose(): void }) => {
+export const ToolbarPlugin = ({
+  onExitEditing,
+}: {
+  onExitEditing?(): void
+}) => {
   const [editor] = useLexicalComposerContext()
   const toolbarRef = useRef(null)
   const [canUndo, setCanUndo] = useState(false)
@@ -79,111 +95,78 @@ export const ToolbarPlugin = ({ onClose }: { onClose(): void }) => {
     )
   }, [editor, updateToolbar])
 
+  const alignOptions: SegmentedOptions<ElementFormatType> = [
+    { icon: <AlignLeftOutlined />, value: 'left' },
+    { icon: <AlignCenterOutlined />, value: 'center' },
+    { icon: <AlignRightOutlined />, value: 'right' },
+    { icon: <AlignJustifyOutline />, value: 'justify' },
+  ]
+
   return (
-    <div className="toolbar" id="lexical-toolbar" ref={toolbarRef}>
-      <button
+    <Flex gap="small" wrap="wrap">
+      <Button
         aria-label="Undo"
-        className="toolbar-item spaced"
         disabled={!canUndo}
+        icon={<UndoOutlined />}
         onClick={() => {
           editor.dispatchCommand(UNDO_COMMAND, undefined)
         }}
-      >
-        <i className="format undo" />
-      </button>
-      <button
+      />
+      <Button
         aria-label="Redo"
-        className="toolbar-item"
         disabled={!canRedo}
+        icon={<RedoOutlined />}
         onClick={() => {
           editor.dispatchCommand(REDO_COMMAND, undefined)
         }}
-      >
-        <i className="format redo" />
-      </button>
-      <Divider />
-      <button
+      />
+      <Button
         aria-label="Format Bold"
-        className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
+        icon={<BoldOutlined />}
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
         }}
-      >
-        <i className="format bold" />
-      </button>
-      <button
+      />
+      <Button
         aria-label="Format Italics"
-        className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
+        icon={<ItalicOutlined />}
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
         }}
-      >
-        <i className="format italic" />
-      </button>
-      <button
+      />
+      <Button
         aria-label="Format Underline"
-        className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
+        icon={<UnderlineOutlined />}
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
         }}
-      >
-        <i className="format underline" />
-      </button>
-      <button
+      />
+      <Button
         aria-label="Format Strikethrough"
-        className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
+        icon={<StrikethroughOutlined />}
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
         }}
-      >
-        <i className="format strikethrough" />
-      </button>
-      <Divider />
-      <button
-        aria-label="Left Align"
-        className="toolbar-item spaced"
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')
-        }}
-      >
-        <i className="format left-align" />
-      </button>
-      <button
-        aria-label="Center Align"
-        className="toolbar-item spaced"
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')
-        }}
-      >
-        <i className="format center-align" />
-      </button>
-      <button
-        aria-label="Right Align"
-        className="toolbar-item spaced"
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')
-        }}
-      >
-        <i className="format right-align" />
-      </button>
-      <button
-        aria-label="Justify Align"
-        className="toolbar-item"
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
-        }}
-      >
-        <i className="format justify-align" />
-      </button>
-      <button
-        aria-label="Done"
-        className="toolbar-item"
-        onClick={() => {
-          onClose()
-        }}
-      >
-        <i className="format check" />
-      </button>
-    </div>
+      />
+      <Segmented<ElementFormatType>
+        onChange={(value) =>
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, value)
+        }
+        options={alignOptions}
+      />
+
+      {onExitEditing && (
+        <>
+          <Divider type="vertical" />
+          <Button
+            aria-label="Exist Editing"
+            icon={<CheckOutlined />}
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
+            }}
+          />
+        </>
+      )}
+    </Flex>
   )
 }
