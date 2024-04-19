@@ -4,13 +4,13 @@ import type {
   IRendererModel,
   IRenderPipe,
   ITypedPropTransformer,
-  RendererType,
 } from '@codelab/frontend/abstract/application'
 import {
   getRuntimeComponentService,
   getRuntimePageService,
   isRuntimeComponent,
   isRuntimePage,
+  RendererType,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -86,6 +86,14 @@ export class Renderer
   implements IRendererModel
 {
   static create = create
+
+  @computed
+  get isBuilder() {
+    return (
+      this.rendererType === RendererType.ComponentBuilder ||
+      this.rendererType === RendererType.PageBuilder
+    )
+  }
 
   /**
    * This is the entry point to start the rendering process

@@ -1,9 +1,7 @@
-import {
-  type IRuntimeElementModel,
-  RendererType,
-} from '@codelab/frontend/abstract/application'
+import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { TextEditor } from '@codelab/frontend/presentation/view'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { observer } from 'mobx-react-lite'
@@ -12,15 +10,14 @@ import React, { useCallback } from 'react'
 export const TextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
-  const { propService, rendererService } = useStore()
+  const { propService, rendererService, typeService } = useStore()
   const element = runtimeElement.element.current
   const renderer = rendererService.activeRenderer?.current
+  const editable = element.isTextContentEditable && renderer?.isBuilder
 
-  const isBuilderRenderer =
-    renderer?.rendererType === RendererType.ComponentBuilder ||
-    renderer?.rendererType === RendererType.PageBuilder
-
-  const editable = element.isTextContentEditable && isBuilderRenderer
+  const richTextType = typeService.typeDomainService.typesList.find(
+    (type) => type.kind === ITypeKind.RichTextType,
+  )
 
   const onChange = useCallback(
     (state: EditorState, lexicalEditor: LexicalEditor, tags: Set<string>) => {
@@ -28,12 +25,23 @@ export const TextEditorWrapper = observer<{
       // because props evaluation triggers change too
       if (lexicalEditor.isEditable()) {
         state.read(() => {
+          if (!richTextType) {
+            throw new Error('Unable to find rich text type')
+          }
+
           const htmlString = $generateHtmlFromNodes(lexicalEditor)
           const props = element.props
           const renderType = element.renderType.current
 
           void propService.updateWithDefaultValuesApplied(props, {
-            data: { ...props.data.data, children: htmlString },
+            data: {
+              ...props.data.data,
+              children: {
+                kind: richTextType.kind,
+                type: richTextType.id,
+                value: htmlString,
+              },
+            },
             defaultValues: renderType.api.current.defaultValues,
             id: props.id,
           })
@@ -48,7 +56,7 @@ export const TextEditorWrapper = observer<{
   }, [])
 
   const value = editable
-    ? element.props.values['children']
+    ? element.props.values['children']?.value
     : runtimeElement.runtimeProps.evaluatedProps['children']
 
   return (

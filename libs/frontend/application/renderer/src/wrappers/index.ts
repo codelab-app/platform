@@ -1,4 +1,5 @@
 export * from './DroppableStyledComponent'
 export * from './ElementWrapper'
 export * from './StyledComponent'
+export * from './TextEditorWrapper'
 export * from './utils'

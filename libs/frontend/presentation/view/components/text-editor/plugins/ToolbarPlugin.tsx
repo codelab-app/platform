@@ -162,7 +162,7 @@ export const ToolbarPlugin = ({
             aria-label="Exist Editing"
             icon={<CheckOutlined />}
             onClick={() => {
-              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
+              onExitEditing()
             }}
           />
         </>

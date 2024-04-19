@@ -4,10 +4,11 @@ import { mergeProps } from '@codelab/frontend/domain/prop'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
+import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import type { EditorState, LexicalEditor } from 'lexical'
-import React from 'react'
+import React, { useRef } from 'react'
 import { OnInitPlugin } from './plugins'
 import { TextEditorToolbar } from './TextEditorToolbar'
 import { defaultEditorTheme } from './theme'
@@ -38,15 +39,18 @@ export const TextEditor = ({
   onExitEditing,
   value,
 }: TextEditorProps) => {
+  const editorRef = useRef<LexicalEditor>(null)
   const editorConfig = mergeProps<InitialConfigType>(defaultConfig, config)
 
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <TextEditorToolbar
         editable={Boolean(editorConfig.editable)}
+        editorRef={editorRef}
         floatingToolbar={Boolean(floatingToolbar)}
         onExitEditing={onExitEditing}
       >
+        <EditorRefPlugin editorRef={editorRef} />
         <OnInitPlugin config={editorConfig} onChange={onChange} value={value} />
         <div
           className={`editor-container${

@@ -25,6 +25,7 @@ export interface IRendererModel {
   debugMode: boolean
   expressionTransformer: IExpressionTransformer
   id: string
+  isBuilder: boolean
   render: Nullable<ReactElement>
   renderPipe: IRenderPipe
   rendererType: RendererType

@@ -31,7 +31,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import React, { ReactNode } from 'react'
-import { TextEditorWrapper } from '../wrappers/TextEditorWrapper'
+import { TextEditorWrapper } from '../wrappers'
 
 const create = (dto: IRuntimeElementPropDTO) =>
   new RuntimeElementPropsModel(dto)
@@ -149,16 +149,20 @@ export class RuntimeElementPropsModel
   @computed
   get renderedChildrenProp(): ReactNode {
     const childrenProp = this.element.props.get('children')
+    const undefinedChildrenInBuilder = !childrenProp && this.renderer.isBuilder
 
-    const isRichText =
+    const childrenHasRichTextType =
       childrenProp &&
       isTypedProp(childrenProp) &&
       childrenProp.kind === ITypeKind.RichTextType
 
+    const shouldRenderRichTextEditor =
+      undefinedChildrenInBuilder || childrenHasRichTextType
+
     /**
      * If not rich text then it is react node then return it directly
      */
-    return isRichText
+    return shouldRenderRichTextEditor
       ? React.createElement(TextEditorWrapper, {
           runtimeElement: this.runtimeElement.current,
         })
