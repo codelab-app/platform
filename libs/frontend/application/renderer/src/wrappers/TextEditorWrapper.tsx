@@ -3,19 +3,11 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { TextEditor } from '@codelab/frontend/presentation/view'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { observer } from 'mobx-react-lite'
-import dynamic from 'next/dynamic'
 import React, { useCallback } from 'react'
-
-const TextEditor = dynamic(
-  () =>
-    import('@codelab/frontend/presentation/view').then((mod) => mod.TextEditor),
-  {
-    ssr: false,
-  },
-)
 
 export const TextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel

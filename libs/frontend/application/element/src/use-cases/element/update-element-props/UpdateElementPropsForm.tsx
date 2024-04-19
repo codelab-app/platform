@@ -51,8 +51,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       const props = currentElement.props
       const renderTypeApi = currentElement.renderType.current.api.current
 
-      console.log(renderTypeApi.defaultValues)
-
       return propService.updateWithDefaultValuesApplied(props, {
         data,
         defaultValues: renderTypeApi.defaultValues,

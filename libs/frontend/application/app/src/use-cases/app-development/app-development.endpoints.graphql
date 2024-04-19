@@ -24,9 +24,6 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   reactNodeTypes {
     ...ReactNodeType
   }
-  richTextTypes {
-    ...RichTextType
-  }
   # load all redirects of app
   redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
     ...Redirect
@@ -36,5 +33,8 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   }
   resources {
     ...Resource
+  }
+  richTextTypes {
+    ...RichTextType
   }
 }

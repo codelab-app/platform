@@ -41,10 +41,10 @@ query GetTypes($ids: [ID!]) {
   reactNodeTypes(where: { id_IN: $ids }) {
     ...Type
   }
-  richTextTypes(where: { id_IN: $ids }) {
+  renderPropTypes(where: { id_IN: $ids }) {
     ...Type
   }
-  renderPropTypes(where: { id_IN: $ids }) {
+  richTextTypes(where: { id_IN: $ids }) {
     ...Type
   }
   unionTypes(where: { id_IN: $ids }) {
