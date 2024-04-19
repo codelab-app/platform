@@ -54,9 +54,6 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
 
   arrayTypeRegex = /\[\]$/
 
-  // FIXME: write correct regex for rich text
-  richTextTypeRegex = /\[\]$/
-
   booleanTypeRegex = /^boolean$/
 
   containsInterfaceTypeRegex = /{[\s\S]*}/
@@ -114,10 +111,6 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       {
         check: this.isBooleanType.bind(this),
         transform: this.booleanType.bind(this),
-      },
-      {
-        check: this.isRichTextType.bind(this),
-        transform: this.richTextType.bind(this),
       },
       {
         check: this.isNumberType.bind(this),
@@ -323,10 +316,6 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
 
   private isArrayType(type: string) {
     return this.arrayTypeRegex.test(type)
-  }
-
-  private isRichTextType(type: string) {
-    return this.richTextTypeRegex.test(type)
   }
 
   private isBooleanType(type: string) {

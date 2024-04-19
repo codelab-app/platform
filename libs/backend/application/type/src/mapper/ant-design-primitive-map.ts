@@ -9,7 +9,6 @@ import {
   isPrimitiveType,
   isReactNodeType,
   isRenderPropType,
-  isRichTextType,
   isUnionType,
 } from '../parser'
 
@@ -38,10 +37,6 @@ export class AntDesignTypeMapper {
 
     if (isReactNodeType(field.type)) {
       return { kind: ITypeKind.ReactNodeType }
-    }
-
-    if (isRichTextType(field.type)) {
-      return { kind: ITypeKind.RichTextType }
     }
 
     if (isRenderPropType(field.type)) {
