@@ -9,7 +9,7 @@
 export const typeIntoTextEditor = (content: string, parentId?: string) => {
   const id = parentId ? `#${parentId}-editor` : '#render-root'
   const editorSelector = '.editor-input[contenteditable]'
-  const editorCloseButtonSelector = 'button[aria-label="Done"].toolbar-item'
+  const editorCloseButtonSelector = 'button[aria-label="Exist Editing"]'
 
   cy.get(id).find(editorSelector).dblclick({ force: true })
   cy.get(id).find(editorSelector).clear()
