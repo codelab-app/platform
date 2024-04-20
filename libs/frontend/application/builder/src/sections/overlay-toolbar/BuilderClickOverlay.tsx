@@ -51,7 +51,7 @@ export const BuilderClickOverlay = observer<{
   }
 
   const element = selectedNode.current.element.current
-  const domElement = queryRenderedElementById(selectedNode.id)
+  const domElement = queryRenderedElementById(element.id)
 
   if (!domElement || !renderContainerRef.current) {
     return null

@@ -22,12 +22,8 @@ const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
  * Provides the DnD context for the builder
  */
 const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
-  const { builderService, elementService, rendererService } = useStore()
-
-  const { handleCreateElement, handleMoveElement } = useDndDropHandler(
-    elementService,
-    rendererService,
-  )
+  const { builderService, elementService } = useStore()
+  const { handleCreateElement, handleMoveElement } = useDndDropHandler()
 
   const autoScroll = useMemo(
     () => ({
