@@ -27,7 +27,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { cLog, evaluateExpression, hasExpression } from '@codelab/shared/utils'
+import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -98,7 +98,11 @@ export class RuntimeElementModel
   get childMapperChildren() {
     const childMapperComponent = this.element.current.childMapperComponent
 
-    if (!childMapperComponent) {
+    // when renderType is component we don't create child mapper
+    if (
+      isComponent(this.element.current.renderType.current) ||
+      !childMapperComponent
+    ) {
       return []
     }
 
