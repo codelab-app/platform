@@ -1,16 +1,9 @@
-import type {
-  IRuntimeComponentModel,
-  IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
+import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
-import {
-  IAtomType,
-  IElementRenderTypeKind,
-  IPageKind,
-} from '@codelab/shared/abstract/core'
+import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'

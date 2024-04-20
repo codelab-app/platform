@@ -1,23 +1,20 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import {
-  createTestApplicationForRenderer,
-  TestBed,
-} from '@codelab/frontend/application/test'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { createTestApplication } from '@codelab/frontend/application/test'
+import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
 
 describe('Runtime Element', () => {
-  const testApplication = createTestApplicationForRenderer()
+  const testApplication = createTestApplication()
 
   beforeEach(() => {
-    testApplication.clear()
+    testApplication.init()
   })
 
-  it('should create element runtime node', () => {
+  it.only('should create element runtime node', () => {
     const { page, rootElement, runtimePage, runtimeRootElement } =
       testApplication.setupRuntimeElement()
 
@@ -30,10 +27,12 @@ describe('Runtime Element', () => {
     )
   })
 
-  it.only('should create children with text injection', () => {
-    const { page, rendered, renderer, runtimePage } = testBed.setupPage()
+  it('should create children with text injection', () => {
+    const { page, rendered, renderer, runtimePage } =
+      testApplication.setupPage()
+
     const rootElement = page.rootElement.current
-    const divRenderType = testBed.getDivAtom()
+    const divRenderType = testApplication.getAtomByType(IAtomType.HtmlDiv)
 
     rootElement.writeCache({ renderType: divRenderType })
     rootElement.props.set('children', 'text')
@@ -42,6 +41,8 @@ describe('Runtime Element', () => {
 
     // console.log(rendered?.props.children)
     // console.log(rendered?.props.children.props)
+
+    const rootApplicationStore = testApplication.rootStore
 
     // render itself adds `body > div`
     const { debug } = render(
@@ -59,9 +60,9 @@ describe('Runtime Element', () => {
 
   it('should add element runtime child', () => {
     const { rootElement, runtimePage, runtimeRootElement } =
-      testBed.setupRuntimeElement()
+      testApplication.setupRuntimeElement()
 
-    const childElement = testBed.addElement({
+    const childElement = testApplication.addElement({
       name: 'child-element',
       parentElement: rootElement,
     })
@@ -79,8 +80,8 @@ describe('Runtime Element', () => {
   })
 
   it('should detach runtime element when element is detached', async () => {
-    const { elementService, runtimeElementService } = rootApplicationStore
-    const { page } = testBed.setupPage(undefined, IPageKind.Provider)
+    const { elementService, runtimeElementService } = testApplication.rootStore
+    const { page } = testApplication.setupPage(undefined, IPageKind.Provider)
 
     expect(runtimeElementService.elementsList.length).toEqual(1)
 
@@ -92,7 +93,7 @@ describe('Runtime Element', () => {
   it.each([[IPageKind.Provider], [IPageKind.Regular]])(
     'should resolve closest runtime container node when in %s',
     (pageKind) => {
-      const { runtimePage, runtimeProviderPage } = testBed.setupPage(
+      const { runtimePage, runtimeProviderPage } = testApplication.setupPage(
         RendererType.Preview,
         pageKind,
       )
@@ -138,7 +139,7 @@ describe('Runtime Element', () => {
   ])(
     'should run custom hooks that mutates state when in %s page - preRenderAction: `%s`, postRenderAction: `%s`, expectedValue: `%s`',
     (pageKind, preRenderActionCode, postRenderActionCode, expectedValue) => {
-      const { page, renderer, runtimeProviderPage } = testBed.setupPage(
+      const { page, renderer, runtimeProviderPage } = testApplication.setupPage(
         RendererType.Preview,
       )
 
@@ -147,10 +148,10 @@ describe('Runtime Element', () => {
       const storeApi = providerPage.store.current.api.current
       const stateFieldKey = 'search'
 
-      const field = testBed.addField({
+      const field = testApplication.addField({
         api: storeApi,
         defaultValues: JSON.stringify('default value'),
-        fieldType: testBed.getStringType(),
+        fieldType: testApplication.getStringType(),
         key: stateFieldKey,
       })
 
@@ -158,7 +159,7 @@ describe('Runtime Element', () => {
 
       if (preRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          preRenderAction: testBed.addCodeAction({
+          preRenderAction: testApplication.addCodeAction({
             code: preRenderActionCode,
             name: 'preRenderAction',
             store: providerPage.store,
@@ -168,7 +169,7 @@ describe('Runtime Element', () => {
 
       if (postRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          postRenderAction: testBed.addCodeAction({
+          postRenderAction: testApplication.addCodeAction({
             code: postRenderActionCode,
             name: 'postRenderAction',
             store: providerPage.store,
@@ -178,7 +179,7 @@ describe('Runtime Element', () => {
 
       expect(runtimeStore?.state[stateFieldKey]).toBe('default value')
 
-      const reactElement = testBed.addRenderer({
+      const reactElement = testApplication.addRenderer({
         containerNode: page,
         id: renderer.id,
         rendererType: RendererType.Preview,
@@ -187,7 +188,7 @@ describe('Runtime Element', () => {
       render(
         React.createElement(
           StoreProvider,
-          { value: rootApplicationStore },
+          { value: testApplication.rootStore },
           reactElement,
         ),
       )
@@ -197,6 +198,6 @@ describe('Runtime Element', () => {
   )
 
   afterAll(() => {
-    unregisterRootStore(rootApplicationStore)
+    unregisterRootStore(testApplication)
   })
 })

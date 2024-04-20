@@ -1,4 +1,3 @@
-import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { Element } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'

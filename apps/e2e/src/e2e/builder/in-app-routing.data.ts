@@ -2,7 +2,6 @@ import type {
   IAppDto,
   ICreateElementData,
   ICreatePageData,
-  IPageDto,
 } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'

@@ -27,7 +27,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { cLog, evaluateExpression, hasExpression } from '@codelab/shared/utils'
+import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

@@ -1,10 +1,6 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
-import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { act, render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
-import React from 'react'
 import { rootApplicationStore } from '../../../../application/test/src/root.test.store'
 import { TestBed } from '../../../../application/test/src/test-bed'
 

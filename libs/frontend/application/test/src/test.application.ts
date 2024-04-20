@@ -1,55 +1,12 @@
 import type {
   IRendererDto,
   IRootStore,
-  IRootStoreDtoTest,
 } from '@codelab/frontend/abstract/application'
 import {
-  componentServiceContext,
-  elementServiceContext,
   rendererRef,
-  rendererServiceContext,
   RendererType,
-  routerServiceContext,
-  runtimeComponentServiceContext,
-  runtimeElementServiceContext,
-  runtimePageServiceContext,
 } from '@codelab/frontend/abstract/application'
-import {
-  actionDomainServiceContext,
-  appDomainServiceContext,
-  atomDomainServiceContext,
-  componentDomainServiceContext,
-  elementDomainServiceContext,
-  fieldDomainServiceContext,
-  pageDomainServiceContext,
-  resourceDomainServiceContext,
-  storeDomainServiceContext,
-  userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { AppService } from '@codelab/frontend/application/app'
-import { AtomService } from '@codelab/frontend/application/atom'
-import { ComponentApplicationService } from '@codelab/frontend/application/component'
-import { ElementService } from '@codelab/frontend/application/element'
-import { PageApplicationService } from '@codelab/frontend/application/page'
-import {
-  PropService,
-  propServiceContext,
-} from '@codelab/frontend/application/prop'
-import {
-  RendererApplicationService,
-  rendererFactory,
-  RuntimeComponentService,
-  RuntimeElementService,
-  RuntimePageService,
-} from '@codelab/frontend/application/renderer'
-import { ResourceService } from '@codelab/frontend/application/resource'
-import { RouterService } from '@codelab/frontend/application/shared/store'
-import {
-  ActionService,
-  StoreService,
-} from '@codelab/frontend/application/store'
-import { FieldService, TypeService } from '@codelab/frontend/application/type'
-import { UserService } from '@codelab/frontend/application/user'
+import { rendererFactory } from '@codelab/frontend/application/renderer'
 import {
   apiActionFactory,
   codeActionFactory,
@@ -68,7 +25,6 @@ import {
   primitiveTypeFactory,
   reactNodeTypeFactory,
   renderPropsTypeFactory,
-  typeDomainServiceContext,
 } from '@codelab/frontend/domain/type'
 import { createRootStore } from '@codelab/frontend/infra/mobx'
 import type {
@@ -94,10 +50,17 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { PartialExcept } from '@codelab/shared/abstract/types'
+import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { auth0IdToken } from '@codelab/shared/data/test'
-import { Model, model, objectMap, prop, registerRootStore } from 'mobx-keystone'
+import { autorun } from 'mobx'
+import {
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+  registerRootStore,
+} from 'mobx-keystone'
 import { v4 } from 'uuid'
 
 export const createTestApplication = () => {
@@ -108,18 +71,21 @@ export const createTestApplication = () => {
     atomRefs: prop(() => objectMap<IAtomRenderType>()),
     rootStore: prop<IRootStore>(),
   }) {
+    @modelAction
     addApiAction(dto: Partial<IApiActionDto>) {
       return apiActionFactory(this.rootStore.actionService.actionDomainService)(
         dto,
       )
     }
 
+    @modelAction
     addApp(dto: Partial<IAppDto>) {
       // console.log('addApp', dto)
 
       return appFactory(this.rootStore.appService.appDomainService)(dto)
     }
 
+    @modelAction
     addAtom(dto: Partial<IAtomDto>) {
       return atomFactory(this.rootStore.atomService.atomDomainService)({
         ...dto,
@@ -127,12 +93,14 @@ export const createTestApplication = () => {
       })
     }
 
+    @modelAction
     addCodeAction(dto: Partial<ICodeActionDto>) {
       return codeActionFactory(
         this.rootStore.actionService.actionDomainService,
       )(dto)
     }
 
+    @modelAction
     addComponent(dto: Partial<IComponentDto>) {
       const id = dto.id ?? v4()
 
@@ -150,28 +118,33 @@ export const createTestApplication = () => {
       })
     }
 
+    @modelAction
     addElement(dto: Partial<ICreateElementDto>) {
       return elementFactory(this.rootStore.elementService.elementDomainService)(
         dto,
       )
     }
 
+    @modelAction
     addField(dto: Partial<IFieldDto>) {
       return fieldFactory(this.rootStore.fieldService.fieldDomainService)(dto)
     }
 
+    @modelAction
     addInterfaceType(dto: Partial<IInterfaceTypeDto>) {
       return interfaceTypeFactory(this.rootStore.typeService.typeDomainService)(
         dto,
       )
     }
 
+    @modelAction
     addPage(dto: Partial<IPageDto>) {
       // console.log('addPage', dto)
 
       return pageFactory(this.rootStore.pageService.pageDomainService)(dto)
     }
 
+    @modelAction
     addPageRegular({
       app,
       id = v4(),
@@ -195,28 +168,33 @@ export const createTestApplication = () => {
       })
     }
 
+    @modelAction
     addPrimitiveType(dto: Partial<IPrimitiveTypeDto>) {
       return primitiveTypeFactory(this.rootStore.typeService.typeDomainService)(
         dto,
       )
     }
 
+    @modelAction
     addProp(dto: Partial<IPropDto>) {
       return propFactory(dto)
     }
 
+    @modelAction
     addReactNode(dto: Partial<IReactNodeType>) {
       return reactNodeTypeFactory(this.rootStore.typeService.typeDomainService)(
         dto,
       )
     }
 
+    @modelAction
     addRenderProps(dto: Partial<IRenderPropTypeDto>) {
       return renderPropsTypeFactory(
         this.rootStore.typeService.typeDomainService,
       )(dto)
     }
 
+    @modelAction
     addRenderer(dto: Partial<IRendererDto>) {
       // console.log('addRenderer', dto)
 
@@ -227,12 +205,14 @@ export const createTestApplication = () => {
       return renderer
     }
 
+    @modelAction
     addResource(dto: Partial<IStoreDto>) {
       return resourceFactory(
         this.rootStore.resourceService.resourceDomainService,
       )(dto)
     }
 
+    @modelAction
     addStore(dto: Partial<IStoreDto>) {
       return storeFactory(this.rootStore.storeService.storeDomainService)({
         ...dto,
@@ -240,24 +220,22 @@ export const createTestApplication = () => {
       })
     }
 
-    clear() {
-      this.rootStore.clear()
+    @modelAction
+    init() {
+      this.clear()
+
+      const reactFragment = testApplication.addAtom({
+        name: IAtomType.ReactFragment,
+        type: IAtomType.ReactFragment,
+      })
+
+      const htmlDivAtom = testApplication.addAtom({
+        name: IAtomType.HtmlDiv,
+        type: IAtomType.HtmlDiv,
+      })
     }
 
-    getDivAtom() {
-      return this.rootStore.atomService.atomDomainService.atomsList.find(
-        (atom) => atom.type === IAtomType.HtmlDiv,
-      )
-    }
-
-    getStringType() {
-      return this.rootStore.typeService.typeDomainService.typesList.find(
-        (type) =>
-          type.kind === ITypeKind.PrimitiveType &&
-          type.primitiveKind === IPrimitiveTypeKind.String,
-      )
-    }
-
+    @modelAction
     setupComponent() {
       const componentId = 'component-id'
       const rootElementId = 'root-element-id'
@@ -288,6 +266,7 @@ export const createTestApplication = () => {
       return { component, renderer, runtimeComponent }
     }
 
+    @modelAction
     setupPage(
       rendererType: RendererType = RendererType.Preview,
       pageKind: IPageKind = IPageKind.Regular,
@@ -300,8 +279,6 @@ export const createTestApplication = () => {
           : app.providerPage
 
       // page.rootElement.current.writeCache({ renderType: this.getDivAtom() })
-
-      console.log(page.rootElement.current.toJson)
 
       const renderer = this.addRenderer({
         containerNode: page,
@@ -323,6 +300,7 @@ export const createTestApplication = () => {
       }
     }
 
+    @modelAction
     setupRuntimeComponent(
       rendererType: RendererType = RendererType.Preview,
       pageKind: IPageKind = IPageKind.Regular,
@@ -354,6 +332,7 @@ export const createTestApplication = () => {
       }
     }
 
+    @modelAction
     setupRuntimeElement(
       rendererType: RendererType = RendererType.Preview,
       pageKind: IPageKind = IPageKind.Regular,
@@ -375,22 +354,23 @@ export const createTestApplication = () => {
       }
     }
 
-    protected onAttachedToRootStore() {
-      this.clear()
+    getAtomByType(type: IAtomType) {
+      return this.rootStore.atomService.atomDomainService.atomsList.find(
+        (atom) => atom.type === type,
+      )
+    }
 
-      const reactFragment = this.addAtom({
-        name: IAtomType.ReactFragment,
-        type: IAtomType.ReactFragment,
-      })
+    getStringType() {
+      return this.rootStore.typeService.typeDomainService.typesList.find(
+        (type) =>
+          type.kind === ITypeKind.PrimitiveType &&
+          type.primitiveKind === IPrimitiveTypeKind.String,
+      )
+    }
 
-      this.atomRefs.set(reactFragment.name, reactFragment)
-
-      const htmlDivAtom = this.addAtom({
-        name: IAtomType.HtmlDiv,
-        type: IAtomType.HtmlDiv,
-      })
-
-      this.atomRefs.set(htmlDivAtom.name, htmlDivAtom)
+    @modelAction
+    private clear() {
+      this.rootStore.clear()
     }
   }
 
@@ -401,67 +381,4 @@ export const createTestApplication = () => {
   registerRootStore(testApplication)
 
   return testApplication
-}
-
-export const createTestApplicationForRenderer = () => {
-  const rootStoreDto = {
-    context: {
-      actionDomainServiceContext,
-      appDomainServiceContext,
-      atomDomainServiceContext,
-      componentDomainServiceContext,
-      componentServiceContext,
-      elementDomainServiceContext,
-      elementServiceContext,
-      fieldDomainServiceContext,
-      pageDomainServiceContext,
-      propServiceContext,
-      rendererServiceContext,
-      resourceDomainServiceContext,
-      routerServiceContext,
-      runtimeComponentServiceContext,
-      runtimeElementServiceContext,
-      runtimePageServiceContext,
-      storeDomainServiceContext,
-      typeDomainServiceContext,
-      userDomainServiceContext,
-    },
-    store: {
-      actionService: new ActionService({}),
-      appService: new AppService({}),
-      atomService: new AtomService({}),
-      componentService: new ComponentApplicationService({}),
-      elementService: new ElementService({}),
-      fieldService: new FieldService({}),
-      pageService: new PageApplicationService({}),
-      propService: new PropService({}),
-      rendererService: new RendererApplicationService({}),
-      resourceService: new ResourceService({}),
-      routerService: new RouterService({}),
-      runtimeComponentService: new RuntimeComponentService({}),
-      runtimeElementService: new RuntimeElementService({}),
-      runtimePageService: new RuntimePageService({}),
-      storeService: new StoreService({}),
-      typeService: new TypeService({}),
-      userService: UserService.init({
-        email: '',
-        email_verified: false,
-        family_name: '',
-        given_name: '',
-        'https://api.codelab.app/jwt/claims': {
-          neo4j_user_id: v4(),
-          roles: [],
-        },
-        locale: '',
-        name: '',
-        nickname: '',
-        picture: '',
-        sid: '',
-        sub: '',
-        updated_at: '',
-      }),
-    },
-  }
-
-  return createTestApplication(rootStoreDto)
 }

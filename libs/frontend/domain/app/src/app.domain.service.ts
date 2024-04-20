@@ -30,6 +30,7 @@ export class AppDomainService
   @modelAction
   create = (appDto: IAppDto) => {
     const app = this.hydrate(appDto)
+
     const renderType = this.atomDomainService.defaultRenderType
 
     const pages = this.pageDomainService.pageFactory.addSystemPages(

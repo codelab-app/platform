@@ -8,7 +8,6 @@ import {
   UpdateTagModal,
 } from '@codelab/frontend/application/tag'
 import { ContentSection } from '@codelab/frontend/presentation/view'
-import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 

@@ -1,5 +1,4 @@
 import { AuthenticationClient } from 'auth0'
-import set from 'lodash/set'
 
 // export const managementClient = new ManagementClient({
 //   clientId: m2mConfig.clientId,

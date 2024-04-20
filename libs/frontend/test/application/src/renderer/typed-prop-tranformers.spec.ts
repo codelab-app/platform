@@ -1,9 +1,6 @@
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import {
-  IElementRenderTypeKind,
-  IPrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
-import { screen, waitFor } from '@testing-library/dom'
+import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React, { isValidElement } from 'react'

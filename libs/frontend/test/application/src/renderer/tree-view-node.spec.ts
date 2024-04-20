@@ -2,10 +2,7 @@ import {
   IRuntimeNodeType,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import {
-  IElementRenderTypeKind,
-  IPageKind,
-} from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { rootApplicationStore } from '../../../../application/test/src/root.test.store'

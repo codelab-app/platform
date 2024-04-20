@@ -108,9 +108,17 @@ import { UserService } from '@codelab/frontend/application/user'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
+import { auth0IdToken } from '@codelab/shared/data/test'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createRootStore = ({ router = {}, user }: IPageProps) => {
+export const createRootStore = ({
+  router = {
+    path: '',
+    pathname: '',
+    query: {},
+  },
+  user = auth0IdToken,
+}: IPageProps) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({

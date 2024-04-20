@@ -2,7 +2,6 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import intersection from 'lodash/intersection'
 import size from 'lodash/size'
-import { ObjectTyped } from 'object-typed'
 import path from 'path'
 
 export const productionDataPath = path.resolve('./data/export-v3')

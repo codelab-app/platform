@@ -1,9 +1,6 @@
 import type { PageType } from '@codelab/frontend/abstract/types'
-import isNil from 'lodash/isNil'
-import type { NextRouter } from 'next/router'
 import { useRouter } from 'next/router'
-import type { ParsedUrlQueryInput } from 'querystring'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import type { IBuilderPage } from '../builder-router'
 import { extractPathParamsFromUrlInstance } from '../builder-router'
 

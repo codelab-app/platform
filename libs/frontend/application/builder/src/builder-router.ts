@@ -1,12 +1,5 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { PageType } from '@codelab/frontend/abstract/types'
-import isNil from 'lodash/isNil'
-import type { NextRouter } from 'next/router'
-import { useRouter } from 'next/router'
-import type { Key } from 'path-to-regexp'
-import { match, pathToRegexp } from 'path-to-regexp'
-import type { ParsedUrlQueryInput } from 'querystring'
-import React, { useEffect } from 'react'
+import { match } from 'path-to-regexp'
 
 export type IBuilderPage = Pick<
   IPageModel,

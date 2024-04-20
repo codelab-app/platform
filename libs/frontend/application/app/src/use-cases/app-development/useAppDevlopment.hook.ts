@@ -7,7 +7,6 @@ import {
   usePageQuery,
 } from '@codelab/frontend/presentation/container'
 import { PageKind } from '@codelab/shared/abstract/codegen'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 

@@ -3,7 +3,7 @@ import { Typography } from 'antd'
 import React from 'react'
 import type { ToolbarProps } from '../../../abstract'
 import { CuiSidebarToolbar } from '../../../views'
-import type { CuiSidebarProps, CuiSidebarView } from '../CuiSidebar'
+import type { CuiSidebarProps } from '../CuiSidebar'
 
 type CuiSidebarHeader = Pick<CuiSidebarProps, 'label'> & {
   toolbar?: ToolbarProps
