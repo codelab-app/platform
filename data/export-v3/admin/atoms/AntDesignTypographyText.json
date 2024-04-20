@@ -9,6 +9,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "11c2bb41-0068-4dd0-88ed-1eee4ab4d9ed",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "720cd9e4-d94c-47d8-ac96-9f49b3e1d3c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
         },
         "id": "1aa31fc2-06b5-4f76-ab1b-6ca950993d7a",
@@ -221,6 +237,26 @@
         "id": "720cd9e4-d94c-47d8-ac96-9f49b3e1d3c3",
         "kind": "InterfaceType",
         "name": "AntDesignTypographyText API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "kind": "RichTextType",
+            "name": "RichTextType"
+          }
+        ]
       },
       {
         "__typename": "EnumType",
