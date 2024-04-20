@@ -88,7 +88,7 @@ export const CuiTree = observer(
     const cuiTreeStore = useLocalObservable(
       () =>
         new CuiTreeStore({
-          expandedKeys,
+          expandedKeys: [],
           filterOptions: {},
           treeData,
         }),

@@ -15,6 +15,7 @@ export type UserFragment = {
   auth0Id: string
   email: string
   id: string
+  preferences?: string | null
   roles?: Array<Types.Role> | null
   username: string
   apps: Array<AppFragment>
@@ -28,6 +29,7 @@ export const UserFragmentDoc = gql`
     auth0Id
     email
     id
+    preferences
     roles
     username
   }

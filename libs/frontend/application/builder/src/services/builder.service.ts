@@ -8,9 +8,10 @@ import {
   BuilderWidth,
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
+  getUserService,
   isRuntimeComponentRef,
-  isRuntimeElement,
   isRuntimeElementRef,
+  isRuntimePage,
   RendererTab,
   runtimeComponentRef,
   runtimeElementRef,
@@ -33,8 +34,7 @@ export class BuilderService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
-    expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
+    expandedElementTreeNodeIds: prop<Array<string>>(() => []),
     hoveredNode: prop<Nullable<IRuntimeModelRef>>(null).withSetter(),
     selectedBuilderBreakpoint: prop<BuilderWidthBreakPoint>(
       () => BuilderWidthBreakPoint.MobilePortrait,
@@ -69,13 +69,24 @@ export class BuilderService
       return selectedNode
     }
 
-    if (isRuntimeElement(selectedNode)) {
-      return isRuntimeComponentRef(selectedNode.closestContainerNode)
-        ? selectedNode.closestContainerNode
+    if (isRuntimeElementRef(selectedNode)) {
+      return isRuntimeComponentRef(selectedNode.current.closestContainerNode)
+        ? selectedNode.current.closestContainerNode
         : null
     }
 
     return null
+  }
+
+  @computed
+  get activeContainerId() {
+    if (!this.activeElementTree) {
+      return null
+    }
+
+    return isRuntimePage(this.activeElementTree)
+      ? this.activeElementTree.page.id
+      : this.activeElementTree.component.id
   }
 
   /**
@@ -145,6 +156,21 @@ export class BuilderService
     )
   }
 
+  @computed
+  get expandedElementTreeNodeIds() {
+    const preferences = this.userPreferenceService.preferences
+    const containerId = this.activeContainerId
+    const treeViewNode = this.activeElementTree?.treeViewNode
+
+    if (!treeViewNode || !containerId) {
+      return []
+    }
+
+    return [
+      ...(preferences.explorerExpandedNodes[containerId] ?? [treeViewNode.key]),
+    ]
+  }
+
   @modelAction
   hoverElementNode(node: Nullable<IRuntimeElementModel>) {
     if (!node) {
@@ -163,7 +189,6 @@ export class BuilderService
     }
 
     this.selectedNode = runtimeComponentRef(node)
-    this.updateExpandedNodes()
   }
 
   @modelAction
@@ -173,8 +198,6 @@ export class BuilderService
     }
 
     this.selectedNode = runtimeElementRef(node)
-
-    this.updateExpandedNodes()
   }
 
   @modelAction
@@ -198,6 +221,18 @@ export class BuilderService
   }
 
   @modelAction
+  setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>) {
+    if (!this.activeContainerId) {
+      return
+    }
+
+    this.userPreferenceService.setElementTreeExpandedKeys(
+      this.activeContainerId,
+      expandedNodeIds,
+    )
+  }
+
+  @modelAction
   setSelectedBuilderWidth(width: BuilderWidth) {
     // -1 max width means fill the screen, so we use the available
     // container width as long as it's not smaller than the min
@@ -214,61 +249,6 @@ export class BuilderService
     }
   }
 
-  @modelAction
-  updateExpandedNodes = () => {
-    if (!this.selectedNode) {
-      return
-    }
-
-    const newNodesToExpand = this.findNodesToExpand(
-      this.selectedNode,
-      this.expandedComponentTreeNodeIds,
-    )
-
-    if (this.activeTab === RendererTab.Page) {
-      this.expandedPageElementTreeNodeIds = [
-        ...this.expandedPageElementTreeNodeIds,
-        ...newNodesToExpand,
-      ]
-    } else {
-      this.expandedComponentTreeNodeIds = [
-        ...this.expandedComponentTreeNodeIds,
-        ...newNodesToExpand,
-      ]
-    }
-  }
-
-  findNodesToExpand = (
-    selectedNode: IRuntimeModelRef,
-    alreadyExpandedNodeIds: Array<string>,
-  ): Array<string> => {
-    /**
-     * If we delete an element, the whole tree collapses. Instead,
-     * we want to show the sibling or parent as selected.
-     */
-    const pathResult = this.getPathFromRoot(selectedNode)
-    const expandedSet = new Set(alreadyExpandedNodeIds)
-
-    return pathResult.filter((el) => !expandedSet.has(el))
-  }
-
-  getPathFromRoot(selectedNode: IRuntimeModelRef): Array<string> {
-    const path = []
-
-    if (!isRuntimeElementRef(selectedNode)) {
-      return [selectedNode.current.compositeKey]
-    }
-
-    let currentElement = selectedNode.maybeCurrent
-
-    while (currentElement) {
-      path.push(currentElement.compositeKey)
-      currentElement = currentElement.parentElement
-    }
-
-    return path.reverse()
-  }
-
   @computed
   private get atomDomainService() {
     return getAtomDomainService(this)
@@ -277,5 +257,10 @@ export class BuilderService
   @computed
   private get tagDomainService() {
     return getTagDomainService(this)
+  }
+
+  @computed
+  private get userPreferenceService() {
+    return getUserService(this).userPreferenceService
   }
 }

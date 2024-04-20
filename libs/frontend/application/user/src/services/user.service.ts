@@ -15,6 +15,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { userApi } from './user.api'
+import { UserPreferenceService } from './user-preference.service'
 
 const init = (data: Auth0IdToken) => {
   const user = User.fromSession(data)
@@ -23,15 +24,17 @@ const init = (data: Auth0IdToken) => {
 }
 
 const fromDto = (user: IUserDto) => {
-  return new UserService({
-    userDomainService: UserDomainService.fromDto(user),
-  })
+  const userDomainService = UserDomainService.fromDto(user)
+  const userPreferenceService = new UserPreferenceService({})
+
+  return new UserService({ userDomainService, userPreferenceService })
 }
 
 @model('@codelab/UserService')
 export class UserService
   extends Model({
     userDomainService: prop<IUserDomainService>(),
+    userPreferenceService: prop<UserPreferenceService>(),
   })
   implements IUserService
 {

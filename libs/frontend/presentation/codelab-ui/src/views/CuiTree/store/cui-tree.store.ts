@@ -159,7 +159,7 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
   }
 
   @observable
-  private autoExpandParent_ = true
+  private autoExpandParent_ = false
 
   @observable
   private expandedKeys_: Array<Key>

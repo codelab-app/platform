@@ -135,6 +135,21 @@ input ActionTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -184,6 +199,7 @@ type ActionTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -1439,6 +1455,21 @@ input AppOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -1719,6 +1750,21 @@ input AppTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -1764,6 +1810,7 @@ type AppTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -1820,6 +1867,7 @@ type AppUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -2329,6 +2377,21 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -2378,6 +2441,7 @@ type ArrayTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -3010,6 +3074,21 @@ input AtomOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -3918,6 +3997,7 @@ type AtomUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -4414,6 +4494,21 @@ input AuthGuardOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -4596,6 +4691,7 @@ type AuthGuardUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -5497,6 +5593,21 @@ input CodeMirrorTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -5544,6 +5655,7 @@ type CodeMirrorTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -5900,6 +6012,21 @@ input ComponentOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -6356,6 +6483,7 @@ type ComponentUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -8998,6 +9126,21 @@ input ElementTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -9045,6 +9188,7 @@ type ElementTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -9674,6 +9818,21 @@ input EnumTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -9723,6 +9882,7 @@ type EnumTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -11592,6 +11752,21 @@ input IBaseTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -12402,6 +12577,21 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -12453,6 +12643,7 @@ type InterfaceTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -12725,6 +12916,21 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -12770,6 +12976,7 @@ type LambdaTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -14303,6 +14510,21 @@ input PageTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -14348,6 +14570,7 @@ type PageTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -14591,6 +14814,21 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -14643,6 +14881,7 @@ type PrimitiveTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -15248,6 +15487,21 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -15297,6 +15551,7 @@ type ReactNodeTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -16069,6 +16324,21 @@ input RenderPropTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -16118,6 +16388,7 @@ type RenderPropTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -16399,6 +16670,21 @@ input ResourceOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -16466,6 +16752,7 @@ type ResourceUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -17656,6 +17943,21 @@ input TagOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -17858,6 +18160,7 @@ type TagUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -18211,6 +18514,21 @@ input UnionTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -19071,6 +19389,7 @@ type UnionTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -19373,6 +19692,7 @@ type User {
   ): UserElementsConnection!
   email: String!
   id: ID!
+  preferences: String
   roles: [Role!]
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
@@ -19406,6 +19726,7 @@ type UserAggregateSelection {
   count: Int!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
@@ -19860,6 +20181,7 @@ input UserCreateInput {
   elements: UserElementsFieldInput
   email: String!
   id: ID!
+  preferences: String
   roles: [Role!]
   tags: UserTagsFieldInput
   types: UserTypesFieldInput
@@ -20075,6 +20397,7 @@ input UserOnCreateInput {
   auth0Id: String!
   email: String!
   id: ID!
+  preferences: String
   roles: [Role!]
   username: String!
 }
@@ -20105,6 +20428,7 @@ input UserSort {
   auth0Id: SortDirection
   email: SortDirection
   id: SortDirection
+  preferences: SortDirection
   username: SortDirection
 }
 
@@ -20299,6 +20623,7 @@ input UserUpdateInput {
   elements: [UserElementsUpdateFieldInput!]
   email: String
   id: ID
+  preferences: String
   roles: [Role!]
   tags: [UserTagsUpdateFieldInput!]
   types: [UserTypesUpdateFieldInput!]
@@ -20491,6 +20816,12 @@ input UserWhere {
   id_IN: [ID!]
   id_MATCHES: String
   id_STARTS_WITH: ID
+  preferences: String
+  preferences_CONTAINS: String
+  preferences_ENDS_WITH: String
+  preferences_IN: [String]
+  preferences_MATCHES: String
+  preferences_STARTS_WITH: String
   roles: [Role!]
   roles_INCLUDES: Role
   tagsAggregate: UserTagsAggregateInput
