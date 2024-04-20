@@ -1,4 +1,5 @@
 /// <reference types='jest'/>
+import merge from 'lodash/merge'
 import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
   actionType,
@@ -79,8 +80,20 @@ export const arrayTypeExpectedSchema = {
 
 export const unionTypeExpectedSchema = {
   oneOf: [
-    createTypedPropTypeExpectedSchema(stringType.kind, stringType.id),
-    createTypedPropTypeExpectedSchema(intType.kind, intType.id),
+    merge(
+      {
+        ...createTypedPropTypeExpectedSchema(stringType.kind, stringType.id),
+        typeName: stringType.name,
+      },
+      { properties: { value: stringTypeExpectedSchema } },
+    ),
+    merge(
+      {
+        ...createTypedPropTypeExpectedSchema(intType.kind, intType.id),
+        typeName: intType.name,
+      },
+      { properties: { value: intTypeExpectedSchema } },
+    ),
   ],
   uniforms: expect.any(Object),
 }

@@ -93,7 +93,7 @@ describe('InterfaceForm', () => {
     // NOTE: need to use document here because the select dropdown is
     // rendered in a portal. So container doesn't work.
     const intTypeOption = document.querySelector(
-      `.ant-select-item.ant-select-item-option[title="${intType.kind}"]`,
+      `.ant-select-item.ant-select-item-option[title="${intType.name}"]`,
     )
 
     expect(intTypeOption).toBeInTheDocument()
@@ -103,9 +103,12 @@ describe('InterfaceForm', () => {
     // Check the selected type has been updated
     expect(
       container.querySelector('.ant-select-selection-item'),
-    ).toHaveTextContent(intType.kind)
+    ).toHaveTextContent(intType.name)
 
-    expect(mockSubmit).toHaveBeenCalledWith('unionField.type', intType.id)
+    expect(mockSubmit).toHaveBeenCalledWith('unionField', {
+      kind: intType.kind,
+      type: intType.id,
+    })
 
     // Update value field
     const valueField = getByTestId('unionField.value')
@@ -121,7 +124,7 @@ describe('InterfaceForm', () => {
     await act(() => userEvent.click(selectUnionTypeElement!))
 
     const stringTypeOption = document.querySelector(
-      `.ant-select-item.ant-select-item-option[title="${stringType.kind}"]`,
+      `.ant-select-item.ant-select-item-option[title="${stringType.name}"]`,
     )
 
     expect(stringTypeOption).toBeInTheDocument()
@@ -130,7 +133,7 @@ describe('InterfaceForm', () => {
 
     expect(
       container.querySelector('.ant-select-selection-item'),
-    ).toHaveTextContent(stringType.kind)
+    ).toHaveTextContent(stringType.name)
 
     expect(mockSubmit).toHaveBeenCalledWith('unionField', {
       kind: 'PrimitiveType',

@@ -21,10 +21,12 @@ import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
+import merge from 'lodash/merge'
 import type { UiPropertiesContext } from './types'
 import { getUiProperties } from './ui-properties'
 
 export interface JsonSchema extends JSONSchema7 {
+  isTypedProp?: boolean
   label?: string
   properties?:
     | {
@@ -285,7 +287,20 @@ export class TypeSchemaFactory {
     return {
       ...extra,
       oneOf: type.typesOfUnionType.map((innerType) => {
-        return this.transformTypedPropType(innerType.current)
+        const typeSchema = this.transform(innerType.current)
+
+        return typeSchema.isTypedProp
+          ? {
+              ...typeSchema,
+              typeName: innerType.current.name,
+            }
+          : merge(
+              {
+                ...this.transformTypedPropType(innerType.current),
+                typeName: innerType.current.name,
+              },
+              { properties: { value: typeSchema } },
+            )
       }),
     }
   }
@@ -319,6 +334,7 @@ export class TypeSchemaFactory {
     const label = context?.fieldName ?? ''
 
     return {
+      isTypedProp: true,
       label: '',
       properties: {
         kind: {

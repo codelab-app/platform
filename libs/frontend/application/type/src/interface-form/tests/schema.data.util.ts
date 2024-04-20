@@ -2,6 +2,7 @@ export const createTypedPropTypeExpectedSchema = (
   kind: string,
   id: string,
 ) => ({
+  isTypedProp: true,
   label: '',
   properties: {
     kind: {

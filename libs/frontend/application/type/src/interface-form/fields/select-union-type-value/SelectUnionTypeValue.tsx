@@ -31,7 +31,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   }
 
   const typeOptions = schemas.map((schema) => ({
-    label: schema.properties.kind.default as string,
+    label: schema.typeName as string,
     value: schema.properties.type.default as string,
   }))
 
@@ -89,7 +89,6 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
                 const validate = createValidator(valueSchema)
 
                 validate(formData)
-                console.log(formData)
                 context.onChange(valueFieldName, formData.value)
               }
             }}
