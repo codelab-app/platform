@@ -21,6 +21,25 @@ export interface TypedProp {
 }
 
 /**
+ * We don't require value to be present unlike isTypedProp
+ */
+export const hasTypedPropFormat = (prop: IPropData): prop is TypedProp => {
+  if (!isPlainObject(prop)) {
+    return false
+  }
+
+  const keysLength = Object.keys(prop).length
+  const hasType = 'type' in prop && isString(prop['type'])
+  const hasKind = 'kind' in prop && prop['kind'] in ITypeKind
+  const hasTypeAndKindOnly = hasType && hasKind && keysLength === 2
+  const hasAllKeys = hasKind && hasType && keysLength === 3
+
+  // This condition reduces the chances of falsely identifying a prop from an atom component
+  // that has an actual `type`, `kind`, or `value` field but is not a render prop.
+  return hasTypeAndKindOnly || hasAllKeys
+}
+
+/**
  * Tells us whether this JSON data is representing a `TypedProp`
  */
 export const isTypedProp = (prop: IPropData): prop is TypedProp => {

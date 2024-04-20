@@ -3,7 +3,7 @@ import type {
   ICreateElementData,
   IPageDto,
 } from '@codelab/shared/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const childMapperComponent: ICreateComponentData = {
@@ -16,7 +16,11 @@ export const childMapperComponentElementTypography: ICreateElementData = {
   id: v4(),
   name: 'Text Content',
   propsData: {
-    children: 'text {{ componentProps.name }}',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: 'text {{ componentProps.name }}',
+    },
   },
 }
 

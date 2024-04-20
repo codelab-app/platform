@@ -50,7 +50,11 @@ export const componentElementCreateData = (
   name: 'Fetch Data',
   parentElement: component.rootElement,
   propsData: {
-    children: 'Name of data - {{ componentProps.name }}',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: 'Name of data - {{ componentProps.name }}',
+    },
     onClick: {
       kind: ITypeKind.ActionType,
       type: actionTypeId,

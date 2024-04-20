@@ -3,7 +3,7 @@ import type {
   ICreateElementData,
   ICreatePageData,
 } from '@codelab/shared/abstract/core'
-import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
+import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const testUrlProps = {
@@ -16,7 +16,11 @@ export const providerPageLinkElementCreateData: ICreateElementData = {
   id: v4(),
   name: 'Test Page Link',
   propsData: {
-    children: 'go to test page',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: 'go to test page',
+    },
     href: '/test-page',
   },
 }
@@ -25,7 +29,11 @@ export const staticPageTextElementCreateData: ICreateElementData = {
   id: v4(),
   name: 'Test Page Content',
   propsData: {
-    children: 'this is the test page',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: 'this is the test page',
+    },
   },
 }
 export const staticPageLinkElementCreateData: ICreateElementData = {
@@ -34,7 +42,11 @@ export const staticPageLinkElementCreateData: ICreateElementData = {
   name: 'Dynamic Page Link',
   prevSibling: { id: staticPageTextElementCreateData.id },
   propsData: {
-    children: 'go to dynamic page',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: 'go to dynamic page',
+    },
     href: `/tests/${testUrlProps.testId}/subtests/${testUrlProps.subtestId}`,
   },
 }

@@ -13,6 +13,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_ELEMENT_ID,
+  hasTypedPropFormat,
   isAtomRef,
   isComponentRef,
   isTypedProp,
@@ -150,12 +151,11 @@ export class RuntimeElementPropsModel
   get renderedChildrenProp(): ReactNode {
     const childrenProp = this.element.props.get('children')
 
-    const childrenHasRichTextType =
+    const shouldRenderRichTextEditor =
       childrenProp &&
-      isTypedProp(childrenProp) &&
+      // value could be empty
+      hasTypedPropFormat(childrenProp) &&
       childrenProp.kind === ITypeKind.RichTextType
-
-    const shouldRenderRichTextEditor = !childrenProp || childrenHasRichTextType
 
     /**
      * If not rich text then it is react node then return it directly

@@ -97,7 +97,11 @@ export const buttonElementCreateData: ICreateElementData = {
   name: 'Post Button',
   prevSibling: textElementCreateData,
   propsData: {
-    children: 'Click button to post',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: 'Click button to post',
+    },
     onClick: {
       kind: ITypeKind.ActionType,
       type: actionTypeId,

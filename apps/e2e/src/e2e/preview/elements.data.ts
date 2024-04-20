@@ -16,7 +16,11 @@ export const elementForm = (page: IPageDto): ICreateElementData => ({
   name: elementFormName,
   parentElement: { id: page.rootElement.id },
   propsData: {
-    children: '<p>Submit Form</p>',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: '<p>Submit Form</p>',
+    },
     htmlType: 'submit',
     onFinish: {
       kind: ITypeKind.ActionType,
@@ -94,7 +98,11 @@ const elementFormItemInput_3: ICreateElementData = {
   name: 'Checkbox Input',
   parentElement: { id: elementFormItem_3.id },
   propsData: {
-    children: '<p>Checkbox Field</p>',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: '<p>Checkbox Field</p>',
+    },
   },
 }
 
@@ -111,7 +119,11 @@ const elementFormItemInput_4: ICreateElementData = {
   name: 'Element Button',
   parentElement: { id: elementFormItem_4.id },
   propsData: {
-    children: '<p>Submit Form</p>',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: v4(),
+      value: '<p>Submit Form</p>',
+    },
     htmlType: 'submit',
   },
 }
