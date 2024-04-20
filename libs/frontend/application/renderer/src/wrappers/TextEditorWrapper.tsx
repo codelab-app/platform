@@ -10,10 +10,9 @@ import React, { useCallback } from 'react'
 export const TextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
-  const { propService, rendererService, typeService } = useStore()
+  const { propService, typeService } = useStore()
   const element = runtimeElement.element.current
-  const renderer = rendererService.activeRenderer?.current
-  const editable = element.isTextContentEditable && renderer?.isBuilder
+  const editable = element.isTextContentEditable
 
   const richTextType = typeService.typeDomainService.typesList.find(
     (type) => type.kind === ITypeKind.RichTextType,

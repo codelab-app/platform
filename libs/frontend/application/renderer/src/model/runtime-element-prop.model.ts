@@ -149,15 +149,13 @@ export class RuntimeElementPropsModel
   @computed
   get renderedChildrenProp(): ReactNode {
     const childrenProp = this.element.props.get('children')
-    const undefinedChildrenInBuilder = !childrenProp && this.renderer.isBuilder
 
     const childrenHasRichTextType =
       childrenProp &&
       isTypedProp(childrenProp) &&
       childrenProp.kind === ITypeKind.RichTextType
 
-    const shouldRenderRichTextEditor =
-      undefinedChildrenInBuilder || childrenHasRichTextType
+    const shouldRenderRichTextEditor = !childrenProp || childrenHasRichTextType
 
     /**
      * If not rich text then it is react node then return it directly
