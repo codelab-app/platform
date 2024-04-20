@@ -44,10 +44,10 @@ export type GetAppDevelopmentQuery = {
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
-  richTextTypes: Array<RichTextTypeFragment>
   redirects: Array<RedirectFragment>
   renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
+  richTextTypes: Array<RichTextTypeFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -73,9 +73,6 @@ export const GetAppDevelopmentDocument = gql`
     reactNodeTypes {
       ...ReactNodeType
     }
-    richTextTypes {
-      ...RichTextType
-    }
     redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
       ...Redirect
     }
@@ -85,6 +82,9 @@ export const GetAppDevelopmentDocument = gql`
     resources {
       ...Resource
     }
+    richTextTypes {
+      ...RichTextType
+    }
   }
   ${ActionTypeFragmentDoc}
   ${AppDevelopmentFragmentDoc}
@@ -93,10 +93,10 @@ export const GetAppDevelopmentDocument = gql`
   ${ComponentDevelopmentFragmentDoc}
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
-  ${RichTextTypeFragmentDoc}
   ${RedirectFragmentDoc}
   ${RenderPropTypeFragmentDoc}
   ${ResourceFragmentDoc}
+  ${RichTextTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

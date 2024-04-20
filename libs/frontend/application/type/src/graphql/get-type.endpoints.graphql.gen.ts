@@ -85,8 +85,8 @@ export type GetTypesQuery = {
   pageTypes: Array<Type_PageType_Fragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
-  richTextTypes: Array<Type_RichTextType_Fragment>
   renderPropTypes: Array<Type_RenderPropType_Fragment>
+  richTextTypes: Array<Type_RichTextType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
 }
 
@@ -277,10 +277,10 @@ export const GetTypesDocument = gql`
     reactNodeTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    richTextTypes(where: { id_IN: $ids }) {
+    renderPropTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    renderPropTypes(where: { id_IN: $ids }) {
+    richTextTypes(where: { id_IN: $ids }) {
       ...Type
     }
     unionTypes(where: { id_IN: $ids }) {
