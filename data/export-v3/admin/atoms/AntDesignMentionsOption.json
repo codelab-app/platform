@@ -45,6 +45,26 @@
         "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
         "kind": "InterfaceType",
         "name": "AntDesignMentionsOption API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "kind": "RichTextType",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },
