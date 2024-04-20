@@ -1,7 +1,8 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import type {
-  IUpdateBaseElementData,
-  IUpdateElementData,
+import {
+  isAtom,
+  type IUpdateBaseElementData,
+  type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -52,9 +53,10 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     if (
-      element.childMapperPropKey ??
-      element.childMapperPreviousSibling ??
-      element.childMapperComponent
+      isAtom(element.renderType.current) &&
+      (element.childMapperPropKey ??
+        element.childMapperPreviousSibling ??
+        element.childMapperComponent)
     ) {
       expandedFields.push('childMapper')
     }
@@ -92,12 +94,15 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         key: 'actions',
         label: 'Hooks Actions',
       },
-      {
+    ]
+
+    if (isAtom(element.renderType.current)) {
+      collapseItems.push({
         children: <ChildMapperCompositeField runtimeElement={runtimeElement} />,
         key: 'childMapper',
         label: 'Child Mapper',
-      },
-    ]
+      })
+    }
 
     return (
       <div key={element.id}>
