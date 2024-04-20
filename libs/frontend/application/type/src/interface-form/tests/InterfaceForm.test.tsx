@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/filename-case */
-import { screen } from '@testing-library/dom'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
@@ -25,8 +24,6 @@ describe('InterfaceForm', () => {
         submitField={React.Fragment}
       />,
     )
-
-    screen.debug()
 
     // Check enumField is rendered
     expect(container.querySelector('[name="enumField"]')).toBeInTheDocument()
@@ -96,7 +93,7 @@ describe('InterfaceForm', () => {
     // NOTE: need to use document here because the select dropdown is
     // rendered in a portal. So container doesn't work.
     const intTypeOption = document.querySelector(
-      '.ant-select-item.ant-select-item-option[title="Int type"]',
+      `.ant-select-item.ant-select-item-option[title="${intType.kind}"]`,
     )
 
     expect(intTypeOption).toBeInTheDocument()
@@ -106,7 +103,7 @@ describe('InterfaceForm', () => {
     // Check the selected type has been updated
     expect(
       container.querySelector('.ant-select-selection-item'),
-    ).toHaveTextContent('Int type')
+    ).toHaveTextContent(intType.kind)
 
     expect(mockSubmit).toHaveBeenCalledWith('unionField.type', intType.id)
 
@@ -124,7 +121,7 @@ describe('InterfaceForm', () => {
     await act(() => userEvent.click(selectUnionTypeElement!))
 
     const stringTypeOption = document.querySelector(
-      '.ant-select-item.ant-select-item-option[title="String type"]',
+      `.ant-select-item.ant-select-item-option[title="${stringType.kind}"]`,
     )
 
     expect(stringTypeOption).toBeInTheDocument()
@@ -133,7 +130,7 @@ describe('InterfaceForm', () => {
 
     expect(
       container.querySelector('.ant-select-selection-item'),
-    ).toHaveTextContent('String type')
+    ).toHaveTextContent(stringType.kind)
 
     expect(mockSubmit).toHaveBeenCalledWith('unionField', {
       kind: 'PrimitiveType',

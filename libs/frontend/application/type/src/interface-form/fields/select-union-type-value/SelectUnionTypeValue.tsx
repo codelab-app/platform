@@ -31,7 +31,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   }
 
   const typeOptions = schemas.map((schema) => ({
-    label: schema.typeName as string,
+    label: schema.properties.kind.default as string,
     value: schema.properties.type.default as string,
   }))
 
@@ -65,6 +65,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
     <AntdForm.Item label={fieldProps.label}>
       <div className="[&_label]:text-sm">
         <SelectField
+          label=""
           name={typeFieldName}
           onChange={(newType) => {
             context.onChange(name, {

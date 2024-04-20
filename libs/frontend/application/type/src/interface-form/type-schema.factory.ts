@@ -19,13 +19,20 @@ import type {
 import { fieldDescription } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import type { JSONSchema7 } from 'json-schema'
+import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import type { UiPropertiesContext } from './types'
 import { getUiProperties } from './ui-properties'
 
-export type JsonSchema = JSONSchema7 & { label?: string; uniforms?: object }
+export interface JsonSchema extends JSONSchema7 {
+  label?: string
+  properties?:
+    | {
+        [key: string]: JSONSchema7Definition & { uniforms?: object }
+      }
+    | undefined
+  uniforms?: object
+}
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
@@ -80,35 +87,6 @@ export class TypeSchemaFactory {
     }
   }
 
-  /**
-   * Produces the properties with the shape of a {@link TypedProp}
-   * with a `type` field that has a value of `typeId`
-   */
-  private static schemaForTypedProp(
-    type: Maybe<ITypeModel>,
-    valueSchema: JsonSchema,
-    typeLabel: Maybe<string>,
-  ): { [key: string]: JsonSchema } {
-    return {
-      kind: {
-        default: type?.kind,
-        enum: type?.kind ? [type.kind] : undefined,
-        label: `${typeLabel}Kind`,
-        type: 'string',
-        uniforms: blankUniforms,
-      },
-      type: {
-        default: type?.id,
-        // This ensures that only this exact type is considered valid. Allows union types to use oneOf
-        enum: type?.id ? [type.id] : undefined,
-        label: typeLabel,
-        type: 'string',
-        uniforms: blankUniforms,
-      },
-      value: valueSchema,
-    }
-  }
-
   private fromActionType(
     type: IActionTypeModel,
     context?: UiPropertiesContext,
@@ -149,15 +127,7 @@ export class TypeSchemaFactory {
     type: IElementTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-
-    const properties = TypeSchemaFactory.schemaForTypedProp(
-      type,
-      { label: '', type: 'string', ...extra },
-      '',
-    )
-
-    return { properties, type: 'object', uniforms: nullUniforms }
+    return this.transformTypedPropType(type, context)
   }
 
   private fromEnumType(
@@ -314,11 +284,9 @@ export class TypeSchemaFactory {
 
     return {
       ...extra,
-      oneOf: type.typesOfUnionType.map((innerType) => ({
-        ...this.transform(innerType.current),
-        // We use this as label of the select type field item
-        typeName: innerType.current.name,
-      })),
+      oneOf: type.typesOfUnionType.map((innerType) => {
+        return this.transformTypedPropType(innerType.current)
+      }),
     }
   }
 
@@ -344,25 +312,30 @@ export class TypeSchemaFactory {
    * Produces a {@link TypedProp} shaped schema
    */
   private transformTypedPropType(
-    type:
-      | IActionTypeModel
-      | IReactNodeTypeModel
-      | IRenderPropTypeModel
-      | IRichTextTypeModel,
+    type: ITypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
     const label = context?.fieldName ?? ''
 
-    const properties = TypeSchemaFactory.schemaForTypedProp(
-      type,
-      { label, ...extra },
-      '',
-    )
-
     return {
       label: '',
-      properties,
+      properties: {
+        kind: {
+          default: type.kind,
+          enum: [type.kind],
+          type: 'string',
+          uniforms: blankUniforms,
+        },
+        type: {
+          default: type.id,
+          // This ensures that only this exact type is considered valid. Allows union types to use oneOf
+          enum: type.id ? [type.id] : undefined,
+          type: 'string',
+          uniforms: blankUniforms,
+        },
+        value: { label, ...extra },
+      },
       required: ['type', 'kind'],
       type: 'object',
       uniforms: nullUniforms,
