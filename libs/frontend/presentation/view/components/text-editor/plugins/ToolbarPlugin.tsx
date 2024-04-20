@@ -103,7 +103,7 @@ export const ToolbarPlugin = ({
   ]
 
   return (
-    <Flex gap="small" wrap="wrap">
+    <Flex gap="small" id="lexical-toolbar" wrap="wrap">
       <Button
         aria-label="Undo"
         disabled={!canUndo}
