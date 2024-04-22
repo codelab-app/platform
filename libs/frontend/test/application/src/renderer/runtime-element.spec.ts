@@ -6,6 +6,7 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
+import { v4 } from 'uuid'
 
 describe('Runtime Element', () => {
   const testApplication = createTestApplication()
@@ -14,7 +15,7 @@ describe('Runtime Element', () => {
     testApplication.init()
   })
 
-  it.only('should create element runtime node', () => {
+  it('should create element runtime node', () => {
     const { page, rootElement, runtimePage, runtimeRootElement } =
       testApplication.setupRuntimeElement()
 
@@ -27,15 +28,32 @@ describe('Runtime Element', () => {
     )
   })
 
-  it('should create children with text injection', () => {
+  it('should create default atoms', () => {
+    const atomDomainService =
+      testApplication.rootStore.atomService.atomDomainService
+
+    const div = testApplication.getAtomByType(IAtomType.HtmlDiv)
+
+    console.log(div)
+
+    console.log(atomDomainService.atomsList)
+
+    expect(atomDomainService.atomsList.length).toBeGreaterThan(0)
+  })
+
+  it.only('should create children with text injection', () => {
     const { page, rendered, renderer, runtimePage } =
       testApplication.setupPage()
 
     const rootElement = page.rootElement.current
-    const divRenderType = testApplication.getAtomByType(IAtomType.HtmlDiv)
 
-    rootElement.writeCache({ renderType: divRenderType })
-    rootElement.props.set('children', 'text')
+    rootElement.writeCache({
+      props: {
+        data: JSON.stringify({ children: 'text' }),
+        id: v4(),
+      },
+    })
+    // rootElement.props.set('children', 'text')
 
     // console.log(runtimeRootElement.runtimeProps.evaluatedProps)
 

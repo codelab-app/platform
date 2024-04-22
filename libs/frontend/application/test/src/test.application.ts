@@ -31,7 +31,6 @@ import type {
   IApiActionDto,
   IAppDto,
   IAtomDto,
-  IAtomRenderType,
   ICodeActionDto,
   IComponentDto,
   ICreateElementDto,
@@ -52,12 +51,10 @@ import {
 } from '@codelab/shared/abstract/core'
 import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { autorun } from 'mobx'
 import {
   Model,
   model,
   modelAction,
-  objectMap,
   prop,
   registerRootStore,
 } from 'mobx-keystone'
@@ -68,7 +65,6 @@ export const createTestApplication = () => {
 
   @model('@codelab/TestApplication')
   class TestApplication extends Model({
-    atomRefs: prop(() => objectMap<IAtomRenderType>()),
     rootStore: prop<IRootStore>(),
   }) {
     @modelAction
@@ -112,7 +108,7 @@ export const createTestApplication = () => {
         id,
         rootElement: this.addElement({
           parentComponent: { id },
-          renderType: this.atomRefs.get(IAtomType.ReactFragment),
+          renderType: this.getAtomByType(IAtomType.ReactFragment),
         }),
         store: this.addStore({}),
       })
@@ -159,7 +155,7 @@ export const createTestApplication = () => {
           closestContainerNode: { id },
           name: ROOT_ELEMENT_NAME,
           page: { id },
-          renderType: this.atomRefs.get(IAtomType.HtmlDiv),
+          renderType: this.getAtomByType(IAtomType.HtmlDiv),
         }),
         store: this.addStore({
           name: Store.createName({ name }),
@@ -225,11 +221,13 @@ export const createTestApplication = () => {
       this.clear()
 
       const reactFragment = testApplication.addAtom({
+        id: IAtomType.ReactFragment,
         name: IAtomType.ReactFragment,
         type: IAtomType.ReactFragment,
       })
 
       const htmlDivAtom = testApplication.addAtom({
+        id: IAtomType.HtmlDiv,
         name: IAtomType.HtmlDiv,
         type: IAtomType.HtmlDiv,
       })
@@ -248,7 +246,7 @@ export const createTestApplication = () => {
           closestContainerNode: { id: componentId },
           name: ROOT_ELEMENT_NAME,
           parentComponent: { id: componentId },
-          renderType: this.atomRefs.get(IAtomType.HtmlDiv),
+          renderType: this.getAtomByType(IAtomType.HtmlDiv),
         }),
         store: this.addStore({
           component: { id: componentId },
