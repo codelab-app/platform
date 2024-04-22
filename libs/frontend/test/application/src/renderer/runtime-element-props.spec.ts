@@ -2,25 +2,26 @@ import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/applicat
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import { createTestApplication } from '@codelab/frontend/application/test'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
-import { rootApplicationStore } from '../../../../application/test/src/root.test.store'
-import { TestBed } from '../../../../application/test/src/test-bed'
 
-let testBed: TestBed
+let testApplication: ReturnType<typeof createTestApplication>
 
 describe('Runtime Element props', () => {
   beforeEach(() => {
-    testBed = TestBed.Create()
+    testApplication = createTestApplication()
   })
 
   describe('RuntimeProps.props', () => {
     it('should contain system props', () => {
-      const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
+      const { rootElement, runtimeRootElement } =
+        testApplication.setupRuntimeElement()
+
       const runtimeProps = runtimeRootElement.runtimeProps
 
       expect(runtimeProps.props).toMatchObject({
@@ -31,7 +32,9 @@ describe('Runtime Element props', () => {
     })
 
     it('should contain element props', () => {
-      const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
+      const { rootElement, runtimeRootElement } =
+        testApplication.setupRuntimeElement()
+
       const runtimeProps = runtimeRootElement.runtimeProps
 
       rootElement.props.set('randomProp', 'RandomPropValue')
@@ -42,16 +45,18 @@ describe('Runtime Element props', () => {
     })
 
     it('should contain default props', () => {
-      const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
+      const { rootElement, runtimeRootElement } =
+        testApplication.setupRuntimeElement()
+
       const runtimeProps = runtimeRootElement.runtimeProps
       const atom = rootElement.renderType.current
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = '"field-value"'
 
-      const field = testBed.addField({
+      const field = testApplication.addField({
         api: atom.api.current,
         defaultValues: fieldDefaultValue,
-        fieldType: testBed.getStringType(),
+        fieldType: testApplication.getStringType(),
         key: fieldKey,
       })
 
@@ -72,7 +77,10 @@ describe('Runtime Element props', () => {
       (stateKey, pageKind) => {
         // set renderType to builder for state to update when changing field default values
         const { page, rootElement, runtimeRootElement } =
-          testBed.setupRuntimeElement(RendererType.PageBuilder, pageKind)
+          testApplication.setupRuntimeElement(
+            RendererType.PageBuilder,
+            pageKind,
+          )
 
         const runtimeProps = runtimeRootElement.runtimeProps
         const fieldKey = 'fieldKey'
@@ -81,10 +89,10 @@ describe('Runtime Element props', () => {
         const store = page.providerPage?.store ?? page.store
         const storeApi = store.current.api.current
 
-        const field = testBed.addField({
+        const field = testApplication.addField({
           api: storeApi,
           defaultValues: JSON.stringify(fieldDefaultValue),
-          fieldType: testBed.getStringType(),
+          fieldType: testApplication.getStringType(),
           key: fieldKey,
         })
 
@@ -113,7 +121,7 @@ describe('Runtime Element props', () => {
         const isProviderPage = pageKind === IPageKind.Provider
 
         const { page, rootElement, runtimeRootElement } =
-          testBed.setupRuntimeElement(RendererType.Preview, pageKind)
+          testApplication.setupRuntimeElement(RendererType.Preview, pageKind)
 
         const runtimeProps = runtimeRootElement.runtimeProps
         const actionName = 'sum'
@@ -123,7 +131,7 @@ describe('Runtime Element props', () => {
           ? rootElement.store
           : page.providerPage?.store
 
-        testBed.addCodeAction({
+        testApplication.addCodeAction({
           code: `function run(a,b){
           return a + b;
         }`,
@@ -148,13 +156,13 @@ describe('Runtime Element props', () => {
       ['rootActions', IPageKind.Regular],
     ])('should bind %s with context in %s page', (actionsKey, pageKind) => {
       const { page, rootElement, runtimeRootElement } =
-        testBed.setupRuntimeElement(RendererType.Preview, pageKind)
+        testApplication.setupRuntimeElement(RendererType.Preview, pageKind)
 
       const runtimeProps = runtimeRootElement.runtimeProps
       const actionName = 'sum'
       const propKey = 'propKey'
 
-      testBed.addCodeAction({
+      testApplication.addCodeAction({
         code: `function run(){
           return {
             props,
@@ -188,14 +196,14 @@ describe('Runtime Element props', () => {
       'should bind %s with context',
       async (actionField) => {
         const { rootElement, runtimeRootElement } =
-          testBed.setupRuntimeElement()
+          testApplication.setupRuntimeElement()
 
         const runtimeProps = runtimeRootElement.runtimeProps
         const apiActionName = 'apiAction'
         const codeActionName = 'codeAction'
         const propKey = 'propKey'
 
-        const codeAction = testBed.addCodeAction({
+        const codeAction = testApplication.addCodeAction({
           code: `function run(response){
           return {
             props,
@@ -213,7 +221,7 @@ describe('Runtime Element props', () => {
 
         configure({ safeDescriptors: false })
 
-        const resource = testBed.addResource({})
+        const resource = testApplication.addResource({})
 
         jest.spyOn(resource, 'client', 'get').mockReturnValue({
           fetch: (config: IResourceFetchConfig) => {
@@ -227,7 +235,7 @@ describe('Runtime Element props', () => {
           },
         })
 
-        testBed.addApiAction({
+        testApplication.addApiAction({
           [actionField]: {
             __typename: 'CodeAction',
             id: codeAction.id,
@@ -259,7 +267,7 @@ describe('Runtime Element props', () => {
       'should pass response as args to %s',
       async (actionField) => {
         const { rootElement, runtimeRootElement } =
-          testBed.setupRuntimeElement()
+          testApplication.setupRuntimeElement()
 
         const runtimeProps = runtimeRootElement.runtimeProps
 
@@ -271,7 +279,7 @@ describe('Runtime Element props', () => {
         const apiActionName = 'apiAction'
         const codeActionName = 'successAction'
 
-        const codeAction = testBed.addCodeAction({
+        const codeAction = testApplication.addCodeAction({
           code: `function run(response){
           return response;
         }`,
@@ -281,7 +289,7 @@ describe('Runtime Element props', () => {
 
         configure({ safeDescriptors: false })
 
-        const resource = testBed.addResource({})
+        const resource = testApplication.addResource({})
 
         jest.spyOn(resource, 'client', 'get').mockReturnValue({
           fetch: (config: IResourceFetchConfig) => {
@@ -289,7 +297,7 @@ describe('Runtime Element props', () => {
           },
         })
 
-        testBed.addApiAction({
+        testApplication.addApiAction({
           [actionField]: {
             __typename: 'CodeAction',
             id: codeAction.id,
@@ -311,11 +319,11 @@ describe('Runtime Element props', () => {
       ['refs', IPageKind.Provider],
       ['rootRefs', IPageKind.Regular],
     ])('should evaluate ref expression with %s in %s', (refsKey, pageKind) => {
-      const { rendererService } = rootApplicationStore
+      const { rendererService } = testApplication.rootStore
       const isProviderPage = pageKind === IPageKind.Provider
 
       const { page, rendered, rootElement, runtimeRootElement } =
-        testBed.setupRuntimeElement(RendererType.Preview)
+        testApplication.setupRuntimeElement(RendererType.Preview)
 
       const runtimeProps = runtimeRootElement.runtimeProps
       const propKey = 'propKey'
@@ -330,7 +338,7 @@ describe('Runtime Element props', () => {
       const { rerender } = render(
         React.createElement(
           StoreProvider,
-          { value: rootApplicationStore },
+          { value: testApplication.rootStore },
           rendered,
         ),
       )
@@ -344,7 +352,7 @@ describe('Runtime Element props', () => {
           : undefined,
       })
 
-      const atom = testBed.addAtom({
+      const atom = testApplication.addAtom({
         __typename: 'Atom',
         name: 'HtmlSpan',
         type: IAtomType.HtmlSpan,
@@ -359,7 +367,7 @@ describe('Runtime Element props', () => {
       rerender(
         React.createElement(
           StoreProvider,
-          { value: rootApplicationStore },
+          { value: testApplication.rootStore },
           rendererService.activeRenderer?.current.render,
         ),
       )
@@ -380,7 +388,7 @@ describe('Runtime Element props', () => {
         const isProviderPage = pageKind === IPageKind.Provider
 
         const { page, rootElement, runtimeRootElement } =
-          testBed.setupRuntimeElement(RendererType.Preview, pageKind)
+          testApplication.setupRuntimeElement(RendererType.Preview, pageKind)
 
         const runtimeProps = runtimeRootElement.runtimeProps
         const actionName = 'rootAction'
@@ -389,16 +397,16 @@ describe('Runtime Element props', () => {
         const store = isProviderPage ? page.store : page.providerPage?.store
         const storeApi = store?.current.api.current
 
-        const field = testBed.addField({
+        const field = testApplication.addField({
           api: storeApi,
           defaultValues: JSON.stringify('default value'),
-          fieldType: testBed.getStringType(),
+          fieldType: testApplication.getStringType(),
           key: rootStateName,
         })
 
         storeApi?.writeCache({ fields: [field] })
 
-        testBed.addCodeAction({
+        testApplication.addCodeAction({
           code: `function run() {
             state.${rootStateName} = "something";
           }`,
@@ -423,11 +431,11 @@ describe('Runtime Element props', () => {
     )
 
     it('should evaluate component expression', () => {
-      const { runtimeRootElement } = testBed.setupRuntimeElement()
+      const { runtimeRootElement } = testApplication.setupRuntimeElement()
       const propKey = 'propKey'
       const propValue = 'propValue'
 
-      const component = testBed.addComponent({
+      const component = testApplication.addComponent({
         name: 'component',
       })
 
@@ -454,14 +462,14 @@ describe('Runtime Element props', () => {
       const urlKey = 'urlKey'
       const urlPropValue = 'urlPropValue'
 
-      rootApplicationStore.routerService.update({
+      testApplication.rootStore.routerService.update({
         query: {
           [urlKey]: urlPropValue,
         },
       })
 
       const { page, renderer, rootElement, runtimeRootElement } =
-        testBed.setupRuntimeElement()
+        testApplication.setupRuntimeElement()
 
       rootElement.props.set(urlKey, `{{urlProps.${urlKey}}}`)
 
@@ -472,6 +480,6 @@ describe('Runtime Element props', () => {
   })
 
   afterAll(() => {
-    unregisterRootStore(rootApplicationStore)
+    testApplication.teardown()
   })
 })

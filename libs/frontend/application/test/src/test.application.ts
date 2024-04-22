@@ -51,12 +51,14 @@ import {
 } from '@codelab/shared/abstract/core'
 import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import {
   Model,
   model,
   modelAction,
   prop,
   registerRootStore,
+  unregisterRootStore,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
@@ -172,7 +174,7 @@ export const createTestApplication = () => {
     }
 
     @modelAction
-    addProp(dto: Partial<IPropDto>) {
+    addProp(dto: Partial<IPropDto> = {}) {
       return propFactory(dto)
     }
 
@@ -213,23 +215,6 @@ export const createTestApplication = () => {
       return storeFactory(this.rootStore.storeService.storeDomainService)({
         ...dto,
         api: dto.api ?? this.addInterfaceType({}),
-      })
-    }
-
-    @modelAction
-    init() {
-      this.clear()
-
-      const reactFragment = testApplication.addAtom({
-        id: IAtomType.ReactFragment,
-        name: IAtomType.ReactFragment,
-        type: IAtomType.ReactFragment,
-      })
-
-      const htmlDivAtom = testApplication.addAtom({
-        id: IAtomType.HtmlDiv,
-        name: IAtomType.HtmlDiv,
-        type: IAtomType.HtmlDiv,
       })
     }
 
@@ -353,9 +338,12 @@ export const createTestApplication = () => {
     }
 
     getAtomByType(type: IAtomType) {
-      return this.rootStore.atomService.atomDomainService.atomsList.find(
-        (atom) => atom.type === type,
-      )
+      const atomType =
+        this.rootStore.atomService.atomDomainService.atomsList.find(
+          (atom) => atom.type === type,
+        )
+
+      return throwIfUndefined(atomType)
     }
 
     getStringType() {
@@ -366,9 +354,28 @@ export const createTestApplication = () => {
       )
     }
 
-    @modelAction
-    private clear() {
-      this.rootStore.clear()
+    teardown() {
+      unregisterRootStore(this)
+    }
+
+    protected onAttachedToRootStore() {
+      testApplication.addAtom({
+        id: IAtomType.ReactFragment,
+        name: IAtomType.ReactFragment,
+        type: IAtomType.ReactFragment,
+      })
+
+      testApplication.addAtom({
+        id: IAtomType.HtmlDiv,
+        name: IAtomType.HtmlDiv,
+        type: IAtomType.HtmlDiv,
+      })
+
+      testApplication.addAtom({
+        id: IAtomType.HtmlSpan,
+        name: IAtomType.HtmlSpan,
+        type: IAtomType.HtmlSpan,
+      })
     }
   }
 

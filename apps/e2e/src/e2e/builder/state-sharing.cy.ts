@@ -100,11 +100,10 @@ describe('State variables sharing between pages', () => {
       value: 'component state value',
     })
 
-    cy.intercept('POST', 'api/graphql').as('action')
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
-    cy.wait('@action')
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
@@ -122,6 +121,8 @@ describe('State variables sharing between pages', () => {
         IPageKindName.Provider,
       )}/builder?primarySidebarKey=explorer`,
     )
+
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // select root now so we can update its child later
     // there is an issue with tree interaction

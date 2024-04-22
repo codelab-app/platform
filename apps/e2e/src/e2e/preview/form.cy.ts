@@ -101,10 +101,15 @@ describe('Testing the Form atom', () => {
 
     cy.get('#render-root button').first().click({ force: true })
 
-    cy.get('@submitData').its('request.body').should('deep.equal', {
-      checkboxField: true,
-      inputField: 'testing',
-      selectField: 'selectOptionB',
+    /**
+     * There might be timing issues where the request is made before the intercept is set up or the test progresses to the its assertion before the request completes. Using cy.wait('@submitData') before attempting to access the request body can help:
+     */
+    cy.wait('@submitData').then((interception) => {
+      expect(interception.request.body).to.deep.equal({
+        checkboxField: true,
+        inputField: 'testing',
+        selectField: 'selectOptionB',
+      })
     })
   })
 })

@@ -52,10 +52,9 @@ export const TextEditor = ({
         open={editorConfig.editable}
       >
         <OnInitPlugin config={editorConfig} data={data} onChange={onChange} />
-
         <div
-          className={`editor-container ${
-            editorConfig.editable ? 'editable' : ''
+          className={`editor-container${
+            editorConfig.editable ? ' editable' : ''
           }`}
         >
           <div className="editor-inner">

@@ -18,29 +18,32 @@ interface OnInitPluginProps {
 export const OnInitPlugin = ({ config, data, onChange }: OnInitPluginProps) => {
   const [editor] = useLexicalComposerContext()
 
-  const updateValue = useCallback(() => {
-    editor.update(() => {
-      const currentState = $generateHtmlFromNodes(editor)
+  const updateValue = useCallback(
+    (_data: string | undefined) => {
+      editor.update(() => {
+        const currentState = $generateHtmlFromNodes(editor)
 
-      if (currentState === data) {
-        return
-      }
+        if (currentState === _data) {
+          return
+        }
 
-      const parser = new DOMParser()
-      const dom = parser.parseFromString(data || '', 'text/html')
-      const nodes = $generateNodesFromDOM(editor, dom)
+        const parser = new DOMParser()
+        const dom = parser.parseFromString(_data || '', 'text/html')
+        const nodes = $generateNodesFromDOM(editor, dom)
 
-      $getRoot().select()
-      $getRoot().clear()
-      $insertNodes(nodes)
-    })
-  }, [data, editor])
+        $getRoot().select()
+        $getRoot().clear()
+        $insertNodes(nodes)
+      })
+    },
+    [editor],
+  )
 
   /**
    * We set the initial value on first render in both modes edit and read
    */
   useEffect(() => {
-    updateValue()
+    updateValue(data)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 

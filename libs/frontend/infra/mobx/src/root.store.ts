@@ -165,23 +165,6 @@ export const createRootStore = ({
     })
     implements IRootStore
   {
-    public clear() {
-      this.typeService.typeDomainService.types.clear()
-      this.appService.appDomainService.apps.clear()
-      this.atomService.atomDomainService.atoms.clear()
-      this.componentService.componentDomainService.components.clear()
-      this.elementService.elementDomainService.elements.clear()
-      this.fieldService.fieldDomainService.fields.clear()
-      this.actionService.actionDomainService.actions.clear()
-      this.storeService.storeDomainService.stores.clear()
-      this.tagService.tagDomainService.tags.clear()
-      this.userService.userDomainService.users.clear()
-      this.rendererService.renderers.clear()
-      this.runtimeComponentService.components.clear()
-      this.runtimeElementService.elements.clear()
-      this.redirectService.redirectDomainService.redirects.clear()
-    }
-
     protected onInit() {
       appServiceContext.set(this, this.appService)
       appDomainServiceContext.set(this, this.appService.appDomainService)

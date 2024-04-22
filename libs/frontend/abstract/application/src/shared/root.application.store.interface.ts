@@ -70,8 +70,6 @@ export interface IRootStore {
   tracerService: ITracerService
   typeService: ITypeService
   userService: IUserService
-
-  clear(): void
 }
 
 type MaybeContext<T> = Context<T | undefined>

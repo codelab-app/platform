@@ -1,18 +1,16 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
+import { createTestApplication } from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { TestBed } from '../../../../application/test/src/test-bed'
-
-let testBed: TestBed
 
 describe('Page', () => {
+  let testApplication: ReturnType<typeof createTestApplication>
+
   beforeAll(() => {
-    testBed = TestBed.Create()
+    testApplication = createTestApplication()
   })
 
   it('should compute a getter for the builder url', () => {
-    const { page, runtimePage, runtimeProviderPage } = testBed.setupPage(
-      RendererType.Preview,
-      IPageKind.Regular,
-    )
+    const { page, runtimePage, runtimeProviderPage } =
+      testApplication.setupPage(RendererType.Preview, IPageKind.Regular)
   })
 })

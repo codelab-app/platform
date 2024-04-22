@@ -3,15 +3,15 @@ import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createTestApplication } from '@codelab/frontend/application/test'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
-import { render } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
 
 describe('Runtime Element', () => {
-  const testApplication = createTestApplication()
+  let testApplication: ReturnType<typeof createTestApplication>
 
   beforeEach(() => {
-    testApplication.init()
+    testApplication = createTestApplication()
   })
 
   it('should create element runtime node', () => {
@@ -27,20 +27,7 @@ describe('Runtime Element', () => {
     )
   })
 
-  it('should create default atoms', () => {
-    const atomDomainService =
-      testApplication.rootStore.atomService.atomDomainService
-
-    const div = testApplication.getAtomByType(IAtomType.HtmlDiv)
-
-    console.log(div)
-
-    console.log(atomDomainService.atomsList)
-
-    expect(atomDomainService.atomsList.length).toBeGreaterThan(0)
-  })
-
-  it.only('should create children with text injection', () => {
+  it('should create children with text injection', async () => {
     const app = testApplication.addApp({})
     const page = testApplication.addPageRegular({ app })
 
@@ -52,28 +39,25 @@ describe('Runtime Element', () => {
     const rootElement = page.rootElement.current
 
     rootElement.writeCache({
-      // props: {
-      //   data: JSON.stringify({ children: 'text' }),
-      //   id: v4(),
-      // },
       renderType: testApplication.getAtomByType(IAtomType.HtmlDiv),
     })
 
     rootElement.props.set('children', 'text')
 
     // render itself adds `body > div`
-    const { debug } = render(
-      React.createElement(
-        StoreProvider,
-        { value: testApplication.rootStore },
-        testApplication.rootStore.rendererService.activeRenderer?.current
-          .render,
-      ),
-    )
+    await act(async () => {
+      render(
+        React.createElement(
+          StoreProvider,
+          { value: testApplication.rootStore },
+          renderer.render,
+        ),
+      )
+    })
 
-    debug()
+    screen.debug()
 
-    expect(true).toBeFalsy()
+    expect(screen.getByText('text')).toBeInTheDocument()
   })
 
   it('should add element runtime child', () => {
@@ -216,6 +200,6 @@ describe('Runtime Element', () => {
   )
 
   afterAll(() => {
-    unregisterRootStore(testApplication)
+    testApplication.teardown()
   })
 })
