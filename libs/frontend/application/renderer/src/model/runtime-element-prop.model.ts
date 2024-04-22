@@ -13,7 +13,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_ELEMENT_ID,
-  hasTypedPropFormat,
   isAtomRef,
   isComponentRef,
   isTypedProp,
@@ -32,7 +31,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import React, { ReactNode } from 'react'
-import { TextEditorWrapper } from '../wrappers'
+import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../wrappers'
 
 const create = (dto: IRuntimeElementPropDTO) =>
   new RuntimeElementPropsModel(dto)
@@ -151,20 +150,21 @@ export class RuntimeElementPropsModel
   get renderedChildrenProp(): ReactNode {
     const childrenProp = this.element.props.get('children')
 
-    const shouldRenderRichTextEditor =
+    const isReactNodeType =
       childrenProp &&
-      // value could be empty
-      hasTypedPropFormat(childrenProp) &&
-      childrenProp.kind === ITypeKind.RichTextType
+      isTypedProp(childrenProp) &&
+      childrenProp.kind === ITypeKind.ReactNodeType
+
+    const Wrapper = isReactNodeType
+      ? CodeMirrorEditorWrapper
+      : RichTextEditorWrapper
 
     /**
      * If not rich text then it is react node then return it directly
      */
-    return shouldRenderRichTextEditor
-      ? React.createElement(TextEditorWrapper, {
-          runtimeElement: this.runtimeElement.current,
-        })
-      : this.evaluatedProps['children']
+    return React.createElement(Wrapper, {
+      runtimeElement: this.runtimeElement.current,
+    })
   }
 
   /**

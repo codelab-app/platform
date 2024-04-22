@@ -8,7 +8,6 @@ type TextEditorToolbarProps = PropsWithChildren<{
   floatingToolbar: boolean
   editable: boolean
   editorRef: RefObject<LexicalEditor>
-  onExitEditing?(): void
 }>
 
 export const TextEditorToolbar = ({
@@ -16,7 +15,6 @@ export const TextEditorToolbar = ({
   editable,
   editorRef,
   floatingToolbar,
-  onExitEditing,
 }: TextEditorToolbarProps) =>
   floatingToolbar ? (
     <Popover
@@ -24,14 +22,14 @@ export const TextEditorToolbar = ({
         editorRef.current?.focus()
       }}
       arrow={false}
-      content={<ToolbarPlugin onExitEditing={onExitEditing} />}
+      content={<ToolbarPlugin />}
       open={editable}
     >
       {children}
     </Popover>
   ) : (
     <>
-      {editable && <ToolbarPlugin onExitEditing={onExitEditing} />}
+      {editable && <ToolbarPlugin />}
       {children}
     </>
   )

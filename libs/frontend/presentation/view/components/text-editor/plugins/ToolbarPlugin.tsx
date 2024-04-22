@@ -2,7 +2,6 @@ import AlignCenterOutlined from '@ant-design/icons/AlignCenterOutlined'
 import AlignLeftOutlined from '@ant-design/icons/AlignLeftOutlined'
 import AlignRightOutlined from '@ant-design/icons/AlignRightOutlined'
 import BoldOutlined from '@ant-design/icons/BoldOutlined'
-import CheckOutlined from '@ant-design/icons/CheckOutlined'
 import ItalicOutlined from '@ant-design/icons/ItalicOutlined'
 import RedoOutlined from '@ant-design/icons/RedoOutlined'
 import StrikethroughOutlined from '@ant-design/icons/StrikethroughOutlined'
@@ -10,7 +9,7 @@ import UnderlineOutlined from '@ant-design/icons/UnderlineOutlined'
 import UndoOutlined from '@ant-design/icons/UndoOutlined'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { mergeRegister } from '@lexical/utils'
-import { Button, Divider, Flex, Segmented } from 'antd'
+import { Button, Flex, Segmented } from 'antd'
 import type { SegmentedOptions } from 'antd/lib/segmented'
 import type { ElementFormatType } from 'lexical'
 import {
@@ -32,11 +31,7 @@ const LowPriority = 1
 
 // TODO: add more features and fixes
 
-export const ToolbarPlugin = ({
-  onExitEditing,
-}: {
-  onExitEditing?(): void
-}) => {
+export const ToolbarPlugin = () => {
   const [editor] = useLexicalComposerContext()
   const toolbarRef = useRef(null)
   const [canUndo, setCanUndo] = useState(false)
@@ -154,19 +149,6 @@ export const ToolbarPlugin = ({
         }
         options={alignOptions}
       />
-
-      {onExitEditing && (
-        <>
-          <Divider type="vertical" />
-          <Button
-            aria-label="Exist Editing"
-            icon={<CheckOutlined />}
-            onClick={() => {
-              onExitEditing()
-            }}
-          />
-        </>
-      )}
     </Flex>
   )
 }

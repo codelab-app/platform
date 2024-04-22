@@ -28,15 +28,13 @@ export interface TextEditorProps {
   config?: Partial<InitialConfigType>
   floatingToolbar?: boolean
   value?: string
-  onChange(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
-  onExitEditing?(): void
+  onChange?(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
 }
 
 export const TextEditor = ({
   config = {},
   floatingToolbar = false,
-  onChange,
-  onExitEditing,
+  onChange = () => null,
   value,
 }: TextEditorProps) => {
   const editorRef = useRef<LexicalEditor>(null)
@@ -48,7 +46,6 @@ export const TextEditor = ({
         editable={Boolean(editorConfig.editable)}
         editorRef={editorRef}
         floatingToolbar={Boolean(floatingToolbar)}
-        onExitEditing={onExitEditing}
       >
         <EditorRefPlugin editorRef={editorRef} />
         <OnInitPlugin config={editorConfig} onChange={onChange} value={value} />
