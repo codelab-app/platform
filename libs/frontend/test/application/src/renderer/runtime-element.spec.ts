@@ -6,7 +6,6 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
-import { v4 } from 'uuid'
 
 describe('Runtime Element', () => {
   const testApplication = createTestApplication()
@@ -42,32 +41,33 @@ describe('Runtime Element', () => {
   })
 
   it.only('should create children with text injection', () => {
-    const { page, rendered, renderer, runtimePage } =
-      testApplication.setupPage()
+    const app = testApplication.addApp({})
+    const page = testApplication.addPageRegular({ app })
+
+    const renderer = testApplication.addRenderer({
+      containerNode: page,
+      rendererType: RendererType.Preview,
+    })
 
     const rootElement = page.rootElement.current
 
     rootElement.writeCache({
-      props: {
-        data: JSON.stringify({ children: 'text' }),
-        id: v4(),
-      },
+      // props: {
+      //   data: JSON.stringify({ children: 'text' }),
+      //   id: v4(),
+      // },
+      renderType: testApplication.getAtomByType(IAtomType.HtmlDiv),
     })
-    // rootElement.props.set('children', 'text')
 
-    // console.log(runtimeRootElement.runtimeProps.evaluatedProps)
-
-    // console.log(rendered?.props.children)
-    // console.log(rendered?.props.children.props)
-
-    const rootApplicationStore = testApplication.rootStore
+    rootElement.props.set('children', 'text')
 
     // render itself adds `body > div`
     const { debug } = render(
       React.createElement(
         StoreProvider,
-        { value: rootApplicationStore },
-        rootApplicationStore.rendererService.activeRenderer?.current.render,
+        { value: testApplication.rootStore },
+        testApplication.rootStore.rendererService.activeRenderer?.current
+          .render,
       ),
     )
 
