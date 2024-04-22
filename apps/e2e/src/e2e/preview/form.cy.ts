@@ -77,7 +77,7 @@ describe('Testing the Form atom', () => {
     )
   })
 
-  it('should populate the form fields - input, select, and checkbox', () => {
+  it('should send the form data as request body in the API action', () => {
     cy.openPreview()
 
     cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).should(
@@ -92,24 +92,17 @@ describe('Testing the Form atom', () => {
     cy.get(`#render-root #${elementFormItem_2.propsData?.name}`).click()
     cy.findByText('Select Option B').click()
     cy.get(`#render-root #${elementFormItem_3.propsData?.name}`).check()
-  })
 
-  it('should send the form data as request body in the API action', () => {
     cy.intercept('POST', `${resourceUrl}/data`, { statusCode: 200 }).as(
       'submitData',
     )
 
     cy.get('#render-root button').first().click({ force: true })
 
-    /**
-     * There might be timing issues where the request is made before the intercept is set up or the test progresses to the its assertion before the request completes. Using cy.wait('@submitData') before attempting to access the request body can help:
-     */
-    cy.wait('@submitData').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        checkboxField: true,
-        inputField: 'testing',
-        selectField: 'selectOptionB',
-      })
+    cy.get('@submitData').its('request.body').should('deep.equal', {
+      checkboxField: true,
+      inputField: 'testing',
+      selectField: 'selectOptionB',
     })
   })
 })

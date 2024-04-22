@@ -60,7 +60,7 @@ describe('State variables sharing between pages', () => {
   it('should setup the pages that will share states', () => {
     cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
 
-    cy.waitForSpinners()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({
       force: true,
