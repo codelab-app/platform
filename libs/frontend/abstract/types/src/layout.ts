@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import type { FunctionComponent, JSXElementConstructor } from 'react'
+import type { FunctionComponent } from 'react'
 import type { PropsWithRenderChildren } from './children'
 
 /**

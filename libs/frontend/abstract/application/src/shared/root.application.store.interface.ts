@@ -13,10 +13,7 @@ import type {
   ITypeDomainService,
   IUserDomainService,
 } from '@codelab/frontend/abstract/domain'
-import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { Context } from 'mobx-keystone'
-import type { NextRouter } from 'next/router'
-import type { ParsedUrlQuery } from 'querystring'
 import type { IActionService } from '../action'
 import type { IAdminService } from '../admin'
 import type { IAppService } from '../app'
@@ -42,23 +39,11 @@ import type { IStoreService } from '../store'
 import type { ITagService } from '../tag'
 import type { ITypeService } from '../type'
 import type { IUserService } from '../user'
-import type { IPageProps } from './nextjs.interface'
 import type { IRouterService } from './router.service.interface'
 
 /**
  * Initial data to be injected into store
  */
-export type RootStoreData = IPageProps
-
-export interface IRootStoreDto {
-  context: IRootStoreContext
-  store: IRootStore
-}
-
-export interface IRootStoreDtoTest {
-  context: Partial<IRootStoreContext>
-  store: Partial<IRootStore>
-}
 
 export interface IRootStore {
   actionService: IActionService
@@ -85,8 +70,6 @@ export interface IRootStore {
   tracerService: ITracerService
   typeService: ITypeService
   userService: IUserService
-
-  clear(): void
 }
 
 type MaybeContext<T> = Context<T | undefined>

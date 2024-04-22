@@ -18,6 +18,7 @@
             "ignore": [
               ".*\\.hook\\.tsx?$",
               ".*\\.stories\\.tsx?$",
+              ".*\\.spec\\.tsx?$",
               "preview.tsx"
             ]
           }

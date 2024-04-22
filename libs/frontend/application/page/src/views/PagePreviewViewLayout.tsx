@@ -2,7 +2,6 @@ import type { IPageProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { PageDetailHeader } from './PageDetailHeader'
 

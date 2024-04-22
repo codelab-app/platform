@@ -3,11 +3,11 @@ import type {
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
 import type { ITagDto } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { Tag, tagRef } from './store'
+import { Tag } from './store'
 
 @model('@codelab/TagDomainService')
 export class TagDomainService

@@ -11,7 +11,6 @@ import {
   getRuntimePageService,
   isRuntimeComponent,
   isRuntimePage,
-  runtimeComponentRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,

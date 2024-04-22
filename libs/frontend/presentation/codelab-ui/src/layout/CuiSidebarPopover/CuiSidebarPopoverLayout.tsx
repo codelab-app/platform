@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, RefObject } from 'react'
-import React, { useEffect, useState } from 'react'
-import { useCui } from '../../core'
+import React from 'react'
 import { useCuiSidebarPopover } from './cui-sidebar-popover.hook'
 
 export interface CuiSidebarPopoverLayoutProps {

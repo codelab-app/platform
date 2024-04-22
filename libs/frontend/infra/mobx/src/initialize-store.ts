@@ -31,7 +31,9 @@ export const initializeStore = ({ router, user }: IPageProps): IRootStore => {
     _store = store
   }
 
-  _store.routerService.update(router)
+  if (router) {
+    _store.routerService.update(router)
+  }
 
   return _store
 }

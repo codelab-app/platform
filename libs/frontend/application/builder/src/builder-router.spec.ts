@@ -1,4 +1,3 @@
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import { extractPathParamsFromUrlInstance } from './builder-router'
 
 describe('extractNavigationInfoFromUrl', () => {

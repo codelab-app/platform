@@ -10,6 +10,7 @@ import type {
   IElementService,
   IFieldService,
   IPageApplicationService,
+  IPageProps,
   IPropService,
   IRedirectService,
   IRendererService,
@@ -24,7 +25,6 @@ import type {
   ITracerService,
   ITypeService,
   IUserService,
-  RootStoreData,
 } from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
@@ -108,9 +108,17 @@ import { UserService } from '@codelab/frontend/application/user'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
+import { auth0IdToken } from '@codelab/shared/data/test'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createRootStore = ({ router, user }: RootStoreData) => {
+export const createRootStore = ({
+  router = {
+    path: '',
+    pathname: '',
+    query: {},
+  },
+  user = auth0IdToken,
+}: IPageProps) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
@@ -157,23 +165,6 @@ export const createRootStore = ({ router, user }: RootStoreData) => {
     })
     implements IRootStore
   {
-    public clear() {
-      this.typeService.typeDomainService.types.clear()
-      this.appService.appDomainService.apps.clear()
-      this.atomService.atomDomainService.atoms.clear()
-      this.componentService.componentDomainService.components.clear()
-      this.elementService.elementDomainService.elements.clear()
-      this.fieldService.fieldDomainService.fields.clear()
-      this.actionService.actionDomainService.actions.clear()
-      this.storeService.storeDomainService.stores.clear()
-      this.tagService.tagDomainService.tags.clear()
-      this.userService.userDomainService.users.clear()
-      this.rendererService.renderers.clear()
-      this.runtimeComponentService.components.clear()
-      this.runtimeElementService.elements.clear()
-      this.redirectService.redirectDomainService.redirects.clear()
-    }
-
     protected onInit() {
       appServiceContext.set(this, this.appService)
       appDomainServiceContext.set(this, this.appService.appDomainService)

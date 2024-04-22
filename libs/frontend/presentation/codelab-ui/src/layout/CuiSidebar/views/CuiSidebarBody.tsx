@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  CuiCollapsePanel,
-  CuiCollapsePanelContent,
-  CuiSidebarToolbar,
-} from '../../../views'
+import { CuiCollapsePanel, CuiCollapsePanelContent } from '../../../views'
 import type { CuiSidebarProps } from '../CuiSidebar'
 
 export const CuiSidebarBody = ({

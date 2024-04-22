@@ -6,15 +6,10 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentModel,
-  IElementModel,
-  IInterfaceTypeModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   getTagDomainService,
-  typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { restWebClient } from '@codelab/frontend/application/axios'
@@ -25,8 +20,6 @@ import {
 import { getStoreService } from '@codelab/frontend/application/store'
 import { getTypeService } from '@codelab/frontend/application/type'
 import { ComponentDomainService } from '@codelab/frontend/domain/component'
-import { Store } from '@codelab/frontend/domain/store'
-import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {
   Component,
   ComponentOptions,
@@ -35,13 +28,9 @@ import type {
 import type {
   IComponentAggregate,
   ICreateComponentData,
-  IPropDto,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import {
-  IElementRenderTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { prettifyForConsole, slugify } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
@@ -58,7 +47,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { ComponentRepository } from './component.repo'
 import { ComponentFormService } from './component-form.service'
 import { ComponentModalService } from './component-modal.service'

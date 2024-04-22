@@ -1,29 +1,27 @@
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import {
-  IElementRenderTypeKind,
-  IPrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
-import { screen, waitFor } from '@testing-library/dom'
+import { createTestApplication } from '@codelab/frontend/application/test'
+import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React, { isValidElement } from 'react'
-import { rootApplicationStore } from './setup/root.test.store'
-import { TestBed } from './setup/testbed'
-
-let testBed: TestBed
 
 describe('TypedPropTransformers', () => {
+  let testApplication: ReturnType<typeof createTestApplication>
+
   beforeEach(() => {
-    testBed = TestBed.Create()
+    testApplication = createTestApplication()
   })
 
   it('should apply default typed prop transformer', () => {
-    const integerType = testBed.addPrimitiveType({
+    const integerType = testApplication.addPrimitiveType({
       name: IPrimitiveTypeKind.Integer,
       primitiveKind: IPrimitiveTypeKind.Integer,
     })
 
-    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
+    const { rootElement, runtimeRootElement } =
+      testApplication.setupRuntimeElement()
+
     const propKey = 'propKey'
     const propValue = 'propValue'
 
@@ -39,10 +37,12 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should render props when kind is ReactNodeType', async () => {
-    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
+    const { rootElement, runtimeRootElement } =
+      testApplication.setupRuntimeElement()
+
     const propKey = 'someNode'
-    const reactNodeType = testBed.addReactNode({})
-    const component = testBed.addComponent({})
+    const reactNodeType = testApplication.addReactNode({})
+    const component = testApplication.addComponent({})
 
     rootElement.props.set(propKey, {
       kind: reactNodeType.kind,
@@ -56,10 +56,12 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should render props when kind is RenderPropsType', async () => {
-    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
+    const { rootElement, runtimeRootElement } =
+      testApplication.setupRuntimeElement()
+
     const propKey = 'someNode'
-    const renderPropsType = testBed.addRenderProps({})
-    const component = testBed.addComponent({})
+    const renderPropsType = testApplication.addRenderProps({})
+    const component = testApplication.addComponent({})
 
     rootElement.props.set(propKey, {
       kind: renderPropsType.kind,
@@ -77,30 +79,32 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should pass props to render props component', async () => {
-    const { rootElement, runtimeRootElement } = testBed.setupRuntimeElement()
+    const { rootElement, runtimeRootElement } =
+      testApplication.setupRuntimeElement()
+
     const propKey = 'someNode'
     const textPropKey = 'text'
     const textPropValue = 'some text value'
     const childrenExpression = `{{componentProps.${textPropKey}}}`
-    const renderPropsType = testBed.addRenderProps({})
-    const api = testBed.addInterfaceType({})
+    const renderPropsType = testApplication.addRenderProps({})
+    const api = testApplication.addInterfaceType({})
 
     api.writeCache({
       fields: [
-        testBed.addField({
+        testApplication.addField({
           api,
           defaultValues: JSON.stringify('some default value'),
-          fieldType: testBed.getStringType(),
+          fieldType: testApplication.getStringType(),
           key: textPropKey,
         }),
       ],
     })
 
-    const component = testBed.addComponent({ api })
+    const component = testApplication.addComponent({ api })
 
-    const childElement = testBed.addElement({
+    const childElement = testApplication.addElement({
       parentElement: component.rootElement.current,
-      renderType: testBed.getDivAtom(),
+      renderType: testApplication.getAtomByType(IAtomType.HtmlDiv),
     })
 
     childElement.props.set('children', childrenExpression)
@@ -118,7 +122,7 @@ describe('TypedPropTransformers', () => {
     render(
       React.createElement(
         StoreProvider,
-        { value: rootApplicationStore },
+        { value: testApplication.rootStore },
         renderedProp(textPropValue),
       ),
     )
@@ -127,6 +131,6 @@ describe('TypedPropTransformers', () => {
   })
 
   afterAll(() => {
-    unregisterRootStore(rootApplicationStore)
+    testApplication.teardown()
   })
 })

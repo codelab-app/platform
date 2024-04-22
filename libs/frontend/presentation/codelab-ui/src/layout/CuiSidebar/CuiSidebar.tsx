@@ -1,21 +1,11 @@
-import MoreOutlined from '@ant-design/icons/MoreOutlined'
 import type { ModelUiKey } from '@codelab/frontend/abstract/types'
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
-import { Tabs, Tooltip, Typography } from 'antd'
-import classNames from 'classnames'
 import type { ReactNode } from 'react'
 import React, { useRef } from 'react'
 import type { CuiSidebarToolbarProps } from '../../views'
-import { CuiCollapsePanel, CuiSidebarToolbar } from '../../views'
-import {
-  CuiSidebarPopover,
-  CuiSidebarPopoverLayout,
-} from '../CuiSidebarPopover'
-import styles from './CuiSidebar.module.css'
+import { CuiSidebarPopoverLayout } from '../CuiSidebarPopover'
 import { CuiSidebarLayout } from './layout/CuiSidebarLayout'
 import { CuiSidebarBody } from './views/CuiSidebarBody'
 import { CuiSidebarHeader } from './views/CuiSidebarHeader'
-import type { CuiSidebarTab } from './views/CuiSIdebarTabs'
 
 export interface CuiSidebarView {
   content: React.ReactNode

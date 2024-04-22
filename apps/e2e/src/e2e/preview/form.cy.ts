@@ -1,4 +1,3 @@
-import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { Element } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
@@ -78,7 +77,7 @@ describe('Testing the Form atom', () => {
     )
   })
 
-  it('should populate the form fields - input, select, and checkbox', () => {
+  it('should send the form data as request body in the API action', () => {
     cy.openPreview()
 
     cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).should(
@@ -93,9 +92,7 @@ describe('Testing the Form atom', () => {
     cy.get(`#render-root #${elementFormItem_2.propsData?.name}`).click()
     cy.findByText('Select Option B').click()
     cy.get(`#render-root #${elementFormItem_3.propsData?.name}`).check()
-  })
 
-  it('should send the form data as request body in the API action', () => {
     cy.intercept('POST', `${resourceUrl}/data`, { statusCode: 200 }).as(
       'submitData',
     )

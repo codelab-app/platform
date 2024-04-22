@@ -1,15 +1,14 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
+import { createTestApplication } from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
-import { rootApplicationStore } from './setup/root.test.store'
-import { TestBed } from './setup/testbed'
-
-let testBed: TestBed
 
 describe('Runtime Element props', () => {
+  let testApplication: ReturnType<typeof createTestApplication>
+
   beforeEach(() => {
-    testBed = TestBed.Create()
+    testApplication = createTestApplication()
   })
 
   it.each([[IPageKind.Provider], [IPageKind.Regular]])(
@@ -17,7 +16,7 @@ describe('Runtime Element props', () => {
     async (pageKind) => {
       const isProviderPage = pageKind === IPageKind.Provider
 
-      const { page, runtimePage } = testBed.setupPage(
+      const { page, runtimePage } = testApplication.setupPage(
         RendererType.Preview,
         pageKind,
       )
@@ -32,20 +31,20 @@ describe('Runtime Element props', () => {
 
       configure({ safeDescriptors: false })
 
-      const resource = testBed.addResource({})
+      const resource = testApplication.addResource({})
       const store = isProviderPage ? element?.store : page.providerPage?.store
       const storeApi = store?.current.api.current
 
-      const field = testBed.addField({
+      const field = testApplication.addField({
         api: storeApi,
         defaultValues: JSON.stringify(stateValue),
-        fieldType: testBed.getStringType(),
+        fieldType: testApplication.getStringType(),
         key: stateKey,
       })
 
       storeApi?.writeCache({ fields: [field] })
 
-      testBed.addApiAction({
+      testApplication.addApiAction({
         config: {
           data: JSON.stringify({
             queryParams: { name: `{{state.${stateKey}}}` },
@@ -77,6 +76,6 @@ describe('Runtime Element props', () => {
   )
 
   afterAll(() => {
-    unregisterRootStore(rootApplicationStore)
+    testApplication.teardown()
   })
 })

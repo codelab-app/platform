@@ -24,6 +24,8 @@ export const StyledComponent = forwardRef(
     }: PropsWithChildren<StyledComponentProps>,
     ref,
   ) => {
+    // return children
+
     // do not wrap with styled() if it's React.Fragment
     if (ReactComponent === React.Fragment) {
       return children
@@ -31,6 +33,7 @@ export const StyledComponent = forwardRef(
 
     return (
       <ReusableStyledComponent
+        id="reuseable-styled-component"
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...componentProps}
         as={ReactComponent}
