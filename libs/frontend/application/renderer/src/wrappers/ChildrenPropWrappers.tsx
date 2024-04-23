@@ -73,8 +73,8 @@ export const CodeMirrorEditorWrapper = observer<{
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
 
-  const reactNodeType = typeService.typeDomainService.typesList.find(
-    (type) => type.kind === ITypeKind.ReactNodeType,
+  const codeMirrorType = typeService.typeDomainService.typesList.find(
+    (type) => type.kind === ITypeKind.CodeMirrorType,
   )
 
   const onChange = useCallback((value: string) => {
@@ -85,8 +85,8 @@ export const CodeMirrorEditorWrapper = observer<{
       data: {
         ...props.data.data,
         children: {
-          kind: reactNodeType?.kind,
-          type: reactNodeType?.id,
+          kind: codeMirrorType?.kind,
+          type: codeMirrorType?.id,
           value,
         },
       },

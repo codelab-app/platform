@@ -150,12 +150,12 @@ export class RuntimeElementPropsModel
   get renderedChildrenProp(): ReactNode {
     const childrenProp = this.element.props.get('children')
 
-    const isReactNodeType =
+    const isCodeMirrorType =
       childrenProp &&
       isTypedProp(childrenProp) &&
-      childrenProp.kind === ITypeKind.ReactNodeType
+      childrenProp.kind === ITypeKind.CodeMirrorType
 
-    const Wrapper = isReactNodeType
+    const Wrapper = isCodeMirrorType
       ? CodeMirrorEditorWrapper
       : RichTextEditorWrapper
 
