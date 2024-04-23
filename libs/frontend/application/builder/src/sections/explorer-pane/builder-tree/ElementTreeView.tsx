@@ -36,6 +36,7 @@ export const ElementTreeView = observer<{
         // They can only be moved around via the `childMapperPreviousSibling` field of the element
         return !data.dragNode.isChildMapperComponentInstance
       }}
+      autoExpandParent={false}
       disabled={isMoving}
       draggable={true}
       expandedKeys={builderService.expandedElementTreeNodeIds}

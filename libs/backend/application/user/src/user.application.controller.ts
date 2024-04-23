@@ -14,7 +14,7 @@ export class UserApplicationController {
       where: { auth0Id: userDto.auth0Id },
     })
 
-    return user.preferences ?? '{}'
+    return user?.preferences ?? ''
   }
 
   /**

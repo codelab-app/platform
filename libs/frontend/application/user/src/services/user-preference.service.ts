@@ -25,12 +25,17 @@ export class UserPreferenceService
 {
   @modelFlow
   init = _async(function* (this: UserPreferenceService) {
+    if (typeof window === 'undefined') {
+      // SSR not supported for client preferences service
+      return
+    }
+
     const preferences = localStorage.getItem(CODELAB_STORAGE_KEY)
 
     this.preferences = preferences ? JSON.parse(preferences) : this.preferences
-    this.preferences = (yield* _await(
-      restWebClient.get('/user/preferences'),
-    )).data
+    this.preferences =
+      (yield* _await(restWebClient.get('/user/preferences'))).data ||
+      this.preferences
   })
 
   @modelAction

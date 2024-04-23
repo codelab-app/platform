@@ -64,9 +64,9 @@ describe('Component CRUD', () => {
     it('should be able to define property on component', () => {
       cy.getSider().getButton({ icon: 'edit' }).click()
 
-      cy.getCuiTreeItemByPrimaryTitle(createComponentData.name).should(
-        'be.visible',
-      )
+      cy.getCuiTreeItemByPrimaryTitle(
+        `${createComponentData.name} Root`,
+      ).should('be.visible')
 
       cy.waitForSpinners()
 

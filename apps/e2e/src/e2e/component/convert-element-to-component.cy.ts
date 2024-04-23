@@ -25,6 +25,9 @@ describe('Converting an element to a component', () => {
         IPageKindName.Provider,
       )}/builder`,
     )
+
+    // select element before calling the context menu, this will wait for animations to complete
+    cy.getCuiTreeItemByPrimaryTitle(elementContainerCreateData.name).click()
     cy.getCuiTreeItemByPrimaryTitle(
       elementContainerCreateData.name,
     ).rightclick()
@@ -47,15 +50,6 @@ describe('Converting an element to a component', () => {
     cy.getCuiTreeItemByPrimaryTitle(
       `${elementContainerCreateData.name} Root`,
     ).should('exist')
-
-    // this is the child of the Container Root element and has to expand before it can be seen
-    cy.getCuiTreeItemByPrimaryTitle(elementRowCreateData.name).should(
-      'not.exist',
-    )
-
-    cy.getCuiTreeItemByPrimaryTitle(
-      `${elementContainerCreateData.name} Root`,
-    ).click()
 
     cy.getCuiTreeItemByPrimaryTitle(elementRowCreateData.name).should('exist')
 

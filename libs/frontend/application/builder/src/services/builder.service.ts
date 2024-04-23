@@ -9,6 +9,7 @@ import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
   getUserService,
+  isRuntimeComponent,
   isRuntimeComponentRef,
   isRuntimeElementRef,
   isRuntimePage,
@@ -166,9 +167,15 @@ export class BuilderService
       return []
     }
 
-    return [
-      ...(preferences.explorerExpandedNodes[containerId] ?? [treeViewNode.key]),
-    ]
+    const expandedNodes = preferences.explorerExpandedNodes[containerId]
+
+    if (expandedNodes?.length) {
+      return expandedNodes
+    }
+
+    return isRuntimeComponent(this.activeElementTree)
+      ? [treeViewNode.children[0]!.key]
+      : [treeViewNode.key]
   }
 
   @modelAction
@@ -189,6 +196,7 @@ export class BuilderService
     }
 
     this.selectedNode = runtimeComponentRef(node)
+    this.updateExpandedNodes()
   }
 
   @modelAction
@@ -198,6 +206,7 @@ export class BuilderService
     }
 
     this.selectedNode = runtimeElementRef(node)
+    this.updateExpandedNodes()
   }
 
   @modelAction
@@ -247,6 +256,58 @@ export class BuilderService
           : width.max,
       min: width.min,
     }
+  }
+
+  @modelAction
+  updateExpandedNodes = () => {
+    if (!this.selectedNode) {
+      return
+    }
+
+    const newNodesToExpand = this.findNodesToExpand(
+      this.selectedNode,
+      this.expandedElementTreeNodeIds,
+    )
+
+    if (newNodesToExpand.length === 0) {
+      return
+    }
+
+    this.setExpandedElementTreeNodeIds([
+      ...this.expandedElementTreeNodeIds,
+      ...newNodesToExpand,
+    ])
+  }
+
+  findNodesToExpand = (
+    selectedNode: IRuntimeModelRef,
+    alreadyExpandedNodeIds: Array<string>,
+  ): Array<string> => {
+    /**
+     * If we delete an element, the whole tree collapses. Instead,
+     * we want to show the sibling or parent as selected.
+     */
+    const pathResult = this.getPathFromRoot(selectedNode)
+    const expandedSet = new Set(alreadyExpandedNodeIds)
+
+    return pathResult.filter((el) => !expandedSet.has(el))
+  }
+
+  getPathFromRoot(selectedNode: IRuntimeModelRef): Array<string> {
+    const path = []
+
+    if (!isRuntimeElementRef(selectedNode)) {
+      return [selectedNode.current.compositeKey]
+    }
+
+    let currentElement = selectedNode.maybeCurrent
+
+    while (currentElement) {
+      path.push(currentElement.compositeKey)
+      currentElement = currentElement.parentElement
+    }
+
+    return path.reverse()
   }
 
   @computed
