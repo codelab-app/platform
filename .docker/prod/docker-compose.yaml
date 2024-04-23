@@ -10,14 +10,20 @@
 version: '3.8'
 name: 'codelab'
 services:
+  api:
+    image: registry.digitalocean.com/codelabapp/api:latest
+    restart: unless-stopped
+    ports:
+      - '4002:4000'
+
   web:
     image: registry.digitalocean.com/codelabapp/web:latest
     restart: unless-stopped
     ports:
-      - '4100:3000'
+      - '3002:3000'
 
   landing:
     image: registry.digitalocean.com/codelabapp/landing:latest
     restart: unless-stopped
     ports:
-      - '4200:3000'
+      - '3000:3000'

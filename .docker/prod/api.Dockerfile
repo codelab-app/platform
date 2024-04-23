@@ -43,6 +43,7 @@ FROM node:18.17-alpine AS prod
 
 # RUN apk add curl
 
+#
 WORKDIR /usr/src/codelab
 
 # Ignore specs from image
@@ -54,7 +55,7 @@ COPY --from=build /usr/src/codelab/node_modules ./node_modules
 EXPOSE 4000
 
 # default commands and/or parameters for a container
-CMD ["node" "dist/apps/api/main.js"]
+CMD ["node", "dist/apps/api/main.js"]
 
 # CMD can be fully overridden via CLI
 #

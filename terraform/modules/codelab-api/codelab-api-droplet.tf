@@ -1,6 +1,6 @@
 resource "digitalocean_droplet" "codelab_api" {
   image  = "docker-20-04"
-  name   = "codelab-api"
+  name   = "api"
   region = "sfo2"
   size   = "s-1vcpu-1gb"
 

@@ -10,6 +10,7 @@ steps:
       name: 'Build web Docker image'
       command: |
         docker compose --verbose -f .docker/prod/build.docker-compose.yaml build web
+
   - run:
       name: 'Push Docker Image'
       command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web

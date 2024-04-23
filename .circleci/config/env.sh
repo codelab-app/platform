@@ -51,5 +51,9 @@ else
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_WEBBER}\>" >> $BASH_ENV
 fi
 
+# Used for docker steps
+# echo "export DOCKER_TAG_VERSION=$CIRCLE_TAG" >> $BASH_ENV
+echo "export DOCKER_TAG_VERSION=0.2.0" >> $BASH_ENV
+
 source $BASH_ENV
 
