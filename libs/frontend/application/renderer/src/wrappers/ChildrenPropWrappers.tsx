@@ -60,7 +60,6 @@ export const RichTextEditorWrapper = observer<{
   return (
     <TextEditor
       config={{ editable, namespace: `${element.id}-editor` }}
-      floatingToolbar
       onChange={onChange}
       value={value}
     />

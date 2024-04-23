@@ -92,7 +92,7 @@ export const ClickOverlay = ({
   }, [isToolbarVisible])
 
   return (
-    <div style={rootStyle}>
+    <div id="builder-click-overlay" style={rootStyle}>
       {content && <div style={toolbarStyle}>{content}</div>}
     </div>
   )

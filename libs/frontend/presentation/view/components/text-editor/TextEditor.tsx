@@ -9,8 +9,7 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import type { EditorState, LexicalEditor } from 'lexical'
 import React, { useRef } from 'react'
-import { OnInitPlugin } from './plugins'
-import { TextEditorToolbar } from './TextEditorToolbar'
+import { OnInitPlugin, ToolbarPlugin } from './plugins'
 import { defaultEditorTheme } from './theme'
 
 const defaultConfig: InitialConfigType = {
@@ -26,14 +25,12 @@ const defaultConfig: InitialConfigType = {
 
 export interface TextEditorProps {
   config?: Partial<InitialConfigType>
-  floatingToolbar?: boolean
   value?: string
   onChange?(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
 }
 
 export const TextEditor = ({
   config = {},
-  floatingToolbar = false,
   onChange = () => null,
   value,
 }: TextEditorProps) => {
@@ -42,27 +39,22 @@ export const TextEditor = ({
 
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <TextEditorToolbar
-        editable={Boolean(editorConfig.editable)}
-        editorRef={editorRef}
-        floatingToolbar={Boolean(floatingToolbar)}
+      {editorConfig.editable && <ToolbarPlugin />}
+      <EditorRefPlugin editorRef={editorRef} />
+      <OnInitPlugin config={editorConfig} onChange={onChange} value={value} />
+      <div
+        className={`editor-container ${
+          editorConfig.editable ? 'editable' : ''
+        }`}
       >
-        <EditorRefPlugin editorRef={editorRef} />
-        <OnInitPlugin config={editorConfig} onChange={onChange} value={value} />
-        <div
-          className={`editor-container${
-            editorConfig.editable ? ' editable' : ''
-          }`}
-        >
-          <div className="editor-inner">
-            <RichTextPlugin
-              ErrorBoundary={LexicalErrorBoundary}
-              contentEditable={<ContentEditable className="editor-input" />}
-              placeholder={null}
-            />
-          </div>
+        <div className="editor-inner">
+          <RichTextPlugin
+            ErrorBoundary={LexicalErrorBoundary}
+            contentEditable={<ContentEditable className="editor-input" />}
+            placeholder={null}
+          />
         </div>
-      </TextEditorToolbar>
+      </div>
     </LexicalComposer>
   )
 }
