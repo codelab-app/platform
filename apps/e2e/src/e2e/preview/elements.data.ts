@@ -4,6 +4,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+import { systemTypesIds } from '../system-types.data'
 import { actionTypeId, apiPostActionId } from './resource.data'
 
 const elementFormId = v4()
@@ -18,7 +19,7 @@ export const elementForm = (page: IPageDto): ICreateElementData => ({
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: '<p>Submit Form</p>',
     },
     htmlType: 'submit',
@@ -100,7 +101,7 @@ const elementFormItemInput_3: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: '<p>Checkbox Field</p>',
     },
   },
@@ -121,7 +122,7 @@ const elementFormItemInput_4: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: '<p>Submit Form</p>',
     },
     htmlType: 'submit',

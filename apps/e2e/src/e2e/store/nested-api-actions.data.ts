@@ -12,12 +12,8 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+import { systemTypesIds } from '../system-types.data'
 import { createResourceData } from './resource.data'
-
-// TODO: there must be a better way to do this
-// When selecting an action via UI, this id is for the system type ActionType and is saved as the `type` in
-// the typed object i.e. { kind: 'ActionType', type: '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f', value: 'api-action-id' }
-const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
 
 export const stateKey = 'stateKey'
 export const apiGetActionUrlSegment = '/data/some-id'
@@ -99,12 +95,12 @@ export const buttonElementCreateData: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: 'Click button to post',
     },
     onClick: {
       kind: ITypeKind.ActionType,
-      type: actionTypeId,
+      type: systemTypesIds[ITypeKind.ActionType],
       value: 'api-post-action-id',
     },
   },

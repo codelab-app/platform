@@ -3,7 +3,7 @@ import {
   type ICreateCypressElementData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
+import { systemTypesIds } from '../system-types.data'
 
 export const createComponentData = {
   name: 'Component Name',
@@ -22,7 +22,7 @@ const elementText: ICreateCypressElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: '',
     },
   },

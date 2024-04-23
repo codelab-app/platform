@@ -5,6 +5,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+import { systemTypesIds } from '../system-types.data'
 
 export const testUrlProps = {
   subtestId: 'second-url-segment',
@@ -18,7 +19,7 @@ export const providerPageLinkElementCreateData: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: 'go to test page',
     },
     href: '/test-page',
@@ -31,7 +32,7 @@ export const staticPageTextElementCreateData: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: 'this is the test page',
     },
   },
@@ -44,7 +45,7 @@ export const staticPageLinkElementCreateData: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
-      type: v4(),
+      type: systemTypesIds[ITypeKind.RichTextType],
       value: 'go to dynamic page',
     },
     href: `/tests/${testUrlProps.testId}/subtests/${testUrlProps.subtestId}`,
