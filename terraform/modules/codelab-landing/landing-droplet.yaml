@@ -23,7 +23,7 @@ write_files:
       version: '3.8'
       services:
         landing:
-          image: registry.digitalocean.com/codelabapp/landing:latest
+          image: registry.digitalocean.com/codelabapp/landing:0.2.0
           restart: unless-stopped
           ports:
             - "80:3000"

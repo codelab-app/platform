@@ -53,7 +53,7 @@ ENV MAILCHIMP_LIST_ID=$MAILCHIMP_LIST_ID
 ENV MAILCHIMP_API_KEY=$MAILCHIMP_API_KEY
 ENV MAILCHIMP_SERVER_PREFIX=$MAILCHIMP_SERVER_PREFIX
 
-RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile
 RUN pnpm nx build landing --verbose --skip-nx-cache
 
 #

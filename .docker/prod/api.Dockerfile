@@ -33,7 +33,7 @@ COPY apps/api ./apps/api
 COPY libs ./libs
 COPY types ./types
 
-RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile
 RUN pnpm nx build api --verbose --skip-nx-cache
 
 #

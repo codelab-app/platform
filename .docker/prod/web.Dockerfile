@@ -55,7 +55,7 @@ ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
 ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile
 RUN pnpm nx build web --verbose --skip-nx-cache
 
 #
