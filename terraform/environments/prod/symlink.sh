@@ -11,6 +11,7 @@ ln -s ../shared/vars-auth0.tf ./vars-auth0.symlink.tf
 ln -s ../shared/vars-auth0-secret.tf ./vars-auth0-secrets.symlink.tf
 ln -s ../shared/vars-neo4j.tf ./vars-neo4j.symlink.tf
 ln -s ../shared/vars-mailchimp.tf ./vars-mailchimp.symlink.tf
+ln -s ../shared/vars-docker-tag-version.tf ./vars-docker-tag-version.symlink.tf
 # ln -s ../shared/vars-hotjar.tf ./vars-hotjar.symlink.tf
 # ln -s ../shared/vars-intercom.tf ./vars-intercom.symlink.tf
 # ln -s ../shared/vars-google.tf ./vars-google.symlink.tf

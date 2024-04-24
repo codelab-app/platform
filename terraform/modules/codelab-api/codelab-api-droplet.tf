@@ -21,11 +21,12 @@ resource "digitalocean_droplet" "codelab_api" {
     neo4j_uri               = var.neo4j_uri,
     neo4j_user              = var.neo4j_user,
     neo4j_password          = var.neo4j_password
+    docker_tag_version      = var.docker_tag_version
   })
 
-  # lifecycle {
-  #   ignore_changes = [user_data]
-  # }
+  lifecycle {
+    # ignore_changes = [user_data]
+  }
 
   # Optional: Enable the DigitalOcean agent
   droplet_agent = true

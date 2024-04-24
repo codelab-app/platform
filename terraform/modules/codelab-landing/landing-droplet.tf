@@ -16,6 +16,7 @@ resource "digitalocean_droplet" "landing" {
   # Run once only
   user_data = templatefile("${path.module}/landing-droplet.yaml", {
     digitalocean_access_token = var.digitalocean_access_token,
+    docker_tag_version        = var.docker_tag_version
   })
 
   lifecycle {

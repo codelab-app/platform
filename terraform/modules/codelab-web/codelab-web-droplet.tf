@@ -23,6 +23,7 @@ resource "digitalocean_droplet" "web" {
     auth0_domain              = var.auth0_domain,
     auth0_client_id           = var.auth0_web_client_id,
     auth0_client_secret       = var.auth0_web_client_secret,
+    docker_tag_version        = var.docker_tag_version
   })
 
   lifecycle {

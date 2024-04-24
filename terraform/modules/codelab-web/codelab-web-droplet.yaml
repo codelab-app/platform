@@ -24,7 +24,7 @@ write_files:
       version: '3.8'
       services:
         web:
-          image: registry.digitalocean.com/codelabapp/web:0.2.0
+          image: registry.digitalocean.com/codelabapp/web:${docker_tag_version}
           restart: unless-stopped
           ports:
             - "80:3000"

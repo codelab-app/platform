@@ -2,6 +2,7 @@ module "codelab_api" {
   source = "../../modules/codelab-api"
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
+  docker_tag_version        = var.DOCKER_TAG_VERSION
 
   codelab_app_vpc_id = module.codelab.codelab_app_vpc_id
 
