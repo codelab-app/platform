@@ -61,6 +61,13 @@ export const RichTextEditorWrapper = observer<{
     <TextEditor
       config={{ editable, namespace: `${element.id}-editor` }}
       onChange={onChange}
+      onResize={({ height }) => {
+        if (height) {
+          runtimeElement.style.setBuilderStyle(
+            editable ? `minHeight: ${height + 10}px;` : '',
+          )
+        }
+      }}
       value={value}
     />
   )

@@ -21,6 +21,7 @@ import { jsonStringToCss, parseCssStringIntoObject } from './style.utils'
 @model('@codelab/RuntimeElementStyle')
 export class RuntimeElementStyle
   extends Model({
+    builderStyle: prop<string>().withSetter(),
     element: prop<Ref<IElementModel>>(),
   })
   implements IRuntimeElementStyleModel
@@ -114,14 +115,17 @@ export class RuntimeElementStyle
                     '{}',
                 )}
               }
-  
               .ce-inline-toolbar { color: initial; }
             }`,
         )
       }
     }
 
-    return breakpointStyles.join('\n')
+    const styleWithBreakPoints = breakpointStyles.join('\n')
+
+    return isProduction || !this.builderStyle
+      ? styleWithBreakPoints
+      : [styleWithBreakPoints, this.builderStyle].join('\n')
   }
 
   @computed

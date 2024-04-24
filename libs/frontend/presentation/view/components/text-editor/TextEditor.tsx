@@ -1,14 +1,17 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import './styles.css'
 import { mergeProps } from '@codelab/frontend/domain/prop'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
-import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import type { EditorState, LexicalEditor } from 'lexical'
 import React, { useRef } from 'react'
+import styled from 'styled-components'
+import useResizeObserver from 'use-resize-observer/polyfilled'
+import { DisplayIf } from '../conditionalView'
 import { OnInitPlugin, ToolbarPlugin } from './plugins'
 import { defaultEditorTheme } from './theme'
 
@@ -27,35 +30,69 @@ export interface TextEditorProps {
   config?: Partial<InitialConfigType>
   value?: string
   onChange?(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
+  onResize?(size: { height: Maybe<number>; width: Maybe<number> }): void
 }
+
+const ToolbarContainer = styled.div`
+  width: 100%;
+  padding: 4px;
+`
+
+const Input = styled(ContentEditable)`
+  width: 100%;
+  padding: 4px 11px;
+  margin: 0;
+  text-align: left;
+  outline: none;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.57;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &.active {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  &:focus {
+    border-color: #1677ff;
+    box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
+    outline: 0;
+    background-color: #ffffff;
+  }
+`
 
 export const TextEditor = ({
   config = {},
   onChange = () => null,
+  onResize = () => null,
   value,
 }: TextEditorProps) => {
-  const editorRef = useRef<LexicalEditor>(null)
+  const editorRef = useRef<HTMLDivElement>(null)
+
+  useResizeObserver({ onResize, ref: editorRef })
+
   const editorConfig = mergeProps<InitialConfigType>(defaultConfig, config)
 
   return (
-    <LexicalComposer initialConfig={editorConfig}>
-      {editorConfig.editable && <ToolbarPlugin />}
-      <EditorRefPlugin editorRef={editorRef} />
-      <OnInitPlugin config={editorConfig} onChange={onChange} value={value} />
-      <div
-        className={`editor-container ${
-          editorConfig.editable ? 'editable' : ''
-        }`}
-      >
-        <div className="editor-inner">
-          <RichTextPlugin
-            ErrorBoundary={LexicalErrorBoundary}
-            contentEditable={<ContentEditable className="editor-input" />}
-            placeholder={null}
-          />
-        </div>
-      </div>
-    </LexicalComposer>
+    <div id="lexical-editor" ref={editorRef}>
+      <LexicalComposer initialConfig={editorConfig}>
+        <DisplayIf condition={Boolean(editorConfig.editable)}>
+          <ToolbarContainer>
+            <ToolbarPlugin />
+          </ToolbarContainer>
+        </DisplayIf>
+        <OnInitPlugin config={editorConfig} onChange={onChange} value={value} />
+        <RichTextPlugin
+          ErrorBoundary={LexicalErrorBoundary}
+          contentEditable={
+            <Input className={editorConfig.editable ? 'active' : undefined} />
+          }
+          placeholder={null}
+        />
+      </LexicalComposer>
+    </div>
   )
 }
 

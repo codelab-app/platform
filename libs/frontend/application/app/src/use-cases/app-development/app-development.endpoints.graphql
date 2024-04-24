@@ -16,6 +16,9 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   components {
     ...ComponentDevelopment
   }
+  codeMirrorTypes {
+    ...CodeMirrorType
+  }
   # Load system types
   # workaround for lack of ability to recursively fetch field's types
   primitiveTypes {

@@ -98,7 +98,7 @@ export const ToolbarPlugin = () => {
   ]
 
   return (
-    <Flex gap="small" id="lexical-toolbar" wrap="wrap">
+    <Flex id="lexical-toolbar" wrap="wrap">
       <Button
         aria-label="Undo"
         disabled={!canUndo}
@@ -106,6 +106,7 @@ export const ToolbarPlugin = () => {
         onClick={() => {
           editor.dispatchCommand(UNDO_COMMAND, undefined)
         }}
+        size="small"
       />
       <Button
         aria-label="Redo"
@@ -114,6 +115,7 @@ export const ToolbarPlugin = () => {
         onClick={() => {
           editor.dispatchCommand(REDO_COMMAND, undefined)
         }}
+        size="small"
       />
       <Button
         aria-label="Format Bold"
@@ -121,6 +123,7 @@ export const ToolbarPlugin = () => {
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
         }}
+        size="small"
       />
       <Button
         aria-label="Format Italics"
@@ -128,6 +131,7 @@ export const ToolbarPlugin = () => {
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
         }}
+        size="small"
       />
       <Button
         aria-label="Format Underline"
@@ -135,6 +139,7 @@ export const ToolbarPlugin = () => {
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
         }}
+        size="small"
       />
       <Button
         aria-label="Format Strikethrough"
@@ -142,12 +147,14 @@ export const ToolbarPlugin = () => {
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
         }}
+        size="small"
       />
       <Segmented<ElementFormatType>
         onChange={(value) =>
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, value)
         }
         options={alignOptions}
+        size="small"
       />
     </Flex>
   )

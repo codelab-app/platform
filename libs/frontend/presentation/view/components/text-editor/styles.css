@@ -52,45 +52,6 @@ h1 {
   text-align: right;
 }
 
-.editor-container {
-  margin: auto;
-  border-radius: 2px;
-  color: #000;
-  position: relative;
-  line-height: 20px;
-  font-weight: 400;
-  text-align: left;
-}
-
-.editor-container.editable .editor-input {
-  min-height: 20px;
-  min-width: 30px;
-}
-
-.editor-input {
-  /* min-height: 20px; */
-  /* resize: none;
-  font-size: 15px;
-  caret-color: rgb(5, 5, 5);
-  position: relative;
-  tab-size: 1;
-  outline: 0;
-  padding: 15px 10px;
-  caret-color: #444; */
-}
-
-.editor-placeholder {
-  color: #999;
-  overflow: hidden;
-  position: absolute;
-  text-overflow: ellipsis;
-  top: 15px;
-  left: 10px;
-  font-size: 15px;
-  user-select: none;
-  display: inline-block;
-  pointer-events: none;
-}
 
 .editor-text-bold {
   font-weight: bold;

@@ -2,6 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ActionTypeFragment } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
 import { AppDevelopmentFragment } from '../../../../../abstract/domain/src/app/app.fragment.graphql.gen'
+import { CodeMirrorTypeFragment } from '../../../../../abstract/domain/src/type/fragments/code-mirror-type.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
@@ -18,6 +19,7 @@ import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { ActionTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
 import { AppDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/app/app.fragment.graphql.gen'
+import { CodeMirrorTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/code-mirror-type.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
@@ -42,6 +44,7 @@ export type GetAppDevelopmentQuery = {
   atoms: Array<AtomDevelopmentFragment>
   authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
+  codeMirrorTypes: Array<CodeMirrorTypeFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
   redirects: Array<RedirectFragment>
@@ -67,6 +70,9 @@ export const GetAppDevelopmentDocument = gql`
     components {
       ...ComponentDevelopment
     }
+    codeMirrorTypes {
+      ...CodeMirrorType
+    }
     primitiveTypes {
       ...PrimitiveType
     }
@@ -91,6 +97,7 @@ export const GetAppDevelopmentDocument = gql`
   ${AtomDevelopmentFragmentDoc}
   ${AuthGuardFragmentDoc}
   ${ComponentDevelopmentFragmentDoc}
+  ${CodeMirrorTypeFragmentDoc}
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
   ${RedirectFragmentDoc}

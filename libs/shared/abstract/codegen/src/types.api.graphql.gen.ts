@@ -22472,6 +22472,7 @@ export type GetAppDevelopmentQuery = {
   atoms: Array<AtomDevelopmentFragment>
   authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
+  codeMirrorTypes: Array<CodeMirrorTypeFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
   redirects: Array<RedirectFragment>
