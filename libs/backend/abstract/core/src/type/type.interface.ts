@@ -3,6 +3,8 @@ import type {
   ActionTypeWhere,
   ArrayType,
   ArrayTypeWhere,
+  CodeMirrorType,
+  CodeMirrorTypeWhere,
   EnumType,
   EnumTypeWhere,
   InterfaceType,
@@ -26,6 +28,7 @@ export type TypeRef = {
 export type ITypeWhere =
   | ActionTypeWhere
   | ArrayTypeWhere
+  | CodeMirrorTypeWhere
   | EnumTypeWhere
   | InterfaceTypeWhere
   | PrimitiveTypeWhere
@@ -37,6 +40,7 @@ export type ITypeWhere =
 export type IType =
   | ActionType
   | ArrayType
+  | CodeMirrorType
   | EnumType
   | InterfaceType
   | PrimitiveType

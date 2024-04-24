@@ -1,5 +1,6 @@
 export * from './action-type.repo.service'
 export * from './array-type.repo.service'
+export * from './code-mirror-type.repo.service'
 export * from './enum-type.repo.service'
 export * from './field.repo.service'
 export * from './interface-type.repo.service'

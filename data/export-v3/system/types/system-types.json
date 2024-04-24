@@ -53,44 +53,44 @@
   },
   {
     "__typename": "CodeMirrorType",
-    "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
-    "kind": "CodeMirrorType",
-    "name": "Typescript Code",
-    "language":"Typescript"
-  },
-  {
-    "__typename": "CodeMirrorType",
-    "id": "ab8971d5-06f8-463d-b23f-06e826459d03",
-    "kind": "CodeMirrorType",
-    "name": "Javascript Code",
-    "language":"Javascript"
-  },
-  {
-    "__typename": "CodeMirrorType",
     "id": "b2e640a0-8ae2-477a-9ba0-67c81e538a54",
     "kind": "CodeMirrorType",
-    "name": "Css Code",
-    "language":"Css"
-  },
-  {
-    "__typename": "CodeMirrorType",
-    "id": "ce2fe227-e25a-4670-9d02-4f5e4fe7212d",
-    "kind": "CodeMirrorType",
-    "name": "Json Code",
-    "language":"Json"
-  },
-  {
-    "__typename": "CodeMirrorType",
-    "id": "ec839422-8e6f-4360-8d93-cea4929d64a9",
-    "kind": "CodeMirrorType",
-    "name": "Graphql Code",
-    "language":"Graphql"
+    "language": "Css",
+    "name": "Css Code"
   },
   {
     "__typename": "CodeMirrorType",
     "id": "01d9cc94-5256-4547-b6c6-1e49dd0a289e",
     "kind": "CodeMirrorType",
-    "name": "CssInJs Code",
-    "language":"CssInJs"
+    "language": "CssInJs",
+    "name": "CssInJs Code"
+  },
+  {
+    "__typename": "CodeMirrorType",
+    "id": "ec839422-8e6f-4360-8d93-cea4929d64a9",
+    "kind": "CodeMirrorType",
+    "language": "Graphql",
+    "name": "Graphql Code"
+  },
+  {
+    "__typename": "CodeMirrorType",
+    "id": "ab8971d5-06f8-463d-b23f-06e826459d03",
+    "kind": "CodeMirrorType",
+    "language": "Javascript",
+    "name": "Javascript Code"
+  },
+  {
+    "__typename": "CodeMirrorType",
+    "id": "ce2fe227-e25a-4670-9d02-4f5e4fe7212d",
+    "kind": "CodeMirrorType",
+    "language": "Json",
+    "name": "Json Code"
+  },
+  {
+    "__typename": "CodeMirrorType",
+    "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+    "kind": "CodeMirrorType",
+    "language": "Typescript",
+    "name": "Typescript Code"
   }
 ]

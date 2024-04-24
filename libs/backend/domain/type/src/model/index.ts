@@ -1,5 +1,6 @@
 export * from './action-type.model'
 export * from './array-type.model'
+export * from './code-mirror-type.model'
 export * from './enum-type.model'
 export * from './field.model'
 export * from './interface-type.model'

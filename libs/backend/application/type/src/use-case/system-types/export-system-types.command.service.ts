@@ -1,6 +1,7 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
   ActionTypeRepository,
+  CodeMirrorTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
@@ -9,6 +10,7 @@ import {
 import type { IType } from '@codelab/shared/abstract/core'
 import {
   IActionType,
+  ICodeMirrorType,
   IPrimitiveType,
   IReactNodeType,
   IRenderPropType,
@@ -44,6 +46,7 @@ export class ExportSystemTypesHandler
     private richTextTypeRepository: RichTextTypeRepository,
     private renderPropTypeRepository: RenderPropTypeRepository,
     private actionTypeRepository: ActionTypeRepository,
+    private codeMirrorTypeRepository: CodeMirrorTypeRepository,
   ) {}
 
   async execute() {
@@ -101,6 +104,13 @@ export class ExportSystemTypesHandler
       schema: IActionType,
     })
 
+    const codeMirrorTypes = await this.codeMirrorTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: ICodeMirrorType,
+    })
+
     /**
      * Here we create the interface dependency tree order
      *
@@ -112,6 +122,7 @@ export class ExportSystemTypesHandler
       ...reactNodeTypes,
       ...actionTypes,
       ...richTextTypes,
+      ...codeMirrorTypes,
     ]
   }
 }

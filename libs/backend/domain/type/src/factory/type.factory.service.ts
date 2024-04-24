@@ -1,6 +1,7 @@
 import type {
   ActionTypeWhere,
   ArrayTypeWhere,
+  CodeMirrorTypeWhere,
   EnumTypeWhere,
   InterfaceTypeWhere,
   PrimitiveTypeWhere,
@@ -20,6 +21,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Driver } from 'neo4j-driver'
 import {
   ActionType,
+  CodeMirrorType,
   EnumType,
   InterfaceType,
   PrimitiveType,
@@ -32,14 +34,15 @@ import { ArrayType } from '../model/array-type.model'
 import {
   ActionTypeRepository,
   ArrayTypeRepository,
+  CodeMirrorTypeRepository,
   EnumTypeRepository,
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
   RichTextTypeRepository,
+  UnionTypeRepository,
 } from '../repository'
-import { UnionTypeRepository } from '../repository/union-type.repo.service'
 
 /**
  * Used for dynamic data when we don't know what type we are creating
@@ -56,6 +59,7 @@ export class TypeFactory {
     private readonly actionTypeRepository: ActionTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
+    private readonly codeMirrorRepository: CodeMirrorTypeRepository,
     @Inject(NEO4J_DRIVER_PROVIDER) private driver: Driver,
   ) {}
 
@@ -110,6 +114,10 @@ export class TypeFactory {
       }
 
       case ITypeKind.UnionType: {
+        return (await this.unionTypeRepository).findOne({ where: { id } })
+      }
+
+      case ITypeKind.CodeMirrorType: {
         return (await this.unionTypeRepository).findOne({ where: { id } })
       }
 
@@ -198,6 +206,15 @@ export class TypeFactory {
         return (await this.unionTypeRepository.save(
           unionType,
           where as UnionTypeWhere,
+        )) as T
+      }
+
+      case ITypeKind.CodeMirrorType: {
+        const codeMirrorType = new CodeMirrorType(type)
+
+        return (await this.codeMirrorRepository.save(
+          codeMirrorType,
+          where as CodeMirrorTypeWhere,
         )) as T
       }
 

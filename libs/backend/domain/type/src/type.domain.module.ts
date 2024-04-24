@@ -4,6 +4,7 @@ import { TypeFactory } from './factory'
 import {
   ActionTypeRepository,
   ArrayTypeRepository,
+  CodeMirrorTypeRepository,
   EnumTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,
@@ -18,6 +19,7 @@ import { TypeDomainService } from './service'
 const typeRepositories = [
   ActionTypeRepository,
   ArrayTypeRepository,
+  CodeMirrorTypeRepository,
   EnumTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,

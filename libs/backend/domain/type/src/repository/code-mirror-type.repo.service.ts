@@ -1,77 +1,79 @@
 import type {
-  PrimitiveType,
-  PrimitiveTypeOptions,
-  PrimitiveTypeWhere,
+  CodeMirrorType,
+  CodeMirrorTypeOptions,
+  CodeMirrorTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  exportPrimitiveTypeSelectionSet,
+  exportCodeMirrorTypeSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
+import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class PrimitiveTypeRepository extends AbstractRepository<
-  IPrimitiveTypeDto,
-  PrimitiveType,
-  PrimitiveTypeWhere,
-  PrimitiveTypeOptions
+export class CodeMirrorTypeRepository extends AbstractRepository<
+  ICodeMirrorTypeDto,
+  CodeMirrorType,
+  CodeMirrorTypeWhere,
+  CodeMirrorTypeOptions
 > {
   constructor(
     private ogmService: OgmService,
-    protected override validationService: ValidationService,
+
     protected override loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
+
     protected authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }
 
-  protected async _addMany(primitiveTypes: Array<IPrimitiveTypeDto>) {
+  protected async _addMany(codemirrorTypes: Array<ICodeMirrorTypeDto>) {
     return (
       await (
-        await this.ogmService.PrimitiveType
+        await this.ogmService.CodeMirrorType
       ).create({
-        input: primitiveTypes.map(({ __typename, ...type }) => ({
+        input: codemirrorTypes.map(({ __typename, ...type }) => ({
           ...type,
           owner: connectOwner(this.authService.currentUser),
         })),
       })
-    ).primitiveTypes
+    ).codeMirrorTypes
   }
 
   protected async _find({
     options,
     where,
   }: {
-    where?: PrimitiveTypeWhere
-    options?: PrimitiveTypeOptions
+    where?: CodeMirrorTypeWhere
+    options?: CodeMirrorTypeOptions
   }) {
     return await (
-      await this.ogmService.PrimitiveType
+      await this.ogmService.CodeMirrorType
     ).find({
       options,
-      selectionSet: `{ ${exportPrimitiveTypeSelectionSet} }`,
+      selectionSet: `{ ${exportCodeMirrorTypeSelectionSet} }`,
       where,
     })
   }
 
   protected async _update(
-    { __typename, id, name, primitiveKind }: IPrimitiveTypeDto,
+    { __typename, id, language, name }: ICodeMirrorTypeDto,
     where: BaseTypeUniqueWhere,
   ) {
     return (
       await (
-        await this.ogmService.PrimitiveType
+        await this.ogmService.CodeMirrorType
       ).update({
         update: { name },
         where,
       })
-    ).primitiveTypes[0]
+    ).codeMirrorTypes[0]
   }
 }

@@ -53,10 +53,10 @@
         "name": "AtomChildren Union",
         "typesOfUnionType": [
           {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "kind": "CodeMirrorType",
+            "name": "Typescript Code"
           },
           {
             "__typename": "RichTextType",
