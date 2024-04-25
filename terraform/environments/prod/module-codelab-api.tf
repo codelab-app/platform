@@ -9,9 +9,7 @@ module "codelab_api" {
 
   neo4j_user     = var.NEO4J_USER
   neo4j_password = var.NEO4J_PASSWORD
-  # neo4j_uri      = var.NEO4J_URI
-  neo4j_uri = "neo4j://${module.codelab_neo4j.neo4j_ipv4_address_private}:7687"
+  neo4j_uri      = module.codelab_neo4j.neo4j_uri
 
-  next_public_api_hostname = var.NEXT_PUBLIC_API_HOSTNAME
-  next_public_api_port     = var.NEXT_PUBLIC_API_PORT
+  next_public_api_port = var.NEXT_PUBLIC_API_PORT
 }

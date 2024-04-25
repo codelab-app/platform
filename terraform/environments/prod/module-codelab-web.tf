@@ -6,7 +6,7 @@ module "codelab_web" {
 
   next_public_web_host = var.NEXT_PUBLIC_WEB_HOST
 
-  next_public_api_hostname = "https://${module.codelab_api.codelab_api_ipv4_address_private}"
+  next_public_api_hostname = module.codelab_api.codelab_api_hostname
   next_public_api_port     = var.NEXT_PUBLIC_API_PORT
 
   auth0_domain            = var.AUTH0_DOMAIN

@@ -5,7 +5,8 @@ set -x
 ln -s ../auth0/vars-domain.tf ./vars-auth0-domain.symlink.tf
 ln -s ../supabase/vars.tf ./vars-supabase.symlink.tf
 ln -s ../codelab-web/vars.tf ./vars-codelab-web.symlink.tf
-ln -s ../codelab-api/vars.tf ./vars-codelab-api.symlink.tf
+ln -s ../codelab-api/shared/vars-api-hostname.tf ./vars-codelab-api-hostname.symlink.tf
+ln -s ../codelab-api/shared/vars-api-port.tf ./vars-codelab-api-port.symlink.tf
 ln -s ../auth0/shared/vars-secret.tf ./vars-auth0-secret.symlink.tf
 ln -s ../auth0/shared/vars-web-client.tf ./vars-auth0-web-client.symlink.tf
 ln -s ../auth0/shared/vars-machine-client.tf ./vars-auth0-machine-client.symlink.tf

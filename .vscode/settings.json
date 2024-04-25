@@ -27,5 +27,8 @@
   "eslint.run": "onSave",
   "eslint.validate": ["json"],
   "json.format.enable": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform"
+  }
 }

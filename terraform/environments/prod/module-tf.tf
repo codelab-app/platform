@@ -44,10 +44,17 @@ import {
   id = "ws-NrynjEaFcDqEkh73"
 }
 
-# Allows us to update cloud env with provisioned values
-resource "tfe_variable" "neo4j_uri" {
-  key          = "NEO4J_URI"
-  value        = module.codelab_neo4j.neo4j_uri
-  category     = "terraform"
-  workspace_id = tfe_workspace.prod.id
-}
+# The source of truth for these are from provisioned modules, so we update via TF
+# resource "tfe_variable" "neo4j_uri" {
+#   key          = "NEO4J_URI"
+#   value        = module.codelab_neo4j.neo4j_uri
+#   category     = "terraform"
+#   workspace_id = tfe_workspace.prod.id
+# }
+
+# resource "tfe_variable" "next_public_api_hostname" {
+#   key          = "NEXT_PUBLIC_API_HOSTNAME"
+#   value        = module.codelab_api.codelab_api_hostname
+#   category     = "terraform"
+#   workspace_id = tfe_workspace.prod.id
+# }

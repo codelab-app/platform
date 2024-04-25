@@ -29,12 +29,6 @@ resource "digitalocean_droplet" "neo4j" {
   droplet_agent = true
 }
 
-
-# Outputs to retrieve the Droplet's IP addresses
-output "neo4j_ipv4_address_private" {
-  value = digitalocean_droplet.neo4j.ipv4_address_private
-}
-
 output "neo4j_uri" {
-  value = "neo4j+s//${digitalocean_droplet.neo4j.ipv4_address_private}"
+  value = "neo4j+s://${digitalocean_droplet.neo4j.ipv4_address_private}:7687"
 }

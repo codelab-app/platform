@@ -26,7 +26,7 @@ write_files:
           image: registry.digitalocean.com/codelabapp/api:${docker_tag_version}
           restart: unless-stopped
           ports:
-            - "4000:4000"
+            - "${next_public_api_port}:4000"
           environment:
             - AUTH0_M2M_CLIENT_ID=${auth0_m2m_client_id}
             - AUTH0_M2M_CLIENT_SECRET=${auth0_m2m_client_secret}

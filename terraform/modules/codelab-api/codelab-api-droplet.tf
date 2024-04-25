@@ -23,6 +23,7 @@ resource "digitalocean_droplet" "codelab_api" {
     neo4j_password          = var.neo4j_password
     docker_tag_version      = var.docker_tag_version
     auth0_domain            = var.auth0_domain
+    next_public_api_port    = var.next_public_api_port
   })
 
   lifecycle {
@@ -33,7 +34,6 @@ resource "digitalocean_droplet" "codelab_api" {
   droplet_agent = true
 }
 
-output "codelab_api_ipv4_address_private" {
-  value = digitalocean_droplet.codelab_api.ipv4_address_private
+output "codelab_api_hostname" {
+  value = "https://${digitalocean_droplet.codelab_api.ipv4_address_private}"
 }
-

@@ -7,5 +7,4 @@ module "codelab_neo4j" {
 
   neo4j_user     = var.NEO4J_USER
   neo4j_password = var.NEO4J_PASSWORD
-  # neo4j_uri      = var.NEO4J_URI
 }
