@@ -6,7 +6,7 @@ rm ./*.symlink.tf
 
 ln -s ../shared/module-auth0.tf ./module-auth0.symlink.tf
 ln -s ../shared/vars-codelab-web.tf ./vars-codelab-web.symlink.tf
-ln -s ../shared/vars-codelab-api.tf ./vars-codelab-api.symlink.tf
+ln -s ../shared/vars-codelab-api-port.tf ./vars-codelab-api-port.symlink.tf
 ln -s ../shared/vars-auth0.tf ./vars-auth0.symlink.tf
 ln -s ../shared/vars-auth0-secret.tf ./vars-auth0-secrets.symlink.tf
 ln -s ../shared/vars-neo4j-credentials.tf ./vars-neo4j-credentials.symlink.tf
