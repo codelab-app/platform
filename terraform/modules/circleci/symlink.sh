@@ -2,7 +2,7 @@
 
 set -x
 
-ln -s ../auth0/vars.tf ./vars-auth0.symlink.tf
+ln -s ../auth0/vars-domain.tf ./vars-auth0-domain.symlink.tf
 ln -s ../supabase/vars.tf ./vars-supabase.symlink.tf
 ln -s ../codelab-web/vars.tf ./vars-codelab-web.symlink.tf
 ln -s ../codelab-api/vars.tf ./vars-codelab-api.symlink.tf

@@ -16,6 +16,10 @@ terraform {
       source  = "digitalocean/digitalocean"
       version = "2.34.1"
     }
+
+    tfe = {
+      version = "~> 0.54.0"
+    }
   }
 
   cloud {

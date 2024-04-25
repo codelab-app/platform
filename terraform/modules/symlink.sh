@@ -11,5 +11,6 @@ rm ./**/*.symlink.tf
 (cd ./codelab && ./symlink.sh)
 (cd ./codelab-api && ./symlink.sh)
 (cd ./codelab-landing && ./symlink.sh)
+(cd ./codelab-neo4j && ./symlink.sh)
 (cd ./codelab-web && ./symlink.sh)
 (cd ./auth0 && ./symlink.sh)

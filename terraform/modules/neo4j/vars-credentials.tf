@@ -8,7 +8,4 @@ variable "neo4j_password" {
   description = "Neo4j password"
 }
 
-variable "neo4j_uri" {
-  type        = string
-  description = "Neo4j uri"
-}
+

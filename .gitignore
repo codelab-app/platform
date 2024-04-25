@@ -5,9 +5,6 @@
 !.env.example
 !.env.test.example
 
-.serverless/
-.build/
-
 # compiled output
 # Ignore everything in 'dist'
 /dist/*
@@ -49,6 +46,3 @@ Thumbs.db
 # Next.js
 .next/
 .nx/
-
-# Next.js
-.next

@@ -16,6 +16,8 @@ export default auth0Instance().handleAuth({
             throw new Error('Missing access token')
           }
 
+          console.log('...auth0.ts', process.env['NODE_ENV'])
+
           /**
            * Only do this in development
            */

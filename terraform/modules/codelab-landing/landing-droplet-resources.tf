@@ -6,7 +6,7 @@ resource "digitalocean_loadbalancer" "landing" {
   vpc_uuid = var.codelab_app_vpc_id
 
   droplet_ids = [
-    digitalocean_droplet.landing.id,
+    digitalocean_droplet.codelab_landing.id,
   ]
 
   forwarding_rule {

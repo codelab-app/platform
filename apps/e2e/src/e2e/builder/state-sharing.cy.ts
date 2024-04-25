@@ -62,6 +62,11 @@ describe('State variables sharing between pages', () => {
 
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
+    // The UI tree flickers, need this otherwise fails on CI
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
+    cy.toggleCuiTreeNodeSwitcher(`${COMPONENT_NAME} Root`)
+
     cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({
       force: true,
     })
