@@ -15,10 +15,7 @@ resource "digitalocean_droplet" "codelab_landing" {
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
   # Run once only
-  user_data = templatefile("${path.module}/landing-droplet.yaml", {
-    digitalocean_access_token = var.digitalocean_access_token,
-    docker_tag_version        = var.docker_tag_version
-  })
+  user_data = data.cloudinit_config.landing.rendered
 
   lifecycle {
     # ignore_changes = [user_data]
@@ -26,8 +23,6 @@ resource "digitalocean_droplet" "codelab_landing" {
 
   # Optional: Enable the DigitalOcean agent
   droplet_agent = true
-
   # tags = ["landing"]
 }
-
 

@@ -1,5 +1,9 @@
+data "auth0_client" "web_client" {
+  client_id = auth0_client.web_client.client_id
+}
+
 output "web_client" {
-  value       = auth0_client.web_client
+  value       = data.auth0_client.web_client
   description = "Auth0 web client"
 }
 

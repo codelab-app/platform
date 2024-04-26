@@ -12,6 +12,13 @@ export const Neo4jDriverProvider: FactoryProvider<Driver> = {
     const password = config.password
     const uri = config.uri.toString()
     const username = config.user
+
+    console.log('neo4j', {
+      password,
+      uri,
+      username,
+    })
+
     const neo4jDriver = neo4j.driver(uri, neo4j.auth.basic(username, password))
 
     return neo4jDriver

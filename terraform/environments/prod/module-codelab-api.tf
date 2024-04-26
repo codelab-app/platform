@@ -3,7 +3,10 @@ module "codelab_api" {
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
   docker_tag_version        = var.DOCKER_TAG_VERSION
-  auth0_domain              = var.AUTH0_DOMAIN
+
+  loki_url = var.LOKI_URL
+
+  auth0_domain = var.AUTH0_DOMAIN
 
   codelab_app_vpc_id = module.codelab.codelab_app_vpc_id
 

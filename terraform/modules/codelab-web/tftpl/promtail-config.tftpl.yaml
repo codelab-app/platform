@@ -1,0 +1,24 @@
+# https://grafana.com/docs/grafana-cloud/send-data/logs/collect-logs-with-promtail/
+
+server:
+  http_listen_port: 0
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+client:
+  url: ${loki_url}
+
+# Use Loki logging plugin
+# https://grafana.com/docs/loki/latest/send-data/docker-driver/
+scrape_configs:
+  - job_name: docker
+    pipeline_stages:
+      - docker: {}
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: docker
+          __path__: /var/lib/docker/containers/*/*-json.log

@@ -9,3 +9,4 @@ ln -s ../neo4j/vars-credentials.tf ./vars-neo4j-credentials.symlink.tf
 ln -s ../neo4j/vars-uri.tf ./vars-neo4j-uri.symlink.tf
 ln -s ../docker/vars-tag-version.tf ./vars-docker-tag-version.symlink.tf
 ln -s ./shared/vars-api-port.tf ./vars-api-port.symlink.tf
+ln -s ../loki/shared/vars-loki-url.tf ./vars-loki-url.symlink.tf

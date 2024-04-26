@@ -13,18 +13,7 @@ resource "digitalocean_droplet" "codelab_api" {
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
   # Run once only
-  user_data = templatefile("${path.module}/codelab-api-droplet.yaml", {
-    digitalocean_access_token = var.digitalocean_access_token,
-    # Not used
-    auth0_m2m_client_id     = "",
-    auth0_m2m_client_secret = "",
-    neo4j_uri               = var.neo4j_uri,
-    neo4j_user              = var.neo4j_user,
-    neo4j_password          = var.neo4j_password
-    docker_tag_version      = var.docker_tag_version
-    auth0_domain            = var.auth0_domain
-    next_public_api_port    = var.next_public_api_port
-  })
+  user_data = data.cloudinit_config.api.rendered
 
   lifecycle {
     # ignore_changes = [user_data]

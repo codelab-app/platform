@@ -12,6 +12,7 @@ ln -s ../auth0/shared/vars-web-client.tf ./vars-auth0-web-client.symlink.tf
 ln -s ../auth0/shared/vars-secret.tf ./vars-auth0-secret.symlink.tf
 ln -s ../auth0/vars-domain.tf ./vars-auth0-domain.symlink.tf
 ln -s ../docker/vars-tag-version.tf ./vars-docker-tag-version.symlink.tf
+ln -s ../loki/shared/vars-loki-url.tf ./vars-loki-url.symlink.tf
 
 # ln -s ../mailchimp/vars.tf ./vars-mailchimp.symlink.tf
 # ln -s ../neo4j/vars-credentials.tf ./vars-neo4j-credentials.symlink.tf

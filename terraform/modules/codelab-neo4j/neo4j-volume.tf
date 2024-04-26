@@ -2,7 +2,7 @@ resource "digitalocean_volume" "neo4j" {
   region                  = "sfo2"
   name                    = "neo4j-volumes"
   size                    = 100
-  initial_filesystem_type = "xfs"
+  initial_filesystem_type = "ext4"
   # description             = "an example volume"
 }
 

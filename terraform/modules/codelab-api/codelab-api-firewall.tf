@@ -66,4 +66,11 @@ resource "digitalocean_firewall" "codelab_api" {
     protocol              = "icmp"
     destination_addresses = ["0.0.0.0/0", "::/0"]
   }
+
+  # Additional rule to allow outbound traffic on the Neo4j Bolt port
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "7687"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
 }

@@ -3,6 +3,8 @@ module "codelab_neo4j" {
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
 
+  loki_url = var.LOKI_URL
+
   codelab_app_vpc_id = module.codelab.codelab_app_vpc_id
 
   neo4j_user     = var.NEO4J_USER
