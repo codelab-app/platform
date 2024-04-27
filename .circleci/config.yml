@@ -189,7 +189,7 @@ jobs:
           name: Push Docker Image
   docker-landing:
     executor: docker-node
-    resource_class: large
+    resource_class: medium
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -208,9 +208,15 @@ jobs:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
+      - nx/set-shas
       - run:
           command: |
-            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build web
+            # Returns `web` if affected, otherwise `""`
+            NO_CACHE_FILTER=$(nx show projects --affected --type app --base=$NX_BASE | grep -w "web")
+
+            docker compose -f .docker/prod/build.docker-compose.yaml \
+              build web --no-cache-filter="$NO_CACHE_FILTER" \
+              --verbose
           name: Build web Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
