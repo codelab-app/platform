@@ -13,6 +13,7 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
@@ -21,7 +22,7 @@ import { jsonStringToCss, parseCssStringIntoObject } from './style.utils'
 @model('@codelab/RuntimeElementStyle')
 export class RuntimeElementStyle
   extends Model({
-    builderStyle: prop<string>().withSetter(),
+    builderStyle: prop<Maybe<string>>().withSetter(),
     element: prop<Ref<IElementModel>>(),
   })
   implements IRuntimeElementStyleModel

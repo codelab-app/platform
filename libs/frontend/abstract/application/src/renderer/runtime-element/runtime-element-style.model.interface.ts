@@ -31,7 +31,7 @@ export interface IRuntimeElementStyleModel {
    * a style added by the builder behind the scenes
    * main use case set element min height for text editor to be visible on editing
    */
-  builderStyle: string
+  builderStyle?: string
   customCss?: Nullable<string>
   /**
    * html-ready string that includes styles for all breakpoints
