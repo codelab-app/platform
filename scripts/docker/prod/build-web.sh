@@ -12,7 +12,7 @@ NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$NX_BASE | 
 echo $NO_CACHE_FILTER
 
 # `--no-cache-filter` works only with `docker build`
-docker build -f ${PWD}/.docker/prod/web.Dockerfile -t registry.digitalocean.com/codelabapp/web:${DOCKER_TAG_VERSION} \
+docker buildx build -f ${PWD}/.docker/prod/web.Dockerfile -t registry.digitalocean.com/codelabapp/web:${DOCKER_TAG_VERSION} \
   --build-arg NEXT_PUBLIC_WEB_HOST=${NEXT_PUBLIC_WEB_HOST} \
   --build-arg NEXT_PUBLIC_API_PORT=${NEXT_PUBLIC_API_PORT} \
   --build-arg NEXT_PUBLIC_API_HOSTNAME=${NEXT_PUBLIC_API_HOSTNAME} \
