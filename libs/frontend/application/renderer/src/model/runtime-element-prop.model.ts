@@ -13,6 +13,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_ELEMENT_ID,
+  isAtom,
   isAtomRef,
   isComponentRef,
   isTypedProp,
@@ -148,6 +149,19 @@ export class RuntimeElementPropsModel
 
   @computed
   get renderedChildrenProp(): ReactNode {
+    const atomApi = isAtom(this.element.renderType.current)
+      ? this.element.renderType.current.api.current
+      : undefined
+
+    const childrenField = atomApi?.fields.find(
+      (field) => field.key === 'children',
+    )
+
+    // atom doesn't children like input
+    if (!childrenField) {
+      return undefined
+    }
+
     const childrenProp = this.element.props.get('children')
 
     const isCodeMirrorType =
