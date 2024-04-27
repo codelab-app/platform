@@ -13,11 +13,11 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   authGuards {
     ...AuthGuard
   }
-  components {
-    ...ComponentDevelopment
-  }
   codeMirrorTypes {
     ...CodeMirrorType
+  }
+  components {
+    ...ComponentDevelopment
   }
   # Load system types
   # workaround for lack of ability to recursively fetch field's types

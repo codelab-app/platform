@@ -43,8 +43,8 @@ export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
   authGuards: Array<AuthGuardFragment>
-  components: Array<ComponentDevelopmentFragment>
   codeMirrorTypes: Array<CodeMirrorTypeFragment>
+  components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
   redirects: Array<RedirectFragment>
@@ -67,11 +67,11 @@ export const GetAppDevelopmentDocument = gql`
     authGuards {
       ...AuthGuard
     }
-    components {
-      ...ComponentDevelopment
-    }
     codeMirrorTypes {
       ...CodeMirrorType
+    }
+    components {
+      ...ComponentDevelopment
     }
     primitiveTypes {
       ...PrimitiveType
@@ -96,8 +96,8 @@ export const GetAppDevelopmentDocument = gql`
   ${AppDevelopmentFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
   ${AuthGuardFragmentDoc}
-  ${ComponentDevelopmentFragmentDoc}
   ${CodeMirrorTypeFragmentDoc}
+  ${ComponentDevelopmentFragmentDoc}
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
   ${RedirectFragmentDoc}

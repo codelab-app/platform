@@ -10,8 +10,8 @@ describe('TextEditor', () => {
       render(
         <TextEditor
           config={{ editable: false }}
-          data={initialData}
           onChange={() => {}}
+          value={initialData}
         />,
       )
     })
