@@ -23,6 +23,10 @@ resource "digitalocean_droplet" "codelab_api" {
   droplet_agent = true
 }
 
+locals {
+  api_protocol = var.next_public_api_port == 443 ? "https" : "http"
+}
+
 output "codelab_api_hostname" {
-  value = "https://${digitalocean_droplet.codelab_api.ipv4_address_private}"
+  value = "${local.api_protocol}://${digitalocean_droplet.codelab_api.ipv4_address_private}"
 }

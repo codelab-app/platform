@@ -208,17 +208,12 @@ jobs:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
-      - nx/set-shas
+      - nx/set-shas:
+          main-branch-name: master
       - run:
           command: |
-            # Returns `web` if affected, otherwise `""`
-            # `--no-cache-filter` works only with `docker build`
-            NO_CACHE=$(pnpm nx show projects --affected --type app --base=$NX_BASE | grep -w "web" >/dev/null && echo true || echo false)
-
-            echo $NO_CACHE_FILTER
-
-            docker compose --verbose -f .docker/prod/build.docker-compose.yaml \
-              build --no-cache="$NO_CACHE"
+            echo $PWD
+            (./scripts/docker/prod/build-web.sh)
           name: Build web Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
