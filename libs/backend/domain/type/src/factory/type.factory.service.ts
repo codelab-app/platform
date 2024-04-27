@@ -118,7 +118,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.CodeMirrorType: {
-        return (await this.unionTypeRepository).findOne({ where: { id } })
+        return (await this.codeMirrorRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.ArrayType: {

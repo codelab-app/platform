@@ -1,5 +1,6 @@
 import type {
   ActionType,
+  CodeMirrorType,
   EnumType,
   PrimitiveType,
   ReactNodeType,
@@ -15,6 +16,7 @@ import type { IAtomDto, IFieldDto } from '@codelab/shared/abstract/core'
 export interface ITypeTransformer {
   actionType(type: string): Promise<ActionType>
   booleanType(type: string): Promise<PrimitiveType>
+  codeMirrorType(type: string): Promise<CodeMirrorType>
   enumType(
     type: string,
     atom: Pick<IAtomDto, 'name'>,

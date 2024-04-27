@@ -8,6 +8,7 @@ import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
 import {
   ActionTypeRepository,
+  CodeMirrorTypeRepository,
   EnumType,
   InterfaceType,
   PrimitiveTypeRepository,
@@ -80,6 +81,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     private actionTypeRepository: ActionTypeRepository,
     private reactNodeTypeRepository: ReactNodeTypeRepository,
     private renderPropTypeRepository: RenderPropTypeRepository,
+    private codeMirrorTypeRepository: CodeMirrorTypeRepository,
     private richTextTypeRepository: RichTextTypeRepository,
     private typeFactory: TypeFactory,
   ) {}
@@ -258,6 +260,14 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     return await this.richTextTypeRepository.findOneOrFail({
       where: {
         name: ITypeKind.RichTextType,
+      },
+    })
+  }
+
+  async codeMirrorType() {
+    return await this.codeMirrorTypeRepository.findOneOrFail({
+      where: {
+        name: ITypeKind.CodeMirrorType,
       },
     })
   }
