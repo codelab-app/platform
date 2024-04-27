@@ -11,13 +11,7 @@ jobs:
         branches:
           ignore:
             - master
-  - setup-infra-workspace:
-      filters:
-        branches:
-          only:
             - staging
-      requires:
-        - setup-workspace
   # - deploy-preview:
   #     # requires:
   #     #   - setup-workspace
@@ -29,6 +23,7 @@ jobs:
         branches:
           ignore:
             - master
+            - staging
       requires:
         - setup-workspace
   - codegen:
@@ -36,6 +31,7 @@ jobs:
         branches:
           ignore:
             - master
+            - staging
       requires:
         - setup-workspace
   - unit:
@@ -43,6 +39,7 @@ jobs:
         branches:
           ignore:
             - master
+            - staging
       requires:
         - setup-workspace
   - integration:
@@ -50,6 +47,7 @@ jobs:
         branches:
           ignore:
             - master
+            - staging
       requires:
         - setup-workspace
   - e2e:
@@ -57,50 +55,18 @@ jobs:
         branches:
           ignore:
             - master
+            - staging
       requires:
         - setup-workspace
-  - docker-web:
-      context:
-        - prod
-      filters:
-        branches:
-          only:
-            - staging
-      requires:
-        - setup-infra-workspace
-  - docker-api:
-      context:
-        - prod
-      filters:
-        branches:
-          only:
-            - staging
-      requires:
-        - setup-infra-workspace
-  - docker-landing:
-      context:
-        - prod
-      filters:
-        branches:
-          only:
-            - staging
-      requires:
-        - setup-infra-workspace
   - notify-success:
       filters:
         branches:
           ignore:
             - master
+            - staging
       requires:
         - lint
         - codegen
         - unit
         - integration
         - e2e
-  - plan:
-      filters:
-        branches:
-          only:
-            - staging
-      requires:
-        - setup-infra-workspace

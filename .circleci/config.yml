@@ -212,13 +212,13 @@ jobs:
       - run:
           command: |
             # Returns `web` if affected, otherwise `""`
-            NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$NX_BASE | grep -w "web")
+            # `--no-cache-filter` works only with `docker build`
+            NO_CACHE=$(pnpm nx show projects --affected --type app --base=$NX_BASE | grep -w "web" >/dev/null && echo true || echo false)
 
             echo $NO_CACHE_FILTER
 
-            docker compose -f .docker/prod/build.docker-compose.yaml \
-              build web --no-cache-filter="$NO_CACHE_FILTER" \
-              --verbose
+            docker compose --verbose -f .docker/prod/build.docker-compose.yaml \
+              build --no-cache="$NO_CACHE"
           name: Build web Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
@@ -455,18 +455,13 @@ workflows:
             branches:
               ignore:
                 - master
-      - setup-infra-workspace:
-          filters:
-            branches:
-              only:
                 - staging
-          requires:
-            - setup-workspace
       - lint:
           filters:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - codegen:
@@ -474,6 +469,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - unit:
@@ -481,6 +477,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - integration:
@@ -488,6 +485,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - e2e:
@@ -495,53 +493,21 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
-      - docker-web:
-          context:
-            - prod
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-infra-workspace
-      - docker-api:
-          context:
-            - prod
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-infra-workspace
-      - docker-landing:
-          context:
-            - prod
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-infra-workspace
       - notify-success:
           filters:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - lint
             - codegen
             - unit
             - integration
             - e2e
-      - plan:
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-infra-workspace
   infra:
     jobs:
       - setup-workspace:
@@ -578,4 +544,45 @@ workflows:
                 - master
           requires:
             - hold-apply
+  infra-pr:
+    jobs:
+      - setup-workspace:
+          filters:
+            branches:
+              only:
+                - staging
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-workspace
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
 working_directory: ~/project

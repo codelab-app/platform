@@ -12,13 +12,13 @@ steps:
       name: 'Build web Docker image'
       command: |
         # Returns `web` if affected, otherwise `""`
-        NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$NX_BASE | grep -w "web")
+        # `--no-cache-filter` works only with `docker build`
+        NO_CACHE=$(pnpm nx show projects --affected --type app --base=$NX_BASE | grep -w "web" >/dev/null && echo true || echo false)
 
         echo $NO_CACHE_FILTER
 
-        docker compose -f .docker/prod/build.docker-compose.yaml \
-          build web --no-cache-filter="$NO_CACHE_FILTER" \
-          --verbose
+        docker compose --verbose -f .docker/prod/build.docker-compose.yaml \
+          build --no-cache="$NO_CACHE"
   - run:
       name: 'Push Docker Image'
       command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
