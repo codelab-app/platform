@@ -57,7 +57,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm install --frozen-lockfile
 
 #
-# BUILD
+# Build
 #
 FROM install AS build
 

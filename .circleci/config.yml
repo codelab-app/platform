@@ -182,7 +182,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml build api
+          command: (./scripts/docker/prod/build-api.sh)
           name: Build api Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
@@ -195,8 +195,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: |
-            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build landing
+          command: (./scripts/docker/prod/build-landing.sh)
           name: Build landing Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
@@ -210,12 +209,8 @@ jobs:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
-      - nx/set-shas:
-          main-branch-name: master
       - run:
-          command: |
-            echo $PWD
-            (./scripts/docker/prod/build-web.sh)
+          command: (./scripts/docker/prod/build-web.sh)
           name: Build web Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
