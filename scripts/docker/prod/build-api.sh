@@ -15,5 +15,7 @@ NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PRE
 echo $NO_CACHE_FILTER
 
 # `--no-cache-filter` works only with `docker build`
-docker buildx build -f ${PWD}/.docker/prod/api.Dockerfile -t registry.digitalocean.com/codelabapp/api:${DOCKER_TAG_VERSION} \
-  --no-cache-filter=$NO_CACHE_FILTER .
+docker buildx build \
+  -f ${PWD}/.docker/prod/api.Dockerfile \
+  -t registry.digitalocean.com/codelabapp/api:${DOCKER_TAG_VERSION} \
+  --no-cache-filter $NO_CACHE_FILTER .
