@@ -8,10 +8,9 @@
 #
 
 #
-# (1) Build - using alias and having multiple steps can help with caching and build speed
+# (1) install - using alias and having multiple steps can help with caching and build speed
 #
-#
-FROM node:18.17-alpine AS setup
+FROM node:18.17-alpine AS install
 
 # RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpng-dev g++
 RUN apk update
@@ -60,7 +59,7 @@ RUN pnpm install --frozen-lockfile
 #
 # BUILD
 #
-FROM setup AS build
+FROM install AS build
 
 WORKDIR /usr/src/codelab
 
@@ -79,8 +78,8 @@ WORKDIR /usr/src/codelab
 # Ignore specs from image
 
 COPY --from=build /usr/src/codelab/dist ./dist
-COPY --from=setup /usr/src/codelab/package.json ./
-COPY --from=setup /usr/src/codelab/node_modules ./node_modules
+COPY --from=install /usr/src/codelab/package.json ./
+COPY --from=install /usr/src/codelab/node_modules ./node_modules
 
 EXPOSE 3000
 

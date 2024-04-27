@@ -13,11 +13,11 @@ services:
       - NEO4J_URI=${neo4j_uri}
       - NEO4J_USER=${neo4j_user}
       - NEO4J_PASSWORD=${neo4j_password}
- coredns:
+  coredns:
     image: coredns/coredns:1.11.1
     volumes:
       - ./Corefile:/etc/coredns/Corefile
     ports:
-      - "53:53/udp"
-      - "53:53/tcp"
+      - '53:53/udp'
+      - '53:53/tcp'
     restart: unless-stopped
