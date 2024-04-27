@@ -87,7 +87,11 @@ export const TextEditor = ({
         <RichTextPlugin
           ErrorBoundary={LexicalErrorBoundary}
           contentEditable={
-            <Input className={editorConfig.editable ? 'active' : undefined} />
+            <Input
+              className={`editor-input ${
+                editorConfig.editable ? 'active' : ''
+              }`}
+            />
           }
           placeholder={null}
         />
