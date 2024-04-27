@@ -18,9 +18,11 @@ import {
   runtimeElementRef,
   runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import {
   getAtomDomainService,
   getTagDomainService,
+  isComponentRef,
 } from '@codelab/frontend/abstract/domain'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
@@ -35,14 +37,7 @@ export class BuilderService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    expandedElementTreeNodeIds: prop<Array<string>>(() => []),
     hoveredNode: prop<Nullable<IRuntimeModelRef>>(null).withSetter(),
-    selectedBuilderBreakpoint: prop<BuilderWidthBreakPoint>(
-      () => BuilderWidthBreakPoint.MobilePortrait,
-    ).withSetter(),
-    selectedBuilderWidth: prop<BuilderWidth>(
-      () => defaultBuilderWidthBreakPoints['mobile-portrait'],
-    ),
     /**
      * select a node would add it to expand list
      * sometimes, it's not necessary to expand the node.
@@ -80,14 +75,14 @@ export class BuilderService
   }
 
   @computed
-  get activeContainerId() {
+  get activeContainer() {
     if (!this.activeElementTree) {
       return null
     }
 
     return isRuntimePage(this.activeElementTree)
-      ? this.activeElementTree.page.id
-      : this.activeElementTree.component.id
+      ? this.activeElementTree.page
+      : this.activeElementTree.component
   }
 
   /**
@@ -159,8 +154,8 @@ export class BuilderService
 
   @computed
   get expandedElementTreeNodeIds() {
-    const preferences = this.userPreferenceService.preferences
-    const containerId = this.activeContainerId
+    const preferences = this.userService.preferences
+    const containerId = this.activeContainer?.id
     const treeViewNode = this.activeElementTree?.treeViewNode
 
     if (!treeViewNode || !containerId) {
@@ -176,6 +171,42 @@ export class BuilderService
     return isRuntimeComponent(this.activeElementTree)
       ? [treeViewNode.children[0]!.key]
       : [treeViewNode.key]
+  }
+
+  @computed
+  get selectedBuilderBreakpoint() {
+    const container = this.activeContainer
+
+    if (!container) {
+      return BuilderWidthBreakPoint.None
+    }
+
+    const containerId = isComponentRef(container)
+      ? container.id
+      : container.current.app.id
+
+    return (
+      this.userService.preferences.apps[containerId]
+        ?.selectedBuilderBreakpoint ?? BuilderWidthBreakPoint.MobilePortrait
+    )
+  }
+
+  @computed
+  get selectedBuilderWidth() {
+    const container = this.activeContainer
+
+    if (!container) {
+      return defaultBuilderWidthBreakPoints['mobile-portrait']
+    }
+
+    const containerId = isRuntimeComponent(container)
+      ? container.id
+      : (container.current as IPageModel).app.id
+
+    return (
+      this.userService.preferences.apps[containerId]?.selectedBuilderWidth ??
+      defaultBuilderWidthBreakPoints['mobile-portrait']
+    )
   }
 
   @modelAction
@@ -231,21 +262,36 @@ export class BuilderService
 
   @modelAction
   setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>) {
-    if (!this.activeContainerId) {
+    if (!this.activeContainer) {
       return
     }
 
-    this.userPreferenceService.setElementTreeExpandedKeys(
-      this.activeContainerId,
+    this.userService.setElementTreeExpandedKeys(
+      this.activeContainer.id,
       expandedNodeIds,
     )
+  }
+
+  @modelAction
+  setSelectedBuilderBreakpoint(breakpoint: BuilderWidthBreakPoint) {
+    const container = this.activeContainer
+
+    if (!container) {
+      return
+    }
+
+    const containerId = isComponentRef(container)
+      ? container.id
+      : container.current.app.id
+
+    this.userService.setSelectedBuilderBreakpoint(containerId, breakpoint)
   }
 
   @modelAction
   setSelectedBuilderWidth(width: BuilderWidth) {
     // -1 max width means fill the screen, so we use the available
     // container width as long as it's not smaller than the min
-    this.selectedBuilderWidth = {
+    const selectedBuilderWidth = {
       default:
         width.default < 0
           ? Math.max(width.min, this.builderContainerWidth)
@@ -256,17 +302,31 @@ export class BuilderService
           : width.max,
       min: width.min,
     }
+
+    const container = this.activeContainer
+
+    if (!container) {
+      return
+    }
+
+    const containerId = isRuntimeComponentRef(container)
+      ? container.id
+      : (container.current as IPageModel).app.id
+
+    this.userService.setSelectedBuilderWidth(containerId, selectedBuilderWidth)
   }
 
   @modelAction
   updateExpandedNodes = () => {
-    if (!this.selectedNode) {
+    const { expandedElementTreeNodeIds, selectedNode } = this
+
+    if (!selectedNode) {
       return
     }
 
     const newNodesToExpand = this.findNodesToExpand(
-      this.selectedNode,
-      this.expandedElementTreeNodeIds,
+      selectedNode,
+      expandedElementTreeNodeIds,
     )
 
     if (newNodesToExpand.length === 0) {
@@ -274,7 +334,7 @@ export class BuilderService
     }
 
     this.setExpandedElementTreeNodeIds([
-      ...this.expandedElementTreeNodeIds,
+      ...expandedElementTreeNodeIds,
       ...newNodesToExpand,
     ])
   }
@@ -321,7 +381,7 @@ export class BuilderService
   }
 
   @computed
-  private get userPreferenceService() {
-    return getUserService(this).userPreferenceService
+  private get userService() {
+    return getUserService(this)
   }
 }

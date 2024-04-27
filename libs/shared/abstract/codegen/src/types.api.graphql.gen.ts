@@ -22750,7 +22750,7 @@ export type UserFragment = {
   preferences?: string | null
   roles?: Array<Role> | null
   username: string
-  apps: Array<AppFragment>
+  apps: Array<{ id: string }>
 }
 
 export type CreateAppsMutationVariables = Exact<{
@@ -24027,4 +24027,13 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
+}
+
+export type UpdateUserMutationVariables = Exact<{
+  where?: InputMaybe<UserWhere>
+  update: UserUpdateInput
+}>
+
+export type UpdateUserMutation = {
+  updateUsers: { users: Array<{ preferences?: string | null }> }
 }

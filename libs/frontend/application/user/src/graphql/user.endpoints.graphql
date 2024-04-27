@@ -12,3 +12,11 @@ mutation CreateUser($input: [UserCreateInput!]!) {
     }
   }
 }
+
+mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {
+  updateUsers(update: $update, where: $where) {
+    users {
+      preferences
+    }
+  }
+}
