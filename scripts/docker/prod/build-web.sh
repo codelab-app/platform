@@ -7,9 +7,10 @@ set -x
 echo $PWD
 echo $NX_BASE
 echo $CIRCLE_BASE_REVISION
+echo $CIRCLE_PREV_SHA
 
 # Returns `web` if affected, otherwise `""`
-NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_BASE_REVISION | grep -qw "web" && echo "build" || echo "")
+NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "web" && echo "build" || echo "")
 
 echo $NO_CACHE_FILTER
 
