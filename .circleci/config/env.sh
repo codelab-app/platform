@@ -39,7 +39,5 @@ else
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_WEBBER}\>" >> $BASH_ENV
 fi
 
-echo "export CIRCLE_PREV_SHA=$(git rev-parse HEAD~1) >> $BASH_ENV"
-
 source $BASH_ENV
 

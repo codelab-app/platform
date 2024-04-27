@@ -5,5 +5,5 @@ steps:
   - login-docker
   - persist_to_workspace:
       root: ~/
-      paths:
-        - .docker/config.json
+      # paths:
+      #   - .docker/config.json

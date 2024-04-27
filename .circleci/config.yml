@@ -398,8 +398,6 @@ jobs:
       - install-terraform
       - login-docker
       - persist_to_workspace:
-          paths:
-            - .docker/config.json
           root: ~/
   setup-workspace:
     executor: docker-node

@@ -4,9 +4,9 @@ set -x
 
 # docker compose --verbose -f .docker/prod/build.docker-compose.yaml \
 
-echo $PWD
+CIRCLE_PREV_SHA=$(gi rev-parse HEAD~1)
+
 echo $NX_BASE
-echo $CIRCLE_BASE_REVISION
 echo $CIRCLE_PREV_SHA
 
 # Returns `web` if affected, otherwise `""`
