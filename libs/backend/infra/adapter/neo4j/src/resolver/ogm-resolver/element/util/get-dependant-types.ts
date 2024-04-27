@@ -5,6 +5,7 @@ import {
   elementSelectionSet,
   exportActionTypeSelectionSet,
   exportArrayTypeSelectionSet,
+  exportCodeMirrorTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportInterfaceTypeWithFieldsSelectionSet,
   exportPrimitiveTypeSelectionSet,
@@ -108,6 +109,13 @@ const fetchTypes = async (
     ogmService.RichTextType.find({
       selectionSet: `{ ${exportRichTextTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.RichTextType, types) },
+    }),
+  )
+
+  promises.push(
+    ogmService.CodeMirrorType.find({
+      selectionSet: `{ ${exportCodeMirrorTypeSelectionSet} }`,
+      where: { id_IN: filterByType(ITypeKind.CodeMirrorType, types) },
     }),
   )
 

@@ -33,6 +33,7 @@ const filterTypeIds = (
 
 const getFilteredTypes = (typesOfUnionType: Array<ITypeMaybeRef>) => ({
   arrayTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.ArrayType),
+  codeMirrorTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.CodeMirrorType),
   enumTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.EnumType),
   interfaceTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.InterfaceType),
   primitiveTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.PrimitiveType),
@@ -50,9 +51,8 @@ export class UnionTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
@@ -67,6 +67,7 @@ export class UnionTypeRepository extends AbstractRepository<
           ({ __typename, id, kind, name, typesOfUnionType }) => {
             const {
               arrayTypeIds,
+              codeMirrorTypeIds,
               enumTypeIds,
               interfaceTypeIds,
               primitiveTypeIds,
@@ -82,6 +83,7 @@ export class UnionTypeRepository extends AbstractRepository<
               owner: connectOwner(this.authService.currentUser),
               typesOfUnionType: {
                 ArrayType: connectNodeIds(arrayTypeIds),
+                CodeMirrorType: connectNodeIds(codeMirrorTypeIds),
                 EnumType: connectNodeIds(enumTypeIds),
                 InterfaceType: connectNodeIds(interfaceTypeIds),
                 PrimitiveType: connectNodeIds(primitiveTypeIds),
