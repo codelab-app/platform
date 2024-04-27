@@ -202,6 +202,8 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
   docker-web:
+    environment:
+      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     executor: docker-node
     resource_class: large
     steps:

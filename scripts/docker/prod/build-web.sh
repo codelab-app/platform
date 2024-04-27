@@ -5,9 +5,11 @@ set -x
 # docker compose --verbose -f .docker/prod/build.docker-compose.yaml \
 
 echo $PWD
+echo $NX_BASE
+echo $CIRCLE_BASE_REVISION
 
 # Returns `web` if affected, otherwise `""`
-NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$NX_BASE | grep -qw "web" && echo "build" || echo "")
+NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_BASE_REVISION | grep -qw "web" && echo "build" || echo "")
 
 echo $NO_CACHE_FILTER
 
