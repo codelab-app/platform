@@ -14,8 +14,8 @@ jobs:
   - setup-infra-workspace:
       filters:
         branches:
-          ignore:
-            - master
+          only:
+            - staging
       requires:
         - setup-workspace
   # - deploy-preview:
@@ -64,8 +64,8 @@ jobs:
         - prod
       filters:
         branches:
-          ignore:
-            - master
+          only:
+            - staging
       requires:
         - setup-infra-workspace
   - docker-api:
@@ -73,8 +73,8 @@ jobs:
         - prod
       filters:
         branches:
-          ignore:
-            - master
+          only:
+            - staging
       requires:
         - setup-infra-workspace
   - docker-landing:
@@ -82,8 +82,8 @@ jobs:
         - prod
       filters:
         branches:
-          ignore:
-            - master
+          only:
+            - staging
       requires:
         - setup-infra-workspace
   - notify-success:
@@ -100,7 +100,7 @@ jobs:
   - plan:
       filters:
         branches:
-          ignore:
-            - master
+          only:
+            - staging
       requires:
         - setup-infra-workspace
