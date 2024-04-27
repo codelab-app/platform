@@ -1,7 +1,7 @@
 {
   "name": "frontend-presentation-view",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/presentation/view",
+  "sourceRoot": "libs/frontend/presentation/view/src",
   "projectType": "library",
   "targets": {
     "lint": {
