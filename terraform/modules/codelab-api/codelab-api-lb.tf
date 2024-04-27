@@ -14,28 +14,28 @@
 #
 # DO need to setup BIND https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-ubuntu-20-04
 #
-resource "digitalocean_loadbalancer" "api" {
-  name   = "api-load-balancer"
-  region = "sfo2"
+# resource "digitalocean_loadbalancer" "api" {
+#   name   = "api-load-balancer"
+#   region = "sfo2"
 
-  vpc_uuid = var.codelab_app_vpc_id
+#   vpc_uuid = var.codelab_app_vpc_id
 
-  droplet_ids = [
-    digitalocean_droplet.codelab_api.id,
-  ]
+#   droplet_ids = [
+#     digitalocean_droplet.codelab_api.id,
+#   ]
 
-  forwarding_rule {
-    entry_port     = 443
-    entry_protocol = "https"
+#   forwarding_rule {
+#     entry_port     = 443
+#     entry_protocol = "https"
 
-    target_port     = 80
-    target_protocol = "http"
+#     target_port     = 80
+#     target_protocol = "http"
 
-    certificate_name = digitalocean_certificate.api.id
-  }
+#     certificate_name = digitalocean_certificate.api.id
+#   }
 
-  healthcheck {
-    port     = 22
-    protocol = "tcp"
-  }
-}
+#   healthcheck {
+#     port     = 22
+#     protocol = "tcp"
+#   }
+# }

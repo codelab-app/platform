@@ -24,7 +24,9 @@ resource "digitalocean_droplet" "codelab_api" {
 }
 
 locals {
-  api_protocol = var.next_public_api_port == 443 ? "https" : "http"
+  enable_ssl   = true
+  api_protocol = local.enable_ssl ? "https" : "http"
+  local_port   = local.enable_ssl ? 443 : 80
 }
 
 output "codelab_api_hostname" {

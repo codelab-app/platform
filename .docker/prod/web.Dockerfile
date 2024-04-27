@@ -81,8 +81,6 @@ COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=install /usr/src/codelab/package.json ./
 COPY --from=install /usr/src/codelab/node_modules ./node_modules
 
-EXPOSE 3000
-
 # default commands and/or parameters for a container
 # CMD can be fully overridden via CLI
 # ENTRYPOINT can only be extended via CLI
