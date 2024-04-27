@@ -6,6 +6,9 @@ module "codelab_api" {
 
   loki_url = var.LOKI_URL
 
+  codelab_api_key = var.CODELAB_API_KEY
+  codelab_api_crt = var.CODELAB_API_CRT
+
   auth0_domain = var.AUTH0_DOMAIN
 
   codelab_app_vpc_id = module.codelab.codelab_app_vpc_id
