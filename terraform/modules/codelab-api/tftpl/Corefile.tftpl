@@ -1,0 +1,16 @@
+.:53 {
+  # It forwards all queries it can't resolve to Google's DNS servers (8.8.8.8 and 8.8.4.4)
+  forward . 8.8.8.8 8.8.4.4
+  log
+  errors
+}
+
+# Port 53 is used for DNS
+example.internal:53 {
+  hosts {
+    10.1.2.3 myapp.example.internal
+    fallthrough
+  }
+  log
+  errors
+}

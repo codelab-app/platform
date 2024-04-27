@@ -9,7 +9,10 @@
 
 #
 # When `web` calls `api` SSL/TLS handshake happens
-# 1) client says hi, then gets certifcate back
+#
+# Need private DNS to resolve the certificate, since IP changes
+#
+# DO need to setup BIND https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-ubuntu-20-04
 #
 resource "digitalocean_loadbalancer" "api" {
   name   = "api-load-balancer"
