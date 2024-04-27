@@ -61,6 +61,11 @@ describe('State variables sharing between pages', () => {
     cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
 
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+    cy.waitForSpinners()
+
+    // The UI tree flickers, need this otherwise fails on CI
+    cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).should('exist')
+    cy.toggleCuiTreeNodeSwitcher(`${COMPONENT_NAME} Root`)
 
     cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({
       force: true,

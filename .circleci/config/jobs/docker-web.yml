@@ -1,15 +1,18 @@
 executor: docker-node
 resource_class: large
+environment:
+  CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
+  # CIRCLE_REVISION: << pipeline.git.revision >>
 steps:
   - restore-workspace
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.
   - setup_remote_docker:
       docker_layer_caching: true
   # https://discuss.circleci.com/t/pass-env-vars-to-docker-containers-in-circle-2-0/17827/2
+  # https://github.com/moby/moby/issues/1996#issuecomment-1763467972
   - run:
       name: 'Build web Docker image'
-      command: |
-        docker compose --verbose -f .docker/prod/build.docker-compose.yaml build web
+      command: (./scripts/docker/prod/build-web.sh)
   - run:
       name: 'Push Docker Image'
       command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web

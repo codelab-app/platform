@@ -1,5 +1,5 @@
 executor: docker-node
-resource_class: large
+resource_class: medium
 steps:
   - restore-workspace
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.
@@ -8,8 +8,9 @@ steps:
   # https://discuss.circleci.com/t/pass-env-vars-to-docker-containers-in-circle-2-0/17827/2
   - run:
       name: 'Build landing Docker image'
-      command: |
-        docker compose --verbose -f .docker/prod/build.docker-compose.yaml build landing
+      command: (./scripts/docker/prod/build-landing.sh)
+      # command: |
+      #   docker compose --verbose -f .docker/prod/build.docker-compose.yaml build landing
   - run:
       name: 'Push Docker Image'
       command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing

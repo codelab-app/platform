@@ -6,7 +6,7 @@ resource "digitalocean_loadbalancer" "web" {
   vpc_uuid = var.codelab_app_vpc_id
 
   droplet_ids = [
-    digitalocean_droplet.web.id,
+    digitalocean_droplet.codelab_web.id,
   ]
 
   forwarding_rule {

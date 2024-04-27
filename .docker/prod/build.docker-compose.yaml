@@ -19,8 +19,7 @@ services:
         AUTH0_DOMAIN: ${AUTH0_DOMAIN}
         AUTH0_CLIENT_ID: ${AUTH0_CLIENT_ID}
         AUTH0_CLIENT_SECRET: ${AUTH0_CLIENT_SECRET}
-    image: registry.digitalocean.com/codelabapp/web
-    # image: codelabai/codelab:${DOCKER_TAG_VERSION}
+    image: registry.digitalocean.com/codelabapp/web:${DOCKER_TAG_VERSION}
     # This is used after image has been built
     # env_file:
     #   - ../.env
@@ -31,7 +30,7 @@ services:
     build:
       context: ../..
       dockerfile: ${PWD}/.docker/prod/api.Dockerfile
-    image: registry.digitalocean.com/codelabapp/api
+    image: registry.digitalocean.com/codelabapp/api:${DOCKER_TAG_VERSION}
     # image: codelabai/codelab:${DOCKER_TAG_VERSION}
     # This is used after image has been built
     # env_file:
@@ -50,4 +49,4 @@ services:
         NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
         NEXT_PUBLIC_SUPABASE_KEY: ${NEXT_PUBLIC_SUPABASE_KEY}
         SUPABASE_DB_PASS: ${SUPABASE_DB_PASS}
-    image: registry.digitalocean.com/codelabapp/landing
+    image: registry.digitalocean.com/codelabapp/landing:${DOCKER_TAG_VERSION}

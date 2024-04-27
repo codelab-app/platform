@@ -11,9 +11,5 @@ resource "auth0_client" "machine_client" {
 resource "auth0_client_grant" "machine_client_grant" {
   client_id = auth0_client.machine_client.id
   audience  = local.auth0_audience
-  scope     = ["update:users"]
-}
-
-data "auth0_client" "machine_client" {
-  client_id = auth0_client.machine_client.id
+  scopes    = ["update:users"]
 }

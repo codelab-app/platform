@@ -182,26 +182,27 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml build api
+          command: (./scripts/docker/prod/build-api.sh)
           name: Build api Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
           name: Push Docker Image
   docker-landing:
     executor: docker-node
-    resource_class: large
+    resource_class: medium
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: |
-            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build landing
+          command: (./scripts/docker/prod/build-landing.sh)
           name: Build landing Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
   docker-web:
+    environment:
+      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     executor: docker-node
     resource_class: large
     steps:
@@ -209,8 +210,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: |
-            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build web
+          command: (./scripts/docker/prod/build-web.sh)
           name: Build web Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
@@ -447,18 +447,13 @@ workflows:
             branches:
               ignore:
                 - master
-      - setup-infra-workspace:
-          filters:
-            branches:
-              ignore:
-                - master
-          requires:
-            - setup-workspace
+                - staging
       - lint:
           filters:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - codegen:
@@ -466,6 +461,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - unit:
@@ -473,6 +469,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - integration:
@@ -480,6 +477,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
       - e2e:
@@ -487,53 +485,21 @@ workflows:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - setup-workspace
-      - docker-web:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore:
-                - master
-          requires:
-            - setup-infra-workspace
-      - docker-api:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore:
-                - master
-          requires:
-            - setup-infra-workspace
-      - docker-landing:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore:
-                - master
-          requires:
-            - setup-infra-workspace
       - notify-success:
           filters:
             branches:
               ignore:
                 - master
+                - staging
           requires:
             - lint
             - codegen
             - unit
             - integration
             - e2e
-      - plan:
-          filters:
-            branches:
-              ignore:
-                - master
-          requires:
-            - setup-infra-workspace
   infra:
     jobs:
       - setup-workspace:
@@ -570,4 +536,45 @@ workflows:
                 - master
           requires:
             - hold-apply
+  infra-pr:
+    jobs:
+      - setup-workspace:
+          filters:
+            branches:
+              only:
+                - staging
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-workspace
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
 working_directory: ~/project

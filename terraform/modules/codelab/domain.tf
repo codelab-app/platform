@@ -8,7 +8,6 @@ resource "digitalocean_certificate" "codelab_app" {
   # https://serverfault.com/questions/310530/should-a-wildcard-ssl-certificate-secure-both-the-root-domain-as-well-as-the-sub
   domains = ["codelab.app", "*.codelab.app"]
 
-
   lifecycle {
     create_before_destroy = true
   }

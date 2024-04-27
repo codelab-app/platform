@@ -11,7 +11,6 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "postinstall": "nx run-many build --target=tools-workspace,eslint-plugin",
     "e2e": "nx e2e-open e2e -c test",
     "e2e:api": "nx serve api -c test",
     "cli": "scripts/nx/cli.sh",

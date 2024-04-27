@@ -2,10 +2,13 @@ module "codelab_web" {
   source = "../../modules/codelab-web"
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
+  docker_tag_version        = var.DOCKER_TAG_VERSION
+
+  loki_url = var.LOKI_URL
 
   next_public_web_host = var.NEXT_PUBLIC_WEB_HOST
 
-  next_public_api_hostname = var.NEXT_PUBLIC_API_HOSTNAME
+  next_public_api_hostname = module.codelab_api.codelab_api_hostname
   next_public_api_port     = var.NEXT_PUBLIC_API_PORT
 
   auth0_domain            = var.AUTH0_DOMAIN

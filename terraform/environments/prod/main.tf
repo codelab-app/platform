@@ -4,7 +4,7 @@ terraform {
   required_providers {
     auth0 = {
       source  = "auth0/auth0"
-      version = "0.50.2"
+      version = "1.2.0"
     }
 
     aws = {
@@ -16,6 +16,10 @@ terraform {
       source  = "digitalocean/digitalocean"
       version = "2.34.1"
     }
+
+    tfe = {
+      version = "~> 0.54.0"
+    }
   }
 
   cloud {
@@ -26,4 +30,3 @@ terraform {
     }
   }
 }
-

@@ -16,6 +16,8 @@ export default auth0Instance().handleAuth({
             throw new Error('Missing access token')
           }
 
+          console.log('...auth0.ts', process.env['NODE_ENV'])
+
           /**
            * Only do this in development
            */
@@ -41,6 +43,8 @@ export default auth0Instance().handleAuth({
            * Create user in our neo4j database
            */
           if (process.env['NODE_ENV'] === 'production') {
+            console.log('Using restApiClient', restApiClient.getUri())
+
             await restApiClient.post(
               'user/save',
               {},
@@ -61,7 +65,9 @@ export default auth0Instance().handleAuth({
     }
   },
   login: async (req: NextApiRequest, res: NextApiResponse) => {
-    await auth0Instance().handleLogin(req, res, {
+    console.log('...auth0 login')
+
+    return auth0Instance().handleLogin(req, res, {
       returnTo: new URL('/apps', getEnv().auth0.baseUrl).toString(),
     })
   },

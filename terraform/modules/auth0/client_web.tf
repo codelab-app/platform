@@ -26,7 +26,6 @@ resource "auth0_client" "web_client" {
     infinite_token_lifetime      = false
     # idle_token_lifetime          = var.idle_token_lifetime
   }
-
 }
 
 resource "auth0_client_credentials" "web_client_credentials" {

@@ -1,1 +1,0 @@
-../shared/vars-codelab-api.tf

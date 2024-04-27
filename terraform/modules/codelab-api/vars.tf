@@ -1,3 +1,7 @@
-variable "next_public_api_hostname" {}
+variable "codelab_api_key" {
+  type = string
+}
 
-variable "next_public_api_port" {}
+variable "codelab_api_crt" {
+  type = string
+}

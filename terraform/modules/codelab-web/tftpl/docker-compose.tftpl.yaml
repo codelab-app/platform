@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  web:
+    image: registry.digitalocean.com/codelabapp/web:${docker_tag_version}
+    container_name: codelab-web
+    restart: unless-stopped
+    ports:
+      - '80:3000'
+    environment:
+      - NEXT_PUBLIC_WEB_HOST=${next_public_web_host}
+      - NEXT_PUBLIC_API_PORT=${next_public_api_port}
+      - NEXT_PUBLIC_API_HOSTNAME=${next_public_api_hostname}
+      - AUTH0_SECRET=${auth0_secret}
+      - AUTH0_DOMAIN=${auth0_domain}
+      - AUTH0_CLIENT_ID=${auth0_client_id}
+      - AUTH0_CLIENT_SECRET=${auth0_client_secret}
+  # Change Docker logging to loki instead
+  # promtail:
+  #   image: grafana/promtail:main
+  #   container_name: promtail
+  #   volumes:
+  #     - './promtail:/etc/promtail'
+  #     - '/var/log:/var/log'
+  #   command: '-config.file=/etc/promtail/config.yaml'

@@ -1,0 +1,47 @@
+jobs:
+  - setup-workspace:
+      filters:
+        branches:
+          only:
+            - staging
+  - setup-infra-workspace:
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - setup-workspace
+  - docker-web:
+      context:
+        - prod
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - setup-infra-workspace
+  - docker-api:
+      context:
+        - prod
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - setup-infra-workspace
+  - docker-landing:
+      context:
+        - prod
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - setup-infra-workspace
+  # - plan:
+  #     filters:
+  #       branches:
+  #         only:
+  #           - staging
+  #     requires:
+  #       - setup-infra-workspace
