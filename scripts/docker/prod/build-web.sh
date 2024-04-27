@@ -4,7 +4,7 @@ set -x
 
 # docker compose --verbose -f .docker/prod/build.docker-compose.yaml \
 
-CIRCLE_PREV_SHA=$(gi rev-parse HEAD~1)
+CIRCLE_PREV_SHA=$(git rev-parse HEAD~1)
 
 echo $NX_BASE
 echo $CIRCLE_PREV_SHA
