@@ -22,6 +22,22 @@
         "api": {
           "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
         },
+        "defaultValues": "{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}",
+        "description": null,
+        "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "272b9bff-5be2-429d-b21e-8665337bbd9b",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
+        },
         "defaultValues": null,
         "description": null,
         "fieldType": {
@@ -93,6 +109,26 @@
         "id": "acb61314-5cf0-414d-bb14-8d1843f449f7",
         "kind": "InterfaceType",
         "name": "AntDesignSpace API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "kind": "CodeMirrorType",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "kind": "RichTextType",
+            "name": "RichTextType"
+          }
+        ]
       },
       {
         "__typename": "EnumType",
