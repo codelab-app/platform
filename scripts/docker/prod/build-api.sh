@@ -10,7 +10,7 @@ echo $NX_BASE
 echo $CIRCLE_PREV_SHA
 
 # Returns `web` if affected, otherwise `""`
-NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "api" && echo "build" || echo "")
+NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "api" && echo "--no-cache-filter build" || echo "")
 
 echo $NO_CACHE_FILTER
 
@@ -18,4 +18,4 @@ echo $NO_CACHE_FILTER
 docker buildx build \
   -f ${PWD}/.docker/prod/api.Dockerfile \
   -t registry.digitalocean.com/codelabapp/api:${DOCKER_TAG_VERSION} \
-  --no-cache-filter $NO_CACHE_FILTER .
+  $NO_CACHE_FILTER .

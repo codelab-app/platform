@@ -10,7 +10,7 @@ echo $NX_BASE
 echo $CIRCLE_PREV_SHA
 
 # Returns `web` if affected, otherwise `""`
-NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "landing" && echo "build" || echo "")
+NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "landing" && echo "--no-cache-filter landing" || echo "")
 
 echo $NO_CACHE_FILTER
 
@@ -21,4 +21,4 @@ docker buildx build \
   --build-arg NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
   --build-arg NEXT_PUBLIC_SUPABASE_KEY=${NEXT_PUBLIC_SUPABASE_KEY} \
   --build-arg SUPABASE_DB_PASS=${SUPABASE_DB_PASS} \
-  --no-cache-filter $NO_CACHE_FILTER .
+  $NO_CACHE_FILTER .
