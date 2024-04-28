@@ -9,8 +9,6 @@ import { TagsViewHeader } from './TagsViewHeader'
 export type TagsView = CodelabPage<DashboardTemplateProps>
 
 export const TagsViewLayout: TagsView['Layout'] = ({ children }) => {
-  const memoizedChildren = useMemo(() => children(), [children])
-
   const memoizedPrimarySidebar = useMemo(
     () => ({
       default: ExplorerPaneType.Tag,
@@ -24,7 +22,7 @@ export const TagsViewLayout: TagsView['Layout'] = ({ children }) => {
       Header={TagsViewHeader}
       PrimarySidebar={memoizedPrimarySidebar}
     >
-      {memoizedChildren}
+      {children}
     </DynamicDashboardTemplate>
   )
 }
