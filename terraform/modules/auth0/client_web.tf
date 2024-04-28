@@ -28,6 +28,10 @@ resource "auth0_client" "web_client" {
   }
 }
 
+data "auth0_client" "web_client" {
+  client_id = auth0_client.web_client.client_id
+}
+
 resource "auth0_client_credentials" "web_client_credentials" {
   client_id = auth0_client.web_client.id
 

@@ -22,8 +22,6 @@ const axios = require('axios');
   * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
  */
 exports.onExecutePostLogin = async (event, api) => {
-  console.log(event)
-
   /**
    * Get Access Token
    */
@@ -33,15 +31,15 @@ exports.onExecutePostLogin = async (event, api) => {
     headers: { 'content-type': 'application/json' },
     data: {
       grant_type: 'client_credentials',
-      client_id: '${auth0_client.machine_client.id}',
+      client_id: '${data.auth0_client.machine_client.id}',
       client_secret: '${data.auth0_client.machine_client.client_secret}',
-      audience: '${local.auth0_audience}
+      audience: '${local.auth0_audience}'
     }
   }
 
   const { data } = await axios.request(options)
 
-  console.log(data)
+  console.log('data', data)
 
   /**
    * Initialize client

@@ -7,6 +7,10 @@ resource "auth0_client" "machine_client" {
   allowed_origins = [var.next_public_web_host]
 }
 
+data "auth0_client" "machine_client" {
+  client_id = auth0_client.machine_client.client_id
+}
+
 # Allow machine client to access the scope of the management API
 resource "auth0_client_grant" "machine_client_grant" {
   client_id = auth0_client.machine_client.id

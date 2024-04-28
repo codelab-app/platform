@@ -39,11 +39,6 @@ import { endpointConfig } from '../graphql/endpoint.config'
       load: [endpointConfig],
     }),
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
-  ],
+  providers: [],
 })
 export class ApiModule {}

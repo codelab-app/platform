@@ -32,6 +32,7 @@ COPY dist/libs/tools ./dist/libs/tools
 COPY apps/api ./apps/api
 COPY libs ./libs
 COPY types ./types
+COPY data ./data
 
 RUN pnpm install --frozen-lockfile
 
@@ -58,6 +59,7 @@ WORKDIR /usr/src/codelab
 
 COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=install /usr/src/codelab/package.json ./
+COPY --from=install /usr/src/codelab/data ./data
 COPY --from=install /usr/src/codelab/node_modules ./node_modules
 
 # default commands and/or parameters for a container
