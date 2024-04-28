@@ -42,7 +42,6 @@ const fromDto = (user: IUserDto) => {
 @model('@codelab/UserService')
 export class UserService
   extends Model({
-    preferences: prop<IUserPreference>(() => DEFAULT_PREFERENCES),
     userDomainService: prop<IUserDomainService>(),
   })
   implements IUserService
@@ -50,6 +49,14 @@ export class UserService
   static fromDto = fromDto
 
   static init = init
+
+  get preferences(): IUserPreference {
+    return this.user.preferences as IUserPreference
+  }
+
+  set preferences(value: IUserPreference) {
+    this.user.preferences = value
+  }
 
   @computed
   get user() {
@@ -65,7 +72,9 @@ export class UserService
 
     const preferences = localStorage.getItem(CODELAB_STORAGE_KEY)
 
-    this.preferences = preferences ? JSON.parse(preferences) : this.preferences
+    this.preferences = preferences
+      ? JSON.parse(preferences)
+      : DEFAULT_PREFERENCES
 
     const user = yield* _await(this.getOne({ id: this.user.id }))
 
@@ -134,7 +143,7 @@ export class UserService
     localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(preferences))
 
     return userApi.UpdateUser({
-      update: { preferences },
+      update: this.user.toUpdateInput(),
       where: { id: this.user.id },
     })
   }

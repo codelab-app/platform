@@ -12,7 +12,7 @@ interface IAppPreferences {
   selectedBuilderWidth?: BuilderWidth
 }
 
-export interface IUserPreference {
+export interface IUserPreference extends Record<string, unknown> {
   apps: Record<string, Nullish<IAppPreferences>>
   explorerExpandedNodes: Record<string, Array<string>>
 }

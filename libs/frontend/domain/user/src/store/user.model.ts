@@ -19,6 +19,7 @@ const create = (user: IUserDto) => {
     auth0Id: user.auth0Id,
     email: user.email,
     id: user.id,
+    preferences: {},
     roles: user.roles,
     username: user.username,
   })
@@ -35,6 +36,7 @@ export class User
     auth0Id: prop<string>(),
     email: prop<string>(),
     id: idProp.withSetter(),
+    preferences: prop<Record<string, unknown>>(),
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),
   })
@@ -65,6 +67,8 @@ export class User
   }
 
   toUpdateInput() {
-    return {}
+    return {
+      preferences: JSON.stringify(this.preferences),
+    }
   }
 }
