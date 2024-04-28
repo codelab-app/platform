@@ -17897,6 +17897,21 @@ export type RichTextTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -17940,6 +17955,7 @@ export type RichTextTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
+  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 

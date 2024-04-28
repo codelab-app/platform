@@ -20,10 +20,6 @@ export interface IBuilderService {
    */
   activeComponent: Nullable<Ref<IRuntimeComponentModel>>
   /**
-   * Root page or a component id
-   */
-  activeContainerId?: Nullable<string>
-  /**
    * Tells us which tree we are selecting in the main pane
    */
   activeTab: RendererTab

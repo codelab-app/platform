@@ -46,11 +46,7 @@ export abstract class AbstractRepository<
     return exists
   }
 
-  find(args?: {
-    where?: Where
-    options?: Options
-    selectionSet?: string
-  }): Promise<Array<ModelData>>
+  find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
 
   find<T extends TAnySchema>(args?: {
     where?: Where
@@ -122,8 +118,8 @@ export abstract class AbstractRepository<
 
     // So overload works
     const results = schema
-      ? (await this.find({ schema, selectionSet, where }))[0]
-      : (await this.find({ selectionSet, where }))[0]
+      ? (await this.find({ schema, where }))[0]
+      : (await this.find({ where }))[0]
 
     if (!results) {
       return undefined

@@ -8,7 +8,6 @@ export const IUserDto = Type.Object({
   auth0Id: Type.String(),
   email: Type.String(),
   id: Type.String(),
-  preferences: Type.Optional(Type.String()),
   roles: Type.Array(Type.Enum(IRole)),
   username: Type.String(),
 })

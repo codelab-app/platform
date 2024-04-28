@@ -34,9 +34,9 @@ const init = (data: Auth0IdToken) => {
 }
 
 const fromDto = (user: IUserDto) => {
-  const userDomainService = UserDomainService.fromDto(user)
-
-  return new UserService({ userDomainService })
+  return new UserService({
+    userDomainService: UserDomainService.fromDto(user),
+  })
 }
 
 @model('@codelab/UserService')

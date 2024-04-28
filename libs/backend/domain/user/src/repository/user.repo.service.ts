@@ -34,7 +34,7 @@ export class UserRepository extends AbstractRepository<
       await (
         await this.ogmService.User
       ).create({
-        input: users.map(({ auth0Id, email, id, roles, username }) => ({
+        input: users.map(({ apps, auth0Id, email, id, roles, username }) => ({
           auth0Id,
           email,
           id,
@@ -47,24 +47,22 @@ export class UserRepository extends AbstractRepository<
 
   protected async _find({
     options,
-    selectionSet = `{ ${userSelectionSet} }`,
     where,
   }: {
     options?: UserOptions
     where?: UserWhere
-    selectionSet?: string
   }) {
     return await (
       await this.ogmService.User
     ).find({
       options,
-      selectionSet,
+      selectionSet: `{ ${userSelectionSet} }`,
       where,
     })
   }
 
   protected async _update(
-    { email, preferences, roles, username }: IUserDto,
+    { apps, auth0Id, email, id, roles, username }: IUserDto,
     where: UserWhere,
   ) {
     return (
@@ -73,7 +71,6 @@ export class UserRepository extends AbstractRepository<
       ).update({
         update: {
           email,
-          preferences,
           roles,
           username,
         },

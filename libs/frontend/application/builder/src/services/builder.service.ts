@@ -18,7 +18,6 @@ import {
   runtimeElementRef,
   runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import {
   getAtomDomainService,
   getTagDomainService,
@@ -199,9 +198,9 @@ export class BuilderService
       return defaultBuilderWidthBreakPoints['mobile-portrait']
     }
 
-    const containerId = isRuntimeComponent(container)
+    const containerId = isComponentRef(container)
       ? container.id
-      : (container.current as IPageModel).app.id
+      : container.current.app.id
 
     return (
       this.userService.preferences.apps[containerId]?.selectedBuilderWidth ??
@@ -309,9 +308,9 @@ export class BuilderService
       return
     }
 
-    const containerId = isRuntimeComponentRef(container)
+    const containerId = isComponentRef(container)
       ? container.id
-      : (container.current as IPageModel).app.id
+      : container.current.app.id
 
     this.userService.setSelectedBuilderWidth(containerId, selectedBuilderWidth)
   }

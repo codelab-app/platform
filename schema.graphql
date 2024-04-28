@@ -16907,6 +16907,21 @@ input RichTextTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LENGTH_GTE: Int
   email_SHORTEST_LENGTH_LT: Int
   email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -16952,6 +16967,7 @@ type RichTextTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  preferences: StringAggregateSelectionNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
