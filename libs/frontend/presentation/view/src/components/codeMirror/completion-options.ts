@@ -1,4 +1,4 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
+import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -46,7 +46,7 @@ const getOptions = (
 
 // for making autocomplete of code mirror
 export const createAutoCompleteOptions = (
-  ctx: Maybe<IEvaluationContext>,
+  ctx: Maybe<IRuntimeContext>,
 ): Array<Completion> => [
   ...getOptions(ctx?.componentProps, 'componentProps', 'Component Props'),
   ...getOptions(ctx?.props, 'props', 'Element Props'),

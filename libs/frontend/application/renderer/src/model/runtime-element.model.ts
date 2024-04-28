@@ -286,7 +286,7 @@ export class RuntimeElementModel
 
     return evaluateExpression(
       renderIfExpression,
-      this.runtimeProps.expressionEvaluationContext,
+      this.runtimeProps.runtimeContext,
     )
   }
 

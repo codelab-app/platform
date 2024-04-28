@@ -1,6 +1,7 @@
 import type {
   IRuntimeActionDTO,
   IRuntimeActionModel,
+  IRuntimeContext,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -49,7 +50,7 @@ export class RuntimeActionModel
       const overrideConfig = args[1]
       const config = merge(action.config.values, overrideConfig)
       // @ts-expect-error: due to not using arrow function
-      const _this = this as IEvaluationContext
+      const _this = this as IRuntimeContext
       const context = { ..._this, args }
       const evaluatedConfig = evaluateObject(config, context)
 

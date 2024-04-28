@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimePageModel } from '../runtime-page'
 
-export interface IEvaluationContext {
+export interface IRuntimeContext {
   actions: IPropData
   args?: Array<unknown>
   componentProps?: IPropData
@@ -26,13 +26,13 @@ export interface IBaseRuntimeProps {
    */
   evaluatedProps: IPropData
   /**
-   * The props used for evaluating expressions, which includes `evaluatedProps`
-   */
-  expressionEvaluationContext: IEvaluationContext
-  /**
    * Props in initial state before any transformation
    */
   props: IPropData
+  /**
+   * The runtime context of element props, state, actions,...etc)
+   */
+  runtimeContext: IRuntimeContext
 }
 
 export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
@@ -53,6 +53,8 @@ export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
    * Evaluated Props for child mapper
    */
   evaluatedChildMapperProps?: Array<IPropData>
+  // same as runtimeContext but props are empty
+  evaluationContext: IRuntimeContext
   renderedChildrenProp: ReactNode
   // eslint-disable-next-line @typescript-eslint/ban-types
   getActionRunner(actionName: string): Function

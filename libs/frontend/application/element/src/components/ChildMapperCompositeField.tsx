@@ -14,6 +14,24 @@ interface ChildMapperFieldsProps {
   runtimeElement: IRuntimeElementModel
 }
 
+const PropKeyField = ToggleExpressionField({
+  getBaseControl: ({ options }) => (
+    <AutoCompleteField
+      filterOption
+      label={null}
+      name="childMapperPropKey"
+      options={options}
+    />
+  ),
+  onToggle: (showExpression, { field, onChange, value }, lastValue) => {
+    if (showExpression) {
+      onChange(lastValue ?? `{{'${value ?? field.default ?? ''}'}}`)
+    } else {
+      onChange(lastValue ?? field.default)
+    }
+  },
+})
+
 const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
   const element = runtimeElement.element.current
 
@@ -27,31 +45,14 @@ const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
     {},
   )
 
-  const PropKeyField = ToggleExpressionField({
-    getBaseControl: () => (
-      <AutoCompleteField
-        filterOption
-        label={null}
+  return (
+    <section>
+      <PropKeyField
         name="childMapperPropKey"
-        options={Object.keys(
-          runtimeElement.runtimeProps.expressionEvaluationContext,
-        )
+        options={Object.keys(runtimeElement.runtimeProps.runtimeContext)
           .sort()
           .map((label) => ({ label, value: label }))}
       />
-    ),
-    onToggle: (showExpression, { field, onChange, value }, lastValue) => {
-      if (showExpression) {
-        onChange(lastValue ?? `{{'${value ?? field.default ?? ''}'}}`)
-      } else {
-        onChange(lastValue ?? field.default)
-      }
-    },
-  })
-
-  return (
-    <section>
-      <PropKeyField name="childMapperPropKey" />
       <SelectComponent
         label="Component"
         name="childMapperComponent.id"

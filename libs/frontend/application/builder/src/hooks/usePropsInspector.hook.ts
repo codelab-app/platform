@@ -81,17 +81,17 @@ export const usePropsInspector = (
     ? runtimeNode.runtimeProps
     : undefined
 
-  const evaluationContext = runtimeProps?.expressionEvaluationContext
+  const runtimeContext = runtimeProps?.runtimeContext
   const lastRenderedProp = runtimeProps?.evaluatedProps || {}
 
   const save = async (data: string) => {
     const jsonValue = validateJson(data)
 
-    if (!jsonValue || !evaluationContext) {
+    if (!jsonValue || !runtimeContext) {
       return
     }
 
-    const evaluated = evaluateObject(jsonValue, evaluationContext)
+    const evaluated = evaluateObject(jsonValue, runtimeContext)
 
     if (!validator(evaluated)) {
       return

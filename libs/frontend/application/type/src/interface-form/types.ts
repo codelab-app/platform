@@ -1,4 +1,4 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
+import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
 import type {
   IInterfaceTypeModel,
   ITypeModel,
@@ -34,7 +34,7 @@ export interface UiPropertiesContext {
    * used by uiProperties
    * for code mirror
    */
-  autocomplete?: IEvaluationContext
+  autocomplete?: IRuntimeContext
   defaultValues?: IFieldDefaultValue | null
   fieldName?: string | null
   validationRules?: IValidationRules

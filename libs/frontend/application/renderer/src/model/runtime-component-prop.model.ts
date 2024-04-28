@@ -5,7 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  IEvaluationContext,
+  IRuntimeContext,
 } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import {
@@ -63,22 +63,7 @@ export class RuntimeComponentPropModel
 
   @computed
   get evaluatedProps() {
-    return this.expressionEvaluationContext.props
-  }
-
-  @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    return this.addAndBind({
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: {},
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: {},
-      urlProps: {},
-    })
+    return this.runtimeContext.props
   }
 
   @computed
@@ -154,18 +139,26 @@ export class RuntimeComponentPropModel
   }
 
   @computed
-  get runtimeStore() {
-    return this.runtimeComponent.current.runtimeStore
-  }
+  get runtimeContext(): IRuntimeContext {
+    const context = {
+      actions: {},
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      urlProps: {},
+    }
 
-  addAndBind(context: IEvaluationContext) {
-    context['props'] = this.evaluateProps(context)
+    context['props'] = evaluateObject(this.renderedTypedProps, context)
 
     return context
   }
 
-  evaluateProps(context: IEvaluationContext) {
-    // evaluate expressions but with empty context
-    return evaluateObject(this.renderedTypedProps, context)
+  @computed
+  get runtimeStore() {
+    return this.runtimeComponent.current.runtimeStore
   }
 }

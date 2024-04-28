@@ -1,4 +1,4 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
+import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
@@ -15,7 +15,7 @@ export interface PropsFormProps
       FormProps<IPropData>,
       'onSubmitError' | 'onSubmitSuccess' | 'submitField'
     > {
-  autocomplete?: IEvaluationContext
+  autocomplete?: IRuntimeContext
   autosave?: boolean
   cssString?: string
   initialSchema?: object
