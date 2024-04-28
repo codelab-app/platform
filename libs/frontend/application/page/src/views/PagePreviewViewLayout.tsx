@@ -15,7 +15,7 @@ export const PagePreviewViewLayout: PagePreviewView['Layout'] = observer(
           <PageDetailHeader />
         ))}
       >
-        {children()}
+        {children}
       </DynamicDashboardTemplate>
     )
   },

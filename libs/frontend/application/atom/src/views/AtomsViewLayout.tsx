@@ -22,7 +22,7 @@ export const AtomsViewLayout: AtomsView['Layout'] = ({ children }) => {
         ],
       }}
     >
-      {children()}
+      {children}
     </DynamicDashboardTemplate>
   )
 }

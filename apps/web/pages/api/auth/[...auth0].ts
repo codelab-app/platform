@@ -65,8 +65,6 @@ export default auth0Instance().handleAuth({
     }
   },
   login: async (req: NextApiRequest, res: NextApiResponse) => {
-    console.log('...auth0 login')
-
     return auth0Instance().handleLogin(req, res, {
       returnTo: new URL('/apps', getEnv().auth0.baseUrl).toString(),
     })

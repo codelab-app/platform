@@ -5,6 +5,6 @@ import { BuilderDndContext } from '../dnd'
 
 export const BuilderViewLayout: CodelabPage['Layout'] = observer(
   ({ children }) => {
-    return <BuilderDndContext>{children()}</BuilderDndContext>
+    return <BuilderDndContext>{children}</BuilderDndContext>
   },
 )

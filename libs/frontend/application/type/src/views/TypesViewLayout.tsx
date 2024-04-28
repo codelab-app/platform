@@ -23,7 +23,7 @@ export const TypesViewLayout: TypesView['Layout'] = observer(({ children }) => {
         ],
       }}
     >
-      {children()}
+      {children}
     </DynamicDashboardTemplate>
   )
 })

@@ -46,10 +46,7 @@ if (
   })
 }
 
-const App = ({
-  Component,
-  pageProps: { user, ...pageProps },
-}: IAppProps<IPageProps>) => {
+const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const router = useRouter()
 
   const store = useMemo(() => {
@@ -67,16 +64,12 @@ const App = ({
         user,
       }),
     )
-  }, [user])
+  }, [user?.sid])
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
 
   useTwindConfig(config)
-
-  const LayoutContent = (props: object | undefined) => (
-    <Component {...pageProps} {...props} />
-  )
 
   return (
     <StoreProvider value={store}>
@@ -97,7 +90,9 @@ const App = ({
             }}
           >
             <AntdApp className="size-full">
-              <Layout>{LayoutContent}</Layout>
+              <Layout>
+                <Component />
+              </Layout>
             </AntdApp>
           </ConfigProvider>
         </CuiProvider>

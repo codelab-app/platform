@@ -9,7 +9,7 @@ export type AppsView = CodelabPage<DashboardTemplateProps>
 export const AppsViewLayout: AppsView['Layout'] = ({ children }) => {
   return (
     <DynamicDashboardTemplate Header={AppsViewHeader}>
-      {children()}
+      {children}
     </DynamicDashboardTemplate>
   )
 }
