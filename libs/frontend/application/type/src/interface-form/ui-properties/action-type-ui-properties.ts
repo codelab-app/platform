@@ -19,7 +19,6 @@ export const actionTypeUiProperties: UiPropertiesFn<IActionTypeModel> = (
   context,
 ) => {
   return {
-    oneOf: [{ typeof: 'string' }, { typeof: 'function' }],
     uniforms: {
       component: ToggleExpressionField({
         autocomplete: context?.autocomplete

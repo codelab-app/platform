@@ -16,7 +16,6 @@ const ACTION_TEMPLATE = `{{
 }}`
 
 export const selectComponentUiProperties: UiPropertiesFn = (type, context) => ({
-  oneOf: [{ typeof: 'string' }, { typeof: 'function' }],
   uniforms: {
     component: ToggleExpressionField({
       autocomplete: context?.autocomplete

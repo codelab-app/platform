@@ -11,5 +11,6 @@ fragment Type on IBaseType {
   ...PrimitiveType
   ...ReactNodeType
   ...RenderPropType
+  ...RichTextType
   ...UnionType
 }

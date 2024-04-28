@@ -24,11 +24,19 @@ export const exportPrimitiveTypeSelectionSet = `
   primitiveKind
 `
 
+export const exportCodeMirrorTypeSelectionSet = `
+  ${exportBaseTypeSelection}
+  language
+`
+
 export const exportReactNodeTypeSelectionSet = `
   ${exportBaseTypeSelection}
 `
 
 export const exportRenderPropTypeSelectionSet = `
+  ${exportBaseTypeSelection}
+`
+export const exportRichTextTypeSelectionSet = `
   ${exportBaseTypeSelection}
 `
 

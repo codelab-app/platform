@@ -1,16 +1,20 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
   ActionTypeRepository,
+  CodeMirrorTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
 } from '@codelab/backend/domain/type'
 import type { IType } from '@codelab/shared/abstract/core'
 import {
   IActionType,
+  ICodeMirrorType,
   IPrimitiveType,
   IReactNodeType,
   IRenderPropType,
+  IRichTextType,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -39,8 +43,10 @@ export class ExportSystemTypesHandler
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,
     private reactNodeTypeRepository: ReactNodeTypeRepository,
+    private richTextTypeRepository: RichTextTypeRepository,
     private renderPropTypeRepository: RenderPropTypeRepository,
     private actionTypeRepository: ActionTypeRepository,
+    private codeMirrorTypeRepository: CodeMirrorTypeRepository,
   ) {}
 
   async execute() {
@@ -66,6 +72,17 @@ export class ExportSystemTypesHandler
     })
 
     /**
+     * Rich Text Type
+     */
+    // Only 1 here
+    const richTextTypes = await this.richTextTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: IRichTextType,
+    })
+
+    /**
      * Render Props Type
      */
     // Only 1 here
@@ -87,6 +104,13 @@ export class ExportSystemTypesHandler
       schema: IActionType,
     })
 
+    const codeMirrorTypes = await this.codeMirrorTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: ICodeMirrorType,
+    })
+
     /**
      * Here we create the interface dependency tree order
      *
@@ -97,6 +121,8 @@ export class ExportSystemTypesHandler
       ...renderPropTypes,
       ...reactNodeTypes,
       ...actionTypes,
+      ...richTextTypes,
+      ...codeMirrorTypes,
     ]
   }
 }

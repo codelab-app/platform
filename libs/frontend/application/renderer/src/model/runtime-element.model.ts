@@ -22,7 +22,6 @@ import {
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   getComponentDomainService,
-  isAtom,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -44,7 +43,6 @@ import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
 import { ElementWrapper } from '../wrappers'
-import { TextEditorWrapper } from '../wrappers/TextEditorWrapper'
 import { RuntimeComponentModel } from './runtime-component.model'
 
 const compositeKey = (
@@ -207,10 +205,8 @@ export class RuntimeElementModel
 
     // Render the element to an intermediate output
     const renderOutput = this.renderer.renderPipe.render(this)
-    const children = this.renderChildren
 
     const wrapperProps: ElementWrapperProps = {
-      children,
       errorBoundary: {
         onError: ({ message, stack }) => {
           this.element.current.setRenderingError({ message, stack })
@@ -236,31 +232,9 @@ export class RuntimeElementModel
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
-    const renderedChildren = compact(this.children.map((child) => child.render))
-    const hasNoChildren = this.children.length === 0
-    const hasOneChild = this.children.length === 1
+    const rendered = compact(this.children.map((child) => child.render))
 
-    if (hasNoChildren) {
-      // Inject children prop or text, but only if we have no regular children
-      // (children from props has precedence)
-      const children = this.runtimeProps.evaluatedProps['children']
-
-      const shouldInjectRichText =
-        isAtom(this.element.current.renderType.current) &&
-        this.element.current.renderType.current.allowRichTextInjection
-
-      if (shouldInjectRichText) {
-        return React.createElement(TextEditorWrapper, { runtimeElement: this })
-      }
-
-      if (children) {
-        return children
-      }
-
-      /*
-       * It's important to be undefined if we have no children to display,
-       * since void components like input will throw an error if their children prop isn't undefined
-       */
+    if (!rendered.length) {
       return undefined
     }
 
@@ -268,11 +242,7 @@ export class RuntimeElementModel
      * If we have only one child, just return it.
      * Ant Design doesn't handle array children well in some cases, like Forms
      */
-    if (hasOneChild) {
-      return renderedChildren[0]
-    }
-
-    return renderedChildren
+    return rendered.length === 1 ? rendered[0] : rendered
   }
 
   @computed

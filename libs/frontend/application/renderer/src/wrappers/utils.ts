@@ -9,20 +9,6 @@ import isNil from 'lodash/isNil'
 import { Fragment } from 'react'
 import { getAtom } from '../atoms'
 
-/**
- * Fragments can only have the `key` prop
- *
- * children is rendered as a child of the component
- * so shouldn't be passed as a prop to the element
- */
-export const extractValidProps = (
-  ReactComponent: unknown,
-  renderOutput: IRenderOutput,
-) =>
-  ReactComponent === Fragment
-    ? { key: renderOutput.props['key'] }
-    : renderOutput.props
-
 export const getReactComponent = (renderOutput: IRenderOutput) => {
   // if component does not have atom assigned to the root element
   // use span to hold the component's elements together and it is an html

@@ -1024,10 +1024,7 @@
         ],
         "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04",
         "kind": "InterfaceType",
-        "name": "Google Fonts Bruno Ace SC",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Bruno Ace SC"
       },
       {
         "__typename": "InterfaceType",
@@ -1073,10 +1070,7 @@
         ],
         "id": "3e20a519-4968-49ce-9663-6b5380707055",
         "kind": "InterfaceType",
-        "name": "Google Fonts Dosis",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Dosis"
       },
       {
         "__typename": "InterfaceType",
@@ -1122,10 +1116,7 @@
         ],
         "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf",
         "kind": "InterfaceType",
-        "name": "Google Fonts Gloria Hallelujah",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Gloria Hallelujah"
       },
       {
         "__typename": "InterfaceType",
@@ -1171,10 +1162,7 @@
         ],
         "id": "b5de478b-8d16-477b-be8f-301379ab26d9",
         "kind": "InterfaceType",
-        "name": "Google Fonts Inconsolata",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Inconsolata"
       },
       {
         "__typename": "InterfaceType",
@@ -1220,10 +1208,7 @@
         ],
         "id": "de8f4c80-35e8-4b87-a232-d99983248f1a",
         "kind": "InterfaceType",
-        "name": "Google Fonts Inter",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Inter"
       },
       {
         "__typename": "InterfaceType",
@@ -1269,10 +1254,7 @@
         ],
         "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656",
         "kind": "InterfaceType",
-        "name": "Google Fonts Josefin Sans",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Josefin Sans"
       },
       {
         "__typename": "InterfaceType",
@@ -1318,10 +1300,7 @@
         ],
         "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169",
         "kind": "InterfaceType",
-        "name": "Google Fonts Lato",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Lato"
       },
       {
         "__typename": "InterfaceType",
@@ -1367,10 +1346,7 @@
         ],
         "id": "10883ab5-c70c-4ce0-ab73-59935a806b05",
         "kind": "InterfaceType",
-        "name": "Google Fonts Montserrat",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Montserrat"
       },
       {
         "__typename": "InterfaceType",
@@ -1416,10 +1392,7 @@
         ],
         "id": "6babdef9-12fd-4114-8bb6-391a089bc801",
         "kind": "InterfaceType",
-        "name": "Google Fonts Nanum Gothic",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Nanum Gothic"
       },
       {
         "__typename": "InterfaceType",
@@ -1465,10 +1438,7 @@
         ],
         "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0",
         "kind": "InterfaceType",
-        "name": "Google Fonts Noto Sans",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Noto Sans"
       },
       {
         "__typename": "InterfaceType",
@@ -1514,10 +1484,7 @@
         ],
         "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e",
         "kind": "InterfaceType",
-        "name": "Google Fonts Noto Sans JP",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Noto Sans JP"
       },
       {
         "__typename": "InterfaceType",
@@ -1563,10 +1530,7 @@
         ],
         "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51",
         "kind": "InterfaceType",
-        "name": "Google Fonts Nunito",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Nunito"
       },
       {
         "__typename": "InterfaceType",
@@ -1612,10 +1576,7 @@
         ],
         "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6",
         "kind": "InterfaceType",
-        "name": "Google Fonts Nunito Sans",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Nunito Sans"
       },
       {
         "__typename": "InterfaceType",
@@ -1661,10 +1622,7 @@
         ],
         "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb",
         "kind": "InterfaceType",
-        "name": "Google Fonts Open Sans",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Open Sans"
       },
       {
         "__typename": "InterfaceType",
@@ -1710,10 +1668,7 @@
         ],
         "id": "ba311b82-869e-407d-9c8f-137138ab0868",
         "kind": "InterfaceType",
-        "name": "Google Fonts Oswald",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Oswald"
       },
       {
         "__typename": "InterfaceType",
@@ -1759,10 +1714,7 @@
         ],
         "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903",
         "kind": "InterfaceType",
-        "name": "Google Fonts Pacifico",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Pacifico"
       },
       {
         "__typename": "InterfaceType",
@@ -1808,10 +1760,7 @@
         ],
         "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d",
         "kind": "InterfaceType",
-        "name": "Google Fonts Playfair Display",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Playfair Display"
       },
       {
         "__typename": "InterfaceType",
@@ -1857,10 +1806,7 @@
         ],
         "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3",
         "kind": "InterfaceType",
-        "name": "Google Fonts Poppins",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Poppins"
       },
       {
         "__typename": "InterfaceType",
@@ -1906,10 +1852,7 @@
         ],
         "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53",
         "kind": "InterfaceType",
-        "name": "Google Fonts Raleway",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Raleway"
       },
       {
         "__typename": "InterfaceType",
@@ -1955,10 +1898,7 @@
         ],
         "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20",
         "kind": "InterfaceType",
-        "name": "Google Fonts Roboto",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Roboto"
       },
       {
         "__typename": "InterfaceType",
@@ -2004,10 +1944,7 @@
         ],
         "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6",
         "kind": "InterfaceType",
-        "name": "Google Fonts Roboto Condensed",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Roboto Condensed"
       },
       {
         "__typename": "InterfaceType",
@@ -2053,10 +1990,7 @@
         ],
         "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36",
         "kind": "InterfaceType",
-        "name": "Google Fonts Roboto Mono",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Roboto Mono"
       },
       {
         "__typename": "InterfaceType",
@@ -2102,10 +2036,7 @@
         ],
         "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb",
         "kind": "InterfaceType",
-        "name": "Google Fonts Roboto Slab",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Roboto Slab"
       },
       {
         "__typename": "InterfaceType",
@@ -2151,10 +2082,7 @@
         ],
         "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e",
         "kind": "InterfaceType",
-        "name": "Google Fonts Rubik",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Rubik"
       },
       {
         "__typename": "InterfaceType",
@@ -2200,10 +2128,7 @@
         ],
         "id": "63be0022-34ca-41b5-bdd5-66d3344fa537",
         "kind": "InterfaceType",
-        "name": "Google Fonts Ubuntu",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "Google Fonts Ubuntu"
       },
       {
         "__typename": "UnionType",
@@ -3367,13 +3292,10 @@
     "api": {
       "id": "d8d412dd-2611-4132-8234-e7ea8667c919"
     },
-    "childrenContainerElement": {
-      "id": "562984ba-3c4a-41df-8375-21dbc750915c"
-    },
     "id": "417cba0d-a781-485d-82d5-cb3672efe555",
     "name": "Google Fonts",
     "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      "id": "b2af137f-d3f9-41d8-bb27-d5843f93dad1"
     },
     "props": {
       "data": "{\"fonts\":[]}",

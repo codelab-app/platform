@@ -15,6 +15,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { createResourceData } from '../preview/resource.data'
+import { systemTypesIds } from '../system-types.data'
 
 // TODO: there must be a better way to do this
 // When selecting an action via UI, this id is for the system type ActionType and is saved as the `type` in
@@ -50,7 +51,11 @@ export const componentElementCreateData = (
   name: 'Fetch Data',
   parentElement: component.rootElement,
   propsData: {
-    children: 'Name of data - {{ componentProps.name }}',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: systemTypesIds[ITypeKind.RichTextType],
+      value: 'Name of data - {{ componentProps.name }}',
+    },
     onClick: {
       kind: ITypeKind.ActionType,
       type: actionTypeId,

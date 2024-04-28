@@ -12,6 +12,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+import { systemTypesIds } from '../system-types.data'
 import { createResourceData } from './resource.data'
 
 // TODO: there must be a better way to do this
@@ -78,7 +79,11 @@ export const buttonElementCreateData: ICreateElementData = {
   name: 'Post Button',
   prevSibling: textElementCreateData,
   propsData: {
-    children: 'Click button to run actions',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: systemTypesIds[ITypeKind.RichTextType],
+      value: 'Click button to run actions',
+    },
     onClick: {
       kind: ITypeKind.ActionType,
       type: actionTypeId,

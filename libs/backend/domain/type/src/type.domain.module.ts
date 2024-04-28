@@ -4,12 +4,14 @@ import { TypeFactory } from './factory'
 import {
   ActionTypeRepository,
   ArrayTypeRepository,
+  CodeMirrorTypeRepository,
   EnumTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
   UnionTypeRepository,
 } from './repository'
 import { TypeDomainService } from './service'
@@ -17,12 +19,14 @@ import { TypeDomainService } from './service'
 const typeRepositories = [
   ActionTypeRepository,
   ArrayTypeRepository,
+  CodeMirrorTypeRepository,
   EnumTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
   UnionTypeRepository,
 ]
 

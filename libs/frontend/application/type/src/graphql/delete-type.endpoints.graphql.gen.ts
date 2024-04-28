@@ -66,6 +66,15 @@ export type DeleteRenderPropTypesMutation = {
   deleteRenderPropTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
+export type DeleteRichTextTypesMutationVariables = Types.Exact<{
+  delete?: Types.InputMaybe<Types.RichTextTypeDeleteInput>
+  where?: Types.InputMaybe<Types.RichTextTypeWhere>
+}>
+
+export type DeleteRichTextTypesMutation = {
+  deleteRichTextTypes: { nodesDeleted: number; relationshipsDeleted: number }
+}
+
 export type DeleteEnumTypesMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.EnumTypeDeleteInput>
   where?: Types.InputMaybe<Types.EnumTypeWhere>
@@ -193,6 +202,17 @@ export const DeleteRenderPropTypesDocument = gql`
     $where: RenderPropTypeWhere
   ) {
     deleteRenderPropTypes(delete: $delete, where: $where) {
+      nodesDeleted
+      relationshipsDeleted
+    }
+  }
+`
+export const DeleteRichTextTypesDocument = gql`
+  mutation DeleteRichTextTypes(
+    $delete: RichTextTypeDeleteInput
+    $where: RichTextTypeWhere
+  ) {
+    deleteRichTextTypes(delete: $delete, where: $where) {
       nodesDeleted
       relationshipsDeleted
     }
@@ -392,6 +412,22 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'DeleteRenderPropTypes',
+        'mutation',
+        variables,
+      )
+    },
+    DeleteRichTextTypes(
+      variables?: DeleteRichTextTypesMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<DeleteRichTextTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteRichTextTypesMutation>(
+            DeleteRichTextTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DeleteRichTextTypes',
         'mutation',
         variables,
       )

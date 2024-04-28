@@ -39,6 +39,7 @@ export interface INeo4jRepository {
   EnumTypeValue: Promise<ModelMap['EnumTypeValue']>
   LambdaType: Promise<ModelMap['LambdaType']>
   AppType: Promise<ModelMap['AppType']>
+  RichTextType: Promise<ModelMap['RichTextType']>
   ActionType: Promise<ModelMap['ActionType']>
   RenderPropType: Promise<ModelMap['RenderPropType']>
   ReactNodeType: Promise<ModelMap['ReactNodeType']>

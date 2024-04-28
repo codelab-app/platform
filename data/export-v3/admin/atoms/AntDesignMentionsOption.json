@@ -9,7 +9,7 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
         },
         "id": "69c4c923-48d6-49d1-b7a4-1e3c210b2294",
         "key": "children",
@@ -45,6 +45,26 @@
         "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
         "kind": "InterfaceType",
         "name": "AntDesignMentionsOption API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "kind": "CodeMirrorType",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "kind": "RichTextType",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },

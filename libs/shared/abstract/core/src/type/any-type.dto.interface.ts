@@ -17,6 +17,7 @@ export const IAnyBaseType = Type.Union([
   IBaseTypeDto(Type.Literal(`${ITypeKind.PrimitiveType}`)),
   IBaseTypeDto(Type.Literal(`${ITypeKind.ReactNodeType}`)),
   IBaseTypeDto(Type.Literal(`${ITypeKind.RenderPropType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.RichTextType}`)),
   IBaseTypeDto(Type.Literal(`${ITypeKind.UnionType}`)),
 ])
 
@@ -35,6 +36,7 @@ export const ITypeRef = Type.Union([
   IDiscriminatedRef(`${ITypeKind.PrimitiveType}`),
   IDiscriminatedRef(`${ITypeKind.ReactNodeType}`),
   IDiscriminatedRef(`${ITypeKind.RenderPropType}`),
+  IDiscriminatedRef(`${ITypeKind.RichTextType}`),
   IDiscriminatedRef(`${ITypeKind.UnionType}`),
 ])
 
@@ -53,6 +55,7 @@ export const ITypeMaybeRef = Type.Union([
   IDiscriminatedRef(`${ITypeKind.PrimitiveType}`),
   IDiscriminatedRef(`${ITypeKind.ReactNodeType}`),
   IDiscriminatedRef(`${ITypeKind.RenderPropType}`),
+  IDiscriminatedRef(`${ITypeKind.RichTextType}`),
   IDiscriminatedRef(`${ITypeKind.UnionType}`),
 ])
 

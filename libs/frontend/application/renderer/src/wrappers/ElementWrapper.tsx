@@ -9,7 +9,6 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { useSelectionHandlers } from '../hooks'
 import { DroppableStyledComponent } from './DroppableStyledComponent'
 import {
-  extractValidProps,
   generateTailwindClasses,
   getReactComponent,
   makeOverrideAtomProps,
@@ -22,7 +21,6 @@ import {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({
-    children,
     errorBoundary: { onError, onResetKeysChange },
     onRendered,
     renderer,
@@ -51,8 +49,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       ),
     }
 
-    const extractedProps = extractValidProps(ReactComponent, renderOutput)
-
     const selectionHandlers = useSelectionHandlers(
       runtimeElement,
       renderer.rendererType,
@@ -60,7 +56,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const propsOverrides = makeOverrideAtomProps(
       renderer.rendererType,
-      extractedProps,
+      renderOutput.props,
       renderOutput.atomType,
     )
 
@@ -69,7 +65,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     // a prop contains an action such as `onClick`, `onSelect`, etc.
     const mergedProps = mergeProps(
       selectionHandlers,
-      extractedProps,
+      renderOutput.props,
       rest,
       tailwindClassNames,
       propsOverrides,
@@ -78,6 +74,16 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const isDroppable =
       renderer.rendererType !== RendererType.Production &&
       renderer.rendererType !== RendererType.Preview
+
+    /**
+     * children can be either
+     *  - a sub tree of elements
+     *  - children prop value
+     */
+
+    const children =
+      runtimeElement.renderChildren ??
+      runtimeElement.runtimeProps.renderedChildrenProp
 
     return (
       <ErrorBoundary

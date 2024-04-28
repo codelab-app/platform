@@ -12,19 +12,29 @@ import type {
   IPrimitiveTypeModel,
   IReactNodeTypeModel,
   IRenderPropTypeModel,
+  IRichTextTypeModel,
   ITypeModel,
   IUnionTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldDescription } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import type { JSONSchema7 } from 'json-schema'
+import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
+import merge from 'lodash/merge'
 import type { UiPropertiesContext } from './types'
 import { getUiProperties } from './ui-properties'
 
-export type JsonSchema = JSONSchema7 & { label?: string; uniforms?: object }
+export interface JsonSchema extends JSONSchema7 {
+  isTypedProp?: boolean
+  label?: string
+  properties?:
+    | {
+        [key: string]: JSONSchema7Definition & { uniforms?: object }
+      }
+    | undefined
+  uniforms?: object
+}
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
@@ -58,6 +68,8 @@ export class TypeSchemaFactory {
         return this.fromPageType(type, context)
       case ITypeKind.RenderPropType:
         return this.fromRenderPropType(type, context)
+      case ITypeKind.RichTextType:
+        return this.fromRichTextType(type, context)
       case ITypeKind.PrimitiveType:
         return this.fromPrimitiveType(type, context)
       case ITypeKind.ReactNodeType:
@@ -74,35 +86,6 @@ export class TypeSchemaFactory {
         return this.fromInterfaceType(type, context)
       case ITypeKind.ArrayType:
         return this.fromArrayType(type, context)
-    }
-  }
-
-  /**
-   * Produces the properties with the shape of a {@link TypedProp}
-   * with a `type` field that has a value of `typeId`
-   */
-  private static schemaForTypedProp(
-    type: Maybe<ITypeModel>,
-    valueSchema: JsonSchema,
-    typeLabel: Maybe<string>,
-  ): { [key: string]: JsonSchema } {
-    return {
-      kind: {
-        default: type?.kind,
-        enum: type?.kind ? [type.kind] : undefined,
-        label: `${typeLabel}Kind`,
-        type: 'string',
-        uniforms: blankUniforms,
-      },
-      type: {
-        default: type?.id,
-        // This ensures that only this exact type is considered valid. Allows union types to use oneOf
-        enum: type?.id ? [type.id] : undefined,
-        label: typeLabel,
-        type: 'string',
-        uniforms: blankUniforms,
-      },
-      value: valueSchema,
     }
   }
 
@@ -146,15 +129,7 @@ export class TypeSchemaFactory {
     type: IElementTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-
-    const properties = TypeSchemaFactory.schemaForTypedProp(
-      type,
-      { label: '', type: 'string', ...extra },
-      '',
-    )
-
-    return { properties, type: 'object', uniforms: nullUniforms }
+    return this.transformTypedPropType(type, context)
   }
 
   private fromEnumType(
@@ -295,36 +270,37 @@ export class TypeSchemaFactory {
     return this.transformTypedPropType(type, context)
   }
 
+  private fromRichTextType(
+    type: IRichTextTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.transformTypedPropType(type, context)
+  }
+
   private fromUnionType(
     type: IUnionTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     // This is the extra for the union type. Not to be confused with the extra for the value type
     const extra = this.getExtraProperties(type, context)
-    const label: string | undefined = extra?.label
-    const labelWithQuotes = label ? `"${label}" ` : ''
-    const typeLabel = `${labelWithQuotes}Type`
 
     return {
       ...extra,
       oneOf: type.typesOfUnionType.map((innerType) => {
-        const valueSchema = this.transform(innerType.current)
+        const typeSchema = this.transform(innerType.current)
 
-        const properties = TypeSchemaFactory.schemaForTypedProp(
-          innerType.current,
-          valueSchema,
-          typeLabel,
-        )
-
-        return {
-          label: '',
-          properties,
-          ...context?.validationRules?.general,
-          required: ['type'],
-          type: 'object',
-          // We use this as label of the select field item
-          typeName: innerType.current.name,
-        }
+        return typeSchema.isTypedProp
+          ? {
+              ...typeSchema,
+              typeName: innerType.current.name,
+            }
+          : merge(
+              {
+                ...this.transformTypedPropType(innerType.current),
+                typeName: innerType.current.name,
+              },
+              { properties: { value: typeSchema } },
+            )
       }),
     }
   }
@@ -351,21 +327,31 @@ export class TypeSchemaFactory {
    * Produces a {@link TypedProp} shaped schema
    */
   private transformTypedPropType(
-    type: IActionTypeModel | IReactNodeTypeModel | IRenderPropTypeModel,
+    type: ITypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
     const label = context?.fieldName ?? ''
 
-    const properties = TypeSchemaFactory.schemaForTypedProp(
-      type,
-      { label, ...extra },
-      '',
-    )
-
     return {
+      isTypedProp: true,
       label: '',
-      properties,
+      properties: {
+        kind: {
+          default: type.kind,
+          enum: [type.kind],
+          type: 'string',
+          uniforms: blankUniforms,
+        },
+        type: {
+          default: type.id,
+          // This ensures that only this exact type is considered valid. Allows union types to use oneOf
+          enum: type.id ? [type.id] : undefined,
+          type: 'string',
+          uniforms: blankUniforms,
+        },
+        value: { label, ...extra },
+      },
       required: ['type', 'kind'],
       type: 'object',
       uniforms: nullUniforms,

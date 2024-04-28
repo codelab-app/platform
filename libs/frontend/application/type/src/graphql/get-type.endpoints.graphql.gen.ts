@@ -13,6 +13,7 @@ import {
   BaseType_PrimitiveType_Fragment,
   BaseType_ReactNodeType_Fragment,
   BaseType_RenderPropType_Fragment,
+  BaseType_RichTextType_Fragment,
   BaseType_UnionType_Fragment,
 } from '../../../../abstract/domain/src/type/fragments/base-type.fragment.graphql.gen'
 import {
@@ -28,14 +29,17 @@ import {
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropType_Fragment,
+  Type_RichTextType_Fragment,
   Type_UnionType_Fragment,
 } from '../../../../abstract/domain/src/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
+import { RichTextTypeFragment } from '../../../../abstract/domain/src/type/fragments/rich-text-type.fragment.graphql.gen'
 import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from '../../../../abstract/domain/src/type/fragments/base-type.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/domain/src/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
+import { RichTextTypeFragmentDoc } from '../../../../abstract/domain/src/type/fragments/rich-text-type.fragment.graphql.gen'
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetBaseTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.GetBaseTypesOptions>
@@ -57,6 +61,7 @@ export type GetBaseTypesQuery = {
       | BaseType_PrimitiveType_Fragment
       | BaseType_ReactNodeType_Fragment
       | BaseType_RenderPropType_Fragment
+      | BaseType_RichTextType_Fragment
       | BaseType_UnionType_Fragment
     >
   }
@@ -81,6 +86,7 @@ export type GetTypesQuery = {
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
   renderPropTypes: Array<Type_RenderPropType_Fragment>
+  richTextTypes: Array<Type_RichTextType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
 }
 
@@ -151,6 +157,13 @@ export type GetReactNodeTypesQueryVariables = Types.Exact<{
 
 export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> }
 
+export type GetRichTextTypesQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.RichTextTypeOptions>
+  where?: Types.InputMaybe<Types.RichTextTypeWhere>
+}>
+
+export type GetRichTextTypesQuery = { types: Array<RichTextTypeFragment> }
+
 export type GetEnumTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.EnumTypeOptions>
   where?: Types.InputMaybe<Types.EnumTypeWhere>
@@ -200,6 +213,7 @@ export type GetTypeOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
 export type GetTypeOptionsQuery = {
   baseTypes: {
     items: Array<
+      | { id: string; kind: Types.TypeKind; name: string }
       | { id: string; kind: Types.TypeKind; name: string }
       | { id: string; kind: Types.TypeKind; name: string }
       | { id: string; kind: Types.TypeKind; name: string }
@@ -264,6 +278,9 @@ export const GetTypesDocument = gql`
       ...Type
     }
     renderPropTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    richTextTypes(where: { id_IN: $ids }) {
       ...Type
     }
     unionTypes(where: { id_IN: $ids }) {
@@ -355,6 +372,17 @@ export const GetReactNodeTypesDocument = gql`
     }
   }
   ${ReactNodeTypeFragmentDoc}
+`
+export const GetRichTextTypesDocument = gql`
+  query GetRichTextTypes(
+    $options: RichTextTypeOptions
+    $where: RichTextTypeWhere
+  ) {
+    types: richTextTypes(options: $options, where: $where) {
+      ...RichTextType
+    }
+  }
+  ${RichTextTypeFragmentDoc}
 `
 export const GetEnumTypesDocument = gql`
   query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
@@ -590,6 +618,22 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetReactNodeTypes',
+        'query',
+        variables,
+      )
+    },
+    GetRichTextTypes(
+      variables?: GetRichTextTypesQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetRichTextTypesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetRichTextTypesQuery>(
+            GetRichTextTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetRichTextTypes',
         'query',
         variables,
       )

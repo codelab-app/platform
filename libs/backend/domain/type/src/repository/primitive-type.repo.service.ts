@@ -25,10 +25,8 @@ export class PrimitiveTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-
-    protected loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
     protected authService: AuthDomainService,
   ) {
     super(validationService, loggerService)

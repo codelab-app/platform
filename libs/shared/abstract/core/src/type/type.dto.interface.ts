@@ -34,6 +34,7 @@ import {
   IRenderPropType,
   IRenderPropTypeDto,
 } from './render-prop-type.dto.interface'
+import { IRichTextType, IRichTextTypeDto } from './rich-text-type.dto.interface'
 import type { ITypeKind } from './type-kind.enum'
 import { IUnionType, IUnionTypeDto } from './union-type.dto.interface'
 
@@ -51,6 +52,7 @@ export const ITypeDto = Type.Union(
     IPrimitiveTypeDto,
     IReactNodeTypeDto,
     IRenderPropTypeDto,
+    IRichTextTypeDto,
     IUnionTypeDto,
   ],
   { discriminantKey: '__typename', errorMessage: 'Unknown type' },
@@ -72,6 +74,7 @@ export const IType = Type.Union(
     IPrimitiveType,
     IReactNodeType,
     IRenderPropType,
+    IRichTextType,
     IUnionType,
   ],
   { discriminantKey: '__typename', errorMessage: 'Unknown type' },

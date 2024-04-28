@@ -268,6 +268,7 @@ export type AnyType =
   | PrimitiveType
   | ReactNodeType
   | RenderPropType
+  | RichTextType
   | UnionType
 
 export type AnyTypeWhere = {
@@ -283,6 +284,7 @@ export type AnyTypeWhere = {
   PrimitiveType?: InputMaybe<PrimitiveTypeWhere>
   ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
   RenderPropType?: InputMaybe<RenderPropTypeWhere>
+  RichTextType?: InputMaybe<RichTextTypeWhere>
   UnionType?: InputMaybe<UnionTypeWhere>
 }
 
@@ -6660,6 +6662,11 @@ export type CreateResourcesMutationResponse = {
   resources: Array<Resource>
 }
 
+export type CreateRichTextTypesMutationResponse = {
+  info: CreateInfo
+  richTextTypes: Array<RichTextType>
+}
+
 export type CreateStoresMutationResponse = {
   info: CreateInfo
   stores: Array<Store>
@@ -11666,6 +11673,7 @@ export type IBaseTypeCreateInput = {
   PrimitiveType?: InputMaybe<PrimitiveTypeCreateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeCreateInput>
   RenderPropType?: InputMaybe<RenderPropTypeCreateInput>
+  RichTextType?: InputMaybe<RichTextTypeCreateInput>
   UnionType?: InputMaybe<UnionTypeCreateInput>
 }
 
@@ -11692,6 +11700,7 @@ export type IBaseTypeImplementationsConnectInput = {
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeConnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeConnectInput>>
   RenderPropType?: InputMaybe<Array<RenderPropTypeConnectInput>>
+  RichTextType?: InputMaybe<Array<RichTextTypeConnectInput>>
   UnionType?: InputMaybe<Array<UnionTypeConnectInput>>
 }
 
@@ -11708,6 +11717,7 @@ export type IBaseTypeImplementationsDeleteInput = {
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeDeleteInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDeleteInput>>
   RenderPropType?: InputMaybe<Array<RenderPropTypeDeleteInput>>
+  RichTextType?: InputMaybe<Array<RichTextTypeDeleteInput>>
   UnionType?: InputMaybe<Array<UnionTypeDeleteInput>>
 }
 
@@ -11724,6 +11734,7 @@ export type IBaseTypeImplementationsDisconnectInput = {
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeDisconnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDisconnectInput>>
   RenderPropType?: InputMaybe<Array<RenderPropTypeDisconnectInput>>
+  RichTextType?: InputMaybe<Array<RichTextTypeDisconnectInput>>
   UnionType?: InputMaybe<Array<UnionTypeDisconnectInput>>
 }
 
@@ -11740,6 +11751,7 @@ export type IBaseTypeImplementationsUpdateInput = {
   PrimitiveType?: InputMaybe<PrimitiveTypeUpdateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeUpdateInput>
   RenderPropType?: InputMaybe<RenderPropTypeUpdateInput>
+  RichTextType?: InputMaybe<RichTextTypeUpdateInput>
   UnionType?: InputMaybe<UnionTypeUpdateInput>
 }
 
@@ -11756,6 +11768,7 @@ export type IBaseTypeImplementationsWhere = {
   PrimitiveType?: InputMaybe<PrimitiveTypeWhere>
   ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
   RenderPropType?: InputMaybe<RenderPropTypeWhere>
+  RichTextType?: InputMaybe<RichTextTypeWhere>
   UnionType?: InputMaybe<UnionTypeWhere>
 }
 
@@ -13079,6 +13092,7 @@ export type Mutation = {
   createRedirects: CreateRedirectsMutationResponse
   createRenderPropTypes: CreateRenderPropTypesMutationResponse
   createResources: CreateResourcesMutationResponse
+  createRichTextTypes: CreateRichTextTypesMutationResponse
   createStores: CreateStoresMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
@@ -13112,6 +13126,7 @@ export type Mutation = {
   deleteRedirects: DeleteInfo
   deleteRenderPropTypes: DeleteInfo
   deleteResources: DeleteInfo
+  deleteRichTextTypes: DeleteInfo
   deleteStores: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
@@ -13145,6 +13160,7 @@ export type Mutation = {
   updateRedirects: UpdateRedirectsMutationResponse
   updateRenderPropTypes: UpdateRenderPropTypesMutationResponse
   updateResources: UpdateResourcesMutationResponse
+  updateRichTextTypes: UpdateRichTextTypesMutationResponse
   updateStores: UpdateStoresMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
@@ -13262,6 +13278,10 @@ export type MutationCreateRenderPropTypesArgs = {
 
 export type MutationCreateResourcesArgs = {
   input: Array<ResourceCreateInput>
+}
+
+export type MutationCreateRichTextTypesArgs = {
+  input: Array<RichTextTypeCreateInput>
 }
 
 export type MutationCreateStoresArgs = {
@@ -13420,6 +13440,11 @@ export type MutationDeleteRenderPropTypesArgs = {
 export type MutationDeleteResourcesArgs = {
   delete?: InputMaybe<ResourceDeleteInput>
   where?: InputMaybe<ResourceWhere>
+}
+
+export type MutationDeleteRichTextTypesArgs = {
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+  where?: InputMaybe<RichTextTypeWhere>
 }
 
 export type MutationDeleteStoresArgs = {
@@ -13713,6 +13738,16 @@ export type MutationUpdateResourcesArgs = {
   disconnect?: InputMaybe<ResourceDisconnectInput>
   update?: InputMaybe<ResourceUpdateInput>
   where?: InputMaybe<ResourceWhere>
+}
+
+export type MutationUpdateRichTextTypesArgs = {
+  connect?: InputMaybe<RichTextTypeConnectInput>
+  connectOrCreate?: InputMaybe<RichTextTypeConnectOrCreateInput>
+  create?: InputMaybe<RichTextTypeRelationInput>
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+  disconnect?: InputMaybe<RichTextTypeDisconnectInput>
+  update?: InputMaybe<RichTextTypeUpdateInput>
+  where?: InputMaybe<RichTextTypeWhere>
 }
 
 export type MutationUpdateStoresArgs = {
@@ -15395,6 +15430,9 @@ export type Query = {
   resources: Array<Resource>
   resourcesAggregate: ResourceAggregateSelection
   resourcesConnection: ResourcesConnection
+  richTextTypes: Array<RichTextType>
+  richTextTypesAggregate: RichTextTypeAggregateSelection
+  richTextTypesConnection: RichTextTypesConnection
   stores: Array<Store>
   storesAggregate: StoreAggregateSelection
   storesConnection: StoresConnection
@@ -15871,6 +15909,22 @@ export type QueryResourcesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<InputMaybe<ResourceSort>>>
   where?: InputMaybe<ResourceWhere>
+}
+
+export type QueryRichTextTypesArgs = {
+  options?: InputMaybe<RichTextTypeOptions>
+  where?: InputMaybe<RichTextTypeWhere>
+}
+
+export type QueryRichTextTypesAggregateArgs = {
+  where?: InputMaybe<RichTextTypeWhere>
+}
+
+export type QueryRichTextTypesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<InputMaybe<RichTextTypeSort>>>
+  where?: InputMaybe<RichTextTypeWhere>
 }
 
 export type QueryStoresArgs = {
@@ -17433,6 +17487,206 @@ export type ResourcesConnection = {
   totalCount: Scalars['Int']['output']
 }
 
+/** Allows picking a app from the list of apps */
+export type RichTextType = IBaseType & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerAggregate?: Maybe<RichTextTypeUserOwnerAggregationSelection>
+  ownerConnection: IBaseTypeOwnerConnection
+}
+
+/** Allows picking a app from the list of apps */
+export type RichTextTypeOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+/** Allows picking a app from the list of apps */
+export type RichTextTypeOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<UserWhere>
+}
+
+/** Allows picking a app from the list of apps */
+export type RichTextTypeOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<IBaseTypeOwnerConnectionSort>>
+  where?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+}
+
+export type RichTextTypeAggregateSelection = {
+  count: Scalars['Int']['output']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type RichTextTypeConnectInput = {
+  owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
+}
+
+export type RichTextTypeConnectOrCreateInput = {
+  owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+}
+
+export type RichTextTypeConnectWhere = {
+  node: RichTextTypeWhere
+}
+
+export type RichTextTypeCreateInput = {
+  id: Scalars['ID']['input']
+  kind?: TypeKind
+  name: Scalars['String']['input']
+  owner?: InputMaybe<IBaseTypeOwnerFieldInput>
+}
+
+export type RichTextTypeDeleteInput = {
+  owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type RichTextTypeDisconnectInput = {
+  owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
+}
+
+export type RichTextTypeEdge = {
+  cursor: Scalars['String']['output']
+  node: RichTextType
+}
+
+export type RichTextTypeOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more RichTextTypeSort objects to sort RichTextTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<RichTextTypeSort>>
+}
+
+export type RichTextTypeOwnerAggregateInput = {
+  AND?: InputMaybe<Array<RichTextTypeOwnerAggregateInput>>
+  NOT?: InputMaybe<RichTextTypeOwnerAggregateInput>
+  OR?: InputMaybe<Array<RichTextTypeOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<RichTextTypeOwnerNodeAggregationWhereInput>
+}
+
+export type RichTextTypeOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<RichTextTypeOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<RichTextTypeOwnerNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<RichTextTypeOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type RichTextTypeRelationInput = {
+  owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+/** Fields to sort RichTextTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RichTextTypeSort object. */
+export type RichTextTypeSort = {
+  id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type RichTextTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type RichTextTypeUserOwnerAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<RichTextTypeUserOwnerNodeAggregateSelection>
+}
+
+export type RichTextTypeUserOwnerNodeAggregateSelection = {
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
+}
+
+export type RichTextTypeWhere = {
+  AND?: InputMaybe<Array<RichTextTypeWhere>>
+  NOT?: InputMaybe<RichTextTypeWhere>
+  OR?: InputMaybe<Array<RichTextTypeWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  id_MATCHES?: InputMaybe<Scalars['String']['input']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  name_MATCHES?: InputMaybe<Scalars['String']['input']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<RichTextTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+}
+
+export type RichTextTypesConnection = {
+  edges: Array<RichTextTypeEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
 export enum Role {
   Admin = 'Admin',
   User = 'User',
@@ -18676,6 +18930,7 @@ export enum TypeKind {
   PrimitiveType = 'PrimitiveType',
   ReactNodeType = 'ReactNodeType',
   RenderPropType = 'RenderPropType',
+  RichTextType = 'RichTextType',
   UnionType = 'UnionType',
 }
 
@@ -19191,6 +19446,9 @@ export type UnionTypeTypesOfUnionTypeConnectInput = {
   RenderPropType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput>
   >
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput>
+  >
   UnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput>
   >
@@ -19233,6 +19491,7 @@ export type UnionTypeTypesOfUnionTypeConnectionWhere = {
   PrimitiveType?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>
   ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>
   RenderPropType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
+  RichTextType?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
   UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>
 }
 
@@ -19271,6 +19530,9 @@ export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
   RenderPropType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput>
   >
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput>
+  >
   UnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput>
   >
@@ -19289,6 +19551,7 @@ export type UnionTypeTypesOfUnionTypeCreateInput = {
   PrimitiveType?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput>
   ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput>
   RenderPropType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput>
+  RichTextType?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeFieldInput>
   UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeFieldInput>
 }
 
@@ -19326,6 +19589,9 @@ export type UnionTypeTypesOfUnionTypeDeleteInput = {
   >
   RenderPropType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput>
+  >
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput>
   >
   UnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput>
@@ -19368,6 +19634,9 @@ export type UnionTypeTypesOfUnionTypeDisconnectInput = {
   >
   RenderPropType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput>
+  >
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput>
   >
   UnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput>
@@ -19865,6 +20134,62 @@ export type UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput = {
   where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
 }
 
+export type UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<RichTextTypeConnectInput>>
+  where?: InputMaybe<RichTextTypeConnectWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>>
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>>
+  node?: InputMaybe<RichTextTypeWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput = {
+  node: RichTextTypeCreateInput
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput = {
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<RichTextTypeDisconnectInput>
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeFieldInput = {
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput>
+  >
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput = {
+  node?: InputMaybe<RichTextTypeUpdateInput>
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput = {
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput>
+  >
+  delete?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput>
+  >
+  disconnect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput>
+  >
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput>
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere>
+}
+
 export type UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput = {
   connect?: InputMaybe<Array<UnionTypeConnectInput>>
   where?: InputMaybe<UnionTypeConnectWhere>
@@ -19965,6 +20290,9 @@ export type UnionTypeTypesOfUnionTypeUpdateInput = {
   >
   RenderPropType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput>
+  >
+  RichTextType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput>
   >
   UnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput>
@@ -20181,6 +20509,11 @@ export type UpdateRenderPropTypesMutationResponse = {
 export type UpdateResourcesMutationResponse = {
   info: UpdateInfo
   resources: Array<Resource>
+}
+
+export type UpdateRichTextTypesMutationResponse = {
+  info: UpdateInfo
+  richTextTypes: Array<RichTextType>
 }
 
 export type UpdateStoresMutationResponse = {
@@ -21648,6 +21981,7 @@ export type ElementFragment = {
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropType_Fragment
+    | Type_RichTextType_Fragment
     | Type_UnionType_Fragment
   >
   firstChild?: { id: string } | null
@@ -21694,6 +22028,7 @@ export type ElementProductionFragment = {
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropType_Fragment
+    | Type_RichTextType_Fragment
     | Type_UnionType_Fragment
   >
   firstChild?: { id: string } | null
@@ -21836,6 +22171,7 @@ export type ArrayTypeFragment = {
     | { id: string; kind: TypeKind; name: string }
     | { id: string; kind: TypeKind; name: string }
     | { id: string; kind: TypeKind; name: string }
+    | { id: string; kind: TypeKind; name: string }
 } & BaseType_ArrayType_Fragment
 
 type BaseType_ActionType_Fragment = {
@@ -21922,6 +22258,13 @@ type BaseType_RenderPropType_Fragment = {
   name: string
 }
 
+type BaseType_RichTextType_Fragment = {
+  __typename: 'RichTextType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
 type BaseType_UnionType_Fragment = {
   __typename: 'UnionType'
   id: string
@@ -21942,6 +22285,7 @@ export type BaseTypeFragment =
   | BaseType_PrimitiveType_Fragment
   | BaseType_ReactNodeType_Fragment
   | BaseType_RenderPropType_Fragment
+  | BaseType_RichTextType_Fragment
   | BaseType_UnionType_Fragment
 
 export type CodeMirrorTypeFragment = {
@@ -21979,6 +22323,7 @@ export type FieldFragment = {
     | { __typename: 'PrimitiveType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'ReactNodeType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'RenderPropType'; id: string; kind: TypeKind; name: string }
+    | { __typename: 'RichTextType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'UnionType'; id: string; kind: TypeKind; name: string }
   nextSibling?: { id: string } | null
   prevSibling?: { id: string } | null
@@ -21999,6 +22344,8 @@ export type PrimitiveTypeFragment = {
 export type ReactNodeTypeFragment = BaseType_ReactNodeType_Fragment
 
 export type RenderPropTypeFragment = BaseType_RenderPropType_Fragment
+
+export type RichTextTypeFragment = BaseType_RichTextType_Fragment
 
 type Type_ActionType_Fragment = ActionTypeFragment
 
@@ -22024,6 +22371,8 @@ type Type_ReactNodeType_Fragment = ReactNodeTypeFragment
 
 type Type_RenderPropType_Fragment = RenderPropTypeFragment
 
+type Type_RichTextType_Fragment = RichTextTypeFragment
+
 type Type_UnionType_Fragment = UnionTypeFragment
 
 export type TypeFragment =
@@ -22039,6 +22388,7 @@ export type TypeFragment =
   | Type_PrimitiveType_Fragment
   | Type_ReactNodeType_Fragment
   | Type_RenderPropType_Fragment
+  | Type_RichTextType_Fragment
   | Type_UnionType_Fragment
 
 export type UnionTypeFragment = {
@@ -22055,6 +22405,7 @@ export type UnionTypeFragment = {
     | BaseType_PrimitiveType_Fragment
     | BaseType_ReactNodeType_Fragment
     | BaseType_RenderPropType_Fragment
+    | BaseType_RichTextType_Fragment
     | BaseType_UnionType_Fragment
   >
 } & BaseType_UnionType_Fragment
@@ -22120,12 +22471,14 @@ export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
   authGuards: Array<AuthGuardFragment>
+  codeMirrorTypes: Array<CodeMirrorTypeFragment>
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
   redirects: Array<RedirectFragment>
   renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
+  richTextTypes: Array<RichTextTypeFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{
@@ -22711,6 +23064,14 @@ export type CreateAppTypesMutationVariables = Exact<{
 
 export type CreateAppTypesMutation = { types: { types: Array<{ id: string }> } }
 
+export type CreateRicTextTypesMutationVariables = Exact<{
+  input: Array<RichTextTypeCreateInput> | RichTextTypeCreateInput
+}>
+
+export type CreateRicTextTypesMutation = {
+  types: { types: Array<{ id: string }> }
+}
+
 export type CreateActionTypesMutationVariables = Exact<{
   input: Array<ActionTypeCreateInput> | ActionTypeCreateInput
 }>
@@ -22788,6 +23149,15 @@ export type DeleteRenderPropTypesMutationVariables = Exact<{
 
 export type DeleteRenderPropTypesMutation = {
   deleteRenderPropTypes: { nodesDeleted: number; relationshipsDeleted: number }
+}
+
+export type DeleteRichTextTypesMutationVariables = Exact<{
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+  where?: InputMaybe<RichTextTypeWhere>
+}>
+
+export type DeleteRichTextTypesMutation = {
+  deleteRichTextTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteEnumTypesMutationVariables = Exact<{
@@ -22898,6 +23268,7 @@ export type GetBaseTypesQuery = {
       | BaseType_PrimitiveType_Fragment
       | BaseType_ReactNodeType_Fragment
       | BaseType_RenderPropType_Fragment
+      | BaseType_RichTextType_Fragment
       | BaseType_UnionType_Fragment
     >
   }
@@ -22920,6 +23291,7 @@ export type GetTypesQuery = {
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
   renderPropTypes: Array<Type_RenderPropType_Fragment>
+  richTextTypes: Array<Type_RichTextType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
 }
 
@@ -22988,6 +23360,13 @@ export type GetReactNodeTypesQueryVariables = Exact<{
 
 export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> }
 
+export type GetRichTextTypesQueryVariables = Exact<{
+  options?: InputMaybe<RichTextTypeOptions>
+  where?: InputMaybe<RichTextTypeWhere>
+}>
+
+export type GetRichTextTypesQuery = { types: Array<RichTextTypeFragment> }
+
 export type GetEnumTypesQueryVariables = Exact<{
   options?: InputMaybe<EnumTypeOptions>
   where?: InputMaybe<EnumTypeWhere>
@@ -23037,6 +23416,7 @@ export type GetTypeOptionsQueryVariables = Exact<{ [key: string]: never }>
 export type GetTypeOptionsQuery = {
   baseTypes: {
     items: Array<
+      | { id: string; kind: TypeKind; name: string }
       | { id: string; kind: TypeKind; name: string }
       | { id: string; kind: TypeKind; name: string }
       | { id: string; kind: TypeKind; name: string }
@@ -23263,6 +23643,19 @@ export type UpdateAppTypesMutationVariables = Exact<{
 }>
 
 export type UpdateAppTypesMutation = { types: { types: Array<{ id: string }> } }
+
+export type UpdateRichTextTypesMutationVariables = Exact<{
+  connect?: InputMaybe<RichTextTypeConnectInput>
+  create?: InputMaybe<RichTextTypeRelationInput>
+  delete?: InputMaybe<RichTextTypeDeleteInput>
+  disconnect?: InputMaybe<RichTextTypeDisconnectInput>
+  update?: InputMaybe<RichTextTypeUpdateInput>
+  where?: InputMaybe<RichTextTypeWhere>
+}>
+
+export type UpdateRichTextTypesMutation = {
+  types: { types: Array<{ id: string }> }
+}
 
 export type UpdateActionTypesMutationVariables = Exact<{
   connect?: InputMaybe<ActionTypeConnectInput>

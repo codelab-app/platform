@@ -1,5 +1,7 @@
+import CheckOutlined from '@ant-design/icons/CheckOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import DragOutlined from '@ant-design/icons/DragOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
 import type { BuilderDragData } from '@codelab/frontend/abstract/application'
 import {
   BuilderDndAction,
@@ -51,7 +53,7 @@ export const BuilderClickOverlay = observer<{
   }
 
   const element = selectedNode.current.element.current
-  const domElement = queryRenderedElementById(selectedNode.id)
+  const domElement = queryRenderedElementById(element.id)
 
   if (!domElement || !renderContainerRef.current) {
     return null
@@ -89,6 +91,25 @@ export const BuilderClickOverlay = observer<{
             </div>
           </div>
         </MakeChildrenDraggable>
+        <div
+          className="flex size-7 cursor-pointer items-center justify-center align-middle"
+          onClick={(event) => {
+            event.stopPropagation()
+            element.setIsTextContentEditable(!element.isTextContentEditable)
+          }}
+        >
+          <div
+            aria-label="Toggle Content Editing"
+            className="flex size-5 items-center justify-center rounded-full align-middle"
+            style={{ backgroundColor: '#375583', color: 'white' }}
+          >
+            {element.isTextContentEditable ? (
+              <CheckOutlined />
+            ) : (
+              <EditOutlined />
+            )}
+          </div>
+        </div>
       </StyledOverlayButtonGroup>
       <StyledSpan>{element.name}</StyledSpan>
     </StyledOverlayContainer>
@@ -106,6 +127,7 @@ export const BuilderClickOverlay = observer<{
         element.props.values,
         element.nextSibling?.id,
         element.parentElement?.id,
+        element.isTextContentEditable,
       ]}
       element={domElement}
       renderContainer={renderContainerRef.current}

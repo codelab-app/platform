@@ -23,7 +23,6 @@ export interface IAtomModel
     >,
     IAtomDto {
   __typename: IElementRenderTypeKind.Atom
-  allowRichTextInjection: boolean
   api: Ref<IInterfaceTypeModel>
   library: {
     color: string

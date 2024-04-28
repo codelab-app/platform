@@ -3,8 +3,13 @@ import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
-import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import {
+  IAtomType,
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
+import { systemTypesIds } from '../system-types.data'
 import { componentElements, createComponentData } from './component.data'
 
 const COMPONENT_INSTANCE_NAME = 'Component Instance'
@@ -172,7 +177,11 @@ describe('Component CRUD', () => {
           name: COMPONENT_INSTANCE_TEXT,
           parentElement: COMPONENT_INSTANCE_NAME,
           propsData: {
-            children: COMPONENT_PROP_VALUE,
+            children: {
+              kind: ITypeKind.RichTextType,
+              type: systemTypesIds[ITypeKind.RichTextType],
+              value: COMPONENT_PROP_VALUE,
+            },
           },
         },
       ])

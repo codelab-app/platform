@@ -1,11 +1,13 @@
 import type {
   ActionTypeWhere,
   ArrayTypeWhere,
+  CodeMirrorTypeWhere,
   EnumTypeWhere,
   InterfaceTypeWhere,
   PrimitiveTypeWhere,
   ReactNodeTypeWhere,
   RenderPropTypeWhere,
+  RichTextTypeWhere,
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
@@ -19,24 +21,28 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Driver } from 'neo4j-driver'
 import {
   ActionType,
+  CodeMirrorType,
   EnumType,
   InterfaceType,
   PrimitiveType,
   ReactNodeType,
   RenderPropType,
+  RichTextType,
   UnionType,
 } from '../model'
 import { ArrayType } from '../model/array-type.model'
 import {
   ActionTypeRepository,
   ArrayTypeRepository,
+  CodeMirrorTypeRepository,
   EnumTypeRepository,
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
+  RichTextTypeRepository,
+  UnionTypeRepository,
 } from '../repository'
-import { UnionTypeRepository } from '../repository/union-type.repo.service'
 
 /**
  * Used for dynamic data when we don't know what type we are creating
@@ -49,9 +55,11 @@ export class TypeFactory {
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly reactNodeTypeRepository: ReactNodeTypeRepository,
     private readonly renderPropTypeRepository: RenderPropTypeRepository,
+    private readonly richTextTypeRepository: RichTextTypeRepository,
     private readonly actionTypeRepository: ActionTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
+    private readonly codeMirrorRepository: CodeMirrorTypeRepository,
     @Inject(NEO4J_DRIVER_PROVIDER) private driver: Driver,
   ) {}
 
@@ -93,6 +101,10 @@ export class TypeFactory {
         return (await this.reactNodeTypeRepository).findOne({ where: { id } })
       }
 
+      case ITypeKind.RichTextType: {
+        return (await this.richTextTypeRepository).findOne({ where: { id } })
+      }
+
       case ITypeKind.RenderPropType: {
         return (await this.renderPropTypeRepository).findOne({ where: { id } })
       }
@@ -103,6 +115,10 @@ export class TypeFactory {
 
       case ITypeKind.UnionType: {
         return (await this.unionTypeRepository).findOne({ where: { id } })
+      }
+
+      case ITypeKind.CodeMirrorType: {
+        return (await this.codeMirrorRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.ArrayType: {
@@ -166,6 +182,15 @@ export class TypeFactory {
         )) as T
       }
 
+      case ITypeKind.RichTextType: {
+        const richTextType = new RichTextType(type)
+
+        return (await this.richTextTypeRepository.save(
+          richTextType,
+          where as RichTextTypeWhere,
+        )) as T
+      }
+
       case ITypeKind.ActionType: {
         const actionType = new ActionType(type)
 
@@ -181,6 +206,15 @@ export class TypeFactory {
         return (await this.unionTypeRepository.save(
           unionType,
           where as UnionTypeWhere,
+        )) as T
+      }
+
+      case ITypeKind.CodeMirrorType: {
+        const codeMirrorType = new CodeMirrorType(type)
+
+        return (await this.codeMirrorRepository.save(
+          codeMirrorType,
+          where as CodeMirrorTypeWhere,
         )) as T
       }
 

@@ -1,4 +1,8 @@
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  ICodeMirrorLanguage,
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 /**
@@ -56,5 +60,53 @@ export const systemTypesData = () => ({
     id: v4(),
     kind: ITypeKind.ActionType,
     name: ITypeKind.ActionType,
+  } as const,
+  [ITypeKind.RichTextType]: {
+    __typename: `${ITypeKind.RichTextType}`,
+    id: v4(),
+    kind: ITypeKind.RichTextType,
+    name: ITypeKind.RichTextType,
+  } as const,
+  [ICodeMirrorLanguage.Typescript]: {
+    __typename: `${ITypeKind.CodeMirrorType}`,
+    id: v4(),
+    kind: ITypeKind.CodeMirrorType,
+    language: ICodeMirrorLanguage.Typescript,
+    name: `${ICodeMirrorLanguage.Typescript} Code`,
+  } as const,
+  [ICodeMirrorLanguage.Javascript]: {
+    __typename: `${ITypeKind.CodeMirrorType}`,
+    id: v4(),
+    kind: ITypeKind.CodeMirrorType,
+    language: ICodeMirrorLanguage.Javascript,
+    name: `${ICodeMirrorLanguage.Javascript} Code`,
+  } as const,
+  [ICodeMirrorLanguage.Css]: {
+    __typename: `${ITypeKind.CodeMirrorType}`,
+    id: v4(),
+    kind: ITypeKind.CodeMirrorType,
+    language: ICodeMirrorLanguage.Css,
+    name: `${ICodeMirrorLanguage.Css} Code`,
+  } as const,
+  [ICodeMirrorLanguage.CssInJs]: {
+    __typename: `${ITypeKind.CodeMirrorType}`,
+    id: v4(),
+    kind: ITypeKind.CodeMirrorType,
+    language: ICodeMirrorLanguage.CssInJs,
+    name: `${ICodeMirrorLanguage.CssInJs} Code`,
+  } as const,
+  [ICodeMirrorLanguage.Graphql]: {
+    __typename: `${ITypeKind.CodeMirrorType}`,
+    id: v4(),
+    kind: ITypeKind.CodeMirrorType,
+    language: ICodeMirrorLanguage.Graphql,
+    name: `${ICodeMirrorLanguage.Graphql} Code`,
+  } as const,
+  [ICodeMirrorLanguage.Json]: {
+    __typename: `${ITypeKind.CodeMirrorType}`,
+    id: v4(),
+    kind: ITypeKind.CodeMirrorType,
+    language: ICodeMirrorLanguage.Json,
+    name: `${ICodeMirrorLanguage.Json} Code`,
   } as const,
 })

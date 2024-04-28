@@ -238,6 +238,27 @@ mutation UpdateAppTypes(
     }
   }
 }
+mutation UpdateRichTextTypes(
+  $connect: RichTextTypeConnectInput
+  $create: RichTextTypeRelationInput
+  $delete: RichTextTypeDeleteInput
+  $disconnect: RichTextTypeDisconnectInput
+  $update: RichTextTypeUpdateInput
+  $where: RichTextTypeWhere
+) {
+  types: updateRichTextTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    types: richTextTypes {
+      id
+    }
+  }
+}
 mutation UpdateActionTypes(
   $connect: ActionTypeConnectInput
   $create: ActionTypeRelationInput

@@ -5,11 +5,13 @@ import {
   elementSelectionSet,
   exportActionTypeSelectionSet,
   exportArrayTypeSelectionSet,
+  exportCodeMirrorTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportInterfaceTypeWithFieldsSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
   exportRenderPropTypeSelectionSet,
+  exportRichTextTypeSelectionSet,
   exportUnionTypeSelectionSet,
   fieldSelectionSet,
 } from '../../../../selectionSet'
@@ -104,6 +106,20 @@ const fetchTypes = async (
   )
 
   promises.push(
+    ogmService.RichTextType.find({
+      selectionSet: `{ ${exportRichTextTypeSelectionSet} }`,
+      where: { id_IN: filterByType(ITypeKind.RichTextType, types) },
+    }),
+  )
+
+  promises.push(
+    ogmService.CodeMirrorType.find({
+      selectionSet: `{ ${exportCodeMirrorTypeSelectionSet} }`,
+      where: { id_IN: filterByType(ITypeKind.CodeMirrorType, types) },
+    }),
+  )
+
+  promises.push(
     ogmService.RenderPropType.find({
       selectionSet: `{ ${exportRenderPropTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.RenderPropType, types) },
@@ -145,6 +161,7 @@ const getFieldTypesToFetch = async (
       (field) =>
         ![
           ITypeKind.ReactNodeType,
+          ITypeKind.RichTextType,
           ITypeKind.RenderPropType,
           ITypeKind.PrimitiveType,
           ITypeKind.ActionType,

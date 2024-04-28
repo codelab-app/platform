@@ -13,6 +13,7 @@ import {
   BaseType_PrimitiveType_Fragment,
   BaseType_ReactNodeType_Fragment,
   BaseType_RenderPropType_Fragment,
+  BaseType_RichTextType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
 import { GraphQLClient, RequestOptions } from 'graphql-request'
@@ -21,6 +22,7 @@ import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type ArrayTypeFragment = {
   itemType:
+    | { id: string; kind: Types.TypeKind; name: string }
     | { id: string; kind: Types.TypeKind; name: string }
     | { id: string; kind: Types.TypeKind; name: string }
     | { id: string; kind: Types.TypeKind; name: string }

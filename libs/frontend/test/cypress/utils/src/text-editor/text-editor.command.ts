@@ -9,12 +9,12 @@
 export const typeIntoTextEditor = (content: string, parentId?: string) => {
   const id = parentId ? `#${parentId}-editor` : '#render-root'
   const editorSelector = '.editor-input[contenteditable]'
-  const editorCloseButtonSelector = 'button[aria-label="Done"].toolbar-item'
+  const editorCloseButtonSelector = 'div[aria-label="Toggle Content Editing"]'
 
   cy.get(id).find(editorSelector).dblclick({ force: true })
   cy.get(id).find(editorSelector).clear()
   cy.get(id).find(editorSelector).type(content, {
     parseSpecialCharSequences: false,
   })
-  cy.get('#lexical-toolbar').find(editorCloseButtonSelector).click()
+  cy.get('#builder-click-overlay').find(editorCloseButtonSelector).click()
 }

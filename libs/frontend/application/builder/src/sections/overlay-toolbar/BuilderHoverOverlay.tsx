@@ -21,7 +21,7 @@ export const BuilderHoverOverlay = observer<{
     return null
   }
 
-  const element = queryRenderedElementById(hoveredNode.id)
+  const element = queryRenderedElementById(hoveredNode.current.element.id)
 
   if (
     !element ||

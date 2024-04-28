@@ -11,11 +11,15 @@ import React, { useCallback, useEffect } from 'react'
 
 interface OnInitPluginProps {
   config: InitialConfigType
-  data: string | undefined
+  value: string | undefined
   onChange(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
 }
 
-export const OnInitPlugin = ({ config, data, onChange }: OnInitPluginProps) => {
+export const OnInitPlugin = ({
+  config,
+  onChange,
+  value,
+}: OnInitPluginProps) => {
   const [editor] = useLexicalComposerContext()
 
   const updateValue = useCallback(
@@ -43,9 +47,9 @@ export const OnInitPlugin = ({ config, data, onChange }: OnInitPluginProps) => {
    * We set the initial value on first render in both modes edit and read
    */
   useEffect(() => {
-    updateValue(data)
+    updateValue(value)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [value])
 
   useEffect(() => {
     editor.setEditable(Boolean(config.editable))

@@ -13,6 +13,7 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
@@ -21,6 +22,7 @@ import { jsonStringToCss, parseCssStringIntoObject } from './style.utils'
 @model('@codelab/RuntimeElementStyle')
 export class RuntimeElementStyle
   extends Model({
+    builderStyle: prop<Maybe<string>>().withSetter(),
     element: prop<Ref<IElementModel>>(),
   })
   implements IRuntimeElementStyleModel
@@ -114,14 +116,17 @@ export class RuntimeElementStyle
                     '{}',
                 )}
               }
-  
               .ce-inline-toolbar { color: initial; }
             }`,
         )
       }
     }
 
-    return breakpointStyles.join('\n')
+    const styleWithBreakPoints = breakpointStyles.join('\n')
+
+    return isProduction || !this.builderStyle
+      ? styleWithBreakPoints
+      : [styleWithBreakPoints, this.builderStyle].join('\n')
   }
 
   @computed

@@ -10,6 +10,7 @@ import {
   intType,
   reactNodeType,
   renderPropType,
+  richTextType,
   stringFieldWithDefaultValue,
   stringType,
 } from './setup-store'
@@ -52,35 +53,17 @@ export const reactNodeTypeExpectedSchema = {
   ...createTypedPropTypeExpectedSchema(reactNodeType.kind, reactNodeType.id),
 }
 
+export const richTextTypeExpectedSchema = {
+  ...createTypedPropTypeExpectedSchema(richTextType.kind, richTextType.id),
+}
+
 export const codeMirrorTypeExpectedSchema = {
   type: 'string',
   uniforms: expect.any(Object),
 }
 
 export const elementTypeExpectedSchema = {
-  properties: {
-    kind: {
-      default: 'ElementType',
-      enum: ['ElementType'],
-      label: 'Kind',
-      type: 'string',
-      uniforms: expect.any(Object),
-    },
-    type: {
-      default: elementType.id,
-      enum: [elementType.id],
-      label: '',
-      type: 'string',
-      uniforms: expect.any(Object),
-    },
-    value: {
-      label: '',
-      type: 'string',
-      uniforms: expect.any(Object),
-    },
-  },
-  type: 'object',
-  uniforms: expect.any(Object),
+  ...createTypedPropTypeExpectedSchema(elementType.kind, elementType.id),
 }
 
 export const enumTypeExpectedSchema = {
@@ -97,52 +80,20 @@ export const arrayTypeExpectedSchema = {
 
 export const unionTypeExpectedSchema = {
   oneOf: [
-    {
-      label: '',
-      properties: {
-        kind: {
-          default: stringType.kind,
-          enum: [stringType.kind],
-          label: 'TypeKind',
-          type: 'string',
-          uniforms: expect.any(Object),
-        },
-        type: {
-          default: stringType.id,
-          enum: [stringType.id],
-          label: 'Type',
-          type: 'string',
-          uniforms: expect.any(Object),
-        },
-        value: { ...stringTypeExpectedSchema },
+    merge(
+      {
+        ...createTypedPropTypeExpectedSchema(stringType.kind, stringType.id),
+        typeName: stringType.name,
       },
-      required: ['type'],
-      type: 'object',
-      typeName: stringType.name,
-    },
-    {
-      label: '',
-      properties: {
-        kind: {
-          default: intType.kind,
-          enum: [intType.kind],
-          label: 'TypeKind',
-          type: 'string',
-          uniforms: expect.any(Object),
-        },
-        type: {
-          default: intType.id,
-          enum: [intType.id],
-          label: 'Type',
-          type: 'string',
-          uniforms: expect.any(Object),
-        },
-        value: { ...intTypeExpectedSchema },
+      { properties: { value: stringTypeExpectedSchema } },
+    ),
+    merge(
+      {
+        ...createTypedPropTypeExpectedSchema(intType.kind, intType.id),
+        typeName: intType.name,
       },
-      required: ['type'],
-      type: 'object',
-      typeName: intType.name,
-    },
+      { properties: { value: intTypeExpectedSchema } },
+    ),
   ],
   uniforms: expect.any(Object),
 }
@@ -156,22 +107,6 @@ export const interfaceWithUnionExpectedSchema = {
     unionField: {
       ...unionTypeExpectedSchema,
       label: 'union field',
-      oneOf: [
-        merge({}, unionTypeExpectedSchema.oneOf[0], {
-          properties: {
-            kind: { label: 'TypeKind' },
-            type: { label: 'Type' },
-            value: { label: undefined },
-          },
-        }),
-        merge({}, unionTypeExpectedSchema.oneOf[1], {
-          properties: {
-            kind: { label: 'TypeKind' },
-            type: { label: 'Type' },
-            value: { label: undefined },
-          },
-        }),
-      ],
     },
   },
   required: [],

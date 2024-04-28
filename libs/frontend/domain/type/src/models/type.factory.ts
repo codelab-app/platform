@@ -23,6 +23,7 @@ import { PageType } from './page-type.model'
 import { PrimitiveType } from './primitive-type.model'
 import { ReactNodeType } from './react-node-type.model'
 import { RenderPropType } from './render-prop-type.model'
+import { RichTextType } from './rich-text-type.model'
 import { UnionType } from './union-type.model'
 
 export class TypeFactory {
@@ -33,6 +34,9 @@ export class TypeFactory {
 
       case ITypeKind.ActionType:
         return ActionType.create(typeDto)
+
+      case ITypeKind.RichTextType:
+        return RichTextType.create(typeDto)
 
       case ITypeKind.ElementType:
         return ElementType.create(typeDto)
@@ -148,6 +152,11 @@ export class TypeFactory {
 
       case ITypeKind.ReactNodeType:
         model.kind === ITypeKind.ReactNodeType && model.writeCache(typeDto)
+
+        return model
+
+      case ITypeKind.RichTextType:
+        model.kind === ITypeKind.RichTextType && model.writeCache(typeDto)
 
         return model
 

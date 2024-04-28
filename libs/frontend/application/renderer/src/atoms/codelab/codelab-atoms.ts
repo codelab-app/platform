@@ -1,4 +1,5 @@
 import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
+import { TextEditor } from '@codelab/frontend/presentation/view'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
@@ -11,9 +12,7 @@ export const codelabAtoms: IAtomRendererRecord = {
   [IAtomType.TextList]: dynamicLoader(() =>
     import('@codelab/frontend/application/atom').then((mod) => mod.TextList),
   ),
-  [IAtomType.Text]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atom').then((mod) => mod.TextEditor),
-  ),
+  [IAtomType.Text]: TextEditor,
   [IAtomType.Script]: dynamicLoader(() =>
     import('@codelab/frontend/application/atom').then(
       (mod) => mod.CodelabScript,

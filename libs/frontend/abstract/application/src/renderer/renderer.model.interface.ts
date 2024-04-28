@@ -6,7 +6,6 @@ import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
-import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 import type { IExpressionTransformer } from '../builder'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type { IRuntimeComponentModel } from './runtime-component'
@@ -26,6 +25,7 @@ export interface IRendererModel {
   debugMode: boolean
   expressionTransformer: IExpressionTransformer
   id: string
+  isBuilder: boolean
   render: Nullable<ReactElement>
   renderPipe: IRenderPipe
   rendererType: RendererType
@@ -37,7 +37,6 @@ export interface IRendererModel {
 }
 
 export interface ElementWrapperProps {
-  children: ArrayOrSingle<React.ReactNode>
   errorBoundary: Omit<ErrorBoundaryProps, 'fallbackRender'>
   key: string
   /**

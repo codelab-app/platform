@@ -65,6 +65,8 @@ export const createTypeApi: CreateTypesRecord = {
     _createApi
       .CreateRenderPropTypes({ input })
       .then(({ types }) => types.types),
+  [ITypeKind.RichTextType]: (input) =>
+    _createApi.CreateRicTextTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.ReactNodeType]: (input) =>
     _createApi
       .CreateReactNodeTypes({
@@ -102,6 +104,7 @@ export const getAllTypes = async (
     primitiveTypes,
     reactNodeTypes,
     renderPropTypes,
+    richTextTypes,
     unionTypes,
   } = await getTypeApi.GetTypes({ ids })
 
@@ -113,6 +116,7 @@ export const getAllTypes = async (
     ...elementTypes,
     ...renderPropTypes,
     ...reactNodeTypes,
+    ...richTextTypes,
     ...enumTypes,
     ...lambdaTypes,
     ...pageTypes,
@@ -137,6 +141,8 @@ export const updateTypeApi: UpdateTypesRecord = {
     _updateApi.UpdateAppTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ActionType]: (vars) =>
     _updateApi.UpdateActionTypes(vars).then(({ types }) => types.types),
+  [ITypeKind.RichTextType]: (vars) =>
+    _updateApi.UpdateRichTextTypes(vars).then(({ types }) => types.types),
   [ITypeKind.PrimitiveType]: (vars) =>
     _updateApi.UpdatePrimitiveTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ArrayType]: (vars) =>
@@ -188,6 +194,10 @@ export const deleteTypeApi: DeleteTypesRecord = {
     _deleteApi
       .DeleteArrayTypes(vars)
       .then((results) => results.deleteArrayTypes),
+  [ITypeKind.RichTextType]: (vars) =>
+    _deleteApi
+      .DeleteRichTextTypes(vars)
+      .then((results) => results.deleteRichTextTypes),
   [ITypeKind.InterfaceType]: (vars) =>
     _deleteApi
       .DeleteInterfaceTypes(vars)

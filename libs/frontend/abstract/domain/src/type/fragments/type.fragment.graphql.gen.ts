@@ -12,6 +12,7 @@ import { PageTypeFragment } from './page-type.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from './primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from './react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from './render-prop.fragment.graphql.gen'
+import { RichTextTypeFragment } from './rich-text-type.fragment.graphql.gen'
 import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
 import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
@@ -27,6 +28,7 @@ import { PageTypeFragmentDoc } from './page-type.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from './react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from './render-prop.fragment.graphql.gen'
+import { RichTextTypeFragmentDoc } from './rich-text-type.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type Type_ActionType_Fragment = ActionTypeFragment
@@ -53,6 +55,8 @@ export type Type_ReactNodeType_Fragment = ReactNodeTypeFragment
 
 export type Type_RenderPropType_Fragment = RenderPropTypeFragment
 
+export type Type_RichTextType_Fragment = RichTextTypeFragment
+
 export type Type_UnionType_Fragment = UnionTypeFragment
 
 export type TypeFragment =
@@ -68,6 +72,7 @@ export type TypeFragment =
   | Type_PrimitiveType_Fragment
   | Type_ReactNodeType_Fragment
   | Type_RenderPropType_Fragment
+  | Type_RichTextType_Fragment
   | Type_UnionType_Fragment
 
 export const TypeFragmentDoc = gql`
@@ -84,6 +89,7 @@ export const TypeFragmentDoc = gql`
     ...PrimitiveType
     ...ReactNodeType
     ...RenderPropType
+    ...RichTextType
     ...UnionType
   }
   ${ActionTypeFragmentDoc}
@@ -98,6 +104,7 @@ export const TypeFragmentDoc = gql`
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
   ${RenderPropTypeFragmentDoc}
+  ${RichTextTypeFragmentDoc}
   ${UnionTypeFragmentDoc}
 `
 

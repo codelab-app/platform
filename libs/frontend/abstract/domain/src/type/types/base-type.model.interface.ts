@@ -17,6 +17,7 @@ import type { IPageTypeModel } from './page-type.model.interface'
 import type { IPrimitiveTypeModel } from './primitive-type.model.interface'
 import type { IReactNodeTypeModel } from './react-node-type.model.interface'
 import type { IRenderPropTypeModel } from './render-prop-type.model.interface'
+import type { IRichTextTypeModel } from './rich-text-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
 
 export interface IBaseTypeModel<
@@ -46,6 +47,7 @@ export type ITypeModel =
   | IPrimitiveTypeModel
   | IReactNodeTypeModel
   | IRenderPropTypeModel
+  | IRichTextTypeModel
   | IUnionTypeModel
 
 export type ITypeOf<TKind extends ITypeKind> = ITypeModel extends {

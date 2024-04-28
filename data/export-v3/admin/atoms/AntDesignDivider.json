@@ -9,7 +9,7 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
         },
         "id": "4260c2c3-ef13-49b9-a73f-37b5a2b85872",
         "key": "children",
@@ -125,6 +125,26 @@
         "id": "ca29d4c1-1eb7-4420-9e01-639190728309",
         "kind": "InterfaceType",
         "name": "AntDesignDivider API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "kind": "CodeMirrorType",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "kind": "RichTextType",
+            "name": "RichTextType"
+          }
+        ]
       },
       {
         "__typename": "EnumType",

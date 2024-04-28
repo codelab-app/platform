@@ -68,6 +68,16 @@ mutation DeleteRenderPropTypes(
   }
 }
 
+mutation DeleteRichTextTypes(
+  $delete: RichTextTypeDeleteInput
+  $where: RichTextTypeWhere
+) {
+  deleteRichTextTypes(delete: $delete, where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+
 mutation DeleteEnumTypes($delete: EnumTypeDeleteInput, $where: EnumTypeWhere) {
   deleteEnumTypes(delete: $delete, where: $where) {
     nodesDeleted

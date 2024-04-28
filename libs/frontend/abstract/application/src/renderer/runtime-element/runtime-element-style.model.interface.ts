@@ -27,6 +27,11 @@ export interface CssMap {
 
 export interface IRuntimeElementStyleModel {
   breakpointsByPrecedence: Array<BuilderWidthBreakPoint>
+  /**
+   * a style added by the builder behind the scenes
+   * main use case set element min height for text editor to be visible on editing
+   */
+  builderStyle?: string
   customCss?: Nullable<string>
   /**
    * html-ready string that includes styles for all breakpoints
@@ -51,5 +56,6 @@ export interface IRuntimeElementStyleModel {
     propNames: Array<string>,
   ): void
   guiCss(selector: ElementStylePseudoClass): Nullable<string>
+  setBuilderStyle(css: string): void
   setCustomCss(css: string): void
 }

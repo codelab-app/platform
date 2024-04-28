@@ -131,8 +131,10 @@ export class AppDevelopmentService
     ]
 
     const systemTypes = [
+      ...data.codeMirrorTypes,
       ...data.primitiveTypes,
       ...data.reactNodeTypes,
+      ...data.richTextTypes,
       ...data.renderPropTypes,
       ...data.actionTypes,
     ]

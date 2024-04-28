@@ -87,6 +87,13 @@ export type BaseType_RenderPropType_Fragment = {
   name: string
 }
 
+export type BaseType_RichTextType_Fragment = {
+  __typename: 'RichTextType'
+  id: string
+  kind: Types.TypeKind
+  name: string
+}
+
 export type BaseType_UnionType_Fragment = {
   __typename: 'UnionType'
   id: string
@@ -107,6 +114,7 @@ export type BaseTypeFragment =
   | BaseType_PrimitiveType_Fragment
   | BaseType_ReactNodeType_Fragment
   | BaseType_RenderPropType_Fragment
+  | BaseType_RichTextType_Fragment
   | BaseType_UnionType_Fragment
 
 export const BaseTypeFragmentDoc = gql`

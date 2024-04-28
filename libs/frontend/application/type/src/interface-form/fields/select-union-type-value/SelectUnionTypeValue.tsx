@@ -1,150 +1,96 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createValidator, Form } from '@codelab/frontend/presentation/view'
-import { usePrevious } from '@codelab/frontend/shared/utils'
-import type { IFieldDefaultValue } from '@codelab/shared/abstract/core'
+import type { JSONSchemaType } from 'ajv'
 import { Form as AntdForm } from 'antd'
-import isNil from 'lodash/isNil'
-import React, { useEffect } from 'react'
-import type { Context } from 'uniforms'
+import React from 'react'
+import type { HTMLFieldProps } from 'uniforms'
 import { joinName, useField } from 'uniforms'
+import type { SelectFieldProps } from 'uniforms-antd'
 import { AutoField, SelectField } from 'uniforms-antd'
 
-export interface SelectUnionTypeValueProps {
-  name: string
-  value: {
-    type: string
-    value?: IFieldDefaultValue
-  }
-}
-
-const makeSelectOptions = (oneOf: Array<any>) => {
-  if (!oneOf.length) {
-    return []
-  }
-
-  return oneOf.map((of) => ({
-    label: of.typeName,
-    value: of.properties.type.default,
-  }))
-}
-
-const getTypeFromOneOf = (oneOf: Array<any>, typeId: string) => {
-  if (!typeId) {
-    return oneOf[0]
-  }
-
-  return oneOf.find((of: any) => of.properties.type.default === typeId)
-}
-
-/*
- * This is required for nested fields in a custom field (ToggleExpressionField).
- * If we use a custom field the name should be joined with the parent name.
- * https://uniforms.tools/docs/api-helpers/#joinname
- */
-const concatenateName = (
-  name: string,
-  context: Context<Record<string, any>>,
-) => {
-  if (context.name.length) {
-    return joinName(context.name, name)
-  }
-
-  return name
-}
-
-/*
- * In custom fields with subfields the name is passed down as an empty string
- * because the connectField removes the name from the props. So we need to
- * concatenate the name with the parent name.
- * https://uniforms.tools/docs/api-helpers/#joinname
- */
-const getTypeAndValueFieldNames = (name: string) => {
-  const typeFieldName = name ? `${name}.type` : 'type'
-  const valueFieldName = name ? `${name}.value` : 'value'
-
-  return { typeFieldName, valueFieldName }
-}
+export type SelectUnionTypeValueProps = HTMLFieldProps<
+  TypedProp,
+  SelectFieldProps
+>
 
 export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const { name } = props
-  const [fieldProps, context] = useField(name, props)
-  const oneOf = fieldProps.field.oneOf
-  const { typeFieldName, valueFieldName } = getTypeAndValueFieldNames(name)
 
-  if (!oneOf?.length) {
-    throw new Error('SelectUnionTypeValue must be used with a oneOf field')
+  const [fieldProps, context] = useField<SelectUnionTypeValueProps, TypedProp>(
+    name,
+    props,
+  )
+
+  const { type, value } = fieldProps.value ?? {}
+  const schemas = fieldProps.field.oneOf as Array<JSONSchemaType<any>>
+
+  if (!schemas.length) {
+    return null
   }
 
-  const { type: selectedTypeId } = fieldProps.value
-  const selectOptions = makeSelectOptions(oneOf)
-  const typeFromOneOf = getTypeFromOneOf(oneOf, selectedTypeId)
+  const typeOptions = schemas.map((schema) => ({
+    label: schema.typeName as string,
+    value: schema.properties.type.default as string,
+  }))
+
+  // this is needed only for typed props
+  const typeToKind: Record<string, string> = schemas.reduce(
+    (all, current) => ({
+      ...all,
+      [current.properties.type.default]: current.properties.kind.default,
+    }),
+    {},
+  )
+
+  const typeFieldName = joinName(name, 'type')
+  const valueFieldName = joinName(name, 'value')
+
+  // if no type is selected get the first schema by default
+  const currentSchema = type
+    ? schemas.find((schema) => schema.properties.type.default === type)
+    : schemas[0]
 
   const valueSchema = {
     label: '',
     properties: {
-      value: typeFromOneOf.properties.value,
+      value: currentSchema?.properties.value,
     },
-    required: ['value'],
+    required: [],
     type: 'object',
-  }
-
-  const previousSelectedTypeId = usePrevious(selectedTypeId)
-
-  useEffect(() => {
-    if (
-      !isNil(previousSelectedTypeId) &&
-      previousSelectedTypeId !== selectedTypeId
-    ) {
-      context.onChange(concatenateName(name, context), {
-        kind: typeFromOneOf.properties.kind.default,
-        type: selectedTypeId,
-        value: undefined,
-      })
-    }
-  }, [
-    context,
-    context.onChange,
-    previousSelectedTypeId,
-    selectedTypeId,
-    valueFieldName,
-    name,
-    typeFromOneOf,
-  ])
-
-  // This is required to avoid using the value of previously
-  // selected type when switching between types.
-  const model = {
-    value:
-      isNil(previousSelectedTypeId) || selectedTypeId === previousSelectedTypeId
-        ? fieldProps.value.value
-        : undefined,
   }
 
   return (
     <AntdForm.Item label={fieldProps.label}>
       <div className="[&_label]:text-sm">
         <SelectField
+          label=""
           name={typeFieldName}
-          options={selectOptions}
+          onChange={(newType) => {
+            context.onChange(name, {
+              kind: typeToKind[newType],
+              type: newType,
+              value: undefined,
+            })
+          }}
+          options={typeOptions}
           style={{ minWidth: '5rem' }}
         />
 
-        <div key={selectedTypeId}>
+        <div key={type}>
           <Form
-            model={model}
+            model={{ value }}
             onChangeModel={(formData) => {
               // This automatically sets the default values into the formData for the properties that has a default value
               // This is needed for ReactNodeType or similar types where the schema has a default `type` field value
               // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
-              const validate = createValidator(valueSchema)
+              if (formData.value) {
+                const validate = createValidator(valueSchema)
 
-              validate(formData)
-
-              context.onChange(
-                concatenateName(valueFieldName, context),
-                formData.value,
-              )
+                validate(formData)
+                context.onChange(valueFieldName, formData.value)
+              }
             }}
             onSubmit={() => Promise.resolve()}
             schema={valueSchema as any}

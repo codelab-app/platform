@@ -13,6 +13,9 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   authGuards {
     ...AuthGuard
   }
+  codeMirrorTypes {
+    ...CodeMirrorType
+  }
   components {
     ...ComponentDevelopment
   }
@@ -33,5 +36,8 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   }
   resources {
     ...Resource
+  }
+  richTextTypes {
+    ...RichTextType
   }
 }
