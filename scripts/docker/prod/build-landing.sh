@@ -10,7 +10,7 @@ echo $NX_BASE
 echo $CIRCLE_PREV_SHA
 
 # Returns `web` if affected, otherwise `""`
-NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "landing" && echo "--no-cache-filter landing" || echo "")
+NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "landing" && echo "--no-cache-filter build" || echo "")
 
 echo $NO_CACHE_FILTER
 
