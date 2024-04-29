@@ -64,9 +64,6 @@ import { endpointConfig } from './endpoint.config'
           },
           // installSubscriptionHandlers: true,
           introspection: true,
-          /**
-           * GraphQL in NestJS is handled through a single route and processed internally by the Apollo Server
-           */
           path: 'api/graphql',
           playground: false,
           plugins: [
