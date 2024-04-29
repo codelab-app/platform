@@ -12,7 +12,7 @@ locals {
     docker_tag_version      = var.docker_tag_version
     auth0_domain            = var.auth0_domain
     next_public_api_port    = var.next_public_api_port,
-    local_port              = local.local_port
+    # local_port              = local.local_port
   })
 
   start_docker_image = templatefile("${path.module}/tftpl/start-docker-image.tftpl.sh", {

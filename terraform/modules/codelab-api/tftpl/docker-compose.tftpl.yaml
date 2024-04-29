@@ -5,7 +5,7 @@ services:
     container_name: codelab-api
     restart: unless-stopped
     ports:
-      - '${local_port}:${next_public_api_port}'
+      - '${next_public_api_port}:${next_public_api_port}'
     environment:
       - AUTH0_M2M_CLIENT_ID=${auth0_m2m_client_id}
       - AUTH0_M2M_CLIENT_SECRET=${auth0_m2m_client_secret}

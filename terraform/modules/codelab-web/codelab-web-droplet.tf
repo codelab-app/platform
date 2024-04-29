@@ -23,4 +23,3 @@ resource "digitalocean_droplet" "codelab_web" {
   # Optional: Enable the DigitalOcean agent
   droplet_agent = true
 }
-
