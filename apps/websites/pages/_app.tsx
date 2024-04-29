@@ -12,7 +12,7 @@ import type {
   IPageProps,
 } from '@codelab/frontend/abstract/application'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { initializeStore } from '@codelab/frontend/infra/mobx'
+import { createRootStore } from '@codelab/frontend/infra/mobx'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
@@ -40,7 +40,7 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   const router = useRouter()
 
   const store = useMemo(() => {
-    return initializeStore({
+    return createRootStore({
       router: {
         path: router.asPath,
         pathname: router.pathname,

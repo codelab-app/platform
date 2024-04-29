@@ -109,7 +109,7 @@ import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
 import { auth0IdToken } from '@codelab/shared/data/test'
-import { Model, model, prop } from 'mobx-keystone'
+import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
 export const createRootStore = ({
   router = {
@@ -221,6 +221,7 @@ export const createRootStore = ({
         this.actionService.actionDomainService,
       )
       tagDomainServiceContext.set(this, this.tagDomainService)
+      registerRootStore(this)
     }
   }
 
