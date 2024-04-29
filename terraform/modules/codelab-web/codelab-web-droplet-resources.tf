@@ -1,7 +1,7 @@
 # Use 2 load balancer so we don't need any routing rules
 resource "digitalocean_loadbalancer" "web" {
   name   = "web-load-balancer"
-  region = "sfo2"
+  region = var.digitalocean_region
 
   vpc_uuid = var.codelab_app_vpc_id
 

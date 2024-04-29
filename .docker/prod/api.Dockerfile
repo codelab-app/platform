@@ -43,7 +43,7 @@ FROM install AS build
 
 WORKDIR /usr/src/codelab
 
-RUN pnpm nx build api --verbose --skip-nx-cache
+RUN pnpm nx build api --verbose
 
 #
 # (2) Prod
@@ -52,7 +52,6 @@ FROM node:18.17-alpine AS prod
 
 # RUN apk add curl
 
-#
 WORKDIR /usr/src/codelab
 
 # Ignore specs from image

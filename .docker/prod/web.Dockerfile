@@ -63,7 +63,7 @@ FROM install AS build
 
 WORKDIR /usr/src/codelab
 
-RUN pnpm nx build web --verbose --skip-nx-cache
+RUN pnpm nx build web --verbose
 
 #
 # (2) Prod

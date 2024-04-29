@@ -1,7 +1,7 @@
 # Create a new Load Balancer with TLS termination
 resource "digitalocean_loadbalancer" "landing" {
   name   = "landing-load-balancer"
-  region = "sfo2"
+  region = var.digitalocean_region
 
   vpc_uuid = var.codelab_app_vpc_id
 

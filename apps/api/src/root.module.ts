@@ -15,12 +15,12 @@ import { HealthcheckController } from './healthcheck.controller'
 @Module({
   controllers: [HealthcheckController],
   imports: [AuthModule, GraphqlModule, ApiModule, CodelabLoggerModule],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
-  ],
+  // providers: [
+  //   {
+  //     provide: APP_GUARD,
+  //     useClass: JwtAuthGuard,
+  //   },
+  // ],
 })
 export class RootModule {
   // configure(consumer: MiddlewareConsumer) {

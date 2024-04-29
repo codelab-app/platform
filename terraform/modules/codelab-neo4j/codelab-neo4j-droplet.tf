@@ -2,8 +2,8 @@
 resource "digitalocean_droplet" "neo4j" {
   image  = "docker-20-04"
   name   = "neo4j"
-  region = "sfo2"
-  size   = "s-1vcpu-1gb"
+  region = var.digitalocean_region
+  size   = "s-1vcpu-2gb-intel"
   # Optional configurations
   backups    = true # Enable backups for additional safety
   monitoring = true # Enable monitoring for the Droplet

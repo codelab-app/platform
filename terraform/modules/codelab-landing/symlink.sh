@@ -8,3 +8,4 @@ ln -s ../codelab/shared/vars-domain.tf ./vars-domain.symlink.tf
 ln -s ../codelab/shared/vars-certificate.tf ./vars-certificate.symlink.tf
 ln -s ../docker/vars-tag-version.tf ./vars-docker-tag-version.symlink.tf
 ln -s ../loki/shared/vars-loki-url.tf ./vars-loki-url.symlink.tf
+ln -s ../digitalocean/vars-region.tf ./vars-region.symlink.tf

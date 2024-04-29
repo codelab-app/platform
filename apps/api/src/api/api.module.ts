@@ -33,11 +33,11 @@ import { endpointConfig } from '../graphql/endpoint.config'
     ResourceApplicationModule,
     TagApplicationModule,
     AppApplicationModule,
-    ConfigModule.forRoot({
-      ignoreEnvVars: true,
-      isGlobal: true,
-      load: [endpointConfig],
-    }),
+    // ConfigModule.forRoot({
+    //   ignoreEnvVars: true,
+    //   isGlobal: true,
+    //   load: [endpointConfig],
+    // }),
   ],
   providers: [],
 })

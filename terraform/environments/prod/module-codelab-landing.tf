@@ -2,7 +2,9 @@ module "codelab_landing" {
   source = "../../modules/codelab-landing"
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
-  docker_tag_version        = var.DOCKER_TAG_VERSION
+  digitalocean_region       = local.digitalocean_region
+
+  docker_tag_version = var.DOCKER_TAG_VERSION
 
   loki_url = var.LOKI_URL
 

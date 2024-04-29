@@ -2,6 +2,6 @@
 
 resource "digitalocean_vpc" "codelab_app" {
   name   = "codelab-app-vpc"
-  region = "sfo2" # Match this with your application's region
+  region = var.digitalocean_region
   # ip_range = "10.10.10.0/24"  # Choose an IP range that fits your needs
 }

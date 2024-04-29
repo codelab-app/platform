@@ -2,6 +2,7 @@ module "codelab_neo4j" {
   source = "../../modules/codelab-neo4j"
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
+  digitalocean_region       = local.digitalocean_region
 
   loki_url = var.LOKI_URL
 

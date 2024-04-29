@@ -1,8 +1,8 @@
 resource "digitalocean_droplet" "codelab_api" {
   image  = "docker-20-04"
   name   = "api"
-  region = "sfo2"
-  size   = "s-1vcpu-1gb"
+  region = var.digitalocean_region
+  size   = "s-1vcpu-1gb-intel"
 
   backups    = true
   monitoring = true

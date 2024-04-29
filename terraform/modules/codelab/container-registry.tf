@@ -1,7 +1,7 @@
 resource "digitalocean_container_registry" "codelab" {
   name                   = "codelabapp"
   subscription_tier_slug = "basic"
-  region                 = "sfo2"
+  region                 = var.digitalocean_region
 }
 
 resource "digitalocean_container_registry_docker_credentials" "codelab" {
