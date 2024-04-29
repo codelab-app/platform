@@ -33,7 +33,7 @@ if (getEnv().endpoint.isLocal && getEnv().node.enableWdyr) {
     exclude: [/PopupContent/],
     // onlyLogs: true,
     titleColor: 'green',
-    trackAllPureComponents: true,
+    trackAllPureComponents: false,
   })
 }
 
@@ -102,4 +102,5 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   )
 }
 
+App.whyDidYouRender = true
 export default App
