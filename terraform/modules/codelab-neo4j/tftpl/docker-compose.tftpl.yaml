@@ -1,5 +1,7 @@
 version: '3.8'
+
 services:
+  # Best practices https://assets.neo4j.com/Official-Materials/Neo4j+Monitoring+Best+Practices.pdf
   neo4j:
     image: neo4j:5.11.0
     container_name: neo4j
@@ -18,11 +20,91 @@ services:
       - NEO4J_apoc_import_file_use__neo4j__config=true
       # https://neo4j.com/docs/operations-manual/current/configuration/configuration-settings/#config_server.default_listen_address
       - NEO4J_server_default__listen__address=0.0.0.0
+      # https://neo4j.com/developer/kb/understanding-memory-consumption/
+      # Here can see what the recommended mememory setting is https://neo4j.com/docs/operations-manual/current/performance/memory-configuration/
+      - NEO4J_server_jvm_additional=-XX:NativeMemoryTracking=detail
       - NEO4J_dbms.security.procedures.unrestricted=apoc.*
       - NEO4J_PLUGINS=["apoc"]
       - NEO4J_AUTH=neo4j/password
-    # networks: ["codelab-neo4j"]
     restart: unless-stopped
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v2.46.0
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+      - codelab-neo4j-prometheus:/prometheus
+    ports:
+      - '9090:9090'
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+
+  # https://prometheus.io/docs/guides/cadvisor/
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    # ports:
+    #   - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.cadvisor.rule=Host(`cadvisor.localhost`)'
+      - 'traefik.http.routers.cadvisor.entrypoints=web'
+    depends_on:
+      - neo4j
+
+  traefik:
+    # The official v3 Traefik docker image
+    image: traefik:v3.0
+    command:
+      #- "--log.level=DEBUG"
+      # Enables the web UI and tells Traefik to listen to docker
+      - '--api.insecure=true'
+      # Enabling Docker provider
+      - '--providers.docker=true'
+      # Do not expose containers unless explicitly told so
+      - '--providers.docker.exposedbydefault=false'
+      # Traefik will listen to incoming request on the port 80 (HTTP), alias with web
+      - '--entryPoints.web.address=:80'
+    ports:
+      # The HTTP port
+      - '80:80'
+      # The Web UI (enabled by --api.insecure=true)
+      - '8080:8080'
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  whoami:
+    image: traefik/whoami
+    container_name: simple-service
+    labels:
+      # Explicitly tell Traefik to expose this container
+      - 'traefik.enable=true'
+      # The domain the service will respond to
+      - 'traefik.http.routers.whoami.rule=Path(`/whoami`)'
+      # Allow request only from the predefined entry point named "web"
+      - 'traefik.http.routers.whoami.entrypoints=web'
+
 volumes:
   codelab-neo4j:
     name: codelab-neo4j
@@ -30,4 +112,11 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /mnt/neo4j_volumes
+      device: /mnt/codelab_neo4j_volumes
+  codelab-neo4j-prometheus:
+    name: codelab-neo4j-prometheus
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/codelab_neo4j_prometheus_volumes

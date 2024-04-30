@@ -21,6 +21,13 @@ resource "digitalocean_firewall" "neo4j" {
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
+  # Add this for cAdvisor dashboard
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "8080"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
   # Allows HTTPS traffic from anywhere, essential for secure web communications.
   inbound_rule {
     protocol         = "tcp"

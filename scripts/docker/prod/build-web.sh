@@ -4,10 +4,8 @@ set -x
 
 # docker compose --verbose -f .docker/prod/build.docker-compose.yaml \
 
+# Don't use $NX_BASE, or $CIRCLECI_PREV_SHA, since these refer to the base master branch
 CIRCLE_PREV_SHA=$(git rev-parse HEAD~1)
-
-echo $NX_BASE
-echo $CIRCLE_PREV_SHA
 
 # Returns `web` if affected, otherwise `""`
 NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "web" && echo "--no-cache-filter build" || echo "")

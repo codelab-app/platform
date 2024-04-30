@@ -23,10 +23,10 @@ WORKDIR /usr/src/codelab
 
 # Put this separately for caching
 # The trailing / is required when copying from multiple sources
-COPY package.json pnpm-lock.yaml  ./
+COPY .npmrc package.json pnpm-lock.yaml  ./
 
 # The trailing / is required when copying from multiple sources
-COPY .npmrc nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
+COPY nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
 COPY apps/landing ./apps/landing

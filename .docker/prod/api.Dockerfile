@@ -11,22 +11,30 @@
 # (1) Build - using alias and having multiple steps can help with caching and build speed
 #
 #
-FROM node:18.17-alpine AS install
-
-# RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpng-dev g++
-RUN apk update
-# No cache reduces bundle size
-RUN apk add --no-cache libc6-compat python3 py3-pip make g++
-RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
+FROM node:18.17-alpine AS base
 
 WORKDIR /usr/src/codelab
 
+# Combine commands to reduce the number of layers in your Docker image, which can reduce the overhead when running containers.
+# No cache reduces bundle size
+RUN apk update && \
+  apk add --no-cache libc6-compat python3 py3-pip make g++ && \
+  corepack enable && \
+  corepack prepare pnpm@8.15.0 --activate
+
+###################
+
+FROM base AS install
+
 # Put this separately for caching
 # The trailing / is required when copying from multiple sources
-COPY package.json pnpm-lock.yaml  ./
+COPY package.json pnpm-lock.yaml .npmrc ./
+RUN pnpm install --frozen-lockfile
 
+
+FROM install AS build
 # The trailing / is required when copying from multiple sources
-COPY .npmrc nx.json tsconfig.base.json ./
+COPY nx.json tsconfig.base.json ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
 COPY apps/api ./apps/api
@@ -34,12 +42,6 @@ COPY libs ./libs
 COPY types ./types
 COPY data ./data
 
-RUN pnpm install --frozen-lockfile
-
-#
-# Build
-#
-FROM install AS build
 
 WORKDIR /usr/src/codelab
 

@@ -1,5 +1,6 @@
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { TypeFactory } from '@codelab/backend/domain/type'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
@@ -12,6 +13,7 @@ export class ImportSystemTypesHandler
   constructor(
     private readonly typeFactory: TypeFactory,
     private readonly readAdminDataService: ReadAdminDataService,
+    protected loggerService: CodelabLoggerService,
   ) {}
 
   async execute() {

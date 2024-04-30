@@ -10,6 +10,8 @@ locals {
     digitalocean_access_token = var.digitalocean_access_token
   })
 
+  prometheus = templatefile("${path.module}/tftpl/prometheus.yaml", {})
+
   mount_volumes = templatefile("${path.module}/tftpl/mount-volumes.tftpl.sh", {})
 }
 
@@ -47,6 +49,10 @@ data "cloudinit_config" "neo4j" {
           permissions = "0755"
           content     = local.mount_volumes
         },
+        {
+          path    = "/root/docker/prometheus.yaml"
+          content = local.prometheus
+        }
       ],
       runcmd = [
         ["cloud-init-per", "once", "mount-volumes", "/var/lib/cloud/scripts/per-once/mount-volumes.sh"],
