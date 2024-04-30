@@ -25,7 +25,7 @@ setGlobalConfig({
 /**
  * Need to paste here for it to work with mobx
  */
-if (getEnv().endpoint.isLocal) {
+if (getEnv().endpoint.isLocal && Boolean(process.env['NEXT_WEB_ENABLE_WDYR'])) {
   console.log('Enable WDYR...')
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -95,5 +95,4 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   )
 }
 
-App.whyDidYouRender = true
 export default App
