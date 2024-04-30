@@ -102,5 +102,4 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   )
 }
 
-App.whyDidYouRender = true
 export default App
