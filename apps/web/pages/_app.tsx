@@ -35,7 +35,7 @@ if (getEnv().endpoint.isLocal && Boolean(process.env['NEXT_WEB_ENABLE_WDYR'])) {
     exclude: [/PopupContent/],
     // onlyLogs: true,
     titleColor: 'green',
-    trackAllPureComponents: false,
+    trackAllPureComponents: true,
   })
 }
 
