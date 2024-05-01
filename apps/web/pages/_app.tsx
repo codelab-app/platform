@@ -33,7 +33,7 @@ if (getEnv().endpoint.isLocal && getEnv().node.enableWdyr) {
     exclude: [/PopupContent/],
     // onlyLogs: true,
     titleColor: 'green',
-    trackAllPureComponents: false,
+    trackAllPureComponents: true,
   })
 }
 
