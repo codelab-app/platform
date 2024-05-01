@@ -1065,6 +1065,10 @@ packages:
   /@ant-design/pro-card@2.5.30(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-3r1DB9NZ+yQ9636ZR8zgIBbmEd9/TrJnTBBTBDfOgNbiLLq3Rg4FfVNy6m1O8bF1YcGHI3uTP2/eWq4SSk1hWA==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-card@2.6.1(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-LiZwTUFHNU8t7bJsp51DnSmuct2uY2WHxl+dMcWCpsW2V6KRPws4raGo96SDMPfGjwbF0YrMZhR9yO7qmI5nag==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -1075,6 +1079,10 @@ packages:
   /@ant-design/pro-components@2.4.4(antd@5.16.5)(rc-field-form@1.43.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pSzERiJz0RdH/1Lf8PgHuOZNF9AEvLeIoVYs/1tUchasTCLqedVvS9gK/4RLG3R0YROIe/G6LSBqB2WMpRDvug==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-components@2.7.1(antd@5.16.5)(rc-field-form@1.44.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-9e1BCrDNZ4NZXt7sY9eotVOFa506Pnwhsg9alRWfAzn36IpLt0o9/VllBSAR3WeGaUn452vEEOWJTsCVW4Jq4w==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -1086,6 +1094,10 @@ packages:
   /@ant-design/pro-descriptions@2.5.34(antd@5.16.5)(rc-field-form@1.43.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-tQFfWrOgR2Hl5CJx5FIsjkUQX6R4zGR4fHxIrpWgyexDyje/riTFhGji+E0Ff/XyoEoTGolwCWkykQ/e8nInEA==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-descriptions@2.5.37(antd@5.16.5)(rc-field-form@1.44.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-YaMs0IGQ39n8jMDUQjhpWW6uZMDktgxAAYwUE9s1tF2XK/ySQSdfylsGvMHZFKqWPRnOqNFIYQ1kAcDLIO9KXQ==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -1096,6 +1108,10 @@ packages:
   /@ant-design/pro-field@2.14.7(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-k5igecEgBBK/b72SE/NrtX69MGzg1225v+FXurLCM0isZ9UTdD/AwGHZJPFE+UXhmJXGUEpFgWvuWt+z1SWR+w==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-field@2.14.10(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Q5JIfZJheQKbxgpX29xNwQgsP+fA9WYD4ov5QBLBn1ePUqOreXOQK4cLMBPxxD5MOMULihzHoKi3JOBmuyBCUw==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -1106,6 +1122,10 @@ packages:
   /@ant-design/pro-form@2.24.5(antd@5.16.5)(rc-field-form@1.43.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-EhQU09WOTUiyGZ4Q4b7UYuG8SfgtJJZJF4ReFio9zh28Vskwa7+mG4aR/Lrzoycv1DWL8Sz2uKcwr7BrPLR95g==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-form@2.26.0(antd@5.16.5)(rc-field-form@1.44.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-K542iiEM0mS/U2iaBHhJjsNinsquy4ZSSfoz6dRdFg6OQEU6+qxx7SpvXpVAGk+CtTxDTmd6u0EKlyVl6shK5Q==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       '@types/lodash.merge': ^4.6.7
       antd: ^4.24.15 || ^5.11.2
@@ -1122,6 +1142,10 @@ packages:
   /@ant-design/pro-layout@7.17.20(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-+5u2BMlVj7QX81iE4FQjvOERMgdNFSOP6ZT87AXMI6sIra3S42HgLDOdaZCcgcQ5lbF3zNqJc9rzPYIXKzOBfQ==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-layout@7.19.1(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-JquPxUMFuEZ0kAgs75ECsRFEgygmXawk/oAvEvKNuNTavrUyU/8EJHN+oAETjKdhtsst0Wp5MJKQqPZAcQdYnA==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -1133,6 +1157,10 @@ packages:
   /@ant-design/pro-list@2.5.49(antd@5.16.5)(rc-field-form@1.43.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-+BCMr7+2/M0fDVHrO+4fkWPLk2WRHEn19i1EZsajQ2bW8+jsfFsxW9Z7BumdoLKwdBhZG/0AMaGT2FToXH61xA==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-list@2.5.52(antd@5.16.5)(rc-field-form@1.44.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Ndro8YKubSQxFDJ3ZTMU9esZJAjye9TqKMLd768ST86nWvSeDrm8A0oUIKtyMgvnbzsh7YXj4JgexGUNJJPaGg==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -1144,6 +1172,10 @@ packages:
   /@ant-design/pro-provider@2.14.0(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-C89hwefeC7OJlLBzPjYS5XbW/t3NAM1KKqPiBeTkr0+KHQE7xjYfh+bi7RcQ7TsHNIYHjd52cEZuEdTJqzyHPg==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-provider@2.14.1(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-N8hTUNJc7dtIjj79ZFviielizo15nOUyjrmz9Ll0Mn68Btne2FLpf8cKHsUMdA+yLDW9oM0ExcqIWJOKyx0nUg==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -1162,6 +1194,10 @@ packages:
   /@ant-design/pro-table@3.15.0(antd@5.16.5)(rc-field-form@1.43.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-zVh7pv6l87x6Rngl220rSWI92uX2O+5EvNCbDWYMI/9DvN+Nx5jWGSn2NTdpI7f9pJRiGPKv3jg9VCWGwCb2bA==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-table@3.15.3(antd@5.16.5)(rc-field-form@1.44.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-85LMPOsE8vqnKO0/C/r1fLBMhG5jfBUzSlzO7dtDKNzgR3FIeIdOBm49rtoKJ3sHdf3HV3sFazHkOUv9aXQ6Bg==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       rc-field-form: ^1.22.0
@@ -1174,6 +1210,10 @@ packages:
   /@ant-design/pro-utils@2.15.5(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-352WZhzWRsyRd85R0fIxJgDEl9+vgxIzDxIW7G0/oWpXilxDIUnVVB/U46UM3d1YuR+0PQsKBXJmS1niro8sXA==}
 >>>>>>> 846c944af (fix: update antd version)
+=======
+  /@ant-design/pro-utils@2.15.7(antd@5.16.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-VMK1mkb9St4OoEoekW0qUqkKK632XOGjBZusKjlfP9WPwv+MP8bPAB2jOH89JoY8SIQ87Zod6lMgWLMJX3qbOw==}
+>>>>>>> 30ca14556 (chore: update antd version)
     peerDependencies:
       antd: ^4.24.15 || ^5.11.2
       react: '>=17.0.0'
@@ -15676,9 +15716,12 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     dev: false
 >>>>>>> 846c944af (fix: update antd version)
+=======
+>>>>>>> 30ca14556 (chore: update antd version)
 
   '@babel/template@7.24.0':
     dependencies:
@@ -29270,6 +29313,8 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+=======
+>>>>>>> 30ca14556 (chore: update antd version)
   /rc-field-form@1.44.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-el7w87fyDUsca63Y/s8qJcq9kNkf/J5h+iTdqG5WsSHLH0e6Usl7QuYSmSVzJMgtp40mOVZIY/W/QP9zwrp1FA==}
     engines: {node: '>=8.x'}
