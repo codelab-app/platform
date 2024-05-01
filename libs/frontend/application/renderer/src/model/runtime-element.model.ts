@@ -121,10 +121,8 @@ export class RuntimeElementModel
     }
 
     const newKeys = childMapperChildren.map((child) => child.compositeKey)
-    const toRemove = difference(this.lastChildMapperChildrenKeys, newKeys)
 
-    this.cleanupChildMapperNodes(toRemove)
-    this.lastChildMapperChildrenKeys = newKeys
+    this.cleanupChildMapperNodes(newKeys)
 
     return childMapperChildren
   }
@@ -339,9 +337,13 @@ export class RuntimeElementModel
    */
   @modelAction
   cleanupChildMapperNodes(newKeys: Array<string>) {
-    newKeys.forEach((key) => {
+    const toRemove = difference(this.lastChildMapperChildrenKeys, newKeys)
+
+    toRemove.forEach((key) => {
       this.runtimeComponentService.components.delete(key)
     })
+
+    this.lastChildMapperChildrenKeys = newKeys
   }
 
   onAttachedToRootStore() {
