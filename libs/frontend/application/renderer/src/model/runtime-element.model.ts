@@ -28,6 +28,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
+import difference from 'lodash/difference'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -43,7 +44,6 @@ import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
 import { ElementWrapper } from '../wrappers'
-import { RuntimeComponentModel } from './runtime-component.model'
 
 const compositeKey = (
   element: IElementModel,
@@ -79,6 +79,7 @@ export class RuntimeElementModel
     >(),
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
+    lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
     postRenderActionDone: prop(false).withSetter(),
     preRenderActionDone: prop(false).withSetter(),
@@ -119,17 +120,11 @@ export class RuntimeElementModel
       childMapperChildren.push(runtimeComponent)
     }
 
-    const keyStart = RuntimeComponentModel.compositeKey(
-      component,
-      this,
-      this.propKey,
-    )
+    const newKeys = childMapperChildren.map((child) => child.compositeKey)
+    const toRemove = difference(this.lastChildMapperChildrenKeys, newKeys)
 
-    const newKeys = childMapperChildren.map(
-      (runtimeComponent) => runtimeComponent.compositeKey,
-    )
-
-    this.cleanupChildMapperNodes(keyStart, newKeys)
+    this.cleanupChildMapperNodes(toRemove)
+    this.lastChildMapperChildrenKeys = newKeys
 
     return childMapperChildren
   }
@@ -343,14 +338,9 @@ export class RuntimeElementModel
    * @param validNodes new evaluated child mapper prop
    */
   @modelAction
-  cleanupChildMapperNodes(keyStart: string, newKeys: Array<string>) {
-    this.runtimeComponentService.componentsList.forEach((runtimeComponent) => {
-      if (
-        runtimeComponent.compositeKey.startsWith(keyStart) &&
-        !newKeys.includes(runtimeComponent.compositeKey)
-      ) {
-        this.runtimeComponentService.delete(runtimeComponent)
-      }
+  cleanupChildMapperNodes(newKeys: Array<string>) {
+    newKeys.forEach((key) => {
+      this.runtimeComponentService.components.delete(key)
     })
   }
 

@@ -48,6 +48,8 @@ export class RuntimeElementPropsModel
 
   @computed
   get closestRuntimeContainerNode() {
+    console.log(this.runtimeElement.current.element.current.name)
+
     return this.runtimeElement.current.closestContainerNode.current
   }
 
