@@ -1,11 +1,9 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
+import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useAppDevelopment } from '@codelab/frontend/application/app'
 import { useRouteChangeHandler } from '@codelab/frontend/application/builder'
-import {
-  PagePreviewView,
-  PagePreviewViewLayout,
-} from '@codelab/frontend/application/page'
+import { PagePreviewViewLayout } from '@codelab/frontend/application/page'
 import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
@@ -15,7 +13,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
-const PagePreviewView: PagePreviewView = observer(() => {
+const PagePreviewView: CodelabPage = observer(() => {
   const router = useRouter()
 
   const [{ error, result, status }, loadDevelopmentPage] = useAppDevelopment({

@@ -1,15 +1,13 @@
 import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
-import type {
-  IAppProps,
-  IPageProps,
-} from '@codelab/frontend/abstract/application'
+import type { IAppProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createRootStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { getEnv } from '@codelab/shared/config'
+import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
@@ -39,18 +37,18 @@ if (getEnv().endpoint.isLocal && Boolean(process.env['NEXT_WEB_ENABLE_WDYR'])) {
   })
 }
 
-const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
+const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   const router = useRouter()
 
   const [store] = useState(
-    createRootStore({
-      router: {
+    createRootStore(
+      {
         path: router.asPath,
         pathname: router.pathname,
         query: router.query,
       },
-      user: pageProps.user,
-    }),
+      user,
+    ),
   )
 
   const { Layout = React.Fragment } = Component as CodelabPage<object, object>

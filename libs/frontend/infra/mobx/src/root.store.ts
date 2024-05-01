@@ -10,12 +10,12 @@ import type {
   IElementService,
   IFieldService,
   IPageApplicationService,
-  IPageProps,
   IPropService,
   IRedirectService,
   IRendererService,
   IResourceService,
   IRootStore,
+  IRouterProps,
   IRouterService,
   IRuntimeComponentService,
   IRuntimeElementService,
@@ -108,17 +108,10 @@ import { UserService } from '@codelab/frontend/application/user'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
-import { auth0IdToken } from '@codelab/shared/data/test'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
-export const createRootStore = ({
-  router = {
-    path: '',
-    pathname: '',
-    query: {},
-  },
-  user = auth0IdToken,
-}: IPageProps) => {
+export const createRootStore = (router: IRouterProps, user: Auth0IdToken) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({

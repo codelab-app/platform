@@ -22,7 +22,7 @@ const preview: Preview = {
         },
       }
 
-      const store = createRootStore({ routerQuery: router.query, user })
+      const store = createRootStore(router, user)
 
       return (
         <StoreProvider value={store}>
