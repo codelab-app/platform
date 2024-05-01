@@ -23,4 +23,5 @@ export interface IRuntimePageModel extends AnyModel {
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
   treeViewNode: IElementTreeViewDataNode
+  detach(): void
 }

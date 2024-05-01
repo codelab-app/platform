@@ -28,14 +28,14 @@ export interface CssMap {
 export interface IRuntimeElementStyleModel {
   breakpointsByPrecedence: Array<BuilderWidthBreakPoint>
   /**
-   * a style added by the builder behind the scenes
+   * a style added by the bui lder behind the scenes
    * main use case set element min height for text editor to be visible on editing
    */
   builderStyle?: string
   customCss?: Nullable<string>
   /**
-   * html-ready string that includes styles for all breakpoints
-   * for production - uses media queries to apply styles
+   * html-read y string that includes styles for all breakpoints
+   * for production - u ses media queries to apply styles
    * for development - uses container queries, for better UX
    */
   styleParsed: IElementStyle

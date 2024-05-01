@@ -1,11 +1,11 @@
 import type {
   IRuntimeComponentModel,
-  IRuntimeElementModel,
   IRuntimeElementService,
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
 import {
   ElementStylePseudoClass,
+  IRuntimeElementModel,
   isRuntimePage,
   runtimeComponentRef,
   runtimeElementRef,
@@ -79,6 +79,11 @@ export class RuntimeElementService
     this.elements.set(runtimeElement.compositeKey, runtimeElement)
 
     return runtimeElement
+  }
+
+  @modelAction
+  delete(runtimeElement: IRuntimeElementModel) {
+    return this.elements.delete(runtimeElement.compositeKey)
   }
 
   maybeRuntimeElement(compositeKey: string) {

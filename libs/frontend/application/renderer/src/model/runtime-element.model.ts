@@ -340,10 +340,18 @@ export class RuntimeElementModel
     const toRemove = difference(this.lastChildMapperChildrenKeys, newKeys)
 
     toRemove.forEach((key) => {
-      this.runtimeComponentService.components.delete(key)
+      const component = this.runtimeComponentService.maybeRuntimeComponent(key)
+
+      component?.detach()
     })
 
     this.lastChildMapperChildrenKeys = newKeys
+  }
+
+  @modelAction
+  detach(): void {
+    this.children.forEach((child) => child.detach())
+    this.runtimeElementService.delete(this)
   }
 
   onAttachedToRootStore() {
