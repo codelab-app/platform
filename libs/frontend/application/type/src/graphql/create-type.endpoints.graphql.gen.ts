@@ -91,11 +91,11 @@ export type CreateAppTypesMutationVariables = Types.Exact<{
 
 export type CreateAppTypesMutation = { types: { types: Array<{ id: string }> } }
 
-export type CreateRicTextTypesMutationVariables = Types.Exact<{
+export type CreateRichTextTypesMutationVariables = Types.Exact<{
   input: Array<Types.RichTextTypeCreateInput> | Types.RichTextTypeCreateInput
 }>
 
-export type CreateRicTextTypesMutation = {
+export type CreateRichTextTypesMutation = {
   types: { types: Array<{ id: string }> }
 }
 
@@ -216,8 +216,8 @@ export const CreateAppTypesDocument = gql`
     }
   }
 `
-export const CreateRicTextTypesDocument = gql`
-  mutation CreateRicTextTypes($input: [RichTextTypeCreateInput!]!) {
+export const CreateRichTextTypesDocument = gql`
+  mutation CreateRichTextTypes($input: [RichTextTypeCreateInput!]!) {
     types: createRichTextTypes(input: $input) {
       types: richTextTypes {
         id
@@ -439,18 +439,18 @@ export function getSdk(
         variables,
       )
     },
-    CreateRicTextTypes(
-      variables: CreateRicTextTypesMutationVariables,
+    CreateRichTextTypes(
+      variables: CreateRichTextTypesMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<CreateRicTextTypesMutation> {
+    ): Promise<CreateRichTextTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateRicTextTypesMutation>(
-            CreateRicTextTypesDocument,
+          client.request<CreateRichTextTypesMutation>(
+            CreateRichTextTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'CreateRicTextTypes',
+        'CreateRichTextTypes',
         'mutation',
         variables,
       )
