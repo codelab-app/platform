@@ -13,6 +13,8 @@ locals {
   prometheus = templatefile("${path.module}/tftpl/prometheus.yaml", {})
 
   mount_volumes = templatefile("${path.module}/tftpl/mount-volumes.tftpl.sh", {})
+
+  traefik = templatefile("${path.module}/tftpl/traefik.yaml", {})
 }
 
 data "cloudinit_config" "neo4j" {
@@ -33,6 +35,10 @@ data "cloudinit_config" "neo4j" {
         {
           path    = "/etc/docker/daemon.tmp.json",
           content = local.docker_daemon
+        },
+        {
+          path    = "/etc/traefik/traefik.yaml",
+          content = local.traefik
         },
         {
           path        = "/root/docker/docker-compose.yml"

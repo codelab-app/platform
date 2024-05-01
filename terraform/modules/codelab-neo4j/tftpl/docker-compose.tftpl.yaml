@@ -28,82 +28,87 @@ services:
       - NEO4J_AUTH=neo4j/password
     restart: unless-stopped
 
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus:v2.46.0
-    restart: unless-stopped
-    volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
-      - codelab-neo4j-prometheus:/prometheus
-    ports:
-      - '9090:9090'
+  # prometheus:
+  #   container_name: prometheus
+  #   image: prom/prometheus:v2.46.0
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+  #     - codelab-neo4j-prometheus:/prometheus
+  #   ports:
+  #     - '9090:9090'
 
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: node-exporter
-    restart: unless-stopped
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.rootfs=/rootfs'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-    expose:
-      - 9100
+  # node-exporter:
+  #   image: prom/node-exporter:latest
+  #   container_name: node-exporter
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /proc:/host/proc:ro
+  #     - /sys:/host/sys:ro
+  #     - /:/rootfs:ro
+  #   command:
+  #     - '--path.procfs=/host/proc'
+  #     - '--path.rootfs=/rootfs'
+  #     - '--path.sysfs=/host/sys'
+  #     - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+  #   expose:
+  #     - 9100
 
   # https://prometheus.io/docs/guides/cadvisor/
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-    # ports:
-    #   - 8080:8080
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.cadvisor.rule=Host(`cadvisor.localhost`)'
-      - 'traefik.http.routers.cadvisor.entrypoints=web'
-    depends_on:
-      - neo4j
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   container_name: cadvisor
+  #   # ports:
+  #   #   - 8080:8080
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   labels:
+  #     - 'traefik.enable=true'
+  #     - 'traefik.http.routers.cadvisor.rule=Host(`cadvisor.localhost`)'
+  #     - 'traefik.http.routers.cadvisor.entrypoints=web'
+  #   depends_on:
+  #     - neo4j
 
-  traefik:
-    # The official v3 Traefik docker image
-    image: traefik:v3.0
-    command:
-      #- "--log.level=DEBUG"
-      # Enables the web UI and tells Traefik to listen to docker
-      - '--api.insecure=true'
-      # Enabling Docker provider
-      - '--providers.docker=true'
-      # Do not expose containers unless explicitly told so
-      - '--providers.docker.exposedbydefault=false'
-      # Traefik will listen to incoming request on the port 80 (HTTP), alias with web
-      - '--entryPoints.web.address=:80'
-    ports:
-      # The HTTP port
-      - '80:80'
-      # The Web UI (enabled by --api.insecure=true)
-      - '8080:8080'
-    volumes:
-      # So that Traefik can listen to the Docker events
-      - /var/run/docker.sock:/var/run/docker.sock
+  # traefik:
+  #   # The official v3 Traefik docker image
+  #   image: traefik:v3.0
+  #   command:
+  #     #- "--log.level=DEBUG"
+  #     # Enables the web UI and tells Traefik to listen to docker
+  #     # - '--api.insecure=true'
+  #     # Enabling Docker provider
+  #     - '--providers.docker=true'
+  #     # Do not expose containers unless explicitly told so
+  #     - '--providers.docker.exposedbydefault=false'
+  #     # Traefik will listen to incoming request on the port 80 (HTTP), alias with web
+  #     # - '--entryPoints.web.address=:80'
+  #     # - '--entryPoints.web.address=:80'
+  #     - 'traefik.http.routers.traefik-ui.rule=Host(`traefik.neo4j.codelab.app`)'
+  #     - 'traefik.http.routers.traefik-ui.service=api@internal'
+  #   ports:
+  #     # The HTTP port
+  #     - '80:80'
+  #     # The Web UI (enabled by --api.insecure=true)
+  #     # - '8080:8080'
+  #   volumes:
+  #     # So that Traefik can listen to the Docker events
+  #     - /var/run/docker.sock:/var/run/docker.sock
 
   whoami:
     image: traefik/whoami
-    container_name: simple-service
-    labels:
-      # Explicitly tell Traefik to expose this container
-      - 'traefik.enable=true'
-      # The domain the service will respond to
-      - 'traefik.http.routers.whoami.rule=Path(`/whoami`)'
-      # Allow request only from the predefined entry point named "web"
-      - 'traefik.http.routers.whoami.entrypoints=web'
+    container_name: traefik-whoami
+    ports:
+      - 80:80
+    # labels:
+    #   # Explicitly tell Traefik to expose this container
+    #   - 'traefik.enable=true'
+    #   # The domain the service will respond to
+    #   - 'traefik.http.routers.whoami.rule=Path(`/whoami`)'
+    #   # Allow request only from the predefined entry point named "web"
+    #   - 'traefik.http.routers.whoami.entrypoints=web'
 
 volumes:
   codelab-neo4j:
