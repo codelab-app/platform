@@ -7,15 +7,13 @@ import type {
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createRootStore } from '@codelab/frontend/infra/mobx'
-import { withTracerSpan } from '@codelab/frontend/infra/otel'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { getEnv } from '@codelab/shared/config'
-import { useDeepCompareMemo } from '@react-hookz/web'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import config from '../twind.config'
 
 setGlobalConfig({
@@ -44,21 +42,15 @@ if (getEnv().endpoint.isLocal && Boolean(process.env['NEXT_WEB_ENABLE_WDYR'])) {
 const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   const router = useRouter()
 
-  const store = useDeepCompareMemo(
-    () => {
-      return withTracerSpan('createRootStore', () =>
-        createRootStore({
-          router: {
-            path: router.asPath,
-            pathname: router.pathname,
-            query: router.query,
-          },
-          user: pageProps.user,
-        }),
-      )
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pageProps.user],
+  const [store] = useState(
+    createRootStore({
+      router: {
+        path: router.asPath,
+        pathname: router.pathname,
+        query: router.query,
+      },
+      user: pageProps.user,
+    }),
   )
 
   const { Layout = React.Fragment } = Component as CodelabPage<object, object>

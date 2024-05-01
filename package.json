@@ -151,7 +151,7 @@
     "neo4j-driver": "5.16.0",
     "nestjs-pino": "4.0.0",
     "nestjs-typebox": "2.6.1",
-    "next": "14.2.2",
+    "next": "14.2.3",
     "next-http-proxy-middleware": "1.2.6",
     "next-seo": "6.5.0",
     "object-typed": "1.0.0",
