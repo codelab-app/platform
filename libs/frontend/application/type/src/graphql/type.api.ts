@@ -66,7 +66,7 @@ export const createTypeApi: CreateTypesRecord = {
       .CreateRenderPropTypes({ input })
       .then(({ types }) => types.types),
   [ITypeKind.RichTextType]: (input) =>
-    _createApi.CreateRicTextTypes({ input }).then(({ types }) => types.types),
+    _createApi.CreateRichTextTypes({ input }).then(({ types }) => types.types),
   [ITypeKind.ReactNodeType]: (input) =>
     _createApi
       .CreateReactNodeTypes({

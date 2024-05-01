@@ -23064,11 +23064,11 @@ export type CreateAppTypesMutationVariables = Exact<{
 
 export type CreateAppTypesMutation = { types: { types: Array<{ id: string }> } }
 
-export type CreateRicTextTypesMutationVariables = Exact<{
+export type CreateRichTextTypesMutationVariables = Exact<{
   input: Array<RichTextTypeCreateInput> | RichTextTypeCreateInput
 }>
 
-export type CreateRicTextTypesMutation = {
+export type CreateRichTextTypesMutation = {
   types: { types: Array<{ id: string }> }
 }
 
