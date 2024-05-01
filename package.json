@@ -34,9 +34,9 @@
   },
   "private": true,
   "dependencies": {
-    "@ant-design/cssinjs": "1.17.2",
+    "@ant-design/cssinjs": "1.20.0",
     "@ant-design/icons": "5.3.0",
-    "@ant-design/pro-components": "2.4.4",
+    "@ant-design/pro-components": "2.7.1",
     "@apollo/client": "3.7.15",
     "@apollo/server": "4.7.2",
     "@auth0/nextjs-auth0": "3.5.0",
@@ -100,10 +100,10 @@
     "@pinojs/json-colorizer": "4.0.0",
     "@react-hookz/web": "22.0.0",
     "@react-spring/web": "9.7.3",
-    "@rjsf/antd": "5.17.1",
-    "@rjsf/core": "5.17.1",
-    "@rjsf/utils": "5.17.1",
-    "@rjsf/validator-ajv8": "5.17.1",
+    "@rjsf/antd": "5.18.3",
+    "@rjsf/core": "5.18.3",
+    "@rjsf/utils": "5.18.3",
+    "@rjsf/validator-ajv8": "5.18.3",
     "@sinclair/typebox": "0.31.23",
     "@sotaproject/strikethrough": "1.0.1",
     "@supabase/supabase-js": "2.1.1",
@@ -356,7 +356,6 @@
   },
   "resolutions": {
     "@types/react": "18.2.24",
-    "@types/react-dom": "18.2.9",
-    "antd@5.4.2": "patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch"
+    "@types/react-dom": "18.2.9"
   }
 }
