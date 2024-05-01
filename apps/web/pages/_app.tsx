@@ -11,7 +11,7 @@ import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import config from '../twind.config'
 
 setGlobalConfig({
@@ -50,6 +50,14 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
       user,
     ),
   )
+
+  useEffect(() => {
+    store.routerService.update({
+      path: router.asPath,
+      pathname: router.pathname,
+      query: router.query,
+    })
+  }, [router])
 
   const { Layout = React.Fragment } = Component as CodelabPage<object, object>
 

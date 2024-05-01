@@ -12,7 +12,7 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createRootStore } from '@codelab/frontend/infra/mobx'
 import { guestUser } from '@codelab/shared/data/test'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const App = ({ Component, pageProps }: IAppProps) => {
   const router = useRouter()
@@ -27,6 +27,14 @@ const App = ({ Component, pageProps }: IAppProps) => {
       guestUser,
     ),
   )
+
+  useEffect(() => {
+    store.routerService.update({
+      path: router.asPath,
+      pathname: router.pathname,
+      query: router.query,
+    })
+  }, [router])
 
   return (
     <StoreProvider value={store}>
