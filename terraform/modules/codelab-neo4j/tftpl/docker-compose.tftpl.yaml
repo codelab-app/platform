@@ -28,6 +28,22 @@ services:
       - NEO4J_AUTH=neo4j/password
     restart: unless-stopped
 
+  grafana-alloy:
+    image: grafana/alloy:latest
+    # Need to run as root to be able to access `"unix:///var/run/docker.sock"`
+    user: 'root'
+    volumes:
+      - /etc/alloy/config.alloy:/etc/alloy/config.alloy
+      - codelab-alloy:/var/lib/alloy/data
+    ports:
+      - '12345:12345'
+    command:
+      - run
+      - '--server.http.listen-addr=0.0.0.0:12345'
+      - '--storage.path=/var/lib/alloy/data'
+      - /etc/alloy/config.alloy
+    restart: unless-stopped
+
   # prometheus:
   #   container_name: prometheus
   #   image: prom/prometheus:v2.46.0
@@ -37,6 +53,8 @@ services:
   #     - codelab-neo4j-prometheus:/prometheus
   #   ports:
   #     - '9090:9090'
+  #   depends_on:
+  #     - cadvisor
 
   # node-exporter:
   #   image: prom/node-exporter:latest
@@ -55,6 +73,7 @@ services:
   #     - 9100
 
   # https://prometheus.io/docs/guides/cadvisor/
+  # Container metrics monitoring, use Prometheus to scrape
   # cadvisor:
   #   image: gcr.io/cadvisor/cadvisor:latest
   #   container_name: cadvisor
@@ -67,48 +86,54 @@ services:
   #     - /var/lib/docker/:/var/lib/docker:ro
   #   labels:
   #     - 'traefik.enable=true'
-  #     - 'traefik.http.routers.cadvisor.rule=Host(`cadvisor.localhost`)'
+  #     - 'traefik.http.routers.cadvisor.rule=Host(`cadvisor.neo4j.codelab.app`)'
   #     - 'traefik.http.routers.cadvisor.entrypoints=web'
+  #     - 'traefik.http.services.cadvisor.loadbalancer.server.port=8080'
   #   depends_on:
   #     - neo4j
 
   # traefik:
   #   # The official v3 Traefik docker image
   #   image: traefik:v3.0
+  #   container_name: traefik
   #   command:
   #     #- "--log.level=DEBUG"
   #     # Enables the web UI and tells Traefik to listen to docker
-  #     # - '--api.insecure=true'
+  #     - '--api.insecure=true'
   #     # Enabling Docker provider
   #     - '--providers.docker=true'
   #     # Do not expose containers unless explicitly told so
   #     - '--providers.docker.exposedbydefault=false'
   #     # Traefik will listen to incoming request on the port 80 (HTTP), alias with web
-  #     # - '--entryPoints.web.address=:80'
-  #     # - '--entryPoints.web.address=:80'
-  #     - 'traefik.http.routers.traefik-ui.rule=Host(`traefik.neo4j.codelab.app`)'
-  #     - 'traefik.http.routers.traefik-ui.service=api@internal'
+  #     - '--entryPoints.web.address=:80'
+  #     # - '--entryPoints.dashboard.address=:8080'
+  #   # labels:
+  #   # - 'traefik.enable=true'
+  #   # - 'traefik.http.routers.traefik.rule=Host(`neo4j.codelab.app`)'
+  #   # - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
+  #   # - 'traefik.http.routers.traefik.entrypoints=dashboard'
   #   ports:
   #     # The HTTP port
   #     - '80:80'
   #     # The Web UI (enabled by --api.insecure=true)
-  #     # - '8080:8080'
+  #     # This is accessible by `traefik.neo4j.codelab.app:8080`
+  #     - '8080:8080'
   #   volumes:
   #     # So that Traefik can listen to the Docker events
   #     - /var/run/docker.sock:/var/run/docker.sock
 
-  whoami:
-    image: traefik/whoami
-    container_name: traefik-whoami
-    ports:
-      - 80:80
-    # labels:
-    #   # Explicitly tell Traefik to expose this container
-    #   - 'traefik.enable=true'
-    #   # The domain the service will respond to
-    #   - 'traefik.http.routers.whoami.rule=Path(`/whoami`)'
-    #   # Allow request only from the predefined entry point named "web"
-    #   - 'traefik.http.routers.whoami.entrypoints=web'
+  # whoami:
+  #   image: traefik/whoami
+  #   container_name: traefik-whoami
+  #   # ports:
+  #   #   - 80:80
+  #   labels:
+  #     # Explicitly tell Traefik to expose this container
+  #     - 'traefik.enable=true'
+  #     # The domain the service will respond to
+  #     - 'traefik.http.routers.whoami.rule=Host(`whoami.neo4j.codelab.app`)'
+  #     - 'traefik.http.routers.whoami.entrypoints=web'
+  #     - 'traefik.http.services.whoami.loadbalancer.server.port=80'
 
 volumes:
   codelab-neo4j:
@@ -125,3 +150,10 @@ volumes:
       type: none
       o: bind
       device: /mnt/codelab_neo4j_prometheus_volumes
+  codelab-alloy:
+    name: codelab-neo4j-alloy
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/codelab_neo4j_alloy_volumes

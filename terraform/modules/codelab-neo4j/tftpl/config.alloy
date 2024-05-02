@@ -1,0 +1,30 @@
+logging {
+  level  = "debug"
+  format = "logfmt"
+}
+
+prometheus.exporter.cadvisor "neo4j" {
+  docker_host = "unix:///var/run/docker.sock"
+
+  storage_duration = "5m"
+}
+
+prometheus.scrape "default" {
+  scrape_interval = "10s"
+
+  targets    = prometheus.exporter.cadvisor.neo4j.targets
+  forward_to = [
+    prometheus.remote_write.cloud.receiver
+  ]
+}
+
+prometheus.remote_write "cloud" {
+  endpoint {
+    url = "${prometheus_write_url}"
+
+    basic_auth {
+      username = "${prometheus_username}"
+      password = "${prometheus_password}"
+    }
+  }
+}

@@ -13,4 +13,8 @@ module "codelab_neo4j" {
   codelab_app_certificate_id = module.codelab.codelab_app_certificate_id
   codelab_app_domain_id      = module.codelab.codelab_app_domain_id
   codelab_app_vpc_id         = module.codelab.codelab_app_vpc_id
+
+  prometheus_write_url = var.PROMETHEUS_WRITE_URL
+  prometheus_username  = var.PROMETHEUS_USERNAME
+  prometheus_password  = var.PROMETHEUS_PASSWORD
 }

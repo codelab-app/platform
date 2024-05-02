@@ -10,11 +10,17 @@ locals {
     digitalocean_access_token = var.digitalocean_access_token
   })
 
-  prometheus = templatefile("${path.module}/tftpl/prometheus.yaml", {})
+  prometheus = templatefile("${path.module}/tftpl/prometheus.tftpl.yaml", {})
 
   mount_volumes = templatefile("${path.module}/tftpl/mount-volumes.tftpl.sh", {})
 
   traefik = templatefile("${path.module}/tftpl/traefik.yaml", {})
+
+  alloy = templatefile("${path.module}/tftpl/config.alloy", {
+    prometheus_write_url = var.prometheus_write_url,
+    prometheus_username  = var.prometheus_username,
+    prometheus_password  = var.prometheus_password
+  })
 }
 
 data "cloudinit_config" "neo4j" {
@@ -39,6 +45,10 @@ data "cloudinit_config" "neo4j" {
         {
           path    = "/etc/traefik/traefik.yaml",
           content = local.traefik
+        },
+        {
+          path    = "/etc/alloy/config.alloy",
+          content = local.alloy
         },
         {
           path        = "/root/docker/docker-compose.yml"
