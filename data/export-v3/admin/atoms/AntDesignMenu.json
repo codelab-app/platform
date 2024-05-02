@@ -252,7 +252,7 @@
           "id": "409f602b-ad21-426b-a191-a46e579077b4"
         },
         "id": "489a1fa0-7ce7-40bd-98e1-6dbfa4946778",
-        "key": "theme",
+        "key": "antdTheme",
         "name": "Theme",
         "nextSibling": null,
         "prevSibling": null,
