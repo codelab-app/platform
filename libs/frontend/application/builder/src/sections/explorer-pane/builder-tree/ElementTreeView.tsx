@@ -34,23 +34,16 @@ export const ElementTreeView = observer<{
         // Child mapper component instances cannot be moved around individually since they are
         // dynamically rendered and can't have NODE_SIBLING relationship to actual elements
         // They can only be moved around via the `childMapperPreviousSibling` field of the element
-        if (
-          data.dragNode.isChildMapperComponentInstance ||
-          data.dropNode.isChildMapperComponentInstance
-        ) {
-          return false
-        }
-
-        return true
+        return !data.dragNode.isChildMapperComponentInstance
       }}
-      defaultExpandAll
+      autoExpandParent={false}
       disabled={isMoving}
       draggable={true}
-      expandedKeys={builderService.expandedPageElementTreeNodeIds}
+      expandedKeys={builderService.expandedElementTreeNodeIds}
       onClick={(event) => event.stopPropagation()}
       onDrop={handleDrop}
       onExpand={(expandedKeys) => {
-        return builderService.setExpandedPageElementTreeNodeIds(
+        return builderService.setExpandedElementTreeNodeIds(
           expandedKeys as Array<string>,
         )
       }}

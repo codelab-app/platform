@@ -41,6 +41,7 @@ export type WithChildren<T> = T & {
 
 export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>> {
   allowDrop?: DirectoryTreeProps<T>['allowDrop']
+  autoExpandParent?: DirectoryTreeProps<T>['autoExpandParent']
   checkStrictly?: DirectoryTreeProps<T>['checkStrictly']
   checkable?: DirectoryTreeProps<T>['checkable']
   checkedKeys?: DirectoryTreeProps<T>['checkedKeys']
@@ -72,6 +73,7 @@ export const CuiTree = observer(
     props: CuiTreeProps<T>,
   ) => {
     const {
+      autoExpandParent,
       draggable,
       expandedKeys,
       isLoading = false,
@@ -88,7 +90,8 @@ export const CuiTree = observer(
     const cuiTreeStore = useLocalObservable(
       () =>
         new CuiTreeStore({
-          expandedKeys,
+          autoExpandParent,
+          expandedKeys: [],
           filterOptions: {},
           treeData,
         }),

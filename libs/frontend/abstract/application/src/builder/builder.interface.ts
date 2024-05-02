@@ -21,6 +21,7 @@ export const enum BuilderWidthBreakPoint {
   MobilePortrait = 'mobile-portrait',
   MobileLandscape = 'mobile-landscape',
   Tablet = 'tablet',
+  None = 'none',
 }
 
 export const defaultBuilderWidthBreakPoints: Record<
@@ -42,8 +43,9 @@ export const defaultBuilderWidthBreakPoints: Record<
     max: 991,
     min: 768,
   },
-  // -1 means automatically set the value for this field to the max available space
   [BuilderWidthBreakPoint.Desktop]: { default: 992, max: 1920, min: 992 },
+  // -1 means automatically set the value for this field to the max available space
+  [BuilderWidthBreakPoint.None]: { default: -1, max: -1, min: -1 },
 }
 
 /**

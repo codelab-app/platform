@@ -11,6 +11,7 @@ interface FilterOptions {
 }
 
 interface ICuiTreeStoreDefaults<T extends CuiTreeBasicDataNode> {
+  autoExpandParent?: boolean
   expandedKeys?: Array<Key>
   filterOptions: FilterOptions | undefined
   treeData?: Array<WithChildren<T>>
@@ -112,6 +113,7 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
   }
 
   constructor({
+    autoExpandParent = true,
     expandedKeys = [],
     filterOptions,
     treeData = [],
@@ -120,6 +122,7 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
     this.expandedKeys_ = expandedKeys
     this.filterOptions_ = filterOptions
     this.treeData_ = treeData
+    this.autoExpandParent_ = autoExpandParent
   }
 
   @action

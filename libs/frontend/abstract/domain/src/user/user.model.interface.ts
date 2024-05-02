@@ -9,5 +9,6 @@ import type { IModel } from '../shared'
 export interface IUserModel
   extends IUserDto,
     IModel<UserCreateInput, UserUpdateInput, UserDeleteInput, IUser> {
+  preferences: Record<string, unknown>
   setId(id: string): void
 }

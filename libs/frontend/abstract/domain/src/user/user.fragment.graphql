@@ -1,10 +1,11 @@
 fragment User on User {
   apps {
-    ...App
+    id
   }
   auth0Id
   email
   id
+  preferences
   roles
   username
 }

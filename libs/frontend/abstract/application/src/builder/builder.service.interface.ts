@@ -26,8 +26,7 @@ export interface IBuilderService {
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  expandedComponentTreeNodeIds: Array<string>
-  expandedPageElementTreeNodeIds: Array<string>
+  expandedElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<IRuntimeModelRef>
   selectedBuilderBreakpoint: BuilderWidthBreakPoint
   selectedBuilderWidth: BuilderWidth
@@ -39,8 +38,7 @@ export interface IBuilderService {
   selectPerviousElementOnDelete(): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
-  setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
-  setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
+  setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IRuntimeModelRef>): void
   setSelectedBuilderBreakpoint(width: Nullable<BuilderWidthBreakPoint>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void

@@ -36,7 +36,6 @@ const menuItemCommonStyle = {
 export const BuilderSizeMenu = observer(() => {
   const { builderService } = useStore()
   const selectedWidthBreakpoint = builderService.selectedBuilderBreakpoint
-  const selectedBuilderWidth = builderService.selectedBuilderWidth
 
   const handleBreakpointSelected = useCallback(
     (breakpoint: BuilderWidthBreakPoint) => {

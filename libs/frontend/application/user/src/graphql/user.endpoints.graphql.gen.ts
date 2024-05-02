@@ -19,6 +19,15 @@ export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
 }
 
+export type UpdateUserMutationVariables = Types.Exact<{
+  where?: Types.InputMaybe<Types.UserWhere>
+  update: Types.UserUpdateInput
+}>
+
+export type UpdateUserMutation = {
+  updateUsers: { users: Array<{ preferences?: string | null }> }
+}
+
 export const GetUsersDocument = gql`
   query GetUsers($where: UserWhere) {
     users(where: $where) {
@@ -33,6 +42,15 @@ export const CreateUserDocument = gql`
       users {
         email
         id
+      }
+    }
+  }
+`
+export const UpdateUserDocument = gql`
+  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {
+    updateUsers(update: $update, where: $where) {
+      users {
+        preferences
       }
     }
   }
@@ -83,6 +101,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'CreateUser',
+        'mutation',
+        variables,
+      )
+    },
+    UpdateUser(
+      variables: UpdateUserMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateUserMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateUserMutation>(UpdateUserDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'UpdateUser',
         'mutation',
         variables,
       )

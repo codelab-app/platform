@@ -1,7 +1,7 @@
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 # jobs:
 #   deploy-web:
 #     runs-on: ubuntu-latest

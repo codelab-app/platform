@@ -63,7 +63,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const runtimeContainerNode = renderer?.runtimeContainerNode
     const runtimeStore = runtimeContainerNode?.runtimeStore
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
-    const antdTree = runtimeContainerNode?.treeViewNode
+    const antdTree = runtimeContainerNode?.runtimeRootElement.treeViewNode
 
     const sidebarViews: Array<CuiSidebarView> = [
       {
