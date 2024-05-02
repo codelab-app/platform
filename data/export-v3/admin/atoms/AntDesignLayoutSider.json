@@ -124,7 +124,7 @@
           "id": "04862a25-c114-4f3e-869e-d879b461182f"
         },
         "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
-        "key": "theme",
+        "key": "antdTheme",
         "name": "Theme",
         "nextSibling": null,
         "prevSibling": null,
