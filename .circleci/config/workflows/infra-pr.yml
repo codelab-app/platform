@@ -47,10 +47,27 @@ jobs:
             - staging
       requires:
         - setup-infra-workspace
-  # - plan:
-  #     filters:
-  #       branches:
-  #         only:
-  #           - staging
-  #     requires:
-  #       - setup-infra-workspace
+  - plan:
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - docker-web
+        - docker-api
+        - docker-landing
+  - hold-apply:
+      filters:
+        branches:
+          only:
+            - staging
+      type: approval
+      requires:
+        - plan
+  - apply:
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - hold-apply

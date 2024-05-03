@@ -396,7 +396,7 @@ jobs:
           name: Create .terraformrc file locally
       - run: terraform --version
       - run:
-          command: terraform -chdir=terraform fmt
+          command: terraform -chdir=infra/terraform fmt
           name: Terraform Format
       - run:
           command: pnpm cli terraform --stage prod init
@@ -603,4 +603,28 @@ workflows:
                 - staging
           requires:
             - setup-infra-workspace
+      - plan:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - docker-web
+            - docker-api
+            - docker-landing
+      - hold-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - plan
+          type: approval
+      - apply:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - hold-apply
 working_directory: ~/project

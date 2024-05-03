@@ -13,6 +13,7 @@ resource "circleci_context_environment_variable" "prod" {
     AUTH0_CLIENT_SECRET      = var.auth0_web_client_secret
     AUTH0_DOMAIN             = var.auth0_domain
     AUTH0_SECRET             = var.auth0_secret
+    # DOCKER_TAG_VERSION       = var.docker_tag_version
   }
 
   variable   = each.key
