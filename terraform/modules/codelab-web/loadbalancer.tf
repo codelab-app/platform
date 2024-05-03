@@ -5,6 +5,9 @@ resource "digitalocean_loadbalancer" "web" {
 
   vpc_uuid = var.codelab_app_vpc_id
 
+  # https://github.com/digitalocean/terraform-provider-digitalocean/issues/456
+  disable_lets_encrypt_dns_records = true
+
   droplet_ids = [
     digitalocean_droplet.codelab_web.id,
   ]
@@ -23,20 +26,4 @@ resource "digitalocean_loadbalancer" "web" {
     port     = 22
     protocol = "tcp"
   }
-}
-
-resource "digitalocean_record" "web_a_record" {
-  domain = var.codelab_app_domain_id
-  type   = "A"
-  name   = "admin"
-  value  = digitalocean_loadbalancer.web.ip
-  ttl    = 3600
-}
-
-resource "digitalocean_record" "web_cname" {
-  domain = var.codelab_app_domain_id
-  type   = "CNAME"
-  name   = "www.admin"
-  value  = "admin.codelab.app."
-  ttl    = 3600
 }

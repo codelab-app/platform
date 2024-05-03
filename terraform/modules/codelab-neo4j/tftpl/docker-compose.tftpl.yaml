@@ -50,8 +50,9 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    ports:
-      - '8080:12345'
+    # Uncomment this to debug with UI
+    # ports:
+    #   - '8080:12345'
     command:
       - run
       - '--server.http.listen-addr=0.0.0.0:12345'
@@ -59,13 +60,13 @@ services:
       - /etc/alloy/config.alloy
     restart: unless-stopped
 
-  whoami:
-    networks:
-      - codelab
-    image: traefik/whoami
-    container_name: traefik-whoami
-    ports:
-      - 80:80
+  # whoami:
+  #   networks:
+  #     - codelab
+  #   image: traefik/whoami
+  #   container_name: traefik-whoami
+  #   ports:
+  #     - 80:80
 
   # traefik:
   #   # The official v3 Traefik docker image

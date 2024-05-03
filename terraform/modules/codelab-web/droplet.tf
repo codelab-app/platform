@@ -13,13 +13,7 @@ resource "digitalocean_droplet" "codelab_web" {
   # Taken from DO security SSH keys
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
-  # Run once only
   user_data = data.cloudinit_config.web.rendered
 
-  lifecycle {
-    # ignore_changes = [user_data]
-  }
-
-  # Optional: Enable the DigitalOcean agent
   droplet_agent = true
 }

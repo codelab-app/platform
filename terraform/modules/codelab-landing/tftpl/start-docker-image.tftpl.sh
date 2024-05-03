@@ -16,4 +16,4 @@ mv /etc/docker/daemon.tmp.json /etc/docker/daemon.json
 
 systemctl restart docker
 
-cd /root/docker && docker compose pull && docker compose up -d --force-recreate
+cd /root/docker && docker compose pull && docker compose up -d --force-recreate --remove-orphans

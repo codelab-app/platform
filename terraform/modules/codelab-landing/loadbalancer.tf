@@ -3,6 +3,9 @@ resource "digitalocean_loadbalancer" "landing" {
   name   = "landing-load-balancer"
   region = var.digitalocean_region
 
+  # https://github.com/digitalocean/terraform-provider-digitalocean/issues/456
+  disable_lets_encrypt_dns_records = true
+
   vpc_uuid = var.codelab_app_vpc_id
 
   droplet_ids = [
@@ -23,20 +26,4 @@ resource "digitalocean_loadbalancer" "landing" {
     port     = 22
     protocol = "tcp"
   }
-}
-
-resource "digitalocean_record" "landing_a_record" {
-  domain = var.codelab_app_domain_id
-  type   = "A"
-  name   = "@"
-  value  = digitalocean_loadbalancer.landing.ip
-  ttl    = 3600
-}
-
-resource "digitalocean_record" "landing_cname" {
-  domain = var.codelab_app_domain_id
-  type   = "CNAME"
-  name   = "www"
-  value  = "@"
-  ttl    = 3600
 }
