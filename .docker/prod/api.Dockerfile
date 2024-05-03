@@ -22,26 +22,25 @@ RUN apk update && \
   corepack enable && \
   corepack prepare pnpm@8.15.0 --activate
 
-###################
 
 FROM base AS install
 
 # Put this separately for caching
 # The trailing / is required when copying from multiple sources
 COPY package.json pnpm-lock.yaml .npmrc ./
+# Required for yarn workspaces
+COPY dist/libs/tools ./dist/libs/tools
+COPY data ./data
 RUN pnpm install --frozen-lockfile
 
 
 FROM install AS build
+
 # The trailing / is required when copying from multiple sources
 COPY nx.json tsconfig.base.json ./
-# Required for yarn workspaces
-COPY dist/libs/tools ./dist/libs/tools
 COPY apps/api ./apps/api
 COPY libs ./libs
 COPY types ./types
-COPY data ./data
-
 
 WORKDIR /usr/src/codelab
 

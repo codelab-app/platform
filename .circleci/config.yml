@@ -62,6 +62,19 @@ commands:
           name: Save node_modules Cache
           paths:
             - ~/project/node_modules
+  install-packer:
+    description: Install Packer
+    steps:
+      - run:
+          command: |
+            set -x
+
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+
+            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+            sudo apt-get update && sudo apt-get install packer
+          name: Install Packer
   install-pnpm:
     steps:
       - run:
@@ -360,6 +373,19 @@ jobs:
             	]
             }
           event: pass
+  packer-image:
+    executor: docker-node
+    resource_class: medium
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-landing.sh)
+          name: Build landing Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
+          name: Push Docker Image
   plan:
     executor: docker-node
     steps:

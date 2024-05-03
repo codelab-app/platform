@@ -12,8 +12,6 @@
 #
 FROM node:18.17-alpine AS base
 
-RUN echo $DOCKER_BUILDKIT
-
 WORKDIR /usr/src/codelab
 
 # Combine commands to reduce the number of layers in your Docker image, which can reduce the overhead when running containers.
@@ -27,6 +25,8 @@ RUN apk update && \
 FROM base AS install
 
 COPY package.json pnpm-lock.yaml .npmrc ./
+# Required for yarn workspaces
+COPY dist/libs/tools ./dist/libs/tools
 RUN pnpm install --frozen-lockfile
 
 
@@ -36,8 +36,6 @@ FROM install as build
 # The trailing / is required when copying from multiple sources
 
 COPY nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
-# Required for yarn workspaces
-COPY dist/libs/tools ./dist/libs/tools
 COPY apps/web ./apps/web
 COPY libs ./libs
 COPY types ./types
