@@ -29,11 +29,13 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           ({ stage }) => {
             // Use `tfswitch` to change to specific versions
-            execCommand(`cd terraform/environments/${stage} && ./symlink.sh`)
-            execCommand('cd terraform/modules && ./symlink.sh')
+            execCommand(
+              `cd infra/terraform/environments/${stage} && ./symlink.sh`,
+            )
+            execCommand('cd infra/terraform/modules && ./symlink.sh')
 
             return execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} init --upgrade;`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade;`,
             )
           },
         )
@@ -43,7 +45,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           ({ stage }) => {
             return execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} plan`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} plan`,
             )
           },
         )
@@ -58,7 +60,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           ({ stage }) => {
             return execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} import aws_lambda_function.nest_cli nest_cli`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} import aws_lambda_function.nest_cli nest_cli`,
             )
           },
         )
@@ -71,7 +73,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
 
             // Add export TF_LOG=DEBUG for verbose
             return execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} apply ${autoApprove}`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApprove}`,
             )
           },
         )
@@ -81,7 +83,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           ({ stage }) => {
             return execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} validate`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} validate`,
             )
           },
         )
@@ -93,7 +95,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             // `terraform state rm`
 
             return execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} destroy`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} destroy`,
             )
           },
         )
@@ -106,16 +108,16 @@ export class TerraformService implements CommandModule<unknown, unknown> {
               `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --recursive`,
             )
             // execCommand(
-            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/ci`,
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/ci`,
             // )
             // execCommand(
-            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/dev`,
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/dev`,
             // )
             // execCommand(
-            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/prod`,
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/prod`,
             // )
             // execCommand(
-            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/test`,
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/test`,
             // )
           },
         )

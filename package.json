@@ -22,7 +22,7 @@
     "test:unit": "nx run-many --all --target=test:unit --parallel=5",
     "test:integration": "nx run-many --all --target=test:integration --parallel=1",
     "lint": "nx run-many --all --target=lint --parallel=5 --quiet",
-    "format": "npx prettier --write \"./**/*.{graphql,yaml,json}\" && terraform -chdir=terraform fmt --recursive",
+    "format": "npx prettier --write \"./**/*.{graphql,yaml,json}\" && terraform -chdir=infra/terraform fmt --recursive",
     "nx": "nx",
     "update": "nx migrate @nx/workspace",
     "dep-graph": "nx dep-graph --watch",

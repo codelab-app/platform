@@ -11,6 +11,15 @@ jobs:
             - staging
       requires:
         - setup-workspace
+  - packer-image:
+      context:
+        - prod
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - setup-infra-workspace
   - docker-web:
       context:
         - prod
