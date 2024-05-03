@@ -44,7 +44,8 @@ COPY types ./types
 
 WORKDIR /usr/src/codelab
 
-RUN pnpm nx build api --verbose
+# NX cache doesn't take into account environment variables
+RUN pnpm nx build api --verbose --skip-nx-cache
 
 #
 # (2) Prod

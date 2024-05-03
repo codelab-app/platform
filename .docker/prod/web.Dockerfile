@@ -65,7 +65,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /usr/src/codelab
 
-RUN pnpm nx build web --verbose
+# NX cache doesn't take into account environment variables
+RUN pnpm nx build web --verbose --skip-nx-cache
 
 #
 # (2) Prod

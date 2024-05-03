@@ -68,7 +68,8 @@ ENV MAILCHIMP_SERVER_PREFIX=$MAILCHIMP_SERVER_PREFIX
 
 WORKDIR /usr/src/codelab
 
-RUN pnpm nx build landing --verbose
+# NX cache doesn't take into account environment variables
+RUN pnpm nx build landing --verbose --skip-nx-cache
 
 #
 # (2) Prod
