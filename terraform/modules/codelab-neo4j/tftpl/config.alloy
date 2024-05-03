@@ -3,18 +3,29 @@ logging {
   format = "logfmt"
 }
 
-prometheus.exporter.cadvisor "neo4j" {
-  docker_host = "unix:///var/run/docker.sock"
+prometheus.exporter.unix "default" {}
 
+prometheus.exporter.cadvisor "default" {
   storage_duration = "5m"
 }
 
-prometheus.scrape "default" {
+prometheus.scrape "cadvisor" {
   scrape_interval = "10s"
 
-  targets    = prometheus.exporter.cadvisor.neo4j.targets
+  targets = prometheus.exporter.cadvisor.default.targets
+
   forward_to = [
-    prometheus.remote_write.cloud.receiver
+    prometheus.remote_write.cloud.receiver,
+  ]
+}
+
+prometheus.scrape "node_exporter" {
+  scrape_interval = "10s"
+
+  targets    = prometheus.exporter.unix.default.targets
+
+  forward_to = [
+    prometheus.remote_write.cloud.receiver,
   ]
 }
 
