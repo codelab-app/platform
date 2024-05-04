@@ -1,6 +1,72 @@
 jobs:
-  - notify-success:
+  - setup-workspace:
       filters:
         branches:
           only:
             - master
+  - hold-deploy:
+      filters:
+        branches:
+          only:
+            - master
+      type: approval
+      requires:
+        - setup-workspace
+  - setup-infra-workspace:
+      filters:
+        branches:
+          only:
+            - master
+      requires:
+        - hold-deploy
+  - docker-web:
+      filters:
+        branches:
+          only:
+            - master
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - docker-api:
+      filters:
+        branches:
+          only:
+            - master
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - docker-landing:
+      filters:
+        branches:
+          only:
+            - master
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - plan:
+      filters:
+        branches:
+          only:
+            - master
+      requires:
+        - docker-web
+        - docker-api
+        - docker-landing
+  - hold-apply:
+      filters:
+        branches:
+          only:
+            - master
+      type: approval
+      requires:
+        - plan
+  - apply:
+      filters:
+        branches:
+          only:
+            - master
+      requires:
+        - hold-apply

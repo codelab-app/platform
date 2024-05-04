@@ -1,6 +1,13 @@
-import { AuthModule } from '@codelab/backend/application/auth'
+import {
+  AuthMiddleware,
+  AuthModule,
+  JwtAuthGuard,
+} from '@codelab/backend/application/auth'
+import { authMiddleware } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { Module } from '@nestjs/common'
+import type { MiddlewareConsumer } from '@nestjs/common'
+import { Module, RequestMethod } from '@nestjs/common'
+import { APP_GUARD } from '@nestjs/core'
 import { ApiModule } from './api/api.module'
 import { GraphqlModule } from './graphql/graphql.module'
 import { HealthcheckController } from './healthcheck.controller'
@@ -8,6 +15,25 @@ import { HealthcheckController } from './healthcheck.controller'
 @Module({
   controllers: [HealthcheckController],
   imports: [AuthModule, GraphqlModule, ApiModule, CodelabLoggerModule],
-  providers: [],
+  /**
+   * Need this to guard all controllers to inject the proper user into context
+   *
+   * But this doesn't work for `GraphQLModule` at `/api/graphql`, we use middleware for that below
+   *
+   * GraphQL in NestJS is handled through a single route and processed internally by the Apollo Server
+   */
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
-export class RootModule {}
+export class RootModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(AuthMiddleware)
+  //     // This needs to be `/graphql` since `/api` is added as a `globalPrefix`
+  //     .forRoutes({ method: RequestMethod.ALL, path: '/graphql' })
+  // }
+}

@@ -23,17 +23,18 @@
   },
   "extends": [
     "plugin:canonical/recommended",
-    "./scripts/eslint/.eslintrc.nx.json",
-    "./scripts/eslint/.eslintrc.globals.json",
-    "./scripts/eslint/.eslintrc.spacing.json",
-    "./scripts/eslint/.eslintrc.naming.json",
-    "./scripts/eslint/.eslintrc.cypress.json",
-    "./scripts/eslint/.eslintrc.codelab.json",
+    "./scripts/eslint/.nx.eslintrc.json",
+    "./scripts/eslint/.globals.eslintrc.json",
+    "./scripts/eslint/.spacing.eslintrc.json",
+    "./scripts/eslint/.naming.eslintrc.json",
+    "./scripts/eslint/.cypress.eslintrc.json",
+    "./scripts/eslint/.codelab.eslintrc.json",
     "plugin:prettier/recommended",
     "plugin:react/recommended"
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
-    // "plugin:import/recommended"
+    // "plugin:import/recommended",
+    // "plugin:import/typescript"
     // "plugin:lodash/recommended"
   ],
   // Used for import plugin
@@ -44,10 +45,10 @@
     "import/resolver": {
       "typescript": {
         "alwaysTryTypes": true,
-        "project": ["(apps|libs)/**/tsconfig.lib.json"]
+        "project": ["tsconfig.base.json", "(apps|libs)/*/tsconfig.lib.json"]
       },
       "node": {
-        "project": ["(apps|libs)/**/tsconfig.lib.json"]
+        "project": ["tsconfig.base.json", "(apps|libs)/*/tsconfig.lib.json"]
       }
     }
   },

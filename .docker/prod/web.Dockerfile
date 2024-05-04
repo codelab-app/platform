@@ -10,23 +10,32 @@
 #
 # (1) install - using alias and having multiple steps can help with caching and build speed
 #
-FROM node:18.17-alpine AS install
-
-# RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpng-dev g++
-RUN apk update
-# No cache reduces bundle size
-RUN apk add --no-cache libc6-compat python3 py3-pip make g++
-RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
+FROM node:18.17-alpine AS base
 
 WORKDIR /usr/src/codelab
 
-# Put this separately for caching
-# The trailing / is required when copying from multiple sources
-COPY package.json pnpm-lock.yaml  ./
+# Combine commands to reduce the number of layers in your Docker image, which can reduce the overhead when running containers.
+# No cache reduces bundle size
+RUN apk update && \
+  apk add --no-cache libc6-compat python3 py3-pip make g++ && \
+  corepack enable && \
+  corepack prepare pnpm@8.15.0 --activate
 
-COPY .npmrc nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
+
+FROM base AS install
+
+COPY package.json pnpm-lock.yaml .npmrc ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
+RUN pnpm install --frozen-lockfile
+
+
+FROM install as build
+
+# Put this separately for caching
+# The trailing / is required when copying from multiple sources
+
+COPY nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
 COPY apps/web ./apps/web
 COPY libs ./libs
 COPY types ./types
@@ -54,15 +63,9 @@ ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
 ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN pnpm install --frozen-lockfile
-
-#
-# Build
-#
-FROM install AS build
-
 WORKDIR /usr/src/codelab
 
+# NX cache doesn't take into account environment variables
 RUN pnpm nx build web --verbose --skip-nx-cache
 
 #

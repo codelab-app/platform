@@ -78,9 +78,10 @@ describe('State variables sharing between pages', () => {
       'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+    cy.waitForSpinners()
     cy.openPreview().contains('text undefined').should('exist')
-    cy.openBuilder()
 
+    cy.openBuilder()
     // create a state variable inside the component
     cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)

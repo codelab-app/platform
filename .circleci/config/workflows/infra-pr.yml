@@ -1,3 +1,4 @@
+# This runs on staging only for testing
 jobs:
   - setup-workspace:
       filters:
@@ -11,37 +12,63 @@ jobs:
             - staging
       requires:
         - setup-workspace
-  - docker-web:
-      context:
-        - prod
-      filters:
-        branches:
-          only:
-            - staging
-      requires:
-        - setup-infra-workspace
-  - docker-api:
-      context:
-        - prod
-      filters:
-        branches:
-          only:
-            - staging
-      requires:
-        - setup-infra-workspace
-  - docker-landing:
-      context:
-        - prod
-      filters:
-        branches:
-          only:
-            - staging
-      requires:
-        - setup-infra-workspace
-  # - plan:
+  # - packer-image:
+  #     context:
+  #       - prod
   #     filters:
   #       branches:
   #         only:
   #           - staging
   #     requires:
   #       - setup-infra-workspace
+  - docker-web:
+      filters:
+        branches:
+          only:
+            - staging
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - docker-api:
+      filters:
+        branches:
+          only:
+            - staging
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - docker-landing:
+      filters:
+        branches:
+          only:
+            - staging
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - plan:
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - docker-web
+        - docker-api
+        - docker-landing
+  - hold-apply:
+      filters:
+        branches:
+          only:
+            - staging
+      type: approval
+      requires:
+        - plan
+  - apply:
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - hold-apply

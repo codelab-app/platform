@@ -8,7 +8,7 @@ steps:
   - run: terraform --version
   - run:
       name: 'Terraform Format'
-      command: terraform -chdir=terraform fmt
+      command: terraform -chdir=infra/terraform fmt
   - run:
       name: 'Terraform Init'
       command: pnpm cli terraform --stage prod init

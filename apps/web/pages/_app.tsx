@@ -69,11 +69,6 @@ const App = ({
     )
   }, [user])
 
-  // So we can access in Cypress
-  if (typeof window !== 'undefined' && window.Cypress) {
-    set(window, '__store__', store)
-  }
-
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
 

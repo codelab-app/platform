@@ -62,6 +62,19 @@ commands:
           name: Save node_modules Cache
           paths:
             - ~/project/node_modules
+  install-packer:
+    description: Install Packer
+    steps:
+      - run:
+          command: |
+            set -x
+
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+
+            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+            sudo apt-get update && sudo apt-get install packer
+          name: Install Packer
   install-pnpm:
     steps:
       - run:
@@ -360,6 +373,19 @@ jobs:
             	]
             }
           event: pass
+  packer-image:
+    executor: docker-node
+    resource_class: medium
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-landing.sh)
+          name: Build landing Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
+          name: Push Docker Image
   plan:
     executor: docker-node
     steps:
@@ -370,7 +396,7 @@ jobs:
           name: Create .terraformrc file locally
       - run: terraform --version
       - run:
-          command: terraform -chdir=terraform fmt
+          command: terraform -chdir=infra/terraform fmt
           name: Terraform Format
       - run:
           command: pnpm cli terraform --stage prod init
@@ -435,11 +461,77 @@ version: 2.1
 workflows:
   app:
     jobs:
-      - notify-success:
+      - setup-workspace:
           filters:
             branches:
               only:
                 - master
+      - hold-deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-workspace
+          type: approval
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-deploy
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - plan:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - docker-web
+            - docker-api
+            - docker-landing
+      - hold-apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - plan
+          type: approval
+      - apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-apply
   app-pr:
     jobs:
       - setup-workspace:
@@ -500,42 +592,6 @@ workflows:
             - unit
             - integration
             - e2e
-  infra:
-    jobs:
-      - setup-workspace:
-          filters:
-            branches:
-              only:
-                - master
-      - setup-infra-workspace:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - setup-workspace
-      - plan:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - setup-infra-workspace
-      - hold-apply:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - plan
-          type: approval
-      - apply:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - hold-apply
   infra-pr:
     jobs:
       - setup-workspace:
@@ -577,4 +633,28 @@ workflows:
                 - staging
           requires:
             - setup-infra-workspace
+      - plan:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - docker-web
+            - docker-api
+            - docker-landing
+      - hold-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - plan
+          type: approval
+      - apply:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - hold-apply
 working_directory: ~/project

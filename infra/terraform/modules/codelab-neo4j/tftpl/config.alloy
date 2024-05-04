@@ -1,0 +1,41 @@
+logging {
+  level  = "debug"
+  format = "logfmt"
+}
+
+prometheus.exporter.unix "default" {}
+
+prometheus.exporter.cadvisor "default" {
+  storage_duration = "5m"
+}
+
+prometheus.scrape "cadvisor" {
+  scrape_interval = "10s"
+
+  targets = prometheus.exporter.cadvisor.default.targets
+
+  forward_to = [
+    prometheus.remote_write.cloud.receiver,
+  ]
+}
+
+prometheus.scrape "node_exporter" {
+  scrape_interval = "10s"
+
+  targets    = prometheus.exporter.unix.default.targets
+
+  forward_to = [
+    prometheus.remote_write.cloud.receiver,
+  ]
+}
+
+prometheus.remote_write "cloud" {
+  endpoint {
+    url = "${prometheus_write_url}"
+
+    basic_auth {
+      username = "${prometheus_username}"
+      password = "${prometheus_password}"
+    }
+  }
+}
