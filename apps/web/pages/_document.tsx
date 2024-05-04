@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
       originalRenderPage({
         enhanceApp: (App) => (props) =>
           (
-            <StyleProvider cache={cache}>
+            <StyleProvider cache={cache} hashPriority="high">
               <App {...props} />
             </StyleProvider>
           ),
