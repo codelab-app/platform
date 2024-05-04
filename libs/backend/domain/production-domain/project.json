@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "name": "backend-domain-production-domain",
+  "projectType": "library",
+  "sourceRoot": "libs/backend/domain/production-domain/src",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:domain"
+  ],
+  "targets": {
+    "lint": {
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-domain-production-domain.xml",
+          "quiet": true
+        }
+      },
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/domain/production-domain/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      }
+    }
+  }
+}

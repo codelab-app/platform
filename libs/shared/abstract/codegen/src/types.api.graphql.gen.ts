@@ -6832,10 +6832,9 @@ export type Domain = {
   app: App
   appAggregate?: Maybe<DomainAppAppAggregationSelection>
   appConnection: DomainAppConnection
-  domainConfig: VercelDomainConfig
+  domainConfig: ProductionDomainConfig
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
-  projectDomain: VercelProjectDomain
 }
 
 export type DomainAppArgs = {
@@ -15496,6 +15495,10 @@ export type PrimitiveTypesConnection = {
   totalCount: Scalars['Int']['output']
 }
 
+export type ProductionDomainConfig = {
+  misconfigured: Scalars['Boolean']['output']
+}
+
 export type Prop = {
   data: Scalars['String']['output']
   id: Scalars['ID']['output']
@@ -22053,14 +22056,6 @@ export type UsersConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export type VercelDomainConfig = {
-  misconfigured: Scalars['Boolean']['output']
-}
-
-export type VercelProjectDomain = {
-  verified: Scalars['Boolean']['output']
-}
-
 export type WithDescendants = {
   descendantTypesIds: Array<Scalars['ID']['output']>
 }
@@ -22301,7 +22296,6 @@ export type DomainFragment = {
   name: string
   app: { id: string }
   domainConfig: { misconfigured: boolean }
-  projectDomain: { verified: boolean }
 }
 
 export type ElementFragment = {

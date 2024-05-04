@@ -13,7 +13,7 @@ export const ConfigGuide = ({ domain, type }: ConfigGuideTabProps) => {
     {
       children: <ARecordTabContent />,
       key: '1',
-      label: 'A Record (Recommended)',
+      label: 'DNS Records (Recommended)',
     },
   ]
 

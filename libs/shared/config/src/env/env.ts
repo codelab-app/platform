@@ -6,6 +6,8 @@ import type { IEndpointEnvVars } from './services/endpoint'
 import { EndpointEnvVars } from './services/endpoint'
 import type { IGoogleAnalyticsEnvVars } from './services/google-analytics'
 import { GoogleAnalyticsEnvVars } from './services/google-analytics'
+import type { IHostingProviderEnvVars } from './services/hosting-provider'
+import { HostingProviderEnvVars } from './services/hosting-provider'
 import type { IHotjarEnvVars } from './services/hotjar'
 import { HotjarEnvVars } from './services/hotjar'
 import type { IIntercomEnvVars } from './services/intercom'
@@ -24,6 +26,7 @@ export interface IEnvironmentVariables {
   circleci: ICircleCIEnvVars
   endpoint: IEndpointEnvVars
   googleAnalytics: IGoogleAnalyticsEnvVars
+  hostingProvider: IHostingProviderEnvVars
   hotjar: IHotjarEnvVars
   intercom: IIntercomEnvVars
   mailchimp: IMailchimpEnvVars
@@ -64,6 +67,10 @@ class EnvironmentVariables implements IEnvironmentVariables {
     return (this._googleAnalytics ??= new GoogleAnalyticsEnvVars())
   }
 
+  public get hostingProvider() {
+    return (this._hostingProvider ??= new HostingProviderEnvVars())
+  }
+
   public get hotjar() {
     return (this._hotjar ??= new HotjarEnvVars())
   }
@@ -97,6 +104,8 @@ class EnvironmentVariables implements IEnvironmentVariables {
   private _endpoint?: IEndpointEnvVars
 
   private _googleAnalytics?: IGoogleAnalyticsEnvVars
+
+  private _hostingProvider?: IHostingProviderEnvVars
 
   private _hotjar?: IHotjarEnvVars
 

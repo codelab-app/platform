@@ -8,7 +8,6 @@ export type DomainFragment = {
   name: string
   app: { id: string }
   domainConfig: { misconfigured: boolean }
-  projectDomain: { verified: boolean }
 }
 
 export const DomainFragmentDoc = gql`
@@ -21,9 +20,6 @@ export const DomainFragmentDoc = gql`
     }
     id
     name
-    projectDomain {
-      verified
-    }
   }
 `
 

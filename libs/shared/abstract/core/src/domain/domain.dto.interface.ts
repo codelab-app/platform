@@ -17,10 +17,6 @@ export const IDomainDto = Type.Object({
   ]),
   id: Type.String(),
   name: Type.String(),
-  projectDomain: Type.Union([
-    Type.Object({ verified: Type.Boolean() }),
-    Type.Undefined(),
-  ]),
 })
 
 export type IDomainDto = Static<typeof IDomainDto>

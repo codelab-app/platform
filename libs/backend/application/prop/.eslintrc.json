@@ -5,7 +5,11 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
+<<<<<<<< HEAD:libs/backend/application/prop/.eslintrc.json
         "project": ["libs/backend/application/prop/tsconfig.*?.json"]
+========
+        "project": ["libs/backend/domain/production-domain/tsconfig.*?.json"]
+>>>>>>>> a265ddd79 (feat: implement CRUD operations for domains in DO):libs/backend/domain/production-domain/.eslintrc.json
       },
       "rules": {}
     },

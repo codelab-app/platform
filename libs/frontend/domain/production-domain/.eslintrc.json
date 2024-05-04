@@ -1,0 +1,17 @@
+{
+  "extends": "../../../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["libs/frontend/domain/production-domain/tsconfig.*?.json"]
+      },
+      "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {}
+    }
+  ]
+}
