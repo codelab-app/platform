@@ -1,7 +1,7 @@
 {
-  "name": "backend-application-domain-prop",
+  "name": "backend-application-prop",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/application/domain/prop/src",
+  "sourceRoot": "libs/backend/application/prop/src",
   "projectType": "library",
   "targets": {
     "lint": {
@@ -9,13 +9,13 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-application-domain-prop.xml",
+          "outputFile": "tmp/reports/lint/backend-application-prop.xml",
           "quiet": true
         }
       },
       "options": {
         "lintFilePatterns": [
-          "libs/backend/application/domain/prop/**/*.{ts,tsx,js,jsx,graphql}"
+          "libs/backend/application/prop/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       }
     }
