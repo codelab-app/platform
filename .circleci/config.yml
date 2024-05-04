@@ -461,11 +461,77 @@ version: 2.1
 workflows:
   app:
     jobs:
-      - notify-success:
+      - setup-workspace:
           filters:
             branches:
               only:
                 - master
+      - hold-deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-workspace
+          type: approval
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-deploy
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - plan:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - docker-web
+            - docker-api
+            - docker-landing
+      - hold-apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - plan
+          type: approval
+      - apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-apply
   app-pr:
     jobs:
       - setup-workspace:
@@ -526,105 +592,4 @@ workflows:
             - unit
             - integration
             - e2e
-  infra:
-    jobs:
-      - setup-workspace:
-          filters:
-            branches:
-              only:
-                - master
-      - setup-infra-workspace:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - setup-workspace
-      - plan:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - setup-infra-workspace
-      - hold-apply:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - plan
-          type: approval
-      - apply:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - hold-apply
-  infra-pr:
-    jobs:
-      - setup-workspace:
-          filters:
-            branches:
-              only:
-                - staging
-      - setup-infra-workspace:
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-workspace
-      - docker-web:
-          context:
-            - prod
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-infra-workspace
-      - docker-api:
-          context:
-            - prod
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-infra-workspace
-      - docker-landing:
-          context:
-            - prod
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - setup-infra-workspace
-      - plan:
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - docker-web
-            - docker-api
-            - docker-landing
-      - hold-apply:
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - plan
-          type: approval
-      - apply:
-          filters:
-            branches:
-              only:
-                - staging
-          requires:
-            - hold-apply
 working_directory: ~/project
