@@ -58,10 +58,11 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.SELECT,
       value: component.name,
     })
+
     // The select component field fetches the component options first when clicked
     // so we need to wait for the graphql operation that actually updates the element
     cy.get<Array<Interception>>('@selectComponent.all')
-      .should('have.length', 2)
+      .should('have.length', 3)
       .then((interceptions) => {
         const lastInterception = interceptions[interceptions.length - 1]
 
