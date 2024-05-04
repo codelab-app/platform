@@ -4,9 +4,21 @@
   },
   "tasksRunnerOptions": {
     "default": {
+      "runner": "nx-cloud",
       "options": {
+        "cacheableOperations": [
+          "build",
+          "test",
+          "test:integration",
+          "test:unit",
+          "lint",
+          "e2e",
+          "build-storybook"
+        ],
         "canTrackAnalytics": true,
-        "showUsageWarnings": true
+        "showUsageWarnings": true,
+        "parallel": 3,
+        "accessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU="
       }
     }
   },
@@ -107,12 +119,10 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["prod", "^prod"],
-      "cache": true
+      "inputs": ["prod", "^prod"]
     },
     "e2e": {
-      "inputs": ["default", "^default"],
-      "cache": true
+      "inputs": ["default", "^default"]
     },
     "build-storybook": {
       "inputs": [
@@ -149,18 +159,6 @@
     "@nx/vite:test": {
       "cache": true,
       "inputs": ["default", "^default"]
-    },
-    "test": {
-      "cache": true
-    },
-    "test:integration": {
-      "cache": true
-    },
-    "test:unit": {
-      "cache": true
-    },
-    "lint": {
-      "cache": true
     }
   },
   "namedInputs": {
@@ -178,9 +176,6 @@
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
       "!{projectRoot}/.storybook/**/*"
-    ],
-    "production": ["default"]
-  },
-  "nxCloudAccessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU=",
-  "parallel": 3
+    ]
+  }
 }
