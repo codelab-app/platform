@@ -7,7 +7,4 @@ fragment Domain on Domain {
   }
   id
   name
-  projectDomain {
-    verified
-  }
 }

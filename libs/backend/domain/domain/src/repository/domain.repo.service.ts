@@ -11,6 +11,7 @@ import {
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
+import { connectNodeId } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -33,7 +34,8 @@ export class DomainRepository extends AbstractRepository<
       await (
         await this.ogmService.Domain
       ).create({
-        input: domains.map(({ id, name }) => ({
+        input: domains.map(({ app, id, name }) => ({
+          app: connectNodeId(app.id),
           id,
           name,
         })),
@@ -52,7 +54,7 @@ export class DomainRepository extends AbstractRepository<
       await this.ogmService.Domain
     ).find({
       options,
-      selectionSet: domainSelectionSet,
+      selectionSet: `{ ${domainSelectionSet} }`,
       where,
     })
   }

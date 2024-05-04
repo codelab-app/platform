@@ -129,12 +129,9 @@ export type Query = {
   resources: Array<Resource>
   resourcesConnection: ResourcesConnection
   resourcesAggregate: ResourceAggregateSelection
-  vercelDomainConfigs: Array<VercelDomainConfig>
-  vercelDomainConfigsConnection: VercelDomainConfigsConnection
-  vercelDomainConfigsAggregate: VercelDomainConfigAggregateSelection
-  vercelProjectDomains: Array<VercelProjectDomain>
-  vercelProjectDomainsConnection: VercelProjectDomainsConnection
-  vercelProjectDomainsAggregate: VercelProjectDomainAggregateSelection
+  productionDomainConfigs: Array<ProductionDomainConfig>
+  productionDomainConfigsConnection: ProductionDomainConfigsConnection
+  productionDomainConfigsAggregate: ProductionDomainConfigAggregateSelection
   domains: Array<Domain>
   domainsConnection: DomainsConnection
   domainsAggregate: DomainAggregateSelection
@@ -653,36 +650,20 @@ export type QueryResourcesAggregateArgs = {
   where?: InputMaybe<ResourceWhere>
 }
 
-export type QueryVercelDomainConfigsArgs = {
-  where?: InputMaybe<VercelDomainConfigWhere>
-  options?: InputMaybe<VercelDomainConfigOptions>
+export type QueryProductionDomainConfigsArgs = {
+  where?: InputMaybe<ProductionDomainConfigWhere>
+  options?: InputMaybe<ProductionDomainConfigOptions>
 }
 
-export type QueryVercelDomainConfigsConnectionArgs = {
+export type QueryProductionDomainConfigsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   after?: InputMaybe<Scalars['String']['input']>
-  where?: InputMaybe<VercelDomainConfigWhere>
-  sort?: InputMaybe<Array<InputMaybe<VercelDomainConfigSort>>>
+  where?: InputMaybe<ProductionDomainConfigWhere>
+  sort?: InputMaybe<Array<InputMaybe<ProductionDomainConfigSort>>>
 }
 
-export type QueryVercelDomainConfigsAggregateArgs = {
-  where?: InputMaybe<VercelDomainConfigWhere>
-}
-
-export type QueryVercelProjectDomainsArgs = {
-  where?: InputMaybe<VercelProjectDomainWhere>
-  options?: InputMaybe<VercelProjectDomainOptions>
-}
-
-export type QueryVercelProjectDomainsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>
-  after?: InputMaybe<Scalars['String']['input']>
-  where?: InputMaybe<VercelProjectDomainWhere>
-  sort?: InputMaybe<Array<InputMaybe<VercelProjectDomainSort>>>
-}
-
-export type QueryVercelProjectDomainsAggregateArgs = {
-  where?: InputMaybe<VercelProjectDomainWhere>
+export type QueryProductionDomainConfigsAggregateArgs = {
+  where?: InputMaybe<ProductionDomainConfigWhere>
 }
 
 export type QueryDomainsArgs = {
@@ -837,12 +818,9 @@ export type Mutation = {
   createResources: CreateResourcesMutationResponse
   deleteResources: DeleteInfo
   updateResources: UpdateResourcesMutationResponse
-  createVercelDomainConfigs: CreateVercelDomainConfigsMutationResponse
-  deleteVercelDomainConfigs: DeleteInfo
-  updateVercelDomainConfigs: UpdateVercelDomainConfigsMutationResponse
-  createVercelProjectDomains: CreateVercelProjectDomainsMutationResponse
-  deleteVercelProjectDomains: DeleteInfo
-  updateVercelProjectDomains: UpdateVercelProjectDomainsMutationResponse
+  createProductionDomainConfigs: CreateProductionDomainConfigsMutationResponse
+  deleteProductionDomainConfigs: DeleteInfo
+  updateProductionDomainConfigs: UpdateProductionDomainConfigsMutationResponse
   createDomains: CreateDomainsMutationResponse
   deleteDomains: DeleteInfo
   updateDomains: UpdateDomainsMutationResponse
@@ -1423,30 +1401,17 @@ export type MutationUpdateResourcesArgs = {
   connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
 }
 
-export type MutationCreateVercelDomainConfigsArgs = {
-  input: Array<VercelDomainConfigCreateInput>
+export type MutationCreateProductionDomainConfigsArgs = {
+  input: Array<ProductionDomainConfigCreateInput>
 }
 
-export type MutationDeleteVercelDomainConfigsArgs = {
-  where?: InputMaybe<VercelDomainConfigWhere>
+export type MutationDeleteProductionDomainConfigsArgs = {
+  where?: InputMaybe<ProductionDomainConfigWhere>
 }
 
-export type MutationUpdateVercelDomainConfigsArgs = {
-  where?: InputMaybe<VercelDomainConfigWhere>
-  update?: InputMaybe<VercelDomainConfigUpdateInput>
-}
-
-export type MutationCreateVercelProjectDomainsArgs = {
-  input: Array<VercelProjectDomainCreateInput>
-}
-
-export type MutationDeleteVercelProjectDomainsArgs = {
-  where?: InputMaybe<VercelProjectDomainWhere>
-}
-
-export type MutationUpdateVercelProjectDomainsArgs = {
-  where?: InputMaybe<VercelProjectDomainWhere>
-  update?: InputMaybe<VercelProjectDomainUpdateInput>
+export type MutationUpdateProductionDomainConfigsArgs = {
+  where?: InputMaybe<ProductionDomainConfigWhere>
+  update?: InputMaybe<ProductionDomainConfigUpdateInput>
 }
 
 export type MutationCreateDomainsArgs = {
@@ -3866,6 +3831,12 @@ export type CreatePrimitiveTypesMutationResponse = {
   primitiveTypes: Array<PrimitiveType>
 }
 
+export type CreateProductionDomainConfigsMutationResponse = {
+  __typename: 'CreateProductionDomainConfigsMutationResponse'
+  info: CreateInfo
+  productionDomainConfigs: Array<ProductionDomainConfig>
+}
+
 export type CreatePropsMutationResponse = {
   __typename: 'CreatePropsMutationResponse'
   info: CreateInfo
@@ -3932,18 +3903,6 @@ export type CreateUsersMutationResponse = {
   users: Array<User>
 }
 
-export type CreateVercelDomainConfigsMutationResponse = {
-  __typename: 'CreateVercelDomainConfigsMutationResponse'
-  info: CreateInfo
-  vercelDomainConfigs: Array<VercelDomainConfig>
-}
-
-export type CreateVercelProjectDomainsMutationResponse = {
-  __typename: 'CreateVercelProjectDomainsMutationResponse'
-  info: CreateInfo
-  vercelProjectDomains: Array<VercelProjectDomain>
-}
-
 /** Information about the number of nodes and relationships deleted during a delete mutation */
 export type DeleteInfo = {
   __typename: 'DeleteInfo'
@@ -3957,8 +3916,7 @@ export type Domain = {
   __typename: 'Domain'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
-  domainConfig: VercelDomainConfig
-  projectDomain: VercelProjectDomain
+  domainConfig: ProductionDomainConfig
   appAggregate?: Maybe<DomainAppAppAggregationSelection>
   app: App
   appConnection: DomainAppConnection
@@ -6100,6 +6058,29 @@ export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
   preferences: StringAggregateSelectionNullable
 }
 
+export type ProductionDomainConfig = {
+  __typename: 'ProductionDomainConfig'
+  misconfigured: Scalars['Boolean']['output']
+}
+
+export type ProductionDomainConfigAggregateSelection = {
+  __typename: 'ProductionDomainConfigAggregateSelection'
+  count: Scalars['Int']['output']
+}
+
+export type ProductionDomainConfigEdge = {
+  __typename: 'ProductionDomainConfigEdge'
+  cursor: Scalars['String']['output']
+  node: ProductionDomainConfig
+}
+
+export type ProductionDomainConfigsConnection = {
+  __typename: 'ProductionDomainConfigsConnection'
+  totalCount: Scalars['Int']['output']
+  pageInfo: PageInfo
+  edges: Array<ProductionDomainConfigEdge>
+}
+
 export type Prop = {
   __typename: 'Prop'
   id: Scalars['ID']['output']
@@ -7300,6 +7281,12 @@ export type UpdatePrimitiveTypesMutationResponse = {
   primitiveTypes: Array<PrimitiveType>
 }
 
+export type UpdateProductionDomainConfigsMutationResponse = {
+  __typename: 'UpdateProductionDomainConfigsMutationResponse'
+  info: UpdateInfo
+  productionDomainConfigs: Array<ProductionDomainConfig>
+}
+
 export type UpdatePropsMutationResponse = {
   __typename: 'UpdatePropsMutationResponse'
   info: UpdateInfo
@@ -7364,18 +7351,6 @@ export type UpdateUsersMutationResponse = {
   __typename: 'UpdateUsersMutationResponse'
   info: UpdateInfo
   users: Array<User>
-}
-
-export type UpdateVercelDomainConfigsMutationResponse = {
-  __typename: 'UpdateVercelDomainConfigsMutationResponse'
-  info: UpdateInfo
-  vercelDomainConfigs: Array<VercelDomainConfig>
-}
-
-export type UpdateVercelProjectDomainsMutationResponse = {
-  __typename: 'UpdateVercelProjectDomainsMutationResponse'
-  info: UpdateInfo
-  vercelProjectDomains: Array<VercelProjectDomain>
 }
 
 export type User = {
@@ -7681,52 +7656,6 @@ export type UserTypesRelationship = {
   __typename: 'UserTypesRelationship'
   cursor: Scalars['String']['output']
   node: IBaseType
-}
-
-export type VercelDomainConfig = {
-  __typename: 'VercelDomainConfig'
-  misconfigured: Scalars['Boolean']['output']
-}
-
-export type VercelDomainConfigAggregateSelection = {
-  __typename: 'VercelDomainConfigAggregateSelection'
-  count: Scalars['Int']['output']
-}
-
-export type VercelDomainConfigEdge = {
-  __typename: 'VercelDomainConfigEdge'
-  cursor: Scalars['String']['output']
-  node: VercelDomainConfig
-}
-
-export type VercelDomainConfigsConnection = {
-  __typename: 'VercelDomainConfigsConnection'
-  totalCount: Scalars['Int']['output']
-  pageInfo: PageInfo
-  edges: Array<VercelDomainConfigEdge>
-}
-
-export type VercelProjectDomain = {
-  __typename: 'VercelProjectDomain'
-  verified: Scalars['Boolean']['output']
-}
-
-export type VercelProjectDomainAggregateSelection = {
-  __typename: 'VercelProjectDomainAggregateSelection'
-  count: Scalars['Int']['output']
-}
-
-export type VercelProjectDomainEdge = {
-  __typename: 'VercelProjectDomainEdge'
-  cursor: Scalars['String']['output']
-  node: VercelProjectDomain
-}
-
-export type VercelProjectDomainsConnection = {
-  __typename: 'VercelProjectDomainsConnection'
-  totalCount: Scalars['Int']['output']
-  pageInfo: PageInfo
-  edges: Array<VercelProjectDomainEdge>
 }
 
 export type WithOwnerOwnerConnection = {
@@ -27344,6 +27273,35 @@ export type PrimitiveTypeWhere = {
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
+export type ProductionDomainConfigCreateInput = {
+  misconfigured: Scalars['Boolean']['input']
+}
+
+export type ProductionDomainConfigOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more ProductionDomainConfigSort objects to sort ProductionDomainConfigs by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ProductionDomainConfigSort>>
+}
+
+/** Fields to sort ProductionDomainConfigs by. The order in which sorts are applied is not guaranteed when specifying many fields in one ProductionDomainConfigSort object. */
+export type ProductionDomainConfigSort = {
+  misconfigured?: InputMaybe<SortDirection>
+}
+
+export type ProductionDomainConfigUpdateInput = {
+  misconfigured?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ProductionDomainConfigWhere = {
+  misconfigured?: InputMaybe<Scalars['Boolean']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  misconfigured_NOT?: InputMaybe<Scalars['Boolean']['input']>
+  OR?: InputMaybe<Array<ProductionDomainConfigWhere>>
+  AND?: InputMaybe<Array<ProductionDomainConfigWhere>>
+  NOT?: InputMaybe<ProductionDomainConfigWhere>
+}
+
 export type PropConnectOrCreateWhere = {
   node: PropUniqueWhere
 }
@@ -34301,64 +34259,6 @@ export type UserWhere = {
   tagsConnection_SOME?: InputMaybe<UserTagsConnectionWhere>
 }
 
-export type VercelDomainConfigCreateInput = {
-  misconfigured: Scalars['Boolean']['input']
-}
-
-export type VercelDomainConfigOptions = {
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  /** Specify one or more VercelDomainConfigSort objects to sort VercelDomainConfigs by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<VercelDomainConfigSort>>
-}
-
-/** Fields to sort VercelDomainConfigs by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelDomainConfigSort object. */
-export type VercelDomainConfigSort = {
-  misconfigured?: InputMaybe<SortDirection>
-}
-
-export type VercelDomainConfigUpdateInput = {
-  misconfigured?: InputMaybe<Scalars['Boolean']['input']>
-}
-
-export type VercelDomainConfigWhere = {
-  misconfigured?: InputMaybe<Scalars['Boolean']['input']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  misconfigured_NOT?: InputMaybe<Scalars['Boolean']['input']>
-  OR?: InputMaybe<Array<VercelDomainConfigWhere>>
-  AND?: InputMaybe<Array<VercelDomainConfigWhere>>
-  NOT?: InputMaybe<VercelDomainConfigWhere>
-}
-
-export type VercelProjectDomainCreateInput = {
-  verified: Scalars['Boolean']['input']
-}
-
-export type VercelProjectDomainOptions = {
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  /** Specify one or more VercelProjectDomainSort objects to sort VercelProjectDomains by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<VercelProjectDomainSort>>
-}
-
-/** Fields to sort VercelProjectDomains by. The order in which sorts are applied is not guaranteed when specifying many fields in one VercelProjectDomainSort object. */
-export type VercelProjectDomainSort = {
-  verified?: InputMaybe<SortDirection>
-}
-
-export type VercelProjectDomainUpdateInput = {
-  verified?: InputMaybe<Scalars['Boolean']['input']>
-}
-
-export type VercelProjectDomainWhere = {
-  verified?: InputMaybe<Scalars['Boolean']['input']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  verified_NOT?: InputMaybe<Scalars['Boolean']['input']>
-  OR?: InputMaybe<Array<VercelProjectDomainWhere>>
-  AND?: InputMaybe<Array<VercelProjectDomainWhere>>
-  NOT?: InputMaybe<VercelProjectDomainWhere>
-}
-
 export type WithOwnerOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
   /** Whether or not to overwrite any matching relationship with the new properties. */
@@ -36519,112 +36419,49 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
-export interface VercelDomainConfigAggregateSelectionInput {
+export interface ProductionDomainConfigAggregateSelectionInput {
   count?: boolean
 }
 
-export declare class VercelDomainConfigModel {
+export declare class ProductionDomainConfigModel {
   public find(args?: {
-    where?: VercelDomainConfigWhere
+    where?: ProductionDomainConfigWhere
 
-    options?: VercelDomainConfigOptions
+    options?: ProductionDomainConfigOptions
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<VercelDomainConfig[]>
+  }): Promise<ProductionDomainConfig[]>
   public create(args: {
-    input: VercelDomainConfigCreateInput[]
+    input: ProductionDomainConfigCreateInput[]
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<CreateVercelDomainConfigsMutationResponse>
+  }): Promise<CreateProductionDomainConfigsMutationResponse>
   public update(args: {
-    where?: VercelDomainConfigWhere
-    update?: VercelDomainConfigUpdateInput
+    where?: ProductionDomainConfigWhere
+    update?: ProductionDomainConfigUpdateInput
 
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<UpdateVercelDomainConfigsMutationResponse>
+  }): Promise<UpdateProductionDomainConfigsMutationResponse>
   public delete(args: {
-    where?: VercelDomainConfigWhere
+    where?: ProductionDomainConfigWhere
 
     context?: any
     rootValue?: any
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
   public aggregate(args: {
-    where?: VercelDomainConfigWhere
+    where?: ProductionDomainConfigWhere
 
-    aggregate: VercelDomainConfigAggregateSelectionInput
+    aggregate: ProductionDomainConfigAggregateSelectionInput
     context?: any
     rootValue?: any
-  }): Promise<VercelDomainConfigAggregateSelection>
-}
-
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
-}
-export interface VercelProjectDomainAggregateSelectionInput {
-  count?: boolean
-}
-
-export declare class VercelProjectDomainModel {
-  public find(args?: {
-    where?: VercelProjectDomainWhere
-
-    options?: VercelProjectDomainOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<VercelProjectDomain[]>
-  public create(args: {
-    input: VercelProjectDomainCreateInput[]
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateVercelProjectDomainsMutationResponse>
-  public update(args: {
-    where?: VercelProjectDomainWhere
-    update?: VercelProjectDomainUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateVercelProjectDomainsMutationResponse>
-  public delete(args: {
-    where?: VercelProjectDomainWhere
-
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-  public aggregate(args: {
-    where?: VercelProjectDomainWhere
-
-    aggregate: VercelProjectDomainAggregateSelectionInput
-    context?: any
-    rootValue?: any
-  }): Promise<VercelProjectDomainAggregateSelection>
+  }): Promise<ProductionDomainConfigAggregateSelection>
 }
 
 export interface IdAggregateInputNonNullable {
@@ -36864,8 +36701,7 @@ export interface ModelMap {
   CodeAction: CodeActionModel
   ApiAction: ApiActionModel
   Resource: ResourceModel
-  VercelDomainConfig: VercelDomainConfigModel
-  VercelProjectDomain: VercelProjectDomainModel
+  ProductionDomainConfig: ProductionDomainConfigModel
   Domain: DomainModel
   AuthGuard: AuthGuardModel
   Redirect: RedirectModel

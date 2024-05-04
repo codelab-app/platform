@@ -17,8 +17,8 @@ export const DomainsList = ({ domains }: DomainListProps) => {
   return (
     <>
       {domains.map((domain) => {
-        const { domainConfig, name, projectDomain } = domain
-        const valid = projectDomain?.verified && !domainConfig?.misconfigured
+        const { domainConfig, name } = domain
+        const valid = !domainConfig?.misconfigured
 
         const badge = valid ? (
           <span className="flex items-center text-green-400">

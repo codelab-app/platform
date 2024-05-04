@@ -2,6 +2,7 @@ import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
+import { createDomain } from '@codelab/backend/domain/production-domain'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
@@ -38,6 +39,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
     }
 
     for (const domain of app.domains) {
+      await createDomain(domain.name)
       await this.domainRepository.save(domain)
     }
 

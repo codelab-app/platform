@@ -16,9 +16,6 @@ export interface IAuth0EnvVars {
 
 /* *
  * https://github.com/auth0/nextjs-auth0/issues/383
- *
- * `isVercel` is runtime
- * `isVercelPreview` is build-time
  */
 export class Auth0EnvVars implements IAuth0EnvVars {
   private _audience?: string
