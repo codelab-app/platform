@@ -1,4 +1,4 @@
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import auth0Instance from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 export const authMiddleware: NextApiHandler = async (req, res) => {
@@ -6,7 +6,7 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
     /**
      * Requires `headers.cookie` to be set by client
      */
-    const session = await auth0Instance().getSession(req, res)
+    const session = await auth0Instance.getSession(req, res)
 
     if (session?.user) {
       Object.assign(req, { user: session.user })

@@ -1,6 +1,10 @@
-import { initAuth0 } from '@auth0/nextjs-auth0'
+import { initAuth0 } from '@auth0/nextjs-auth0/edge'
 import { getEnv } from '@codelab/shared/config'
+import { NextResponse } from 'next/server'
 
+/**
+ * This is a different instance which uses edge runtime
+ */
 const auth0Instance = initAuth0({
   authorizationParams: {
     audience: getEnv().auth0.audience,
@@ -16,4 +20,16 @@ const auth0Instance = initAuth0({
   },
 })
 
-export default auth0Instance
+export default auth0Instance.withMiddlewareAuthRequired({
+  middleware: async (req) => {
+    const res = NextResponse.next()
+
+    await auth0Instance.touchSession(req, res)
+
+    return res
+  },
+})
+
+export const config = {
+  matcher: ['/apps(.*)'],
+}

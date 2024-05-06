@@ -1,9 +1,9 @@
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import auth0Instance from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const regenerate: NextApiHandler = async (req, res) => {
   try {
-    const session = await auth0Instance().getSession(req, res)
+    const session = await auth0Instance.getSession(req, res)
 
     if (!session?.user) {
       return res.status(403).send('Not Authenticated')
