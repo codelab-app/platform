@@ -44,7 +44,8 @@
     "index.d.ts",
     "**/*.js",
     "**/*.jsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../dist/apps/web/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",
