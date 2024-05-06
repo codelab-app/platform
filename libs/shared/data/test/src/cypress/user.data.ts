@@ -5,7 +5,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const auth0IdToken: Auth0IdToken = {
+export const adminUser: Auth0IdToken = {
   email: 'admin@codelab.app',
   email_verified: true,
   family_name: '',
@@ -22,6 +22,23 @@ export const auth0IdToken: Auth0IdToken = {
   sid: '',
   sub: v4(),
   updated_at: '',
+}
+
+export const guestUser: Auth0IdToken = {
+  email: '',
+  /* eslint-disable @typescript-eslint/naming-convention */
+  email_verified: false,
+  family_name: '',
+  given_name: '',
+  'https://api.codelab.app/jwt/claims': { neo4j_user_id: v4(), roles: [] },
+  locale: '',
+  name: '',
+  nickname: '',
+  picture: '',
+  sid: v4(),
+  sub: v4(),
+  updated_at: '',
+  /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 /**

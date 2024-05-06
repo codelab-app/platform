@@ -10,7 +10,7 @@ import { Model, model, modelAction, prop } from 'mobx-keystone'
 import type { ParsedUrlQuery } from 'querystring'
 
 const init = (router: IRouterProps) => {
-  const { path, pathname, query } = router
+  const { query } = router
 
   const { appSlug, componentSlug, pageSlug, primarySidebarKey, userSlug } =
     query
@@ -22,7 +22,7 @@ const init = (router: IRouterProps) => {
       pageSlug: `${pageSlug}`,
       userSlug: `${userSlug}`,
     },
-    query: router.query,
+    query,
     queryString: {
       primarySidebarKey: `${primarySidebarKey}`,
     },
@@ -74,7 +74,7 @@ export class RouterService
 
   @modelAction
   update(router: IRouterProps) {
-    const { path, pathname, query } = router
+    const { query } = router
 
     const { appSlug, componentSlug, pageSlug, primarySidebarKey, userSlug } =
       query

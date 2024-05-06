@@ -9,7 +9,7 @@ import { CodelabMenuContainer } from './menu/MenuContainer'
 import { MenuMobile } from './menu/MobileMenu'
 
 export interface HomeTemplateProps {
-  children(): ReactElement
+  children: ReactElement
 }
 
 const Header = ({ children }: PropsWithChildren) => {
@@ -44,7 +44,7 @@ const HomeTemplate = ({ children }: HomeTemplateProps) => {
           <>{isMobileOrTablet ? <MenuMobile /> : <MenuDesktop />}</>
         </CodelabMenuContainer>
       </Header>
-      <Content>{children()}</Content>
+      <Content>{children}</Content>
       <Footer></Footer>
     </Layout>
   )

@@ -24,7 +24,7 @@ export const AuthGuardsViewLayout: AuthGuardsView['Layout'] = observer(
           ],
         }}
       >
-        {children()}
+        {children}
       </DynamicDashboardTemplate>
     )
   },

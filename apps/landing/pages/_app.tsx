@@ -32,14 +32,12 @@ const App = ({ Component, pageProps }: IAppProps) => {
             }}
           >
             <Layout>
-              {() => (
-                <AntdApp>
-                  <Component
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...pageProps}
-                  />
-                </AntdApp>
-              )}
+              <AntdApp>
+                <Component
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...pageProps}
+                />
+              </AntdApp>
             </Layout>
           </ConfigProvider>
         </UserProvider>

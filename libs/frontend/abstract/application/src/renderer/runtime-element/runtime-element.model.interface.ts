@@ -57,7 +57,8 @@ export interface IRuntimeElementModel extends AnyModel {
   style: IRuntimeElementStyleModel
   treeViewNode: IElementTreeViewDataNode
 
-  cleanupChildMapperNodes(keyStart: string, newKeys: Array<string>): void
+  cleanupChildMapperNodes(newKeys: Array<string>): void
+  detach(): void
   runPostRenderAction(): void
   runPreRenderAction(): void
   setPostRenderActionDone(value: boolean): void

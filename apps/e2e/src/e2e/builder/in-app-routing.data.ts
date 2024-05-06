@@ -56,8 +56,12 @@ export const dynamicPageTextElementCreateData: ICreateElementData = {
   id: v4(),
   name: 'Dynamic Page Content',
   propsData: {
-    children:
-      'testId: "{{urlProps.testId}}", subtestId: "{{urlProps.subtestId}}"',
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: systemTypesIds[ITypeKind.RichTextType],
+      value:
+        'testId: "{{urlProps.testId}}", subtestId: "{{urlProps.subtestId}}"',
+    },
   },
 }
 

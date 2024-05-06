@@ -14,8 +14,6 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
 
     const accessToken = session?.accessToken
 
-    console.log('authMiddleware', accessToken)
-
     /**
      * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
      */

@@ -9,7 +9,7 @@ export type AdminView = CodelabPage<DashboardTemplateProps>
 export const AdminViewLayout: AdminView['Layout'] = ({ children }) => {
   return (
     <DynamicDashboardTemplate Header={AdminHeader}>
-      {children()}
+      {children}
     </DynamicDashboardTemplate>
   )
 }

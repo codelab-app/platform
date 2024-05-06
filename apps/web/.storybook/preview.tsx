@@ -1,6 +1,6 @@
 import '../styles/global.css'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { initializeStore } from '@codelab/frontend/infra/mobx'
+import { createRootStore } from '@codelab/frontend/infra/mobx'
 import { userDto } from '@codelab/frontend/test/data'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import type { Preview } from '@storybook/react'
@@ -22,7 +22,7 @@ const preview: Preview = {
         },
       }
 
-      const store = initializeStore({ routerQuery: router.query, user })
+      const store = createRootStore(router, user)
 
       return (
         <StoreProvider value={store}>

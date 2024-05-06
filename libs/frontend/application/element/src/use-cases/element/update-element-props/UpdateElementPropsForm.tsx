@@ -80,15 +80,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       submitRef.current?.validate?.()
     }, [submitRef.current])
 
-    const runtimeProps = runtimeElement.runtimeProps
-
     return (
       <Spinner isLoading={status === 'loading'}>
         {interfaceType && (
           <Row className="mb-5" gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
-                autocomplete={runtimeProps.expressionEvaluationContext}
+                autocomplete={runtimeElement.runtimeProps.evaluationContext}
                 autosave
                 initialSchema={{}}
                 interfaceType={interfaceType}

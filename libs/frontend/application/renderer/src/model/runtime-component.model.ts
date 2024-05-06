@@ -6,6 +6,7 @@ import type {
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import {
+  getRuntimeComponentService,
   getRuntimeElementService,
   IElementTreeViewDataNode,
   IRuntimeElementModel,
@@ -26,7 +27,7 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import { RuntimeComponentPropModel } from './runtime-component-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
@@ -118,6 +119,11 @@ export class RuntimeComponentModel
   }
 
   @computed
+  get runtimeComponentService() {
+    return getRuntimeComponentService(this)
+  }
+
+  @computed
   get runtimeElementService() {
     return getRuntimeElementService(this)
   }
@@ -149,5 +155,12 @@ export class RuntimeComponentModel
       selectable: !this.isChildMapperComponentInstance,
       type: IRuntimeNodeType.Component,
     }
+  }
+
+  @modelAction
+  detach(): void {
+    this.children.forEach((child) => child.detach())
+    this.runtimeRootElement.detach()
+    this.runtimeComponentService.delete(this)
   }
 }

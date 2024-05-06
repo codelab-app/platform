@@ -6,5 +6,5 @@ import React from 'react'
 export type UsersView = CodelabPage<DashboardTemplateProps>
 
 export const UsersViewLayout: UsersView['Layout'] = ({ children }) => {
-  return <DynamicDashboardTemplate>{children()}</DynamicDashboardTemplate>
+  return <DynamicDashboardTemplate>{children}</DynamicDashboardTemplate>
 }

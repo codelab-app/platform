@@ -5,6 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getRuntimeElementService,
+  getRuntimePageService,
   IElementTreeViewDataNode,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
@@ -13,7 +14,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 
 /**
@@ -58,6 +59,11 @@ export class RuntimePageModel
   }
 
   @computed
+  get runtimePageService() {
+    return getRuntimePageService(this)
+  }
+
+  @computed
   get runtimeRootElement(): IRuntimeElementModel {
     const rootElement = this.page.current.rootElement.current
 
@@ -67,5 +73,11 @@ export class RuntimePageModel
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
     return this.runtimeRootElement.treeViewNode
+  }
+
+  @modelAction
+  detach(): void {
+    this.runtimeRootElement.detach()
+    this.runtimePageService.delete(this)
   }
 }

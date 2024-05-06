@@ -51,6 +51,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { adminUser } from '@codelab/shared/data/test'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import {
   Model,
@@ -63,7 +64,14 @@ import {
 import { v4 } from 'uuid'
 
 export const createTestApplication = () => {
-  const rootStore = createRootStore({})
+  const rootStore = createRootStore(
+    {
+      path: '',
+      pathname: '',
+      query: {},
+    },
+    adminUser,
+  )
 
   @model('@codelab/TestApplication')
   class TestApplication extends Model({

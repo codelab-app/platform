@@ -1,23 +1,17 @@
-// import '../wdyr'
 import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
-import type {
-  IAppProps,
-  IPageProps,
-} from '@codelab/frontend/abstract/application'
+import type { IAppProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { initializeStore } from '@codelab/frontend/infra/mobx'
-import { withTracerSpan } from '@codelab/frontend/infra/otel'
+import { createRootStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { getEnv } from '@codelab/shared/config'
+import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
-import isBoolean from 'lodash/isBoolean'
-import set from 'lodash/set'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import config from '../twind.config'
 
 setGlobalConfig({
@@ -27,10 +21,7 @@ setGlobalConfig({
 /**
  * Need to paste here for it to work with mobx
  */
-if (
-  getEnv().endpoint.isLocal &&
-  isBoolean(process.env['NEXT_WEB_ENABLE_WDYR'])
-) {
+if (getEnv().endpoint.isLocal && Boolean(process.env['NEXT_WEB_ENABLE_WDYR'])) {
   console.log('Enable WDYR...')
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -46,37 +37,31 @@ if (
   })
 }
 
-const App = ({
-  Component,
-  pageProps: { user, ...pageProps },
-}: IAppProps<IPageProps>) => {
+const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   const router = useRouter()
 
-  const store = useMemo(() => {
-    if (!user) {
-      return null
-    }
+  const [store] = useState(
+    createRootStore(
+      {
+        path: router.asPath,
+        pathname: router.pathname,
+        query: router.query,
+      },
+      user,
+    ),
+  )
 
-    return withTracerSpan('initializeStore', () =>
-      initializeStore({
-        router: {
-          path: router.asPath,
-          pathname: router.pathname,
-          query: router.query,
-        },
-        user,
-      }),
-    )
-  }, [user])
+  useEffect(() => {
+    store.routerService.update({
+      path: router.asPath,
+      pathname: router.pathname,
+      query: router.query,
+    })
+  }, [router])
 
-  const { Layout = ({ children }) => <>{children}</> } =
-    Component as CodelabPage<object, object, object>
+  const { Layout = React.Fragment } = Component as CodelabPage<object, object>
 
   useTwindConfig(config)
-
-  const LayoutContent = (props: object | undefined) => (
-    <Component {...pageProps} {...props} />
-  )
 
   return (
     <StoreProvider value={store}>
@@ -97,7 +82,9 @@ const App = ({
             }}
           >
             <AntdApp className="size-full">
-              <Layout>{LayoutContent}</Layout>
+              <Layout>
+                <Component />
+              </Layout>
             </AntdApp>
           </ConfigProvider>
         </CuiProvider>

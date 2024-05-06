@@ -7,9 +7,8 @@ import type {
 import {
   getRendererService,
   getRouterService,
-  IEvaluationContext,
+  IRuntimeContext,
   isRuntimeComponent,
-  RendererType,
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_ELEMENT_ID,
@@ -66,7 +65,7 @@ export class RuntimeElementPropsModel
     if (hasExpression(this.element.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
         this.element.childMapperPropKey,
-        this.expressionEvaluationContext,
+        this.runtimeContext,
       )
 
       if (!Array.isArray(evaluatedExpression)) {
@@ -79,7 +78,7 @@ export class RuntimeElementPropsModel
     }
 
     const evaluatedChildMapperProps = get(
-      this.expressionEvaluationContext,
+      this.runtimeContext,
       this.element.childMapperPropKey,
     )
 
@@ -94,20 +93,20 @@ export class RuntimeElementPropsModel
 
   @computed
   get evaluatedProps() {
-    return this.expressionEvaluationContext.props
+    return this.runtimeContext.props
   }
 
   @computed
-  get expressionEvaluationContext(): IEvaluationContext {
+  get evaluationContext() {
     const componentProps = isRuntimeComponent(this.closestRuntimeContainerNode)
       ? this.closestRuntimeContainerNode.runtimeProps.componentEvaluatedProps
       : {}
 
-    return this.addAndBind({
+    const context = {
       actions: {},
       args: [],
       componentProps,
-      // pass empty object because props can't evaluated by itself
+      // pass props before evaluation
       props: {},
       refs: this.runtimeStore.refs,
       rootActions: {},
@@ -115,7 +114,22 @@ export class RuntimeElementPropsModel
       rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,
       urlProps: this.urlProps ?? {},
-    })
+    }
+
+    context['actions'] = this.transformRuntimeActions(
+      this.runtimeStore.runtimeActionsList,
+      context,
+    )
+
+    // If a root action is called in a regular page, the `state` should be from the provider's page store
+    context['rootActions'] = this.providerStore
+      ? this.transformRuntimeActions(this.providerStore.runtimeActionsList, {
+          ...context,
+          state: context.rootState,
+        })
+      : []
+
+    return context
   }
 
   @computed
@@ -221,6 +235,16 @@ export class RuntimeElementPropsModel
   }
 
   @computed
+  get runtimeContext(): IRuntimeContext {
+    const context: IRuntimeContext = {
+      ...this.evaluationContext,
+      props: evaluateObject(this.renderedTypedProps, this.evaluationContext),
+    }
+
+    return context
+  }
+
+  @computed
   get runtimeStore() {
     return this.closestRuntimeContainerNode.runtimeStore
   }
@@ -237,49 +261,15 @@ export class RuntimeElementPropsModel
   @modelAction
   getActionRunner(actionName: string) {
     return (
-      this.expressionEvaluationContext.actions[actionName] ??
-      this.expressionEvaluationContext.rootActions[actionName] ??
+      this.runtimeContext.actions[actionName] ??
+      this.runtimeContext.rootActions[actionName] ??
       (() => console.log(`No Runner found for ${actionName} `))
     )
   }
 
-  addAndBind(context: IEvaluationContext) {
-    context['actions'] = this.transformRuntimeActions(
-      this.runtimeStore.runtimeActionsList,
-      context,
-    )
-
-    if (this.providerStore) {
-      // If a root action is called in a regular page, the `state` should be from the provider's page store
-      context['state'] = context.rootState
-      context['rootActions'] = this.transformRuntimeActions(
-        this.providerStore.runtimeActionsList,
-        context,
-      )
-    }
-
-    context['props'] = this.evaluateProps(context)
-
-    return context
-  }
-
-  evaluateProps(context: IEvaluationContext) {
-    // Evaluate children prop only in preview and production modes
-    if (
-      this.renderer.rendererType === RendererType.Preview ||
-      this.renderer.rendererType === RendererType.Production
-    ) {
-      return evaluateObject(this.renderedTypedProps, context)
-    }
-
-    const evaluated = evaluateObject(this.renderedTypedProps, context)
-
-    return evaluated
-  }
-
   transformRuntimeActions(
     runtimeActions: Array<IRuntimeActionModel>,
-    context: IEvaluationContext,
+    context: IRuntimeContext,
   ) {
     return runtimeActions
       .map((runtimeAction) => ({

@@ -37,5 +37,6 @@ export interface IRuntimeComponentModel extends AnyModel {
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
   treeViewNode: IElementTreeViewDataNode
+  detach(): void
   setChildMapperIndex(index: number): void
 }

@@ -7,48 +7,34 @@ import 'react-grid-layout/css/styles.css'
 // - set 100% width and height for html and body
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
-import type {
-  IAppProps,
-  IPageProps,
-} from '@codelab/frontend/abstract/application'
+import type { IAppProps } from '@codelab/frontend/abstract/application'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { initializeStore } from '@codelab/frontend/infra/mobx'
-import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import { createRootStore } from '@codelab/frontend/infra/mobx'
+import { guestUser } from '@codelab/shared/data/test'
 import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
-import { v4 } from 'uuid'
+import React, { useEffect, useState } from 'react'
 
-// because user is required we pass a guest user
-export const user: Auth0IdToken = {
-  email: '',
-  /* eslint-disable @typescript-eslint/naming-convention */
-  email_verified: false,
-  family_name: '',
-  given_name: '',
-  'https://api.codelab.app/jwt/claims': { neo4j_user_id: v4(), roles: [] },
-  locale: '',
-  name: '',
-  nickname: '',
-  picture: '',
-  sid: v4(),
-  sub: v4(),
-  updated_at: '',
-  /* eslint-enable @typescript-eslint/naming-convention */
-}
-
-const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
+const App = ({ Component, pageProps }: IAppProps) => {
   const router = useRouter()
 
-  const store = useMemo(() => {
-    return initializeStore({
-      router: {
+  const [store] = useState(
+    createRootStore(
+      {
         path: router.asPath,
         pathname: router.pathname,
         query: router.query,
       },
-      user,
+      guestUser,
+    ),
+  )
+
+  useEffect(() => {
+    store.routerService.update({
+      path: router.asPath,
+      pathname: router.pathname,
+      query: router.query,
     })
-  }, [user])
+  }, [router])
 
   return (
     <StoreProvider value={store}>

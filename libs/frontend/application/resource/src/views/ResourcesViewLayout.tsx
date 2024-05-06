@@ -24,7 +24,7 @@ export const ResourcesViewLayout: ResourcesView['Layout'] = observer(
           ],
         }}
       >
-        {children()}
+        {children}
       </DynamicDashboardTemplate>
     )
   },

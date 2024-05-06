@@ -41,7 +41,7 @@ const HomeView: HomeView = () => {
 export default HomeView
 
 const HomeViewLayout: HomeView['Layout'] = ({ children }) => {
-  return <>{children()}</>
+  return <>{children}</>
 }
 
 HomeView.Layout = HomeViewLayout
