@@ -43,8 +43,6 @@ export default auth0Instance().handleAuth({
            * Create user in our neo4j database
            */
           if (process.env['NODE_ENV'] === 'production') {
-            console.log('Using restApiClient', restApiClient.getUri())
-
             await restApiClient.post(
               'user/save',
               {},

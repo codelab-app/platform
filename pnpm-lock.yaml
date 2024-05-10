@@ -21,7 +21,7 @@ dependencies:
     version: 2.4.4(antd@5.14.2)(rc-field-form@1.43.0)(react-dom@18.2.0)(react@18.2.0)
   '@apollo/client':
     specifier: 3.7.15
-    version: 3.7.15(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.7.15(graphql-ws@5.16.0)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
   '@apollo/server':
     specifier: 4.7.2
     version: 4.7.2(graphql@16.6.0)
@@ -103,6 +103,9 @@ dependencies:
   '@graphql-codegen/plugin-helpers':
     specifier: 5.0.3
     version: 5.0.3(graphql@16.6.0)
+  '@graphql-codegen/typescript-document-nodes':
+    specifier: ^4.0.6
+    version: 4.0.6(graphql@16.6.0)
   '@graphql-hive/client':
     specifier: ^0.29.0
     version: 0.29.0(graphql@16.6.0)
@@ -148,6 +151,9 @@ dependencies:
   '@nestjs/cqrs':
     specifier: 10.0.1
     version: 10.0.1(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+  '@nestjs/event-emitter':
+    specifier: ^2.0.4
+    version: 2.0.4(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)
   '@nestjs/graphql':
     specifier: 11.0.6
     version: 11.0.6(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.6.0)(reflect-metadata@0.1.13)(ts-morph@19.0.0)
@@ -265,6 +271,9 @@ dependencies:
   axios:
     specifier: 1.5.0
     version: 1.5.0
+  body-parser:
+    specifier: ^1.20.2
+    version: 1.20.2
   chalk:
     specifier: 4.1.2
     version: 4.1.2
@@ -286,6 +295,9 @@ dependencies:
   codemirror:
     specifier: 6.0.1
     version: 6.0.1(@lezer/common@1.2.1)
+  cors:
+    specifier: ^2.8.5
+    version: 2.8.5
   cross-fetch:
     specifier: 3.1.4
     version: 3.1.4
@@ -328,6 +340,9 @@ dependencies:
   graphql-tag:
     specifier: 2.12.6
     version: 2.12.6(graphql@16.6.0)
+  graphql-ws:
+    specifier: ^5.16.0
+    version: 5.16.0(graphql@16.6.0)
   isolated-vm:
     specifier: 4.6.0
     version: 4.6.0
@@ -511,6 +526,9 @@ dependencies:
   winston:
     specifier: 3.8.2
     version: 3.8.2
+  ws:
+    specifier: ^8.17.0
+    version: 8.17.0
   yargs:
     specifier: 17.7.2
     version: 17.7.2
@@ -1436,7 +1454,7 @@ packages:
       graphql: 16.6.0
     dev: false
 
-  /@apollo/client@3.7.15(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
+  /@apollo/client@3.7.15(graphql-ws@5.16.0)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pLScjo4GAQRWKWyEg2J3FlQr9fbUAuADT0EI2+JlLf2BjaU9I7WUaZVD9w+0qNPE8BZqs53MRQq0OCm1QCW+eg==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -1460,6 +1478,7 @@ packages:
       '@wry/trie': 0.4.3
       graphql: 16.6.0
       graphql-tag: 2.12.6(graphql@16.6.0)
+      graphql-ws: 5.16.0(graphql@16.6.0)
       hoist-non-react-statics: 3.3.2
       optimism: 0.16.2
       prop-types: 15.8.1
@@ -4290,6 +4309,21 @@ packages:
       - supports-color
     dev: true
 
+  /@graphql-codegen/typescript-document-nodes@4.0.6(graphql@16.6.0):
+    resolution: {integrity: sha512-4YtB9tCnNYWaakk25tsMVdZIKvjote29wxHdpYONmIloF9Besf98zbwaApelQ1uUEs4HGqKUajpd8GynK+SW8g==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 5.0.3(graphql@16.6.0)
+      '@graphql-codegen/visitor-plugin-common': 5.1.0(graphql@16.6.0)
+      auto-bind: 4.0.0
+      graphql: 16.6.0
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
+
   /@graphql-codegen/typescript-graphql-request@6.2.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.6.0):
     resolution: {integrity: sha512-nkp5tr4PrC/+2QkQqi+IB+bc7AavUnUvXPW8MC93HZRvwfMGy6m2Oo7b9JCPZ3vhNpqT2VDWOn/zIZXKz6zJAw==}
     engines: {node: '>= 16.0.0'}
@@ -4681,10 +4715,10 @@ packages:
       '@graphql-tools/utils': 10.1.2(graphql@16.6.0)
       '@types/ws': 8.5.10
       graphql: 16.6.0
-      graphql-ws: 5.15.0(graphql@16.6.0)
-      isomorphic-ws: 5.0.0(ws@8.16.0)
+      graphql-ws: 5.16.0(graphql@16.6.0)
+      isomorphic-ws: 5.0.0(ws@8.17.0)
       tslib: 2.6.2
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4699,10 +4733,10 @@ packages:
       '@graphql-tools/utils': 10.1.2(graphql@16.8.1)
       '@types/ws': 8.5.10
       graphql: 16.8.1
-      graphql-ws: 5.15.0(graphql@16.8.1)
-      isomorphic-ws: 5.0.0(ws@8.16.0)
+      graphql-ws: 5.16.0(graphql@16.8.1)
+      isomorphic-ws: 5.0.0(ws@8.17.0)
       tslib: 2.6.2
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4787,9 +4821,9 @@ packages:
       '@graphql-tools/utils': 10.1.2(graphql@16.6.0)
       '@types/ws': 8.5.10
       graphql: 16.6.0
-      isomorphic-ws: 5.0.0(ws@8.16.0)
+      isomorphic-ws: 5.0.0(ws@8.17.0)
       tslib: 2.6.2
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4804,9 +4838,9 @@ packages:
       '@graphql-tools/utils': 10.1.2(graphql@16.8.1)
       '@types/ws': 8.5.10
       graphql: 16.8.1
-      isomorphic-ws: 5.0.0(ws@8.16.0)
+      isomorphic-ws: 5.0.0(ws@8.17.0)
       tslib: 2.6.2
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -5314,10 +5348,10 @@ packages:
       '@types/ws': 8.5.10
       '@whatwg-node/fetch': 0.8.8
       graphql: 16.6.0
-      isomorphic-ws: 5.0.0(ws@8.16.0)
+      isomorphic-ws: 5.0.0(ws@8.17.0)
       tslib: 2.6.2
       value-or-promise: 1.0.12
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -5341,10 +5375,10 @@ packages:
       '@types/ws': 8.5.10
       '@whatwg-node/fetch': 0.9.17
       graphql: 16.6.0
-      isomorphic-ws: 5.0.0(ws@8.16.0)
+      isomorphic-ws: 5.0.0(ws@8.17.0)
       tslib: 2.6.2
       value-or-promise: 1.0.12
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -5368,10 +5402,10 @@ packages:
       '@types/ws': 8.5.10
       '@whatwg-node/fetch': 0.9.17
       graphql: 16.8.1
-      isomorphic-ws: 5.0.0(ws@8.16.0)
+      isomorphic-ws: 5.0.0(ws@8.17.0)
       tslib: 2.6.2
       value-or-promise: 1.0.12
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -6446,6 +6480,17 @@ packages:
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
       uuid: 9.0.0
+    dev: false
+
+  /@nestjs/event-emitter@2.0.4(@nestjs/common@10.0.4)(@nestjs/core@10.0.4):
+    resolution: {integrity: sha512-quMiw8yOwoSul0pp3mOonGz8EyXWHSBTqBy8B0TbYYgpnG1Ix2wGUnuTksLWaaBiiOTDhciaZ41Y5fJZsSJE1Q==}
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0 || ^10.0.0
+      '@nestjs/core': ^8.0.0 || ^9.0.0 || ^10.0.0
+    dependencies:
+      '@nestjs/common': 10.0.4(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/core': 10.0.4(@nestjs/common@10.0.4)(@nestjs/platform-express@10.0.4)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      eventemitter2: 6.4.9
     dev: false
 
   /@nestjs/graphql@11.0.6(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.6.0)(reflect-metadata@0.1.13)(ts-morph@19.0.0):
@@ -10657,7 +10702,7 @@ packages:
       '@supabase/node-fetch': 2.6.15
       '@types/phoenix': 1.6.4
       '@types/ws': 8.5.10
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -16831,6 +16876,10 @@ packages:
     resolution: {integrity: sha512-tYUSVOGeQPKt/eC1ABfhHy5Xd96N3oIijJvN3O9+TsC28T5V9yX9oEfEK5faP0EFSNVOG97qtAS68GBrQB2hDg==}
     dev: true
 
+  /eventemitter2@6.4.9:
+    resolution: {integrity: sha512-JEPTiaOt9f04oa6NOkc4aH+nVp5I3wEjpHbIPqfgCdD5v5bUzy7xQqwcVO2aDQgOWhI28da57HksMrzK9HlRxg==}
+    dev: false
+
   /eventemitter3@2.0.3:
     resolution: {integrity: sha512-jLN68Dx5kyFHaePoXWPsCGW5qdyZQtLYHkxkg02/Mz6g0kYpDx4FyP6XfArhQdlOC4b8Mv+EMxPo/8La7Tzghg==}
     dev: false
@@ -18248,17 +18297,16 @@ packages:
       graphql: 16.6.0
     dev: false
 
-  /graphql-ws@5.15.0(graphql@16.6.0):
-    resolution: {integrity: sha512-xWGAtm3fig9TIhSaNsg0FaDZ8Pyn/3re3RFlP4rhQcmjRDIPpk1EhRuNB+YSJtLzttyuToaDiNhwT1OMoGnJnw==}
+  /graphql-ws@5.16.0(graphql@16.6.0):
+    resolution: {integrity: sha512-Ju2RCU2dQMgSKtArPbEtsK5gNLnsQyTNIo/T7cZNp96niC1x0KdJNZV0TIoilceBPQwfb5itrGl8pkFeOUMl4A==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: '>=0.11 <=16'
     dependencies:
       graphql: 16.6.0
-    dev: true
 
-  /graphql-ws@5.15.0(graphql@16.8.1):
-    resolution: {integrity: sha512-xWGAtm3fig9TIhSaNsg0FaDZ8Pyn/3re3RFlP4rhQcmjRDIPpk1EhRuNB+YSJtLzttyuToaDiNhwT1OMoGnJnw==}
+  /graphql-ws@5.16.0(graphql@16.8.1):
+    resolution: {integrity: sha512-Ju2RCU2dQMgSKtArPbEtsK5gNLnsQyTNIo/T7cZNp96niC1x0KdJNZV0TIoilceBPQwfb5itrGl8pkFeOUMl4A==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: '>=0.11 <=16'
@@ -19511,12 +19559,12 @@ packages:
       ws: 8.13.0
     dev: true
 
-  /isomorphic-ws@5.0.0(ws@8.16.0):
+  /isomorphic-ws@5.0.0(ws@8.17.0):
     resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.16.0
+      ws: 8.17.0
     dev: true
 
   /isomorphic.js@0.2.5:
@@ -20251,7 +20299,7 @@ packages:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.16.0
+      ws: 8.17.0
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -27672,7 +27720,7 @@ packages:
       spdy: 4.0.2
       webpack: 5.90.3(@swc/core@1.3.92)(esbuild@0.18.20)
       webpack-dev-middleware: 5.3.3(webpack@5.90.3)
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -28042,8 +28090,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  /ws@8.16.0:
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
+  /ws@8.17.0:
+    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1

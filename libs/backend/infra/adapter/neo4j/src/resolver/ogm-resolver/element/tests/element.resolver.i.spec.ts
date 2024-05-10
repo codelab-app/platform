@@ -5,10 +5,12 @@ import {
   connectOwner,
 } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
 import { OgmService } from '../../../../infra'
 import { setupTestingContext } from '../../../../test/setup'
+import { ElementDependentTypes } from './element.spec.graphql.gen'
 
 describe('ElementResolvers', () => {
   let app: INestApplication
@@ -162,26 +164,7 @@ describe('ElementResolvers', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: `
-          {
-            elements {
-              dependantTypes {
-                ... on EnumType {
-                  id
-                  name
-                }
-                ... on ArrayType {
-                  id
-                  name
-                }
-                ... on UnionType {
-                  id
-                  name
-                }
-              }
-            }
-          }
-        `,
+        query: print(ElementDependentTypes),
       })
       .expect(200)
       .expect(async ({ body }) => {

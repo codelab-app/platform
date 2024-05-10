@@ -1,0 +1,13 @@
+query pageResolverPages {
+  pages {
+    id
+    name
+    slug
+    rootElement {
+      id
+    }
+    elements {
+      id
+    }
+  }
+}

@@ -53,6 +53,10 @@ input ActionTypeConnectWhere {
   node: ActionTypeWhere!
 }
 
+type ActionTypeConnectedRelationships {
+  owner: ActionTypeOwnerConnectedRelationship
+}
+
 input ActionTypeCreateInput {
   id: ID!
   kind: TypeKind! = ActionType
@@ -60,8 +64,20 @@ input ActionTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type ActionTypeCreatedEvent {
+  createdActionType: ActionTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ActionTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type ActionTypeDeletedEvent {
+  deletedActionType: ActionTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ActionTypeDisconnectInput {
@@ -71,6 +87,14 @@ input ActionTypeDisconnectInput {
 type ActionTypeEdge {
   cursor: String!
   node: ActionType!
+}
+
+type ActionTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input ActionTypeOnCreateInput {
@@ -99,6 +123,10 @@ input ActionTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ActionTypeOwnerNodeAggregationWhereInput
+}
+
+type ActionTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input ActionTypeOwnerNodeAggregationWhereInput {
@@ -167,8 +195,48 @@ input ActionTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input ActionTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input ActionTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type ActionTypeRelationshipCreatedEvent {
+  actionType: ActionTypeEventPayload!
+  createdRelationship: ActionTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ActionTypeRelationshipCreatedSubscriptionWhere {
+  AND: [ActionTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: ActionTypeRelationshipCreatedSubscriptionWhere
+  OR: [ActionTypeRelationshipCreatedSubscriptionWhere!]
+  actionType: ActionTypeSubscriptionWhere
+  createdRelationship: ActionTypeRelationshipsSubscriptionWhere
+}
+
+type ActionTypeRelationshipDeletedEvent {
+  actionType: ActionTypeEventPayload!
+  deletedRelationship: ActionTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ActionTypeRelationshipDeletedSubscriptionWhere {
+  AND: [ActionTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: ActionTypeRelationshipDeletedSubscriptionWhere
+  OR: [ActionTypeRelationshipDeletedSubscriptionWhere!]
+  actionType: ActionTypeSubscriptionWhere
+  deletedRelationship: ActionTypeRelationshipsSubscriptionWhere
+}
+
+input ActionTypeRelationshipsSubscriptionWhere {
+  owner: ActionTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -180,6 +248,24 @@ input ActionTypeSort {
   name: SortDirection
 }
 
+input ActionTypeSubscriptionWhere {
+  AND: [ActionTypeSubscriptionWhere!]
+  NOT: ActionTypeSubscriptionWhere
+  OR: [ActionTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input ActionTypeUniqueWhere {
   name: String
 }
@@ -188,6 +274,13 @@ input ActionTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type ActionTypeUpdatedEvent {
+  event: EventType!
+  previousState: ActionTypeEventPayload!
+  timestamp: Float!
+  updatedActionType: ActionTypeEventPayload!
 }
 
 type ActionTypeUserOwnerAggregationSelection {
@@ -236,6 +329,8 @@ type ActionTypesConnection {
 
 union AnyAction = ApiAction | CodeAction
 
+union AnyActionEventPayload = ApiActionEventPayload | CodeActionEventPayload
+
 input AnyActionWhere {
   ApiAction: ApiActionWhere
   CodeAction: CodeActionWhere
@@ -256,6 +351,22 @@ union AnyType =
   | RenderPropType
   | RichTextType
   | UnionType
+
+union AnyTypeEventPayload =
+    ActionTypeEventPayload
+  | AppTypeEventPayload
+  | ArrayTypeEventPayload
+  | CodeMirrorTypeEventPayload
+  | ElementTypeEventPayload
+  | EnumTypeEventPayload
+  | InterfaceTypeEventPayload
+  | LambdaTypeEventPayload
+  | PageTypeEventPayload
+  | PrimitiveTypeEventPayload
+  | ReactNodeTypeEventPayload
+  | RenderPropTypeEventPayload
+  | RichTextTypeEventPayload
+  | UnionTypeEventPayload
 
 input AnyTypeWhere {
   ActionType: ActionTypeWhere
@@ -409,6 +520,10 @@ input ApiActionConfigConnectOrCreateFieldInputOnCreate {
   node: PropOnCreateInput!
 }
 
+type ApiActionConfigConnectedRelationship {
+  node: PropEventPayload!
+}
+
 type ApiActionConfigConnection {
   edges: [ApiActionConfigRelationship!]!
   pageInfo: PageInfo!
@@ -470,6 +585,10 @@ type ApiActionConfigRelationship {
   node: Prop!
 }
 
+input ApiActionConfigRelationshipSubscriptionWhere {
+  node: PropSubscriptionWhere
+}
+
 input ApiActionConfigUpdateConnectionInput {
   node: PropUpdateInput
 }
@@ -504,6 +623,15 @@ input ApiActionConnectWhere {
   node: ApiActionWhere!
 }
 
+type ApiActionConnectedRelationships {
+  config: ApiActionConfigConnectedRelationship
+  element: ApiActionElementConnectedRelationship
+  errorAction: ApiActionErrorActionConnectedRelationship
+  resource: ApiActionResourceConnectedRelationship
+  store: ApiActionStoreConnectedRelationship
+  successAction: ApiActionSuccessActionConnectedRelationship
+}
+
 input ApiActionCreateInput {
   config: ApiActionConfigFieldInput
   element: BaseActionElementFieldInput
@@ -516,6 +644,12 @@ input ApiActionCreateInput {
   type: ActionKind! = ApiAction
 }
 
+type ApiActionCreatedEvent {
+  createdApiAction: ApiActionEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ApiActionDeleteInput {
   config: ApiActionConfigDeleteFieldInput
   element: BaseActionElementDeleteFieldInput
@@ -523,6 +657,12 @@ input ApiActionDeleteInput {
   resource: ApiActionResourceDeleteFieldInput
   store: BaseActionStoreDeleteFieldInput
   successAction: ApiActionSuccessActionDeleteInput
+}
+
+type ApiActionDeletedEvent {
+  deletedApiAction: ApiActionEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ApiActionDisconnectInput {
@@ -549,6 +689,10 @@ input ApiActionElementAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ApiActionElementNodeAggregationWhereInput
+}
+
+type ApiActionElementConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type ApiActionElementElementAggregationSelection {
@@ -646,6 +790,10 @@ input ApiActionElementNodeAggregationWhereInput {
   style_SHORTEST_LENGTH_LTE: Int
 }
 
+input ApiActionElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input ApiActionErrorActionApiActionConnectFieldInput {
   connect: ApiActionConnectInput
   where: ApiActionConnectWhere
@@ -675,6 +823,10 @@ input ApiActionErrorActionApiActionDisconnectFieldInput {
 input ApiActionErrorActionApiActionFieldInput {
   connect: ApiActionErrorActionApiActionConnectFieldInput
   create: ApiActionErrorActionApiActionCreateFieldInput
+}
+
+input ApiActionErrorActionApiActionSubscriptionWhere {
+  node: ApiActionSubscriptionWhere
 }
 
 input ApiActionErrorActionApiActionUpdateConnectionInput {
@@ -721,6 +873,10 @@ input ApiActionErrorActionCodeActionFieldInput {
   create: ApiActionErrorActionCodeActionCreateFieldInput
 }
 
+input ApiActionErrorActionCodeActionSubscriptionWhere {
+  node: CodeActionSubscriptionWhere
+}
+
 input ApiActionErrorActionCodeActionUpdateConnectionInput {
   node: CodeActionUpdateInput
 }
@@ -737,6 +893,10 @@ input ApiActionErrorActionCodeActionUpdateFieldInput {
 input ApiActionErrorActionConnectInput {
   ApiAction: ApiActionErrorActionApiActionConnectFieldInput
   CodeAction: ApiActionErrorActionCodeActionConnectFieldInput
+}
+
+type ApiActionErrorActionConnectedRelationship {
+  node: AnyActionEventPayload!
 }
 
 type ApiActionErrorActionConnection {
@@ -775,9 +935,24 @@ type ApiActionErrorActionRelationship {
   node: AnyAction!
 }
 
+input ApiActionErrorActionRelationshipSubscriptionWhere {
+  ApiAction: ApiActionErrorActionApiActionSubscriptionWhere
+  CodeAction: ApiActionErrorActionCodeActionSubscriptionWhere
+}
+
 input ApiActionErrorActionUpdateInput {
   ApiAction: ApiActionErrorActionApiActionUpdateFieldInput
   CodeAction: ApiActionErrorActionCodeActionUpdateFieldInput
+}
+
+type ApiActionEventPayload implements BaseActionEventPayload {
+  element: Element
+  elementConnection: BaseActionElementConnection!
+  id: ID!
+  name: String!
+  store: Store!
+  storeConnection: BaseActionStoreConnection!
+  type: ActionKind!
 }
 
 input ApiActionOptions {
@@ -809,6 +984,47 @@ input ApiActionRelationInput {
   successAction: ApiActionSuccessActionCreateFieldInput
 }
 
+type ApiActionRelationshipCreatedEvent {
+  apiAction: ApiActionEventPayload!
+  createdRelationship: ApiActionConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ApiActionRelationshipCreatedSubscriptionWhere {
+  AND: [ApiActionRelationshipCreatedSubscriptionWhere!]
+  NOT: ApiActionRelationshipCreatedSubscriptionWhere
+  OR: [ApiActionRelationshipCreatedSubscriptionWhere!]
+  apiAction: ApiActionSubscriptionWhere
+  createdRelationship: ApiActionRelationshipsSubscriptionWhere
+}
+
+type ApiActionRelationshipDeletedEvent {
+  apiAction: ApiActionEventPayload!
+  deletedRelationship: ApiActionConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ApiActionRelationshipDeletedSubscriptionWhere {
+  AND: [ApiActionRelationshipDeletedSubscriptionWhere!]
+  NOT: ApiActionRelationshipDeletedSubscriptionWhere
+  OR: [ApiActionRelationshipDeletedSubscriptionWhere!]
+  apiAction: ApiActionSubscriptionWhere
+  deletedRelationship: ApiActionRelationshipsSubscriptionWhere
+}
+
+input ApiActionRelationshipsSubscriptionWhere {
+  config: ApiActionConfigRelationshipSubscriptionWhere
+  element: ApiActionElementRelationshipSubscriptionWhere
+  errorAction: ApiActionErrorActionRelationshipSubscriptionWhere
+  resource: ApiActionResourceRelationshipSubscriptionWhere
+  store: ApiActionStoreRelationshipSubscriptionWhere
+  successAction: ApiActionSuccessActionRelationshipSubscriptionWhere
+}
+
 input ApiActionResourceAggregateInput {
   AND: [ApiActionResourceAggregateInput!]
   NOT: ApiActionResourceAggregateInput
@@ -838,6 +1054,10 @@ input ApiActionResourceConnectOrCreateFieldInput {
 
 input ApiActionResourceConnectOrCreateFieldInputOnCreate {
   node: ResourceOnCreateInput!
+}
+
+type ApiActionResourceConnectedRelationship {
+  node: ResourceEventPayload!
 }
 
 type ApiActionResourceConnection {
@@ -903,6 +1123,10 @@ type ApiActionResourceRelationship {
   node: Resource!
 }
 
+input ApiActionResourceRelationshipSubscriptionWhere {
+  node: ResourceSubscriptionWhere
+}
+
 type ApiActionResourceResourceAggregationSelection {
   count: Int!
   node: ApiActionResourceResourceNodeAggregateSelection
@@ -948,6 +1172,10 @@ input ApiActionStoreAggregateInput {
   node: ApiActionStoreNodeAggregationWhereInput
 }
 
+type ApiActionStoreConnectedRelationship {
+  node: StoreEventPayload!
+}
+
 input ApiActionStoreNodeAggregationWhereInput {
   AND: [ApiActionStoreNodeAggregationWhereInput!]
   NOT: ApiActionStoreNodeAggregationWhereInput
@@ -969,6 +1197,10 @@ input ApiActionStoreNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_LTE: Int
 }
 
+input ApiActionStoreRelationshipSubscriptionWhere {
+  node: StoreSubscriptionWhere
+}
+
 type ApiActionStoreStoreAggregationSelection {
   count: Int!
   node: ApiActionStoreStoreNodeAggregateSelection
@@ -977,6 +1209,24 @@ type ApiActionStoreStoreAggregationSelection {
 type ApiActionStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+}
+
+input ApiActionSubscriptionWhere {
+  AND: [ApiActionSubscriptionWhere!]
+  NOT: ApiActionSubscriptionWhere
+  OR: [ApiActionSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  type: ActionKind
+  type_IN: [ActionKind]
 }
 
 input ApiActionSuccessActionApiActionConnectFieldInput {
@@ -1008,6 +1258,10 @@ input ApiActionSuccessActionApiActionDisconnectFieldInput {
 input ApiActionSuccessActionApiActionFieldInput {
   connect: ApiActionSuccessActionApiActionConnectFieldInput
   create: ApiActionSuccessActionApiActionCreateFieldInput
+}
+
+input ApiActionSuccessActionApiActionSubscriptionWhere {
+  node: ApiActionSubscriptionWhere
 }
 
 input ApiActionSuccessActionApiActionUpdateConnectionInput {
@@ -1054,6 +1308,10 @@ input ApiActionSuccessActionCodeActionFieldInput {
   create: ApiActionSuccessActionCodeActionCreateFieldInput
 }
 
+input ApiActionSuccessActionCodeActionSubscriptionWhere {
+  node: CodeActionSubscriptionWhere
+}
+
 input ApiActionSuccessActionCodeActionUpdateConnectionInput {
   node: CodeActionUpdateInput
 }
@@ -1070,6 +1328,10 @@ input ApiActionSuccessActionCodeActionUpdateFieldInput {
 input ApiActionSuccessActionConnectInput {
   ApiAction: ApiActionSuccessActionApiActionConnectFieldInput
   CodeAction: ApiActionSuccessActionCodeActionConnectFieldInput
+}
+
+type ApiActionSuccessActionConnectedRelationship {
+  node: AnyActionEventPayload!
 }
 
 type ApiActionSuccessActionConnection {
@@ -1108,6 +1370,11 @@ type ApiActionSuccessActionRelationship {
   node: AnyAction!
 }
 
+input ApiActionSuccessActionRelationshipSubscriptionWhere {
+  ApiAction: ApiActionSuccessActionApiActionSubscriptionWhere
+  CodeAction: ApiActionSuccessActionCodeActionSubscriptionWhere
+}
+
 input ApiActionSuccessActionUpdateInput {
   ApiAction: ApiActionSuccessActionApiActionUpdateFieldInput
   CodeAction: ApiActionSuccessActionCodeActionUpdateFieldInput
@@ -1122,6 +1389,13 @@ input ApiActionUpdateInput {
   resource: ApiActionResourceUpdateFieldInput
   store: BaseActionStoreUpdateFieldInput
   successAction: ApiActionSuccessActionUpdateInput
+}
+
+type ApiActionUpdatedEvent {
+  event: EventType!
+  previousState: ApiActionEventPayload!
+  timestamp: Float!
+  updatedApiAction: ApiActionEventPayload!
 }
 
 input ApiActionWhere {
@@ -1251,6 +1525,12 @@ input AppConnectWhere {
   node: AppWhere!
 }
 
+type AppConnectedRelationships {
+  domains: AppDomainsConnectedRelationship
+  owner: AppOwnerConnectedRelationship
+  pages: AppPagesConnectedRelationship
+}
+
 input AppCreateInput {
   compositeKey: String!
   domains: AppDomainsFieldInput
@@ -1259,10 +1539,22 @@ input AppCreateInput {
   pages: AppPagesFieldInput
 }
 
+type AppCreatedEvent {
+  createdApp: AppEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input AppDeleteInput {
   domains: [AppDomainsDeleteFieldInput!]
   owner: WithOwnerOwnerDeleteFieldInput
   pages: [AppPagesDeleteFieldInput!]
+}
+
+type AppDeletedEvent {
+  deletedApp: AppEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input AppDisconnectInput {
@@ -1310,6 +1602,10 @@ input AppDomainsConnectOrCreateFieldInput {
 
 input AppDomainsConnectOrCreateFieldInputOnCreate {
   node: DomainOnCreateInput!
+}
+
+type AppDomainsConnectedRelationship {
+  node: DomainEventPayload!
 }
 
 type AppDomainsConnection {
@@ -1375,6 +1671,10 @@ type AppDomainsRelationship {
   node: Domain!
 }
 
+input AppDomainsRelationshipSubscriptionWhere {
+  node: DomainSubscriptionWhere
+}
+
 input AppDomainsUpdateConnectionInput {
   node: DomainUpdateInput
 }
@@ -1392,6 +1692,13 @@ input AppDomainsUpdateFieldInput {
 type AppEdge {
   cursor: String!
   node: App!
+}
+
+type AppEventPayload {
+  compositeKey: String!
+  id: ID!
+  name: String!
+  slug: String!
 }
 
 input AppOnCreateInput {
@@ -1419,6 +1726,10 @@ input AppOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: AppOwnerNodeAggregationWhereInput
+}
+
+type AppOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input AppOwnerNodeAggregationWhereInput {
@@ -1487,6 +1798,10 @@ input AppOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input AppOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 type AppPagePagesAggregationSelection {
   count: Int!
   node: AppPagePagesNodeAggregateSelection
@@ -1527,6 +1842,10 @@ input AppPagesConnectOrCreateFieldInput {
 
 input AppPagesConnectOrCreateFieldInputOnCreate {
   node: PageOnCreateInput!
+}
+
+type AppPagesConnectedRelationship {
+  node: PageEventPayload!
 }
 
 type AppPagesConnection {
@@ -1607,6 +1926,10 @@ type AppPagesRelationship {
   node: Page!
 }
 
+input AppPagesRelationshipSubscriptionWhere {
+  node: PageSubscriptionWhere
+}
+
 input AppPagesUpdateConnectionInput {
   node: PageUpdateInput
 }
@@ -1627,12 +1950,76 @@ input AppRelationInput {
   pages: [AppPagesCreateFieldInput!]
 }
 
+type AppRelationshipCreatedEvent {
+  app: AppEventPayload!
+  createdRelationship: AppConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AppRelationshipCreatedSubscriptionWhere {
+  AND: [AppRelationshipCreatedSubscriptionWhere!]
+  NOT: AppRelationshipCreatedSubscriptionWhere
+  OR: [AppRelationshipCreatedSubscriptionWhere!]
+  app: AppSubscriptionWhere
+  createdRelationship: AppRelationshipsSubscriptionWhere
+}
+
+type AppRelationshipDeletedEvent {
+  app: AppEventPayload!
+  deletedRelationship: AppConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AppRelationshipDeletedSubscriptionWhere {
+  AND: [AppRelationshipDeletedSubscriptionWhere!]
+  NOT: AppRelationshipDeletedSubscriptionWhere
+  OR: [AppRelationshipDeletedSubscriptionWhere!]
+  app: AppSubscriptionWhere
+  deletedRelationship: AppRelationshipsSubscriptionWhere
+}
+
+input AppRelationshipsSubscriptionWhere {
+  domains: AppDomainsRelationshipSubscriptionWhere
+  owner: AppOwnerRelationshipSubscriptionWhere
+  pages: AppPagesRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object.
 """
 input AppSort {
   compositeKey: SortDirection
   id: SortDirection
+}
+
+input AppSubscriptionWhere {
+  AND: [AppSubscriptionWhere!]
+  NOT: AppSubscriptionWhere
+  OR: [AppSubscriptionWhere!]
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String]
+  compositeKey_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  slug: String
+  slug_CONTAINS: String
+  slug_ENDS_WITH: String
+  slug_IN: [String]
+  slug_STARTS_WITH: String
 }
 
 """
@@ -1674,6 +2061,10 @@ input AppTypeConnectWhere {
   node: AppTypeWhere!
 }
 
+type AppTypeConnectedRelationships {
+  owner: AppTypeOwnerConnectedRelationship
+}
+
 input AppTypeCreateInput {
   id: ID!
   kind: TypeKind! = AppType
@@ -1681,8 +2072,20 @@ input AppTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type AppTypeCreatedEvent {
+  createdAppType: AppTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input AppTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type AppTypeDeletedEvent {
+  deletedAppType: AppTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input AppTypeDisconnectInput {
@@ -1692,6 +2095,14 @@ input AppTypeDisconnectInput {
 type AppTypeEdge {
   cursor: String!
   node: AppType!
+}
+
+type AppTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input AppTypeOptions {
@@ -1714,6 +2125,10 @@ input AppTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: AppTypeOwnerNodeAggregationWhereInput
+}
+
+type AppTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input AppTypeOwnerNodeAggregationWhereInput {
@@ -1782,8 +2197,48 @@ input AppTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input AppTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input AppTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type AppTypeRelationshipCreatedEvent {
+  appType: AppTypeEventPayload!
+  createdRelationship: AppTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AppTypeRelationshipCreatedSubscriptionWhere {
+  AND: [AppTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: AppTypeRelationshipCreatedSubscriptionWhere
+  OR: [AppTypeRelationshipCreatedSubscriptionWhere!]
+  appType: AppTypeSubscriptionWhere
+  createdRelationship: AppTypeRelationshipsSubscriptionWhere
+}
+
+type AppTypeRelationshipDeletedEvent {
+  appType: AppTypeEventPayload!
+  deletedRelationship: AppTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AppTypeRelationshipDeletedSubscriptionWhere {
+  AND: [AppTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: AppTypeRelationshipDeletedSubscriptionWhere
+  OR: [AppTypeRelationshipDeletedSubscriptionWhere!]
+  appType: AppTypeSubscriptionWhere
+  deletedRelationship: AppTypeRelationshipsSubscriptionWhere
+}
+
+input AppTypeRelationshipsSubscriptionWhere {
+  owner: AppTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -1795,10 +2250,35 @@ input AppTypeSort {
   name: SortDirection
 }
 
+input AppTypeSubscriptionWhere {
+  AND: [AppTypeSubscriptionWhere!]
+  NOT: AppTypeSubscriptionWhere
+  OR: [AppTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input AppTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type AppTypeUpdatedEvent {
+  event: EventType!
+  previousState: AppTypeEventPayload!
+  timestamp: Float!
+  updatedAppType: AppTypeEventPayload!
 }
 
 type AppTypeUserOwnerAggregationSelection {
@@ -1856,6 +2336,13 @@ input AppUpdateInput {
   id: ID
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
+}
+
+type AppUpdatedEvent {
+  event: EventType!
+  previousState: AppEventPayload!
+  timestamp: Float!
+  updatedApp: AppEventPayload!
 }
 
 type AppUserOwnerAggregationSelection {
@@ -2054,6 +2541,12 @@ input ArrayTypeConnectWhere {
   node: ArrayTypeWhere!
 }
 
+type ArrayTypeConnectedRelationships {
+  fieldRefs: ArrayTypeFieldRefsConnectedRelationship
+  itemType: ArrayTypeItemTypeConnectedRelationship
+  owner: ArrayTypeOwnerConnectedRelationship
+}
+
 input ArrayTypeCreateInput {
   fieldRefs: ArrayTypeFieldRefsFieldInput
   id: ID!
@@ -2063,10 +2556,22 @@ input ArrayTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type ArrayTypeCreatedEvent {
+  createdArrayType: ArrayTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ArrayTypeDeleteInput {
   fieldRefs: [ArrayTypeFieldRefsDeleteFieldInput!]
   itemType: ArrayTypeItemTypeDeleteFieldInput
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type ArrayTypeDeletedEvent {
+  deletedArrayType: ArrayTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ArrayTypeDisconnectInput {
@@ -2078,6 +2583,15 @@ input ArrayTypeDisconnectInput {
 type ArrayTypeEdge {
   cursor: String!
   node: ArrayType!
+}
+
+type ArrayTypeEventPayload implements IBaseTypeEventPayload {
+  descendantTypesIds: [ID!]!
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 type ArrayTypeFieldFieldRefsAggregationSelection {
@@ -2123,6 +2637,10 @@ input ArrayTypeFieldRefsConnectOrCreateFieldInput {
 
 input ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate {
   node: FieldOnCreateInput!
+}
+
+type ArrayTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
 }
 
 type ArrayTypeFieldRefsConnection {
@@ -2248,6 +2766,10 @@ type ArrayTypeFieldRefsRelationship {
   node: Field!
 }
 
+input ArrayTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
 input ArrayTypeFieldRefsUpdateConnectionInput {
   node: FieldUpdateInput
 }
@@ -2265,6 +2787,10 @@ input ArrayTypeFieldRefsUpdateFieldInput {
 input ArrayTypeItemTypeConnectFieldInput {
   connect: IBaseTypeConnectInput
   where: IBaseTypeConnectWhere
+}
+
+type ArrayTypeItemTypeConnectedRelationship {
+  node: IBaseTypeEventPayload!
 }
 
 type ArrayTypeItemTypeConnection {
@@ -2308,6 +2834,10 @@ type ArrayTypeItemTypeRelationship {
   node: IBaseType!
 }
 
+input ArrayTypeItemTypeRelationshipSubscriptionWhere {
+  node: IBaseTypeSubscriptionWhere
+}
+
 input ArrayTypeItemTypeUpdateConnectionInput {
   node: IBaseTypeUpdateInput
 }
@@ -2341,6 +2871,10 @@ input ArrayTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ArrayTypeOwnerNodeAggregationWhereInput
+}
+
+type ArrayTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input ArrayTypeOwnerNodeAggregationWhereInput {
@@ -2409,10 +2943,52 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input ArrayTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input ArrayTypeRelationInput {
   fieldRefs: [ArrayTypeFieldRefsCreateFieldInput!]
   itemType: ArrayTypeItemTypeCreateFieldInput
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type ArrayTypeRelationshipCreatedEvent {
+  arrayType: ArrayTypeEventPayload!
+  createdRelationship: ArrayTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ArrayTypeRelationshipCreatedSubscriptionWhere {
+  AND: [ArrayTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: ArrayTypeRelationshipCreatedSubscriptionWhere
+  OR: [ArrayTypeRelationshipCreatedSubscriptionWhere!]
+  arrayType: ArrayTypeSubscriptionWhere
+  createdRelationship: ArrayTypeRelationshipsSubscriptionWhere
+}
+
+type ArrayTypeRelationshipDeletedEvent {
+  arrayType: ArrayTypeEventPayload!
+  deletedRelationship: ArrayTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ArrayTypeRelationshipDeletedSubscriptionWhere {
+  AND: [ArrayTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: ArrayTypeRelationshipDeletedSubscriptionWhere
+  OR: [ArrayTypeRelationshipDeletedSubscriptionWhere!]
+  arrayType: ArrayTypeSubscriptionWhere
+  deletedRelationship: ArrayTypeRelationshipsSubscriptionWhere
+}
+
+input ArrayTypeRelationshipsSubscriptionWhere {
+  fieldRefs: ArrayTypeFieldRefsRelationshipSubscriptionWhere
+  itemType: ArrayTypeItemTypeRelationshipSubscriptionWhere
+  owner: ArrayTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -2424,12 +3000,37 @@ input ArrayTypeSort {
   name: SortDirection
 }
 
+input ArrayTypeSubscriptionWhere {
+  AND: [ArrayTypeSubscriptionWhere!]
+  NOT: ArrayTypeSubscriptionWhere
+  OR: [ArrayTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input ArrayTypeUpdateInput {
   fieldRefs: [ArrayTypeFieldRefsUpdateFieldInput!]
   id: ID
   itemType: ArrayTypeItemTypeUpdateFieldInput
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type ArrayTypeUpdatedEvent {
+  event: EventType!
+  previousState: ArrayTypeEventPayload!
+  timestamp: Float!
+  updatedArrayType: ArrayTypeEventPayload!
 }
 
 type ArrayTypeUserOwnerAggregationSelection {
@@ -2649,6 +3250,10 @@ input AtomApiConnectFieldInput {
   where: InterfaceTypeConnectWhere
 }
 
+type AtomApiConnectedRelationship {
+  node: InterfaceTypeEventPayload!
+}
+
 type AtomApiConnection {
   edges: [AtomApiRelationship!]!
   pageInfo: PageInfo!
@@ -2709,6 +3314,10 @@ input AtomApiNodeAggregationWhereInput {
 type AtomApiRelationship {
   cursor: String!
   node: InterfaceType!
+}
+
+input AtomApiRelationshipSubscriptionWhere {
+  node: InterfaceTypeSubscriptionWhere
 }
 
 input AtomApiUpdateConnectionInput {
@@ -2777,6 +3386,15 @@ input AtomConnectWhere {
   node: AtomWhere!
 }
 
+type AtomConnectedRelationships {
+  api: AtomApiConnectedRelationship
+  elements: AtomElementsConnectedRelationship
+  owner: AtomOwnerConnectedRelationship
+  requiredParents: AtomRequiredParentsConnectedRelationship
+  suggestedChildren: AtomSuggestedChildrenConnectedRelationship
+  tags: AtomTagsConnectedRelationship
+}
+
 input AtomCreateInput {
   api: AtomApiFieldInput
   elements: AtomElementsFieldInput
@@ -2793,6 +3411,12 @@ input AtomCreateInput {
   type: AtomType!
 }
 
+type AtomCreatedEvent {
+  createdAtom: AtomEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input AtomDeleteInput {
   api: AtomApiDeleteFieldInput
   elements: [AtomElementsDeleteFieldInput!]
@@ -2800,6 +3424,12 @@ input AtomDeleteInput {
   requiredParents: [AtomRequiredParentsDeleteFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenDeleteFieldInput!]
   tags: [AtomTagsDeleteFieldInput!]
+}
+
+type AtomDeletedEvent {
+  deletedAtom: AtomEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input AtomDisconnectInput {
@@ -2859,6 +3489,10 @@ input AtomElementsConnectOrCreateFieldInput {
 
 input AtomElementsConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type AtomElementsConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type AtomElementsConnection {
@@ -2984,6 +3618,10 @@ type AtomElementsRelationship {
   node: Element!
 }
 
+input AtomElementsRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input AtomElementsUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -2996,6 +3634,16 @@ input AtomElementsUpdateFieldInput {
   disconnect: [AtomElementsDisconnectFieldInput!]
   update: AtomElementsUpdateConnectionInput
   where: AtomElementsConnectionWhere
+}
+
+type AtomEventPayload {
+  externalCssSource: String
+  externalJsSource: String
+  externalSourceType: String
+  icon: String
+  id: ID!
+  name: String!
+  type: AtomType!
 }
 
 type AtomInterfaceTypeApiAggregationSelection {
@@ -3038,6 +3686,10 @@ input AtomOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: AtomOwnerNodeAggregationWhereInput
+}
+
+type AtomOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input AtomOwnerNodeAggregationWhereInput {
@@ -3106,6 +3758,10 @@ input AtomOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input AtomOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input AtomRelationInput {
   api: AtomApiCreateFieldInput
   elements: [AtomElementsCreateFieldInput!]
@@ -3113,6 +3769,47 @@ input AtomRelationInput {
   requiredParents: [AtomRequiredParentsCreateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenCreateFieldInput!]
   tags: [AtomTagsCreateFieldInput!]
+}
+
+type AtomRelationshipCreatedEvent {
+  atom: AtomEventPayload!
+  createdRelationship: AtomConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AtomRelationshipCreatedSubscriptionWhere {
+  AND: [AtomRelationshipCreatedSubscriptionWhere!]
+  NOT: AtomRelationshipCreatedSubscriptionWhere
+  OR: [AtomRelationshipCreatedSubscriptionWhere!]
+  atom: AtomSubscriptionWhere
+  createdRelationship: AtomRelationshipsSubscriptionWhere
+}
+
+type AtomRelationshipDeletedEvent {
+  atom: AtomEventPayload!
+  deletedRelationship: AtomConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AtomRelationshipDeletedSubscriptionWhere {
+  AND: [AtomRelationshipDeletedSubscriptionWhere!]
+  NOT: AtomRelationshipDeletedSubscriptionWhere
+  OR: [AtomRelationshipDeletedSubscriptionWhere!]
+  atom: AtomSubscriptionWhere
+  deletedRelationship: AtomRelationshipsSubscriptionWhere
+}
+
+input AtomRelationshipsSubscriptionWhere {
+  api: AtomApiRelationshipSubscriptionWhere
+  elements: AtomElementsRelationshipSubscriptionWhere
+  owner: AtomOwnerRelationshipSubscriptionWhere
+  requiredParents: AtomRequiredParentsRelationshipSubscriptionWhere
+  suggestedChildren: AtomSuggestedChildrenRelationshipSubscriptionWhere
+  tags: AtomTagsRelationshipSubscriptionWhere
 }
 
 input AtomRequiredParentsAggregateInput {
@@ -3144,6 +3841,10 @@ input AtomRequiredParentsConnectOrCreateFieldInput {
 
 input AtomRequiredParentsConnectOrCreateFieldInputOnCreate {
   node: AtomOnCreateInput!
+}
+
+type AtomRequiredParentsConnectedRelationship {
+  node: AtomEventPayload!
 }
 
 type AtomRequiredParentsConnection {
@@ -3269,6 +3970,10 @@ type AtomRequiredParentsRelationship {
   node: Atom!
 }
 
+input AtomRequiredParentsRelationshipSubscriptionWhere {
+  node: AtomSubscriptionWhere
+}
+
 input AtomRequiredParentsUpdateConnectionInput {
   node: AtomUpdateInput
 }
@@ -3294,6 +3999,44 @@ input AtomSort {
   id: SortDirection
   name: SortDirection
   type: SortDirection
+}
+
+input AtomSubscriptionWhere {
+  AND: [AtomSubscriptionWhere!]
+  NOT: AtomSubscriptionWhere
+  OR: [AtomSubscriptionWhere!]
+  externalCssSource: String
+  externalCssSource_CONTAINS: String
+  externalCssSource_ENDS_WITH: String
+  externalCssSource_IN: [String]
+  externalCssSource_STARTS_WITH: String
+  externalJsSource: String
+  externalJsSource_CONTAINS: String
+  externalJsSource_ENDS_WITH: String
+  externalJsSource_IN: [String]
+  externalJsSource_STARTS_WITH: String
+  externalSourceType: String
+  externalSourceType_CONTAINS: String
+  externalSourceType_ENDS_WITH: String
+  externalSourceType_IN: [String]
+  externalSourceType_STARTS_WITH: String
+  icon: String
+  icon_CONTAINS: String
+  icon_ENDS_WITH: String
+  icon_IN: [String]
+  icon_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  type: AtomType
+  type_IN: [AtomType]
 }
 
 input AtomSuggestedChildrenAggregateInput {
@@ -3325,6 +4068,10 @@ input AtomSuggestedChildrenConnectOrCreateFieldInput {
 
 input AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate {
   node: AtomOnCreateInput!
+}
+
+type AtomSuggestedChildrenConnectedRelationship {
+  node: AtomEventPayload!
 }
 
 type AtomSuggestedChildrenConnection {
@@ -3450,6 +4197,10 @@ type AtomSuggestedChildrenRelationship {
   node: Atom!
 }
 
+input AtomSuggestedChildrenRelationshipSubscriptionWhere {
+  node: AtomSubscriptionWhere
+}
+
 input AtomSuggestedChildrenUpdateConnectionInput {
   node: AtomUpdateInput
 }
@@ -3503,6 +4254,10 @@ input AtomTagsConnectOrCreateFieldInput {
 
 input AtomTagsConnectOrCreateFieldInputOnCreate {
   node: TagOnCreateInput!
+}
+
+type AtomTagsConnectedRelationship {
+  node: TagEventPayload!
 }
 
 type AtomTagsConnection {
@@ -3566,6 +4321,10 @@ input AtomTagsNodeAggregationWhereInput {
 type AtomTagsRelationship {
   cursor: String!
   node: Tag!
+}
+
+input AtomTagsRelationshipSubscriptionWhere {
+  node: TagSubscriptionWhere
 }
 
 input AtomTagsUpdateConnectionInput {
@@ -3988,6 +4747,13 @@ input AtomUpdateInput {
   type: AtomType
 }
 
+type AtomUpdatedEvent {
+  event: EventType!
+  previousState: AtomEventPayload!
+  timestamp: Float!
+  updatedAtom: AtomEventPayload!
+}
+
 type AtomUserOwnerAggregationSelection {
   count: Int!
   node: AtomUserOwnerNodeAggregateSelection
@@ -4311,6 +5077,10 @@ input AuthGuardConfigConnectOrCreateFieldInputOnCreate {
   node: PropOnCreateInput!
 }
 
+type AuthGuardConfigConnectedRelationship {
+  node: PropEventPayload!
+}
+
 type AuthGuardConfigConnection {
   edges: [AuthGuardConfigRelationship!]!
   pageInfo: PageInfo!
@@ -4372,6 +5142,10 @@ type AuthGuardConfigRelationship {
   node: Prop!
 }
 
+input AuthGuardConfigRelationshipSubscriptionWhere {
+  node: PropSubscriptionWhere
+}
+
 input AuthGuardConfigUpdateConnectionInput {
   node: PropUpdateInput
 }
@@ -4406,6 +5180,12 @@ input AuthGuardConnectWhere {
   node: AuthGuardWhere!
 }
 
+type AuthGuardConnectedRelationships {
+  config: AuthGuardConfigConnectedRelationship
+  owner: AuthGuardOwnerConnectedRelationship
+  resource: AuthGuardResourceConnectedRelationship
+}
+
 input AuthGuardCreateInput {
   config: AuthGuardConfigFieldInput
   id: ID!
@@ -4415,10 +5195,22 @@ input AuthGuardCreateInput {
   responseTransformer: String!
 }
 
+type AuthGuardCreatedEvent {
+  createdAuthGuard: AuthGuardEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input AuthGuardDeleteInput {
   config: AuthGuardConfigDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
   resource: AuthGuardResourceDeleteFieldInput
+}
+
+type AuthGuardDeletedEvent {
+  deletedAuthGuard: AuthGuardEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input AuthGuardDisconnectInput {
@@ -4430,6 +5222,12 @@ input AuthGuardDisconnectInput {
 type AuthGuardEdge {
   cursor: String!
   node: AuthGuard!
+}
+
+type AuthGuardEventPayload {
+  id: ID!
+  name: String!
+  responseTransformer: String!
 }
 
 input AuthGuardOnCreateInput {
@@ -4458,6 +5256,10 @@ input AuthGuardOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: AuthGuardOwnerNodeAggregationWhereInput
+}
+
+type AuthGuardOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input AuthGuardOwnerNodeAggregationWhereInput {
@@ -4526,6 +5328,10 @@ input AuthGuardOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input AuthGuardOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 type AuthGuardPropConfigAggregationSelection {
   count: Int!
   node: AuthGuardPropConfigNodeAggregateSelection
@@ -4540,6 +5346,44 @@ input AuthGuardRelationInput {
   config: AuthGuardConfigCreateFieldInput
   owner: WithOwnerOwnerCreateFieldInput
   resource: AuthGuardResourceCreateFieldInput
+}
+
+type AuthGuardRelationshipCreatedEvent {
+  authGuard: AuthGuardEventPayload!
+  createdRelationship: AuthGuardConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AuthGuardRelationshipCreatedSubscriptionWhere {
+  AND: [AuthGuardRelationshipCreatedSubscriptionWhere!]
+  NOT: AuthGuardRelationshipCreatedSubscriptionWhere
+  OR: [AuthGuardRelationshipCreatedSubscriptionWhere!]
+  authGuard: AuthGuardSubscriptionWhere
+  createdRelationship: AuthGuardRelationshipsSubscriptionWhere
+}
+
+type AuthGuardRelationshipDeletedEvent {
+  authGuard: AuthGuardEventPayload!
+  deletedRelationship: AuthGuardConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input AuthGuardRelationshipDeletedSubscriptionWhere {
+  AND: [AuthGuardRelationshipDeletedSubscriptionWhere!]
+  NOT: AuthGuardRelationshipDeletedSubscriptionWhere
+  OR: [AuthGuardRelationshipDeletedSubscriptionWhere!]
+  authGuard: AuthGuardSubscriptionWhere
+  deletedRelationship: AuthGuardRelationshipsSubscriptionWhere
+}
+
+input AuthGuardRelationshipsSubscriptionWhere {
+  config: AuthGuardConfigRelationshipSubscriptionWhere
+  owner: AuthGuardOwnerRelationshipSubscriptionWhere
+  resource: AuthGuardResourceRelationshipSubscriptionWhere
 }
 
 input AuthGuardResourceAggregateInput {
@@ -4571,6 +5415,10 @@ input AuthGuardResourceConnectOrCreateFieldInput {
 
 input AuthGuardResourceConnectOrCreateFieldInputOnCreate {
   node: ResourceOnCreateInput!
+}
+
+type AuthGuardResourceConnectedRelationship {
+  node: ResourceEventPayload!
 }
 
 type AuthGuardResourceConnection {
@@ -4636,6 +5484,10 @@ type AuthGuardResourceRelationship {
   node: Resource!
 }
 
+input AuthGuardResourceRelationshipSubscriptionWhere {
+  node: ResourceSubscriptionWhere
+}
+
 type AuthGuardResourceResourceAggregationSelection {
   count: Int!
   node: AuthGuardResourceResourceNodeAggregateSelection
@@ -4669,6 +5521,27 @@ input AuthGuardSort {
   responseTransformer: SortDirection
 }
 
+input AuthGuardSubscriptionWhere {
+  AND: [AuthGuardSubscriptionWhere!]
+  NOT: AuthGuardSubscriptionWhere
+  OR: [AuthGuardSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  responseTransformer: String
+  responseTransformer_CONTAINS: String
+  responseTransformer_ENDS_WITH: String
+  responseTransformer_IN: [String]
+  responseTransformer_STARTS_WITH: String
+}
+
 input AuthGuardUniqueWhere {
   id: ID
 }
@@ -4680,6 +5553,13 @@ input AuthGuardUpdateInput {
   owner: WithOwnerOwnerUpdateFieldInput
   resource: AuthGuardResourceUpdateFieldInput
   responseTransformer: String
+}
+
+type AuthGuardUpdatedEvent {
+  event: EventType!
+  previousState: AuthGuardEventPayload!
+  timestamp: Float!
+  updatedAuthGuard: AuthGuardEventPayload!
 }
 
 type AuthGuardUserOwnerAggregationSelection {
@@ -4965,6 +5845,12 @@ input BaseActionElementUpdateFieldInput {
   where: BaseActionElementConnectionWhere
 }
 
+interface BaseActionEventPayload {
+  id: ID!
+  name: String!
+  type: ActionKind!
+}
+
 input BaseActionImplementationsConnectInput {
   ApiAction: [ApiActionConnectInput!]
   CodeAction: [CodeActionConnectInput!]
@@ -4978,6 +5864,11 @@ input BaseActionImplementationsDeleteInput {
 input BaseActionImplementationsDisconnectInput {
   ApiAction: [ApiActionDisconnectInput!]
   CodeAction: [CodeActionDisconnectInput!]
+}
+
+input BaseActionImplementationsSubscriptionWhere {
+  ApiAction: ApiActionSubscriptionWhere
+  CodeAction: CodeActionSubscriptionWhere
 }
 
 input BaseActionImplementationsUpdateInput {
@@ -5117,6 +6008,25 @@ input BaseActionStoreUpdateFieldInput {
   where: BaseActionStoreConnectionWhere
 }
 
+input BaseActionSubscriptionWhere {
+  AND: [BaseActionSubscriptionWhere!]
+  NOT: BaseActionSubscriptionWhere
+  OR: [BaseActionSubscriptionWhere!]
+  _on: BaseActionImplementationsSubscriptionWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  type: ActionKind
+  type_IN: [ActionKind]
+}
+
 input BaseActionUpdateInput {
   _on: BaseActionImplementationsUpdateInput
   element: BaseActionElementUpdateFieldInput
@@ -5218,6 +6128,11 @@ input CodeActionConnectWhere {
   node: CodeActionWhere!
 }
 
+type CodeActionConnectedRelationships {
+  element: CodeActionElementConnectedRelationship
+  store: CodeActionStoreConnectedRelationship
+}
+
 input CodeActionCreateInput {
   code: String!
   element: BaseActionElementFieldInput
@@ -5227,9 +6142,21 @@ input CodeActionCreateInput {
   type: ActionKind! = CodeAction
 }
 
+type CodeActionCreatedEvent {
+  createdCodeAction: CodeActionEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input CodeActionDeleteInput {
   element: BaseActionElementDeleteFieldInput
   store: BaseActionStoreDeleteFieldInput
+}
+
+type CodeActionDeletedEvent {
+  deletedCodeAction: CodeActionEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input CodeActionDisconnectInput {
@@ -5252,6 +6179,10 @@ input CodeActionElementAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: CodeActionElementNodeAggregationWhereInput
+}
+
+type CodeActionElementConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type CodeActionElementElementAggregationSelection {
@@ -5349,6 +6280,24 @@ input CodeActionElementNodeAggregationWhereInput {
   style_SHORTEST_LENGTH_LTE: Int
 }
 
+input CodeActionElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
+type CodeActionEventPayload implements BaseActionEventPayload {
+  """
+  Code to run when action is triggered
+  """
+  code: String!
+  element: Element
+  elementConnection: BaseActionElementConnection!
+  id: ID!
+  name: String!
+  store: Store!
+  storeConnection: BaseActionStoreConnection!
+  type: ActionKind!
+}
+
 input CodeActionOptions {
   limit: Int
   offset: Int
@@ -5362,6 +6311,43 @@ input CodeActionOptions {
 input CodeActionRelationInput {
   element: BaseActionElementCreateFieldInput
   store: BaseActionStoreCreateFieldInput
+}
+
+type CodeActionRelationshipCreatedEvent {
+  codeAction: CodeActionEventPayload!
+  createdRelationship: CodeActionConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input CodeActionRelationshipCreatedSubscriptionWhere {
+  AND: [CodeActionRelationshipCreatedSubscriptionWhere!]
+  NOT: CodeActionRelationshipCreatedSubscriptionWhere
+  OR: [CodeActionRelationshipCreatedSubscriptionWhere!]
+  codeAction: CodeActionSubscriptionWhere
+  createdRelationship: CodeActionRelationshipsSubscriptionWhere
+}
+
+type CodeActionRelationshipDeletedEvent {
+  codeAction: CodeActionEventPayload!
+  deletedRelationship: CodeActionConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input CodeActionRelationshipDeletedSubscriptionWhere {
+  AND: [CodeActionRelationshipDeletedSubscriptionWhere!]
+  NOT: CodeActionRelationshipDeletedSubscriptionWhere
+  OR: [CodeActionRelationshipDeletedSubscriptionWhere!]
+  codeAction: CodeActionSubscriptionWhere
+  deletedRelationship: CodeActionRelationshipsSubscriptionWhere
+}
+
+input CodeActionRelationshipsSubscriptionWhere {
+  element: CodeActionElementRelationshipSubscriptionWhere
+  store: CodeActionStoreRelationshipSubscriptionWhere
 }
 
 """
@@ -5386,6 +6372,10 @@ input CodeActionStoreAggregateInput {
   node: CodeActionStoreNodeAggregationWhereInput
 }
 
+type CodeActionStoreConnectedRelationship {
+  node: StoreEventPayload!
+}
+
 input CodeActionStoreNodeAggregationWhereInput {
   AND: [CodeActionStoreNodeAggregationWhereInput!]
   NOT: CodeActionStoreNodeAggregationWhereInput
@@ -5407,6 +6397,10 @@ input CodeActionStoreNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_LTE: Int
 }
 
+input CodeActionStoreRelationshipSubscriptionWhere {
+  node: StoreSubscriptionWhere
+}
+
 type CodeActionStoreStoreAggregationSelection {
   count: Int!
   node: CodeActionStoreStoreNodeAggregateSelection
@@ -5417,12 +6411,42 @@ type CodeActionStoreStoreNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
+input CodeActionSubscriptionWhere {
+  AND: [CodeActionSubscriptionWhere!]
+  NOT: CodeActionSubscriptionWhere
+  OR: [CodeActionSubscriptionWhere!]
+  code: String
+  code_CONTAINS: String
+  code_ENDS_WITH: String
+  code_IN: [String]
+  code_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  type: ActionKind
+  type_IN: [ActionKind]
+}
+
 input CodeActionUpdateInput {
   code: String
   element: BaseActionElementUpdateFieldInput
   id: ID
   name: String
   store: BaseActionStoreUpdateFieldInput
+}
+
+type CodeActionUpdatedEvent {
+  event: EventType!
+  previousState: CodeActionEventPayload!
+  timestamp: Float!
+  updatedCodeAction: CodeActionEventPayload!
 }
 
 input CodeActionWhere {
@@ -5516,6 +6540,10 @@ input CodeMirrorTypeConnectWhere {
   node: CodeMirrorTypeWhere!
 }
 
+type CodeMirrorTypeConnectedRelationships {
+  owner: CodeMirrorTypeOwnerConnectedRelationship
+}
+
 input CodeMirrorTypeCreateInput {
   id: ID!
   kind: TypeKind! = CodeMirrorType
@@ -5524,8 +6552,20 @@ input CodeMirrorTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type CodeMirrorTypeCreatedEvent {
+  createdCodeMirrorType: CodeMirrorTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input CodeMirrorTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type CodeMirrorTypeDeletedEvent {
+  deletedCodeMirrorType: CodeMirrorTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input CodeMirrorTypeDisconnectInput {
@@ -5535,6 +6575,15 @@ input CodeMirrorTypeDisconnectInput {
 type CodeMirrorTypeEdge {
   cursor: String!
   node: CodeMirrorType!
+}
+
+type CodeMirrorTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  language: CodeMirrorLanguage!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input CodeMirrorTypeOptions {
@@ -5557,6 +6606,10 @@ input CodeMirrorTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: CodeMirrorTypeOwnerNodeAggregationWhereInput
+}
+
+type CodeMirrorTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input CodeMirrorTypeOwnerNodeAggregationWhereInput {
@@ -5625,8 +6678,48 @@ input CodeMirrorTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input CodeMirrorTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input CodeMirrorTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type CodeMirrorTypeRelationshipCreatedEvent {
+  codeMirrorType: CodeMirrorTypeEventPayload!
+  createdRelationship: CodeMirrorTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input CodeMirrorTypeRelationshipCreatedSubscriptionWhere {
+  AND: [CodeMirrorTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: CodeMirrorTypeRelationshipCreatedSubscriptionWhere
+  OR: [CodeMirrorTypeRelationshipCreatedSubscriptionWhere!]
+  codeMirrorType: CodeMirrorTypeSubscriptionWhere
+  createdRelationship: CodeMirrorTypeRelationshipsSubscriptionWhere
+}
+
+type CodeMirrorTypeRelationshipDeletedEvent {
+  codeMirrorType: CodeMirrorTypeEventPayload!
+  deletedRelationship: CodeMirrorTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input CodeMirrorTypeRelationshipDeletedSubscriptionWhere {
+  AND: [CodeMirrorTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: CodeMirrorTypeRelationshipDeletedSubscriptionWhere
+  OR: [CodeMirrorTypeRelationshipDeletedSubscriptionWhere!]
+  codeMirrorType: CodeMirrorTypeSubscriptionWhere
+  deletedRelationship: CodeMirrorTypeRelationshipsSubscriptionWhere
+}
+
+input CodeMirrorTypeRelationshipsSubscriptionWhere {
+  owner: CodeMirrorTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -5639,11 +6732,38 @@ input CodeMirrorTypeSort {
   name: SortDirection
 }
 
+input CodeMirrorTypeSubscriptionWhere {
+  AND: [CodeMirrorTypeSubscriptionWhere!]
+  NOT: CodeMirrorTypeSubscriptionWhere
+  OR: [CodeMirrorTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  language: CodeMirrorLanguage
+  language_IN: [CodeMirrorLanguage]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input CodeMirrorTypeUpdateInput {
   id: ID
   language: CodeMirrorLanguage
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type CodeMirrorTypeUpdatedEvent {
+  event: EventType!
+  previousState: CodeMirrorTypeEventPayload!
+  timestamp: Float!
+  updatedCodeMirrorType: CodeMirrorTypeEventPayload!
 }
 
 type CodeMirrorTypeUserOwnerAggregationSelection {
@@ -5798,6 +6918,10 @@ input ComponentApiConnectFieldInput {
   where: InterfaceTypeConnectWhere
 }
 
+type ComponentApiConnectedRelationship {
+  node: InterfaceTypeEventPayload!
+}
+
 type ComponentApiConnection {
   edges: [ComponentApiRelationship!]!
   pageInfo: PageInfo!
@@ -5860,6 +6984,10 @@ type ComponentApiRelationship {
   node: InterfaceType!
 }
 
+input ComponentApiRelationshipSubscriptionWhere {
+  node: InterfaceTypeSubscriptionWhere
+}
+
 input ComponentApiUpdateConnectionInput {
   node: InterfaceTypeUpdateInput
 }
@@ -5896,6 +7024,14 @@ input ComponentConnectWhere {
   node: ComponentWhere!
 }
 
+type ComponentConnectedRelationships {
+  api: ComponentApiConnectedRelationship
+  owner: ComponentOwnerConnectedRelationship
+  props: ComponentPropsConnectedRelationship
+  rootElement: ComponentRootElementConnectedRelationship
+  store: ComponentStoreConnectedRelationship
+}
+
 input ComponentCreateInput {
   api: ComponentApiFieldInput
   id: ID!
@@ -5906,12 +7042,24 @@ input ComponentCreateInput {
   store: ComponentStoreFieldInput
 }
 
+type ComponentCreatedEvent {
+  createdComponent: ComponentEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ComponentDeleteInput {
   api: ComponentApiDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
   props: ComponentPropsDeleteFieldInput
   rootElement: ComponentRootElementDeleteFieldInput
   store: ComponentStoreDeleteFieldInput
+}
+
+type ComponentDeletedEvent {
+  deletedComponent: ComponentEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ComponentDisconnectInput {
@@ -5939,6 +7087,11 @@ type ComponentElementRootElementNodeAggregateSelection {
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
   style: StringAggregateSelectionNullable!
+}
+
+type ComponentEventPayload {
+  id: ID!
+  name: String!
 }
 
 type ComponentInterfaceTypeApiAggregationSelection {
@@ -5976,6 +7129,10 @@ input ComponentOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ComponentOwnerNodeAggregationWhereInput
+}
+
+type ComponentOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input ComponentOwnerNodeAggregationWhereInput {
@@ -6044,6 +7201,10 @@ input ComponentOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input ComponentOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 type ComponentPropPropsAggregationSelection {
   count: Int!
   node: ComponentPropPropsNodeAggregateSelection
@@ -6081,6 +7242,10 @@ input ComponentPropsConnectOrCreateFieldInput {
 
 input ComponentPropsConnectOrCreateFieldInputOnCreate {
   node: PropOnCreateInput!
+}
+
+type ComponentPropsConnectedRelationship {
+  node: PropEventPayload!
 }
 
 type ComponentPropsConnection {
@@ -6144,6 +7309,10 @@ type ComponentPropsRelationship {
   node: Prop!
 }
 
+input ComponentPropsRelationshipSubscriptionWhere {
+  node: PropSubscriptionWhere
+}
+
 input ComponentPropsUpdateConnectionInput {
   node: PropUpdateInput
 }
@@ -6164,6 +7333,46 @@ input ComponentRelationInput {
   props: ComponentPropsCreateFieldInput
   rootElement: ComponentRootElementCreateFieldInput
   store: ComponentStoreCreateFieldInput
+}
+
+type ComponentRelationshipCreatedEvent {
+  component: ComponentEventPayload!
+  createdRelationship: ComponentConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ComponentRelationshipCreatedSubscriptionWhere {
+  AND: [ComponentRelationshipCreatedSubscriptionWhere!]
+  NOT: ComponentRelationshipCreatedSubscriptionWhere
+  OR: [ComponentRelationshipCreatedSubscriptionWhere!]
+  component: ComponentSubscriptionWhere
+  createdRelationship: ComponentRelationshipsSubscriptionWhere
+}
+
+type ComponentRelationshipDeletedEvent {
+  component: ComponentEventPayload!
+  deletedRelationship: ComponentConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ComponentRelationshipDeletedSubscriptionWhere {
+  AND: [ComponentRelationshipDeletedSubscriptionWhere!]
+  NOT: ComponentRelationshipDeletedSubscriptionWhere
+  OR: [ComponentRelationshipDeletedSubscriptionWhere!]
+  component: ComponentSubscriptionWhere
+  deletedRelationship: ComponentRelationshipsSubscriptionWhere
+}
+
+input ComponentRelationshipsSubscriptionWhere {
+  api: ComponentApiRelationshipSubscriptionWhere
+  owner: ComponentOwnerRelationshipSubscriptionWhere
+  props: ComponentPropsRelationshipSubscriptionWhere
+  rootElement: ComponentRootElementRelationshipSubscriptionWhere
+  store: ComponentStoreRelationshipSubscriptionWhere
 }
 
 input ComponentRootElementAggregateInput {
@@ -6195,6 +7404,10 @@ input ComponentRootElementConnectOrCreateFieldInput {
 
 input ComponentRootElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type ComponentRootElementConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type ComponentRootElementConnection {
@@ -6320,6 +7533,10 @@ type ComponentRootElementRelationship {
   node: Element!
 }
 
+input ComponentRootElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input ComponentRootElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -6371,6 +7588,10 @@ input ComponentStoreConnectOrCreateFieldInput {
 
 input ComponentStoreConnectOrCreateFieldInputOnCreate {
   node: StoreOnCreateInput!
+}
+
+type ComponentStoreConnectedRelationship {
+  node: StoreEventPayload!
 }
 
 type ComponentStoreConnection {
@@ -6436,6 +7657,10 @@ type ComponentStoreRelationship {
   node: Store!
 }
 
+input ComponentStoreRelationshipSubscriptionWhere {
+  node: StoreSubscriptionWhere
+}
+
 type ComponentStoreStoreAggregationSelection {
   count: Int!
   node: ComponentStoreStoreNodeAggregateSelection
@@ -6460,6 +7685,22 @@ input ComponentStoreUpdateFieldInput {
   where: ComponentStoreConnectionWhere
 }
 
+input ComponentSubscriptionWhere {
+  AND: [ComponentSubscriptionWhere!]
+  NOT: ComponentSubscriptionWhere
+  OR: [ComponentSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input ComponentUniqueWhere {
   id: ID
 }
@@ -6472,6 +7713,13 @@ input ComponentUpdateInput {
   props: ComponentPropsUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput
   store: ComponentStoreUpdateFieldInput
+}
+
+type ComponentUpdatedEvent {
+  event: EventType!
+  previousState: ComponentEventPayload!
+  timestamp: Float!
+  updatedComponent: ComponentEventPayload!
 }
 
 type ComponentUserOwnerAggregationSelection {
@@ -6797,6 +8045,10 @@ input DomainAppConnectOrCreateFieldInputOnCreate {
   node: AppOnCreateInput!
 }
 
+type DomainAppConnectedRelationship {
+  node: AppEventPayload!
+}
+
 type DomainAppConnection {
   edges: [DomainAppRelationship!]!
   pageInfo: PageInfo!
@@ -6860,6 +8112,10 @@ type DomainAppRelationship {
   node: App!
 }
 
+input DomainAppRelationshipSubscriptionWhere {
+  node: AppSubscriptionWhere
+}
+
 input DomainAppUpdateConnectionInput {
   node: AppUpdateInput
 }
@@ -6890,14 +8146,30 @@ input DomainConnectWhere {
   node: DomainWhere!
 }
 
+type DomainConnectedRelationships {
+  app: DomainAppConnectedRelationship
+}
+
 input DomainCreateInput {
   app: DomainAppFieldInput
   id: ID!
   name: String!
 }
 
+type DomainCreatedEvent {
+  createdDomain: DomainEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input DomainDeleteInput {
   app: DomainAppDeleteFieldInput
+}
+
+type DomainDeletedEvent {
+  deletedDomain: DomainEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input DomainDisconnectInput {
@@ -6907,6 +8179,11 @@ input DomainDisconnectInput {
 type DomainEdge {
   cursor: String!
   node: Domain!
+}
+
+type DomainEventPayload {
+  id: ID!
+  name: String!
 }
 
 input DomainOnCreateInput {
@@ -6928,12 +8205,64 @@ input DomainRelationInput {
   app: DomainAppCreateFieldInput
 }
 
+type DomainRelationshipCreatedEvent {
+  createdRelationship: DomainConnectedRelationships!
+  domain: DomainEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input DomainRelationshipCreatedSubscriptionWhere {
+  AND: [DomainRelationshipCreatedSubscriptionWhere!]
+  NOT: DomainRelationshipCreatedSubscriptionWhere
+  OR: [DomainRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: DomainRelationshipsSubscriptionWhere
+  domain: DomainSubscriptionWhere
+}
+
+type DomainRelationshipDeletedEvent {
+  deletedRelationship: DomainConnectedRelationships!
+  domain: DomainEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input DomainRelationshipDeletedSubscriptionWhere {
+  AND: [DomainRelationshipDeletedSubscriptionWhere!]
+  NOT: DomainRelationshipDeletedSubscriptionWhere
+  OR: [DomainRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: DomainRelationshipsSubscriptionWhere
+  domain: DomainSubscriptionWhere
+}
+
+input DomainRelationshipsSubscriptionWhere {
+  app: DomainAppRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Domains by. The order in which sorts are applied is not guaranteed when specifying many fields in one DomainSort object.
 """
 input DomainSort {
   id: SortDirection
   name: SortDirection
+}
+
+input DomainSubscriptionWhere {
+  AND: [DomainSubscriptionWhere!]
+  NOT: DomainSubscriptionWhere
+  OR: [DomainSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
 }
 
 input DomainUniqueWhere {
@@ -6944,6 +8273,13 @@ input DomainUpdateInput {
   app: DomainAppUpdateFieldInput
   id: ID
   name: String
+}
+
+type DomainUpdatedEvent {
+  event: EventType!
+  previousState: DomainEventPayload!
+  timestamp: Float!
+  updatedDomain: DomainEventPayload!
 }
 
 input DomainWhere {
@@ -7202,6 +8538,10 @@ input ElementChildMapperComponentConnectOrCreateFieldInputOnCreate {
   node: ComponentOnCreateInput!
 }
 
+type ElementChildMapperComponentConnectedRelationship {
+  node: ComponentEventPayload!
+}
+
 type ElementChildMapperComponentConnection {
   edges: [ElementChildMapperComponentRelationship!]!
   pageInfo: PageInfo!
@@ -7265,6 +8605,10 @@ type ElementChildMapperComponentRelationship {
   node: Component!
 }
 
+input ElementChildMapperComponentRelationshipSubscriptionWhere {
+  node: ComponentSubscriptionWhere
+}
+
 input ElementChildMapperComponentUpdateConnectionInput {
   node: ComponentUpdateInput
 }
@@ -7308,6 +8652,10 @@ input ElementChildMapperPreviousSiblingConnectOrCreateFieldInput {
 
 input ElementChildMapperPreviousSiblingConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type ElementChildMapperPreviousSiblingConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type ElementChildMapperPreviousSiblingConnection {
@@ -7433,6 +8781,10 @@ type ElementChildMapperPreviousSiblingRelationship {
   node: Element!
 }
 
+input ElementChildMapperPreviousSiblingRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input ElementChildMapperPreviousSiblingUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -7503,6 +8855,21 @@ input ElementConnectWhere {
   node: ElementWhere!
 }
 
+type ElementConnectedRelationships {
+  childMapperComponent: ElementChildMapperComponentConnectedRelationship
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingConnectedRelationship
+  firstChild: ElementFirstChildConnectedRelationship
+  nextSibling: ElementNextSiblingConnectedRelationship
+  page: ElementPageConnectedRelationship
+  parentComponent: ElementParentComponentConnectedRelationship
+  parentElement: ElementParentElementConnectedRelationship
+  postRenderAction: ElementPostRenderActionConnectedRelationship
+  preRenderAction: ElementPreRenderActionConnectedRelationship
+  prevSibling: ElementPrevSiblingConnectedRelationship
+  props: ElementPropsConnectedRelationship
+  renderType: ElementRenderTypeConnectedRelationship
+}
+
 input ElementCreateInput {
   childMapperComponent: ElementChildMapperComponentFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingFieldInput
@@ -7525,6 +8892,12 @@ input ElementCreateInput {
   tailwindClassNames: [String!]
 }
 
+type ElementCreatedEvent {
+  createdElement: ElementEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ElementDeleteInput {
   childMapperComponent: ElementChildMapperComponentDeleteFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingDeleteFieldInput
@@ -7538,6 +8911,12 @@ input ElementDeleteInput {
   prevSibling: ElementPrevSiblingDeleteFieldInput
   props: ElementPropsDeleteFieldInput
   renderType: ElementRenderTypeDeleteInput
+}
+
+type ElementDeletedEvent {
+  deletedElement: ElementEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ElementDisconnectInput {
@@ -7630,6 +9009,18 @@ type ElementElementPrevSiblingNodeAggregateSelection {
   style: StringAggregateSelectionNullable!
 }
 
+type ElementEventPayload {
+  childMapperPropKey: String
+  compositeKey: String!
+  id: ID!
+  name: String!
+  renderForEachPropKey: String
+  renderIfExpression: String
+  slug: String!
+  style: String
+  tailwindClassNames: [String!]
+}
+
 input ElementFirstChildAggregateInput {
   AND: [ElementFirstChildAggregateInput!]
   NOT: ElementFirstChildAggregateInput
@@ -7659,6 +9050,10 @@ input ElementFirstChildConnectOrCreateFieldInput {
 
 input ElementFirstChildConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type ElementFirstChildConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type ElementFirstChildConnection {
@@ -7784,6 +9179,10 @@ type ElementFirstChildRelationship {
   node: Element!
 }
 
+input ElementFirstChildRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input ElementFirstChildUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -7827,6 +9226,10 @@ input ElementNextSiblingConnectOrCreateFieldInput {
 
 input ElementNextSiblingConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type ElementNextSiblingConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type ElementNextSiblingConnection {
@@ -7952,6 +9355,10 @@ type ElementNextSiblingRelationship {
   node: Element!
 }
 
+input ElementNextSiblingRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input ElementNextSiblingUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -8015,6 +9422,10 @@ input ElementPageConnectOrCreateFieldInput {
 
 input ElementPageConnectOrCreateFieldInputOnCreate {
   node: PageOnCreateInput!
+}
+
+type ElementPageConnectedRelationship {
+  node: PageEventPayload!
 }
 
 type ElementPageConnection {
@@ -8106,6 +9517,10 @@ type ElementPageRelationship {
   node: Page!
 }
 
+input ElementPageRelationshipSubscriptionWhere {
+  node: PageSubscriptionWhere
+}
+
 input ElementPageUpdateConnectionInput {
   node: PageUpdateInput
 }
@@ -8149,6 +9564,10 @@ input ElementParentComponentConnectOrCreateFieldInput {
 
 input ElementParentComponentConnectOrCreateFieldInputOnCreate {
   node: ComponentOnCreateInput!
+}
+
+type ElementParentComponentConnectedRelationship {
+  node: ComponentEventPayload!
 }
 
 type ElementParentComponentConnection {
@@ -8214,6 +9633,10 @@ type ElementParentComponentRelationship {
   node: Component!
 }
 
+input ElementParentComponentRelationshipSubscriptionWhere {
+  node: ComponentSubscriptionWhere
+}
+
 input ElementParentComponentUpdateConnectionInput {
   node: ComponentUpdateInput
 }
@@ -8257,6 +9680,10 @@ input ElementParentElementConnectOrCreateFieldInput {
 
 input ElementParentElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type ElementParentElementConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type ElementParentElementConnection {
@@ -8382,6 +9809,10 @@ type ElementParentElementRelationship {
   node: Element!
 }
 
+input ElementParentElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input ElementParentElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -8399,6 +9830,10 @@ input ElementParentElementUpdateFieldInput {
 input ElementPostRenderActionConnectFieldInput {
   connect: BaseActionConnectInput
   where: BaseActionConnectWhere
+}
+
+type ElementPostRenderActionConnectedRelationship {
+  node: BaseActionEventPayload!
 }
 
 type ElementPostRenderActionConnection {
@@ -8442,6 +9877,10 @@ type ElementPostRenderActionRelationship {
   node: BaseAction!
 }
 
+input ElementPostRenderActionRelationshipSubscriptionWhere {
+  node: BaseActionSubscriptionWhere
+}
+
 input ElementPostRenderActionUpdateConnectionInput {
   node: BaseActionUpdateInput
 }
@@ -8458,6 +9897,10 @@ input ElementPostRenderActionUpdateFieldInput {
 input ElementPreRenderActionConnectFieldInput {
   connect: BaseActionConnectInput
   where: BaseActionConnectWhere
+}
+
+type ElementPreRenderActionConnectedRelationship {
+  node: BaseActionEventPayload!
 }
 
 type ElementPreRenderActionConnection {
@@ -8499,6 +9942,10 @@ input ElementPreRenderActionFieldInput {
 type ElementPreRenderActionRelationship {
   cursor: String!
   node: BaseAction!
+}
+
+input ElementPreRenderActionRelationshipSubscriptionWhere {
+  node: BaseActionSubscriptionWhere
 }
 
 input ElementPreRenderActionUpdateConnectionInput {
@@ -8543,6 +9990,10 @@ input ElementPrevSiblingConnectOrCreateFieldInput {
 
 input ElementPrevSiblingConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type ElementPrevSiblingConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type ElementPrevSiblingConnection {
@@ -8668,6 +10119,10 @@ type ElementPrevSiblingRelationship {
   node: Element!
 }
 
+input ElementPrevSiblingRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input ElementPrevSiblingUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -8719,6 +10174,10 @@ input ElementPropsConnectOrCreateFieldInput {
 
 input ElementPropsConnectOrCreateFieldInputOnCreate {
   node: PropOnCreateInput!
+}
+
+type ElementPropsConnectedRelationship {
+  node: PropEventPayload!
 }
 
 type ElementPropsConnection {
@@ -8782,6 +10241,10 @@ type ElementPropsRelationship {
   node: Prop!
 }
 
+input ElementPropsRelationshipSubscriptionWhere {
+  node: PropSubscriptionWhere
+}
+
 input ElementPropsUpdateConnectionInput {
   node: PropUpdateInput
 }
@@ -8809,6 +10272,53 @@ input ElementRelationInput {
   prevSibling: ElementPrevSiblingCreateFieldInput
   props: ElementPropsCreateFieldInput
   renderType: ElementRenderTypeCreateFieldInput
+}
+
+type ElementRelationshipCreatedEvent {
+  createdRelationship: ElementConnectedRelationships!
+  element: ElementEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ElementRelationshipCreatedSubscriptionWhere {
+  AND: [ElementRelationshipCreatedSubscriptionWhere!]
+  NOT: ElementRelationshipCreatedSubscriptionWhere
+  OR: [ElementRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: ElementRelationshipsSubscriptionWhere
+  element: ElementSubscriptionWhere
+}
+
+type ElementRelationshipDeletedEvent {
+  deletedRelationship: ElementConnectedRelationships!
+  element: ElementEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ElementRelationshipDeletedSubscriptionWhere {
+  AND: [ElementRelationshipDeletedSubscriptionWhere!]
+  NOT: ElementRelationshipDeletedSubscriptionWhere
+  OR: [ElementRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: ElementRelationshipsSubscriptionWhere
+  element: ElementSubscriptionWhere
+}
+
+input ElementRelationshipsSubscriptionWhere {
+  childMapperComponent: ElementChildMapperComponentRelationshipSubscriptionWhere
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingRelationshipSubscriptionWhere
+  firstChild: ElementFirstChildRelationshipSubscriptionWhere
+  nextSibling: ElementNextSiblingRelationshipSubscriptionWhere
+  page: ElementPageRelationshipSubscriptionWhere
+  parentComponent: ElementParentComponentRelationshipSubscriptionWhere
+  parentElement: ElementParentElementRelationshipSubscriptionWhere
+  postRenderAction: ElementPostRenderActionRelationshipSubscriptionWhere
+  preRenderAction: ElementPreRenderActionRelationshipSubscriptionWhere
+  prevSibling: ElementPrevSiblingRelationshipSubscriptionWhere
+  props: ElementPropsRelationshipSubscriptionWhere
+  renderType: ElementRenderTypeRelationshipSubscriptionWhere
 }
 
 union ElementRenderType = Atom | Component
@@ -8852,6 +10362,10 @@ input ElementRenderTypeAtomFieldInput {
   connect: ElementRenderTypeAtomConnectFieldInput
   connectOrCreate: ElementRenderTypeAtomConnectOrCreateFieldInput
   create: ElementRenderTypeAtomCreateFieldInput
+}
+
+input ElementRenderTypeAtomSubscriptionWhere {
+  node: AtomSubscriptionWhere
 }
 
 input ElementRenderTypeAtomUpdateConnectionInput {
@@ -8909,6 +10423,10 @@ input ElementRenderTypeComponentFieldInput {
   create: ElementRenderTypeComponentCreateFieldInput
 }
 
+input ElementRenderTypeComponentSubscriptionWhere {
+  node: ComponentSubscriptionWhere
+}
+
 input ElementRenderTypeComponentUpdateConnectionInput {
   node: ComponentUpdateInput
 }
@@ -8931,6 +10449,10 @@ input ElementRenderTypeConnectInput {
 input ElementRenderTypeConnectOrCreateInput {
   Atom: ElementRenderTypeAtomConnectOrCreateFieldInput
   Component: ElementRenderTypeComponentConnectOrCreateFieldInput
+}
+
+type ElementRenderTypeConnectedRelationship {
+  node: ElementRenderTypeEventPayload!
 }
 
 type ElementRenderTypeConnection {
@@ -8964,9 +10486,16 @@ input ElementRenderTypeDisconnectInput {
   Component: ElementRenderTypeComponentDisconnectFieldInput
 }
 
+union ElementRenderTypeEventPayload = AtomEventPayload | ComponentEventPayload
+
 type ElementRenderTypeRelationship {
   cursor: String!
   node: ElementRenderType!
+}
+
+input ElementRenderTypeRelationshipSubscriptionWhere {
+  Atom: ElementRenderTypeAtomSubscriptionWhere
+  Component: ElementRenderTypeComponentSubscriptionWhere
 }
 
 input ElementRenderTypeUpdateInput {
@@ -8989,6 +10518,54 @@ input ElementSort {
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
   style: SortDirection
+}
+
+input ElementSubscriptionWhere {
+  AND: [ElementSubscriptionWhere!]
+  NOT: ElementSubscriptionWhere
+  OR: [ElementSubscriptionWhere!]
+  childMapperPropKey: String
+  childMapperPropKey_CONTAINS: String
+  childMapperPropKey_ENDS_WITH: String
+  childMapperPropKey_IN: [String]
+  childMapperPropKey_STARTS_WITH: String
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String]
+  compositeKey_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  renderForEachPropKey: String
+  renderForEachPropKey_CONTAINS: String
+  renderForEachPropKey_ENDS_WITH: String
+  renderForEachPropKey_IN: [String]
+  renderForEachPropKey_STARTS_WITH: String
+  renderIfExpression: String
+  renderIfExpression_CONTAINS: String
+  renderIfExpression_ENDS_WITH: String
+  renderIfExpression_IN: [String]
+  renderIfExpression_STARTS_WITH: String
+  slug: String
+  slug_CONTAINS: String
+  slug_ENDS_WITH: String
+  slug_IN: [String]
+  slug_STARTS_WITH: String
+  style: String
+  style_CONTAINS: String
+  style_ENDS_WITH: String
+  style_IN: [String]
+  style_STARTS_WITH: String
+  tailwindClassNames: [String!]
+  tailwindClassNames_INCLUDES: String
 }
 
 """
@@ -9041,6 +10618,10 @@ input ElementTypeConnectWhere {
   node: ElementTypeWhere!
 }
 
+type ElementTypeConnectedRelationships {
+  owner: ElementTypeOwnerConnectedRelationship
+}
+
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
   id: ID!
@@ -9049,8 +10630,20 @@ input ElementTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type ElementTypeCreatedEvent {
+  createdElementType: ElementTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ElementTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type ElementTypeDeletedEvent {
+  deletedElementType: ElementTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ElementTypeDisconnectInput {
@@ -9060,6 +10653,18 @@ input ElementTypeDisconnectInput {
 type ElementTypeEdge {
   cursor: String!
   node: ElementType!
+}
+
+type ElementTypeEventPayload implements IBaseTypeEventPayload {
+  """
+  Allows scoping the type of element to only descendants, children or all elements
+  """
+  elementKind: ElementTypeKind!
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 enum ElementTypeKind {
@@ -9089,6 +10694,10 @@ input ElementTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ElementTypeOwnerNodeAggregationWhereInput
+}
+
+type ElementTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input ElementTypeOwnerNodeAggregationWhereInput {
@@ -9157,8 +10766,48 @@ input ElementTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input ElementTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input ElementTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type ElementTypeRelationshipCreatedEvent {
+  createdRelationship: ElementTypeConnectedRelationships!
+  elementType: ElementTypeEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ElementTypeRelationshipCreatedSubscriptionWhere {
+  AND: [ElementTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: ElementTypeRelationshipCreatedSubscriptionWhere
+  OR: [ElementTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: ElementTypeRelationshipsSubscriptionWhere
+  elementType: ElementTypeSubscriptionWhere
+}
+
+type ElementTypeRelationshipDeletedEvent {
+  deletedRelationship: ElementTypeConnectedRelationships!
+  elementType: ElementTypeEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ElementTypeRelationshipDeletedSubscriptionWhere {
+  AND: [ElementTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: ElementTypeRelationshipDeletedSubscriptionWhere
+  OR: [ElementTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: ElementTypeRelationshipsSubscriptionWhere
+  elementType: ElementTypeSubscriptionWhere
+}
+
+input ElementTypeRelationshipsSubscriptionWhere {
+  owner: ElementTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -9171,11 +10820,38 @@ input ElementTypeSort {
   name: SortDirection
 }
 
+input ElementTypeSubscriptionWhere {
+  AND: [ElementTypeSubscriptionWhere!]
+  NOT: ElementTypeSubscriptionWhere
+  OR: [ElementTypeSubscriptionWhere!]
+  elementKind: ElementTypeKind
+  elementKind_IN: [ElementTypeKind]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type ElementTypeUpdatedEvent {
+  event: EventType!
+  previousState: ElementTypeEventPayload!
+  timestamp: Float!
+  updatedElementType: ElementTypeEventPayload!
 }
 
 type ElementTypeUserOwnerAggregationSelection {
@@ -9251,6 +10927,13 @@ input ElementUpdateInput {
   tailwindClassNames: [String!]
   tailwindClassNames_POP: Int
   tailwindClassNames_PUSH: [String!]
+}
+
+type ElementUpdatedEvent {
+  event: EventType!
+  previousState: ElementEventPayload!
+  timestamp: Float!
+  updatedElement: ElementEventPayload!
 }
 
 input ElementWhere {
@@ -9437,6 +11120,10 @@ input EnumTypeAllowedValuesConnectFieldInput {
   where: EnumTypeValueConnectWhere
 }
 
+type EnumTypeAllowedValuesConnectedRelationship {
+  node: EnumTypeValueEventPayload!
+}
+
 type EnumTypeAllowedValuesConnection {
   edges: [EnumTypeAllowedValuesRelationship!]!
   pageInfo: PageInfo!
@@ -9514,6 +11201,10 @@ type EnumTypeAllowedValuesRelationship {
   node: EnumTypeValue!
 }
 
+input EnumTypeAllowedValuesRelationshipSubscriptionWhere {
+  node: EnumTypeValueSubscriptionWhere
+}
+
 input EnumTypeAllowedValuesUpdateConnectionInput {
   node: EnumTypeValueUpdateInput
 }
@@ -9542,6 +11233,12 @@ input EnumTypeConnectWhere {
   node: EnumTypeWhere!
 }
 
+type EnumTypeConnectedRelationships {
+  allowedValues: EnumTypeAllowedValuesConnectedRelationship
+  fieldRefs: EnumTypeFieldRefsConnectedRelationship
+  owner: EnumTypeOwnerConnectedRelationship
+}
+
 input EnumTypeCreateInput {
   allowedValues: EnumTypeAllowedValuesFieldInput
   fieldRefs: EnumTypeFieldRefsFieldInput
@@ -9551,10 +11248,22 @@ input EnumTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type EnumTypeCreatedEvent {
+  createdEnumType: EnumTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input EnumTypeDeleteInput {
   allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
   fieldRefs: [EnumTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type EnumTypeDeletedEvent {
+  deletedEnumType: EnumTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input EnumTypeDisconnectInput {
@@ -9577,6 +11286,14 @@ type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   key: StringAggregateSelectionNonNullable!
   value: StringAggregateSelectionNonNullable!
+}
+
+type EnumTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 type EnumTypeFieldFieldRefsAggregationSelection {
@@ -9622,6 +11339,10 @@ input EnumTypeFieldRefsConnectOrCreateFieldInput {
 
 input EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate {
   node: FieldOnCreateInput!
+}
+
+type EnumTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
 }
 
 type EnumTypeFieldRefsConnection {
@@ -9747,6 +11468,10 @@ type EnumTypeFieldRefsRelationship {
   node: Field!
 }
 
+input EnumTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
 input EnumTypeFieldRefsUpdateConnectionInput {
   node: FieldUpdateInput
 }
@@ -9781,6 +11506,10 @@ input EnumTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: EnumTypeOwnerNodeAggregationWhereInput
+}
+
+type EnumTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input EnumTypeOwnerNodeAggregationWhereInput {
@@ -9849,10 +11578,52 @@ input EnumTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input EnumTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input EnumTypeRelationInput {
   allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
   fieldRefs: [EnumTypeFieldRefsCreateFieldInput!]
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type EnumTypeRelationshipCreatedEvent {
+  createdRelationship: EnumTypeConnectedRelationships!
+  enumType: EnumTypeEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input EnumTypeRelationshipCreatedSubscriptionWhere {
+  AND: [EnumTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: EnumTypeRelationshipCreatedSubscriptionWhere
+  OR: [EnumTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: EnumTypeRelationshipsSubscriptionWhere
+  enumType: EnumTypeSubscriptionWhere
+}
+
+type EnumTypeRelationshipDeletedEvent {
+  deletedRelationship: EnumTypeConnectedRelationships!
+  enumType: EnumTypeEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input EnumTypeRelationshipDeletedSubscriptionWhere {
+  AND: [EnumTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: EnumTypeRelationshipDeletedSubscriptionWhere
+  OR: [EnumTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: EnumTypeRelationshipsSubscriptionWhere
+  enumType: EnumTypeSubscriptionWhere
+}
+
+input EnumTypeRelationshipsSubscriptionWhere {
+  allowedValues: EnumTypeAllowedValuesRelationshipSubscriptionWhere
+  fieldRefs: EnumTypeFieldRefsRelationshipSubscriptionWhere
+  owner: EnumTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -9864,12 +11635,37 @@ input EnumTypeSort {
   name: SortDirection
 }
 
+input EnumTypeSubscriptionWhere {
+  AND: [EnumTypeSubscriptionWhere!]
+  NOT: EnumTypeSubscriptionWhere
+  OR: [EnumTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
   fieldRefs: [EnumTypeFieldRefsUpdateFieldInput!]
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type EnumTypeUpdatedEvent {
+  event: EventType!
+  previousState: EnumTypeEventPayload!
+  timestamp: Float!
+  updatedEnumType: EnumTypeEventPayload!
 }
 
 type EnumTypeUserOwnerAggregationSelection {
@@ -9922,6 +11718,10 @@ input EnumTypeValueConnectWhere {
   node: EnumTypeValueWhere!
 }
 
+type EnumTypeValueConnectedRelationships {
+  enumType: EnumTypeValueEnumTypeConnectedRelationship
+}
+
 input EnumTypeValueCreateInput {
   enumType: EnumTypeValueEnumTypeFieldInput
   id: ID!
@@ -9929,8 +11729,20 @@ input EnumTypeValueCreateInput {
   value: String!
 }
 
+type EnumTypeValueCreatedEvent {
+  createdEnumTypeValue: EnumTypeValueEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input EnumTypeValueDeleteInput {
   enumType: EnumTypeValueEnumTypeDeleteFieldInput
+}
+
+type EnumTypeValueDeletedEvent {
+  deletedEnumTypeValue: EnumTypeValueEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input EnumTypeValueDisconnectInput {
@@ -9962,6 +11774,10 @@ input EnumTypeValueEnumTypeConnectFieldInput {
   """
   overwrite: Boolean! = true
   where: EnumTypeConnectWhere
+}
+
+type EnumTypeValueEnumTypeConnectedRelationship {
+  node: EnumTypeEventPayload!
 }
 
 type EnumTypeValueEnumTypeConnection {
@@ -10036,6 +11852,10 @@ type EnumTypeValueEnumTypeRelationship {
   node: EnumType!
 }
 
+input EnumTypeValueEnumTypeRelationshipSubscriptionWhere {
+  node: EnumTypeSubscriptionWhere
+}
+
 input EnumTypeValueEnumTypeUpdateConnectionInput {
   node: EnumTypeUpdateInput
 }
@@ -10047,6 +11867,12 @@ input EnumTypeValueEnumTypeUpdateFieldInput {
   disconnect: EnumTypeValueEnumTypeDisconnectFieldInput
   update: EnumTypeValueEnumTypeUpdateConnectionInput
   where: EnumTypeValueEnumTypeConnectionWhere
+}
+
+type EnumTypeValueEventPayload {
+  id: ID!
+  key: String!
+  value: String!
 }
 
 input EnumTypeValueOptions {
@@ -10063,6 +11889,42 @@ input EnumTypeValueRelationInput {
   enumType: EnumTypeValueEnumTypeCreateFieldInput
 }
 
+type EnumTypeValueRelationshipCreatedEvent {
+  createdRelationship: EnumTypeValueConnectedRelationships!
+  enumTypeValue: EnumTypeValueEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input EnumTypeValueRelationshipCreatedSubscriptionWhere {
+  AND: [EnumTypeValueRelationshipCreatedSubscriptionWhere!]
+  NOT: EnumTypeValueRelationshipCreatedSubscriptionWhere
+  OR: [EnumTypeValueRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: EnumTypeValueRelationshipsSubscriptionWhere
+  enumTypeValue: EnumTypeValueSubscriptionWhere
+}
+
+type EnumTypeValueRelationshipDeletedEvent {
+  deletedRelationship: EnumTypeValueConnectedRelationships!
+  enumTypeValue: EnumTypeValueEventPayload!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input EnumTypeValueRelationshipDeletedSubscriptionWhere {
+  AND: [EnumTypeValueRelationshipDeletedSubscriptionWhere!]
+  NOT: EnumTypeValueRelationshipDeletedSubscriptionWhere
+  OR: [EnumTypeValueRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: EnumTypeValueRelationshipsSubscriptionWhere
+  enumTypeValue: EnumTypeValueSubscriptionWhere
+}
+
+input EnumTypeValueRelationshipsSubscriptionWhere {
+  enumType: EnumTypeValueEnumTypeRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort EnumTypeValues by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeValueSort object.
 """
@@ -10072,11 +11934,39 @@ input EnumTypeValueSort {
   value: SortDirection
 }
 
+input EnumTypeValueSubscriptionWhere {
+  AND: [EnumTypeValueSubscriptionWhere!]
+  NOT: EnumTypeValueSubscriptionWhere
+  OR: [EnumTypeValueSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  key: String
+  key_CONTAINS: String
+  key_ENDS_WITH: String
+  key_IN: [String]
+  key_STARTS_WITH: String
+  value: String
+  value_CONTAINS: String
+  value_ENDS_WITH: String
+  value_IN: [String]
+  value_STARTS_WITH: String
+}
+
 input EnumTypeValueUpdateInput {
   enumType: EnumTypeValueEnumTypeUpdateFieldInput
   id: ID
   key: String
   value: String
+}
+
+type EnumTypeValueUpdatedEvent {
+  event: EventType!
+  previousState: EnumTypeValueEventPayload!
+  timestamp: Float!
+  updatedEnumTypeValue: EnumTypeValueEventPayload!
 }
 
 input EnumTypeValueWhere {
@@ -10227,6 +12117,14 @@ type EnumTypesConnection {
   totalCount: Int!
 }
 
+enum EventType {
+  CREATE
+  CREATE_RELATIONSHIP
+  DELETE
+  DELETE_RELATIONSHIP
+  UPDATE
+}
+
 type Field {
   api(
     directed: Boolean = true
@@ -10328,6 +12226,10 @@ input FieldApiConnectFieldInput {
   where: InterfaceTypeConnectWhere
 }
 
+type FieldApiConnectedRelationship {
+  node: InterfaceTypeEventPayload!
+}
+
 type FieldApiConnection {
   edges: [FieldApiRelationship!]!
   pageInfo: PageInfo!
@@ -10390,6 +12292,10 @@ type FieldApiRelationship {
   node: InterfaceType!
 }
 
+input FieldApiRelationshipSubscriptionWhere {
+  node: InterfaceTypeSubscriptionWhere
+}
+
 input FieldApiUpdateConnectionInput {
   node: InterfaceTypeUpdateInput
 }
@@ -10423,6 +12329,13 @@ input FieldConnectWhere {
   node: FieldWhere!
 }
 
+type FieldConnectedRelationships {
+  api: FieldApiConnectedRelationship
+  fieldType: FieldFieldTypeConnectedRelationship
+  nextSibling: FieldNextSiblingConnectedRelationship
+  prevSibling: FieldPrevSiblingConnectedRelationship
+}
+
 input FieldCreateInput {
   api: FieldApiFieldInput
   defaultValues: String
@@ -10436,11 +12349,23 @@ input FieldCreateInput {
   validationRules: String
 }
 
+type FieldCreatedEvent {
+  createdField: FieldEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input FieldDeleteInput {
   api: FieldApiDeleteFieldInput
   fieldType: FieldFieldTypeDeleteFieldInput
   nextSibling: FieldNextSiblingDeleteFieldInput
   prevSibling: FieldPrevSiblingDeleteFieldInput
+}
+
+type FieldDeletedEvent {
+  deletedField: FieldEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input FieldDisconnectInput {
@@ -10453,6 +12378,15 @@ input FieldDisconnectInput {
 type FieldEdge {
   cursor: String!
   node: Field!
+}
+
+type FieldEventPayload {
+  defaultValues: String
+  description: String
+  id: ID!
+  key: String!
+  name: String
+  validationRules: String
 }
 
 type FieldFieldNextSiblingAggregationSelection {
@@ -10486,6 +12420,10 @@ type FieldFieldPrevSiblingNodeAggregateSelection {
 input FieldFieldTypeConnectFieldInput {
   connect: IBaseTypeConnectInput
   where: IBaseTypeConnectWhere
+}
+
+type FieldFieldTypeConnectedRelationship {
+  node: IBaseTypeEventPayload!
 }
 
 type FieldFieldTypeConnection {
@@ -10527,6 +12465,10 @@ input FieldFieldTypeFieldInput {
 type FieldFieldTypeRelationship {
   cursor: String!
   node: IBaseType!
+}
+
+input FieldFieldTypeRelationshipSubscriptionWhere {
+  node: IBaseTypeSubscriptionWhere
 }
 
 input FieldFieldTypeUpdateConnectionInput {
@@ -10581,6 +12523,10 @@ input FieldNextSiblingConnectOrCreateFieldInput {
 
 input FieldNextSiblingConnectOrCreateFieldInputOnCreate {
   node: FieldOnCreateInput!
+}
+
+type FieldNextSiblingConnectedRelationship {
+  node: FieldEventPayload!
 }
 
 type FieldNextSiblingConnection {
@@ -10706,6 +12652,10 @@ type FieldNextSiblingRelationship {
   node: Field!
 }
 
+input FieldNextSiblingRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
 input FieldNextSiblingUpdateConnectionInput {
   node: FieldUpdateInput
 }
@@ -10768,6 +12718,10 @@ input FieldPrevSiblingConnectOrCreateFieldInput {
 
 input FieldPrevSiblingConnectOrCreateFieldInputOnCreate {
   node: FieldOnCreateInput!
+}
+
+type FieldPrevSiblingConnectedRelationship {
+  node: FieldEventPayload!
 }
 
 type FieldPrevSiblingConnection {
@@ -10893,6 +12847,10 @@ type FieldPrevSiblingRelationship {
   node: Field!
 }
 
+input FieldPrevSiblingRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
 input FieldPrevSiblingUpdateConnectionInput {
   node: FieldUpdateInput
 }
@@ -10914,6 +12872,45 @@ input FieldRelationInput {
   prevSibling: FieldPrevSiblingCreateFieldInput
 }
 
+type FieldRelationshipCreatedEvent {
+  createdRelationship: FieldConnectedRelationships!
+  event: EventType!
+  field: FieldEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input FieldRelationshipCreatedSubscriptionWhere {
+  AND: [FieldRelationshipCreatedSubscriptionWhere!]
+  NOT: FieldRelationshipCreatedSubscriptionWhere
+  OR: [FieldRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: FieldRelationshipsSubscriptionWhere
+  field: FieldSubscriptionWhere
+}
+
+type FieldRelationshipDeletedEvent {
+  deletedRelationship: FieldConnectedRelationships!
+  event: EventType!
+  field: FieldEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input FieldRelationshipDeletedSubscriptionWhere {
+  AND: [FieldRelationshipDeletedSubscriptionWhere!]
+  NOT: FieldRelationshipDeletedSubscriptionWhere
+  OR: [FieldRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: FieldRelationshipsSubscriptionWhere
+  field: FieldSubscriptionWhere
+}
+
+input FieldRelationshipsSubscriptionWhere {
+  api: FieldApiRelationshipSubscriptionWhere
+  fieldType: FieldFieldTypeRelationshipSubscriptionWhere
+  nextSibling: FieldNextSiblingRelationshipSubscriptionWhere
+  prevSibling: FieldPrevSiblingRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Fields by. The order in which sorts are applied is not guaranteed when specifying many fields in one FieldSort object.
 """
@@ -10924,6 +12921,42 @@ input FieldSort {
   key: SortDirection
   name: SortDirection
   validationRules: SortDirection
+}
+
+input FieldSubscriptionWhere {
+  AND: [FieldSubscriptionWhere!]
+  NOT: FieldSubscriptionWhere
+  OR: [FieldSubscriptionWhere!]
+  defaultValues: String
+  defaultValues_CONTAINS: String
+  defaultValues_ENDS_WITH: String
+  defaultValues_IN: [String]
+  defaultValues_STARTS_WITH: String
+  description: String
+  description_CONTAINS: String
+  description_ENDS_WITH: String
+  description_IN: [String]
+  description_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  key: String
+  key_CONTAINS: String
+  key_ENDS_WITH: String
+  key_IN: [String]
+  key_STARTS_WITH: String
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  validationRules: String
+  validationRules_CONTAINS: String
+  validationRules_ENDS_WITH: String
+  validationRules_IN: [String]
+  validationRules_STARTS_WITH: String
 }
 
 input FieldUniqueWhere {
@@ -10941,6 +12974,13 @@ input FieldUpdateInput {
   nextSibling: FieldNextSiblingUpdateFieldInput
   prevSibling: FieldPrevSiblingUpdateFieldInput
   validationRules: String
+}
+
+type FieldUpdatedEvent {
+  event: EventType!
+  previousState: FieldEventPayload!
+  timestamp: Float!
+  updatedField: FieldEventPayload!
 }
 
 input FieldWhere {
@@ -11028,9 +13068,25 @@ input GetBaseTypesReturnCreateInput {
   totalCount: Int!
 }
 
+type GetBaseTypesReturnCreatedEvent {
+  createdGetBaseTypesReturn: GetBaseTypesReturnEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
+type GetBaseTypesReturnDeletedEvent {
+  deletedGetBaseTypesReturn: GetBaseTypesReturnEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 type GetBaseTypesReturnEdge {
   cursor: String!
   node: GetBaseTypesReturn!
+}
+
+type GetBaseTypesReturnEventPayload {
+  totalCount: Int!
 }
 
 input GetBaseTypesReturnOptions {
@@ -11050,10 +13106,29 @@ input GetBaseTypesReturnSort {
   totalCount: SortDirection
 }
 
+input GetBaseTypesReturnSubscriptionWhere {
+  AND: [GetBaseTypesReturnSubscriptionWhere!]
+  NOT: GetBaseTypesReturnSubscriptionWhere
+  OR: [GetBaseTypesReturnSubscriptionWhere!]
+  totalCount: Int
+  totalCount_GT: Int
+  totalCount_GTE: Int
+  totalCount_IN: [Int]
+  totalCount_LT: Int
+  totalCount_LTE: Int
+}
+
 input GetBaseTypesReturnUpdateInput {
   totalCount: Int
   totalCount_DECREMENT: Int
   totalCount_INCREMENT: Int
+}
+
+type GetBaseTypesReturnUpdatedEvent {
+  event: EventType!
+  previousState: GetBaseTypesReturnEventPayload!
+  timestamp: Float!
+  updatedGetBaseTypesReturn: GetBaseTypesReturnEventPayload!
 }
 
 input GetBaseTypesReturnWhere {
@@ -11145,6 +13220,10 @@ input HookConfigConnectOrCreateFieldInputOnCreate {
   node: PropOnCreateInput!
 }
 
+type HookConfigConnectedRelationship {
+  node: PropEventPayload!
+}
+
 type HookConfigConnection {
   edges: [HookConfigRelationship!]!
   pageInfo: PageInfo!
@@ -11206,6 +13285,10 @@ type HookConfigRelationship {
   node: Prop!
 }
 
+input HookConfigRelationshipSubscriptionWhere {
+  node: PropSubscriptionWhere
+}
+
 input HookConfigUpdateConnectionInput {
   node: PropUpdateInput
 }
@@ -11230,6 +13313,11 @@ input HookConnectOrCreateInput {
   element: HookElementConnectOrCreateFieldInput
 }
 
+type HookConnectedRelationships {
+  config: HookConfigConnectedRelationship
+  element: HookElementConnectedRelationship
+}
+
 input HookCreateInput {
   config: HookConfigFieldInput
   element: HookElementFieldInput
@@ -11237,9 +13325,21 @@ input HookCreateInput {
   type: AtomType!
 }
 
+type HookCreatedEvent {
+  createdHook: HookEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input HookDeleteInput {
   config: HookConfigDeleteFieldInput
   element: HookElementDeleteFieldInput
+}
+
+type HookDeletedEvent {
+  deletedHook: HookEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input HookDisconnectInput {
@@ -11281,6 +13381,10 @@ input HookElementConnectOrCreateFieldInput {
 
 input HookElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type HookElementConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type HookElementConnection {
@@ -11420,6 +13524,10 @@ type HookElementRelationship {
   node: Element!
 }
 
+input HookElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input HookElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -11432,6 +13540,11 @@ input HookElementUpdateFieldInput {
   disconnect: HookElementDisconnectFieldInput
   update: HookElementUpdateConnectionInput
   where: HookElementConnectionWhere
+}
+
+type HookEventPayload {
+  id: ID!
+  type: AtomType!
 }
 
 input HookOptions {
@@ -11459,6 +13572,43 @@ input HookRelationInput {
   element: HookElementCreateFieldInput
 }
 
+type HookRelationshipCreatedEvent {
+  createdRelationship: HookConnectedRelationships!
+  event: EventType!
+  hook: HookEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input HookRelationshipCreatedSubscriptionWhere {
+  AND: [HookRelationshipCreatedSubscriptionWhere!]
+  NOT: HookRelationshipCreatedSubscriptionWhere
+  OR: [HookRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: HookRelationshipsSubscriptionWhere
+  hook: HookSubscriptionWhere
+}
+
+type HookRelationshipDeletedEvent {
+  deletedRelationship: HookConnectedRelationships!
+  event: EventType!
+  hook: HookEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input HookRelationshipDeletedSubscriptionWhere {
+  AND: [HookRelationshipDeletedSubscriptionWhere!]
+  NOT: HookRelationshipDeletedSubscriptionWhere
+  OR: [HookRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: HookRelationshipsSubscriptionWhere
+  hook: HookSubscriptionWhere
+}
+
+input HookRelationshipsSubscriptionWhere {
+  config: HookConfigRelationshipSubscriptionWhere
+  element: HookElementRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Hooks by. The order in which sorts are applied is not guaranteed when specifying many fields in one HookSort object.
 """
@@ -11467,11 +13617,31 @@ input HookSort {
   type: SortDirection
 }
 
+input HookSubscriptionWhere {
+  AND: [HookSubscriptionWhere!]
+  NOT: HookSubscriptionWhere
+  OR: [HookSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  type: AtomType
+  type_IN: [AtomType]
+}
+
 input HookUpdateInput {
   config: HookConfigUpdateFieldInput
   element: HookElementUpdateFieldInput
   id: ID
   type: AtomType
+}
+
+type HookUpdatedEvent {
+  event: EventType!
+  previousState: HookEventPayload!
+  timestamp: Float!
+  updatedHook: HookEventPayload!
 }
 
 input HookWhere {
@@ -11554,6 +13724,12 @@ input IBaseTypeDisconnectInput {
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
+interface IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+}
+
 input IBaseTypeImplementationsConnectInput {
   ActionType: [ActionTypeConnectInput!]
   AppType: [AppTypeConnectInput!]
@@ -11603,6 +13779,23 @@ input IBaseTypeImplementationsDisconnectInput {
   RenderPropType: [RenderPropTypeDisconnectInput!]
   RichTextType: [RichTextTypeDisconnectInput!]
   UnionType: [UnionTypeDisconnectInput!]
+}
+
+input IBaseTypeImplementationsSubscriptionWhere {
+  ActionType: ActionTypeSubscriptionWhere
+  AppType: AppTypeSubscriptionWhere
+  ArrayType: ArrayTypeSubscriptionWhere
+  CodeMirrorType: CodeMirrorTypeSubscriptionWhere
+  ElementType: ElementTypeSubscriptionWhere
+  EnumType: EnumTypeSubscriptionWhere
+  InterfaceType: InterfaceTypeSubscriptionWhere
+  LambdaType: LambdaTypeSubscriptionWhere
+  PageType: PageTypeSubscriptionWhere
+  PrimitiveType: PrimitiveTypeSubscriptionWhere
+  ReactNodeType: ReactNodeTypeSubscriptionWhere
+  RenderPropType: RenderPropTypeSubscriptionWhere
+  RichTextType: RichTextTypeSubscriptionWhere
+  UnionType: UnionTypeSubscriptionWhere
 }
 
 input IBaseTypeImplementationsUpdateInput {
@@ -11811,6 +14004,25 @@ input IBaseTypeSort {
   name: SortDirection
 }
 
+input IBaseTypeSubscriptionWhere {
+  AND: [IBaseTypeSubscriptionWhere!]
+  NOT: IBaseTypeSubscriptionWhere
+  OR: [IBaseTypeSubscriptionWhere!]
+  _on: IBaseTypeImplementationsSubscriptionWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input IBaseTypeUpdateInput {
   _on: IBaseTypeImplementationsUpdateInput
   id: ID
@@ -11958,6 +14170,10 @@ input InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate {
   node: AtomOnCreateInput!
 }
 
+type InterfaceTypeApiOfAtomsConnectedRelationship {
+  node: AtomEventPayload!
+}
+
 type InterfaceTypeApiOfAtomsConnection {
   edges: [InterfaceTypeApiOfAtomsRelationship!]!
   pageInfo: PageInfo!
@@ -12081,6 +14297,10 @@ type InterfaceTypeApiOfAtomsRelationship {
   node: Atom!
 }
 
+input InterfaceTypeApiOfAtomsRelationshipSubscriptionWhere {
+  node: AtomSubscriptionWhere
+}
+
 input InterfaceTypeApiOfAtomsUpdateConnectionInput {
   node: AtomUpdateInput
 }
@@ -12127,6 +14347,13 @@ input InterfaceTypeConnectWhere {
   node: InterfaceTypeWhere!
 }
 
+type InterfaceTypeConnectedRelationships {
+  apiOfAtoms: InterfaceTypeApiOfAtomsConnectedRelationship
+  fieldRefs: InterfaceTypeFieldRefsConnectedRelationship
+  fields: InterfaceTypeFieldsConnectedRelationship
+  owner: InterfaceTypeOwnerConnectedRelationship
+}
+
 input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
   fieldRefs: InterfaceTypeFieldRefsFieldInput
@@ -12137,11 +14364,23 @@ input InterfaceTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type InterfaceTypeCreatedEvent {
+  createdInterfaceType: InterfaceTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input InterfaceTypeDeleteInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
   fieldRefs: [InterfaceTypeFieldRefsDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type InterfaceTypeDeletedEvent {
+  deletedInterfaceType: InterfaceTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input InterfaceTypeDisconnectInput {
@@ -12154,6 +14393,15 @@ input InterfaceTypeDisconnectInput {
 type InterfaceTypeEdge {
   cursor: String!
   node: InterfaceType!
+}
+
+type InterfaceTypeEventPayload implements IBaseTypeEventPayload {
+  descendantTypesIds: [ID!]!
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 type InterfaceTypeFieldFieldRefsAggregationSelection {
@@ -12213,6 +14461,10 @@ input InterfaceTypeFieldRefsConnectOrCreateFieldInput {
 
 input InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate {
   node: FieldOnCreateInput!
+}
+
+type InterfaceTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
 }
 
 type InterfaceTypeFieldRefsConnection {
@@ -12338,6 +14590,10 @@ type InterfaceTypeFieldRefsRelationship {
   node: Field!
 }
 
+input InterfaceTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
 input InterfaceTypeFieldRefsUpdateConnectionInput {
   node: FieldUpdateInput
 }
@@ -12381,6 +14637,10 @@ input InterfaceTypeFieldsConnectOrCreateFieldInput {
 
 input InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate {
   node: FieldOnCreateInput!
+}
+
+type InterfaceTypeFieldsConnectedRelationship {
+  node: FieldEventPayload!
 }
 
 type InterfaceTypeFieldsConnection {
@@ -12506,6 +14766,10 @@ type InterfaceTypeFieldsRelationship {
   node: Field!
 }
 
+input InterfaceTypeFieldsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
 input InterfaceTypeFieldsUpdateConnectionInput {
   node: FieldUpdateInput
 }
@@ -12540,6 +14804,10 @@ input InterfaceTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: InterfaceTypeOwnerNodeAggregationWhereInput
+}
+
+type InterfaceTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input InterfaceTypeOwnerNodeAggregationWhereInput {
@@ -12608,11 +14876,54 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input InterfaceTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input InterfaceTypeRelationInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
   fieldRefs: [InterfaceTypeFieldRefsCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type InterfaceTypeRelationshipCreatedEvent {
+  createdRelationship: InterfaceTypeConnectedRelationships!
+  event: EventType!
+  interfaceType: InterfaceTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input InterfaceTypeRelationshipCreatedSubscriptionWhere {
+  AND: [InterfaceTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: InterfaceTypeRelationshipCreatedSubscriptionWhere
+  OR: [InterfaceTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: InterfaceTypeRelationshipsSubscriptionWhere
+  interfaceType: InterfaceTypeSubscriptionWhere
+}
+
+type InterfaceTypeRelationshipDeletedEvent {
+  deletedRelationship: InterfaceTypeConnectedRelationships!
+  event: EventType!
+  interfaceType: InterfaceTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input InterfaceTypeRelationshipDeletedSubscriptionWhere {
+  AND: [InterfaceTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: InterfaceTypeRelationshipDeletedSubscriptionWhere
+  OR: [InterfaceTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: InterfaceTypeRelationshipsSubscriptionWhere
+  interfaceType: InterfaceTypeSubscriptionWhere
+}
+
+input InterfaceTypeRelationshipsSubscriptionWhere {
+  apiOfAtoms: InterfaceTypeApiOfAtomsRelationshipSubscriptionWhere
+  fieldRefs: InterfaceTypeFieldRefsRelationshipSubscriptionWhere
+  fields: InterfaceTypeFieldsRelationshipSubscriptionWhere
+  owner: InterfaceTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -12624,6 +14935,24 @@ input InterfaceTypeSort {
   name: SortDirection
 }
 
+input InterfaceTypeSubscriptionWhere {
+  AND: [InterfaceTypeSubscriptionWhere!]
+  NOT: InterfaceTypeSubscriptionWhere
+  OR: [InterfaceTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
   fieldRefs: [InterfaceTypeFieldRefsUpdateFieldInput!]
@@ -12631,6 +14960,13 @@ input InterfaceTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type InterfaceTypeUpdatedEvent {
+  event: EventType!
+  previousState: InterfaceTypeEventPayload!
+  timestamp: Float!
+  updatedInterfaceType: InterfaceTypeEventPayload!
 }
 
 type InterfaceTypeUserOwnerAggregationSelection {
@@ -12839,6 +15175,10 @@ input LambdaTypeConnectWhere {
   node: LambdaTypeWhere!
 }
 
+type LambdaTypeConnectedRelationships {
+  owner: LambdaTypeOwnerConnectedRelationship
+}
+
 input LambdaTypeCreateInput {
   id: ID!
   kind: TypeKind! = LambdaType
@@ -12846,8 +15186,20 @@ input LambdaTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type LambdaTypeCreatedEvent {
+  createdLambdaType: LambdaTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input LambdaTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type LambdaTypeDeletedEvent {
+  deletedLambdaType: LambdaTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input LambdaTypeDisconnectInput {
@@ -12857,6 +15209,14 @@ input LambdaTypeDisconnectInput {
 type LambdaTypeEdge {
   cursor: String!
   node: LambdaType!
+}
+
+type LambdaTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input LambdaTypeOptions {
@@ -12879,6 +15239,10 @@ input LambdaTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: LambdaTypeOwnerNodeAggregationWhereInput
+}
+
+type LambdaTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input LambdaTypeOwnerNodeAggregationWhereInput {
@@ -12947,8 +15311,48 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input LambdaTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input LambdaTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type LambdaTypeRelationshipCreatedEvent {
+  createdRelationship: LambdaTypeConnectedRelationships!
+  event: EventType!
+  lambdaType: LambdaTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input LambdaTypeRelationshipCreatedSubscriptionWhere {
+  AND: [LambdaTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: LambdaTypeRelationshipCreatedSubscriptionWhere
+  OR: [LambdaTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: LambdaTypeRelationshipsSubscriptionWhere
+  lambdaType: LambdaTypeSubscriptionWhere
+}
+
+type LambdaTypeRelationshipDeletedEvent {
+  deletedRelationship: LambdaTypeConnectedRelationships!
+  event: EventType!
+  lambdaType: LambdaTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input LambdaTypeRelationshipDeletedSubscriptionWhere {
+  AND: [LambdaTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: LambdaTypeRelationshipDeletedSubscriptionWhere
+  OR: [LambdaTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: LambdaTypeRelationshipsSubscriptionWhere
+  lambdaType: LambdaTypeSubscriptionWhere
+}
+
+input LambdaTypeRelationshipsSubscriptionWhere {
+  owner: LambdaTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -12960,10 +15364,35 @@ input LambdaTypeSort {
   name: SortDirection
 }
 
+input LambdaTypeSubscriptionWhere {
+  AND: [LambdaTypeSubscriptionWhere!]
+  NOT: LambdaTypeSubscriptionWhere
+  OR: [LambdaTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input LambdaTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type LambdaTypeUpdatedEvent {
+  event: EventType!
+  previousState: LambdaTypeEventPayload!
+  timestamp: Float!
+  updatedLambdaType: LambdaTypeEventPayload!
 }
 
 type LambdaTypeUserOwnerAggregationSelection {
@@ -13608,6 +16037,10 @@ input PageAppConnectOrCreateFieldInputOnCreate {
   node: AppOnCreateInput!
 }
 
+type PageAppConnectedRelationship {
+  node: AppEventPayload!
+}
+
 type PageAppConnection {
   edges: [PageAppRelationship!]!
   pageInfo: PageInfo!
@@ -13671,6 +16104,10 @@ type PageAppRelationship {
   node: App!
 }
 
+input PageAppRelationshipSubscriptionWhere {
+  node: AppSubscriptionWhere
+}
+
 input PageAppUpdateConnectionInput {
   node: AppUpdateInput
 }
@@ -13709,6 +16146,14 @@ input PageConnectWhere {
   node: PageWhere!
 }
 
+type PageConnectedRelationships {
+  app: PageAppConnectedRelationship
+  pageContentContainer: PagePageContentContainerConnectedRelationship
+  redirect: PageRedirectConnectedRelationship
+  rootElement: PageRootElementConnectedRelationship
+  store: PageStoreConnectedRelationship
+}
+
 input PageCreateInput {
   app: PageAppFieldInput
   compositeKey: String!
@@ -13721,12 +16166,24 @@ input PageCreateInput {
   urlPattern: String!
 }
 
+type PageCreatedEvent {
+  createdPage: PageEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
   pageContentContainer: PagePageContentContainerDeleteFieldInput
   redirect: PageRedirectDeleteFieldInput
   rootElement: PageRootElementDeleteFieldInput
   store: PageStoreDeleteFieldInput
+}
+
+type PageDeletedEvent {
+  deletedPage: PageEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input PageDisconnectInput {
@@ -13768,6 +16225,15 @@ type PageElementRootElementNodeAggregateSelection {
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
   style: StringAggregateSelectionNullable!
+}
+
+type PageEventPayload {
+  compositeKey: String!
+  id: ID!
+  kind: PageKind!
+  name: String!
+  slug: String!
+  urlPattern: String!
 }
 
 """
@@ -13833,6 +16299,10 @@ input PagePageContentContainerConnectOrCreateFieldInput {
 
 input PagePageContentContainerConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type PagePageContentContainerConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type PagePageContentContainerConnection {
@@ -13958,6 +16428,10 @@ type PagePageContentContainerRelationship {
   node: Element!
 }
 
+input PagePageContentContainerRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input PagePageContentContainerUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -14001,6 +16475,10 @@ input PageRedirectConnectOrCreateFieldInput {
 
 input PageRedirectConnectOrCreateFieldInputOnCreate {
   node: RedirectOnCreateInput!
+}
+
+type PageRedirectConnectedRelationship {
+  node: RedirectEventPayload!
 }
 
 type PageRedirectConnection {
@@ -14076,6 +16554,10 @@ type PageRedirectRelationship {
   node: Redirect!
 }
 
+input PageRedirectRelationshipSubscriptionWhere {
+  node: RedirectSubscriptionWhere
+}
+
 input PageRedirectUpdateConnectionInput {
   node: RedirectUpdateInput
 }
@@ -14096,6 +16578,46 @@ input PageRelationInput {
   redirect: PageRedirectCreateFieldInput
   rootElement: PageRootElementCreateFieldInput
   store: PageStoreCreateFieldInput
+}
+
+type PageRelationshipCreatedEvent {
+  createdRelationship: PageConnectedRelationships!
+  event: EventType!
+  page: PageEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input PageRelationshipCreatedSubscriptionWhere {
+  AND: [PageRelationshipCreatedSubscriptionWhere!]
+  NOT: PageRelationshipCreatedSubscriptionWhere
+  OR: [PageRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: PageRelationshipsSubscriptionWhere
+  page: PageSubscriptionWhere
+}
+
+type PageRelationshipDeletedEvent {
+  deletedRelationship: PageConnectedRelationships!
+  event: EventType!
+  page: PageEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input PageRelationshipDeletedSubscriptionWhere {
+  AND: [PageRelationshipDeletedSubscriptionWhere!]
+  NOT: PageRelationshipDeletedSubscriptionWhere
+  OR: [PageRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: PageRelationshipsSubscriptionWhere
+  page: PageSubscriptionWhere
+}
+
+input PageRelationshipsSubscriptionWhere {
+  app: PageAppRelationshipSubscriptionWhere
+  pageContentContainer: PagePageContentContainerRelationshipSubscriptionWhere
+  redirect: PageRedirectRelationshipSubscriptionWhere
+  rootElement: PageRootElementRelationshipSubscriptionWhere
+  store: PageStoreRelationshipSubscriptionWhere
 }
 
 input PageRootElementAggregateInput {
@@ -14127,6 +16649,10 @@ input PageRootElementConnectOrCreateFieldInput {
 
 input PageRootElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type PageRootElementConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type PageRootElementConnection {
@@ -14252,6 +16778,10 @@ type PageRootElementRelationship {
   node: Element!
 }
 
+input PageRootElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input PageRootElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -14305,6 +16835,10 @@ input PageStoreConnectOrCreateFieldInput {
 
 input PageStoreConnectOrCreateFieldInputOnCreate {
   node: StoreOnCreateInput!
+}
+
+type PageStoreConnectedRelationship {
+  node: StoreEventPayload!
 }
 
 type PageStoreConnection {
@@ -14370,6 +16904,10 @@ type PageStoreRelationship {
   node: Store!
 }
 
+input PageStoreRelationshipSubscriptionWhere {
+  node: StoreSubscriptionWhere
+}
+
 type PageStoreStoreAggregationSelection {
   count: Int!
   node: PageStoreStoreNodeAggregateSelection
@@ -14392,6 +16930,39 @@ input PageStoreUpdateFieldInput {
   disconnect: PageStoreDisconnectFieldInput
   update: PageStoreUpdateConnectionInput
   where: PageStoreConnectionWhere
+}
+
+input PageSubscriptionWhere {
+  AND: [PageSubscriptionWhere!]
+  NOT: PageSubscriptionWhere
+  OR: [PageSubscriptionWhere!]
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String]
+  compositeKey_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: PageKind
+  kind_IN: [PageKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  slug: String
+  slug_CONTAINS: String
+  slug_ENDS_WITH: String
+  slug_IN: [String]
+  slug_STARTS_WITH: String
+  urlPattern: String
+  urlPattern_CONTAINS: String
+  urlPattern_ENDS_WITH: String
+  urlPattern_IN: [String]
+  urlPattern_STARTS_WITH: String
 }
 
 """
@@ -14433,6 +17004,10 @@ input PageTypeConnectWhere {
   node: PageTypeWhere!
 }
 
+type PageTypeConnectedRelationships {
+  owner: PageTypeOwnerConnectedRelationship
+}
+
 input PageTypeCreateInput {
   id: ID!
   kind: TypeKind! = PageType
@@ -14440,8 +17015,20 @@ input PageTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type PageTypeCreatedEvent {
+  createdPageType: PageTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input PageTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type PageTypeDeletedEvent {
+  deletedPageType: PageTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input PageTypeDisconnectInput {
@@ -14451,6 +17038,14 @@ input PageTypeDisconnectInput {
 type PageTypeEdge {
   cursor: String!
   node: PageType!
+}
+
+type PageTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input PageTypeOptions {
@@ -14473,6 +17068,10 @@ input PageTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: PageTypeOwnerNodeAggregationWhereInput
+}
+
+type PageTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input PageTypeOwnerNodeAggregationWhereInput {
@@ -14541,8 +17140,48 @@ input PageTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input PageTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input PageTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type PageTypeRelationshipCreatedEvent {
+  createdRelationship: PageTypeConnectedRelationships!
+  event: EventType!
+  pageType: PageTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input PageTypeRelationshipCreatedSubscriptionWhere {
+  AND: [PageTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: PageTypeRelationshipCreatedSubscriptionWhere
+  OR: [PageTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: PageTypeRelationshipsSubscriptionWhere
+  pageType: PageTypeSubscriptionWhere
+}
+
+type PageTypeRelationshipDeletedEvent {
+  deletedRelationship: PageTypeConnectedRelationships!
+  event: EventType!
+  pageType: PageTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input PageTypeRelationshipDeletedSubscriptionWhere {
+  AND: [PageTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: PageTypeRelationshipDeletedSubscriptionWhere
+  OR: [PageTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: PageTypeRelationshipsSubscriptionWhere
+  pageType: PageTypeSubscriptionWhere
+}
+
+input PageTypeRelationshipsSubscriptionWhere {
+  owner: PageTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -14554,10 +17193,35 @@ input PageTypeSort {
   name: SortDirection
 }
 
+input PageTypeSubscriptionWhere {
+  AND: [PageTypeSubscriptionWhere!]
+  NOT: PageTypeSubscriptionWhere
+  OR: [PageTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input PageTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type PageTypeUpdatedEvent {
+  event: EventType!
+  previousState: PageTypeEventPayload!
+  timestamp: Float!
+  updatedPageType: PageTypeEventPayload!
 }
 
 type PageTypeUserOwnerAggregationSelection {
@@ -14619,6 +17283,13 @@ input PageUpdateInput {
   rootElement: PageRootElementUpdateFieldInput
   store: PageStoreUpdateFieldInput
   urlPattern: String
+}
+
+type PageUpdatedEvent {
+  event: EventType!
+  previousState: PageEventPayload!
+  timestamp: Float!
+  updatedPage: PageEventPayload!
 }
 
 input PageWhere {
@@ -14722,6 +17393,10 @@ input PrimitiveTypeConnectWhere {
   node: PrimitiveTypeWhere!
 }
 
+type PrimitiveTypeConnectedRelationships {
+  owner: PrimitiveTypeOwnerConnectedRelationship
+}
+
 input PrimitiveTypeCreateInput {
   id: ID!
   kind: TypeKind! = PrimitiveType
@@ -14730,8 +17405,20 @@ input PrimitiveTypeCreateInput {
   primitiveKind: PrimitiveTypeKind!
 }
 
+type PrimitiveTypeCreatedEvent {
+  createdPrimitiveType: PrimitiveTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input PrimitiveTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type PrimitiveTypeDeletedEvent {
+  deletedPrimitiveType: PrimitiveTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input PrimitiveTypeDisconnectInput {
@@ -14741,6 +17428,15 @@ input PrimitiveTypeDisconnectInput {
 type PrimitiveTypeEdge {
   cursor: String!
   node: PrimitiveType!
+}
+
+type PrimitiveTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
+  primitiveKind: PrimitiveTypeKind!
 }
 
 enum PrimitiveTypeKind {
@@ -14777,6 +17473,10 @@ input PrimitiveTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: PrimitiveTypeOwnerNodeAggregationWhereInput
+}
+
+type PrimitiveTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input PrimitiveTypeOwnerNodeAggregationWhereInput {
@@ -14845,8 +17545,48 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input PrimitiveTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input PrimitiveTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type PrimitiveTypeRelationshipCreatedEvent {
+  createdRelationship: PrimitiveTypeConnectedRelationships!
+  event: EventType!
+  primitiveType: PrimitiveTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input PrimitiveTypeRelationshipCreatedSubscriptionWhere {
+  AND: [PrimitiveTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: PrimitiveTypeRelationshipCreatedSubscriptionWhere
+  OR: [PrimitiveTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: PrimitiveTypeRelationshipsSubscriptionWhere
+  primitiveType: PrimitiveTypeSubscriptionWhere
+}
+
+type PrimitiveTypeRelationshipDeletedEvent {
+  deletedRelationship: PrimitiveTypeConnectedRelationships!
+  event: EventType!
+  primitiveType: PrimitiveTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input PrimitiveTypeRelationshipDeletedSubscriptionWhere {
+  AND: [PrimitiveTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: PrimitiveTypeRelationshipDeletedSubscriptionWhere
+  OR: [PrimitiveTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: PrimitiveTypeRelationshipsSubscriptionWhere
+  primitiveType: PrimitiveTypeSubscriptionWhere
+}
+
+input PrimitiveTypeRelationshipsSubscriptionWhere {
+  owner: PrimitiveTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -14859,6 +17599,26 @@ input PrimitiveTypeSort {
   primitiveKind: SortDirection
 }
 
+input PrimitiveTypeSubscriptionWhere {
+  AND: [PrimitiveTypeSubscriptionWhere!]
+  NOT: PrimitiveTypeSubscriptionWhere
+  OR: [PrimitiveTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  primitiveKind: PrimitiveTypeKind
+  primitiveKind_IN: [PrimitiveTypeKind]
+}
+
 input PrimitiveTypeUniqueWhere {
   name: String
   primitiveKind: PrimitiveTypeKind
@@ -14869,6 +17629,13 @@ input PrimitiveTypeUpdateInput {
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
   primitiveKind: PrimitiveTypeKind
+}
+
+type PrimitiveTypeUpdatedEvent {
+  event: EventType!
+  previousState: PrimitiveTypeEventPayload!
+  timestamp: Float!
+  updatedPrimitiveType: PrimitiveTypeEventPayload!
 }
 
 type PrimitiveTypeUserOwnerAggregationSelection {
@@ -14921,6 +17688,36 @@ type ProductionDomainConfig {
   misconfigured: Boolean!
 }
 
+type ProductionDomainConfigCreatedEvent {
+  createdProductionDomainConfig: ProductionDomainConfigEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
+type ProductionDomainConfigDeletedEvent {
+  deletedProductionDomainConfig: ProductionDomainConfigEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
+type ProductionDomainConfigEventPayload {
+  misconfigured: Boolean!
+}
+
+input ProductionDomainConfigSubscriptionWhere {
+  AND: [ProductionDomainConfigSubscriptionWhere!]
+  NOT: ProductionDomainConfigSubscriptionWhere
+  OR: [ProductionDomainConfigSubscriptionWhere!]
+  misconfigured: Boolean
+}
+
+type ProductionDomainConfigUpdatedEvent {
+  event: EventType!
+  previousState: ProductionDomainConfigEventPayload!
+  timestamp: Float!
+  updatedProductionDomainConfig: ProductionDomainConfigEventPayload!
+}
+
 type Prop {
   data: String!
   id: ID!
@@ -14945,9 +17742,26 @@ input PropCreateInput {
   id: ID!
 }
 
+type PropCreatedEvent {
+  createdProp: PropEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
+type PropDeletedEvent {
+  deletedProp: PropEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 type PropEdge {
   cursor: String!
   node: Prop!
+}
+
+type PropEventPayload {
+  data: String!
+  id: ID!
 }
 
 input PropOnCreateInput {
@@ -14973,6 +17787,22 @@ input PropSort {
   id: SortDirection
 }
 
+input PropSubscriptionWhere {
+  AND: [PropSubscriptionWhere!]
+  NOT: PropSubscriptionWhere
+  OR: [PropSubscriptionWhere!]
+  data: String
+  data_CONTAINS: String
+  data_ENDS_WITH: String
+  data_IN: [String]
+  data_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+}
+
 input PropUniqueWhere {
   id: ID
 }
@@ -14980,6 +17810,13 @@ input PropUniqueWhere {
 input PropUpdateInput {
   data: String
   id: ID
+}
+
+type PropUpdatedEvent {
+  event: EventType!
+  previousState: PropEventPayload!
+  timestamp: Float!
+  updatedProp: PropEventPayload!
 }
 
 input PropWhere {
@@ -15408,6 +18245,10 @@ input ReactNodeTypeConnectWhere {
   node: ReactNodeTypeWhere!
 }
 
+type ReactNodeTypeConnectedRelationships {
+  owner: ReactNodeTypeOwnerConnectedRelationship
+}
+
 input ReactNodeTypeCreateInput {
   id: ID!
   kind: TypeKind! = ReactNodeType
@@ -15415,8 +18256,20 @@ input ReactNodeTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type ReactNodeTypeCreatedEvent {
+  createdReactNodeType: ReactNodeTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ReactNodeTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type ReactNodeTypeDeletedEvent {
+  deletedReactNodeType: ReactNodeTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ReactNodeTypeDisconnectInput {
@@ -15426,6 +18279,14 @@ input ReactNodeTypeDisconnectInput {
 type ReactNodeTypeEdge {
   cursor: String!
   node: ReactNodeType!
+}
+
+type ReactNodeTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input ReactNodeTypeOnCreateInput {
@@ -15454,6 +18315,10 @@ input ReactNodeTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ReactNodeTypeOwnerNodeAggregationWhereInput
+}
+
+type ReactNodeTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input ReactNodeTypeOwnerNodeAggregationWhereInput {
@@ -15522,8 +18387,48 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input ReactNodeTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input ReactNodeTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type ReactNodeTypeRelationshipCreatedEvent {
+  createdRelationship: ReactNodeTypeConnectedRelationships!
+  event: EventType!
+  reactNodeType: ReactNodeTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ReactNodeTypeRelationshipCreatedSubscriptionWhere {
+  AND: [ReactNodeTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: ReactNodeTypeRelationshipCreatedSubscriptionWhere
+  OR: [ReactNodeTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: ReactNodeTypeRelationshipsSubscriptionWhere
+  reactNodeType: ReactNodeTypeSubscriptionWhere
+}
+
+type ReactNodeTypeRelationshipDeletedEvent {
+  deletedRelationship: ReactNodeTypeConnectedRelationships!
+  event: EventType!
+  reactNodeType: ReactNodeTypeEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input ReactNodeTypeRelationshipDeletedSubscriptionWhere {
+  AND: [ReactNodeTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: ReactNodeTypeRelationshipDeletedSubscriptionWhere
+  OR: [ReactNodeTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: ReactNodeTypeRelationshipsSubscriptionWhere
+  reactNodeType: ReactNodeTypeSubscriptionWhere
+}
+
+input ReactNodeTypeRelationshipsSubscriptionWhere {
+  owner: ReactNodeTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -15535,6 +18440,24 @@ input ReactNodeTypeSort {
   name: SortDirection
 }
 
+input ReactNodeTypeSubscriptionWhere {
+  AND: [ReactNodeTypeSubscriptionWhere!]
+  NOT: ReactNodeTypeSubscriptionWhere
+  OR: [ReactNodeTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input ReactNodeTypeUniqueWhere {
   name: String
 }
@@ -15543,6 +18466,13 @@ input ReactNodeTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type ReactNodeTypeUpdatedEvent {
+  event: EventType!
+  previousState: ReactNodeTypeEventPayload!
+  timestamp: Float!
+  updatedReactNodeType: ReactNodeTypeEventPayload!
 }
 
 type ReactNodeTypeUserOwnerAggregationSelection {
@@ -15691,6 +18621,10 @@ input RedirectAuthGuardConnectOrCreateFieldInputOnCreate {
   node: AuthGuardOnCreateInput!
 }
 
+type RedirectAuthGuardConnectedRelationship {
+  node: AuthGuardEventPayload!
+}
+
 type RedirectAuthGuardConnection {
   edges: [RedirectAuthGuardRelationship!]!
   pageInfo: PageInfo!
@@ -15769,6 +18703,10 @@ type RedirectAuthGuardRelationship {
   node: AuthGuard!
 }
 
+input RedirectAuthGuardRelationshipSubscriptionWhere {
+  node: AuthGuardSubscriptionWhere
+}
+
 input RedirectAuthGuardUpdateConnectionInput {
   node: AuthGuardUpdateInput
 }
@@ -15803,6 +18741,12 @@ input RedirectConnectWhere {
   node: RedirectWhere!
 }
 
+type RedirectConnectedRelationships {
+  authGuard: RedirectAuthGuardConnectedRelationship
+  source: RedirectSourceConnectedRelationship
+  targetPage: RedirectTargetPageConnectedRelationship
+}
+
 input RedirectCreateInput {
   authGuard: RedirectAuthGuardFieldInput
   id: ID!
@@ -15812,10 +18756,22 @@ input RedirectCreateInput {
   targetUrl: String
 }
 
+type RedirectCreatedEvent {
+  createdRedirect: RedirectEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input RedirectDeleteInput {
   authGuard: RedirectAuthGuardDeleteFieldInput
   source: RedirectSourceDeleteFieldInput
   targetPage: RedirectTargetPageDeleteFieldInput
+}
+
+type RedirectDeletedEvent {
+  deletedRedirect: RedirectEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input RedirectDisconnectInput {
@@ -15827,6 +18783,12 @@ input RedirectDisconnectInput {
 type RedirectEdge {
   cursor: String!
   node: Redirect!
+}
+
+type RedirectEventPayload {
+  id: ID!
+  targetType: RedirectTargetType!
+  targetUrl: String
 }
 
 input RedirectOnCreateInput {
@@ -15873,6 +18835,44 @@ input RedirectRelationInput {
   targetPage: RedirectTargetPageCreateFieldInput
 }
 
+type RedirectRelationshipCreatedEvent {
+  createdRelationship: RedirectConnectedRelationships!
+  event: EventType!
+  redirect: RedirectEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input RedirectRelationshipCreatedSubscriptionWhere {
+  AND: [RedirectRelationshipCreatedSubscriptionWhere!]
+  NOT: RedirectRelationshipCreatedSubscriptionWhere
+  OR: [RedirectRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: RedirectRelationshipsSubscriptionWhere
+  redirect: RedirectSubscriptionWhere
+}
+
+type RedirectRelationshipDeletedEvent {
+  deletedRelationship: RedirectConnectedRelationships!
+  event: EventType!
+  redirect: RedirectEventPayload!
+  relationshipFieldName: String!
+  timestamp: Float!
+}
+
+input RedirectRelationshipDeletedSubscriptionWhere {
+  AND: [RedirectRelationshipDeletedSubscriptionWhere!]
+  NOT: RedirectRelationshipDeletedSubscriptionWhere
+  OR: [RedirectRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: RedirectRelationshipsSubscriptionWhere
+  redirect: RedirectSubscriptionWhere
+}
+
+input RedirectRelationshipsSubscriptionWhere {
+  authGuard: RedirectAuthGuardRelationshipSubscriptionWhere
+  source: RedirectSourceRelationshipSubscriptionWhere
+  targetPage: RedirectTargetPageRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Redirects by. The order in which sorts are applied is not guaranteed when specifying many fields in one RedirectSort object.
 """
@@ -15911,6 +18911,10 @@ input RedirectSourceConnectOrCreateFieldInput {
 
 input RedirectSourceConnectOrCreateFieldInputOnCreate {
   node: PageOnCreateInput!
+}
+
+type RedirectSourceConnectedRelationship {
+  node: PageEventPayload!
 }
 
 type RedirectSourceConnection {
@@ -15991,6 +18995,10 @@ type RedirectSourceRelationship {
   node: Page!
 }
 
+input RedirectSourceRelationshipSubscriptionWhere {
+  node: PageSubscriptionWhere
+}
+
 input RedirectSourceUpdateConnectionInput {
   node: PageUpdateInput
 }
@@ -16003,6 +19011,24 @@ input RedirectSourceUpdateFieldInput {
   disconnect: RedirectSourceDisconnectFieldInput
   update: RedirectSourceUpdateConnectionInput
   where: RedirectSourceConnectionWhere
+}
+
+input RedirectSubscriptionWhere {
+  AND: [RedirectSubscriptionWhere!]
+  NOT: RedirectSubscriptionWhere
+  OR: [RedirectSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  targetType: RedirectTargetType
+  targetType_IN: [RedirectTargetType]
+  targetUrl: String
+  targetUrl_CONTAINS: String
+  targetUrl_ENDS_WITH: String
+  targetUrl_IN: [String]
+  targetUrl_STARTS_WITH: String
 }
 
 input RedirectTargetPageAggregateInput {
@@ -16034,6 +19060,10 @@ input RedirectTargetPageConnectOrCreateFieldInput {
 
 input RedirectTargetPageConnectOrCreateFieldInputOnCreate {
   node: PageOnCreateInput!
+}
+
+type RedirectTargetPageConnectedRelationship {
+  node: PageEventPayload!
 }
 
 type RedirectTargetPageConnection {
@@ -16114,6 +19144,10 @@ type RedirectTargetPageRelationship {
   node: Page!
 }
 
+input RedirectTargetPageRelationshipSubscriptionWhere {
+  node: PageSubscriptionWhere
+}
+
 input RedirectTargetPageUpdateConnectionInput {
   node: PageUpdateInput
 }
@@ -16151,6 +19185,13 @@ input RedirectUpdateInput {
   targetPage: RedirectTargetPageUpdateFieldInput
   targetType: RedirectTargetType
   targetUrl: String
+}
+
+type RedirectUpdatedEvent {
+  event: EventType!
+  previousState: RedirectEventPayload!
+  timestamp: Float!
+  updatedRedirect: RedirectEventPayload!
 }
 
 input RedirectWhere {
@@ -16245,6 +19286,10 @@ input RenderPropTypeConnectWhere {
   node: RenderPropTypeWhere!
 }
 
+type RenderPropTypeConnectedRelationships {
+  owner: RenderPropTypeOwnerConnectedRelationship
+}
+
 input RenderPropTypeCreateInput {
   id: ID!
   kind: TypeKind! = RenderPropType
@@ -16252,8 +19297,20 @@ input RenderPropTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type RenderPropTypeCreatedEvent {
+  createdRenderPropType: RenderPropTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input RenderPropTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type RenderPropTypeDeletedEvent {
+  deletedRenderPropType: RenderPropTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input RenderPropTypeDisconnectInput {
@@ -16263,6 +19320,14 @@ input RenderPropTypeDisconnectInput {
 type RenderPropTypeEdge {
   cursor: String!
   node: RenderPropType!
+}
+
+type RenderPropTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input RenderPropTypeOnCreateInput {
@@ -16291,6 +19356,10 @@ input RenderPropTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: RenderPropTypeOwnerNodeAggregationWhereInput
+}
+
+type RenderPropTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input RenderPropTypeOwnerNodeAggregationWhereInput {
@@ -16359,8 +19428,48 @@ input RenderPropTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input RenderPropTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input RenderPropTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type RenderPropTypeRelationshipCreatedEvent {
+  createdRelationship: RenderPropTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  renderPropType: RenderPropTypeEventPayload!
+  timestamp: Float!
+}
+
+input RenderPropTypeRelationshipCreatedSubscriptionWhere {
+  AND: [RenderPropTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: RenderPropTypeRelationshipCreatedSubscriptionWhere
+  OR: [RenderPropTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: RenderPropTypeRelationshipsSubscriptionWhere
+  renderPropType: RenderPropTypeSubscriptionWhere
+}
+
+type RenderPropTypeRelationshipDeletedEvent {
+  deletedRelationship: RenderPropTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  renderPropType: RenderPropTypeEventPayload!
+  timestamp: Float!
+}
+
+input RenderPropTypeRelationshipDeletedSubscriptionWhere {
+  AND: [RenderPropTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: RenderPropTypeRelationshipDeletedSubscriptionWhere
+  OR: [RenderPropTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: RenderPropTypeRelationshipsSubscriptionWhere
+  renderPropType: RenderPropTypeSubscriptionWhere
+}
+
+input RenderPropTypeRelationshipsSubscriptionWhere {
+  owner: RenderPropTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -16372,6 +19481,24 @@ input RenderPropTypeSort {
   name: SortDirection
 }
 
+input RenderPropTypeSubscriptionWhere {
+  AND: [RenderPropTypeSubscriptionWhere!]
+  NOT: RenderPropTypeSubscriptionWhere
+  OR: [RenderPropTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input RenderPropTypeUniqueWhere {
   name: String
 }
@@ -16380,6 +19507,13 @@ input RenderPropTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type RenderPropTypeUpdatedEvent {
+  event: EventType!
+  previousState: RenderPropTypeEventPayload!
+  timestamp: Float!
+  updatedRenderPropType: RenderPropTypeEventPayload!
 }
 
 type RenderPropTypeUserOwnerAggregationSelection {
@@ -16495,6 +19629,10 @@ input ResourceConfigConnectOrCreateFieldInputOnCreate {
   node: PropOnCreateInput!
 }
 
+type ResourceConfigConnectedRelationship {
+  node: PropEventPayload!
+}
+
 type ResourceConfigConnection {
   edges: [ResourceConfigRelationship!]!
   pageInfo: PageInfo!
@@ -16556,6 +19694,10 @@ type ResourceConfigRelationship {
   node: Prop!
 }
 
+input ResourceConfigRelationshipSubscriptionWhere {
+  node: PropSubscriptionWhere
+}
+
 input ResourceConfigUpdateConnectionInput {
   node: PropUpdateInput
 }
@@ -16588,6 +19730,11 @@ input ResourceConnectWhere {
   node: ResourceWhere!
 }
 
+type ResourceConnectedRelationships {
+  config: ResourceConfigConnectedRelationship
+  owner: ResourceOwnerConnectedRelationship
+}
+
 input ResourceCreateInput {
   config: ResourceConfigFieldInput
   id: ID!
@@ -16596,9 +19743,21 @@ input ResourceCreateInput {
   type: ResourceType!
 }
 
+type ResourceCreatedEvent {
+  createdResource: ResourceEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input ResourceDeleteInput {
   config: ResourceConfigDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
+}
+
+type ResourceDeletedEvent {
+  deletedResource: ResourceEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input ResourceDisconnectInput {
@@ -16609,6 +19768,12 @@ input ResourceDisconnectInput {
 type ResourceEdge {
   cursor: String!
   node: Resource!
+}
+
+type ResourceEventPayload {
+  id: ID!
+  name: String!
+  type: ResourceType!
 }
 
 input ResourceOnCreateInput {
@@ -16637,6 +19802,10 @@ input ResourceOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ResourceOwnerNodeAggregationWhereInput
+}
+
+type ResourceOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input ResourceOwnerNodeAggregationWhereInput {
@@ -16705,6 +19874,10 @@ input ResourceOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input ResourceOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 type ResourcePropConfigAggregationSelection {
   count: Int!
   node: ResourcePropConfigNodeAggregateSelection
@@ -16720,6 +19893,43 @@ input ResourceRelationInput {
   owner: WithOwnerOwnerCreateFieldInput
 }
 
+type ResourceRelationshipCreatedEvent {
+  createdRelationship: ResourceConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  resource: ResourceEventPayload!
+  timestamp: Float!
+}
+
+input ResourceRelationshipCreatedSubscriptionWhere {
+  AND: [ResourceRelationshipCreatedSubscriptionWhere!]
+  NOT: ResourceRelationshipCreatedSubscriptionWhere
+  OR: [ResourceRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: ResourceRelationshipsSubscriptionWhere
+  resource: ResourceSubscriptionWhere
+}
+
+type ResourceRelationshipDeletedEvent {
+  deletedRelationship: ResourceConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  resource: ResourceEventPayload!
+  timestamp: Float!
+}
+
+input ResourceRelationshipDeletedSubscriptionWhere {
+  AND: [ResourceRelationshipDeletedSubscriptionWhere!]
+  NOT: ResourceRelationshipDeletedSubscriptionWhere
+  OR: [ResourceRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: ResourceRelationshipsSubscriptionWhere
+  resource: ResourceSubscriptionWhere
+}
+
+input ResourceRelationshipsSubscriptionWhere {
+  config: ResourceConfigRelationshipSubscriptionWhere
+  owner: ResourceOwnerRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object.
 """
@@ -16727,6 +19937,24 @@ input ResourceSort {
   id: SortDirection
   name: SortDirection
   type: SortDirection
+}
+
+input ResourceSubscriptionWhere {
+  AND: [ResourceSubscriptionWhere!]
+  NOT: ResourceSubscriptionWhere
+  OR: [ResourceSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+  type: ResourceType
+  type_IN: [ResourceType]
 }
 
 enum ResourceType {
@@ -16744,6 +19972,13 @@ input ResourceUpdateInput {
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   type: ResourceType
+}
+
+type ResourceUpdatedEvent {
+  event: EventType!
+  previousState: ResourceEventPayload!
+  timestamp: Float!
+  updatedResource: ResourceEventPayload!
 }
 
 type ResourceUserOwnerAggregationSelection {
@@ -16834,6 +20069,10 @@ input RichTextTypeConnectWhere {
   node: RichTextTypeWhere!
 }
 
+type RichTextTypeConnectedRelationships {
+  owner: RichTextTypeOwnerConnectedRelationship
+}
+
 input RichTextTypeCreateInput {
   id: ID!
   kind: TypeKind! = RichTextType
@@ -16841,8 +20080,20 @@ input RichTextTypeCreateInput {
   owner: IBaseTypeOwnerFieldInput
 }
 
+type RichTextTypeCreatedEvent {
+  createdRichTextType: RichTextTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input RichTextTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type RichTextTypeDeletedEvent {
+  deletedRichTextType: RichTextTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input RichTextTypeDisconnectInput {
@@ -16852,6 +20103,14 @@ input RichTextTypeDisconnectInput {
 type RichTextTypeEdge {
   cursor: String!
   node: RichTextType!
+}
+
+type RichTextTypeEventPayload implements IBaseTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input RichTextTypeOptions {
@@ -16874,6 +20133,10 @@ input RichTextTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: RichTextTypeOwnerNodeAggregationWhereInput
+}
+
+type RichTextTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input RichTextTypeOwnerNodeAggregationWhereInput {
@@ -16942,8 +20205,48 @@ input RichTextTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input RichTextTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input RichTextTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
+}
+
+type RichTextTypeRelationshipCreatedEvent {
+  createdRelationship: RichTextTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  richTextType: RichTextTypeEventPayload!
+  timestamp: Float!
+}
+
+input RichTextTypeRelationshipCreatedSubscriptionWhere {
+  AND: [RichTextTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: RichTextTypeRelationshipCreatedSubscriptionWhere
+  OR: [RichTextTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: RichTextTypeRelationshipsSubscriptionWhere
+  richTextType: RichTextTypeSubscriptionWhere
+}
+
+type RichTextTypeRelationshipDeletedEvent {
+  deletedRelationship: RichTextTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  richTextType: RichTextTypeEventPayload!
+  timestamp: Float!
+}
+
+input RichTextTypeRelationshipDeletedSubscriptionWhere {
+  AND: [RichTextTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: RichTextTypeRelationshipDeletedSubscriptionWhere
+  OR: [RichTextTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: RichTextTypeRelationshipsSubscriptionWhere
+  richTextType: RichTextTypeSubscriptionWhere
+}
+
+input RichTextTypeRelationshipsSubscriptionWhere {
+  owner: RichTextTypeOwnerRelationshipSubscriptionWhere
 }
 
 """
@@ -16955,10 +20258,35 @@ input RichTextTypeSort {
   name: SortDirection
 }
 
+input RichTextTypeSubscriptionWhere {
+  AND: [RichTextTypeSubscriptionWhere!]
+  NOT: RichTextTypeSubscriptionWhere
+  OR: [RichTextTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input RichTextTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+type RichTextTypeUpdatedEvent {
+  event: EventType!
+  previousState: RichTextTypeEventPayload!
+  timestamp: Float!
+  updatedRichTextType: RichTextTypeEventPayload!
 }
 
 type RichTextTypeUserOwnerAggregationSelection {
@@ -17088,6 +20416,10 @@ input StoreActionsApiActionFieldInput {
   create: [StoreActionsApiActionCreateFieldInput!]
 }
 
+input StoreActionsApiActionSubscriptionWhere {
+  node: ApiActionSubscriptionWhere
+}
+
 input StoreActionsApiActionUpdateConnectionInput {
   node: ApiActionUpdateInput
 }
@@ -17132,6 +20464,10 @@ input StoreActionsCodeActionFieldInput {
   create: [StoreActionsCodeActionCreateFieldInput!]
 }
 
+input StoreActionsCodeActionSubscriptionWhere {
+  node: CodeActionSubscriptionWhere
+}
+
 input StoreActionsCodeActionUpdateConnectionInput {
   node: CodeActionUpdateInput
 }
@@ -17148,6 +20484,10 @@ input StoreActionsCodeActionUpdateFieldInput {
 input StoreActionsConnectInput {
   ApiAction: [StoreActionsApiActionConnectFieldInput!]
   CodeAction: [StoreActionsCodeActionConnectFieldInput!]
+}
+
+type StoreActionsConnectedRelationship {
+  node: AnyActionEventPayload!
 }
 
 type StoreActionsConnection {
@@ -17186,6 +20526,11 @@ type StoreActionsRelationship {
   node: AnyAction!
 }
 
+input StoreActionsRelationshipSubscriptionWhere {
+  ApiAction: StoreActionsApiActionSubscriptionWhere
+  CodeAction: StoreActionsCodeActionSubscriptionWhere
+}
+
 input StoreActionsUpdateInput {
   ApiAction: [StoreActionsApiActionUpdateFieldInput!]
   CodeAction: [StoreActionsCodeActionUpdateFieldInput!]
@@ -17217,6 +20562,10 @@ input StoreApiConnectFieldInput {
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
+}
+
+type StoreApiConnectedRelationship {
+  node: InterfaceTypeEventPayload!
 }
 
 type StoreApiConnection {
@@ -17281,6 +20630,10 @@ type StoreApiRelationship {
   node: InterfaceType!
 }
 
+input StoreApiRelationshipSubscriptionWhere {
+  node: InterfaceTypeSubscriptionWhere
+}
+
 input StoreApiUpdateConnectionInput {
   node: InterfaceTypeUpdateInput
 }
@@ -17307,6 +20660,11 @@ input StoreConnectWhere {
   node: StoreWhere!
 }
 
+type StoreConnectedRelationships {
+  actions: StoreActionsConnectedRelationship
+  api: StoreApiConnectedRelationship
+}
+
 input StoreCreateInput {
   actions: StoreActionsCreateInput
   api: StoreApiFieldInput
@@ -17314,9 +20672,21 @@ input StoreCreateInput {
   name: String!
 }
 
+type StoreCreatedEvent {
+  createdStore: StoreEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input StoreDeleteInput {
   actions: StoreActionsDeleteInput
   api: StoreApiDeleteFieldInput
+}
+
+type StoreDeletedEvent {
+  deletedStore: StoreEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input StoreDisconnectInput {
@@ -17327,6 +20697,11 @@ input StoreDisconnectInput {
 type StoreEdge {
   cursor: String!
   node: Store!
+}
+
+type StoreEventPayload {
+  id: ID!
+  name: String!
 }
 
 type StoreInterfaceTypeApiAggregationSelection {
@@ -17359,12 +20734,65 @@ input StoreRelationInput {
   api: StoreApiCreateFieldInput
 }
 
+type StoreRelationshipCreatedEvent {
+  createdRelationship: StoreConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  store: StoreEventPayload!
+  timestamp: Float!
+}
+
+input StoreRelationshipCreatedSubscriptionWhere {
+  AND: [StoreRelationshipCreatedSubscriptionWhere!]
+  NOT: StoreRelationshipCreatedSubscriptionWhere
+  OR: [StoreRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: StoreRelationshipsSubscriptionWhere
+  store: StoreSubscriptionWhere
+}
+
+type StoreRelationshipDeletedEvent {
+  deletedRelationship: StoreConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  store: StoreEventPayload!
+  timestamp: Float!
+}
+
+input StoreRelationshipDeletedSubscriptionWhere {
+  AND: [StoreRelationshipDeletedSubscriptionWhere!]
+  NOT: StoreRelationshipDeletedSubscriptionWhere
+  OR: [StoreRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: StoreRelationshipsSubscriptionWhere
+  store: StoreSubscriptionWhere
+}
+
+input StoreRelationshipsSubscriptionWhere {
+  actions: StoreActionsRelationshipSubscriptionWhere
+  api: StoreApiRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object.
 """
 input StoreSort {
   id: SortDirection
   name: SortDirection
+}
+
+input StoreSubscriptionWhere {
+  AND: [StoreSubscriptionWhere!]
+  NOT: StoreSubscriptionWhere
+  OR: [StoreSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
 }
 
 input StoreUniqueWhere {
@@ -17376,6 +20804,13 @@ input StoreUpdateInput {
   api: StoreApiUpdateFieldInput
   id: ID
   name: String
+}
+
+type StoreUpdatedEvent {
+  event: EventType!
+  previousState: StoreEventPayload!
+  timestamp: Float!
+  updatedStore: StoreEventPayload!
 }
 
 input StoreWhere {
@@ -17435,6 +20870,366 @@ type StringAggregateSelectionNonNullable {
 type StringAggregateSelectionNullable {
   longest: String
   shortest: String
+}
+
+type Subscription {
+  actionTypeCreated(where: ActionTypeSubscriptionWhere): ActionTypeCreatedEvent!
+  actionTypeDeleted(where: ActionTypeSubscriptionWhere): ActionTypeDeletedEvent!
+  actionTypeRelationshipCreated(
+    where: ActionTypeRelationshipCreatedSubscriptionWhere
+  ): ActionTypeRelationshipCreatedEvent!
+  actionTypeRelationshipDeleted(
+    where: ActionTypeRelationshipDeletedSubscriptionWhere
+  ): ActionTypeRelationshipDeletedEvent!
+  actionTypeUpdated(where: ActionTypeSubscriptionWhere): ActionTypeUpdatedEvent!
+  apiActionCreated(where: ApiActionSubscriptionWhere): ApiActionCreatedEvent!
+  apiActionDeleted(where: ApiActionSubscriptionWhere): ApiActionDeletedEvent!
+  apiActionRelationshipCreated(
+    where: ApiActionRelationshipCreatedSubscriptionWhere
+  ): ApiActionRelationshipCreatedEvent!
+  apiActionRelationshipDeleted(
+    where: ApiActionRelationshipDeletedSubscriptionWhere
+  ): ApiActionRelationshipDeletedEvent!
+  apiActionUpdated(where: ApiActionSubscriptionWhere): ApiActionUpdatedEvent!
+  appCreated(where: AppSubscriptionWhere): AppCreatedEvent!
+  appDeleted(where: AppSubscriptionWhere): AppDeletedEvent!
+  appRelationshipCreated(
+    where: AppRelationshipCreatedSubscriptionWhere
+  ): AppRelationshipCreatedEvent!
+  appRelationshipDeleted(
+    where: AppRelationshipDeletedSubscriptionWhere
+  ): AppRelationshipDeletedEvent!
+  appTypeCreated(where: AppTypeSubscriptionWhere): AppTypeCreatedEvent!
+  appTypeDeleted(where: AppTypeSubscriptionWhere): AppTypeDeletedEvent!
+  appTypeRelationshipCreated(
+    where: AppTypeRelationshipCreatedSubscriptionWhere
+  ): AppTypeRelationshipCreatedEvent!
+  appTypeRelationshipDeleted(
+    where: AppTypeRelationshipDeletedSubscriptionWhere
+  ): AppTypeRelationshipDeletedEvent!
+  appTypeUpdated(where: AppTypeSubscriptionWhere): AppTypeUpdatedEvent!
+  appUpdated(where: AppSubscriptionWhere): AppUpdatedEvent!
+  arrayTypeCreated(where: ArrayTypeSubscriptionWhere): ArrayTypeCreatedEvent!
+  arrayTypeDeleted(where: ArrayTypeSubscriptionWhere): ArrayTypeDeletedEvent!
+  arrayTypeRelationshipCreated(
+    where: ArrayTypeRelationshipCreatedSubscriptionWhere
+  ): ArrayTypeRelationshipCreatedEvent!
+  arrayTypeRelationshipDeleted(
+    where: ArrayTypeRelationshipDeletedSubscriptionWhere
+  ): ArrayTypeRelationshipDeletedEvent!
+  arrayTypeUpdated(where: ArrayTypeSubscriptionWhere): ArrayTypeUpdatedEvent!
+  atomCreated(where: AtomSubscriptionWhere): AtomCreatedEvent!
+  atomDeleted(where: AtomSubscriptionWhere): AtomDeletedEvent!
+  atomRelationshipCreated(
+    where: AtomRelationshipCreatedSubscriptionWhere
+  ): AtomRelationshipCreatedEvent!
+  atomRelationshipDeleted(
+    where: AtomRelationshipDeletedSubscriptionWhere
+  ): AtomRelationshipDeletedEvent!
+  atomUpdated(where: AtomSubscriptionWhere): AtomUpdatedEvent!
+  authGuardCreated(where: AuthGuardSubscriptionWhere): AuthGuardCreatedEvent!
+  authGuardDeleted(where: AuthGuardSubscriptionWhere): AuthGuardDeletedEvent!
+  authGuardRelationshipCreated(
+    where: AuthGuardRelationshipCreatedSubscriptionWhere
+  ): AuthGuardRelationshipCreatedEvent!
+  authGuardRelationshipDeleted(
+    where: AuthGuardRelationshipDeletedSubscriptionWhere
+  ): AuthGuardRelationshipDeletedEvent!
+  authGuardUpdated(where: AuthGuardSubscriptionWhere): AuthGuardUpdatedEvent!
+  codeActionCreated(where: CodeActionSubscriptionWhere): CodeActionCreatedEvent!
+  codeActionDeleted(where: CodeActionSubscriptionWhere): CodeActionDeletedEvent!
+  codeActionRelationshipCreated(
+    where: CodeActionRelationshipCreatedSubscriptionWhere
+  ): CodeActionRelationshipCreatedEvent!
+  codeActionRelationshipDeleted(
+    where: CodeActionRelationshipDeletedSubscriptionWhere
+  ): CodeActionRelationshipDeletedEvent!
+  codeActionUpdated(where: CodeActionSubscriptionWhere): CodeActionUpdatedEvent!
+  codeMirrorTypeCreated(
+    where: CodeMirrorTypeSubscriptionWhere
+  ): CodeMirrorTypeCreatedEvent!
+  codeMirrorTypeDeleted(
+    where: CodeMirrorTypeSubscriptionWhere
+  ): CodeMirrorTypeDeletedEvent!
+  codeMirrorTypeRelationshipCreated(
+    where: CodeMirrorTypeRelationshipCreatedSubscriptionWhere
+  ): CodeMirrorTypeRelationshipCreatedEvent!
+  codeMirrorTypeRelationshipDeleted(
+    where: CodeMirrorTypeRelationshipDeletedSubscriptionWhere
+  ): CodeMirrorTypeRelationshipDeletedEvent!
+  codeMirrorTypeUpdated(
+    where: CodeMirrorTypeSubscriptionWhere
+  ): CodeMirrorTypeUpdatedEvent!
+  componentCreated(where: ComponentSubscriptionWhere): ComponentCreatedEvent!
+  componentDeleted(where: ComponentSubscriptionWhere): ComponentDeletedEvent!
+  componentRelationshipCreated(
+    where: ComponentRelationshipCreatedSubscriptionWhere
+  ): ComponentRelationshipCreatedEvent!
+  componentRelationshipDeleted(
+    where: ComponentRelationshipDeletedSubscriptionWhere
+  ): ComponentRelationshipDeletedEvent!
+  componentUpdated(where: ComponentSubscriptionWhere): ComponentUpdatedEvent!
+  domainCreated(where: DomainSubscriptionWhere): DomainCreatedEvent!
+  domainDeleted(where: DomainSubscriptionWhere): DomainDeletedEvent!
+  domainRelationshipCreated(
+    where: DomainRelationshipCreatedSubscriptionWhere
+  ): DomainRelationshipCreatedEvent!
+  domainRelationshipDeleted(
+    where: DomainRelationshipDeletedSubscriptionWhere
+  ): DomainRelationshipDeletedEvent!
+  domainUpdated(where: DomainSubscriptionWhere): DomainUpdatedEvent!
+  elementCreated(where: ElementSubscriptionWhere): ElementCreatedEvent!
+  elementDeleted(where: ElementSubscriptionWhere): ElementDeletedEvent!
+  elementRelationshipCreated(
+    where: ElementRelationshipCreatedSubscriptionWhere
+  ): ElementRelationshipCreatedEvent!
+  elementRelationshipDeleted(
+    where: ElementRelationshipDeletedSubscriptionWhere
+  ): ElementRelationshipDeletedEvent!
+  elementTypeCreated(
+    where: ElementTypeSubscriptionWhere
+  ): ElementTypeCreatedEvent!
+  elementTypeDeleted(
+    where: ElementTypeSubscriptionWhere
+  ): ElementTypeDeletedEvent!
+  elementTypeRelationshipCreated(
+    where: ElementTypeRelationshipCreatedSubscriptionWhere
+  ): ElementTypeRelationshipCreatedEvent!
+  elementTypeRelationshipDeleted(
+    where: ElementTypeRelationshipDeletedSubscriptionWhere
+  ): ElementTypeRelationshipDeletedEvent!
+  elementTypeUpdated(
+    where: ElementTypeSubscriptionWhere
+  ): ElementTypeUpdatedEvent!
+  elementUpdated(where: ElementSubscriptionWhere): ElementUpdatedEvent!
+  enumTypeCreated(where: EnumTypeSubscriptionWhere): EnumTypeCreatedEvent!
+  enumTypeDeleted(where: EnumTypeSubscriptionWhere): EnumTypeDeletedEvent!
+  enumTypeRelationshipCreated(
+    where: EnumTypeRelationshipCreatedSubscriptionWhere
+  ): EnumTypeRelationshipCreatedEvent!
+  enumTypeRelationshipDeleted(
+    where: EnumTypeRelationshipDeletedSubscriptionWhere
+  ): EnumTypeRelationshipDeletedEvent!
+  enumTypeUpdated(where: EnumTypeSubscriptionWhere): EnumTypeUpdatedEvent!
+  enumTypeValueCreated(
+    where: EnumTypeValueSubscriptionWhere
+  ): EnumTypeValueCreatedEvent!
+  enumTypeValueDeleted(
+    where: EnumTypeValueSubscriptionWhere
+  ): EnumTypeValueDeletedEvent!
+  enumTypeValueRelationshipCreated(
+    where: EnumTypeValueRelationshipCreatedSubscriptionWhere
+  ): EnumTypeValueRelationshipCreatedEvent!
+  enumTypeValueRelationshipDeleted(
+    where: EnumTypeValueRelationshipDeletedSubscriptionWhere
+  ): EnumTypeValueRelationshipDeletedEvent!
+  enumTypeValueUpdated(
+    where: EnumTypeValueSubscriptionWhere
+  ): EnumTypeValueUpdatedEvent!
+  fieldCreated(where: FieldSubscriptionWhere): FieldCreatedEvent!
+  fieldDeleted(where: FieldSubscriptionWhere): FieldDeletedEvent!
+  fieldRelationshipCreated(
+    where: FieldRelationshipCreatedSubscriptionWhere
+  ): FieldRelationshipCreatedEvent!
+  fieldRelationshipDeleted(
+    where: FieldRelationshipDeletedSubscriptionWhere
+  ): FieldRelationshipDeletedEvent!
+  fieldUpdated(where: FieldSubscriptionWhere): FieldUpdatedEvent!
+  getBaseTypesReturnCreated(
+    where: GetBaseTypesReturnSubscriptionWhere
+  ): GetBaseTypesReturnCreatedEvent!
+  getBaseTypesReturnDeleted(
+    where: GetBaseTypesReturnSubscriptionWhere
+  ): GetBaseTypesReturnDeletedEvent!
+  getBaseTypesReturnUpdated(
+    where: GetBaseTypesReturnSubscriptionWhere
+  ): GetBaseTypesReturnUpdatedEvent!
+  hookCreated(where: HookSubscriptionWhere): HookCreatedEvent!
+  hookDeleted(where: HookSubscriptionWhere): HookDeletedEvent!
+  hookRelationshipCreated(
+    where: HookRelationshipCreatedSubscriptionWhere
+  ): HookRelationshipCreatedEvent!
+  hookRelationshipDeleted(
+    where: HookRelationshipDeletedSubscriptionWhere
+  ): HookRelationshipDeletedEvent!
+  hookUpdated(where: HookSubscriptionWhere): HookUpdatedEvent!
+  interfaceTypeCreated(
+    where: InterfaceTypeSubscriptionWhere
+  ): InterfaceTypeCreatedEvent!
+  interfaceTypeDeleted(
+    where: InterfaceTypeSubscriptionWhere
+  ): InterfaceTypeDeletedEvent!
+  interfaceTypeRelationshipCreated(
+    where: InterfaceTypeRelationshipCreatedSubscriptionWhere
+  ): InterfaceTypeRelationshipCreatedEvent!
+  interfaceTypeRelationshipDeleted(
+    where: InterfaceTypeRelationshipDeletedSubscriptionWhere
+  ): InterfaceTypeRelationshipDeletedEvent!
+  interfaceTypeUpdated(
+    where: InterfaceTypeSubscriptionWhere
+  ): InterfaceTypeUpdatedEvent!
+  lambdaTypeCreated(where: LambdaTypeSubscriptionWhere): LambdaTypeCreatedEvent!
+  lambdaTypeDeleted(where: LambdaTypeSubscriptionWhere): LambdaTypeDeletedEvent!
+  lambdaTypeRelationshipCreated(
+    where: LambdaTypeRelationshipCreatedSubscriptionWhere
+  ): LambdaTypeRelationshipCreatedEvent!
+  lambdaTypeRelationshipDeleted(
+    where: LambdaTypeRelationshipDeletedSubscriptionWhere
+  ): LambdaTypeRelationshipDeletedEvent!
+  lambdaTypeUpdated(where: LambdaTypeSubscriptionWhere): LambdaTypeUpdatedEvent!
+  pageCreated(where: PageSubscriptionWhere): PageCreatedEvent!
+  pageDeleted(where: PageSubscriptionWhere): PageDeletedEvent!
+  pageRelationshipCreated(
+    where: PageRelationshipCreatedSubscriptionWhere
+  ): PageRelationshipCreatedEvent!
+  pageRelationshipDeleted(
+    where: PageRelationshipDeletedSubscriptionWhere
+  ): PageRelationshipDeletedEvent!
+  pageTypeCreated(where: PageTypeSubscriptionWhere): PageTypeCreatedEvent!
+  pageTypeDeleted(where: PageTypeSubscriptionWhere): PageTypeDeletedEvent!
+  pageTypeRelationshipCreated(
+    where: PageTypeRelationshipCreatedSubscriptionWhere
+  ): PageTypeRelationshipCreatedEvent!
+  pageTypeRelationshipDeleted(
+    where: PageTypeRelationshipDeletedSubscriptionWhere
+  ): PageTypeRelationshipDeletedEvent!
+  pageTypeUpdated(where: PageTypeSubscriptionWhere): PageTypeUpdatedEvent!
+  pageUpdated(where: PageSubscriptionWhere): PageUpdatedEvent!
+  primitiveTypeCreated(
+    where: PrimitiveTypeSubscriptionWhere
+  ): PrimitiveTypeCreatedEvent!
+  primitiveTypeDeleted(
+    where: PrimitiveTypeSubscriptionWhere
+  ): PrimitiveTypeDeletedEvent!
+  primitiveTypeRelationshipCreated(
+    where: PrimitiveTypeRelationshipCreatedSubscriptionWhere
+  ): PrimitiveTypeRelationshipCreatedEvent!
+  primitiveTypeRelationshipDeleted(
+    where: PrimitiveTypeRelationshipDeletedSubscriptionWhere
+  ): PrimitiveTypeRelationshipDeletedEvent!
+  primitiveTypeUpdated(
+    where: PrimitiveTypeSubscriptionWhere
+  ): PrimitiveTypeUpdatedEvent!
+  productionDomainConfigCreated(
+    where: ProductionDomainConfigSubscriptionWhere
+  ): ProductionDomainConfigCreatedEvent!
+  productionDomainConfigDeleted(
+    where: ProductionDomainConfigSubscriptionWhere
+  ): ProductionDomainConfigDeletedEvent!
+  productionDomainConfigUpdated(
+    where: ProductionDomainConfigSubscriptionWhere
+  ): ProductionDomainConfigUpdatedEvent!
+  propCreated(where: PropSubscriptionWhere): PropCreatedEvent!
+  propDeleted(where: PropSubscriptionWhere): PropDeletedEvent!
+  propUpdated(where: PropSubscriptionWhere): PropUpdatedEvent!
+  reactNodeTypeCreated(
+    where: ReactNodeTypeSubscriptionWhere
+  ): ReactNodeTypeCreatedEvent!
+  reactNodeTypeDeleted(
+    where: ReactNodeTypeSubscriptionWhere
+  ): ReactNodeTypeDeletedEvent!
+  reactNodeTypeRelationshipCreated(
+    where: ReactNodeTypeRelationshipCreatedSubscriptionWhere
+  ): ReactNodeTypeRelationshipCreatedEvent!
+  reactNodeTypeRelationshipDeleted(
+    where: ReactNodeTypeRelationshipDeletedSubscriptionWhere
+  ): ReactNodeTypeRelationshipDeletedEvent!
+  reactNodeTypeUpdated(
+    where: ReactNodeTypeSubscriptionWhere
+  ): ReactNodeTypeUpdatedEvent!
+  redirectCreated(where: RedirectSubscriptionWhere): RedirectCreatedEvent!
+  redirectDeleted(where: RedirectSubscriptionWhere): RedirectDeletedEvent!
+  redirectRelationshipCreated(
+    where: RedirectRelationshipCreatedSubscriptionWhere
+  ): RedirectRelationshipCreatedEvent!
+  redirectRelationshipDeleted(
+    where: RedirectRelationshipDeletedSubscriptionWhere
+  ): RedirectRelationshipDeletedEvent!
+  redirectUpdated(where: RedirectSubscriptionWhere): RedirectUpdatedEvent!
+  renderPropTypeCreated(
+    where: RenderPropTypeSubscriptionWhere
+  ): RenderPropTypeCreatedEvent!
+  renderPropTypeDeleted(
+    where: RenderPropTypeSubscriptionWhere
+  ): RenderPropTypeDeletedEvent!
+  renderPropTypeRelationshipCreated(
+    where: RenderPropTypeRelationshipCreatedSubscriptionWhere
+  ): RenderPropTypeRelationshipCreatedEvent!
+  renderPropTypeRelationshipDeleted(
+    where: RenderPropTypeRelationshipDeletedSubscriptionWhere
+  ): RenderPropTypeRelationshipDeletedEvent!
+  renderPropTypeUpdated(
+    where: RenderPropTypeSubscriptionWhere
+  ): RenderPropTypeUpdatedEvent!
+  resourceCreated(where: ResourceSubscriptionWhere): ResourceCreatedEvent!
+  resourceDeleted(where: ResourceSubscriptionWhere): ResourceDeletedEvent!
+  resourceRelationshipCreated(
+    where: ResourceRelationshipCreatedSubscriptionWhere
+  ): ResourceRelationshipCreatedEvent!
+  resourceRelationshipDeleted(
+    where: ResourceRelationshipDeletedSubscriptionWhere
+  ): ResourceRelationshipDeletedEvent!
+  resourceUpdated(where: ResourceSubscriptionWhere): ResourceUpdatedEvent!
+  richTextTypeCreated(
+    where: RichTextTypeSubscriptionWhere
+  ): RichTextTypeCreatedEvent!
+  richTextTypeDeleted(
+    where: RichTextTypeSubscriptionWhere
+  ): RichTextTypeDeletedEvent!
+  richTextTypeRelationshipCreated(
+    where: RichTextTypeRelationshipCreatedSubscriptionWhere
+  ): RichTextTypeRelationshipCreatedEvent!
+  richTextTypeRelationshipDeleted(
+    where: RichTextTypeRelationshipDeletedSubscriptionWhere
+  ): RichTextTypeRelationshipDeletedEvent!
+  richTextTypeUpdated(
+    where: RichTextTypeSubscriptionWhere
+  ): RichTextTypeUpdatedEvent!
+  storeCreated(where: StoreSubscriptionWhere): StoreCreatedEvent!
+  storeDeleted(where: StoreSubscriptionWhere): StoreDeletedEvent!
+  storeRelationshipCreated(
+    where: StoreRelationshipCreatedSubscriptionWhere
+  ): StoreRelationshipCreatedEvent!
+  storeRelationshipDeleted(
+    where: StoreRelationshipDeletedSubscriptionWhere
+  ): StoreRelationshipDeletedEvent!
+  storeUpdated(where: StoreSubscriptionWhere): StoreUpdatedEvent!
+  tagCreated(where: TagSubscriptionWhere): TagCreatedEvent!
+  tagDeleted(where: TagSubscriptionWhere): TagDeletedEvent!
+  tagRelationshipCreated(
+    where: TagRelationshipCreatedSubscriptionWhere
+  ): TagRelationshipCreatedEvent!
+  tagRelationshipDeleted(
+    where: TagRelationshipDeletedSubscriptionWhere
+  ): TagRelationshipDeletedEvent!
+  tagUpdated(where: TagSubscriptionWhere): TagUpdatedEvent!
+  typeReferenceCreated(
+    where: TypeReferenceSubscriptionWhere
+  ): TypeReferenceCreatedEvent!
+  typeReferenceDeleted(
+    where: TypeReferenceSubscriptionWhere
+  ): TypeReferenceDeletedEvent!
+  typeReferenceUpdated(
+    where: TypeReferenceSubscriptionWhere
+  ): TypeReferenceUpdatedEvent!
+  unionTypeCreated(where: UnionTypeSubscriptionWhere): UnionTypeCreatedEvent!
+  unionTypeDeleted(where: UnionTypeSubscriptionWhere): UnionTypeDeletedEvent!
+  unionTypeRelationshipCreated(
+    where: UnionTypeRelationshipCreatedSubscriptionWhere
+  ): UnionTypeRelationshipCreatedEvent!
+  unionTypeRelationshipDeleted(
+    where: UnionTypeRelationshipDeletedSubscriptionWhere
+  ): UnionTypeRelationshipDeletedEvent!
+  unionTypeUpdated(where: UnionTypeSubscriptionWhere): UnionTypeUpdatedEvent!
+  userCreated(where: UserSubscriptionWhere): UserCreatedEvent!
+  userDeleted(where: UserSubscriptionWhere): UserDeletedEvent!
+  userRelationshipCreated(
+    where: UserRelationshipCreatedSubscriptionWhere
+  ): UserRelationshipCreatedEvent!
+  userRelationshipDeleted(
+    where: UserRelationshipDeletedSubscriptionWhere
+  ): UserRelationshipDeletedEvent!
+  userUpdated(where: UserSubscriptionWhere): UserUpdatedEvent!
 }
 
 type Tag {
@@ -17548,6 +21343,10 @@ input TagAtomsConnectOrCreateFieldInput {
 
 input TagAtomsConnectOrCreateFieldInputOnCreate {
   node: AtomOnCreateInput!
+}
+
+type TagAtomsConnectedRelationship {
+  node: AtomEventPayload!
 }
 
 type TagAtomsConnection {
@@ -17673,6 +21472,10 @@ type TagAtomsRelationship {
   node: Atom!
 }
 
+input TagAtomsRelationshipSubscriptionWhere {
+  node: AtomSubscriptionWhere
+}
+
 input TagAtomsUpdateConnectionInput {
   node: AtomUpdateInput
 }
@@ -17716,6 +21519,10 @@ input TagChildrenConnectOrCreateFieldInput {
 
 input TagChildrenConnectOrCreateFieldInputOnCreate {
   node: TagOnCreateInput!
+}
+
+type TagChildrenConnectedRelationship {
+  node: TagEventPayload!
 }
 
 type TagChildrenConnection {
@@ -17781,6 +21588,10 @@ type TagChildrenRelationship {
   node: Tag!
 }
 
+input TagChildrenRelationshipSubscriptionWhere {
+  node: TagSubscriptionWhere
+}
+
 input TagChildrenUpdateConnectionInput {
   node: TagUpdateInput
 }
@@ -17817,6 +21628,13 @@ input TagConnectWhere {
   node: TagWhere!
 }
 
+type TagConnectedRelationships {
+  atoms: TagAtomsConnectedRelationship
+  children: TagChildrenConnectedRelationship
+  owner: TagOwnerConnectedRelationship
+  parent: TagParentConnectedRelationship
+}
+
 input TagCreateInput {
   atoms: TagAtomsFieldInput
   children: TagChildrenFieldInput
@@ -17826,11 +21644,23 @@ input TagCreateInput {
   parent: TagParentFieldInput
 }
 
+type TagCreatedEvent {
+  createdTag: TagEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input TagDeleteInput {
   atoms: [TagAtomsDeleteFieldInput!]
   children: [TagChildrenDeleteFieldInput!]
   owner: TagOwnerDeleteFieldInput
   parent: TagParentDeleteFieldInput
+}
+
+type TagDeletedEvent {
+  deletedTag: TagEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input TagDisconnectInput {
@@ -17843,6 +21673,11 @@ input TagDisconnectInput {
 type TagEdge {
   cursor: String!
   node: Tag!
+}
+
+type TagEventPayload {
+  id: ID!
+  name: String!
 }
 
 input TagOnCreateInput {
@@ -17889,6 +21724,10 @@ input TagOwnerConnectOrCreateFieldInput {
 
 input TagOwnerConnectOrCreateFieldInputOnCreate {
   node: UserOnCreateInput!
+}
+
+type TagOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 type TagOwnerConnection {
@@ -17999,6 +21838,10 @@ type TagOwnerRelationship {
   node: User!
 }
 
+input TagOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input TagOwnerUpdateConnectionInput {
   node: UserUpdateInput
 }
@@ -18042,6 +21885,10 @@ input TagParentConnectOrCreateFieldInput {
 
 input TagParentConnectOrCreateFieldInputOnCreate {
   node: TagOnCreateInput!
+}
+
+type TagParentConnectedRelationship {
+  node: TagEventPayload!
 }
 
 type TagParentConnection {
@@ -18107,6 +21954,10 @@ type TagParentRelationship {
   node: Tag!
 }
 
+input TagParentRelationshipSubscriptionWhere {
+  node: TagSubscriptionWhere
+}
+
 input TagParentUpdateConnectionInput {
   node: TagUpdateInput
 }
@@ -18128,12 +21979,67 @@ input TagRelationInput {
   parent: TagParentCreateFieldInput
 }
 
+type TagRelationshipCreatedEvent {
+  createdRelationship: TagConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  tag: TagEventPayload!
+  timestamp: Float!
+}
+
+input TagRelationshipCreatedSubscriptionWhere {
+  AND: [TagRelationshipCreatedSubscriptionWhere!]
+  NOT: TagRelationshipCreatedSubscriptionWhere
+  OR: [TagRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: TagRelationshipsSubscriptionWhere
+  tag: TagSubscriptionWhere
+}
+
+type TagRelationshipDeletedEvent {
+  deletedRelationship: TagConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  tag: TagEventPayload!
+  timestamp: Float!
+}
+
+input TagRelationshipDeletedSubscriptionWhere {
+  AND: [TagRelationshipDeletedSubscriptionWhere!]
+  NOT: TagRelationshipDeletedSubscriptionWhere
+  OR: [TagRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: TagRelationshipsSubscriptionWhere
+  tag: TagSubscriptionWhere
+}
+
+input TagRelationshipsSubscriptionWhere {
+  atoms: TagAtomsRelationshipSubscriptionWhere
+  children: TagChildrenRelationshipSubscriptionWhere
+  owner: TagOwnerRelationshipSubscriptionWhere
+  parent: TagParentRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Tags by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagSort object.
 """
 input TagSort {
   id: SortDirection
   name: SortDirection
+}
+
+input TagSubscriptionWhere {
+  AND: [TagSubscriptionWhere!]
+  NOT: TagSubscriptionWhere
+  OR: [TagSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
 }
 
 type TagTagChildrenAggregationSelection {
@@ -18168,6 +22074,13 @@ input TagUpdateInput {
   name: String
   owner: TagOwnerUpdateFieldInput
   parent: TagParentUpdateFieldInput
+}
+
+type TagUpdatedEvent {
+  event: EventType!
+  previousState: TagEventPayload!
+  timestamp: Float!
+  updatedTag: TagEventPayload!
 }
 
 type TagUserOwnerAggregationSelection {
@@ -18339,9 +22252,33 @@ input TypeReferenceCreateInput {
   name: String!
 }
 
+type TypeReferenceCreatedEvent {
+  createdTypeReference: TypeReferenceEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
+type TypeReferenceDeletedEvent {
+  deletedTypeReference: TypeReferenceEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 type TypeReferenceEdge {
   cursor: String!
   node: TypeReference!
+}
+
+type TypeReferenceEventPayload {
+  """
+  The type of resource - Atom, InterfaceType, etc.
+  """
+  label: String!
+
+  """
+  The name of the resource referencing the type
+  """
+  name: String!
 }
 
 input TypeReferenceOptions {
@@ -18362,9 +22299,32 @@ input TypeReferenceSort {
   name: SortDirection
 }
 
+input TypeReferenceSubscriptionWhere {
+  AND: [TypeReferenceSubscriptionWhere!]
+  NOT: TypeReferenceSubscriptionWhere
+  OR: [TypeReferenceSubscriptionWhere!]
+  label: String
+  label_CONTAINS: String
+  label_ENDS_WITH: String
+  label_IN: [String]
+  label_STARTS_WITH: String
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
+}
+
 input TypeReferenceUpdateInput {
   label: String
   name: String
+}
+
+type TypeReferenceUpdatedEvent {
+  event: EventType!
+  previousState: TypeReferenceEventPayload!
+  timestamp: Float!
+  updatedTypeReference: TypeReferenceEventPayload!
 }
 
 input TypeReferenceWhere {
@@ -18448,6 +22408,11 @@ input UnionTypeConnectWhere {
   node: UnionTypeWhere!
 }
 
+type UnionTypeConnectedRelationships {
+  owner: UnionTypeOwnerConnectedRelationship
+  typesOfUnionType: UnionTypeTypesOfUnionTypeConnectedRelationship
+}
+
 input UnionTypeCreateInput {
   id: ID!
   kind: TypeKind! = UnionType
@@ -18456,9 +22421,21 @@ input UnionTypeCreateInput {
   typesOfUnionType: UnionTypeTypesOfUnionTypeCreateInput
 }
 
+type UnionTypeCreatedEvent {
+  createdUnionType: UnionTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input UnionTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeDeleteInput
+}
+
+type UnionTypeDeletedEvent {
+  deletedUnionType: UnionTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input UnionTypeDisconnectInput {
@@ -18469,6 +22446,15 @@ input UnionTypeDisconnectInput {
 type UnionTypeEdge {
   cursor: String!
   node: UnionType!
+}
+
+type UnionTypeEventPayload implements IBaseTypeEventPayload {
+  descendantTypesIds: [ID!]!
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: User!
+  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input UnionTypeOnCreateInput {
@@ -18497,6 +22483,10 @@ input UnionTypeOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: UnionTypeOwnerNodeAggregationWhereInput
+}
+
+type UnionTypeOwnerConnectedRelationship {
+  node: UserEventPayload!
 }
 
 input UnionTypeOwnerNodeAggregationWhereInput {
@@ -18565,9 +22555,50 @@ input UnionTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+input UnionTypeOwnerRelationshipSubscriptionWhere {
+  node: UserSubscriptionWhere
+}
+
 input UnionTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeCreateFieldInput
+}
+
+type UnionTypeRelationshipCreatedEvent {
+  createdRelationship: UnionTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+  unionType: UnionTypeEventPayload!
+}
+
+input UnionTypeRelationshipCreatedSubscriptionWhere {
+  AND: [UnionTypeRelationshipCreatedSubscriptionWhere!]
+  NOT: UnionTypeRelationshipCreatedSubscriptionWhere
+  OR: [UnionTypeRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: UnionTypeRelationshipsSubscriptionWhere
+  unionType: UnionTypeSubscriptionWhere
+}
+
+type UnionTypeRelationshipDeletedEvent {
+  deletedRelationship: UnionTypeConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+  unionType: UnionTypeEventPayload!
+}
+
+input UnionTypeRelationshipDeletedSubscriptionWhere {
+  AND: [UnionTypeRelationshipDeletedSubscriptionWhere!]
+  NOT: UnionTypeRelationshipDeletedSubscriptionWhere
+  OR: [UnionTypeRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: UnionTypeRelationshipsSubscriptionWhere
+  unionType: UnionTypeSubscriptionWhere
+}
+
+input UnionTypeRelationshipsSubscriptionWhere {
+  owner: UnionTypeOwnerRelationshipSubscriptionWhere
+  typesOfUnionType: UnionTypeTypesOfUnionTypeRelationshipSubscriptionWhere
 }
 
 """
@@ -18577,6 +22608,24 @@ input UnionTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
+}
+
+input UnionTypeSubscriptionWhere {
+  AND: [UnionTypeSubscriptionWhere!]
+  NOT: UnionTypeSubscriptionWhere
+  OR: [UnionTypeSubscriptionWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_STARTS_WITH: String
 }
 
 input UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput {
@@ -18618,6 +22667,10 @@ input UnionTypeTypesOfUnionTypeActionTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput!]
   connectOrCreate: [UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeActionTypeSubscriptionWhere {
+  node: ActionTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypeActionTypeUpdateConnectionInput {
@@ -18665,6 +22718,10 @@ input UnionTypeTypesOfUnionTypeAppTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput!]
 }
 
+input UnionTypeTypesOfUnionTypeAppTypeSubscriptionWhere {
+  node: AppTypeSubscriptionWhere
+}
+
 input UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput {
   node: AppTypeUpdateInput
 }
@@ -18707,6 +22764,10 @@ input UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput {
 input UnionTypeTypesOfUnionTypeArrayTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
   create: [UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeArrayTypeSubscriptionWhere {
+  node: ArrayTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypeArrayTypeUpdateConnectionInput {
@@ -18753,6 +22814,10 @@ input UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput!]
 }
 
+input UnionTypeTypesOfUnionTypeCodeMirrorTypeSubscriptionWhere {
+  node: CodeMirrorTypeSubscriptionWhere
+}
+
 input UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput {
   node: CodeMirrorTypeUpdateInput
 }
@@ -18789,6 +22854,10 @@ input UnionTypeTypesOfUnionTypeConnectOrCreateInput {
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput!]
+}
+
+type UnionTypeTypesOfUnionTypeConnectedRelationship {
+  node: AnyTypeEventPayload!
 }
 
 type UnionTypeTypesOfUnionTypeConnection {
@@ -18913,6 +22982,10 @@ input UnionTypeTypesOfUnionTypeElementTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput!]
 }
 
+input UnionTypeTypesOfUnionTypeElementTypeSubscriptionWhere {
+  node: ElementTypeSubscriptionWhere
+}
+
 input UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput {
   node: ElementTypeUpdateInput
 }
@@ -18955,6 +23028,10 @@ input UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput {
 input UnionTypeTypesOfUnionTypeEnumTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput!]
   create: [UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeEnumTypeSubscriptionWhere {
+  node: EnumTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypeEnumTypeUpdateConnectionInput {
@@ -19001,6 +23078,10 @@ input UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput!]
 }
 
+input UnionTypeTypesOfUnionTypeInterfaceTypeSubscriptionWhere {
+  node: InterfaceTypeSubscriptionWhere
+}
+
 input UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput {
   node: InterfaceTypeUpdateInput
 }
@@ -19045,6 +23126,10 @@ input UnionTypeTypesOfUnionTypeLambdaTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput!]
 }
 
+input UnionTypeTypesOfUnionTypeLambdaTypeSubscriptionWhere {
+  node: LambdaTypeSubscriptionWhere
+}
+
 input UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput {
   node: LambdaTypeUpdateInput
 }
@@ -19087,6 +23172,10 @@ input UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput {
 input UnionTypeTypesOfUnionTypePageTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
   create: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypePageTypeSubscriptionWhere {
+  node: PageTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput {
@@ -19141,6 +23230,10 @@ input UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput!]
   connectOrCreate: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypePrimitiveTypeSubscriptionWhere {
+  node: PrimitiveTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypePrimitiveTypeUpdateConnectionInput {
@@ -19198,6 +23291,10 @@ input UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput!]
 }
 
+input UnionTypeTypesOfUnionTypeReactNodeTypeSubscriptionWhere {
+  node: ReactNodeTypeSubscriptionWhere
+}
+
 input UnionTypeTypesOfUnionTypeReactNodeTypeUpdateConnectionInput {
   node: ReactNodeTypeUpdateInput
 }
@@ -19215,6 +23312,23 @@ input UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput {
 type UnionTypeTypesOfUnionTypeRelationship {
   cursor: String!
   node: AnyType!
+}
+
+input UnionTypeTypesOfUnionTypeRelationshipSubscriptionWhere {
+  ActionType: UnionTypeTypesOfUnionTypeActionTypeSubscriptionWhere
+  AppType: UnionTypeTypesOfUnionTypeAppTypeSubscriptionWhere
+  ArrayType: UnionTypeTypesOfUnionTypeArrayTypeSubscriptionWhere
+  CodeMirrorType: UnionTypeTypesOfUnionTypeCodeMirrorTypeSubscriptionWhere
+  ElementType: UnionTypeTypesOfUnionTypeElementTypeSubscriptionWhere
+  EnumType: UnionTypeTypesOfUnionTypeEnumTypeSubscriptionWhere
+  InterfaceType: UnionTypeTypesOfUnionTypeInterfaceTypeSubscriptionWhere
+  LambdaType: UnionTypeTypesOfUnionTypeLambdaTypeSubscriptionWhere
+  PageType: UnionTypeTypesOfUnionTypePageTypeSubscriptionWhere
+  PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeSubscriptionWhere
+  ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeSubscriptionWhere
+  RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeSubscriptionWhere
+  RichTextType: UnionTypeTypesOfUnionTypeRichTextTypeSubscriptionWhere
+  UnionType: UnionTypeTypesOfUnionTypeUnionTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput {
@@ -19256,6 +23370,10 @@ input UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
   connectOrCreate: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeRenderPropTypeSubscriptionWhere {
+  node: RenderPropTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypeRenderPropTypeUpdateConnectionInput {
@@ -19301,6 +23419,10 @@ input UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput {
 input UnionTypeTypesOfUnionTypeRichTextTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput!]
   create: [UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeRichTextTypeSubscriptionWhere {
+  node: RichTextTypeSubscriptionWhere
 }
 
 input UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput {
@@ -19357,6 +23479,10 @@ input UnionTypeTypesOfUnionTypeUnionTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput!]
 }
 
+input UnionTypeTypesOfUnionTypeUnionTypeSubscriptionWhere {
+  node: UnionTypeSubscriptionWhere
+}
+
 input UnionTypeTypesOfUnionTypeUnionTypeUpdateConnectionInput {
   node: UnionTypeUpdateInput
 }
@@ -19397,6 +23523,13 @@ input UnionTypeUpdateInput {
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeUpdateInput
+}
+
+type UnionTypeUpdatedEvent {
+  event: EventType!
+  previousState: UnionTypeEventPayload!
+  timestamp: Float!
+  updatedUnionType: UnionTypeEventPayload!
 }
 
 type UnionTypeUserOwnerAggregationSelection {
@@ -19790,6 +23923,10 @@ input UserAppsConnectOrCreateFieldInputOnCreate {
   node: AppOnCreateInput!
 }
 
+type UserAppsConnectedRelationship {
+  node: AppEventPayload!
+}
+
 type UserAppsConnection {
   edges: [UserAppsRelationship!]!
   pageInfo: PageInfo!
@@ -19853,6 +23990,10 @@ type UserAppsRelationship {
   node: App!
 }
 
+input UserAppsRelationshipSubscriptionWhere {
+  node: AppSubscriptionWhere
+}
+
 input UserAppsUpdateConnectionInput {
   node: AppUpdateInput
 }
@@ -19910,6 +24051,10 @@ input UserAtomsConnectOrCreateFieldInput {
 
 input UserAtomsConnectOrCreateFieldInputOnCreate {
   node: AtomOnCreateInput!
+}
+
+type UserAtomsConnectedRelationship {
+  node: AtomEventPayload!
 }
 
 type UserAtomsConnection {
@@ -20035,6 +24180,10 @@ type UserAtomsRelationship {
   node: Atom!
 }
 
+input UserAtomsRelationshipSubscriptionWhere {
+  node: AtomSubscriptionWhere
+}
+
 input UserAtomsUpdateConnectionInput {
   node: AtomUpdateInput
 }
@@ -20088,6 +24237,10 @@ input UserComponentsConnectOrCreateFieldInput {
 
 input UserComponentsConnectOrCreateFieldInputOnCreate {
   node: ComponentOnCreateInput!
+}
+
+type UserComponentsConnectedRelationship {
+  node: ComponentEventPayload!
 }
 
 type UserComponentsConnection {
@@ -20153,6 +24306,10 @@ type UserComponentsRelationship {
   node: Component!
 }
 
+input UserComponentsRelationshipSubscriptionWhere {
+  node: ComponentSubscriptionWhere
+}
+
 input UserComponentsUpdateConnectionInput {
   node: ComponentUpdateInput
 }
@@ -20192,6 +24349,15 @@ input UserConnectWhere {
   node: UserWhere!
 }
 
+type UserConnectedRelationships {
+  apps: UserAppsConnectedRelationship
+  atoms: UserAtomsConnectedRelationship
+  components: UserComponentsConnectedRelationship
+  elements: UserElementsConnectedRelationship
+  tags: UserTagsConnectedRelationship
+  types: UserTypesConnectedRelationship
+}
+
 input UserCreateInput {
   apps: UserAppsFieldInput
   atoms: UserAtomsFieldInput
@@ -20207,6 +24373,12 @@ input UserCreateInput {
   username: String!
 }
 
+type UserCreatedEvent {
+  createdUser: UserEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
 input UserDeleteInput {
   apps: [UserAppsDeleteFieldInput!]
   atoms: [UserAtomsDeleteFieldInput!]
@@ -20214,6 +24386,12 @@ input UserDeleteInput {
   elements: [UserElementsDeleteFieldInput!]
   tags: [UserTagsDeleteFieldInput!]
   types: [UserTypesDeleteFieldInput!]
+}
+
+type UserDeletedEvent {
+  deletedUser: UserEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input UserDisconnectInput {
@@ -20273,6 +24451,10 @@ input UserElementsConnectOrCreateFieldInput {
 
 input UserElementsConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
+}
+
+type UserElementsConnectedRelationship {
+  node: ElementEventPayload!
 }
 
 type UserElementsConnection {
@@ -20398,6 +24580,10 @@ type UserElementsRelationship {
   node: Element!
 }
 
+input UserElementsRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
 input UserElementsUpdateConnectionInput {
   node: ElementUpdateInput
 }
@@ -20410,6 +24596,15 @@ input UserElementsUpdateFieldInput {
   disconnect: [UserElementsDisconnectFieldInput!]
   update: UserElementsUpdateConnectionInput
   where: UserElementsConnectionWhere
+}
+
+type UserEventPayload {
+  auth0Id: String!
+  email: String!
+  id: ID!
+  preferences: String
+  roles: [Role!]
+  username: String!
 }
 
 input UserOnCreateInput {
@@ -20440,6 +24635,47 @@ input UserRelationInput {
   types: [UserTypesCreateFieldInput!]
 }
 
+type UserRelationshipCreatedEvent {
+  createdRelationship: UserConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+  user: UserEventPayload!
+}
+
+input UserRelationshipCreatedSubscriptionWhere {
+  AND: [UserRelationshipCreatedSubscriptionWhere!]
+  NOT: UserRelationshipCreatedSubscriptionWhere
+  OR: [UserRelationshipCreatedSubscriptionWhere!]
+  createdRelationship: UserRelationshipsSubscriptionWhere
+  user: UserSubscriptionWhere
+}
+
+type UserRelationshipDeletedEvent {
+  deletedRelationship: UserConnectedRelationships!
+  event: EventType!
+  relationshipFieldName: String!
+  timestamp: Float!
+  user: UserEventPayload!
+}
+
+input UserRelationshipDeletedSubscriptionWhere {
+  AND: [UserRelationshipDeletedSubscriptionWhere!]
+  NOT: UserRelationshipDeletedSubscriptionWhere
+  OR: [UserRelationshipDeletedSubscriptionWhere!]
+  deletedRelationship: UserRelationshipsSubscriptionWhere
+  user: UserSubscriptionWhere
+}
+
+input UserRelationshipsSubscriptionWhere {
+  apps: UserAppsRelationshipSubscriptionWhere
+  atoms: UserAtomsRelationshipSubscriptionWhere
+  components: UserComponentsRelationshipSubscriptionWhere
+  elements: UserElementsRelationshipSubscriptionWhere
+  tags: UserTagsRelationshipSubscriptionWhere
+  types: UserTypesRelationshipSubscriptionWhere
+}
+
 """
 Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object.
 """
@@ -20449,6 +24685,39 @@ input UserSort {
   id: SortDirection
   preferences: SortDirection
   username: SortDirection
+}
+
+input UserSubscriptionWhere {
+  AND: [UserSubscriptionWhere!]
+  NOT: UserSubscriptionWhere
+  OR: [UserSubscriptionWhere!]
+  auth0Id: String
+  auth0Id_CONTAINS: String
+  auth0Id_ENDS_WITH: String
+  auth0Id_IN: [String]
+  auth0Id_STARTS_WITH: String
+  email: String
+  email_CONTAINS: String
+  email_ENDS_WITH: String
+  email_IN: [String]
+  email_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_STARTS_WITH: ID
+  preferences: String
+  preferences_CONTAINS: String
+  preferences_ENDS_WITH: String
+  preferences_IN: [String]
+  preferences_STARTS_WITH: String
+  roles: [Role!]
+  roles_INCLUDES: Role
+  username: String
+  username_CONTAINS: String
+  username_ENDS_WITH: String
+  username_IN: [String]
+  username_STARTS_WITH: String
 }
 
 type UserTagTagsAggregationSelection {
@@ -20490,6 +24759,10 @@ input UserTagsConnectOrCreateFieldInput {
 
 input UserTagsConnectOrCreateFieldInputOnCreate {
   node: TagOnCreateInput!
+}
+
+type UserTagsConnectedRelationship {
+  node: TagEventPayload!
 }
 
 type UserTagsConnection {
@@ -20555,6 +24828,10 @@ type UserTagsRelationship {
   node: Tag!
 }
 
+input UserTagsRelationshipSubscriptionWhere {
+  node: TagSubscriptionWhere
+}
+
 input UserTagsUpdateConnectionInput {
   node: TagUpdateInput
 }
@@ -20572,6 +24849,10 @@ input UserTagsUpdateFieldInput {
 input UserTypesConnectFieldInput {
   connect: IBaseTypeConnectInput
   where: IBaseTypeConnectWhere
+}
+
+type UserTypesConnectedRelationship {
+  node: IBaseTypeEventPayload!
 }
 
 type UserTypesConnection {
@@ -20615,6 +24896,10 @@ type UserTypesRelationship {
   node: IBaseType!
 }
 
+input UserTypesRelationshipSubscriptionWhere {
+  node: IBaseTypeSubscriptionWhere
+}
+
 input UserTypesUpdateConnectionInput {
   node: IBaseTypeUpdateInput
 }
@@ -20647,6 +24932,13 @@ input UserUpdateInput {
   tags: [UserTagsUpdateFieldInput!]
   types: [UserTypesUpdateFieldInput!]
   username: String
+}
+
+type UserUpdatedEvent {
+  event: EventType!
+  previousState: UserEventPayload!
+  timestamp: Float!
+  updatedUser: UserEventPayload!
 }
 
 input UserWhere {

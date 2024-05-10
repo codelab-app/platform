@@ -1,8 +1,8 @@
 {
+  "name": "backend-application-domain",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "name": "backend-domain-production-domain",
   "projectType": "library",
-  "sourceRoot": "libs/backend/domain/production-domain/src",
+  "sourceRoot": "libs/backend/application/domain/src",
   "tags": [
     "projectType:library",
     "type:concrete",
@@ -21,7 +21,7 @@
       "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
-          "libs/backend/domain/production-domain/**/*.{ts,tsx,js,jsx,graphql}"
+          "libs/backend/application/domain/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       }
     }

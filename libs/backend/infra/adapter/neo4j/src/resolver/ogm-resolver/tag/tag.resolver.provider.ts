@@ -36,8 +36,6 @@ export const TagResolverProvider: FactoryProvider<
         ).flat()
       })
 
-    console.log(descendants)
-
     return {
       Tag: {
         descendants,

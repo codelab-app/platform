@@ -1,0 +1,12 @@
+query componentResolverComponents {
+  components {
+    id
+    name
+    rootElement {
+      id
+    }
+    elements {
+      id
+    }
+  }
+}
