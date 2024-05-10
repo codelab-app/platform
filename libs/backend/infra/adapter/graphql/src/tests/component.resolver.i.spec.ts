@@ -1,14 +1,16 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
+import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import {
   connectNodeId,
   connectOwner,
   ElementProperties,
 } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
-import { OgmService } from '../../infra'
-import { setupTestingContext } from '../../test/setup'
+import { ComponentResolverComponents } from './component.spec.graphql.gen'
+import { setupTestingContext } from './setup'
 
 describe('PageResolvers', () => {
   let app: INestApplication
@@ -198,20 +200,7 @@ describe('PageResolvers', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: `
-          {
-            components {
-              id
-              name
-              rootElement {
-                id
-              }
-              elements {
-                id
-              }
-            }
-          }
-        `,
+        query: print(ComponentResolverComponents),
       })
       .expect(200)
       .expect((res) => {

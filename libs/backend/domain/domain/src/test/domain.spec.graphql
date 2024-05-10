@@ -1,0 +1,7 @@
+mutation TestCreateDomains($input: [DomainCreateInput!]!) {
+  createDomains(input: $input) {
+    domains {
+      id
+    }
+  }
+}

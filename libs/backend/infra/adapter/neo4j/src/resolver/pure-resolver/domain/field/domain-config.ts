@@ -2,7 +2,7 @@ import type { Domain } from '@codelab/backend/abstract/codegen'
 import {
   getDomainRecords,
   getWebsitesDroplet,
-} from '@codelab/backend/domain/production-domain'
+} from '@codelab/backend/application/domain'
 import type { IFieldResolver } from '@graphql-tools/utils'
 
 export const domainConfig: IFieldResolver<Domain, unknown, unknown> = async ({

@@ -1,12 +1,11 @@
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
-import { JwtAuthGuard } from '@codelab/backend/application/auth'
-import type { GqlContext } from '@codelab/backend/infra/adapter/graphql'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
   neo4jConfig,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
+import { endpointConfig } from '@codelab/backend/infra/core'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module, UnauthorizedException } from '@nestjs/common'
@@ -15,7 +14,8 @@ import { APP_GUARD } from '@nestjs/core'
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
-import { endpointConfig } from './endpoint.config'
+import { GraphqlService } from './graphql.service'
+import type { GqlContext } from './middleware'
 
 /**
  * GraphQL request is not triggering the global guard
@@ -62,7 +62,6 @@ import { endpointConfig } from './endpoint.config'
 
             return response
           },
-          // installSubscriptionHandlers: true,
           introspection: true,
           path: 'api/graphql',
           playground: false,
@@ -76,9 +75,13 @@ import { endpointConfig } from './endpoint.config'
             // }),
           ],
           schema: graphqlSchema,
+          subscriptions: {
+            'graphql-ws': true,
+          },
         }
       },
     }),
   ],
+  providers: [GraphqlService],
 })
 export class GraphqlModule {}

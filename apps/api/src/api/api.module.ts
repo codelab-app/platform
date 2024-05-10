@@ -13,7 +13,6 @@ import { RequestContextModule } from '@codelab/backend/infra/adapter/request-con
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_GUARD } from '@nestjs/core'
-import { endpointConfig } from '../graphql/endpoint.config'
 
 @Module({
   controllers: [],

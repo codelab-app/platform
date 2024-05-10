@@ -57,6 +57,9 @@
       "@codelab/backend/application/data": [
         "libs/backend/application/data/src/index.ts"
       ],
+      "@codelab/backend/application/domain": [
+        "libs/backend/application/domain/src/index.ts"
+      ],
       "@codelab/backend/application/element": [
         "libs/backend/application/element/src/index.ts"
       ],
@@ -104,9 +107,6 @@
       ],
       "@codelab/backend/domain/domain": [
         "libs/backend/domain/domain/src/index.ts"
-      ],
-      "@codelab/backend/domain/production-domain": [
-        "libs/backend/domain/production-domain/src/index.ts"
       ],
       "@codelab/backend/domain/element": [
         "libs/backend/domain/element/src/index.ts"
@@ -281,6 +281,9 @@
       "@codelab/frontend/domain/page": [
         "libs/frontend/domain/page/src/index.ts"
       ],
+      "@codelab/frontend/domain/production-domain": [
+        "libs/frontend/domain/production-domain/src/index.ts"
+      ],
       "@codelab/frontend/domain/prop": [
         "libs/frontend/domain/prop/src/index.ts"
       ],
@@ -308,9 +311,6 @@
       ],
       "@codelab/frontend/domain/user": [
         "libs/frontend/domain/user/src/index.ts"
-      ],
-      "@codelab/frontend/domain/production-domain": [
-        "libs/frontend/domain/production-domain/src/index.ts"
       ],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"

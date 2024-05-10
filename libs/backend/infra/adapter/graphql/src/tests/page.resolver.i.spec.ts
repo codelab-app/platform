@@ -1,4 +1,5 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
+import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import {
@@ -9,10 +10,11 @@ import {
   PageProperties,
 } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
-import { OgmService } from '../../infra'
-import { setupTestingContext } from '../../test/setup'
+import { PageResolverPages } from './page.spec.graphql.gen'
+import { setupTestingContext } from './setup'
 
 describe('ComponentResolvers', () => {
   let app: INestApplication
@@ -194,21 +196,7 @@ describe('ComponentResolvers', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: `
-          {
-            pages {
-              id
-              name
-              slug
-              rootElement {
-                id
-              }
-              elements {
-                id
-              }
-            }
-          }
-        `,
+        query: print(PageResolverPages),
       })
       .expect(200)
       .expect((res) => {
