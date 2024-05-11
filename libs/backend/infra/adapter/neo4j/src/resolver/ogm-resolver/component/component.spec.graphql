@@ -1,11 +1,11 @@
 query componentResolverComponents {
   components {
+    elements {
+      id
+    }
     id
     name
     rootElement {
-      id
-    }
-    elements {
       id
     }
   }

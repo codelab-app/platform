@@ -1,11 +1,4 @@
-import {
-  DatabaseService,
-  GRAPHQL_SCHEMA_PROVIDER,
-  GraphQLSchemaModule,
-  Neo4jModule,
-  OgmModule,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
+import type { GqlContext } from '@codelab/backend/abstract/types'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import type { ModuleMetadata } from '@nestjs/common'
@@ -13,7 +6,9 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
 import type { GraphQLSchema } from 'graphql'
-import type { GqlContext } from '../middleware'
+import { GraphQLSchemaModule } from '../graphql-schema.module'
+import { DatabaseService, Neo4jModule, OgmModule, OgmService } from '../infra'
+import { GRAPHQL_SCHEMA_PROVIDER } from '../schema'
 
 export const nestGraphqlModule = GraphQLModule.forRootAsync<ApolloDriverConfig>(
   {

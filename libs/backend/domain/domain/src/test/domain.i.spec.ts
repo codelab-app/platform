@@ -3,11 +3,10 @@ import type {
   DomainCreateInput,
 } from '@codelab/backend/abstract/codegen'
 import {
+  Neo4jModule,
   nestGraphqlModule,
-  setupTestingContext,
-} from '@codelab/backend/infra/adapter/graphql'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { Neo4jModule, OgmService } from '@codelab/backend/infra/adapter/neo4j'
+  OgmService,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { initUserContext } from '@codelab/backend/test'
 import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain'

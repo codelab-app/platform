@@ -5,7 +5,7 @@ import type {
   UnionType as IUnionType,
 } from '@codelab/backend/abstract/codegen'
 import type { IType } from '@codelab/backend/abstract/core'
-import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
+import type { ITypeTransformer } from '@codelab/backend/abstract/types'
 import {
   ActionTypeRepository,
   CodeMirrorTypeRepository,
