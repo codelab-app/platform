@@ -1,18 +1,22 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
-import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
+import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import {
+  AppProperties,
   connectNodeId,
   connectOwner,
   ElementProperties,
+  PageProperties,
 } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
-import { ComponentResolverComponents } from './component.spec.graphql.gen'
-import { setupTestingContext } from './setup'
+import { OgmService } from '../../../infra'
+import { setupTestingContext } from '../../../test/setup'
+import { PageResolverPages } from './page.spec.graphql.gen'
 
-describe('PageResolvers', () => {
+describe('ComponentResolvers', () => {
   let app: INestApplication
   let ogmService: OgmService
   const context = setupTestingContext()
@@ -33,7 +37,7 @@ describe('PageResolvers', () => {
     await ctx.afterAll()
   })
 
-  it('should fetch a component with elements resolver', async () => {
+  it('should fetch a page with field resolvers - name, slug, elements', async () => {
     const owner = (
       await ogmService.User.create({
         input: [
@@ -47,7 +51,19 @@ describe('PageResolvers', () => {
       })
     ).users[0]!
 
-    const componentRef = { id: v4() }
+    const testApp = (
+      await ogmService.App.create({
+        input: [
+          {
+            compositeKey: AppProperties.appCompositeKey('My App', owner),
+            id: v4(),
+            owner: connectOwner(owner),
+          },
+        ],
+      })
+    ).apps[0]!
+
+    const testPageRef = { id: v4() }
 
     const atomApi = (
       await ogmService.InterfaceType.create({
@@ -91,8 +107,8 @@ describe('PageResolvers', () => {
         input: [
           {
             compositeKey: ElementProperties.elementCompositeKey(
-              'Component Root',
-              componentRef,
+              ROOT_ELEMENT_NAME,
+              testPageRef,
             ),
             id: v4(),
             props: connectNodeId(props.id),
@@ -121,7 +137,7 @@ describe('PageResolvers', () => {
           {
             compositeKey: ElementProperties.elementCompositeKey(
               'Child Element',
-              componentRef,
+              testPageRef,
             ),
             id: v4(),
             parentElement: connectNodeId(rootElement.id),
@@ -158,53 +174,33 @@ describe('PageResolvers', () => {
       })
     ).stores[0]!
 
-    const componentApi = (
-      await ogmService.InterfaceType.create({
+    const testPage = (
+      await ogmService.Page.create({
         input: [
           {
+            app: connectNodeId(testApp.id),
+            compositeKey: PageProperties.pageCompositeKey(
+              IPageKindName.Provider,
+              testApp,
+            ),
             id: v4(),
-            name: 'Component Api',
-            owner: connectOwner(owner),
-          },
-        ],
-      })
-    ).interfaceTypes[0]!
-
-    const componentProps = (
-      await ogmService.Prop.create({
-        input: [
-          {
-            data: '{}',
-            id: v4(),
-          },
-        ],
-      })
-    ).props[0]!
-
-    const component = (
-      await ogmService.Component.create({
-        input: [
-          {
-            api: connectNodeId(componentApi.id),
-            id: v4(),
-            name: 'Component',
-            owner: connectOwner(owner),
-            props: connectNodeId(componentProps.id),
+            kind: IPageKind.Provider,
             rootElement: connectNodeId(rootElement.id),
             store: connectNodeId(store.id),
+            urlPattern: IPageKindName.Provider,
           },
         ],
       })
-    ).components[0]!
+    ).pages[0]!
 
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: print(ComponentResolverComponents),
+        query: print(PageResolverPages),
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.components).toEqual([
+        expect(res.body.data.pages).toEqual([
           {
             elements: [
               {
@@ -214,11 +210,12 @@ describe('PageResolvers', () => {
                 id: childElement.id,
               },
             ],
-            id: component.id,
-            name: component.name,
+            id: testPage.id,
+            name: IPageKindName.Provider,
             rootElement: {
               id: rootElement.id,
             },
+            slug: IPageKindName.Provider,
           },
         ])
       })

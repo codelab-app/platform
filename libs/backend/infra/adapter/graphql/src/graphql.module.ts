@@ -1,4 +1,5 @@
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import type { GqlContext } from '@codelab/backend/abstract/types'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
@@ -15,7 +16,6 @@ import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-hos
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 import { GraphqlService } from './graphql.service'
-import type { GqlContext } from './middleware'
 
 /**
  * GraphQL request is not triggering the global guard
