@@ -4,7 +4,6 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
             - nx-cache
           name: Restore NX Cache
       - run:

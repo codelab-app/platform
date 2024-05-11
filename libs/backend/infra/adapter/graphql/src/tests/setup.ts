@@ -15,28 +15,32 @@ import { Test, type TestingModule } from '@nestjs/testing'
 import type { GraphQLSchema } from 'graphql'
 import type { GqlContext } from '../middleware'
 
+export const nestGraphqlModule = GraphQLModule.forRootAsync<ApolloDriverConfig>(
+  {
+    driver: ApolloDriver,
+    imports: [GraphQLSchemaModule],
+    inject: [GRAPHQL_SCHEMA_PROVIDER],
+    useFactory: async (graphqlSchema: GraphQLSchema) => {
+      return {
+        context: (context: GqlContext) => {
+          return {
+            ...context,
+            jwt: {
+              // Add roles that would satisfy your @authorization rules
+              roles: ['Admin'],
+            },
+          }
+        },
+        schema: graphqlSchema,
+      }
+    },
+  },
+)
+
 export const setupTestingContext = async (metadata: ModuleMetadata = {}) => {
   const module: TestingModule = await Test.createTestingModule({
     imports: [
-      GraphQLModule.forRootAsync<ApolloDriverConfig>({
-        driver: ApolloDriver,
-        imports: [GraphQLSchemaModule],
-        inject: [GRAPHQL_SCHEMA_PROVIDER],
-        useFactory: async (graphqlSchema: GraphQLSchema) => {
-          return {
-            context: (context: GqlContext) => {
-              return {
-                ...context,
-                jwt: {
-                  // Add roles that would satisfy your @authorization rules
-                  roles: ['Admin'],
-                },
-              }
-            },
-            schema: graphqlSchema,
-          }
-        },
-      }),
+      nestGraphqlModule,
       Neo4jModule,
       OgmModule,
       ...(metadata.imports ?? []),

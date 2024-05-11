@@ -1,3 +1,11 @@
+mutation TestCreateDomainApps($input: [AppCreateInput!]!) {
+  createApps(input: $input) {
+    apps {
+      id
+    }
+  }
+}
+
 mutation TestCreateDomains($input: [DomainCreateInput!]!) {
   createDomains(input: $input) {
     domains {
