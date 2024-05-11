@@ -3,7 +3,7 @@ steps:
   - restore_cache:
       name: 'Restore NX Cache'
       keys:
-        - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+        # - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
         - nx-cache
   - run:
       name: 'Monitor NX Cache Size'

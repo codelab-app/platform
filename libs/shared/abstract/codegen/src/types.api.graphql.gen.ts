@@ -26926,27 +26926,20 @@ export type DomainCreatedSubscription = {
   }
 }
 
+export type TestCreateDomainAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
+}>
+
+export type TestCreateDomainAppsMutation = {
+  createApps: { apps: Array<{ id: string }> }
+}
+
 export type TestCreateDomainsMutationVariables = Exact<{
   input: Array<DomainCreateInput> | DomainCreateInput
 }>
 
 export type TestCreateDomainsMutation = {
   createDomains: { domains: Array<{ id: string }> }
-}
-
-export type ElementDependentTypesQueryVariables = Exact<{
-  [key: string]: never
-}>
-
-export type ElementDependentTypesQuery = {
-  elements: Array<{
-    dependantTypes: Array<
-      | { id: string; name: string }
-      | { id: string; name: string }
-      | { id: string; name: string }
-      | {}
-    >
-  }>
 }
 
 export type ComponentResolverComponentsQueryVariables = Exact<{
@@ -26971,6 +26964,21 @@ export type PageResolverPagesQuery = {
     slug: string
     rootElement: { id: string }
     elements: Array<{ id: string }>
+  }>
+}
+
+export type ElementDependentTypesQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ElementDependentTypesQuery = {
+  elements: Array<{
+    dependantTypes: Array<
+      | { id: string; name: string }
+      | { id: string; name: string }
+      | { id: string; name: string }
+      | {}
+    >
   }>
 }
 

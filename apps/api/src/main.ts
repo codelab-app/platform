@@ -1,4 +1,5 @@
 import { domainApi } from '@codelab/backend/domain/domain'
+import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
 import type { endpointConfig } from '@codelab/backend/infra/core'
 import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { Logger } from '@nestjs/common'
@@ -8,7 +9,6 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { applyFormats, patchNestJsSwagger } from 'nestjs-typebox'
 import { AllExceptionsFilter } from './exceptions/all-exceptions.filter'
-import { GraphqlService } from '../../../libs/backend/infra/adapter/graphql/src/graphql/graphql.service'
 import { RootModule } from './root.module'
 
 // provide swagger OpenAPI generator support
