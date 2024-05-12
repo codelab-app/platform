@@ -30,7 +30,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
   }) => {
     useEffect(() => {
       onRendered()
-    }, [])
+    }, [onRendered])
 
     const { atomService } = useStore()
 

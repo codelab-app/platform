@@ -1,10 +1,12 @@
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
+import ReloadOutlined from '@ant-design/icons/ReloadOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import {
   ExplorerPaneType,
   MODEL_ACTION,
   PageType,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
@@ -25,6 +27,7 @@ import { BuilderSizeMenu } from './BuilderSizeMenu'
 
 export const PageDetailHeader = observer(() => {
   const router = useRouter()
+  const { rendererService } = useStore()
   const { componentName: currentComponentName } = useCurrentComponent()
   const isComponentBuilder = router.pathname === PageType.ComponentBuilder
   const isComponentPreview = router.pathname === PageType.ComponentPreview
@@ -80,6 +83,12 @@ export const PageDetailHeader = observer(() => {
   const isBuilder = isPageBuilder || isComponentBuilder
 
   const toolbarItems: Array<ToolbarItem> = [
+    {
+      cuiKey: MODEL_ACTION.ReloadBuilder.key,
+      icon: <ReloadOutlined />,
+      onClick: () => rendererService.reloadActiveRenderer(),
+      title: 'Reload',
+    },
     isBuilder
       ? {
           cuiKey: MODEL_ACTION.OpenPreviewBuilder.key,
