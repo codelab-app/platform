@@ -7,6 +7,10 @@ import {
   useCurrentApp,
   useCurrentPage,
 } from '@codelab/frontend/presentation/container'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { Skeleton } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -27,6 +31,7 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
     const isBuilder = currentPathname.includes('/builder')
     const app = useCurrentApp()
     const page = useCurrentPage()
+    const { rendererService } = useApplicationStore()
 
     const togglePreviewMode = () => {
       const url = isBuilder
@@ -63,6 +68,7 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
         BuilderResizeMenu={BuilderResizeMenu}
         directionItems={directionItems}
         isBuilder={isBuilder}
+        reloadRenderer={rendererService.reloadActiveRenderer}
         togglePreviewMode={togglePreviewMode}
       />
     )

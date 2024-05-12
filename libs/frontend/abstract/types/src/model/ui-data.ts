@@ -181,6 +181,9 @@ const UiDataRecord = {
   [UiKey.BuilderToolbarItemOpenPreview]: {
     label: 'Open Preview Builder Toolbar Item',
   },
+  [UiKey.BuilderToolbarItemReload]: {
+    label: 'Reload Renderer Toolbar Item',
+  },
   /**
    * Button
    */

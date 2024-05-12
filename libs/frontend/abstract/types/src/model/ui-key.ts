@@ -75,6 +75,7 @@ export enum UiKey {
   BuilderSidebar = 'BuilderSidebar',
   BuilderToolbarItemOpenBuilder = 'BuilderToolbarItemOpenBuilder',
   BuilderToolbarItemOpenPreview = 'BuilderToolbarItemOpenPreview',
+  BuilderToolbarItemReload = 'BuilderToolbarItemReload',
   /**
    * Button
    */

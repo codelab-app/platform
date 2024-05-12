@@ -8,6 +8,7 @@ import {
   useCurrentApp,
   useCurrentComponent,
 } from '@codelab/frontend/presentation/container'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
@@ -27,6 +28,7 @@ export const ComponentDetailHeader = observer<IComponentDetailHeaderProps>(
     const isBuilder = currentPathname.endsWith('/builder')
     const component = useCurrentComponent()
     const app = useCurrentApp()
+    const { rendererService } = useApplicationStore()
 
     const togglePreviewMode = () => {
       const url = isBuilder
@@ -59,6 +61,7 @@ export const ComponentDetailHeader = observer<IComponentDetailHeaderProps>(
         BuilderResizeMenu={BuilderResizeMenu}
         directionItems={directionItems}
         isBuilder={isBuilder}
+        reloadRenderer={rendererService.reloadActiveRenderer}
         togglePreviewMode={togglePreviewMode}
       />
     )

@@ -32,7 +32,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
   }) => {
     useEffect(() => {
       onRendered()
-    }, [])
+    }, [onRendered])
 
     const { atomDomainService } = useDomainStore()
 

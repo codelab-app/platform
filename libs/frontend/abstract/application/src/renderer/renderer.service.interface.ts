@@ -13,5 +13,7 @@ export interface IRendererService
   activeElementTree: Maybe<IElementTree>
   activeRenderer: Nullable<Ref<IRendererModel>>
   renderers: ObjectMap<IRendererModel>
+
+  reloadActiveRenderer(): void
   setActiveRenderer(renderer: Ref<IRendererModel>): void
 }

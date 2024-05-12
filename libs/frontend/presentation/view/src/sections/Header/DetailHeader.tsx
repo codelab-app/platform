@@ -1,5 +1,6 @@
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import ToolOutlined from '@ant-design/icons/lib/icons/ToolOutlined'
+import ReloadOutlined from '@ant-design/icons/ReloadOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
@@ -15,6 +16,7 @@ interface DetailHeaderProps {
   BuilderResizeMenu: ReactNode
   directionItems: Array<HeaderBreadcrumbItem>
   isBuilder: boolean
+  reloadRenderer(): void
   togglePreviewMode(): void
 }
 
@@ -22,9 +24,16 @@ export const DetailHeader = ({
   BuilderResizeMenu,
   directionItems,
   isBuilder,
+  reloadRenderer,
   togglePreviewMode,
 }: DetailHeaderProps) => {
   const toolbarItems: Array<ToolbarItem> = [
+    {
+      cuiKey: UiKey.BuilderToolbarItemReload,
+      icon: <ReloadOutlined />,
+      onClick: reloadRenderer,
+      title: 'Reload app',
+    },
     isBuilder
       ? {
           cuiKey: UiKey.BuilderToolbarItemOpenPreview,
