@@ -5,15 +5,15 @@ import { gql } from 'graphql-tag'
 export const PageResolverPages = gql`
   query pageResolverPages {
     pages {
-      id
-      name
-      slug
-      rootElement {
-        id
-      }
       elements {
         id
       }
+      id
+      name
+      rootElement {
+        id
+      }
+      slug
     }
   }
 `

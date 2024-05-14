@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'backend-infra-adapter-cli',
-  preset: '../../../../../jest.preset.ts',
+  preset: '../../../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [

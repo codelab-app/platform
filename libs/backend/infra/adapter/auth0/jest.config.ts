@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'backend-infra-adapter-auth0',
-  preset: '../../../../../jest.preset.ts',
+  preset: '../../../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',
   transform: {

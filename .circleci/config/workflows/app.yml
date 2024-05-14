@@ -37,6 +37,15 @@ jobs:
         - prod
       requires:
         - setup-infra-workspace
+  - docker-sites:
+      filters:
+        branches:
+          only:
+            - master
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
   - docker-landing:
       filters:
         branches:
@@ -54,6 +63,7 @@ jobs:
       requires:
         - docker-web
         - docker-api
+        - docker-sites
         - docker-landing
   - hold-apply:
       filters:

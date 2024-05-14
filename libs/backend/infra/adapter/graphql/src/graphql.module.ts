@@ -41,11 +41,11 @@ import { GraphqlService } from './graphql.service'
       useFactory: async (graphqlSchema: GraphQLSchema) => {
         return {
           // bodyParserConfig: false,
-          context: async ({ req, res }: GqlContext) => {
+          context: async ({ req, res, ...rest }: GqlContext) => {
             // starting from neo4j/graphql v5 - token is required in order to allow
             // @authentication/@authorization in neo4j schema files, see migration guide:
             // https://neo4j.com/docs/graphql/current/migration/4.0.0/authorization
-            const token = req.headers['authorization']
+            const token = req?.headers['authorization']
             const context = { req, res, token } as GqlContext
 
             return context

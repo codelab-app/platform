@@ -1,3 +1,4 @@
+import { DigitaloceanModule } from '@codelab/backend/infra/adapter/digitalocean'
 import { Module } from '@nestjs/common'
 import { PureResolverProvider } from '../resolver'
 import { TypeResolverProvider } from '../resolver/pure-resolver/type'
@@ -11,7 +12,7 @@ import { OgmService } from './ogm.service'
  */
 @Module({
   exports: [OGM_PROVIDER, OgmService],
-  imports: [Neo4jModule],
+  imports: [Neo4jModule, DigitaloceanModule],
   providers: [
     OgmProvider,
     OgmService,

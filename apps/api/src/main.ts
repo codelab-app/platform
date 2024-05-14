@@ -1,4 +1,3 @@
-import { domainApi } from '@codelab/backend/domain/domain'
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
 import type { endpointConfig } from '@codelab/backend/infra/core'
 import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
@@ -22,6 +21,8 @@ const bootstrap = async () => {
   const app = await NestFactory.create(RootModule, {
     // logger: false,
   })
+
+  app.enableShutdownHooks()
 
   /**
    * Add global prefix

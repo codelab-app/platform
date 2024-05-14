@@ -1,9 +1,0 @@
-subscription domainCreated {
-  domainCreated {
-    createdDomain {
-      id
-    }
-    event
-    timestamp
-  }
-}

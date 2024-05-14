@@ -179,7 +179,14 @@
       "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
       "!{projectRoot}/.storybook/**/*"
     ],
-    "production": ["default"]
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s"
+    ]
   },
   "nxCloudAccessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU=",
   "parallel": 3

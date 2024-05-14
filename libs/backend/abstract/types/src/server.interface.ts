@@ -8,7 +8,7 @@ export interface GraphQLRequestContext {
 }
 
 export interface GqlContext {
-  req: IncomingMessage
+  req?: IncomingMessage
   res: Response
 }
 

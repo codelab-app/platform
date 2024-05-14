@@ -5,12 +5,12 @@ import { gql } from 'graphql-tag'
 export const ComponentResolverComponents = gql`
   query componentResolverComponents {
     components {
+      elements {
+        id
+      }
       id
       name
       rootElement {
-        id
-      }
-      elements {
         id
       }
     }
