@@ -1,8 +1,5 @@
 executor: docker-node
 resource_class: large
-environment:
-  CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
-  # CIRCLE_REVISION: << pipeline.git.revision >>
 steps:
   - restore-workspace
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.
