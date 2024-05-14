@@ -10,8 +10,8 @@ import { GraphQLSchemaModule } from '../graphql-schema.module'
 import { DatabaseService, Neo4jModule, OgmModule, OgmService } from '../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../schema'
 
-export const nestGraphqlModule = GraphQLModule.forRootAsync<ApolloDriverConfig>(
-  {
+export const nestNeo4jGraphqlModule =
+  GraphQLModule.forRootAsync<ApolloDriverConfig>({
     driver: ApolloDriver,
     imports: [GraphQLSchemaModule],
     inject: [GRAPHQL_SCHEMA_PROVIDER],
@@ -29,13 +29,12 @@ export const nestGraphqlModule = GraphQLModule.forRootAsync<ApolloDriverConfig>(
         schema: graphqlSchema,
       }
     },
-  },
-)
+  })
 
 export const setupTestingContext = async (metadata: ModuleMetadata = {}) => {
   const module: TestingModule = await Test.createTestingModule({
     imports: [
-      nestGraphqlModule,
+      nestNeo4jGraphqlModule,
       Neo4jModule,
       OgmModule,
       ...(metadata.imports ?? []),

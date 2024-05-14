@@ -2,7 +2,7 @@
 export default {
   testEnvironment: 'jsdom',
   displayName: 'frontend-application-atom',
-  preset: '../../../../jest.preset.ts',
+  preset: '../../../../jest.preset.js',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

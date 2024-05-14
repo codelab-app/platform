@@ -21,8 +21,9 @@
 
 !/types
 !/apps/web/
-!/apps/landing/
 !/apps/api/
+!/apps/sites/
+!/apps/landing/
 !/dist/libs/tools/
 !/libs/
 !/data/

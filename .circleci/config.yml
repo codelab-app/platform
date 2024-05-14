@@ -9,14 +9,13 @@ commands:
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
-      - run: npx nx run-many --target=build --projects=web,api,e2e,cli --parallel=3 -c ci --nx-bail
+      - run: npx nx run-many --target=build --projects=web,api,sites,e2e,cli --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/cli
-            - ~/project/dist/apps/web/.next/cache
             - ~/project/dist/apps/api
   install-nvm:
     steps:
@@ -188,7 +187,7 @@ jobs:
           name: GraphQL Codegen
   docker-api:
     executor: docker-node
-    resource_class: large
+    resource_class: medium
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -212,11 +211,26 @@ jobs:
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
-  docker-web:
+  docker-sites:
     environment:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     executor: docker-node
     resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-sites.sh)
+          name: Build sites Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push sites
+          name: Push Docker Image
+  docker-web:
+    environment:
+      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
+    executor: docker-node
+    resource_class: medium
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -498,6 +512,15 @@ workflows:
                 - master
           requires:
             - setup-infra-workspace
+      - docker-sites:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
       - docker-landing:
           context:
             - prod
@@ -515,6 +538,7 @@ workflows:
           requires:
             - docker-web
             - docker-api
+            - docker-sites
             - docker-landing
       - hold-apply:
           filters:
@@ -623,6 +647,15 @@ workflows:
                 - staging
           requires:
             - setup-infra-workspace
+      - docker-sites:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
       - docker-landing:
           context:
             - prod
@@ -640,6 +673,7 @@ workflows:
           requires:
             - docker-web
             - docker-api
+            - docker-sites
             - docker-landing
       - hold-apply:
           filters:

@@ -1,0 +1,1 @@
+../codelab/shared/vars-domain.tf

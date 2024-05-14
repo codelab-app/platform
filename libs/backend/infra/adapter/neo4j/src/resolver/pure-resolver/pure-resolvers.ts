@@ -1,3 +1,4 @@
+import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
 import { mergeResolvers } from '@graphql-tools/merge'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
@@ -12,14 +13,17 @@ import { TYPE_RESOLVER_PROVIDER } from './type'
 export const PURE_RESOLVER_PROVIDER = 'PURE_RESOLVER_PROVIDER'
 
 export const PureResolverProvider: FactoryProvider<Promise<IResolvers>> = {
-  inject: [TYPE_RESOLVER_PROVIDER],
+  inject: [TYPE_RESOLVER_PROVIDER, DigitaloceanService],
   provide: PURE_RESOLVER_PROVIDER,
-  useFactory: async (typeResolver: IResolvers) => {
+  useFactory: async (
+    typeResolver: IResolvers,
+    digitaloceanService: DigitaloceanService,
+  ) => {
     const pureResolvers: IResolvers = mergeResolvers([
       appResolver,
       atomResolver,
       actionResolver,
-      domainResolver,
+      domainResolver(digitaloceanService),
       elementResolver,
       pageResolver,
       typeResolver,

@@ -8,7 +8,7 @@ DIRS=(
   ~/project/.nx/cache
   ~/project/dist/apps/web/.next
   ~/project/dist/apps/landing/.next
-  ~/project/dist/apps/websites/.next
+  ~/project/dist/apps/sites/.next
 )
 
 for DIR in "${DIRS[@]}"

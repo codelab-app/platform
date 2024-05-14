@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'backend-application-type',
-  preset: '../../../../jest.preset.ts',
+  preset: '../../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',
   transform: {

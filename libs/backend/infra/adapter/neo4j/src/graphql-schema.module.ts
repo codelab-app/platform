@@ -1,3 +1,4 @@
+import { DigitaloceanModule } from '@codelab/backend/infra/adapter/digitalocean'
 import { Module } from '@nestjs/common'
 import { Neo4jModule } from './infra/neo4j.module'
 import { OgmModule } from './infra/ogm.module'
@@ -12,7 +13,7 @@ import { GRAPHQL_SCHEMA_PROVIDER, GraphQLSchemaProvider } from './schema'
 
 @Module({
   exports: [GRAPHQL_SCHEMA_PROVIDER],
-  imports: [Neo4jModule, OgmModule],
+  imports: [Neo4jModule, OgmModule, DigitaloceanModule],
   providers: [
     TypeResolverProvider,
     PureResolverProvider,

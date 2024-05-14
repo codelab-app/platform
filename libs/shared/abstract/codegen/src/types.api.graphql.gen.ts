@@ -26922,7 +26922,7 @@ export type DomainCreatedSubscription = {
   domainCreated: {
     event: EventType
     timestamp: number
-    createdDomain: { id: string }
+    createdDomain: { name: string; id: string }
   }
 }
 
@@ -26950,20 +26950,8 @@ export type ComponentResolverComponentsQuery = {
   components: Array<{
     id: string
     name: string
-    rootElement: { id: string }
     elements: Array<{ id: string }>
-  }>
-}
-
-export type PageResolverPagesQueryVariables = Exact<{ [key: string]: never }>
-
-export type PageResolverPagesQuery = {
-  pages: Array<{
-    id: string
-    name: string
-    slug: string
     rootElement: { id: string }
-    elements: Array<{ id: string }>
   }>
 }
 
@@ -26979,6 +26967,18 @@ export type ElementDependentTypesQuery = {
       | { id: string; name: string }
       | {}
     >
+  }>
+}
+
+export type PageResolverPagesQueryVariables = Exact<{ [key: string]: never }>
+
+export type PageResolverPagesQuery = {
+  pages: Array<{
+    id: string
+    name: string
+    slug: string
+    elements: Array<{ id: string }>
+    rootElement: { id: string }
   }>
 }
 

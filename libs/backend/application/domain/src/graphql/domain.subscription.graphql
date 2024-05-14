@@ -1,0 +1,10 @@
+subscription domainCreated {
+  domainCreated {
+    createdDomain {
+      name
+      id
+    }
+    event
+    timestamp
+  }
+}
