@@ -2,7 +2,7 @@ resource "digitalocean_record" "sites_a_record" {
   domain = var.codelab_app_domain_id
   type   = "A"
   name   = "sites"
-  value  = digitalocean_loadbalancer.web.ip
+  value  = digitalocean_loadbalancer.sites.ip
   ttl    = 3600
 }
 

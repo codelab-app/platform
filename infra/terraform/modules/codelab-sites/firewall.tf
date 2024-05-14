@@ -2,7 +2,7 @@ resource "digitalocean_firewall" "codelab_sites" {
   name = "codelab-sites-firewall"
 
   droplet_ids = [
-    digitalocean_droplet.codelab_web.id,
+    digitalocean_droplet.codelab_sites.id,
   ]
 
   # Allows SSH access from specific IP ranges for secure shell administration.

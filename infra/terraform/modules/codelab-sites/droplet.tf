@@ -1,6 +1,6 @@
 resource "digitalocean_droplet" "codelab_sites" {
   image  = "docker-20-04"
-  name   = "web"
+  name   = "sites"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb-intel"
 

@@ -11,3 +11,5 @@ ln -s ../docker/vars-tag-version.tf ./vars-docker-tag-version.symlink.tf
 ln -s ./shared/vars-api-port.tf ./vars-api-port.symlink.tf
 ln -s ../loki/shared/vars-loki-url.tf ./vars-loki-url.symlink.tf
 ln -s ../digitalocean/vars-region.tf ./vars-region.symlink.tf
+ln -s ../digitalocean/vars-api-token.tf ./vars-api-token.symlink.tf
+ln -s ../digitalocean/vars-droplet-name.tf ./vars-droplet-name.symlink.tf

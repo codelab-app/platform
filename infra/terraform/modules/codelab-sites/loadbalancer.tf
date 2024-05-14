@@ -9,7 +9,7 @@ resource "digitalocean_loadbalancer" "sites" {
   disable_lets_encrypt_dns_records = true
 
   droplet_ids = [
-    digitalocean_droplet.codelab_web.id,
+    digitalocean_droplet.codelab_sites.id,
   ]
 
   forwarding_rule {
