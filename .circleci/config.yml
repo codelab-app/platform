@@ -187,7 +187,7 @@ jobs:
           name: GraphQL Codegen
   docker-api:
     executor: docker-node
-    resource_class: large
+    resource_class: medium
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -230,7 +230,7 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     executor: docker-node
-    resource_class: large
+    resource_class: medium
     steps:
       - restore-workspace
       - setup_remote_docker:

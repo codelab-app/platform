@@ -1,5 +1,5 @@
 executor: docker-node
-resource_class: large
+resource_class: medium
 environment:
   CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
   # CIRCLE_REVISION: << pipeline.git.revision >>
