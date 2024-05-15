@@ -3,7 +3,6 @@ import type { FactoryProvider } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { GraphQLClient } from 'graphql-request'
 import type { GraphQLClientResponse } from 'graphql-request/build/esm/types'
-import type { Driver } from 'neo4j-driver'
 
 const GRAPHQL_CLIENT_PROVIDER = 'GRAPHQL_CLIENT_PROVIDER'
 

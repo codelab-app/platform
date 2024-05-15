@@ -1,13 +1,7 @@
-import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
-import { DnsService } from '@codelab/backend/infra/adapter/dns'
 import { apolloClient } from '@codelab/backend/infra/adapter/graphql'
-import type {
-  BeforeApplicationShutdown,
-  OnApplicationShutdown,
-} from '@nestjs/common'
+import type { BeforeApplicationShutdown } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
-import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-base'
 import type { Subscription } from 'zen-observable-ts'
 import {
   DOMAIN_CREATED_EVENT,

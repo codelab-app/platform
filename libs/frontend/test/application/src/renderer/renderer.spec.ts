@@ -1,7 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { createTestApplication } from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { unregisterRootStore } from 'mobx-keystone'
 
 describe('Renderer', () => {
   let testApplication: ReturnType<typeof createTestApplication>

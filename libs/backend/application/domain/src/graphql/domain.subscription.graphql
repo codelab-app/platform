@@ -1,8 +1,8 @@
 subscription DomainCreated {
   domainCreated {
     createdDomain {
-      name
       id
+      name
     }
     event
     timestamp
@@ -11,20 +11,20 @@ subscription DomainCreated {
 
 subscription DomainUpdated {
   domainUpdated {
-    updatedDomain {
-      name
-      id
-    }
     event
     timestamp
+    updatedDomain {
+      id
+      name
+    }
   }
 }
 
 subscription DomainDeleted {
   domainDeleted {
     deletedDomain {
-      name
       id
+      name
     }
     event
     timestamp

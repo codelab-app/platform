@@ -1,15 +1,7 @@
-import {
-  AuthMiddleware,
-  AuthModule,
-  JwtAuthGuard,
-} from '@codelab/backend/application/auth'
-import {
-  authMiddleware,
-  GraphqlModule,
-} from '@codelab/backend/infra/adapter/graphql'
+import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
+import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import type { MiddlewareConsumer } from '@nestjs/common'
-import { Module, RequestMethod } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { ApiModule } from './api/api.module'

@@ -1,4 +1,3 @@
-import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
 import { mergeResolvers } from '@graphql-tools/merge'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'

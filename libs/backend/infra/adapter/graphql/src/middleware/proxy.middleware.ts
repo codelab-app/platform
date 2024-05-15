@@ -8,7 +8,7 @@ import { corsMiddleware } from './cors.middleware'
  * Proxy requests to api
  */
 export const proxyMiddleware: NextApiHandler = async (req, res) => {
-  console.log('proxyMiddleware', getEnv().endpoint.apiHost, req.url)
+  // console.log('proxyMiddleware', getEnv().endpoint.apiHost, req.url)
 
   await corsMiddleware(req, res)
   await authMiddleware(req, res)

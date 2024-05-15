@@ -1,4 +1,3 @@
-import { getEnv } from '@codelab/shared/config'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 

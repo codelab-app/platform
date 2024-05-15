@@ -1,5 +1,4 @@
 import type { Domain } from '@codelab/backend/abstract/codegen'
-import type { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
 import { lookupARecord } from '@codelab/backend/infra/adapter/dns'
 import type { IFieldResolver } from '@graphql-tools/utils'
 

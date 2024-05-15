@@ -58,7 +58,7 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
-        // "unused-imports/no-unused-imports-ts": "error",
+        "unused-imports/no-unused-imports-ts": "error",
         "@typescript-eslint/no-unused-vars": "off",
         "sort-destructure-keys/sort-destructure-keys": [
           "error",

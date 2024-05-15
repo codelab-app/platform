@@ -2,7 +2,6 @@ import type {
   AppCreateInput,
   DomainCreateInput,
 } from '@codelab/backend/abstract/codegen'
-import { DomainDomainModule } from '@codelab/backend/domain/domain'
 import {
   graphqlClient,
   GraphqlModule,
@@ -17,10 +16,7 @@ import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
 import { EventEmitterModule } from '@nestjs/event-emitter'
-import { domain } from 'dots-wrapper/dist/modules'
 import * as env from 'env-var'
-import { print } from 'graphql'
-import request from 'supertest'
 import { v4 } from 'uuid'
 import { DomainApplicationModule } from '../domain.application.module'
 import { DomainListener } from '../listeners/domain.listener'

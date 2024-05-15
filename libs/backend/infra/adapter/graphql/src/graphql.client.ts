@@ -1,5 +1,5 @@
 import * as env from 'env-var'
-import { GraphQLClient, GraphQLWebSocketClient } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
 import type { GraphQLClientResponse } from 'graphql-request/build/esm/types'
 
 const graphqlUrl = new URL(

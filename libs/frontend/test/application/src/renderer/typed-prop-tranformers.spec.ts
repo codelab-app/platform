@@ -3,7 +3,6 @@ import { createTestApplication } from '@codelab/frontend/application/test'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
-import { unregisterRootStore } from 'mobx-keystone'
 import React, { isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
