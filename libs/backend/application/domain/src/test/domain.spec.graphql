@@ -13,3 +13,17 @@ mutation TestCreateDomains($input: [DomainCreateInput!]!) {
     }
   }
 }
+
+mutation TestUpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
+  updateDomains(update: $update, where: $where) {
+    domains {
+      id
+    }
+  }
+}
+
+mutation TestDeleteDomains($where: DomainWhere!) {
+  deleteDomains(where: $where) {
+    nodesDeleted
+  }
+}

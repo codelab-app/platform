@@ -20,3 +20,22 @@ export const TestCreateDomains = gql`
     }
   }
 `
+export const TestUpdateDomains = gql`
+  mutation TestUpdateDomains(
+    $where: DomainWhere!
+    $update: DomainUpdateInput!
+  ) {
+    updateDomains(update: $update, where: $where) {
+      domains {
+        id
+      }
+    }
+  }
+`
+export const TestDeleteDomains = gql`
+  mutation TestDeleteDomains($where: DomainWhere!) {
+    deleteDomains(where: $where) {
+      nodesDeleted
+    }
+  }
+`

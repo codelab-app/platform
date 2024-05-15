@@ -26926,6 +26926,26 @@ export type DomainCreatedSubscription = {
   }
 }
 
+export type DomainUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type DomainUpdatedSubscription = {
+  domainUpdated: {
+    event: EventType
+    timestamp: number
+    updatedDomain: { name: string; id: string }
+  }
+}
+
+export type DomainDeletedSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type DomainDeletedSubscription = {
+  domainDeleted: {
+    event: EventType
+    timestamp: number
+    deletedDomain: { name: string; id: string }
+  }
+}
+
 export type TestCreateDomainAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput
 }>
@@ -26940,6 +26960,23 @@ export type TestCreateDomainsMutationVariables = Exact<{
 
 export type TestCreateDomainsMutation = {
   createDomains: { domains: Array<{ id: string }> }
+}
+
+export type TestUpdateDomainsMutationVariables = Exact<{
+  where: DomainWhere
+  update: DomainUpdateInput
+}>
+
+export type TestUpdateDomainsMutation = {
+  updateDomains: { domains: Array<{ id: string }> }
+}
+
+export type TestDeleteDomainsMutationVariables = Exact<{
+  where: DomainWhere
+}>
+
+export type TestDeleteDomainsMutation = {
+  deleteDomains: { nodesDeleted: number }
 }
 
 export type ComponentResolverComponentsQueryVariables = Exact<{

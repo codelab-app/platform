@@ -1,6 +1,28 @@
-subscription domainCreated {
+subscription DomainCreated {
   domainCreated {
     createdDomain {
+      name
+      id
+    }
+    event
+    timestamp
+  }
+}
+
+subscription DomainUpdated {
+  domainUpdated {
+    updatedDomain {
+      name
+      id
+    }
+    event
+    timestamp
+  }
+}
+
+subscription DomainDeleted {
+  domainDeleted {
+    deletedDomain {
       name
       id
     }

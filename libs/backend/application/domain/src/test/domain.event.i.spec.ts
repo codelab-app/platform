@@ -9,6 +9,10 @@ import {
   GraphqlService,
 } from '@codelab/backend/infra/adapter/graphql'
 import { initUserContext } from '@codelab/backend/test'
+import type {
+  TestCreateDomainAppsMutationVariables,
+  TestUpdateDomainsMutationVariables,
+} from '@codelab/shared/abstract/codegen'
 import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
@@ -19,10 +23,12 @@ import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
 import { DomainApplicationModule } from '../domain.application.module'
-import { DomainApplicationService } from '../domain.application.service'
+import { DomainListener } from '../listeners/domain.listener'
 import {
   TestCreateDomainApps,
   TestCreateDomains,
+  TestDeleteDomains,
+  TestUpdateDomains,
 } from './domain.spec.graphql.gen'
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
@@ -30,8 +36,10 @@ const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
 describe('Domain subscriptions', () => {
   let app: INestApplication
   let graphqlService: GraphqlService
-  let domainService: DomainApplicationService
-  let subscribeToServerSpy: jest.SpyInstance
+  let domainListener: DomainListener
+  let domainCreatedSpy: jest.SpyInstance
+  let domainUpdatedSpy: jest.SpyInstance
+  let domainDeletedSpy: jest.SpyInstance
 
   const context = initUserContext({
     imports: [
@@ -46,7 +54,7 @@ describe('Domain subscriptions', () => {
     const ctx = await context
     const module = ctx.module
 
-    domainService = module.get(DomainApplicationService)
+    domainListener = module.get(DomainListener)
 
     app = ctx.nestApp
     app.enableShutdownHooks()
@@ -54,7 +62,10 @@ describe('Domain subscriptions', () => {
 
     await ctx.beforeAll()
     await app.listen(apiPort).then(() => {
-      subscribeToServerSpy = jest.spyOn(domainService, 'subscribeToServer')
+      domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated')
+      domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
+      domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
+
       graphqlService.emitServerReady()
     })
   })
@@ -65,9 +76,10 @@ describe('Domain subscriptions', () => {
     await ctx.afterAll()
   })
 
-  it('should call the domain created subscription handler', async () => {
-    const appId = v4()
+  const appId = v4()
+  const domainId = v4()
 
+  it('should call the domain created subscription handler', async () => {
     const appInput: Array<AppCreateInput> = [
       {
         compositeKey: `${userDto.id}-demo-app`,
@@ -79,27 +91,48 @@ describe('Domain subscriptions', () => {
     const domainInput: Array<DomainCreateInput> = [
       {
         app: connectNodeId(appId),
-        id: v4(),
-        name: 'www.codelab.app',
+        id: domainId,
+        name: 'codelab.app',
       },
     ]
 
-    await graphqlClient
-      .request(TestCreateDomainApps, {
+    await graphqlClient.request<TestCreateDomainAppsMutationVariables>(
+      TestCreateDomainApps,
+      {
         input: appInput,
-      })
-      .then((res) => {
-        console.log(res)
-      })
+      },
+    )
 
-    await graphqlClient
-      .request(TestCreateDomains, {
-        input: domainInput,
-      })
-      .then((res) => {
-        console.log(res)
-      })
+    await graphqlClient.request(TestCreateDomains, {
+      input: domainInput,
+    })
 
-    expect(subscribeToServerSpy).toHaveBeenCalled()
+    expect(domainCreatedSpy).toHaveBeenCalled()
+  })
+
+  it('should call the domain updated subscription handler', async () => {
+    await graphqlClient.request<TestUpdateDomainsMutationVariables>(
+      TestUpdateDomains,
+      {
+        update: {
+          name: 'codelab.com',
+        },
+        where: {
+          id: domainId,
+        },
+      },
+    )
+
+    expect(domainUpdatedSpy).toHaveBeenCalled()
+  })
+
+  it('should call the domain deleted subscription handler', async () => {
+    await graphqlClient.request(TestDeleteDomains, {
+      where: {
+        id: domainId,
+      },
+    })
+
+    expect(domainDeletedSpy).toHaveBeenCalled()
   })
 })

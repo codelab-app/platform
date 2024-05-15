@@ -15,10 +15,58 @@ export type DomainCreatedSubscription = {
   }
 }
 
+export type DomainUpdatedSubscriptionVariables = Types.Exact<{
+  [key: string]: never
+}>
+
+export type DomainUpdatedSubscription = {
+  domainUpdated: {
+    event: Types.EventType
+    timestamp: number
+    updatedDomain: { name: string; id: string }
+  }
+}
+
+export type DomainDeletedSubscriptionVariables = Types.Exact<{
+  [key: string]: never
+}>
+
+export type DomainDeletedSubscription = {
+  domainDeleted: {
+    event: Types.EventType
+    timestamp: number
+    deletedDomain: { name: string; id: string }
+  }
+}
+
 export const DomainCreatedDocument = gql`
-  subscription domainCreated {
+  subscription DomainCreated {
     domainCreated {
       createdDomain {
+        name
+        id
+      }
+      event
+      timestamp
+    }
+  }
+`
+export const DomainUpdatedDocument = gql`
+  subscription DomainUpdated {
+    domainUpdated {
+      updatedDomain {
+        name
+        id
+      }
+      event
+      timestamp
+    }
+  }
+`
+export const DomainDeletedDocument = gql`
+  subscription DomainDeleted {
+    domainDeleted {
+      deletedDomain {
         name
         id
       }
@@ -47,7 +95,7 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    domainCreated(
+    DomainCreated(
       variables?: DomainCreatedSubscriptionVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DomainCreatedSubscription> {
@@ -58,7 +106,39 @@ export function getSdk(
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'domainCreated',
+        'DomainCreated',
+        'subscription',
+        variables,
+      )
+    },
+    DomainUpdated(
+      variables?: DomainUpdatedSubscriptionVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<DomainUpdatedSubscription> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DomainUpdatedSubscription>(
+            DomainUpdatedDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DomainUpdated',
+        'subscription',
+        variables,
+      )
+    },
+    DomainDeleted(
+      variables?: DomainDeletedSubscriptionVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<DomainDeletedSubscription> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DomainDeletedSubscription>(
+            DomainDeletedDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DomainDeleted',
         'subscription',
         variables,
       )
