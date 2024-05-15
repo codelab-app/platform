@@ -3,8 +3,6 @@
 set -x
 
 ln -s ../digitalocean/vars-access-token.tf ./vars-do-access-token.symlink.tf
-ln -s ../digitalocean/vars-api-token.tf ./vars-do-api-token.symlink.tf
-ln -s ../digitalocean/vars-droplet-name.tf ./vars-do-droplet-name.symlink.tf
 ln -s ../digitalocean/vars-region.tf ./vars-region.symlink.tf
 ln -s ../codelab/shared/vars-vpc.tf ./vars-vpc.symlink.tf
 ln -s ../codelab/shared/vars-domain.tf ./vars-domain.symlink.tf

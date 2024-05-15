@@ -13,9 +13,6 @@ module "codelab_sites" {
   next_public_api_hostname = module.codelab_api.codelab_api_hostname
   next_public_api_port     = var.NEXT_PUBLIC_API_PORT
 
-  digitalocean_api_token    = var.DIGITALOCEAN_API_TOKEN
-  digitalocean_droplet_name = var.DIGITALOCEAN_DROPLET_NAME
-
   # auth0_domain            = var.AUTH0_DOMAIN
   # auth0_secret            = var.AUTH0_SECRET
   # auth0_web_client_id     = module.auth0.web_client.id

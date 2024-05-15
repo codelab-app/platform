@@ -4,17 +4,16 @@ locals {
   })
 
   docker_compose = templatefile("${path.module}/tftpl/docker-compose.tftpl.yaml", {
-    auth0_m2m_client_id      = "",
-    auth0_m2m_client_secret  = "",
-    neo4j_uri                = var.neo4j_uri,
-    neo4j_user               = var.neo4j_user,
-    neo4j_password           = var.neo4j_password
-    docker_tag_version       = var.docker_tag_version
-    auth0_domain             = var.auth0_domain
-    next_public_api_port     = var.next_public_api_port,
-    digitalocean_api_token   = var.digitalocean_api_token,
-    digtalocean_droplet_name = var.digitalocean_droplet_name
-    # local_port              = local.local_port
+    auth0_m2m_client_id       = "",
+    auth0_m2m_client_secret   = "",
+    neo4j_uri                 = var.neo4j_uri,
+    neo4j_user                = var.neo4j_user,
+    neo4j_password            = var.neo4j_password
+    docker_tag_version        = var.docker_tag_version
+    auth0_domain              = var.auth0_domain
+    next_public_api_port      = var.next_public_api_port,
+    digitalocean_api_token    = var.digitalocean_api_token,
+    digitalocean_droplet_name = var.digitalocean_droplet_name
   })
 
   start_docker_image = templatefile("${path.module}/tftpl/start-docker-image.tftpl.sh", {

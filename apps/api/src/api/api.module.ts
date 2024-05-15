@@ -3,6 +3,7 @@ import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { AppApplicationModule } from '@codelab/backend/application/app'
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { JwtAuthGuard } from '@codelab/backend/application/auth'
+import { DomainApplicationModule } from '@codelab/backend/application/domain'
 import { ElementApplicationModule } from '@codelab/backend/application/element'
 import { FieldApplicationModule } from '@codelab/backend/application/field'
 import { RedirectApplicationModule } from '@codelab/backend/application/redirect'
@@ -26,6 +27,7 @@ import { APP_GUARD } from '@nestjs/core'
     AdminApplicationModule,
     AtomApplicationModule,
     UserApplicationModule,
+    DomainApplicationModule,
     ElementApplicationModule,
     FieldApplicationModule,
     RedirectApplicationModule,

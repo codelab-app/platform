@@ -6,16 +6,17 @@ import type {
 } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
+import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-base'
 import type { Subscription } from 'zen-observable-ts'
 import type { DomainCreatedSubscription } from './graphql/domain.subscription.graphql.gen'
 import { DomainCreatedDocument } from './graphql/domain.subscription.graphql.gen'
-import { DnsService } from './services/dns.service'
+import { DnsService } from '../../../infra/adapter/dns/src/dns.service'
 
 @Injectable()
 export class DomainApplicationService implements BeforeApplicationShutdown {
   constructor(
     private dnsService: DnsService,
-    digitaloceanService: DigitaloceanService,
+    private digitaloceanService: DigitaloceanService,
   ) {}
 
   @OnEvent('server.ready')
@@ -37,9 +38,20 @@ export class DomainApplicationService implements BeforeApplicationShutdown {
           console.log('Received data:', domain)
 
           if (domain) {
-            const records = await this.dnsService.lookupARecord(domain.name)
+            try {
+              const records = await this.dnsService.lookupARecord(domain.name)
+
+              console.log(records)
+            } catch (error) {
+              console.log(error)
+            }
 
             // If records contain the sites ip address, meaning the user has ownership, then we add the domain to DO
+            // try {
+            //   await this.digitaloceanService.createDomain(domain.name)
+            // } catch (error) {
+            //   console.log(error)
+            // }
           }
         },
       })

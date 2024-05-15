@@ -43,6 +43,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<IAppProductionDto> = async (
   context,
 ) => {
+  console.log(context)
+
   if (!context.params) {
     throw new Error('No context params ')
   }

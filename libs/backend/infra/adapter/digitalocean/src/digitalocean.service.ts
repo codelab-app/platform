@@ -10,13 +10,9 @@ export class DigitaloceanService {
 
   client: ReturnType<typeof createApiClient>
 
-  readonly domainsApiUrl = `${this.apiUrl}/domains`
-
-  readonly dropletApiUrl = `${this.apiUrl}/droplets?name=${this.config.dropletName}`
-
   constructor(
     @Inject(digitaloceanConfig.KEY)
-    private config: ConfigType<typeof digitaloceanConfig>,
+    config: ConfigType<typeof digitaloceanConfig>,
   ) {
     this.client = createApiClient({ token: config.apiToken })
   }

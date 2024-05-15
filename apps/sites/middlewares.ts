@@ -23,24 +23,24 @@ const middleware = async (request: NextRequest) => {
   const pageUrl = `/${url.searchParams.get('page')}`
   const authorization = request.cookies.get('authorization')
 
-  if (domain && pageUrl) {
-    const endpoint = getEnv().endpoint.canActivateUrl
+  // if (domain && pageUrl) {
+  //   const endpoint = getEnv().endpoint.canActivateUrl
 
-    const response = await fetch(endpoint, {
-      body: JSON.stringify({
-        authorization: authorization?.value,
-        domain,
-        pageUrl,
-      }),
-      headers: { 'Content-Type': 'application/json' },
+  //   const response = await fetch(endpoint, {
+  //     body: JSON.stringify({
+  //       authorization: authorization?.value,
+  //       domain,
+  //       pageUrl,
+  //     }),
+  //     headers: { 'Content-Type': 'application/json' },
 
-      method: 'POST',
-    }).then((res) => res.json())
+  //     method: 'POST',
+  //   }).then((res) => res.json())
 
-    if (!response.canActivate && response.redirectUrl) {
-      return NextResponse.redirect(response.redirectUrl)
-    }
-  }
+  //   if (!response.canActivate && response.redirectUrl) {
+  //     return NextResponse.redirect(response.redirectUrl)
+  //   }
+  // }
 
   console.log('Redirecting...', url.toString())
   url.pathname = `/${hostname}${url.pathname}`

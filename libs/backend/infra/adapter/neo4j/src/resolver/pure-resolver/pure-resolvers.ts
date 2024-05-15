@@ -13,17 +13,14 @@ import { TYPE_RESOLVER_PROVIDER } from './type'
 export const PURE_RESOLVER_PROVIDER = 'PURE_RESOLVER_PROVIDER'
 
 export const PureResolverProvider: FactoryProvider<Promise<IResolvers>> = {
-  inject: [TYPE_RESOLVER_PROVIDER, DigitaloceanService],
+  inject: [TYPE_RESOLVER_PROVIDER],
   provide: PURE_RESOLVER_PROVIDER,
-  useFactory: async (
-    typeResolver: IResolvers,
-    digitaloceanService: DigitaloceanService,
-  ) => {
+  useFactory: async (typeResolver: IResolvers) => {
     const pureResolvers: IResolvers = mergeResolvers([
       appResolver,
       atomResolver,
       actionResolver,
-      domainResolver(digitaloceanService),
+      domainResolver,
       elementResolver,
       pageResolver,
       typeResolver,

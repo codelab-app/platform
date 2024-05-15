@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../../dist/out-tsc",
+    "outDir": "../../../../../dist/out-tsc",
     "module": "commonjs",
     "types": ["jest", "node"]
   },
@@ -9,7 +9,6 @@
     "jest.config.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
-    "src/**/*.d.ts",
-    "../../infra/adapter/dns/src/dns.service.i.spec.ts"
+    "src/**/*.d.ts"
   ]
 }
