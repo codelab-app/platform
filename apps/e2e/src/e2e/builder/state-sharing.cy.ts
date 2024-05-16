@@ -188,6 +188,8 @@ describe('State variables sharing between pages', () => {
       },
     ])
 
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
     cy.openPreview().contains('text component state value').should('exist')
   })
 })

@@ -1,9 +1,10 @@
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
+import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'
 import path from 'path'
 
-export const testCypressJsonConfig: Cypress.ConfigOptions = {
+export const testCypressJsonConfig: Cypress.EndToEndConfigOptions = {
   chromeWebSecurity: false,
   defaultCommandTimeout: 15000,
   env: {
@@ -28,18 +29,20 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   fixturesFolder: './src/fixtures',
   pageLoadTimeout: 15000,
   projectId: '9hfoow',
+  // reporter: 'cypress-mochawesome-reporter',
   responseTimeout: 5000,
   retries: {
     openMode: 0,
     runMode: 1,
   },
   screenshotsFolder: './src/screenshots',
-  // specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
   // supportFile: 'src/support/e2e.ts',
   setupNodeEvents: (on, config) => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    // require('cypress-terminal-report/src/installLogsPrinter')(on)
+    installLogsPrinter(on, {
+      printLogsToConsole: 'always',
+    })
   },
+  // specPattern: './src/e2e/apps.cy.{js,jsx,ts,tsx}',
   testIsolation: false,
   video: true,
   videosFolder: './src/videos',
@@ -58,5 +61,4 @@ export default defineConfig({
      */
     ...({ morgan: false } as Cypress.ConfigOptions),
   },
-  reporter: 'mochawesome',
 })

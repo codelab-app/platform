@@ -212,8 +212,6 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
   docker-sites:
-    environment:
-      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     executor: docker-node
     resource_class: large
     steps:
@@ -227,8 +225,6 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push sites
           name: Push Docker Image
   docker-web:
-    environment:
-      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     executor: docker-node
     resource_class: medium
     steps:
@@ -243,7 +239,7 @@ jobs:
           name: Push Docker Image
   e2e:
     executor: docker-node-neo4j
-    parallelism: 8
+    parallelism: 4
     resource_class: large
     steps:
       - restore-workspace

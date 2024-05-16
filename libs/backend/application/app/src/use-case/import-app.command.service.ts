@@ -40,7 +40,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
     }
 
     for (const domain of app.domains) {
-      await this.digitaloceanService.createDomain(domain.name)
+      // await this.digitaloceanService.createDomain(domain.name)
       await this.domainRepository.save(domain)
     }
 
