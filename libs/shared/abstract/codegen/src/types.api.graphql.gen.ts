@@ -26922,7 +26922,7 @@ export type DomainCreatedSubscription = {
   domainCreated: {
     event: EventType
     timestamp: number
-    createdDomain: { name: string; id: string }
+    createdDomain: { id: string; name: string }
   }
 }
 
@@ -26932,7 +26932,7 @@ export type DomainUpdatedSubscription = {
   domainUpdated: {
     event: EventType
     timestamp: number
-    updatedDomain: { name: string; id: string }
+    updatedDomain: { id: string; name: string }
   }
 }
 
@@ -26942,7 +26942,7 @@ export type DomainDeletedSubscription = {
   domainDeleted: {
     event: EventType
     timestamp: number
-    deletedDomain: { name: string; id: string }
+    deletedDomain: { id: string; name: string }
   }
 }
 

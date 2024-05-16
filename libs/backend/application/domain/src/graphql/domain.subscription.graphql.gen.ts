@@ -11,7 +11,7 @@ export type DomainCreatedSubscription = {
   domainCreated: {
     event: Types.EventType
     timestamp: number
-    createdDomain: { name: string; id: string }
+    createdDomain: { id: string; name: string }
   }
 }
 
@@ -23,7 +23,7 @@ export type DomainUpdatedSubscription = {
   domainUpdated: {
     event: Types.EventType
     timestamp: number
-    updatedDomain: { name: string; id: string }
+    updatedDomain: { id: string; name: string }
   }
 }
 
@@ -35,7 +35,7 @@ export type DomainDeletedSubscription = {
   domainDeleted: {
     event: Types.EventType
     timestamp: number
-    deletedDomain: { name: string; id: string }
+    deletedDomain: { id: string; name: string }
   }
 }
 
@@ -43,8 +43,8 @@ export const DomainCreatedDocument = gql`
   subscription DomainCreated {
     domainCreated {
       createdDomain {
-        name
         id
+        name
       }
       event
       timestamp
@@ -54,12 +54,12 @@ export const DomainCreatedDocument = gql`
 export const DomainUpdatedDocument = gql`
   subscription DomainUpdated {
     domainUpdated {
-      updatedDomain {
-        name
-        id
-      }
       event
       timestamp
+      updatedDomain {
+        id
+        name
+      }
     }
   }
 `
@@ -67,8 +67,8 @@ export const DomainDeletedDocument = gql`
   subscription DomainDeleted {
     domainDeleted {
       deletedDomain {
-        name
         id
+        name
       }
       event
       timestamp
