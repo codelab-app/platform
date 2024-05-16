@@ -33,6 +33,7 @@
       },
       "configurations": {
         "test": {
+          "reporter": "../../node_modules/mochawesome",
           "devServerTarget": "e2e:serve:test",
           "record": false,
           "watch": false,

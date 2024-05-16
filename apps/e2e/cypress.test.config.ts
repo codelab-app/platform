@@ -58,4 +58,5 @@ export default defineConfig({
      */
     ...({ morgan: false } as Cypress.ConfigOptions),
   },
+  reporter: 'mochawesome',
 })
