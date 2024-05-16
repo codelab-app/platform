@@ -52,7 +52,7 @@ export default defineConfig({
     ...nxE2EPreset(__filename),
     ...testCypressJsonConfig,
     /**
-     * This key is not documented in Cypress, but works to turn of logs
+     * This key is not documented in Cypress, but works to turn off logs
      *
      * https://github.com/cypress-io/cypress/issues/26284
      */

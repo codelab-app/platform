@@ -18,3 +18,5 @@ ln -s ../terraform/vars.tf ./vars-terraform.symlink.tf
 ln -s ../docker/vars.tf ./vars-docker.symlink.tf
 ln -s ../docker/vars-tag-version.tf ./vars-docker-tag-version.symlink.tf
 ln -s ../digitalocean/vars-access-token.tf ./vars-do-access-token.symlink.tf
+ln -s ../digitalocean/vars-droplet-name.tf ./vars-do-droplet-name.symlink.tf
+ln -s ../digitalocean/vars-api-token.tf ./vars-do-api-token.symlink.tf
