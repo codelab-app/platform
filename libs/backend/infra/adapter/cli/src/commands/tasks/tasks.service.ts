@@ -40,7 +40,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand(
-              'nx run-many --target=build --projects=web,api,e2e -c test',
+              'nx run-many --target=build --projects=web,api,e2e,sites,landing -c test',
             )
           }
 

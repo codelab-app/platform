@@ -6,9 +6,9 @@ import { DOMAIN_CREATED_EVENT } from '../events/domain-created.event'
 import { DOMAIN_DELETED_EVENT } from '../events/domain-deleted.event'
 import { DOMAIN_UPDATED_EVENT } from '../events/domain-updated.event'
 import {
-  DomainCreatedSubscription,
-  DomainDeletedSubscription,
-  DomainUpdatedSubscription,
+  type DomainCreatedSubscription,
+  type DomainDeletedSubscription,
+  type DomainUpdatedSubscription,
 } from '../graphql/domain.subscription.graphql.gen'
 
 @Injectable()

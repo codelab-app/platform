@@ -303,6 +303,9 @@ dependencies:
   dir-compare:
     specifier: 4.2.0
     version: 4.2.0
+  dots-wrapper:
+    specifier: ^3.11.7
+    version: 3.11.7
   env-var:
     specifier: 7.4.1
     version: 7.4.1
