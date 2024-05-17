@@ -67,21 +67,17 @@ describe('State variables sharing between pages', () => {
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).should('exist')
     cy.toggleCuiTreeNodeSwitcher(`${COMPONENT_NAME} Root`)
 
-    cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({
-      force: true,
-    })
-    cy.getCuiTreeItemByPrimaryTitle(typographyTextElement.name).click({
-      force: true,
-    })
+    cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({})
+    cy.getCuiTreeItemByPrimaryTitle(typographyTextElement.name).click({})
 
     cy.typeIntoTextEditor(
       'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-    cy.waitForSpinners()
+
     cy.openPreview().contains('text undefined').should('exist')
 
     cy.openBuilder()
+
     // create a state variable inside the component
     cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
@@ -97,6 +93,8 @@ describe('State variables sharing between pages', () => {
       type: FIELD_TYPE.SELECT,
       value: 'String',
     })
+
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.findByText('Default values').should('exist')
 
