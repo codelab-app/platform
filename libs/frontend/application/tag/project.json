@@ -18,11 +18,6 @@
           "outputFile": "tmp/reports/lint/frontend-application-tag.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/tag/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {

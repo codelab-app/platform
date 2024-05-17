@@ -5,4 +5,4 @@ import { ITypeKind } from './type-kind.enum'
 
 export const arrayTypeSchema: JSONSchemaType<IArrayTypeDto> = baseTypeSchema(
   ITypeKind.ArrayType,
-)
+) as JSONSchemaType<IArrayTypeDto>

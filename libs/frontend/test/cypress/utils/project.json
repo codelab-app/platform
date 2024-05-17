@@ -3,6 +3,12 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/test/cypress/utils/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "type:test",
+    "scope:frontend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,18 +18,7 @@
           "outputFile": "tmp/reports/lint/frontend-test-cypress-utils.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/test/cypress/utils/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "type:test",
-    "scope:frontend"
-  ]
+  }
 }

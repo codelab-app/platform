@@ -3,13 +3,16 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/infra/adapter/digitalocean/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:backend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/backend/infra/adapter/digitalocean/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -18,11 +21,5 @@
         "jestConfig": "libs/backend/infra/adapter/digitalocean/jest.config.ts"
       }
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "layer:infra",
-    "scope:backend"
-  ]
+  }
 }

@@ -3,6 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/abstract/codegen/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:abstract",
+    "scope:codegen",
+    "scope:shared"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,18 +18,7 @@
           "outputFile": "tmp/reports/lint/shared-abstract-codegen.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/abstract/codegen/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:abstract",
-    "scope:codegen",
-    "scope:shared"
-  ]
+  }
 }

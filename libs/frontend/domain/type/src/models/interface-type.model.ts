@@ -115,7 +115,7 @@ export class InterfaceType
   }
 
   @modelAction
-  writeFieldCache(fields: Array<IRef>) {
+  writeFieldCache(fields: Array<IRef> = []) {
     for (const field of fields) {
       this._fields.set(field.id, fieldRef(field.id))
     }

@@ -3,6 +3,12 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/infra/adapter/request-context/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:backend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,18 +18,7 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-request-context.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/infra/adapter/request-context/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "layer:infra",
-    "scope:backend"
-  ]
+  }
 }

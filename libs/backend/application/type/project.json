@@ -3,6 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/application/type/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:application"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,11 +18,6 @@
           "outputFile": "tmp/reports/lint/backend-application-type.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/application/type/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {
@@ -72,11 +73,5 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:backend",
-    "layer:application"
-  ]
+  }
 }

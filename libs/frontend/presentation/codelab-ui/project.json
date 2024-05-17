@@ -18,11 +18,6 @@
           "outputFile": "tmp/reports/lint/frontend-presentation-codelab-ui.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/presentation/codelab-ui/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {

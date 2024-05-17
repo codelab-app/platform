@@ -3,6 +3,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/abstract/types/src",
   "projectType": "library",
+  "tags": ["projectType:library", "type:abstract", "scope:shared"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,13 +13,7 @@
           "outputFile": "tmp/reports/lint/shared-abstract-types.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/abstract/types/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     }
-  },
-  "tags": ["projectType:library", "type:abstract", "scope:shared"]
+  }
 }

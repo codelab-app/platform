@@ -3,6 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/presentation/view/src",
   "projectType": "library",
+  "tags": [
+    "layer:presentation",
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,18 +18,7 @@
           "outputFile": "tmp/reports/lint/frontend-presentation-view.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/presentation/view/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     }
-  },
-  "tags": [
-    "layer:presentation",
-    "projectType:library",
-    "type:concrete",
-    "scope:frontend"
-  ]
+  }
 }

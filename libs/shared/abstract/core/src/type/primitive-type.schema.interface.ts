@@ -5,7 +5,7 @@ import { IPrimitiveTypeKind } from './primitive-type.enum'
 import { ITypeKind } from './type-kind.enum'
 
 export const primitiveTypeSchema: JSONSchemaType<IPrimitiveTypeDto> =
-  baseTypeSchema(ITypeKind.PrimitiveType)
+  baseTypeSchema(ITypeKind.PrimitiveType) as JSONSchemaType<IPrimitiveTypeDto>
 
 /**
  * The above represents a single possible value, this represents the list of options

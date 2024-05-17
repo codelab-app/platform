@@ -1,6 +1,9 @@
 import type { IUserModel } from '@codelab/frontend/abstract/domain'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { UsersView, UsersViewLayout } from '@codelab/frontend/application/user'
+import {
+  type UsersView,
+  UsersViewLayout,
+} from '@codelab/frontend/application/user'
 import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
 import React from 'react'

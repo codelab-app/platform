@@ -52,7 +52,7 @@ export const CreateComponentForm = observer(
     }
 
     return (
-      <Form<ICreateComponentData>
+      <Form<Omit<ICreateComponentData, 'rootElement'>>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

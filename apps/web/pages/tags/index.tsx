@@ -2,7 +2,7 @@ import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import {
   CreateTagModal,
   DeleteTagsModal,
-  TagsView,
+  type TagsView,
   TagsViewLayout,
   UpdateTagForm,
   UpdateTagModal,

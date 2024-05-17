@@ -130,7 +130,6 @@ export class ComponentDomainService
   hydrate(componentDto: IComponentDto) {
     let component = this.components.get(componentDto.id)
 
-
     if (component) {
       component.writeCache(componentDto)
     } else {

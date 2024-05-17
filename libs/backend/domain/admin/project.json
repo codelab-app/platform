@@ -3,6 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/domain/admin/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:domain"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,11 +18,6 @@
           "outputFile": "tmp/reports/lint/backend-domain-admin.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/domain/admin/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {
@@ -72,11 +73,5 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:backend",
-    "layer:domain"
-  ]
+  }
 }
