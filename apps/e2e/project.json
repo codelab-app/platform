@@ -113,14 +113,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/e2e.xml",
-          "quiet": true
-        }
-      }
+      "executor": "@nx/eslint:lint"
     },
     "build": {
       "executor": "nx:run-commands",

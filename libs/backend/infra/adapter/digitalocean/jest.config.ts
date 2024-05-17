@@ -21,4 +21,17 @@ export default {
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory:
     '../../../../../coverage/libs/backend/infra/adapter/digitalocean',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'backend-infra-adapter-digitalocean.xml',
+        reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
+      },
+    ],
+  ],
 }
