@@ -147,10 +147,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: cimg/node:18.17.0-browsers
+      - image: cimg/node:18.18.0-browsers
   docker-node-neo4j:
     docker:
-      - image: cimg/node:18.17.0-browsers
+      - image: cimg/node:18.18.0-browsers
       - command:
           - neo4j
           - start
