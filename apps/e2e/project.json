@@ -4,7 +4,7 @@
   "sourceRoot": "apps/e2e/src",
   "projectType": "application",
   "targets": {
-    "e2e-open": {
+    "e2e-skip-servers": {
       "executor": "@nx/cypress:cypress",
       "defaultConfiguration": "test",
       "options": {
@@ -15,10 +15,8 @@
       },
       "configurations": {
         "test": {
-          "devServerTarget": "e2e:serve-open:test",
-          "record": false,
-          "watch": true,
-          "exit": false
+          "record": true,
+          "watch": false
         }
       }
     },
@@ -35,8 +33,7 @@
         "test": {
           "devServerTarget": "e2e:serve:test",
           "record": false,
-          "watch": false,
-          "exit": true
+          "watch": false
         },
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
@@ -47,7 +44,8 @@
             "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
           },
           "record": true,
-          "parallel": true
+          "parallel": true,
+          "watch": false
         }
       }
     },
@@ -77,6 +75,13 @@
         "readyWhen": "READY"
       },
       "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck  && echo 'READY'"
+            }
+          ]
+        },
         "test": {
           "commands": [
             {

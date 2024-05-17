@@ -2,35 +2,25 @@ import { Table, Typography } from 'antd'
 import React from 'react'
 
 const dataSource = [
-  {
-    name: '@',
-    type: 'A',
-    value: '76.76.21.21',
-  },
+  { value: 'ns1.digitalocean.com' },
+  { value: 'ns2.digitalocean.com' },
+  { value: 'ns3.digitalocean.com' },
 ]
 
 const columns = [
-  {
-    dataIndex: 'name',
-    title: 'Name',
-  },
-  {
-    dataIndex: 'type',
-    title: 'Type',
-  },
   {
     dataIndex: 'value',
     render: (_: unknown, { value }: { value: string }) => {
       return <Typography.Text copyable>{value}</Typography.Text>
     },
-    title: 'Value',
+    title: 'Name',
   },
 ]
 
 export const ARecordTabContent = () => (
   <div>
     <p className="mb-2">
-      Set the following record on your DNS provider to continue:
+      Copy and paste our nameservers to your DNS provider's nameserver records:
     </p>
     <Table
       columns={columns}

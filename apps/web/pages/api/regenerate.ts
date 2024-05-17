@@ -1,19 +1,18 @@
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { authMiddleware } from '@codelab/backend/infra/adapter/graphql'
 import type { NextApiHandler } from 'next'
 
 // endpoint to securely redirect request to a user domain
 const regenerate: NextApiHandler = async (req, res) => {
   try {
-    const session = await auth0Instance().getSession(req, res)
-
-    if (!session?.user) {
-      res.status(403).send('Not Authenticated')
-    }
+    await authMiddleware(req, res)
 
     const { domain, pages } = req.query
 
+    console.log(domain, pages)
+
     const regenerationResult = await fetch(
-      `https://${domain}/api/regenerate?pages=${pages}`,
+      // We could attach `domain` as a query param, but we explicity force a hostname so we can verify that the user owns the domain & has properly setup their DNS
+      `http://${domain}/api/regenerate?pages=${pages}`,
       {
         headers: {
           Cookie: req.headers.cookie ?? '',

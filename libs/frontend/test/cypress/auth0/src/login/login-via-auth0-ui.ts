@@ -1,9 +1,10 @@
+/**
+ * When logging in programmatically, there is issue in creating the user session from the tokens
+ */
 export const loginToAuth0 = (username: string, password: string) => {
   const log = Cypress.log({
     autoEnd: false,
-
     displayName: 'AUTH0 LOGIN',
-
     message: [`🔐 Authenticating | ${username}`],
   })
 

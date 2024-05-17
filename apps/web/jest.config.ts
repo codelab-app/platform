@@ -20,7 +20,7 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../coverage/apps/web',
   displayName: 'web',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
   reporters: [
     'default',
     [

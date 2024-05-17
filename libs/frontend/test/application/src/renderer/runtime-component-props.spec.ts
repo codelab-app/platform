@@ -1,7 +1,6 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import { createTestApplication } from '@codelab/frontend/application/test'
-import { unregisterRootStore } from 'mobx-keystone'
 
 let testApplication: ReturnType<typeof createTestApplication>
 

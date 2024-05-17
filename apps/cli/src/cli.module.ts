@@ -14,7 +14,7 @@ const getEnvFilePath = () => {
   }
 
   const envFilePath = (file: string) =>
-    path.resolve(process.cwd(), 'apps/cli', file)
+    path.resolve(process.cwd(), 'apps/api', file)
 
   if (stage === Stage.Dev) {
     return envFilePath('.env')

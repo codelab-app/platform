@@ -1,3 +1,6 @@
+import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
+import type { endpointConfig } from '@codelab/backend/infra/core'
+import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { Logger } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { ConfigService } from '@nestjs/config'
@@ -5,8 +8,6 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { applyFormats, patchNestJsSwagger } from 'nestjs-typebox'
 import { AllExceptionsFilter } from './exceptions/all-exceptions.filter'
-import type { endpointConfig } from './graphql/endpoint.config'
-import { ENDPOINT_CONFIG_KEY } from './graphql/endpoint.config'
 import { RootModule } from './root.module'
 
 // provide swagger OpenAPI generator support
@@ -20,6 +21,8 @@ const bootstrap = async () => {
   const app = await NestFactory.create(RootModule, {
     // logger: false,
   })
+
+  app.enableShutdownHooks()
 
   /**
    * Add global prefix
@@ -57,10 +60,13 @@ const bootstrap = async () => {
   const config: ConfigType<typeof endpointConfig> =
     configService.getOrThrow(ENDPOINT_CONFIG_KEY)
 
-  const port = config.graphqlApiPort
+  const port = config.apiPort
 
-  await app.listen(port)
+  await app.listen(port).then(() => {
+    const graphqlService = app.get(GraphqlService)
 
+    graphqlService.emitServerReady()
+  })
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
   )

@@ -96,10 +96,6 @@ export class AppService
       await this.elementService.elementRepository.delete(elements)
       await this.appRepository.delete([app])
 
-      for (const domain of app.domains) {
-        // Remove domains in third party saas
-      }
-
       return app
     }
 

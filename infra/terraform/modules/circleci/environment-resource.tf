@@ -27,6 +27,8 @@ resource "circleci_environment_variable" "env_vars" {
     DOCKERHUB_USERNAME        = var.dockerhub_username
     DOCKERHUB_ACCESS_TOKEN    = var.dockerhub_access_token
     DIGITALOCEAN_ACCESS_TOKEN = var.digitalocean_access_token
+    DIGITALOCEAN_API_TOKEN    = var.digitalocean_api_token
+    DIGITALOCEAN_DROPLET_NAME = var.digitalocean_droplet_name
     DOCKER_TAG_VERSION        = var.docker_tag_version
   }
 

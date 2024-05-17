@@ -88,6 +88,10 @@ export type ActionTypeConnectWhere = {
   node: ActionTypeWhere
 }
 
+export type ActionTypeConnectedRelationships = {
+  owner?: Maybe<ActionTypeOwnerConnectedRelationship>
+}
+
 export type ActionTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -95,8 +99,20 @@ export type ActionTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type ActionTypeCreatedEvent = {
+  createdActionType: ActionTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ActionTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type ActionTypeDeletedEvent = {
+  deletedActionType: ActionTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ActionTypeDisconnectInput = {
@@ -106,6 +122,14 @@ export type ActionTypeDisconnectInput = {
 export type ActionTypeEdge = {
   cursor: Scalars['String']['output']
   node: ActionType
+}
+
+export type ActionTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type ActionTypeOnCreateInput = {
@@ -131,6 +155,10 @@ export type ActionTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<ActionTypeOwnerNodeAggregationWhereInput>
+}
+
+export type ActionTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type ActionTypeOwnerNodeAggregationWhereInput = {
@@ -199,8 +227,48 @@ export type ActionTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ActionTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type ActionTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type ActionTypeRelationshipCreatedEvent = {
+  actionType: ActionTypeEventPayload
+  createdRelationship: ActionTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ActionTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ActionTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ActionTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ActionTypeRelationshipCreatedSubscriptionWhere>>
+  actionType?: InputMaybe<ActionTypeSubscriptionWhere>
+  createdRelationship?: InputMaybe<ActionTypeRelationshipsSubscriptionWhere>
+}
+
+export type ActionTypeRelationshipDeletedEvent = {
+  actionType: ActionTypeEventPayload
+  deletedRelationship: ActionTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ActionTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ActionTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ActionTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ActionTypeRelationshipDeletedSubscriptionWhere>>
+  actionType?: InputMaybe<ActionTypeSubscriptionWhere>
+  deletedRelationship?: InputMaybe<ActionTypeRelationshipsSubscriptionWhere>
+}
+
+export type ActionTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<ActionTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort ActionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionTypeSort object. */
@@ -208,6 +276,24 @@ export type ActionTypeSort = {
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type ActionTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<ActionTypeSubscriptionWhere>>
+  NOT?: InputMaybe<ActionTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<ActionTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ActionTypeUniqueWhere = {
@@ -218,6 +304,13 @@ export type ActionTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type ActionTypeUpdatedEvent = {
+  event: EventType
+  previousState: ActionTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedActionType: ActionTypeEventPayload
 }
 
 export type ActionTypeUserOwnerAggregationSelection = {
@@ -266,6 +359,10 @@ export type ActionTypesConnection = {
 
 export type AnyAction = ApiAction | CodeAction
 
+export type AnyActionEventPayload =
+  | ApiActionEventPayload
+  | CodeActionEventPayload
+
 export type AnyActionWhere = {
   ApiAction?: InputMaybe<ApiActionWhere>
   CodeAction?: InputMaybe<CodeActionWhere>
@@ -286,6 +383,22 @@ export type AnyType =
   | RenderPropType
   | RichTextType
   | UnionType
+
+export type AnyTypeEventPayload =
+  | ActionTypeEventPayload
+  | AppTypeEventPayload
+  | ArrayTypeEventPayload
+  | CodeMirrorTypeEventPayload
+  | ElementTypeEventPayload
+  | EnumTypeEventPayload
+  | InterfaceTypeEventPayload
+  | LambdaTypeEventPayload
+  | PageTypeEventPayload
+  | PrimitiveTypeEventPayload
+  | ReactNodeTypeEventPayload
+  | RenderPropTypeEventPayload
+  | RichTextTypeEventPayload
+  | UnionTypeEventPayload
 
 export type AnyTypeWhere = {
   ActionType?: InputMaybe<ActionTypeWhere>
@@ -463,6 +576,10 @@ export type ApiActionConfigConnectOrCreateFieldInputOnCreate = {
   node: PropOnCreateInput
 }
 
+export type ApiActionConfigConnectedRelationship = {
+  node: PropEventPayload
+}
+
 export type ApiActionConfigConnection = {
   edges: Array<ApiActionConfigRelationship>
   pageInfo: PageInfo
@@ -524,6 +641,10 @@ export type ApiActionConfigRelationship = {
   node: Prop
 }
 
+export type ApiActionConfigRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PropSubscriptionWhere>
+}
+
 export type ApiActionConfigUpdateConnectionInput = {
   node?: InputMaybe<PropUpdateInput>
 }
@@ -558,6 +679,15 @@ export type ApiActionConnectWhere = {
   node: ApiActionWhere
 }
 
+export type ApiActionConnectedRelationships = {
+  config?: Maybe<ApiActionConfigConnectedRelationship>
+  element?: Maybe<ApiActionElementConnectedRelationship>
+  errorAction?: Maybe<ApiActionErrorActionConnectedRelationship>
+  resource?: Maybe<ApiActionResourceConnectedRelationship>
+  store?: Maybe<ApiActionStoreConnectedRelationship>
+  successAction?: Maybe<ApiActionSuccessActionConnectedRelationship>
+}
+
 export type ApiActionCreateInput = {
   config?: InputMaybe<ApiActionConfigFieldInput>
   element?: InputMaybe<BaseActionElementFieldInput>
@@ -570,6 +700,12 @@ export type ApiActionCreateInput = {
   type?: ActionKind
 }
 
+export type ApiActionCreatedEvent = {
+  createdApiAction: ApiActionEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ApiActionDeleteInput = {
   config?: InputMaybe<ApiActionConfigDeleteFieldInput>
   element?: InputMaybe<BaseActionElementDeleteFieldInput>
@@ -577,6 +713,12 @@ export type ApiActionDeleteInput = {
   resource?: InputMaybe<ApiActionResourceDeleteFieldInput>
   store?: InputMaybe<BaseActionStoreDeleteFieldInput>
   successAction?: InputMaybe<ApiActionSuccessActionDeleteInput>
+}
+
+export type ApiActionDeletedEvent = {
+  deletedApiAction: ApiActionEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ApiActionDisconnectInput = {
@@ -603,6 +745,10 @@ export type ApiActionElementAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<ApiActionElementNodeAggregationWhereInput>
+}
+
+export type ApiActionElementConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type ApiActionElementElementAggregationSelection = {
@@ -714,6 +860,10 @@ export type ApiActionElementNodeAggregationWhereInput = {
   style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ApiActionElementRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type ApiActionErrorActionApiActionConnectFieldInput = {
   connect?: InputMaybe<ApiActionConnectInput>
   where?: InputMaybe<ApiActionConnectWhere>
@@ -743,6 +893,10 @@ export type ApiActionErrorActionApiActionDisconnectFieldInput = {
 export type ApiActionErrorActionApiActionFieldInput = {
   connect?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>
   create?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>
+}
+
+export type ApiActionErrorActionApiActionSubscriptionWhere = {
+  node?: InputMaybe<ApiActionSubscriptionWhere>
 }
 
 export type ApiActionErrorActionApiActionUpdateConnectionInput = {
@@ -789,6 +943,10 @@ export type ApiActionErrorActionCodeActionFieldInput = {
   create?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>
 }
 
+export type ApiActionErrorActionCodeActionSubscriptionWhere = {
+  node?: InputMaybe<CodeActionSubscriptionWhere>
+}
+
 export type ApiActionErrorActionCodeActionUpdateConnectionInput = {
   node?: InputMaybe<CodeActionUpdateInput>
 }
@@ -805,6 +963,10 @@ export type ApiActionErrorActionCodeActionUpdateFieldInput = {
 export type ApiActionErrorActionConnectInput = {
   ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>
   CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>
+}
+
+export type ApiActionErrorActionConnectedRelationship = {
+  node: AnyActionEventPayload
 }
 
 export type ApiActionErrorActionConnection = {
@@ -843,9 +1005,24 @@ export type ApiActionErrorActionRelationship = {
   node: AnyAction
 }
 
+export type ApiActionErrorActionRelationshipSubscriptionWhere = {
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionSubscriptionWhere>
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionSubscriptionWhere>
+}
+
 export type ApiActionErrorActionUpdateInput = {
   ApiAction?: InputMaybe<ApiActionErrorActionApiActionUpdateFieldInput>
   CodeAction?: InputMaybe<ApiActionErrorActionCodeActionUpdateFieldInput>
+}
+
+export type ApiActionEventPayload = BaseActionEventPayload & {
+  element?: Maybe<Element>
+  elementConnection: BaseActionElementConnection
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  store: Store
+  storeConnection: BaseActionStoreConnection
+  type: ActionKind
 }
 
 export type ApiActionOptions = {
@@ -874,6 +1051,47 @@ export type ApiActionRelationInput = {
   successAction?: InputMaybe<ApiActionSuccessActionCreateFieldInput>
 }
 
+export type ApiActionRelationshipCreatedEvent = {
+  apiAction: ApiActionEventPayload
+  createdRelationship: ApiActionConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ApiActionRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ApiActionRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ApiActionRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ApiActionRelationshipCreatedSubscriptionWhere>>
+  apiAction?: InputMaybe<ApiActionSubscriptionWhere>
+  createdRelationship?: InputMaybe<ApiActionRelationshipsSubscriptionWhere>
+}
+
+export type ApiActionRelationshipDeletedEvent = {
+  apiAction: ApiActionEventPayload
+  deletedRelationship: ApiActionConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ApiActionRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ApiActionRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ApiActionRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ApiActionRelationshipDeletedSubscriptionWhere>>
+  apiAction?: InputMaybe<ApiActionSubscriptionWhere>
+  deletedRelationship?: InputMaybe<ApiActionRelationshipsSubscriptionWhere>
+}
+
+export type ApiActionRelationshipsSubscriptionWhere = {
+  config?: InputMaybe<ApiActionConfigRelationshipSubscriptionWhere>
+  element?: InputMaybe<ApiActionElementRelationshipSubscriptionWhere>
+  errorAction?: InputMaybe<ApiActionErrorActionRelationshipSubscriptionWhere>
+  resource?: InputMaybe<ApiActionResourceRelationshipSubscriptionWhere>
+  store?: InputMaybe<ApiActionStoreRelationshipSubscriptionWhere>
+  successAction?: InputMaybe<ApiActionSuccessActionRelationshipSubscriptionWhere>
+}
+
 export type ApiActionResourceAggregateInput = {
   AND?: InputMaybe<Array<ApiActionResourceAggregateInput>>
   NOT?: InputMaybe<ApiActionResourceAggregateInput>
@@ -900,6 +1118,10 @@ export type ApiActionResourceConnectOrCreateFieldInput = {
 
 export type ApiActionResourceConnectOrCreateFieldInputOnCreate = {
   node: ResourceOnCreateInput
+}
+
+export type ApiActionResourceConnectedRelationship = {
+  node: ResourceEventPayload
 }
 
 export type ApiActionResourceConnection = {
@@ -965,6 +1187,10 @@ export type ApiActionResourceRelationship = {
   node: Resource
 }
 
+export type ApiActionResourceRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ResourceSubscriptionWhere>
+}
+
 export type ApiActionResourceResourceAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<ApiActionResourceResourceNodeAggregateSelection>
@@ -1008,6 +1234,10 @@ export type ApiActionStoreAggregateInput = {
   node?: InputMaybe<ApiActionStoreNodeAggregationWhereInput>
 }
 
+export type ApiActionStoreConnectedRelationship = {
+  node: StoreEventPayload
+}
+
 export type ApiActionStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ApiActionStoreNodeAggregationWhereInput>>
   NOT?: InputMaybe<ApiActionStoreNodeAggregationWhereInput>
@@ -1029,6 +1259,10 @@ export type ApiActionStoreNodeAggregationWhereInput = {
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ApiActionStoreRelationshipSubscriptionWhere = {
+  node?: InputMaybe<StoreSubscriptionWhere>
+}
+
 export type ApiActionStoreStoreAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<ApiActionStoreStoreNodeAggregateSelection>
@@ -1037,6 +1271,24 @@ export type ApiActionStoreStoreAggregationSelection = {
 export type ApiActionStoreStoreNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+}
+
+export type ApiActionSubscriptionWhere = {
+  AND?: InputMaybe<Array<ApiActionSubscriptionWhere>>
+  NOT?: InputMaybe<ApiActionSubscriptionWhere>
+  OR?: InputMaybe<Array<ApiActionSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  type?: InputMaybe<ActionKind>
+  type_IN?: InputMaybe<Array<InputMaybe<ActionKind>>>
 }
 
 export type ApiActionSuccessActionApiActionConnectFieldInput = {
@@ -1068,6 +1320,10 @@ export type ApiActionSuccessActionApiActionDisconnectFieldInput = {
 export type ApiActionSuccessActionApiActionFieldInput = {
   connect?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>
   create?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>
+}
+
+export type ApiActionSuccessActionApiActionSubscriptionWhere = {
+  node?: InputMaybe<ApiActionSubscriptionWhere>
 }
 
 export type ApiActionSuccessActionApiActionUpdateConnectionInput = {
@@ -1114,6 +1370,10 @@ export type ApiActionSuccessActionCodeActionFieldInput = {
   create?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>
 }
 
+export type ApiActionSuccessActionCodeActionSubscriptionWhere = {
+  node?: InputMaybe<CodeActionSubscriptionWhere>
+}
+
 export type ApiActionSuccessActionCodeActionUpdateConnectionInput = {
   node?: InputMaybe<CodeActionUpdateInput>
 }
@@ -1130,6 +1390,10 @@ export type ApiActionSuccessActionCodeActionUpdateFieldInput = {
 export type ApiActionSuccessActionConnectInput = {
   ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>
   CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>
+}
+
+export type ApiActionSuccessActionConnectedRelationship = {
+  node: AnyActionEventPayload
 }
 
 export type ApiActionSuccessActionConnection = {
@@ -1168,6 +1432,11 @@ export type ApiActionSuccessActionRelationship = {
   node: AnyAction
 }
 
+export type ApiActionSuccessActionRelationshipSubscriptionWhere = {
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionSubscriptionWhere>
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionSubscriptionWhere>
+}
+
 export type ApiActionSuccessActionUpdateInput = {
   ApiAction?: InputMaybe<ApiActionSuccessActionApiActionUpdateFieldInput>
   CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionUpdateFieldInput>
@@ -1182,6 +1451,13 @@ export type ApiActionUpdateInput = {
   resource?: InputMaybe<ApiActionResourceUpdateFieldInput>
   store?: InputMaybe<BaseActionStoreUpdateFieldInput>
   successAction?: InputMaybe<ApiActionSuccessActionUpdateInput>
+}
+
+export type ApiActionUpdatedEvent = {
+  event: EventType
+  previousState: ApiActionEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedApiAction: ApiActionEventPayload
 }
 
 export type ApiActionWhere = {
@@ -1333,6 +1609,12 @@ export type AppConnectWhere = {
   node: AppWhere
 }
 
+export type AppConnectedRelationships = {
+  domains?: Maybe<AppDomainsConnectedRelationship>
+  owner?: Maybe<AppOwnerConnectedRelationship>
+  pages?: Maybe<AppPagesConnectedRelationship>
+}
+
 export type AppCreateInput = {
   compositeKey: Scalars['String']['input']
   domains?: InputMaybe<AppDomainsFieldInput>
@@ -1341,10 +1623,22 @@ export type AppCreateInput = {
   pages?: InputMaybe<AppPagesFieldInput>
 }
 
+export type AppCreatedEvent = {
+  createdApp: AppEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type AppDeleteInput = {
   domains?: InputMaybe<Array<AppDomainsDeleteFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
+}
+
+export type AppDeletedEvent = {
+  deletedApp: AppEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type AppDisconnectInput = {
@@ -1389,6 +1683,10 @@ export type AppDomainsConnectOrCreateFieldInput = {
 
 export type AppDomainsConnectOrCreateFieldInputOnCreate = {
   node: DomainOnCreateInput
+}
+
+export type AppDomainsConnectedRelationship = {
+  node: DomainEventPayload
 }
 
 export type AppDomainsConnection = {
@@ -1454,6 +1752,10 @@ export type AppDomainsRelationship = {
   node: Domain
 }
 
+export type AppDomainsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<DomainSubscriptionWhere>
+}
+
 export type AppDomainsUpdateConnectionInput = {
   node?: InputMaybe<DomainUpdateInput>
 }
@@ -1471,6 +1773,13 @@ export type AppDomainsUpdateFieldInput = {
 export type AppEdge = {
   cursor: Scalars['String']['output']
   node: App
+}
+
+export type AppEventPayload = {
+  compositeKey: Scalars['String']['output']
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  slug: Scalars['String']['output']
 }
 
 export type AppOnCreateInput = {
@@ -1495,6 +1804,10 @@ export type AppOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<AppOwnerNodeAggregationWhereInput>
+}
+
+export type AppOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type AppOwnerNodeAggregationWhereInput = {
@@ -1563,6 +1876,10 @@ export type AppOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type AppOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type AppPagePagesAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<AppPagePagesNodeAggregateSelection>
@@ -1600,6 +1917,10 @@ export type AppPagesConnectOrCreateFieldInput = {
 
 export type AppPagesConnectOrCreateFieldInputOnCreate = {
   node: PageOnCreateInput
+}
+
+export type AppPagesConnectedRelationship = {
+  node: PageEventPayload
 }
 
 export type AppPagesConnection = {
@@ -1680,6 +2001,10 @@ export type AppPagesRelationship = {
   node: Page
 }
 
+export type AppPagesRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PageSubscriptionWhere>
+}
+
 export type AppPagesUpdateConnectionInput = {
   node?: InputMaybe<PageUpdateInput>
 }
@@ -1700,10 +2025,74 @@ export type AppRelationInput = {
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
 }
 
+export type AppRelationshipCreatedEvent = {
+  app: AppEventPayload
+  createdRelationship: AppConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AppRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AppRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<AppRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<AppRelationshipCreatedSubscriptionWhere>>
+  app?: InputMaybe<AppSubscriptionWhere>
+  createdRelationship?: InputMaybe<AppRelationshipsSubscriptionWhere>
+}
+
+export type AppRelationshipDeletedEvent = {
+  app: AppEventPayload
+  deletedRelationship: AppConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AppRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AppRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<AppRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<AppRelationshipDeletedSubscriptionWhere>>
+  app?: InputMaybe<AppSubscriptionWhere>
+  deletedRelationship?: InputMaybe<AppRelationshipsSubscriptionWhere>
+}
+
+export type AppRelationshipsSubscriptionWhere = {
+  domains?: InputMaybe<AppDomainsRelationshipSubscriptionWhere>
+  owner?: InputMaybe<AppOwnerRelationshipSubscriptionWhere>
+  pages?: InputMaybe<AppPagesRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object. */
 export type AppSort = {
   compositeKey?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
+}
+
+export type AppSubscriptionWhere = {
+  AND?: InputMaybe<Array<AppSubscriptionWhere>>
+  NOT?: InputMaybe<AppSubscriptionWhere>
+  OR?: InputMaybe<Array<AppSubscriptionWhere>>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug?: InputMaybe<Scalars['String']['input']>
+  slug_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  slug_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  slug_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 /** Allows picking a app from the list of apps */
@@ -1756,6 +2145,10 @@ export type AppTypeConnectWhere = {
   node: AppTypeWhere
 }
 
+export type AppTypeConnectedRelationships = {
+  owner?: Maybe<AppTypeOwnerConnectedRelationship>
+}
+
 export type AppTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -1763,8 +2156,20 @@ export type AppTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type AppTypeCreatedEvent = {
+  createdAppType: AppTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type AppTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type AppTypeDeletedEvent = {
+  deletedAppType: AppTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type AppTypeDisconnectInput = {
@@ -1774,6 +2179,14 @@ export type AppTypeDisconnectInput = {
 export type AppTypeEdge = {
   cursor: Scalars['String']['output']
   node: AppType
+}
+
+export type AppTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type AppTypeOptions = {
@@ -1793,6 +2206,10 @@ export type AppTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<AppTypeOwnerNodeAggregationWhereInput>
+}
+
+export type AppTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type AppTypeOwnerNodeAggregationWhereInput = {
@@ -1861,8 +2278,48 @@ export type AppTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type AppTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type AppTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type AppTypeRelationshipCreatedEvent = {
+  appType: AppTypeEventPayload
+  createdRelationship: AppTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AppTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AppTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<AppTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<AppTypeRelationshipCreatedSubscriptionWhere>>
+  appType?: InputMaybe<AppTypeSubscriptionWhere>
+  createdRelationship?: InputMaybe<AppTypeRelationshipsSubscriptionWhere>
+}
+
+export type AppTypeRelationshipDeletedEvent = {
+  appType: AppTypeEventPayload
+  deletedRelationship: AppTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AppTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AppTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<AppTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<AppTypeRelationshipDeletedSubscriptionWhere>>
+  appType?: InputMaybe<AppTypeSubscriptionWhere>
+  deletedRelationship?: InputMaybe<AppTypeRelationshipsSubscriptionWhere>
+}
+
+export type AppTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<AppTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort AppTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppTypeSort object. */
@@ -1872,10 +2329,35 @@ export type AppTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type AppTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<AppTypeSubscriptionWhere>>
+  NOT?: InputMaybe<AppTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<AppTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type AppTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type AppTypeUpdatedEvent = {
+  event: EventType
+  previousState: AppTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedAppType: AppTypeEventPayload
 }
 
 export type AppTypeUserOwnerAggregationSelection = {
@@ -1933,6 +2415,13 @@ export type AppUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
+}
+
+export type AppUpdatedEvent = {
+  event: EventType
+  previousState: AppEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedApp: AppEventPayload
 }
 
 export type AppUserOwnerAggregationSelection = {
@@ -2136,6 +2625,12 @@ export type ArrayTypeConnectWhere = {
   node: ArrayTypeWhere
 }
 
+export type ArrayTypeConnectedRelationships = {
+  fieldRefs?: Maybe<ArrayTypeFieldRefsConnectedRelationship>
+  itemType?: Maybe<ArrayTypeItemTypeConnectedRelationship>
+  owner?: Maybe<ArrayTypeOwnerConnectedRelationship>
+}
+
 export type ArrayTypeCreateInput = {
   fieldRefs?: InputMaybe<ArrayTypeFieldRefsFieldInput>
   id: Scalars['ID']['input']
@@ -2145,10 +2640,22 @@ export type ArrayTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type ArrayTypeCreatedEvent = {
+  createdArrayType: ArrayTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ArrayTypeDeleteInput = {
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsDeleteFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type ArrayTypeDeletedEvent = {
+  deletedArrayType: ArrayTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ArrayTypeDisconnectInput = {
@@ -2160,6 +2667,15 @@ export type ArrayTypeDisconnectInput = {
 export type ArrayTypeEdge = {
   cursor: Scalars['String']['output']
   node: ArrayType
+}
+
+export type ArrayTypeEventPayload = IBaseTypeEventPayload & {
+  descendantTypesIds: Array<Scalars['ID']['output']>
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type ArrayTypeFieldFieldRefsAggregationSelection = {
@@ -2202,6 +2718,10 @@ export type ArrayTypeFieldRefsConnectOrCreateFieldInput = {
 
 export type ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
   node: FieldOnCreateInput
+}
+
+export type ArrayTypeFieldRefsConnectedRelationship = {
+  node: FieldEventPayload
 }
 
 export type ArrayTypeFieldRefsConnection = {
@@ -2329,6 +2849,10 @@ export type ArrayTypeFieldRefsRelationship = {
   node: Field
 }
 
+export type ArrayTypeFieldRefsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<FieldSubscriptionWhere>
+}
+
 export type ArrayTypeFieldRefsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
@@ -2348,6 +2872,10 @@ export type ArrayTypeFieldRefsUpdateFieldInput = {
 export type ArrayTypeItemTypeConnectFieldInput = {
   connect?: InputMaybe<IBaseTypeConnectInput>
   where?: InputMaybe<IBaseTypeConnectWhere>
+}
+
+export type ArrayTypeItemTypeConnectedRelationship = {
+  node: IBaseTypeEventPayload
 }
 
 export type ArrayTypeItemTypeConnection = {
@@ -2391,6 +2919,10 @@ export type ArrayTypeItemTypeRelationship = {
   node: IBaseType
 }
 
+export type ArrayTypeItemTypeRelationshipSubscriptionWhere = {
+  node?: InputMaybe<IBaseTypeSubscriptionWhere>
+}
+
 export type ArrayTypeItemTypeUpdateConnectionInput = {
   node?: InputMaybe<IBaseTypeUpdateInput>
 }
@@ -2421,6 +2953,10 @@ export type ArrayTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<ArrayTypeOwnerNodeAggregationWhereInput>
+}
+
+export type ArrayTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type ArrayTypeOwnerNodeAggregationWhereInput = {
@@ -2489,10 +3025,52 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ArrayTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type ArrayTypeRelationInput = {
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type ArrayTypeRelationshipCreatedEvent = {
+  arrayType: ArrayTypeEventPayload
+  createdRelationship: ArrayTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ArrayTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ArrayTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ArrayTypeRelationshipCreatedSubscriptionWhere>>
+  arrayType?: InputMaybe<ArrayTypeSubscriptionWhere>
+  createdRelationship?: InputMaybe<ArrayTypeRelationshipsSubscriptionWhere>
+}
+
+export type ArrayTypeRelationshipDeletedEvent = {
+  arrayType: ArrayTypeEventPayload
+  deletedRelationship: ArrayTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ArrayTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ArrayTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ArrayTypeRelationshipDeletedSubscriptionWhere>>
+  arrayType?: InputMaybe<ArrayTypeSubscriptionWhere>
+  deletedRelationship?: InputMaybe<ArrayTypeRelationshipsSubscriptionWhere>
+}
+
+export type ArrayTypeRelationshipsSubscriptionWhere = {
+  fieldRefs?: InputMaybe<ArrayTypeFieldRefsRelationshipSubscriptionWhere>
+  itemType?: InputMaybe<ArrayTypeItemTypeRelationshipSubscriptionWhere>
+  owner?: InputMaybe<ArrayTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort ArrayTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ArrayTypeSort object. */
@@ -2502,12 +3080,37 @@ export type ArrayTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type ArrayTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeSubscriptionWhere>>
+  NOT?: InputMaybe<ArrayTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<ArrayTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type ArrayTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
   itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type ArrayTypeUpdatedEvent = {
+  event: EventType
+  previousState: ArrayTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedArrayType: ArrayTypeEventPayload
 }
 
 export type ArrayTypeUserOwnerAggregationSelection = {
@@ -2744,6 +3347,10 @@ export type AtomApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>
 }
 
+export type AtomApiConnectedRelationship = {
+  node: InterfaceTypeEventPayload
+}
+
 export type AtomApiConnection = {
   edges: Array<AtomApiRelationship>
   pageInfo: PageInfo
@@ -2804,6 +3411,10 @@ export type AtomApiNodeAggregationWhereInput = {
 export type AtomApiRelationship = {
   cursor: Scalars['String']['output']
   node: InterfaceType
+}
+
+export type AtomApiRelationshipSubscriptionWhere = {
+  node?: InputMaybe<InterfaceTypeSubscriptionWhere>
 }
 
 export type AtomApiUpdateConnectionInput = {
@@ -2876,6 +3487,15 @@ export type AtomConnectWhere = {
   node: AtomWhere
 }
 
+export type AtomConnectedRelationships = {
+  api?: Maybe<AtomApiConnectedRelationship>
+  elements?: Maybe<AtomElementsConnectedRelationship>
+  owner?: Maybe<AtomOwnerConnectedRelationship>
+  requiredParents?: Maybe<AtomRequiredParentsConnectedRelationship>
+  suggestedChildren?: Maybe<AtomSuggestedChildrenConnectedRelationship>
+  tags?: Maybe<AtomTagsConnectedRelationship>
+}
+
 export type AtomCreateInput = {
   api?: InputMaybe<AtomApiFieldInput>
   elements?: InputMaybe<AtomElementsFieldInput>
@@ -2892,6 +3512,12 @@ export type AtomCreateInput = {
   type: AtomType
 }
 
+export type AtomCreatedEvent = {
+  createdAtom: AtomEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type AtomDeleteInput = {
   api?: InputMaybe<AtomApiDeleteFieldInput>
   elements?: InputMaybe<Array<AtomElementsDeleteFieldInput>>
@@ -2899,6 +3525,12 @@ export type AtomDeleteInput = {
   requiredParents?: InputMaybe<Array<AtomRequiredParentsDeleteFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
+}
+
+export type AtomDeletedEvent = {
+  deletedAtom: AtomEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type AtomDisconnectInput = {
@@ -2957,6 +3589,10 @@ export type AtomElementsConnectOrCreateFieldInput = {
 
 export type AtomElementsConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type AtomElementsConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type AtomElementsConnection = {
@@ -3096,6 +3732,10 @@ export type AtomElementsRelationship = {
   node: Element
 }
 
+export type AtomElementsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type AtomElementsUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -3108,6 +3748,16 @@ export type AtomElementsUpdateFieldInput = {
   disconnect?: InputMaybe<Array<AtomElementsDisconnectFieldInput>>
   update?: InputMaybe<AtomElementsUpdateConnectionInput>
   where?: InputMaybe<AtomElementsConnectionWhere>
+}
+
+export type AtomEventPayload = {
+  externalCssSource?: Maybe<Scalars['String']['output']>
+  externalJsSource?: Maybe<Scalars['String']['output']>
+  externalSourceType?: Maybe<Scalars['String']['output']>
+  icon?: Maybe<Scalars['String']['output']>
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  type: AtomType
 }
 
 export type AtomInterfaceTypeApiAggregationSelection = {
@@ -3147,6 +3797,10 @@ export type AtomOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<AtomOwnerNodeAggregationWhereInput>
+}
+
+export type AtomOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type AtomOwnerNodeAggregationWhereInput = {
@@ -3215,6 +3869,10 @@ export type AtomOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type AtomOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type AtomRelationInput = {
   api?: InputMaybe<AtomApiCreateFieldInput>
   elements?: InputMaybe<Array<AtomElementsCreateFieldInput>>
@@ -3222,6 +3880,47 @@ export type AtomRelationInput = {
   requiredParents?: InputMaybe<Array<AtomRequiredParentsCreateFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+}
+
+export type AtomRelationshipCreatedEvent = {
+  atom: AtomEventPayload
+  createdRelationship: AtomConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AtomRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AtomRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<AtomRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<AtomRelationshipCreatedSubscriptionWhere>>
+  atom?: InputMaybe<AtomSubscriptionWhere>
+  createdRelationship?: InputMaybe<AtomRelationshipsSubscriptionWhere>
+}
+
+export type AtomRelationshipDeletedEvent = {
+  atom: AtomEventPayload
+  deletedRelationship: AtomConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AtomRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AtomRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<AtomRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<AtomRelationshipDeletedSubscriptionWhere>>
+  atom?: InputMaybe<AtomSubscriptionWhere>
+  deletedRelationship?: InputMaybe<AtomRelationshipsSubscriptionWhere>
+}
+
+export type AtomRelationshipsSubscriptionWhere = {
+  api?: InputMaybe<AtomApiRelationshipSubscriptionWhere>
+  elements?: InputMaybe<AtomElementsRelationshipSubscriptionWhere>
+  owner?: InputMaybe<AtomOwnerRelationshipSubscriptionWhere>
+  requiredParents?: InputMaybe<AtomRequiredParentsRelationshipSubscriptionWhere>
+  suggestedChildren?: InputMaybe<AtomSuggestedChildrenRelationshipSubscriptionWhere>
+  tags?: InputMaybe<AtomTagsRelationshipSubscriptionWhere>
 }
 
 export type AtomRequiredParentsAggregateInput = {
@@ -3250,6 +3949,10 @@ export type AtomRequiredParentsConnectOrCreateFieldInput = {
 
 export type AtomRequiredParentsConnectOrCreateFieldInputOnCreate = {
   node: AtomOnCreateInput
+}
+
+export type AtomRequiredParentsConnectedRelationship = {
+  node: AtomEventPayload
 }
 
 export type AtomRequiredParentsConnection = {
@@ -3379,6 +4082,10 @@ export type AtomRequiredParentsRelationship = {
   node: Atom
 }
 
+export type AtomRequiredParentsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AtomSubscriptionWhere>
+}
+
 export type AtomRequiredParentsUpdateConnectionInput = {
   node?: InputMaybe<AtomUpdateInput>
 }
@@ -3404,6 +4111,50 @@ export type AtomSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
+}
+
+export type AtomSubscriptionWhere = {
+  AND?: InputMaybe<Array<AtomSubscriptionWhere>>
+  NOT?: InputMaybe<AtomSubscriptionWhere>
+  OR?: InputMaybe<Array<AtomSubscriptionWhere>>
+  externalCssSource?: InputMaybe<Scalars['String']['input']>
+  externalCssSource_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  externalCssSource_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  externalCssSource_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  externalCssSource_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  externalJsSource?: InputMaybe<Scalars['String']['input']>
+  externalJsSource_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  externalJsSource_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  externalJsSource_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  externalJsSource_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  externalSourceType?: InputMaybe<Scalars['String']['input']>
+  externalSourceType_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  externalSourceType_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  externalSourceType_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  externalSourceType_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  icon?: InputMaybe<Scalars['String']['input']>
+  icon_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  icon_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  icon_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  icon_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  type?: InputMaybe<AtomType>
+  type_IN?: InputMaybe<Array<InputMaybe<AtomType>>>
 }
 
 export type AtomSuggestedChildrenAggregateInput = {
@@ -3432,6 +4183,10 @@ export type AtomSuggestedChildrenConnectOrCreateFieldInput = {
 
 export type AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate = {
   node: AtomOnCreateInput
+}
+
+export type AtomSuggestedChildrenConnectedRelationship = {
+  node: AtomEventPayload
 }
 
 export type AtomSuggestedChildrenConnection = {
@@ -3561,6 +4316,10 @@ export type AtomSuggestedChildrenRelationship = {
   node: Atom
 }
 
+export type AtomSuggestedChildrenRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AtomSubscriptionWhere>
+}
+
 export type AtomSuggestedChildrenUpdateConnectionInput = {
   node?: InputMaybe<AtomUpdateInput>
 }
@@ -3613,6 +4372,10 @@ export type AtomTagsConnectOrCreateFieldInput = {
 
 export type AtomTagsConnectOrCreateFieldInputOnCreate = {
   node: TagOnCreateInput
+}
+
+export type AtomTagsConnectedRelationship = {
+  node: TagEventPayload
 }
 
 export type AtomTagsConnection = {
@@ -3676,6 +4439,10 @@ export type AtomTagsNodeAggregationWhereInput = {
 export type AtomTagsRelationship = {
   cursor: Scalars['String']['output']
   node: Tag
+}
+
+export type AtomTagsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<TagSubscriptionWhere>
 }
 
 export type AtomTagsUpdateConnectionInput = {
@@ -4098,6 +4865,13 @@ export type AtomUpdateInput = {
   type?: InputMaybe<AtomType>
 }
 
+export type AtomUpdatedEvent = {
+  event: EventType
+  previousState: AtomEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedAtom: AtomEventPayload
+}
+
 export type AtomUserOwnerAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<AtomUserOwnerNodeAggregateSelection>
@@ -4351,6 +5125,10 @@ export type AuthGuardConfigConnectOrCreateFieldInputOnCreate = {
   node: PropOnCreateInput
 }
 
+export type AuthGuardConfigConnectedRelationship = {
+  node: PropEventPayload
+}
+
 export type AuthGuardConfigConnection = {
   edges: Array<AuthGuardConfigRelationship>
   pageInfo: PageInfo
@@ -4412,6 +5190,10 @@ export type AuthGuardConfigRelationship = {
   node: Prop
 }
 
+export type AuthGuardConfigRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PropSubscriptionWhere>
+}
+
 export type AuthGuardConfigUpdateConnectionInput = {
   node?: InputMaybe<PropUpdateInput>
 }
@@ -4446,6 +5228,12 @@ export type AuthGuardConnectWhere = {
   node: AuthGuardWhere
 }
 
+export type AuthGuardConnectedRelationships = {
+  config?: Maybe<AuthGuardConfigConnectedRelationship>
+  owner?: Maybe<AuthGuardOwnerConnectedRelationship>
+  resource?: Maybe<AuthGuardResourceConnectedRelationship>
+}
+
 export type AuthGuardCreateInput = {
   config?: InputMaybe<AuthGuardConfigFieldInput>
   id: Scalars['ID']['input']
@@ -4455,10 +5243,22 @@ export type AuthGuardCreateInput = {
   responseTransformer: Scalars['String']['input']
 }
 
+export type AuthGuardCreatedEvent = {
+  createdAuthGuard: AuthGuardEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type AuthGuardDeleteInput = {
   config?: InputMaybe<AuthGuardConfigDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   resource?: InputMaybe<AuthGuardResourceDeleteFieldInput>
+}
+
+export type AuthGuardDeletedEvent = {
+  deletedAuthGuard: AuthGuardEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type AuthGuardDisconnectInput = {
@@ -4470,6 +5270,12 @@ export type AuthGuardDisconnectInput = {
 export type AuthGuardEdge = {
   cursor: Scalars['String']['output']
   node: AuthGuard
+}
+
+export type AuthGuardEventPayload = {
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  responseTransformer: Scalars['String']['output']
 }
 
 export type AuthGuardOnCreateInput = {
@@ -4495,6 +5301,10 @@ export type AuthGuardOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<AuthGuardOwnerNodeAggregationWhereInput>
+}
+
+export type AuthGuardOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type AuthGuardOwnerNodeAggregationWhereInput = {
@@ -4563,6 +5373,10 @@ export type AuthGuardOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type AuthGuardOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type AuthGuardPropConfigAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardPropConfigNodeAggregateSelection>
@@ -4577,6 +5391,44 @@ export type AuthGuardRelationInput = {
   config?: InputMaybe<AuthGuardConfigCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   resource?: InputMaybe<AuthGuardResourceCreateFieldInput>
+}
+
+export type AuthGuardRelationshipCreatedEvent = {
+  authGuard: AuthGuardEventPayload
+  createdRelationship: AuthGuardConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AuthGuardRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AuthGuardRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<AuthGuardRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<AuthGuardRelationshipCreatedSubscriptionWhere>>
+  authGuard?: InputMaybe<AuthGuardSubscriptionWhere>
+  createdRelationship?: InputMaybe<AuthGuardRelationshipsSubscriptionWhere>
+}
+
+export type AuthGuardRelationshipDeletedEvent = {
+  authGuard: AuthGuardEventPayload
+  deletedRelationship: AuthGuardConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type AuthGuardRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<AuthGuardRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<AuthGuardRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<AuthGuardRelationshipDeletedSubscriptionWhere>>
+  authGuard?: InputMaybe<AuthGuardSubscriptionWhere>
+  deletedRelationship?: InputMaybe<AuthGuardRelationshipsSubscriptionWhere>
+}
+
+export type AuthGuardRelationshipsSubscriptionWhere = {
+  config?: InputMaybe<AuthGuardConfigRelationshipSubscriptionWhere>
+  owner?: InputMaybe<AuthGuardOwnerRelationshipSubscriptionWhere>
+  resource?: InputMaybe<AuthGuardResourceRelationshipSubscriptionWhere>
 }
 
 export type AuthGuardResourceAggregateInput = {
@@ -4605,6 +5457,10 @@ export type AuthGuardResourceConnectOrCreateFieldInput = {
 
 export type AuthGuardResourceConnectOrCreateFieldInputOnCreate = {
   node: ResourceOnCreateInput
+}
+
+export type AuthGuardResourceConnectedRelationship = {
+  node: ResourceEventPayload
 }
 
 export type AuthGuardResourceConnection = {
@@ -4670,6 +5526,10 @@ export type AuthGuardResourceRelationship = {
   node: Resource
 }
 
+export type AuthGuardResourceRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ResourceSubscriptionWhere>
+}
+
 export type AuthGuardResourceResourceAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardResourceResourceNodeAggregateSelection>
@@ -4701,6 +5561,29 @@ export type AuthGuardSort = {
   responseTransformer?: InputMaybe<SortDirection>
 }
 
+export type AuthGuardSubscriptionWhere = {
+  AND?: InputMaybe<Array<AuthGuardSubscriptionWhere>>
+  NOT?: InputMaybe<AuthGuardSubscriptionWhere>
+  OR?: InputMaybe<Array<AuthGuardSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  responseTransformer?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  responseTransformer_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type AuthGuardUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>
 }
@@ -4712,6 +5595,13 @@ export type AuthGuardUpdateInput = {
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
   responseTransformer?: InputMaybe<Scalars['String']['input']>
+}
+
+export type AuthGuardUpdatedEvent = {
+  event: EventType
+  previousState: AuthGuardEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedAuthGuard: AuthGuardEventPayload
 }
 
 export type AuthGuardUserOwnerAggregationSelection = {
@@ -5016,6 +5906,12 @@ export type BaseActionElementUpdateFieldInput = {
   where?: InputMaybe<BaseActionElementConnectionWhere>
 }
 
+export type BaseActionEventPayload = {
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  type: ActionKind
+}
+
 export type BaseActionImplementationsConnectInput = {
   ApiAction?: InputMaybe<Array<ApiActionConnectInput>>
   CodeAction?: InputMaybe<Array<CodeActionConnectInput>>
@@ -5029,6 +5925,11 @@ export type BaseActionImplementationsDeleteInput = {
 export type BaseActionImplementationsDisconnectInput = {
   ApiAction?: InputMaybe<Array<ApiActionDisconnectInput>>
   CodeAction?: InputMaybe<Array<CodeActionDisconnectInput>>
+}
+
+export type BaseActionImplementationsSubscriptionWhere = {
+  ApiAction?: InputMaybe<ApiActionSubscriptionWhere>
+  CodeAction?: InputMaybe<CodeActionSubscriptionWhere>
 }
 
 export type BaseActionImplementationsUpdateInput = {
@@ -5160,6 +6061,25 @@ export type BaseActionStoreUpdateFieldInput = {
   where?: InputMaybe<BaseActionStoreConnectionWhere>
 }
 
+export type BaseActionSubscriptionWhere = {
+  AND?: InputMaybe<Array<BaseActionSubscriptionWhere>>
+  NOT?: InputMaybe<BaseActionSubscriptionWhere>
+  OR?: InputMaybe<Array<BaseActionSubscriptionWhere>>
+  _on?: InputMaybe<BaseActionImplementationsSubscriptionWhere>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  type?: InputMaybe<ActionKind>
+  type_IN?: InputMaybe<Array<InputMaybe<ActionKind>>>
+}
+
 export type BaseActionUpdateInput = {
   _on?: InputMaybe<BaseActionImplementationsUpdateInput>
   element?: InputMaybe<BaseActionElementUpdateFieldInput>
@@ -5271,6 +6191,11 @@ export type CodeActionConnectWhere = {
   node: CodeActionWhere
 }
 
+export type CodeActionConnectedRelationships = {
+  element?: Maybe<CodeActionElementConnectedRelationship>
+  store?: Maybe<CodeActionStoreConnectedRelationship>
+}
+
 export type CodeActionCreateInput = {
   code: Scalars['String']['input']
   element?: InputMaybe<BaseActionElementFieldInput>
@@ -5280,9 +6205,21 @@ export type CodeActionCreateInput = {
   type?: ActionKind
 }
 
+export type CodeActionCreatedEvent = {
+  createdCodeAction: CodeActionEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type CodeActionDeleteInput = {
   element?: InputMaybe<BaseActionElementDeleteFieldInput>
   store?: InputMaybe<BaseActionStoreDeleteFieldInput>
+}
+
+export type CodeActionDeletedEvent = {
+  deletedCodeAction: CodeActionEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type CodeActionDisconnectInput = {
@@ -5305,6 +6242,10 @@ export type CodeActionElementAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<CodeActionElementNodeAggregationWhereInput>
+}
+
+export type CodeActionElementConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type CodeActionElementElementAggregationSelection = {
@@ -5416,6 +6357,22 @@ export type CodeActionElementNodeAggregationWhereInput = {
   style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type CodeActionElementRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
+export type CodeActionEventPayload = BaseActionEventPayload & {
+  /** Code to run when action is triggered */
+  code: Scalars['String']['output']
+  element?: Maybe<Element>
+  elementConnection: BaseActionElementConnection
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  store: Store
+  storeConnection: BaseActionStoreConnection
+  type: ActionKind
+}
+
 export type CodeActionOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -5426,6 +6383,43 @@ export type CodeActionOptions = {
 export type CodeActionRelationInput = {
   element?: InputMaybe<BaseActionElementCreateFieldInput>
   store?: InputMaybe<BaseActionStoreCreateFieldInput>
+}
+
+export type CodeActionRelationshipCreatedEvent = {
+  codeAction: CodeActionEventPayload
+  createdRelationship: CodeActionConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type CodeActionRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<CodeActionRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<CodeActionRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<CodeActionRelationshipCreatedSubscriptionWhere>>
+  codeAction?: InputMaybe<CodeActionSubscriptionWhere>
+  createdRelationship?: InputMaybe<CodeActionRelationshipsSubscriptionWhere>
+}
+
+export type CodeActionRelationshipDeletedEvent = {
+  codeAction: CodeActionEventPayload
+  deletedRelationship: CodeActionConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type CodeActionRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<CodeActionRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<CodeActionRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<CodeActionRelationshipDeletedSubscriptionWhere>>
+  codeAction?: InputMaybe<CodeActionSubscriptionWhere>
+  deletedRelationship?: InputMaybe<CodeActionRelationshipsSubscriptionWhere>
+}
+
+export type CodeActionRelationshipsSubscriptionWhere = {
+  element?: InputMaybe<CodeActionElementRelationshipSubscriptionWhere>
+  store?: InputMaybe<CodeActionStoreRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort CodeActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one CodeActionSort object. */
@@ -5446,6 +6440,10 @@ export type CodeActionStoreAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<CodeActionStoreNodeAggregationWhereInput>
+}
+
+export type CodeActionStoreConnectedRelationship = {
+  node: StoreEventPayload
 }
 
 export type CodeActionStoreNodeAggregationWhereInput = {
@@ -5469,6 +6467,10 @@ export type CodeActionStoreNodeAggregationWhereInput = {
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type CodeActionStoreRelationshipSubscriptionWhere = {
+  node?: InputMaybe<StoreSubscriptionWhere>
+}
+
 export type CodeActionStoreStoreAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<CodeActionStoreStoreNodeAggregateSelection>
@@ -5479,12 +6481,42 @@ export type CodeActionStoreStoreNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
+export type CodeActionSubscriptionWhere = {
+  AND?: InputMaybe<Array<CodeActionSubscriptionWhere>>
+  NOT?: InputMaybe<CodeActionSubscriptionWhere>
+  OR?: InputMaybe<Array<CodeActionSubscriptionWhere>>
+  code?: InputMaybe<Scalars['String']['input']>
+  code_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  code_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  code_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  code_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  type?: InputMaybe<ActionKind>
+  type_IN?: InputMaybe<Array<InputMaybe<ActionKind>>>
+}
+
 export type CodeActionUpdateInput = {
   code?: InputMaybe<Scalars['String']['input']>
   element?: InputMaybe<BaseActionElementUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   store?: InputMaybe<BaseActionStoreUpdateFieldInput>
+}
+
+export type CodeActionUpdatedEvent = {
+  event: EventType
+  previousState: CodeActionEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedCodeAction: CodeActionEventPayload
 }
 
 export type CodeActionWhere = {
@@ -5589,6 +6621,10 @@ export type CodeMirrorTypeConnectWhere = {
   node: CodeMirrorTypeWhere
 }
 
+export type CodeMirrorTypeConnectedRelationships = {
+  owner?: Maybe<CodeMirrorTypeOwnerConnectedRelationship>
+}
+
 export type CodeMirrorTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -5597,8 +6633,20 @@ export type CodeMirrorTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type CodeMirrorTypeCreatedEvent = {
+  createdCodeMirrorType: CodeMirrorTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type CodeMirrorTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type CodeMirrorTypeDeletedEvent = {
+  deletedCodeMirrorType: CodeMirrorTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type CodeMirrorTypeDisconnectInput = {
@@ -5608,6 +6656,15 @@ export type CodeMirrorTypeDisconnectInput = {
 export type CodeMirrorTypeEdge = {
   cursor: Scalars['String']['output']
   node: CodeMirrorType
+}
+
+export type CodeMirrorTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  language: CodeMirrorLanguage
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type CodeMirrorTypeOptions = {
@@ -5627,6 +6684,10 @@ export type CodeMirrorTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<CodeMirrorTypeOwnerNodeAggregationWhereInput>
+}
+
+export type CodeMirrorTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type CodeMirrorTypeOwnerNodeAggregationWhereInput = {
@@ -5695,8 +6756,48 @@ export type CodeMirrorTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type CodeMirrorTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type CodeMirrorTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type CodeMirrorTypeRelationshipCreatedEvent = {
+  codeMirrorType: CodeMirrorTypeEventPayload
+  createdRelationship: CodeMirrorTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type CodeMirrorTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<CodeMirrorTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<CodeMirrorTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<CodeMirrorTypeRelationshipCreatedSubscriptionWhere>>
+  codeMirrorType?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
+  createdRelationship?: InputMaybe<CodeMirrorTypeRelationshipsSubscriptionWhere>
+}
+
+export type CodeMirrorTypeRelationshipDeletedEvent = {
+  codeMirrorType: CodeMirrorTypeEventPayload
+  deletedRelationship: CodeMirrorTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type CodeMirrorTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<CodeMirrorTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<CodeMirrorTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<CodeMirrorTypeRelationshipDeletedSubscriptionWhere>>
+  codeMirrorType?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
+  deletedRelationship?: InputMaybe<CodeMirrorTypeRelationshipsSubscriptionWhere>
+}
+
+export type CodeMirrorTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<CodeMirrorTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort CodeMirrorTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one CodeMirrorTypeSort object. */
@@ -5707,11 +6808,38 @@ export type CodeMirrorTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type CodeMirrorTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<CodeMirrorTypeSubscriptionWhere>>
+  NOT?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<CodeMirrorTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  language?: InputMaybe<CodeMirrorLanguage>
+  language_IN?: InputMaybe<Array<InputMaybe<CodeMirrorLanguage>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type CodeMirrorTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   language?: InputMaybe<CodeMirrorLanguage>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type CodeMirrorTypeUpdatedEvent = {
+  event: EventType
+  previousState: CodeMirrorTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedCodeMirrorType: CodeMirrorTypeEventPayload
 }
 
 export type CodeMirrorTypeUserOwnerAggregationSelection = {
@@ -5901,6 +7029,10 @@ export type ComponentApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>
 }
 
+export type ComponentApiConnectedRelationship = {
+  node: InterfaceTypeEventPayload
+}
+
 export type ComponentApiConnection = {
   edges: Array<ComponentApiRelationship>
   pageInfo: PageInfo
@@ -5963,6 +7095,10 @@ export type ComponentApiRelationship = {
   node: InterfaceType
 }
 
+export type ComponentApiRelationshipSubscriptionWhere = {
+  node?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
 export type ComponentApiUpdateConnectionInput = {
   node?: InputMaybe<InterfaceTypeUpdateInput>
 }
@@ -5999,6 +7135,14 @@ export type ComponentConnectWhere = {
   node: ComponentWhere
 }
 
+export type ComponentConnectedRelationships = {
+  api?: Maybe<ComponentApiConnectedRelationship>
+  owner?: Maybe<ComponentOwnerConnectedRelationship>
+  props?: Maybe<ComponentPropsConnectedRelationship>
+  rootElement?: Maybe<ComponentRootElementConnectedRelationship>
+  store?: Maybe<ComponentStoreConnectedRelationship>
+}
+
 export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
   id: Scalars['ID']['input']
@@ -6009,12 +7153,24 @@ export type ComponentCreateInput = {
   store?: InputMaybe<ComponentStoreFieldInput>
 }
 
+export type ComponentCreatedEvent = {
+  createdComponent: ComponentEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ComponentDeleteInput = {
   api?: InputMaybe<ComponentApiDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   props?: InputMaybe<ComponentPropsDeleteFieldInput>
   rootElement?: InputMaybe<ComponentRootElementDeleteFieldInput>
   store?: InputMaybe<ComponentStoreDeleteFieldInput>
+}
+
+export type ComponentDeletedEvent = {
+  deletedComponent: ComponentEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ComponentDisconnectInput = {
@@ -6042,6 +7198,11 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   style: StringAggregateSelectionNullable
+}
+
+export type ComponentEventPayload = {
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
 }
 
 export type ComponentInterfaceTypeApiAggregationSelection = {
@@ -6076,6 +7237,10 @@ export type ComponentOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<ComponentOwnerNodeAggregationWhereInput>
+}
+
+export type ComponentOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type ComponentOwnerNodeAggregationWhereInput = {
@@ -6144,6 +7309,10 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ComponentOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type ComponentPropPropsAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<ComponentPropPropsNodeAggregateSelection>
@@ -6179,6 +7348,10 @@ export type ComponentPropsConnectOrCreateFieldInput = {
 
 export type ComponentPropsConnectOrCreateFieldInputOnCreate = {
   node: PropOnCreateInput
+}
+
+export type ComponentPropsConnectedRelationship = {
+  node: PropEventPayload
 }
 
 export type ComponentPropsConnection = {
@@ -6242,6 +7415,10 @@ export type ComponentPropsRelationship = {
   node: Prop
 }
 
+export type ComponentPropsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PropSubscriptionWhere>
+}
+
 export type ComponentPropsUpdateConnectionInput = {
   node?: InputMaybe<PropUpdateInput>
 }
@@ -6262,6 +7439,46 @@ export type ComponentRelationInput = {
   props?: InputMaybe<ComponentPropsCreateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementCreateFieldInput>
   store?: InputMaybe<ComponentStoreCreateFieldInput>
+}
+
+export type ComponentRelationshipCreatedEvent = {
+  component: ComponentEventPayload
+  createdRelationship: ComponentConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ComponentRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ComponentRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ComponentRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ComponentRelationshipCreatedSubscriptionWhere>>
+  component?: InputMaybe<ComponentSubscriptionWhere>
+  createdRelationship?: InputMaybe<ComponentRelationshipsSubscriptionWhere>
+}
+
+export type ComponentRelationshipDeletedEvent = {
+  component: ComponentEventPayload
+  deletedRelationship: ComponentConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ComponentRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ComponentRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ComponentRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ComponentRelationshipDeletedSubscriptionWhere>>
+  component?: InputMaybe<ComponentSubscriptionWhere>
+  deletedRelationship?: InputMaybe<ComponentRelationshipsSubscriptionWhere>
+}
+
+export type ComponentRelationshipsSubscriptionWhere = {
+  api?: InputMaybe<ComponentApiRelationshipSubscriptionWhere>
+  owner?: InputMaybe<ComponentOwnerRelationshipSubscriptionWhere>
+  props?: InputMaybe<ComponentPropsRelationshipSubscriptionWhere>
+  rootElement?: InputMaybe<ComponentRootElementRelationshipSubscriptionWhere>
+  store?: InputMaybe<ComponentStoreRelationshipSubscriptionWhere>
 }
 
 export type ComponentRootElementAggregateInput = {
@@ -6290,6 +7507,10 @@ export type ComponentRootElementConnectOrCreateFieldInput = {
 
 export type ComponentRootElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type ComponentRootElementConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type ComponentRootElementConnection = {
@@ -6429,6 +7650,10 @@ export type ComponentRootElementRelationship = {
   node: Element
 }
 
+export type ComponentRootElementRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type ComponentRootElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -6475,6 +7700,10 @@ export type ComponentStoreConnectOrCreateFieldInput = {
 
 export type ComponentStoreConnectOrCreateFieldInputOnCreate = {
   node: StoreOnCreateInput
+}
+
+export type ComponentStoreConnectedRelationship = {
+  node: StoreEventPayload
 }
 
 export type ComponentStoreConnection = {
@@ -6540,6 +7769,10 @@ export type ComponentStoreRelationship = {
   node: Store
 }
 
+export type ComponentStoreRelationshipSubscriptionWhere = {
+  node?: InputMaybe<StoreSubscriptionWhere>
+}
+
 export type ComponentStoreStoreAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<ComponentStoreStoreNodeAggregateSelection>
@@ -6564,6 +7797,22 @@ export type ComponentStoreUpdateFieldInput = {
   where?: InputMaybe<ComponentStoreConnectionWhere>
 }
 
+export type ComponentSubscriptionWhere = {
+  AND?: InputMaybe<Array<ComponentSubscriptionWhere>>
+  NOT?: InputMaybe<ComponentSubscriptionWhere>
+  OR?: InputMaybe<Array<ComponentSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type ComponentUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>
 }
@@ -6576,6 +7825,13 @@ export type ComponentUpdateInput = {
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
   store?: InputMaybe<ComponentStoreUpdateFieldInput>
+}
+
+export type ComponentUpdatedEvent = {
+  event: EventType
+  previousState: ComponentEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedComponent: ComponentEventPayload
 }
 
 export type ComponentUserOwnerAggregationSelection = {
@@ -6832,10 +8088,9 @@ export type Domain = {
   app: App
   appAggregate?: Maybe<DomainAppAppAggregationSelection>
   appConnection: DomainAppConnection
-  domainConfig: VercelDomainConfig
+  domainConfig: ProductionDomainConfig
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
-  projectDomain: VercelProjectDomain
 }
 
 export type DomainAppArgs = {
@@ -6901,6 +8156,10 @@ export type DomainAppConnectOrCreateFieldInputOnCreate = {
   node: AppOnCreateInput
 }
 
+export type DomainAppConnectedRelationship = {
+  node: AppEventPayload
+}
+
 export type DomainAppConnection = {
   edges: Array<DomainAppRelationship>
   pageInfo: PageInfo
@@ -6964,6 +8223,10 @@ export type DomainAppRelationship = {
   node: App
 }
 
+export type DomainAppRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AppSubscriptionWhere>
+}
+
 export type DomainAppUpdateConnectionInput = {
   node?: InputMaybe<AppUpdateInput>
 }
@@ -6994,14 +8257,30 @@ export type DomainConnectWhere = {
   node: DomainWhere
 }
 
+export type DomainConnectedRelationships = {
+  app?: Maybe<DomainAppConnectedRelationship>
+}
+
 export type DomainCreateInput = {
   app?: InputMaybe<DomainAppFieldInput>
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
 
+export type DomainCreatedEvent = {
+  createdDomain: DomainEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type DomainDeleteInput = {
   app?: InputMaybe<DomainAppDeleteFieldInput>
+}
+
+export type DomainDeletedEvent = {
+  deletedDomain: DomainEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type DomainDisconnectInput = {
@@ -7011,6 +8290,11 @@ export type DomainDisconnectInput = {
 export type DomainEdge = {
   cursor: Scalars['String']['output']
   node: Domain
+}
+
+export type DomainEventPayload = {
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
 }
 
 export type DomainOnCreateInput = {
@@ -7029,10 +8313,62 @@ export type DomainRelationInput = {
   app?: InputMaybe<DomainAppCreateFieldInput>
 }
 
+export type DomainRelationshipCreatedEvent = {
+  createdRelationship: DomainConnectedRelationships
+  domain: DomainEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type DomainRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<DomainRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<DomainRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<DomainRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<DomainRelationshipsSubscriptionWhere>
+  domain?: InputMaybe<DomainSubscriptionWhere>
+}
+
+export type DomainRelationshipDeletedEvent = {
+  deletedRelationship: DomainConnectedRelationships
+  domain: DomainEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type DomainRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<DomainRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<DomainRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<DomainRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<DomainRelationshipsSubscriptionWhere>
+  domain?: InputMaybe<DomainSubscriptionWhere>
+}
+
+export type DomainRelationshipsSubscriptionWhere = {
+  app?: InputMaybe<DomainAppRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Domains by. The order in which sorts are applied is not guaranteed when specifying many fields in one DomainSort object. */
 export type DomainSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type DomainSubscriptionWhere = {
+  AND?: InputMaybe<Array<DomainSubscriptionWhere>>
+  NOT?: InputMaybe<DomainSubscriptionWhere>
+  OR?: InputMaybe<Array<DomainSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type DomainUniqueWhere = {
@@ -7043,6 +8379,13 @@ export type DomainUpdateInput = {
   app?: InputMaybe<DomainAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+}
+
+export type DomainUpdatedEvent = {
+  event: EventType
+  previousState: DomainEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedDomain: DomainEventPayload
 }
 
 export type DomainWhere = {
@@ -7372,6 +8715,10 @@ export type ElementChildMapperComponentConnectOrCreateFieldInputOnCreate = {
   node: ComponentOnCreateInput
 }
 
+export type ElementChildMapperComponentConnectedRelationship = {
+  node: ComponentEventPayload
+}
+
 export type ElementChildMapperComponentConnection = {
   edges: Array<ElementChildMapperComponentRelationship>
   pageInfo: PageInfo
@@ -7435,6 +8782,10 @@ export type ElementChildMapperComponentRelationship = {
   node: Component
 }
 
+export type ElementChildMapperComponentRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ComponentSubscriptionWhere>
+}
+
 export type ElementChildMapperComponentUpdateConnectionInput = {
   node?: InputMaybe<ComponentUpdateInput>
 }
@@ -7477,6 +8828,10 @@ export type ElementChildMapperPreviousSiblingConnectOrCreateFieldInputOnCreate =
   {
     node: ElementOnCreateInput
   }
+
+export type ElementChildMapperPreviousSiblingConnectedRelationship = {
+  node: ElementEventPayload
+}
 
 export type ElementChildMapperPreviousSiblingConnection = {
   edges: Array<ElementChildMapperPreviousSiblingRelationship>
@@ -7619,6 +8974,10 @@ export type ElementChildMapperPreviousSiblingRelationship = {
   node: Element
 }
 
+export type ElementChildMapperPreviousSiblingRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type ElementChildMapperPreviousSiblingUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -7689,6 +9048,21 @@ export type ElementConnectWhere = {
   node: ElementWhere
 }
 
+export type ElementConnectedRelationships = {
+  childMapperComponent?: Maybe<ElementChildMapperComponentConnectedRelationship>
+  childMapperPreviousSibling?: Maybe<ElementChildMapperPreviousSiblingConnectedRelationship>
+  firstChild?: Maybe<ElementFirstChildConnectedRelationship>
+  nextSibling?: Maybe<ElementNextSiblingConnectedRelationship>
+  page?: Maybe<ElementPageConnectedRelationship>
+  parentComponent?: Maybe<ElementParentComponentConnectedRelationship>
+  parentElement?: Maybe<ElementParentElementConnectedRelationship>
+  postRenderAction?: Maybe<ElementPostRenderActionConnectedRelationship>
+  preRenderAction?: Maybe<ElementPreRenderActionConnectedRelationship>
+  prevSibling?: Maybe<ElementPrevSiblingConnectedRelationship>
+  props?: Maybe<ElementPropsConnectedRelationship>
+  renderType?: Maybe<ElementRenderTypeConnectedRelationship>
+}
+
 export type ElementCreateInput = {
   childMapperComponent?: InputMaybe<ElementChildMapperComponentFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingFieldInput>
@@ -7711,6 +9085,12 @@ export type ElementCreateInput = {
   tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
 }
 
+export type ElementCreatedEvent = {
+  createdElement: ElementEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ElementDeleteInput = {
   childMapperComponent?: InputMaybe<ElementChildMapperComponentDeleteFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingDeleteFieldInput>
@@ -7724,6 +9104,12 @@ export type ElementDeleteInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingDeleteFieldInput>
   props?: InputMaybe<ElementPropsDeleteFieldInput>
   renderType?: InputMaybe<ElementRenderTypeDeleteInput>
+}
+
+export type ElementDeletedEvent = {
+  deletedElement: ElementEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ElementDisconnectInput = {
@@ -7816,6 +9202,18 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   style: StringAggregateSelectionNullable
 }
 
+export type ElementEventPayload = {
+  childMapperPropKey?: Maybe<Scalars['String']['output']>
+  compositeKey: Scalars['String']['output']
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  renderForEachPropKey?: Maybe<Scalars['String']['output']>
+  renderIfExpression?: Maybe<Scalars['String']['output']>
+  slug: Scalars['String']['output']
+  style?: Maybe<Scalars['String']['output']>
+  tailwindClassNames?: Maybe<Array<Scalars['String']['output']>>
+}
+
 export type ElementFirstChildAggregateInput = {
   AND?: InputMaybe<Array<ElementFirstChildAggregateInput>>
   NOT?: InputMaybe<ElementFirstChildAggregateInput>
@@ -7842,6 +9240,10 @@ export type ElementFirstChildConnectOrCreateFieldInput = {
 
 export type ElementFirstChildConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type ElementFirstChildConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type ElementFirstChildConnection = {
@@ -7981,6 +9383,10 @@ export type ElementFirstChildRelationship = {
   node: Element
 }
 
+export type ElementFirstChildRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type ElementFirstChildUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -8021,6 +9427,10 @@ export type ElementNextSiblingConnectOrCreateFieldInput = {
 
 export type ElementNextSiblingConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type ElementNextSiblingConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type ElementNextSiblingConnection = {
@@ -8160,6 +9570,10 @@ export type ElementNextSiblingRelationship = {
   node: Element
 }
 
+export type ElementNextSiblingRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type ElementNextSiblingUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -8217,6 +9631,10 @@ export type ElementPageConnectOrCreateFieldInput = {
 
 export type ElementPageConnectOrCreateFieldInputOnCreate = {
   node: PageOnCreateInput
+}
+
+export type ElementPageConnectedRelationship = {
+  node: PageEventPayload
 }
 
 export type ElementPageConnection = {
@@ -8308,6 +9726,10 @@ export type ElementPageRelationship = {
   node: Page
 }
 
+export type ElementPageRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PageSubscriptionWhere>
+}
+
 export type ElementPageUpdateConnectionInput = {
   node?: InputMaybe<PageUpdateInput>
 }
@@ -8348,6 +9770,10 @@ export type ElementParentComponentConnectOrCreateFieldInput = {
 
 export type ElementParentComponentConnectOrCreateFieldInputOnCreate = {
   node: ComponentOnCreateInput
+}
+
+export type ElementParentComponentConnectedRelationship = {
+  node: ComponentEventPayload
 }
 
 export type ElementParentComponentConnection = {
@@ -8413,6 +9839,10 @@ export type ElementParentComponentRelationship = {
   node: Component
 }
 
+export type ElementParentComponentRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ComponentSubscriptionWhere>
+}
+
 export type ElementParentComponentUpdateConnectionInput = {
   node?: InputMaybe<ComponentUpdateInput>
 }
@@ -8453,6 +9883,10 @@ export type ElementParentElementConnectOrCreateFieldInput = {
 
 export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type ElementParentElementConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type ElementParentElementConnection = {
@@ -8592,6 +10026,10 @@ export type ElementParentElementRelationship = {
   node: Element
 }
 
+export type ElementParentElementRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type ElementParentElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -8609,6 +10047,10 @@ export type ElementParentElementUpdateFieldInput = {
 export type ElementPostRenderActionConnectFieldInput = {
   connect?: InputMaybe<BaseActionConnectInput>
   where?: InputMaybe<BaseActionConnectWhere>
+}
+
+export type ElementPostRenderActionConnectedRelationship = {
+  node: BaseActionEventPayload
 }
 
 export type ElementPostRenderActionConnection = {
@@ -8652,6 +10094,10 @@ export type ElementPostRenderActionRelationship = {
   node: BaseAction
 }
 
+export type ElementPostRenderActionRelationshipSubscriptionWhere = {
+  node?: InputMaybe<BaseActionSubscriptionWhere>
+}
+
 export type ElementPostRenderActionUpdateConnectionInput = {
   node?: InputMaybe<BaseActionUpdateInput>
 }
@@ -8668,6 +10114,10 @@ export type ElementPostRenderActionUpdateFieldInput = {
 export type ElementPreRenderActionConnectFieldInput = {
   connect?: InputMaybe<BaseActionConnectInput>
   where?: InputMaybe<BaseActionConnectWhere>
+}
+
+export type ElementPreRenderActionConnectedRelationship = {
+  node: BaseActionEventPayload
 }
 
 export type ElementPreRenderActionConnection = {
@@ -8711,6 +10161,10 @@ export type ElementPreRenderActionRelationship = {
   node: BaseAction
 }
 
+export type ElementPreRenderActionRelationshipSubscriptionWhere = {
+  node?: InputMaybe<BaseActionSubscriptionWhere>
+}
+
 export type ElementPreRenderActionUpdateConnectionInput = {
   node?: InputMaybe<BaseActionUpdateInput>
 }
@@ -8750,6 +10204,10 @@ export type ElementPrevSiblingConnectOrCreateFieldInput = {
 
 export type ElementPrevSiblingConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type ElementPrevSiblingConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type ElementPrevSiblingConnection = {
@@ -8889,6 +10347,10 @@ export type ElementPrevSiblingRelationship = {
   node: Element
 }
 
+export type ElementPrevSiblingRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type ElementPrevSiblingUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -8938,6 +10400,10 @@ export type ElementPropsConnectOrCreateFieldInput = {
 
 export type ElementPropsConnectOrCreateFieldInputOnCreate = {
   node: PropOnCreateInput
+}
+
+export type ElementPropsConnectedRelationship = {
+  node: PropEventPayload
 }
 
 export type ElementPropsConnection = {
@@ -9001,6 +10467,10 @@ export type ElementPropsRelationship = {
   node: Prop
 }
 
+export type ElementPropsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PropSubscriptionWhere>
+}
+
 export type ElementPropsUpdateConnectionInput = {
   node?: InputMaybe<PropUpdateInput>
 }
@@ -9028,6 +10498,53 @@ export type ElementRelationInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingCreateFieldInput>
   props?: InputMaybe<ElementPropsCreateFieldInput>
   renderType?: InputMaybe<ElementRenderTypeCreateFieldInput>
+}
+
+export type ElementRelationshipCreatedEvent = {
+  createdRelationship: ElementConnectedRelationships
+  element: ElementEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ElementRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ElementRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ElementRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ElementRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<ElementRelationshipsSubscriptionWhere>
+  element?: InputMaybe<ElementSubscriptionWhere>
+}
+
+export type ElementRelationshipDeletedEvent = {
+  deletedRelationship: ElementConnectedRelationships
+  element: ElementEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ElementRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ElementRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ElementRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ElementRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<ElementRelationshipsSubscriptionWhere>
+  element?: InputMaybe<ElementSubscriptionWhere>
+}
+
+export type ElementRelationshipsSubscriptionWhere = {
+  childMapperComponent?: InputMaybe<ElementChildMapperComponentRelationshipSubscriptionWhere>
+  childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingRelationshipSubscriptionWhere>
+  firstChild?: InputMaybe<ElementFirstChildRelationshipSubscriptionWhere>
+  nextSibling?: InputMaybe<ElementNextSiblingRelationshipSubscriptionWhere>
+  page?: InputMaybe<ElementPageRelationshipSubscriptionWhere>
+  parentComponent?: InputMaybe<ElementParentComponentRelationshipSubscriptionWhere>
+  parentElement?: InputMaybe<ElementParentElementRelationshipSubscriptionWhere>
+  postRenderAction?: InputMaybe<ElementPostRenderActionRelationshipSubscriptionWhere>
+  preRenderAction?: InputMaybe<ElementPreRenderActionRelationshipSubscriptionWhere>
+  prevSibling?: InputMaybe<ElementPrevSiblingRelationshipSubscriptionWhere>
+  props?: InputMaybe<ElementPropsRelationshipSubscriptionWhere>
+  renderType?: InputMaybe<ElementRenderTypeRelationshipSubscriptionWhere>
 }
 
 export type ElementRenderType = Atom | Component
@@ -9071,6 +10588,10 @@ export type ElementRenderTypeAtomFieldInput = {
   connect?: InputMaybe<ElementRenderTypeAtomConnectFieldInput>
   connectOrCreate?: InputMaybe<ElementRenderTypeAtomConnectOrCreateFieldInput>
   create?: InputMaybe<ElementRenderTypeAtomCreateFieldInput>
+}
+
+export type ElementRenderTypeAtomSubscriptionWhere = {
+  node?: InputMaybe<AtomSubscriptionWhere>
 }
 
 export type ElementRenderTypeAtomUpdateConnectionInput = {
@@ -9128,6 +10649,10 @@ export type ElementRenderTypeComponentFieldInput = {
   create?: InputMaybe<ElementRenderTypeComponentCreateFieldInput>
 }
 
+export type ElementRenderTypeComponentSubscriptionWhere = {
+  node?: InputMaybe<ComponentSubscriptionWhere>
+}
+
 export type ElementRenderTypeComponentUpdateConnectionInput = {
   node?: InputMaybe<ComponentUpdateInput>
 }
@@ -9150,6 +10675,10 @@ export type ElementRenderTypeConnectInput = {
 export type ElementRenderTypeConnectOrCreateInput = {
   Atom?: InputMaybe<ElementRenderTypeAtomConnectOrCreateFieldInput>
   Component?: InputMaybe<ElementRenderTypeComponentConnectOrCreateFieldInput>
+}
+
+export type ElementRenderTypeConnectedRelationship = {
+  node: ElementRenderTypeEventPayload
 }
 
 export type ElementRenderTypeConnection = {
@@ -9183,9 +10712,18 @@ export type ElementRenderTypeDisconnectInput = {
   Component?: InputMaybe<ElementRenderTypeComponentDisconnectFieldInput>
 }
 
+export type ElementRenderTypeEventPayload =
+  | AtomEventPayload
+  | ComponentEventPayload
+
 export type ElementRenderTypeRelationship = {
   cursor: Scalars['String']['output']
   node: ElementRenderType
+}
+
+export type ElementRenderTypeRelationshipSubscriptionWhere = {
+  Atom?: InputMaybe<ElementRenderTypeAtomSubscriptionWhere>
+  Component?: InputMaybe<ElementRenderTypeComponentSubscriptionWhere>
 }
 
 export type ElementRenderTypeUpdateInput = {
@@ -9206,6 +10744,60 @@ export type ElementSort = {
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
   style?: InputMaybe<SortDirection>
+}
+
+export type ElementSubscriptionWhere = {
+  AND?: InputMaybe<Array<ElementSubscriptionWhere>>
+  NOT?: InputMaybe<ElementSubscriptionWhere>
+  OR?: InputMaybe<Array<ElementSubscriptionWhere>>
+  childMapperPropKey?: InputMaybe<Scalars['String']['input']>
+  childMapperPropKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  childMapperPropKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  childMapperPropKey_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  childMapperPropKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
+  renderForEachPropKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  renderForEachPropKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  renderForEachPropKey_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  renderForEachPropKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  renderIfExpression?: InputMaybe<Scalars['String']['input']>
+  renderIfExpression_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  renderIfExpression_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  renderIfExpression_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  renderIfExpression_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug?: InputMaybe<Scalars['String']['input']>
+  slug_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  slug_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  slug_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  style?: InputMaybe<Scalars['String']['input']>
+  style_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  style_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  style_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  style_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
+  tailwindClassNames_INCLUDES?: InputMaybe<Scalars['String']['input']>
 }
 
 /**
@@ -9296,6 +10888,10 @@ export type ElementTypeConnectWhere = {
   node: ElementTypeWhere
 }
 
+export type ElementTypeConnectedRelationships = {
+  owner?: Maybe<ElementTypeOwnerConnectedRelationship>
+}
+
 export type ElementTypeCreateInput = {
   elementKind: ElementTypeKind
   id: Scalars['ID']['input']
@@ -9304,8 +10900,20 @@ export type ElementTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type ElementTypeCreatedEvent = {
+  createdElementType: ElementTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ElementTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type ElementTypeDeletedEvent = {
+  deletedElementType: ElementTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ElementTypeDisconnectInput = {
@@ -9315,6 +10923,16 @@ export type ElementTypeDisconnectInput = {
 export type ElementTypeEdge = {
   cursor: Scalars['String']['output']
   node: ElementType
+}
+
+export type ElementTypeEventPayload = IBaseTypeEventPayload & {
+  /** Allows scoping the type of element to only descendants, children or all elements */
+  elementKind: ElementTypeKind
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export enum ElementTypeKind {
@@ -9341,6 +10959,10 @@ export type ElementTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<ElementTypeOwnerNodeAggregationWhereInput>
+}
+
+export type ElementTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type ElementTypeOwnerNodeAggregationWhereInput = {
@@ -9409,8 +11031,48 @@ export type ElementTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ElementTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type ElementTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type ElementTypeRelationshipCreatedEvent = {
+  createdRelationship: ElementTypeConnectedRelationships
+  elementType: ElementTypeEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ElementTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ElementTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ElementTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ElementTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<ElementTypeRelationshipsSubscriptionWhere>
+  elementType?: InputMaybe<ElementTypeSubscriptionWhere>
+}
+
+export type ElementTypeRelationshipDeletedEvent = {
+  deletedRelationship: ElementTypeConnectedRelationships
+  elementType: ElementTypeEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ElementTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ElementTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ElementTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ElementTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<ElementTypeRelationshipsSubscriptionWhere>
+  elementType?: InputMaybe<ElementTypeSubscriptionWhere>
+}
+
+export type ElementTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<ElementTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort ElementTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementTypeSort object. */
@@ -9421,11 +11083,38 @@ export type ElementTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type ElementTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<ElementTypeSubscriptionWhere>>
+  NOT?: InputMaybe<ElementTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<ElementTypeSubscriptionWhere>>
+  elementKind?: InputMaybe<ElementTypeKind>
+  elementKind_IN?: InputMaybe<Array<InputMaybe<ElementTypeKind>>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type ElementTypeUpdateInput = {
   elementKind?: InputMaybe<ElementTypeKind>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type ElementTypeUpdatedEvent = {
+  event: EventType
+  previousState: ElementTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedElementType: ElementTypeEventPayload
 }
 
 export type ElementTypeUserOwnerAggregationSelection = {
@@ -9501,6 +11190,13 @@ export type ElementUpdateInput = {
   tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
   tailwindClassNames_POP?: InputMaybe<Scalars['Int']['input']>
   tailwindClassNames_PUSH?: InputMaybe<Array<Scalars['String']['input']>>
+}
+
+export type ElementUpdatedEvent = {
+  event: EventType
+  previousState: ElementEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedElement: ElementEventPayload
 }
 
 export type ElementWhere = {
@@ -9757,6 +11453,10 @@ export type EnumTypeAllowedValuesConnectFieldInput = {
   where?: InputMaybe<EnumTypeValueConnectWhere>
 }
 
+export type EnumTypeAllowedValuesConnectedRelationship = {
+  node: EnumTypeValueEventPayload
+}
+
 export type EnumTypeAllowedValuesConnection = {
   edges: Array<EnumTypeAllowedValuesRelationship>
   pageInfo: PageInfo
@@ -9834,6 +11534,10 @@ export type EnumTypeAllowedValuesRelationship = {
   node: EnumTypeValue
 }
 
+export type EnumTypeAllowedValuesRelationshipSubscriptionWhere = {
+  node?: InputMaybe<EnumTypeValueSubscriptionWhere>
+}
+
 export type EnumTypeAllowedValuesUpdateConnectionInput = {
   node?: InputMaybe<EnumTypeValueUpdateInput>
 }
@@ -9862,6 +11566,12 @@ export type EnumTypeConnectWhere = {
   node: EnumTypeWhere
 }
 
+export type EnumTypeConnectedRelationships = {
+  allowedValues?: Maybe<EnumTypeAllowedValuesConnectedRelationship>
+  fieldRefs?: Maybe<EnumTypeFieldRefsConnectedRelationship>
+  owner?: Maybe<EnumTypeOwnerConnectedRelationship>
+}
+
 export type EnumTypeCreateInput = {
   allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
   fieldRefs?: InputMaybe<EnumTypeFieldRefsFieldInput>
@@ -9871,10 +11581,22 @@ export type EnumTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type EnumTypeCreatedEvent = {
+  createdEnumType: EnumTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type EnumTypeDeleteInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsDeleteFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type EnumTypeDeletedEvent = {
+  deletedEnumType: EnumTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type EnumTypeDisconnectInput = {
@@ -9897,6 +11619,14 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   value: StringAggregateSelectionNonNullable
+}
+
+export type EnumTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type EnumTypeFieldFieldRefsAggregationSelection = {
@@ -9939,6 +11669,10 @@ export type EnumTypeFieldRefsConnectOrCreateFieldInput = {
 
 export type EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
   node: FieldOnCreateInput
+}
+
+export type EnumTypeFieldRefsConnectedRelationship = {
+  node: FieldEventPayload
 }
 
 export type EnumTypeFieldRefsConnection = {
@@ -10066,6 +11800,10 @@ export type EnumTypeFieldRefsRelationship = {
   node: Field
 }
 
+export type EnumTypeFieldRefsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<FieldSubscriptionWhere>
+}
+
 export type EnumTypeFieldRefsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
@@ -10099,6 +11837,10 @@ export type EnumTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<EnumTypeOwnerNodeAggregationWhereInput>
+}
+
+export type EnumTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type EnumTypeOwnerNodeAggregationWhereInput = {
@@ -10167,10 +11909,52 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type EnumTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type EnumTypeRelationInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type EnumTypeRelationshipCreatedEvent = {
+  createdRelationship: EnumTypeConnectedRelationships
+  enumType: EnumTypeEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type EnumTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<EnumTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<EnumTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<EnumTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<EnumTypeRelationshipsSubscriptionWhere>
+  enumType?: InputMaybe<EnumTypeSubscriptionWhere>
+}
+
+export type EnumTypeRelationshipDeletedEvent = {
+  deletedRelationship: EnumTypeConnectedRelationships
+  enumType: EnumTypeEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type EnumTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<EnumTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<EnumTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<EnumTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<EnumTypeRelationshipsSubscriptionWhere>
+  enumType?: InputMaybe<EnumTypeSubscriptionWhere>
+}
+
+export type EnumTypeRelationshipsSubscriptionWhere = {
+  allowedValues?: InputMaybe<EnumTypeAllowedValuesRelationshipSubscriptionWhere>
+  fieldRefs?: InputMaybe<EnumTypeFieldRefsRelationshipSubscriptionWhere>
+  owner?: InputMaybe<EnumTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort EnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeSort object. */
@@ -10180,12 +11964,37 @@ export type EnumTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type EnumTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<EnumTypeSubscriptionWhere>>
+  NOT?: InputMaybe<EnumTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<EnumTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type EnumTypeUpdateInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type EnumTypeUpdatedEvent = {
+  event: EventType
+  previousState: EnumTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedEnumType: EnumTypeEventPayload
 }
 
 export type EnumTypeUserOwnerAggregationSelection = {
@@ -10244,6 +12053,10 @@ export type EnumTypeValueConnectWhere = {
   node: EnumTypeValueWhere
 }
 
+export type EnumTypeValueConnectedRelationships = {
+  enumType?: Maybe<EnumTypeValueEnumTypeConnectedRelationship>
+}
+
 export type EnumTypeValueCreateInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeFieldInput>
   id: Scalars['ID']['input']
@@ -10251,8 +12064,20 @@ export type EnumTypeValueCreateInput = {
   value: Scalars['String']['input']
 }
 
+export type EnumTypeValueCreatedEvent = {
+  createdEnumTypeValue: EnumTypeValueEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type EnumTypeValueDeleteInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeDeleteFieldInput>
+}
+
+export type EnumTypeValueDeletedEvent = {
+  deletedEnumTypeValue: EnumTypeValueEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type EnumTypeValueDisconnectInput = {
@@ -10281,6 +12106,10 @@ export type EnumTypeValueEnumTypeConnectFieldInput = {
   /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<EnumTypeConnectWhere>
+}
+
+export type EnumTypeValueEnumTypeConnectedRelationship = {
+  node: EnumTypeEventPayload
 }
 
 export type EnumTypeValueEnumTypeConnection = {
@@ -10355,6 +12184,10 @@ export type EnumTypeValueEnumTypeRelationship = {
   node: EnumType
 }
 
+export type EnumTypeValueEnumTypeRelationshipSubscriptionWhere = {
+  node?: InputMaybe<EnumTypeSubscriptionWhere>
+}
+
 export type EnumTypeValueEnumTypeUpdateConnectionInput = {
   node?: InputMaybe<EnumTypeUpdateInput>
 }
@@ -10368,6 +12201,12 @@ export type EnumTypeValueEnumTypeUpdateFieldInput = {
   where?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
 }
 
+export type EnumTypeValueEventPayload = {
+  id: Scalars['ID']['output']
+  key: Scalars['String']['output']
+  value: Scalars['String']['output']
+}
+
 export type EnumTypeValueOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -10379,6 +12218,42 @@ export type EnumTypeValueRelationInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeCreateFieldInput>
 }
 
+export type EnumTypeValueRelationshipCreatedEvent = {
+  createdRelationship: EnumTypeValueConnectedRelationships
+  enumTypeValue: EnumTypeValueEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type EnumTypeValueRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<EnumTypeValueRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<EnumTypeValueRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<EnumTypeValueRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<EnumTypeValueRelationshipsSubscriptionWhere>
+  enumTypeValue?: InputMaybe<EnumTypeValueSubscriptionWhere>
+}
+
+export type EnumTypeValueRelationshipDeletedEvent = {
+  deletedRelationship: EnumTypeValueConnectedRelationships
+  enumTypeValue: EnumTypeValueEventPayload
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type EnumTypeValueRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<EnumTypeValueRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<EnumTypeValueRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<EnumTypeValueRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<EnumTypeValueRelationshipsSubscriptionWhere>
+  enumTypeValue?: InputMaybe<EnumTypeValueSubscriptionWhere>
+}
+
+export type EnumTypeValueRelationshipsSubscriptionWhere = {
+  enumType?: InputMaybe<EnumTypeValueEnumTypeRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort EnumTypeValues by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeValueSort object. */
 export type EnumTypeValueSort = {
   id?: InputMaybe<SortDirection>
@@ -10386,11 +12261,39 @@ export type EnumTypeValueSort = {
   value?: InputMaybe<SortDirection>
 }
 
+export type EnumTypeValueSubscriptionWhere = {
+  AND?: InputMaybe<Array<EnumTypeValueSubscriptionWhere>>
+  NOT?: InputMaybe<EnumTypeValueSubscriptionWhere>
+  OR?: InputMaybe<Array<EnumTypeValueSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  key?: InputMaybe<Scalars['String']['input']>
+  key_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  key_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  key_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  key_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  value?: InputMaybe<Scalars['String']['input']>
+  value_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  value_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  value_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  value_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type EnumTypeValueUpdateInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
   key?: InputMaybe<Scalars['String']['input']>
   value?: InputMaybe<Scalars['String']['input']>
+}
+
+export type EnumTypeValueUpdatedEvent = {
+  event: EventType
+  previousState: EnumTypeValueEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedEnumTypeValue: EnumTypeValueEventPayload
 }
 
 export type EnumTypeValueWhere = {
@@ -10491,6 +12394,14 @@ export type EnumTypesConnection = {
   edges: Array<EnumTypeEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
+}
+
+export enum EventType {
+  CREATE = 'CREATE',
+  CREATE_RELATIONSHIP = 'CREATE_RELATIONSHIP',
+  DELETE = 'DELETE',
+  DELETE_RELATIONSHIP = 'DELETE_RELATIONSHIP',
+  UPDATE = 'UPDATE',
 }
 
 export type Field = {
@@ -10613,6 +12524,10 @@ export type FieldApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>
 }
 
+export type FieldApiConnectedRelationship = {
+  node: InterfaceTypeEventPayload
+}
+
 export type FieldApiConnection = {
   edges: Array<FieldApiRelationship>
   pageInfo: PageInfo
@@ -10675,6 +12590,10 @@ export type FieldApiRelationship = {
   node: InterfaceType
 }
 
+export type FieldApiRelationshipSubscriptionWhere = {
+  node?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
 export type FieldApiUpdateConnectionInput = {
   node?: InputMaybe<InterfaceTypeUpdateInput>
 }
@@ -10708,6 +12627,13 @@ export type FieldConnectWhere = {
   node: FieldWhere
 }
 
+export type FieldConnectedRelationships = {
+  api?: Maybe<FieldApiConnectedRelationship>
+  fieldType?: Maybe<FieldFieldTypeConnectedRelationship>
+  nextSibling?: Maybe<FieldNextSiblingConnectedRelationship>
+  prevSibling?: Maybe<FieldPrevSiblingConnectedRelationship>
+}
+
 export type FieldCreateInput = {
   api?: InputMaybe<FieldApiFieldInput>
   defaultValues?: InputMaybe<Scalars['String']['input']>
@@ -10721,11 +12647,23 @@ export type FieldCreateInput = {
   validationRules?: InputMaybe<Scalars['String']['input']>
 }
 
+export type FieldCreatedEvent = {
+  createdField: FieldEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type FieldDeleteInput = {
   api?: InputMaybe<FieldApiDeleteFieldInput>
   fieldType?: InputMaybe<FieldFieldTypeDeleteFieldInput>
   nextSibling?: InputMaybe<FieldNextSiblingDeleteFieldInput>
   prevSibling?: InputMaybe<FieldPrevSiblingDeleteFieldInput>
+}
+
+export type FieldDeletedEvent = {
+  deletedField: FieldEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type FieldDisconnectInput = {
@@ -10738,6 +12676,15 @@ export type FieldDisconnectInput = {
 export type FieldEdge = {
   cursor: Scalars['String']['output']
   node: Field
+}
+
+export type FieldEventPayload = {
+  defaultValues?: Maybe<Scalars['String']['output']>
+  description?: Maybe<Scalars['String']['output']>
+  id: Scalars['ID']['output']
+  key: Scalars['String']['output']
+  name?: Maybe<Scalars['String']['output']>
+  validationRules?: Maybe<Scalars['String']['output']>
 }
 
 export type FieldFieldNextSiblingAggregationSelection = {
@@ -10771,6 +12718,10 @@ export type FieldFieldPrevSiblingNodeAggregateSelection = {
 export type FieldFieldTypeConnectFieldInput = {
   connect?: InputMaybe<IBaseTypeConnectInput>
   where?: InputMaybe<IBaseTypeConnectWhere>
+}
+
+export type FieldFieldTypeConnectedRelationship = {
+  node: IBaseTypeEventPayload
 }
 
 export type FieldFieldTypeConnection = {
@@ -10812,6 +12763,10 @@ export type FieldFieldTypeFieldInput = {
 export type FieldFieldTypeRelationship = {
   cursor: Scalars['String']['output']
   node: IBaseType
+}
+
+export type FieldFieldTypeRelationshipSubscriptionWhere = {
+  node?: InputMaybe<IBaseTypeSubscriptionWhere>
 }
 
 export type FieldFieldTypeUpdateConnectionInput = {
@@ -10863,6 +12818,10 @@ export type FieldNextSiblingConnectOrCreateFieldInput = {
 
 export type FieldNextSiblingConnectOrCreateFieldInputOnCreate = {
   node: FieldOnCreateInput
+}
+
+export type FieldNextSiblingConnectedRelationship = {
+  node: FieldEventPayload
 }
 
 export type FieldNextSiblingConnection = {
@@ -10988,6 +12947,10 @@ export type FieldNextSiblingRelationship = {
   node: Field
 }
 
+export type FieldNextSiblingRelationshipSubscriptionWhere = {
+  node?: InputMaybe<FieldSubscriptionWhere>
+}
+
 export type FieldNextSiblingUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
@@ -11044,6 +13007,10 @@ export type FieldPrevSiblingConnectOrCreateFieldInput = {
 
 export type FieldPrevSiblingConnectOrCreateFieldInputOnCreate = {
   node: FieldOnCreateInput
+}
+
+export type FieldPrevSiblingConnectedRelationship = {
+  node: FieldEventPayload
 }
 
 export type FieldPrevSiblingConnection = {
@@ -11169,6 +13136,10 @@ export type FieldPrevSiblingRelationship = {
   node: Field
 }
 
+export type FieldPrevSiblingRelationshipSubscriptionWhere = {
+  node?: InputMaybe<FieldSubscriptionWhere>
+}
+
 export type FieldPrevSiblingUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
@@ -11190,6 +13161,45 @@ export type FieldRelationInput = {
   prevSibling?: InputMaybe<FieldPrevSiblingCreateFieldInput>
 }
 
+export type FieldRelationshipCreatedEvent = {
+  createdRelationship: FieldConnectedRelationships
+  event: EventType
+  field: FieldEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type FieldRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<FieldRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<FieldRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<FieldRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<FieldRelationshipsSubscriptionWhere>
+  field?: InputMaybe<FieldSubscriptionWhere>
+}
+
+export type FieldRelationshipDeletedEvent = {
+  deletedRelationship: FieldConnectedRelationships
+  event: EventType
+  field: FieldEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type FieldRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<FieldRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<FieldRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<FieldRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<FieldRelationshipsSubscriptionWhere>
+  field?: InputMaybe<FieldSubscriptionWhere>
+}
+
+export type FieldRelationshipsSubscriptionWhere = {
+  api?: InputMaybe<FieldApiRelationshipSubscriptionWhere>
+  fieldType?: InputMaybe<FieldFieldTypeRelationshipSubscriptionWhere>
+  nextSibling?: InputMaybe<FieldNextSiblingRelationshipSubscriptionWhere>
+  prevSibling?: InputMaybe<FieldPrevSiblingRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Fields by. The order in which sorts are applied is not guaranteed when specifying many fields in one FieldSort object. */
 export type FieldSort = {
   defaultValues?: InputMaybe<SortDirection>
@@ -11198,6 +13208,42 @@ export type FieldSort = {
   key?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   validationRules?: InputMaybe<SortDirection>
+}
+
+export type FieldSubscriptionWhere = {
+  AND?: InputMaybe<Array<FieldSubscriptionWhere>>
+  NOT?: InputMaybe<FieldSubscriptionWhere>
+  OR?: InputMaybe<Array<FieldSubscriptionWhere>>
+  defaultValues?: InputMaybe<Scalars['String']['input']>
+  defaultValues_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  defaultValues_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  defaultValues_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  defaultValues_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  description_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  description_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  description_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  key?: InputMaybe<Scalars['String']['input']>
+  key_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  key_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  key_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  key_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  validationRules?: InputMaybe<Scalars['String']['input']>
+  validationRules_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  validationRules_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  validationRules_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  validationRules_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type FieldUniqueWhere = {
@@ -11215,6 +13261,13 @@ export type FieldUpdateInput = {
   nextSibling?: InputMaybe<FieldNextSiblingUpdateFieldInput>
   prevSibling?: InputMaybe<FieldPrevSiblingUpdateFieldInput>
   validationRules?: InputMaybe<Scalars['String']['input']>
+}
+
+export type FieldUpdatedEvent = {
+  event: EventType
+  previousState: FieldEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedField: FieldEventPayload
 }
 
 export type FieldWhere = {
@@ -11302,9 +13355,25 @@ export type GetBaseTypesReturnCreateInput = {
   totalCount: Scalars['Int']['input']
 }
 
+export type GetBaseTypesReturnCreatedEvent = {
+  createdGetBaseTypesReturn: GetBaseTypesReturnEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
+export type GetBaseTypesReturnDeletedEvent = {
+  deletedGetBaseTypesReturn: GetBaseTypesReturnEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type GetBaseTypesReturnEdge = {
   cursor: Scalars['String']['output']
   node: GetBaseTypesReturn
+}
+
+export type GetBaseTypesReturnEventPayload = {
+  totalCount: Scalars['Int']['output']
 }
 
 export type GetBaseTypesReturnOptions = {
@@ -11319,10 +13388,29 @@ export type GetBaseTypesReturnSort = {
   totalCount?: InputMaybe<SortDirection>
 }
 
+export type GetBaseTypesReturnSubscriptionWhere = {
+  AND?: InputMaybe<Array<GetBaseTypesReturnSubscriptionWhere>>
+  NOT?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
+  OR?: InputMaybe<Array<GetBaseTypesReturnSubscriptionWhere>>
+  totalCount?: InputMaybe<Scalars['Int']['input']>
+  totalCount_GT?: InputMaybe<Scalars['Int']['input']>
+  totalCount_GTE?: InputMaybe<Scalars['Int']['input']>
+  totalCount_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>
+  totalCount_LT?: InputMaybe<Scalars['Int']['input']>
+  totalCount_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
 export type GetBaseTypesReturnUpdateInput = {
   totalCount?: InputMaybe<Scalars['Int']['input']>
   totalCount_DECREMENT?: InputMaybe<Scalars['Int']['input']>
   totalCount_INCREMENT?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type GetBaseTypesReturnUpdatedEvent = {
+  event: EventType
+  previousState: GetBaseTypesReturnEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedGetBaseTypesReturn: GetBaseTypesReturnEventPayload
 }
 
 export type GetBaseTypesReturnWhere = {
@@ -11424,6 +13512,10 @@ export type HookConfigConnectOrCreateFieldInputOnCreate = {
   node: PropOnCreateInput
 }
 
+export type HookConfigConnectedRelationship = {
+  node: PropEventPayload
+}
+
 export type HookConfigConnection = {
   edges: Array<HookConfigRelationship>
   pageInfo: PageInfo
@@ -11485,6 +13577,10 @@ export type HookConfigRelationship = {
   node: Prop
 }
 
+export type HookConfigRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PropSubscriptionWhere>
+}
+
 export type HookConfigUpdateConnectionInput = {
   node?: InputMaybe<PropUpdateInput>
 }
@@ -11509,6 +13605,11 @@ export type HookConnectOrCreateInput = {
   element?: InputMaybe<HookElementConnectOrCreateFieldInput>
 }
 
+export type HookConnectedRelationships = {
+  config?: Maybe<HookConfigConnectedRelationship>
+  element?: Maybe<HookElementConnectedRelationship>
+}
+
 export type HookCreateInput = {
   config?: InputMaybe<HookConfigFieldInput>
   element?: InputMaybe<HookElementFieldInput>
@@ -11516,9 +13617,21 @@ export type HookCreateInput = {
   type: AtomType
 }
 
+export type HookCreatedEvent = {
+  createdHook: HookEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type HookDeleteInput = {
   config?: InputMaybe<HookConfigDeleteFieldInput>
   element?: InputMaybe<HookElementDeleteFieldInput>
+}
+
+export type HookDeletedEvent = {
+  deletedHook: HookEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type HookDisconnectInput = {
@@ -11557,6 +13670,10 @@ export type HookElementConnectOrCreateFieldInput = {
 
 export type HookElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type HookElementConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type HookElementConnection = {
@@ -11710,6 +13827,10 @@ export type HookElementRelationship = {
   node: Element
 }
 
+export type HookElementRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type HookElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -11722,6 +13843,11 @@ export type HookElementUpdateFieldInput = {
   disconnect?: InputMaybe<HookElementDisconnectFieldInput>
   update?: InputMaybe<HookElementUpdateConnectionInput>
   where?: InputMaybe<HookElementConnectionWhere>
+}
+
+export type HookEventPayload = {
+  id: Scalars['ID']['output']
+  type: AtomType
 }
 
 export type HookOptions = {
@@ -11746,10 +13872,60 @@ export type HookRelationInput = {
   element?: InputMaybe<HookElementCreateFieldInput>
 }
 
+export type HookRelationshipCreatedEvent = {
+  createdRelationship: HookConnectedRelationships
+  event: EventType
+  hook: HookEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type HookRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<HookRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<HookRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<HookRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<HookRelationshipsSubscriptionWhere>
+  hook?: InputMaybe<HookSubscriptionWhere>
+}
+
+export type HookRelationshipDeletedEvent = {
+  deletedRelationship: HookConnectedRelationships
+  event: EventType
+  hook: HookEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type HookRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<HookRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<HookRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<HookRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<HookRelationshipsSubscriptionWhere>
+  hook?: InputMaybe<HookSubscriptionWhere>
+}
+
+export type HookRelationshipsSubscriptionWhere = {
+  config?: InputMaybe<HookConfigRelationshipSubscriptionWhere>
+  element?: InputMaybe<HookElementRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Hooks by. The order in which sorts are applied is not guaranteed when specifying many fields in one HookSort object. */
 export type HookSort = {
   id?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
+}
+
+export type HookSubscriptionWhere = {
+  AND?: InputMaybe<Array<HookSubscriptionWhere>>
+  NOT?: InputMaybe<HookSubscriptionWhere>
+  OR?: InputMaybe<Array<HookSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  type?: InputMaybe<AtomType>
+  type_IN?: InputMaybe<Array<InputMaybe<AtomType>>>
 }
 
 export type HookUpdateInput = {
@@ -11757,6 +13933,13 @@ export type HookUpdateInput = {
   element?: InputMaybe<HookElementUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<AtomType>
+}
+
+export type HookUpdatedEvent = {
+  event: EventType
+  previousState: HookEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedHook: HookEventPayload
 }
 
 export type HookWhere = {
@@ -11847,6 +14030,12 @@ export type IBaseTypeDisconnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
 }
 
+export type IBaseTypeEventPayload = {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+}
+
 export type IBaseTypeImplementationsConnectInput = {
   ActionType?: InputMaybe<Array<ActionTypeConnectInput>>
   AppType?: InputMaybe<Array<AppTypeConnectInput>>
@@ -11896,6 +14085,23 @@ export type IBaseTypeImplementationsDisconnectInput = {
   RenderPropType?: InputMaybe<Array<RenderPropTypeDisconnectInput>>
   RichTextType?: InputMaybe<Array<RichTextTypeDisconnectInput>>
   UnionType?: InputMaybe<Array<UnionTypeDisconnectInput>>
+}
+
+export type IBaseTypeImplementationsSubscriptionWhere = {
+  ActionType?: InputMaybe<ActionTypeSubscriptionWhere>
+  AppType?: InputMaybe<AppTypeSubscriptionWhere>
+  ArrayType?: InputMaybe<ArrayTypeSubscriptionWhere>
+  CodeMirrorType?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
+  ElementType?: InputMaybe<ElementTypeSubscriptionWhere>
+  EnumType?: InputMaybe<EnumTypeSubscriptionWhere>
+  InterfaceType?: InputMaybe<InterfaceTypeSubscriptionWhere>
+  LambdaType?: InputMaybe<LambdaTypeSubscriptionWhere>
+  PageType?: InputMaybe<PageTypeSubscriptionWhere>
+  PrimitiveType?: InputMaybe<PrimitiveTypeSubscriptionWhere>
+  ReactNodeType?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+  RenderPropType?: InputMaybe<RenderPropTypeSubscriptionWhere>
+  RichTextType?: InputMaybe<RichTextTypeSubscriptionWhere>
+  UnionType?: InputMaybe<UnionTypeSubscriptionWhere>
 }
 
 export type IBaseTypeImplementationsUpdateInput = {
@@ -12096,6 +14302,25 @@ export type IBaseTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type IBaseTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<IBaseTypeSubscriptionWhere>>
+  NOT?: InputMaybe<IBaseTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<IBaseTypeSubscriptionWhere>>
+  _on?: InputMaybe<IBaseTypeImplementationsSubscriptionWhere>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type IBaseTypeUpdateInput = {
   _on?: InputMaybe<IBaseTypeImplementationsUpdateInput>
   id?: InputMaybe<Scalars['ID']['input']>
@@ -12279,6 +14504,10 @@ export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate = {
   node: AtomOnCreateInput
 }
 
+export type InterfaceTypeApiOfAtomsConnectedRelationship = {
+  node: AtomEventPayload
+}
+
 export type InterfaceTypeApiOfAtomsConnection = {
   edges: Array<InterfaceTypeApiOfAtomsRelationship>
   pageInfo: PageInfo
@@ -12406,6 +14635,10 @@ export type InterfaceTypeApiOfAtomsRelationship = {
   node: Atom
 }
 
+export type InterfaceTypeApiOfAtomsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AtomSubscriptionWhere>
+}
+
 export type InterfaceTypeApiOfAtomsUpdateConnectionInput = {
   node?: InputMaybe<AtomUpdateInput>
 }
@@ -12456,6 +14689,13 @@ export type InterfaceTypeConnectWhere = {
   node: InterfaceTypeWhere
 }
 
+export type InterfaceTypeConnectedRelationships = {
+  apiOfAtoms?: Maybe<InterfaceTypeApiOfAtomsConnectedRelationship>
+  fieldRefs?: Maybe<InterfaceTypeFieldRefsConnectedRelationship>
+  fields?: Maybe<InterfaceTypeFieldsConnectedRelationship>
+  owner?: Maybe<InterfaceTypeOwnerConnectedRelationship>
+}
+
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
   fieldRefs?: InputMaybe<InterfaceTypeFieldRefsFieldInput>
@@ -12466,11 +14706,23 @@ export type InterfaceTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type InterfaceTypeCreatedEvent = {
+  createdInterfaceType: InterfaceTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type InterfaceTypeDeleteInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type InterfaceTypeDeletedEvent = {
+  deletedInterfaceType: InterfaceTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type InterfaceTypeDisconnectInput = {
@@ -12483,6 +14735,15 @@ export type InterfaceTypeDisconnectInput = {
 export type InterfaceTypeEdge = {
   cursor: Scalars['String']['output']
   node: InterfaceType
+}
+
+export type InterfaceTypeEventPayload = IBaseTypeEventPayload & {
+  descendantTypesIds: Array<Scalars['ID']['output']>
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type InterfaceTypeFieldFieldRefsAggregationSelection = {
@@ -12539,6 +14800,10 @@ export type InterfaceTypeFieldRefsConnectOrCreateFieldInput = {
 
 export type InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
   node: FieldOnCreateInput
+}
+
+export type InterfaceTypeFieldRefsConnectedRelationship = {
+  node: FieldEventPayload
 }
 
 export type InterfaceTypeFieldRefsConnection = {
@@ -12666,6 +14931,10 @@ export type InterfaceTypeFieldRefsRelationship = {
   node: Field
 }
 
+export type InterfaceTypeFieldRefsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<FieldSubscriptionWhere>
+}
+
 export type InterfaceTypeFieldRefsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
@@ -12708,6 +14977,10 @@ export type InterfaceTypeFieldsConnectOrCreateFieldInput = {
 
 export type InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate = {
   node: FieldOnCreateInput
+}
+
+export type InterfaceTypeFieldsConnectedRelationship = {
+  node: FieldEventPayload
 }
 
 export type InterfaceTypeFieldsConnection = {
@@ -12835,6 +15108,10 @@ export type InterfaceTypeFieldsRelationship = {
   node: Field
 }
 
+export type InterfaceTypeFieldsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<FieldSubscriptionWhere>
+}
+
 export type InterfaceTypeFieldsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
@@ -12868,6 +15145,10 @@ export type InterfaceTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<InterfaceTypeOwnerNodeAggregationWhereInput>
+}
+
+export type InterfaceTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type InterfaceTypeOwnerNodeAggregationWhereInput = {
@@ -12936,11 +15217,54 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type InterfaceTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type InterfaceTypeRelationInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type InterfaceTypeRelationshipCreatedEvent = {
+  createdRelationship: InterfaceTypeConnectedRelationships
+  event: EventType
+  interfaceType: InterfaceTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type InterfaceTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<InterfaceTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<InterfaceTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<InterfaceTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<InterfaceTypeRelationshipsSubscriptionWhere>
+  interfaceType?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
+export type InterfaceTypeRelationshipDeletedEvent = {
+  deletedRelationship: InterfaceTypeConnectedRelationships
+  event: EventType
+  interfaceType: InterfaceTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type InterfaceTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<InterfaceTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<InterfaceTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<InterfaceTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<InterfaceTypeRelationshipsSubscriptionWhere>
+  interfaceType?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
+export type InterfaceTypeRelationshipsSubscriptionWhere = {
+  apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsRelationshipSubscriptionWhere>
+  fieldRefs?: InputMaybe<InterfaceTypeFieldRefsRelationshipSubscriptionWhere>
+  fields?: InputMaybe<InterfaceTypeFieldsRelationshipSubscriptionWhere>
+  owner?: InputMaybe<InterfaceTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
@@ -12950,6 +15274,24 @@ export type InterfaceTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type InterfaceTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<InterfaceTypeSubscriptionWhere>>
+  NOT?: InputMaybe<InterfaceTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<InterfaceTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsUpdateFieldInput>>
@@ -12957,6 +15299,13 @@ export type InterfaceTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type InterfaceTypeUpdatedEvent = {
+  event: EventType
+  previousState: InterfaceTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedInterfaceType: InterfaceTypeEventPayload
 }
 
 export type InterfaceTypeUserOwnerAggregationSelection = {
@@ -13104,6 +15453,10 @@ export type LambdaTypeConnectWhere = {
   node: LambdaTypeWhere
 }
 
+export type LambdaTypeConnectedRelationships = {
+  owner?: Maybe<LambdaTypeOwnerConnectedRelationship>
+}
+
 export type LambdaTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -13111,8 +15464,20 @@ export type LambdaTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type LambdaTypeCreatedEvent = {
+  createdLambdaType: LambdaTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type LambdaTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type LambdaTypeDeletedEvent = {
+  deletedLambdaType: LambdaTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type LambdaTypeDisconnectInput = {
@@ -13122,6 +15487,14 @@ export type LambdaTypeDisconnectInput = {
 export type LambdaTypeEdge = {
   cursor: Scalars['String']['output']
   node: LambdaType
+}
+
+export type LambdaTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type LambdaTypeOptions = {
@@ -13141,6 +15514,10 @@ export type LambdaTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<LambdaTypeOwnerNodeAggregationWhereInput>
+}
+
+export type LambdaTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type LambdaTypeOwnerNodeAggregationWhereInput = {
@@ -13209,8 +15586,48 @@ export type LambdaTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type LambdaTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type LambdaTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type LambdaTypeRelationshipCreatedEvent = {
+  createdRelationship: LambdaTypeConnectedRelationships
+  event: EventType
+  lambdaType: LambdaTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type LambdaTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<LambdaTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<LambdaTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<LambdaTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<LambdaTypeRelationshipsSubscriptionWhere>
+  lambdaType?: InputMaybe<LambdaTypeSubscriptionWhere>
+}
+
+export type LambdaTypeRelationshipDeletedEvent = {
+  deletedRelationship: LambdaTypeConnectedRelationships
+  event: EventType
+  lambdaType: LambdaTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type LambdaTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<LambdaTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<LambdaTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<LambdaTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<LambdaTypeRelationshipsSubscriptionWhere>
+  lambdaType?: InputMaybe<LambdaTypeSubscriptionWhere>
+}
+
+export type LambdaTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<LambdaTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort LambdaTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one LambdaTypeSort object. */
@@ -13220,10 +15637,35 @@ export type LambdaTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type LambdaTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<LambdaTypeSubscriptionWhere>>
+  NOT?: InputMaybe<LambdaTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<LambdaTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type LambdaTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type LambdaTypeUpdatedEvent = {
+  event: EventType
+  previousState: LambdaTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedLambdaType: LambdaTypeEventPayload
 }
 
 export type LambdaTypeUserOwnerAggregationSelection = {
@@ -14166,6 +16608,10 @@ export type PageAppConnectOrCreateFieldInputOnCreate = {
   node: AppOnCreateInput
 }
 
+export type PageAppConnectedRelationship = {
+  node: AppEventPayload
+}
+
 export type PageAppConnection = {
   edges: Array<PageAppRelationship>
   pageInfo: PageInfo
@@ -14229,6 +16675,10 @@ export type PageAppRelationship = {
   node: App
 }
 
+export type PageAppRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AppSubscriptionWhere>
+}
+
 export type PageAppUpdateConnectionInput = {
   node?: InputMaybe<AppUpdateInput>
 }
@@ -14267,6 +16717,14 @@ export type PageConnectWhere = {
   node: PageWhere
 }
 
+export type PageConnectedRelationships = {
+  app?: Maybe<PageAppConnectedRelationship>
+  pageContentContainer?: Maybe<PagePageContentContainerConnectedRelationship>
+  redirect?: Maybe<PageRedirectConnectedRelationship>
+  rootElement?: Maybe<PageRootElementConnectedRelationship>
+  store?: Maybe<PageStoreConnectedRelationship>
+}
+
 export type PageCreateInput = {
   app?: InputMaybe<PageAppFieldInput>
   compositeKey: Scalars['String']['input']
@@ -14279,12 +16737,24 @@ export type PageCreateInput = {
   urlPattern: Scalars['String']['input']
 }
 
+export type PageCreatedEvent = {
+  createdPage: PageEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type PageDeleteInput = {
   app?: InputMaybe<PageAppDeleteFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDeleteFieldInput>
   redirect?: InputMaybe<PageRedirectDeleteFieldInput>
   rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
   store?: InputMaybe<PageStoreDeleteFieldInput>
+}
+
+export type PageDeletedEvent = {
+  deletedPage: PageEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type PageDisconnectInput = {
@@ -14326,6 +16796,15 @@ export type PageElementRootElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   style: StringAggregateSelectionNullable
+}
+
+export type PageEventPayload = {
+  compositeKey: Scalars['String']['output']
+  id: Scalars['ID']['output']
+  kind: PageKind
+  name: Scalars['String']['output']
+  slug: Scalars['String']['output']
+  urlPattern: Scalars['String']['output']
 }
 
 /** Pagination information (Relay) */
@@ -14383,6 +16862,10 @@ export type PagePageContentContainerConnectOrCreateFieldInput = {
 
 export type PagePageContentContainerConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type PagePageContentContainerConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type PagePageContentContainerConnection = {
@@ -14522,6 +17005,10 @@ export type PagePageContentContainerRelationship = {
   node: Element
 }
 
+export type PagePageContentContainerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type PagePageContentContainerUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -14562,6 +17049,10 @@ export type PageRedirectConnectOrCreateFieldInput = {
 
 export type PageRedirectConnectOrCreateFieldInputOnCreate = {
   node: RedirectOnCreateInput
+}
+
+export type PageRedirectConnectedRelationship = {
+  node: RedirectEventPayload
 }
 
 export type PageRedirectConnection = {
@@ -14637,6 +17128,10 @@ export type PageRedirectRelationship = {
   node: Redirect
 }
 
+export type PageRedirectRelationshipSubscriptionWhere = {
+  node?: InputMaybe<RedirectSubscriptionWhere>
+}
+
 export type PageRedirectUpdateConnectionInput = {
   node?: InputMaybe<RedirectUpdateInput>
 }
@@ -14657,6 +17152,46 @@ export type PageRelationInput = {
   redirect?: InputMaybe<PageRedirectCreateFieldInput>
   rootElement?: InputMaybe<PageRootElementCreateFieldInput>
   store?: InputMaybe<PageStoreCreateFieldInput>
+}
+
+export type PageRelationshipCreatedEvent = {
+  createdRelationship: PageConnectedRelationships
+  event: EventType
+  page: PageEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PageRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PageRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<PageRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<PageRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<PageRelationshipsSubscriptionWhere>
+  page?: InputMaybe<PageSubscriptionWhere>
+}
+
+export type PageRelationshipDeletedEvent = {
+  deletedRelationship: PageConnectedRelationships
+  event: EventType
+  page: PageEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PageRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PageRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<PageRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<PageRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<PageRelationshipsSubscriptionWhere>
+  page?: InputMaybe<PageSubscriptionWhere>
+}
+
+export type PageRelationshipsSubscriptionWhere = {
+  app?: InputMaybe<PageAppRelationshipSubscriptionWhere>
+  pageContentContainer?: InputMaybe<PagePageContentContainerRelationshipSubscriptionWhere>
+  redirect?: InputMaybe<PageRedirectRelationshipSubscriptionWhere>
+  rootElement?: InputMaybe<PageRootElementRelationshipSubscriptionWhere>
+  store?: InputMaybe<PageStoreRelationshipSubscriptionWhere>
 }
 
 export type PageRootElementAggregateInput = {
@@ -14685,6 +17220,10 @@ export type PageRootElementConnectOrCreateFieldInput = {
 
 export type PageRootElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type PageRootElementConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type PageRootElementConnection = {
@@ -14824,6 +17363,10 @@ export type PageRootElementRelationship = {
   node: Element
 }
 
+export type PageRootElementRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type PageRootElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -14872,6 +17415,10 @@ export type PageStoreConnectOrCreateFieldInput = {
 
 export type PageStoreConnectOrCreateFieldInputOnCreate = {
   node: StoreOnCreateInput
+}
+
+export type PageStoreConnectedRelationship = {
+  node: StoreEventPayload
 }
 
 export type PageStoreConnection = {
@@ -14937,6 +17484,10 @@ export type PageStoreRelationship = {
   node: Store
 }
 
+export type PageStoreRelationshipSubscriptionWhere = {
+  node?: InputMaybe<StoreSubscriptionWhere>
+}
+
 export type PageStoreStoreAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<PageStoreStoreNodeAggregateSelection>
@@ -14959,6 +17510,39 @@ export type PageStoreUpdateFieldInput = {
   disconnect?: InputMaybe<PageStoreDisconnectFieldInput>
   update?: InputMaybe<PageStoreUpdateConnectionInput>
   where?: InputMaybe<PageStoreConnectionWhere>
+}
+
+export type PageSubscriptionWhere = {
+  AND?: InputMaybe<Array<PageSubscriptionWhere>>
+  NOT?: InputMaybe<PageSubscriptionWhere>
+  OR?: InputMaybe<Array<PageSubscriptionWhere>>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<PageKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<PageKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug?: InputMaybe<Scalars['String']['input']>
+  slug_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  slug_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  slug_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern?: InputMaybe<Scalars['String']['input']>
+  urlPattern_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  urlPattern_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  urlPattern_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 /** Allows picking a page from the list of pages */
@@ -15011,6 +17595,10 @@ export type PageTypeConnectWhere = {
   node: PageTypeWhere
 }
 
+export type PageTypeConnectedRelationships = {
+  owner?: Maybe<PageTypeOwnerConnectedRelationship>
+}
+
 export type PageTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -15018,8 +17606,20 @@ export type PageTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type PageTypeCreatedEvent = {
+  createdPageType: PageTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type PageTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type PageTypeDeletedEvent = {
+  deletedPageType: PageTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type PageTypeDisconnectInput = {
@@ -15029,6 +17629,14 @@ export type PageTypeDisconnectInput = {
 export type PageTypeEdge = {
   cursor: Scalars['String']['output']
   node: PageType
+}
+
+export type PageTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type PageTypeOptions = {
@@ -15048,6 +17656,10 @@ export type PageTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<PageTypeOwnerNodeAggregationWhereInput>
+}
+
+export type PageTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type PageTypeOwnerNodeAggregationWhereInput = {
@@ -15116,8 +17728,48 @@ export type PageTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type PageTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type PageTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type PageTypeRelationshipCreatedEvent = {
+  createdRelationship: PageTypeConnectedRelationships
+  event: EventType
+  pageType: PageTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PageTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PageTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<PageTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<PageTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<PageTypeRelationshipsSubscriptionWhere>
+  pageType?: InputMaybe<PageTypeSubscriptionWhere>
+}
+
+export type PageTypeRelationshipDeletedEvent = {
+  deletedRelationship: PageTypeConnectedRelationships
+  event: EventType
+  pageType: PageTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PageTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PageTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<PageTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<PageTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<PageTypeRelationshipsSubscriptionWhere>
+  pageType?: InputMaybe<PageTypeSubscriptionWhere>
+}
+
+export type PageTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<PageTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort PageTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageTypeSort object. */
@@ -15127,10 +17779,35 @@ export type PageTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type PageTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<PageTypeSubscriptionWhere>>
+  NOT?: InputMaybe<PageTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<PageTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type PageTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type PageTypeUpdatedEvent = {
+  event: EventType
+  previousState: PageTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedPageType: PageTypeEventPayload
 }
 
 export type PageTypeUserOwnerAggregationSelection = {
@@ -15192,6 +17869,13 @@ export type PageUpdateInput = {
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   store?: InputMaybe<PageStoreUpdateFieldInput>
   urlPattern?: InputMaybe<Scalars['String']['input']>
+}
+
+export type PageUpdatedEvent = {
+  event: EventType
+  previousState: PageEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedPage: PageEventPayload
 }
 
 export type PageWhere = {
@@ -15306,6 +17990,10 @@ export type PrimitiveTypeConnectWhere = {
   node: PrimitiveTypeWhere
 }
 
+export type PrimitiveTypeConnectedRelationships = {
+  owner?: Maybe<PrimitiveTypeOwnerConnectedRelationship>
+}
+
 export type PrimitiveTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -15314,8 +18002,20 @@ export type PrimitiveTypeCreateInput = {
   primitiveKind: PrimitiveTypeKind
 }
 
+export type PrimitiveTypeCreatedEvent = {
+  createdPrimitiveType: PrimitiveTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type PrimitiveTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type PrimitiveTypeDeletedEvent = {
+  deletedPrimitiveType: PrimitiveTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type PrimitiveTypeDisconnectInput = {
@@ -15325,6 +18025,15 @@ export type PrimitiveTypeDisconnectInput = {
 export type PrimitiveTypeEdge = {
   cursor: Scalars['String']['output']
   node: PrimitiveType
+}
+
+export type PrimitiveTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
+  primitiveKind: PrimitiveTypeKind
 }
 
 export enum PrimitiveTypeKind {
@@ -15358,6 +18067,10 @@ export type PrimitiveTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<PrimitiveTypeOwnerNodeAggregationWhereInput>
+}
+
+export type PrimitiveTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
@@ -15426,8 +18139,48 @@ export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type PrimitiveTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type PrimitiveTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type PrimitiveTypeRelationshipCreatedEvent = {
+  createdRelationship: PrimitiveTypeConnectedRelationships
+  event: EventType
+  primitiveType: PrimitiveTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PrimitiveTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PrimitiveTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<PrimitiveTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<PrimitiveTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<PrimitiveTypeRelationshipsSubscriptionWhere>
+  primitiveType?: InputMaybe<PrimitiveTypeSubscriptionWhere>
+}
+
+export type PrimitiveTypeRelationshipDeletedEvent = {
+  deletedRelationship: PrimitiveTypeConnectedRelationships
+  event: EventType
+  primitiveType: PrimitiveTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PrimitiveTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PrimitiveTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<PrimitiveTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<PrimitiveTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<PrimitiveTypeRelationshipsSubscriptionWhere>
+  primitiveType?: InputMaybe<PrimitiveTypeSubscriptionWhere>
+}
+
+export type PrimitiveTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<PrimitiveTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object. */
@@ -15436,6 +18189,26 @@ export type PrimitiveTypeSort = {
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   primitiveKind?: InputMaybe<SortDirection>
+}
+
+export type PrimitiveTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<PrimitiveTypeSubscriptionWhere>>
+  NOT?: InputMaybe<PrimitiveTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<PrimitiveTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  primitiveKind?: InputMaybe<PrimitiveTypeKind>
+  primitiveKind_IN?: InputMaybe<Array<InputMaybe<PrimitiveTypeKind>>>
 }
 
 export type PrimitiveTypeUniqueWhere = {
@@ -15448,6 +18221,13 @@ export type PrimitiveTypeUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
   primitiveKind?: InputMaybe<PrimitiveTypeKind>
+}
+
+export type PrimitiveTypeUpdatedEvent = {
+  event: EventType
+  previousState: PrimitiveTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedPrimitiveType: PrimitiveTypeEventPayload
 }
 
 export type PrimitiveTypeUserOwnerAggregationSelection = {
@@ -15496,6 +18276,40 @@ export type PrimitiveTypesConnection = {
   totalCount: Scalars['Int']['output']
 }
 
+export type ProductionDomainConfig = {
+  misconfigured: Scalars['Boolean']['output']
+}
+
+export type ProductionDomainConfigCreatedEvent = {
+  createdProductionDomainConfig: ProductionDomainConfigEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
+export type ProductionDomainConfigDeletedEvent = {
+  deletedProductionDomainConfig: ProductionDomainConfigEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
+export type ProductionDomainConfigEventPayload = {
+  misconfigured: Scalars['Boolean']['output']
+}
+
+export type ProductionDomainConfigSubscriptionWhere = {
+  AND?: InputMaybe<Array<ProductionDomainConfigSubscriptionWhere>>
+  NOT?: InputMaybe<ProductionDomainConfigSubscriptionWhere>
+  OR?: InputMaybe<Array<ProductionDomainConfigSubscriptionWhere>>
+  misconfigured?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ProductionDomainConfigUpdatedEvent = {
+  event: EventType
+  previousState: ProductionDomainConfigEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedProductionDomainConfig: ProductionDomainConfigEventPayload
+}
+
 export type Prop = {
   data: Scalars['String']['output']
   id: Scalars['ID']['output']
@@ -15520,9 +18334,26 @@ export type PropCreateInput = {
   id: Scalars['ID']['input']
 }
 
+export type PropCreatedEvent = {
+  createdProp: PropEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
+export type PropDeletedEvent = {
+  deletedProp: PropEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type PropEdge = {
   cursor: Scalars['String']['output']
   node: Prop
+}
+
+export type PropEventPayload = {
+  data: Scalars['String']['output']
+  id: Scalars['ID']['output']
 }
 
 export type PropOnCreateInput = {
@@ -15543,6 +18374,22 @@ export type PropSort = {
   id?: InputMaybe<SortDirection>
 }
 
+export type PropSubscriptionWhere = {
+  AND?: InputMaybe<Array<PropSubscriptionWhere>>
+  NOT?: InputMaybe<PropSubscriptionWhere>
+  OR?: InputMaybe<Array<PropSubscriptionWhere>>
+  data?: InputMaybe<Scalars['String']['input']>
+  data_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  data_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  data_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  data_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+}
+
 export type PropUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>
 }
@@ -15550,6 +18397,13 @@ export type PropUniqueWhere = {
 export type PropUpdateInput = {
   data?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type PropUpdatedEvent = {
+  event: EventType
+  previousState: PropEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedProp: PropEventPayload
 }
 
 export type PropWhere = {
@@ -16342,6 +19196,10 @@ export type ReactNodeTypeConnectWhere = {
   node: ReactNodeTypeWhere
 }
 
+export type ReactNodeTypeConnectedRelationships = {
+  owner?: Maybe<ReactNodeTypeOwnerConnectedRelationship>
+}
+
 export type ReactNodeTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -16349,8 +19207,20 @@ export type ReactNodeTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type ReactNodeTypeCreatedEvent = {
+  createdReactNodeType: ReactNodeTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ReactNodeTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type ReactNodeTypeDeletedEvent = {
+  deletedReactNodeType: ReactNodeTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ReactNodeTypeDisconnectInput = {
@@ -16360,6 +19230,14 @@ export type ReactNodeTypeDisconnectInput = {
 export type ReactNodeTypeEdge = {
   cursor: Scalars['String']['output']
   node: ReactNodeType
+}
+
+export type ReactNodeTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type ReactNodeTypeOnCreateInput = {
@@ -16385,6 +19263,10 @@ export type ReactNodeTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<ReactNodeTypeOwnerNodeAggregationWhereInput>
+}
+
+export type ReactNodeTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
@@ -16453,8 +19335,48 @@ export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ReactNodeTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type ReactNodeTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type ReactNodeTypeRelationshipCreatedEvent = {
+  createdRelationship: ReactNodeTypeConnectedRelationships
+  event: EventType
+  reactNodeType: ReactNodeTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ReactNodeTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ReactNodeTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ReactNodeTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ReactNodeTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<ReactNodeTypeRelationshipsSubscriptionWhere>
+  reactNodeType?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+}
+
+export type ReactNodeTypeRelationshipDeletedEvent = {
+  deletedRelationship: ReactNodeTypeConnectedRelationships
+  event: EventType
+  reactNodeType: ReactNodeTypeEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type ReactNodeTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ReactNodeTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ReactNodeTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ReactNodeTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<ReactNodeTypeRelationshipsSubscriptionWhere>
+  reactNodeType?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+}
+
+export type ReactNodeTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<ReactNodeTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort ReactNodeTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ReactNodeTypeSort object. */
@@ -16462,6 +19384,24 @@ export type ReactNodeTypeSort = {
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type ReactNodeTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<ReactNodeTypeSubscriptionWhere>>
+  NOT?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<ReactNodeTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ReactNodeTypeUniqueWhere = {
@@ -16472,6 +19412,13 @@ export type ReactNodeTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type ReactNodeTypeUpdatedEvent = {
+  event: EventType
+  previousState: ReactNodeTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedReactNodeType: ReactNodeTypeEventPayload
 }
 
 export type ReactNodeTypeUserOwnerAggregationSelection = {
@@ -16635,6 +19582,10 @@ export type RedirectAuthGuardConnectOrCreateFieldInputOnCreate = {
   node: AuthGuardOnCreateInput
 }
 
+export type RedirectAuthGuardConnectedRelationship = {
+  node: AuthGuardEventPayload
+}
+
 export type RedirectAuthGuardConnection = {
   edges: Array<RedirectAuthGuardRelationship>
   pageInfo: PageInfo
@@ -16717,6 +19668,10 @@ export type RedirectAuthGuardRelationship = {
   node: AuthGuard
 }
 
+export type RedirectAuthGuardRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AuthGuardSubscriptionWhere>
+}
+
 export type RedirectAuthGuardUpdateConnectionInput = {
   node?: InputMaybe<AuthGuardUpdateInput>
 }
@@ -16751,6 +19706,12 @@ export type RedirectConnectWhere = {
   node: RedirectWhere
 }
 
+export type RedirectConnectedRelationships = {
+  authGuard?: Maybe<RedirectAuthGuardConnectedRelationship>
+  source?: Maybe<RedirectSourceConnectedRelationship>
+  targetPage?: Maybe<RedirectTargetPageConnectedRelationship>
+}
+
 export type RedirectCreateInput = {
   authGuard?: InputMaybe<RedirectAuthGuardFieldInput>
   id: Scalars['ID']['input']
@@ -16760,10 +19721,22 @@ export type RedirectCreateInput = {
   targetUrl?: InputMaybe<Scalars['String']['input']>
 }
 
+export type RedirectCreatedEvent = {
+  createdRedirect: RedirectEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type RedirectDeleteInput = {
   authGuard?: InputMaybe<RedirectAuthGuardDeleteFieldInput>
   source?: InputMaybe<RedirectSourceDeleteFieldInput>
   targetPage?: InputMaybe<RedirectTargetPageDeleteFieldInput>
+}
+
+export type RedirectDeletedEvent = {
+  deletedRedirect: RedirectEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type RedirectDisconnectInput = {
@@ -16775,6 +19748,12 @@ export type RedirectDisconnectInput = {
 export type RedirectEdge = {
   cursor: Scalars['String']['output']
   node: Redirect
+}
+
+export type RedirectEventPayload = {
+  id: Scalars['ID']['output']
+  targetType: RedirectTargetType
+  targetUrl?: Maybe<Scalars['String']['output']>
 }
 
 export type RedirectOnCreateInput = {
@@ -16818,6 +19797,44 @@ export type RedirectRelationInput = {
   targetPage?: InputMaybe<RedirectTargetPageCreateFieldInput>
 }
 
+export type RedirectRelationshipCreatedEvent = {
+  createdRelationship: RedirectConnectedRelationships
+  event: EventType
+  redirect: RedirectEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type RedirectRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<RedirectRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<RedirectRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<RedirectRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<RedirectRelationshipsSubscriptionWhere>
+  redirect?: InputMaybe<RedirectSubscriptionWhere>
+}
+
+export type RedirectRelationshipDeletedEvent = {
+  deletedRelationship: RedirectConnectedRelationships
+  event: EventType
+  redirect: RedirectEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type RedirectRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<RedirectRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<RedirectRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<RedirectRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<RedirectRelationshipsSubscriptionWhere>
+  redirect?: InputMaybe<RedirectSubscriptionWhere>
+}
+
+export type RedirectRelationshipsSubscriptionWhere = {
+  authGuard?: InputMaybe<RedirectAuthGuardRelationshipSubscriptionWhere>
+  source?: InputMaybe<RedirectSourceRelationshipSubscriptionWhere>
+  targetPage?: InputMaybe<RedirectTargetPageRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Redirects by. The order in which sorts are applied is not guaranteed when specifying many fields in one RedirectSort object. */
 export type RedirectSort = {
   id?: InputMaybe<SortDirection>
@@ -16851,6 +19868,10 @@ export type RedirectSourceConnectOrCreateFieldInput = {
 
 export type RedirectSourceConnectOrCreateFieldInputOnCreate = {
   node: PageOnCreateInput
+}
+
+export type RedirectSourceConnectedRelationship = {
+  node: PageEventPayload
 }
 
 export type RedirectSourceConnection = {
@@ -16931,6 +19952,10 @@ export type RedirectSourceRelationship = {
   node: Page
 }
 
+export type RedirectSourceRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PageSubscriptionWhere>
+}
+
 export type RedirectSourceUpdateConnectionInput = {
   node?: InputMaybe<PageUpdateInput>
 }
@@ -16943,6 +19968,24 @@ export type RedirectSourceUpdateFieldInput = {
   disconnect?: InputMaybe<RedirectSourceDisconnectFieldInput>
   update?: InputMaybe<RedirectSourceUpdateConnectionInput>
   where?: InputMaybe<RedirectSourceConnectionWhere>
+}
+
+export type RedirectSubscriptionWhere = {
+  AND?: InputMaybe<Array<RedirectSubscriptionWhere>>
+  NOT?: InputMaybe<RedirectSubscriptionWhere>
+  OR?: InputMaybe<Array<RedirectSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  targetType?: InputMaybe<RedirectTargetType>
+  targetType_IN?: InputMaybe<Array<InputMaybe<RedirectTargetType>>>
+  targetUrl?: InputMaybe<Scalars['String']['input']>
+  targetUrl_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  targetUrl_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  targetUrl_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  targetUrl_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type RedirectTargetPageAggregateInput = {
@@ -16971,6 +20014,10 @@ export type RedirectTargetPageConnectOrCreateFieldInput = {
 
 export type RedirectTargetPageConnectOrCreateFieldInputOnCreate = {
   node: PageOnCreateInput
+}
+
+export type RedirectTargetPageConnectedRelationship = {
+  node: PageEventPayload
 }
 
 export type RedirectTargetPageConnection = {
@@ -17051,6 +20098,10 @@ export type RedirectTargetPageRelationship = {
   node: Page
 }
 
+export type RedirectTargetPageRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PageSubscriptionWhere>
+}
+
 export type RedirectTargetPageUpdateConnectionInput = {
   node?: InputMaybe<PageUpdateInput>
 }
@@ -17083,6 +20134,13 @@ export type RedirectUpdateInput = {
   targetPage?: InputMaybe<RedirectTargetPageUpdateFieldInput>
   targetType?: InputMaybe<RedirectTargetType>
   targetUrl?: InputMaybe<Scalars['String']['input']>
+}
+
+export type RedirectUpdatedEvent = {
+  event: EventType
+  previousState: RedirectEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedRedirect: RedirectEventPayload
 }
 
 export type RedirectWhere = {
@@ -17220,6 +20278,10 @@ export type RenderPropTypeConnectWhere = {
   node: RenderPropTypeWhere
 }
 
+export type RenderPropTypeConnectedRelationships = {
+  owner?: Maybe<RenderPropTypeOwnerConnectedRelationship>
+}
+
 export type RenderPropTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -17227,8 +20289,20 @@ export type RenderPropTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type RenderPropTypeCreatedEvent = {
+  createdRenderPropType: RenderPropTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type RenderPropTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type RenderPropTypeDeletedEvent = {
+  deletedRenderPropType: RenderPropTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type RenderPropTypeDisconnectInput = {
@@ -17238,6 +20312,14 @@ export type RenderPropTypeDisconnectInput = {
 export type RenderPropTypeEdge = {
   cursor: Scalars['String']['output']
   node: RenderPropType
+}
+
+export type RenderPropTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type RenderPropTypeOnCreateInput = {
@@ -17263,6 +20345,10 @@ export type RenderPropTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<RenderPropTypeOwnerNodeAggregationWhereInput>
+}
+
+export type RenderPropTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type RenderPropTypeOwnerNodeAggregationWhereInput = {
@@ -17331,8 +20417,48 @@ export type RenderPropTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type RenderPropTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type RenderPropTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type RenderPropTypeRelationshipCreatedEvent = {
+  createdRelationship: RenderPropTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  renderPropType: RenderPropTypeEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type RenderPropTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<RenderPropTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<RenderPropTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<RenderPropTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<RenderPropTypeRelationshipsSubscriptionWhere>
+  renderPropType?: InputMaybe<RenderPropTypeSubscriptionWhere>
+}
+
+export type RenderPropTypeRelationshipDeletedEvent = {
+  deletedRelationship: RenderPropTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  renderPropType: RenderPropTypeEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type RenderPropTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<RenderPropTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<RenderPropTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<RenderPropTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<RenderPropTypeRelationshipsSubscriptionWhere>
+  renderPropType?: InputMaybe<RenderPropTypeSubscriptionWhere>
+}
+
+export type RenderPropTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<RenderPropTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort RenderPropTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropTypeSort object. */
@@ -17340,6 +20466,24 @@ export type RenderPropTypeSort = {
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type RenderPropTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<RenderPropTypeSubscriptionWhere>>
+  NOT?: InputMaybe<RenderPropTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<RenderPropTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type RenderPropTypeUniqueWhere = {
@@ -17350,6 +20494,13 @@ export type RenderPropTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type RenderPropTypeUpdatedEvent = {
+  event: EventType
+  previousState: RenderPropTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedRenderPropType: RenderPropTypeEventPayload
 }
 
 export type RenderPropTypeUserOwnerAggregationSelection = {
@@ -17479,6 +20630,10 @@ export type ResourceConfigConnectOrCreateFieldInputOnCreate = {
   node: PropOnCreateInput
 }
 
+export type ResourceConfigConnectedRelationship = {
+  node: PropEventPayload
+}
+
 export type ResourceConfigConnection = {
   edges: Array<ResourceConfigRelationship>
   pageInfo: PageInfo
@@ -17540,6 +20695,10 @@ export type ResourceConfigRelationship = {
   node: Prop
 }
 
+export type ResourceConfigRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PropSubscriptionWhere>
+}
+
 export type ResourceConfigUpdateConnectionInput = {
   node?: InputMaybe<PropUpdateInput>
 }
@@ -17572,6 +20731,11 @@ export type ResourceConnectWhere = {
   node: ResourceWhere
 }
 
+export type ResourceConnectedRelationships = {
+  config?: Maybe<ResourceConfigConnectedRelationship>
+  owner?: Maybe<ResourceOwnerConnectedRelationship>
+}
+
 export type ResourceCreateInput = {
   config?: InputMaybe<ResourceConfigFieldInput>
   id: Scalars['ID']['input']
@@ -17580,9 +20744,21 @@ export type ResourceCreateInput = {
   type: ResourceType
 }
 
+export type ResourceCreatedEvent = {
+  createdResource: ResourceEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type ResourceDeleteInput = {
   config?: InputMaybe<ResourceConfigDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
+}
+
+export type ResourceDeletedEvent = {
+  deletedResource: ResourceEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type ResourceDisconnectInput = {
@@ -17593,6 +20769,12 @@ export type ResourceDisconnectInput = {
 export type ResourceEdge = {
   cursor: Scalars['String']['output']
   node: Resource
+}
+
+export type ResourceEventPayload = {
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  type: ResourceType
 }
 
 export type ResourceOnCreateInput = {
@@ -17618,6 +20800,10 @@ export type ResourceOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<ResourceOwnerNodeAggregationWhereInput>
+}
+
+export type ResourceOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type ResourceOwnerNodeAggregationWhereInput = {
@@ -17686,6 +20872,10 @@ export type ResourceOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type ResourceOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type ResourcePropConfigAggregationSelection = {
   count: Scalars['Int']['output']
   node?: Maybe<ResourcePropConfigNodeAggregateSelection>
@@ -17701,11 +20891,66 @@ export type ResourceRelationInput = {
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
 }
 
+export type ResourceRelationshipCreatedEvent = {
+  createdRelationship: ResourceConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  resource: ResourceEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type ResourceRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ResourceRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<ResourceRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<ResourceRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<ResourceRelationshipsSubscriptionWhere>
+  resource?: InputMaybe<ResourceSubscriptionWhere>
+}
+
+export type ResourceRelationshipDeletedEvent = {
+  deletedRelationship: ResourceConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  resource: ResourceEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type ResourceRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<ResourceRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<ResourceRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<ResourceRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<ResourceRelationshipsSubscriptionWhere>
+  resource?: InputMaybe<ResourceSubscriptionWhere>
+}
+
+export type ResourceRelationshipsSubscriptionWhere = {
+  config?: InputMaybe<ResourceConfigRelationshipSubscriptionWhere>
+  owner?: InputMaybe<ResourceOwnerRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object. */
 export type ResourceSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
+}
+
+export type ResourceSubscriptionWhere = {
+  AND?: InputMaybe<Array<ResourceSubscriptionWhere>>
+  NOT?: InputMaybe<ResourceSubscriptionWhere>
+  OR?: InputMaybe<Array<ResourceSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  type?: InputMaybe<ResourceType>
+  type_IN?: InputMaybe<Array<InputMaybe<ResourceType>>>
 }
 
 export enum ResourceType {
@@ -17723,6 +20968,13 @@ export type ResourceUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   type?: InputMaybe<ResourceType>
+}
+
+export type ResourceUpdatedEvent = {
+  event: EventType
+  previousState: ResourceEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedResource: ResourceEventPayload
 }
 
 export type ResourceUserOwnerAggregationSelection = {
@@ -17824,6 +21076,10 @@ export type RichTextTypeConnectWhere = {
   node: RichTextTypeWhere
 }
 
+export type RichTextTypeConnectedRelationships = {
+  owner?: Maybe<RichTextTypeOwnerConnectedRelationship>
+}
+
 export type RichTextTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -17831,8 +21087,20 @@ export type RichTextTypeCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
+export type RichTextTypeCreatedEvent = {
+  createdRichTextType: RichTextTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type RichTextTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+}
+
+export type RichTextTypeDeletedEvent = {
+  deletedRichTextType: RichTextTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type RichTextTypeDisconnectInput = {
@@ -17842,6 +21110,14 @@ export type RichTextTypeDisconnectInput = {
 export type RichTextTypeEdge = {
   cursor: Scalars['String']['output']
   node: RichTextType
+}
+
+export type RichTextTypeEventPayload = IBaseTypeEventPayload & {
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type RichTextTypeOptions = {
@@ -17861,6 +21137,10 @@ export type RichTextTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<RichTextTypeOwnerNodeAggregationWhereInput>
+}
+
+export type RichTextTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type RichTextTypeOwnerNodeAggregationWhereInput = {
@@ -17929,8 +21209,48 @@ export type RichTextTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type RichTextTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type RichTextTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+}
+
+export type RichTextTypeRelationshipCreatedEvent = {
+  createdRelationship: RichTextTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  richTextType: RichTextTypeEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type RichTextTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<RichTextTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<RichTextTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<RichTextTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<RichTextTypeRelationshipsSubscriptionWhere>
+  richTextType?: InputMaybe<RichTextTypeSubscriptionWhere>
+}
+
+export type RichTextTypeRelationshipDeletedEvent = {
+  deletedRelationship: RichTextTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  richTextType: RichTextTypeEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type RichTextTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<RichTextTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<RichTextTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<RichTextTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<RichTextTypeRelationshipsSubscriptionWhere>
+  richTextType?: InputMaybe<RichTextTypeSubscriptionWhere>
+}
+
+export type RichTextTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<RichTextTypeOwnerRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort RichTextTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RichTextTypeSort object. */
@@ -17940,10 +21260,35 @@ export type RichTextTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type RichTextTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<RichTextTypeSubscriptionWhere>>
+  NOT?: InputMaybe<RichTextTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<RichTextTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type RichTextTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+}
+
+export type RichTextTypeUpdatedEvent = {
+  event: EventType
+  previousState: RichTextTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedRichTextType: RichTextTypeEventPayload
 }
 
 export type RichTextTypeUserOwnerAggregationSelection = {
@@ -18076,6 +21421,10 @@ export type StoreActionsApiActionFieldInput = {
   create?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>
 }
 
+export type StoreActionsApiActionSubscriptionWhere = {
+  node?: InputMaybe<ApiActionSubscriptionWhere>
+}
+
 export type StoreActionsApiActionUpdateConnectionInput = {
   node?: InputMaybe<ApiActionUpdateInput>
 }
@@ -18120,6 +21469,10 @@ export type StoreActionsCodeActionFieldInput = {
   create?: InputMaybe<Array<StoreActionsCodeActionCreateFieldInput>>
 }
 
+export type StoreActionsCodeActionSubscriptionWhere = {
+  node?: InputMaybe<CodeActionSubscriptionWhere>
+}
+
 export type StoreActionsCodeActionUpdateConnectionInput = {
   node?: InputMaybe<CodeActionUpdateInput>
 }
@@ -18136,6 +21489,10 @@ export type StoreActionsCodeActionUpdateFieldInput = {
 export type StoreActionsConnectInput = {
   ApiAction?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>
   CodeAction?: InputMaybe<Array<StoreActionsCodeActionConnectFieldInput>>
+}
+
+export type StoreActionsConnectedRelationship = {
+  node: AnyActionEventPayload
 }
 
 export type StoreActionsConnection = {
@@ -18174,6 +21531,11 @@ export type StoreActionsRelationship = {
   node: AnyAction
 }
 
+export type StoreActionsRelationshipSubscriptionWhere = {
+  ApiAction?: InputMaybe<StoreActionsApiActionSubscriptionWhere>
+  CodeAction?: InputMaybe<StoreActionsCodeActionSubscriptionWhere>
+}
+
 export type StoreActionsUpdateInput = {
   ApiAction?: InputMaybe<Array<StoreActionsApiActionUpdateFieldInput>>
   CodeAction?: InputMaybe<Array<StoreActionsCodeActionUpdateFieldInput>>
@@ -18202,6 +21564,10 @@ export type StoreApiConnectFieldInput = {
   /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<InterfaceTypeConnectWhere>
+}
+
+export type StoreApiConnectedRelationship = {
+  node: InterfaceTypeEventPayload
 }
 
 export type StoreApiConnection = {
@@ -18266,6 +21632,10 @@ export type StoreApiRelationship = {
   node: InterfaceType
 }
 
+export type StoreApiRelationshipSubscriptionWhere = {
+  node?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
 export type StoreApiUpdateConnectionInput = {
   node?: InputMaybe<InterfaceTypeUpdateInput>
 }
@@ -18292,6 +21662,11 @@ export type StoreConnectWhere = {
   node: StoreWhere
 }
 
+export type StoreConnectedRelationships = {
+  actions?: Maybe<StoreActionsConnectedRelationship>
+  api?: Maybe<StoreApiConnectedRelationship>
+}
+
 export type StoreCreateInput = {
   actions?: InputMaybe<StoreActionsCreateInput>
   api?: InputMaybe<StoreApiFieldInput>
@@ -18299,9 +21674,21 @@ export type StoreCreateInput = {
   name: Scalars['String']['input']
 }
 
+export type StoreCreatedEvent = {
+  createdStore: StoreEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type StoreDeleteInput = {
   actions?: InputMaybe<StoreActionsDeleteInput>
   api?: InputMaybe<StoreApiDeleteFieldInput>
+}
+
+export type StoreDeletedEvent = {
+  deletedStore: StoreEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type StoreDisconnectInput = {
@@ -18312,6 +21699,11 @@ export type StoreDisconnectInput = {
 export type StoreEdge = {
   cursor: Scalars['String']['output']
   node: Store
+}
+
+export type StoreEventPayload = {
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
 }
 
 export type StoreInterfaceTypeApiAggregationSelection = {
@@ -18341,10 +21733,63 @@ export type StoreRelationInput = {
   api?: InputMaybe<StoreApiCreateFieldInput>
 }
 
+export type StoreRelationshipCreatedEvent = {
+  createdRelationship: StoreConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  store: StoreEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type StoreRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<StoreRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<StoreRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<StoreRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<StoreRelationshipsSubscriptionWhere>
+  store?: InputMaybe<StoreSubscriptionWhere>
+}
+
+export type StoreRelationshipDeletedEvent = {
+  deletedRelationship: StoreConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  store: StoreEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type StoreRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<StoreRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<StoreRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<StoreRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<StoreRelationshipsSubscriptionWhere>
+  store?: InputMaybe<StoreSubscriptionWhere>
+}
+
+export type StoreRelationshipsSubscriptionWhere = {
+  actions?: InputMaybe<StoreActionsRelationshipSubscriptionWhere>
+  api?: InputMaybe<StoreApiRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
 export type StoreSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type StoreSubscriptionWhere = {
+  AND?: InputMaybe<Array<StoreSubscriptionWhere>>
+  NOT?: InputMaybe<StoreSubscriptionWhere>
+  OR?: InputMaybe<Array<StoreSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type StoreUniqueWhere = {
@@ -18356,6 +21801,13 @@ export type StoreUpdateInput = {
   api?: InputMaybe<StoreApiUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+}
+
+export type StoreUpdatedEvent = {
+  event: EventType
+  previousState: StoreEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedStore: StoreEventPayload
 }
 
 export type StoreWhere = {
@@ -18403,6 +21855,844 @@ export type StringAggregateSelectionNonNullable = {
 export type StringAggregateSelectionNullable = {
   longest?: Maybe<Scalars['String']['output']>
   shortest?: Maybe<Scalars['String']['output']>
+}
+
+export type Subscription = {
+  actionTypeCreated: ActionTypeCreatedEvent
+  actionTypeDeleted: ActionTypeDeletedEvent
+  actionTypeRelationshipCreated: ActionTypeRelationshipCreatedEvent
+  actionTypeRelationshipDeleted: ActionTypeRelationshipDeletedEvent
+  actionTypeUpdated: ActionTypeUpdatedEvent
+  apiActionCreated: ApiActionCreatedEvent
+  apiActionDeleted: ApiActionDeletedEvent
+  apiActionRelationshipCreated: ApiActionRelationshipCreatedEvent
+  apiActionRelationshipDeleted: ApiActionRelationshipDeletedEvent
+  apiActionUpdated: ApiActionUpdatedEvent
+  appCreated: AppCreatedEvent
+  appDeleted: AppDeletedEvent
+  appRelationshipCreated: AppRelationshipCreatedEvent
+  appRelationshipDeleted: AppRelationshipDeletedEvent
+  appTypeCreated: AppTypeCreatedEvent
+  appTypeDeleted: AppTypeDeletedEvent
+  appTypeRelationshipCreated: AppTypeRelationshipCreatedEvent
+  appTypeRelationshipDeleted: AppTypeRelationshipDeletedEvent
+  appTypeUpdated: AppTypeUpdatedEvent
+  appUpdated: AppUpdatedEvent
+  arrayTypeCreated: ArrayTypeCreatedEvent
+  arrayTypeDeleted: ArrayTypeDeletedEvent
+  arrayTypeRelationshipCreated: ArrayTypeRelationshipCreatedEvent
+  arrayTypeRelationshipDeleted: ArrayTypeRelationshipDeletedEvent
+  arrayTypeUpdated: ArrayTypeUpdatedEvent
+  atomCreated: AtomCreatedEvent
+  atomDeleted: AtomDeletedEvent
+  atomRelationshipCreated: AtomRelationshipCreatedEvent
+  atomRelationshipDeleted: AtomRelationshipDeletedEvent
+  atomUpdated: AtomUpdatedEvent
+  authGuardCreated: AuthGuardCreatedEvent
+  authGuardDeleted: AuthGuardDeletedEvent
+  authGuardRelationshipCreated: AuthGuardRelationshipCreatedEvent
+  authGuardRelationshipDeleted: AuthGuardRelationshipDeletedEvent
+  authGuardUpdated: AuthGuardUpdatedEvent
+  codeActionCreated: CodeActionCreatedEvent
+  codeActionDeleted: CodeActionDeletedEvent
+  codeActionRelationshipCreated: CodeActionRelationshipCreatedEvent
+  codeActionRelationshipDeleted: CodeActionRelationshipDeletedEvent
+  codeActionUpdated: CodeActionUpdatedEvent
+  codeMirrorTypeCreated: CodeMirrorTypeCreatedEvent
+  codeMirrorTypeDeleted: CodeMirrorTypeDeletedEvent
+  codeMirrorTypeRelationshipCreated: CodeMirrorTypeRelationshipCreatedEvent
+  codeMirrorTypeRelationshipDeleted: CodeMirrorTypeRelationshipDeletedEvent
+  codeMirrorTypeUpdated: CodeMirrorTypeUpdatedEvent
+  componentCreated: ComponentCreatedEvent
+  componentDeleted: ComponentDeletedEvent
+  componentRelationshipCreated: ComponentRelationshipCreatedEvent
+  componentRelationshipDeleted: ComponentRelationshipDeletedEvent
+  componentUpdated: ComponentUpdatedEvent
+  domainCreated: DomainCreatedEvent
+  domainDeleted: DomainDeletedEvent
+  domainRelationshipCreated: DomainRelationshipCreatedEvent
+  domainRelationshipDeleted: DomainRelationshipDeletedEvent
+  domainUpdated: DomainUpdatedEvent
+  elementCreated: ElementCreatedEvent
+  elementDeleted: ElementDeletedEvent
+  elementRelationshipCreated: ElementRelationshipCreatedEvent
+  elementRelationshipDeleted: ElementRelationshipDeletedEvent
+  elementTypeCreated: ElementTypeCreatedEvent
+  elementTypeDeleted: ElementTypeDeletedEvent
+  elementTypeRelationshipCreated: ElementTypeRelationshipCreatedEvent
+  elementTypeRelationshipDeleted: ElementTypeRelationshipDeletedEvent
+  elementTypeUpdated: ElementTypeUpdatedEvent
+  elementUpdated: ElementUpdatedEvent
+  enumTypeCreated: EnumTypeCreatedEvent
+  enumTypeDeleted: EnumTypeDeletedEvent
+  enumTypeRelationshipCreated: EnumTypeRelationshipCreatedEvent
+  enumTypeRelationshipDeleted: EnumTypeRelationshipDeletedEvent
+  enumTypeUpdated: EnumTypeUpdatedEvent
+  enumTypeValueCreated: EnumTypeValueCreatedEvent
+  enumTypeValueDeleted: EnumTypeValueDeletedEvent
+  enumTypeValueRelationshipCreated: EnumTypeValueRelationshipCreatedEvent
+  enumTypeValueRelationshipDeleted: EnumTypeValueRelationshipDeletedEvent
+  enumTypeValueUpdated: EnumTypeValueUpdatedEvent
+  fieldCreated: FieldCreatedEvent
+  fieldDeleted: FieldDeletedEvent
+  fieldRelationshipCreated: FieldRelationshipCreatedEvent
+  fieldRelationshipDeleted: FieldRelationshipDeletedEvent
+  fieldUpdated: FieldUpdatedEvent
+  getBaseTypesReturnCreated: GetBaseTypesReturnCreatedEvent
+  getBaseTypesReturnDeleted: GetBaseTypesReturnDeletedEvent
+  getBaseTypesReturnUpdated: GetBaseTypesReturnUpdatedEvent
+  hookCreated: HookCreatedEvent
+  hookDeleted: HookDeletedEvent
+  hookRelationshipCreated: HookRelationshipCreatedEvent
+  hookRelationshipDeleted: HookRelationshipDeletedEvent
+  hookUpdated: HookUpdatedEvent
+  interfaceTypeCreated: InterfaceTypeCreatedEvent
+  interfaceTypeDeleted: InterfaceTypeDeletedEvent
+  interfaceTypeRelationshipCreated: InterfaceTypeRelationshipCreatedEvent
+  interfaceTypeRelationshipDeleted: InterfaceTypeRelationshipDeletedEvent
+  interfaceTypeUpdated: InterfaceTypeUpdatedEvent
+  lambdaTypeCreated: LambdaTypeCreatedEvent
+  lambdaTypeDeleted: LambdaTypeDeletedEvent
+  lambdaTypeRelationshipCreated: LambdaTypeRelationshipCreatedEvent
+  lambdaTypeRelationshipDeleted: LambdaTypeRelationshipDeletedEvent
+  lambdaTypeUpdated: LambdaTypeUpdatedEvent
+  pageCreated: PageCreatedEvent
+  pageDeleted: PageDeletedEvent
+  pageRelationshipCreated: PageRelationshipCreatedEvent
+  pageRelationshipDeleted: PageRelationshipDeletedEvent
+  pageTypeCreated: PageTypeCreatedEvent
+  pageTypeDeleted: PageTypeDeletedEvent
+  pageTypeRelationshipCreated: PageTypeRelationshipCreatedEvent
+  pageTypeRelationshipDeleted: PageTypeRelationshipDeletedEvent
+  pageTypeUpdated: PageTypeUpdatedEvent
+  pageUpdated: PageUpdatedEvent
+  primitiveTypeCreated: PrimitiveTypeCreatedEvent
+  primitiveTypeDeleted: PrimitiveTypeDeletedEvent
+  primitiveTypeRelationshipCreated: PrimitiveTypeRelationshipCreatedEvent
+  primitiveTypeRelationshipDeleted: PrimitiveTypeRelationshipDeletedEvent
+  primitiveTypeUpdated: PrimitiveTypeUpdatedEvent
+  productionDomainConfigCreated: ProductionDomainConfigCreatedEvent
+  productionDomainConfigDeleted: ProductionDomainConfigDeletedEvent
+  productionDomainConfigUpdated: ProductionDomainConfigUpdatedEvent
+  propCreated: PropCreatedEvent
+  propDeleted: PropDeletedEvent
+  propUpdated: PropUpdatedEvent
+  reactNodeTypeCreated: ReactNodeTypeCreatedEvent
+  reactNodeTypeDeleted: ReactNodeTypeDeletedEvent
+  reactNodeTypeRelationshipCreated: ReactNodeTypeRelationshipCreatedEvent
+  reactNodeTypeRelationshipDeleted: ReactNodeTypeRelationshipDeletedEvent
+  reactNodeTypeUpdated: ReactNodeTypeUpdatedEvent
+  redirectCreated: RedirectCreatedEvent
+  redirectDeleted: RedirectDeletedEvent
+  redirectRelationshipCreated: RedirectRelationshipCreatedEvent
+  redirectRelationshipDeleted: RedirectRelationshipDeletedEvent
+  redirectUpdated: RedirectUpdatedEvent
+  renderPropTypeCreated: RenderPropTypeCreatedEvent
+  renderPropTypeDeleted: RenderPropTypeDeletedEvent
+  renderPropTypeRelationshipCreated: RenderPropTypeRelationshipCreatedEvent
+  renderPropTypeRelationshipDeleted: RenderPropTypeRelationshipDeletedEvent
+  renderPropTypeUpdated: RenderPropTypeUpdatedEvent
+  resourceCreated: ResourceCreatedEvent
+  resourceDeleted: ResourceDeletedEvent
+  resourceRelationshipCreated: ResourceRelationshipCreatedEvent
+  resourceRelationshipDeleted: ResourceRelationshipDeletedEvent
+  resourceUpdated: ResourceUpdatedEvent
+  richTextTypeCreated: RichTextTypeCreatedEvent
+  richTextTypeDeleted: RichTextTypeDeletedEvent
+  richTextTypeRelationshipCreated: RichTextTypeRelationshipCreatedEvent
+  richTextTypeRelationshipDeleted: RichTextTypeRelationshipDeletedEvent
+  richTextTypeUpdated: RichTextTypeUpdatedEvent
+  storeCreated: StoreCreatedEvent
+  storeDeleted: StoreDeletedEvent
+  storeRelationshipCreated: StoreRelationshipCreatedEvent
+  storeRelationshipDeleted: StoreRelationshipDeletedEvent
+  storeUpdated: StoreUpdatedEvent
+  tagCreated: TagCreatedEvent
+  tagDeleted: TagDeletedEvent
+  tagRelationshipCreated: TagRelationshipCreatedEvent
+  tagRelationshipDeleted: TagRelationshipDeletedEvent
+  tagUpdated: TagUpdatedEvent
+  typeReferenceCreated: TypeReferenceCreatedEvent
+  typeReferenceDeleted: TypeReferenceDeletedEvent
+  typeReferenceUpdated: TypeReferenceUpdatedEvent
+  unionTypeCreated: UnionTypeCreatedEvent
+  unionTypeDeleted: UnionTypeDeletedEvent
+  unionTypeRelationshipCreated: UnionTypeRelationshipCreatedEvent
+  unionTypeRelationshipDeleted: UnionTypeRelationshipDeletedEvent
+  unionTypeUpdated: UnionTypeUpdatedEvent
+  userCreated: UserCreatedEvent
+  userDeleted: UserDeletedEvent
+  userRelationshipCreated: UserRelationshipCreatedEvent
+  userRelationshipDeleted: UserRelationshipDeletedEvent
+  userUpdated: UserUpdatedEvent
+}
+
+export type SubscriptionActionTypeCreatedArgs = {
+  where?: InputMaybe<ActionTypeSubscriptionWhere>
+}
+
+export type SubscriptionActionTypeDeletedArgs = {
+  where?: InputMaybe<ActionTypeSubscriptionWhere>
+}
+
+export type SubscriptionActionTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<ActionTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionActionTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<ActionTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionActionTypeUpdatedArgs = {
+  where?: InputMaybe<ActionTypeSubscriptionWhere>
+}
+
+export type SubscriptionApiActionCreatedArgs = {
+  where?: InputMaybe<ApiActionSubscriptionWhere>
+}
+
+export type SubscriptionApiActionDeletedArgs = {
+  where?: InputMaybe<ApiActionSubscriptionWhere>
+}
+
+export type SubscriptionApiActionRelationshipCreatedArgs = {
+  where?: InputMaybe<ApiActionRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionApiActionRelationshipDeletedArgs = {
+  where?: InputMaybe<ApiActionRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionApiActionUpdatedArgs = {
+  where?: InputMaybe<ApiActionSubscriptionWhere>
+}
+
+export type SubscriptionAppCreatedArgs = {
+  where?: InputMaybe<AppSubscriptionWhere>
+}
+
+export type SubscriptionAppDeletedArgs = {
+  where?: InputMaybe<AppSubscriptionWhere>
+}
+
+export type SubscriptionAppRelationshipCreatedArgs = {
+  where?: InputMaybe<AppRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionAppRelationshipDeletedArgs = {
+  where?: InputMaybe<AppRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionAppTypeCreatedArgs = {
+  where?: InputMaybe<AppTypeSubscriptionWhere>
+}
+
+export type SubscriptionAppTypeDeletedArgs = {
+  where?: InputMaybe<AppTypeSubscriptionWhere>
+}
+
+export type SubscriptionAppTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<AppTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionAppTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<AppTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionAppTypeUpdatedArgs = {
+  where?: InputMaybe<AppTypeSubscriptionWhere>
+}
+
+export type SubscriptionAppUpdatedArgs = {
+  where?: InputMaybe<AppSubscriptionWhere>
+}
+
+export type SubscriptionArrayTypeCreatedArgs = {
+  where?: InputMaybe<ArrayTypeSubscriptionWhere>
+}
+
+export type SubscriptionArrayTypeDeletedArgs = {
+  where?: InputMaybe<ArrayTypeSubscriptionWhere>
+}
+
+export type SubscriptionArrayTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<ArrayTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionArrayTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<ArrayTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionArrayTypeUpdatedArgs = {
+  where?: InputMaybe<ArrayTypeSubscriptionWhere>
+}
+
+export type SubscriptionAtomCreatedArgs = {
+  where?: InputMaybe<AtomSubscriptionWhere>
+}
+
+export type SubscriptionAtomDeletedArgs = {
+  where?: InputMaybe<AtomSubscriptionWhere>
+}
+
+export type SubscriptionAtomRelationshipCreatedArgs = {
+  where?: InputMaybe<AtomRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionAtomRelationshipDeletedArgs = {
+  where?: InputMaybe<AtomRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionAtomUpdatedArgs = {
+  where?: InputMaybe<AtomSubscriptionWhere>
+}
+
+export type SubscriptionAuthGuardCreatedArgs = {
+  where?: InputMaybe<AuthGuardSubscriptionWhere>
+}
+
+export type SubscriptionAuthGuardDeletedArgs = {
+  where?: InputMaybe<AuthGuardSubscriptionWhere>
+}
+
+export type SubscriptionAuthGuardRelationshipCreatedArgs = {
+  where?: InputMaybe<AuthGuardRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionAuthGuardRelationshipDeletedArgs = {
+  where?: InputMaybe<AuthGuardRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionAuthGuardUpdatedArgs = {
+  where?: InputMaybe<AuthGuardSubscriptionWhere>
+}
+
+export type SubscriptionCodeActionCreatedArgs = {
+  where?: InputMaybe<CodeActionSubscriptionWhere>
+}
+
+export type SubscriptionCodeActionDeletedArgs = {
+  where?: InputMaybe<CodeActionSubscriptionWhere>
+}
+
+export type SubscriptionCodeActionRelationshipCreatedArgs = {
+  where?: InputMaybe<CodeActionRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionCodeActionRelationshipDeletedArgs = {
+  where?: InputMaybe<CodeActionRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionCodeActionUpdatedArgs = {
+  where?: InputMaybe<CodeActionSubscriptionWhere>
+}
+
+export type SubscriptionCodeMirrorTypeCreatedArgs = {
+  where?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
+}
+
+export type SubscriptionCodeMirrorTypeDeletedArgs = {
+  where?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
+}
+
+export type SubscriptionCodeMirrorTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<CodeMirrorTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionCodeMirrorTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<CodeMirrorTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionCodeMirrorTypeUpdatedArgs = {
+  where?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
+}
+
+export type SubscriptionComponentCreatedArgs = {
+  where?: InputMaybe<ComponentSubscriptionWhere>
+}
+
+export type SubscriptionComponentDeletedArgs = {
+  where?: InputMaybe<ComponentSubscriptionWhere>
+}
+
+export type SubscriptionComponentRelationshipCreatedArgs = {
+  where?: InputMaybe<ComponentRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionComponentRelationshipDeletedArgs = {
+  where?: InputMaybe<ComponentRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionComponentUpdatedArgs = {
+  where?: InputMaybe<ComponentSubscriptionWhere>
+}
+
+export type SubscriptionDomainCreatedArgs = {
+  where?: InputMaybe<DomainSubscriptionWhere>
+}
+
+export type SubscriptionDomainDeletedArgs = {
+  where?: InputMaybe<DomainSubscriptionWhere>
+}
+
+export type SubscriptionDomainRelationshipCreatedArgs = {
+  where?: InputMaybe<DomainRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionDomainRelationshipDeletedArgs = {
+  where?: InputMaybe<DomainRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionDomainUpdatedArgs = {
+  where?: InputMaybe<DomainSubscriptionWhere>
+}
+
+export type SubscriptionElementCreatedArgs = {
+  where?: InputMaybe<ElementSubscriptionWhere>
+}
+
+export type SubscriptionElementDeletedArgs = {
+  where?: InputMaybe<ElementSubscriptionWhere>
+}
+
+export type SubscriptionElementRelationshipCreatedArgs = {
+  where?: InputMaybe<ElementRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionElementRelationshipDeletedArgs = {
+  where?: InputMaybe<ElementRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionElementTypeCreatedArgs = {
+  where?: InputMaybe<ElementTypeSubscriptionWhere>
+}
+
+export type SubscriptionElementTypeDeletedArgs = {
+  where?: InputMaybe<ElementTypeSubscriptionWhere>
+}
+
+export type SubscriptionElementTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<ElementTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionElementTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<ElementTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionElementTypeUpdatedArgs = {
+  where?: InputMaybe<ElementTypeSubscriptionWhere>
+}
+
+export type SubscriptionElementUpdatedArgs = {
+  where?: InputMaybe<ElementSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeCreatedArgs = {
+  where?: InputMaybe<EnumTypeSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeDeletedArgs = {
+  where?: InputMaybe<EnumTypeSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<EnumTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<EnumTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeUpdatedArgs = {
+  where?: InputMaybe<EnumTypeSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeValueCreatedArgs = {
+  where?: InputMaybe<EnumTypeValueSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeValueDeletedArgs = {
+  where?: InputMaybe<EnumTypeValueSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeValueRelationshipCreatedArgs = {
+  where?: InputMaybe<EnumTypeValueRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeValueRelationshipDeletedArgs = {
+  where?: InputMaybe<EnumTypeValueRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionEnumTypeValueUpdatedArgs = {
+  where?: InputMaybe<EnumTypeValueSubscriptionWhere>
+}
+
+export type SubscriptionFieldCreatedArgs = {
+  where?: InputMaybe<FieldSubscriptionWhere>
+}
+
+export type SubscriptionFieldDeletedArgs = {
+  where?: InputMaybe<FieldSubscriptionWhere>
+}
+
+export type SubscriptionFieldRelationshipCreatedArgs = {
+  where?: InputMaybe<FieldRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionFieldRelationshipDeletedArgs = {
+  where?: InputMaybe<FieldRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionFieldUpdatedArgs = {
+  where?: InputMaybe<FieldSubscriptionWhere>
+}
+
+export type SubscriptionGetBaseTypesReturnCreatedArgs = {
+  where?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
+}
+
+export type SubscriptionGetBaseTypesReturnDeletedArgs = {
+  where?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
+}
+
+export type SubscriptionGetBaseTypesReturnUpdatedArgs = {
+  where?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
+}
+
+export type SubscriptionHookCreatedArgs = {
+  where?: InputMaybe<HookSubscriptionWhere>
+}
+
+export type SubscriptionHookDeletedArgs = {
+  where?: InputMaybe<HookSubscriptionWhere>
+}
+
+export type SubscriptionHookRelationshipCreatedArgs = {
+  where?: InputMaybe<HookRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionHookRelationshipDeletedArgs = {
+  where?: InputMaybe<HookRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionHookUpdatedArgs = {
+  where?: InputMaybe<HookSubscriptionWhere>
+}
+
+export type SubscriptionInterfaceTypeCreatedArgs = {
+  where?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
+export type SubscriptionInterfaceTypeDeletedArgs = {
+  where?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
+export type SubscriptionInterfaceTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<InterfaceTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionInterfaceTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<InterfaceTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionInterfaceTypeUpdatedArgs = {
+  where?: InputMaybe<InterfaceTypeSubscriptionWhere>
+}
+
+export type SubscriptionLambdaTypeCreatedArgs = {
+  where?: InputMaybe<LambdaTypeSubscriptionWhere>
+}
+
+export type SubscriptionLambdaTypeDeletedArgs = {
+  where?: InputMaybe<LambdaTypeSubscriptionWhere>
+}
+
+export type SubscriptionLambdaTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<LambdaTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionLambdaTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<LambdaTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionLambdaTypeUpdatedArgs = {
+  where?: InputMaybe<LambdaTypeSubscriptionWhere>
+}
+
+export type SubscriptionPageCreatedArgs = {
+  where?: InputMaybe<PageSubscriptionWhere>
+}
+
+export type SubscriptionPageDeletedArgs = {
+  where?: InputMaybe<PageSubscriptionWhere>
+}
+
+export type SubscriptionPageRelationshipCreatedArgs = {
+  where?: InputMaybe<PageRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionPageRelationshipDeletedArgs = {
+  where?: InputMaybe<PageRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionPageTypeCreatedArgs = {
+  where?: InputMaybe<PageTypeSubscriptionWhere>
+}
+
+export type SubscriptionPageTypeDeletedArgs = {
+  where?: InputMaybe<PageTypeSubscriptionWhere>
+}
+
+export type SubscriptionPageTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<PageTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionPageTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<PageTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionPageTypeUpdatedArgs = {
+  where?: InputMaybe<PageTypeSubscriptionWhere>
+}
+
+export type SubscriptionPageUpdatedArgs = {
+  where?: InputMaybe<PageSubscriptionWhere>
+}
+
+export type SubscriptionPrimitiveTypeCreatedArgs = {
+  where?: InputMaybe<PrimitiveTypeSubscriptionWhere>
+}
+
+export type SubscriptionPrimitiveTypeDeletedArgs = {
+  where?: InputMaybe<PrimitiveTypeSubscriptionWhere>
+}
+
+export type SubscriptionPrimitiveTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<PrimitiveTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionPrimitiveTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<PrimitiveTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionPrimitiveTypeUpdatedArgs = {
+  where?: InputMaybe<PrimitiveTypeSubscriptionWhere>
+}
+
+export type SubscriptionProductionDomainConfigCreatedArgs = {
+  where?: InputMaybe<ProductionDomainConfigSubscriptionWhere>
+}
+
+export type SubscriptionProductionDomainConfigDeletedArgs = {
+  where?: InputMaybe<ProductionDomainConfigSubscriptionWhere>
+}
+
+export type SubscriptionProductionDomainConfigUpdatedArgs = {
+  where?: InputMaybe<ProductionDomainConfigSubscriptionWhere>
+}
+
+export type SubscriptionPropCreatedArgs = {
+  where?: InputMaybe<PropSubscriptionWhere>
+}
+
+export type SubscriptionPropDeletedArgs = {
+  where?: InputMaybe<PropSubscriptionWhere>
+}
+
+export type SubscriptionPropUpdatedArgs = {
+  where?: InputMaybe<PropSubscriptionWhere>
+}
+
+export type SubscriptionReactNodeTypeCreatedArgs = {
+  where?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+}
+
+export type SubscriptionReactNodeTypeDeletedArgs = {
+  where?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+}
+
+export type SubscriptionReactNodeTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<ReactNodeTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionReactNodeTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<ReactNodeTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionReactNodeTypeUpdatedArgs = {
+  where?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+}
+
+export type SubscriptionRedirectCreatedArgs = {
+  where?: InputMaybe<RedirectSubscriptionWhere>
+}
+
+export type SubscriptionRedirectDeletedArgs = {
+  where?: InputMaybe<RedirectSubscriptionWhere>
+}
+
+export type SubscriptionRedirectRelationshipCreatedArgs = {
+  where?: InputMaybe<RedirectRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionRedirectRelationshipDeletedArgs = {
+  where?: InputMaybe<RedirectRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionRedirectUpdatedArgs = {
+  where?: InputMaybe<RedirectSubscriptionWhere>
+}
+
+export type SubscriptionRenderPropTypeCreatedArgs = {
+  where?: InputMaybe<RenderPropTypeSubscriptionWhere>
+}
+
+export type SubscriptionRenderPropTypeDeletedArgs = {
+  where?: InputMaybe<RenderPropTypeSubscriptionWhere>
+}
+
+export type SubscriptionRenderPropTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<RenderPropTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionRenderPropTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<RenderPropTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionRenderPropTypeUpdatedArgs = {
+  where?: InputMaybe<RenderPropTypeSubscriptionWhere>
+}
+
+export type SubscriptionResourceCreatedArgs = {
+  where?: InputMaybe<ResourceSubscriptionWhere>
+}
+
+export type SubscriptionResourceDeletedArgs = {
+  where?: InputMaybe<ResourceSubscriptionWhere>
+}
+
+export type SubscriptionResourceRelationshipCreatedArgs = {
+  where?: InputMaybe<ResourceRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionResourceRelationshipDeletedArgs = {
+  where?: InputMaybe<ResourceRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionResourceUpdatedArgs = {
+  where?: InputMaybe<ResourceSubscriptionWhere>
+}
+
+export type SubscriptionRichTextTypeCreatedArgs = {
+  where?: InputMaybe<RichTextTypeSubscriptionWhere>
+}
+
+export type SubscriptionRichTextTypeDeletedArgs = {
+  where?: InputMaybe<RichTextTypeSubscriptionWhere>
+}
+
+export type SubscriptionRichTextTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<RichTextTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionRichTextTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<RichTextTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionRichTextTypeUpdatedArgs = {
+  where?: InputMaybe<RichTextTypeSubscriptionWhere>
+}
+
+export type SubscriptionStoreCreatedArgs = {
+  where?: InputMaybe<StoreSubscriptionWhere>
+}
+
+export type SubscriptionStoreDeletedArgs = {
+  where?: InputMaybe<StoreSubscriptionWhere>
+}
+
+export type SubscriptionStoreRelationshipCreatedArgs = {
+  where?: InputMaybe<StoreRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionStoreRelationshipDeletedArgs = {
+  where?: InputMaybe<StoreRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionStoreUpdatedArgs = {
+  where?: InputMaybe<StoreSubscriptionWhere>
+}
+
+export type SubscriptionTagCreatedArgs = {
+  where?: InputMaybe<TagSubscriptionWhere>
+}
+
+export type SubscriptionTagDeletedArgs = {
+  where?: InputMaybe<TagSubscriptionWhere>
+}
+
+export type SubscriptionTagRelationshipCreatedArgs = {
+  where?: InputMaybe<TagRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionTagRelationshipDeletedArgs = {
+  where?: InputMaybe<TagRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionTagUpdatedArgs = {
+  where?: InputMaybe<TagSubscriptionWhere>
+}
+
+export type SubscriptionTypeReferenceCreatedArgs = {
+  where?: InputMaybe<TypeReferenceSubscriptionWhere>
+}
+
+export type SubscriptionTypeReferenceDeletedArgs = {
+  where?: InputMaybe<TypeReferenceSubscriptionWhere>
+}
+
+export type SubscriptionTypeReferenceUpdatedArgs = {
+  where?: InputMaybe<TypeReferenceSubscriptionWhere>
+}
+
+export type SubscriptionUnionTypeCreatedArgs = {
+  where?: InputMaybe<UnionTypeSubscriptionWhere>
+}
+
+export type SubscriptionUnionTypeDeletedArgs = {
+  where?: InputMaybe<UnionTypeSubscriptionWhere>
+}
+
+export type SubscriptionUnionTypeRelationshipCreatedArgs = {
+  where?: InputMaybe<UnionTypeRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionUnionTypeRelationshipDeletedArgs = {
+  where?: InputMaybe<UnionTypeRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionUnionTypeUpdatedArgs = {
+  where?: InputMaybe<UnionTypeSubscriptionWhere>
+}
+
+export type SubscriptionUserCreatedArgs = {
+  where?: InputMaybe<UserSubscriptionWhere>
+}
+
+export type SubscriptionUserDeletedArgs = {
+  where?: InputMaybe<UserSubscriptionWhere>
+}
+
+export type SubscriptionUserRelationshipCreatedArgs = {
+  where?: InputMaybe<UserRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionUserRelationshipDeletedArgs = {
+  where?: InputMaybe<UserRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionUserUpdatedArgs = {
+  where?: InputMaybe<UserSubscriptionWhere>
 }
 
 export type Tag = {
@@ -18547,6 +22837,10 @@ export type TagAtomsConnectOrCreateFieldInputOnCreate = {
   node: AtomOnCreateInput
 }
 
+export type TagAtomsConnectedRelationship = {
+  node: AtomEventPayload
+}
+
 export type TagAtomsConnection = {
   edges: Array<TagAtomsRelationship>
   pageInfo: PageInfo
@@ -18672,6 +22966,10 @@ export type TagAtomsRelationship = {
   node: Atom
 }
 
+export type TagAtomsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AtomSubscriptionWhere>
+}
+
 export type TagAtomsUpdateConnectionInput = {
   node?: InputMaybe<AtomUpdateInput>
 }
@@ -18712,6 +23010,10 @@ export type TagChildrenConnectOrCreateFieldInput = {
 
 export type TagChildrenConnectOrCreateFieldInputOnCreate = {
   node: TagOnCreateInput
+}
+
+export type TagChildrenConnectedRelationship = {
+  node: TagEventPayload
 }
 
 export type TagChildrenConnection = {
@@ -18777,6 +23079,10 @@ export type TagChildrenRelationship = {
   node: Tag
 }
 
+export type TagChildrenRelationshipSubscriptionWhere = {
+  node?: InputMaybe<TagSubscriptionWhere>
+}
+
 export type TagChildrenUpdateConnectionInput = {
   node?: InputMaybe<TagUpdateInput>
 }
@@ -18813,6 +23119,13 @@ export type TagConnectWhere = {
   node: TagWhere
 }
 
+export type TagConnectedRelationships = {
+  atoms?: Maybe<TagAtomsConnectedRelationship>
+  children?: Maybe<TagChildrenConnectedRelationship>
+  owner?: Maybe<TagOwnerConnectedRelationship>
+  parent?: Maybe<TagParentConnectedRelationship>
+}
+
 export type TagCreateInput = {
   atoms?: InputMaybe<TagAtomsFieldInput>
   children?: InputMaybe<TagChildrenFieldInput>
@@ -18822,11 +23135,23 @@ export type TagCreateInput = {
   parent?: InputMaybe<TagParentFieldInput>
 }
 
+export type TagCreatedEvent = {
+  createdTag: TagEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type TagDeleteInput = {
   atoms?: InputMaybe<Array<TagAtomsDeleteFieldInput>>
   children?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
   owner?: InputMaybe<TagOwnerDeleteFieldInput>
   parent?: InputMaybe<TagParentDeleteFieldInput>
+}
+
+export type TagDeletedEvent = {
+  deletedTag: TagEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type TagDisconnectInput = {
@@ -18839,6 +23164,11 @@ export type TagDisconnectInput = {
 export type TagEdge = {
   cursor: Scalars['String']['output']
   node: Tag
+}
+
+export type TagEventPayload = {
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
 }
 
 export type TagOnCreateInput = {
@@ -18879,6 +23209,10 @@ export type TagOwnerConnectOrCreateFieldInput = {
 
 export type TagOwnerConnectOrCreateFieldInputOnCreate = {
   node: UserOnCreateInput
+}
+
+export type TagOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type TagOwnerConnection = {
@@ -18989,6 +23323,10 @@ export type TagOwnerRelationship = {
   node: User
 }
 
+export type TagOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type TagOwnerUpdateConnectionInput = {
   node?: InputMaybe<UserUpdateInput>
 }
@@ -19029,6 +23367,10 @@ export type TagParentConnectOrCreateFieldInput = {
 
 export type TagParentConnectOrCreateFieldInputOnCreate = {
   node: TagOnCreateInput
+}
+
+export type TagParentConnectedRelationship = {
+  node: TagEventPayload
 }
 
 export type TagParentConnection = {
@@ -19094,6 +23436,10 @@ export type TagParentRelationship = {
   node: Tag
 }
 
+export type TagParentRelationshipSubscriptionWhere = {
+  node?: InputMaybe<TagSubscriptionWhere>
+}
+
 export type TagParentUpdateConnectionInput = {
   node?: InputMaybe<TagUpdateInput>
 }
@@ -19115,10 +23461,65 @@ export type TagRelationInput = {
   parent?: InputMaybe<TagParentCreateFieldInput>
 }
 
+export type TagRelationshipCreatedEvent = {
+  createdRelationship: TagConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  tag: TagEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type TagRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<TagRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<TagRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<TagRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<TagRelationshipsSubscriptionWhere>
+  tag?: InputMaybe<TagSubscriptionWhere>
+}
+
+export type TagRelationshipDeletedEvent = {
+  deletedRelationship: TagConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  tag: TagEventPayload
+  timestamp: Scalars['Float']['output']
+}
+
+export type TagRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<TagRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<TagRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<TagRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<TagRelationshipsSubscriptionWhere>
+  tag?: InputMaybe<TagSubscriptionWhere>
+}
+
+export type TagRelationshipsSubscriptionWhere = {
+  atoms?: InputMaybe<TagAtomsRelationshipSubscriptionWhere>
+  children?: InputMaybe<TagChildrenRelationshipSubscriptionWhere>
+  owner?: InputMaybe<TagOwnerRelationshipSubscriptionWhere>
+  parent?: InputMaybe<TagParentRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Tags by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagSort object. */
 export type TagSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type TagSubscriptionWhere = {
+  AND?: InputMaybe<Array<TagSubscriptionWhere>>
+  NOT?: InputMaybe<TagSubscriptionWhere>
+  OR?: InputMaybe<Array<TagSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type TagTagChildrenAggregationSelection = {
@@ -19153,6 +23554,13 @@ export type TagUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<TagOwnerUpdateFieldInput>
   parent?: InputMaybe<TagParentUpdateFieldInput>
+}
+
+export type TagUpdatedEvent = {
+  event: EventType
+  previousState: TagEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedTag: TagEventPayload
 }
 
 export type TagUserOwnerAggregationSelection = {
@@ -19271,9 +23679,28 @@ export type TypeReferenceCreateInput = {
   name: Scalars['String']['input']
 }
 
+export type TypeReferenceCreatedEvent = {
+  createdTypeReference: TypeReferenceEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
+export type TypeReferenceDeletedEvent = {
+  deletedTypeReference: TypeReferenceEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type TypeReferenceEdge = {
   cursor: Scalars['String']['output']
   node: TypeReference
+}
+
+export type TypeReferenceEventPayload = {
+  /** The type of resource - Atom, InterfaceType, etc. */
+  label: Scalars['String']['output']
+  /** The name of the resource referencing the type */
+  name: Scalars['String']['output']
 }
 
 export type TypeReferenceOptions = {
@@ -19289,9 +23716,32 @@ export type TypeReferenceSort = {
   name?: InputMaybe<SortDirection>
 }
 
+export type TypeReferenceSubscriptionWhere = {
+  AND?: InputMaybe<Array<TypeReferenceSubscriptionWhere>>
+  NOT?: InputMaybe<TypeReferenceSubscriptionWhere>
+  OR?: InputMaybe<Array<TypeReferenceSubscriptionWhere>>
+  label?: InputMaybe<Scalars['String']['input']>
+  label_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  label_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  label_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  label_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
 export type TypeReferenceUpdateInput = {
   label?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+}
+
+export type TypeReferenceUpdatedEvent = {
+  event: EventType
+  previousState: TypeReferenceEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedTypeReference: TypeReferenceEventPayload
 }
 
 export type TypeReferenceWhere = {
@@ -19393,6 +23843,11 @@ export type UnionTypeConnectWhere = {
   node: UnionTypeWhere
 }
 
+export type UnionTypeConnectedRelationships = {
+  owner?: Maybe<UnionTypeOwnerConnectedRelationship>
+  typesOfUnionType?: Maybe<UnionTypeTypesOfUnionTypeConnectedRelationship>
+}
+
 export type UnionTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -19401,9 +23856,21 @@ export type UnionTypeCreateInput = {
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeCreateInput>
 }
 
+export type UnionTypeCreatedEvent = {
+  createdUnionType: UnionTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type UnionTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeDeleteInput>
+}
+
+export type UnionTypeDeletedEvent = {
+  deletedUnionType: UnionTypeEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type UnionTypeDisconnectInput = {
@@ -19414,6 +23881,15 @@ export type UnionTypeDisconnectInput = {
 export type UnionTypeEdge = {
   cursor: Scalars['String']['output']
   node: UnionType
+}
+
+export type UnionTypeEventPayload = IBaseTypeEventPayload & {
+  descendantTypesIds: Array<Scalars['ID']['output']>
+  id: Scalars['ID']['output']
+  kind: TypeKind
+  name: Scalars['String']['output']
+  owner: User
+  ownerConnection: IBaseTypeOwnerConnection
 }
 
 export type UnionTypeOnCreateInput = {
@@ -19439,6 +23915,10 @@ export type UnionTypeOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   node?: InputMaybe<UnionTypeOwnerNodeAggregationWhereInput>
+}
+
+export type UnionTypeOwnerConnectedRelationship = {
+  node: UserEventPayload
 }
 
 export type UnionTypeOwnerNodeAggregationWhereInput = {
@@ -19507,9 +23987,50 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type UnionTypeOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
 export type UnionTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeCreateFieldInput>
+}
+
+export type UnionTypeRelationshipCreatedEvent = {
+  createdRelationship: UnionTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+  unionType: UnionTypeEventPayload
+}
+
+export type UnionTypeRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<UnionTypeRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<UnionTypeRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<UnionTypeRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<UnionTypeRelationshipsSubscriptionWhere>
+  unionType?: InputMaybe<UnionTypeSubscriptionWhere>
+}
+
+export type UnionTypeRelationshipDeletedEvent = {
+  deletedRelationship: UnionTypeConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+  unionType: UnionTypeEventPayload
+}
+
+export type UnionTypeRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<UnionTypeRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<UnionTypeRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<UnionTypeRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<UnionTypeRelationshipsSubscriptionWhere>
+  unionType?: InputMaybe<UnionTypeSubscriptionWhere>
+}
+
+export type UnionTypeRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<UnionTypeOwnerRelationshipSubscriptionWhere>
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeRelationshipSubscriptionWhere>
 }
 
 /** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
@@ -19517,6 +24038,24 @@ export type UnionTypeSort = {
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type UnionTypeSubscriptionWhere = {
+  AND?: InputMaybe<Array<UnionTypeSubscriptionWhere>>
+  NOT?: InputMaybe<UnionTypeSubscriptionWhere>
+  OR?: InputMaybe<Array<UnionTypeSubscriptionWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<InputMaybe<TypeKind>>>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput = {
@@ -19565,6 +24104,10 @@ export type UnionTypeTypesOfUnionTypeActionTypeFieldInput = {
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypeActionTypeSubscriptionWhere = {
+  node?: InputMaybe<ActionTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeActionTypeUpdateConnectionInput = {
@@ -19622,6 +24165,10 @@ export type UnionTypeTypesOfUnionTypeAppTypeFieldInput = {
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>
 }
 
+export type UnionTypeTypesOfUnionTypeAppTypeSubscriptionWhere = {
+  node?: InputMaybe<AppTypeSubscriptionWhere>
+}
+
 export type UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput = {
   node?: InputMaybe<AppTypeUpdateInput>
 }
@@ -19668,6 +24215,10 @@ export type UnionTypeTypesOfUnionTypeArrayTypeFieldInput = {
     Array<UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput>
   >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeArrayTypeSubscriptionWhere = {
+  node?: InputMaybe<ArrayTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeArrayTypeUpdateConnectionInput = {
@@ -19722,6 +24273,10 @@ export type UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput = {
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeSubscriptionWhere = {
+  node?: InputMaybe<CodeMirrorTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput = {
@@ -19804,6 +24359,10 @@ export type UnionTypeTypesOfUnionTypeConnectOrCreateInput = {
   UnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypeConnectedRelationship = {
+  node: AnyTypeEventPayload
 }
 
 export type UnionTypeTypesOfUnionTypeConnection = {
@@ -20012,6 +24571,10 @@ export type UnionTypeTypesOfUnionTypeElementTypeFieldInput = {
   >
 }
 
+export type UnionTypeTypesOfUnionTypeElementTypeSubscriptionWhere = {
+  node?: InputMaybe<ElementTypeSubscriptionWhere>
+}
+
 export type UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput = {
   node?: InputMaybe<ElementTypeUpdateInput>
 }
@@ -20066,6 +24629,10 @@ export type UnionTypeTypesOfUnionTypeEnumTypeFieldInput = {
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput>>
 }
 
+export type UnionTypeTypesOfUnionTypeEnumTypeSubscriptionWhere = {
+  node?: InputMaybe<EnumTypeSubscriptionWhere>
+}
+
 export type UnionTypeTypesOfUnionTypeEnumTypeUpdateConnectionInput = {
   node?: InputMaybe<EnumTypeUpdateInput>
 }
@@ -20116,6 +24683,10 @@ export type UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput = {
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypeInterfaceTypeSubscriptionWhere = {
+  node?: InputMaybe<InterfaceTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput = {
@@ -20174,6 +24745,10 @@ export type UnionTypeTypesOfUnionTypeLambdaTypeFieldInput = {
   >
 }
 
+export type UnionTypeTypesOfUnionTypeLambdaTypeSubscriptionWhere = {
+  node?: InputMaybe<LambdaTypeSubscriptionWhere>
+}
+
 export type UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput = {
   node?: InputMaybe<LambdaTypeUpdateInput>
 }
@@ -20226,6 +24801,10 @@ export type UnionTypeTypesOfUnionTypePageTypeFieldInput = {
     Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>
   >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>>
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeSubscriptionWhere = {
+  node?: InputMaybe<PageTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput = {
@@ -20291,6 +24870,10 @@ export type UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput = {
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypePrimitiveTypeSubscriptionWhere = {
+  node?: InputMaybe<PrimitiveTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypePrimitiveTypeUpdateConnectionInput = {
@@ -20365,6 +24948,10 @@ export type UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput = {
   >
 }
 
+export type UnionTypeTypesOfUnionTypeReactNodeTypeSubscriptionWhere = {
+  node?: InputMaybe<ReactNodeTypeSubscriptionWhere>
+}
+
 export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateConnectionInput = {
   node?: InputMaybe<ReactNodeTypeUpdateInput>
 }
@@ -20392,6 +24979,23 @@ export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput = {
 export type UnionTypeTypesOfUnionTypeRelationship = {
   cursor: Scalars['String']['output']
   node: AnyType
+}
+
+export type UnionTypeTypesOfUnionTypeRelationshipSubscriptionWhere = {
+  ActionType?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeSubscriptionWhere>
+  AppType?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeSubscriptionWhere>
+  ArrayType?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeSubscriptionWhere>
+  CodeMirrorType?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeSubscriptionWhere>
+  ElementType?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeSubscriptionWhere>
+  EnumType?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeSubscriptionWhere>
+  InterfaceType?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeSubscriptionWhere>
+  LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeSubscriptionWhere>
+  PageType?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeSubscriptionWhere>
+  PrimitiveType?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeSubscriptionWhere>
+  ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeSubscriptionWhere>
+  RenderPropType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeSubscriptionWhere>
+  RichTextType?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeSubscriptionWhere>
+  UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput = {
@@ -20442,6 +25046,10 @@ export type UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput = {
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypeRenderPropTypeSubscriptionWhere = {
+  node?: InputMaybe<RenderPropTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeRenderPropTypeUpdateConnectionInput = {
@@ -20501,6 +25109,10 @@ export type UnionTypeTypesOfUnionTypeRichTextTypeFieldInput = {
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRichTextTypeCreateFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypeRichTextTypeSubscriptionWhere = {
+  node?: InputMaybe<RichTextTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeRichTextTypeUpdateConnectionInput = {
@@ -20568,6 +25180,10 @@ export type UnionTypeTypesOfUnionTypeUnionTypeFieldInput = {
     Array<UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeUnionTypeSubscriptionWhere = {
+  node?: InputMaybe<UnionTypeSubscriptionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeUnionTypeUpdateConnectionInput = {
@@ -20642,6 +25258,13 @@ export type UnionTypeUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateInput>
+}
+
+export type UnionTypeUpdatedEvent = {
+  event: EventType
+  previousState: UnionTypeEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedUnionType: UnionTypeEventPayload
 }
 
 export type UnionTypeUserOwnerAggregationSelection = {
@@ -21058,6 +25681,10 @@ export type UserAppsConnectOrCreateFieldInputOnCreate = {
   node: AppOnCreateInput
 }
 
+export type UserAppsConnectedRelationship = {
+  node: AppEventPayload
+}
+
 export type UserAppsConnection = {
   edges: Array<UserAppsRelationship>
   pageInfo: PageInfo
@@ -21121,6 +25748,10 @@ export type UserAppsRelationship = {
   node: App
 }
 
+export type UserAppsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AppSubscriptionWhere>
+}
+
 export type UserAppsUpdateConnectionInput = {
   node?: InputMaybe<AppUpdateInput>
 }
@@ -21175,6 +25806,10 @@ export type UserAtomsConnectOrCreateFieldInput = {
 
 export type UserAtomsConnectOrCreateFieldInputOnCreate = {
   node: AtomOnCreateInput
+}
+
+export type UserAtomsConnectedRelationship = {
+  node: AtomEventPayload
 }
 
 export type UserAtomsConnection = {
@@ -21302,6 +25937,10 @@ export type UserAtomsRelationship = {
   node: Atom
 }
 
+export type UserAtomsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<AtomSubscriptionWhere>
+}
+
 export type UserAtomsUpdateConnectionInput = {
   node?: InputMaybe<AtomUpdateInput>
 }
@@ -21352,6 +25991,10 @@ export type UserComponentsConnectOrCreateFieldInput = {
 
 export type UserComponentsConnectOrCreateFieldInputOnCreate = {
   node: ComponentOnCreateInput
+}
+
+export type UserComponentsConnectedRelationship = {
+  node: ComponentEventPayload
 }
 
 export type UserComponentsConnection = {
@@ -21417,6 +26060,10 @@ export type UserComponentsRelationship = {
   node: Component
 }
 
+export type UserComponentsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ComponentSubscriptionWhere>
+}
+
 export type UserComponentsUpdateConnectionInput = {
   node?: InputMaybe<ComponentUpdateInput>
 }
@@ -21456,6 +26103,15 @@ export type UserConnectWhere = {
   node: UserWhere
 }
 
+export type UserConnectedRelationships = {
+  apps?: Maybe<UserAppsConnectedRelationship>
+  atoms?: Maybe<UserAtomsConnectedRelationship>
+  components?: Maybe<UserComponentsConnectedRelationship>
+  elements?: Maybe<UserElementsConnectedRelationship>
+  tags?: Maybe<UserTagsConnectedRelationship>
+  types?: Maybe<UserTypesConnectedRelationship>
+}
+
 export type UserCreateInput = {
   apps?: InputMaybe<UserAppsFieldInput>
   atoms?: InputMaybe<UserAtomsFieldInput>
@@ -21471,6 +26127,12 @@ export type UserCreateInput = {
   username: Scalars['String']['input']
 }
 
+export type UserCreatedEvent = {
+  createdUser: UserEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
 export type UserDeleteInput = {
   apps?: InputMaybe<Array<UserAppsDeleteFieldInput>>
   atoms?: InputMaybe<Array<UserAtomsDeleteFieldInput>>
@@ -21478,6 +26140,12 @@ export type UserDeleteInput = {
   elements?: InputMaybe<Array<UserElementsDeleteFieldInput>>
   tags?: InputMaybe<Array<UserTagsDeleteFieldInput>>
   types?: InputMaybe<Array<UserTypesDeleteFieldInput>>
+}
+
+export type UserDeletedEvent = {
+  deletedUser: UserEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
 }
 
 export type UserDisconnectInput = {
@@ -21534,6 +26202,10 @@ export type UserElementsConnectOrCreateFieldInput = {
 
 export type UserElementsConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
+}
+
+export type UserElementsConnectedRelationship = {
+  node: ElementEventPayload
 }
 
 export type UserElementsConnection = {
@@ -21673,6 +26345,10 @@ export type UserElementsRelationship = {
   node: Element
 }
 
+export type UserElementsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<ElementSubscriptionWhere>
+}
+
 export type UserElementsUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
@@ -21685,6 +26361,15 @@ export type UserElementsUpdateFieldInput = {
   disconnect?: InputMaybe<Array<UserElementsDisconnectFieldInput>>
   update?: InputMaybe<UserElementsUpdateConnectionInput>
   where?: InputMaybe<UserElementsConnectionWhere>
+}
+
+export type UserEventPayload = {
+  auth0Id: Scalars['String']['output']
+  email: Scalars['String']['output']
+  id: Scalars['ID']['output']
+  preferences?: Maybe<Scalars['String']['output']>
+  roles?: Maybe<Array<Role>>
+  username: Scalars['String']['output']
 }
 
 export type UserOnCreateInput = {
@@ -21712,6 +26397,47 @@ export type UserRelationInput = {
   types?: InputMaybe<Array<UserTypesCreateFieldInput>>
 }
 
+export type UserRelationshipCreatedEvent = {
+  createdRelationship: UserConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+  user: UserEventPayload
+}
+
+export type UserRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<UserRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<UserRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<UserRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<UserRelationshipsSubscriptionWhere>
+  user?: InputMaybe<UserSubscriptionWhere>
+}
+
+export type UserRelationshipDeletedEvent = {
+  deletedRelationship: UserConnectedRelationships
+  event: EventType
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+  user: UserEventPayload
+}
+
+export type UserRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<UserRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<UserRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<UserRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<UserRelationshipsSubscriptionWhere>
+  user?: InputMaybe<UserSubscriptionWhere>
+}
+
+export type UserRelationshipsSubscriptionWhere = {
+  apps?: InputMaybe<UserAppsRelationshipSubscriptionWhere>
+  atoms?: InputMaybe<UserAtomsRelationshipSubscriptionWhere>
+  components?: InputMaybe<UserComponentsRelationshipSubscriptionWhere>
+  elements?: InputMaybe<UserElementsRelationshipSubscriptionWhere>
+  tags?: InputMaybe<UserTagsRelationshipSubscriptionWhere>
+  types?: InputMaybe<UserTypesRelationshipSubscriptionWhere>
+}
+
 /** Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object. */
 export type UserSort = {
   auth0Id?: InputMaybe<SortDirection>
@@ -21719,6 +26445,39 @@ export type UserSort = {
   id?: InputMaybe<SortDirection>
   preferences?: InputMaybe<SortDirection>
   username?: InputMaybe<SortDirection>
+}
+
+export type UserSubscriptionWhere = {
+  AND?: InputMaybe<Array<UserSubscriptionWhere>>
+  NOT?: InputMaybe<UserSubscriptionWhere>
+  OR?: InputMaybe<Array<UserSubscriptionWhere>>
+  auth0Id?: InputMaybe<Scalars['String']['input']>
+  auth0Id_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  auth0Id_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  auth0Id_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  auth0Id_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['String']['input']>
+  email_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  email_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  email_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  email_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  preferences?: InputMaybe<Scalars['String']['input']>
+  preferences_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  preferences_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  preferences_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  preferences_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  roles?: InputMaybe<Array<Role>>
+  roles_INCLUDES?: InputMaybe<Role>
+  username?: InputMaybe<Scalars['String']['input']>
+  username_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  username_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  username_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  username_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type UserTagTagsAggregationSelection = {
@@ -21757,6 +26516,10 @@ export type UserTagsConnectOrCreateFieldInput = {
 
 export type UserTagsConnectOrCreateFieldInputOnCreate = {
   node: TagOnCreateInput
+}
+
+export type UserTagsConnectedRelationship = {
+  node: TagEventPayload
 }
 
 export type UserTagsConnection = {
@@ -21822,6 +26585,10 @@ export type UserTagsRelationship = {
   node: Tag
 }
 
+export type UserTagsRelationshipSubscriptionWhere = {
+  node?: InputMaybe<TagSubscriptionWhere>
+}
+
 export type UserTagsUpdateConnectionInput = {
   node?: InputMaybe<TagUpdateInput>
 }
@@ -21839,6 +26606,10 @@ export type UserTagsUpdateFieldInput = {
 export type UserTypesConnectFieldInput = {
   connect?: InputMaybe<IBaseTypeConnectInput>
   where?: InputMaybe<IBaseTypeConnectWhere>
+}
+
+export type UserTypesConnectedRelationship = {
+  node: IBaseTypeEventPayload
 }
 
 export type UserTypesConnection = {
@@ -21882,6 +26653,10 @@ export type UserTypesRelationship = {
   node: IBaseType
 }
 
+export type UserTypesRelationshipSubscriptionWhere = {
+  node?: InputMaybe<IBaseTypeSubscriptionWhere>
+}
+
 export type UserTypesUpdateConnectionInput = {
   node?: InputMaybe<IBaseTypeUpdateInput>
 }
@@ -21914,6 +26689,13 @@ export type UserUpdateInput = {
   tags?: InputMaybe<Array<UserTagsUpdateFieldInput>>
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>
   username?: InputMaybe<Scalars['String']['input']>
+}
+
+export type UserUpdatedEvent = {
+  event: EventType
+  previousState: UserEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedUser: UserEventPayload
 }
 
 export type UserWhere = {
@@ -22053,14 +26835,6 @@ export type UsersConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export type VercelDomainConfig = {
-  misconfigured: Scalars['Boolean']['output']
-}
-
-export type VercelProjectDomain = {
-  verified: Scalars['Boolean']['output']
-}
-
 export type WithDescendants = {
   descendantTypesIds: Array<Scalars['ID']['output']>
 }
@@ -22140,6 +26914,109 @@ export type WithOwnerOwnerUpdateFieldInput = {
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   update?: InputMaybe<WithOwnerOwnerUpdateConnectionInput>
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
+}
+
+export type DomainCreatedSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type DomainCreatedSubscription = {
+  domainCreated: {
+    event: EventType
+    timestamp: number
+    createdDomain: { id: string; name: string }
+  }
+}
+
+export type DomainUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type DomainUpdatedSubscription = {
+  domainUpdated: {
+    event: EventType
+    timestamp: number
+    updatedDomain: { id: string; name: string }
+  }
+}
+
+export type DomainDeletedSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type DomainDeletedSubscription = {
+  domainDeleted: {
+    event: EventType
+    timestamp: number
+    deletedDomain: { id: string; name: string }
+  }
+}
+
+export type TestCreateDomainAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
+}>
+
+export type TestCreateDomainAppsMutation = {
+  createApps: { apps: Array<{ id: string }> }
+}
+
+export type TestCreateDomainsMutationVariables = Exact<{
+  input: Array<DomainCreateInput> | DomainCreateInput
+}>
+
+export type TestCreateDomainsMutation = {
+  createDomains: { domains: Array<{ id: string }> }
+}
+
+export type TestUpdateDomainsMutationVariables = Exact<{
+  where: DomainWhere
+  update: DomainUpdateInput
+}>
+
+export type TestUpdateDomainsMutation = {
+  updateDomains: { domains: Array<{ id: string }> }
+}
+
+export type TestDeleteDomainsMutationVariables = Exact<{
+  where: DomainWhere
+}>
+
+export type TestDeleteDomainsMutation = {
+  deleteDomains: { nodesDeleted: number }
+}
+
+export type ComponentResolverComponentsQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ComponentResolverComponentsQuery = {
+  components: Array<{
+    id: string
+    name: string
+    elements: Array<{ id: string }>
+    rootElement: { id: string }
+  }>
+}
+
+export type ElementDependentTypesQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ElementDependentTypesQuery = {
+  elements: Array<{
+    dependantTypes: Array<
+      | { id: string; name: string }
+      | { id: string; name: string }
+      | { id: string; name: string }
+      | {}
+    >
+  }>
+}
+
+export type PageResolverPagesQueryVariables = Exact<{ [key: string]: never }>
+
+export type PageResolverPagesQuery = {
+  pages: Array<{
+    id: string
+    name: string
+    slug: string
+    elements: Array<{ id: string }>
+    rootElement: { id: string }
+  }>
 }
 
 type BaseAction_ApiAction_Fragment = {
@@ -22301,7 +27178,6 @@ export type DomainFragment = {
   name: string
   app: { id: string }
   domainConfig: { misconfigured: boolean }
-  projectDomain: { verified: boolean }
 }
 
 export type ElementFragment = {

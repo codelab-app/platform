@@ -53,6 +53,7 @@ describe('Component CRUD', () => {
       cy.getCuiPopover(MODEL_ACTION.CreateComponent.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
+
       cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.getCuiForm(MODEL_ACTION.CreateComponent.key).should('not.exist', {
@@ -117,12 +118,10 @@ describe('Component CRUD', () => {
           PAGE_NAME,
         )}/builder?primarySidebarKey=explorer`,
       )
-
-      cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
-
-      cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
-        .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
-        .click()
+      cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key).within(() => {
+        cy.getCuiTreeItemByPrimaryTitle('Body').click()
+        cy.getCuiToolbarItem(MODEL_ACTION.CreateElement.key).click()
+      })
 
       cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
         label: 'Render Type',
@@ -143,6 +142,8 @@ describe('Component CRUD', () => {
         value: COMPONENT_INSTANCE_NAME,
       })
 
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
       cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
         .click()
@@ -157,12 +158,16 @@ describe('Component CRUD', () => {
         force: true,
       })
       cy.get('.ant-tabs [aria-label="setting"]').click()
+
       cy.waitForSpinners()
+
       cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
         label: 'Component_prop',
         type: FIELD_TYPE.CODE_MIRROR,
         value: COMPONENT_PROP_VALUE,
       })
+
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root').contains(COMPONENT_PROP_VALUE).should('exist')
     })

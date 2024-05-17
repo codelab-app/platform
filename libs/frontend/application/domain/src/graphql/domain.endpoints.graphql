@@ -6,7 +6,6 @@ query GetDomains($options: DomainOptions, $where: DomainWhere) {
     ...Domain
   }
 }
-
 mutation CreateDomains($input: [DomainCreateInput!]!) {
   createDomains(input: $input) {
     domains {

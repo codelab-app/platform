@@ -8,14 +8,13 @@ import {
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { actionRef, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import { IRef } from '@codelab/shared/abstract/core'
+import { IPropData, IPropDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import cloneDeep from 'lodash/cloneDeep'
 import isEqual from 'lodash/isEqual'
 import keys from 'lodash/keys'
-import { computed, observable, set } from 'mobx'
+import { computed, observable, reaction, set, toJS } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
   idProp,
@@ -89,29 +88,13 @@ export class RuntimeStoreModel
     })
   }
 
-  @computed
-  get state() {
-    // cachedState is for persisting state when navigating between pages
-    // cachedStateDefaultValues is for checking if the default values have changed or new variables have been added
-    if (
-      !this.cachedState ||
-      !isEqual(
-        this.cachedStateDefaultValues,
-        this.store.maybeCurrent?.api.maybeCurrent?.defaultValues,
-      )
-    ) {
-      // use "maybeCurrent" since in production websites api Interface might not be available
-      const defaultValues =
-        this.store.maybeCurrent?.api.maybeCurrent?.defaultValues ?? {}
-
-      this.cachedState = observable(defaultValues)
-      this.cachedStateDefaultValues = cloneDeep(defaultValues)
-    }
-
-    return this.cachedState
-  }
-
   refs = observable.object<IPropData>({})
+
+  /**
+   * Keep this updated within `onAttachedToRootStore`
+   */
+  @observable
+  state: IPropData = {}
 
   @modelAction
   createEmptyRefs(refKeys: Array<string>) {
@@ -146,9 +129,19 @@ export class RuntimeStoreModel
     )
   }
 
-  private cachedState: Nullable<object> = null
+  onAttachedToRootStore() {
+    const disposer = reaction(
+      () => this.store.maybeCurrent?.api.maybeCurrent?.defaultValues,
+      (defaultValues) => {
+        this.state = defaultValues || {}
+      },
+      { fireImmediately: true },
+    )
 
-  private cachedStateDefaultValues: Nullable<object> = null
+    return () => {
+      disposer()
+    }
+  }
 
   @computed
   private get renderService() {

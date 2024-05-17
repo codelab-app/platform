@@ -1,6 +1,6 @@
 import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
-import { Alert, Card } from 'antd'
+import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
@@ -14,8 +14,9 @@ export interface GetAppsItemProps {
 }
 
 export const GetDomainItem = observer<GetAppsItemProps>(({ domain }) => {
-  const { domainConfig, projectDomain } = domain
+  const { domainConfig } = domain
   const url = `https://${domain.name}`
+  const { misconfigured } = domainConfig ?? {}
 
   const Title = (
     <div>
@@ -24,25 +25,13 @@ export const GetDomainItem = observer<GetAppsItemProps>(({ domain }) => {
           {domain.name} <LinkOutlined />
         </span>
       </Link>
-      <ConfigStatus
-        misconfigured={!projectDomain?.verified || domainConfig?.misconfigured}
-      />
+      <ConfigStatus misconfigured={misconfigured} />
     </div>
   )
 
   return (
     <Card css={hideAntBody} extra={<ItemTools domain={domain} />} title={Title}>
-      {!projectDomain?.verified && (
-        <Alert
-          description="Domain misconfigured because it's already assigned to another project."
-          message="Error"
-          showIcon
-          type="error"
-        />
-      )}
-      {projectDomain?.verified && domainConfig?.misconfigured && (
-        <ConfigGuide domain={domain} type="ARecord" />
-      )}
+      {misconfigured && <ConfigGuide domain={domain} type="ARecord" />}
     </Card>
   )
 })

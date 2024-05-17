@@ -63,6 +63,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
               MATCHES: true,
             },
           },
+          subscriptions: true,
         },
         resolvers: mergeResolvers([pureResolvers, ogmResolvers]),
         typeDefs: ogmTypeDefs,

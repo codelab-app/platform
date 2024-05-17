@@ -1,7 +1,7 @@
 executor: docker-node-neo4j
 resource_class: large
 # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
-parallelism: 8
+parallelism: 4
 steps:
   - restore-workspace
   - setup_remote_docker:

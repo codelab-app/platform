@@ -4,6 +4,7 @@ import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
+import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
@@ -19,6 +20,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
     private readonly propRepository: PropRepository,
     private readonly commandBus: CommandBus,
     private domainRepository: DomainRepository,
+    private digitaloceanService: DigitaloceanService,
   ) {}
 
   async execute(command: ImportAppCommand) {
@@ -38,6 +40,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
     }
 
     for (const domain of app.domains) {
+      // await this.digitaloceanService.createDomain(domain.name)
       await this.domainRepository.save(domain)
     }
 

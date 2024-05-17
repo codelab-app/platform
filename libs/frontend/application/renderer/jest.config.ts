@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'frontend-application-renderer',
-  preset: '../../../../jest.preset.ts',
+  preset: '../../../../jest.preset.js',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

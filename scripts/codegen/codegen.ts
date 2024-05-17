@@ -39,9 +39,9 @@ const config: Types.Config = {
         },
       },
     },
-    './': {
+    '.': {
       // This somehow generates for web-e2e as well, even if ./libs
-      documents: ['**/*.{endpoints,fragment}.graphql'],
+      documents: ['**/*.{endpoints,fragment,subscription}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',
@@ -50,6 +50,27 @@ const config: Types.Config = {
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
       plugins: ['typescript-operations', 'typescript-graphql-request'],
+      config: {
+        inlineFragmentTypes: 'combine',
+        // Uncomment to set suffix for document variables
+        // documentVariableSuffix: 'Gql',
+        gqlImport: 'graphql-tag#gql',
+        strictScalars: true,
+        defaultScalarType: 'unknown',
+        // dedupeFragments: true, // Uncomment to deduplicate fragments
+      },
+    },
+    'libs/**': {
+      // This somehow generates for web-e2e as well, even if ./libs
+      documents: ['**/*.spec.graphql'],
+      preset: 'near-operation-file',
+      presetConfig: {
+        extension: '.graphql.gen.ts',
+        baseTypesPath: '~@codelab/shared/abstract/codegen',
+        // Uncomment to force export of fragment types
+        // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
+      },
+      plugins: ['typescript-document-nodes'],
       config: {
         inlineFragmentTypes: 'combine',
         // Uncomment to set suffix for document variables

@@ -30,9 +30,6 @@
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
       ],
-      "@codelab/backend/abstract/ports": [
-        "libs/backend/abstract/ports/src/index.ts"
-      ],
       "@codelab/backend/abstract/types": [
         "libs/backend/abstract/types/src/index.ts"
       ],
@@ -59,9 +56,6 @@
       ],
       "@codelab/backend/application/domain": [
         "libs/backend/application/domain/src/index.ts"
-      ],
-      "@codelab/backend/application/domain/prop": [
-        "libs/backend/application/domain/prop/src/index.ts"
       ],
       "@codelab/backend/application/element": [
         "libs/backend/application/element/src/index.ts"
@@ -142,6 +136,12 @@
       ],
       "@codelab/backend/infra/adapter/cli": [
         "libs/backend/infra/adapter/cli/src/index.ts"
+      ],
+      "@codelab/backend/infra/adapter/digitalocean": [
+        "libs/backend/infra/adapter/digitalocean/src/index.ts"
+      ],
+      "@codelab/backend/infra/adapter/dns": [
+        "libs/backend/infra/adapter/dns/src/index.ts"
       ],
       "@codelab/backend/infra/adapter/graphql": [
         "libs/backend/infra/adapter/graphql/src/index.ts"

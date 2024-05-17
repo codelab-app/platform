@@ -1,0 +1,29 @@
+mutation TestCreateDomainApps($input: [AppCreateInput!]!) {
+  createApps(input: $input) {
+    apps {
+      id
+    }
+  }
+}
+
+mutation TestCreateDomains($input: [DomainCreateInput!]!) {
+  createDomains(input: $input) {
+    domains {
+      id
+    }
+  }
+}
+
+mutation TestUpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
+  updateDomains(update: $update, where: $where) {
+    domains {
+      id
+    }
+  }
+}
+
+mutation TestDeleteDomains($where: DomainWhere!) {
+  deleteDomains(where: $where) {
+    nodesDeleted
+  }
+}

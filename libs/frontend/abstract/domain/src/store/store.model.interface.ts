@@ -24,6 +24,5 @@ export interface IStoreModel
   id: string
   name: string
   page: Nullable<Ref<IPageModel>>
-
   setComponent(componentRef: Ref<IComponentModel>): void
 }

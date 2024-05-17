@@ -10,15 +10,12 @@ export class Domain extends IModel implements IDomain {
 
   name: string
 
-  projectDomain: { verified: boolean } | undefined
-
-  constructor({ app, domainConfig, id, name, projectDomain }: IDomainDto) {
+  constructor({ app, domainConfig, id, name }: IDomainDto) {
     super()
 
     this.id = id
     this.domainConfig = domainConfig
     this.app = app
     this.name = name
-    this.projectDomain = projectDomain
   }
 }

@@ -67,21 +67,17 @@ describe('State variables sharing between pages', () => {
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).should('exist')
     cy.toggleCuiTreeNodeSwitcher(`${COMPONENT_NAME} Root`)
 
-    cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({
-      force: true,
-    })
-    cy.getCuiTreeItemByPrimaryTitle(typographyTextElement.name).click({
-      force: true,
-    })
+    cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({})
+    cy.getCuiTreeItemByPrimaryTitle(typographyTextElement.name).click({})
 
     cy.typeIntoTextEditor(
       'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-    cy.waitForSpinners()
+
     cy.openPreview().contains('text undefined').should('exist')
 
     cy.openBuilder()
+
     // create a state variable inside the component
     cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
@@ -98,6 +94,8 @@ describe('State variables sharing between pages', () => {
       value: 'String',
     })
 
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
     cy.findByText('Default values').should('exist')
 
     cy.setFormFieldValue({
@@ -109,6 +107,7 @@ describe('State variables sharing between pages', () => {
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
+
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
@@ -187,6 +186,8 @@ describe('State variables sharing between pages', () => {
         parentElement: 'Body',
       },
     ])
+
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.openPreview().contains('text component state value').should('exist')
   })

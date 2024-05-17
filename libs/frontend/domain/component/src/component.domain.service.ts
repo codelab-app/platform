@@ -130,18 +130,11 @@ export class ComponentDomainService
   hydrate(componentDto: IComponentDto) {
     let component = this.components.get(componentDto.id)
 
+
     if (component) {
       component.writeCache(componentDto)
     } else {
       component = Component.create(componentDto)
-
-      // TODO: Renderer
-      // Need to move this out of domain layer
-      // this.rendererService.hydrate({
-      //   elementTree: component,
-      //   id: component.id,
-      //   rendererType: RendererType.ComponentBuilder,
-      // })
 
       this.components.set(component.id, component)
     }

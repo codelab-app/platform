@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'shared-data-seed',
-  preset: '../../../../jest.preset.ts',
+  preset: '../../../../jest.preset.js',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

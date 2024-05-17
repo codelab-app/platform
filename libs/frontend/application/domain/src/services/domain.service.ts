@@ -48,13 +48,11 @@ export class DomainService
     const domain = this.hydrate({
       ...domainData,
       domainConfig: undefined,
-      projectDomain: undefined,
     })
 
     yield* _await(this.domainRepository.add(domain))
 
-    // Fetching again to get the backend-generated
-    // domainConfig and projectDomain
+    // Fetching again to get the backend-generated domainConfig
     return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
   })
 
@@ -100,8 +98,7 @@ export class DomainService
 
     yield* _await(this.domainRepository.update(domain))
 
-    // Fetching again to get the backend-generated
-    // domainConfig and projectDomain
+    // Fetching again to get the backend-generated domainConfig
     return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
   })
 

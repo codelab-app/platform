@@ -7,7 +7,6 @@ import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { configure } from 'mobx'
-import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
 
 let testApplication: ReturnType<typeof createTestApplication>

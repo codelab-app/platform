@@ -3,6 +3,8 @@ module "codelab_api" {
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
   digitalocean_region       = local.digitalocean_region
+  digitalocean_api_token    = var.DIGITALOCEAN_API_TOKEN
+  digitalocean_droplet_name = var.DIGITALOCEAN_DROPLET_NAME
 
   docker_tag_version = var.DOCKER_TAG_VERSION
 
@@ -20,4 +22,5 @@ module "codelab_api" {
   neo4j_uri      = module.codelab_neo4j.neo4j_uri
 
   next_public_api_port = var.NEXT_PUBLIC_API_PORT
+
 }

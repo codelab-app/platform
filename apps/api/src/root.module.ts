@@ -1,20 +1,21 @@
-import {
-  AuthMiddleware,
-  AuthModule,
-  JwtAuthGuard,
-} from '@codelab/backend/application/auth'
-import { authMiddleware } from '@codelab/backend/infra/adapter/graphql'
+import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
+import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import type { MiddlewareConsumer } from '@nestjs/common'
-import { Module, RequestMethod } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
+import { EventEmitterModule } from '@nestjs/event-emitter'
 import { ApiModule } from './api/api.module'
-import { GraphqlModule } from './graphql/graphql.module'
 import { HealthcheckController } from './healthcheck.controller'
 
 @Module({
   controllers: [HealthcheckController],
-  imports: [AuthModule, GraphqlModule, ApiModule, CodelabLoggerModule],
+  imports: [
+    AuthModule,
+    GraphqlModule,
+    ApiModule,
+    CodelabLoggerModule,
+    EventEmitterModule.forRoot(),
+  ],
   /**
    * Need this to guard all controllers to inject the proper user into context
    *

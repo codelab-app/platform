@@ -1,4 +1,5 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { DomainApplicationModule } from '@codelab/backend/application/domain'
 import {
   ExportPageHandler,
   ImportPageHandler,
@@ -8,7 +9,6 @@ import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { AppDomainModule } from '@codelab/backend/domain/app'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { ComponentDomainModule } from '@codelab/backend/domain/component'
-import { DomainDomainModule } from '@codelab/backend/domain/domain'
 import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PageDomainModule } from '@codelab/backend/domain/page'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
@@ -43,7 +43,7 @@ import {
     StoreDomainModule,
     ResourceDomainModule,
     TypeDomainModule,
-    DomainDomainModule,
+    DomainApplicationModule,
     CqrsModule,
     Neo4jModule,
   ],

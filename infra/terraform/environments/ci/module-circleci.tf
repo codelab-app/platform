@@ -32,5 +32,7 @@ module "circleci" {
   dockerhub_access_token = var.DOCKERHUB_ACCESS_TOKEN
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
+  digitalocean_api_token    = var.DIGITALOCEAN_API_TOKEN
+  digitalocean_droplet_name = var.DIGITALOCEAN_DROPLET_NAME
   docker_tag_version        = var.DOCKER_TAG_VERSION
 }

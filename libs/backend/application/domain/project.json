@@ -1,29 +1,38 @@
 {
   "name": "backend-application-domain",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/application/domain/src",
   "projectType": "library",
+  "sourceRoot": "libs/backend/application/domain/src",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:domain"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-application-domain.xml",
+          "outputFile": "tmp/reports/lint/backend-domain-production-domain.xml",
           "quiet": true
         }
       },
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "libs/backend/application/domain/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/backend/application/domain/jest.config.ts",
+        "reporters": ["default"],
+        "runInBand": true
+      }
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:backend",
-    "layer:application"
-  ]
+  }
 }

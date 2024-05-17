@@ -24,6 +24,7 @@ out-tsc/
 node_modules/
 
 # IDEs and editors
+.ssh
 .idea/
 .project
 .classpath

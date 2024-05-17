@@ -2,7 +2,7 @@ import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
 import { testCypressJsonConfig } from './cypress.test.config'
 
-const ciCypressJsonConfig: Cypress.ConfigOptions = {
+const ciCypressJsonConfig: Cypress.EndToEndConfigOptions = {
   ...testCypressJsonConfig,
   defaultCommandTimeout: 60000,
   execTimeout: 60000,

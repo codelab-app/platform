@@ -4,7 +4,6 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createTestApplication } from '@codelab/frontend/application/test'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { act, render, screen } from '@testing-library/react'
-import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
 
 describe('Runtime Element', () => {
