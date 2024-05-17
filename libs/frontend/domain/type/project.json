@@ -3,6 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/domain/type/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,11 +18,6 @@
           "outputFile": "tmp/reports/lint/frontend-domain-type.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/domain/type/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {
@@ -72,11 +73,5 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/type"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:frontend",
-    "layer:domain"
-  ]
+  }
 }

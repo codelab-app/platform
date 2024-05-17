@@ -29,6 +29,7 @@ import { AutoComputedElementNameField } from '../../../components/auto-computed-
 import { RenderTypeCompositeField } from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { useRequiredParentValidator } from '../../../validation/useRequiredParentValidator.hook'
+import type { ICreateElementDto } from './create-element.schema'
 import { createElementSchema } from './create-element.schema'
 
 interface CreateElementFormProps {
@@ -103,7 +104,7 @@ export const CreateElementForm = observer(
       : undefined
 
     return (
-      <Form<IElementDto>
+      <Form<ICreateElementDto>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

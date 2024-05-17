@@ -18,11 +18,6 @@
           "outputFile": "tmp/reports/lint/frontend-test-store.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/test/store/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     }
   }

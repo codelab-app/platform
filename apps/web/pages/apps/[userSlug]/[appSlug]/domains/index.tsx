@@ -1,7 +1,7 @@
 import {
   CreateDomainModal,
   DeleteDomainModal,
-  DomainsView,
+  type DomainsView,
   DomainsViewLayout,
   GetDomainsList,
   UpdateDomainModal,

@@ -18,11 +18,6 @@
           "outputFile": "tmp/reports/lint/frontend-application-page.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/page/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {

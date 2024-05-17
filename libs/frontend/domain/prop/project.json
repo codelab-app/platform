@@ -18,11 +18,6 @@
           "outputFile": "tmp/reports/lint/frontend-domain-prop.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/domain/prop/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {

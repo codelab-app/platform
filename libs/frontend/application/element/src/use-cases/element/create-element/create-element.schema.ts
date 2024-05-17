@@ -6,21 +6,21 @@ import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const createElementSchema: JSONSchemaType<
-  Pick<
-    IElementDto,
-    | 'id'
-    | 'name'
-    | 'parentElement'
-    | 'postRenderAction'
-    | 'preRenderAction'
-    | 'prevSibling'
-    | 'props'
-    | 'renderType'
-    | 'style'
-    | 'tailwindClassNames'
-  >
-> = {
+export type ICreateElementDto = Pick<
+  IElementDto,
+  | 'id'
+  | 'name'
+  | 'parentElement'
+  | 'postRenderAction'
+  | 'preRenderAction'
+  | 'prevSibling'
+  | 'props'
+  | 'renderType'
+  | 'style'
+  | 'tailwindClassNames'
+>
+
+export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
   properties: {
     ...idSchema(),
     style: {

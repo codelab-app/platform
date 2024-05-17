@@ -1,5 +1,5 @@
 import {
-  AppsView,
+  type AppsView,
   AppsViewLayout,
   BuildAppModal,
   CreateAppModal,

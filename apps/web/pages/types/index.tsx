@@ -5,7 +5,7 @@ import {
   DeleteFieldModal,
   DeleteTypeModal,
   TypeEditor,
-  TypesView,
+  type TypesView,
   TypesViewLayout,
   UpdateFieldModal,
   UpdateTypeModal,

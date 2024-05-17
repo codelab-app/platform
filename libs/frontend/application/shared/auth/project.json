@@ -18,11 +18,6 @@
           "outputFile": "tmp/reports/lint/frontend-application-shared-auth.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/shared/auth/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     }
   }

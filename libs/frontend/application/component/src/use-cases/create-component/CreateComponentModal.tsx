@@ -30,7 +30,7 @@ export const CreateComponentModal = observer(() => {
       open={componentService.createModal.isOpen}
       title={<span className="font-semibold">Create component</span>}
     >
-      <ModalForm.Form<ICreateComponentData>
+      <ModalForm.Form<Omit<ICreateComponentData, 'rootElement'>>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

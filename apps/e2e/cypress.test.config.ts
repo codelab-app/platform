@@ -44,7 +44,7 @@ export const testCypressJsonConfig: Cypress.EndToEndConfigOptions = {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     // require('cypress-mochawesome-reporter/plugin')(on)
   },
-  specPattern: './src/e2e/**/state-sharing.cy.{js,jsx,ts,tsx}',
+  // specPattern: './src/e2e/**/state-sharing.cy.{js,jsx,ts,tsx}',
   testIsolation: false,
   video: true,
   videosFolder: './src/videos',

@@ -19,11 +19,6 @@
         }
       },
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/application/redirect/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {

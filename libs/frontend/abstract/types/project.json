@@ -3,6 +3,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/abstract/types/src",
   "projectType": "library",
+  "tags": ["projectType:library", "type:abstract", "scope:frontend"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -12,11 +13,6 @@
           "outputFile": "tmp/reports/lint/frontend-abstract-types.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/abstract/types/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
       }
     },
     "test": {
@@ -28,6 +24,5 @@
         "runInBand": true
       }
     }
-  },
-  "tags": ["projectType:library", "type:abstract", "scope:frontend"]
+  }
 }

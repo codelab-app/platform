@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
+  "implicitDependencies": [],
   "generators": {},
   "targets": {
     "build": {
@@ -64,9 +66,6 @@
           "outputFile": "tmp/reports/lint/web.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     },
     "test": {
@@ -175,7 +174,5 @@
         }
       }
     }
-  },
-  "tags": ["projectType:application", "type:concrete"],
-  "implicitDependencies": []
+  }
 }

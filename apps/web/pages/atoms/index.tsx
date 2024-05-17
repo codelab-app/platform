@@ -1,6 +1,6 @@
 import {
   AtomForm,
-  AtomsView,
+  type AtomsView,
   AtomsViewLayout,
   CreateAtomModal,
   DeleteAtomsModal,

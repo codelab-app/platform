@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/landing",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",
@@ -55,11 +56,7 @@
           "outputFile": "tmp/reports/lint/landing.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/landing/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
-  },
-  "tags": ["projectType:application", "type:concrete"]
+  }
 }

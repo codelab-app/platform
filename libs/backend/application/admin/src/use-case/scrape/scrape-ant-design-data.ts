@@ -61,7 +61,7 @@ const getComponentApiData = async (
 }
 
 export const scrapeAntDesignData = async () => {
-  const browser = await puppeteer.launch({ headless: 'new' })
+  const browser = await puppeteer.launch({ headless: true })
   const overviewPage = await browser.newPage()
 
   await overviewPage.goto(`${BASE_URL}overview`, { waitUntil: 'networkidle2' })

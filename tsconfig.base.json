@@ -368,6 +368,7 @@
       "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain": ["libs/shared/domain/src/index.ts"],
+      "@codelab/shared/infra/ajv": ["libs/shared/infra/ajv/src/index.ts"],
       "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/logging": [

@@ -1,7 +1,7 @@
 import {
   CreateResourceModal,
   DeleteResourceModal,
-  ResourcesView,
+  type ResourcesView,
   ResourcesViewLayout,
   UpdateResourceForm,
   UpdateResourceModal,

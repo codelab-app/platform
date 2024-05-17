@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/e2e/src",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
+  "implicitDependencies": ["web"],
   "targets": {
     "e2e-skip-servers": {
       "executor": "@nx/cypress:cypress",
@@ -118,9 +120,6 @@
           "outputFile": "tmp/reports/lint/e2e.xml",
           "quiet": true
         }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/e2e/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     },
     "build": {
@@ -129,7 +128,5 @@
         "command": "npx tsc --noEmit --project apps/e2e/tsconfig.lint.json"
       }
     }
-  },
-  "tags": ["projectType:application", "type:concrete"],
-  "implicitDependencies": ["web"]
+  }
 }
