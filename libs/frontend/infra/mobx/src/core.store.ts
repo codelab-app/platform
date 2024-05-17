@@ -6,6 +6,7 @@ import type {
   IAuthGuardService,
   IBuilderService,
   IComponentApplicationService,
+  ICoreStore,
   IDomainService,
   IElementService,
   IFieldService,
@@ -14,7 +15,6 @@ import type {
   IRedirectService,
   IRendererService,
   IResourceService,
-  IRootStore,
   IRouterProps,
   IRouterService,
   IRuntimeComponentService,
@@ -111,9 +111,9 @@ import { TracerService } from '@codelab/frontend/infra/otel'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
-export const createRootStore = (router: IRouterProps, user: Auth0IdToken) => {
-  @model('@codelab/RootStore')
-  class RootStore
+export const createCoreStore = (router: IRouterProps, user: Auth0IdToken) => {
+  @model('@codelab/CoreStore')
+  class CoreStore
     extends Model({
       actionService: prop<IActionService>(() => new ActionService({})),
       adminService: prop<IAdminService>(() => new AdminService({})),
@@ -156,7 +156,7 @@ export const createRootStore = (router: IRouterProps, user: Auth0IdToken) => {
       typeService: prop<ITypeService>(() => new TypeService({})),
       userService: prop<IUserService>(() => UserService.init(user)),
     })
-    implements IRootStore
+    implements ICoreStore
   {
     protected onInit() {
       appServiceContext.set(this, this.appService)
@@ -214,9 +214,8 @@ export const createRootStore = (router: IRouterProps, user: Auth0IdToken) => {
         this.actionService.actionDomainService,
       )
       tagDomainServiceContext.set(this, this.tagDomainService)
-      registerRootStore(this)
     }
   }
 
-  return new RootStore({}) as IRootStore
+  return new CoreStore({}) as ICoreStore
 }

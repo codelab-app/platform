@@ -1,16 +1,16 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { act, render, screen } from '@testing-library/react'
 import React from 'react'
 
 describe('Runtime Element', () => {
-  let testApplication: ReturnType<typeof createTestApplication>
+  let testApplication: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testApplication = createTestStore()
   })
 
   it('should create element runtime node', () => {
@@ -48,7 +48,7 @@ describe('Runtime Element', () => {
       render(
         React.createElement(
           StoreProvider,
-          { value: testApplication.rootStore },
+          { value: testApplication.coreStore },
           renderer.render,
         ),
       )
@@ -81,7 +81,7 @@ describe('Runtime Element', () => {
   })
 
   it('should detach runtime element when element is detached', async () => {
-    const { elementService, runtimeElementService } = testApplication.rootStore
+    const { elementService, runtimeElementService } = testApplication.coreStore
     const { page } = testApplication.setupPage(undefined, IPageKind.Provider)
 
     expect(runtimeElementService.elementsList.length).toEqual(1)
@@ -189,7 +189,7 @@ describe('Runtime Element', () => {
       render(
         React.createElement(
           StoreProvider,
-          { value: testApplication.rootStore },
+          { value: testApplication.coreStore },
           reactElement,
         ),
       )

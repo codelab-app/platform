@@ -37,12 +37,6 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
         query: DomainCreatedDocument,
       })
       .subscribe({
-        // complete: () => {
-        //   console.log('Subscription complete')
-        // },
-        // error: (err) => {
-        //   console.error('Error subscribing to domain creation events:', err)
-        // },
         next: async ({ data }) => {
           if (!data) {
             throw new Error('Invalid subscription data')

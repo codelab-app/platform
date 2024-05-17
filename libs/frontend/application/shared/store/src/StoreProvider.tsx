@@ -1,11 +1,11 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
+import type { ICoreStore } from '@codelab/frontend/abstract/application'
 import type { PropsWithChildren } from 'react'
 import React, { createContext, useContext } from 'react'
 
-const StoreContext = createContext<IRootStore>(null!)
+const StoreContext = createContext<ICoreStore>(null!)
 
 interface StoreProviderProps {
-  value: IRootStore | null
+  value: ICoreStore | null
 }
 
 export const StoreProvider: React.FC<PropsWithChildren<StoreProviderProps>> = ({

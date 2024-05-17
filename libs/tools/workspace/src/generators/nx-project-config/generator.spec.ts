@@ -21,7 +21,8 @@ describe('project.json lint settings', () => {
     })
   })
 
-  it('should update the ci settings', async () => {
+  // We moved config to nx.json
+  it.skip('should update the ci settings', async () => {
     await nxProjectConfigGenerator(tree, options)
 
     const project = readProjectConfiguration(tree, LIB_NAME)

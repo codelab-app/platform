@@ -1,12 +1,12 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
 
 describe('Renderer', () => {
-  let testApplication: ReturnType<typeof createTestApplication>
+  let testApplication: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testApplication = createTestStore()
   })
 
   it('should create page runtime nodes', () => {

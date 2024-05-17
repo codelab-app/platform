@@ -2,18 +2,18 @@ import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/applicat
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { configure } from 'mobx'
 import React from 'react'
 
-let testApplication: ReturnType<typeof createTestApplication>
+let testApplication: ReturnType<typeof createTestStore>
 
 describe('Runtime Element props', () => {
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testApplication = createTestStore()
   })
 
   describe('RuntimeProps.props', () => {
@@ -318,7 +318,7 @@ describe('Runtime Element props', () => {
       ['refs', IPageKind.Provider],
       ['rootRefs', IPageKind.Regular],
     ])('should evaluate ref expression with %s in %s', (refsKey, pageKind) => {
-      const { rendererService } = testApplication.rootStore
+      const { rendererService } = testApplication.coreStore
       const isProviderPage = pageKind === IPageKind.Provider
 
       const { page, rendered, rootElement, runtimeRootElement } =
@@ -337,7 +337,7 @@ describe('Runtime Element props', () => {
       const { rerender } = render(
         React.createElement(
           StoreProvider,
-          { value: testApplication.rootStore },
+          { value: testApplication.coreStore },
           rendered,
         ),
       )
@@ -366,7 +366,7 @@ describe('Runtime Element props', () => {
       rerender(
         React.createElement(
           StoreProvider,
-          { value: testApplication.rootStore },
+          { value: testApplication.coreStore },
           rendererService.activeRenderer?.current.render,
         ),
       )
@@ -461,7 +461,7 @@ describe('Runtime Element props', () => {
       const urlKey = 'urlKey'
       const urlPropValue = 'urlPropValue'
 
-      testApplication.rootStore.routerService.update({
+      testApplication.coreStore.routerService.update({
         query: {
           [urlKey]: urlPropValue,
         },
