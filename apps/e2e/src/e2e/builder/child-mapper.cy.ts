@@ -32,7 +32,6 @@ describe('Element Child Mapper', () => {
         IPageKindName.Provider,
       )}/builder`,
     )
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.findAllByText(providerPageRowElement.name).first().click()
     cy.findByText('Child Mapper').click()
@@ -42,14 +41,12 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.SELECT,
       value: providerPageRowFirstChild.name,
     })
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.get('.ant-collapse').findByRole('button', { name: 'JS' }).click()
     cy.get('.ant-collapse').setFormFieldValue({
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[{ name: "test 1" }, { name: "test 2" }]}}',
     })
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.intercept('POST', 'api/graphql').as('selectComponent')
 
@@ -58,6 +55,8 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.SELECT,
       value: component.name,
     })
+
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // The select component field fetches the component options first when clicked
     // so we need to wait for the graphql operation that actually updates the element
@@ -105,10 +104,13 @@ describe('Element Child Mapper', () => {
       value: providerPageRowSecondChild.name,
     })
 
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
     cy.get('.ant-collapse').setFormFieldValue({
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
     })
+
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // changed props

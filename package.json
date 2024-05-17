@@ -11,7 +11,7 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "e2e": "nx e2e-open e2e -c test",
+    "e2e": "nx e2e-ui e2e -c test",
     "e2e:api": "nx serve api -c test",
     "cli": "scripts/nx/cli.sh",
     "docker:up": "scripts/docker/dev/up.sh",

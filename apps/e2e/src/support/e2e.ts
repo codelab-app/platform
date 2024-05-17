@@ -23,7 +23,7 @@ import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
 import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector'
 import { commands } from './commands'
 
-installLogsCollector()
+// installLogsCollector()
 
 /**
  * When we register, the global Cypress types are loaded in the command files

@@ -38,11 +38,13 @@ export const testCypressJsonConfig: Cypress.EndToEndConfigOptions = {
   screenshotsFolder: './src/screenshots',
   // supportFile: 'src/support/e2e.ts',
   setupNodeEvents: (on, config) => {
-    installLogsPrinter(on, {
-      printLogsToConsole: 'always',
-    })
+    // installLogsPrinter(on, {
+    //   printLogsToConsole: 'always',
+    // })
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // require('cypress-mochawesome-reporter/plugin')(on)
   },
-  // specPattern: './src/e2e/apps.cy.{js,jsx,ts,tsx}',
+  // specPattern: './src/e2e/**/component.cy.{js,jsx,ts,tsx}',
   testIsolation: false,
   video: true,
   videosFolder: './src/videos',
