@@ -1,5 +1,6 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import merge from 'lodash/merge'
+import unset from 'lodash/unset'
 
 /**
  * Output ESLint reporter to tmp library
@@ -21,4 +22,18 @@ export const addCiLintConfig = (
       },
     },
   })
+}
+
+/**
+ * We can put these in nx.js instead
+ */
+export const removeCiLintConfig = (
+  tree: Tree,
+  projectConfig: ProjectConfiguration,
+) => {
+  console.log('Before', projectConfig)
+
+  unset(projectConfig, 'targets.lint.configurations')
+
+  console.log('After', projectConfig)
 }

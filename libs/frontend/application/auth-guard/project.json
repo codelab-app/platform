@@ -11,19 +11,7 @@
   ],
   "targets": {
     "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-application-auth-guard.xml",
-          "quiet": true
-        }
-      },
       "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/auth-guard/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {

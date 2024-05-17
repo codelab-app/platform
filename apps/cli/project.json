@@ -40,14 +40,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/cli.xml",
-          "quiet": true
-        }
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",

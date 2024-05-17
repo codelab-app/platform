@@ -136,7 +136,17 @@
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true,
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx,graphql}"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/{projectName}.xml",
+          "quiet": true
+        }
+      }
     },
     "@nx/next:build": {
       "cache": true,

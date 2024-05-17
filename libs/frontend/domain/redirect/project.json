@@ -11,19 +11,7 @@
   ],
   "targets": {
     "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-domain-redirect.xml",
-          "quiet": true
-        }
-      },
       "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/domain/redirect/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {

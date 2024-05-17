@@ -52,14 +52,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/sites.xml",
-          "quiet": true
-        }
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }
