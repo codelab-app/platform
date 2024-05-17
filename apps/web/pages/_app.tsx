@@ -3,7 +3,7 @@ import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createRootStore } from '@codelab/frontend/infra/mobx'
+import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { getEnv } from '@codelab/shared/config'
@@ -41,7 +41,7 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   const router = useRouter()
 
   const [store] = useState(
-    createRootStore(
+    createCoreStore(
       {
         path: router.asPath,
         pathname: router.pathname,

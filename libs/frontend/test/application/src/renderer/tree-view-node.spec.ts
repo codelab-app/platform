@@ -2,15 +2,15 @@ import {
   IRuntimeNodeType,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 describe('TreeViewNode', () => {
-  let testApplication: ReturnType<typeof createTestApplication>
+  let testApplication: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testApplication = createTestStore()
   })
 
   it('should contain root element as the first node', () => {

@@ -1,15 +1,15 @@
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import React, { isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
-  let testApplication: ReturnType<typeof createTestApplication>
+  let testApplication: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testApplication = createTestStore()
   })
 
   it('should apply default typed prop transformer', () => {
@@ -121,7 +121,7 @@ describe('TypedPropTransformers', () => {
     render(
       React.createElement(
         StoreProvider,
-        { value: testApplication.rootStore },
+        { value: testApplication.coreStore },
         renderedProp(textPropValue),
       ),
     )

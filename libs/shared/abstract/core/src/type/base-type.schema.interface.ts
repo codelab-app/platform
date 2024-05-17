@@ -1,4 +1,3 @@
-import { ajvProvider } from '@codelab/shared/infra/ajv'
 import type { JSONSchemaType } from 'ajv'
 import { v4 } from 'uuid'
 import type { IBaseTypeDto } from './base-type.dto.interface'

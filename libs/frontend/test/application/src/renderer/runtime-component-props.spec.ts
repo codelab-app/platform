@@ -1,12 +1,12 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 
-let testApplication: ReturnType<typeof createTestApplication>
+let testApplication: ReturnType<typeof createTestStore>
 
 describe('Runtime Component props', () => {
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testApplication = createTestStore()
   })
 
   describe('RuntimeProps.props', () => {

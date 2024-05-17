@@ -45,7 +45,7 @@ import type { IRouterService } from './router.service.interface'
  * Initial data to be injected into store
  */
 
-export interface IRootStore {
+export interface ICoreStore {
   actionService: IActionService
   adminService: IAdminService
   appService: IAppService
@@ -74,7 +74,7 @@ export interface IRootStore {
 
 type MaybeContext<T> = Context<T | undefined>
 
-export interface IRootStoreContext {
+export interface ICoreStoreContext {
   actionDomainServiceContext: MaybeContext<IActionDomainService>
   actionServiceContext: MaybeContext<IActionService>
   appDomainServiceContext: MaybeContext<IAppDomainService>
