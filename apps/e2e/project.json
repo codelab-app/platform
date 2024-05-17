@@ -4,25 +4,7 @@
   "sourceRoot": "apps/e2e/src",
   "projectType": "application",
   "targets": {
-    "e2e-ui": {
-      "executor": "@nx/cypress:cypress",
-      "defaultConfiguration": "test",
-      "options": {
-        "cypressConfig": "apps/e2e/cypress.test.config.ts",
-        "baseUrl": "http://127.0.0.1:3001",
-        "browser": "electron",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "test": {
-          "devServerTarget": "e2e:serve-open:test",
-          "record": false,
-          "watch": true,
-          "exit": false
-        }
-      }
-    },
-    "e2e-no-servers": {
+    "e2e-skip-servers": {
       "executor": "@nx/cypress:cypress",
       "defaultConfiguration": "test",
       "options": {
@@ -34,8 +16,7 @@
       "configurations": {
         "test": {
           "record": true,
-          "watch": false,
-          "exit": true
+          "watch": false
         }
       }
     },
@@ -52,8 +33,7 @@
         "test": {
           "devServerTarget": "e2e:serve:test",
           "record": false,
-          "watch": false,
-          "exit": true
+          "watch": false
         },
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
@@ -65,8 +45,7 @@
           },
           "record": true,
           "parallel": true,
-          "watch": false,
-          "exit": true
+          "watch": false
         }
       }
     },

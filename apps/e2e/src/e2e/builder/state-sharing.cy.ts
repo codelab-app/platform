@@ -109,6 +109,7 @@ describe('State variables sharing between pages', () => {
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
+
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // FIXME: due to the caching of state in the store model, a new state is not being included

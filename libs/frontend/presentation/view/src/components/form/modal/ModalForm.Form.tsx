@@ -1,4 +1,5 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
@@ -44,16 +45,19 @@ export const Form = <TData, TResponse = unknown>({
   return (
     <AutoForm<TData>
       autosave={autosave}
-      autosaveDelay={500}
+      autosaveDelay={250}
       model={model}
       modelTransform={modelTransform}
       onChange={onChange}
       onChangeModel={onChangeModel}
-      onSubmit={handleFormSubmit<TData, TResponse>(
-        onSubmit,
-        setIsLoading,
-        onSubmitSuccess,
-        onSubmitError,
+      onSubmit={throttle(
+        handleFormSubmit<TData, TResponse>(
+          onSubmit,
+          setIsLoading,
+          onSubmitSuccess,
+          onSubmitError,
+        ),
+        200,
       )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}

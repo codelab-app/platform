@@ -1,6 +1,7 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
+import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
@@ -46,14 +47,14 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       >
         <BaseAutoForm<TData>
           autosave={autosave}
-          autosaveDelay={200}
+          autosaveDelay={250}
           data-cy={CY_DATA.cuiForm(uiKey).cyData}
           errorsField={() => <ErrorsField />}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}
           onChange={onChange}
           onChangeModel={onChangeModel}
-          onSubmit={(formData) => {
+          onSubmit={throttle((formData) => {
             const submitResults = onSubmit(formData as TData)
 
             return submitResults
@@ -67,7 +68,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
 
                 callbackWithParams(onSubmitError, error)
               })
-          }}
+          }, 200)}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           showInlineError
