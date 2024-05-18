@@ -4,17 +4,22 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { createTestStore } from '@codelab/frontend/application/test'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
+import { unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
 describe('TreeViewNode', () => {
-  let testApplication: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestStore()
+    testStore = createTestStore()
+  })
+
+  afterEach(() => {
+    testStore.teardown()
   })
 
   it('should contain root element as the first node', () => {
-    const { page, renderer, runtimePage } = testApplication.setupPage(
+    const { page, renderer, runtimePage } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -29,8 +34,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should contain component as the first node', () => {
-    const { component, renderer, runtimeComponent } =
-      testApplication.setupComponent()
+    const { component, renderer, runtimeComponent } = testStore.setupComponent()
 
     expect(renderer.runtimeContainerNode?.treeViewNode).toMatchObject({
       component: { id: component.id },
@@ -39,8 +43,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should contain root element as a child', () => {
-    const { component, renderer, runtimeComponent } =
-      testApplication.setupComponent()
+    const { component, renderer, runtimeComponent } = testStore.setupComponent()
 
     expect(
       renderer.runtimeContainerNode?.treeViewNode.children[0],
@@ -51,16 +54,16 @@ describe('TreeViewNode', () => {
   })
 
   it('should contain child element', () => {
-    const { page, renderer, runtimePage } = testApplication.setupPage(
+    const { page, renderer, runtimePage } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
 
     const rootElement = page.rootElement.current
 
-    const childElement = testApplication.addElement({
+    const childElement = testStore.addElement({
       parentElement: rootElement,
-      renderType: testApplication.getAtomByType(IAtomType.HtmlDiv),
+      renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
     childElement.attachAsFirstChild(rootElement)
@@ -76,16 +79,16 @@ describe('TreeViewNode', () => {
   })
 
   it('should have runtime page key as rootKey', () => {
-    const { page, renderer, runtimePage } = testApplication.setupPage(
+    const { page, renderer, runtimePage } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
 
     const rootElement = page.rootElement.current
 
-    const childElement = testApplication.addElement({
+    const childElement = testStore.addElement({
       parentElement: rootElement,
-      renderType: testApplication.getAtomByType(IAtomType.HtmlDiv),
+      renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
     childElement.attachAsFirstChild(rootElement)
@@ -100,7 +103,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should contain atom meta for elements with atom', () => {
-    const { page, renderer } = testApplication.setupPage(
+    const { page, renderer } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -116,7 +119,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should contain component meta for instance element', () => {
-    const { page, renderer } = testApplication.setupPage(
+    const { page, renderer } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -124,11 +127,11 @@ describe('TreeViewNode', () => {
     const componentName = 'Component 01'
     const rootElement = page.rootElement.current
 
-    const component = testApplication.addComponent({
+    const component = testStore.addComponent({
       name: componentName,
     })
 
-    const instanceElement = testApplication.addElement({
+    const instanceElement = testStore.addElement({
       parentElement: rootElement,
       renderType: component,
     })
@@ -146,7 +149,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should hide component tree node in instance element children', () => {
-    const { page, renderer } = testApplication.setupPage(
+    const { page, renderer } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -154,12 +157,12 @@ describe('TreeViewNode', () => {
     const componentName = 'Component 01'
     const rootElement = page.rootElement.current
 
-    const component = testApplication.addComponent({
+    const component = testStore.addComponent({
       name: componentName,
       rootElement,
     })
 
-    const instanceElement = testApplication.addElement({
+    const instanceElement = testStore.addElement({
       parentElement: rootElement,
       renderType: component,
     })
@@ -176,7 +179,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should show instance element children even when not rendered', () => {
-    const { page, renderer } = testApplication.setupPage(
+    const { page, renderer } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -184,34 +187,34 @@ describe('TreeViewNode', () => {
     const componentName = 'Component 01'
     const rootElement = page.rootElement.current
 
-    const component = testApplication.addComponent({
+    const component = testStore.addComponent({
       name: componentName,
       rootElement,
     })
 
-    const instanceElement = testApplication.addElement({
+    const instanceElement = testStore.addElement({
       parentElement: rootElement,
       renderType: component,
     })
 
-    const htmlDiv = testApplication.getAtomByType(IAtomType.HtmlDiv)
+    const htmlDiv = testStore.getAtomByType(IAtomType.HtmlDiv)
 
-    const instanceElementChild = testApplication.addElement({
+    const instanceElementChild = testStore.addElement({
       parentElement: instanceElement,
       renderType: htmlDiv,
     })
 
-    const secondChild = testApplication.addElement({
+    const secondChild = testStore.addElement({
       prevSibling: instanceElementChild,
       renderType: htmlDiv,
     })
 
-    const thirdChild = testApplication.addElement({
+    const thirdChild = testStore.addElement({
       prevSibling: secondChild,
       renderType: htmlDiv,
     })
 
-    const fourthChild = testApplication.addElement({
+    const fourthChild = testStore.addElement({
       prevSibling: thirdChild,
       renderType: htmlDiv,
     })
@@ -229,7 +232,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should show child mapper components', () => {
-    const { page, runtimePage } = testApplication.setupPage(
+    const { page, runtimePage } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -239,7 +242,7 @@ describe('TreeViewNode', () => {
     const componentName = 'Component 01'
     const rootElement = page.rootElement.current
 
-    const component = testApplication.addComponent({
+    const component = testStore.addComponent({
       name: componentName,
       rootElement,
     })
@@ -263,9 +266,5 @@ describe('TreeViewNode', () => {
         selectable: false,
       })
     })
-  })
-
-  afterAll(() => {
-    testApplication.teardown()
   })
 })

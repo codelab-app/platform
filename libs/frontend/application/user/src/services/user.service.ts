@@ -76,11 +76,13 @@ export class UserService
       ? JSON.parse(preferences)
       : DEFAULT_PREFERENCES
 
-    const user = yield* _await(this.getOne({ id: this.user.id }))
+    // const user = yield* _await(this.getOne({ id: this.user.id }))
 
-    this.preferences = user?.preferences
-      ? JSON.parse(user.preferences)
-      : this.preferences
+    // this.preferences = user?.preferences
+    //   ? JSON.parse(user.preferences)
+    //   : this.preferences
+
+    return yield* _await(Promise.resolve())
   })
 
   @modelFlow
@@ -142,9 +144,9 @@ export class UserService
 
     localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(preferences))
 
-    return userApi.UpdateUser({
-      update: this.user.toUpdateInput(),
-      where: { id: this.user.id },
-    })
+    // return userApi.UpdateUser({
+    //   update: this.user.toUpdateInput(),
+    //   where: { id: this.user.id },
+    // })
   }
 }

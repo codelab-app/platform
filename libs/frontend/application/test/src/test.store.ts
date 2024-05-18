@@ -367,19 +367,19 @@ export const createTestStore = () => {
     }
 
     protected onAttachedToRootStore() {
-      testApplication.addAtom({
+      testStore.addAtom({
         id: IAtomType.ReactFragment,
         name: IAtomType.ReactFragment,
         type: IAtomType.ReactFragment,
       })
 
-      testApplication.addAtom({
+      testStore.addAtom({
         id: IAtomType.HtmlDiv,
         name: IAtomType.HtmlDiv,
         type: IAtomType.HtmlDiv,
       })
 
-      testApplication.addAtom({
+      testStore.addAtom({
         id: IAtomType.HtmlSpan,
         name: IAtomType.HtmlSpan,
         type: IAtomType.HtmlSpan,
@@ -387,11 +387,11 @@ export const createTestStore = () => {
     }
   }
 
-  const testApplication = new TestStore({
+  const testStore = new TestStore({
     coreStore,
   })
 
-  registerRootStore(testApplication)
+  registerRootStore(testStore)
 
-  return testApplication
+  return testStore
 }
