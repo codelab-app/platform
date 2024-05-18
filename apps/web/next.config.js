@@ -65,7 +65,7 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
+    // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
   },
   nx: { svgr: true },
   reactStrictMode: false,

@@ -2,12 +2,17 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import { createTestStore } from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { configure } from 'mobx'
+import { unregisterRootStore } from 'mobx-keystone'
 
 describe('Runtime Element props', () => {
-  let testApplication: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestStore()
+    testStore = createTestStore()
+  })
+
+  afterEach(() => {
+    testStore.teardown()
   })
 
   it.each([[IPageKind.Provider], [IPageKind.Regular]])(
@@ -15,7 +20,7 @@ describe('Runtime Element props', () => {
     async (pageKind) => {
       const isProviderPage = pageKind === IPageKind.Provider
 
-      const { page, runtimePage } = testApplication.setupPage(
+      const { page, runtimePage } = testStore.setupPage(
         RendererType.Preview,
         pageKind,
       )
@@ -30,20 +35,20 @@ describe('Runtime Element props', () => {
 
       configure({ safeDescriptors: false })
 
-      const resource = testApplication.addResource({})
+      const resource = testStore.addResource({})
       const store = isProviderPage ? element?.store : page.providerPage?.store
       const storeApi = store?.current.api.current
 
-      const field = testApplication.addField({
+      const field = testStore.addField({
         api: storeApi,
         defaultValues: JSON.stringify(stateValue),
-        fieldType: testApplication.getStringType(),
+        fieldType: testStore.getStringType(),
         key: stateKey,
       })
 
       storeApi?.writeCache({ fields: [field] })
 
-      testApplication.addApiAction({
+      testStore.addApiAction({
         config: {
           data: JSON.stringify({
             queryParams: { name: `{{state.${stateKey}}}` },
@@ -73,8 +78,4 @@ describe('Runtime Element props', () => {
       configure({ safeDescriptors: true })
     },
   )
-
-  afterAll(() => {
-    testApplication.teardown()
-  })
 })

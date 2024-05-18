@@ -31,11 +31,14 @@ export const StyledComponent = forwardRef(
       return children
     }
 
+    const { key, ...restComponentProps } = componentProps
+
     return (
       <ReusableStyledComponent
         id="reuseable-styled-component"
+        key={key}
         // eslint-disable-next-line react/jsx-props-no-spreading
-        {...componentProps}
+        {...restComponentProps}
         as={ReactComponent}
         ref={(node: Nullable<HTMLElement>) => {
           componentProps['ref']?.(node)
