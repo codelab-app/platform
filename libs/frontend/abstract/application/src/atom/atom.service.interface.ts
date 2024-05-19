@@ -7,7 +7,6 @@ import type {
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
-import type { GuaranteedProps } from 'uniforms'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -39,7 +38,6 @@ export interface IAtomService
 
   delete(ids: Array<string>): Promise<number>
   getSelectAtomOptions(
-    fieldProps: GuaranteedProps<string | undefined>,
     parent: IAtomModel | undefined,
   ): Promise<Array<DefaultOptionType>>
   loadApi(atomId: string): Promise<void>
