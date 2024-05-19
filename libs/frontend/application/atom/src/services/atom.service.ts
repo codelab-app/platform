@@ -135,10 +135,7 @@ export const useAtomService = (): IAtomService => {
     return all[0]
   }
 
-  const getSelectAtomOptions = async (
-    fieldProps: { value?: string },
-    parent?: IAtomModel,
-  ) => {
+  const getSelectAtomOptions = async (parent?: IAtomModel) => {
     const atoms = await atomRepository.getSelectAtomOptions()
     const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
 
