@@ -5,7 +5,6 @@ import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsyncFn } from 'react-use'
-import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 import { useAtomService } from '../../services'
 
@@ -23,11 +22,10 @@ export const SelectAtom = observer<SelectAtomProps>(
   ({ error, label, name, parent }) => {
     const atomService = useAtomService()
     const { atomDomainService } = useDomainStore()
-    const [fieldProps] = useField<{ value?: string }>(name, {})
     const fallbackAtomOptions = atomDomainService.atomsList.map(mapAtomOptions)
 
     const [state, getSelectAtomOptions] = useAsyncFn(() =>
-      atomService.getSelectAtomOptions({ ...fieldProps, label }, parent),
+      atomService.getSelectAtomOptions(parent),
     )
 
     return (
