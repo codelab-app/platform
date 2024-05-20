@@ -20,11 +20,13 @@ import { propFactory } from '@codelab/frontend/domain/prop'
 import { resourceFactory } from '@codelab/frontend/domain/resource'
 import { Store, storeFactory } from '@codelab/frontend/domain/store'
 import {
+  codeMirrorTypeFactory,
   fieldFactory,
   interfaceTypeFactory,
   primitiveTypeFactory,
   reactNodeTypeFactory,
   renderPropsTypeFactory,
+  richTextTypeFactory,
 } from '@codelab/frontend/domain/type'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import type {
@@ -32,6 +34,7 @@ import type {
   IAppDto,
   IAtomDto,
   ICodeActionDto,
+  ICodeMirrorType,
   IComponentDto,
   ICreateElementDto,
   IFieldDto,
@@ -41,6 +44,7 @@ import type {
   IPropDto,
   IReactNodeType,
   IRenderPropTypeDto,
+  IRichTextType,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 import {
@@ -59,11 +63,16 @@ import {
   modelAction,
   prop,
   registerRootStore,
+  setGlobalConfig,
   unregisterRootStore,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
 export const createTestStore = () => {
+  setGlobalConfig({
+    showDuplicateModelNameWarnings: false,
+  })
+
   const coreStore = createCoreStore(
     {
       path: '',
@@ -103,6 +112,13 @@ export const createTestStore = () => {
     addCodeAction(dto: Partial<ICodeActionDto>) {
       return codeActionFactory(
         this.coreStore.actionService.actionDomainService,
+      )(dto)
+    }
+
+    @modelAction
+    addCodeMirrorType(dto: Partial<ICodeMirrorType>) {
+      return codeMirrorTypeFactory(
+        this.coreStore.typeService.typeDomainService,
       )(dto)
     }
 
@@ -187,14 +203,14 @@ export const createTestStore = () => {
     }
 
     @modelAction
-    addReactNode(dto: Partial<IReactNodeType>) {
+    addReactNodeType(dto: Partial<IReactNodeType>) {
       return reactNodeTypeFactory(this.coreStore.typeService.typeDomainService)(
         dto,
       )
     }
 
     @modelAction
-    addRenderProps(dto: Partial<IRenderPropTypeDto>) {
+    addRenderPropsType(dto: Partial<IRenderPropTypeDto>) {
       return renderPropsTypeFactory(
         this.coreStore.typeService.typeDomainService,
       )(dto)
@@ -216,6 +232,13 @@ export const createTestStore = () => {
       return resourceFactory(
         this.coreStore.resourceService.resourceDomainService,
       )(dto)
+    }
+
+    @modelAction
+    addRichTextType(dto: Partial<IRichTextType>) {
+      return richTextTypeFactory(this.coreStore.typeService.typeDomainService)(
+        dto,
+      )
     }
 
     @modelAction
@@ -367,19 +390,35 @@ export const createTestStore = () => {
     }
 
     protected onAttachedToRootStore() {
+      const richTextType = testStore.addRichTextType({})
+      const api = testStore.addInterfaceType({})
+
+      api.writeCache({
+        fields: [
+          testStore.addField({
+            api: { id: api.id },
+            fieldType: { id: richTextType.id },
+            key: 'children',
+          }),
+        ],
+      })
+
       testStore.addAtom({
+        api: api,
         id: IAtomType.ReactFragment,
         name: IAtomType.ReactFragment,
         type: IAtomType.ReactFragment,
       })
 
       testStore.addAtom({
+        api: api,
         id: IAtomType.HtmlDiv,
         name: IAtomType.HtmlDiv,
         type: IAtomType.HtmlDiv,
       })
 
       testStore.addAtom({
+        api: api,
         id: IAtomType.HtmlSpan,
         name: IAtomType.HtmlSpan,
         type: IAtomType.HtmlSpan,

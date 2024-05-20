@@ -116,6 +116,8 @@ export class RuntimeElementPropsModel
       urlProps: this.urlProps ?? {},
     }
 
+    // initial bind creates a blueprint to pass evaluation
+    // the real binding happens in runtime context
     context['actions'] = this.transformRuntimeActions(
       this.runtimeStore.runtimeActionsList,
       context,
@@ -127,7 +129,7 @@ export class RuntimeElementPropsModel
           ...context,
           state: context.rootState,
         })
-      : []
+      : {}
 
     return context
   }
@@ -171,7 +173,7 @@ export class RuntimeElementPropsModel
       (field) => field.key === 'children',
     )
 
-    // atom doesn't children like input
+    // atom doesn't allow children like input atom
     if (!childrenField) {
       return undefined
     }
@@ -187,9 +189,6 @@ export class RuntimeElementPropsModel
       ? CodeMirrorEditorWrapper
       : RichTextEditorWrapper
 
-    /**
-     * If not rich text then it is react node then return it directly
-     */
     return React.createElement(Wrapper, {
       runtimeElement: this.runtimeElement.current,
     })
@@ -239,6 +238,21 @@ export class RuntimeElementPropsModel
     const context: IRuntimeContext = {
       ...this.evaluationContext,
       props: evaluateObject(this.renderedTypedProps, this.evaluationContext),
+    }
+
+    // bind again because context is updated with new values
+    context['actions'] = this.transformRuntimeActions(
+      this.runtimeStore.runtimeActionsList,
+      context,
+    )
+
+    if (this.providerStore) {
+      // If a root action is called in a regular page, the `state` should be from the provider's page store
+      context['state'] = context.rootState
+      context['rootActions'] = this.transformRuntimeActions(
+        this.providerStore.runtimeActionsList,
+        context,
+      )
     }
 
     return context

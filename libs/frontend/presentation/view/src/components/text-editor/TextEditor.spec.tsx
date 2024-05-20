@@ -16,8 +16,6 @@ describe('TextEditor', () => {
       )
     })
 
-    screen.debug()
-
     // Assuming the TextEditor component uses ContentEditable internally
     // and that it renders the HTML inside it.
     const contentEditable = screen.getByRole('textbox')

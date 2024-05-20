@@ -17,7 +17,7 @@ describe('Runtime Element props', () => {
     testStore = createTestStore()
   })
 
-  afterEach(() => {
+  afterAll(() => {
     testStore.teardown()
   })
 

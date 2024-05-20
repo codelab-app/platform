@@ -85,9 +85,10 @@ describe('Runtime Component props', () => {
     })
 
     it('should resolve child mapper prop', () => {
-      const { component, rendered, rootElement, runtimeRootElement } =
-        testStore.setupRuntimeComponent()
+      const { rootElement, runtimeRootElement } =
+        testStore.setupRuntimeElement()
 
+      const component = testStore.addComponent({})
       const propKey = 'childMapperProp'
       const propsValue = ['p01', 'p02', 'p03']
 
