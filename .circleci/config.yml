@@ -191,6 +191,9 @@ jobs:
       - run:
           command: pnpm cli tasks codegen --stage ci
           name: GraphQL Codegen
+      - run:
+          command: pnpm cli tasks generate-workspace --stage ci
+          name: Generate Workspace
   docker-api:
     executor: docker-node
     resource_class: medium
