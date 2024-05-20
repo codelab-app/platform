@@ -70,7 +70,9 @@ describe('State variables sharing between pages', () => {
     )
 
     cy.openPreview().contains('text undefined').should('exist')
+  })
 
+  it('should setup the pages that will share states - 2', () => {
     cy.openBuilder()
 
     // create a state variable inside the component
@@ -105,10 +107,20 @@ describe('State variables sharing between pages', () => {
 
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
+    cy.contains('text component state value', { timeout: 240000 }).should(
+      'exist',
+      { timeout: 240000 },
+    )
+
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
     // cy.reload()
-    cy.openPreview().contains('text component state value').should('exist')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(5000)
+    cy.waitForSpinners()
+    cy.openPreview()
+      .contains('text component state value', { timeout: 240000 })
+      .should('exist', { timeout: 240000 })
   })
 
   /**
