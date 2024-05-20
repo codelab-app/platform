@@ -5,9 +5,8 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createTestStore } from '@codelab/frontend/application/test'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import { configure } from 'mobx'
-import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
 
 let testStore: ReturnType<typeof createTestStore>
@@ -319,66 +318,73 @@ describe('Runtime Element props', () => {
     it.each([
       ['refs', IPageKind.Provider],
       ['rootRefs', IPageKind.Regular],
-    ])('should evaluate ref expression with %s in %s', (refsKey, pageKind) => {
-      const { rendererService } = testStore.coreStore
-      const isProviderPage = pageKind === IPageKind.Provider
+    ])(
+      'should evaluate ref expression with %s in %s',
+      async (refsKey, pageKind) => {
+        const { rendererService } = testStore.coreStore
+        const isProviderPage = pageKind === IPageKind.Provider
 
-      const { page, rendered, rootElement, runtimeRootElement } =
-        testStore.setupRuntimeElement(RendererType.Preview)
+        const { page, rendered, rootElement, runtimeRootElement } =
+          testStore.setupRuntimeElement(RendererType.Preview)
 
-      const runtimeProps = runtimeRootElement.runtimeProps
-      const propKey = 'propKey'
-      const providerRootElement = page.providerPage?.rootElement.current
+        const runtimeProps = runtimeRootElement.runtimeProps
+        const propKey = 'propKey'
+        const providerRootElement = page.providerPage?.rootElement.current
 
-      const elementRefKey = isProviderPage
-        ? rootElement.slug
-        : providerRootElement?.slug
+        const elementRefKey = isProviderPage
+          ? rootElement.slug
+          : providerRootElement?.slug
 
-      rootElement.props.set(propKey, `{{${refsKey}.${elementRefKey}}}`)
+        rootElement.props.set(propKey, `{{${refsKey}.${elementRefKey}}}`)
 
-      const { rerender } = render(
-        React.createElement(
-          StoreProvider,
-          { value: testStore.coreStore },
-          rendered,
-        ),
-      )
+        await act(async () => {
+          render(
+            React.createElement(
+              StoreProvider,
+              { value: testStore.coreStore },
+              rendered,
+            ),
+          )
+        })
 
-      expect(runtimeProps.evaluatedProps).toMatchObject({
-        [propKey]: isProviderPage
-          ? {
-              // eslint-disable-next-line jest/no-conditional-expect
-              current: expect.any(HTMLDivElement),
-            }
-          : undefined,
-      })
+        expect(runtimeProps.evaluatedProps).toMatchObject({
+          [propKey]: isProviderPage
+            ? {
+                // eslint-disable-next-line jest/no-conditional-expect
+                current: expect.any(HTMLDivElement),
+              }
+            : undefined,
+        })
 
-      const atom = testStore.addAtom({
-        __typename: 'Atom',
-        name: 'HtmlSpan',
-        type: IAtomType.HtmlSpan,
-      })
+        const atom = testStore.addAtom({
+          __typename: 'Atom',
+          name: 'HtmlSpan',
+          type: IAtomType.HtmlSpan,
+        })
 
-      const targetElement = isProviderPage ? rootElement : providerRootElement
+        const targetElement = isProviderPage ? rootElement : providerRootElement
 
-      targetElement?.writeCache({
-        renderType: atom,
-      })
+        targetElement?.writeCache({
+          renderType: atom,
+        })
 
-      rerender(
-        React.createElement(
-          StoreProvider,
-          { value: testStore.coreStore },
-          rendererService.activeRenderer?.current.render,
-        ),
-      )
+        await act(async () => {
+          render(
+            React.createElement(
+              StoreProvider,
+              { value: testStore.coreStore },
+              rendererService.activeRenderer?.current.render,
+            ),
+          )
+        })
 
-      expect(runtimeProps.evaluatedProps).toMatchObject({
-        [propKey]: {
-          current: expect.any(HTMLSpanElement),
-        },
-      })
-    })
+        expect(runtimeProps.evaluatedProps).toMatchObject({
+          [propKey]: {
+            current: expect.any(HTMLSpanElement),
+          },
+        })
+      },
+    )
 
     it.each([
       ['state', IPageKind.Provider],
