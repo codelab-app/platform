@@ -10,7 +10,7 @@ steps:
       name: 'Monitor NX Cache Size'
       command: ./scripts/nx/reset-cache.sh
   # Can't use `pnpm cli` doesn't exist yet
-  - run: pnpm nx affected --target=build --projects=web,api,sites,e2e,cli --parallel=3 -c ci --nx-bail
+  - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
   - save_cache:
       name: 'Save NX Cache'
       key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}

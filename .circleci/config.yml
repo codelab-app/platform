@@ -9,7 +9,7 @@ commands:
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
-      - run: pnpm nx affected --target=build --projects=web,api,sites,e2e,cli --parallel=3 -c ci --nx-bail
+      - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
