@@ -9,14 +9,15 @@ commands:
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
-      - run: npx nx run-many --target=build --projects=web,api,sites,e2e,cli --parallel=3 -c ci --nx-bail
+      - run: pnpm nx affected --target=build --projects=web,api,sites,e2e,cli --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
-            - ~/project/dist/apps/cli
-            - ~/project/dist/apps/api
+            - ~/project/dist/apps/web/.next/cache
+            - ~/project/dist/apps/sites/.next/cache
+            - ~/project/dist/apps/landing/.next/cache
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -189,11 +190,11 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm cli tasks codegen --stage ci
-          name: GraphQL Codegen
+          command: pnpm cli tasks graphql-codegen --stage ci
+          name: Check GraphQL Codegen
       - run:
-          command: pnpm cli tasks generate-workspace --stage ci
-          name: Generate Workspace
+          command: pnpm cli tasks workspace-codegen --stage ci
+          name: Check Generate Workspace
   docker-api:
     executor: docker-node
     resource_class: medium
@@ -280,7 +281,6 @@ jobs:
     resource_class: large
     steps:
       - restore-workspace
-      - clear-jest-cache
       - run:
           command: pnpm cli tasks int --stage ci
           environment:
@@ -462,7 +462,6 @@ jobs:
     resource_class: large
     steps:
       - restore-workspace
-      - clear-jest-cache
       - run:
           command: pnpm cli tasks unit --stage ci
           environment:

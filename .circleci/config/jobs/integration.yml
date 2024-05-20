@@ -2,7 +2,7 @@ executor: docker-node-neo4j
 resource_class: large
 steps:
   - restore-workspace
-  - clear-jest-cache
+  # - clear-jest-cache
   - run:
       name: 'Run Integration Tests'
       command: pnpm cli tasks int --stage ci

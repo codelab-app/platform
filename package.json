@@ -16,7 +16,7 @@
     "cli": "scripts/nx/cli.sh",
     "docker:up": "scripts/docker/dev/up.sh",
     "docker:prod:up": "scripts/docker/prod/up.sh",
-    "codegen": "pnpm cli tasks codegen --stage dev",
+    "codegen": "pnpm cli tasks graphql-codegen --stage dev",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --parallel=1 --runInBand",
     "test:unit": "nx run-many --all --target=test:unit --parallel=5",
