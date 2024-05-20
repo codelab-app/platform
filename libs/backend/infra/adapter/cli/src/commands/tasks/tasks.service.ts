@@ -200,7 +200,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
             console.log('Un-committed files', unCommittedFiles)
 
-            if (unCommittedFiles) {
+            if (unCommittedFiles.length) {
               execCommand('git diff')
               console.error('Please generate workspace!')
               process.exit(1)
