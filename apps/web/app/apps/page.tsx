@@ -1,5 +1,4 @@
 import 'server-only'
-import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { getUser } from '@codelab/frontend/application/shared/auth'
 import type { Metadata } from 'next'
 import React from 'react'
@@ -15,7 +14,7 @@ const AppsPage = async () => {
     return null
   }
 
-  return <AntdRegistry>{user.name}</AntdRegistry>
+  return <>{user.name}</>
 }
 
 export default AppsPage
