@@ -320,6 +320,9 @@
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
       ],
+      "@codelab/frontend/presentation/client-components": [
+        "libs/frontend/presentation/client-components/src/index.ts"
+      ],
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
       ],
