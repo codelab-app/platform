@@ -187,6 +187,28 @@ export class TaskService implements CommandModule<unknown, unknown> {
         }),
       )
       .command(
+        Tasks.GenerateWorkspace,
+        'Generate workspace',
+        (argv) => argv,
+        globalHandler(async ({ stage }) => {
+          if (stage === Stage.CI) {
+            execCommand(
+              'pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive',
+            )
+
+            const { unCommittedFiles } = await gitChangedFiles()
+
+            console.log('Un-committed files', unCommittedFiles)
+
+            if (unCommittedFiles) {
+              execCommand('git diff')
+              console.error('Please generate workspace!')
+              process.exit(1)
+            }
+          }
+        }),
+      )
+      .command(
         Tasks.Lint,
         'Lint projects',
         (argv) => argv,

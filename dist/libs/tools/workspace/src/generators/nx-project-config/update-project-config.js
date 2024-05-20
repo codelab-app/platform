@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateProjectConfig = void 0;
 const devkit_1 = require("@nx/devkit");
-const ci_lint_config_1 = require("./lint/ci-lint-config");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const project_json_1 = require("./test/project-json");
 const lib_tsconfig_1 = require("./tsconfig/lib-tsconfig");
@@ -18,7 +17,7 @@ const updateProjectConfig = (tree, projectName) => {
      * Modifies projectConfig here
      */
     // addCiLintConfig(tree, projectConfig)
-    (0, ci_lint_config_1.removeCiLintConfig)(tree, projectConfig);
+    // removeCiLintConfig(tree, projectConfig)
     /**
      * Add the lint pattern to nx.json instead
      */
