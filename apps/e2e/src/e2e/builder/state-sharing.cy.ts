@@ -47,22 +47,25 @@ describe('State variables sharing between pages', () => {
       })
       .as('cypressComponent')
 
-    cy.get<Cypress.Response<Component>>('@cypressComponent').then((result) => {
-      const component = result.body
+    cy.get<Cypress.Response<Component>>('@cypressComponent')
+      .then((result) => {
+        const component = result.body
 
-      return cy.postApiRequest(`/element/${component.id}/create-elements`, [
-        spaceElement(component.rootElement),
-        typographyTextElement,
-      ])
+        return cy.postApiRequest(`/element/${component.id}/create-elements`, [
+          spaceElement(component.rootElement),
+          typographyTextElement,
+        ])
+      })
+      .as('cypressComponentElements')
+
+    cy.get('@cypressComponentElements').then(() => {
+      cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+      cy.waitForSpinners()
     })
   })
 
   it('should setup the pages that will share states', () => {
-    cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
-
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-    cy.waitForSpinners()
-
     // The UI tree flickers, need this otherwise fails on CI
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).should('exist')
     cy.toggleCuiTreeNodeSwitcher(`${COMPONENT_NAME} Root`)
