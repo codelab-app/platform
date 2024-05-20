@@ -63,7 +63,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx run-many --target=test:unit --ci -c ci --skip-nx-cache',
+              'pnpm nx affected --target=test:unit --ci -c ci --skip-nx-cache',
             )
           }
         }),
@@ -81,13 +81,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx run-many --target=test:integration --runInBand --ci -c ci --parallel=1 --skip-nx-cache',
+              'pnpm nx affected --target=test:integration --runInBand --ci -c ci --parallel=1 --skip-nx-cache',
             )
           }
         }),
       )
       .command<StageParam>(
-        Tasks.Codegen,
+        Tasks.GraphqlCodegen,
         'Run codegen',
         (argv) => argv,
         globalHandler(async ({ stage }) => {
@@ -187,7 +187,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         }),
       )
       .command(
-        Tasks.GenerateWorkspace,
+        Tasks.WorkspaceCodegen,
         'Generate workspace',
         (argv) => argv,
         globalHandler(async ({ stage }) => {

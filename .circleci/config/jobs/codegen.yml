@@ -4,7 +4,7 @@ steps:
   - restore-workspace
   - run:
       name: 'Check GraphQL Codegen'
-      command: pnpm cli tasks codegen --stage ci
+      command: pnpm cli tasks graphql-codegen --stage ci
   - run:
       name: 'Check Generate Workspace'
-      command: pnpm cli tasks generate-workspace --stage ci
+      command: pnpm cli tasks workspace-codegen --stage ci
