@@ -1,0 +1,5 @@
+description: 'Clear Jest Spec'
+steps:
+  - run:
+      command: |
+        pnpm jest --clearCache
