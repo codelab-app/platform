@@ -17,6 +17,12 @@ commands:
             - ~/project/.nx/cache
             - ~/project/dist/apps/cli
             - ~/project/dist/apps/api
+  clear-jest-cache:
+    description: Clear Jest Spec
+    steps:
+      - run:
+          command: |
+            pnpm jest --clearCache
   install-nvm:
     steps:
       - restore_cache:
@@ -271,6 +277,7 @@ jobs:
     resource_class: large
     steps:
       - restore-workspace
+      - clear-jest-cache
       - run:
           command: pnpm cli tasks int --stage ci
           environment:
@@ -452,6 +459,7 @@ jobs:
     resource_class: large
     steps:
       - restore-workspace
+      - clear-jest-cache
       - run:
           command: pnpm cli tasks unit --stage ci
           environment:
