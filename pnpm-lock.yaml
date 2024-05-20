@@ -20,7 +20,7 @@ dependencies:
     version: 2.7.1(antd@5.16.5)(rc-field-form@1.44.0)(react-dom@18.2.0)(react@18.2.0)
   '@apollo/client':
     specifier: 3.7.15
-    version: 3.7.15(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.7.15(graphql-ws@5.16.0)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
   '@apollo/server':
     specifier: 4.7.2
     version: 4.7.2(graphql@16.6.0)
@@ -99,6 +99,9 @@ dependencies:
   '@graphql-codegen/plugin-helpers':
     specifier: 5.0.3
     version: 5.0.3(graphql@16.6.0)
+  '@graphql-codegen/typescript-document-nodes':
+    specifier: ^4.0.7
+    version: 4.0.7(graphql@16.6.0)
   '@graphql-hive/client':
     specifier: ^0.29.0
     version: 0.29.0(graphql@16.6.0)
@@ -144,6 +147,9 @@ dependencies:
   '@nestjs/cqrs':
     specifier: 10.0.1
     version: 10.0.1(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+  '@nestjs/event-emitter':
+    specifier: ^2.0.4
+    version: 2.0.4(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)
   '@nestjs/graphql':
     specifier: 11.0.6
     version: 11.0.6(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.6.0)(reflect-metadata@0.1.13)(ts-morph@19.0.0)
@@ -261,6 +267,9 @@ dependencies:
   axios:
     specifier: 1.5.0
     version: 1.5.0
+  body-parser:
+    specifier: ^1.20.2
+    version: 1.20.2
   chalk:
     specifier: 4.1.2
     version: 4.1.2
@@ -282,6 +291,9 @@ dependencies:
   codemirror:
     specifier: 6.0.1
     version: 6.0.1(@lezer/common@1.2.1)
+  cors:
+    specifier: ^2.8.5
+    version: 2.8.5
   cross-fetch:
     specifier: 3.1.4
     version: 3.1.4
@@ -291,6 +303,9 @@ dependencies:
   dir-compare:
     specifier: 4.2.0
     version: 4.2.0
+  dots-wrapper:
+    specifier: ^3.11.8
+    version: 3.11.8
   env-var:
     specifier: 7.4.1
     version: 7.4.1
@@ -318,6 +333,9 @@ dependencies:
   graphql-tag:
     specifier: 2.12.6
     version: 2.12.6(graphql@16.6.0)
+  graphql-ws:
+    specifier: ^5.16.0
+    version: 5.16.0(graphql@16.6.0)
   isolated-vm:
     specifier: 4.6.0
     version: 4.6.0
@@ -501,9 +519,15 @@ dependencies:
   winston:
     specifier: 3.8.2
     version: 3.8.2
+  ws:
+    specifier: ^8.17.0
+    version: 8.17.0
   yargs:
     specifier: 17.7.2
     version: 17.7.2
+  zen-observable-ts:
+    specifier: ^1.1.0
+    version: 1.1.0
 
 devDependencies:
   '@commitlint/cli':
@@ -758,6 +782,9 @@ devDependencies:
   '@types/webpack':
     specifier: 5.28.0
     version: 5.28.0(@swc/core@1.3.92)(esbuild@0.18.20)
+  '@types/ws':
+    specifier: ^8.5.10
+    version: 8.5.10
   '@types/yargs':
     specifier: 17.0.24
     version: 17.0.24
@@ -1388,7 +1415,7 @@ packages:
       graphql: 16.6.0
     dev: false
 
-  /@apollo/client@3.7.15(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
+  /@apollo/client@3.7.15(graphql-ws@5.16.0)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pLScjo4GAQRWKWyEg2J3FlQr9fbUAuADT0EI2+JlLf2BjaU9I7WUaZVD9w+0qNPE8BZqs53MRQq0OCm1QCW+eg==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -1412,6 +1439,7 @@ packages:
       '@wry/trie': 0.4.3
       graphql: 16.6.0
       graphql-tag: 2.12.6(graphql@16.6.0)
+      graphql-ws: 5.16.0(graphql@16.6.0)
       hoist-non-react-statics: 3.3.2
       optimism: 0.16.2
       prop-types: 15.8.1
@@ -4138,7 +4166,6 @@ packages:
       import-from: 4.0.0
       lodash: 4.17.21
       tslib: 2.6.2
-    dev: true
 
   /@graphql-codegen/schema-ast@4.0.2(graphql@16.6.0):
     resolution: {integrity: sha512-5mVAOQQK3Oz7EtMl/l3vOQdc2aYClUzVDHHkMvZlunc+KlGgl81j8TLa+X7ANIllqU4fUEsQU3lJmk4hXP6K7Q==}
@@ -4165,6 +4192,21 @@ packages:
       - encoding
       - supports-color
     dev: true
+
+  /@graphql-codegen/typescript-document-nodes@4.0.7(graphql@16.6.0):
+    resolution: {integrity: sha512-rgIFENkOqm/Ses4xf2I+FIrFXqzWA+jfhtf+DoWYVOUshEiN5v4+alQc0CmVpUVNlzy8M1q8djG1zkAJZtQD2A==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.6.0)
+      '@graphql-codegen/visitor-plugin-common': 5.2.0(graphql@16.6.0)
+      auto-bind: 4.0.0
+      graphql: 16.6.0
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
 
   /@graphql-codegen/typescript-graphql-request@6.2.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.6.0):
     resolution: {integrity: sha512-nkp5tr4PrC/+2QkQqi+IB+bc7AavUnUvXPW8MC93HZRvwfMGy6m2Oo7b9JCPZ3vhNpqT2VDWOn/zIZXKz6zJAw==}
@@ -4309,7 +4351,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
-    dev: true
 
   /@graphql-eslint/eslint-plugin@3.20.1(@babel/core@7.24.5)(@types/node@18.14.2)(graphql@16.6.0):
     resolution: {integrity: sha512-RbwVlz1gcYG62sECR1u0XqMh8w5e5XMCCZoMvPQ3nJzEBCTfXLGX727GBoRmSvY1x4gJmqNZ1lsOX7lZY14RIw==}
@@ -6393,6 +6434,17 @@ packages:
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
       uuid: 9.0.0
+    dev: false
+
+  /@nestjs/event-emitter@2.0.4(@nestjs/common@10.0.4)(@nestjs/core@10.0.4):
+    resolution: {integrity: sha512-quMiw8yOwoSul0pp3mOonGz8EyXWHSBTqBy8B0TbYYgpnG1Ix2wGUnuTksLWaaBiiOTDhciaZ41Y5fJZsSJE1Q==}
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0 || ^10.0.0
+      '@nestjs/core': ^8.0.0 || ^9.0.0 || ^10.0.0
+    dependencies:
+      '@nestjs/common': 10.0.4(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/core': 10.0.4(@nestjs/common@10.0.4)(@nestjs/platform-express@10.0.4)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      eventemitter2: 6.4.9
     dev: false
 
   /@nestjs/graphql@11.0.6(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.6.0)(reflect-metadata@0.1.13)(ts-morph@19.0.0):
@@ -12005,6 +12057,10 @@ packages:
       '@types/node': 18.14.2
     optional: true
 
+  /@types/zen-observable@0.8.3:
+    resolution: {integrity: sha512-fbF6oTd4sGGy0xjHPKAt+eS2CrxJ3+6gQ3FGcBoIJR2TLAyCkCyI8JqZNy+FeON0AhVgNJoUumVoZQjBFUqHkw==}
+    dev: false
+
   /@typescript-eslint/eslint-plugin@6.10.0(@typescript-eslint/parser@6.10.0)(eslint@8.53.0)(typescript@5.2.2):
     resolution: {integrity: sha512-uoLj4g2OTL8rfUQVx2AFO1hp/zja1wABJq77P6IclQs6I/m9GLrm7jCdgzZkvWdDCQf1uEvoa8s8CupsgWQgVg==}
     engines: {node: ^16.0.0 || >=18.0.0}
@@ -13300,6 +13356,16 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+
+  /axios@1.7.0:
+    resolution: {integrity: sha512-IiB0wQeKyPRdsFVhBgIo31FbzOyf2M6wYl7/NVutFwFBRMiAbjNiydJIHKeLmPugF4kJLfA1uWZ82Is2QzqqFA==}
+    dependencies:
+      follow-redirects: 1.15.6
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /axobject-query@3.2.1:
     resolution: {integrity: sha512-jsyHu61e6N4Vbz/v18DHwWYKK0bSWLqn47eeDSKPB7m8tqMHF9YJ+mhIk2lVteyZrY8tnSj/jHOv4YiTCuCJgg==}
@@ -15943,6 +16009,14 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
+  /dots-wrapper@3.11.8:
+    resolution: {integrity: sha512-uRBfjDgiEsdG9Qg4R8FJpawaXnMBbMHWNA21QHmAu5Z0E4BKUZiEbaXpSUXEwKTmb3Z1nwzdPepUhrRuP15mbw==}
+    dependencies:
+      axios: 1.7.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /dset@3.1.3:
     resolution: {integrity: sha512-20TuZZHCEZ2O71q9/+8BwKwZ0QtD9D8ObhrihJPr+vLLYlSuAU3/zL4cSlgbfeoGHTjCSJBa7NGcrF9/Bx/WJQ==}
     engines: {node: '>=4'}
@@ -16832,6 +16906,10 @@ packages:
   /eventemitter2@6.4.7:
     resolution: {integrity: sha512-tYUSVOGeQPKt/eC1ABfhHy5Xd96N3oIijJvN3O9+TsC28T5V9yX9oEfEK5faP0EFSNVOG97qtAS68GBrQB2hDg==}
     dev: true
+
+  /eventemitter2@6.4.9:
+    resolution: {integrity: sha512-JEPTiaOt9f04oa6NOkc4aH+nVp5I3wEjpHbIPqfgCdD5v5bUzy7xQqwcVO2aDQgOWhI28da57HksMrzK9HlRxg==}
+    dev: false
 
   /eventemitter3@2.0.3:
     resolution: {integrity: sha512-jLN68Dx5kyFHaePoXWPsCGW5qdyZQtLYHkxkg02/Mz6g0kYpDx4FyP6XfArhQdlOC4b8Mv+EMxPo/8La7Tzghg==}
@@ -18260,7 +18338,6 @@ packages:
       graphql: '>=0.11 <=16'
     dependencies:
       graphql: 16.6.0
-    dev: true
 
   /graphql-ws@5.16.0(graphql@16.8.1):
     resolution: {integrity: sha512-Ju2RCU2dQMgSKtArPbEtsK5gNLnsQyTNIo/T7cZNp96niC1x0KdJNZV0TIoilceBPQwfb5itrGl8pkFeOUMl4A==}
@@ -28164,6 +28241,13 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: true
+
+  /zen-observable-ts@1.1.0:
+    resolution: {integrity: sha512-1h4zlLSqI2cRLPJUHJFL8bCWHhkpuXkF+dbGkRaWjgDIG26DmzyshUMrdV/rL3UnR+mhaX4fRq8LPouq0MYYIA==}
+    dependencies:
+      '@types/zen-observable': 0.8.3
+      zen-observable: 0.8.15
+    dev: false
 
   /zen-observable-ts@1.2.5:
     resolution: {integrity: sha512-QZWQekv6iB72Naeake9hS1KxHlotfRpe+WGNbNx5/ta+R3DNjVO2bswf63gXlWDcs+EMd7XY8HfVQyP1X6T4Zg==}
