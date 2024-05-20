@@ -40,7 +40,7 @@ export class DigitaloceanService {
   async getDomainRecords(domainName: string) {
     const input = {
       domain_name: domainName,
-      per_page: 100,
+      // per_page: 100,
     }
 
     const {
