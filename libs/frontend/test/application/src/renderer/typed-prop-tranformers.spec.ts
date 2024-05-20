@@ -2,8 +2,7 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createTestStore } from '@codelab/frontend/application/test'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
-import { render } from '@testing-library/react'
-import { unregisterRootStore } from 'mobx-keystone'
+import { act, render } from '@testing-library/react'
 import React, { isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
@@ -38,10 +37,10 @@ describe('TypedPropTransformers', () => {
     })
   })
 
-  it('should render props when kind is ReactNodeType', async () => {
+  it('should render props when kind is ReactNodeType', () => {
     const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
     const propKey = 'someNode'
-    const reactNodeType = testStore.addReactNode({})
+    const reactNodeType = testStore.addReactNodeType({})
     const component = testStore.addComponent({})
 
     rootElement.props.set(propKey, {
@@ -55,10 +54,10 @@ describe('TypedPropTransformers', () => {
     expect(isValidElement(renderedProp)).toBe(true)
   })
 
-  it('should render props when kind is RenderPropsType', async () => {
+  it('should render props when kind is RenderPropsType', () => {
     const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
     const propKey = 'someNode'
-    const renderPropsType = testStore.addRenderProps({})
+    const renderPropsType = testStore.addRenderPropsType({})
     const component = testStore.addComponent({})
 
     rootElement.props.set(propKey, {
@@ -82,7 +81,8 @@ describe('TypedPropTransformers', () => {
     const textPropKey = 'text'
     const textPropValue = 'some text value'
     const childrenExpression = `{{componentProps.${textPropKey}}}`
-    const renderPropsType = testStore.addRenderProps({})
+    const renderPropsType = testStore.addRenderPropsType({})
+    const codeMirrorType = testStore.addCodeMirrorType({})
     const api = testStore.addInterfaceType({})
 
     api.writeCache({
@@ -103,7 +103,11 @@ describe('TypedPropTransformers', () => {
       renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
-    childElement.props.set('children', childrenExpression)
+    childElement.props.set('children', {
+      kind: codeMirrorType.kind,
+      type: codeMirrorType.id,
+      value: childrenExpression,
+    })
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 
@@ -122,6 +126,7 @@ describe('TypedPropTransformers', () => {
         renderedProp(textPropValue),
       ),
     )
+
 
     expect(await screen.findByText(textPropValue)).toBeInTheDocument()
   })

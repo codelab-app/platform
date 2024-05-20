@@ -1,5 +1,7 @@
+export * from './code-mirror-type.test.factory'
 export * from './field.test.factory'
 export * from './interface-type.test.factory'
 export * from './primitive-type.test.factory'
 export * from './react-node-type.test.factory'
 export * from './render-prop-type.test.factory'
+export * from './rich-text-type.test.factory'

@@ -3,8 +3,8 @@ import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { createTestStore } from '@codelab/frontend/application/test'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
-import { act, render, screen } from '@testing-library/react'
-import { unregisterRootStore } from 'mobx-keystone'
+import { render, screen } from '@testing-library/react'
+import { setGlobalConfig } from 'mobx-keystone'
 import React from 'react'
 
 describe('Runtime Element', () => {
@@ -14,7 +14,7 @@ describe('Runtime Element', () => {
     testStore = createTestStore()
   })
 
-  afterEach(() => {
+  afterAll(() => {
     testStore.teardown()
   })
 
@@ -32,36 +32,29 @@ describe('Runtime Element', () => {
   })
 
   it('should create children with text injection', async () => {
-    const app = testStore.addApp({})
-    const page = testStore.addPageRegular({ app })
-
-    const renderer = testStore.addRenderer({
-      containerNode: page,
-      rendererType: RendererType.Preview,
-    })
-
-    const rootElement = page.rootElement.current
+    const { renderer, rootElement } = testStore.setupRuntimeElement()
+    const richTextType = testStore.addRichTextType({})
 
     rootElement.writeCache({
       renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
-    rootElement.props.set('children', 'text')
-
-    // render itself adds `body > div`
-    await act(async () => {
-      render(
-        React.createElement(
-          StoreProvider,
-          { value: testStore.coreStore },
-          renderer.render,
-        ),
-      )
+    rootElement.props.set('children', {
+      kind: richTextType.kind,
+      type: richTextType.id,
+      value: 'text',
     })
 
-    screen.debug()
+    // render itself adds `body > div`
+    render(
+      React.createElement(
+        StoreProvider,
+        { value: testStore.coreStore },
+        renderer.render,
+      ),
+    )
 
-    expect(screen.getByText('text')).toBeInTheDocument()
+    expect(await screen.findByText('text')).toBeInTheDocument()
   })
 
   it('should add element runtime child', () => {
