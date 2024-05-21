@@ -11,6 +11,7 @@ import { restWebClient } from '@codelab/frontend/application/axios'
 import { User, UserDomainService } from '@codelab/frontend/domain/user'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
+import set from 'lodash/set'
 import { computed } from 'mobx'
 import {
   _async,
@@ -106,7 +107,7 @@ export class UserService
     containerId: string,
     expandedKeys: Array<string>,
   ) {
-    this.preferences.explorerExpandedNodes[containerId] = expandedKeys
+    set(this.preferences, `explorerExpandedNodes.${containerId}`, expandedKeys)
 
     void this.savePreferences()
   }
@@ -117,8 +118,11 @@ export class UserService
     containerId: string,
     breakpoint: BuilderWidthBreakPoint,
   ) {
-    this.preferences.apps[containerId] ??= {}
-    this.preferences.apps[containerId]!.selectedBuilderBreakpoint = breakpoint
+    set(
+      this.preferences,
+      `apps.${containerId}.selectedBuilderBreakpoint`,
+      breakpoint,
+    )
 
     void this.savePreferences()
   }
@@ -129,8 +133,7 @@ export class UserService
     containerId: string,
     width: BuilderWidth,
   ) {
-    this.preferences.apps[containerId] ??= {}
-    this.preferences.apps[containerId]!.selectedBuilderWidth = { ...width }
+    set(this.preferences, `apps.${containerId}.selectedBuilderWidth`, width)
 
     void this.savePreferences()
   }

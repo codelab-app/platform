@@ -4,7 +4,7 @@
   "sourceRoot": "apps/e2e/src",
   "projectType": "application",
   "tags": ["projectType:application", "type:concrete"],
-  "implicitDependencies": ["web"],
+  "implicitDependencies": ["web", "api"],
   "targets": {
     "e2e-skip-servers": {
       "executor": "@nx/cypress:cypress",
@@ -12,7 +12,7 @@
       "options": {
         "cypressConfig": "apps/e2e/cypress.test.config.ts",
         "baseUrl": "http://127.0.0.1:3001",
-        "browser": "chrome",
+        "browser": "electron",
         "testingType": "e2e"
       },
       "configurations": {
@@ -28,7 +28,7 @@
       "options": {
         "cypressConfig": "apps/e2e/cypress.test.config.ts",
         "baseUrl": "http://127.0.0.1:3001",
-        "browser": "chrome",
+        "browser": "electron",
         "testingType": "e2e"
       },
       "configurations": {
