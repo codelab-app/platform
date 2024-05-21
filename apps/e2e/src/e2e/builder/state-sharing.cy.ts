@@ -70,6 +70,7 @@ describe('State variables sharing between pages', () => {
     )
 
     cy.openPreview().contains('text undefined').should('exist')
+
     cy.openBuilder()
 
     // create a state variable inside the component
@@ -98,20 +99,15 @@ describe('State variables sharing between pages', () => {
       value: 'component state value',
     })
 
+    cy.intercept('POST', 'api/graphql').as('createState')
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
-
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-
-    cy.contains('text component state value').should('exist')
+    cy.wait('@createState')
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
     // cy.reload()
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(5000)
-    cy.waitForSpinners()
     cy.openPreview().contains('text component state value').should('exist')
   })
 
