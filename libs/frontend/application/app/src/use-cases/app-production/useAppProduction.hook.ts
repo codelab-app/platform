@@ -5,7 +5,7 @@ import {
 import type { IAppProductionDto } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAsync } from '@react-hookz/web'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 /**
  * Fetch related data for rendering page, and load them into store

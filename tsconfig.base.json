@@ -187,6 +187,9 @@
       "@codelab/frontend-application-app/*": [
         "libs/frontend/application/app/src/*"
       ],
+      "@codelab/frontend/application/app/*": [
+        "libs/frontend/application/app/src/*"
+      ],
       "@codelab/frontend/application/atom": [
         "libs/frontend/application/atom/src/index.ts"
       ],
