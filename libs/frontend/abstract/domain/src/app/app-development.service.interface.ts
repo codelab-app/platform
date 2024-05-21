@@ -1,7 +1,6 @@
 import type {
   AppDevelopmentFragment,
   AtomDevelopmentFragment,
-  AtomFragment,
   AuthGuardFragment,
   ComponentDevelopmentFragment,
   ElementFragment,
@@ -36,10 +35,6 @@ export interface IAppDevelopmentDto {
   resources: Array<ResourceFragment>
   stores: Array<StoreFragment & { component?: IRef; page?: IRef }>
   types: Array<TypeFragment>
-}
-
-export interface IAtomDevelopmentData {
-  atom: AtomFragment
 }
 
 export interface IAppDevelopmentService {
