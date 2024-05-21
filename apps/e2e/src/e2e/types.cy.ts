@@ -1,5 +1,6 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { EditorView } from '@codemirror/view'
 
@@ -196,6 +197,10 @@ describe('Types CRUD', () => {
         .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
         .click()
 
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
+      cy.toggleCuiTreeNodeSwitcher(interfaceTypeName)
+
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
 
       cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
@@ -223,6 +228,8 @@ describe('Types CRUD', () => {
     it('should be able to update array', () => {
       cy.visit('/types')
 
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
       cy.findAllByText(arrayTypeName, { exact: true }).should('exist')
 
       cy.getCuiTreeItemByPrimaryTitle(arrayTypeName).click()
@@ -234,9 +241,9 @@ describe('Types CRUD', () => {
         value: updatedArrayTypeName,
       })
 
-      cy.intercept('POST', 'api/graphql').as('action')
       cy.getButton({ label: 'Update Type' }).click()
-      cy.wait('@action')
+
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.getCuiTreeItemByPrimaryTitle(arrayTypeName).should('not.exist')
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).should('exist')
@@ -257,6 +264,7 @@ describe('Types CRUD', () => {
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+
       cy.getModal().should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).should('not.exist')

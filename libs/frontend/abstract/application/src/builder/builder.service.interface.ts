@@ -35,7 +35,7 @@ export interface IBuilderService {
   hoverElementNode(node: Nullable<IRuntimeElementModel>): void
   selectComponentNode(node: Nullish<IRuntimeComponentModel>): void
   selectElementNode(node: Nullish<IRuntimeElementModel>): void
-  selectPerviousElementOnDelete(): void
+  selectPreviousElementOnDelete(): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>): void

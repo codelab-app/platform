@@ -240,7 +240,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectPerviousElementOnDelete() {
+  selectPreviousElementOnDelete() {
     if (!this.selectedNode || !isRuntimeElementRef(this.selectedNode)) {
       this.setSelectedNode(null)
 

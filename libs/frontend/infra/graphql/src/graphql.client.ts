@@ -8,7 +8,7 @@ export const graphqlClient = new GraphQLClient(
   {
     errorPolicy: 'all',
     requestMiddleware: (request: Parameters<RequestMiddleware>[0]) => {
-      console.log(request)
+      // console.log(request)
 
       return request
     },

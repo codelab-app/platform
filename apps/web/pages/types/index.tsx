@@ -25,9 +25,11 @@ const TypesView: TypesView = observer(() => {
       <CreateFieldModal />
       <UpdateFieldModal />
       <DeleteFieldModal />
+
       <CreateTypeModal />
       <DeleteTypeModal />
       <UpdateTypeModal />
+
       <ContentSection>
         <TypeEditor />
       </ContentSection>

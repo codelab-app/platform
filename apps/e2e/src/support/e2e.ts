@@ -20,7 +20,7 @@ import { auth0Commands } from '@codelab/frontend/test/cypress/auth0'
 import { codelabCommands } from '@codelab/frontend/test/cypress/cui'
 import { registerCommands } from '@codelab/frontend/test/cypress/shared'
 import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
-import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector'
+// import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector'
 import { commands } from './commands'
 
 // installLogsCollector()

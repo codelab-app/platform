@@ -6,22 +6,6 @@
   "tags": ["projectType:application", "type:concrete"],
   "implicitDependencies": ["web", "api"],
   "targets": {
-    "e2e-skip-servers": {
-      "executor": "@nx/cypress:cypress",
-      "defaultConfiguration": "test",
-      "options": {
-        "cypressConfig": "apps/e2e/cypress.test.config.ts",
-        "baseUrl": "http://127.0.0.1:3001",
-        "browser": "electron",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "test": {
-          "record": true,
-          "watch": false
-        }
-      }
-    },
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "defaultConfiguration": "test",
@@ -46,27 +30,7 @@
             "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
           },
           "record": true,
-          "parallel": true,
-          "watch": false
-        }
-      }
-    },
-    "serve-open": {
-      "executor": "nx:run-commands",
-      "options": {
-        "parallel": true,
-        "readyWhen": "READY"
-      },
-      "configurations": {
-        "test": {
-          "commands": [
-            {
-              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck && echo 'READY'"
-            },
-            {
-              "command": "npx nx serve web -c test"
-            }
-          ]
+          "parallel": true
         }
       }
     },

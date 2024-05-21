@@ -20,7 +20,6 @@ import {
 
 describe('State variables sharing between pages', () => {
   let app: IAppDto
-  let page: IPageDto
 
   before(() => {
     cy.postApiRequest<App>('/app/seed-cypress-app')
@@ -32,24 +31,18 @@ describe('State variables sharing between pages', () => {
     cy.get('@cypressApp').then(() => {
       return cy
         .postApiRequest<Page>('/page/create-page', regularPageCreateData(app))
-        .then(({ body }) => {
-          page = body
-        })
         .as('cypressPage')
     })
 
     cy.get('@cypressPage')
       .then(() => {
-        return cy.postApiRequest(
-          '/component/create-component',
-          componentCreateData,
-        )
+        return cy
+          .postApiRequest('/component/create-component', componentCreateData)
+          .then(({ body }) => body)
       })
       .as('cypressComponent')
 
-    cy.get<Cypress.Response<Component>>('@cypressComponent').then((result) => {
-      const component = result.body
-
+    cy.get<Component>('@cypressComponent').then((component) => {
       return cy.postApiRequest(`/element/${component.id}/create-elements`, [
         spaceElement(component.rootElement),
         typographyTextElement,

@@ -55,14 +55,15 @@ describe('Testing the Form atom', () => {
           `element/${page.id}/create-element`,
           elementForm(page),
         )
+        .then(({ body }) => body)
         .as('formElement'),
     )
 
-    cy.get<Cypress.Response<Element>>('@formElement')
-      .then((result) => {
-        cy.log('Create element result', result)
+    cy.get<Element>('@formElement')
+      .then((element) => {
+        cy.log('Create element result', element)
 
-        const elementFormId = result.body.id
+        const elementFormId = element.id
 
         cy.postApiRequest(`element/${elementFormId}/create-elements`, elements)
       })

@@ -39,7 +39,8 @@
         },
         "test": {
           "buildTarget": "web:build:test",
-          "port": 3001
+          "port": 3001,
+          "dev": false
         },
         "prod": {
           "buildTarget": "web:build:prod",
