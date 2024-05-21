@@ -1,3 +1,5 @@
+'use client'
+
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -15,20 +17,23 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const GetAppsList = observer(() => {
-  const { appService } = useStore()
-  const appList = appService.appDomainService.appsList
+export const GetAppsList = observer(async () => {
+  const { appService, userService } = useStore()
+  const user = userService.user
+  const apps = await appService.loadAppsPreview({ owner: { id: user.id } })
+
+  // const appList = appService.appDomainService.appsList
 
   return (
     <ErrorBoundary>
-      <DisplayIf condition={!appList.length}>
+      <DisplayIf condition={!apps.length}>
         <Empty description="No apps found" imageStyle={emptyImageStyle}>
           <CreateAppButton>Create Now</CreateAppButton>
         </Empty>
       </DisplayIf>
 
       <Row gutter={[padding.sm, padding.sm]}>
-        {appList.map((app) => (
+        {apps.map((app) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Col key={app.id} {...threeGridCol}>
             <GetAppsItem app={app} />

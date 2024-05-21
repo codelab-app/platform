@@ -36,7 +36,7 @@ export const GET = auth0Instance.handleAuth({
       /**
        * Create user in our neo4j database
        */
-      if (process.env['NODE_ENV'] === 'production') {
+      if (process.env['NEXT_PUBLIC_WEB_HOST']?.includes('codelab.app')) {
         console.log('Using restApiClient', restApiClient.getUri())
 
         await restApiClient.post(
