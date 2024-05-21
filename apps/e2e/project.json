@@ -3,23 +3,9 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/e2e/src",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
+  "implicitDependencies": ["web", "api"],
   "targets": {
-    "e2e-skip-servers": {
-      "executor": "@nx/cypress:cypress",
-      "defaultConfiguration": "test",
-      "options": {
-        "cypressConfig": "apps/e2e/cypress.test.config.ts",
-        "baseUrl": "http://127.0.0.1:3001",
-        "browser": "electron",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "test": {
-          "record": true,
-          "watch": false
-        }
-      }
-    },
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "defaultConfiguration": "test",
@@ -44,27 +30,7 @@
             "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
           },
           "record": true,
-          "parallel": true,
-          "watch": false
-        }
-      }
-    },
-    "serve-open": {
-      "executor": "nx:run-commands",
-      "options": {
-        "parallel": true,
-        "readyWhen": "READY"
-      },
-      "configurations": {
-        "test": {
-          "commands": [
-            {
-              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck && echo 'READY'"
-            },
-            {
-              "command": "npx nx serve web -c test"
-            }
-          ]
+          "parallel": true
         }
       }
     },
@@ -78,14 +44,14 @@
         "dev": {
           "commands": [
             {
-              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck  && echo 'READY'"
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck && echo 'READY'"
             }
           ]
         },
         "test": {
           "commands": [
             {
-              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck  && echo 'READY'"
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck && echo 'READY'"
             },
             {
               "command": "npx nx serve web -c test"
@@ -104,24 +70,14 @@
               "command": "npx nx serve web -c ci"
             },
             {
-              "command": "npx nx serve api -c ci --verbose"
+              "command": "npx nx serve api -c ci"
             }
           ]
         }
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/e2e.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/e2e/**/*.{ts,tsx,js,jsx,graphql}"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "build": {
       "executor": "nx:run-commands",
@@ -129,7 +85,5 @@
         "command": "npx tsc --noEmit --project apps/e2e/tsconfig.lint.json"
       }
     }
-  },
-  "tags": ["projectType:application", "type:concrete"],
-  "implicitDependencies": ["web"]
+  }
 }

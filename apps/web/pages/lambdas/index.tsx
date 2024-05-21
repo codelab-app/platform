@@ -1,5 +1,5 @@
 import {
-  LambdasView,
+  type LambdasView,
   LambdasViewLayout,
 } from '@codelab/frontend/application/lambda'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'

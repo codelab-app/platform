@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/cli/src",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
@@ -39,17 +40,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/cli.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/cli/**/*.{ts,tsx,js,jsx,graphql}"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -104,6 +95,5 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
-  },
-  "tags": ["projectType:application", "type:concrete"]
+  }
 }

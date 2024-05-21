@@ -3,16 +3,16 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/application/test/src",
   "projectType": "library",
-  "tags": ["scope:frontend"],
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:application"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/test/**/*.{ts,tsx,js,jsx}"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     }
   }
 }

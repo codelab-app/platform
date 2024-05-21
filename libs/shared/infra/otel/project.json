@@ -3,27 +3,15 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/infra/otel/src",
   "projectType": "library",
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/shared-infra-otel.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/infra/otel/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
-    }
-  },
   "tags": [
     "projectType:library",
     "type:concrete",
     "layer:infra",
     "scope:shared"
-  ]
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }

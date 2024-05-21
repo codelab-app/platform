@@ -11,6 +11,7 @@ import { restWebClient } from '@codelab/frontend/application/axios'
 import { User, UserDomainService } from '@codelab/frontend/domain/user'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
+import set from 'lodash/set'
 import { computed } from 'mobx'
 import {
   _async,
@@ -76,11 +77,13 @@ export class UserService
       ? JSON.parse(preferences)
       : DEFAULT_PREFERENCES
 
-    const user = yield* _await(this.getOne({ id: this.user.id }))
+    // const user = yield* _await(this.getOne({ id: this.user.id }))
 
-    this.preferences = user?.preferences
-      ? JSON.parse(user.preferences)
-      : this.preferences
+    // this.preferences = user?.preferences
+    //   ? JSON.parse(user.preferences)
+    //   : this.preferences
+
+    return yield* _await(Promise.resolve())
   })
 
   @modelFlow
@@ -104,7 +107,7 @@ export class UserService
     containerId: string,
     expandedKeys: Array<string>,
   ) {
-    this.preferences.explorerExpandedNodes[containerId] = expandedKeys
+    set(this.preferences, `explorerExpandedNodes.${containerId}`, expandedKeys)
 
     void this.savePreferences()
   }
@@ -115,8 +118,11 @@ export class UserService
     containerId: string,
     breakpoint: BuilderWidthBreakPoint,
   ) {
-    this.preferences.apps[containerId] ??= {}
-    this.preferences.apps[containerId]!.selectedBuilderBreakpoint = breakpoint
+    set(
+      this.preferences,
+      `apps.${containerId}.selectedBuilderBreakpoint`,
+      breakpoint,
+    )
 
     void this.savePreferences()
   }
@@ -127,8 +133,7 @@ export class UserService
     containerId: string,
     width: BuilderWidth,
   ) {
-    this.preferences.apps[containerId] ??= {}
-    this.preferences.apps[containerId]!.selectedBuilderWidth = { ...width }
+    set(this.preferences, `apps.${containerId}.selectedBuilderWidth`, width)
 
     void this.savePreferences()
   }
@@ -142,9 +147,9 @@ export class UserService
 
     localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(preferences))
 
-    return userApi.UpdateUser({
-      update: this.user.toUpdateInput(),
-      where: { id: this.user.id },
-    })
+    // return userApi.UpdateUser({
+    //   update: this.user.toUpdateInput(),
+    //   where: { id: this.user.id },
+    // })
   }
 }

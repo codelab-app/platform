@@ -15,7 +15,8 @@
     // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
     "typescript-sort-keys",
     "unicorn",
-    "@stylistic/ts"
+    "@stylistic/ts",
+    "react"
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
@@ -30,6 +31,7 @@
     "./scripts/eslint/.cypress.eslintrc.json",
     "./scripts/eslint/.codelab.eslintrc.json",
     "plugin:prettier/recommended",
+    // "eslint:recommended",
     "plugin:react/recommended"
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
@@ -39,6 +41,9 @@
   ],
   // Used for import plugin
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },

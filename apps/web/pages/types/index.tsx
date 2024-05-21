@@ -5,7 +5,7 @@ import {
   DeleteFieldModal,
   DeleteTypeModal,
   TypeEditor,
-  TypesView,
+  type TypesView,
   TypesViewLayout,
   UpdateFieldModal,
   UpdateTypeModal,
@@ -25,9 +25,11 @@ const TypesView: TypesView = observer(() => {
       <CreateFieldModal />
       <UpdateFieldModal />
       <DeleteFieldModal />
+
       <CreateTypeModal />
       <DeleteTypeModal />
       <UpdateTypeModal />
+
       <ContentSection>
         <TypeEditor />
       </ContentSection>

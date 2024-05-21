@@ -24,7 +24,6 @@ echo "export SLACK_CHANNEL_UPDATE=CQVPNKS8K" >> $BASH_ENV
 echo "export NEO4J_PASSWORD=password" >> $BASH_ENV
 echo "export NEO4J_URI=bolt://127.0.0.1:7687" >> $BASH_ENV
 echo "export NEO4J_USER=neo4j" >> $BASH_ENV
-echo "export NODE_OPTIONS='--max_old_space_size=8192'" >> $BASH_ENV
 
 # Slack settings
 if [ "$CIRCLE_USERNAME" == "$GITHUB_VLADSLAV" ]; then

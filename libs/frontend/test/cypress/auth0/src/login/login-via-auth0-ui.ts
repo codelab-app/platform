@@ -17,6 +17,7 @@ export const loginToAuth0 = (username: string, password: string) => {
 }
 
 const loginViaAuth0Ui = (username: string, password: string) => {
+  // https://stackoverflow.com/questions/68975352/cypress-cy-visit-failed-trying-to-load-esockettimedout
   cy.visit('/')
   cy.get('button#login').click()
 

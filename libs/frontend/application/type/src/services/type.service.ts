@@ -126,14 +126,14 @@ export class TypeService
       const parentIds = typeFragments.map((typeFragment) => typeFragment.id)
 
       // load the descendants of the requested types
-      // we dont need to get the descendants if all types are requested i.e. no `ids` provided
+      // we don't need to get the descendants if all types are requested i.e. no `ids` provided
       const descendantTypeFragments = ids
         ? yield* _await(this.typeRepository.findDescendants(parentIds))
         : []
 
       const newFragments = [...typeFragments, ...descendantTypeFragments]
 
-      // dont include descendant types and return only requested types unless all is requested i.e. no `ids`
+      // don't include descendant types and return only requested types unless all is requested i.e. no `ids`
       newTypes = compact(
         newFragments.map((typeFragment) => {
           if (typeFragment.__typename === TypeKind.InterfaceType) {

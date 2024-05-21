@@ -3,27 +3,15 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/test/data/src",
   "projectType": "library",
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-test-data.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/test/data/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
-    }
-  },
   "tags": [
     "projectType:library",
     "type:concrete",
     "type:test",
     "scope:frontend"
-  ]
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }

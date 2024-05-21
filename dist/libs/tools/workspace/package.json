@@ -5,7 +5,7 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nx/devkit": "16.7.4"
+    "@nx/devkit": "19.0.4"
   },
   "main": "./src/index.js"
 }

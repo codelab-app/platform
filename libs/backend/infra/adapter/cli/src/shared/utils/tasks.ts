@@ -1,6 +1,7 @@
 export enum Tasks {
   Build = 'build',
-  Codegen = 'codegen',
+  GraphqlCodegen = 'graphql-codegen',
+  WorkspaceCodegen = 'workspace-codegen',
   Commitlint = 'commitlint',
   E2e = 'e2e',
   Int = 'int',

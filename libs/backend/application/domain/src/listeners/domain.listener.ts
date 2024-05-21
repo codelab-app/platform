@@ -22,13 +22,13 @@ export class DomainListener {
   async domainCreated(subscription: DomainCreatedSubscription) {
     const domain = subscription.domainCreated.createdDomain
 
-    try {
-      const records = await this.dnsService.lookupARecord(domain.name)
+    // try {
+    //   const records = await this.dnsService.lookupARecord(domain.name)
 
-      console.log(records)
-    } catch (error) {
-      console.log(error)
-    }
+    //   console.log(records)
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
     // If records contain the sites ip address, meaning the user has ownership, then we add the domain to DO
     // try {
@@ -39,8 +39,12 @@ export class DomainListener {
   }
 
   @OnEvent(DOMAIN_DELETED_EVENT)
-  async domainDeleted(subscription: DomainDeletedSubscription) {}
+  async domainDeleted(subscription: DomainDeletedSubscription) {
+    //
+  }
 
   @OnEvent(DOMAIN_UPDATED_EVENT)
-  async domainUpdated(subscription: DomainUpdatedSubscription) {}
+  async domainUpdated(subscription: DomainUpdatedSubscription) {
+    //
+  }
 }

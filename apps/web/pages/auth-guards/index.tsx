@@ -1,5 +1,5 @@
 import {
-  AuthGuardsView,
+  type AuthGuardsView,
   AuthGuardsViewLayout,
   CreateAuthGuardModal,
   DeleteAuthGuardModal,

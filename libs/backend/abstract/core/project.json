@@ -3,22 +3,10 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/abstract/core/src",
   "projectType": "library",
+  "tags": ["projectType:library", "type:abstract", "scope:backend"],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-abstract-core.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/abstract/core/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["projectType:library", "type:abstract", "scope:backend"]
+  }
 }

@@ -11,19 +11,7 @@
   ],
   "targets": {
     "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-abstract-domain.xml",
-          "quiet": true
-        }
-      },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/abstract/domain/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -32,6 +20,50 @@
         "reporters": ["default"],
         "runInBand": true
       },
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
+        "jestConfig": "libs/frontend/abstract/domain/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/frontend/abstract/domain/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {}
+      },
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   }

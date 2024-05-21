@@ -161,7 +161,7 @@ export class BuilderService
       return []
     }
 
-    const expandedNodes = preferences.explorerExpandedNodes[containerId]
+    const expandedNodes = preferences.explorerExpandedNodes?.[containerId]
 
     if (expandedNodes?.length) {
       return expandedNodes
@@ -185,7 +185,7 @@ export class BuilderService
       : container.current.app.id
 
     return (
-      this.userService.preferences.apps[containerId]
+      this.userService.preferences.apps?.[containerId]
         ?.selectedBuilderBreakpoint ?? BuilderWidthBreakPoint.MobilePortrait
     )
   }
@@ -203,7 +203,7 @@ export class BuilderService
       : container.current.app.id
 
     return (
-      this.userService.preferences.apps[containerId]?.selectedBuilderWidth ??
+      this.userService.preferences.apps?.[containerId]?.selectedBuilderWidth ??
       defaultBuilderWidthBreakPoints['mobile-portrait']
     )
   }
@@ -240,7 +240,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectPerviousElementOnDelete() {
+  selectPreviousElementOnDelete() {
     if (!this.selectedNode || !isRuntimeElementRef(this.selectedNode)) {
       this.setSelectedNode(null)
 

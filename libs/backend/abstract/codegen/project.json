@@ -3,27 +3,15 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/abstract/codegen/src",
   "projectType": "library",
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-abstract-codegen.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/abstract/codegen/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
-    }
-  },
   "tags": [
     "projectType:library",
     "type:abstract",
     "scope:codegen",
     "scope:backend"
-  ]
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }

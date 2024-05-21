@@ -1,17 +1,24 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { unregisterRootStore } from 'mobx-keystone'
 
 describe('Renderer', () => {
-  let testApplication: ReturnType<typeof createTestApplication>
+  let testStore: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testStore = createTestStore()
+  })
+
+  afterEach(() => {
+    testStore.teardown()
   })
 
   it('should create page runtime nodes', () => {
-    const { page, runtimePage, runtimeProviderPage } =
-      testApplication.setupPage(RendererType.Preview, IPageKind.Regular)
+    const { page, runtimePage, runtimeProviderPage } = testStore.setupPage(
+      RendererType.Preview,
+      IPageKind.Regular,
+    )
 
     // Test the creation of provider page node
     expect(runtimeProviderPage?.page.id).toBe(page.providerPage?.id)
@@ -21,12 +28,8 @@ describe('Renderer', () => {
   })
 
   it('should create component runtime node', () => {
-    const { component, renderer } = testApplication.setupComponent()
+    const { component, renderer } = testStore.setupComponent()
 
     expect(renderer.runtimeComponent?.component.id).toBe(component.id)
-  })
-
-  afterAll(() => {
-    testApplication.teardown()
   })
 })

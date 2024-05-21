@@ -3,28 +3,16 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/infra/adapter/rest-client/src",
   "projectType": "library",
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/infra/adapter/rest-client/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-infra-adapter-rest-client.xml",
-          "quiet": true
-        }
-      }
-    }
-  },
   "tags": [
     "projectType:library",
     "type:concrete",
     "layer:infra",
     "scope:backend"
-  ]
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  }
 }

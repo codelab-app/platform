@@ -29,17 +29,7 @@
       "outputs": ["{options.outputPath}"]
     },
     "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/api.xml",
-          "quiet": true
-        }
-      },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/api/**/*.{ts,tsx,js,jsx,graphql}"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "serve": {
       "configurations": {

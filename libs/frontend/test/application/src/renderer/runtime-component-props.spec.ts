@@ -1,18 +1,23 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
-import { createTestApplication } from '@codelab/frontend/application/test'
-
-let testApplication: ReturnType<typeof createTestApplication>
+import { createTestStore } from '@codelab/frontend/application/test'
+import { unregisterRootStore } from 'mobx-keystone'
 
 describe('Runtime Component props', () => {
+  let testStore: ReturnType<typeof createTestStore>
+
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testStore = createTestStore()
+  })
+
+  afterEach(() => {
+    testStore.teardown()
   })
 
   describe('RuntimeProps.props', () => {
     it('should contain system props', () => {
       const { component, renderer, runtimeComponent } =
-        testApplication.setupComponent()
+        testStore.setupComponent()
 
       const runtimeProps = runtimeComponent.runtimeProps
 
@@ -23,22 +28,22 @@ describe('Runtime Component props', () => {
     })
 
     it('should contain component props', () => {
-      const { component, runtimeComponent } = testApplication.setupComponent()
+      const { component, runtimeComponent } = testStore.setupComponent()
       const runtimeProps = runtimeComponent.runtimeProps
 
       expect(runtimeProps.props).toMatchObject(component.props.values)
     })
 
     it('should contain default props', () => {
-      const { component, runtimeComponent } = testApplication.setupComponent()
+      const { component, runtimeComponent } = testStore.setupComponent()
       const runtimeProps = runtimeComponent.runtimeProps
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = '"field-value"'
 
-      const field = testApplication.addField({
+      const field = testStore.addField({
         api: component.api.current,
         defaultValues: fieldDefaultValue,
-        fieldType: testApplication.getStringType(),
+        fieldType: testStore.getStringType(),
         key: fieldKey,
       })
 
@@ -53,7 +58,7 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.evaluatedProps', () => {
     // expressions are evaluated with empty context
     it('should evaluate basic state field expression', () => {
-      const { component, runtimeComponent } = testApplication.setupComponent()
+      const { component, runtimeComponent } = testStore.setupComponent()
       const fieldKey = 'fieldKey'
 
       component.props.set(fieldKey, '{{10 - 2}}')
@@ -66,7 +71,7 @@ describe('Runtime Component props', () => {
 
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
-      const { runtimeRootElement } = testApplication.setupRuntimeComponent()
+      const { runtimeRootElement } = testStore.setupRuntimeComponent()
       const runtimeProps = runtimeRootElement.runtimeProps
 
       const runtimeComponent = runtimeRootElement
@@ -80,9 +85,10 @@ describe('Runtime Component props', () => {
     })
 
     it('should resolve child mapper prop', () => {
-      const { component, rendered, rootElement, runtimeRootElement } =
-        testApplication.setupRuntimeComponent()
+      const { rootElement, runtimeRootElement } =
+        testStore.setupRuntimeElement()
 
+      const component = testStore.addComponent({})
       const propKey = 'childMapperProp'
       const propsValue = ['p01', 'p02', 'p03']
 
@@ -106,9 +112,5 @@ describe('Runtime Component props', () => {
         propsValue[1],
       )
     })
-  })
-
-  afterAll(() => {
-    testApplication.teardown()
   })
 })

@@ -1,6 +1,6 @@
 import type {
+  ICoreStore,
   IRendererDto,
-  IRootStore,
 } from '@codelab/frontend/abstract/application'
 import {
   rendererRef,
@@ -20,18 +20,21 @@ import { propFactory } from '@codelab/frontend/domain/prop'
 import { resourceFactory } from '@codelab/frontend/domain/resource'
 import { Store, storeFactory } from '@codelab/frontend/domain/store'
 import {
+  codeMirrorTypeFactory,
   fieldFactory,
   interfaceTypeFactory,
   primitiveTypeFactory,
   reactNodeTypeFactory,
   renderPropsTypeFactory,
+  richTextTypeFactory,
 } from '@codelab/frontend/domain/type'
-import { createRootStore } from '@codelab/frontend/infra/mobx'
+import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import type {
   IApiActionDto,
   IAppDto,
   IAtomDto,
   ICodeActionDto,
+  ICodeMirrorType,
   IComponentDto,
   ICreateElementDto,
   IFieldDto,
@@ -41,6 +44,7 @@ import type {
   IPropDto,
   IReactNodeType,
   IRenderPropTypeDto,
+  IRichTextType,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 import {
@@ -59,12 +63,17 @@ import {
   modelAction,
   prop,
   registerRootStore,
+  setGlobalConfig,
   unregisterRootStore,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
-export const createTestApplication = () => {
-  const rootStore = createRootStore(
+export const createTestStore = () => {
+  setGlobalConfig({
+    showDuplicateModelNameWarnings: false,
+  })
+
+  const coreStore = createCoreStore(
     {
       path: '',
       pathname: '',
@@ -73,13 +82,13 @@ export const createTestApplication = () => {
     adminUser,
   )
 
-  @model('@codelab/TestApplication')
-  class TestApplication extends Model({
-    rootStore: prop<IRootStore>(),
+  @model('@codelab/TestStore')
+  class TestStore extends Model({
+    coreStore: prop<ICoreStore>(),
   }) {
     @modelAction
     addApiAction(dto: Partial<IApiActionDto>) {
-      return apiActionFactory(this.rootStore.actionService.actionDomainService)(
+      return apiActionFactory(this.coreStore.actionService.actionDomainService)(
         dto,
       )
     }
@@ -88,12 +97,12 @@ export const createTestApplication = () => {
     addApp(dto: Partial<IAppDto>) {
       // console.log('addApp', dto)
 
-      return appFactory(this.rootStore.appService.appDomainService)(dto)
+      return appFactory(this.coreStore.appService.appDomainService)(dto)
     }
 
     @modelAction
     addAtom(dto: Partial<IAtomDto>) {
-      return atomFactory(this.rootStore.atomService.atomDomainService)({
+      return atomFactory(this.coreStore.atomService.atomDomainService)({
         ...dto,
         api: dto.api ?? this.addInterfaceType({}),
       })
@@ -102,7 +111,14 @@ export const createTestApplication = () => {
     @modelAction
     addCodeAction(dto: Partial<ICodeActionDto>) {
       return codeActionFactory(
-        this.rootStore.actionService.actionDomainService,
+        this.coreStore.actionService.actionDomainService,
+      )(dto)
+    }
+
+    @modelAction
+    addCodeMirrorType(dto: Partial<ICodeMirrorType>) {
+      return codeMirrorTypeFactory(
+        this.coreStore.typeService.typeDomainService,
       )(dto)
     }
 
@@ -111,7 +127,7 @@ export const createTestApplication = () => {
       const id = dto.id ?? v4()
 
       return componentFactory(
-        this.rootStore.componentService.componentDomainService,
+        this.coreStore.componentService.componentDomainService,
       )({
         ...dto,
         api: dto.api ?? this.addInterfaceType({}),
@@ -126,19 +142,19 @@ export const createTestApplication = () => {
 
     @modelAction
     addElement(dto: Partial<ICreateElementDto>) {
-      return elementFactory(this.rootStore.elementService.elementDomainService)(
+      return elementFactory(this.coreStore.elementService.elementDomainService)(
         dto,
       )
     }
 
     @modelAction
     addField(dto: Partial<IFieldDto>) {
-      return fieldFactory(this.rootStore.fieldService.fieldDomainService)(dto)
+      return fieldFactory(this.coreStore.fieldService.fieldDomainService)(dto)
     }
 
     @modelAction
     addInterfaceType(dto: Partial<IInterfaceTypeDto>) {
-      return interfaceTypeFactory(this.rootStore.typeService.typeDomainService)(
+      return interfaceTypeFactory(this.coreStore.typeService.typeDomainService)(
         dto,
       )
     }
@@ -147,7 +163,7 @@ export const createTestApplication = () => {
     addPage(dto: Partial<IPageDto>) {
       // console.log('addPage', dto)
 
-      return pageFactory(this.rootStore.pageService.pageDomainService)(dto)
+      return pageFactory(this.coreStore.pageService.pageDomainService)(dto)
     }
 
     @modelAction
@@ -176,7 +192,7 @@ export const createTestApplication = () => {
 
     @modelAction
     addPrimitiveType(dto: Partial<IPrimitiveTypeDto>) {
-      return primitiveTypeFactory(this.rootStore.typeService.typeDomainService)(
+      return primitiveTypeFactory(this.coreStore.typeService.typeDomainService)(
         dto,
       )
     }
@@ -187,16 +203,16 @@ export const createTestApplication = () => {
     }
 
     @modelAction
-    addReactNode(dto: Partial<IReactNodeType>) {
-      return reactNodeTypeFactory(this.rootStore.typeService.typeDomainService)(
+    addReactNodeType(dto: Partial<IReactNodeType>) {
+      return reactNodeTypeFactory(this.coreStore.typeService.typeDomainService)(
         dto,
       )
     }
 
     @modelAction
-    addRenderProps(dto: Partial<IRenderPropTypeDto>) {
+    addRenderPropsType(dto: Partial<IRenderPropTypeDto>) {
       return renderPropsTypeFactory(
-        this.rootStore.typeService.typeDomainService,
+        this.coreStore.typeService.typeDomainService,
       )(dto)
     }
 
@@ -204,9 +220,9 @@ export const createTestApplication = () => {
     addRenderer(dto: Partial<IRendererDto>) {
       // console.log('addRenderer', dto)
 
-      const renderer = rendererFactory(this.rootStore.rendererService)(dto)
+      const renderer = rendererFactory(this.coreStore.rendererService)(dto)
 
-      this.rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
+      this.coreStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
 
       return renderer
     }
@@ -214,13 +230,20 @@ export const createTestApplication = () => {
     @modelAction
     addResource(dto: Partial<IStoreDto>) {
       return resourceFactory(
-        this.rootStore.resourceService.resourceDomainService,
+        this.coreStore.resourceService.resourceDomainService,
       )(dto)
     }
 
     @modelAction
+    addRichTextType(dto: Partial<IRichTextType>) {
+      return richTextTypeFactory(this.coreStore.typeService.typeDomainService)(
+        dto,
+      )
+    }
+
+    @modelAction
     addStore(dto: Partial<IStoreDto>) {
-      return storeFactory(this.rootStore.storeService.storeDomainService)({
+      return storeFactory(this.coreStore.storeService.storeDomainService)({
         ...dto,
         api: dto.api ?? this.addInterfaceType({}),
       })
@@ -304,7 +327,7 @@ export const createTestApplication = () => {
       const rootElement = page.rootElement.current
 
       const component =
-        this.rootStore.componentService.componentDomainService.add({
+        this.coreStore.componentService.componentDomainService.add({
           id: v4(),
           name: 'Component',
         })
@@ -347,7 +370,7 @@ export const createTestApplication = () => {
 
     getAtomByType(type: IAtomType) {
       const atomType =
-        this.rootStore.atomService.atomDomainService.atomsList.find(
+        this.coreStore.atomService.atomDomainService.atomsList.find(
           (atom) => atom.type === type,
         )
 
@@ -355,7 +378,7 @@ export const createTestApplication = () => {
     }
 
     getStringType() {
-      return this.rootStore.typeService.typeDomainService.typesList.find(
+      return this.coreStore.typeService.typeDomainService.typesList.find(
         (type) =>
           type.kind === ITypeKind.PrimitiveType &&
           type.primitiveKind === IPrimitiveTypeKind.String,
@@ -367,19 +390,35 @@ export const createTestApplication = () => {
     }
 
     protected onAttachedToRootStore() {
-      testApplication.addAtom({
+      const richTextType = testStore.addRichTextType({})
+      const api = testStore.addInterfaceType({})
+
+      api.writeCache({
+        fields: [
+          testStore.addField({
+            api: { id: api.id },
+            fieldType: { id: richTextType.id },
+            key: 'children',
+          }),
+        ],
+      })
+
+      testStore.addAtom({
+        api: api,
         id: IAtomType.ReactFragment,
         name: IAtomType.ReactFragment,
         type: IAtomType.ReactFragment,
       })
 
-      testApplication.addAtom({
+      testStore.addAtom({
+        api: api,
         id: IAtomType.HtmlDiv,
         name: IAtomType.HtmlDiv,
         type: IAtomType.HtmlDiv,
       })
 
-      testApplication.addAtom({
+      testStore.addAtom({
+        api: api,
         id: IAtomType.HtmlSpan,
         name: IAtomType.HtmlSpan,
         type: IAtomType.HtmlSpan,
@@ -387,11 +426,11 @@ export const createTestApplication = () => {
     }
   }
 
-  const testApplication = new TestApplication({
-    rootStore,
+  const testStore = new TestStore({
+    coreStore,
   })
 
-  registerRootStore(testApplication)
+  registerRootStore(testStore)
 
-  return testApplication
+  return testStore
 }

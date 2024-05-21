@@ -10,13 +10,13 @@ describe('TextEditor', () => {
       render(
         <TextEditor
           config={{ editable: false }}
-          onChange={() => {}}
+          onChange={() => {
+            //
+          }}
           value={initialData}
         />,
       )
     })
-
-    screen.debug()
 
     // Assuming the TextEditor component uses ContentEditable internally
     // and that it renders the HTML inside it.

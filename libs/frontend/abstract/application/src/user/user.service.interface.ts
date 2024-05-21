@@ -13,8 +13,8 @@ interface IAppPreferences {
 }
 
 export interface IUserPreference extends Record<string, unknown> {
-  apps: Record<string, Nullish<IAppPreferences>>
-  explorerExpandedNodes: Record<string, Array<string>>
+  apps?: Record<string, Nullish<IAppPreferences>>
+  explorerExpandedNodes?: Record<string, Array<string>>
 }
 export interface IUserService {
   preferences: IUserPreference

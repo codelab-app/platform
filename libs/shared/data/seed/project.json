@@ -6,19 +6,7 @@
   "tags": ["projectType:library", "type:concrete", "scope:shared"],
   "targets": {
     "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/shared-data-seed.xml",
-          "quiet": true
-        }
-      },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/data/seed/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",

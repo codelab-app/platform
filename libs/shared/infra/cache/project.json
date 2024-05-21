@@ -3,27 +3,15 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/infra/cache/src",
   "projectType": "library",
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/shared-infra-cache.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/infra/cache/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
-    }
-  },
   "tags": [
     "projectType:library",
     "type:concrete",
     "layer:infra",
     "scope:shared"
-  ]
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }

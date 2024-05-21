@@ -4,20 +4,19 @@ steps:
       name: 'Restore NX Cache'
       keys:
         # - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+        # `lockfile.hash` doesn't exist yet, we restore the latest `nx-cache`
         - nx-cache
   - run:
       name: 'Monitor NX Cache Size'
       command: ./scripts/nx/reset-cache.sh
   # Can't use `pnpm cli` doesn't exist yet
-  - run: npx nx run-many --target=build --projects=web,api,sites,e2e,cli --parallel=3 -c ci --nx-bail
+  - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
   - save_cache:
       name: 'Save NX Cache'
       key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
       paths:
         - ~/project/.nx/cache
-        - ~/project/dist/apps/cli
-        # Require this to run e2e
-        # - ~/project/dist/apps/web/.next/cache
-        - ~/project/dist/apps/api
-        # - ~/project/dist/apps/sites/.next/cache
-        # - ~/project/dist/apps/landing/.next/cache
+        # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching
+        - ~/project/dist/apps/web/.next/cache
+        - ~/project/dist/apps/sites/.next/cache
+        - ~/project/dist/apps/landing/.next/cache

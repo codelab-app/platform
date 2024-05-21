@@ -1,5 +1,0 @@
-<testsuite name="Mocha Tests" tests="3" failures="0" errors="0" skipped="0" timestamp="Thu, 16 May 2024 14:36:57 GMT" time="13.005">
-<testcase classname="Store field CRUD" name="should be able to create state variable" time="10.736"/>
-<testcase classname="Store field CRUD" name="should be able to update state variable name" time="1.41"/>
-<testcase classname="Store field CRUD" name="should be able to delete state variable" time="0.781"/>
-</testsuite>

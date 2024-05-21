@@ -137,7 +137,7 @@ export class ElementService
       ...subRootElement.descendantElements,
     ]
 
-    this.builderService.selectPerviousElementOnDelete()
+    this.builderService.selectPreviousElementOnDelete()
 
     subRootElement.detachFromTree()
 

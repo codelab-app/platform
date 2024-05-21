@@ -39,13 +39,11 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            execCommand(
-              'nx run-many --target=build --projects=web,api,e2e,sites,landing -c test',
-            )
+            execCommand('nx affected --target=build -c test')
           }
 
           if (stage === Stage.CI) {
-            execCommand('nx build web -c ci')
+            // Can't use on CI since no `cli` yet
           }
         }),
       )
@@ -85,7 +83,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         }),
       )
       .command<StageParam>(
-        Tasks.Codegen,
+        Tasks.GraphqlCodegen,
         'Run codegen',
         (argv) => argv,
         globalHandler(async ({ stage }) => {
@@ -181,6 +179,28 @@ export class TaskService implements CommandModule<unknown, unknown> {
                 reject(error)
               })
             })
+          }
+        }),
+      )
+      .command(
+        Tasks.WorkspaceCodegen,
+        'Generate workspace',
+        (argv) => argv,
+        globalHandler(async ({ stage }) => {
+          if (stage === Stage.CI) {
+            execCommand(
+              'pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive',
+            )
+
+            const { unCommittedFiles } = await gitChangedFiles()
+
+            console.log('Un-committed files', unCommittedFiles)
+
+            if (unCommittedFiles.length) {
+              execCommand('git diff')
+              console.error('Please generate workspace!')
+              process.exit(1)
+            }
           }
         }),
       )

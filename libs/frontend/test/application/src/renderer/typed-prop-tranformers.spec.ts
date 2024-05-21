@@ -1,26 +1,28 @@
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import React, { isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
-  let testApplication: ReturnType<typeof createTestApplication>
+  let testStore: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    testApplication = createTestApplication()
+    testStore = createTestStore()
+  })
+
+  afterEach(() => {
+    testStore.teardown()
   })
 
   it('should apply default typed prop transformer', () => {
-    const integerType = testApplication.addPrimitiveType({
+    const integerType = testStore.addPrimitiveType({
       name: IPrimitiveTypeKind.Integer,
       primitiveKind: IPrimitiveTypeKind.Integer,
     })
 
-    const { rootElement, runtimeRootElement } =
-      testApplication.setupRuntimeElement()
-
+    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
     const propKey = 'propKey'
     const propValue = 'propValue'
 
@@ -35,13 +37,11 @@ describe('TypedPropTransformers', () => {
     })
   })
 
-  it('should render props when kind is ReactNodeType', async () => {
-    const { rootElement, runtimeRootElement } =
-      testApplication.setupRuntimeElement()
-
+  it('should render props when kind is ReactNodeType', () => {
+    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
     const propKey = 'someNode'
-    const reactNodeType = testApplication.addReactNode({})
-    const component = testApplication.addComponent({})
+    const reactNodeType = testStore.addReactNodeType({})
+    const component = testStore.addComponent({})
 
     rootElement.props.set(propKey, {
       kind: reactNodeType.kind,
@@ -54,13 +54,11 @@ describe('TypedPropTransformers', () => {
     expect(isValidElement(renderedProp)).toBe(true)
   })
 
-  it('should render props when kind is RenderPropsType', async () => {
-    const { rootElement, runtimeRootElement } =
-      testApplication.setupRuntimeElement()
-
+  it('should render props when kind is RenderPropsType', () => {
+    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
     const propKey = 'someNode'
-    const renderPropsType = testApplication.addRenderProps({})
-    const component = testApplication.addComponent({})
+    const renderPropsType = testStore.addRenderPropsType({})
+    const component = testStore.addComponent({})
 
     rootElement.props.set(propKey, {
       kind: renderPropsType.kind,
@@ -78,35 +76,38 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should pass props to render props component', async () => {
-    const { rootElement, runtimeRootElement } =
-      testApplication.setupRuntimeElement()
-
+    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
     const propKey = 'someNode'
     const textPropKey = 'text'
     const textPropValue = 'some text value'
     const childrenExpression = `{{componentProps.${textPropKey}}}`
-    const renderPropsType = testApplication.addRenderProps({})
-    const api = testApplication.addInterfaceType({})
+    const renderPropsType = testStore.addRenderPropsType({})
+    const codeMirrorType = testStore.addCodeMirrorType({})
+    const api = testStore.addInterfaceType({})
 
     api.writeCache({
       fields: [
-        testApplication.addField({
+        testStore.addField({
           api,
           defaultValues: JSON.stringify('some default value'),
-          fieldType: testApplication.getStringType(),
+          fieldType: testStore.getStringType(),
           key: textPropKey,
         }),
       ],
     })
 
-    const component = testApplication.addComponent({ api })
+    const component = testStore.addComponent({ api })
 
-    const childElement = testApplication.addElement({
+    const childElement = testStore.addElement({
       parentElement: component.rootElement.current,
-      renderType: testApplication.getAtomByType(IAtomType.HtmlDiv),
+      renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
-    childElement.props.set('children', childrenExpression)
+    childElement.props.set('children', {
+      kind: codeMirrorType.kind,
+      type: codeMirrorType.id,
+      value: childrenExpression,
+    })
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 
@@ -121,15 +122,11 @@ describe('TypedPropTransformers', () => {
     render(
       React.createElement(
         StoreProvider,
-        { value: testApplication.rootStore },
+        { value: testStore.coreStore },
         renderedProp(textPropValue),
       ),
     )
 
     expect(await screen.findByText(textPropValue)).toBeInTheDocument()
-  })
-
-  afterAll(() => {
-    testApplication.teardown()
   })
 })

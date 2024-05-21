@@ -40,9 +40,9 @@ export default auth0Instance().handleAuth({
           }
 
           /**
-           * Create user in our neo4j database
+           * Create user in our neo4j database on live site
            */
-          if (process.env['NODE_ENV'] === 'production') {
+          if (process.env['NEXT_PUBLIC_WEB_HOST']?.includes('codelab.app')) {
             await restApiClient.post(
               'user/save',
               {},

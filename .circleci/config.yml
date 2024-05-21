@@ -9,14 +9,21 @@ commands:
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
-      - run: npx nx run-many --target=build --projects=web,api,sites,e2e,cli --parallel=3 -c ci --nx-bail
+      - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
-            - ~/project/dist/apps/cli
-            - ~/project/dist/apps/api
+            - ~/project/dist/apps/web/.next/cache
+            - ~/project/dist/apps/sites/.next/cache
+            - ~/project/dist/apps/landing/.next/cache
+  clear-jest-cache:
+    description: Clear Jest Spec
+    steps:
+      - run:
+          command: |
+            pnpm jest --clearCache
   install-nvm:
     steps:
       - restore_cache:
@@ -33,8 +40,8 @@ commands:
             - ~/.nvm
       - run:
           command: |
-            nvm install 18.17.0
-            nvm alias default 18.17.0
+            nvm install 18.18.0
+            nvm alias default 18.18.0
             node -v
           name: Set Node Version
   install-packages:
@@ -78,7 +85,7 @@ commands:
       - run:
           command: |
             sudo corepack enable
-            sudo corepack prepare pnpm@8.15.4 --activate
+            sudo corepack prepare pnpm@9.1.1 --activate
             pnpm config set store-dir ~/.pnpm-store
           name: Install pnpm package manager
   install-terraform:
@@ -147,10 +154,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: cimg/node:18.17.0-browsers
+      - image: cimg/node:18.18.0-browsers
   docker-node-neo4j:
     docker:
-      - image: cimg/node:18.17.0-browsers
+      - image: cimg/node:18.18.0-browsers
       - command:
           - neo4j
           - start
@@ -183,8 +190,11 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm cli tasks codegen --stage ci
-          name: GraphQL Codegen
+          command: pnpm cli tasks graphql-codegen --stage ci
+          name: Check GraphQL Codegen
+      - run:
+          command: pnpm cli tasks workspace-codegen --stage ci
+          name: Check Generate Workspace
   docker-api:
     executor: docker-node
     resource_class: medium

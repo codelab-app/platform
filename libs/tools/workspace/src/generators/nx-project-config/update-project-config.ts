@@ -6,7 +6,7 @@ import {
 } from '@nx/devkit'
 import { addGraphqlEslintConfig } from './eslint/add-graphql-eslint-config'
 import { addGraphqlExtension } from './lint/add-graphql-extension'
-import { addCiLintConfig } from './lint/ci-lint-config'
+import { addCiLintConfig, removeCiLintConfig } from './lint/ci-lint-config'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateTestConfig } from './test/project-json'
 import { updateLibraryTsconfig } from './tsconfig/lib-tsconfig'
@@ -24,9 +24,15 @@ export const updateProjectConfig = (tree: Tree, projectName: string) => {
   /**
    * Modifies projectConfig here
    */
-  addCiLintConfig(tree, projectConfig)
-  addGraphqlEslintConfig(tree, projectConfig)
-  addGraphqlExtension(tree, projectConfig)
+  // addCiLintConfig(tree, projectConfig)
+  // removeCiLintConfig(tree, projectConfig)
+
+  /**
+   * Add the lint pattern to nx.json instead
+   */
+  // addGraphqlEslintConfig(tree, projectConfig)
+  // addGraphqlExtension(tree, projectConfig)
+
   updateTestConfig(tree, projectConfig)
   addProjectTags(tree, projectConfig)
   updateLibraryTsconfig(tree, projectConfig)

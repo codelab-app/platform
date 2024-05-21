@@ -2,6 +2,7 @@ executor: docker-node
 resource_class: large
 steps:
   - restore-workspace
+  # - clear-jest-cache
   - run:
       name: 'Run Unit Tests'
       command: pnpm cli tasks unit --stage ci

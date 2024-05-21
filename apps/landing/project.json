@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/landing",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",
@@ -48,18 +49,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/landing.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/landing/**/*.{ts,tsx,js,jsx,graphql}"]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["projectType:application", "type:concrete"]
+  }
 }

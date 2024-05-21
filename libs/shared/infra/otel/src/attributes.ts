@@ -12,7 +12,7 @@ export const flattenWithPrefix = (
   prefix = 'codelab',
 ): PlainObject => {
   // Flatten the object deeply
-  const flattenObject = (obj: PlainObject, path: string = ''): PlainObject =>
+  const flattenObject = (obj: PlainObject, path = ''): PlainObject =>
     !isObject(obj)
       ? { [path.replace(/\.$/, '')]: obj }
       : reduce(

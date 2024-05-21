@@ -3,21 +3,15 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/shared/utils/src",
   "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "scope:shared"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-shared-utils.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/shared/utils/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -72,11 +66,5 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/shared/utils"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:frontend",
-    "scope:shared"
-  ]
+  }
 }

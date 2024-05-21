@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
+  "implicitDependencies": [],
   "generators": {},
   "targets": {
     "build": {
@@ -37,7 +39,8 @@
         },
         "test": {
           "buildTarget": "web:build:test",
-          "port": 3001
+          "port": 3001,
+          "dev": false
         },
         "prod": {
           "buildTarget": "web:build:prod",
@@ -57,17 +60,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/web.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx,graphql}"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -175,7 +168,5 @@
         }
       }
     }
-  },
-  "tags": ["projectType:application", "type:concrete"],
-  "implicitDependencies": []
+  }
 }

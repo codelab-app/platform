@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/sites/src",
   "projectType": "application",
+  "tags": ["projectType:application", "type:concrete"],
+  "implicitDependencies": [],
   "generators": {},
   "targets": {
     "build": {
@@ -29,9 +31,6 @@
         "hostname": "0.0.0.0",
         "maxWorkers": 4,
         "experimentalHttps": true
-        // "experimentalHttpsKey": ".ssh/codelab.test-key.pem",
-        // "experimentalHttpsCert": ".ssh/codelab-test.pem",
-        // "experimentalHttpsCa": "/Users/Webber/Library/Application Support/mkcert"
       },
       "configurations": {
         "ci": {},
@@ -53,19 +52,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/sites.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": ["apps/sites/**/*.{ts,tsx,js,jsx,graphql}"]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["projectType:application", "type:concrete"],
-  "implicitDependencies": []
+  }
 }

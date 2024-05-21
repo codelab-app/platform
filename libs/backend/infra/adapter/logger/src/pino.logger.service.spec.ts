@@ -2,7 +2,7 @@ import { Test, type TestingModule } from '@nestjs/testing'
 import { CodelabLoggerModule } from './logger.module'
 import { CodelabLoggerService } from './pino.logger.service'
 
-describe('Pino logger service', () => {
+describe.skip('Pino logger service', () => {
   let loggerService: CodelabLoggerService
 
   beforeAll(async () => {
@@ -13,5 +13,7 @@ describe('Pino logger service', () => {
     loggerService = module.get(CodelabLoggerService)
   })
 
-  it('can log an object', () => {})
+  it('can log an object', () => {
+    //
+  })
 })

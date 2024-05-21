@@ -11,19 +11,7 @@
   ],
   "targets": {
     "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-domain-element.xml",
-          "quiet": true
-        }
-      },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/domain/element/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "configurations": {

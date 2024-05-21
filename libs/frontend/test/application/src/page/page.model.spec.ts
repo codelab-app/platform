@@ -1,16 +1,23 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { createTestApplication } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend/application/test'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { unregisterRootStore } from 'mobx-keystone'
 
 describe('Page', () => {
-  let testApplication: ReturnType<typeof createTestApplication>
+  let testStore: ReturnType<typeof createTestStore>
 
   beforeAll(() => {
-    testApplication = createTestApplication()
+    testStore = createTestStore()
+  })
+
+  afterAll(() => {
+    testStore.teardown()
   })
 
   it('should compute a getter for the builder url', () => {
-    const { page, runtimePage, runtimeProviderPage } =
-      testApplication.setupPage(RendererType.Preview, IPageKind.Regular)
+    const { page, runtimePage, runtimeProviderPage } = testStore.setupPage(
+      RendererType.Preview,
+      IPageKind.Regular,
+    )
   })
 })

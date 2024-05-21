@@ -1,5 +1,5 @@
 import {
-  AdminView,
+  type AdminView,
   AdminViewLayout,
   ExportAdminDataButton,
   ExportAdminDataModal,

@@ -20,7 +20,6 @@ import {
 
 describe('State variables sharing between pages', () => {
   let app: IAppDto
-  let page: IPageDto
 
   before(() => {
     cy.postApiRequest<App>('/app/seed-cypress-app')
@@ -32,40 +31,33 @@ describe('State variables sharing between pages', () => {
     cy.get('@cypressApp').then(() => {
       return cy
         .postApiRequest<Page>('/page/create-page', regularPageCreateData(app))
-        .then(({ body }) => {
-          page = body
-        })
         .as('cypressPage')
     })
 
     cy.get('@cypressPage')
       .then(() => {
-        return cy.postApiRequest(
-          '/component/create-component',
-          componentCreateData,
-        )
+        return cy
+          .postApiRequest('/component/create-component', componentCreateData)
+          .then(({ body }) => body)
       })
       .as('cypressComponent')
 
-    cy.get<Cypress.Response<Component>>('@cypressComponent')
-      .then((result) => {
-        const component = result.body
-
-        return cy.postApiRequest(`/element/${component.id}/create-elements`, [
-          spaceElement(component.rootElement),
-          typographyTextElement,
-        ])
-      })
-      .as('cypressComponentElements')
-
-    cy.get('@cypressComponentElements').then(() => {
-      cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
-      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-      cy.waitForSpinners()
+    cy.get<Component>('@cypressComponent').then((component) => {
+      return cy.postApiRequest(`/element/${component.id}/create-elements`, [
+        spaceElement(component.rootElement),
+        typographyTextElement,
+      ])
     })
+
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
   })
 
   it('should setup the pages that will share states', () => {
+    cy.visit(`/components/${slugify(COMPONENT_NAME)}/builder`)
+
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+    cy.waitForSpinners()
+
     // The UI tree flickers, need this otherwise fails on CI
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).should('exist')
     cy.toggleCuiTreeNodeSwitcher(`${COMPONENT_NAME} Root`)

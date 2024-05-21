@@ -3,13 +3,13 @@ import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createRootStore } from '@codelab/frontend/infra/mobx'
+import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { getEnv } from '@codelab/shared/config'
 import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
-import { setGlobalConfig } from 'mobx-keystone'
+import { registerRootStore, setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import config from '../twind.config'
@@ -40,16 +40,25 @@ if (getEnv().endpoint.isLocal && getEnv().node.enableWdyr) {
 const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   const router = useRouter()
 
-  const [store] = useState(
-    createRootStore(
+  /**
+   * When possible, Fast Refresh attempts to preserve the state of your component between edits. In particular, useState and useRef preserve their previous values as long as you don't change their arguments or the order of the Hook calls.
+   *
+   * https://nextjs.org/docs/architecture/fast-refresh
+   */
+  const [store] = useState(() => {
+    const coreStore = createCoreStore(
       {
         path: router.asPath,
         pathname: router.pathname,
         query: router.query,
       },
       user,
-    ),
-  )
+    )
+
+    registerRootStore(coreStore)
+
+    return coreStore
+  })
 
   useEffect(() => {
     store.routerService.update({

@@ -1,17 +1,23 @@
 import {
   appSchema,
+  hideField,
   idSchema,
   nonEmptyString,
   pageUrlSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
-import type { ICreatePageData } from '@codelab/shared/abstract/core'
+import { type ICreatePageData, IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
+export const createPageSchema: JSONSchemaType<ICreatePageData> = {
   properties: {
     ...idSchema(),
     ...appSchema,
+    kind: {
+      type: 'string',
+      default: IPageKind.Regular,
+      ...hideField,
+    },
     name: {
       autoFocus: true,
       ...nonEmptyString,

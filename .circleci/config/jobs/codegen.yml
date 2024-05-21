@@ -3,5 +3,8 @@ resource_class: medium
 steps:
   - restore-workspace
   - run:
-      name: 'GraphQL Codegen'
-      command: pnpm cli tasks codegen --stage ci
+      name: 'Check GraphQL Codegen'
+      command: pnpm cli tasks graphql-codegen --stage ci
+  - run:
+      name: 'Check Generate Workspace'
+      command: pnpm cli tasks workspace-codegen --stage ci

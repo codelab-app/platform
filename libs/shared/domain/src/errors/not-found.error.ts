@@ -1,4 +1,4 @@
-interface AppError extends Error {}
+type AppError = Error
 export class NotFoundError extends Error implements AppError {
   override name = 'NotFoundError'
 

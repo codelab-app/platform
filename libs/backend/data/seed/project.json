@@ -3,22 +3,15 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/data/seed/src",
   "projectType": "library",
+  "tags": [
+    "type:data",
+    "projectType:library",
+    "type:concrete",
+    "scope:backend"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-data-seed.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/data/seed/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["type:data", "projectType:library", "type:concrete", "scope:backend"]
+  }
 }

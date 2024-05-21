@@ -3,6 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/tools/eslint-plugin/src",
   "projectType": "library",
+  "tags": ["projectType:library", "type:concrete"],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
@@ -16,20 +17,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/tools-eslint-plugin.xml",
-          "quiet": true
-        }
-      },
-      "options": {
-        "lintFilePatterns": [
-          "libs/tools/eslint-plugin/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["projectType:library", "type:concrete"]
+  }
 }

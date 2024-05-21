@@ -6,7 +6,7 @@ const update_project_config_1 = require("./update-project-config");
 /**
  * Go through all projects and update the `lint` setting of `project.json`
  */
-const nxProjectConfigGenerator = async (tree) => {
+const nxProjectConfigGenerator = async (tree, options) => {
     const projects = (0, devkit_1.getProjects)(tree);
     const projectNames = projects.keys();
     for (const projectName of projectNames) {
