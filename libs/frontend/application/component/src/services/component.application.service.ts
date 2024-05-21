@@ -47,6 +47,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { ComponentDevelopmentService } from '../use-cases'
 import { ComponentRepository } from './component.repo'
 import { ComponentFormService } from './component-form.service'
 import { ComponentModalService } from './component-modal.service'
@@ -58,6 +59,9 @@ import { ComponentModalService } from './component-modal.service'
 export class ComponentApplicationService
   extends Model({
     allComponentsLoaded: prop(() => false),
+    componentDevelopmentService: prop(
+      () => new ComponentDevelopmentService({}),
+    ),
     componentDomainService: prop(() => new ComponentDomainService({})),
     componentRepository: prop(() => new ComponentRepository({})),
     createForm: prop(() => new ComponentFormService({})),

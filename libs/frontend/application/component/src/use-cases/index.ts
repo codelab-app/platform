@@ -1,3 +1,4 @@
+export * from './component-development'
 export * from './create-component'
 export * from './delete-component'
 export * from './import-component'
