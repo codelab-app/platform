@@ -14,7 +14,7 @@ import Head from 'next/head'
 import React, { useEffect } from 'react'
 
 const ComponentPreviewView: CodelabPage = observer(() => {
-  const { componentName } = useCurrentComponent()
+  const component = useCurrentComponent()
 
   const [{ error, result, status }, loadCurrentComponent] =
     useComponentDevelopment({ rendererType: RendererType.Preview })
@@ -23,12 +23,12 @@ const ComponentPreviewView: CodelabPage = observer(() => {
 
   useEffect(() => {
     void loadCurrentComponent.execute()
-  }, [componentName])
+  }, [component?.name])
 
   return (
     <DynamicDashboardTemplate Header={PageDetailHeader}>
       <Head>
-        <title>{componentName} | Preview | Codelab</title>
+        <title>{component?.name} | Preview | Codelab</title>
       </Head>
 
       {error && <Alert message={extractErrorMessage(error)} type="error" />}

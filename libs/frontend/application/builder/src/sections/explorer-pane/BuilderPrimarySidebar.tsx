@@ -56,9 +56,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     const { popover } = useCui()
     const page = useCurrentPage()
-    const { component } = useCurrentComponent()
+    const component = useCurrentComponent()
     const containerNode = page ?? component
-    const store = containerNode?.store.current
+    const store = containerNode?.store.maybeCurrent
     const renderer = rendererService.activeRenderer?.current
     const runtimeContainerNode = renderer?.runtimeContainerNode
     const runtimeStore = runtimeContainerNode?.runtimeStore

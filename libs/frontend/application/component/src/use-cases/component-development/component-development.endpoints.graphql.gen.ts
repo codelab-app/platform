@@ -6,7 +6,7 @@ import {
   AtomProductionFragment,
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { CodeMirrorTypeFragment } from '../../../../../abstract/domain/src/type/fragments/code-mirror-type.fragment.graphql.gen'
-import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
+import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
@@ -20,7 +20,7 @@ import {
   AtomProductionFragmentDoc,
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { CodeMirrorTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/code-mirror-type.fragment.graphql.gen'
-import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
+import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'

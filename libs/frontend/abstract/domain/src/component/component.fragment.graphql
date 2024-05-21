@@ -1,6 +1,27 @@
 fragment Component on Component {
   __typename
   api {
+    id
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+}
+
+fragment ComponentDevelopment on Component {
+  __typename
+  api {
     ...InterfaceType
   }
   id
@@ -17,6 +38,9 @@ fragment Component on Component {
   }
   store {
     ...Store
+  }
+  elements {
+    ...Element
   }
 }
 

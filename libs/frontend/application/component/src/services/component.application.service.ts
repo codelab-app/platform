@@ -30,11 +30,7 @@ import type {
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { prettifyForConsole, slugify } from '@codelab/shared/utils'
-import flatMap from 'lodash/flatMap'
-import isEmpty from 'lodash/isEmpty'
-import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
   _async,
@@ -58,7 +54,6 @@ import { ComponentModalService } from './component-modal.service'
 @model('@codelab/ComponentApplicationService')
 export class ComponentApplicationService
   extends Model({
-    allComponentsLoaded: prop(() => false),
     componentDevelopmentService: prop(
       () => new ComponentDevelopmentService({}),
     ),
@@ -160,65 +155,13 @@ export class ComponentApplicationService
     where: ComponentWhere = {},
     options?: ComponentOptions,
   ) {
-    if (this.allComponentsLoaded) {
-      return this.componentDomainService.componentList
-    }
-
     const { items: components } = yield* _await(
       this.componentRepository.find(where, options),
     )
 
-    if (isEmpty(where)) {
-      this.allComponentsLoaded = true
-    }
-
-    const componentModels = components.map((component) => {
-      const { id } = component
-
-      this.storeService.load([component.store])
-      this.typeService.typeDomainService.hydrateTypes({
-        interfaceTypes: [component.api],
-      })
-
-      component.elements.forEach((elementData) => {
-        /**
-         * Element comes with `component` or `atom` data that we need to load as well
-         * TODO: Need to handle component case, refactor reuse
-         */
-        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
-          this.typeService.typeDomainService.hydrateTypes({
-            interfaceTypes: [elementData.renderType.api],
-          })
-
-          elementData.renderType.tags.forEach((tag) =>
-            this.tagDomainService.hydrate(tag),
-          )
-
-          this.atomService.atomDomainService.hydrate(elementData.renderType)
-        }
-
-        this.elementService.elementDomainService.hydrate({
-          ...elementData,
-          // Doesn't seem needed in hydrate
-          // closestContainerNode: { id },
-          parentElement: elementData.parentElement,
-        })
-      })
-
-      return this.componentDomainService.hydrate(component)
-    })
-
-    const allComponentsFieldTypeIds = uniq(
-      flatMap(componentModels, (component) =>
-        component.api.current.fields.map((field) => field.type.id),
-      ).filter((id) => !this.typeService.typeDomainService.types.has(id)),
+    return components.map((component) =>
+      this.componentDomainService.hydrate(component),
     )
-
-    if (allComponentsFieldTypeIds.length > 0) {
-      yield* _await(this.typeService.getAll(allComponentsFieldTypeIds))
-    }
-
-    return componentModels
   })
 
   @modelFlow
@@ -270,10 +213,6 @@ export class ComponentApplicationService
 
     formData.append('file', componentDataFile)
 
-    const oldLoadedComponentStatus = this.allComponentsLoaded
-
-    this.allComponentsLoaded = false
-
     const component = yield* _await(
       restWebClient
         .post<Component>('/component/import', formData, {
@@ -283,8 +222,6 @@ export class ComponentApplicationService
           return this.getOne(data.id)
         }),
     )
-
-    this.allComponentsLoaded = oldLoadedComponentStatus
 
     return component
   })

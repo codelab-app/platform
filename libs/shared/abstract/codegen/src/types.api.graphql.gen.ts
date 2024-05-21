@@ -27148,12 +27148,18 @@ export type AuthGuardFragment = {
   resource: ResourceFragment
 }
 
-export type ComponentDevelopmentFragment = {
-  elements: Array<ElementFragment>
-  rootElement: { id: string }
-} & ComponentFragment
-
 export type ComponentFragment = {
+  __typename: 'Component'
+  id: string
+  name: string
+  api: { id: string }
+  owner: OwnerFragment
+  props: PropFragment
+  rootElement: { id: string }
+  store: StoreFragment
+}
+
+export type ComponentDevelopmentFragment = {
   __typename: 'Component'
   id: string
   name: string
@@ -27162,6 +27168,7 @@ export type ComponentFragment = {
   props: PropFragment
   rootElement: { id: string; name: string }
   store: StoreFragment
+  elements: Array<ElementFragment>
 }
 
 export type ComponentProductionFragment = {
@@ -27835,7 +27842,7 @@ export type GetComponentsQueryVariables = Exact<{
 
 export type GetComponentsQuery = {
   aggregate: { count: number }
-  items: Array<ComponentDevelopmentFragment>
+  items: Array<ComponentFragment>
 }
 
 export type GetComponentDevelopmentQueryVariables = Exact<{
