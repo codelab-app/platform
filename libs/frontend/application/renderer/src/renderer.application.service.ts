@@ -4,9 +4,16 @@ import type {
   IRendererService,
 } from '@codelab/frontend/abstract/application'
 import {
+  getBuilderService,
   getRuntimeComponentService,
   getRuntimeElementService,
+  getRuntimePageService,
 } from '@codelab/frontend/abstract/application'
+import {
+  componentRef,
+  isComponentRef,
+  pageRef,
+} from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -31,6 +38,11 @@ export class RendererApplicationService
   }
 
   @computed
+  get builderService() {
+    return getBuilderService(this)
+  }
+
+  @computed
   get runtimeComponentService() {
     return getRuntimeComponentService(this)
   }
@@ -38,6 +50,11 @@ export class RendererApplicationService
   @computed
   get runtimeElementService() {
     return getRuntimeElementService(this)
+  }
+
+  @computed
+  get runtimePageService() {
+    return getRuntimePageService(this)
   }
 
   @modelAction
@@ -63,5 +80,28 @@ export class RendererApplicationService
     }
 
     return renderer
+  }
+
+  @modelAction
+  reloadActiveRenderer() {
+    if (!this.activeRenderer) {
+      return
+    }
+
+    const currentRenderer = this.activeRenderer.current
+    const { containerNode } = currentRenderer
+
+    // detach current page/components with elements and stores from root store
+    currentRenderer.runtimeRootContainerNode.detach()
+
+    // reinitialize renderer container node, this will recompute all properties and rerender
+    currentRenderer.containerNode = isComponentRef(containerNode)
+      ? componentRef(containerNode.current)
+      : pageRef(containerNode.current)
+
+    // reset builder tree selected node
+    this.builderService.selectElementNode(
+      currentRenderer.runtimeRootContainerNode.runtimeRootElement,
+    )
   }
 }

@@ -13,5 +13,6 @@ export interface IRendererService
   activeRenderer: Nullable<Ref<IRendererModel>>
   renderers: ObjectMap<IRendererModel>
 
+  reloadActiveRenderer(): void
   setActiveRenderer(renderer: Ref<IRendererModel>): void
 }
