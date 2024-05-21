@@ -24,6 +24,9 @@ fragment ComponentDevelopment on Component {
   api {
     ...InterfaceType
   }
+  elements {
+    ...Element
+  }
   id
   name
   owner {
@@ -38,9 +41,6 @@ fragment ComponentDevelopment on Component {
   }
   store {
     ...Store
-  }
-  elements {
-    ...Element
   }
 }
 

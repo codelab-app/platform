@@ -7,11 +7,11 @@ import {
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { CodeMirrorTypeFragment } from '../../../../../abstract/domain/src/type/fragments/code-mirror-type.fragment.graphql.gen'
 import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component.fragment.graphql.gen'
-import { ResourceFragment } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
 import { RichTextTypeFragment } from '../../../../../abstract/domain/src/type/fragments/rich-text-type.fragment.graphql.gen'
+import { ResourceFragment } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { ActionTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
@@ -21,11 +21,11 @@ import {
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { CodeMirrorTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/code-mirror-type.fragment.graphql.gen'
 import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component.fragment.graphql.gen'
-import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
 import { RichTextTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/rich-text-type.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetComponentDevelopmentQueryVariables = Types.Exact<{
   [key: string]: never

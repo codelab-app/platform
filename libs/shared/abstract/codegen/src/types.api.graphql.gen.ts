@@ -27164,11 +27164,11 @@ export type ComponentDevelopmentFragment = {
   id: string
   name: string
   api: InterfaceTypeFragment
+  elements: Array<ElementFragment>
   owner: OwnerFragment
   props: PropFragment
   rootElement: { id: string; name: string }
   store: StoreFragment
-  elements: Array<ElementFragment>
 }
 
 export type ComponentProductionFragment = {
