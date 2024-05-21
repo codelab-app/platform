@@ -42,6 +42,9 @@ fragment ComponentDevelopment on Component {
   store {
     ...Store
   }
+  elements {
+    ...Element
+  }
 }
 
 fragment ComponentProduction on Component {
