@@ -11,8 +11,7 @@
   ],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/linter:eslint"
     },
     "test": {
       "executor": "@nx/jest:jest",

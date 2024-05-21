@@ -39,13 +39,11 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            execCommand(
-              'nx run-many --target=build --projects=web,api,e2e,sites,landing -c test',
-            )
+            execCommand('nx affected --target=build -c test')
           }
 
           if (stage === Stage.CI) {
-            execCommand('nx build web -c ci')
+            // Can't use on CI since no `cli` yet
           }
         }),
       )
@@ -62,9 +60,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand(
-              'pnpm nx affected --target=test:unit --ci -c ci --skip-nx-cache',
-            )
+            execCommand('pnpm nx affected --target=test:unit --ci -c ci')
           }
         }),
       )
@@ -81,7 +77,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test:integration --runInBand --ci -c ci --parallel=1 --skip-nx-cache',
+              'pnpm nx affected --target=test:integration --runInBand --ci -c ci --parallel=1',
             )
           }
         }),

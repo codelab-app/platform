@@ -127,7 +127,6 @@ describe('TypedPropTransformers', () => {
       ),
     )
 
-
     expect(await screen.findByText(textPropValue)).toBeInTheDocument()
   })
 })

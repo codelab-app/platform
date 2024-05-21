@@ -24,7 +24,6 @@ export const testCypressJsonConfig: Cypress.EndToEndConfigOptions = {
     workspaceRoot: path.resolve(__dirname, '../..'),
   },
   execTimeout: 5000,
-  experimentalInteractiveRunEvents: true,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
   pageLoadTimeout: 15000,
