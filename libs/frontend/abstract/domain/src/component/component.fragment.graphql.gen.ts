@@ -40,7 +40,6 @@ export type ComponentDevelopmentFragment = {
   props: PropFragment
   rootElement: { id: string; name: string }
   store: StoreFragment
-  elements: Array<ElementFragment>
 }
 
 export type ComponentProductionFragment = {
@@ -101,16 +100,12 @@ export const ComponentDevelopmentFragmentDoc = gql`
     store {
       ...Store
     }
-    elements {
-      ...Element
-    }
   }
   ${InterfaceTypeFragmentDoc}
   ${ElementFragmentDoc}
   ${OwnerFragmentDoc}
   ${PropFragmentDoc}
   ${StoreFragmentDoc}
-  ${ElementFragmentDoc}
 `
 export const ComponentProductionFragmentDoc = gql`
   fragment ComponentProduction on Component {

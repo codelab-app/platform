@@ -27169,7 +27169,6 @@ export type ComponentDevelopmentFragment = {
   props: PropFragment
   rootElement: { id: string; name: string }
   store: StoreFragment
-  elements: Array<ElementFragment>
 }
 
 export type ComponentProductionFragment = {
