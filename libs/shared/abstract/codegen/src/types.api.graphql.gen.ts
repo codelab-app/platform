@@ -27861,6 +27861,22 @@ export type GetComponentDevelopmentQuery = {
   richTextTypes: Array<RichTextTypeFragment>
 }
 
+export type GetComponentDevelopmentQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type GetComponentDevelopmentQuery = {
+  actionTypes: Array<ActionTypeFragment>
+  atoms: Array<AtomDevelopmentFragment>
+  codeMirrorTypes: Array<CodeMirrorTypeFragment>
+  components: Array<ComponentDevelopmentFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
+  resources: Array<ResourceFragment>
+  richTextTypes: Array<RichTextTypeFragment>
+}
+
 export type GetDomainsQueryVariables = Exact<{
   options?: InputMaybe<DomainOptions>
   where?: InputMaybe<DomainWhere>
