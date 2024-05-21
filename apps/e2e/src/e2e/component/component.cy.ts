@@ -126,11 +126,6 @@ describe('Component CRUD', () => {
       cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
         label: 'Render Type',
         type: FIELD_TYPE.SELECT,
-        value: 'Component',
-      })
-      cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
-        label: 'Component',
-        type: FIELD_TYPE.SELECT,
         value: createComponentData.name,
       })
 

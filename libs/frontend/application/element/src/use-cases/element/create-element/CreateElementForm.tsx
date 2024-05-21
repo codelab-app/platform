@@ -26,7 +26,7 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
-import { RenderTypeCompositeField } from '../../../components/RenderTypeCompositeField'
+import { RenderTypeField } from '../../../components/render-type-field/RenderTypeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { useRequiredParentValidator } from '../../../validation/useRequiredParentValidator.hook'
 import type { ICreateElementDto } from './create-element.schema'
@@ -105,6 +105,7 @@ export const CreateElementForm = observer(
 
     return (
       <Form<ICreateElementDto>
+        cssString="position: relative;"
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -145,7 +146,7 @@ export const CreateElementForm = observer(
           name="prevSibling.id"
           required={false}
         />
-        <RenderTypeCompositeField name="renderType" parentAtom={parentAtom} />
+        <RenderTypeField name="renderType" parentAtom={parentAtom} />
         <SelectActionField name="preRenderAction" />
         <SelectActionField name="postRenderAction" />
         <Divider />

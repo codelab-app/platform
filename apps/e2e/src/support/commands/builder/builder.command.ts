@@ -1,10 +1,7 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
-import {
-  type ICreateCypressElementData,
-  IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
+import { type ICreateCypressElementData } from '@codelab/shared/abstract/core'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
 
@@ -43,27 +40,11 @@ export const createElementTree = (
           throw new Error('Missing atom and component')
         }
 
-        if (atom) {
-          cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
-            label: 'Atom',
-            type: FIELD_TYPE.SELECT,
-            value: atom,
-          })
-        }
-
-        if (component) {
-          cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
-            label: 'Render Type',
-            type: FIELD_TYPE.SELECT,
-            value: IElementRenderTypeKind.Component,
-          })
-
-          cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
-            label: 'Component',
-            type: FIELD_TYPE.SELECT,
-            value: component,
-          })
-        }
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
+          label: 'Render Type',
+          type: FIELD_TYPE.SELECT,
+          value: (atom || component) as string,
+        })
 
         if (propsData) {
           cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({

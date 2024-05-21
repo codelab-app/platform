@@ -87,6 +87,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       type: 'string',
     },
     renderType: {
+      label: 'Render Type',
       oneOf: [
         {
           properties: {
@@ -95,7 +96,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
             },
             __typename: {
               enum: [IElementRenderTypeKind.Component],
-              // label: 'Render Type',
               type: 'string',
             },
           },
@@ -109,7 +109,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
             },
             __typename: {
               enum: [IElementRenderTypeKind.Atom],
-              // label: 'Render Type',
               type: 'string',
             },
           },

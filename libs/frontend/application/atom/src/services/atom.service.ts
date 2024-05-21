@@ -152,7 +152,6 @@ export class AtomService
   @modelFlow
   getSelectAtomOptions = _async(function* (
     this: AtomService,
-    fieldProps: { value?: string },
     parent?: IAtomModel,
   ) {
     const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())

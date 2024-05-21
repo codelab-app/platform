@@ -101,6 +101,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
       required: ['id'],
     },
     renderType: {
+      label: 'Render Type',
       oneOf: [
         {
           properties: {
@@ -109,7 +110,6 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
             },
             __typename: {
               enum: [IElementRenderTypeKind.Component],
-              label: 'Render Type',
               type: 'string',
             },
           },
@@ -123,7 +123,6 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
             },
             __typename: {
               enum: [IElementRenderTypeKind.Atom],
-              label: 'Render Type',
               type: 'string',
             },
           },
