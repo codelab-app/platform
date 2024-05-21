@@ -2,7 +2,7 @@ import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
-import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   IPageKindName,
   IPrimitiveTypeKind,
@@ -70,9 +70,6 @@ describe('State variables sharing between pages', () => {
     )
 
     cy.openPreview().contains('text undefined').should('exist')
-  })
-
-  it('should setup the pages that will share states - 2', () => {
     cy.openBuilder()
 
     // create a state variable inside the component
@@ -107,10 +104,7 @@ describe('State variables sharing between pages', () => {
 
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
-    cy.contains('text component state value', { timeout: 240000 }).should(
-      'exist',
-      { timeout: 240000 },
-    )
+    cy.contains('text component state value').should('exist')
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
@@ -118,9 +112,7 @@ describe('State variables sharing between pages', () => {
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(5000)
     cy.waitForSpinners()
-    cy.openPreview()
-      .contains('text component state value', { timeout: 240000 })
-      .should('exist', { timeout: 240000 })
+    cy.openPreview().contains('text component state value').should('exist')
   })
 
   /**
