@@ -58,7 +58,6 @@ import {
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { AdminService } from '@codelab/frontend/application/admin'
-import { AppService } from '@codelab/frontend/application/app'
 import {
   AtomService,
   atomServiceContext,
@@ -108,6 +107,7 @@ import { UserService } from '@codelab/frontend/application/user'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
+import { AppService } from '@codelab/frontend-application-app/services'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 

@@ -1,7 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { useAppDevelopment } from '@codelab/frontend/application/app'
 import {
   BuilderPrimarySidebar,
   BuilderTabs,
@@ -22,6 +21,7 @@ import {
   DynamicDashboardTemplate,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
+import { useAppDevelopment } from '@codelab/frontend-application-app/use-cases/app-development'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
