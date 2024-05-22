@@ -71,7 +71,7 @@ describe('Component CRUD', () => {
 
       cy.waitForSpinners()
 
-      cy.get('.ant-tabs [aria-label="setting"]').click()
+      cy.get('.ant-tabs [aria-label="code-sandbox"]').click()
       cy.get('.ant-tabs-tabpane-active').contains(/Add/).click()
 
       cy.getModal().setFormFieldValue({
