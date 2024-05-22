@@ -127,7 +127,6 @@ export class UserService
     this.preferences = preferences
       ? JSON.parse(preferences)
       : DEFAULT_PREFERENCES
-    console.log(this.preferences)
   }
 
   onAttachedToRootStore() {
