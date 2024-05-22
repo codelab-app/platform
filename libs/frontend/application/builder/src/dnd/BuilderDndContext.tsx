@@ -69,6 +69,7 @@ const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
       collisionDetection={hierarchicalCollisionDetector.detectCollisions.bind(
         hierarchicalCollisionDetector,
       )}
+      onDragEnd={onDragEnd}
       sensors={sensors}
     >
       {children}
