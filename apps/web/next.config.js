@@ -68,7 +68,7 @@ const nextConfig = {
     // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
   },
   nx: { svgr: true },
-  reactStrictMode: false,
+  // reactStrictMode: false,
   rewrites: async () => ({
     beforeFiles: [
       // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
