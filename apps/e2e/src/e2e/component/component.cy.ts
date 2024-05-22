@@ -30,11 +30,7 @@ describe('Component CRUD', () => {
 
       cy.get('@cypressComponent').then(() => {
         // GetRenderedPageAndCommonAppData
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            PAGE_NAME,
-          )}/builder?primarySidebarKey=components`,
-        )
+        cy.visit('/components')
         cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
       })
     })
