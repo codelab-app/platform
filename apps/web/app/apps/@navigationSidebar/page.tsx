@@ -1,5 +1,6 @@
 'use client'
 
+import type { UrlParams } from '@codelab/frontend/abstract/domain'
 import { CuiV2NavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
@@ -13,20 +14,21 @@ import {
 import { sidebarWidth } from '@codelab/frontend-presentation-view/templates'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import Sider from 'antd/lib/layout/Sider'
+import { useParams } from 'next/navigation'
 import React from 'react'
 
-export interface PageProps {
-  params: {
-    appSlug: Nullish<string>
-    pageSlug: Nullish<string>
-    componentSlug: Nullish<string>
-    userSlug: Nullish<string>
-  }
-}
+/**
+ * Can't seem to pass props to slots
+ *
+ * https://github.com/vercel/next.js/discussions/58016
+ */
+const NavigationSidebar: React.FC = () => {
+  const params = useParams<UrlParams>()
+  const appSlug = params?.appSlug
+  const pageSlug = params?.pageSlug
+  const userSlug = params?.userSlug
+  const componentSlug = params?.componentSlug
 
-const NavigationSidebar: React.FC<PageProps> = ({
-  params: { appSlug, componentSlug, pageSlug, userSlug },
-}) => {
   const primaryItems = [
     appMenuItem,
     allPagesMenuItem(appSlug, pageSlug, userSlug),

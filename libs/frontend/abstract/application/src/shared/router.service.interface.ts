@@ -1,34 +1,32 @@
 import type { NextRouter } from 'next/router'
 import type { ParsedUrlQuery } from 'querystring'
 
+interface Params {
+  [key: string]: Array<string> | string
+}
+
 /**
  * Url param like :details
  */
-export interface IRouterParam {
-  appSlug?: string
-  componentSlug?: string
-  pageSlug?: string
-  userSlug?: string
+export interface UrlParams extends Params {
+  appSlug: string
+  componentSlug: string
+  pageSlug: string
+  userSlug: string
 }
 
 /**
- * Query string
+ * ?key=value
  */
-export interface IRouterQuery {
-  primarySidebarKey?: string
+export interface UrlQuery {
+  primarySidebarKey?: string | null
 }
 
 export interface IRouterProps {
-  path: NextRouter['asPath']
-  pathname: NextRouter['pathname']
-  query: NextRouter['query']
+  param: Partial<UrlParams>
+  query: UrlQuery
 }
 
-export type IRouterService = IRouterParam &
-  Required<IRouterQuery> & {
-    param: IRouterParam
-    queryString: IRouterQuery
-    query: ParsedUrlQuery
-
-    update(router: Partial<IRouterProps>): void
-  }
+export type IRouterService = IRouterProps & {
+  update(router: Partial<IRouterProps>): void
+}
