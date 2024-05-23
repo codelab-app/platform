@@ -21,7 +21,7 @@ const init = (router: IRouterProps) => {
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    param: prop<Partial<UrlParams>>(() => ({
+    param: prop<UrlParams>(() => ({
       appSlug: undefined,
       componentSlug: undefined,
       pageSlug: undefined,

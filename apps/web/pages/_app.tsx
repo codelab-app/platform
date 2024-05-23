@@ -46,11 +46,19 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
    * https://nextjs.org/docs/architecture/fast-refresh
    */
   const [store] = useState(() => {
+    const query = router.query
+
     const coreStore = createCoreStore(
       {
-        path: router.asPath,
-        pathname: router.pathname,
-        query: router.query,
+        param: {
+          appSlug: `${query['appSlug']}`,
+          componentSlug: `${query['componentSlug']}`,
+          pageSlug: `${query['pageSlug']}`,
+          userSlug: `${query['userSlug']}`,
+        },
+        query: {
+          primarySidebarKey: `${query['primarySidebarKey']}`,
+        },
       },
       user,
     )
@@ -61,10 +69,18 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   })
 
   useEffect(() => {
+    const query = router.query
+
     store.routerService.update({
-      path: router.asPath,
-      pathname: router.pathname,
-      query: router.query,
+      param: {
+        appSlug: `${query['appSlug']}`,
+        componentSlug: `${query['componentSlug']}`,
+        pageSlug: `${query['pageSlug']}`,
+        userSlug: `${query['userSlug']}`,
+      },
+      query: {
+        primarySidebarKey: `${query['primarySidebarKey']}`,
+      },
     })
   }, [router])
 
