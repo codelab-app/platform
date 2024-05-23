@@ -13,8 +13,11 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
 export const BuildAppModal = observer(() => {
-  const { appService } = useStore()
-  const app = appService.buildModal.app
+  // const store = useStore()
+
+  // console.log(store)
+  // const { appService } = useStore()
+  // const app = appService.buildModal.app
   // const { regenerate } = useRegeneratePages(appService)
   // const onSubmit = async () => regenerate(app as IAppModel)
   // const closeModal = () => appService.buildModal.close()

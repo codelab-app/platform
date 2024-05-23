@@ -1,6 +1,6 @@
 'use client'
 
-import type { UrlParams } from '@codelab/frontend/abstract/domain'
+import type { UrlParams } from '@codelab/frontend/abstract/application'
 import { CuiV2NavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
@@ -23,7 +23,7 @@ import React from 'react'
  * https://github.com/vercel/next.js/discussions/58016
  */
 const NavigationSidebar: React.FC = () => {
-  const params = useParams<UrlParams>()
+  const params = useParams<Required<UrlParams>>()
   const appSlug = params?.appSlug
   const pageSlug = params?.pageSlug
   const userSlug = params?.userSlug
