@@ -6,7 +6,7 @@ import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'

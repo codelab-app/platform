@@ -13,7 +13,7 @@ import {
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'

@@ -3,7 +3,7 @@ import {
   appSchema,
   idSchema,
   nonEmptyString,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import type { JSONSchemaType } from 'ajv'
 
 export const createDomainSchema: JSONSchemaType<ICreateDomainData> = {

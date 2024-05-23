@@ -24,7 +24,7 @@ export interface CuiNavigationBarProps {
   secondaryItems?: Array<NavigationBarItem>
 }
 
-const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
+export const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   disabled: navBarItem.disabled,
   icon: (
     <div data-cy={CY_DATA.cuiNavigationBarItem(navBarItem.title).cyData}>

@@ -1,4 +1,4 @@
-import { Fancybox } from '@codelab/frontend/presentation/view'
+import { Fancybox } from '@codelab/frontend-presentation-view/components'
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animated, useSpring } from '@react-spring/web'

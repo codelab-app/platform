@@ -3,7 +3,7 @@ import {
   CodeMirrorField,
   createAutoCompleteOptions,
   ToggleExpressionField,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import type { UiPropertiesFn } from '../types'
 

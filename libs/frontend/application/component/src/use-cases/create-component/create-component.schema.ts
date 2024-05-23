@@ -1,7 +1,7 @@
 import {
   idSchema,
   titleCaseValidation,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

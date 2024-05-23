@@ -1,4 +1,4 @@
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import {
   CreateFieldModal,
   CreateTypeModal,
@@ -10,7 +10,7 @@ import {
   UpdateFieldModal,
   UpdateTypeModal,
 } from '@codelab/frontend/application/type'
-import { ContentSection } from '@codelab/frontend/presentation/view'
+import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'

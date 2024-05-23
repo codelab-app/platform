@@ -2,7 +2,7 @@ import type { ICodeMirrorTypeModel } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import type { UiPropertiesFn } from '../types'
 
 export const codeMirrorTypeUiProperties: UiPropertiesFn<

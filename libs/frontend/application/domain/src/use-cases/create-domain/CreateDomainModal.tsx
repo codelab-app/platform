@@ -7,8 +7,8 @@ import {
   DOMAIN_EXISTS_ERROR,
 } from '@codelab/frontend/domain/domain'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
-import { ModalForm } from '@codelab/frontend/presentation/view'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend-presentation-view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

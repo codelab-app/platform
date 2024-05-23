@@ -4,7 +4,7 @@ import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
   AutoCompleteField,
   ToggleExpressionField,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import type { IRef } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { useField } from 'uniforms'

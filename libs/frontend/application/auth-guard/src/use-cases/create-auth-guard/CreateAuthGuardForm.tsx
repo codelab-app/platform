@@ -12,7 +12,7 @@ import {
   DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'

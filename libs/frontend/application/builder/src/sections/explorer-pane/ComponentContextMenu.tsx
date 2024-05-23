@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { Key } from '@codelab/frontend/presentation/view'
+import { Key } from '@codelab/frontend-presentation-view/components'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { MenuProps } from 'antd'
 import { Dropdown } from 'antd'

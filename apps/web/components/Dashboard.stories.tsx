@@ -1,4 +1,4 @@
-import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
+import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 

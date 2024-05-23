@@ -8,7 +8,7 @@ import {
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IUpdateFieldData } from '@codelab/shared/abstract/core'

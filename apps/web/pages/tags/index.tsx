@@ -1,4 +1,4 @@
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import {
   CreateTagModal,
   DeleteTagsModal,
@@ -7,7 +7,7 @@ import {
   UpdateTagForm,
   UpdateTagModal,
 } from '@codelab/frontend/application/tag'
-import { ContentSection } from '@codelab/frontend/presentation/view'
+import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import Head from 'next/head'
 import React from 'react'
 

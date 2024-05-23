@@ -3,7 +3,7 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CodeMirrorEditor,
   TextEditor,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import type { EditorState, LexicalEditor } from 'lexical'

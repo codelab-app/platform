@@ -49,8 +49,7 @@
     "@nx/react": {
       "application": {
         "style": "css",
-        "linter": "eslint",
-        "babel": true
+        "linter": "eslint"
       },
       "library": {
         "style": "styled-components",

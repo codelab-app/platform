@@ -7,7 +7,7 @@ import {
 import { componentRef } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
+import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components'
 import { slugify } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'

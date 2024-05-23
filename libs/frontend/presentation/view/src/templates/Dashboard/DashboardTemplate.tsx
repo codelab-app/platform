@@ -64,6 +64,7 @@ export const DashboardTemplate = observer(
               secondaryItems={navigationBarItems.secondaryItems}
             />
           </Sider>
+
           <Layout style={contentStyles}>
             <PanelGroup direction="horizontal">
               {ActivePrimarySidebar && (

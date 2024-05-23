@@ -6,7 +6,10 @@ import {
   SelectAction,
   SelectResource,
 } from '@codelab/frontend/application/type'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
+import {
+  DisplayIfField,
+  ModalForm,
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'

@@ -1,4 +1,4 @@
-import { ModalForm } from '@codelab/frontend/presentation/view'
+import { ModalForm } from '@codelab/frontend-presentation-view/components'
 import React, { useContext } from 'react'
 import { InterfaceForm } from './InterfaceForm'
 import type { InterfaceFormProps } from './types'

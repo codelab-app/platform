@@ -1,5 +1,5 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { DisplayIfField } from '@codelab/frontend/presentation/view'
+import { DisplayIfField } from '@codelab/frontend-presentation-view/components'
 import type { IRef } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

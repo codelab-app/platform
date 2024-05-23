@@ -2,7 +2,7 @@ import type { IArrayTypeModel } from '@codelab/frontend/abstract/domain'
 import {
   createAutoCompleteOptions,
   ToggleExpressionField,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import type { UiPropertiesFn } from '../types'
 
 export const arrayTypeUiProperties: UiPropertiesFn<IArrayTypeModel> = (

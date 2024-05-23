@@ -1,6 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { ModalForm } from '@codelab/frontend/presentation/view'
+import { ModalForm } from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

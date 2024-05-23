@@ -152,7 +152,7 @@ export const createCoreStore = (router: IRouterProps, user: Auth0IdToken) => {
       storeService: prop<IStoreService>(() => new StoreService({})),
       tagDomainService: prop<ITagDomainService>(() => new TagDomainService({})),
       tagService: prop<ITagService>(() => new TagService({})),
-      tracerService: prop<ITracerService>(() => new TracerService({})),
+      // tracerService: prop<ITracerService>(() => new TracerService({})),
       typeService: prop<ITypeService>(() => new TypeService({})),
       userService: prop<IUserService>(() => UserService.init(user)),
     })

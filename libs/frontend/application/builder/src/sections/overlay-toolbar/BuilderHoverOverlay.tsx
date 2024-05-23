@@ -3,7 +3,7 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   HoverOverlay,
   MarginPaddingOverlay,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

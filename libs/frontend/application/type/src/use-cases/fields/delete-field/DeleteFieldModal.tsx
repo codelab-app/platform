@@ -1,7 +1,10 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type { EmptyJsonSchemaType } from '@codelab/frontend/presentation/view'
-import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
+import type { EmptyJsonSchemaType } from '@codelab/frontend-presentation-view/components'
+import {
+  emptyJsonSchema,
+  ModalForm,
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

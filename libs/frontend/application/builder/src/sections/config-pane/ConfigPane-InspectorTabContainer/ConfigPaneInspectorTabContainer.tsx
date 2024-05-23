@@ -23,7 +23,7 @@ import {
 } from '@codelab/frontend/application/element'
 import { UpdatePageTabForm } from '@codelab/frontend/application/page'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { FormContextProvider } from '@codelab/frontend/presentation/view'
+import { FormContextProvider } from '@codelab/frontend-presentation-view/components'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
 import isNil from 'lodash/isNil'
