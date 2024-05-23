@@ -10,12 +10,6 @@
     "noFallthroughCasesInSwitch": true,
     "module": "commonjs"
   },
-  "references": [
-    // { "templates": "src/templates" },
-    // { "style": "src/style" },
-    // { "sections": "src/sections" },
-    // { "components": "src/components" }
-  ],
   "files": [
     "../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
     "../../../../node_modules/@nx/react/typings/image.d.ts"

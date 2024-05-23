@@ -1,7 +1,7 @@
 import type {
-  IRouterParam,
-  IRouterQuery,
   IRouterService,
+  UrlParams,
+  UrlQuery,
 } from '@codelab/frontend/abstract/application'
 import { IRouterProps } from '@codelab/frontend/abstract/application'
 import { throwIfUndefined } from '@codelab/shared/utils'
@@ -10,36 +10,24 @@ import { Model, model, modelAction, prop } from 'mobx-keystone'
 import type { ParsedUrlQuery } from 'querystring'
 
 const init = (router: IRouterProps) => {
-  const { query } = router
-
-  const { appSlug, componentSlug, pageSlug, primarySidebarKey, userSlug } =
-    query
+  const { param, query } = router
 
   return new RouterService({
-    param: {
-      appSlug: `${appSlug}`,
-      componentSlug: `${componentSlug}`,
-      pageSlug: `${pageSlug}`,
-      userSlug: `${userSlug}`,
-    },
+    param,
     query,
-    queryString: {
-      primarySidebarKey: `${primarySidebarKey}`,
-    },
   })
 }
 
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    param: prop<IRouterParam>(() => ({
+    param: prop<Partial<UrlParams>>(() => ({
       appSlug: undefined,
       componentSlug: undefined,
       pageSlug: undefined,
       userSlug: undefined,
     })).withSetter(),
-    query: prop<ParsedUrlQuery>(() => ({})).withSetter(),
-    queryString: prop<IRouterQuery>(() => ({
+    query: prop<UrlQuery>(() => ({
       primarySidebarKey: undefined,
     })).withSetter(),
   })
@@ -64,7 +52,7 @@ export class RouterService
 
   @computed
   get primarySidebarKey() {
-    return throwIfUndefined(this.queryString.primarySidebarKey)
+    return throwIfUndefined(this.query.primarySidebarKey)
   }
 
   @computed
@@ -73,23 +61,8 @@ export class RouterService
   }
 
   @modelAction
-  update(router: IRouterProps) {
-    const { query } = router
-
-    const { appSlug, componentSlug, pageSlug, primarySidebarKey, userSlug } =
-      query
-
-    this.setParam({
-      appSlug: appSlug ? `${appSlug}` : undefined,
-      componentSlug: componentSlug ? `${componentSlug}` : undefined,
-      pageSlug: pageSlug ? `${pageSlug}` : undefined,
-      userSlug: userSlug ? `${userSlug} ` : undefined,
-    })
-
+  update({ param, query }: IRouterProps) {
+    this.setParam(param)
     this.setQuery(query)
-
-    this.setQueryString({
-      primarySidebarKey: `${primarySidebarKey}`,
-    })
   }
 }

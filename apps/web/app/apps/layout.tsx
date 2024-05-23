@@ -15,10 +15,10 @@ const DashboardLayout = ({
 // primarySidebar,
 {
   children: React.ReactNode
-  header?: React.ReactNode
+  header: React.ReactNode
   // configPane?: React.ReactNode
   // primarySidebar?: React.ReactNode
-  navigationSidebar?: React.ReactNode
+  navigationSidebar: React.ReactNode
 }) => {
   return (
     <Layout className="max-h-full !min-h-full">
