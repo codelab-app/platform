@@ -3,7 +3,7 @@ import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'

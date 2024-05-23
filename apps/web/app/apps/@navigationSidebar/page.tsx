@@ -1,15 +1,16 @@
-import 'server-only'
+'use client'
+
+import { CuiV2NavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
   allPagesMenuItem,
   appMenuItem,
   authGuardMenuItem,
   builderComponentsMenuItem,
-  CuiNavigationSidebar,
   pageBuilderMenuItem,
   resourceMenuItem,
-  sidebarWidth,
-} from '@codelab/frontend/presentation/client-components'
+} from '@codelab/frontend-presentation-view/sections'
+import { sidebarWidth } from '@codelab/frontend-presentation-view/templates'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import Sider from 'antd/lib/layout/Sider'
 import React from 'react'
@@ -37,7 +38,7 @@ const NavigationSidebar: React.FC<PageProps> = ({
 
   return (
     <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
-      <CuiNavigationSidebar
+      <CuiV2NavigationBar
         primaryItems={primaryItems}
         secondaryItems={adminMenuItems}
       />

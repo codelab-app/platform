@@ -12,16 +12,14 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend/application/page'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import {
   useAppQuery,
   usePageQuery,
 } from '@codelab/frontend/presentation/container'
-import {
-  DynamicDashboardTemplate,
-  SkeletonWrapper,
-} from '@codelab/frontend/presentation/view'
 import { useAppDevelopment } from '@codelab/frontend-application-app/use-cases/app-development'
+import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components'
+import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'

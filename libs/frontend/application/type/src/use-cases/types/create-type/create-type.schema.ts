@@ -1,4 +1,7 @@
-import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
+import {
+  idSchema,
+  nonEmptyString,
+} from '@codelab/frontend-presentation-view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import {

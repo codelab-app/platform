@@ -4,10 +4,8 @@ import {
   useStore,
   useTablePagination,
 } from '@codelab/frontend/application/shared/store'
-import {
-  headerCellProps,
-  useColumnSearchProps,
-} from '@codelab/frontend/presentation/view'
+import { useColumnSearchProps } from '@codelab/frontend-presentation-view/components'
+import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import { observer } from 'mobx-react-lite'

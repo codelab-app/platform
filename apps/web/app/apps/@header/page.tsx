@@ -1,13 +1,14 @@
-import 'server-only'
+'use client'
+
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation/client-components'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
-} from '@codelab/frontend/presentation/client-components'
+  type ToolbarItem,
+} from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
 import React from 'react'
 
@@ -42,7 +43,7 @@ const AppsHeader = () => {
           src="/logo.png"
         />
       }
-      toolbar={<CuiHeaderToolbar items={toolbarItems} />}
+      toolbar={<CuiHeaderToolbar items={toolbarItems} title="Apps" />}
     />
   )
 }

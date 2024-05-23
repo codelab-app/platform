@@ -5,7 +5,7 @@ import {
   nonEmptyString,
   pageUrlSchema,
   titleCaseValidation,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { type ICreatePageData, IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

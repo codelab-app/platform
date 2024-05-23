@@ -11,7 +11,7 @@ import {
   CodeMirrorField,
   createAutoCompleteOptions,
   Form,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'

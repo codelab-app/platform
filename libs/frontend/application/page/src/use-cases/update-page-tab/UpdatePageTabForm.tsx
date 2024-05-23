@@ -1,7 +1,7 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
-import { Form } from '@codelab/frontend/presentation/view'
+import { Form } from '@codelab/frontend-presentation-view/components'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

@@ -3,7 +3,7 @@ import {
   hideField,
   idSchema,
   nonEmptyString,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import {
   ICodeMirrorLanguage,
   IElementTypeKind,

@@ -12,7 +12,7 @@ import {
   DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'

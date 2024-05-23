@@ -5,8 +5,8 @@ import {
   ComponentsPrimarySidebar,
 } from '@codelab/frontend/application/builder'
 import { ComponentDetailHeader } from '@codelab/frontend/application/component'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
+import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'

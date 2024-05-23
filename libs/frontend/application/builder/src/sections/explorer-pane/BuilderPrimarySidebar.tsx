@@ -35,7 +35,7 @@ import {
   useCurrentComponent,
   useCurrentPage,
 } from '@codelab/frontend/presentation/container'
-import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'

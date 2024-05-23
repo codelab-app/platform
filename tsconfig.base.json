@@ -172,6 +172,15 @@
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
+      "@codelab/frontend-application-app/*": [
+        "libs/frontend/application/app/src/*"
+      ],
+      "@codelab/frontend-application-shared-auth": [
+        "libs/frontend/application/shared/auth/src/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/*": [
+        "libs/frontend/presentation/view/src/*"
+      ],
       "@codelab/frontend/abstract/application": [
         "libs/frontend/abstract/application/src/index.ts"
       ],
@@ -183,9 +192,6 @@
       ],
       "@codelab/frontend/application/admin": [
         "libs/frontend/application/admin/src/index.ts"
-      ],
-      "@codelab/frontend-application-app/*": [
-        "libs/frontend/application/app/src/*"
       ],
       "@codelab/frontend/application/app/*": [
         "libs/frontend/application/app/src/*"
@@ -231,9 +237,6 @@
       ],
       "@codelab/frontend/application/resource": [
         "libs/frontend/application/resource/src/index.ts"
-      ],
-      "@codelab/frontend/application/shared/auth": [
-        "libs/frontend/application/shared/auth/src/index.ts"
       ],
       "@codelab/frontend/application/shared/data": [
         "libs/frontend/application/shared/data/src/index.ts"
@@ -323,14 +326,11 @@
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
       ],
-      "@codelab/frontend/presentation/client-components": [
-        "libs/frontend/presentation/client-components/src/index.ts"
+      "@codelab/frontend/presentation/codelab-ui/*": [
+        "libs/frontend/presentation/codelab-ui/src/*"
       ],
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
-      ],
-      "@codelab/frontend/presentation/view": [
-        "libs/frontend/presentation/view/src/index.ts"
       ],
       "@codelab/frontend/shared/style": [
         "libs/frontend/shared/style/src/index.ts"
@@ -358,6 +358,7 @@
       ],
       "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
       "@codelab/frontend/test/store": ["libs/frontend/test/store/src/index.ts"],
+      "@codelab/shared-infra-auth0/*": ["libs/shared/infra/auth0/src/*"],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],
@@ -375,7 +376,6 @@
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain": ["libs/shared/domain/src/index.ts"],
       "@codelab/shared/infra/ajv": ["libs/shared/infra/ajv/src/index.ts"],
-      "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"

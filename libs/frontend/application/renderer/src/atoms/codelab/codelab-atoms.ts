@@ -1,5 +1,5 @@
 import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
-import { TextEditor } from '@codelab/frontend/presentation/view'
+import { TextEditor } from '@codelab/frontend-presentation-view/components'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 

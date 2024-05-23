@@ -3,7 +3,7 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

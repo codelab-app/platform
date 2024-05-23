@@ -1,7 +1,7 @@
 import { initAuth0 } from '@auth0/nextjs-auth0'
 import { getEnv } from '@codelab/shared/config'
 
-const auth0Instance = initAuth0({
+export const auth0Instance = initAuth0({
   authorizationParams: {
     audience: getEnv().auth0.audience,
   },
@@ -15,5 +15,3 @@ const auth0Instance = initAuth0({
     autoSave: false,
   },
 })
-
-export default auth0Instance

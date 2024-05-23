@@ -5,7 +5,10 @@ import {
   ResourceTestRequest,
 } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
+import {
+  Form,
+  FormController,
+} from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

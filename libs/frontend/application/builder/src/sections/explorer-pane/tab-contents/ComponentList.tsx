@@ -5,7 +5,7 @@ import type {
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
 import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
-import { ErrorBoundary } from '@codelab/frontend/presentation/view'
+import { ErrorBoundary } from '@codelab/frontend-presentation-view/components'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'
 import debounce from 'lodash/debounce'

@@ -1,3 +1,5 @@
+'use client'
+
 import { Skeleton } from 'antd'
 import React from 'react'
 

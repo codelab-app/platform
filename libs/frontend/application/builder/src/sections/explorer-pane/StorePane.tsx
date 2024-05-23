@@ -11,7 +11,7 @@ import { CreateFieldButton } from '@codelab/frontend/application/type'
 import {
   CodeMirrorEditor,
   SkeletonWrapper,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Collapse } from 'antd'

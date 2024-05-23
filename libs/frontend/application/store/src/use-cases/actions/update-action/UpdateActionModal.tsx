@@ -5,7 +5,7 @@ import {
   SelectAction,
   SelectResource,
 } from '@codelab/frontend/application/type'
-import { ModalForm } from '@codelab/frontend/presentation/view'
+import { ModalForm } from '@codelab/frontend-presentation-view/components'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'

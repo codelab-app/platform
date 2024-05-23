@@ -2,7 +2,7 @@ import {
   type LambdasView,
   LambdasViewLayout,
 } from '@codelab/frontend/application/lambda'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import Head from 'next/head'
 import React from 'react'
 

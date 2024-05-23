@@ -1,7 +1,7 @@
 import {
   createAutoCompleteOptions,
   ToggleExpressionField,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { SelectComponent } from '../fields'
 import type { UiPropertiesFn } from '../types'
 

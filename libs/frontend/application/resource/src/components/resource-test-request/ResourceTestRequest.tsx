@@ -3,7 +3,7 @@ import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import {
   CodeMirrorEditor,
   DisplayIf,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/components'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import get from 'lodash/get'

@@ -6,10 +6,10 @@ import {
   GetDomainsList,
   UpdateDomainModal,
 } from '@codelab/frontend/application/domain'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAppQuery } from '@codelab/frontend/presentation/container'
-import { ContentSection } from '@codelab/frontend/presentation/view'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
+import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { AppProperties } from '@codelab/shared/domain'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Spin } from 'antd'

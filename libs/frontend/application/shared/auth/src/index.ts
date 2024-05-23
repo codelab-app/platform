@@ -1,2 +1,1 @@
-export * from './authorization/get-user'
-export * from './authorization/with-page-auth-redirect'
+export * from './with-page-auth-redirect'

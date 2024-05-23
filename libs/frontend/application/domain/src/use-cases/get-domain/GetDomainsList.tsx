@@ -3,9 +3,11 @@ import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import {
   DisplayIf,
   ErrorBoundary,
+} from '@codelab/frontend-presentation-view/components'
+import {
   padding,
   threeGridCol,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-view/style'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

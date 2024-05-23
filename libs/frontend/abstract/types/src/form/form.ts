@@ -1,7 +1,7 @@
 import type { Callback, Maybe } from '@codelab/shared/abstract/types'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'
-import type React from 'react'
+import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { AutoFormProps, Bridge } from 'uniforms'
 import type { ModelActionKey } from '../model'
