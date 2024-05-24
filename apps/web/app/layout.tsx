@@ -12,46 +12,27 @@ import { App, ConfigProvider } from 'antd'
 import { registerRootStore } from 'mobx-keystone'
 import type { NextPage } from 'next'
 import { useParams, usePathname, useSearchParams } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { type PropsWithChildren, Suspense, useState } from 'react'
+import { CuiStoreProvider } from './components/provider'
 import { theme } from './theme'
 
 const RootLayout = ({ children }: React.PropsWithChildren) => {
-  // const [store] = useState(() => {
-  //   const coreStore = createCoreStore(
-  //     {
-  //       param: {
-  //         appSlug: params?.appSlug,
-  //         componentSlug: params?.componentSlug,
-  //         pageSlug: params?.pageSlug,
-  //         userSlug: params?.userSlug,
-  //       },
-  //       query: {
-  //         primarySidebarKey:
-  //           searchParams?.get('primarySidebarKey') ?? undefined,
-  //       },
-  //     },
-  //     guestUser,
-  //   )
-
-  //   registerRootStore(coreStore)
-
-  //   return coreStore
-  // })
-
   return (
     <html lang="en">
       <body>
-        {/* <StoreProvider value={store}> */}
-        <UserProvider>
-          <CuiProvider>
-            <AntdRegistry>
-              <ConfigProvider theme={theme}>
-                <App className="size-full">{children}</App>
-              </ConfigProvider>
-            </AntdRegistry>
-          </CuiProvider>
-        </UserProvider>
-        {/* </StoreProvider> */}
+        <Suspense>
+          {/* <CuiStoreProvider> */}
+          <CuiStoreProvider>
+            <UserProvider>
+              <CuiProvider>
+                <ConfigProvider theme={theme}>
+                  <App className="size-full">{children}</App>
+                </ConfigProvider>
+              </CuiProvider>
+            </UserProvider>
+          </CuiStoreProvider>
+          {/* </CuiStoreProvider> */}
+        </Suspense>
       </body>
     </html>
   )

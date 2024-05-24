@@ -26,7 +26,6 @@ export const adminUser: Auth0IdToken = {
 
 export const guestUser: Auth0IdToken = {
   email: '',
-  /* eslint-disable @typescript-eslint/naming-convention */
   email_verified: false,
   family_name: '',
   given_name: '',
@@ -38,7 +37,6 @@ export const guestUser: Auth0IdToken = {
   sid: v4(),
   sub: v4(),
   updated_at: '',
-  /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 /**

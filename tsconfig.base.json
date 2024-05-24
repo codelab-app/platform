@@ -199,6 +199,9 @@
       "@codelab/frontend/application/atom": [
         "libs/frontend/application/atom/src/index.ts"
       ],
+      "@codelab/frontend/application/atom/*": [
+        "libs/frontend/application/atom/src/*"
+      ],
       "@codelab/frontend/application/auth-guard": [
         "libs/frontend/application/auth-guard/src/index.ts"
       ],

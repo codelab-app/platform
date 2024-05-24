@@ -40,5 +40,5 @@ export const BuildAppModal = observer(() => {
   //     </ModalForm.Form>
   //   </ModalForm.Modal>
   // )
-  return <></>
+  return <div>Hi</div>
 })
