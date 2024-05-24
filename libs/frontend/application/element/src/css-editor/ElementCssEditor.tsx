@@ -1,6 +1,6 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'

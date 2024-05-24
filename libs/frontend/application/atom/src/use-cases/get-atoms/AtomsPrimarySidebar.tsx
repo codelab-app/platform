@@ -4,8 +4,8 @@ import {
   MODEL_UI,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { CreateFieldPopover } from '@codelab/frontend/application/type'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { CreateFieldPopover } from '@codelab/frontend-application-type'
 import {
   CuiSidebar,
   useCui,

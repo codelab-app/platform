@@ -4,11 +4,11 @@ import {
   AtomsViewLayout,
   CreateAtomModal,
   DeleteAtomsModal,
-} from '@codelab/frontend/application/atom'
+} from '@codelab/frontend-application-atom'
 import {
   CreateFieldModal,
   DeleteFieldModal,
-} from '@codelab/frontend/application/type'
+} from '@codelab/frontend-application-type'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

@@ -8,27 +8,27 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { DeleteComponentModal } from '@codelab/frontend/application/component'
+import { DeleteComponentModal } from '@codelab/frontend-application-component'
 import {
   CreateElementPopover,
   DeleteElementModal,
-} from '@codelab/frontend/application/element'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-element'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   ActionsTreeView,
   CreateActionPopover,
   DeleteActionModal,
   StateTreeView,
   UpdateActionPopover,
-} from '@codelab/frontend/application/store'
+} from '@codelab/frontend-application-store'
 import {
   CreateFieldModal,
   CreateFieldPopover,
   DeleteFieldModal,
   UpdateFieldModal,
   UpdateFieldPopover,
-} from '@codelab/frontend/application/type'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+} from '@codelab/frontend-application-type'
+import { mapElementOption } from '@codelab/frontend-domain-element'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {

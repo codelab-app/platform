@@ -1,5 +1,5 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { UpdateFieldForm } from '@codelab/frontend/application/type'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { UpdateFieldForm } from '@codelab/frontend-application-type'
 import { Empty, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

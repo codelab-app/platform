@@ -88,16 +88,14 @@
         "libs/backend/application/user/src/index.ts"
       ],
       "@codelab/backend/data/seed": ["libs/backend/data/seed/src/index.ts"],
-      "@codelab/backend/domain/action": [
-        "libs/backend/domain/action/src/index.ts"
-      ],
+      "@codelab/backend/domain/action/*": ["libs/backend/domain/action/src/*"],
       "@codelab/backend/domain/admin": [
         "libs/backend/domain/admin/src/index.ts"
       ],
       "@codelab/backend/domain/app": ["libs/backend/domain/app/src/index.ts"],
       "@codelab/backend/domain/atom": ["libs/backend/domain/atom/src/index.ts"],
-      "@codelab/backend/domain/auth-guard": [
-        "libs/backend/domain/auth-guard/src/index.ts"
+      "@codelab/backend/domain/auth-guard/*": [
+        "libs/backend/domain/auth-guard/src/*"
       ],
       "@codelab/backend/domain/component": [
         "libs/backend/domain/component/src/index.ts"
@@ -172,9 +170,6 @@
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
-      "@codelab/frontend-application-app/*": [
-        "libs/frontend/application/app/src/*"
-      ],
       "@codelab/frontend-application-shared-auth": [
         "libs/frontend/application/shared/auth/src/index.ts"
       ],
@@ -190,137 +185,118 @@
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
-      "@codelab/frontend/application/admin": [
-        "libs/frontend/application/admin/src/index.ts"
+      "@codelab/frontend-application-admin/*": [
+        "libs/frontend/application/admin/src/*"
       ],
-      "@codelab/frontend/application/app/*": [
+      "@codelab/frontend-application-app/*": [
         "libs/frontend/application/app/src/*"
       ],
-      "@codelab/frontend/application/atom": [
-        "libs/frontend/application/atom/src/index.ts"
-      ],
-      "@codelab/frontend/application/atom/*": [
+      "@codelab/frontend-application-atom/*": [
         "libs/frontend/application/atom/src/*"
       ],
-      "@codelab/frontend/application/auth-guard": [
+      "@codelab/frontend-application-auth-guard": [
         "libs/frontend/application/auth-guard/src/index.ts"
       ],
-      "@codelab/frontend/application/axios": [
-        "libs/frontend/infra/axios/src/index.ts"
+      "@codelab/frontend-application-axios/*": [
+        "libs/frontend/infra/axios/src/*"
       ],
-      "@codelab/frontend/application/builder": [
-        "libs/frontend/application/builder/src/index.ts"
+      "@codelab/frontend-application-builder/*": [
+        "libs/frontend/application/builder/src/*"
       ],
-      "@codelab/frontend/application/component": [
-        "libs/frontend/application/component/src/index.ts"
+      "@codelab/frontend-application-component/*": [
+        "libs/frontend/application/component/src/*"
       ],
-      "@codelab/frontend/application/dnd": [
-        "libs/frontend/application/dnd/src/index.ts"
+      "@codelab/frontend-application-dnd/*": [
+        "libs/frontend/application/dnd/src/*"
       ],
-      "@codelab/frontend/application/domain": [
-        "libs/frontend/application/domain/src/index.ts"
+      "@codelab/frontend-application-domain/*": [
+        "libs/frontend/application/domain/src/*"
       ],
-      "@codelab/frontend/application/element": [
-        "libs/frontend/application/element/src/index.ts"
+      "@codelab/frontend-application-element/*": [
+        "libs/frontend/application/element/src/*"
       ],
-      "@codelab/frontend/application/lambda": [
-        "libs/frontend/application/lambda/src/index.ts"
+      "@codelab/frontend-application-lambda/*": [
+        "libs/frontend/application/lambda/src/*"
       ],
-      "@codelab/frontend/application/page": [
-        "libs/frontend/application/page/src/index.ts"
+      "@codelab/frontend-application-page/*": [
+        "libs/frontend/application/page/src/*"
       ],
-      "@codelab/frontend/application/prop": [
-        "libs/frontend/application/prop/src/index.ts"
+      "@codelab/frontend-application-prop/*": [
+        "libs/frontend/application/prop/src/*"
       ],
-      "@codelab/frontend/application/redirect": [
-        "libs/frontend/application/redirect/src/index.ts"
+      "@codelab/frontend-application-redirect/*": [
+        "libs/frontend/application/redirect/src/*"
       ],
-      "@codelab/frontend/application/renderer": [
-        "libs/frontend/application/renderer/src/index.ts"
+      "@codelab/frontend-application-renderer/*": [
+        "libs/frontend/application/renderer/src/*"
       ],
-      "@codelab/frontend/application/resource": [
-        "libs/frontend/application/resource/src/index.ts"
+      "@codelab/frontend-application-resource/*": [
+        "libs/frontend/application/resource/src/*"
       ],
-      "@codelab/frontend/application/shared/data": [
-        "libs/frontend/application/shared/data/src/index.ts"
+      "@codelab/frontend-application-shared-data/*": [
+        "libs/frontend/application/shared/data/src/*"
       ],
-      "@codelab/frontend/application/shared/store": [
-        "libs/frontend/application/shared/store/src/index.ts"
+      "@codelab/frontend-application-shared-store/*": [
+        "libs/frontend/application/shared/store/src/*"
       ],
-      "@codelab/frontend/application/store": [
-        "libs/frontend/application/store/src/index.ts"
+      "@codelab/frontend-application-store/*": [
+        "libs/frontend/application/store/src/*"
       ],
-      "@codelab/frontend/application/style": [
-        "libs/frontend/application/style/src/index.ts"
+      "@codelab/frontend-application-style/*": [
+        "libs/frontend/application/style/src/*"
       ],
-      "@codelab/frontend/application/tag": [
-        "libs/frontend/application/tag/src/index.ts"
+      "@codelab/frontend-application-tag/*": [
+        "libs/frontend/application/tag/src/*"
       ],
-      "@codelab/frontend/application/test": [
-        "libs/frontend/application/test/src/index.ts"
+      "@codelab/frontend-application-test/*": [
+        "libs/frontend/application/test/src/*"
       ],
-      "@codelab/frontend/application/type": [
-        "libs/frontend/application/type/src/index.ts"
+      "@codelab/frontend-application-type/*": [
+        "libs/frontend/application/type/src/*"
       ],
-      "@codelab/frontend/application/user": [
-        "libs/frontend/application/user/src/index.ts"
+      "@codelab/frontend-application-user/*": [
+        "libs/frontend/application/user/src/*"
       ],
-      "@codelab/frontend/domain/action": [
-        "libs/frontend/domain/action/src/index.ts"
+      "@codelab/frontend-domain-action/*": [
+        "libs/frontend/domain/action/src/*"
       ],
-      "@codelab/frontend/domain/admin": [
-        "libs/frontend/domain/admin/src/index.ts"
-      ],
-      "@codelab/frontend/domain/app": ["libs/frontend/domain/app/src/index.ts"],
-      "@codelab/frontend/domain/atom": [
-        "libs/frontend/domain/atom/src/index.ts"
-      ],
-      "@codelab/frontend/domain/auth-guard": [
+      "@codelab/frontend-domain-admin/*": ["libs/frontend/domain/admin/src/*"],
+      "@codelab/frontend-domain-app/*": ["libs/frontend/domain/app/src/*"],
+      "@codelab/frontend-domain-atom/*": ["libs/frontend/domain/atom/src/*"],
+      "@codelab/frontend-domain-auth-guard": [
         "libs/frontend/domain/auth-guard/src/index.ts"
       ],
-      "@codelab/frontend/domain/component": [
-        "libs/frontend/domain/component/src/index.ts"
+      "@codelab/frontend-domain-component/*": [
+        "libs/frontend/domain/component/src/*"
       ],
-      "@codelab/frontend/domain/domain": [
-        "libs/frontend/domain/domain/src/index.ts"
+      "@codelab/frontend-domain-domain/*": [
+        "libs/frontend/domain/domain/src/*"
       ],
-      "@codelab/frontend/domain/element": [
-        "libs/frontend/domain/element/src/index.ts"
+      "@codelab/frontend-domain-element/*": [
+        "libs/frontend/domain/element/src/*"
       ],
-      "@codelab/frontend/domain/lambda": [
-        "libs/frontend/domain/lambda/src/index.ts"
+      "@codelab/frontend-domain-lambda/*": [
+        "libs/frontend/domain/lambda/src/*"
       ],
-      "@codelab/frontend/domain/page": [
-        "libs/frontend/domain/page/src/index.ts"
+      "@codelab/frontend-domain-page/*": ["libs/frontend/domain/page/src/*"],
+      "@codelab/frontend-domain-prop/*": ["libs/frontend/domain/prop/src/*"],
+      "@codelab/frontend-domain-redirect/*": [
+        "libs/frontend/domain/redirect/src/*"
       ],
-      "@codelab/frontend/domain/prop": [
-        "libs/frontend/domain/prop/src/index.ts"
+      "@codelab/frontend-domain-renderer/*": [
+        "libs/frontend/domain/renderer/src/*"
       ],
-      "@codelab/frontend/domain/redirect": [
-        "libs/frontend/domain/redirect/src/index.ts"
+      "@codelab/frontend-domain-resource/*": [
+        "libs/frontend/domain/resource/src/*"
       ],
-      "@codelab/frontend/domain/renderer": [
-        "libs/frontend/domain/renderer/src/index.ts"
+      "@codelab/frontend-domain-shared/*": [
+        "libs/frontend/domain/shared/src/*"
       ],
-      "@codelab/frontend/domain/resource": [
-        "libs/frontend/domain/resource/src/index.ts"
-      ],
-      "@codelab/frontend/domain/shared": [
-        "libs/frontend/domain/shared/src/index.ts"
-      ],
-      "@codelab/frontend/domain/store": [
-        "libs/frontend/domain/store/src/index.ts"
-      ],
-      "@codelab/frontend/domain/style": [
-        "libs/frontend/domain/style/src/index.ts"
-      ],
-      "@codelab/frontend/domain/tag": ["libs/frontend/domain/tag/src/index.ts"],
-      "@codelab/frontend/domain/type": [
-        "libs/frontend/domain/type/src/index.ts"
-      ],
-      "@codelab/frontend/domain/user": [
-        "libs/frontend/domain/user/src/index.ts"
-      ],
+      "@codelab/frontend-domain-store/*": ["libs/frontend/domain/store/src/*"],
+      "@codelab/frontend-domain-style/*": ["libs/frontend/domain/style/src/*"],
+      "@codelab/frontend-domain-tag/*": ["libs/frontend/domain/tag/src/*"],
+      "@codelab/frontend-domain-type/*": ["libs/frontend/domain/type/src/*"],
+      "@codelab/frontend-domain-user/*": ["libs/frontend/domain/user/src/*"],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],

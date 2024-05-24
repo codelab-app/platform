@@ -7,11 +7,11 @@ import {
   BuilderViewLayout,
   ComponentsPrimarySidebar,
   ConfigPaneInspectorTabContainer,
-} from '@codelab/frontend/application/builder'
+} from '@codelab/frontend-application-builder'
 import {
   PageDetailHeader,
   PagesPrimarySidebar,
-} from '@codelab/frontend/application/page'
+} from '@codelab/frontend-application-page'
 import {
   useAppQuery,
   usePageQuery,

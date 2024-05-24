@@ -8,8 +8,8 @@ import {
   InlineFormService,
   ModalService,
   PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { TypeDomainService, TypeFactory } from '@codelab/frontend/domain/type'
+} from '@codelab/frontend-application-shared-store'
+import { TypeDomainService, TypeFactory } from '@codelab/frontend-domain-type'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTypeDto,

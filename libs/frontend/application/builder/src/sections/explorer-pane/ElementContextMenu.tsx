@@ -13,8 +13,8 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { mapElementOption } from '@codelab/frontend-domain-element'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { Key } from '@codelab/frontend-presentation-view/components'
 import type { Nullable } from '@codelab/shared/abstract/types'

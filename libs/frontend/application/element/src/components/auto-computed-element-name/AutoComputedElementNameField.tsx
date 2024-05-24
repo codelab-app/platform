@@ -1,5 +1,5 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'

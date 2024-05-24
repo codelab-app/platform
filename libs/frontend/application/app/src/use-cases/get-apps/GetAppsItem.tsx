@@ -1,5 +1,5 @@
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'

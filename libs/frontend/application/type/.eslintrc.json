@@ -11,7 +11,10 @@
       "parserOptions": {
         "project": ["libs/frontend/application/type/tsconfig.*?.json"]
       },
-      "rules": {}
+      "rules": {
+        "barrel-files/avoid-barrel-files": "off",
+        "barrel-files/avoid-re-export-all": "off"
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

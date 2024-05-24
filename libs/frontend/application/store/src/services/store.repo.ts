@@ -1,6 +1,6 @@
 import type { IStoreRepository } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
-import { Store } from '@codelab/frontend/domain/store'
+import { Store } from '@codelab/frontend-domain-store/store'
 import type {
   StoreOptions,
   StoreUniqueWhere,

@@ -6,19 +6,19 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { rendererFactory } from '@codelab/frontend/application/renderer'
+import { rendererFactory } from '@codelab/frontend-application-renderer'
 import {
   apiActionFactory,
   codeActionFactory,
-} from '@codelab/frontend/domain/action'
-import { appFactory } from '@codelab/frontend/domain/app'
-import { atomFactory } from '@codelab/frontend/domain/atom'
-import { componentFactory } from '@codelab/frontend/domain/component'
-import { elementFactory } from '@codelab/frontend/domain/element'
-import { pageFactory } from '@codelab/frontend/domain/page'
-import { propFactory } from '@codelab/frontend/domain/prop'
-import { resourceFactory } from '@codelab/frontend/domain/resource'
-import { Store, storeFactory } from '@codelab/frontend/domain/store'
+} from '@codelab/frontend-domain-action'
+import { appFactory } from '@codelab/frontend-domain-app'
+import { atomFactory } from '@codelab/frontend-domain-atom'
+import { componentFactory } from '@codelab/frontend-domain-component'
+import { elementFactory } from '@codelab/frontend-domain-element'
+import { pageFactory } from '@codelab/frontend-domain-page'
+import { propFactory } from '@codelab/frontend-domain-prop'
+import { resourceFactory } from '@codelab/frontend-domain-resource'
+import { Store, storeFactory } from '@codelab/frontend-domain-store'
 import {
   codeMirrorTypeFactory,
   fieldFactory,
@@ -27,7 +27,7 @@ import {
   reactNodeTypeFactory,
   renderPropsTypeFactory,
   richTextTypeFactory,
-} from '@codelab/frontend/domain/type'
+} from '@codelab/frontend-domain-type'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import type {
   IApiActionDto,

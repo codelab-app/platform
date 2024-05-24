@@ -12,7 +12,7 @@ import {
   DATA_COMPONENT_ID,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { mergeProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { evaluateObject, mapDeep } from '@codelab/shared/utils'

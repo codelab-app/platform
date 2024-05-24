@@ -1,6 +1,6 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,

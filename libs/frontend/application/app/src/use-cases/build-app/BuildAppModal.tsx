@@ -2,8 +2,8 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useRegeneratePages } from '@codelab/frontend/application/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useRegeneratePages } from '@codelab/frontend-application-domain'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   emptyJsonSchema,
   ModalForm,

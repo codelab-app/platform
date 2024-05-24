@@ -1,5 +1,5 @@
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   CodeMirrorEditor,
   TextEditor,

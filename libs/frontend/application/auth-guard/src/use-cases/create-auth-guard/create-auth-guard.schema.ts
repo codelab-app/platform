@@ -1,5 +1,5 @@
 import { type ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { SelectResource } from '@codelab/frontend/application/type'
+import { SelectResource } from '@codelab/frontend-application-type/interface-form'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,

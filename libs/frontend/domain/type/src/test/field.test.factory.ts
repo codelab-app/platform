@@ -1,5 +1,5 @@
 import type { IFieldDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend/domain/shared'
+import { chance } from '@codelab/frontend-domain-shared'
 import type {
   IFieldDto,
   IRef,

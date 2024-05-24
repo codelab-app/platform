@@ -3,7 +3,7 @@ import type {
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Key } from '@codelab/frontend-presentation-view/components'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { MenuProps } from 'antd'

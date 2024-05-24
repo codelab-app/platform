@@ -8,5 +8,10 @@ declare const _default: {
         };
     }[];
     plugins: string[];
+    rules: {
+        'barrel-files/avoid-barrel-files': (string | {
+            amountOfExportsToConsiderModuleAsBarrel: number;
+        })[];
+    };
 };
 export default _default;

@@ -1,5 +1,5 @@
 import type { IAtomDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend/domain/shared'
+import { chance } from '@codelab/frontend-domain-shared'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 import {
   IAtomType,

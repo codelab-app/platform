@@ -2,8 +2,8 @@ import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
-import { RootRenderer } from '@codelab/frontend/application/renderer'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { RootRenderer } from '@codelab/frontend-application-renderer'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'

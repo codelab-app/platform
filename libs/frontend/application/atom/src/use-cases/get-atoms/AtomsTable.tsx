@@ -3,7 +3,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useStore,
   useTablePagination,
-} from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-shared-store'
 import { useColumnSearchProps } from '@codelab/frontend-presentation-view/components'
 import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'

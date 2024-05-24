@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'

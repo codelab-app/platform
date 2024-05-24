@@ -1,6 +1,6 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import './styles.css'
-import { mergeProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'

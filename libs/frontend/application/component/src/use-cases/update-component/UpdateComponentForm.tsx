@@ -1,6 +1,6 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend-presentation-view/components'
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'

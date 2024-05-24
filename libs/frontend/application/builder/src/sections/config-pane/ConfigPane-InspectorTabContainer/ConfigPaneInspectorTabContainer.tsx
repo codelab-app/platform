@@ -13,16 +13,16 @@ import { isAtomRef } from '@codelab/frontend/abstract/domain'
 import {
   UpdateComponentForm,
   UpdateComponentPropsForm,
-} from '@codelab/frontend/application/component'
+} from '@codelab/frontend-application-component'
 import {
   DeleteElementButton,
   ElementCssEditor,
   MoveElementForm,
   UpdateElementForm,
   UpdateElementPropsForm,
-} from '@codelab/frontend/application/element'
-import { UpdatePageTabForm } from '@codelab/frontend/application/page'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-element'
+import { UpdatePageTabForm } from '@codelab/frontend-application-page'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { FormContextProvider } from '@codelab/frontend-presentation-view/components'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'

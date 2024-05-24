@@ -11,15 +11,13 @@ import {
   componentRef,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/application/atom'
-import { restWebClient } from '@codelab/frontend/application/axios'
-import {
-  ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { getStoreService } from '@codelab/frontend/application/store'
-import { getTypeService } from '@codelab/frontend/application/type'
-import { ComponentDomainService } from '@codelab/frontend/domain/component'
+import { restWebClient } from '@codelab/frontend-application-axios'
+import { getAtomService } from '@codelab/frontend-application-atom/services'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
+import { ModalService } from '@codelab/frontend-application-shared-store/ui'
+import { getStoreService } from '@codelab/frontend-application-store/services'
+import { getTypeService } from '@codelab/frontend-application-type/services'
+import { ComponentDomainService } from '@codelab/frontend-domain-component/services'
 import type {
   Component,
   ComponentOptions,

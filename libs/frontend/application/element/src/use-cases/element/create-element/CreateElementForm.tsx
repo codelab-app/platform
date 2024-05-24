@@ -3,12 +3,12 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   SelectActionField,
   SelectAnyElement,
-} from '@codelab/frontend/application/type'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-application-type/interface-form'
 import {
   DisplayIf,
   Form,

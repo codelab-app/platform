@@ -4,8 +4,8 @@ import {
   CreateComponentPopover,
   DeleteComponentModal,
   ImportComponentDialog,
-} from '@codelab/frontend/application/component'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-component'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'

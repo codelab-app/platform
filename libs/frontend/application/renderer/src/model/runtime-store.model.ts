@@ -7,7 +7,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { actionRef, isAtomRef } from '@codelab/frontend/abstract/domain'
-import { propSafeStringify } from '@codelab/frontend/domain/prop'
+import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { IPropData, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'

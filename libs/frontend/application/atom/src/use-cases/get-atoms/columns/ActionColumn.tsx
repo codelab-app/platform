@@ -1,5 +1,5 @@
 import { atomRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   ListItemDeleteButton,
   ListItemEditButton,

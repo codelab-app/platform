@@ -5,17 +5,17 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import {
   InlineFormService,
   ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { getTypeService } from '@codelab/frontend/application/type'
+} from '@codelab/frontend-application-shared-store/ui'
+import { getTypeService } from '@codelab/frontend-application-type/services'
+import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
 import {
-  AtomDomainService,
   filterAtoms,
   mapAtomOptions,
-} from '@codelab/frontend/domain/atom'
+} from '@codelab/frontend-domain-atom/store'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   IElementRenderTypeKind,

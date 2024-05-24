@@ -8,8 +8,8 @@ import {
   getUserDomainService,
   userRef,
 } from '@codelab/frontend/abstract/domain'
-import { Domain } from '@codelab/frontend/domain/domain'
-import { Page } from '@codelab/frontend/domain/page'
+import { Domain } from '@codelab/frontend-domain-domain/store'
+import { Page } from '@codelab/frontend-domain-page'
 import type {
   AppCreateInput,
   AppDeleteInput,

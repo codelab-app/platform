@@ -7,8 +7,8 @@ import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/applic
 import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { mapElementOption } from '@codelab/frontend-domain-element'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,

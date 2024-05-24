@@ -4,7 +4,7 @@ import {
   RendererTab,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'

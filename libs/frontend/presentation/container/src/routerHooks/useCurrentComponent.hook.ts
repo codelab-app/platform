@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 

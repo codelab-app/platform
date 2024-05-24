@@ -1,6 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import type { IAppProductionDto } from '@codelab/frontend/abstract/domain'
-import { RootRenderer } from '@codelab/frontend/application/renderer'
+import { RootRenderer } from '@codelab/frontend-application-renderer'
 import {
   AppProductionService,
   useAppProduction,

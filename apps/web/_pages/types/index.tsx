@@ -8,7 +8,7 @@ import {
   TypesViewLayout,
   UpdateFieldModal,
   UpdateTypeModal,
-} from '@codelab/frontend/application/type'
+} from '@codelab/frontend-application-type'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'

@@ -6,7 +6,7 @@ import {
   ImportAdminDataButton,
   ImportAdminDataModal,
   ResetDataButtons,
-} from '@codelab/frontend/application/admin'
+} from '@codelab/frontend-application-admin'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { Space } from 'antd'
