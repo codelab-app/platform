@@ -1,5 +1,4 @@
 {
-  "plugins": ["@codelab"],
   "extends": [
     "plugin:@nx/react",
     "plugin:@codelab/recommended",
