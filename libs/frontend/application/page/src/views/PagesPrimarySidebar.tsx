@@ -4,8 +4,8 @@ import {
   CreateRedirectPopover,
   DeleteRedirectModal,
   UpdateRedirectPopover,
-} from '@codelab/frontend/application/redirect'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-redirect'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'

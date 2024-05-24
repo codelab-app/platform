@@ -10,7 +10,7 @@ import {
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { InterfaceType } from '@codelab/frontend/domain/type'
+import { InterfaceType } from '@codelab/frontend-domain-type/models'
 import type {
   StoreCreateInput,
   StoreDeleteInput,

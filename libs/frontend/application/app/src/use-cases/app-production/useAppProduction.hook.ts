@@ -3,7 +3,7 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import type { IAppProductionDto } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/navigation'
 

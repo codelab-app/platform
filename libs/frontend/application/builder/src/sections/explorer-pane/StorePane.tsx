@@ -6,8 +6,8 @@ import {
   DeleteActionModal,
   StateTreeView,
   UpdateActionModal,
-} from '@codelab/frontend/application/store'
-import { CreateFieldButton } from '@codelab/frontend/application/type'
+} from '@codelab/frontend-application-store'
+import { CreateFieldButton } from '@codelab/frontend-application-type'
 import {
   CodeMirrorEditor,
   SkeletonWrapper,

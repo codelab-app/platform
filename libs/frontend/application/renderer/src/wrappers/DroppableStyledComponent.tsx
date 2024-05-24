@@ -1,4 +1,4 @@
-import { MakeComponentDroppable } from '@codelab/frontend/application/dnd'
+import { MakeComponentDroppable } from '@codelab/frontend-application-dnd/MakeComponentDroppable'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 import { StyledComponent, type StyledComponentProps } from './StyledComponent'

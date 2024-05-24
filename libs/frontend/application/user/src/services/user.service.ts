@@ -7,8 +7,8 @@ import {
   BuilderWidthBreakPoint,
 } from '@codelab/frontend/abstract/application'
 import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
-import { restWebClient } from '@codelab/frontend/application/axios'
-import { User, UserDomainService } from '@codelab/frontend/domain/user'
+import { restWebClient } from '@codelab/frontend-application-axios'
+import { User, UserDomainService } from '@codelab/frontend-domain-user'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import set from 'lodash/set'

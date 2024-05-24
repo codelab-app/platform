@@ -58,55 +58,55 @@ import {
   tagDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { AdminService } from '@codelab/frontend/application/admin'
+import { AdminService } from '@codelab/frontend-application-admin'
 import {
   AtomService,
   atomServiceContext,
-} from '@codelab/frontend/application/atom'
-import { AuthGuardService } from '@codelab/frontend/application/auth-guard'
-import { BuilderService } from '@codelab/frontend/application/builder'
-import { ComponentApplicationService } from '@codelab/frontend/application/component'
+} from '@codelab/frontend-application-atom'
+import { AuthGuardService } from '@codelab/frontend-application-auth-guard'
+import { BuilderService } from '@codelab/frontend-application-builder'
+import { ComponentApplicationService } from '@codelab/frontend-application-component'
 import {
   DomainService,
   domainServiceContext,
-} from '@codelab/frontend/application/domain'
-import { ElementService } from '@codelab/frontend/application/element'
+} from '@codelab/frontend-application-domain'
+import { ElementService } from '@codelab/frontend-application-element'
 import {
   PageApplicationService,
   pageServiceContext,
-} from '@codelab/frontend/application/page'
+} from '@codelab/frontend-application-page'
 import {
   PropService,
   propServiceContext,
-} from '@codelab/frontend/application/prop'
-import { RedirectService } from '@codelab/frontend/application/redirect'
+} from '@codelab/frontend-application-prop'
+import { RedirectService } from '@codelab/frontend-application-redirect'
 import {
   RendererApplicationService,
   RuntimeComponentService,
   RuntimeElementService,
   RuntimePageService,
-} from '@codelab/frontend/application/renderer'
-import { ResourceService } from '@codelab/frontend/application/resource'
-import { RouterService } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-renderer'
+import { ResourceService } from '@codelab/frontend-application-resource'
+import { RouterService } from '@codelab/frontend-application-shared-store'
 import {
   ActionService,
   actionServiceContext,
   StoreService,
   storeServiceContext,
-} from '@codelab/frontend/application/store'
+} from '@codelab/frontend-application-store'
 import {
   TagService,
   tagServiceContext,
-} from '@codelab/frontend/application/tag'
+} from '@codelab/frontend-application-tag'
 import {
   FieldService,
   fieldServiceContext,
   TypeService,
   typeServiceContext,
-} from '@codelab/frontend/application/type'
-import { UserService } from '@codelab/frontend/application/user'
-import { TagDomainService } from '@codelab/frontend/domain/tag'
-import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
+} from '@codelab/frontend-application-type'
+import { UserService } from '@codelab/frontend-application-user'
+import { TagDomainService } from '@codelab/frontend-domain-tag'
+import { typeDomainServiceContext } from '@codelab/frontend-domain-type'
 import { AppService } from '@codelab/frontend-application-app/services'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'

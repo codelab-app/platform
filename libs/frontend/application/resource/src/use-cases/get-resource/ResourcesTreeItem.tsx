@@ -5,7 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { resourceRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,

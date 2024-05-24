@@ -3,8 +3,8 @@ import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
   BuilderViewLayout,
   ComponentsPrimarySidebar,
-} from '@codelab/frontend/application/builder'
-import { ComponentDetailHeader } from '@codelab/frontend/application/component'
+} from '@codelab/frontend-application-builder'
+import { ComponentDetailHeader } from '@codelab/frontend-application-component'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'

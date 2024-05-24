@@ -1,5 +1,5 @@
 import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/domain'
-import { getSelectElementComponent } from '@codelab/frontend/application/type'
+import { getSelectElementComponent } from '@codelab/frontend-application-type/interface-form'
 import {
   idSchema,
   titleCaseValidation,

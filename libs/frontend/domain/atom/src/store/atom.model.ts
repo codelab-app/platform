@@ -10,7 +10,7 @@ import {
   getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { tagRef } from '@codelab/frontend/domain/tag'
+import { tagRef } from '@codelab/frontend-domain-tag'
 import {
   AtomCreateInput,
   AtomUpdateInput,

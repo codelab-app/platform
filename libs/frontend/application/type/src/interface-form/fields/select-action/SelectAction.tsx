@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'

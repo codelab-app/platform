@@ -6,7 +6,7 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { FieldDomainService } from '@codelab/frontend/domain/type'
+import { FieldDomainService } from '@codelab/frontend-domain-type/services'
 import type {
   ICreateFieldData,
   IFieldDto,

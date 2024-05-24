@@ -7,7 +7,7 @@ import {
   getUserDomainService,
   resourceRef,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { Prop } from '@codelab/frontend-domain-prop'
 import type {
   AuthGuardCreateInput,
   AuthGuardUpdateInput,

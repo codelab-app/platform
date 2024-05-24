@@ -5,8 +5,8 @@ import {
   DeleteAuthGuardModal,
   UpdateAuthGuardForm,
   UpdateAuthGuardModal,
-} from '@codelab/frontend/application/auth-guard'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-auth-guard'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'

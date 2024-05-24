@@ -5,7 +5,7 @@ import {
   TagsViewLayout,
   UpdateTagForm,
   UpdateTagModal,
-} from '@codelab/frontend/application/tag'
+} from '@codelab/frontend-application-tag'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import Head from 'next/head'

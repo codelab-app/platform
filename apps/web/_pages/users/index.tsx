@@ -2,7 +2,7 @@ import type { IUserModel } from '@codelab/frontend/abstract/domain'
 import {
   type UsersView,
   UsersViewLayout,
-} from '@codelab/frontend/application/user'
+} from '@codelab/frontend-application-user'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'

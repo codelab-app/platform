@@ -1,5 +1,5 @@
 import type { ICreateRedirectData } from '@codelab/frontend/abstract/domain'
-import { SelectAuthGuard, SelectPage } from '@codelab/frontend/application/type'
+import { SelectAuthGuard, SelectPage } from '@codelab/frontend-application-type'
 import { idSchema } from '@codelab/frontend-presentation-view/components'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'

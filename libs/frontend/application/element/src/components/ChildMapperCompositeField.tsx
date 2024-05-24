@@ -1,6 +1,6 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { SelectComponent } from '@codelab/frontend/application/type'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+import { SelectComponent } from '@codelab/frontend-application-type/interface-form/fields'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   AutoCompleteField,
   ToggleExpressionField,

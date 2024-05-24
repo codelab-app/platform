@@ -4,7 +4,7 @@ import {
   MODEL_UI,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   CuiSidebar,
   useCui,

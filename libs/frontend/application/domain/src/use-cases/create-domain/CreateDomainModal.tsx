@@ -1,11 +1,11 @@
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,
-} from '@codelab/frontend/domain/domain'
+} from '@codelab/frontend-domain-domain'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-view/components'

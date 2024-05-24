@@ -1,6 +1,6 @@
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   useErrorNotify,
   useSuccessNotify,

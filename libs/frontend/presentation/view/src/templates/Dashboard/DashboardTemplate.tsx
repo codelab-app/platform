@@ -1,8 +1,5 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  CuiNavigationBar,
-  CuiResizablePanel,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'

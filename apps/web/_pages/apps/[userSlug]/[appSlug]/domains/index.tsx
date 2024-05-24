@@ -5,8 +5,8 @@ import {
   DomainsViewLayout,
   GetDomainsList,
   UpdateDomainModal,
-} from '@codelab/frontend/application/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-domain'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useAppQuery } from '@codelab/frontend/presentation/container'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'

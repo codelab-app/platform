@@ -1,5 +1,5 @@
 import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend/domain/shared'
+import { chance } from '@codelab/frontend-domain-shared'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   type IPrimitiveTypeDto,

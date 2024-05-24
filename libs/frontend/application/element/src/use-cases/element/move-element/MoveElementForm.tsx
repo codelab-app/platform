@@ -3,10 +3,10 @@ import type {
   MoveData,
 } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { SelectExcludeDescendantsElements } from '@codelab/frontend/application/type'
-import { mapElementOption } from '@codelab/frontend/domain/element'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { SelectExcludeDescendantsElements } from '@codelab/frontend-application-type/interface-form'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'

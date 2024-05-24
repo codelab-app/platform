@@ -1,6 +1,6 @@
 'use client'
 
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIf,
   ErrorBoundary,

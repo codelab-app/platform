@@ -3,13 +3,11 @@ import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend/application/prop'
-import { ModalService } from '@codelab/frontend/application/shared/store'
-import { getTypeService } from '@codelab/frontend/application/type'
-import {
-  ActionDomainService,
-  ActionFactory,
-} from '@codelab/frontend/domain/action'
+import { getPropService } from '@codelab/frontend-application-prop/services'
+import { ModalService } from '@codelab/frontend-application-shared-store/ui'
+import { getTypeService } from '@codelab/frontend-application-type/services'
+import { ActionDomainService } from '@codelab/frontend-domain-action/services'
+import { ActionFactory } from '@codelab/frontend-domain-action/store'
 import type {
   IActionDto,
   ICreateActionData,

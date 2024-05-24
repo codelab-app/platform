@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components'
 import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'

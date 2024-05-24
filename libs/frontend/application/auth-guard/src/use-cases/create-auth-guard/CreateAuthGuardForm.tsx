@@ -3,12 +3,12 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
-} from '@codelab/frontend/application/resource'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-application-resource/components'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIf,
   Form,

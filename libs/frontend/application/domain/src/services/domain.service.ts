@@ -4,8 +4,8 @@ import type {
   IDomainModel,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
-import { ModalService } from '@codelab/frontend/application/shared/store'
-import { Domain } from '@codelab/frontend/domain/domain'
+import { ModalService } from '@codelab/frontend-application-shared-store/ui'
+import { Domain } from '@codelab/frontend-domain-domain/store'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'

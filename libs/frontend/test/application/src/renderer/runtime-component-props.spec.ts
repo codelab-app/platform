@@ -1,6 +1,6 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
-import { createTestStore } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend-application-test'
 import { unregisterRootStore } from 'mobx-keystone'
 
 describe('Runtime Component props', () => {

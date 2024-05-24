@@ -3,7 +3,7 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

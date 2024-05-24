@@ -1,5 +1,5 @@
 import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'

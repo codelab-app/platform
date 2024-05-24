@@ -1,5 +1,5 @@
 import '../styles/global.css'
-import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import { StoreProvider } from '@codelab/frontend-application-shared-store'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { userDto } from '@codelab/frontend/test/data'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'

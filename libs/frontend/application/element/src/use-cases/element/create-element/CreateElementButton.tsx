@@ -9,7 +9,7 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
 import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
 import type { Ref } from 'mobx-keystone'

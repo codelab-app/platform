@@ -14,7 +14,7 @@ import {
   redirectRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Store } from '@codelab/frontend/domain/store'
+import { Store } from '@codelab/frontend-domain-store'
 import type {
   PageCreateInput,
   PageDeleteInput,

@@ -2,7 +2,7 @@ import {
   BUILDER_NONE_CLASS_NAME,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
-import { mergeProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { notify } from '@codelab/frontend/shared/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { allPropsCustomizer, getAtom } from './atoms'

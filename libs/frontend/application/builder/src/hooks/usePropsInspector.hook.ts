@@ -11,8 +11,8 @@ import {
   type IPageNodeRef,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { schemaTransformer } from '@codelab/frontend/application/type'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { schemaTransformer } from '@codelab/frontend-application-type'
 import { notify } from '@codelab/frontend/shared/utils'
 import { createValidator } from '@codelab/frontend-presentation-view/components'
 import type { IPropData } from '@codelab/shared/abstract/core'

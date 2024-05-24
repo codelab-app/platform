@@ -12,13 +12,11 @@ import {
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/application/atom'
-import { getPropService } from '@codelab/frontend/application/prop'
-import { getTypeService } from '@codelab/frontend/application/type'
-import {
-  ElementDomainService,
-  mapElementOption,
-} from '@codelab/frontend/domain/element'
+import { getAtomService } from '@codelab/frontend-application-atom/services'
+import { getPropService } from '@codelab/frontend-application-prop/services'
+import { getTypeService } from '@codelab/frontend-application-type/services'
+import { ElementDomainService } from '@codelab/frontend-domain-element/services'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'

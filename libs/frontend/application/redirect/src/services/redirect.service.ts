@@ -4,7 +4,7 @@ import type {
   IRedirectModel,
   IUpdateRedirectData,
 } from '@codelab/frontend/abstract/domain'
-import { RedirectDomainService } from '@codelab/frontend/domain/redirect'
+import { RedirectDomainService } from '@codelab/frontend-domain-redirect'
 import type { RedirectWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {

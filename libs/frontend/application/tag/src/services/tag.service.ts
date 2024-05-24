@@ -1,11 +1,12 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import {
   InlineFormService,
   ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { TagDomainService, tagRef } from '@codelab/frontend/domain/tag'
+} from '@codelab/frontend-application-shared-store/ui'
+import { TagDomainService } from '@codelab/frontend-domain-tag/services'
+import { tagRef } from '@codelab/frontend-domain-tag/store'
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTagData,

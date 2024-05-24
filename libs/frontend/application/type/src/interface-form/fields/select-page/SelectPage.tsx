@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'

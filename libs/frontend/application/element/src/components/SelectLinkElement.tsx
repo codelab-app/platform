@@ -1,5 +1,5 @@
-import type { SelectElementProps } from '@codelab/frontend/application/type'
-import { SelectChildElement } from '@codelab/frontend/application/type'
+import type { SelectElementProps } from '@codelab/frontend-application-type/interface-form/fields'
+import { SelectChildElement } from '@codelab/frontend-application-type/interface-form/fields'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
