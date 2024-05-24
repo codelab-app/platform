@@ -7,12 +7,12 @@ import {
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectActionField } from '@codelab/frontend/application/type'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,
   Form,
 } from '@codelab/frontend-presentation-view/components'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'

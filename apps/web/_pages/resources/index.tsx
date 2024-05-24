@@ -6,8 +6,8 @@ import {
   UpdateResourceForm,
   UpdateResourceModal,
 } from '@codelab/frontend/application/resource'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

@@ -1,1 +1,1 @@
-export * from './MuiIcon'
+export { MuiIcon } from './MuiIcon'

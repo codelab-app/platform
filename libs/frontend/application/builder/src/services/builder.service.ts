@@ -186,7 +186,7 @@ export class BuilderService
 
     return (
       this.userService.preferences.apps?.[containerId]
-        ?.selectedBuilderBreakpoint ?? BuilderWidthBreakPoint.MobilePortrait
+        .selectedBuilderBreakpoint ?? BuilderWidthBreakPoint.MobilePortrait
     )
   }
 
@@ -203,7 +203,7 @@ export class BuilderService
       : container.current.app.id
 
     return (
-      this.userService.preferences.apps?.[containerId]?.selectedBuilderWidth ??
+      this.userService.preferences.apps?.[containerId].selectedBuilderWidth ??
       defaultBuilderWidthBreakPoints['mobile-portrait']
     )
   }

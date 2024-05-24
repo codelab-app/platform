@@ -16,8 +16,7 @@
     "typescript-sort-keys",
     "unicorn",
     "@stylistic/ts",
-    "react",
-    "barrel-files"
+    "react"
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
@@ -34,7 +33,6 @@
     "plugin:prettier/recommended",
     // "eslint:recommended",
     "plugin:react/recommended"
-    // "plugin:barrel-files/recommended"
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
     // "plugin:import/recommended",
@@ -64,12 +62,6 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        // "barrel-files/avoid-barrel-files": [
-        //   "error",
-        //   {
-        //     "amountOfExportsToConsiderModuleAsBarrel": 3
-        //   }
-        // ],
         "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
         // "unused-imports/no-unused-imports-ts": "error",
         "@typescript-eslint/no-unused-vars": "off",

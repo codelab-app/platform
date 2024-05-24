@@ -1,10 +1,10 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
   ModalForm,
 } from '@codelab/frontend-presentation-view/components'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
