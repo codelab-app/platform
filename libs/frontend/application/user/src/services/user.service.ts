@@ -145,7 +145,7 @@ export class UserService
   savePreferences() {
     const preferences = JSON.stringify(this.preferences)
 
-    localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(preferences))
+    localStorage.setItem(CODELAB_STORAGE_KEY, preferences)
 
     // return userApi.UpdateUser({
     //   update: this.user.toUpdateInput(),
