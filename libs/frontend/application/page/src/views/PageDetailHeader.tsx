@@ -70,7 +70,7 @@ export const PageDetailHeader = observer(() => {
         userSlug,
       },
     })
-  }, [router])
+  }, [router, appSlug, pageSlug, userSlug])
 
   const navigateAppsPage = useCallback(async () => {
     await router.push({ pathname: PageType.AppList })
@@ -109,7 +109,7 @@ export const PageDetailHeader = observer(() => {
 
   return (
     <CuiHeader
-      centralArea={isPageBuilder ? <BuilderSizeMenu /> : null}
+      centralArea={<BuilderSizeMenu />}
       direction={<CuiHeaderBreadcrumb items={directionItems} />}
       logo={
         <Image
