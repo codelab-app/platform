@@ -1,5 +1,5 @@
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React from 'react'

@@ -1,7 +1,7 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   emptyJsonSchema,
   ModalForm,

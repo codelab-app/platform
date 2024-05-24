@@ -3,7 +3,7 @@ import type {
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
-import { propSafeStringify } from '@codelab/frontend-domain-prop'
+import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'

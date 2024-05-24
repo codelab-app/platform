@@ -15,11 +15,11 @@ import {
   getStoreDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { PageDomainService } from '@codelab/frontend-domain-page'
 import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend-application-shared-store/ui'
+import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/models'
 import { getTypeDomainService } from '@codelab/frontend-domain-type/services'

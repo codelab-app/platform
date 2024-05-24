@@ -1,3 +1,4 @@
+export * from './renderer.model'
 export * from './runtime-action.model'
 export * from './runtime-component.model'
 export * from './runtime-component-prop.model'

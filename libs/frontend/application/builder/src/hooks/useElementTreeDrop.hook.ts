@@ -3,15 +3,15 @@ import type {
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/application'
 import type { IElementTree } from '@codelab/frontend/abstract/domain'
-import { useRequiredParentValidator } from '@codelab/frontend-application-element'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { notify } from '@codelab/frontend/shared/utils'
+import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation/useRequiredParentValidator.hook'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
-} from './useElementTreeDrop.utils'
+} from './useElementTreeDrop.utils.hook'
 
 export interface UseElementTreeDropProps {
   elementService: IElementService

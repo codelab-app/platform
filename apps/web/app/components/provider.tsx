@@ -10,20 +10,21 @@ import { type PropsWithChildren, useState } from 'react'
 import { StoreProvider } from './StoreProvider'
 
 export const CuiStoreProvider = ({ children }: PropsWithChildren) => {
-  const params = useParams<Required<UrlParams>>()
+  const params = useParams<Partial<UrlParams>>()
   const searchParams = useSearchParams()
 
   const [store] = useState(() => {
     const coreStore = createCoreStore(
       {
         param: {
-          appSlug: params.appSlug,
-          componentSlug: params.componentSlug,
-          pageSlug: params.pageSlug,
-          userSlug: params.userSlug,
+          appSlug: params?.appSlug,
+          componentSlug: params?.componentSlug,
+          pageSlug: params?.pageSlug,
+          userSlug: params?.userSlug,
         },
         query: {
-          primarySidebarKey: searchParams.get('primarySidebarKey') ?? undefined,
+          primarySidebarKey:
+            searchParams?.get('primarySidebarKey') ?? undefined,
         },
       },
       guestUser,

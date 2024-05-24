@@ -1,4 +1,5 @@
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import {
   CodeMirrorEditor,
   DisplayIf,
@@ -9,7 +10,6 @@ import get from 'lodash/get'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { useForm } from 'uniforms'
-import { propSafeStringify } from "@codelab/frontend-domain-prop/utils";
 
 interface ResourceTestRequestProps {
   fetchConfigDataFieldName: string

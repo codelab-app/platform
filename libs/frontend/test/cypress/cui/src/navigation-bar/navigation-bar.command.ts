@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
 
 export const getCuiNavigationBarItem = (title: string) => {
   Cypress.log({ message: title, name: 'getCuiNavigationBarItem' })

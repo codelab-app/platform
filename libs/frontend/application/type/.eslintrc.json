@@ -1,7 +1,7 @@
 {
   "extends": [
     "plugin:@nx/react",
-    "plugin:@codelab/recommended",
+    // "plugin:@codelab/recommended",
     "../../../../.eslintrc.json"
   ],
   "ignorePatterns": ["!**/*"],
@@ -11,10 +11,7 @@
       "parserOptions": {
         "project": ["libs/frontend/application/type/tsconfig.*?.json"]
       },
-      "rules": {
-        "barrel-files/avoid-barrel-files": "off",
-        "barrel-files/avoid-re-export-all": "off"
-      }
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],

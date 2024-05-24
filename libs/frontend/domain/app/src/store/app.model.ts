@@ -9,7 +9,7 @@ import {
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { Domain } from '@codelab/frontend-domain-domain/store'
-import { Page } from '@codelab/frontend-domain-page'
+import { Page } from '@codelab/frontend-domain-page/store'
 import type {
   AppCreateInput,
   AppDeleteInput,

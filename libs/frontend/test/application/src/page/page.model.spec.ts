@@ -1,5 +1,5 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { createTestStore } from '@codelab/frontend-application-test'
+import { createTestStore } from '@codelab/frontend-application-test/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 

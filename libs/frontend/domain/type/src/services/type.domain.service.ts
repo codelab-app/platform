@@ -7,7 +7,7 @@ import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
 import { ICreateTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { InterfaceType, TypeFactory } from './models'
+import { InterfaceType, TypeFactory } from '../models'
 
 @model('@codelab/TypeDomainService')
 export class TypeDomainService

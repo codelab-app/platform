@@ -4,7 +4,7 @@ import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd'
+import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
 import { ErrorBoundary } from '@codelab/frontend-presentation-view/components'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'

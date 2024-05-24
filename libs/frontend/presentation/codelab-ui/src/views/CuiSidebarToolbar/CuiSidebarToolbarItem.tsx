@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
 import { Tooltip } from 'antd'
 import React from 'react'
 import type { ToolbarItem } from '../../abstract'

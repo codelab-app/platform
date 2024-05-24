@@ -1,5 +1,5 @@
 import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
-import { propSafeStringify } from '@codelab/frontend-domain-prop'
+import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { isCyclic } from '@codelab/shared/utils'

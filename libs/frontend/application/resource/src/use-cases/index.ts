@@ -1,5 +1,0 @@
-export * from './create-resource'
-export * from './delete-resource'
-export * from './get-resource'
-export * from './primary-sidebar'
-export * from './update-resource'

@@ -18,7 +18,7 @@ const withWebpackConfig = (nextConfig = {}) =>
         type: 'asset/source',
       })
 
-      config.experiments = { ...config.experiments, topLevelAwait: true }
+      // config.experiments = { ...config.experiments, topLevelAwait: true }
 
       /**
        * Wdyr
@@ -55,7 +55,7 @@ const withWebpackConfig = (nextConfig = {}) =>
     },
   })
 
-const plugins = [withNx, withBundleAnalyzer]
+const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
 
 /**
  * @type {WithNxOptions}

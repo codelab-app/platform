@@ -1,6 +1,6 @@
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
+import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 export const getCuiToolbarItem = (

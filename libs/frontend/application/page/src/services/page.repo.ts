@@ -1,6 +1,6 @@
 import type { IPageRepository } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import { Page } from '@codelab/frontend-domain-page'
+import { Page } from '@codelab/frontend-domain-page/store'
 import type {
   PageOptions,
   PageUniqueWhere,

@@ -5,7 +5,7 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import React from 'react'
-import { CreateLambdaButton } from '../use-cases'
+import { CreateLambdaButton } from '../use-cases/create-lambda'
 
 export const LambdasViewHeader = () => {
   const toolbarItems: Array<ToolbarItem> = [

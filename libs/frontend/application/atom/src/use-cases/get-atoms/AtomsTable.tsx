@@ -1,18 +1,19 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  useStore,
-  useTablePagination,
-} from '@codelab/frontend-application-shared-store'
+import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useColumnSearchProps } from '@codelab/frontend-presentation-view/components'
 import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
+import { ActionColumn } from './columns/ActionColumn'
+import { LibraryColumn } from './columns/LibraryColumn'
+import { PropsColumn } from './columns/PropsColumn'
 import { RequiredParentsColumn } from './columns/RequiredParentsColumn'
 import { SuggestedChildrenColumn } from './columns/SuggestedChildrenColumn'
+import { TagsColumn } from './columns/TagsColumn'
 import { onLibraryFilter } from './dataSource/on-library-filter'
 
 export const AtomsTable = observer(() => {

@@ -1,5 +1,5 @@
 import type { IAuthGuardDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend-domain-shared'
+import { chance } from '@codelab/frontend-domain-shared/test'
 import { type IAuthGuardDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

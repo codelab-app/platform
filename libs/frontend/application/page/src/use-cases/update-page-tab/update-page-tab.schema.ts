@@ -1,4 +1,4 @@
-import { getSelectElementComponent } from '@codelab/frontend-application-type'
+import { getSelectElementComponent } from '@codelab/frontend-application-type/interface-form'
 import {
   appSchema,
   idSchema,

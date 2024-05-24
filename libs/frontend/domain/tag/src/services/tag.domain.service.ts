@@ -7,7 +7,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { Tag } from './store'
+import { Tag } from '../store'
 
 @model('@codelab/TagDomainService')
 export class TagDomainService

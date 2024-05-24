@@ -11,8 +11,8 @@ import {
   componentRef,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import { restWebClient } from '@codelab/frontend-application-axios'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
+import { restWebClient } from '@codelab/frontend-application-axios/axios/rest-client'
 import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { getStoreService } from '@codelab/frontend-application-store/services'

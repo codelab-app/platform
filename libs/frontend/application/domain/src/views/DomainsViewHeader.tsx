@@ -1,12 +1,12 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useAppQuery } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

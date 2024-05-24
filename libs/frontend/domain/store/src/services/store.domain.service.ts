@@ -5,7 +5,7 @@ import type {
 import { IStoreDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { Store } from './store'
+import { Store } from '../store'
 
 @model('@codelab/StoreDomainService')
 export class StoreDomainService
