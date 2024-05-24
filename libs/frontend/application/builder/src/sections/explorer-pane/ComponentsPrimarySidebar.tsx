@@ -1,16 +1,15 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import {
-  CreateComponentPopover,
-  DeleteComponentModal,
-  ImportComponentDialog,
-} from '@codelab/frontend-application-component'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
+import { CreateComponentPopover } from '@codelab/frontend-application-component/use-cases/create-component'
+import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
+import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { CustomComponents, PreBuiltComponents } from './tab-contents'
+import { CustomComponents } from './tab-contents/CustomComponents'
+import { PreBuiltComponents } from './tab-contents/PreBuiltComponents'
 
 interface ComponentsPrimarySidebarProps {
   isLoading: boolean

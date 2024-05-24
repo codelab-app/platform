@@ -4,12 +4,13 @@ import type {
   IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import {
   InlineFormService,
   ModalService,
-  PaginationService,
-} from '@codelab/frontend-application-shared-store'
-import { TypeDomainService, TypeFactory } from '@codelab/frontend-domain-type'
+} from '@codelab/frontend-application-shared-store/ui'
+import { TypeFactory } from '@codelab/frontend-domain-type/models'
+import { TypeDomainService } from '@codelab/frontend-domain-type/services'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTypeDto,

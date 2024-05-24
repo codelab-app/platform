@@ -5,11 +5,11 @@ import type {
   ICreateAuthGuardData,
   IUpdateAuthGuardData,
 } from '@codelab/frontend/abstract/domain'
-import { AuthGuardDomainService } from '@codelab/frontend-domain-auth-guard'
 import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend-application-shared-store/ui'
+import { AuthGuardDomainService } from '@codelab/frontend-domain-auth-guard/services'
 import type { AuthGuardWhere } from '@codelab/shared/abstract/codegen'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'

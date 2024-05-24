@@ -1,5 +1,5 @@
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIf,
   ErrorBoundary,
@@ -12,7 +12,7 @@ import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateDomainButton } from '../create-domain'
-import { GetDomainItem } from './GetDomainsItem'
+import { GetDomainItem } from './GetDomainsItem/GetDomainsItem'
 
 const emptyImageStyle: React.CSSProperties = {
   height: 60,

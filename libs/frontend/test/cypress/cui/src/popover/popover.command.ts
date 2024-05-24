@@ -1,5 +1,5 @@
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
 
 export const getCuiPopover = (key: ModelActionKey) => {
   Cypress.log({ message: key, name: 'getCuiPopover' })

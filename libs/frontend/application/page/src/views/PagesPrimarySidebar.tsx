@@ -1,21 +1,17 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import {
-  CreateRedirectPopover,
-  DeleteRedirectModal,
-  UpdateRedirectPopover,
-} from '@codelab/frontend-application-redirect'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
+import { DeleteRedirectModal } from '@codelab/frontend-application-redirect/use-cases/delete-redirect'
+import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import {
-  CreatePagePopover,
-  DeletePageModal,
-  PageList,
-  UpdatePagePopover,
-} from '../use-cases'
+import { CreatePagePopover } from '../use-cases/create-page'
+import { DeletePageModal } from '../use-cases/delete-page'
+import { PageList } from '../use-cases/get-pages'
+import { UpdatePagePopover } from '../use-cases/update-page'
 
 export const PagesPrimarySidebar = observer(() => {
   const { pageService } = useStore()

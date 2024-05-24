@@ -3,7 +3,7 @@ import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import type { DashboardTemplateProps } from '@codelab/frontend-presentation-view/templates'
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import React, { useMemo } from 'react'
-import { TagsPrimarySidebar } from '../use-cases'
+import { TagsPrimarySidebar } from '../use-cases/primary-sidebar'
 import { TagsViewHeader } from './TagsViewHeader'
 
 export type TagsView = CodelabPage<DashboardTemplateProps>

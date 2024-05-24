@@ -5,14 +5,14 @@ import type {
 } from '@dnd-kit/core'
 import type { Point, Rect } from '../geometry'
 import { findDistance, isAboveLine, Rectangle } from '../geometry'
-import type { WithInternalDropData } from '../internal-drop-data.interface'
+import type { WithInternalDropData } from '../hooks'
 import type { HierarchicalCollision } from './hierarchical-collision.interface'
 import type { HierarchicalDroppableContainer } from './hierarchical-droppable-container.interface'
 
 interface HierarchicalCollisionDetectorOptions {
   /**
    * The number of pixels to shrink the bounding box of each droppable container by.
-   * @default 2
+   * @default  2
    */
   spacing?: number
 }
@@ -150,7 +150,7 @@ export class HierarchicalCollisionDetector {
    * above and to the left of the rectangle is before, otherwise is after.
    * @param point
    * @param rect
-   * @returns
+   * @retur ns
    */
   private isBefore(point: Point, rect: Rect) {
     const linePoint1 = {

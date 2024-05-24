@@ -1,6 +1,6 @@
 import type { IAppRepository } from '@codelab/frontend/abstract/application'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { App } from '@codelab/frontend-domain-app'
+import { App } from '@codelab/frontend-domain-app/store'
 import type {
   AppOptions,
   AppUniqueWhere,

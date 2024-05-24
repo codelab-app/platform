@@ -3,7 +3,7 @@ import {
   type IPropModel,
   type IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend-domain-prop'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,

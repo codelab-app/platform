@@ -4,7 +4,7 @@ import type { DashboardTemplateProps } from '@codelab/frontend-presentation-view
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AuthGuardsPrimarySidebar } from '../use-cases'
+import { AuthGuardsPrimarySidebar } from '../use-cases/primary-sidebar'
 import { AuthGuardsViewHeader } from './AuthGuardsViewHeader'
 
 export type AuthGuardsView = CodelabPage<DashboardTemplateProps>

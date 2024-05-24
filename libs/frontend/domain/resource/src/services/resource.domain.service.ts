@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { IResourceDto } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { Resource } from './store'
+import { Resource } from '../store'
 
 @model('@codelab/ResourceDomainService')
 export class ResourceDomainService

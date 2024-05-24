@@ -94,8 +94,8 @@
       ],
       "@codelab/backend/domain/app": ["libs/backend/domain/app/src/index.ts"],
       "@codelab/backend/domain/atom": ["libs/backend/domain/atom/src/index.ts"],
-      "@codelab/backend/domain/auth-guard/*": [
-        "libs/backend/domain/auth-guard/src/*"
+      "@codelab/backend/domain/auth-guard": [
+        "libs/backend/domain/auth-guard/src/index.ts"
       ],
       "@codelab/backend/domain/component": [
         "libs/backend/domain/component/src/index.ts"
@@ -170,21 +170,6 @@
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
-      "@codelab/frontend-application-shared-auth": [
-        "libs/frontend/application/shared/auth/src/index.ts"
-      ],
-      "@codelab/frontend-presentation-view/*": [
-        "libs/frontend/presentation/view/src/*"
-      ],
-      "@codelab/frontend/abstract/application": [
-        "libs/frontend/abstract/application/src/index.ts"
-      ],
-      "@codelab/frontend/abstract/domain": [
-        "libs/frontend/abstract/domain/src/index.ts"
-      ],
-      "@codelab/frontend/abstract/types": [
-        "libs/frontend/abstract/types/src/index.ts"
-      ],
       "@codelab/frontend-application-admin/*": [
         "libs/frontend/application/admin/src/*"
       ],
@@ -194,8 +179,8 @@
       "@codelab/frontend-application-atom/*": [
         "libs/frontend/application/atom/src/*"
       ],
-      "@codelab/frontend-application-auth-guard": [
-        "libs/frontend/application/auth-guard/src/index.ts"
+      "@codelab/frontend-application-auth-guard/*": [
+        "libs/frontend/application/auth-guard/src/*"
       ],
       "@codelab/frontend-application-axios/*": [
         "libs/frontend/infra/axios/src/*"
@@ -233,6 +218,9 @@
       "@codelab/frontend-application-resource/*": [
         "libs/frontend/application/resource/src/*"
       ],
+      "@codelab/frontend-application-shared-auth/*": [
+        "libs/frontend/application/shared/auth/src/*"
+      ],
       "@codelab/frontend-application-shared-data/*": [
         "libs/frontend/application/shared/data/src/*"
       ],
@@ -263,8 +251,8 @@
       "@codelab/frontend-domain-admin/*": ["libs/frontend/domain/admin/src/*"],
       "@codelab/frontend-domain-app/*": ["libs/frontend/domain/app/src/*"],
       "@codelab/frontend-domain-atom/*": ["libs/frontend/domain/atom/src/*"],
-      "@codelab/frontend-domain-auth-guard": [
-        "libs/frontend/domain/auth-guard/src/index.ts"
+      "@codelab/frontend-domain-auth-guard/*": [
+        "libs/frontend/domain/auth-guard/src/*"
       ],
       "@codelab/frontend-domain-component/*": [
         "libs/frontend/domain/component/src/*"
@@ -297,6 +285,21 @@
       "@codelab/frontend-domain-tag/*": ["libs/frontend/domain/tag/src/*"],
       "@codelab/frontend-domain-type/*": ["libs/frontend/domain/type/src/*"],
       "@codelab/frontend-domain-user/*": ["libs/frontend/domain/user/src/*"],
+      "@codelab/frontend-presentation-components-css-editor/*": [
+        "libs/frontend/presentation/components/css-editor/src/*"
+      ],
+      "@codelab/frontend-presentation-view/*": [
+        "libs/frontend/presentation/view/src/*"
+      ],
+      "@codelab/frontend/abstract/application": [
+        "libs/frontend/abstract/application/src/index.ts"
+      ],
+      "@codelab/frontend/abstract/domain": [
+        "libs/frontend/abstract/domain/src/index.ts"
+      ],
+      "@codelab/frontend/abstract/types": [
+        "libs/frontend/abstract/types/src/index.ts"
+      ],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],

@@ -1,5 +1,0 @@
-export * from './create-lambda'
-export * from './delete-lambda'
-export * from './execute-lambda'
-export * from './get-lambdas'
-export * from './update-lambda'

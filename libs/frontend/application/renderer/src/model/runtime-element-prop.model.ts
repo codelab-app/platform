@@ -31,7 +31,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import React, { ReactNode } from 'react'
-import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../wrappers'
+import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
 const create = (dto: IRuntimeElementPropDTO) =>
   new RuntimeElementPropsModel(dto)

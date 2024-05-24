@@ -1,2 +1,2 @@
-export { AdminViewHeader } from './AdminViewHeader'
-export { AdminViewLayout } from './AdminViewLayout'
+export * from './AdminViewHeader'
+export * from './AdminViewLayout'

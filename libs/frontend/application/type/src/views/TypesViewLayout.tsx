@@ -4,7 +4,7 @@ import type { DashboardTemplateProps } from '@codelab/frontend-presentation-view
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { TypesPrimarySidebar } from '../use-cases'
+import { TypesPrimarySidebar } from '../use-cases/primary-sidebar'
 import { TypesViewHeader } from './TypesViewHeader'
 
 export type TypesView = CodelabPage<DashboardTemplateProps>

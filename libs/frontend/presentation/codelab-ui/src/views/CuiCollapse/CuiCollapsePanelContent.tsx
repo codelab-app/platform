@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
 import React from 'react'
 import { CuiSkeletonWrapper } from '../../components'
 

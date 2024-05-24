@@ -3,8 +3,8 @@ import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,
-} from '@codelab/frontend-application-shared-store'
-import { ResourceDomainService } from '@codelab/frontend-domain-resource'
+} from '@codelab/frontend-application-shared-store/ui'
+import { ResourceDomainService } from '@codelab/frontend-domain-resource/services'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateResourceData,

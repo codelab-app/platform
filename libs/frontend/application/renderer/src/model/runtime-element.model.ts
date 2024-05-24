@@ -43,7 +43,7 @@ import {
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
-import { ElementWrapper } from '../wrappers'
+import { ElementWrapper } from '../components'
 
 const compositeKey = (
   element: IElementModel,

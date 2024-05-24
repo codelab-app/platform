@@ -1,12 +1,12 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { ResourceFetchConfigField } from '@codelab/frontend-application-resource'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   SelectAction,
   SelectResource,
-} from '@codelab/frontend-application-type'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-application-type/interface-form'
 import {
   DisplayIfField,
   ModalForm,

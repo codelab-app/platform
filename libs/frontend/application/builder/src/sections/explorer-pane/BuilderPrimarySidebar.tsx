@@ -8,33 +8,31 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { DeleteComponentModal } from '@codelab/frontend-application-component'
-import {
-  CreateElementPopover,
-  DeleteElementModal,
-} from '@codelab/frontend-application-element'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  ActionsTreeView,
-  CreateActionPopover,
-  DeleteActionModal,
-  StateTreeView,
-  UpdateActionPopover,
-} from '@codelab/frontend-application-store'
-import {
-  CreateFieldModal,
-  CreateFieldPopover,
-  DeleteFieldModal,
-  UpdateFieldModal,
-  UpdateFieldPopover,
-} from '@codelab/frontend-application-type'
-import { mapElementOption } from '@codelab/frontend-domain-element'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useCurrentComponent,
   useCurrentPage,
 } from '@codelab/frontend/presentation/container'
+import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
+import { CreateElementPopover } from '@codelab/frontend-application-element/use-cases/create-element'
+import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { CreateActionPopover } from '@codelab/frontend-application-store/use-cases/create-action'
+import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
+import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
+import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
+import { UpdateActionPopover } from '@codelab/frontend-application-store/use-cases/update-action'
+import {
+  CreateFieldModal,
+  CreateFieldPopover,
+} from '@codelab/frontend-application-type/use-cases/create-field'
+import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import {
+  UpdateFieldModal,
+  UpdateFieldPopover,
+} from '@codelab/frontend-application-type/use-cases/update-field'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -42,7 +40,7 @@ import { Collapse } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ElementTreeView } from './builder-tree'
+import { ElementTreeView } from './builder-tree/ElementTreeView'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {

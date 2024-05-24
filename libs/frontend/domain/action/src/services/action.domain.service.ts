@@ -9,7 +9,9 @@ import { IActionKind, IRef } from '@codelab/shared/abstract/core'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { ActionFactory, ApiAction, CodeAction } from './store'
+import { ActionFactory } from '../store/action.factory'
+import { ApiAction } from '../store/api-action.model'
+import { CodeAction } from '../store/code-action.model'
 
 @model('@codelab/ActionDomainService')
 export class ActionDomainService
