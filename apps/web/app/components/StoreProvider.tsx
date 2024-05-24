@@ -1,17 +1,12 @@
 'use client'
 
-import type {
-  ICoreStore,
-  UrlParams,
-} from '@codelab/frontend/abstract/application'
-import { useParams, useSearchParams } from 'next/navigation'
 import type { PropsWithChildren } from 'react'
 import React, { createContext, useContext } from 'react'
 
-const StoreContext = createContext<ICoreStore>(null!)
+const StoreContext = createContext<object>(null!)
 
 interface StoreProviderProps {
-  value: ICoreStore | null
+  value?: object
 }
 
 export const StoreProvider: React.FC<PropsWithChildren<StoreProviderProps>> = ({

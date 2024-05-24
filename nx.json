@@ -2,7 +2,6 @@
   "defaultBase": "master",
   "nxCloudAccessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU=",
   "parallel": 3,
-  "useInferencePlugins": false,
   "tasksRunnerOptions": {
     "default": {
       "options": {
@@ -12,25 +11,30 @@
     }
   },
   "defaultProject": "web",
+  "plugins": [
+    {
+      "plugin": "@nx/next/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "build",
+        "devTargetName": "dev",
+        "serveStaticTargetName": "serve-static"
+      }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    }
+  ],
   "generators": {
-    "@nrwl/nest": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/express": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/gatsby": {
-      "application": {
-        "style": "styled-components"
-      }
-    },
     "@nx/workspace": {
       "library": {
         "linter": "eslint"
@@ -150,11 +154,6 @@
           "quiet": true
         }
       }
-    },
-    "@nx/next:build": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^default"]
     },
     "@nx/vite:test": {
       "cache": true,

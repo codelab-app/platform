@@ -6,6 +6,7 @@
   "tags": ["projectType:application", "type:concrete"],
   "implicitDependencies": [],
   "generators": {},
+  "// targets": "to see all targets run: nx show project web --web",
   "targets": {
     "build": {
       "executor": "@nx/next:build",
