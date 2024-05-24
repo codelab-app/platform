@@ -1,10 +1,10 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
   ModalForm,
 } from '@codelab/frontend-presentation-view/components'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

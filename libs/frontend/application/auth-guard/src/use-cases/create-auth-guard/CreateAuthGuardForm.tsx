@@ -8,12 +8,12 @@ import {
   ResourceTestRequest,
 } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIf,
   Form,
   FormController,
 } from '@codelab/frontend-presentation-view/components'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -1,1 +1,1 @@
-export * from './tree-select-field'
+export { TreeSelectField } from './TreeSelectField'

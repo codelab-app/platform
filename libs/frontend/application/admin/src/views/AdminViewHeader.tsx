@@ -5,7 +5,7 @@ import {
 import { Image } from 'antd'
 import React from 'react'
 
-export const AdminHeader = () => (
+export const AdminViewHeader = () => (
   <CuiHeader
     direction={<CuiHeaderBreadcrumb items={[{ title: 'Admin' }]} />}
     logo={

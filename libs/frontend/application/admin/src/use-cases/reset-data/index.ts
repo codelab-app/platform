@@ -1,1 +1,1 @@
-export * from './ResetDataButtons'
+export { ResetDataButtons } from './ResetDataButtons'

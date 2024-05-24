@@ -1,1 +1,1 @@
-export * from './TextList'
+export { TextList } from './TextList'

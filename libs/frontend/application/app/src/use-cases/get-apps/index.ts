@@ -1,1 +1,1 @@
-export * from './GetAppsList'
+export { GetAppsList } from './GetAppsList'

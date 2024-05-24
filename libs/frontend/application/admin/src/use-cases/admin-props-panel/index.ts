@@ -1,1 +1,1 @@
-export * from './AdminPropsPanel'
+export { AdminPropsPanel } from './AdminPropsPanel'

@@ -12,12 +12,12 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend/application/page'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import {
   useAppQuery,
   usePageQuery,
 } from '@codelab/frontend/presentation/container'
 import { useAppDevelopment } from '@codelab/frontend-application-app/use-cases/app-development'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components'
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'

@@ -1,3 +1,3 @@
-export * from './create-app.schema'
-export * from './CreateAppButton'
-export * from './CreateAppModal'
+export { createAppSchema } from './create-app.schema'
+export { CreateAppButton } from './CreateAppButton'
+export { CreateAppModal } from './CreateAppModal'

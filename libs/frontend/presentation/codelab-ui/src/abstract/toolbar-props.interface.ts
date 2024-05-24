@@ -1,5 +1,5 @@
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
-import React from 'react'
+import type React from 'react'
 
 export interface ToolbarItem {
   cuiKey: ModelActionKey

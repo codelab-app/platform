@@ -1,2 +1,2 @@
-export * from './ImportAdminDataButton'
-export * from './ImportAdminDataModal'
+export { ImportAdminDataButton } from './ImportAdminDataButton'
+export { ImportAdminDataModal } from './ImportAdminDataModal'
