@@ -66,7 +66,7 @@ export const BuilderClickOverlay = observer<{
           className="flex size-7 cursor-pointer items-center justify-center align-middle"
           onClick={(event) => {
             event.stopPropagation()
-            elementService.deleteModal.open(elementRef(selectedNode.id))
+            elementService.deleteModal.open(elementRef(element))
           }}
         >
           <div
