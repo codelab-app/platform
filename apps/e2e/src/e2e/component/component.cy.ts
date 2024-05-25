@@ -23,13 +23,12 @@ let app: IAppDto
 describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {
+      cy.visit('/components')
+      cy.waitForSpinners()
+
       cy.postApiRequest<App>('/app/seed-cypress-app')
         .then(({ body }) => (app = body))
         .as('cypressComponent')
-
-      cy.get('@cypressComponent')
-      cy.visit('/components')
-      cy.waitForSpinners()
     })
 
     it('should be able to add a new component', () => {
