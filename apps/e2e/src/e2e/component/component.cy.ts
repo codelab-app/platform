@@ -18,7 +18,6 @@ const COMPONENT_PROP_VALUE = 'component_prop_value'
 const COMPONENT_CHILD_TEXT = `text {{componentProps.${COMPONENT_PROP_NAME}}}`
 const COMPONENT_INSTANCE_TEXT = 'Instance Text'
 const PAGE_NAME = '_app'
-let testApp: any
 let app: IAppDto
 
 describe('Component CRUD', () => {
@@ -28,16 +27,12 @@ describe('Component CRUD', () => {
         .then(({ body }) => (app = body))
         .as('cypressComponent')
 
-      cy.get('@cypressComponent').then(() => {
-        // GetRenderedPageAndCommonAppData
-        cy.visit('/components')
-        cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-      })
+      cy.get('@cypressComponent')
+      cy.visit('/components')
+      cy.waitForSpinners()
     })
 
     it('should be able to add a new component', () => {
-      cy.waitForSpinners()
-
       cy.getCuiSidebar(MODEL_UI.SidebarComponent.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
