@@ -65,28 +65,6 @@ export class UserService
   }
 
   @modelFlow
-  fetchPreferences = _async(function* (this: UserService) {
-    if (typeof window === 'undefined') {
-      // SSR not supported for client preferences service
-      return
-    }
-
-    const preferences = localStorage.getItem(CODELAB_STORAGE_KEY)
-
-    this.preferences = preferences
-      ? JSON.parse(preferences)
-      : DEFAULT_PREFERENCES
-
-    // const user = yield* _await(this.getOne({ id: this.user.id }))
-
-    // this.preferences = user?.preferences
-    //   ? JSON.parse(user.preferences)
-    //   : this.preferences
-
-    return yield* _await(Promise.resolve())
-  })
-
-  @modelFlow
   @transaction
   getOne = _async(function* (this: UserService, where: UserWhere) {
     const {
@@ -138,18 +116,24 @@ export class UserService
     void this.savePreferences()
   }
 
+  fetchPreferences() {
+    if (typeof window === 'undefined') {
+      // SSR not supported for client preferences service
+      return
+    }
+
+    const preferences = localStorage.getItem(CODELAB_STORAGE_KEY)
+
+    this.preferences = preferences
+      ? JSON.parse(preferences)
+      : DEFAULT_PREFERENCES
+  }
+
   onAttachedToRootStore() {
     void this.fetchPreferences()
   }
 
   savePreferences() {
-    const preferences = JSON.stringify(this.preferences)
-
-    localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(preferences))
-
-    // return userApi.UpdateUser({
-    //   update: this.user.toUpdateInput(),
-    //   where: { id: this.user.id },
-    // })
+    localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(this.preferences))
   }
 }

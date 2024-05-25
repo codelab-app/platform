@@ -1,4 +1,5 @@
 import type {
+  IComponentDevelopmentService,
   IComponentDomainService,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
@@ -31,6 +32,7 @@ export interface IComponentApplicationService
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
     ICRUDModalService<Ref<IComponentModel>, { component?: IComponentModel }>,
     IPaginateable<IComponentModel, { name?: string }> {
+  componentDevelopmentService: IComponentDevelopmentService
   componentDomainService: IComponentDomainService
   componentRepository: IComponentRepository
   createForm: IFormService

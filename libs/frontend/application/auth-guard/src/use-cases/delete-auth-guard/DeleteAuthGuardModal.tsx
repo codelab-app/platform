@@ -1,6 +1,6 @@
 import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { useCurrentAuthGuardId } from '@codelab/frontend/presentation/container'
+import { useAuthGuardQuery } from '@codelab/frontend/presentation/container'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
@@ -11,7 +11,7 @@ import { AutoFields } from 'uniforms-antd'
 export const DeleteAuthGuardModal = observer(() => {
   const { authGuardService } = useStore()
   const router = useRouter()
-  const authGuardId = useCurrentAuthGuardId()
+  const authGuardId = useAuthGuardQuery()
   const authGuard = authGuardService.deleteModal.authGuard
 
   const onSubmitSuccess = () => {

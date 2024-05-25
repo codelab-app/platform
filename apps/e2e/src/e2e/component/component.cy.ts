@@ -18,30 +18,20 @@ const COMPONENT_PROP_VALUE = 'component_prop_value'
 const COMPONENT_CHILD_TEXT = `text {{componentProps.${COMPONENT_PROP_NAME}}}`
 const COMPONENT_INSTANCE_TEXT = 'Instance Text'
 const PAGE_NAME = '_app'
-let testApp: any
 let app: IAppDto
 
 describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {
+      cy.visit('/components')
+      cy.waitForSpinners()
+
       cy.postApiRequest<App>('/app/seed-cypress-app')
         .then(({ body }) => (app = body))
         .as('cypressComponent')
-
-      cy.get('@cypressComponent').then(() => {
-        // GetRenderedPageAndCommonAppData
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            PAGE_NAME,
-          )}/builder?primarySidebarKey=components`,
-        )
-        cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-      })
     })
 
     it('should be able to add a new component', () => {
-      cy.waitForSpinners()
-
       cy.getCuiSidebar(MODEL_UI.SidebarComponent.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
@@ -65,13 +55,15 @@ describe('Component CRUD', () => {
     it('should be able to define property on component', () => {
       cy.getSider().getButton({ icon: 'edit' }).click()
 
+      cy.waitForSpinners()
+
       cy.getCuiTreeItemByPrimaryTitle(
         `${createComponentData.name} Root`,
       ).should('be.visible')
 
       cy.waitForSpinners()
 
-      cy.get('.ant-tabs [aria-label="setting"]').click()
+      cy.get('.ant-tabs [aria-label="code-sandbox"]').click()
       cy.get('.ant-tabs-tabpane-active').contains(/Add/).click()
 
       cy.getModal().setFormFieldValue({

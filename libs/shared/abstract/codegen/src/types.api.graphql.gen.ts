@@ -27148,16 +27148,23 @@ export type AuthGuardFragment = {
   resource: ResourceFragment
 }
 
-export type ComponentDevelopmentFragment = {
-  elements: Array<ElementFragment>
-  rootElement: { id: string }
-} & ComponentFragment
-
 export type ComponentFragment = {
   __typename: 'Component'
   id: string
   name: string
+  api: { id: string }
+  owner: OwnerFragment
+  props: PropFragment
+  rootElement: { id: string }
+  store: StoreFragment
+}
+
+export type ComponentDevelopmentFragment = {
+  __typename: 'Component'
+  id: string
+  name: string
   api: InterfaceTypeFragment
+  elements: Array<ElementFragment>
   owner: OwnerFragment
   props: PropFragment
   rootElement: { id: string; name: string }
@@ -27835,7 +27842,23 @@ export type GetComponentsQueryVariables = Exact<{
 
 export type GetComponentsQuery = {
   aggregate: { count: number }
-  items: Array<ComponentDevelopmentFragment>
+  items: Array<ComponentFragment>
+}
+
+export type GetComponentDevelopmentQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type GetComponentDevelopmentQuery = {
+  actionTypes: Array<ActionTypeFragment>
+  atoms: Array<AtomDevelopmentFragment>
+  codeMirrorTypes: Array<CodeMirrorTypeFragment>
+  components: Array<ComponentDevelopmentFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
+  resources: Array<ResourceFragment>
+  richTextTypes: Array<RichTextTypeFragment>
 }
 
 export type GetDomainsQueryVariables = Exact<{

@@ -25,7 +25,7 @@ import { BuilderSizeMenu } from './BuilderSizeMenu'
 
 export const PageDetailHeader = observer(() => {
   const router = useRouter()
-  const { componentName: currentComponentName } = useCurrentComponent()
+  const component = useCurrentComponent()
   const isComponentBuilder = router.pathname === PageType.ComponentBuilder
   const isComponentPreview = router.pathname === PageType.ComponentPreview
   const isPageBuilder = router.pathname === PageType.PageBuilder
@@ -33,7 +33,7 @@ export const PageDetailHeader = observer(() => {
   const { appName, appSlug } = useAppQuery()
   const { pageName, pageSlug } = usePageQuery()
   const { userSlug } = useUserQuery()
-  const componentName = currentComponentName || '?'
+  const componentName = component?.name || '?'
 
   const togglePreviewMode = () => {
     let pathname

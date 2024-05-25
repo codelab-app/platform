@@ -175,9 +175,14 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
       ? [
           {
             children: (
-              <UpdateComponentForm
-                runtimeComponent={activeRenderer.runtimeComponent}
-              />
+              <>
+                <UpdateComponentForm
+                  runtimeComponent={activeRenderer.runtimeComponent}
+                />
+                <UpdateComponentPropsForm
+                  runtimeComponent={activeRenderer.runtimeComponent}
+                />
+              </>
             ),
             key: TAB_NAMES.Component,
             label: (

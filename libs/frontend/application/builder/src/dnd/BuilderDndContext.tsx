@@ -10,7 +10,7 @@ import {
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
-import { DndContext } from '@dnd-kit/core'
+import { DndContext, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React, { useCallback, useMemo } from 'react'
@@ -24,6 +24,16 @@ const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
 const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
   const { builderService, elementService } = useStore()
   const { handleCreateElement, handleMoveElement } = useDndDropHandler()
+
+  const mouseSensor = useSensor(MouseSensor, {
+    // Require the mouse to move by 1 pixels before activating
+    // fixes component item overlay issue when clicking
+    activationConstraint: {
+      distance: 1,
+    },
+  })
+
+  const sensors = useSensors(mouseSensor)
 
   const autoScroll = useMemo(
     () => ({
@@ -60,6 +70,7 @@ const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
         hierarchicalCollisionDetector,
       )}
       onDragEnd={onDragEnd}
+      sensors={sensors}
     >
       {children}
 

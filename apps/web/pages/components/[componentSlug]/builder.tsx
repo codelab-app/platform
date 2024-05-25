@@ -8,12 +8,10 @@ import {
   ComponentsPrimarySidebar,
   ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend/application/builder'
+import { useComponentDevelopment } from '@codelab/frontend/application/component'
 import { PageDetailHeader } from '@codelab/frontend/application/page'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import {
-  useCurrentComponent,
-  useRenderedComponent,
-} from '@codelab/frontend/presentation/container'
+import { useComponentQuery } from '@codelab/frontend/presentation/container'
 import {
   DynamicDashboardTemplate,
   SkeletonWrapper,
@@ -23,17 +21,19 @@ import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
 const ComponentBuilderView: CodelabPage = observer(() => {
-  const { componentName } = useCurrentComponent()
+  const { componentName } = useComponentQuery()
 
-  const [{ error, status }, loadCurrentComponent] = useRenderedComponent(
-    RendererType.ComponentBuilder,
+  const [{ error, status }, loadDevelopmentComponent] = useComponentDevelopment(
+    {
+      rendererType: RendererType.ComponentBuilder,
+    },
   )
 
-  const isLoading = status !== 'success'
+  const isLoading = status === 'loading'
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   useEffect(() => {
-    void loadCurrentComponent.execute()
+    void loadDevelopmentComponent.execute()
   }, [componentName])
 
   return (

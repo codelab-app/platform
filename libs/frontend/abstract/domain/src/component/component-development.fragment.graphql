@@ -1,9 +1,0 @@
-fragment ComponentDevelopment on Component {
-  ...Component
-  elements {
-    ...Element
-  }
-  rootElement {
-    id
-  }
-}

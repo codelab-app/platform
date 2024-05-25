@@ -7,8 +7,8 @@ export const useCurrentComponent = () => {
   const { query } = useRouter()
   const componentSlug = query.componentSlug as string
   const componentName = getNameFromSlug(componentSlug)
-  const { componentList } = componentService.componentDomainService
-  const component = componentList.find(({ name }) => name === componentName)
 
-  return { component, componentName, componentSlug }
+  return componentService.componentDomainService.componentList.find(
+    ({ name }) => name === componentName,
+  )
 }
