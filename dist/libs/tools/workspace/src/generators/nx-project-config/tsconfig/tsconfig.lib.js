@@ -7,7 +7,7 @@ const updateLibraryTsconfig = (tree, project) => {
     /**
      * Only update if the lib is a backend project, which we will use default nestjs config for
      */
-    if (projectName?.includes('backend')) {
+    if (projectName?.startsWith('backend')) {
         (0, devkit_1.updateJson)(tree, `${project.root}/tsconfig.json`, (json) => {
             json.compilerOptions = {
                 module: 'commonjs',
@@ -37,4 +37,4 @@ const updateLibraryTsconfig = (tree, project) => {
     }
 };
 exports.updateLibraryTsconfig = updateLibraryTsconfig;
-//# sourceMappingURL=lib-tsconfig.js.map
+//# sourceMappingURL=tsconfig.lib.js.map
