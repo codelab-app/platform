@@ -227,6 +227,7 @@
     "@nestjs/cli": "10.0.2",
     "@nestjs/schematics": "10.0.1",
     "@nestjs/testing": "10.0.4",
+    "@next/eslint-plugin-next": "^14.2.3",
     "@nx/cypress": "19.1.0",
     "@nx/devkit": "19.1.0",
     "@nx/eslint": "19.1.0",

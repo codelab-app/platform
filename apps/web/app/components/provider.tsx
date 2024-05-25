@@ -2,12 +2,12 @@
 
 import type { UrlParams } from '@codelab/frontend/abstract/application'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
+import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
 import { guestUser } from '@codelab/shared/data/test'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { useParams, useSearchParams } from 'next/navigation'
 import React from 'react'
 import { type PropsWithChildren, useState } from 'react'
-import { StoreProvider } from './StoreProvider'
 
 export const CuiStoreProvider = ({ children }: PropsWithChildren) => {
   const params = useParams<Partial<UrlParams>>()
@@ -29,8 +29,6 @@ export const CuiStoreProvider = ({ children }: PropsWithChildren) => {
       },
       guestUser,
     )
-
-    console.log(coreStore)
 
     registerRootStore(coreStore)
 

@@ -7,14 +7,18 @@ import type {
 import type { TablePaginationConfig } from 'antd'
 import debounce from 'lodash/debounce'
 import isMatch from 'lodash/isMatch'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
-import { extractTableQueries } from './extract-table-queries'
+import {
+  extractTableQueries,
+  type TableQueryString,
+} from './extract-table-queries'
 
 interface Props<T> {
   filterTypes?: Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>
   paginationService: IPaginationService<SupportedPaginationModel, Filterables>
   pathname: SupportedPaginationModelPage
+  tableQuery: TableQueryString
 }
 
 export const useTablePagination = <
@@ -24,6 +28,7 @@ export const useTablePagination = <
   filterTypes,
   paginationService,
   pathname,
+  tableQuery,
 }: Props<U>) => {
   const router = useRouter()
 
@@ -31,7 +36,7 @@ export const useTablePagination = <
     filter,
     page = 1,
     pageSize = 20,
-  } = extractTableQueries<U>(router, filterTypes)
+  } = extractTableQueries<U>(tableQuery, filterTypes)
 
   const handleChange = React.useRef(
     debounce(
@@ -53,14 +58,16 @@ export const useTablePagination = <
         paginationService.setFilter(newFilter)
         void paginationService.getData()
 
+        const query = new URLSearchParams({
+          ...paginationService.filter,
+          page: paginationService.currentPage,
+          pageSize: paginationService.pageSize,
+        })
+
         await router.push(
           {
             pathname,
-            query: {
-              ...paginationService.filter,
-              page: paginationService.currentPage,
-              pageSize: paginationService.pageSize,
-            },
+            query: {},
           },
           undefined,
           { shallow: true },
