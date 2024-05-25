@@ -67,7 +67,7 @@ export interface ICoreStore {
   runtimePageService: IRuntimePageService
   storeService: IStoreService
   tagService: ITagService
-  // tracerService: ITracerService
+  tracerService: ITracerService
   typeService: ITypeService
   userService: IUserService
 }
