@@ -8,8 +8,8 @@ import {
 import { addProjectTags } from './project-tags/add-project-tags'
 import type { EslintGeneratorSchema } from './schema'
 import { updateTestConfig } from './test/project-json'
-import { updateBaseTsconfig } from './tsconfig/tsconfig.base'
-import { updateLibraryTsconfig } from './tsconfig/tsconfig.lib'
+import { updateBaseTsconfig } from './tsconfig-base/tsconfig.base'
+import { updateLibraryTsconfig } from './tsconfig-base/tsconfig.lib.lib'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`

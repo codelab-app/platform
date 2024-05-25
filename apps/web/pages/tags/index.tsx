@@ -1,4 +1,4 @@
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth/guards'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { CreateTagModal } from '@codelab/frontend-application-tag/use-cases/create-tag'
 import { DeleteTagsModal } from '@codelab/frontend-application-tag/use-cases/delete-tags'
 import {

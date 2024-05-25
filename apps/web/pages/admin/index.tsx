@@ -11,7 +11,7 @@ import {
   type AdminView,
   AdminViewLayout,
 } from '@codelab/frontend-application-admin/views'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth/guards'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'

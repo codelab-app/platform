@@ -18,7 +18,7 @@ import { UpdateElementForm } from '@codelab/frontend-application-element/use-cas
 import { UpdateElementPropsForm } from '@codelab/frontend-application-element/use-cases/update-element-props'
 import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor/ElementCssEditor'
+import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { FormContextProvider } from '@codelab/frontend-presentation-view/components'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'

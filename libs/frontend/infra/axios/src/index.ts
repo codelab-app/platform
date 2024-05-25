@@ -1,1 +1,1 @@
-export * from './axios/rest-client'
+export * from './rest-client'

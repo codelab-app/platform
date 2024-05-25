@@ -1,5 +1,5 @@
 import type { IUserModel } from '@codelab/frontend/abstract/domain'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth/guards'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import {
   type UsersView,
   UsersViewLayout,

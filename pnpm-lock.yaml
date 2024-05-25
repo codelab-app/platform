@@ -970,6 +970,9 @@ importers:
       lint-staged:
         specifier: 13.2.2
         version: 13.2.2(enquirer@2.4.1)
+      minimatch:
+        specifier: ^9.0.4
+        version: 9.0.4
       nx:
         specifier: 19.1.0
         version: 19.1.0(@swc-node/register@1.9.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.7(@swc/helpers@0.5.11))

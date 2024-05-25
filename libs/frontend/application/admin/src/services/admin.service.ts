@@ -2,8 +2,8 @@ import {
   getAppService,
   type IAdminService,
 } from '@codelab/frontend/abstract/application'
-import { restWebClient } from '@codelab/frontend-application-axios/axios/rest-client'
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
+import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'

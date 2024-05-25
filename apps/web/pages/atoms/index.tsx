@@ -5,7 +5,7 @@ import {
   type AtomsView,
   AtomsViewLayout,
 } from '@codelab/frontend-application-atom/views'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth/guards'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { CreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { observer } from 'mobx-react-lite'

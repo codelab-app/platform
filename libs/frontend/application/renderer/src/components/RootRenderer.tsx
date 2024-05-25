@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
-import { MakeChildrenDroppable } from '@codelab/frontend-application-dnd/components/MakeChildrenDroppable'
+import { MakeChildrenDroppable } from '@codelab/frontend-application-dnd/components'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { WrapIf } from '@codelab/frontend-presentation-view/components'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'

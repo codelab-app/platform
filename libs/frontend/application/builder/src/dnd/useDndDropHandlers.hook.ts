@@ -1,7 +1,7 @@
 import { type BuilderDragData } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { CollisionData } from '@codelab/frontend-application-dnd/collision-detection'
-import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation/useRequiredParentValidator.hook'
+import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { ICreateElementDto } from '@codelab/shared/abstract/core'

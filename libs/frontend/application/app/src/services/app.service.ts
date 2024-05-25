@@ -9,7 +9,6 @@ import {
   type IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
-import { restWebClient } from '@codelab/frontend-application-axios/axios/rest-client'
 import {
   getDomainService,
   regeneratePages,
@@ -19,7 +18,8 @@ import {
   PageRepository,
 } from '@codelab/frontend-application-page/services'
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
-import { AppDomainService } from '@codelab/frontend-domain-app/services/app.domain.service'
+import { AppDomainService } from '@codelab/frontend-domain-app/services'
+import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { App, AppWhere } from '@codelab/shared/abstract/codegen'
 import type {
   IAppAggregate,

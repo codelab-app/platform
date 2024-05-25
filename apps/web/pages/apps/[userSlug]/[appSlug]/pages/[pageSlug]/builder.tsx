@@ -8,16 +8,16 @@ import {
 import { useAppDevelopment } from '@codelab/frontend-application-app/use-cases/app-development'
 import {
   BuilderPrimarySidebar,
+  BuilderTabs,
   ComponentsPrimarySidebar,
+  ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend-application-builder/sections'
-import { ConfigPaneInspectorTabContainer } from '@codelab/frontend-application-builder/sections/config-pane/ConfigPane-InspectorTabContainer/ConfigPaneInspectorTabContainer'
-import { BuilderTabs } from '@codelab/frontend-application-builder/sections/content/BuilderTabs'
 import { BuilderViewLayout } from '@codelab/frontend-application-builder/views'
 import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend-application-page/views'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth/guards'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components'
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'
