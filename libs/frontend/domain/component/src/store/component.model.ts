@@ -13,7 +13,7 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend-domain-prop'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import type { ComponentUpdateInput } from '@codelab/shared/abstract/codegen'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'

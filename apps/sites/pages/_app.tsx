@@ -9,7 +9,7 @@ import 'react-grid-layout/css/styles.css'
 import 'antd/dist/reset.css'
 import type { IAppProps } from '@codelab/frontend/abstract/application'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
-import { StoreProvider } from '@codelab/frontend-application-shared-store'
+import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
 import { guestUser } from '@codelab/shared/data/test'
 import { registerRootStore } from 'mobx-keystone'
 import { useRouter } from 'next/router'
@@ -21,8 +21,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
   const [store] = useState(() => {
     const coreStore = createCoreStore(
       {
-        path: router.asPath,
-        pathname: router.pathname,
+        param: router.query,
         query: router.query,
       },
       guestUser,
@@ -35,8 +34,6 @@ const App = ({ Component, pageProps }: IAppProps) => {
 
   useEffect(() => {
     store.routerService.update({
-      path: router.asPath,
-      pathname: router.pathname,
       query: router.query,
     })
   }, [router])

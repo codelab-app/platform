@@ -1,7 +1,7 @@
 import '../styles/global.css'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { userDto } from '@codelab/frontend/test/data'
-import { StoreProvider } from '@codelab/frontend-application-shared-store'
+import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import type { Preview } from '@storybook/react'
 import { ConfigProvider } from 'antd'

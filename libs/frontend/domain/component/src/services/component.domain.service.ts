@@ -24,6 +24,7 @@ import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { Component } from '../store'
 
 @model('@codelab/ComponentDomainService')
 export class ComponentDomainService

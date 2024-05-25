@@ -184,10 +184,13 @@ export class BuilderService
       ? container.id
       : container.current.app.id
 
-    return (
-      this.userService.preferences.apps?.[containerId]
-        .selectedBuilderBreakpoint ?? BuilderWidthBreakPoint.MobilePortrait
-    )
+    const appPreferences = this.userService.preferences.apps?.[containerId]
+
+    if (appPreferences?.selectedBuilderBreakpoint) {
+      return appPreferences.selectedBuilderBreakpoint
+    }
+
+    return BuilderWidthBreakPoint.MobilePortrait
   }
 
   @computed
@@ -202,10 +205,13 @@ export class BuilderService
       ? container.id
       : container.current.app.id
 
-    return (
-      this.userService.preferences.apps?.[containerId].selectedBuilderWidth ??
-      defaultBuilderWidthBreakPoints['mobile-portrait']
-    )
+    const appPreferences = this.userService.preferences.apps?.[containerId]
+
+    if (appPreferences?.selectedBuilderWidth) {
+      return appPreferences.selectedBuilderWidth
+    }
+
+    return defaultBuilderWidthBreakPoints['mobile-portrait']
   }
 
   @modelAction
