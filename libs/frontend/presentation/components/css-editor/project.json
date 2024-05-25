@@ -3,8 +3,12 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/presentation/components/css-editor/src",
   "projectType": "library",
-  "tags": ["scope:frontend", "layer:presentation"],
-  "// targets": "to see all targets run: nx show project frontend-presentation-components-css-editor --web",
+  "tags": [
+    "layer:presentation",
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

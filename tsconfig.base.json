@@ -88,7 +88,9 @@
         "libs/backend/application/user/src/index.ts"
       ],
       "@codelab/backend/data/seed": ["libs/backend/data/seed/src/index.ts"],
-      "@codelab/backend/domain/action/*": ["libs/backend/domain/action/src/*"],
+      "@codelab/backend/domain/action": [
+        "libs/backend/domain/action/src/index.ts"
+      ],
       "@codelab/backend/domain/admin": [
         "libs/backend/domain/admin/src/index.ts"
       ],
@@ -170,126 +172,713 @@
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
-      "@codelab/frontend-application-admin/*": [
-        "libs/frontend/application/admin/src/*"
+      "@codelab/frontend-application-admin/graphql": [
+        "libs/frontend/application/admin/src/graphql/index.ts"
       ],
-      "@codelab/frontend-application-app/*": [
-        "libs/frontend/application/app/src/*"
+      "@codelab/frontend-application-admin/services": [
+        "libs/frontend/application/admin/src/services/index.ts"
       ],
-      "@codelab/frontend-application-atom/*": [
-        "libs/frontend/application/atom/src/*"
+      "@codelab/frontend-application-admin/use-cases": [
+        "libs/frontend/application/admin/src/use-cases/index.ts"
       ],
-      "@codelab/frontend-application-auth-guard/*": [
-        "libs/frontend/application/auth-guard/src/*"
+      "@codelab/frontend-application-admin/use-cases/admin-props-panel": [
+        "libs/frontend/application/admin/src/use-cases/admin-props-panel/index.ts"
       ],
-      "@codelab/frontend-application-axios/*": [
-        "libs/frontend/infra/axios/src/*"
+      "@codelab/frontend-application-admin/use-cases/export-data": [
+        "libs/frontend/application/admin/src/use-cases/export-data/index.ts"
       ],
-      "@codelab/frontend-application-builder/*": [
-        "libs/frontend/application/builder/src/*"
+      "@codelab/frontend-application-admin/use-cases/import-data": [
+        "libs/frontend/application/admin/src/use-cases/import-data/index.ts"
       ],
-      "@codelab/frontend-application-component/*": [
-        "libs/frontend/application/component/src/*"
+      "@codelab/frontend-application-admin/use-cases/reset-data": [
+        "libs/frontend/application/admin/src/use-cases/reset-data/index.ts"
       ],
-      "@codelab/frontend-application-dnd/*": [
-        "libs/frontend/application/dnd/src/*"
+      "@codelab/frontend-application-admin/views": [
+        "libs/frontend/application/admin/src/views/index.ts"
       ],
-      "@codelab/frontend-application-domain/*": [
-        "libs/frontend/application/domain/src/*"
+      "@codelab/frontend-application-app/graphql": [
+        "libs/frontend/application/app/src/graphql/index.ts"
       ],
-      "@codelab/frontend-application-element/*": [
-        "libs/frontend/application/element/src/*"
+      "@codelab/frontend-application-app/services": [
+        "libs/frontend/application/app/src/services/index.ts"
       ],
-      "@codelab/frontend-application-lambda/*": [
-        "libs/frontend/application/lambda/src/*"
+      "@codelab/frontend-application-app/use-cases": [
+        "libs/frontend/application/app/src/use-cases/index.ts"
       ],
-      "@codelab/frontend-application-page/*": [
-        "libs/frontend/application/page/src/*"
+      "@codelab/frontend-application-app/use-cases/app-development": [
+        "libs/frontend/application/app/src/use-cases/app-development/index.ts"
       ],
-      "@codelab/frontend-application-prop/*": [
-        "libs/frontend/application/prop/src/*"
+      "@codelab/frontend-application-app/use-cases/app-production": [
+        "libs/frontend/application/app/src/use-cases/app-production/index.ts"
       ],
-      "@codelab/frontend-application-redirect/*": [
-        "libs/frontend/application/redirect/src/*"
+      "@codelab/frontend-application-app/use-cases/build-app": [
+        "libs/frontend/application/app/src/use-cases/build-app/index.ts"
       ],
-      "@codelab/frontend-application-renderer/*": [
-        "libs/frontend/application/renderer/src/*"
+      "@codelab/frontend-application-app/use-cases/create-app": [
+        "libs/frontend/application/app/src/use-cases/create-app/index.ts"
       ],
-      "@codelab/frontend-application-resource/*": [
-        "libs/frontend/application/resource/src/*"
+      "@codelab/frontend-application-app/use-cases/delete-app": [
+        "libs/frontend/application/app/src/use-cases/delete-app/index.ts"
       ],
-      "@codelab/frontend-application-shared-auth/*": [
-        "libs/frontend/application/shared/auth/src/*"
+      "@codelab/frontend-application-app/use-cases/get-apps": [
+        "libs/frontend/application/app/src/use-cases/get-apps/index.ts"
       ],
-      "@codelab/frontend-application-shared-data/*": [
-        "libs/frontend/application/shared/data/src/*"
+      "@codelab/frontend-application-app/use-cases/import-app": [
+        "libs/frontend/application/app/src/use-cases/import-app/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/*": [
-        "libs/frontend/application/shared/store/src/*"
+      "@codelab/frontend-application-app/use-cases/update-app": [
+        "libs/frontend/application/app/src/use-cases/update-app/index.ts"
       ],
-      "@codelab/frontend-application-store/*": [
-        "libs/frontend/application/store/src/*"
+      "@codelab/frontend-application-app/views": [
+        "libs/frontend/application/app/src/views/index.ts"
       ],
-      "@codelab/frontend-application-style/*": [
-        "libs/frontend/application/style/src/*"
+      "@codelab/frontend-application-atom/graphql": [
+        "libs/frontend/application/atom/src/graphql/index.ts"
       ],
-      "@codelab/frontend-application-tag/*": [
-        "libs/frontend/application/tag/src/*"
+      "@codelab/frontend-application-atom/services": [
+        "libs/frontend/application/atom/src/services/index.ts"
       ],
-      "@codelab/frontend-application-test/*": [
-        "libs/frontend/application/test/src/*"
+      "@codelab/frontend-application-atom/use-cases": [
+        "libs/frontend/application/atom/src/use-cases/index.ts"
       ],
-      "@codelab/frontend-application-type/*": [
-        "libs/frontend/application/type/src/*"
+      "@codelab/frontend-application-atom/use-cases/components": [
+        "libs/frontend/application/atom/src/use-cases/components/index.ts"
       ],
-      "@codelab/frontend-application-user/*": [
-        "libs/frontend/application/user/src/*"
+      "@codelab/frontend-application-atom/use-cases/create-atom": [
+        "libs/frontend/application/atom/src/use-cases/create-atom/index.ts"
       ],
-      "@codelab/frontend-domain-action/*": [
-        "libs/frontend/domain/action/src/*"
+      "@codelab/frontend-application-atom/use-cases/delete-atom": [
+        "libs/frontend/application/atom/src/use-cases/delete-atom/index.ts"
       ],
-      "@codelab/frontend-domain-admin/*": ["libs/frontend/domain/admin/src/*"],
-      "@codelab/frontend-domain-app/*": ["libs/frontend/domain/app/src/*"],
-      "@codelab/frontend-domain-atom/*": ["libs/frontend/domain/atom/src/*"],
-      "@codelab/frontend-domain-auth-guard/*": [
-        "libs/frontend/domain/auth-guard/src/*"
+      "@codelab/frontend-application-atom/use-cases/get-atoms": [
+        "libs/frontend/application/atom/src/use-cases/get-atoms/index.ts"
       ],
-      "@codelab/frontend-domain-component/*": [
-        "libs/frontend/domain/component/src/*"
+      "@codelab/frontend-application-atom/use-cases/get-select-atom-options": [
+        "libs/frontend/application/atom/src/use-cases/get-select-atom-options/index.ts"
       ],
-      "@codelab/frontend-domain-domain/*": [
-        "libs/frontend/domain/domain/src/*"
+      "@codelab/frontend-application-atom/use-cases/helper": [
+        "libs/frontend/application/atom/src/use-cases/helper/index.ts"
       ],
-      "@codelab/frontend-domain-element/*": [
-        "libs/frontend/domain/element/src/*"
+      "@codelab/frontend-application-atom/use-cases/select-atom": [
+        "libs/frontend/application/atom/src/use-cases/select-atom/index.ts"
       ],
-      "@codelab/frontend-domain-lambda/*": [
-        "libs/frontend/domain/lambda/src/*"
+      "@codelab/frontend-application-atom/use-cases/update-atom": [
+        "libs/frontend/application/atom/src/use-cases/update-atom/index.ts"
       ],
-      "@codelab/frontend-domain-page/*": ["libs/frontend/domain/page/src/*"],
-      "@codelab/frontend-domain-prop/*": ["libs/frontend/domain/prop/src/*"],
-      "@codelab/frontend-domain-redirect/*": [
-        "libs/frontend/domain/redirect/src/*"
+      "@codelab/frontend-application-atom/views": [
+        "libs/frontend/application/atom/src/views/index.ts"
       ],
-      "@codelab/frontend-domain-renderer/*": [
-        "libs/frontend/domain/renderer/src/*"
+      "@codelab/frontend-application-auth-guard/graphql": [
+        "libs/frontend/application/auth-guard/src/graphql/index.ts"
       ],
-      "@codelab/frontend-domain-resource/*": [
-        "libs/frontend/domain/resource/src/*"
+      "@codelab/frontend-application-auth-guard/services": [
+        "libs/frontend/application/auth-guard/src/services/index.ts"
       ],
-      "@codelab/frontend-domain-shared/*": [
-        "libs/frontend/domain/shared/src/*"
+      "@codelab/frontend-application-auth-guard/use-cases": [
+        "libs/frontend/application/auth-guard/src/use-cases/index.ts"
       ],
-      "@codelab/frontend-domain-store/*": ["libs/frontend/domain/store/src/*"],
-      "@codelab/frontend-domain-style/*": ["libs/frontend/domain/style/src/*"],
-      "@codelab/frontend-domain-tag/*": ["libs/frontend/domain/tag/src/*"],
-      "@codelab/frontend-domain-type/*": ["libs/frontend/domain/type/src/*"],
-      "@codelab/frontend-domain-user/*": ["libs/frontend/domain/user/src/*"],
-      "@codelab/frontend-presentation-components-css-editor/*": [
-        "libs/frontend/presentation/components/css-editor/src/*"
+      "@codelab/frontend-application-auth-guard/use-cases/create-auth-guard": [
+        "libs/frontend/application/auth-guard/src/use-cases/create-auth-guard/index.ts"
       ],
-      "@codelab/frontend-presentation-view/*": [
-        "libs/frontend/presentation/view/src/*"
+      "@codelab/frontend-application-auth-guard/use-cases/delete-auth-guard": [
+        "libs/frontend/application/auth-guard/src/use-cases/delete-auth-guard/index.ts"
+      ],
+      "@codelab/frontend-application-auth-guard/use-cases/get-auth-guard": [
+        "libs/frontend/application/auth-guard/src/use-cases/get-auth-guard/index.ts"
+      ],
+      "@codelab/frontend-application-auth-guard/use-cases/primary-sidebar": [
+        "libs/frontend/application/auth-guard/src/use-cases/primary-sidebar/index.ts"
+      ],
+      "@codelab/frontend-application-auth-guard/use-cases/update-auth-guard": [
+        "libs/frontend/application/auth-guard/src/use-cases/update-auth-guard/index.ts"
+      ],
+      "@codelab/frontend-application-auth-guard/views": [
+        "libs/frontend/application/auth-guard/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-builder/dnd": [
+        "libs/frontend/application/builder/src/dnd/index.ts"
+      ],
+      "@codelab/frontend-application-builder/graphql": [
+        "libs/frontend/application/builder/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-builder/hooks": [
+        "libs/frontend/application/builder/src/hooks/index.ts"
+      ],
+      "@codelab/frontend-application-builder/sections": [
+        "libs/frontend/application/builder/src/sections/index.ts"
+      ],
+      "@codelab/frontend-application-builder/services": [
+        "libs/frontend/application/builder/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases": [
+        "libs/frontend/application/builder/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-builder/utils": [
+        "libs/frontend/application/builder/src/utils/index.ts"
+      ],
+      "@codelab/frontend-application-builder/views": [
+        "libs/frontend/application/builder/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-component/graphql": [
+        "libs/frontend/application/component/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-component/services": [
+        "libs/frontend/application/component/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases": [
+        "libs/frontend/application/component/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/create-component": [
+        "libs/frontend/application/component/src/use-cases/create-component/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/delete-component": [
+        "libs/frontend/application/component/src/use-cases/delete-component/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/import-component": [
+        "libs/frontend/application/component/src/use-cases/import-component/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/update-component": [
+        "libs/frontend/application/component/src/use-cases/update-component/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/update-component-props": [
+        "libs/frontend/application/component/src/use-cases/update-component-props/index.ts"
+      ],
+      "@codelab/frontend-application-component/views": [
+        "libs/frontend/application/component/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-dnd/collision-detection": [
+        "libs/frontend/application/dnd/src/collision-detection/index.ts"
+      ],
+      "@codelab/frontend-application-dnd/components": [
+        "libs/frontend/application/dnd/src/components/index.ts"
+      ],
+      "@codelab/frontend-application-dnd/graphql": [
+        "libs/frontend/application/dnd/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-dnd/services": [
+        "libs/frontend/application/dnd/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-dnd/use-cases": [
+        "libs/frontend/application/dnd/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-dnd/views": [
+        "libs/frontend/application/dnd/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-domain/graphql": [
+        "libs/frontend/application/domain/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-domain/services": [
+        "libs/frontend/application/domain/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-domain/use-cases": [
+        "libs/frontend/application/domain/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-domain/use-cases/create-domain": [
+        "libs/frontend/application/domain/src/use-cases/create-domain/index.ts"
+      ],
+      "@codelab/frontend-application-domain/use-cases/delete-domain": [
+        "libs/frontend/application/domain/src/use-cases/delete-domain/index.ts"
+      ],
+      "@codelab/frontend-application-domain/use-cases/get-domain": [
+        "libs/frontend/application/domain/src/use-cases/get-domain/index.ts"
+      ],
+      "@codelab/frontend-application-domain/use-cases/update-domain": [
+        "libs/frontend/application/domain/src/use-cases/update-domain/index.ts"
+      ],
+      "@codelab/frontend-application-domain/views": [
+        "libs/frontend/application/domain/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-element/graphql": [
+        "libs/frontend/application/element/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-element/services": [
+        "libs/frontend/application/element/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases": [
+        "libs/frontend/application/element/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/create-element": [
+        "libs/frontend/application/element/src/use-cases/create-element/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/delete-element": [
+        "libs/frontend/application/element/src/use-cases/delete-element/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/hook-description": [
+        "libs/frontend/application/element/src/use-cases/hook-description/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/hook-list": [
+        "libs/frontend/application/element/src/use-cases/hook-list/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/move-element": [
+        "libs/frontend/application/element/src/use-cases/move-element/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/remove-hook-from-element": [
+        "libs/frontend/application/element/src/use-cases/remove-hook-from-element/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/update-element": [
+        "libs/frontend/application/element/src/use-cases/update-element/index.ts"
+      ],
+      "@codelab/frontend-application-element/use-cases/update-element-props": [
+        "libs/frontend/application/element/src/use-cases/update-element-props/index.ts"
+      ],
+      "@codelab/frontend-application-element/validation": [
+        "libs/frontend/application/element/src/validation/index.ts"
+      ],
+      "@codelab/frontend-application-element/views": [
+        "libs/frontend/application/element/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/graphql": [
+        "libs/frontend/application/lambda/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/services": [
+        "libs/frontend/application/lambda/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/use-cases": [
+        "libs/frontend/application/lambda/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/use-cases/create-lambda": [
+        "libs/frontend/application/lambda/src/use-cases/create-lambda/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/use-cases/delete-lambda": [
+        "libs/frontend/application/lambda/src/use-cases/delete-lambda/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/use-cases/execute-lambda": [
+        "libs/frontend/application/lambda/src/use-cases/execute-lambda/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/use-cases/get-lambdas": [
+        "libs/frontend/application/lambda/src/use-cases/get-lambdas/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/use-cases/update-lambda": [
+        "libs/frontend/application/lambda/src/use-cases/update-lambda/index.ts"
+      ],
+      "@codelab/frontend-application-lambda/views": [
+        "libs/frontend/application/lambda/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-page/graphql": [
+        "libs/frontend/application/page/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-page/services": [
+        "libs/frontend/application/page/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases": [
+        "libs/frontend/application/page/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases/create-page": [
+        "libs/frontend/application/page/src/use-cases/create-page/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases/delete-page": [
+        "libs/frontend/application/page/src/use-cases/delete-page/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases/get-pages": [
+        "libs/frontend/application/page/src/use-cases/get-pages/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases/update-page": [
+        "libs/frontend/application/page/src/use-cases/update-page/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases/update-page-tab": [
+        "libs/frontend/application/page/src/use-cases/update-page-tab/index.ts"
+      ],
+      "@codelab/frontend-application-page/views": [
+        "libs/frontend/application/page/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-prop/graphql": [
+        "libs/frontend/application/prop/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-prop/services": [
+        "libs/frontend/application/prop/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-prop/use-cases": [
+        "libs/frontend/application/prop/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-prop/views": [
+        "libs/frontend/application/prop/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-redirect/graphql": [
+        "libs/frontend/application/redirect/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-redirect/services": [
+        "libs/frontend/application/redirect/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-redirect/use-cases": [
+        "libs/frontend/application/redirect/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-redirect/use-cases/create-redirect": [
+        "libs/frontend/application/redirect/src/use-cases/create-redirect/index.ts"
+      ],
+      "@codelab/frontend-application-redirect/use-cases/delete-redirect": [
+        "libs/frontend/application/redirect/src/use-cases/delete-redirect/index.ts"
+      ],
+      "@codelab/frontend-application-redirect/use-cases/update-redirect": [
+        "libs/frontend/application/redirect/src/use-cases/update-redirect/index.ts"
+      ],
+      "@codelab/frontend-application-redirect/views": [
+        "libs/frontend/application/redirect/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-renderer/atoms": [
+        "libs/frontend/application/renderer/src/atoms/index.ts"
+      ],
+      "@codelab/frontend-application-renderer/components": [
+        "libs/frontend/application/renderer/src/components/index.ts"
+      ],
+      "@codelab/frontend-application-renderer/graphql": [
+        "libs/frontend/application/renderer/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-renderer/hooks": [
+        "libs/frontend/application/renderer/src/hooks/index.ts"
+      ],
+      "@codelab/frontend-application-renderer/services": [
+        "libs/frontend/application/renderer/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-renderer/use-cases": [
+        "libs/frontend/application/renderer/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-renderer/views": [
+        "libs/frontend/application/renderer/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-resource/components": [
+        "libs/frontend/application/resource/src/components/index.ts"
+      ],
+      "@codelab/frontend-application-resource/graphql": [
+        "libs/frontend/application/resource/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-resource/services": [
+        "libs/frontend/application/resource/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-resource/use-cases": [
+        "libs/frontend/application/resource/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-resource/use-cases/create-resource": [
+        "libs/frontend/application/resource/src/use-cases/create-resource/index.ts"
+      ],
+      "@codelab/frontend-application-resource/use-cases/delete-resource": [
+        "libs/frontend/application/resource/src/use-cases/delete-resource/index.ts"
+      ],
+      "@codelab/frontend-application-resource/use-cases/get-resource": [
+        "libs/frontend/application/resource/src/use-cases/get-resource/index.ts"
+      ],
+      "@codelab/frontend-application-resource/use-cases/primary-sidebar": [
+        "libs/frontend/application/resource/src/use-cases/primary-sidebar/index.ts"
+      ],
+      "@codelab/frontend-application-resource/use-cases/update-resource": [
+        "libs/frontend/application/resource/src/use-cases/update-resource/index.ts"
+      ],
+      "@codelab/frontend-application-resource/views": [
+        "libs/frontend/application/resource/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-shared-auth": [
+        "libs/frontend/application/shared/auth/src/index.ts"
+      ],
+      "@codelab/frontend-application-shared-data": [
+        "libs/frontend/application/shared/data/src/index.ts"
+      ],
+      "@codelab/frontend-application-shared-store/pagination": [
+        "libs/frontend/application/shared/store/src/pagination"
+      ],
+      "@codelab/frontend-application-shared-store/provider": [
+        "libs/frontend/application/shared/store/src/provider"
+      ],
+      "@codelab/frontend-application-shared-store/repository": [
+        "libs/frontend/application/shared/store/src/repository"
+      ],
+      "@codelab/frontend-application-shared-store/services": [
+        "libs/frontend/application/shared/store/src/services"
+      ],
+      "@codelab/frontend-application-shared-store/ui": [
+        "libs/frontend/application/shared/store/src/ui"
+      ],
+      "@codelab/frontend-application-store/graphql": [
+        "libs/frontend/application/store/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-store/services": [
+        "libs/frontend/application/store/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-store/use-cases": [
+        "libs/frontend/application/store/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-store/use-cases/action-hooks": [
+        "libs/frontend/application/store/src/use-cases/action-hooks/index.ts"
+      ],
+      "@codelab/frontend-application-store/use-cases/create-action": [
+        "libs/frontend/application/store/src/use-cases/create-action/index.ts"
+      ],
+      "@codelab/frontend-application-store/use-cases/delete-action": [
+        "libs/frontend/application/store/src/use-cases/delete-action/index.ts"
+      ],
+      "@codelab/frontend-application-store/use-cases/get-actions": [
+        "libs/frontend/application/store/src/use-cases/get-actions/index.ts"
+      ],
+      "@codelab/frontend-application-store/use-cases/get-state": [
+        "libs/frontend/application/store/src/use-cases/get-state/index.ts"
+      ],
+      "@codelab/frontend-application-store/use-cases/update-action": [
+        "libs/frontend/application/store/src/use-cases/update-action/index.ts"
+      ],
+      "@codelab/frontend-application-store/views": [
+        "libs/frontend/application/store/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-style/graphql": [
+        "libs/frontend/application/style/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-style/services": [
+        "libs/frontend/application/style/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-style/use-cases": [
+        "libs/frontend/application/style/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-style/views": [
+        "libs/frontend/application/style/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-tag/graphql": [
+        "libs/frontend/application/tag/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-tag/services": [
+        "libs/frontend/application/tag/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-tag/use-cases": [
+        "libs/frontend/application/tag/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-tag/use-cases/create-tag": [
+        "libs/frontend/application/tag/src/use-cases/create-tag/index.ts"
+      ],
+      "@codelab/frontend-application-tag/use-cases/delete-tags": [
+        "libs/frontend/application/tag/src/use-cases/delete-tags/index.ts"
+      ],
+      "@codelab/frontend-application-tag/use-cases/get-tags": [
+        "libs/frontend/application/tag/src/use-cases/get-tags/index.ts"
+      ],
+      "@codelab/frontend-application-tag/use-cases/primary-sidebar": [
+        "libs/frontend/application/tag/src/use-cases/primary-sidebar/index.ts"
+      ],
+      "@codelab/frontend-application-tag/use-cases/update-tag": [
+        "libs/frontend/application/tag/src/use-cases/update-tag/index.ts"
+      ],
+      "@codelab/frontend-application-tag/views": [
+        "libs/frontend/application/tag/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-test/graphql": [
+        "libs/frontend/application/test/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-test/services": [
+        "libs/frontend/application/test/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-test/use-cases": [
+        "libs/frontend/application/test/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-test/views": [
+        "libs/frontend/application/test/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-type/graphql": [
+        "libs/frontend/application/type/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-type/interface-form": [
+        "libs/frontend/application/type/src/interface-form/index.ts"
+      ],
+      "@codelab/frontend-application-type/props-form": [
+        "libs/frontend/application/type/src/props-form/index.ts"
+      ],
+      "@codelab/frontend-application-type/services": [
+        "libs/frontend/application/type/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases": [
+        "libs/frontend/application/type/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/create-field": [
+        "libs/frontend/application/type/src/use-cases/create-field/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/create-type": [
+        "libs/frontend/application/type/src/use-cases/create-type/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/delete-field": [
+        "libs/frontend/application/type/src/use-cases/delete-field/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/delete-type": [
+        "libs/frontend/application/type/src/use-cases/delete-type/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/get-fields": [
+        "libs/frontend/application/type/src/use-cases/get-fields/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/get-types": [
+        "libs/frontend/application/type/src/use-cases/get-types/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/hooks": [
+        "libs/frontend/application/type/src/use-cases/hooks/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/primary-sidebar": [
+        "libs/frontend/application/type/src/use-cases/primary-sidebar/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/select-types": [
+        "libs/frontend/application/type/src/use-cases/select-types/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/update-field": [
+        "libs/frontend/application/type/src/use-cases/update-field/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/update-type": [
+        "libs/frontend/application/type/src/use-cases/update-type/index.ts"
+      ],
+      "@codelab/frontend-application-type/views": [
+        "libs/frontend/application/type/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-user/graphql": [
+        "libs/frontend/application/user/src/graphql/index.ts"
+      ],
+      "@codelab/frontend-application-user/services": [
+        "libs/frontend/application/user/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-user/use-cases": [
+        "libs/frontend/application/user/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-application-user/views": [
+        "libs/frontend/application/user/src/views/index.ts"
+      ],
+      "@codelab/frontend-domain-action/services": [
+        "libs/frontend/domain/action/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-action/store": [
+        "libs/frontend/domain/action/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-action/test": [
+        "libs/frontend/domain/action/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-app/services": [
+        "libs/frontend/domain/app/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-app/store": [
+        "libs/frontend/domain/app/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-app/test": [
+        "libs/frontend/domain/app/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-atom/services": [
+        "libs/frontend/domain/atom/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-atom/store": [
+        "libs/frontend/domain/atom/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-atom/test": [
+        "libs/frontend/domain/atom/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-auth-guard/services": [
+        "libs/frontend/domain/auth-guard/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-auth-guard/store": [
+        "libs/frontend/domain/auth-guard/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-auth-guard/test": [
+        "libs/frontend/domain/auth-guard/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-component/services": [
+        "libs/frontend/domain/component/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-component/store": [
+        "libs/frontend/domain/component/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-component/test": [
+        "libs/frontend/domain/component/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-domain/store": [
+        "libs/frontend/domain/domain/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-element/services": [
+        "libs/frontend/domain/element/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-element/store": [
+        "libs/frontend/domain/element/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-element/test": [
+        "libs/frontend/domain/element/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-element/use-cases": [
+        "libs/frontend/domain/element/src/use-cases/index.ts"
+      ],
+      "@codelab/frontend-domain-element/use-cases/element-options": [
+        "libs/frontend/domain/element/src/use-cases/element-options/index.ts"
+      ],
+      "@codelab/frontend-domain-element/use-cases/incremented-name": [
+        "libs/frontend/domain/element/src/use-cases/incremented-name/index.ts"
+      ],
+      "@codelab/frontend-domain-page/services": [
+        "libs/frontend/domain/page/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-page/store": [
+        "libs/frontend/domain/page/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-page/test": [
+        "libs/frontend/domain/page/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-prop/store": [
+        "libs/frontend/domain/prop/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-prop/test": [
+        "libs/frontend/domain/prop/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-prop/utils": [
+        "libs/frontend/domain/prop/src/utils/index.ts"
+      ],
+      "@codelab/frontend-domain-redirect/services": [
+        "libs/frontend/domain/redirect/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-redirect/store": [
+        "libs/frontend/domain/redirect/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-redirect/test": [
+        "libs/frontend/domain/redirect/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-resource/services": [
+        "libs/frontend/domain/resource/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-resource/store": [
+        "libs/frontend/domain/resource/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-resource/test": [
+        "libs/frontend/domain/resource/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-shared/test": [
+        "libs/frontend/domain/shared/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-store/services": [
+        "libs/frontend/domain/store/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-store/store": [
+        "libs/frontend/domain/store/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-store/test": [
+        "libs/frontend/domain/store/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-tag/services": [
+        "libs/frontend/domain/tag/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-tag/store": [
+        "libs/frontend/domain/tag/src/store/index.ts"
+      ],
+      "@codelab/frontend-domain-type/services": [
+        "libs/frontend/domain/type/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-type/test": [
+        "libs/frontend/domain/type/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-user/services": [
+        "libs/frontend/domain/user/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-user/store": [
+        "libs/frontend/domain/user/src/store/index.ts"
+      ],
+      "@codelab/frontend-infra-axios": [
+        "libs/frontend/infra/axios/src/index.ts"
+      ],
+      "@codelab/frontend-presentation-components-css-editor": [
+        "libs/frontend/presentation/components/css-editor/src/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components": [
+        "libs/frontend/presentation/view/src/components"
+      ],
+      "@codelab/frontend-presentation-view/sections": [
+        "libs/frontend/presentation/view/src/sections"
+      ],
+      "@codelab/frontend-presentation-view/style": [
+        "libs/frontend/presentation/view/src/style"
+      ],
+      "@codelab/frontend-presentation-view/templates": [
+        "libs/frontend/presentation/view/src/templates"
       ],
       "@codelab/frontend/abstract/application": [
         "libs/frontend/abstract/application/src/index.ts"
@@ -307,9 +896,6 @@
       "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
-      ],
-      "@codelab/frontend/presentation/codelab-ui/*": [
-        "libs/frontend/presentation/codelab-ui/src/*"
       ],
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
@@ -340,7 +926,7 @@
       ],
       "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
       "@codelab/frontend/test/store": ["libs/frontend/test/store/src/index.ts"],
-      "@codelab/shared-infra-auth0/*": ["libs/shared/infra/auth0/src/*"],
+      "@codelab/shared-infra-auth0": ["libs/shared/infra/auth0/src/index.ts"],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],

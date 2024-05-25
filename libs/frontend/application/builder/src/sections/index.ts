@@ -1,3 +1,5 @@
+export * from './config-pane/ConfigPane-InspectorTabContainer/ConfigPaneInspectorTabContainer'
+export * from './content/BuilderTabs'
 export * from './explorer-pane/BuilderPrimarySidebar'
 export * from './explorer-pane/ComponentsPrimarySidebar'
 export * from './StickyTabBarRenderer'

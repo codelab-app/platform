@@ -1,4 +1,4 @@
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth/guards'
+import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { CreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { CreateTypeModal } from '@codelab/frontend-application-type/use-cases/create-type'
 import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'

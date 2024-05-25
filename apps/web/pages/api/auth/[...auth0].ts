@@ -1,4 +1,4 @@
-import { restApiClient } from '@codelab/frontend-application-axios/axios/rest-client'
+import { restApiClient } from '@codelab/frontend-infra-axios'
 import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared-infra-auth0/auth0.provider'
 import type { NextApiRequest, NextApiResponse } from 'next'

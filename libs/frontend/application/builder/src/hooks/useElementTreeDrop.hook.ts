@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { IElementTree } from '@codelab/frontend/abstract/domain'
 import { notify } from '@codelab/frontend/shared/utils'
-import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation/useRequiredParentValidator.hook'
+import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
