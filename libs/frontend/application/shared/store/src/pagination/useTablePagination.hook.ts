@@ -1,3 +1,5 @@
+'use client'
+
 import type {
   Filterables,
   IPaginationService,
@@ -30,7 +32,7 @@ export const useTablePagination = <
   pathname,
 }: Props<U>) => {
   const router = useRouter()
-  const params = useSearchParams()
+  const params = useSearchParams()!
 
   const query = {
     ...queryString.parse(params.toString()),
