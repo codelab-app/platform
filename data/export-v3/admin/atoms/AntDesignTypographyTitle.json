@@ -6,6 +6,22 @@
         "api": {
           "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
         },
+        "defaultValues": "{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}",
+        "description": null,
+        "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "89169508-6b75-4064-8c36-ce9c34b5ea27",
+        "key": "children",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
+        },
         "defaultValues": null,
         "description": null,
         "fieldType": {
@@ -189,6 +205,26 @@
         "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b",
         "kind": "InterfaceType",
         "name": "AntDesignTypographyTitle API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "kind": "CodeMirrorType",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "kind": "RichTextType",
+            "name": "RichTextType"
+          }
+        ]
       },
       {
         "__typename": "EnumType",
