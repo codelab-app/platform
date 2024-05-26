@@ -1,6 +1,3 @@
-import type { NextRouter } from 'next/router'
-import type { ParsedUrlQuery } from 'querystring'
-
 /**
  * Url param like :details
  */

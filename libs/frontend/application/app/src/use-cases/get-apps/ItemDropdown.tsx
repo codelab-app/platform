@@ -13,7 +13,7 @@ import { useAsync } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import React from 'react'
 

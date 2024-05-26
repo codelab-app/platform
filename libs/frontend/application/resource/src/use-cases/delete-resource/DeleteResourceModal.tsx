@@ -9,7 +9,7 @@ import {
   ModalForm,
 } from '@codelab/frontend-presentation-view/components'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
@@ -23,7 +23,7 @@ export const DeleteResourceModal = observer(() => {
     resourceService.deleteModal.close()
 
     if (resourceId === resource?.id) {
-      void router.push({ pathname: PageType.Resources, query: {} })
+      void router.push(PageType.Resources)
     }
   }
 

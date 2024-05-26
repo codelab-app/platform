@@ -1,13 +1,9 @@
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
+import { useParams, useRouter } from 'next/navigation'
 
 export const useUserQuery = () => {
-  const { query } = useRouter()
-  const userSlug = query.userSlug as string
-
-  // if (!userSlug) {
-  //   throw new Error('Missing userSlug')
-  // }
+  const params = useParams()
+  const userSlug = params.userSlug as string
 
   return {
     userName: getNameFromSlug(userSlug),

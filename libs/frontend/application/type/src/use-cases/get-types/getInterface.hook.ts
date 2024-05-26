@@ -1,15 +1,15 @@
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { useAsync } from '@react-hookz/web'
-import { useRouter } from 'next/router'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 export const useCurrentInterfaceId = () => {
-  const { query } = useRouter()
-  const interfaceId = query.interfaceId as string
+  const searchParams = useSearchParams()
+  const interfaceId = searchParams.get('interfaceId')
 
   if (!interfaceId) {
-    console.error(
+    throw new Error(
       'useGetCurrentInterface: No interfaceId found in query params',
     )
   }

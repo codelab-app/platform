@@ -1,12 +1,12 @@
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
+import { useParams, useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 
 export const useCurrentApp = () => {
   const { appService } = useStore()
-  const { query } = useRouter()
-  const appSlug = query.appSlug as string
+  const params = useParams()
+  const appSlug = params.appSlug as string
   const appName = getNameFromSlug(appSlug)
 
   return useMemo(() => {

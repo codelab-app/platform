@@ -1,8 +1,8 @@
 import isArray from 'lodash/isArray'
-import { useRouter } from 'next/router'
+import { useParams, useRouter } from 'next/navigation'
 
 export const useAuthGuardQuery = () => {
   const { query } = useRouter()
 
-  return isArray(query.authGuardId) ? query.authGuardId[0] : undefined
+  return isArray(params.authGuardId) ? params.authGuardId[0] : undefined
 }

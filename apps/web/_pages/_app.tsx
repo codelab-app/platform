@@ -1,6 +1,9 @@
 import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
-import type { IAppProps } from '@codelab/frontend/abstract/application'
+import type {
+  IAppProps,
+  UrlParams,
+} from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
@@ -10,7 +13,7 @@ import { getEnv } from '@codelab/shared/config'
 import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { registerRootStore, setGlobalConfig } from 'mobx-keystone'
-import { useRouter } from 'next/router'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import config from '../twind.config'
 
@@ -38,7 +41,8 @@ if (getEnv().endpoint.isLocal && getEnv().node.enableWdyr) {
 }
 
 const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
-  const router = useRouter()
+  const params = useParams<Partial<UrlParams>>()
+  const searchParams = useSearchParams()
 
   /**
    * When possible, Fast Refresh attempts to preserve the state of your component between edits. In particular, useState and useRef preserve their previous values as long as you don't change their arguments or the order of the Hook calls.
@@ -46,18 +50,17 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
    * https://nextjs.org/docs/architecture/fast-refresh
    */
   const [store] = useState(() => {
-    const query = router.query
-
     const coreStore = createCoreStore(
       {
         param: {
-          appSlug: `${query['appSlug']}`,
-          componentSlug: `${query['componentSlug']}`,
-          pageSlug: `${query['pageSlug']}`,
-          userSlug: `${query['userSlug']}`,
+          appSlug: params?.appSlug,
+          componentSlug: params?.componentSlug,
+          pageSlug: params?.pageSlug,
+          userSlug: params?.userSlug,
         },
         query: {
-          primarySidebarKey: `${query['primarySidebarKey']}`,
+          primarySidebarKey:
+            searchParams?.get('primarySidebarKey') ?? undefined,
         },
       },
       user,
@@ -69,20 +72,18 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   })
 
   useEffect(() => {
-    const query = router.query
-
     store.routerService.update({
       param: {
-        appSlug: `${query['appSlug']}`,
-        componentSlug: `${query['componentSlug']}`,
-        pageSlug: `${query['pageSlug']}`,
-        userSlug: `${query['userSlug']}`,
+        appSlug: params?.appSlug,
+        componentSlug: params?.componentSlug,
+        pageSlug: params?.pageSlug,
+        userSlug: params?.userSlug,
       },
       query: {
-        primarySidebarKey: `${query['primarySidebarKey']}`,
+        primarySidebarKey: searchParams?.get('primarySidebarKey') ?? undefined,
       },
     })
-  }, [router])
+  }, [params, searchParams])
 
   const { Layout = React.Fragment } = Component as CodelabPage<object, object>
 

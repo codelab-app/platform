@@ -12,7 +12,7 @@ import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
 import { guestUser } from '@codelab/shared/data/test'
 import { registerRootStore } from 'mobx-keystone'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const App = ({ Component, pageProps }: IAppProps) => {
