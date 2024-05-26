@@ -51,7 +51,7 @@ import {
  * - PageElementTree
  * - ComponentElementTree
  */
-@model('@codelab/ElementService')
+@model('@codelab/ElementApplicationService')
 export class ElementService
   extends Model({
     cloneElementService: prop(() => new CloneElementService({})),
