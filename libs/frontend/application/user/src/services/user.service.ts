@@ -7,7 +7,7 @@ import {
   BuilderWidthBreakPoint,
 } from '@codelab/frontend/abstract/application'
 import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
-import { UserDomainService } from '@codelab/frontend-domain-user/services/user.domain.service'
+import { UserDomainService } from '@codelab/frontend-domain-user/services'
 import { User } from '@codelab/frontend-domain-user/store'
 import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'

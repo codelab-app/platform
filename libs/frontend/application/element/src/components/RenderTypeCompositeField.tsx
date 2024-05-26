@@ -1,6 +1,6 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { SelectAtom } from '@codelab/frontend-application-atom/use-cases/select-atom'
-import { SelectComponent } from '@codelab/frontend-application-type/interface-form/fields'
+import { SelectComponent } from '@codelab/frontend-application-type/interface-form'
 import { DisplayIfField } from '@codelab/frontend-presentation-view/components'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'

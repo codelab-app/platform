@@ -1,6 +1,6 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
-import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'

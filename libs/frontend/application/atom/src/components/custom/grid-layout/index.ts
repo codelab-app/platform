@@ -1,1 +1,1 @@
-export { GridLayout } from './GridLayout'
+export * from './GridLayout'

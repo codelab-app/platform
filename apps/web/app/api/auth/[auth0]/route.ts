@@ -2,7 +2,7 @@ import 'server-only'
 import type { Session } from '@auth0/nextjs-auth0'
 import { restApiClient } from '@codelab/frontend-infra-axios'
 import { getEnv } from '@codelab/shared/config'
-import { auth0Instance } from '@codelab/shared-infra-auth0/auth0.provider'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import type { NextRequest } from 'next/server'
 
 export const maxDuration = 60

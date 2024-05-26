@@ -84,13 +84,13 @@ import {
 } from '@codelab/frontend-application-prop/services'
 import { RedirectService } from '@codelab/frontend-application-redirect/services'
 import {
+  RendererApplicationService,
   RuntimeComponentService,
   RuntimeElementService,
   RuntimePageService,
 } from '@codelab/frontend-application-renderer/services'
-import { RendererApplicationService } from '@codelab/frontend-application-renderer/services/renderer.application.service'
 import { ResourceService } from '@codelab/frontend-application-resource/services'
-import { RouterService } from '@codelab/frontend-application-shared-store/services/router.service'
+import { RouterService } from '@codelab/frontend-application-shared-store/services'
 import {
   ActionService,
   actionServiceContext,

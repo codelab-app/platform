@@ -13,7 +13,7 @@ export const codelabAtoms: IAtomRendererRecord = {
   ),
   [IAtomType.TextList]: dynamicLoader(() =>
     import(
-      '@codelab/frontend-application-atom/components/custom/textList'
+      '@codelab/frontend-application-atom/components/custom/text-list'
     ).then((mod) => mod.TextList),
   ),
   [IAtomType.Text]: TextEditor,
