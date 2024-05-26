@@ -22,6 +22,22 @@
         "api": {
           "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
         },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "id": "e1338295-b2a8-44c5-aa42-f28521b82b27"
+        },
+        "id": "b92c072a-f1c8-4fc0-801a-fca15eb0cf9d",
+        "key": "items",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+        },
         "defaultValues": null,
         "description": null,
         "fieldType": {
@@ -33,6 +49,82 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
+        "key": "className",
+        "name": "Class Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48",
+        "key": "href",
+        "name": "Href",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "96a23f61-6652-4167-b252-426e2272cd10",
+        "key": "onClick",
+        "name": "On Click",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f894db32-ccdc-460f-8d74-2f69b049a09d",
+        "key": "title",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],
     "id": "8562d529-43b0-4927-96d3-56f1264e6a50",
@@ -45,6 +137,102 @@
         "id": "8562d529-43b0-4927-96d3-56f1264e6a50",
         "kind": "InterfaceType",
         "name": "AntDesignBreadcrumb API"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "f894db32-ccdc-460f-8d74-2f69b049a09d",
+            "key": "title",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ActionType",
+              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+              "kind": "ActionType",
+              "name": "ActionType"
+            },
+            "id": "96a23f61-6652-4167-b252-426e2272cd10",
+            "key": "onClick",
+            "name": "On Click",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48",
+            "key": "href",
+            "name": "Href",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
+            "key": "className",
+            "name": "Class Name",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          }
+        ],
+        "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396",
+        "kind": "InterfaceType",
+        "name": "AntDesignBreadcrumbItem API"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "e1338295-b2a8-44c5-aa42-f28521b82b27",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396",
+          "kind": "InterfaceType",
+          "name": "AntDesignBreadcrumbItem API"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignBreadcrumbItems Array"
       }
     ]
   },
