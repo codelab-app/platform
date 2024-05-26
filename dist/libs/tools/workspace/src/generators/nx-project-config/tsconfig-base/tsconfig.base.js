@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateBaseTsconfig = void 0;
 const orchestrator_1 = require("./orchestrator");
+/**
+ * Update alias map then run `nx build tools-workspace && pnpm install && nx generate @codelab/tools-workspace:nx-project-config --no-interactive --verbose`
+ */
 const updateBaseTsconfig = (tree, project) => {
     const baseTsConfigFile = 'tsconfig.base.json';
     if (!tree.exists(baseTsConfigFile)) {

@@ -63,8 +63,8 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
-        // "unused-imports/no-unused-imports-ts": "error",
         "@typescript-eslint/no-unused-vars": "off",
+        // "unused-imports/no-unused-imports": "error",
         "sort-destructure-keys/sort-destructure-keys": [
           "error",
           { "caseSensitive": false }

@@ -1,16 +1,7 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useRegeneratePages } from '@codelab/frontend-application-domain'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  emptyJsonSchema,
-  ModalForm,
-} from '@codelab/frontend-presentation-view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
 
 export const BuildAppModal = observer(() => {
   // const store = useStore()

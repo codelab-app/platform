@@ -11,8 +11,8 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
   ICreatePageData,
   IElementRenderTypeDto,

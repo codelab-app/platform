@@ -12,7 +12,7 @@ import {
   getStoreDomainService,
   IComponentDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
-import { getTypeDomainService } from '@codelab/frontend/domain/type'
+import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
 import type {
   AtomDevelopmentFragment,
   GetComponentDevelopmentQuery,

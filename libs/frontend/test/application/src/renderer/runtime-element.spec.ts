@@ -1,10 +1,9 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { RuntimeElementModel } from '@codelab/frontend-application-renderer/model'
+import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
-import { createTestStore } from '@codelab/frontend-application-test/store'
+import { createTestStore } from '@codelab/frontend-application-test'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render, screen } from '@testing-library/react'
-import { setGlobalConfig } from 'mobx-keystone'
 import React from 'react'
 
 describe('Runtime Element', () => {

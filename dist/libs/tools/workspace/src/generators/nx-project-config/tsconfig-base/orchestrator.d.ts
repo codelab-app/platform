@@ -1,9 +1,4 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit';
-import { type Paths } from './utils';
-/**
- * Does not work with multiple wildcards `/*\/*`
- */
-export declare const aliasMap: Paths;
 /**
  * For each library, go through the regex patterns and see if any callbacks shoudl be applied
  */

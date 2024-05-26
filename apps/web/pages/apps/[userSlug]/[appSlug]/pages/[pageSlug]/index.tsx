@@ -10,7 +10,7 @@ import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 const PagePreviewView: CodelabPage = observer(() => {

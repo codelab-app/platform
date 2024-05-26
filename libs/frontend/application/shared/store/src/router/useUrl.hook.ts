@@ -1,5 +1,5 @@
 import type { UrlParams } from '@codelab/frontend/abstract/application'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   type ReadonlyURLSearchParams,
   useParams,

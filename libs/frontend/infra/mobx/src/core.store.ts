@@ -111,7 +111,7 @@ import { UserService } from '@codelab/frontend-application-user/services'
 import { TagDomainService } from '@codelab/frontend-domain-tag/services'
 import { typeDomainServiceContext } from '@codelab/frontend-domain-type/services'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
-import { Model, model, prop, registerRootStore } from 'mobx-keystone'
+import { Model, model, prop } from 'mobx-keystone'
 
 export const createCoreStore = (router: IRouterProps, user: Auth0IdToken) => {
   @model('@codelab/CoreStore')

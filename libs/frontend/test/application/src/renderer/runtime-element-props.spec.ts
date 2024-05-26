@@ -2,7 +2,7 @@ import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/applicat
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
-import { createTestStore } from '@codelab/frontend-application-test/store'
+import { createTestStore } from '@codelab/frontend-application-test'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { act, render } from '@testing-library/react'
