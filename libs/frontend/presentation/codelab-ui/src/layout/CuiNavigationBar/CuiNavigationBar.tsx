@@ -1,4 +1,5 @@
 import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import type { LinkProps } from 'next/link'
@@ -46,9 +47,7 @@ export const CuiNavigationBar = ({
   primaryItems,
   secondaryItems,
 }: CuiNavigationBarProps) => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const primarySidebarKey = searchParams.get('primarySidebarKey')
+  const { pathname, primarySidebarKey } = useUrl()
   const selectedKey = primarySidebarKey || pathname
 
   return (
@@ -72,13 +71,13 @@ export const CuiNavigationBar = ({
         defaultOpenKeys={[]}
         items={primaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={[selectedKey]}
+        selectedKeys={selectedKey ? [selectedKey] : []}
       />
       <Menu
         defaultOpenKeys={[]}
         items={secondaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={[selectedKey]}
+        selectedKeys={selectedKey ? [selectedKey] : []}
       />
     </div>
   )

@@ -1,5 +1,6 @@
 import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -21,9 +22,8 @@ export const DashboardTemplate = observer(
     PrimarySidebar,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
     const { routerService } = useStore()
+    const { primarySidebarKey } = useUrl()
     const { appSlug, componentSlug, pageSlug, userSlug } = routerService
-    const searchParams = useSearchParams()
-    const primarySidebarKey = searchParams.get('primarySidebarKey')
 
     // const { appSlug } = useAppQuery()
     // const { pageSlug } = usePageQuery()

@@ -571,8 +571,8 @@
       "@codelab/frontend-application-shared-store/repository": [
         "libs/frontend/application/shared/store/src/repository"
       ],
-      "@codelab/frontend-application-shared-store/services": [
-        "libs/frontend/application/shared/store/src/services"
+      "@codelab/frontend-application-shared-store/router": [
+        "libs/frontend/application/shared/store/src/router"
       ],
       "@codelab/frontend-application-shared-store/ui": [
         "libs/frontend/application/shared/store/src/ui"

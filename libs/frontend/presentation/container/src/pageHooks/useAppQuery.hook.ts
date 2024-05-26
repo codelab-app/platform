@@ -1,11 +1,9 @@
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 
 export const useAppQuery = () => {
-  const params = useParams()
-  const searchParams = useSearchParams()
-  const appSlug = params.appSlug as string
-  const primarySidebarKey = searchParams.get('primarySidebarKey')
+  const { appSlug, primarySidebarKey } = useUrl()
 
   return {
     appName: getNameFromSlug(appSlug),

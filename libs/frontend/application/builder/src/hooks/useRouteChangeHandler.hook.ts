@@ -2,7 +2,14 @@
 
 import type { UrlParams } from '@codelab/frontend/abstract/application'
 import type { PageType } from '@codelab/frontend/abstract/types'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import {
+  type ReadonlyURLSearchParams,
+  useParams,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
 import queryString from 'query-string'
 import React, { useEffect } from 'react'
 import type { IBuilderPage } from '../builder-router'
@@ -20,8 +27,8 @@ export const useRouteChangeHandler = (
   pathname: PageType.PageBuilder | PageType.PageDetail,
 ) => {
   const router = useRouter()
-  const params = useParams<Partial<UrlParams>>()
-  const searchParams = useSearchParams()
+  // Usage in page router causes first pass to be undefined
+  const { params, query: queryParams } = useUrl()
 
   // Define the route change handler inside useEffect or as a useMemo to avoid re-creation on each render
   useEffect(() => {
@@ -43,10 +50,10 @@ export const useRouteChangeHandler = (
       const url = queryString.stringifyUrl({
         query: {
           ...query,
-          appSlug: params.appSlug,
+          appSlug: params?.appSlug,
           pageSlug: page.slug,
-          primarySidebarKey: searchParams.get('primarySidebarKey'),
-          userSlug: params.userSlug,
+          primarySidebarKey: queryParams['primarySidebarKey'],
+          userSlug: params?.userSlug,
         },
         url: pathname,
       })
