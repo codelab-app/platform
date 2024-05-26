@@ -1,9 +1,8 @@
-import isArray from 'lodash/isArray'
-import { useParams, useRouter } from 'next/navigation'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 
 export const useResourceQuery = () => {
-  const { query } = useRouter()
+  const { resourceId } = useUrl()
 
   // TODO: use slugs instead
-  return isArray(query.resourceId) ? query.resourceId[0] : undefined
+  return resourceId
 }

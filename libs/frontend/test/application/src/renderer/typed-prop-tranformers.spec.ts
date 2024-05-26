@@ -1,8 +1,8 @@
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
-import { createTestStore } from '@codelab/frontend-application-test/store'
+import { createTestStore } from '@codelab/frontend-application-test'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
-import { act, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import React, { isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {

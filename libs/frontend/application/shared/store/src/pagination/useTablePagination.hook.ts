@@ -9,13 +9,10 @@ import type {
 import type { TablePaginationConfig } from 'antd'
 import debounce from 'lodash/debounce'
 import isMatch from 'lodash/isMatch'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import queryString from 'query-string'
 import React, { useEffect } from 'react'
-import {
-  extractTableQueries,
-  type TableQueryString,
-} from './extract-table-queries'
+import { extractTableQueries } from './extract-table-queries'
 
 interface Props<T> {
   filterTypes?: Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>

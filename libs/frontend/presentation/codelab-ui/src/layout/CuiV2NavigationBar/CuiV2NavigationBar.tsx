@@ -1,15 +1,10 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
 import { Menu } from 'antd'
 import classNames from 'classnames'
-import type { LinkProps } from 'next/link'
-import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import type { ReactNode } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
 import React from 'react'
 import {
   type CuiNavigationBarProps,
   mapNavBarItemToMenuItem,
-  type NavigationBarItem,
 } from '../CuiNavigationBar'
 import styles from '../CuiNavigationBar/CuiNavigationBar.module.css'
 

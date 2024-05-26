@@ -11,7 +11,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { Renderer } from '../model/renderer.model'
+import { Renderer } from '../store/renderer.model'
 
 @model('@codelab/RendererApplicationService')
 export class RendererApplicationService

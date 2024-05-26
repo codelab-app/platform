@@ -1,7 +1,4 @@
 import { type ProjectConfiguration, type Tree } from '@nx/devkit';
-export interface Paths {
-    [key: string]: Array<string>;
-}
 export declare const sortKeys: (object: object) => object;
 /**
  *

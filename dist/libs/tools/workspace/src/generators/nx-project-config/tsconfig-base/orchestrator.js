@@ -1,40 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateReferencePathsForLib = exports.handleProjectNamePatterns = exports.aliasMap = void 0;
+exports.generateReferencePathsForLib = exports.handleProjectNamePatterns = void 0;
 const tslib_1 = require("tslib");
 const path_1 = tslib_1.__importDefault(require("path"));
+const alias_map_1 = require("./alias-map");
 const utils_1 = require("./utils");
-/**
- * Does not work with multiple wildcards `/*\/*`
- */
-exports.aliasMap = {
-    '^frontend-application-(?!shared)[a-z]+$': [
-        'graphql',
-        'services',
-        'views',
-        'use-cases/*',
-    ],
-    '^frontend-application-atom$': [
-        'components/ant-design/*',
-        'components/custom/*',
-        'components/mui/*',
-    ],
-    '^frontend-application-builder$': ['dnd', 'hooks', 'sections', 'utils'],
-    '^frontend-application-dnd$': ['components', 'collision-detection'],
-    '^frontend-application-renderer$': ['atoms', 'components', 'hooks'],
-    '^frontend-application-resource$': ['components'],
-    '^frontend-application-type$': ['interface-form', 'props-form'],
-    '^frontend-domain-[a-z]+$': [
-        'services',
-        'store',
-        'test',
-        'views',
-        'use-cases/*',
-    ],
-    '^frontend-domain-domain$': ['errors'],
-    '^frontend-domain-prop$': ['utils'],
-    '^shared-infra-auth0$': ['client', 'server'],
-};
 /**
  * For each library, go through the regex patterns and see if any callbacks shoudl be applied
  */
@@ -43,7 +13,7 @@ const handleProjectNamePatterns = (project, callback) => {
     if (!projectName) {
         return;
     }
-    Object.entries(exports.aliasMap).forEach(([projectNamePattern, projectFolderPatterns]) => {
+    Object.entries(alias_map_1.aliasMap).forEach(([projectNamePattern, projectFolderPatterns]) => {
         if (new RegExp(projectNamePattern).test(projectName)) {
             console.log('Match with pattern:', projectNamePattern);
             callback(projectFolderPatterns);

@@ -17,21 +17,21 @@ import {
   usePageQuery,
   useUserQuery,
 } from '@codelab/frontend/presentation/container'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import React, { useCallback } from 'react'
 import { BuilderSizeMenu } from './BuilderSizeMenu'
 
 export const PageDetailHeader = observer(() => {
   const router = useRouter()
+  const currentPathname = usePathname()
   const component = useCurrentComponent()
-  const isComponentBuilder = router.pathname === PageType.ComponentBuilder
-  const isComponentPreview = router.pathname === PageType.ComponentPreview
-  const isPageBuilder = router.pathname === PageType.PageBuilder
-  const isPagePreview = router.pathname === PageType.PageDetail
+  const isComponentBuilder = currentPathname === PageType.ComponentBuilder
+  const isComponentPreview = currentPathname === PageType.ComponentPreview
+  const isPageBuilder = currentPathname === PageType.PageBuilder
+  const isPagePreview = currentPathname === PageType.PageDetail
   const { appName, appSlug } = useAppQuery()
   const { pageName, pageSlug } = usePageQuery()
   const { userSlug } = useUserQuery()
@@ -61,8 +61,13 @@ export const PageDetailHeader = observer(() => {
     }
 
     const url = queryString.stringifyUrl({
-      query,
-      url: pathname,
+      query: {
+        appSlug,
+        pageSlug,
+        primarySidebarKey: ExplorerPaneType.PageList,
+        userSlug,
+      },
+      url: PageType.PageBuilder,
     })
 
     return router.push(url)

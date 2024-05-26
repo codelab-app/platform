@@ -1,17 +1,10 @@
 'use client'
 
-import type { UrlParams } from '@codelab/frontend/abstract/application'
 import type { PageType } from '@codelab/frontend/abstract/types'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import type { Maybe } from '@codelab/shared/abstract/types'
-import {
-  type ReadonlyURLSearchParams,
-  useParams,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import type { IBuilderPage } from '../builder-router'
 import { extractPathParamsFromUrlInstance } from '../builder-router'
 

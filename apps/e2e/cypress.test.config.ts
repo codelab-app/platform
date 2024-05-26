@@ -1,7 +1,6 @@
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
-import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'
 import path from 'path'
 
 export const testCypressJsonConfig: Cypress.EndToEndConfigOptions = {

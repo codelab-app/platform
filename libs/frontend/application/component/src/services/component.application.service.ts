@@ -41,7 +41,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { ComponentDevelopmentService } from '../use-cases'
+import { ComponentDevelopmentService } from '../use-cases/component-development'
 import { ComponentRepository } from './component.repo'
 import { ComponentFormService } from './component-form.service'
 import { ComponentModalService } from './component-modal.service'

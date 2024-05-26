@@ -5,6 +5,7 @@ import {
   useAppQuery,
   usePageQuery,
 } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/navigation'
 

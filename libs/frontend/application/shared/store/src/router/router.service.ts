@@ -7,7 +7,6 @@ import { IRouterProps } from '@codelab/frontend/abstract/application'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
-import type { ParsedUrlQuery } from 'querystring'
 
 const init = (router: IRouterProps) => {
   const { param, query } = router

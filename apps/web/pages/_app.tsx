@@ -13,7 +13,7 @@ import { getEnv } from '@codelab/shared/config'
 import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { registerRootStore, setGlobalConfig } from 'mobx-keystone'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import config from '../twind.config'
 

@@ -2,7 +2,7 @@ import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
-import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   IPageKindName,
   IPrimitiveTypeKind,

@@ -5,6 +5,7 @@ export const aliasMap = {
   '^frontend-application-(?!shared)[a-z]+$': [
     'graphql',
     'services',
+    'store',
     'views',
     'use-cases/*',
   ],

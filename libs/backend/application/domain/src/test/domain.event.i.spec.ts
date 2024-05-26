@@ -3,7 +3,6 @@ import type {
   DomainCreateInput,
 } from '@codelab/backend/abstract/codegen'
 import {
-  apolloClient,
   graphqlClient,
   GraphqlModule,
   GraphqlService,
