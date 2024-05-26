@@ -19,7 +19,8 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import queryString from 'query-string'
 import React, { useCallback } from 'react'
 import { BuilderSizeMenu } from './BuilderSizeMenu'
 
@@ -54,26 +55,34 @@ export const PageDetailHeader = observer(() => {
       pathname = PageType.PageDetail
     }
 
-    return router.push({
-      pathname,
-      query: router.query,
+    if (!pathname) {
+      return
+    }
+
+    const url = queryString.stringifyUrl({
+      query: queryString.parse(searchParams.toString()),
+      url: pathname,
     })
+
+    return router.push(url)
   }
 
   const navigatePagesPanel = useCallback(async () => {
-    await router.push({
-      pathname: PageType.PageBuilder,
+    const url = queryString.stringifyUrl({
       query: {
         appSlug,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
         userSlug,
       },
+      url: PageType.PageBuilder,
     })
+
+    await router.push(url)
   }, [router])
 
   const navigateAppsPage = useCallback(async () => {
-    await router.push({ pathname: PageType.AppList })
+    await router.push(PageType.AppList)
   }, [router])
 
   // Check if we are in preview or not

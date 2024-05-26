@@ -12,7 +12,8 @@ import { slugify } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+import queryString from 'query-string'
 import React, { useEffect, useRef } from 'react'
 import { ComponentList } from './ComponentList'
 
@@ -38,13 +39,15 @@ export const CustomComponents = observer(() => {
     const { name } = componentService.componentDomainService.component(id)
     const componentSlug = slugify(name)
 
-    await router.push({
-      pathname: PageType.ComponentBuilder,
+    const url = queryString.stringifyUrl({
       query: {
         componentSlug,
         primarySidebarKey: ExplorerPaneType.Explorer,
       },
+      url: PageType.ComponentBuilder,
     })
+
+    await router.push(url)
   }
 
   const onBack = () => {

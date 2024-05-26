@@ -2,7 +2,7 @@ import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useMemo } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { sidebarWidth } from './constants'
@@ -23,7 +23,8 @@ export const DashboardTemplate = observer(
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
     const { routerService } = useStore()
     const { appSlug, componentSlug, pageSlug, userSlug } = routerService
-    const { primarySidebarKey } = useRouter().query
+    const searchParams = useSearchParams()
+    const primarySidebarKey = searchParams.get('primarySidebarKey')
 
     // const { appSlug } = useAppQuery()
     // const { pageSlug } = usePageQuery()

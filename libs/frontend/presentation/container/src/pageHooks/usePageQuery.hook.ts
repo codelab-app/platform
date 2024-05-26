@@ -1,16 +1,12 @@
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
+import { useParams, useRouter } from 'next/navigation'
 
 /**
  * Get from `[pageName]` in url query
  */
 export const usePageQuery = () => {
-  const { query } = useRouter()
-  const pageSlug = query.pageSlug as string
-
-  // if (!pageSlug) {
-  //   throw new Error('Missing pageSlug')
-  // }
+  const params = useParams()
+  const pageSlug = params.pageSlug as string
 
   return { pageName: getNameFromSlug(pageSlug), pageSlug }
 }

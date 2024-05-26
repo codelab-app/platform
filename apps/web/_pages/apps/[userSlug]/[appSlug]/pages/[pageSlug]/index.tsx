@@ -10,11 +10,11 @@ import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 const PagePreviewView: CodelabPage = observer(() => {
-  const router = useRouter()
+  const pathname = usePathname()
 
   const [{ error, result, status }, loadDevelopmentPage] = useAppDevelopment({
     rendererType: RendererType.Preview,
@@ -27,7 +27,7 @@ const PagePreviewView: CodelabPage = observer(() => {
    */
   useEffect(() => {
     void loadDevelopmentPage.execute()
-  }, [router.asPath])
+  }, [pathname])
 
   if (status === 'loading' || status === 'not-executed') {
     return <Spin />

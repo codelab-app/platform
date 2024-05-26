@@ -1,14 +1,11 @@
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 
 export const useAppQuery = () => {
-  const { query } = useRouter()
-  const appSlug = query.appSlug as string
-  const primarySidebarKey = query.primarySidebarKey as string
-
-  // if (!appSlug) {
-  //   throw new Error('Missing appSlug')
-  // }
+  const params = useParams()
+  const searchParams = useSearchParams()
+  const appSlug = params.appSlug as string
+  const primarySidebarKey = searchParams.get('primarySidebarKey')
 
   return {
     appName: getNameFromSlug(appSlug),

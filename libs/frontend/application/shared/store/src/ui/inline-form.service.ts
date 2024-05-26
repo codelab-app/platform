@@ -1,6 +1,5 @@
 import type { IFormService } from '@codelab/frontend/abstract/application'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
-import { Router } from 'next/router'
 
 @model('@codelab/InlineFormService')
 export class InlineFormService<TMetadata extends object = object>
@@ -18,7 +17,7 @@ export class InlineFormService<TMetadata extends object = object>
     this.isOpen = false
     this.metadata = undefined
 
-    Router.events.off('routeChangeStart', this.closeOnRouteChange)
+    // Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 
   @modelAction
@@ -26,7 +25,7 @@ export class InlineFormService<TMetadata extends object = object>
     this.isOpen = true
     this.metadata = metadata
 
-    Router.events.on('routeChangeStart', this.closeOnRouteChange)
+    // Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
   closeOnRouteChange = () => this.close()

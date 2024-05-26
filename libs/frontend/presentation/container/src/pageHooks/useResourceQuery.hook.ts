@@ -1,5 +1,5 @@
 import isArray from 'lodash/isArray'
-import { useRouter } from 'next/router'
+import { useParams, useRouter } from 'next/navigation'
 
 export const useResourceQuery = () => {
   const { query } = useRouter()

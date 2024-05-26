@@ -3,7 +3,7 @@ import { Menu } from 'antd'
 import classNames from 'classnames'
 import type { LinkProps } from 'next/link'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { ReactNode } from 'react'
 import React from 'react'
 import styles from './CuiNavigationBar.module.css'
@@ -46,9 +46,10 @@ export const CuiNavigationBar = ({
   primaryItems,
   secondaryItems,
 }: CuiNavigationBarProps) => {
-  const router = useRouter()
-  const { primarySidebarKey } = router.query
-  const selectedKey = (primarySidebarKey as string) || router.pathname
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const primarySidebarKey = searchParams.get('primarySidebarKey')
+  const selectedKey = primarySidebarKey || pathname
 
   return (
     <div
