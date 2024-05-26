@@ -21,7 +21,6 @@ const RootLayout = ({ children }: React.PropsWithChildren) => {
     <html lang="en">
       <body>
         <Suspense>
-          {/* <CuiStoreProvider> */}
           <CuiStoreProvider>
             <UserProvider>
               <CuiProvider>
@@ -31,7 +30,6 @@ const RootLayout = ({ children }: React.PropsWithChildren) => {
               </CuiProvider>
             </UserProvider>
           </CuiStoreProvider>
-          {/* </CuiStoreProvider> */}
         </Suspense>
       </body>
     </html>

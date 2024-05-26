@@ -127,9 +127,6 @@ export const createCoreStore = (router: IRouterProps, user: Auth0IdToken) => {
         () => new ComponentApplicationService({}),
       ),
       domainService: prop<IDomainService>(() => new DomainService({})),
-      elementApplicationService: prop<IElementService>(
-        () => new ElementService({}),
-      ),
       elementService: prop<IElementService>(() => new ElementService({})),
       fieldService: prop<IFieldService>(() => new FieldService({})),
       pageService: prop<IPageApplicationService>(
