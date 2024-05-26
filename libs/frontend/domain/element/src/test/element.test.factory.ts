@@ -1,5 +1,5 @@
 import type { IElementDomainService } from '@codelab/frontend/abstract/domain'
-import { propFactory } from '@codelab/frontend-domain-prop'
+import { propFactory } from '@codelab/frontend-domain-prop/test'
 import { chance } from '@codelab/frontend-domain-shared'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
@@ -9,9 +9,6 @@ export const elementFactory =
   (elementDomainService: IElementDomainService) =>
   (dto: Partial<IElementDto> = {}) => {
     const element: IElementDto = {
-      closestContainerNode: {
-        id: dto.closestContainerNode?.id ?? v4(),
-      },
       firstChild: dto.firstChild ? { id: dto.firstChild.id } : null,
       id: dto.id ?? v4(),
       name: dto.name ?? chance.word({ capitalize: true }),

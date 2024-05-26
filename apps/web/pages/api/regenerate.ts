@@ -22,9 +22,13 @@ const regenerate: NextApiHandler = async (req, res) => {
 
     const json = await regenerationResult.json()
 
-    return res.json(json)
+    res.json(json)
+
+    return
   } catch (err) {
-    return res.status(500).send(err)
+    res.status(500).send(err)
+
+    return
   }
 }
 

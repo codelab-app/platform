@@ -71,7 +71,7 @@ describe('Runtime Element', () => {
 
     const childCompositeKey = RuntimeElementModel.compositeKey(
       childElement,
-      runtimePage!,
+      runtimePage,
     )
 
     expect(runtimeChildElement?.compositeKey).toBe(childCompositeKey)

@@ -6,7 +6,7 @@ export const antDesignIconImport = createESLintRule({
   create: (context) => {
     return {
       ImportDeclaration: (node) => {
-        const importSourceValue = node.source.value as string
+        const importSourceValue = node.source.value
 
         if (importSourceValue.endsWith('@ant-design/icons')) {
           context.report({

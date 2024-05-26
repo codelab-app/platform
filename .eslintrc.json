@@ -31,12 +31,14 @@
     "./scripts/eslint/.cypress.eslintrc.json",
     "./scripts/eslint/.codelab.eslintrc.json",
     "plugin:prettier/recommended",
-    // "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/strict-type-checked",
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
-    // "plugin:import/recommended",
-    // "plugin:import/typescript"
+    // https://www.npmjs.com/package/eslint-plugin-import
+    // "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
     // "plugin:lodash/recommended"
   ],
   // Used for import plugin

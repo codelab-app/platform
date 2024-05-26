@@ -814,8 +814,8 @@
       "@codelab/frontend-domain-resource/test": [
         "libs/frontend/domain/resource/src/test/index.ts"
       ],
-      "@codelab/frontend-domain-shared/test": [
-        "libs/frontend/domain/shared/src/test/index.ts"
+      "@codelab/frontend-domain-shared": [
+        "libs/frontend/domain/shared/src/index.ts"
       ],
       "@codelab/frontend-domain-store/services": [
         "libs/frontend/domain/store/src/services/index.ts"
