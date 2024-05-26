@@ -1,54 +1,60 @@
-import type { Tree } from '@nx/devkit'
-import { minimatch } from 'minimatch'
-import path from 'path'
-
-export interface Paths {
-  [key: string]: Array<string>
-}
+import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
+import merge from 'lodash/merge'
+import unset from 'lodash/unset'
 
 export const sortKeys = (object: object): object =>
   Object.fromEntries(Object.entries(object).sort())
 
-export const clearPaths = (paths: Paths, prefix: string, baseDir: string) => {
-  Object.keys(paths).forEach((key) => {
-    if (key.startsWith(`${prefix}/${baseDir}`)) {
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete paths[key]
-    }
+/**
+ *
+ * @param project
+ * @param relativePathFromProjectSourceRoot `services` in `src/services` or `use-cases/create-app` in ` in `src/uses-cases/create-app`
+ * @returns
+ */
+export const getModuleAlias = (
+  project: ProjectConfiguration,
+  relativePathFromProjectSourceRoot: string,
+) => {
+  return `@codelab/${project.name}/${relativePathFromProjectSourceRoot}`
+}
+
+export const appendTsconfigPath = (
+  tree: Tree,
+  project: ProjectConfiguration,
+  moduleAlias: string,
+  targetPath: string,
+) => {
+  const sourceRoot = project.sourceRoot
+
+  if (!sourceRoot) {
+    return
+  }
+
+  updateJson(tree, 'tsconfig.base.json', (json) => {
+    console.log('Appending path', {
+      [moduleAlias]: [targetPath],
+    })
+
+    const paths = json.compilerOptions.paths ?? {}
+
+    merge(paths, {
+      [moduleAlias]: [targetPath],
+    })
+
+    json.compilerOptions.paths = sortKeys(paths)
+
+    return json
   })
 }
 
-export const updatePathEntry = (
-  paths: Paths,
-  prefix: string,
-  baseDir: string,
-  subDir: string,
-  fullPath: string,
-) => {
-  const pathKey = `${prefix}/${baseDir}/${subDir}`
-  const pathValue = [`${fullPath}/index.ts`]
+export const removeTsconfigPath = (tree: Tree, moduleAlias: string) => {
+  updateJson(tree, 'tsconfig.base.json', (json) => {
+    const paths = json.compilerOptions.paths ?? {}
 
-  paths[pathKey] = pathValue
-}
+    unset(json, `compilerOptions.paths.${moduleAlias}`)
 
-export const handleNestedDirectory = (
-  tree: Tree,
-  paths: Paths,
-  projectSourceRoot: string,
-  prefix: string,
-  baseDir: string,
-  fullDirPath: string,
-  projectFolderPattern: string,
-) => {
-  tree.children(fullDirPath).forEach((subDir) => {
-    const fullPath = path.join(fullDirPath, subDir)
-    const relativePath = path.relative(projectSourceRoot, fullPath)
+    json.compilerOptions.paths = paths
 
-    if (
-      !tree.isFile(fullPath) &&
-      minimatch(relativePath, projectFolderPattern)
-    ) {
-      updatePathEntry(paths, prefix, baseDir, subDir, fullPath)
-    }
+    return json
   })
 }

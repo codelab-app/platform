@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data'
 import classNames from 'classnames'
 import type { ReactNode } from 'react'
 import React from 'react'

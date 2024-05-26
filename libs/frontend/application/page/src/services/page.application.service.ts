@@ -21,8 +21,8 @@ import {
 } from '@codelab/frontend-application-shared-store/ui'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { Store } from '@codelab/frontend-domain-store/store'
-import { InterfaceType } from '@codelab/frontend-domain-type/models'
 import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreatePageData,

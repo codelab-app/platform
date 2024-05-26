@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data'
 import { Col, Row } from 'antd'
 import React from 'react'
 

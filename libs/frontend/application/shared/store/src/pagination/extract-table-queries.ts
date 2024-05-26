@@ -1,9 +1,9 @@
 import type { Filterables } from '@codelab/frontend/abstract/application'
 
 export interface TableQueryString {
-  [key: string]: string
-  page: string
-  pageSize: string
+  [key: string]: string | null | undefined
+  page?: string | null
+  pageSize?: string | null
 }
 
 /**
@@ -28,8 +28,13 @@ export const extractTableQueries = <T extends Filterables>(
   const filter = Object.entries(filterTypes).reduce<Partial<T>>(
     (acc, [key, type]) => {
       if (query[key as string]) {
-        let value: Array<string> | boolean | number | string | undefined =
-          query[key as string]
+        let value:
+          | Array<string>
+          | boolean
+          | number
+          | string
+          | null
+          | undefined = query[key as string]
 
         if (type === 'number') {
           value = Number(value)

@@ -7,7 +7,8 @@ import type {
 import type { TablePaginationConfig } from 'antd'
 import debounce from 'lodash/debounce'
 import isMatch from 'lodash/isMatch'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import queryString from 'query-string'
 import React, { useEffect } from 'react'
 import {
   extractTableQueries,
@@ -18,7 +19,6 @@ interface Props<T> {
   filterTypes?: Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>
   paginationService: IPaginationService<SupportedPaginationModel, Filterables>
   pathname: SupportedPaginationModelPage
-  tableQuery: TableQueryString
 }
 
 export const useTablePagination = <
@@ -28,15 +28,21 @@ export const useTablePagination = <
   filterTypes,
   paginationService,
   pathname,
-  tableQuery,
 }: Props<U>) => {
   const router = useRouter()
+  const params = useSearchParams()
+
+  const query = {
+    ...queryString.parse(params.toString()),
+    page: params.get('page'),
+    pageSize: params.get('pageSize'),
+  }
 
   const {
     filter,
     page = 1,
     pageSize = 20,
-  } = extractTableQueries<U>(tableQuery, filterTypes)
+  } = extractTableQueries<U>(query, filterTypes)
 
   const handleChange = React.useRef(
     debounce(
@@ -58,20 +64,16 @@ export const useTablePagination = <
         paginationService.setFilter(newFilter)
         void paginationService.getData()
 
-        const query = new URLSearchParams({
-          ...paginationService.filter,
-          page: paginationService.currentPage,
-          pageSize: paginationService.pageSize,
+        const url = queryString.stringifyUrl({
+          query: {
+            ...paginationService.filter,
+            page: paginationService.currentPage,
+            pageSize: paginationService.pageSize,
+          },
+          url: pathname,
         })
 
-        await router.push(
-          {
-            pathname,
-            query: {},
-          },
-          undefined,
-          { shallow: true },
-        )
+        await router.push(url)
       },
       500,
     ),

@@ -1,6 +1,6 @@
 import { restApiClient } from '@codelab/frontend-infra-axios'
 import { getEnv } from '@codelab/shared/config'
-import { auth0Instance } from '@codelab/shared-infra-auth0/auth0.provider'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export const config = {

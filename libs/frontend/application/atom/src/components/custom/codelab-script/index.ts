@@ -1,1 +1,1 @@
-export { CodelabScript } from './CodelabScript'
+export * from './CodelabScript'

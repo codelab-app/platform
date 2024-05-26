@@ -1,4 +1,4 @@
-import { auth0Instance } from '@codelab/shared-infra-auth0/auth0.provider'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 
 export const withPageAuthRedirect = () =>
   auth0Instance.withPageAuthRequired({

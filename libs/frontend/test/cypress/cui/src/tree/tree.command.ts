@@ -1,5 +1,5 @@
 import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
-import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 export const getCuiTreeItem = () => {

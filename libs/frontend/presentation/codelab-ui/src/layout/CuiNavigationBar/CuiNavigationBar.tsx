@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data/cy-data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import type { LinkProps } from 'next/link'

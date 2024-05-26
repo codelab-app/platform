@@ -9,7 +9,7 @@ import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend-application-shared-store/ui'
-import { TypeFactory } from '@codelab/frontend-domain-type/models'
+import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import { TypeDomainService } from '@codelab/frontend-domain-type/services'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {

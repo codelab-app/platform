@@ -11,7 +11,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
-import { InterfaceType } from '@codelab/frontend-domain-type/models'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import {

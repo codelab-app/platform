@@ -4,8 +4,8 @@ exports.nxProjectConfigGenerator = void 0;
 const devkit_1 = require("@nx/devkit");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const project_json_1 = require("./test/project-json");
-const tsconfig_base_1 = require("./tsconfig/tsconfig.base");
-const tsconfig_lib_1 = require("./tsconfig/tsconfig.lib");
+const tsconfig_base_1 = require("./tsconfig-base/tsconfig.base");
+const tsconfig_lib_1 = require("./tsconfig-lib/tsconfig.lib");
 /**
  * Go through all projects and update the `lint` setting of `project.json`
  */
@@ -15,6 +15,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
     for (const projectName of projectNames) {
         const projectConfig = (0, devkit_1.readProjectConfiguration)(tree, projectName);
         console.log(`Checking for ${projectConfig.name}...`);
+        console.log('-----------------');
         /**
          * Modifies projectConfig here
          */

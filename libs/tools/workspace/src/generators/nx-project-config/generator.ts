@@ -9,7 +9,7 @@ import { addProjectTags } from './project-tags/add-project-tags'
 import type { EslintGeneratorSchema } from './schema'
 import { updateTestConfig } from './test/project-json'
 import { updateBaseTsconfig } from './tsconfig-base/tsconfig.base'
-import { updateLibraryTsconfig } from './tsconfig-base/tsconfig.lib.lib'
+import { updateLibraryTsconfig } from './tsconfig-lib/tsconfig.lib'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`
@@ -25,6 +25,7 @@ export const nxProjectConfigGenerator = async (
     const projectConfig = readProjectConfiguration(tree, projectName)
 
     console.log(`Checking for ${projectConfig.name}...`)
+    console.log('-----------------')
 
     /**
      * Modifies projectConfig here
