@@ -7,6 +7,7 @@ export const aliasMap = {
     'services',
     'store',
     'views',
+    'test',
     'use-cases/*',
   ],
   '^frontend-application-atom$': [

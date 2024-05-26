@@ -2,6 +2,10 @@ import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { createRootDomainStore } from '@codelab/frontend-domain-shared'
 import {
+  FieldDomainService,
+  TypeDomainService,
+} from '@codelab/frontend-domain-type/services'
+import {
   ActionType,
   AppType,
   ArrayType,
@@ -9,16 +13,14 @@ import {
   ElementType,
   EnumType,
   Field,
-  FieldDomainService,
   InterfaceType,
   PageType,
   PrimitiveType,
   ReactNodeType,
   RenderPropType,
   RichTextType,
-  TypeDomainService,
   UnionType,
-} from '@codelab/frontend-domain-type'
+} from '@codelab/frontend-domain-type/store'
 import {
   CodeMirrorLanguage,
   ElementTypeKind,

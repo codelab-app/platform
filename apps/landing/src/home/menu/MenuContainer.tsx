@@ -3,9 +3,7 @@ import React, { useState } from 'react'
 import type { StatusCode } from 'react-stickynode'
 import Sticky from 'react-stickynode'
 
-export const CodelabMenuContainer = ({
-  children,
-}: PropsWithChildren<unknown>) => {
+export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {
   // 0 STATUS_ORIGINAL
   // 1 STATUS_RELEASED
   // 2 STATUS_FIXED

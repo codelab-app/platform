@@ -1,6 +1,6 @@
 import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import { type IComponentModel } from '@codelab/frontend/abstract/domain'
-import { CreateElementButton } from '@codelab/frontend-application-element'
+import { CreateElementButton } from '@codelab/frontend-application-element/use-cases/create-element'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

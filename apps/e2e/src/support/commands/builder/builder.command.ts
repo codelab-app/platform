@@ -169,7 +169,9 @@ export const getNewElementId = () => {
 
 export const preventDefaultOnClick = (identifier: string) => {
   cy.get(identifier).then((el) => {
-    el.on('click', (event) => event.preventDefault())
+    el.on('click', (event) => {
+      event.preventDefault()
+    })
   })
 }
 

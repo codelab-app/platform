@@ -13,7 +13,7 @@ module.exports = {
   /**
    * Some NPM modules are written in ES6, and must be transformed with babel. node_modules is ignored by default because there are too many packages to transform, so we only transform the ones we have to.
    */
-  // transformIgnorePatterns: ['<rootDir>/node_modules/(?!(prettier)/)'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(query-string)/)'],
   transform: {
     '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$':
       'jest-transform-stub',

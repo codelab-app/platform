@@ -26,9 +26,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       status: 'subscribed',
     })
 
-    return res.status(200).json(response)
+    res.status(200).json(response)
+
+    return
   } catch (error) {
-    return res.status(500).json({ error: 'invalid or already added email' })
+    res.status(500).json({ error: 'invalid or already added email' })
+
+    return
   }
 }
 
