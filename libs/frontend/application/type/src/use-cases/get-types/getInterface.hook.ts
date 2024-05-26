@@ -1,12 +1,13 @@
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { useAsync } from '@react-hookz/web'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 export const useCurrentInterfaceId = () => {
-  const searchParams = useSearchParams()
-  const interfaceId = searchParams.get('interfaceId')
+  const { params, query } = useUrl()
+  const interfaceId = params?.interfaceId
 
   if (!interfaceId) {
     throw new Error(

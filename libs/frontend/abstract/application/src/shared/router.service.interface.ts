@@ -3,8 +3,11 @@
  */
 export interface UrlParams {
   appSlug?: string
+  authGuardId?: string
   componentSlug?: string
+  interfaceId?: string
   pageSlug?: string
+  resourceId?: string
   userSlug?: string
 }
 

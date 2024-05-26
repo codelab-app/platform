@@ -1,3 +1,4 @@
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { useParams, useRouter } from 'next/navigation'
 import { useMemo } from 'react'
@@ -8,8 +9,7 @@ import { useCurrentApp } from './useCurrentApp.hook'
  */
 export const useCurrentPage = () => {
   const app = useCurrentApp()
-  const params = useParams()
-  const pageSlug = params.pageSlug as string
+  const { pageSlug } = useUrl()
   const pageName = getNameFromSlug(pageSlug)
 
   return useMemo(() => {

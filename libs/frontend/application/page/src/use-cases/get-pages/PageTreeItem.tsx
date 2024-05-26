@@ -26,6 +26,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useRegeneratePages } from '@codelab/frontend-application-domain/services'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -49,7 +50,7 @@ export const PageTreeItem = observer(
     const { isRegenerating, regenerate } = useRegeneratePages(appService)
     const { popover } = useCui()
     const router = useRouter()
-    const query = useSearchParams()
+    const { query } = useUrl()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {

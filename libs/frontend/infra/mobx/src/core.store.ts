@@ -90,7 +90,7 @@ import {
   RuntimePageService,
 } from '@codelab/frontend-application-renderer/services'
 import { ResourceService } from '@codelab/frontend-application-resource/services'
-import { RouterService } from '@codelab/frontend-application-shared-store/services'
+import { RouterService } from '@codelab/frontend-application-shared-store/router'
 import {
   ActionService,
   actionServiceContext,

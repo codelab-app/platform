@@ -17,6 +17,7 @@ import {
   usePageQuery,
   useUserQuery,
 } from '@codelab/frontend/presentation/container'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -60,7 +61,7 @@ export const PageDetailHeader = observer(() => {
     }
 
     const url = queryString.stringifyUrl({
-      query: queryString.parse(searchParams.toString()),
+      query,
       url: pathname,
     })
 

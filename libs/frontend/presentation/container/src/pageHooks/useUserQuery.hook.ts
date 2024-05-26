@@ -1,9 +1,8 @@
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { useParams, useRouter } from 'next/navigation'
 
 export const useUserQuery = () => {
-  const params = useParams()
-  const userSlug = params.userSlug as string
+  const { userSlug } = useUrl()
 
   return {
     userName: getNameFromSlug(userSlug),
