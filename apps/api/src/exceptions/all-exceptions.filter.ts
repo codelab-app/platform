@@ -1,6 +1,7 @@
 import type { ArgumentsHost } from '@nestjs/common'
 import { Catch } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
+import type { Request } from 'express'
 import { TypeboxValidationException } from 'nestjs-typebox'
 
 @Catch()
@@ -9,9 +10,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     if (exception instanceof TypeboxValidationException) {
       // console.error(exception, host)
 
-      // params, body
-      const request = host.switchToHttp().getRequest()
-      const { body, params } = request
+      const request = host.switchToHttp().getRequest<Request>()
 
       // console.log(params, body)
     } else {

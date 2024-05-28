@@ -302,7 +302,7 @@ export class RuntimeElementModel
       ? `instance of ${this.component.name}`
       : undefined
 
-    const atomMeta = element.atomName ? `${element.atomName}` : undefined
+    const atomMeta = element.atomName ? element.atomName : undefined
 
     const secondaryTitle =
       componentMeta ?? atomMeta ?? element.treeTitle.secondary
@@ -350,7 +350,9 @@ export class RuntimeElementModel
 
   @modelAction
   detach(): void {
-    this.children.forEach((child) => child.detach())
+    this.children.forEach((child) => {
+      child.detach()
+    })
     this.runtimeElementService.delete(this)
   }
 
@@ -366,7 +368,9 @@ export class RuntimeElementModel
       recording: true,
     })
 
-    return () => recorder.dispose()
+    return () => {
+      recorder.dispose()
+    }
   }
 
   runPostRenderAction = () => {

@@ -19,7 +19,9 @@ const AutoCompleteInternal = (props: AutoCompleteFieldProps) =>
     <AutoComplete
       allowClear={true}
       disabled={props.disabled}
-      onChange={(value) => props.onChange(value)}
+      onChange={(value) => {
+        props.onChange(value)
+      }}
       placeholder={props.placeholder}
       ref={props.inputRef}
       showAction={['focus', 'click']}

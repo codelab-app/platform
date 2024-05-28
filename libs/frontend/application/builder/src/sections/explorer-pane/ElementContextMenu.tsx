@@ -67,7 +67,7 @@ export const ElementContextMenu = observer<
   }
 
   const onDelete = () => {
-    return elementService.deleteModal.open(elementRef(element))
+    elementService.deleteModal.open(elementRef(element))
   }
 
   const onDuplicate = async () => {

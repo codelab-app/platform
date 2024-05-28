@@ -46,8 +46,12 @@ export const PositionEditor = () => {
         content={
           <SpacingPopover
             canReset={canReset(side)}
-            onChange={(val) => setStyle(side, val)}
-            onReset={() => resetStyle(side)}
+            onChange={(val) => {
+              setStyle(side, val)
+            }}
+            onReset={() => {
+              resetStyle(side)
+            }}
             value={value}
           />
         }
@@ -66,7 +70,9 @@ export const PositionEditor = () => {
         onChange={(val) => {
           setStyle(CssProperty.Position, val)
         }}
-        onReset={() => resetStyle(CssProperty.Position)}
+        onReset={() => {
+          resetStyle(CssProperty.Position)
+        }}
         options={positionOptions}
         value={getCurrentStyle(CssProperty.Position)}
       />

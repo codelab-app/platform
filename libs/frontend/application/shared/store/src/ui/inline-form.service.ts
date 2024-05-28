@@ -28,5 +28,7 @@ export class InlineFormService<TMetadata extends object = object>
     // Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
-  closeOnRouteChange = () => this.close()
+  closeOnRouteChange = () => {
+    this.close()
+  }
 }

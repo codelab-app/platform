@@ -8,7 +8,7 @@ export const interfaceTypeFactory =
   (typeDomainService: ITypeDomainService) =>
   (dto: Partial<IInterfaceTypeDto> = {}) => {
     const interfaceType: IInterfaceTypeDto = {
-      __typename: `${ITypeKind.InterfaceType}`,
+      __typename: ITypeKind.InterfaceType,
       fields: [],
       id: dto.id ?? v4(),
       kind: ITypeKind.InterfaceType,

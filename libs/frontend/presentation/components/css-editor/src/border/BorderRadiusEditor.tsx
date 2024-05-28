@@ -96,50 +96,58 @@ export const BorderRadiusEditor = () => {
           <Row align="middle" className="space-x-2" justify="end" wrap={false}>
             <ValuePicker
               currentValue={getCurrentStyle(CssProperty.BorderTopLeftRadius)}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSideRadius(CssProperty.BorderTopLeftRadius, value)
-              }
+              }}
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderTopLeftRadius),
                 icon: <RadiusUpleftOutlined />,
-                onReset: () => resetStyle(CssProperty.BorderTopLeftRadius),
+                onReset: () => {
+                  resetStyle(CssProperty.BorderTopLeftRadius)
+                },
               })}
             />
             <ValuePicker
               currentValue={getCurrentStyle(CssProperty.BorderTopRightRadius)}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSideRadius(CssProperty.BorderTopRightRadius, value)
-              }
+              }}
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderTopRightRadius),
                 icon: <RadiusUprightOutlined />,
-                onReset: () => resetStyle(CssProperty.BorderTopRightRadius),
+                onReset: () => {
+                  resetStyle(CssProperty.BorderTopRightRadius)
+                },
               })}
             />
           </Row>
           <Row align="middle" className="space-x-2" justify="end" wrap={false}>
             <ValuePicker
               currentValue={getCurrentStyle(CssProperty.BorderBottomLeftRadius)}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSideRadius(CssProperty.BorderBottomLeftRadius, value)
-              }
+              }}
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderBottomLeftRadius),
                 icon: <RadiusBottomleftOutlined />,
-                onReset: () => resetStyle(CssProperty.BorderBottomLeftRadius),
+                onReset: () => {
+                  resetStyle(CssProperty.BorderBottomLeftRadius)
+                },
               })}
             />
             <ValuePicker
               currentValue={getCurrentStyle(
                 CssProperty.BorderBottomRightRadius,
               )}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSideRadius(CssProperty.BorderBottomRightRadius, value)
-              }
+              }}
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderBottomRightRadius),
                 icon: <RadiusBottomrightOutlined />,
-                onReset: () => resetStyle(CssProperty.BorderBottomRightRadius),
+                onReset: () => {
+                  resetStyle(CssProperty.BorderBottomRightRadius)
+                },
               })}
             />
           </Row>

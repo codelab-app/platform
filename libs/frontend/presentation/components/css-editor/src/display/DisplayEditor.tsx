@@ -49,8 +49,12 @@ export const DisplayEditor = () => {
       <SegmentedSelect
         canReset={canReset(CssProperty.Display)}
         label="Display"
-        onChange={(value) => setStyle(CssProperty.Display, value)}
-        onReset={() => resetStyle(CssProperty.Display)}
+        onChange={(value) => {
+          setStyle(CssProperty.Display, value)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.Display)
+        }}
         options={displayOptions}
         value={getCurrentStyle(CssProperty.Display)}
       />

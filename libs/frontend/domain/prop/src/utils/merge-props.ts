@@ -23,5 +23,5 @@ export const mergeProps = <TData extends IPropData = IPropData>(
 ): TData => {
   return propsArray.reduce<TData>((mergedProps, nextProps) => {
     return mergeWith(mergedProps, nextProps, propsCustomizer)
-  }, {} as TData)
+  }, {})
 }

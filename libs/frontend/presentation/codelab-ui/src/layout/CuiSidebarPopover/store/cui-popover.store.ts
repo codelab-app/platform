@@ -32,7 +32,9 @@ export class CuiPopoverStore implements IPopoverStore {
     // Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
-  private closeOnRouteChange = () => this.close()
+  private closeOnRouteChange = () => {
+    this.close()
+  }
 
   @observable
   private openPopoverId: string | undefined

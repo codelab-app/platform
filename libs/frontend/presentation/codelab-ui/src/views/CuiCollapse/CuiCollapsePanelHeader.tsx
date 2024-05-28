@@ -73,7 +73,7 @@ export const CuiCollapsePanelHeader = ({
       {toolbar && (
         <div
           className="max-w-lg"
-          onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          onClick={(event: React.MouseEvent<HTMLDivElement>) => {
             event.stopPropagation()
           }}
         >

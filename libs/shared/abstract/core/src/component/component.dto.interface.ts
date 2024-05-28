@@ -2,7 +2,7 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeKind } from '../element'
-import { IRef } from '../model/node-type.interface'
+import { IRef } from '../model/ref.interface'
 import { IProp, IPropDto } from '../prop/prop.dto.interface'
 
 export const IComponentDto = Type.Object({
@@ -19,7 +19,7 @@ export type IComponentDto = Static<typeof IComponentDto>
 
 export const IComponent = Type.Composite([
   Type.Object({
-    __typename: Type.Literal(`${IElementRenderTypeKind.Component}`),
+    __typename: Type.Literal(IElementRenderTypeKind.Component),
   }),
   Typebox.Overwrite(
     IComponentDto,

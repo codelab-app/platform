@@ -69,12 +69,12 @@ export const BorderEditor = () => {
           <SegmentedSelect
             canReset={canReset(getSidePropertyName(selectedSide, 'style'))}
             label="Style"
-            onChange={(value) =>
+            onChange={(value) => {
               setStyle(getSidePropertyName(selectedSide, 'style'), value)
-            }
-            onReset={() =>
+            }}
+            onReset={() => {
               resetStyle(getSidePropertyName(selectedSide, 'style'))
-            }
+            }}
             options={styleOptions}
             size="small"
             value={getCurrentStyle(getSidePropertyName(selectedSide, 'style'))}
@@ -85,23 +85,23 @@ export const BorderEditor = () => {
               getSidePropertyName(selectedSide, 'width'),
             )}
             label="Width"
-            onChange={(value) =>
+            onChange={(value) => {
               setStyle(getSidePropertyName(selectedSide, 'width'), value)
-            }
-            onReset={() =>
+            }}
+            onReset={() => {
               resetStyle(getSidePropertyName(selectedSide, 'width'))
-            }
+            }}
             size="small"
           />
           <ColorPicker
             canReset={canReset(getSidePropertyName(selectedSide, 'color'))}
             label="Color"
-            onChange={(value) =>
+            onChange={(value) => {
               setStyle(getSidePropertyName(selectedSide, 'color'), value)
-            }
-            onReset={() =>
+            }}
+            onReset={() => {
               resetStyle(getSidePropertyName(selectedSide, 'color'))
-            }
+            }}
             size="small"
             value={getCurrentStyle(getSidePropertyName(selectedSide, 'color'))}
           />

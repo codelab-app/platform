@@ -44,7 +44,9 @@ export const Builder = observer(() => {
 
     resizeObserver.observe(containerRef.current)
 
-    return () => resizeObserver.disconnect()
+    return () => {
+      resizeObserver.disconnect()
+    }
   }, [])
 
   if (!elementTree || !renderer) {

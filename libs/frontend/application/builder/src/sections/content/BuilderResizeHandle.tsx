@@ -61,15 +61,23 @@ export const BuilderResizeHandle = ({ children }: PropsWithChildren) => {
     <>
       <div
         className={getClassNames()}
-        onMouseLeave={() => setHovered(false)}
-        onMouseOver={() => setHovered(true)}
+        onMouseLeave={() => {
+          setHovered(false)
+        }}
+        onMouseOver={() => {
+          setHovered(true)
+        }}
         ref={beforeElementRef}
       />
       {children}
       <div
         className={`${getClassNames()} relative`}
-        onMouseLeave={() => setHovered(false)}
-        onMouseOver={() => setHovered(true)}
+        onMouseLeave={() => {
+          setHovered(false)
+        }}
+        onMouseOver={() => {
+          setHovered(true)
+        }}
         ref={afterElementRef}
       >
         <div className="absolute left-1/2 top-1/2 -translate-y-1/2 bg-inherit">

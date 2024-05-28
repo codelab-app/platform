@@ -36,7 +36,7 @@ export const generateTailwindClasses = (
   }
 
   if (classNamesToUse.length) {
-    return tx(`${classNamesToUse.join(' ')}`)
+    return tx(classNamesToUse.join(' '))
   }
 
   return ''

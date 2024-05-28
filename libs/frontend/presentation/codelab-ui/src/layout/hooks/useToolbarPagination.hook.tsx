@@ -121,7 +121,9 @@ export const useToolbarPagination = <
     {
       cuiKey: MODEL_ACTION.SearchPagination.key,
       icon: <SearchOutlined />,
-      onClick: () => setShowSearchBar(!showSearchBar),
+      onClick: () => {
+        setShowSearchBar(!showSearchBar)
+      },
       title: 'Search',
     },
   ]

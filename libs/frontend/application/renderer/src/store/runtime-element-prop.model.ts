@@ -153,7 +153,9 @@ export class RuntimeElementPropsModel
       [DATA_ELEMENT_ID]: this.element.id,
       key: this.element.id,
       ref: registerReference
-        ? (node: HTMLElement) => store.registerRef(slug, node)
+        ? (node: HTMLElement) => {
+            store.registerRef(slug, node)
+          }
         : undefined,
     }
   }
@@ -277,7 +279,9 @@ export class RuntimeElementPropsModel
     return (
       this.runtimeContext.actions[actionName] ??
       this.runtimeContext.rootActions[actionName] ??
-      (() => console.log(`No Runner found for ${actionName} `))
+      (() => {
+        console.log(`No Runner found for ${actionName} `)
+      })
     )
   }
 

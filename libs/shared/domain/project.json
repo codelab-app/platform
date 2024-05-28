@@ -7,6 +7,15 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/domain"],
+      "options": {
+        "jestConfig": "libs/shared/domain/jest.config.ts",
+        "reporters": ["default"],
+        "runInBand": true
+      }
     }
   }
 }

@@ -17,7 +17,9 @@ const selectAfter = (
     className="[&>*:first-child]:!px-0.5 [&>*:first-child]:!text-[11px]"
     defaultValue={fixedUnit ?? CssUnit.PX}
     disabled={Boolean(fixedUnit)}
-    onChange={(val) => onChange(val === '-' ? CssUnit.Auto : (val as CssUnit))}
+    onChange={(val) => {
+      onChange(val === '-' ? CssUnit.Auto : (val as CssUnit))
+    }}
     popupMatchSelectWidth={false}
     size={size}
     suffixIcon={null}
@@ -114,7 +116,9 @@ export const ValuePicker = ({
         <InputNumber
           addonAfter={selectAfter(
             size,
-            (selectedUnit) => onChanged(selectedUnit, value),
+            (selectedUnit) => {
+              onChanged(selectedUnit, value)
+            },
             unit,
             fixedUnit,
           )}
@@ -123,7 +127,9 @@ export const ValuePicker = ({
           controls={false}
           max={max}
           min={min}
-          onChange={debounce((val) => onChanged(fixedUnit ?? unit, val), 300)}
+          onChange={debounce((val) => {
+            onChanged(fixedUnit ?? unit, val)
+          }, 300)}
           placeholder={isAuto ? 'Auto' : undefined}
           size={size}
           value={isAuto ? undefined : value}

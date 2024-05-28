@@ -10,7 +10,9 @@ export const ImportAdminDataButton = observer(() => {
   return (
     <Button
       icon={<ImportOutlined />}
-      onClick={() => adminService.importDataModal.open()}
+      onClick={() => {
+        adminService.importDataModal.open()
+      }}
     >
       Import Data
     </Button>

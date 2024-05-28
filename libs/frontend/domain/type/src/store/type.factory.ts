@@ -76,7 +76,7 @@ export class TypeFactory {
     }
   }
 
-  static mapDataToDTO(data: ICreateTypeDto | IUpdateTypeDto): ITypeDto {
+  static mapDataToDTO(data: ICreateTypeDto): ITypeDto {
     switch (data.kind) {
       case ITypeKind.InterfaceType:
         return {

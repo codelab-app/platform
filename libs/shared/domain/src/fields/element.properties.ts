@@ -7,27 +7,31 @@ interface ElementData {
   compositeKey: never
 }
 
-export class ElementProperties {
-  static elementCompositeKey = (
-    elementName: string,
-    closestContainerNode: IRef,
-  ) => {
-    return `${closestContainerNode.id}-${elementName}`
-  }
+const elementCompositeKey = (
+  elementName: string,
+  closestContainerNode: IRef,
+) => {
+  return `${closestContainerNode.id}-${elementName}`
+}
 
-  static elementNameFromCompositeKey = (
-    element: DeepPick<Element, ElementData>,
-  ) => {
-    const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
+const elementNameFromCompositeKey = (
+  element: DeepPick<Element, ElementData>,
+) => {
+  const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
 
-    return element.compositeKey.replace(reg, '')
-  }
+  return element.compositeKey.replace(reg, '')
+}
 
-  static elementSlugFromCompositeKey = (
-    element: DeepPick<Element, ElementData>,
-  ) => {
-    const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
+const elementSlugFromCompositeKey = (
+  element: DeepPick<Element, ElementData>,
+) => {
+  const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
 
-    return element.compositeKey.replace(reg, '')
-  }
+  return element.compositeKey.replace(reg, '')
+}
+
+export const ElementProperties = {
+  elementCompositeKey,
+  elementNameFromCompositeKey,
+  elementSlugFromCompositeKey,
 }

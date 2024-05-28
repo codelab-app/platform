@@ -529,6 +529,9 @@
       "@codelab/frontend-application-renderer/store": [
         "libs/frontend/application/renderer/src/store/index.ts"
       ],
+      "@codelab/frontend-application-renderer/test": [
+        "libs/frontend/application/renderer/src/test/index.ts"
+      ],
       "@codelab/frontend-application-renderer/use-cases": [
         "libs/frontend/application/renderer/src/use-cases/index.ts"
       ],
@@ -933,12 +936,12 @@
       "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain": ["libs/shared/domain/src/index.ts"],
-      "@codelab/shared/infra/ajv": ["libs/shared/infra/ajv/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
+      "@codelab/shared/infra/schema": ["libs/shared/infra/schema/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
       "@codelab/tools/eslint-plugin": ["libs/tools/eslint-plugin/src/index.ts"]

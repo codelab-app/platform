@@ -28,5 +28,7 @@ export class ModalService<TMetadata extends object>
     // Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
-  closeOnRouteChange = () => this.close()
+  closeOnRouteChange = () => {
+    this.close()
+  }
 }

@@ -14,9 +14,7 @@ export const validateAndClean = <T extends TAnySchema>(
      * Does additional check for discriminated union if is a union
      */
     if (isUnionSchema(schema)) {
-      const discriminatedValidator = new DiscriminatedUnionValidator(
-        schema as TUnion<Array<TObject>>,
-      )
+      const discriminatedValidator = new DiscriminatedUnionValidator(schema)
 
       discriminatedValidator.validateAndClean(values)
     }

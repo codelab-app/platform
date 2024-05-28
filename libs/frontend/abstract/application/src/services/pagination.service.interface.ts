@@ -35,7 +35,7 @@ export type SupportedPaginationModelService =
 
 export interface IPaginationService<
   T extends SupportedPaginationModel,
-  U extends Filterables | void,
+  U extends Filterables | undefined,
 > {
   currentPage: number
   data: Array<T>
@@ -58,7 +58,7 @@ export interface IPaginationService<
 
 export interface IPaginateable<
   T extends SupportedPaginationModel,
-  U extends Filterables | void,
+  U extends Filterables | undefined,
 > {
   paginationService: IPaginationService<T, U>
 }

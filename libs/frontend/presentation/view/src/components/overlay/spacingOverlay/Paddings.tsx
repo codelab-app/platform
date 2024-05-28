@@ -28,21 +28,21 @@ export const Paddings = ({ values }: { values: ISpacingValues }) => {
       />
       {/* Padding Left */}
       <Padding
-        $bottom={`${values.$bottom}`}
+        $bottom={values.$bottom}
         $height="auto"
         $left="1px"
         $right="auto"
-        $top={`${values.$top}`}
+        $top={values.$top}
         $width={values.$left}
         value={values.$left}
       />
       {/* Padding Right */}
       <Padding
-        $bottom={`${values.$bottom}`}
+        $bottom={values.$bottom}
         $height="auto"
         $left="auto"
         $right="1px"
-        $top={`${values.$top}`}
+        $top={values.$top}
         $width={values.$right}
         value={values.$right}
       />

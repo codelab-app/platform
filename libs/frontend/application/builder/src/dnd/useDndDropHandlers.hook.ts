@@ -137,24 +137,30 @@ export const useDndDropHandler = (): UseDndDropHandler => {
     const parentElement = elementService.element(parentElementId)
 
     if (prevSibling && draggedElement.prevSibling?.id !== prevSiblingId) {
-      return await elementService.move({
+      await elementService.move({
         element: draggedElement,
         prevSibling,
       })
+
+      return
     }
 
     if (nextSibling && draggedElement.nextSibling?.id !== nextSiblingId) {
-      return await elementService.move({
+      await elementService.move({
         element: draggedElement,
         nextSibling,
       })
+
+      return
     }
 
     if (draggedElement.closestParentElement?.id !== parentElementId) {
-      return await elementService.move({
+      await elementService.move({
         element: draggedElement,
         parentElement,
       })
+
+      return
     }
   }
 

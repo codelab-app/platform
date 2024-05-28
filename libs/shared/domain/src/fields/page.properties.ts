@@ -8,15 +8,19 @@ interface PageData {
   compositeKey: never
 }
 
-export class PageProperties {
-  static pageCompositeKey = (pageName: string, app: IRef) => {
-    return `${app.id}-${pageName}`
-  }
+const pageCompositeKey = (pageName: string, app: IRef) => {
+  return `${app.id}-${pageName}`
+}
 
-  static pageNameFromCompositeKey = (page: DeepPick<Page, PageData>) =>
-    page.compositeKey.replace(`${page.app.id}-`, '')
+const pageNameFromCompositeKey = (page: DeepPick<Page, PageData>) =>
+  page.compositeKey.replace(`${page.app.id}-`, '')
 
-  static pageSlugFromCompositeKey = (page: DeepPick<Page, PageData>) => {
-    return slugify(PageProperties.pageNameFromCompositeKey(page))
-  }
+const pageSlugFromCompositeKey = (page: DeepPick<Page, PageData>) => {
+  return slugify(PageProperties.pageNameFromCompositeKey(page))
+}
+
+export const PageProperties = {
+  pageCompositeKey,
+  pageNameFromCompositeKey,
+  pageSlugFromCompositeKey,
 }

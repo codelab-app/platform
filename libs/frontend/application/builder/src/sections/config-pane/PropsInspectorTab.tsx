@@ -41,7 +41,9 @@ const PropsInspectorTab = observer<{
       <CodeMirrorEditor
         height="150px"
         language={ICodeMirrorLanguage.Json}
-        onChange={(value) => setEditedProp(value)}
+        onChange={(value) => {
+          setEditedProp(value)
+        }}
         onSave={(value) => save(value)}
         title={`${nodeLabel} props`}
         value={editedProp}

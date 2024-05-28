@@ -7,7 +7,7 @@ import type {
 import { IActionKind } from '@codelab/shared/abstract/core'
 
 export class ApiAction implements IApiActionDto {
-  __typename: `${IActionKind.ApiAction}` = `${IActionKind.ApiAction}`
+  __typename: `${IActionKind.ApiAction}` = IActionKind.ApiAction
 
   config: Prop
 

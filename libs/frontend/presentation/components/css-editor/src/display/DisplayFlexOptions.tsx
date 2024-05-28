@@ -133,24 +133,36 @@ export const DisplayFlexOptions = () => {
       <SegmentedSelect
         canReset={canReset(CssProperty.FlexDirection)}
         label="Direction"
-        onChange={(value) => setStyle(CssProperty.FlexDirection, value)}
-        onReset={() => resetStyle(CssProperty.FlexDirection)}
+        onChange={(value) => {
+          setStyle(CssProperty.FlexDirection, value)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.FlexDirection)
+        }}
         options={directionOptions}
         value={getCurrentStyle(CssProperty.FlexDirection)}
       />
       <SegmentedSelect
         canReset={canReset(CssProperty.JustifyContent)}
         label="Justify"
-        onChange={(value) => setStyle(CssProperty.JustifyContent, value)}
-        onReset={() => resetStyle(CssProperty.JustifyContent)}
+        onChange={(value) => {
+          setStyle(CssProperty.JustifyContent, value)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.JustifyContent)
+        }}
         options={getJustifyOptions(isHorizontal())}
         value={getCurrentStyle(CssProperty.JustifyContent)}
       />
       <SegmentedSelect
         canReset={canReset(CssProperty.AlignItems)}
         label="Align"
-        onChange={(value) => setStyle(CssProperty.AlignItems, value)}
-        onReset={() => resetStyle(CssProperty.AlignItems)}
+        onChange={(value) => {
+          setStyle(CssProperty.AlignItems, value)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.AlignItems)
+        }}
         options={getAlignOptions(!isHorizontal())}
         value={getCurrentStyle(CssProperty.AlignItems)}
       />
@@ -164,16 +176,24 @@ export const DisplayFlexOptions = () => {
               canReset={canReset(CssProperty.RowGap)}
               currentValue={getCurrentStyle(CssProperty.RowGap)}
               label="Row"
-              onChange={(value) => setStyle(CssProperty.RowGap, value)}
-              onReset={() => resetStyle(CssProperty.RowGap)}
+              onChange={(value) => {
+                setStyle(CssProperty.RowGap, value)
+              }}
+              onReset={() => {
+                resetStyle(CssProperty.RowGap)
+              }}
               wideLabel
             />
             <ValuePicker
               canReset={canReset(CssProperty.ColumnGap)}
               currentValue={getCurrentStyle(CssProperty.ColumnGap)}
               label="Col"
-              onChange={(value) => setStyle(CssProperty.ColumnGap, value)}
-              onReset={() => resetStyle(CssProperty.ColumnGap)}
+              onChange={(value) => {
+                setStyle(CssProperty.ColumnGap, value)
+              }}
+              onReset={() => {
+                resetStyle(CssProperty.ColumnGap)
+              }}
               wideLabel
             />
           </Row>
@@ -183,8 +203,12 @@ export const DisplayFlexOptions = () => {
       <SegmentedSelect
         canReset={canReset(CssProperty.FlexWrap)}
         label="Children"
-        onChange={(value) => setStyle(CssProperty.FlexWrap, value)}
-        onReset={() => resetStyle(CssProperty.FlexWrap)}
+        onChange={(value) => {
+          setStyle(CssProperty.FlexWrap, value)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.FlexWrap)
+        }}
         options={wrapOptions}
         value={getCurrentStyle(CssProperty.FlexWrap)}
       />

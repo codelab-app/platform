@@ -11,7 +11,9 @@ export const ExportAdminDataButton = observer(() => {
     <Button
       icon={<ImportOutlined />}
       onClick={
-        () => adminService.exportDataModal.open()
+        () => {
+          adminService.exportDataModal.open()
+        }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         // adminService.exportData().then(async (res: any) => {
         //   const blob = await res.blob()

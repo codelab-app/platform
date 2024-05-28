@@ -40,10 +40,12 @@ export const ElementTreeView = observer<{
       disabled={isMoving}
       draggable={true}
       expandedKeys={builderService.expandedElementTreeNodeIds}
-      onClick={(event) => event.stopPropagation()}
+      onClick={(event) => {
+        event.stopPropagation()
+      }}
       onDrop={handleDrop}
       onExpand={(expandedKeys) => {
-        return builderService.setExpandedElementTreeNodeIds(
+        builderService.setExpandedElementTreeNodeIds(
           expandedKeys as Array<string>,
         )
       }}
@@ -61,7 +63,9 @@ export const ElementTreeView = observer<{
           builderService.setHoveredNode(runtimeElementRef(node.key))
         }
       }}
-      onMouseLeave={() => builderService.setHoveredNode(null)}
+      onMouseLeave={() => {
+        builderService.setHoveredNode(null)
+      }}
       onSelect={([id], { nativeEvent, node }) => {
         nativeEvent.stopPropagation()
 

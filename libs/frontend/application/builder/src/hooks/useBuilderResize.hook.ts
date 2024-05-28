@@ -72,7 +72,7 @@ export const useBuilderResize = ({
 
     setSelectedBuilderWidth(selectedWidth)
 
-    return mWidth.set(selectedWidth.default)
+    mWidth.set(selectedWidth.default)
   }, [selectedWidth, mWidth, setSelectedBuilderWidth])
 
   const commonDragProps: Partial<DragHandleProps> = {
@@ -95,8 +95,12 @@ export const useBuilderResize = ({
     xDragHandleProps: {
       drag: 'x',
       onDrag: handleXDrag,
-      onDragEnd: () => setIsDragging(false),
-      onDragStart: () => setIsDragging(true),
+      onDragEnd: () => {
+        setIsDragging(false)
+      },
+      onDragStart: () => {
+        setIsDragging(true)
+      },
       style: {
         cursor: 'col-resize',
         translateX: '0px !important',

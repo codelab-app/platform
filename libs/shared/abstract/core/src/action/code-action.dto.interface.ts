@@ -6,7 +6,7 @@ import { IBaseActionDto } from './base-action.dto.interface'
 export const ICodeActionDto = Type.Composite([
   IBaseActionDto,
   Type.Object({
-    __typename: Type.Literal(`${IActionKind.CodeAction}`),
+    __typename: Type.Literal(IActionKind.CodeAction),
     code: Type.String(),
   }),
 ])

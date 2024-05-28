@@ -12,7 +12,9 @@ export const setSubmitControllerRef =
     // eslint-disable-next-line no-param-reassign
     submitButtonRef.current = submitButton
       ? {
-          submit: () => submitButton.click(),
+          submit: () => {
+            submitButton.click()
+          },
         }
       : undefined
   }

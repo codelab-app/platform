@@ -29,7 +29,7 @@ describe('Element domain', () => {
 
     expect(renderType.id).toBe(atomReactFragmentDto.id)
     expect(renderType).toBeDefined()
-    expect(isRefOfType(renderType!, atomRef)).toBeTruthy()
+    expect(isRefOfType(renderType, atomRef)).toBeTruthy()
   })
 
   const firstChildDto = {
