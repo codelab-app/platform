@@ -195,8 +195,10 @@ export class CloneElementService
 
     const oldToNewActionIdMap = elementStore.actions.reduce(
       (acc, action, index) => {
-        if (clonedActions[index]) {
-          acc.set(action.id, clonedActions[index]!.id)
+        const clonedAction = clonedActions[index]
+
+        if (clonedAction) {
+          acc.set(action.id, clonedAction.id)
         }
 
         return acc

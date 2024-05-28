@@ -1,9 +1,5 @@
-import {
-  IRef,
-  SchemaKinds,
-  SchemaKindsMap,
-  UserKind,
-} from '@codelab/shared/abstract/core'
+import type { SchemaKinds } from '@codelab/shared/abstract/core'
+import { IRef, SchemaKindsMap, UserKind } from '@codelab/shared/abstract/core'
 import { type TSchema, TypeRegistry } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import type { Schema, ValidateFunction } from 'ajv'

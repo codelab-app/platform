@@ -14,6 +14,7 @@ import type {
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -103,7 +104,10 @@ export class ActionService
   @modelFlow
   @transaction
   update = _async(function* (this: ActionService, data: IUpdateActionData) {
-    const action = this.actionDomainService.actions.get(data.id)!
+    const action = this.actionDomainService.actions.get(data.id)
+
+    assertIsDefined(action)
+
     const actionDto = ActionFactory.mapDataToDto(data)
 
     // ActionFactory below should be enough

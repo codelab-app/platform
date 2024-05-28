@@ -46,32 +46,42 @@ export const GridLayout = React.memo(
 
     // Make the RGL breakpoints
     const makeBreakpoints = () => {
-      const breakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
+      const defaultBreakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
+      const breakpoints = restProps.breakpoints
 
-      if (restProps.breakpoints) {
-        ObjectTyped.keys(breakpoints).forEach((key) => {
-          if (restProps.breakpoints && restProps.breakpoints[key]) {
-            breakpoints[key] = restProps.breakpoints[key]!
-          }
-        })
+      if (!breakpoints) {
+        return defaultBreakpoints
       }
 
-      return breakpoints
+      ObjectTyped.keys(defaultBreakpoints).forEach((key) => {
+        const breakpoint = breakpoints[key]
+
+        if (breakpoint) {
+          defaultBreakpoints[key] = breakpoint
+        }
+      })
+
+      return defaultBreakpoints
     }
 
     // Make the RGL cols
     const makeCols = () => {
-      const cols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }
+      const defaultCols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }
+      const cols = restProps.cols
 
-      if (restProps.cols) {
-        ObjectTyped.keys(cols).forEach((key) => {
-          if (restProps.cols && restProps.cols[key]) {
-            cols[key] = restProps.cols[key]!
-          }
-        })
+      if (!cols) {
+        return defaultCols
       }
 
-      return cols
+      ObjectTyped.keys(defaultCols).forEach((key) => {
+        const col = cols[key]
+
+        if (col) {
+          defaultCols[key] = col
+        }
+      })
+
+      return defaultCols
     }
 
     const onLayoutChange = (_layout: Array<Layout>, allLayouts: Layouts) => {

@@ -12,6 +12,7 @@ import type {
   IResourceDto,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -122,7 +123,10 @@ export class ResourceService
     this: ResourceService,
     { config: configData, id, name, type }: IUpdateResourceData,
   ) {
-    const resource = this.resourceDomainService.resources.get(id)!
+    const resource = this.resourceDomainService.resources.get(id)
+
+    assertIsDefined(resource)
+
     const config = resource.config
 
     /**

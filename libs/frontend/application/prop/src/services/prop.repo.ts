@@ -5,6 +5,7 @@ import type {
   PropUniqueWhere,
   PropWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { propApi } from './prop.api'
 
@@ -20,7 +21,11 @@ export class PropRepository extends Model({}) implements IPropRepository {
       }),
     )
 
-    return props[0]!
+    const createdProp = props[0]
+
+    assertIsDefined(createdProp)
+
+    return createdProp
   })
 
   @modelFlow
@@ -61,6 +66,8 @@ export class PropRepository extends Model({}) implements IPropRepository {
       }),
     )
 
-    return props[0]!
+    const updatedProp = props[0]
+
+    return updatedProp
   })
 }

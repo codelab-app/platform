@@ -8,6 +8,7 @@ import type {
   StoreWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IStoreDto } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -79,7 +80,9 @@ export class StoreService
   @modelFlow
   @transaction
   update = _async(function* (this: StoreService, data: IStoreDto) {
-    const store = this.storeDomainService.stores.get(data.id)!
+    const store = this.storeDomainService.stores.get(data.id)
+
+    assertIsDefined(store)
 
     store.writeCache({ name: data.name })
 
@@ -91,6 +94,7 @@ export class StoreService
   @modelAction
   load = (stores: Array<StoreFragment>) => {
     console.debug('StoreService.load()', stores)
+
     this.actionService.actionDomainService.load(
       stores.flatMap((store) => store.actions),
     )

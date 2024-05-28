@@ -10,7 +10,7 @@ import { IBaseActionDto } from './base-action.dto.interface'
 export const IApiActionDto = Type.Composite([
   IBaseActionDto,
   Type.Object({
-    __typename: Type.Literal(IActionKind.ApiAction),
+    __typename: Type.Literal(`${IActionKind.ApiAction}`),
     config: IPropDto,
     errorAction: Typebox.Nullish(IActionRef),
     resource: IRef,

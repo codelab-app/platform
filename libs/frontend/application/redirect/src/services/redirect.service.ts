@@ -6,6 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
 import type { RedirectWhere } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -93,13 +94,15 @@ export class RedirectService
     this: RedirectService,
     redirectDto: IUpdateRedirectData,
   ) {
-    const redirect = this.redirectDomainService.redirects.get(redirectDto.id)!
+    const redirect = this.redirectDomainService.redirects.get(redirectDto.id)
+
+    assertIsDefined(redirect)
 
     redirect.writeCache(redirectDto)
 
     yield* _await(this.redirectRepository.update(redirect))
 
-    return redirect!
+    return redirect
   })
 
   redirect(id: string) {

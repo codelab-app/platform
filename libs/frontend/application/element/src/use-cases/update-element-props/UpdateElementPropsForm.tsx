@@ -39,7 +39,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
           await elementService.loadDependantTypes(rootElement)
         }
 
-        return typeService.getInterface(apiId!)
+        return typeService.getInterface(apiId)
       },
     )
 

@@ -132,6 +132,12 @@
       }
     },
     {
+      "files": ["*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
       "files": ["*.schema.ts", "*.schema.interface.ts"],
       "rules": {
         "canonical/sort-keys": "off"
@@ -169,7 +175,7 @@
         "curly": ["error", "all"],
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/no-extraneous-class": [
-          "error",
+          "off",
           { "allowWithDecorator": true }
         ],
         "@typescript-eslint/method-signature-style": ["error", "method"],

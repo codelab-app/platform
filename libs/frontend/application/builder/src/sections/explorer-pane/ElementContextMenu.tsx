@@ -45,7 +45,7 @@ export const ElementContextMenu = observer<
     useState<Nullable<string>>(null)
 
   const element = elementService.elementDomainService.maybeElement(
-    treeNode.element!.id,
+    treeNode.element?.id,
   )
 
   if (!element) {

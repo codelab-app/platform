@@ -21,6 +21,7 @@ import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import isEmpty from 'lodash/isEmpty'
 import { computed } from 'mobx'
 import {
@@ -188,7 +189,9 @@ export class AtomService
   ) {
     const atom = this.atomDomainService.atoms.get(id)
 
-    atom?.writeCache({
+    assertIsDefined(atom)
+
+    atom.writeCache({
       externalCssSource,
       externalJsSource,
       externalSourceType,
@@ -199,9 +202,9 @@ export class AtomService
       type,
     })
 
-    yield* _await(this.atomRepository.update(atom!))
+    yield* _await(this.atomRepository.update(atom))
 
-    return atom!
+    return atom
   })
 
   onAttachedToRootStore() {

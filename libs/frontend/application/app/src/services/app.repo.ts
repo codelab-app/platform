@@ -6,21 +6,24 @@ import type {
   AppUniqueWhere,
   AppWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { appApi } from '../graphql/app.api'
 
 @model('@codelab/AppRepository')
 export class AppRepository extends Model({}) implements IAppRepository {
   async add(app: IAppModel) {
-    console.log(app.toCreateInput())
-
     const {
       createApps: { apps },
     } = await appApi.CreateApps({
       input: [app.toCreateInput()],
     })
 
-    return apps[0]!
+    const createdApp = apps[0]
+
+    assertIsDefined(createdApp)
+
+    return createdApp
   }
 
   /**
@@ -63,6 +66,10 @@ export class AppRepository extends Model({}) implements IAppRepository {
       where: { id: app.id },
     })
 
-    return apps[0]!
+    const updatedApp = apps[0]
+
+    assertIsDefined(updatedApp)
+
+    return updatedApp
   }
 }

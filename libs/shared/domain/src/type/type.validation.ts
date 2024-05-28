@@ -1,4 +1,5 @@
 import {
+  IEnumType,
   IInterfaceType,
   IInterfaceTypeDto,
   type IValidationService,
@@ -8,3 +9,6 @@ import { ValidationService } from '../services/validation.service'
 
 export const interfaceTypeValidation: IValidationService<IInterfaceType> =
   new ValidationService(SchemaKinds.InterfaceType, IInterfaceType)
+
+export const enumTypeValidation: IValidationService<IEnumType> =
+  new ValidationService(SchemaKinds.EnumType, IEnumType)

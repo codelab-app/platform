@@ -3,7 +3,7 @@ import type { IAppProductionDto } from '@codelab/frontend/abstract/domain'
 import {
   AppProductionService,
   useAppProduction,
-} from '@codelab/frontend-application-app'
+} from '@codelab/frontend-application-app/use-cases/app-production'
 import { RootRenderer } from '@codelab/frontend-application-renderer/components'
 import { useMountEffect } from '@react-hookz/web'
 import type { GetStaticPaths, GetStaticProps } from 'next'

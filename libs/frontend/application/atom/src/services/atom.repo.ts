@@ -72,6 +72,8 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
       where: { id: atom.id },
     })
 
-    return atoms[0]!
+    const updatedAtom = atoms[0]
+
+    return updatedAtom
   }
 }

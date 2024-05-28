@@ -3,6 +3,8 @@ import {
   connectNodeId,
   connectNodeIds,
   connectOwner,
+  enumTypeValidation,
+  refValidation,
 } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
@@ -45,7 +47,9 @@ describe('ElementResolvers', () => {
           },
         ],
       })
-    ).users[0]!
+    ).users[0]
+
+    refValidation.asserts(owner)
 
     const enumTypes = (
       await ogmService.EnumType.create({
@@ -64,6 +68,12 @@ describe('ElementResolvers', () => {
       })
     ).enumTypes
 
+    const enumType1 = enumTypes[0]
+    const enumType2 = enumTypes[1]
+
+    enumTypeValidation.asserts(enumType1)
+    enumTypeValidation.asserts(enumType2)
+
     const unionType = (
       await ogmService.UnionType.create({
         input: [
@@ -77,7 +87,9 @@ describe('ElementResolvers', () => {
           },
         ],
       })
-    ).unionTypes[0]!
+    ).unionTypes[0]
+
+    refValidation.asserts(unionType)
 
     const arrayType = (
       await ogmService.ArrayType.create({
@@ -90,7 +102,9 @@ describe('ElementResolvers', () => {
           },
         ],
       })
-    ).arrayTypes[0]!
+    ).arrayTypes[0]
+
+    refValidation.asserts(arrayType)
 
     const atomApi = (
       await ogmService.InterfaceType.create({
@@ -102,7 +116,9 @@ describe('ElementResolvers', () => {
           },
         ],
       })
-    ).interfaceTypes[0]!
+    ).interfaceTypes[0]
+
+    refValidation.asserts(atomApi)
 
     await ogmService.Field.create({
       input: [
@@ -135,7 +151,9 @@ describe('ElementResolvers', () => {
           },
         ],
       })
-    ).atoms[0]!
+    ).atoms[0]
+
+    refValidation.asserts(atom)
 
     const props = (
       await ogmService.Prop.create({
@@ -146,7 +164,9 @@ describe('ElementResolvers', () => {
           },
         ],
       })
-    ).props[0]!
+    ).props[0]
+
+    refValidation.asserts(props)
 
     await ogmService.Element.create({
       input: [
@@ -176,12 +196,12 @@ describe('ElementResolvers', () => {
                 name: arrayType.name,
               },
               {
-                id: enumTypes[0]!.id,
-                name: enumTypes[0]!.name,
+                id: enumType1.id,
+                name: enumType1.name,
               },
               {
-                id: enumTypes[1]!.id,
-                name: enumTypes[1]!.name,
+                id: enumType2.id,
+                name: enumType2.name,
               },
               {
                 id: unionType.id,
