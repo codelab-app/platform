@@ -6,13 +6,14 @@ import {
   pageDto,
 } from '@codelab/frontend/test/data'
 import type { IElementDto } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { rootDomainStore } from './root.test.store'
 
-const rootElementDto = { ...elementDto, name: 'Root Element' }
-
 describe('Element domain', () => {
+  const rootElementDto = { ...elementDto, name: 'Root Element' }
+
   const { atomDomainService, elementDomainService, pageDomainService } =
     rootDomainStore
 
@@ -22,7 +23,9 @@ describe('Element domain', () => {
   elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
   atomDomainService.hydrate(atomReactFragmentDto)
 
-  const rootElement = elementDomainService.elements.get(rootElementDto.id)!
+  const rootElement = elementDomainService.elements.get(rootElementDto.id)
+
+  assertIsDefined(rootElement)
 
   it('should add a render type to element', () => {
     const renderType = rootElement.renderType

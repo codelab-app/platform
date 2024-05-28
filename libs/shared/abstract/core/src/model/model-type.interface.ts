@@ -3,6 +3,7 @@ import { ObjectTyped } from 'object-typed'
 
 export const IModelKinds = {
   App: 'App',
+  EnumType: 'EnumType',
   InterfaceType: 'InterfaceType',
   Prop: 'Prop',
   User: 'User',

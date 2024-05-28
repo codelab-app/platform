@@ -6,6 +6,7 @@ import {
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { authGuardApi } from './auth-guard.api'
 
@@ -22,7 +23,11 @@ export class AuthGuardRepository
       input: [authGuard.toCreateInput()],
     })
 
-    return authGuards[0]!
+    const createdAuthGuard = authGuards[0]
+
+    assertIsDefined(createdAuthGuard)
+
+    return createdAuthGuard
   }
 
   @clearCacheForKey('authGuards')
@@ -55,6 +60,10 @@ export class AuthGuardRepository
       where: { id: authGuard.id },
     })
 
-    return authGuards[0]!
+    const updatedAuthGuard = authGuards[0]
+
+    assertIsDefined(updatedAuthGuard)
+
+    return updatedAuthGuard
   }
 }

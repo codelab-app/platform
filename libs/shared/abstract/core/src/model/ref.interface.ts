@@ -8,7 +8,7 @@ export type IRef = Static<typeof IRef>
 export const IDiscriminatedRef = <T extends string>(typename: T) => {
   return Type.Composite([
     Type.Object({
-      __typename: Type.Literal(typename),
+      __typename: Type.Literal(`${typename}`),
     }),
     IRef,
   ])

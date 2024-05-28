@@ -25,7 +25,7 @@ import type {
   IAppAggregate,
   IUpdatePageData,
 } from '@codelab/shared/abstract/core'
-import { prettifyForConsole } from '@codelab/shared/utils'
+import { assertIsDefined, prettifyForConsole } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -200,7 +200,9 @@ export class AppService
   @modelFlow
   @transaction
   update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {
-    const app = this.appDomainService.apps.get(id)!
+    const app = this.appDomainService.apps.get(id)
+
+    assertIsDefined(app)
 
     app.writeCache({ name })
 

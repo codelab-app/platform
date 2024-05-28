@@ -22,7 +22,12 @@ const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
   ({ treeNode }) => {
     const { elementService } = useStore()
     const { popover } = useCui()
-    const element = elementService.element(treeNode.element!.id)
+
+    if (!treeNode.element) {
+      return
+    }
+
+    const element = elementService.element(treeNode.element.id)
 
     const onClick = () => {
       popover.open(MODEL_ACTION.CreateElement.key)

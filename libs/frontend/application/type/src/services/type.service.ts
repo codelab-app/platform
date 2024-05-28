@@ -18,6 +18,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { assertIsDefined } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
@@ -216,7 +217,10 @@ export class TypeService
   @modelFlow
   @transaction
   update = _async(function* (this: TypeService, data: IUpdateTypeDto) {
-    const type = this.typeDomainService.types.get(data.id)!
+    const type = this.typeDomainService.types.get(data.id)
+
+    assertIsDefined(type)
+
     const typeDto = TypeFactory.mapDataToDTO(data)
 
     TypeFactory.writeCache(typeDto, type)

@@ -253,7 +253,7 @@ export class ComponentApplicationService
       rendererType: RendererType.ComponentBuilder,
     })
 
-    this.builderService.selectComponentNode(renderer.runtimeComponent!)
+    this.builderService.selectComponentNode(renderer.runtimeComponent)
     this.rendererService.setActiveRenderer(rendererRef(renderer))
   }
 

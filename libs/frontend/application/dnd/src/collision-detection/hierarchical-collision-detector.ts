@@ -118,7 +118,7 @@ export class HierarchicalCollisionDetector {
       const droppableLevel = droppable.level || 0
 
       if (Rectangle.contains(droppable.rect, point)) {
-        if (!foundRect || droppableLevel > foundRect.level!) {
+        if (!foundRect || droppableLevel > foundRect.level) {
           foundRect = droppable
         }
       }

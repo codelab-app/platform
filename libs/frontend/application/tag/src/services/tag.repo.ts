@@ -5,6 +5,7 @@ import type {
   TagUniqueWhere,
   TagWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { tagApi } from '../graphql/tag.api'
 
@@ -20,7 +21,11 @@ export class TagRepository extends Model({}) implements ITagRepository {
       }),
     )
 
-    return tags[0]!
+    const createdTag = tags[0]
+
+    assertIsDefined(createdTag)
+
+    return createdTag
   })
 
   @modelFlow
@@ -63,6 +68,10 @@ export class TagRepository extends Model({}) implements ITagRepository {
       }),
     )
 
-    return tags[0]!
+    const updatedTag = tags[0]
+
+    assertIsDefined(updatedTag)
+
+    return updatedTag
   })
 }

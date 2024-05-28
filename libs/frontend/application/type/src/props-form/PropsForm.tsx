@@ -22,7 +22,7 @@ export interface PropsFormProps
   interfaceType?: IInterfaceTypeModel
   model?: IPropData
   setIsLoading?: SetIsLoading
-  onSubmit(values: IPropData): Promise<IPropData | void>
+  onSubmit(values: IPropData): Promise<IPropData>
 }
 
 /**

@@ -17,4 +17,6 @@ export const assertIsDefined: AssertIsDefined = <T>(
   if (val === undefined || val === null) {
     throw new Error(`Expected 'val' to be defined, but received ${val}`)
   }
+
+  return val
 }

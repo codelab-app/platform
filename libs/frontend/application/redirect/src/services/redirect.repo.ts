@@ -4,6 +4,7 @@ import type {
   RedirectOptions,
   RedirectWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { redirectApi } from './redirect.api'
 
@@ -20,7 +21,11 @@ export class RedirectRepository
       createRedirects: { redirects },
     } = await redirectApi.CreateRedirects({ input: redirect.toCreateInput() })
 
-    return redirects[0]!
+    const createdRedirect = redirects[0]
+
+    assertIsDefined(createdRedirect)
+
+    return createdRedirect
   }
 
   async delete(redirects: Array<IRedirectModel>) {
@@ -49,6 +54,10 @@ export class RedirectRepository
       where: { id: redirect.id },
     })
 
-    return redirects[0]!
+    const updatedRedirect = redirects[0]
+
+    assertIsDefined(updatedRedirect)
+
+    return updatedRedirect
   }
 }

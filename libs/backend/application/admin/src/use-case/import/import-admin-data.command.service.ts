@@ -86,7 +86,7 @@ export class ImportAdminDataHandler
   private async importTags() {
     const { tags } = this.readAdminDataService
 
-    return this.commandBus.execute<ImportTagsCommand, void>(
+    return this.commandBus.execute<ImportTagsCommand>(
       new ImportTagsCommand(tags),
     )
   }

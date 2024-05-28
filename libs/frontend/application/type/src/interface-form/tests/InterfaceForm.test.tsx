@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/filename-case */
+import { assertIsDefined } from '@codelab/shared/utils'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
@@ -39,8 +40,10 @@ describe('InterfaceForm', () => {
 
     expect(enumSelectElement).toBeInTheDocument()
 
+    assertIsDefined(enumSelectElement)
+
     // Click on the selector
-    await act(() => userEvent.click(enumSelectElement!))
+    await act(() => userEvent.click(enumSelectElement))
 
     // Select the second option
     const dropdownOption = container.querySelector(
@@ -49,7 +52,9 @@ describe('InterfaceForm', () => {
 
     await waitFor(() => expect(dropdownOption).toBeVisible())
 
-    await act(() => userEvent.click(dropdownOption!))
+    assertIsDefined(dropdownOption)
+
+    await act(() => userEvent.click(dropdownOption))
 
     // Check the value has been updated
     expect(
@@ -85,8 +90,10 @@ describe('InterfaceForm', () => {
 
     expect(selectUnionTypeElement).toBeInTheDocument()
 
+    assertIsDefined(selectUnionTypeElement)
+
     // Click on the type selector
-    await act(() => userEvent.click(selectUnionTypeElement!))
+    await act(() => userEvent.click(selectUnionTypeElement))
 
     //
     // Select the IntType option
@@ -96,9 +103,11 @@ describe('InterfaceForm', () => {
       `.ant-select-item.ant-select-item-option[title="${intType.name}"]`,
     )
 
+    assertIsDefined(intTypeOption)
+
     expect(intTypeOption).toBeInTheDocument()
 
-    await act(() => userEvent.click(intTypeOption!))
+    await act(() => userEvent.click(intTypeOption))
 
     // Check the selected type has been updated
     expect(
@@ -121,15 +130,17 @@ describe('InterfaceForm', () => {
     expect(valueField).toHaveValue('123')
 
     // Select String type option
-    await act(() => userEvent.click(selectUnionTypeElement!))
+    await act(() => userEvent.click(selectUnionTypeElement))
 
     const stringTypeOption = document.querySelector(
       `.ant-select-item.ant-select-item-option[title="${stringType.name}"]`,
     )
 
+    assertIsDefined(stringTypeOption)
+
     expect(stringTypeOption).toBeInTheDocument()
 
-    await act(() => userEvent.click(stringTypeOption!))
+    await act(() => userEvent.click(stringTypeOption))
 
     expect(
       container.querySelector('.ant-select-selection-item'),

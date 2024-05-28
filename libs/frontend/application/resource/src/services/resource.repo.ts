@@ -6,6 +6,7 @@ import {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { resourceApi } from './resource.api'
 
@@ -20,7 +21,11 @@ export class ResourceRepository
       createResources: { resources },
     } = await resourceApi.CreateResources({ input: [resource.toCreateInput()] })
 
-    return resources[0]!
+    const createdResource = resources[0]
+
+    assertIsDefined(createdResource)
+
+    return createdResource
   }
 
   @clearCacheForKey('resources')
@@ -53,6 +58,10 @@ export class ResourceRepository
       where: { id: resource.id },
     })
 
-    return resources[0]!
+    const updatedResource = resources[0]
+
+    assertIsDefined(updatedResource)
+
+    return updatedResource
   }
 }

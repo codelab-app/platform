@@ -19,7 +19,7 @@ export type IComponentDto = Static<typeof IComponentDto>
 
 export const IComponent = Type.Composite([
   Type.Object({
-    __typename: Type.Literal(IElementRenderTypeKind.Component),
+    __typename: Type.Literal(`${IElementRenderTypeKind.Component}`),
   }),
   Typebox.Overwrite(
     IComponentDto,

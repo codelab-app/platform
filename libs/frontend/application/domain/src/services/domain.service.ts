@@ -8,6 +8,7 @@ import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { Domain } from '@codelab/frontend-domain-domain/store'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -91,7 +92,10 @@ export class DomainService
     this: DomainService,
     { id, name }: IUpdateDomainData,
   ) {
-    const domain = this.domains.get(id)!
+    const domain = this.domains.get(id)
+
+    assertIsDefined(domain)
+
     const oldName = domain.name
 
     domain.writeCache({ name })

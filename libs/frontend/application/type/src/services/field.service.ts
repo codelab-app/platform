@@ -12,6 +12,7 @@ import type {
   IFieldDto,
   IRef,
 } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
@@ -199,7 +200,9 @@ export class FieldService
     this: FieldService,
     updateFieldData: ICreateFieldData,
   ) {
-    const field = this.fieldDomainService.getField(updateFieldData.id)!
+    const field = this.fieldDomainService.getField(updateFieldData.id)
+
+    assertIsDefined(field)
 
     field.writeCache(FieldService.mapDataToDTO(updateFieldData))
 
