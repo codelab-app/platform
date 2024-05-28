@@ -6,17 +6,13 @@ import type { Schema, ValidateFunction } from 'ajv'
 import Ajv from 'ajv'
 
 export interface ISchemaProvider {
-  // asserts<T>(kind: keyof typeof SchemaKinds, value: unknown): asserts value is T
   register(kind: keyof typeof SchemaKinds, tSchema: Schema): void
-  // validate(kind: keyof typeof SchemaKinds, data: unknown): boolean
 }
 
 class SchemaProvider implements ISchemaProvider {
   static getInstance(): SchemaProvider {
     if (!SchemaProvider.instance) {
       SchemaProvider.instance = new SchemaProvider()
-
-      // SchemaProvider.instance.register(SchemaKinds.Ref, IRef)
     }
 
     return SchemaProvider.instance
@@ -27,21 +23,6 @@ class SchemaProvider implements ISchemaProvider {
   addSchema(schema: object, key?: string): void {
     this.ajv.addSchema(schema, key)
   }
-
-  /**
-   * becomes this basically
-   *
-   * const assertIsRef: AssertIsSchema<IRef> = (val) =>
-  Value.Decode(RefKind, val)
-   */
-  // asserts<T>(
-  //   kind: keyof typeof SchemaKinds,
-  //   value: unknown,
-  // ): asserts value is T {
-  //   const tSchema = SchemaKindsMap[kind]
-
-  //   Value.Decode(tSchema, value)
-  // }
 
   getSchema(key: string): ValidateFunction | undefined {
     return this.ajv.getSchema(key)
@@ -57,12 +38,6 @@ class SchemaProvider implements ISchemaProvider {
       return validate(value)
     })
   }
-
-  // validate(kind: keyof typeof SchemaKinds, data: unknown): boolean {
-  //   const tSchema = SchemaKindsMap[kind]
-
-  //   return Value.Check(tSchema, data)
-  // }
 
   private static instance?: SchemaProvider
 
