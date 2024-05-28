@@ -7,22 +7,34 @@ import 'react-grid-layout/css/styles.css'
 // - set 100% width and height for html and body
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
-import type { IAppProps } from '@codelab/frontend/abstract/application'
+import type {
+  IAppProps,
+  UrlParams,
+} from '@codelab/frontend/abstract/application'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { guestUser } from '@codelab/shared/data/test'
 import { registerRootStore } from 'mobx-keystone'
-import { useRouter } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const App = ({ Component, pageProps }: IAppProps) => {
-  const router = useRouter()
+  const {
+    appSlug,
+    componentSlug,
+    pageSlug,
+    params,
+    primarySidebarKey,
+    query,
+    userSlug,
+  } = useUrl()
 
   const [store] = useState(() => {
     const coreStore = createCoreStore(
       {
-        param: router.query,
-        query: router.query,
+        params: params,
+        query,
       },
       guestUser,
     )
@@ -34,9 +46,10 @@ const App = ({ Component, pageProps }: IAppProps) => {
 
   useEffect(() => {
     store.routerService.update({
-      query: router.query,
+      params: params,
+      query,
     })
-  }, [router])
+  }, [params, query])
 
   return (
     <StoreProvider value={store}>

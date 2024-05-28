@@ -6,10 +6,15 @@ import type {
   SupportedPaginationModel,
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TablePaginationConfig } from 'antd'
 import debounce from 'lodash/debounce'
 import isMatch from 'lodash/isMatch'
-import { useRouter, useSearchParams } from 'next/navigation'
+import {
+  type ReadonlyURLSearchParams,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
 import queryString from 'query-string'
 import React, { useEffect } from 'react'
 import { extractTableQueries } from './extract-table-queries'
@@ -29,12 +34,12 @@ export const useTablePagination = <
   pathname,
 }: Props<U>) => {
   const router = useRouter()
-  const params = useSearchParams()
+  const params = useSearchParams() as Nullable<ReadonlyURLSearchParams>
 
   const query = {
-    ...queryString.parse(params.toString()),
-    page: params.get('page'),
-    pageSize: params.get('pageSize'),
+    ...queryString.parse(params?.toString() ?? ''),
+    page: params?.get('page'),
+    pageSize: params?.get('pageSize'),
   }
 
   const {

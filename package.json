@@ -250,6 +250,7 @@
     "@storybook/addon-interactions": "7.5.3",
     "@storybook/core-common": "7.5.3",
     "@storybook/nextjs": "7.5.3",
+    "@storybook/react": "^8.1.4",
     "@stylistic/eslint-plugin-ts": "1.6.3",
     "@svgr/webpack": "8.0.1",
     "@swc-node/register": "~1.9.1",

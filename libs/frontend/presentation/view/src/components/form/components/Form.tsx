@@ -21,7 +21,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     modelTransform,
     onChange,
     onChangeModel,
-    onSubmit = (_model: TData) => Promise.resolve(),
+    onSubmit,
     onSubmitError = [],
     onSubmitSuccess = [],
     schema,

@@ -1,8 +1,9 @@
 import '../styles/global.css'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
-import { userDto } from '@codelab/frontend/test/data'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { guestUser, userDto } from '@codelab/shared/data/test'
 import type { Preview } from '@storybook/react'
 import { ConfigProvider } from 'antd'
 import { useRouter } from 'next/navigation'
@@ -12,17 +13,8 @@ import { v4 } from 'uuid'
 const preview: Preview = {
   decorators: [
     (Story) => {
-      const router = useRouter()
-
-      const user = {
-        ...userDto,
-        [JWT_CLAIMS]: {
-          neo4j_user_id: v4(),
-          roles: [],
-        },
-      }
-
-      const store = createCoreStore(router, user)
+      const { params, query } = useUrl()
+      const store = createCoreStore({ params, query }, guestUser)
 
       return (
         <StoreProvider value={store}>

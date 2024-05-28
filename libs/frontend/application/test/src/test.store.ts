@@ -76,8 +76,8 @@ export const createTestStore = () => {
 
   const coreStore = createCoreStore(
     {
-      param: {},
-      query: {},
+      params: null,
+      query: null,
     },
     adminUser,
   )

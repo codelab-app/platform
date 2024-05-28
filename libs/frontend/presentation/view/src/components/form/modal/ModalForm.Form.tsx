@@ -25,7 +25,7 @@ export const Form = <TData, TResponse = unknown>({
   modelTransform,
   onChange,
   onChangeModel,
-  onSubmit = (_model: unknown) => Promise.resolve(),
+  onSubmit,
   onSubmitError = [],
   onSubmitSuccess = [],
   schema,

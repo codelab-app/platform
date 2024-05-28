@@ -24,7 +24,7 @@ export class ValidationService {
        */
       if (Typebox.isUnionSchema(anySchema)) {
         const discriminatedValidator = new DiscriminatedUnionValidator(
-          anySchema,
+          anySchema as TUnion<Array<TObject>>,
         )
 
         return discriminatedValidator.validateAndCleanCopy(

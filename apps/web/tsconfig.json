@@ -1,6 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "@welldone-software/why-did-you-render",
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -24,28 +26,19 @@
       "cypher",
       "styled-components",
       "data-cy"
-    ],
-    "jsx": "preserve",
-    "jsxImportSource": "@welldone-software/why-did-you-render"
+    ]
   },
-  // "references": [
-  //   {
-  //     "path": "./tsconfig.spec.json"
-  //   },
-  //   {
-  //     "path": "./tsconfig.storybook.json"
-  //   }
-  // ],
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
     "**/*.graphql",
     "next-env.d.ts",
     "index.d.ts",
-    "**/*.js",
-    "**/*.jsx",
     ".next/types/**/*.ts",
-    "../../dist/apps/web/.next/types/**/*.ts"
+    "../../dist/apps/web/.next/types/**/*.ts",
+    "../../dist/apps/web-test/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",
@@ -61,5 +54,10 @@
     "**/*.stories.js",
     "**/*.stories.jsx",
     "**/*.stories.tsx"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.storybook.json"
+    }
   ]
 }
