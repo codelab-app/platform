@@ -1,3 +1,5 @@
+import type { Nullable } from '@codelab/shared/abstract/types'
+
 /**
  * Url param like :details
  */
@@ -19,8 +21,8 @@ export interface UrlQuery {
 }
 
 export interface IRouterProps {
-  param: UrlParams
-  query: UrlQuery
+  params: Nullable<UrlParams>
+  query: Nullable<UrlQuery>
 }
 
 export type IRouterService = IRouterProps &

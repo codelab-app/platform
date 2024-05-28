@@ -46,7 +46,7 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     /**
      * Don't use `DeepPartial` even Uniform uses it
      */
-    onSubmit(model: TData): Promise<TResponse>
+    onSubmit(model: TData): Promise<TResponse | null>
   }
 
 // form Controller props

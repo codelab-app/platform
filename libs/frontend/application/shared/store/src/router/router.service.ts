@@ -9,10 +9,10 @@ import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 const init = (router: IRouterProps) => {
-  const { param, query } = router
+  const { params, query } = router
 
   return new RouterService({
-    param,
+    params,
     query,
   })
 }
@@ -20,7 +20,7 @@ const init = (router: IRouterProps) => {
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    param: prop<UrlParams>(() => ({
+    params: prop<UrlParams>(() => ({
       appSlug: undefined,
       componentSlug: undefined,
       pageSlug: undefined,
@@ -36,17 +36,17 @@ export class RouterService
 
   @computed
   get appSlug() {
-    return this.param.appSlug
+    return this.params.appSlug
   }
 
   @computed
   get componentSlug() {
-    return this.param.componentSlug
+    return this.params.componentSlug
   }
 
   @computed
   get pageSlug() {
-    return this.param.pageSlug
+    return this.params.pageSlug
   }
 
   @computed
@@ -56,12 +56,17 @@ export class RouterService
 
   @computed
   get userSlug() {
-    return this.param.userSlug
+    return this.params.userSlug
   }
 
   @modelAction
-  update({ param, query }: IRouterProps) {
-    this.setParam(param)
-    this.setQuery(query)
+  update({ params, query }: IRouterProps) {
+    if (params) {
+      this.setParams(params)
+    }
+
+    if (query) {
+      this.setQuery(query)
+    }
   }
 }

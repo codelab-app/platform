@@ -32,6 +32,8 @@ export const handleFormSubmit =
         callbackWithParams(onSubmitError, err)
       }
     }
+
+    return null
   }
 
 export const handleSubmitRefModalOk = (

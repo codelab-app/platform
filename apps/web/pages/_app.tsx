@@ -9,6 +9,7 @@ import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { getEnv } from '@codelab/shared/config'
 import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
@@ -41,8 +42,7 @@ if (getEnv().endpoint.isLocal && getEnv().node.enableWdyr) {
 }
 
 const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
-  const params = useParams<Partial<UrlParams>>()
-  const searchParams = useSearchParams()
+  const { params, query } = useUrl()
 
   /**
    * When possible, Fast Refresh attempts to preserve the state of your component between edits. In particular, useState and useRef preserve their previous values as long as you don't change their arguments or the order of the Hook calls.
@@ -52,16 +52,8 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
   const [store] = useState(() => {
     const coreStore = createCoreStore(
       {
-        param: {
-          appSlug: params?.appSlug,
-          componentSlug: params?.componentSlug,
-          pageSlug: params?.pageSlug,
-          userSlug: params?.userSlug,
-        },
-        query: {
-          primarySidebarKey:
-            searchParams?.get('primarySidebarKey') ?? undefined,
-        },
+        params,
+        query,
       },
       user,
     )
@@ -73,17 +65,10 @@ const App = ({ Component, pageProps: { user = adminUser } }: IAppProps) => {
 
   useEffect(() => {
     store.routerService.update({
-      param: {
-        appSlug: params?.appSlug,
-        componentSlug: params?.componentSlug,
-        pageSlug: params?.pageSlug,
-        userSlug: params?.userSlug,
-      },
-      query: {
-        primarySidebarKey: searchParams?.get('primarySidebarKey') ?? undefined,
-      },
+      params,
+      query,
     })
-  }, [params, searchParams])
+  }, [params, query])
 
   const { Layout = React.Fragment } = Component as CodelabPage<object, object>
 
