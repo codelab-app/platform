@@ -159,7 +159,9 @@ export class RuntimeComponentModel
 
   @modelAction
   detach(): void {
-    this.children.forEach((child) => child.detach())
+    this.children.forEach((child) => {
+      child.detach()
+    })
     this.runtimeRootElement.detach()
     this.runtimeComponentService.delete(this)
   }

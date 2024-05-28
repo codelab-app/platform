@@ -19,6 +19,7 @@ import { elementFactory } from '@codelab/frontend-domain-element/test'
 import { pageFactory } from '@codelab/frontend-domain-page/test'
 import { propFactory } from '@codelab/frontend-domain-prop/test'
 import { resourceFactory } from '@codelab/frontend-domain-resource/test'
+import { Store } from '@codelab/frontend-domain-store/store'
 import { storeFactory } from '@codelab/frontend-domain-store/test'
 import {
   codeMirrorTypeFactory,
@@ -75,8 +76,7 @@ export const createTestStore = () => {
 
   const coreStore = createCoreStore(
     {
-      path: '',
-      pathname: '',
+      param: {},
       query: {},
     },
     adminUser,
@@ -275,7 +275,7 @@ export const createTestStore = () => {
         rendererType: RendererType.Preview,
       })
 
-      const runtimeComponent = renderer.runtimeComponent!
+      const runtimeComponent = renderer.runtimeComponent
 
       return { component, renderer, runtimeComponent }
     }
@@ -332,7 +332,7 @@ export const createTestStore = () => {
           name: 'Component',
         })
 
-      const runtimeRootElement = runtimePage!.runtimeRootElement
+      const runtimeRootElement = runtimePage?.runtimeRootElement
 
       rootElement.writeCache({ renderType: component })
 
@@ -356,7 +356,7 @@ export const createTestStore = () => {
         pageKind,
       )
 
-      const runtimeRootElement = runtimePage!.runtimeRootElement
+      const runtimeRootElement = runtimePage?.runtimeRootElement
 
       return {
         page,

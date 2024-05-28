@@ -11,4 +11,4 @@ export const rootDomainStore = createRootDomainStore({
     elementDomainService: new ElementDomainService({}),
     pageDomainService: new PageDomainService({}),
   },
-}) as IRootDomainStore
+})

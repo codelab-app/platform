@@ -24,7 +24,7 @@ export class Atom implements IAtom {
     return atom
   }
 
-  __typename = `${IElementRenderTypeKind.Atom}` as const
+  __typename = IElementRenderTypeKind.Atom as const
 
   api: IRef
 

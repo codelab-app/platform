@@ -70,7 +70,7 @@ export class ExportApiHandler
     this.sortEnumValuesBeforeExport(dependentTypes)
 
     const dependentInterfaceTypes = dependentTypes.filter(
-      (type) => type.__typename === `${ITypeKind.InterfaceType}`,
+      (type) => type.__typename === ITypeKind.InterfaceType,
     )
 
     const interfacesIds = dependentInterfaceTypes.map(({ id }) => id)
@@ -104,7 +104,7 @@ export class ExportApiHandler
       ) {
         const type = await this.typeFactory.findOne(dependentType)
 
-        if (type?.__typename === `${ITypeKind.InterfaceType}`) {
+        if (type?.__typename === ITypeKind.InterfaceType) {
           dependentTypes.push({
             ...omit(type, 'owner'),
             fields: (type as IInterfaceType).fields,
@@ -120,7 +120,7 @@ export class ExportApiHandler
 
   private sortEnumValuesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes
-      .filter((type) => type.__typename === `${ITypeKind.EnumType}`)
+      .filter((type) => type.__typename === ITypeKind.EnumType)
       .forEach((unionType) =>
         (unionType as IEnumTypeDto).allowedValues.sort((a, b) =>
           a.key.localeCompare(b.key),
@@ -137,10 +137,10 @@ export class ExportApiHandler
 
     dependentTypes.forEach((type) => {
       switch (type.__typename) {
-        case `${ITypeKind.InterfaceType}`:
+        case ITypeKind.InterfaceType:
           interfaces.push(type)
           break
-        case `${ITypeKind.UnionType}`:
+        case ITypeKind.UnionType:
           unions.push(type)
           break
         default:
@@ -153,7 +153,7 @@ export class ExportApiHandler
 
   private sortUnionTypesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes
-      .filter((type) => type.__typename === `${ITypeKind.UnionType}`)
+      .filter((type) => type.__typename === ITypeKind.UnionType)
       .forEach((unionType) =>
         (unionType as IUnionTypeDto).typesOfUnionType.sort((a, b) =>
           a.id.localeCompare(b.id),

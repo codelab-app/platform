@@ -42,7 +42,7 @@ export const parseCssValue = (value?: number | string): CssValue => {
   if (isNumber(value)) {
     return {
       unit: CssUnit.PX,
-      value: value as number,
+      value: value,
     }
   }
 

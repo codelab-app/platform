@@ -1,6 +1,6 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from '../model/node-type.interface'
+import { IRef } from '../model/ref.interface'
 
 export const IDomainDto = Type.Object({
   app: IRef,

@@ -32,7 +32,9 @@ export const BorderSidePicker = ({
 }: BorderSidePickerProps) => {
   return (
     <Radio.Group
-      onChange={(val) => onChange(val.target.value)}
+      onChange={(val) => {
+        onChange(val.target.value)
+      }}
       size="small"
       value={side}
     >

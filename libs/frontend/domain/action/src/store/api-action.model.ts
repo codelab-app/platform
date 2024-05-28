@@ -66,7 +66,7 @@ export class ApiAction
   @computed
   get toJson() {
     return {
-      __typename: `${IActionKind.ApiAction}` as const,
+      __typename: IActionKind.ApiAction as const,
       config: this.config.toJson,
       errorAction: this.errorAction?.current,
       id: this.id,

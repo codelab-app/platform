@@ -8,5 +8,5 @@ export const throwIfUndefined = <T>(value: T | null | undefined) => {
   /**
    * Cast away undefined
    */
-  return value as T
+  return value
 }

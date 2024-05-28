@@ -47,9 +47,9 @@ export const StylesEditor = observer(() => {
       <div>Style Selector: </div>
       <Select
         className="mb-2 w-full"
-        onSelect={(value) =>
+        onSelect={(value) => {
           runtimeElementService.setCurrentStylePseudoClass(value)
-        }
+        }}
         options={[
           { label: 'None', value: ElementStylePseudoClass.None },
           { label: 'Hover', value: ElementStylePseudoClass.Hover },

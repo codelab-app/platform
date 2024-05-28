@@ -2,7 +2,7 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IField } from '../field/field.dto.interface'
-import { IDiscriminatedRef, IRef } from '../model/node-type.interface'
+import { IDiscriminatedRef, IRef } from '../model/ref.interface'
 import { IBaseTypeDto } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
@@ -29,6 +29,6 @@ export type ICreateInterfaceTypeDto = Pick<IInterfaceTypeDto, 'id' | 'name'>
 /**
  * Entity
  */
-export const IInterfaceTypeRef = IDiscriminatedRef(`${ITypeKind.InterfaceType}`)
+export const IInterfaceTypeRef = IDiscriminatedRef(ITypeKind.InterfaceType)
 
 export type IInterfaceTypeRef = Static<typeof IInterfaceTypeRef>

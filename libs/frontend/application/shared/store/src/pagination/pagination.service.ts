@@ -21,11 +21,11 @@ import {
 @model('@codelab/PaginationService')
 export class PaginationService<
     T1 extends SupportedPaginationModel,
-    U1 extends Filterables | void = void,
+    U1 extends Filterables | undefined = undefined,
   >
   extends Model(<
     T2 extends SupportedPaginationModel,
-    U2 extends Filterables | void = void,
+    U2 extends Filterables | undefined = undefined,
   >() => ({
     currentPage: prop(1).withSetter(),
     dataRefs: prop(() => objectMap<Ref<T2>>()),

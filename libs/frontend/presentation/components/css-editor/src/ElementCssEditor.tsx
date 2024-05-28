@@ -37,7 +37,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     )
 
     const cssChangeHandler = useDebouncedCallback(
-      (value: string) => runtimeElement.style.setCustomCss(value),
+      (value: string) => {
+        runtimeElement.style.setCustomCss(value)
+      },
       [runtimeElement],
       CSS_AUTOSAVE_TIMEOUT,
     )
@@ -70,7 +72,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     )
 
     useDebouncedEffect(
-      () => updateElementStyles(runtimeElement),
+      () => {
+        updateElementStyles(runtimeElement)
+      },
       [
         runtimeElement.style.toString(),
         runtimeElement.element.current.tailwindClassNames,
@@ -83,7 +87,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
-      () => () => updateElementStyles(runtimeElement),
+      () => () => {
+        updateElementStyles(runtimeElement)
+      },
       [runtimeElement, updateElementStyles],
     )
 

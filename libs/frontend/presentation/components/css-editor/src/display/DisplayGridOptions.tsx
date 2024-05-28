@@ -97,25 +97,33 @@ export const DisplayGridOptions = () => {
       <Divider className="my-2" />
       <SegmentedSelect
         label="Align"
-        onChange={(val) => setStyle(CssProperty.AlignItems, val)}
+        onChange={(val) => {
+          setStyle(CssProperty.AlignItems, val)
+        }}
         options={getAlignItemsOptions()}
         value={getCurrentStyle(CssProperty.AlignItems)}
       />
       <SegmentedSelect
         label=""
-        onChange={(val) => setStyle(CssProperty.JustifyItems, val)}
+        onChange={(val) => {
+          setStyle(CssProperty.JustifyItems, val)
+        }}
         options={getJustifyItemsOptions()}
         value={getCurrentStyle(CssProperty.JustifyItems)}
       />
       <SegmentedSelect
         label="Distribute"
-        onChange={(val) => setStyle(CssProperty.AlignContent, val)}
+        onChange={(val) => {
+          setStyle(CssProperty.AlignContent, val)
+        }}
         options={getAlignContentOptions()}
         value={getCurrentStyle(CssProperty.AlignContent)}
       />
       <SegmentedSelect
         label=""
-        onChange={(val) => setStyle(CssProperty.JustifyContent, val)}
+        onChange={(val) => {
+          setStyle(CssProperty.JustifyContent, val)
+        }}
         options={getAlignContentOptions(true)}
         value={getCurrentStyle(CssProperty.JustifyContent)}
       />

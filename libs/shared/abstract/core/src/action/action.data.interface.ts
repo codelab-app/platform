@@ -1,4 +1,4 @@
-import type { IRef } from '../model/node-type.interface'
+import type { IRef } from '../model/ref.interface'
 import type { IResourceFetchConfig } from '../resource'
 import type { IActionKind } from './action-kind.enum'
 

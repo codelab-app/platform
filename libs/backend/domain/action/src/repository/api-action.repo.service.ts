@@ -131,7 +131,7 @@ export class ApiActionRepository extends AbstractRepository<
     action: IActionRef | null | undefined,
     discriminate: IActionKind,
   ) {
-    if (action?.__typename === `${discriminate}`) {
+    if (action?.__typename === discriminate) {
       return action.id
     }
 

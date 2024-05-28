@@ -21,7 +21,9 @@ const updateBaseTsconfig = (tree, project) => {
      * 1. Go through the directory mapping
      */
     (0, orchestrator_1.handleProjectNamePatterns)(project, (patterns) => {
-        patterns.forEach((pattern) => (0, orchestrator_1.generateReferencePathsForLib)(tree, project, pattern));
+        patterns.forEach((pattern) => {
+            (0, orchestrator_1.generateReferencePathsForLib)(tree, project, pattern);
+        });
     });
 };
 exports.updateBaseTsconfig = updateBaseTsconfig;

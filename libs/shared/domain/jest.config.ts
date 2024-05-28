@@ -1,8 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared-infra-ajv',
-  preset: '../../../../jest.preset.js',
-  testEnvironment: 'node',
+  displayName: 'shared-abstract-core',
+  preset: '../../../jest.preset.js',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',
@@ -17,14 +16,14 @@ export default {
       },
     ],
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/shared/infra/ajv',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  coverageDirectory: '../../../coverage/libs/shared/domain',
   reporters: [
     'default',
     [
       'jest-junit',
       {
-        outputName: 'shared-infra-ajv.xml',
+        outputName: 'shared-domain.xml',
         reportTestSuiteErrors: true,
         titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',

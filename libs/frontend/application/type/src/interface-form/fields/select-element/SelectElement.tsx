@@ -43,7 +43,7 @@ export const SelectElement = ({
        * Prop seems to exist but not in interface
        */
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      // @ts-expect-error
       optionFilterProp="label"
       options={selectOptions}
       showSearch

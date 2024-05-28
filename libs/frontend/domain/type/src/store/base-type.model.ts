@@ -13,7 +13,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
   @model(`@codelab/BaseType${typeKind}`)
   class BaseType
     extends Model({
-      __typename: prop(`${typeKind}` as const),
+      __typename: prop(typeKind as const),
       id: idProp,
       kind: prop<T>(() => typeKind),
       name: prop<string>(),

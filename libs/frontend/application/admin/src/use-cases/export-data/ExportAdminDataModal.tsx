@@ -9,7 +9,10 @@ import { AutoFields } from 'uniforms-antd'
 
 export const ExportAdminDataModal = observer(() => {
   const { adminService } = useStore()
-  const closeModal = () => adminService.exportDataModal.close()
+
+  const closeModal = () => {
+    adminService.exportDataModal.close()
+  }
 
   return (
     <ModalForm.Modal

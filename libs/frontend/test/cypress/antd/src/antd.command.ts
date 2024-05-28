@@ -53,7 +53,6 @@ export type CypressAntdCommands = AntButtonCommands &
   AntSpinCommands &
   AntTableCommands &
   AntTooltipCommands &
-  AntTreeCommands &
   AntTreeCommands
 
 export const antCommands: Array<CypressCommand> = [

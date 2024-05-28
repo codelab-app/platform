@@ -29,7 +29,9 @@ export const ComponentList = observer<{
   const [searchValue, setSearchValue] = useState('')
 
   const debouncedSearch = useRef(
-    debounce((nextValue: string) => setSearchValue(nextValue), 200),
+    debounce((nextValue: string) => {
+      setSearchValue(nextValue)
+    }, 200),
   ).current
 
   const filteredItems = filter(components, (component) =>

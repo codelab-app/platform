@@ -59,7 +59,7 @@ export const TypographyEditor = () => {
     const options = fonts.map((fontData) => {
       return {
         label: fontData.family,
-        value: `${fontData.family}`,
+        value: fontData.family,
       }
     })
 
@@ -94,16 +94,24 @@ export const TypographyEditor = () => {
       <LabeledSelect
         canReset={canReset(CssProperty.FontFamily)}
         label="Font"
-        onChange={(val) => setStyle(CssProperty.FontFamily, val)}
-        onReset={() => resetStyle(CssProperty.FontFamily)}
+        onChange={(val) => {
+          setStyle(CssProperty.FontFamily, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.FontFamily)
+        }}
         options={makeFontOptions()}
         value={getCurrentStyle(CssProperty.FontFamily)}
       />
       <LabeledSelect
         canReset={canReset(CssProperty.FontWeight)}
         label="Weight"
-        onChange={(val) => setStyle(CssProperty.FontWeight, val)}
-        onReset={() => resetStyle(CssProperty.FontWeight)}
+        onChange={(val) => {
+          setStyle(CssProperty.FontWeight, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.FontWeight)
+        }}
         options={makeWeightOptions()}
         value={getCurrentStyle(CssProperty.FontWeight)}
       />
@@ -117,34 +125,52 @@ export const TypographyEditor = () => {
         canReset={canReset(CssProperty.FontSize)}
         currentValue={getCurrentStyle(CssProperty.FontSize)}
         label="Size"
-        onChange={(val) => setStyle(CssProperty.FontSize, val)}
-        onReset={() => resetStyle(CssProperty.FontSize)}
+        onChange={(val) => {
+          setStyle(CssProperty.FontSize, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.FontSize)
+        }}
       />
       <ValuePicker
         canReset={canReset(CssProperty.LineHeight)}
         currentValue={getCurrentStyle(CssProperty.LineHeight)}
         label="Height"
-        onChange={(val) => setStyle(CssProperty.LineHeight, val)}
-        onReset={() => resetStyle(CssProperty.LineHeight)}
+        onChange={(val) => {
+          setStyle(CssProperty.LineHeight, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.LineHeight)
+        }}
       />
       {/* </Row> */}
       <ColorPicker
-        onChange={(val) => setStyle(CssProperty.Color, val)}
+        onChange={(val) => {
+          setStyle(CssProperty.Color, val)
+        }}
         value={getCurrentStyle(CssProperty.Color)}
       />
       <SegmentedSelect
         canReset={canReset(CssProperty.TextAlign)}
         label="Align"
-        onChange={(val) => setStyle(CssProperty.TextAlign, val)}
-        onReset={() => resetStyle(CssProperty.TextAlign)}
+        onChange={(val) => {
+          setStyle(CssProperty.TextAlign, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.TextAlign)
+        }}
         options={alignOptions}
         value={getCurrentStyle(CssProperty.TextAlign)}
       />
       <SegmentedSelect
         canReset={canReset(CssProperty.TextDecoration)}
         label="Decoration"
-        onChange={(val) => setStyle(CssProperty.TextDecoration, val)}
-        onReset={() => resetStyle(CssProperty.TextDecoration)}
+        onChange={(val) => {
+          setStyle(CssProperty.TextDecoration, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.TextDecoration)
+        }}
         options={decorationOptions}
         value={getCurrentStyle(CssProperty.TextDecoration)}
       />

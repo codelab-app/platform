@@ -33,7 +33,9 @@ const ReactQuillInternal = (props: ReactQuillFieldProps) =>
     props,
     <ReactQuill
       modules={modules}
-      onChange={(value) => props.onChange(value)}
+      onChange={(value) => {
+        props.onChange(value)
+      }}
       placeholder={props.placeholder}
       theme="snow"
       value={props.value ?? ''}

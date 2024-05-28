@@ -27,14 +27,14 @@ export const extractTableQueries = <T extends Filterables>(
   // Url param values are transformed with the types provided in the filterTypes
   const filter = Object.entries(filterTypes).reduce<Partial<T>>(
     (acc, [key, type]) => {
-      if (query[key as string]) {
+      if (query[key]) {
         let value:
           | Array<string>
           | boolean
           | number
           | string
           | null
-          | undefined = query[key as string]
+          | undefined = query[key]
 
         if (type === 'number') {
           value = Number(value)

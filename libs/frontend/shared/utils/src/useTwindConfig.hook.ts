@@ -13,6 +13,8 @@ export const useTwindConfig = (config: any) => {
 
     install(config)
 
-    return () => window.removeEventListener('warning', suppressWarning)
+    return () => {
+      window.removeEventListener('warning', suppressWarning)
+    }
   }, [])
 }

@@ -28,7 +28,9 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
       return {
         key: field.key,
         label: field.name ?? field.key,
-        onClick: () => onEdit(field),
+        onClick: () => {
+          onEdit(field)
+        },
       }
     })
 
@@ -36,7 +38,9 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
       return {
         key: field.key,
         label: field.name ?? field.key,
-        onClick: () => onDelete(field),
+        onClick: () => {
+          onDelete(field)
+        },
       }
     })
 
@@ -44,9 +48,9 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
       <Row gutter={[16, 16]} justify="center">
         <Col>
           <Button
-            onClick={() =>
+            onClick={() => {
               fieldService.createModal.open(typeRef(interfaceType))
-            }
+            }}
           >
             Add
           </Button>

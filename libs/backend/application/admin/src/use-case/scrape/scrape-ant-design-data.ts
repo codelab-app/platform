@@ -71,7 +71,9 @@ export const scrapeAntDesignData = async () => {
     path: 'node_modules/jquery/dist/jquery.min.js',
   })
 
-  overviewPage.on('console', (msg) => console.log('PAGE LOG:', msg.text()))
+  overviewPage.on('console', (msg) => {
+    console.log('PAGE LOG:', msg.text())
+  })
 
   const components = await overviewPage.evaluate(() => {
     const sidebarLinks = Array.from(

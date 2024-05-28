@@ -297,7 +297,7 @@ export class Element
       this.name ||
       this.renderType.maybeCurrent?.name ||
       (isAtomRef(this.renderType)
-        ? compoundCaseToTitleCase((this.renderType.current as IAtomModel).type)
+        ? compoundCaseToTitleCase(this.renderType.current.type)
         : undefined) ||
       this.parentComponent?.maybeCurrent?.name ||
       ''
@@ -693,7 +693,9 @@ export class Element
       recording: true,
     })
 
-    return () => recorder.dispose()
+    return () => {
+      recorder.dispose()
+    }
   }
 
   @computed

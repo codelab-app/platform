@@ -44,8 +44,12 @@ export const SpacingEditor = () => {
         content={
           <SpacingPopover
             canReset={canReset(cssPropName)}
-            onChange={(val) => setStyle(cssPropName, val)}
-            onReset={() => resetStyle(cssPropName)}
+            onChange={(val) => {
+              setStyle(cssPropName, val)
+            }}
+            onReset={() => {
+              resetStyle(cssPropName)
+            }}
             value={currentCssValue}
           />
         }

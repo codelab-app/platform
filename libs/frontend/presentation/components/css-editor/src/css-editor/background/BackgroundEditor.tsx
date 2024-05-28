@@ -18,15 +18,23 @@ export const BackgroundEditor = () => {
     <div className="space-y-2">
       <ColorPicker
         canReset={canReset(CssProperty.BackgroundColor)}
-        onChange={(val) => setStyle(CssProperty.BackgroundColor, val)}
-        onReset={() => resetStyle(CssProperty.BackgroundColor)}
+        onChange={(val) => {
+          setStyle(CssProperty.BackgroundColor, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.BackgroundColor)
+        }}
         value={getCurrentStyle(CssProperty.BackgroundColor)}
       />
       <LabeledSelect
         canReset={canReset(CssProperty.BackgroundClip)}
         label="Clipping"
-        onChange={(val) => setStyle(CssProperty.BackgroundClip, val)}
-        onReset={() => resetStyle(CssProperty.BackgroundClip)}
+        onChange={(val) => {
+          setStyle(CssProperty.BackgroundClip, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.BackgroundClip)
+        }}
         options={clippingOptions}
         value={getCurrentStyle(CssProperty.BackgroundClip)}
       />

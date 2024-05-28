@@ -21,8 +21,8 @@ export const fieldFactory =
       id: dto.id ?? v4(),
       key: dto.key ?? chance.word(),
       name: dto.name ?? null,
-      nextSibling: (dto.nextSibling ?? null) as IRef | null,
-      prevSibling: (dto.prevSibling ?? null) as IRef | null,
+      nextSibling: dto.nextSibling ?? null,
+      prevSibling: dto.prevSibling ?? null,
       validationRules: dto.validationRules ?? null,
     }
 

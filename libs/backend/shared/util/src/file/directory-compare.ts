@@ -19,8 +19,12 @@ const logDifference = async (diff: dirCompare.Difference) => {
     console.log(`Path1: ${diff.path1}`)
     console.log(`Path2: ${diff.path2}`)
 
-    const fileName1 = path.resolve(diff.path1!, diff.name1!)
-    const fileName2 = path.resolve(diff.path2!, diff.name2!)
+    if (!diff.path1 || !diff.name1 || !diff.path2 || !diff.name2) {
+      return
+    }
+
+    const fileName1 = path.resolve(diff.path1, diff.name1)
+    const fileName2 = path.resolve(diff.path2, diff.name2)
     const content1 = readFileSync(fileName1, 'utf-8')
     const content2 = readFileSync(fileName2, 'utf-8')
     const contentDiff = diffLib.diffLines(content1, content2)
@@ -53,8 +57,8 @@ export const areDirectoriesIdentical = async ({
 
   const res = await dirCompare.compare(dir1, dir2, options)
 
-  if (!res.same) {
-    for (const diff of res.diffSet!) {
+  if (!res.same && res.diffSet) {
+    for (const diff of res.diffSet) {
       await logDifference(diff)
     }
   }

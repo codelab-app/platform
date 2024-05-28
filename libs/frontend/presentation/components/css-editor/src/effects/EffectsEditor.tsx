@@ -56,8 +56,12 @@ export const EffectsEditor = () => {
       <LabeledSelect
         canReset={canReset(CssProperty.MixBlendMode)}
         label="Blending"
-        onChange={(val) => setStyle(CssProperty.MixBlendMode, val)}
-        onReset={() => resetStyle(CssProperty.MixBlendMode)}
+        onChange={(val) => {
+          setStyle(CssProperty.MixBlendMode, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.MixBlendMode)
+        }}
         options={blendOptions}
         value={getCurrentStyle(CssProperty.MixBlendMode)}
       />
@@ -68,8 +72,12 @@ export const EffectsEditor = () => {
         label="Opacity"
         max={100}
         min={0}
-        onChange={(val) => setStyle(CssProperty.Opacity, val)}
-        onReset={() => resetStyle(CssProperty.Opacity)}
+        onChange={(val) => {
+          setStyle(CssProperty.Opacity, val)
+        }}
+        onReset={() => {
+          resetStyle(CssProperty.Opacity)
+        }}
       />
       <SegmentedSelect label="Outline" options={outlineOptions} value="none" />
     </Col>

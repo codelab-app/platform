@@ -39,7 +39,9 @@ export const ResetDataButtons = observer(() => {
             .execute()
             .then(onSuccess)
             .catch(onError)
-            .then(() => router.push('/api/auth/logout'))
+            .then(() => {
+              router.push('/api/auth/logout')
+            })
         }
       >
         Reset Database

@@ -1,7 +1,7 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from '../model/node-type.interface'
+import { IRef } from '../model/ref.interface'
 
 export const ITagDto = Type.Object({
   children: Type.Optional(Type.Array(IRef)),
