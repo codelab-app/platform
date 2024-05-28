@@ -1,7 +1,6 @@
 {
   "defaultBase": "master",
   "useInferencePlugins": false,
-  "nxCloudAccessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU=",
   "parallel": 3,
   "tasksRunnerOptions": {
     "default": {
