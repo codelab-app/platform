@@ -5,21 +5,9 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Kind, type TSchema, TypeGuard, TypeRegistry } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
-import Ajv from 'ajv'
 import { v4 } from 'uuid'
-
-type AssertIsRef = (value: unknown) => asserts value is IRef
-
-const assertIsRef: AssertIsRef = (val) => Value.Decode(RefKind, val)
-
-const isIRef = (value: unknown): value is IRef => {
-  const validate = ajv.compile(IRef)
-
-  return validate(value)
-}
-
-const RefKind = SchemaKindsMap[SchemaKinds.Ref]
-const ajv = new Ajv({})
+import { ajv, assertIsRef, isIRef } from './ref.utils'
+import { refValidation } from './ref.validation'
 
 describe('Ref', () => {
   it('should throw an error if not a ref type', () => {
