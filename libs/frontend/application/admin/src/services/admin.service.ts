@@ -5,7 +5,7 @@ import {
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { App } from '@codelab/shared/abstract/codegen'
-import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
+import type { IExportDto, IImportDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -26,7 +26,7 @@ export class AdminService
   implements IAdminService
 {
   @modelFlow
-  exportData = _async(function* (this: AdminService, data: ExportDto) {
+  exportData = _async(function* (this: AdminService, data: IExportDto) {
     return yield* _await(restWebClient.post('/admin/export', data))
   })
 
@@ -48,7 +48,7 @@ export class AdminService
   })
 
   @modelFlow
-  importData = _async(function* (this: AdminService, data: ImportDto) {
+  importData = _async(function* (this: AdminService, data: IImportDto) {
     return yield* _await(restWebClient.post('/admin/import', data))
   })
 

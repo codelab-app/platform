@@ -8,8 +8,8 @@ import {
 } from '@codelab/frontend-application-admin/use-cases/import-data'
 import { ResetDataButtons } from '@codelab/frontend-application-admin/use-cases/reset-data'
 import {
-  type AdminView,
   AdminViewLayout,
+  type IAdminView,
 } from '@codelab/frontend-application-admin/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
@@ -18,7 +18,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const AdminView: AdminView = observer(() => {
+const AdminView: IAdminView = observer(() => {
   return (
     <>
       <Head>

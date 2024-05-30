@@ -51,12 +51,14 @@ export const SelectElement = ({
   )
 }
 
-export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
+export type SelectElementComponentProps = Omit<SelectElementProps, 'kind'>
+
+export const SelectChildElement = (props: SelectElementComponentProps) => (
   <SelectElement kind={IElementTypeKind.ChildrenOnly} {...props} />
 )
 
 export const SelectExcludeDescendantsElements = (
-  props: Omit<SelectElementProps, 'kind'>,
+  props: SelectElementComponentProps,
 ) => (
   <SelectElement
     kind={IElementTypeKind.ExcludeDescendantsElements}
@@ -64,13 +66,11 @@ export const SelectExcludeDescendantsElements = (
   />
 )
 
-export const SelectDescendantElement = (
-  props: Omit<SelectElementProps, 'kind'>,
-) => {
+export const SelectDescendantElement = (props: SelectElementComponentProps) => {
   return <SelectElement kind={IElementTypeKind.DescendantsOnly} {...props} />
 }
 
-export const SelectAnyElement = (props: Omit<SelectElementProps, 'kind'>) => (
+export const SelectAnyElement = (props: SelectElementComponentProps) => (
   <SelectElement kind={IElementTypeKind.AllElements} {...props} />
 )
 

@@ -130,7 +130,9 @@ export class ElementDomainService
   }
 
   logElementTreeState() {
-    ;[...this.elements.values()].forEach((element) => {
+    const elements = [...this.elements.values()]
+
+    elements.forEach((element) => {
       const node = element.toTreeNode
 
       // console.debug(node)

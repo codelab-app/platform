@@ -1,10 +1,11 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ExportDto } from './export.dto.interface'
+import { Value } from '@sinclair/typebox/value'
+import { ExportDtoSchema, IExportDto } from './export.dto.interface'
 
-export const ImportDto = Type.Pick(ExportDto, ['adminDataPath'])
+export const ImportDtoSchema = Type.Pick(ExportDtoSchema, ['adminDataPath'])
 
-export type ImportDto = Static<typeof ImportDto>
+export type IImportDto = Static<typeof ImportDtoSchema>
 
-export const importDtoDefault = Typebox.Values(ImportDto)
+export const importDtoDefault = Value.Create(ImportDtoSchema)

@@ -4,25 +4,25 @@ import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/ref.interface'
 import { IRedirectTargetType } from './redirect-target-type.enum'
 
-export const IRedirectDto = Type.Object({
-  authGuard: IRef,
+export const RedirectDtoSchema = Type.Object({
+  authGuard: Typebox.Ref,
   id: Type.String(),
-  source: IRef,
-  targetPage: Typebox.Nullish(IRef),
+  source: Typebox.Ref,
+  targetPage: Typebox.Nullish(Typebox.Ref),
   targetType: Type.Enum(IRedirectTargetType),
   targetUrl: Typebox.Nullish(Type.String()),
 })
 
-export type IRedirectDto = Static<typeof IRedirectDto>
+export type IRedirectDto = Static<typeof RedirectDtoSchema>
 
-export const IRedirect = IRedirectDto
+export const RedirectSchema = RedirectDtoSchema
 
-export type IRedirect = Static<typeof IRedirect>
+export type IRedirect = Static<typeof RedirectSchema>
 
-export const ICanActivate = Type.Object({
+export const CanActivateSchema = Type.Object({
   authorization: Typebox.Nullish(Type.String()),
   domain: Type.String(),
   pageUrlPattern: Type.String(),
 })
 
-export type ICanActivate = Static<typeof ICanActivate>
+export type ICanActivate = Static<typeof CanActivateSchema>

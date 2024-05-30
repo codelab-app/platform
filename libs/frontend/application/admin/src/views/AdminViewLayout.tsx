@@ -4,9 +4,9 @@ import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/te
 import React from 'react'
 import { AdminViewHeader } from './AdminViewHeader'
 
-export type AdminView = CodelabPage<DashboardTemplateProps>
+export type IAdminView = CodelabPage<DashboardTemplateProps>
 
-export const AdminViewLayout: AdminView['Layout'] = ({ children }) => {
+export const AdminViewLayout: IAdminView['Layout'] = ({ children }) => {
   return (
     <DynamicDashboardTemplate Header={AdminViewHeader}>
       {children}

@@ -2,8 +2,11 @@ import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-view/components'
-import type { ExportDto } from '@codelab/shared/abstract/core'
-import { ImportDto, importDtoDefault } from '@codelab/shared/abstract/core'
+import type { IImportDto } from '@codelab/shared/abstract/core'
+import {
+  importDtoDefault,
+  ImportDtoSchema,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -21,14 +24,14 @@ export const ImportAdminDataModal = observer(() => {
       onCancel={closeModal}
       open={adminService.importDataModal.isOpen}
     >
-      <ModalForm.Form<ExportDto>
+      <ModalForm.Form<IImportDto>
         model={importDtoDefault}
         onSubmit={(data) => adminService.importData(data)}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while importing data',
         })}
         onSubmitSuccess={closeModal}
-        schema={ImportDto}
+        schema={ImportDtoSchema}
         uiKey={MODEL_ACTION.ImportDataAdmin.key}
       >
         <AutoFields />

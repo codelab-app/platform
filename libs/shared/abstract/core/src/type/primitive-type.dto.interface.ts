@@ -1,18 +1,18 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IBaseTypeDto } from './base-type.dto.interface'
+import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IPrimitiveTypeDto = Type.Composite([
-  IBaseTypeDto(Type.Literal(`${ITypeKind.PrimitiveType}`)),
+export const PrimitiveTypeDtoSchema = Type.Composite([
+  BaseTypeDtoSchema(`${ITypeKind.PrimitiveType}`),
   Type.Object({
     primitiveKind: Type.Enum(PrimitiveTypeKind),
   }),
 ])
 
-export type IPrimitiveTypeDto = Static<typeof IPrimitiveTypeDto>
+export type IPrimitiveTypeDto = Static<typeof PrimitiveTypeDtoSchema>
 
-export const IPrimitiveType = IPrimitiveTypeDto
+export const PrimitiveTypeSchema = PrimitiveTypeDtoSchema
 
-export type IPrimitiveType = Static<typeof IPrimitiveType>
+export type IPrimitiveType = Static<typeof PrimitiveTypeSchema>

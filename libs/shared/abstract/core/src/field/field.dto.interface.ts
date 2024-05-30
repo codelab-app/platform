@@ -3,23 +3,23 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/ref.interface'
 
-export const IFieldDto = Type.Object({
-  api: IRef,
+export const FieldDtoSchema = Type.Object({
+  api: Typebox.Ref,
   defaultValues: Typebox.Nullish(Type.Any()),
   description: Typebox.Nullish(Type.String()),
-  fieldType: IRef,
+  fieldType: Typebox.Ref,
   id: Type.String(),
   key: Type.String(),
   name: Typebox.Nullish(Type.String()),
-  nextSibling: Typebox.Nullish(IRef),
-  prevSibling: Typebox.Nullish(IRef),
+  nextSibling: Typebox.Nullish(Typebox.Ref),
+  prevSibling: Typebox.Nullish(Typebox.Ref),
   validationRules: Typebox.Nullish(Type.Any()),
 })
 
-export type IFieldDto = Static<typeof IFieldDto>
+export type IFieldDto = Static<typeof FieldDtoSchema>
 
-export const IField = IFieldDto
+export const FieldSchema = FieldDtoSchema
 
-export type IField = Static<typeof IField>
+export type IField = Static<typeof FieldSchema>
 
 export type IFieldRef = string

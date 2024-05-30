@@ -4,6 +4,7 @@ import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 /**
  * This is used to allow user to assign reference
  */
+//
 export const refSchema = <T extends string>(key: T) => {
   return {
     [key]: {

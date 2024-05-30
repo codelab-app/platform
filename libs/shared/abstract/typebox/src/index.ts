@@ -1,5 +1,5 @@
-import { isUnionSchema } from './schema/is-union'
-import { Ref } from './schema/ref'
+import { IsUnion } from './schema/is-union'
+import { DiscriminatedRef, Ref } from './schema/ref'
 import { Nullish } from './types/nullish'
 import { OmitOwner } from './types/omit-owner'
 import { Overwrite } from './types/overwrite'
@@ -9,7 +9,8 @@ import { validateAndClean } from './validator/validate'
 import { values } from './values/default-values'
 
 const Typebox = {
-  isUnionSchema,
+  DiscriminatedRef,
+  IsUnion,
   NestedValidator,
   Nullish,
   OmitOwner,
@@ -17,7 +18,7 @@ const Typebox = {
   Ref,
   Serialized,
   ValidateAndClean: validateAndClean,
-  Values: values,
+  // Values: values,
 }
 
 export { Typebox }

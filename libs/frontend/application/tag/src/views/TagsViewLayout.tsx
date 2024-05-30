@@ -6,9 +6,9 @@ import React, { useMemo } from 'react'
 import { TagsPrimarySidebar } from '../use-cases/primary-sidebar'
 import { TagsViewHeader } from './TagsViewHeader'
 
-export type TagsView = CodelabPage<DashboardTemplateProps>
+export type ITagsView = CodelabPage<DashboardTemplateProps>
 
-export const TagsViewLayout: TagsView['Layout'] = ({ children }) => {
+export const TagsViewLayout: ITagsView['Layout'] = ({ children }) => {
   const memoizedPrimarySidebar = useMemo(
     () => ({
       default: ExplorerPaneType.Tag,

@@ -7,7 +7,7 @@ import { TypeEditor } from '@codelab/frontend-application-type/use-cases/get-typ
 import { UpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
 import { UpdateTypeModal } from '@codelab/frontend-application-type/use-cases/update-type'
 import {
-  type TypesView,
+  type ITypesView,
   TypesViewLayout,
 } from '@codelab/frontend-application-type/views'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
@@ -15,7 +15,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const TypesView: TypesView = observer(() => {
+const TypesView: ITypesView = observer(() => {
   return (
     <>
       <Head>

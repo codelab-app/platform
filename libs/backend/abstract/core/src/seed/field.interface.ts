@@ -9,7 +9,7 @@ export const AntDesignFieldSchema = Type.Object({
   version: Type.String(),
 })
 
-export type AntDesignField = Static<typeof AntDesignFieldSchema>
+export type IAntDesignField = Static<typeof AntDesignFieldSchema>
 
 /**
  * This is field of chatgpt generated data

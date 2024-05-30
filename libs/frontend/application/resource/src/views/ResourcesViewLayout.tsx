@@ -7,9 +7,9 @@ import React from 'react'
 import { ResourcesPrimarySidebar } from '../use-cases/primary-sidebar'
 import { ResourcesViewHeader } from './ResourcesViewHeader'
 
-export type ResourcesView = CodelabPage<DashboardTemplateProps>
+export type IResourcesView = CodelabPage<DashboardTemplateProps>
 
-export const ResourcesViewLayout: ResourcesView['Layout'] = observer(
+export const ResourcesViewLayout: IResourcesView['Layout'] = observer(
   ({ children }) => {
     return (
       <DynamicDashboardTemplate

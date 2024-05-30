@@ -69,6 +69,7 @@ describe('ElementResolvers', () => {
     ).enumTypes
 
     const enumType1 = enumTypes[0]
+    //
     const enumType2 = enumTypes[1]
 
     enumTypeValidation.asserts(enumType1)

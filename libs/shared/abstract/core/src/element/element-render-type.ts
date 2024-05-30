@@ -1,23 +1,21 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IDiscriminatedRef } from '../model/ref.interface'
 
 export enum IElementRenderTypeKind {
   Atom = 'Atom',
   Component = 'Component',
 }
 
-export const IComponentID = Type.String()
+const AtomRenderTypeSchema = Typebox.DiscriminatedRef(
+  IElementRenderTypeKind.Atom,
+)
 
-export const IAtomID = Type.String()
+export type IAtomRenderType = Static<typeof AtomRenderTypeSchema>
 
-const IAtomRenderType = IDiscriminatedRef(IElementRenderTypeKind.Atom)
-
-export type IAtomRenderType = Static<typeof IAtomRenderType>
-
-export const IElementRenderTypeDto = Type.Union([
-  IAtomRenderType,
-  IDiscriminatedRef(IElementRenderTypeKind.Component),
+export const ElementRenderTypeDtoSchema = Type.Union([
+  AtomRenderTypeSchema,
+  Typebox.DiscriminatedRef(IElementRenderTypeKind.Component),
 ])
 
-export type IElementRenderTypeDto = Static<typeof IElementRenderTypeDto>
+export type IElementRenderTypeDto = Static<typeof ElementRenderTypeDtoSchema>

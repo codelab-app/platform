@@ -1,5 +1,6 @@
 import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 
 export const providerPageData = (
   id: string,

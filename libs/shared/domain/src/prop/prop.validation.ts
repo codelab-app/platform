@@ -1,11 +1,9 @@
 import {
-  IProp,
   type IValidationService,
-  SchemaKinds,
+  PropSchema,
 } from '@codelab/shared/abstract/core'
+import { IProp, SchemaKinds } from '@codelab/shared/abstract/core'
 import { ValidationService } from '../services/validation.service'
 
-export const propValidation: IValidationService<IProp> = new ValidationService(
-  SchemaKinds.Prop,
-  IProp,
-)
+export const propValidation: IValidationService<typeof PropSchema> =
+  new ValidationService(SchemaKinds.Prop, PropSchema)

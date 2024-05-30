@@ -1,14 +1,14 @@
 import type { IUserModel } from '@codelab/frontend/abstract/domain'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import {
-  type UsersView,
+  type IUsersView,
   UsersViewLayout,
 } from '@codelab/frontend-application-user/views'
 import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 
-const UsersView: UsersView = () => {
+const UsersView: IUsersView = () => {
   // const { data } = useGetUsersQuery()
   const data = { users: [] }
 

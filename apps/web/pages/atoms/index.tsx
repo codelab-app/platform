@@ -2,8 +2,8 @@ import { CreateAtomModal } from '@codelab/frontend-application-atom/use-cases/cr
 import { DeleteAtomsModal } from '@codelab/frontend-application-atom/use-cases/delete-atom'
 import { AtomForm } from '@codelab/frontend-application-atom/use-cases/get-atoms'
 import {
-  type AtomsView,
   AtomsViewLayout,
+  type IAtomsView,
 } from '@codelab/frontend-application-atom/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { CreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
@@ -12,7 +12,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const AtomsView: AtomsView = observer(() => {
+const AtomsView: IAtomsView = observer(() => {
   return (
     <>
       <Head>

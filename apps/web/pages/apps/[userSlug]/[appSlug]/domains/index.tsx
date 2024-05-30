@@ -4,8 +4,8 @@ import { DeleteDomainModal } from '@codelab/frontend-application-domain/use-case
 import { GetDomainsList } from '@codelab/frontend-application-domain/use-cases/get-domain'
 import { UpdateDomainModal } from '@codelab/frontend-application-domain/use-cases/update-domain'
 import {
-  type DomainsView,
   DomainsViewLayout,
+  type IDomainsView,
 } from '@codelab/frontend-application-domain/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
@@ -16,7 +16,7 @@ import { Spin } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const DomainsView: DomainsView = (props) => {
+const DomainsView: IDomainsView = (props) => {
   const { appService, userService } = useStore()
   const user = userService.user
   const { appName } = useAppQuery()

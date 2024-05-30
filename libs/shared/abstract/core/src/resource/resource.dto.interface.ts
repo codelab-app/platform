@@ -1,22 +1,27 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IProp, IPropDto } from '../prop/prop.dto.interface'
+import {
+  IProp,
+  IPropDto,
+  PropDtoSchema,
+  PropSchema,
+} from '../prop/prop.dto.interface'
 import { IResourceType } from './resource-type.enum'
 
-export const IResourceDto = Type.Object({
-  config: IPropDto,
+export const ResourceDtoSchema = Type.Object({
+  config: PropDtoSchema,
   id: Type.String(),
   name: Type.String(),
   type: Type.Enum(IResourceType),
 })
 
-export type IResourceDto = Static<typeof IResourceDto>
+export type IResourceDto = Static<typeof ResourceDtoSchema>
 
-export const IResource = Type.Object({
-  config: IProp,
+export const ResourceSchema = Type.Object({
+  config: PropSchema,
   id: Type.String(),
   name: Type.String(),
   type: Type.Enum(IResourceType),
 })
 
-export type IResource = Static<typeof IResource>
+export type IResource = Static<typeof ResourceSchema>

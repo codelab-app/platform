@@ -1,28 +1,27 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IAction, IActionDto } from '../action'
+import { ActionDtoSchema, ActionSchema, IAction } from '../action'
 import { IRef } from '../model/ref.interface'
-import { IInterfaceTypeRef } from '../type'
 
-export const IStoreDto = Type.Object({
-  actions: Type.Optional(Type.Array(IActionDto)),
-  api: IRef,
-  component: Typebox.Nullish(IRef),
+export const StoreDtoSchema = Type.Object({
+  actions: Type.Optional(Type.Array(ActionDtoSchema)),
+  api: Typebox.Ref,
+  component: Typebox.Nullish(Typebox.Ref),
   id: Type.String(),
   name: Type.String(),
-  page: Typebox.Nullish(IRef),
-  source: Typebox.Nullish(IRef),
+  page: Typebox.Nullish(Typebox.Ref),
+  source: Typebox.Nullish(Typebox.Ref),
 })
 
-export type IStoreDto = Static<typeof IStoreDto>
+export type IStoreDto = Static<typeof StoreDtoSchema>
 
-export const IStore = Typebox.Overwrite(
-  IStoreDto,
+export const StoreSchema = Typebox.Overwrite(
+  StoreDtoSchema,
   Type.Object({
-    actions: Type.Array(IAction),
-    api: IInterfaceTypeRef,
+    actions: Type.Array(ActionSchema),
+    api: Typebox.Ref,
   }),
 )
 
-export type IStore = Static<typeof IStore>
+export type IStore = Static<typeof StoreSchema>

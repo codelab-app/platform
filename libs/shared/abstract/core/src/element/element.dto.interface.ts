@@ -2,12 +2,20 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/ref.interface'
-import { IProp, IPropDto } from '../prop/prop.dto.interface'
-import { IElementRenderTypeDto } from './element-render-type'
+import {
+  IProp,
+  IPropDto,
+  PropDtoSchema,
+  PropSchema,
+} from '../prop/prop.dto.interface'
+import {
+  ElementRenderTypeDtoSchema,
+  IElementRenderTypeDto,
+} from './element-render-type'
 
-export const IElementDto = Type.Object({
-  childMapperComponent: Typebox.Nullish(IRef),
-  childMapperPreviousSibling: Typebox.Nullish(IRef),
+export const ElementDtoSchema = Type.Object({
+  childMapperComponent: Typebox.Nullish(Typebox.Ref),
+  childMapperPreviousSibling: Typebox.Nullish(Typebox.Ref),
   childMapperPropKey: Typebox.Nullish(Type.String()),
   /**
    * For frontend models we can compute from Mobx, but for backend we would map the data in
@@ -18,44 +26,44 @@ export const IElementDto = Type.Object({
    */
   // closestContainerNode: IRef,
   compositeKey: Typebox.Nullish(Type.String()),
-  firstChild: Typebox.Nullish(IRef),
+  firstChild: Typebox.Nullish(Typebox.Ref),
   id: Type.String(),
   name: Type.String(),
-  nextSibling: Typebox.Nullish(IRef),
-  page: Typebox.Nullish(IRef),
-  parentComponent: Typebox.Nullish(IRef),
-  parentElement: Typebox.Nullish(IRef),
-  postRenderAction: Typebox.Nullish(IRef),
-  preRenderAction: Typebox.Nullish(IRef),
-  prevSibling: Typebox.Nullish(IRef),
+  nextSibling: Typebox.Nullish(Typebox.Ref),
+  page: Typebox.Nullish(Typebox.Ref),
+  parentComponent: Typebox.Nullish(Typebox.Ref),
+  parentElement: Typebox.Nullish(Typebox.Ref),
+  postRenderAction: Typebox.Nullish(Typebox.Ref),
+  preRenderAction: Typebox.Nullish(Typebox.Ref),
+  prevSibling: Typebox.Nullish(Typebox.Ref),
   // Treat element as aggregate, so we include prop data here
-  props: IPropDto,
+  props: PropDtoSchema,
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),
-  renderType: IElementRenderTypeDto,
+  renderType: ElementRenderTypeDtoSchema,
   style: Typebox.Nullish(Type.String()),
   tailwindClassNames: Typebox.Nullish(Type.Array(Type.String())),
 })
 
-export type IElementDto = Static<typeof IElementDto>
+export type IElementDto = Static<typeof ElementDtoSchema>
 
-export const IElement = Typebox.Overwrite(
-  IElementDto,
+export const ElementSchema = Typebox.Overwrite(
+  ElementDtoSchema,
   Type.Object({
-    props: IProp,
+    props: PropSchema,
   }),
 )
 
-export type IElement = Static<typeof IElement>
+export type IElement = Static<typeof ElementSchema>
 
-export const ICreateElementDto = Type.Composite([
-  IElementDto,
+export const CreateElementDtoSchema = Type.Composite([
+  ElementDtoSchema,
   Type.Object({
     /**
      * Used for composite key, could be `Page` or `Component` type. This key is only needed for creation so we know how to make the connection
      */
-    closestContainerNode: IRef,
+    closestContainerNode: Typebox.Ref,
   }),
 ])
 
-export type ICreateElementDto = Static<typeof ICreateElementDto>
+export type ICreateElementDto = Static<typeof CreateElementDtoSchema>

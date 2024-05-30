@@ -4,7 +4,7 @@ import client from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const Email = Type.Object({
+const EmailSchema = Type.Object({
   email: Type.String().email(),
 })
 
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(req.body)
 
   try {
-    const { email } = Typebox.ValidateAndClean(Email, req.body)
+    const { email } = Typebox.ValidateAndClean(EmailSchema, req.body)
 
     client.setConfig({
       apiKey,
