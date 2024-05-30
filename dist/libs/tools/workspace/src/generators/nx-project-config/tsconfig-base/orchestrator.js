@@ -39,27 +39,34 @@ const generateReferencePathsForLib = (tree, project, folderPattern) => {
     if (hasWildcard) {
         folderRelativeToWorkspace = path_1.default.join(sourceRoot, folderPatternPrefix);
         tree.children(folderRelativeToWorkspace).forEach((subDir) => {
-            // Ensure it's a directory
             const subDirPath = path_1.default.join(folderRelativeToWorkspace, subDir);
             if (tree.isFile(subDirPath)) {
                 return;
             }
             const moduleAlias = (0, utils_1.getModuleAlias)(project, `${folderPatternPrefix}/${subDir}`);
             const targetPath = `${subDirPath}/index.ts`;
-            (0, utils_1.appendTsconfigPath)(tree, project, moduleAlias, targetPath);
+            const folderHasFiles = tree.children(subDirPath).length > 0;
+            handleTsconfigPath(tree, project, moduleAlias, targetPath, folderHasFiles);
         });
         return;
     }
-    console.log(sourceRoot, folderRelativeToWorkspace);
-    const exists = tree.children(folderRelativeToWorkspace).length;
-    console.log(folderRelativeToWorkspace, exists);
+    const folderHasFiles = tree.children(folderRelativeToWorkspace).length > 0;
     const moduleAlias = (0, utils_1.getModuleAlias)(project, folderPattern);
-    if (exists) {
-        const targetPath = `${sourceRoot}/${folderPattern}/index.ts`;
-        (0, utils_1.appendTsconfigPath)(tree, project, moduleAlias, targetPath);
-        return;
-    }
-    (0, utils_1.removeTsconfigPath)(tree, moduleAlias);
+    const targetPath = `${sourceRoot}/${folderPattern}/index.ts`;
+    handleTsconfigPath(tree, project, moduleAlias, targetPath, folderHasFiles);
 };
 exports.generateReferencePathsForLib = generateReferencePathsForLib;
+/**
+ * Common logic to check folder and index file, then append or remove tsconfig path
+ */
+const handleTsconfigPath = (tree, project, moduleAlias, targetPath, folderHasFiles) => {
+    const folderHasIndexFile = tree.exists(targetPath);
+    const folderHasIndexFileContent = folderHasIndexFile && tree.read(targetPath);
+    if (folderHasFiles && folderHasIndexFile && folderHasIndexFileContent) {
+        (0, utils_1.appendTsconfigPath)(tree, project, moduleAlias, targetPath);
+    }
+    else {
+        (0, utils_1.removeTsconfigPath)(tree, moduleAlias);
+    }
+};
 //# sourceMappingURL=orchestrator.js.map

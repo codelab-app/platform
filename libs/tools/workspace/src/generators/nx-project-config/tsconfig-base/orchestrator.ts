@@ -54,7 +54,6 @@ export const generateReferencePathsForLib = (
     folderRelativeToWorkspace = path.join(sourceRoot, folderPatternPrefix)
 
     tree.children(folderRelativeToWorkspace).forEach((subDir) => {
-      // Ensure it's a directory
       const subDirPath = path.join(folderRelativeToWorkspace, subDir)
 
       if (tree.isFile(subDirPath)) {
@@ -67,28 +66,37 @@ export const generateReferencePathsForLib = (
       )
 
       const targetPath = `${subDirPath}/index.ts`
+      const folderHasFiles = tree.children(subDirPath).length > 0
 
-      appendTsconfigPath(tree, project, moduleAlias, targetPath)
+      handleTsconfigPath(tree, project, moduleAlias, targetPath, folderHasFiles)
     })
 
     return
   }
 
-  console.log(sourceRoot, folderRelativeToWorkspace)
-
-  const exists = tree.children(folderRelativeToWorkspace).length
-
-  console.log(folderRelativeToWorkspace, exists)
-
+  const folderHasFiles = tree.children(folderRelativeToWorkspace).length > 0
   const moduleAlias = getModuleAlias(project, folderPattern)
+  const targetPath = `${sourceRoot}/${folderPattern}/index.ts`
 
-  if (exists) {
-    const targetPath = `${sourceRoot}/${folderPattern}/index.ts`
+  handleTsconfigPath(tree, project, moduleAlias, targetPath, folderHasFiles)
+}
 
+/**
+ * Common logic to check folder and index file, then append or remove tsconfig path
+ */
+const handleTsconfigPath = (
+  tree: Tree,
+  project: ProjectConfiguration,
+  moduleAlias: string,
+  targetPath: string,
+  folderHasFiles: boolean,
+) => {
+  const folderHasIndexFile = tree.exists(targetPath)
+  const folderHasIndexFileContent = folderHasIndexFile && tree.read(targetPath)
+
+  if (folderHasFiles && folderHasIndexFile && folderHasIndexFileContent) {
     appendTsconfigPath(tree, project, moduleAlias, targetPath)
-
-    return
+  } else {
+    removeTsconfigPath(tree, moduleAlias)
   }
-
-  removeTsconfigPath(tree, moduleAlias)
 }
