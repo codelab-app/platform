@@ -24,7 +24,7 @@ export default {
     [
       'jest-junit',
       {
-        outputName: 'shared-infra-ajv.xml',
+        outputName: 'shared-infra-schema.xml',
         reportTestSuiteErrors: true,
         titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',

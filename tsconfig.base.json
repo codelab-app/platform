@@ -610,9 +610,6 @@
       "@codelab/frontend-application-type/views": [
         "libs/frontend/application/type/src/views/index.ts"
       ],
-      "@codelab/frontend-application-user/graphql": [
-        "libs/frontend/application/user/src/graphql/index.ts"
-      ],
       "@codelab/frontend-application-user/services": [
         "libs/frontend/application/user/src/services/index.ts"
       ],
