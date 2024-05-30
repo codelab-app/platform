@@ -25,9 +25,13 @@ export class ValidationService<T extends TSchema>
   asserts(data: unknown) {
     this.schema.assertHasRegistry(this.kind)
 
-    console.log(this.tSchema, data)
+    const errors = [...Value.Errors(this.tSchema, data)]
 
-    Value.Decode(this.tSchema, data)
+    if (errors.length) {
+      console.error(errors)
+
+      throw new Error(`Validation error for ${this.tSchema}`)
+    }
   }
 
   decode(data: unknown) {

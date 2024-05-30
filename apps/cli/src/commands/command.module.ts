@@ -1,30 +1,27 @@
 import {
-  ScrapeAntdService,
-  ScrapeHtmlService,
+  // ScrapeAntdService,
+  // ScrapeHtmlService,
   SeedService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
+import { neo4jConfig } from '@codelab/backend/infra/adapter/neo4j'
 import type { OnModuleInit } from '@nestjs/common'
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { CommandService } from './command.service'
 
 @Module({
   exports: [CommandService],
   imports: [
-    // ConfigModule.forRoot({
-    //   ignoreEnvVars: true,
-    //   isGlobal: true,
-    //   load: [neo4jConfig],
-    // }),
     // Lazy load this when needed for codegen instead, since it requires docker connection
     // OgmModule,
   ],
   providers: [
     CommandService,
     SeedService,
-    ScrapeAntdService,
-    ScrapeHtmlService,
+    // ScrapeAntdService,
+    // ScrapeHtmlService,
     TerraformService,
     TaskService,
   ],

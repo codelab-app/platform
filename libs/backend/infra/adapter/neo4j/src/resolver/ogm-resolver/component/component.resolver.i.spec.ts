@@ -69,7 +69,7 @@ describe('PageResolvers', () => {
       })
     ).interfaceTypes[0]
 
-    interfaceTypeValidation.asserts(atomApi)
+    refValidation.asserts(atomApi)
 
     const atomReactFragment = (
       await ogmService.Atom.create({

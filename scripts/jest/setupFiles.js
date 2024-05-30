@@ -11,6 +11,7 @@ require('reflect-metadata')
 Object.assign(global, { TextDecoder, TextEncoder })
 
 // Only load if test env & file exists
+
 if (process.env.NODE_ENV === 'test') {
   const envPath = path.resolve(__dirname, '../../.env.test')
 

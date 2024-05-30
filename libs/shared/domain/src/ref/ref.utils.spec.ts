@@ -3,6 +3,7 @@ import {
   SchemaKinds,
   SchemaKindsMap,
 } from '@codelab/shared/abstract/core'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Kind, type TSchema, TypeGuard, TypeRegistry } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import { v4 } from 'uuid'
@@ -11,14 +12,14 @@ import { refValidation } from './ref.validation'
 
 describe('Ref', () => {
   it('should throw an error if not a ref type', () => {
-    const validate = ajv.compile(IRef)
+    const validate = ajv.compile(Typebox.Ref)
 
     expect(validate(true)).toBeFalsy()
     expect(validate({ id: 123 })).toBeFalsy()
   })
 
   it('should pass if a ref type', () => {
-    const validate = ajv.compile(IRef)
+    const validate = ajv.compile(Typebox.Ref)
 
     const validated = validate({
       id: v4(),
@@ -34,9 +35,9 @@ describe('Ref', () => {
   })
 
   it('can check a built-in object type', () => {
-    expect(Value.Check(IRef, { id: v4() })).toBeTruthy()
-    expect(Value.Check(IRef, { id: 0 })).toBeFalsy()
-    expect(Value.Check(IRef, false)).toBeFalsy()
+    expect(Value.Check(Typebox.Ref, { id: v4() })).toBeTruthy()
+    expect(Value.Check(Typebox.Ref, { id: 0 })).toBeFalsy()
+    expect(Value.Check(Typebox.Ref, false)).toBeFalsy()
   })
 
   it('should allow type guards for custom type', () => {
