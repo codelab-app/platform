@@ -1,8 +1,9 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { Value } from '@sinclair/typebox/value'
 
-export const ExportDto = Type.Object({
+export const ExportDtoSchema = Type.Object({
   adminDataPath: Type.Optional(
     Type.String({
       default: './data/export-v3',
@@ -19,6 +20,6 @@ export const ExportDto = Type.Object({
   // userDataPath: Type.Optional(Type.String()),
 })
 
-export type ExportDto = Static<typeof ExportDto>
+export type IExportDto = Static<typeof ExportDtoSchema>
 
-export const exportDtoDefault = Typebox.Values(ExportDto)
+export const exportDtoDefault = Value.Create(ExportDtoSchema)

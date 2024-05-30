@@ -22,7 +22,7 @@ export class ValidationService {
       /**
        * Does additional check for discriminated union if is a union
        */
-      if (Typebox.isUnionSchema(anySchema)) {
+      if (Typebox.IsUnion(anySchema)) {
         const discriminatedValidator = new DiscriminatedUnionValidator(
           anySchema as TUnion<Array<TObject>>,
         )

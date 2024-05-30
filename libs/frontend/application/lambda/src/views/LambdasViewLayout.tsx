@@ -4,9 +4,9 @@ import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/te
 import React from 'react'
 import { LambdasViewHeader } from './LambdasViewHeader'
 
-export type LambdasView = CodelabPage<DashboardTemplateProps>
+export type ILambdasView = CodelabPage<DashboardTemplateProps>
 
-export const LambdasViewLayout: LambdasView['Layout'] = ({ children }) => {
+export const LambdasViewLayout: ILambdasView['Layout'] = ({ children }) => {
   return (
     <DynamicDashboardTemplate Header={LambdasViewHeader}>
       {children}

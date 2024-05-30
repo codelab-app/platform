@@ -1,14 +1,14 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IBaseTypeDto } from './base-type.dto.interface'
+import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IRichTextTypeDto = Type.Composite([
-  IBaseTypeDto(Type.Literal(`${ITypeKind.RichTextType}`)),
+export const RichTextTypeDtoSchema = Type.Composite([
+  BaseTypeDtoSchema(`${ITypeKind.RichTextType}`),
 ])
 
-export type IRichTextTypeDto = Static<typeof IRichTextTypeDto>
+export type IRichTextTypeDto = Static<typeof RichTextTypeDtoSchema>
 
-export const IRichTextType = IRichTextTypeDto
+export const RichTextTypeSchema = RichTextTypeDtoSchema
 
-export type IRichTextType = Static<typeof IRichTextType>
+export type IRichTextType = Static<typeof RichTextTypeSchema>

@@ -1,9 +1,10 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/ref.interface'
 import { IActionKind } from './action-kind.enum'
 
-export const IBaseActionDto = Type.Object({
+export const BaseActionDtoSchema = Type.Object({
   __typename: Type.Optional(
     Type.Union([
       Type.Literal(`${IActionKind.ApiAction}`),
@@ -12,7 +13,7 @@ export const IBaseActionDto = Type.Object({
   ),
   id: Type.String(),
   name: Type.String(),
-  store: IRef,
+  store: Typebox.Ref,
 })
 
-export type IBaseActionDto = Static<typeof IBaseActionDto>
+export type IBaseActionDto = Static<typeof BaseActionDtoSchema>

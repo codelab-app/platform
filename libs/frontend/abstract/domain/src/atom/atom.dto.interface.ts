@@ -1,8 +1,8 @@
-import { IAtomDto } from '@codelab/shared/abstract/core'
+import { AtomDtoSchema, IAtomDto } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
-export const ICreateAtomData = Type.Pick(IAtomDto, [
+export const CreateAtomDataSchema = Type.Pick(AtomDtoSchema, [
   'externalCssSource',
   'externalJsSource',
   'externalSourceType',
@@ -14,6 +14,6 @@ export const ICreateAtomData = Type.Pick(IAtomDto, [
   'type',
 ])
 
-export type ICreateAtomData = Static<typeof ICreateAtomData>
+export type ICreateAtomData = Static<typeof CreateAtomDataSchema>
 
 export type IUpdateAtomData = ICreateAtomData

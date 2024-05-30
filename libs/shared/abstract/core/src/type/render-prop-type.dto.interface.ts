@@ -1,14 +1,14 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IBaseTypeDto } from './base-type.dto.interface'
+import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IRenderPropTypeDto = Type.Composite([
-  IBaseTypeDto(Type.Literal(`${ITypeKind.RenderPropType}`)),
+export const RenderPropTypeDtoSchema = Type.Composite([
+  BaseTypeDtoSchema(`${ITypeKind.RenderPropType}`),
 ])
 
-export type IRenderPropTypeDto = Static<typeof IRenderPropTypeDto>
+export type IRenderPropTypeDto = Static<typeof RenderPropTypeDtoSchema>
 
-export const IRenderPropType = IRenderPropTypeDto
+export const RenderPropTypeSchema = RenderPropTypeDtoSchema
 
-export type IRenderPropType = Static<typeof IRenderPropType>
+export type IRenderPropType = Static<typeof RenderPropTypeSchema>

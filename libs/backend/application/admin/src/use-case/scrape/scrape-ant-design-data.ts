@@ -1,5 +1,5 @@
 import 'jquery'
-import type { AntDesignApi } from '@codelab/backend/abstract/core'
+import type { IAntDesignApi } from '@codelab/backend/abstract/core'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
 import path from 'path'
 import type { Browser } from 'puppeteer'
@@ -13,7 +13,7 @@ const outputDirectory = './data/antd-v5'
 const getComponentApiData = async (
   browser: Browser,
   component: string,
-): Promise<Array<AntDesignApi>> => {
+): Promise<Array<IAntDesignApi>> => {
   const componentUrl = `${BASE_URL}${component}`
   const componentPage = await browser.newPage()
 

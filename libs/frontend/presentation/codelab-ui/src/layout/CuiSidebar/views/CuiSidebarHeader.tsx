@@ -5,14 +5,14 @@ import type { ToolbarProps } from '../../../abstract'
 import { CuiSidebarToolbar } from '../../../views'
 import type { CuiSidebarProps } from '../CuiSidebar'
 
-type CuiSidebarHeader = Pick<CuiSidebarProps, 'label'> & {
+type ICuiSidebarHeader = Pick<CuiSidebarProps, 'label'> & {
   toolbar?: ToolbarProps
 }
 
 /**
  * If we only have 1 view item, we use that data as the header. Otherwise
  */
-export const CuiSidebarHeader = ({ label, toolbar }: CuiSidebarHeader) => {
+export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
   return (
     <div
       className="

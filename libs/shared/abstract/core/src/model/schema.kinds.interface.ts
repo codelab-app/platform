@@ -13,7 +13,7 @@ export const SchemaKinds = {
   ...IModelKinds,
 } as const
 
-type SchemaKinds = Key<typeof SchemaKinds>
+type ISchemaKinds = Key<typeof SchemaKinds>
 
 /**
  * TypeKinds is the kind of all custom schema types
@@ -22,8 +22,8 @@ type SchemaKinds = Key<typeof SchemaKinds>
   	 [Kind]: IModelType.User,
     } as TSchema
  */
-type SchemaKindsMap = Writable<{
-  [key in keyof typeof SchemaKinds]: TSchema
+type ISchemaKindsMap = Writable<{
+  [key in ISchemaKinds]: TSchema
 }>
 
 export const SchemaKindsMap = ObjectTyped.keys(SchemaKinds).reduce(
@@ -35,5 +35,5 @@ export const SchemaKindsMap = ObjectTyped.keys(SchemaKinds).reduce(
 
     return acc
   },
-  {} as SchemaKindsMap,
+  {} as ISchemaKindsMap,
 )

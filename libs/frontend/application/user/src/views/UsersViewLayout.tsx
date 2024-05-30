@@ -3,8 +3,8 @@ import type { DashboardTemplateProps } from '@codelab/frontend-presentation-view
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import React from 'react'
 
-export type UsersView = CodelabPage<DashboardTemplateProps>
+export type IUsersView = CodelabPage<DashboardTemplateProps>
 
-export const UsersViewLayout: UsersView['Layout'] = ({ children }) => {
+export const UsersViewLayout: IUsersView['Layout'] = ({ children }) => {
   return <DynamicDashboardTemplate>{children}</DynamicDashboardTemplate>
 }

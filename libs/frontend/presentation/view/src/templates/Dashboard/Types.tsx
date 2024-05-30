@@ -1,4 +1,5 @@
 import type { ComponentType, JSXElementConstructor } from 'react'
+import type React from 'react'
 
 export interface PrimarySidebarItem {
   key: React.Key

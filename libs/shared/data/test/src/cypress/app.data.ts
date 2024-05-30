@@ -3,6 +3,7 @@ import type {
   IElementDto,
   IInterfaceTypeDto,
   IInterfaceTypeRef,
+  InterfaceTypeDtoSchema,
   IRef,
   IStoreDto,
 } from '@codelab/shared/abstract/core'

@@ -4,10 +4,10 @@ import {
   type IPopoverStore,
 } from '../../layout/CuiSidebarPopover'
 
-export interface CuiContext {
+export interface ICuiContext {
   popover: IPopoverStore
 }
 
-export const CuiContext = createContext<CuiContext>({
+export const CuiContext = createContext<ICuiContext>({
   popover: cuiPopoverStore,
 })

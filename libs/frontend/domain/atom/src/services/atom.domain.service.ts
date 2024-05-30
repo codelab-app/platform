@@ -15,6 +15,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import React from 'react'
 import { Atom } from '../store'
 
 @model('@codelab/AtomDomainService')

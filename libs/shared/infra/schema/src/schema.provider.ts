@@ -24,6 +24,14 @@ class SchemaProvider implements ISchemaProvider {
     this.ajv.addSchema(schema, key)
   }
 
+  assertHasRegistry(kind: keyof typeof SchemaKinds) {
+    const exists = TypeRegistry.Has(`@codelab/${kind}`)
+
+    if (!exists) {
+      throw new Error(`Please register @codelab/${kind} to Typebox first`)
+    }
+  }
+
   getSchema(key: string): ValidateFunction | undefined {
     return this.ajv.getSchema(key)
   }

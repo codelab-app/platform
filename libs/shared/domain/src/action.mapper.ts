@@ -1,4 +1,5 @@
 import type {
+  ActionDtoSchema,
   IActionDto,
   ICreateActionData,
   IUpdateActionData,

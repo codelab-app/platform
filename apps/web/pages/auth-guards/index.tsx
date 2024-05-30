@@ -5,8 +5,8 @@ import {
   UpdateAuthGuardModal,
 } from '@codelab/frontend-application-auth-guard/use-cases/update-auth-guard'
 import {
-  type AuthGuardsView,
   AuthGuardsViewLayout,
+  type IAuthGuardsView,
 } from '@codelab/frontend-application-auth-guard/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
@@ -15,7 +15,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const AuthGuardsView: AuthGuardsView = observer(() => {
+const AuthGuardsView: IAuthGuardsView = observer(() => {
   const { authGuardService } = useStore()
   const authGuard = authGuardService.updateForm.authGuard
 

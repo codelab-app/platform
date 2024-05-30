@@ -1,6 +1,6 @@
 import type { JSONSchemaType } from 'ajv'
 import { v4 } from 'uuid'
-import type { IBaseTypeDto } from './base-type.dto.interface'
+import type { BaseTypeDtoSchema, IBaseTypeDto } from './base-type.dto.interface'
 import type { ITypeKind } from './type-kind.enum'
 
 export const BASE_TYPE_SCHEMA_REF = 'BASE_TYPE_SCHEMA'

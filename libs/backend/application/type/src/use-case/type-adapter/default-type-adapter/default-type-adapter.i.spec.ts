@@ -1,25 +1,48 @@
+import {
+  InterfaceTypeRepository,
+  PrimitiveTypeRepository,
+  TypeDomainModule,
+} from '@codelab/backend/domain/type'
+import { initUserContext } from '@codelab/backend/test'
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { Test, type TestingModule } from '@nestjs/testing'
+import { TypeApplicationModule } from '../../../type.application.module'
 import { DefaultTypeAdapterService } from './default-type-adapter.service'
 
 describe.skip('DefaultTypeAdapterService', () => {
   const type = 'boolean | { delay: number }'
   let service: DefaultTypeAdapterService
+  let primitiveTypeRepository: PrimitiveTypeRepository
+  let interfaceTypeRepository: InterfaceTypeRepository
 
-  beforeAll(() => {
-    const atom = {
-      name: 'TestAtom',
-    }
+  const context = initUserContext({
+    imports: [TypeApplicationModule, TypeDomainModule],
+    providers: [],
+  })
 
-    const field = {
-      key: 'testField',
-    }
+  const atom = {
+    name: 'TestAtom',
+  }
 
-    service = new DefaultTypeAdapterService({
-      atom,
-      field,
-      owner: user,
-    })
+  const field = {
+    key: 'testField',
+  }
+
+  beforeAll(async () => {
+    const ctx = await context
+
+    await ctx.beforeAll()
+
+    service = ctx.module.get(DefaultTypeAdapterService)
+    primitiveTypeRepository = ctx.module.get(PrimitiveTypeRepository)
+    interfaceTypeRepository = ctx.module.get(InterfaceTypeRepository)
+
+    // service = new DefaultTypeAdapterService({
+    //   atom,
+    //   field,
+    //   owner: user,
+    // })
   })
 
   it('should be an interfaceType', async () => {
@@ -29,7 +52,11 @@ describe.skip('DefaultTypeAdapterService', () => {
   })
 
   it('should create a union type with boolean and interface type for given input', async () => {
-    const result = (await service.execute({ type })) as IUnionTypeDto
+    const result = (await service.execute({
+      atom,
+      field,
+      type,
+    })) as IUnionTypeDto
 
     expect(result).toBeDefined()
     expect(result.kind).toEqual(ITypeKind.UnionType)
@@ -41,11 +68,15 @@ describe.skip('DefaultTypeAdapterService', () => {
     const interfaceTypeId = interfaceType?.id
 
     const existingBooleanType = await primitiveTypeRepository.findOne({
-      id: booleanTypeId,
+      where: {
+        id: booleanTypeId,
+      },
     })
 
     const existingInterfaceType = await interfaceTypeRepository.findOne({
-      id: interfaceTypeId,
+      where: {
+        id: interfaceTypeId,
+      },
     })
 
     expect(existingBooleanType?.primitiveKind).toEqual(

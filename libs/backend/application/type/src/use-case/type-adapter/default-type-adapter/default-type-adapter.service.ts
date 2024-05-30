@@ -347,7 +347,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     return this.integerTypeRegex.test(type)
   }
 
-  private isInterfaceType(type: string) {
+  isInterfaceType(type: string) {
     return this.interfaceTypeRegex.test(type)
   }
 

@@ -7,23 +7,25 @@ import React from 'react'
 import { TypesPrimarySidebar } from '../use-cases/primary-sidebar'
 import { TypesViewHeader } from './TypesViewHeader'
 
-export type TypesView = CodelabPage<DashboardTemplateProps>
+export type ITypesView = CodelabPage<DashboardTemplateProps>
 
-export const TypesViewLayout: TypesView['Layout'] = observer(({ children }) => {
-  return (
-    <DynamicDashboardTemplate
-      Header={TypesViewHeader}
-      PrimarySidebar={{
-        default: PageType.Type,
-        items: [
-          {
-            key: PageType.Type,
-            render: TypesPrimarySidebar,
-          },
-        ],
-      }}
-    >
-      {children}
-    </DynamicDashboardTemplate>
-  )
-})
+export const TypesViewLayout: ITypesView['Layout'] = observer(
+  ({ children }) => {
+    return (
+      <DynamicDashboardTemplate
+        Header={TypesViewHeader}
+        PrimarySidebar={{
+          default: PageType.Type,
+          items: [
+            {
+              key: PageType.Type,
+              render: TypesPrimarySidebar,
+            },
+          ],
+        }}
+      >
+        {children}
+      </DynamicDashboardTemplate>
+    )
+  },
+)

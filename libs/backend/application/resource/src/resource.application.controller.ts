@@ -1,5 +1,8 @@
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ICreateResourceData } from '@codelab/shared/abstract/core'
+import {
+  CreateResourceDataSchema,
+  type ICreateResourceData,
+} from '@codelab/shared/abstract/core'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -25,7 +28,7 @@ export class ResourceApplicationController {
     validate: {
       request: [
         {
-          schema: ICreateResourceData,
+          schema: CreateResourceDataSchema,
           type: 'body',
         },
       ],

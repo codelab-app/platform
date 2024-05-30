@@ -1,9 +1,10 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/ref.interface'
 
-export const IDomainDto = Type.Object({
-  app: IRef,
+export const DomainDtoSchema = Type.Object({
+  app: Typebox.Ref,
   /**
    * https://stackoverflow.com/a/74650249/2159920
    *
@@ -19,8 +20,8 @@ export const IDomainDto = Type.Object({
   name: Type.String(),
 })
 
-export type IDomainDto = Static<typeof IDomainDto>
+export type IDomainDto = Static<typeof DomainDtoSchema>
 
-export const IDomain = IDomainDto
+export const DomainSchema = DomainDtoSchema
 
-export type IDomain = Static<typeof IDomain>
+export type IDomain = Static<typeof DomainSchema>

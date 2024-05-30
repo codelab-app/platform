@@ -7,27 +7,38 @@ import {
   type ISchemaProvider,
   schemaProvider,
 } from '@codelab/shared/infra/schema'
+import type { StaticDecode, TSchema } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import type { Schema } from 'ajv'
 
-export class ValidationService<T extends Schema>
+export class ValidationService<T extends TSchema>
   implements IValidationService<T>
 {
   constructor(private kind: keyof typeof SchemaKinds, tSchema: T) {
     this.schema.register(kind, tSchema)
   }
 
-  asserts(data: unknown) {
-    const tSchema = SchemaKindsMap[this.kind]
+  get tSchema(): T {
+    return SchemaKindsMap[this.kind] as T
+  }
 
-    Value.Decode(tSchema, data)
+  asserts(data: unknown) {
+    this.schema.assertHasRegistry(this.kind)
+
+    console.log(this.tSchema, data)
+
+    Value.Decode(this.tSchema, data)
+  }
+
+  decode(data: unknown) {
+    return Value.Decode<T>(this.tSchema, data)
   }
 
   validate(data: unknown) {
-    const tSchema = SchemaKindsMap[this.kind]
+    this.schema.assertHasRegistry(this.kind)
 
-    return Value.Check(tSchema, data)
+    return Value.Check(this.tSchema, data)
   }
 
-  private schema: ISchemaProvider = schemaProvider
+  private schema = schemaProvider
 }

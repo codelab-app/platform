@@ -1,7 +1,7 @@
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
-import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
+import { type IExportDto, type IImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { SeederApplicationService } from './use-case'
@@ -23,14 +23,14 @@ export class AdminController {
   ) {}
 
   @Post('export')
-  async export(@Body() exportDto: ExportDto) {
+  async export(@Body() exportDto: IExportDto) {
     const { adminDataPath } = exportDto
 
     await this.commandBus.execute(new ExportAdminDataCommand(adminDataPath))
   }
 
   @Post('import')
-  async import(@Body() { adminDataPath }: ImportDto) {
+  async import(@Body() { adminDataPath }: IImportDto) {
     await this.commandBus.execute(new ImportAdminDataCommand(adminDataPath))
   }
 

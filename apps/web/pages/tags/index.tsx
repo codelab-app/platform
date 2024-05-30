@@ -6,14 +6,14 @@ import {
   UpdateTagModal,
 } from '@codelab/frontend-application-tag/use-cases/update-tag'
 import {
-  type TagsView,
+  type ITagsView,
   TagsViewLayout,
 } from '@codelab/frontend-application-tag/views'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import Head from 'next/head'
 import React from 'react'
 
-const TagsView: TagsView = () => {
+const TagsView: ITagsView = () => {
   return (
     <>
       <Head>

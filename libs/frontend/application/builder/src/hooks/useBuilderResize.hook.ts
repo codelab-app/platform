@@ -1,4 +1,7 @@
-import type { BuilderWidth } from '@codelab/frontend/abstract/domain'
+import type {
+  BuilderWidth,
+  IBuilderService,
+} from '@codelab/frontend/abstract/application'
 import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
 import { useMotionValue } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'

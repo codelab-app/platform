@@ -21,7 +21,7 @@ export enum HttpResponseType {
   Text = 'text',
 }
 
-export const IRestFetchConfigData = Type.Object({
+export const RestFetchConfigDataSchema = Type.Object({
   body: Typebox.Nullish(Type.String()),
   headers: Typebox.Nullish(Type.String()),
   method: Type.Enum(HttpMethod),
@@ -30,17 +30,19 @@ export const IRestFetchConfigData = Type.Object({
   urlSegment: Type.String(),
 })
 
-export type IRestFetchConfigData = Static<typeof IRestFetchConfigData>
+export type IRestFetchConfigData = Static<typeof RestFetchConfigDataSchema>
 
-export const IGraphQLFetchConfigData = Type.Object({
+export const GraphQLFetchConfigDataSchema = Type.Object({
   headers: Typebox.Nullish(Type.String()),
   query: Type.String(),
   variables: Typebox.Nullish(Type.String()),
 })
 
-export type IGraphQLFetchConfigData = Static<typeof IGraphQLFetchConfigData>
+export type IGraphQLFetchConfigData = Static<
+  typeof GraphQLFetchConfigDataSchema
+>
 
-export const IResourceFetchResponse = Type.Object({
+export const ResourceFetchResponseSchema = Type.Object({
   data: Typebox.Nullish(Type.Any()),
   error: Typebox.Nullish(Type.Any()),
   headers: Typebox.Nullish(Type.Record(Type.String(), Type.Any())),
@@ -48,11 +50,11 @@ export const IResourceFetchResponse = Type.Object({
   statusText: Typebox.Nullish(Type.String()),
 })
 
-export type IResourceFetchResponse = Static<typeof IResourceFetchResponse>
+export type IResourceFetchResponse = Static<typeof ResourceFetchResponseSchema>
 
-export const IResourceFetchConfigData = Type.Union([
-  IRestFetchConfigData,
-  IGraphQLFetchConfigData,
+export const ResourceFetchConfigDataSchema = Type.Union([
+  RestFetchConfigDataSchema,
+  GraphQLFetchConfigDataSchema,
 ])
 
-export type IResourceFetchConfig = Static<typeof IResourceFetchConfigData>
+export type IResourceFetchConfig = Static<typeof ResourceFetchConfigDataSchema>

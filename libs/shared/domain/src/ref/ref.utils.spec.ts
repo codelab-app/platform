@@ -58,6 +58,9 @@ describe('Ref', () => {
     expect(Value.Check(Ref, true)).toBeFalsy()
     expect(Value.Check(Ref, user)).toBeTruthy()
 
+    expect(() => Value.Decode(Ref, true)).toThrow()
+    expect(() => Value.Decode(Ref, user)).not.toThrow()
+
     expect(TypeGuard.IsKindOf(user, ref)).toBeTruthy()
   })
 

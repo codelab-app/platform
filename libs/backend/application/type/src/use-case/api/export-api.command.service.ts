@@ -14,8 +14,9 @@ import type {
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import {
+  FieldDtoSchema,
   IFieldDto,
-  IInterfaceTypeDto,
+  InterfaceTypeDtoSchema,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -44,7 +45,7 @@ export class ExportApiHandler
      * (1) Get itself
      */
     const interfaceType = await this.interfaceTypeRepository.findOneOrFail({
-      schema: IInterfaceTypeDto,
+      schema: InterfaceTypeDtoSchema,
       where: {
         id: api.id,
       },
@@ -54,7 +55,7 @@ export class ExportApiHandler
       options: {
         sort: [{ key: SortDirection.Asc }],
       },
-      schema: IFieldDto,
+      schema: FieldDtoSchema,
       where: { id_IN: interfaceType.fields.map(({ id }) => id) },
     })
 
@@ -70,7 +71,7 @@ export class ExportApiHandler
     this.sortEnumValuesBeforeExport(dependentTypes)
 
     const dependentInterfaceTypes = dependentTypes.filter(
-      (type) => type.__typename === ITypeKind.InterfaceType,
+      (type) => type.__typename === `${ITypeKind.InterfaceType}`,
     )
 
     const interfacesIds = dependentInterfaceTypes.map(({ id }) => id)

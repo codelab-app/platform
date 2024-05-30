@@ -1,4 +1,4 @@
-import { IElementDto } from '@codelab/shared/abstract/core'
+import { ElementDtoSchema, IElementDto } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
@@ -9,7 +9,7 @@ import { Type } from '@sinclair/typebox'
 
 export const CSS_AUTOSAVE_TIMEOUT = 1000
 
-export const IUpdateElementData = Type.Pick(IElementDto, [
+export const UpdateElementDataSchema = Type.Pick(ElementDtoSchema, [
   'childMapperComponent',
   'childMapperPreviousSibling',
   'childMapperPropKey',
@@ -24,7 +24,7 @@ export const IUpdateElementData = Type.Pick(IElementDto, [
   'tailwindClassNames',
 ])
 
-export type IUpdateElementData = Static<typeof IUpdateElementData>
+export type IUpdateElementData = Static<typeof UpdateElementDataSchema>
 
 /**
  * Some properties have their own forms, the base form only uses a subset of fields

@@ -6,9 +6,9 @@ import React from 'react'
 import { AtomsPrimarySidebar } from '../use-cases/get-atoms'
 import { AtomsViewHeader } from './AtomsViewHeader'
 
-export type AtomsView = CodelabPage<DashboardTemplateProps>
+export type IAtomsView = CodelabPage<DashboardTemplateProps>
 
-export const AtomsViewLayout: AtomsView['Layout'] = ({ children }) => {
+export const AtomsViewLayout: IAtomsView['Layout'] = ({ children }) => {
   return (
     <DynamicDashboardTemplate
       Header={AtomsViewHeader}

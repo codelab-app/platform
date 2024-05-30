@@ -5,7 +5,7 @@ import {
   UpdateResourceModal,
 } from '@codelab/frontend-application-resource/use-cases/update-resource'
 import {
-  type ResourcesView,
+  type IResourcesView,
   ResourcesViewLayout,
 } from '@codelab/frontend-application-resource/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
@@ -15,7 +15,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const ResourcesView: ResourcesView = observer(() => {
+const ResourcesView: IResourcesView = observer(() => {
   const { resourceService } = useStore()
   const resource = resourceService.updateForm.resource
 

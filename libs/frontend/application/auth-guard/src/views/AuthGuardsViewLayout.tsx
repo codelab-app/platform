@@ -7,9 +7,9 @@ import React from 'react'
 import { AuthGuardsPrimarySidebar } from '../use-cases/primary-sidebar'
 import { AuthGuardsViewHeader } from './AuthGuardsViewHeader'
 
-export type AuthGuardsView = CodelabPage<DashboardTemplateProps>
+export type IAuthGuardsView = CodelabPage<DashboardTemplateProps>
 
-export const AuthGuardsViewLayout: AuthGuardsView['Layout'] = observer(
+export const AuthGuardsViewLayout: IAuthGuardsView['Layout'] = observer(
   ({ children }) => {
     return (
       <DynamicDashboardTemplate
