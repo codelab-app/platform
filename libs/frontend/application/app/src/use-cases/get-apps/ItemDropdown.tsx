@@ -6,6 +6,7 @@ import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { prettifyForConsole } from '@codelab/shared/utils'
@@ -50,6 +51,7 @@ const downloadExportedData = async (app: IAppModel) => {
 }
 
 export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
+  const { pathname } = useUrl()
   const { appService, userService } = useStore()
   const onEditClick = () => appService.updateModal.open(appRef(app))
   const onDeleteClick = () => appService.deleteModal.open(appRef(app))
@@ -58,9 +60,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
   const router = useRouter()
 
   const goToDomainsPage = () =>
-    router.push(
-      `${router.pathname}/${userService.user.username}/${app.slug}/domains`,
-    )
+    router.push(`${pathname}/${userService.user.username}/${app.slug}/domains`)
 
   const menuItems: MenuProps['items'] = [
     {

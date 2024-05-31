@@ -3,10 +3,13 @@ import type { Session } from '@auth0/nextjs-auth0'
 import { restApiClient } from '@codelab/frontend-infra-axios'
 import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-import type { NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 export const maxDuration = 60
 
+/**
+ * https://stackoverflow.com/questions/63776137/getting-a-cors-error-when-trying-to-authenticate-user-with-auth0
+ */
 export const GET = auth0Instance.handleAuth({
   callback: auth0Instance.handleCallback({
     afterCallback: async (req: NextRequest, session: Session) => {
@@ -63,3 +66,12 @@ export const GET = auth0Instance.handleAuth({
     }
   }),
 })
+
+/**
+ * https://github.com/vercel/next.js/discussions/52933
+ */
+export const OPTIONS = async (request: NextRequest) => {
+  return new NextResponse(null, {
+    status: 200,
+  })
+}

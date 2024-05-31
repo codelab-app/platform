@@ -6,6 +6,6 @@
     "@typescript-eslint/utils": "7.9.0",
     "tslib": "2.3.1"
   },
-  "main": "./src/index.js",
+  "main": "./../../../apps/web/libs/tools/eslint-plugin/src/index.js",
   "type": "commonjs"
 }

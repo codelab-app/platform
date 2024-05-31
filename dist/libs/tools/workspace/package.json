@@ -7,5 +7,5 @@
   "dependencies": {
     "@nx/devkit": "19.0.4"
   },
-  "main": "./src/index.js"
+  "main": "./../../../apps/web/libs/tools/workspace/src/index.js"
 }
