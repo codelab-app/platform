@@ -6,22 +6,25 @@ import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { App, ConfigProvider } from 'antd'
 import React, { Suspense } from 'react'
 import { CuiStoreProvider } from './components/provider'
+import { StyledComponentsRegistry } from './registry'
 import { theme } from './theme'
 
-const RootLayout = ({ children }: React.PropsWithChildren) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body>
         <Suspense>
-          <CuiStoreProvider>
-            <UserProvider>
-              <CuiProvider>
-                <ConfigProvider theme={theme}>
-                  <App className="size-full">{children}</App>
-                </ConfigProvider>
-              </CuiProvider>
-            </UserProvider>
-          </CuiStoreProvider>
+          <StyledComponentsRegistry>
+            <CuiStoreProvider>
+              <UserProvider>
+                <CuiProvider>
+                  <ConfigProvider theme={theme}>
+                    <App className="size-full">{children}</App>
+                  </ConfigProvider>
+                </CuiProvider>
+              </UserProvider>
+            </CuiStoreProvider>
+          </StyledComponentsRegistry>
         </Suspense>
       </body>
     </html>

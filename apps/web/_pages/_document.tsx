@@ -42,8 +42,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* Agent can be injected either as head script, or imported as NPM lib */}
-          {/* <NewRelicScript /> */}
           <link href="https://fonts.googleapis.com" rel="preconnect" />
           <link
             crossOrigin=""
