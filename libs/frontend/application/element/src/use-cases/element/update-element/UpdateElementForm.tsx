@@ -9,14 +9,14 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectActionField } from '@codelab/frontend/application/type'
 import {
   CodeMirrorField,
-  createAutoCompleteOptions,
   Form,
+  useAutocompleteOptions,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import ChildMapperCompositeField from '../../../components/ChildMapperCompositeField'
@@ -61,6 +61,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     const runtimeProps = runtimeElement.runtimeProps
+    const customOptions = useAutocompleteOptions(runtimeProps.runtimeContext)
+    const codeMirrorField = useMemo(CodeMirrorField, [customOptions])
 
     const collapseItems = [
       {
@@ -71,12 +73,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       {
         children: (
           <AutoField
-            component={CodeMirrorField({
-              customOptions: createAutoCompleteOptions(
-                runtimeProps.runtimeContext,
-              ),
-              language: CodeMirrorLanguage.Javascript,
-            })}
+            component={codeMirrorField}
+            customOptions={customOptions}
+            language={CodeMirrorLanguage.Javascript}
             name="renderIfExpression"
           />
         ),

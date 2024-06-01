@@ -72,14 +72,13 @@ export const createAutoCompleteOptions = (
  */
 export const useAutocompleteOptions = (ctx: Maybe<IRuntimeContext>) => {
   const [options, setOptions] = useState<Array<Completion>>([])
+  const newOptions = createAutoCompleteOptions(ctx)
 
   useEffect(() => {
-    const newOptions = createAutoCompleteOptions(ctx)
-
-    setOptions((prevOptions) =>
-      isEqual(prevOptions, newOptions) ? prevOptions : newOptions,
-    )
-  }, [ctx])
+    if (!isEqual(options, newOptions)) {
+      setOptions(newOptions)
+    }
+  })
 
   return options
 }
