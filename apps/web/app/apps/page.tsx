@@ -14,14 +14,26 @@ import { useAsync } from '@react-hookz/web'
 import { Spin } from 'antd'
 import type { Metadata } from 'next'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query'
+import { getQueryClient } from '../components/react-query.provider'
 
-export const metadata: Metadata = {
-  // description: '...',
-  title: 'Apps | Codelab',
-}
+// export const metadata: Metadata = {
+//   // description: '...',
+//   title: 'Apps | Codelab',
+// }
 
-const AppsView = (props: object) => {
+const AppsView = () => {
+  const queryClient = getQueryClient()
+
+  queryClient.prefetchQuery({
+    queryKey: ['apps'],
+    queryFn: getApps,
+  })
   // const { appService, userService } = useStore()
   // const user = userService.user
 
@@ -34,9 +46,8 @@ const AppsView = (props: object) => {
   // }, [user, loadAppsPreview])
 
   return (
-    <>
-      Apps
-      {/* <BuildAppModal />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <BuildAppModal />
       <CreateAppModal />
       <UpdateAppModal />
       <DeleteAppModal />
@@ -47,8 +58,8 @@ const AppsView = (props: object) => {
         ) : (
           <GetAppsList />
         )}
-      </ContentSection> */}
-    </>
+      </ContentSection>
+    </HydrationBoundary>
   )
 }
 

@@ -1,6 +1,6 @@
-import { Types } from '@graphql-codegen/plugin-helpers'
+import type { CodegenConfig } from '@graphql-codegen/cli'
 
-const config: Types.Config = {
+const config: CodegenConfig = {
   overwrite: true,
   hooks: {
     // Uncomment to run ESLint fix after code generation
@@ -39,24 +39,48 @@ const config: Types.Config = {
         },
       },
     },
+    // '.': {
+    //   // This somehow generates for web-e2e as well, even if ./libs
+    //   documents: ['**/*.{endpoints,fragment,subscription}.graphql'],
+    //   preset: 'near-operation-file',
+    //   presetConfig: {
+    //     extension: '.graphql.gen.ts',
+    //     baseTypesPath: '~@codelab/shared/abstract/codegen',
+    //     // Uncomment to force export of fragment types
+    //     // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
+    //   },
+    //   plugins: ['typescript-operations', 'typescript-graphql-request'],
+    //   config: {
+    //     inlineFragmentTypes: 'combine',
+    //     // Uncomment to set suffix for document variables
+    //     // documentVariableSuffix: 'Gql',
+    //     gqlImport: 'graphql-tag#gql',
+    //     strictScalars: true,
+    //     defaultScalarType: 'unknown',
+    //     // dedupeFragments: true, // Uncomment to deduplicate fragments
+    //   },
+    // },
     '.': {
       // This somehow generates for web-e2e as well, even if ./libs
-      documents: ['**/*.{endpoints,fragment,subscription}.graphql'],
-      preset: 'near-operation-file',
+      documents: ['**/*.{tan,fragment,subscription}.graphql'],
+      preset: 'client-preset',
       presetConfig: {
         extension: '.graphql.gen.ts',
         baseTypesPath: '~@codelab/shared/abstract/codegen',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
-      plugins: ['typescript-operations', 'typescript-graphql-request'],
+      plugins: ['typescript-operations', 'typescript-react-query'],
       config: {
         inlineFragmentTypes: 'combine',
         // Uncomment to set suffix for document variables
         // documentVariableSuffix: 'Gql',
         gqlImport: 'graphql-tag#gql',
         strictScalars: true,
-        defaultScalarType: 'unknown',
+        config: {
+          fetcher: 'graphql-request',
+        },
+        // defaultScalarType: 'unknown',
         // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
     },
