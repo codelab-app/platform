@@ -1,7 +1,56 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "de749d18-fdea-4228-a6b6-87592483402b"
+        },
+        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\",\"value\":\"{{\\n  function children(fields, { add, remove }) {\\n    const { AntDesignButton, AntDesignInput, AntDesignFormItem, AntDesignSpace } = this.atoms;\\n    \\n    const renderedFields = fields.map(({ key, name }) => (\\n      <AntDesignSpace key={key}>\\n        <AntDesignFormItem className=\\\"m-0 p-1\\\" label=\\\"Item\\\" name={[name, 'item']}>\\n          <AntDesignInput />\\n        </AntDesignFormItem>\\n        <AntDesignButton onClick={() => remove(name)}>Remove</AntDesignButton>\\n      </AntDesignSpace>\\n    ));\\n\\n    return (\\n      <>\\n        {renderedFields}\\n        \\n        <AntDesignButton block onClick={() => add()}>\\n          + Add Item\\n        </AntDesignButton>\\n      </>\\n    )\\n  }.bind(this);\\n}}\"}",
+        "description": null,
+        "fieldType": {
+          "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
+        },
+        "id": "888d3694-8595-4413-9d7c-cb7ab19b70e0",
+        "key": "children",
+        "name": "children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "de749d18-fdea-4228-a6b6-87592483402b"
+        },
+        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\",\"value\":\"{{\\n  [{}]\\n}}\"}",
+        "description": null,
+        "fieldType": {
+          "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
+        },
+        "id": "cd31b525-94a8-4321-8ce9-cc08406fec68",
+        "key": "initialValue",
+        "name": "initialValue",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "de749d18-fdea-4228-a6b6-87592483402b"
+        },
+        "defaultValues": "\"items\"",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "e44dd38f-8093-4be1-9d2e-195ad3899193",
+        "key": "name",
+        "name": "name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      }
+    ],
     "id": "de749d18-fdea-4228-a6b6-87592483402b",
     "kind": "InterfaceType",
     "name": "AntDesignFormList API",

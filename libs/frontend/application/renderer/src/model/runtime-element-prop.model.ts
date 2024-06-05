@@ -178,7 +178,16 @@ export class RuntimeElementPropsModel
       return undefined
     }
 
+    const runtimeElement = this.runtimeElement.current
+    const { evaluatedProps } = runtimeElement.runtimeProps
+    const evaluatedChildrenProp = evaluatedProps['children']
     const childrenProp = this.element.props.get('children')
+
+    // Some of the atoms, like AntDesignFormList, require children to be a function.
+    // If the evaluated children value is of type function - stop processing and use it as-is.
+    if (typeof evaluatedChildrenProp === 'function') {
+      return evaluatedChildrenProp
+    }
 
     const isCodeMirrorType =
       childrenProp &&
@@ -189,9 +198,7 @@ export class RuntimeElementPropsModel
       ? CodeMirrorEditorWrapper
       : RichTextEditorWrapper
 
-    return React.createElement(Wrapper, {
-      runtimeElement: this.runtimeElement.current,
-    })
+    return React.createElement(Wrapper, { runtimeElement })
   }
 
   /**
