@@ -39,7 +39,7 @@ const RootRendererComponent = React.forwardRef<
   HTMLDivElement,
   WithStyleProp<{ renderer: IRendererModel }>
 >(({ renderer }, ref) => {
-  const { builderService, rendererService } = useStore()
+  const { builderService } = useStore()
   const { selectedBuilderWidth } = builderService
 
   const containerStyle = useMemo(
@@ -56,7 +56,10 @@ const RootRendererComponent = React.forwardRef<
     <ErrorBoundary>
       <WrapIf
         Wrapper={MakeChildrenDroppable}
-        condition={renderer.rendererType !== RendererType.Production}
+        condition={
+          renderer.rendererType !== RendererType.Production &&
+          renderer.rendererType !== RendererType.Preview
+        }
         wrapperProps={{ data: {}, id: ROOT_RENDER_CONTAINER_ID }}
       >
         <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>

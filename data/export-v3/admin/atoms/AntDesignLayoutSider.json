@@ -9,6 +9,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "04862a25-c114-4f3e-869e-d879b461182f"
+        },
+        "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
+        "key": "antdTheme",
+        "name": "Theme",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "7e2a75ec-5cb3-46b6-b9c2-ec9d6af9cb87"
         },
         "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0",
@@ -110,22 +126,6 @@
         "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0",
         "key": "reverseArrow",
         "name": "Reverse Arrow",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "04862a25-c114-4f3e-869e-d879b461182f"
-        },
-        "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
-        "key": "antdTheme",
-        "name": "Theme",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
