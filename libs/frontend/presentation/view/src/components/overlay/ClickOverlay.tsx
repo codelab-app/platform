@@ -22,7 +22,8 @@ export const ClickOverlay = ({
   // - element order is changed (or element parent is changed)
   // - screen breakpoint is changed
 
-  const { height, width } = useResizeObserver({ ref: renderContainer })
+  const containerObserver = useResizeObserver({ ref: renderContainer })
+  const elementObserver = useResizeObserver({ ref: element })
 
   useScrollIntoView(element, renderContainer)
   useScroll()
@@ -36,7 +37,15 @@ export const ClickOverlay = ({
   useEffect(() => {
     setRect(element.getBoundingClientRect())
     setContainerRect(renderContainer.getBoundingClientRect())
-  }, [element, renderContainer, height, width, ...dependencies])
+  }, [
+    element,
+    renderContainer,
+    elementObserver.height,
+    elementObserver.width,
+    containerObserver.height,
+    containerObserver.width,
+    ...dependencies,
+  ])
 
   useDebounce(
     () => {
@@ -50,11 +59,8 @@ export const ClickOverlay = ({
   const rootStyle: CSSProperties = useMemo(
     () => ({
       borderRadius: '3px',
-
       bottom: `${rect.bottom}px`,
-
       height: `${rect.height}px`,
-
       left: `${rect.left - containerRect.left}px`,
       outline: '2px solid #43669A',
       pointerEvents: 'none',
