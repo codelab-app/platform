@@ -1,11 +1,11 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
-import {
-  CodeMirrorField,
-  createAutoCompleteOptions,
-  ToggleExpressionField,
-} from '@codelab/frontend-presentation-view/components'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import type { UiPropertiesFn } from '../types'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-view/components/codeMirror'
+import {
+  CodeMirrorField,
+  ToggleExpressionField,
+} from '@codelab/frontend-presentation-view/components/form'
 
 export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveTypeModel> = (
   type,

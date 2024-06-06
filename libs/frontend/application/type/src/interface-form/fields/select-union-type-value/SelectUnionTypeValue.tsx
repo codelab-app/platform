@@ -4,7 +4,7 @@ import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import {
   createValidator,
   Form,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import type { JSONSchemaType } from 'ajv'
 import { Form as AntdForm } from 'antd'
 import React from 'react'

@@ -16,7 +16,7 @@ import type {
   ITypeModel,
   IUnionTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { fieldDescription } from '@codelab/frontend-presentation-view/components'
+import { fieldDescription } from '@codelab/frontend-presentation-view/components/form'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'

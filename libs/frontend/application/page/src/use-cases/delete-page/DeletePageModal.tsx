@@ -5,7 +5,7 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   emptyJsonSchema,
   ModalForm,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

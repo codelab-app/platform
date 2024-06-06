@@ -5,16 +5,16 @@ import {
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface CreatePageFormProps {
   showFormControl?: boolean

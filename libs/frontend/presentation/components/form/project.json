@@ -1,0 +1,19 @@
+{
+  "name": "frontend-presentation-components-form",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/presentation/components/form/src",
+  "projectType": "library",
+  "tags": ["scope:frontend"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/frontend/presentation/components/form/jest.config.ts"
+      }
+    }
+  }
+}

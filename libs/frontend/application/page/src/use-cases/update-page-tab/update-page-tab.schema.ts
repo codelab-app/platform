@@ -3,7 +3,7 @@ import {
   appSchema,
   idSchema,
   pageUrlSchema,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'

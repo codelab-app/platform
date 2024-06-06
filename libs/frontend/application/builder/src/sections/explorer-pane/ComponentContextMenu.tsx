@@ -1,10 +1,7 @@
-import type {
-  IComponentApplicationService,
-  IComponentModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { Key } from '@codelab/frontend-presentation-view/components'
+import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { MenuProps } from 'antd'
 import { Dropdown } from 'antd'
@@ -12,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItemComponentTitle'
 import type { ContextMenuProps } from './ElementContextMenu'
+import type { IComponentApplicationService } from '@codelab/frontend/abstract/application'
 
 export type ComponentContextMenuProps = ContextMenuProps &
   Pick<IComponentApplicationService, 'deleteModal'> & {

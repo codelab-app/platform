@@ -1,7 +1,7 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { ModalForm } from '@codelab/frontend-presentation-view/components'
+import { ModalForm } from '@codelab/frontend-presentation-view/components/form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

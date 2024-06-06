@@ -3,7 +3,7 @@ import type { EditorState, LexicalEditor } from 'lexical'
 import React from 'react'
 import type { HTMLFieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
-import { TextEditor, type TextEditorProps } from '../../text-editor'
+import { TextEditor, type TextEditorProps } from '../../textEditor'
 
 type RichTextConnectFieldProps = HTMLFieldProps<string, TextEditorProps>
 

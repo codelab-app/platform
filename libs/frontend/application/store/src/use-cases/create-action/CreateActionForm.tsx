@@ -10,11 +10,10 @@ import {
   SelectResource,
 } from '@codelab/frontend-application-type/interface-form'
 import {
-  DisplayIf,
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -24,6 +23,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { useActionSchema } from '../action-hooks'
 import { createActionSchema } from './create-action.schema'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 const CODE_ACTION = `function run() {
     // insert your code here

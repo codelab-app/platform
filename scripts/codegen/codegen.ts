@@ -1,6 +1,6 @@
-import type { CodegenConfig } from '@graphql-codegen/cli'
+import { Types } from '@graphql-codegen/plugin-helpers'
 
-const config: CodegenConfig = {
+const config: Types.Config = {
   overwrite: true,
   hooks: {
     // Uncomment to run ESLint fix after code generation
@@ -63,24 +63,36 @@ const config: CodegenConfig = {
     '.': {
       // This somehow generates for web-e2e as well, even if ./libs
       documents: ['**/*.{tan,fragment,subscription}.graphql'],
-      preset: 'client-preset',
+      preset: 'near-operation-file',
       presetConfig: {
-        extension: '.graphql.gen.ts',
+        extension: '.tan.gen.ts',
         baseTypesPath: '~@codelab/shared/abstract/codegen',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
-      plugins: ['typescript-operations', 'typescript-react-query'],
+      plugins: [
+        'typescript-operations',
+        // 'typescript-graphql-request',
+        'typescript-react-query',
+      ],
       config: {
+        /**
+         * React query, the docs is not up to date, for the most accurate config view the source code
+         *
+         * https://github.com/dotansimha/graphql-code-generator-community/blob/main/packages/plugins/typescript/react-query/src/config.ts
+         */
         inlineFragmentTypes: 'combine',
+        reactQueryVersion: 5,
+        addSuspenseQuery: true,
+        exposeFetcher: true,
+        exposeDocument: true,
+        exposeQueryKeys: true,
+        exposeMutationKeys: true,
         // Uncomment to set suffix for document variables
         // documentVariableSuffix: 'Gql',
-        gqlImport: 'graphql-tag#gql',
+        // gqlImport: 'graphql-tag#gql',
         strictScalars: true,
-        config: {
-          fetcher: 'graphql-request',
-        },
-        // defaultScalarType: 'unknown',
+        defaultScalarType: 'unknown',
         // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
     },

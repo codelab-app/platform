@@ -1,7 +1,7 @@
 import {
   idSchema,
   nonEmptyString,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import {

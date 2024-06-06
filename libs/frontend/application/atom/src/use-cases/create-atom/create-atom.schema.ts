@@ -4,7 +4,7 @@ import {
   cdnEsmValidation,
   idSchema,
   nonEmptyString,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

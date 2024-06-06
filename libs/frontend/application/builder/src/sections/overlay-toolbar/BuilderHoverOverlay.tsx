@@ -1,14 +1,14 @@
 import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  HoverOverlay,
-  MarginPaddingOverlay,
-} from '@codelab/frontend-presentation-view/components'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import { queryRenderedElementById } from '../../utils'
+import {
+  HoverOverlay,
+  MarginPaddingOverlay,
+} from '@codelab/frontend-presentation-view/components/overlay'
 
 export const BuilderHoverOverlay = observer<{
   renderContainerRef: React.MutableRefObject<HTMLElement | null>

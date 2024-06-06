@@ -18,7 +18,7 @@ import {
   PagesPrimarySidebar,
 } from '@codelab/frontend-application-page/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
-import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components'
+import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

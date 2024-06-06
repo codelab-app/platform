@@ -5,10 +5,9 @@ import {
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -19,6 +18,7 @@ import { v4 } from 'uuid'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface CreateTypeFormProps {
   showFormControl?: boolean

@@ -4,7 +4,7 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import type { SetIsLoading } from '@codelab/frontend-presentation-view/components'
+import type { SetIsLoading } from '@codelab/frontend-presentation-view/components/form'
 import type {
   IFieldDefaultValue,
   IValidationRules,

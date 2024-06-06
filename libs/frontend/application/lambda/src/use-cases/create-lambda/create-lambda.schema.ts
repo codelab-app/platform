@@ -1,4 +1,4 @@
-import { nonEmptyString } from '@codelab/frontend-presentation-view/components'
+import { nonEmptyString } from '@codelab/frontend-presentation-view/components/form'
 import type { JSONSchemaType } from 'ajv'
 
 export interface CreateLambdaData {

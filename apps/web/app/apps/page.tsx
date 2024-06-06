@@ -3,6 +3,7 @@ import { CreateAppModal } from '@codelab/frontend-application-app/use-cases/crea
 import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/delete-app'
 import { GetAppsList } from '@codelab/frontend-application-app/use-cases/get-apps'
 import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
+import { useGetAppsPreviewQuery } from '@codelab/frontend-application-app/use-cases/apps-preview'
 import {
   AppsViewLayout,
   type IAppsView,
@@ -14,50 +15,35 @@ import { useAsync } from '@react-hookz/web'
 import { Spin } from 'antd'
 import type { Metadata } from 'next'
 import Head from 'next/head'
-import React, { useEffect } from 'react'
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query'
-import { getQueryClient } from '../components/react-query.provider'
+import { getQueryClient } from '../components/query.client'
 
-// export const metadata: Metadata = {
-//   // description: '...',
-//   title: 'Apps | Codelab',
-// }
+export const metadata: Metadata = {
+  // description: '...',
+  title: 'Apps | Codelab',
+}
 
 const AppsView = () => {
   const queryClient = getQueryClient()
 
   queryClient.prefetchQuery({
-    queryKey: ['apps'],
-    queryFn: getApps,
+    queryKey: useGetAppsPreviewQuery.getKey(),
+    queryFn: () => useGetAppsPreviewQuery.fetcher,
   })
-  // const { appService, userService } = useStore()
-  // const user = userService.user
-
-  // const [{ status }, loadAppsPreview] = useAsync((owner: IRef) =>
-  //   appService.loadAppsPreview({ owner }),
-  // )
-
-  // useEffect(() => {
-  //   void loadAppsPreview.execute({ id: user.id })
-  // }, [user, loadAppsPreview])
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <BuildAppModal />
+      {/* <BuildAppModal /> */}
       <CreateAppModal />
-      <UpdateAppModal />
-      <DeleteAppModal />
+      {/* <UpdateAppModal />
+      <DeleteAppModal /> */}
 
       <ContentSection>
-        {status === 'loading' || status === 'not-executed' ? (
-          <Spin />
-        ) : (
-          <GetAppsList />
-        )}
+        <GetAppsList />
       </ContentSection>
     </HydrationBoundary>
   )
