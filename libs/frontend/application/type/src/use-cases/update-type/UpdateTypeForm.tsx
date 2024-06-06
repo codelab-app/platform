@@ -5,7 +5,7 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

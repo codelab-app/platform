@@ -1,5 +1,5 @@
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components'
+import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'

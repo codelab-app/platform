@@ -10,9 +10,8 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { SelectActionField } from '@codelab/frontend-application-type/interface-form'
 import {
   CodeMirrorField,
-  createAutoCompleteOptions,
   Form,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -22,6 +21,7 @@ import { AutoComputedElementNameField } from '../../components/AutoComputedEleme
 import ChildMapperCompositeField from '../../components/ChildMapperCompositeField'
 import { RenderTypeCompositeField } from '../../components/RenderTypeCompositeField'
 import { updateElementSchema } from './update-element.schema'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-view/components/codeMirror'
 
 export interface UpdateElementFormProps {
   runtimeElement: IRuntimeElementModel

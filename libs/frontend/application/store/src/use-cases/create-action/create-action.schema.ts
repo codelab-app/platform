@@ -5,7 +5,7 @@ import {
   nonEmptyString,
   refSchema,
   showFieldOnDev,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import {

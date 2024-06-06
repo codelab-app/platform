@@ -3,7 +3,7 @@ import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/a
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { PropsForm } from '@codelab/frontend-application-type/props-form'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { Spinner } from '@codelab/frontend-presentation-view/components'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'

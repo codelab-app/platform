@@ -1,5 +1,5 @@
-import type { ICreateTagData } from '@codelab/frontend/abstract/domain'
-import { DisplayIfField } from '@codelab/frontend-presentation-view/components'
+import { DisplayIfField } from '@codelab/frontend-presentation-view/components/form'
+import type { ICreateTagData } from '@codelab/shared/abstract/core'
 import React from 'react'
 
 export const DisplayIfNotRoot = ({

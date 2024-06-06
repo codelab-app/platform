@@ -15,6 +15,7 @@ export const aliasMap = {
     'components/custom/*',
     'components/mui/*',
   ],
+  '^frontend-presentation-view': ['components/*'],
   '^frontend-application-builder$': ['dnd', 'hooks', 'sections', 'utils'],
   '^frontend-application-dnd$': ['components', 'collision-detection'],
   '^frontend-application-renderer$': ['atoms', 'components', 'hooks'],

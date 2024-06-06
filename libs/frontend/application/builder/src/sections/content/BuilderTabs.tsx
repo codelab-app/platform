@@ -1,5 +1,5 @@
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
-import { Spinner } from '@codelab/frontend-presentation-view/components'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { Alert, Layout } from 'antd'
 import { Content } from 'antd/lib/layout/layout'
 import { observer } from 'mobx-react-lite'

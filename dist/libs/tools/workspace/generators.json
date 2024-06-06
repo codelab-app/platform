@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "nx-project-config": {
+      "factory": "./src/generators/nx-project-config/generator",
+      "schema": "./src/generators/nx-project-config/schema.json",
+      "description": "Update NX project config for each library"
+    }
+  }
+}

@@ -1,14 +1,12 @@
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  CodeMirrorEditor,
-  TextEditor,
-} from '@codelab/frontend-presentation-view/components'
+import { TextEditor } from 'libs/frontend/presentation/view/src/components/textEditor'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback } from 'react'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components/codeMirror'
 
 export const RichTextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel

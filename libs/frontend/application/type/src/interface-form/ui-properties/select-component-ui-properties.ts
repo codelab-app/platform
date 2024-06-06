@@ -1,9 +1,7 @@
-import {
-  createAutoCompleteOptions,
-  ToggleExpressionField,
-} from '@codelab/frontend-presentation-view/components'
+import { ToggleExpressionField } from '@codelab/frontend-presentation-view/components/form'
 import { SelectComponent } from '../fields'
 import type { UiPropertiesFn } from '../types'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-view/components/codeMirror'
 
 const ACTION_TEMPLATE = `{{
   function run() {

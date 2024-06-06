@@ -5,10 +5,9 @@ import {
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -16,6 +15,7 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createResourceSchema } from './create-resource.schema'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface CreateResourceFormProps {
   showFormControl?: boolean

@@ -1,14 +1,14 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { SelectComponent } from '@codelab/frontend-application-type/interface-form'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import {
-  AutoCompleteField,
-  ToggleExpressionField,
-} from '@codelab/frontend-presentation-view/components'
 import type { IRef } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { useField } from 'uniforms'
 import { SelectLinkElement } from './SelectLinkElement'
+import {
+  ToggleExpressionField,
+  AutoCompleteField,
+} from '@codelab/frontend-presentation-view/components/form'
 
 interface ChildMapperFieldsProps {
   runtimeElement: IRuntimeElementModel

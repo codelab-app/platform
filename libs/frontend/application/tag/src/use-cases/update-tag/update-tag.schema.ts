@@ -1,4 +1,4 @@
-import { idSchema } from '@codelab/frontend-presentation-view/components'
+import { idSchema } from '@codelab/frontend-presentation-view/components/form'
 import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

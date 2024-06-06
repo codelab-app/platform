@@ -2,7 +2,7 @@ import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/applicat
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { Form } from '@codelab/frontend-presentation-view/components'
+import { Form } from '@codelab/frontend-presentation-view/components/form'
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'

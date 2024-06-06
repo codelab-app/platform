@@ -10,10 +10,9 @@ import {
   SelectResource,
 } from '@codelab/frontend-application-type/interface-form'
 import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components'
+} from '@codelab/frontend-presentation-view/components/form'
 import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -22,6 +21,7 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useActionSchema } from '../action-hooks'
 import { updateActionSchema } from './update-action.schema'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface UpdateActionFormProps {
   showFormControl?: boolean

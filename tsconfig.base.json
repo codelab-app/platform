@@ -202,6 +202,9 @@
       "@codelab/frontend-application-app/use-cases/app-production": [
         "libs/frontend/application/app/src/use-cases/app-production/index.ts"
       ],
+      "@codelab/frontend-application-app/use-cases/apps-preview": [
+        "libs/frontend/application/app/src/use-cases/apps-preview/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/build-app": [
         "libs/frontend/application/app/src/use-cases/build-app/index.ts"
       ],
@@ -757,8 +760,59 @@
       "@codelab/frontend-presentation-components-css-editor": [
         "libs/frontend/presentation/components/css-editor/src/index.ts"
       ],
+      "@codelab/frontend-presentation-components-form": [
+        "libs/frontend/presentation/components/form/src/index.ts"
+      ],
       "@codelab/frontend-presentation-view/components": [
         "libs/frontend/presentation/view/src/components/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/button": [
+        "libs/frontend/presentation/view/src/components/button/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/codeMirror": [
+        "libs/frontend/presentation/view/src/components/codeMirror/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/conditionalView": [
+        "libs/frontend/presentation/view/src/components/conditionalView/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/errorBoundary": [
+        "libs/frontend/presentation/view/src/components/errorBoundary/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/fancybox": [
+        "libs/frontend/presentation/view/src/components/fancybox/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/form": [
+        "libs/frontend/presentation/view/src/components/form/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/key": [
+        "libs/frontend/presentation/view/src/components/key/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/overlay": [
+        "libs/frontend/presentation/view/src/components/overlay/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/reactQuill": [
+        "libs/frontend/presentation/view/src/components/reactQuill/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/skeleton": [
+        "libs/frontend/presentation/view/src/components/skeleton/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/spinner": [
+        "libs/frontend/presentation/view/src/components/spinner/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/state": [
+        "libs/frontend/presentation/view/src/components/state/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/table": [
+        "libs/frontend/presentation/view/src/components/table/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/textEditor": [
+        "libs/frontend/presentation/view/src/components/textEditor/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/upload": [
+        "libs/frontend/presentation/view/src/components/upload/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/wrapIf": [
+        "libs/frontend/presentation/view/src/components/wrapIf/index.ts"
       ],
       "@codelab/frontend-presentation-view/sections": [
         "libs/frontend/presentation/view/src/sections/index.ts"

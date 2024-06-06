@@ -1,10 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  DisplayIfField,
-  ModalForm,
-} from '@codelab/frontend-presentation-view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -23,6 +19,10 @@ import {
   isPrimitive,
   isString,
 } from './field-utils'
+import {
+  DisplayIfField,
+  ModalForm,
+} from '@codelab/frontend-presentation-view/components/form'
 
 export const CreateFieldModal = observer(() => {
   const { fieldService, typeService } = useStore()

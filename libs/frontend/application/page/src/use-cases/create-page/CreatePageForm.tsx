@@ -5,11 +5,6 @@ import {
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  DisplayIf,
-  Form,
-  FormController,
-} from '@codelab/frontend-presentation-view/components'
 import type { ICreatePageData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -17,6 +12,11 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createPageSchema } from './create-page.schema'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import {
+  Form,
+  FormController,
+} from '@codelab/frontend-presentation-view/components/form'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
