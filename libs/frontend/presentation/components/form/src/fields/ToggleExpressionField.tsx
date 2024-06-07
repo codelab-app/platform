@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { hasExpression } from '@codelab/shared/utils'
 import type { Completion } from '@codemirror/autocomplete'
@@ -10,7 +11,6 @@ import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 import { BoolField, NumField, SelectField } from 'uniforms-antd'
-import { CodeMirrorEditor } from '../../codeMirror'
 import { WrappedListField } from './WrappedListField'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>

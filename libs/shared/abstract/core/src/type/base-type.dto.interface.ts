@@ -1,6 +1,6 @@
-import type { Static, TLiteral } from '@sinclair/typebox'
+import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ITypeKind, ITypeKindTransform } from './type-kind.enum'
+import { ITypeKind } from './type-kind.enum'
 
 export const BaseTypeSchema = Type.Object({
   __typename: Type.Literal(`${ITypeKind}`),

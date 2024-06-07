@@ -2,9 +2,8 @@
 
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { ModalForm } from '@codelab/frontend-presentation-view/components/form'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -13,15 +12,6 @@ import { createAppSchema } from './create-app.schema'
 
 export const CreateAppModal = observer(() => {
   const { appService } = useStore()
-
-  const onSubmit = async (appDTO: ICreateAppData) => {
-    await appService.create(appDTO)
-
-    closeModal()
-
-    return Promise.resolve()
-  }
-
   const closeModal = () => appService.createModal.close()
 
   const model = {
@@ -31,16 +21,17 @@ export const CreateAppModal = observer(() => {
   return (
     <ModalForm.Modal
       okText="Create App"
-      onCancel={closeModal}
+      // onCancel={closeModal}
       open={appService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
-        onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating app',
-        })}
-        onSubmitSuccess={closeModal}
+        onSubmit={() => Promise.resolve()}
+        // onSubmit={createApp(appService)}
+        // onSubmitError={createFormErrorNotificationHandler({
+        //   title: 'Error while creating app',
+        // })}
+        // onSubmitSuccess={closeModal}
         schema={createAppSchema}
         uiKey={MODEL_ACTION.CreateApp.key}
       >

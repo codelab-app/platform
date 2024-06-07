@@ -1,5 +1,3 @@
-import { getEnv } from '@codelab/shared/config'
-
 export enum CacheInstance {
   Backend = 'Backend',
   Frontend = 'Frontend',

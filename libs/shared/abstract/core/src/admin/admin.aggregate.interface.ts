@@ -1,9 +1,9 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { AtomAggregateSchema, IAtomAggregate } from '../atom'
-import { ComponentAggregateSchema, IComponentAggregate } from '../component'
-import { ITag, TagSchema } from '../tag/tag.dto.interface'
-import { IType, TypeSchema } from '../type'
+import { AtomAggregateSchema } from '../atom'
+import { ComponentAggregateSchema } from '../component'
+import { TagSchema } from '../tag/tag.dto.interface'
+import { TypeSchema } from '../type'
 
 /**
  * When we export data, we should keep a file for each atom, this way it makes it easier to look at diff.

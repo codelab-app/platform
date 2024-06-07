@@ -1,6 +1,6 @@
 import type { IRichTextTypeModel } from '@codelab/frontend/abstract/domain'
+import { RichTextField } from '@codelab/frontend-presentation-components-form'
 import type { UiPropertiesFn } from '../types'
-import { RichTextField } from '@codelab/frontend-presentation-view/components/form'
 
 export const richTextTypeUiProperties: UiPropertiesFn<
   IRichTextTypeModel

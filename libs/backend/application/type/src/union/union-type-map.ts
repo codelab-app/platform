@@ -1,5 +1,5 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNode, connectNodeId } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain'
 import { logger } from '@codelab/shared/infra/logging'
 import {
   capitalizeFirstLetter,

@@ -1,4 +1,4 @@
-import { idSchema } from '@codelab/frontend-presentation-view/components/form'
+import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

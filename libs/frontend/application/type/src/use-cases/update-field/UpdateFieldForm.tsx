@@ -8,7 +8,8 @@ import {
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -28,7 +29,6 @@ import {
 } from '../create-field'
 import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface UpdateFieldFormProps {
   showFormControl?: boolean

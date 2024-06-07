@@ -1,6 +1,5 @@
 import type { App } from '@codelab/shared/abstract/codegen'
 import type {
-  CodeActionDtoSchema,
   IApiActionDto,
   IAppDto,
   ICodeActionDto,

@@ -1,11 +1,13 @@
+import {
+  CodeMirrorEditor,
+  type CodeMirrorEditorProps,
+} from '@codelab/frontend-presentation-components-codemirror'
 import isNil from 'lodash/isNil'
 import type { Ref } from 'react'
 import React from 'react'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
-import type { CodeMirrorEditorProps } from '../../codeMirror'
-import { CodeMirrorEditor } from '../../codeMirror'
 
 export type Value = boolean | number | string | undefined
 

@@ -9,7 +9,9 @@
           "libs/frontend/presentation/components/form/tsconfig.*?.json"
         ]
       },
-      "rules": {}
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

@@ -2,16 +2,10 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {} from '@tanstack/react-query'
 
-function fetcher<TData, TVariables>(
-  endpoint: string,
-  requestInit: RequestInit,
-  query: string,
-  variables?: TVariables,
-) {
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
   return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
+    const res = await fetch('http://127.0.0.1:4000/api/graphql', {
       method: 'POST',
-      ...requestInit,
       body: JSON.stringify({ query, variables }),
     })
 

@@ -9,7 +9,8 @@ import {
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -17,7 +18,6 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { DeleteRedirectButton } from '../delete-redirect'
 import { updateRedirectSchema } from './update-redirect.schema'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface UpdateRedirectFormProps {
   showFormControl?: boolean

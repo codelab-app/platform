@@ -7,7 +7,8 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -18,7 +19,6 @@ import { v4 } from 'uuid'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface CreateTypeFormProps {
   showFormControl?: boolean

@@ -1,4 +1,3 @@
-import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
 import {
   appDomainServiceContext,
   atomDomainServiceContext,

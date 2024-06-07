@@ -1,5 +1,5 @@
 import { TypeKind } from '@codelab/shared/abstract/codegen'
-import { type TLiteral, type TLiteralValue, Type } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
 export { TypeKind as ITypeKind }
 

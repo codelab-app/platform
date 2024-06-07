@@ -6,7 +6,7 @@ import {
   SelectAction,
   SelectResource,
 } from '@codelab/frontend-application-type/interface-form'
-import { ModalForm } from '@codelab/frontend-presentation-view/components/form'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

@@ -1,3 +1,4 @@
+import { ReactQuill } from '@codelab/frontend-presentation-components-reactquill'
 import type { RefSelectProps } from 'antd'
 import type { Ref } from 'react'
 import React from 'react'
@@ -5,7 +6,6 @@ import type { ReactQuillProps } from 'react-quill'
 import type { FieldProps } from 'uniforms'
 import { connectField, filterDOMProps } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
-import { ReactQuill } from '../../reactQuill'
 
 export type ReactQuillFieldProps = FieldProps<
   string,

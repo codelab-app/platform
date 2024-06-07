@@ -5,89 +5,50 @@ import type { IElementTypeKind } from '../element'
 import {
   ActionTypeDtoSchema,
   ActionTypeSchema,
-  IActionType,
-  IActionTypeDto,
 } from './action-type.dto.interface'
-import {
-  AppTypeDtoSchema,
-  AppTypeSchema,
-  IAppType,
-  IAppTypeDto,
-} from './app-type.dto.interface'
-import {
-  ArrayTypeDtoSchema,
-  ArrayTypeSchema,
-  IArrayType,
-  IArrayTypeDto,
-} from './array-type.dto.interface'
+import { AppTypeDtoSchema, AppTypeSchema } from './app-type.dto.interface'
+import { ArrayTypeDtoSchema, ArrayTypeSchema } from './array-type.dto.interface'
 import {
   CodeMirrorTypeDtoSchema,
   CodeMirrorTypeSchema,
-  ICodeMirrorType,
-  ICodeMirrorTypeDto,
 } from './code-mirror-type.dto.interface'
 import {
   ElementTypeDtoSchema,
   ElementTypeSchema,
-  IElementType,
-  IElementTypeDto,
 } from './element-type.dto.interface'
 import {
   EnumTypeDtoSchema,
   EnumTypeSchema,
-  IEnumType,
-  IEnumTypeDto,
   type IEnumTypeValueDto,
 } from './enum-type.dto.interface'
 import {
-  IInterfaceType,
   InterfaceTypeDtoSchema,
   InterfaceTypeSchema,
 } from './interface-type.dto.interface'
 import {
-  ILambdaType,
-  ILambdaTypeDto,
   LambdaTypeDtoSchema,
   LambdaTypeSchema,
 } from './lambda-type.dto.interface'
+import { PageTypeDtoSchema, PageTypeSchema } from './page-type.dto.interface'
 import {
-  IPageType,
-  IPageTypeDto,
-  PageTypeDtoSchema,
-  PageTypeSchema,
-} from './page-type.dto.interface'
-import {
-  IPrimitiveType,
-  IPrimitiveTypeDto,
   PrimitiveTypeDtoSchema,
   PrimitiveTypeSchema,
 } from './primitive-type.dto.interface'
 import type { IPrimitiveTypeKind } from './primitive-type.enum'
 import {
-  IReactNodeType,
-  IReactNodeTypeDto,
   ReactNodeTypeDtoSchema,
   ReactNodeTypeSchema,
 } from './react-node-type.dto.interface'
 import {
-  IRenderPropType,
-  IRenderPropTypeDto,
   RenderPropTypeDtoSchema,
   RenderPropTypeSchema,
 } from './render-prop-type.dto.interface'
 import {
-  IRichTextType,
-  IRichTextTypeDto,
   RichTextTypeDtoSchema,
   RichTextTypeSchema,
 } from './rich-text-type.dto.interface'
 import type { ITypeKind } from './type-kind.enum'
-import {
-  IUnionType,
-  IUnionTypeDto,
-  UnionTypeDtoSchema,
-  UnionTypeSchema,
-} from './union-type.dto.interface'
+import { UnionTypeDtoSchema, UnionTypeSchema } from './union-type.dto.interface'
 
 export const TypeDtoSchema = Type.Union(
   [

@@ -1,6 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import './styles.css'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
@@ -11,7 +12,6 @@ import type { EditorState, LexicalEditor } from 'lexical'
 import React, { useRef } from 'react'
 import styled from 'styled-components'
 import useResizeObserver from 'use-resize-observer/polyfilled'
-import { DisplayIf } from '../conditionalView'
 import { OnInitPlugin, ToolbarPlugin } from './plugins'
 import { defaultEditorTheme } from './theme'
 

@@ -1,7 +1,6 @@
 import type { IActionTypeModel } from '@codelab/frontend/abstract/domain'
 import type { IActionTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { actionTypeValidation } from '@codelab/shared/domain'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 

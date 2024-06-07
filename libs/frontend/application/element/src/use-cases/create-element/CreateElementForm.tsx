@@ -12,7 +12,8 @@ import {
 import {
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type {
@@ -30,7 +31,6 @@ import { SelectLinkElement } from '../../components/SelectLinkElement'
 import { useRequiredParentValidator } from '../../validation/useRequiredParentValidator.hook'
 import type { ICreateElementDto } from './create-element.schema'
 import { createElementSchema } from './create-element.schema'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface CreateElementFormProps {
   showFormControl?: boolean

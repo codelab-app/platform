@@ -1,5 +1,7 @@
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/errorBoundary'
 import {
   padding,
   threeGridCol,
@@ -9,8 +11,6 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateDomainButton } from '../create-domain'
 import { GetDomainItem } from './GetDomainsItem/GetDomainsItem'
-import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/errorBoundary'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 const emptyImageStyle: React.CSSProperties = {
   height: 60,

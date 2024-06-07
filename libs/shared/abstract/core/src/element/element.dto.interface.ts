@@ -1,17 +1,8 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from '../model/ref.interface'
-import {
-  IProp,
-  IPropDto,
-  PropDtoSchema,
-  PropSchema,
-} from '../prop/prop.dto.interface'
-import {
-  ElementRenderTypeDtoSchema,
-  IElementRenderTypeDto,
-} from './element-render-type'
+import { PropDtoSchema, PropSchema } from '../prop/prop.dto.interface'
+import { ElementRenderTypeDtoSchema } from './element-render-type'
 
 export const ElementDtoSchema = Type.Object({
   childMapperComponent: Typebox.Nullish(Typebox.Ref),

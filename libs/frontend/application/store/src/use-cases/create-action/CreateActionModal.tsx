@@ -10,7 +10,7 @@ import {
 import {
   DisplayIfField,
   ModalForm,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

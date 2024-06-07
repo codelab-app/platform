@@ -7,16 +7,12 @@ import 'react-grid-layout/css/styles.css'
 // - set 100% width and height for html and body
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
-import type {
-  IAppProps,
-  UrlParams,
-} from '@codelab/frontend/abstract/application'
+import type { IAppProps } from '@codelab/frontend/abstract/application'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { guestUser } from '@codelab/shared/data/test'
 import { registerRootStore } from 'mobx-keystone'
-import { useParams, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const App = ({ Component, pageProps }: IAppProps) => {

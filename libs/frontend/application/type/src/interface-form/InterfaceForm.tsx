@@ -1,7 +1,7 @@
 import {
   Form,
   handleFormSubmit,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'

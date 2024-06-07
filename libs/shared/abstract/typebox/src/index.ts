@@ -6,7 +6,6 @@ import { Overwrite } from './types/overwrite'
 import { Serialized } from './types/serialized'
 import { NestedValidator } from './validator/nested-validator'
 import { validateAndClean } from './validator/validate'
-import { values } from './values/default-values'
 
 const Typebox = {
   DiscriminatedRef,

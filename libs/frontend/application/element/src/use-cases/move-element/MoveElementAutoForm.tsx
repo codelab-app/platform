@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { withAutoForm } from '@codelab/frontend-presentation-view/components/form'
+import { withAutoForm } from '@codelab/frontend-presentation-components-form'
 import { AutoForm } from 'uniforms-antd'
 
 // any for delegating generic

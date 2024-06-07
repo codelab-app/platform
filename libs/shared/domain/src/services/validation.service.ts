@@ -3,13 +3,9 @@ import {
   type SchemaKinds,
   SchemaKindsMap,
 } from '@codelab/shared/abstract/core'
-import {
-  type ISchemaProvider,
-  schemaProvider,
-} from '@codelab/shared/infra/schema'
-import type { StaticDecode, TSchema } from '@sinclair/typebox'
+import { schemaProvider } from '@codelab/shared/infra/schema'
+import type { TSchema } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
-import type { Schema } from 'ajv'
 
 export class ValidationService<T extends TSchema>
   implements IValidationService<T>

@@ -1,3 +1,7 @@
+import {
+  idSchema,
+  nonEmptyString,
+} from '@codelab/frontend-presentation-components-form/schema'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import {
@@ -7,10 +11,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../select-types/TypeSelect'
-import {
-  idSchema,
-  nonEmptyString,
-} from '@codelab/frontend-presentation-view/components/form'
 
 /**
  * We favor type safety over re-usability in this case

@@ -1,8 +1,6 @@
 import type {
-  ActionDtoSchema,
   IActionDto,
   ICreateActionData,
-  IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 

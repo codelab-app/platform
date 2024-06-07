@@ -1,13 +1,13 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { SelectAtom } from '@codelab/frontend-application-atom/use-cases/select-atom'
 import { SelectComponent } from '@codelab/frontend-application-type/interface-form'
+import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
-import { DisplayIfField } from '@codelab/frontend-presentation-view/components/form'
 
 const RenderTypeFields = ({
   error,

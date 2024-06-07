@@ -1,4 +1,3 @@
-import isNil from 'lodash/isNil'
 import { assertIsDefined } from '../assert/assert'
 
 export const throwIfUndefined = <T>(value: T | null | undefined) => {

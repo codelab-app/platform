@@ -1,4 +1,5 @@
 import { Types } from '@graphql-codegen/plugin-helpers'
+import { getEnv } from '../../libs/shared/config/src'
 
 const config: Types.Config = {
   overwrite: true,
@@ -93,6 +94,9 @@ const config: Types.Config = {
         // gqlImport: 'graphql-tag#gql',
         strictScalars: true,
         defaultScalarType: 'unknown',
+        fetcher: {
+          endpoint: getEnv().endpoint.apiGraphqlUrl,
+        },
         // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
     },

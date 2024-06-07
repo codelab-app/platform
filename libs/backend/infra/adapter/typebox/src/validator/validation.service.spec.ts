@@ -2,14 +2,10 @@ import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   ActionTypeSchema,
   AtomAggregateSchema,
-  IActionType,
-  IAtomAggregate,
-  IPrimitiveType,
   PrimitiveTypeSchema,
 } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
-import type { TSchema } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import affixJson from 'data/export-v3/admin/atoms/AntDesignAffix.json'
 import omit from 'lodash/omit'

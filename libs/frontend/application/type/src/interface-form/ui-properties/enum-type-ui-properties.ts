@@ -1,7 +1,7 @@
 import type { IEnumType } from '@codelab/frontend/abstract/domain'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
+import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
 import type { UiPropertiesFn } from '../types'
-import { createAutoCompleteOptions } from '@codelab/frontend-presentation-view/components/codeMirror'
-import { ToggleExpressionField } from '@codelab/frontend-presentation-view/components/form'
 
 export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
   type: IEnumType,

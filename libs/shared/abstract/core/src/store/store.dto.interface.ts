@@ -1,8 +1,7 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ActionDtoSchema, ActionSchema, IAction } from '../action'
-import { IRef } from '../model/ref.interface'
+import { ActionDtoSchema, ActionSchema } from '../action'
 
 export const StoreDtoSchema = Type.Object({
   actions: Type.Optional(Type.Array(ActionDtoSchema)),

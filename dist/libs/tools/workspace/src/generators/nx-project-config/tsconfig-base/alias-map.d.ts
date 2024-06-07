@@ -4,7 +4,6 @@
 export declare const aliasMap: {
     '^frontend-application-(?!shared)[a-z]+$': string[];
     '^frontend-application-atom$': string[];
-    '^frontend-presentation-view': string[];
     '^frontend-application-builder$': string[];
     '^frontend-application-dnd$': string[];
     '^frontend-application-renderer$': string[];
@@ -13,5 +12,6 @@ export declare const aliasMap: {
     '^frontend-domain-[a-z]+$': string[];
     '^frontend-domain-domain$': string[];
     '^frontend-domain-prop$': string[];
+    '^frontend-presentation-view': string[];
     '^shared-infra-auth0$': string[];
 };

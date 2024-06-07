@@ -19,7 +19,7 @@ import { UpdateElementPropsForm } from '@codelab/frontend-application-element/us
 import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
-import { FormContextProvider } from '@codelab/frontend-presentation-view/components/form'
+import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
 import isNil from 'lodash/isNil'

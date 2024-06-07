@@ -3,10 +3,12 @@ import { SelectResource } from '@codelab/frontend-application-type/interface-for
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
+} from '@codelab/frontend-presentation-components-form'
+import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form/schema'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'

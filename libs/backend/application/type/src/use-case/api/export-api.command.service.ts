@@ -15,7 +15,6 @@ import type {
 } from '@codelab/shared/abstract/core'
 import {
   FieldDtoSchema,
-  IFieldDto,
   InterfaceTypeDtoSchema,
   ITypeKind,
 } from '@codelab/shared/abstract/core'

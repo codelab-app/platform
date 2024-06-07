@@ -1,12 +1,9 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import {
-  CreateElementDtoSchema,
-  ICreateElementDto,
-} from '../element/element.dto.interface'
-import { IStoreAggregate, StoreAggregateSchema } from '../store'
-import { ApiSchema, IApi } from '../type'
-import { ComponentSchema, IComponent } from './component.dto.interface'
+import { CreateElementDtoSchema } from '../element/element.dto.interface'
+import { StoreAggregateSchema } from '../store'
+import { ApiSchema } from '../type'
+import { ComponentSchema } from './component.dto.interface'
 
 export const ComponentAggregateSchema = Type.Object({
   api: ApiSchema,

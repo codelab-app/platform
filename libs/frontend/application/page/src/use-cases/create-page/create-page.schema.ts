@@ -1,11 +1,11 @@
 import {
-  idSchema,
   appSchema,
   hideField,
+  idSchema,
   nonEmptyString,
-  titleCaseValidation,
   pageUrlSchema,
-} from '@codelab/frontend-presentation-view/components/form'
+  titleCaseValidation,
+} from '@codelab/frontend-presentation-components-form/schema'
 import { type ICreatePageData, IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

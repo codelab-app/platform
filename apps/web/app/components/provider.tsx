@@ -1,12 +1,10 @@
 'use client'
 
-import type { UrlParams } from '@codelab/frontend/abstract/application'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { guestUser } from '@codelab/shared/data/test'
 import { registerRootStore } from 'mobx-keystone'
-import { useParams, useSearchParams } from 'next/navigation'
 import React from 'react'
 import { type PropsWithChildren, useState } from 'react'
 

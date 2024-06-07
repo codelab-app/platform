@@ -7,14 +7,14 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 interface CreatePageFormProps {
   showFormControl?: boolean

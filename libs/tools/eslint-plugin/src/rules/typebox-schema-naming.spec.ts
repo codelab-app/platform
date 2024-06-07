@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, ESLintUtils, TSESLint } from '@typescript-eslint/utils'
+import { TSESLint } from '@typescript-eslint/utils'
 import { typeboxSchemaNaming } from './typebox-schema-naming'
 
 const ruleTester = new TSESLint.RuleTester({
