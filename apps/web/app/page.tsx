@@ -10,7 +10,11 @@ const HomeView = () => {
 
   return (
     <div>
-      <Link href="http://127.0.0.1:16686" target="_blank">
+      <Link
+        data-testid="jaeger-link"
+        href="http://127.0.0.1:16686"
+        target="_blank"
+      >
         Jaegers
       </Link>
       {/* <Link href="http://127.0.0.1:9090/targets" target="_blank">
@@ -22,7 +26,12 @@ const HomeView = () => {
           Log Out
         </Button>
       ) : (
-        <Button href="/api/auth/login" id="login" type="primary">
+        <Button
+          data-testid="auth0-login-link"
+          href="/api/auth/login"
+          id="login"
+          type="primary"
+        >
           Log In
         </Button>
       )}

@@ -6,11 +6,16 @@
   "implicitDependencies": ["web"],
   "targets": {
     "e2e": {
+      "defaultConfiguration": "dev",
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/dist/.playwright/apps/web-e2e"],
       "options": {
-        "config": "apps/web-e2e/playwright.config.ts",
-        "headed": false
+        "config": "apps/web-e2e/playwright.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "ui": true
+        }
       }
     },
     "lint": {
