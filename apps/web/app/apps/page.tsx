@@ -8,6 +8,7 @@ import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/upda
 import { useServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import type { Metadata } from 'next'
 import React from 'react'
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   title: 'Apps | Codelab',
 }
 
-const AppsView = auth0Instance.withPageAuthRequired(async () => {
+const AppsView = auth0ServerInstance.withPageAuthRequired(async () => {
   const queryClient = getQueryClient()
   const user = await useServerUser()
 
