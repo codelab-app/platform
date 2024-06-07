@@ -2,9 +2,13 @@ import { defineConfig, devices } from '@playwright/test'
 import { nxE2EPreset } from '@nx/playwright/preset'
 
 import { workspaceRoot } from '@nx/devkit'
+import { getEnv } from '@codelab/shared/config'
 
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://127.0.0.1:3001'
+
+export const auth0Username = getEnv().auth0.cypressUsername
+export const auth0Password = getEnv().auth0.cypressPassword
 
 /**
  * Read environment variables from file.
@@ -41,9 +45,14 @@ export default defineConfig({
   ],
   timeout: 10000,
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
     // {
     //   name: 'firefox',

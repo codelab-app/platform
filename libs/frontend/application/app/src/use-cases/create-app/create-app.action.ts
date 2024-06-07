@@ -5,6 +5,5 @@ import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 
 export const createApp =
   (appService: IAppService) => (appDto: ICreateAppData) => {
-    // return appService.create(appDto)
-    return Promise.resolve()
+    return appService.create(appDto)
   }

@@ -2,12 +2,14 @@
 
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { createApp } from './create-app.action'
 import { createAppSchema } from './create-app.schema'
 
 export const CreateAppModal = observer(() => {
@@ -21,17 +23,16 @@ export const CreateAppModal = observer(() => {
   return (
     <ModalForm.Modal
       okText="Create App"
-      // onCancel={closeModal}
+      onCancel={closeModal}
       open={appService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
-        onSubmit={() => Promise.resolve()}
-        // onSubmit={createApp(appService)}
-        // onSubmitError={createFormErrorNotificationHandler({
-        //   title: 'Error while creating app',
-        // })}
-        // onSubmitSuccess={closeModal}
+        onSubmit={createApp(appService)}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while creating app',
+        })}
+        onSubmitSuccess={closeModal}
         schema={createAppSchema}
         uiKey={MODEL_ACTION.CreateApp.key}
       >
