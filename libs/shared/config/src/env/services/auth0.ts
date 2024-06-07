@@ -93,8 +93,6 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   }
 
   get baseUrl() {
-    console.log(this.endpoint.webHost)
-
     const auth0baseUrl = this.endpoint.webHost
 
     return auth0baseUrl
