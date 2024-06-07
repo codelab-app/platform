@@ -1,14 +1,8 @@
-import {
-  IRef,
-  SchemaKinds,
-  SchemaKindsMap,
-} from '@codelab/shared/abstract/core'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Kind, type TSchema, TypeGuard, TypeRegistry } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import { v4 } from 'uuid'
 import { ajv, assertIsRef, isIRef } from './ref.utils'
-import { refValidation } from './ref.validation'
 
 describe('Ref', () => {
   it('should throw an error if not a ref type', () => {

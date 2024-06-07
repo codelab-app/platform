@@ -2,8 +2,6 @@ import type { IValidationService } from '@codelab/shared/abstract/core'
 import {
   ActionTypeSchema,
   EnumTypeSchema,
-  IActionType,
-  IEnumType,
   InterfaceTypeSchema,
   SchemaKinds,
 } from '@codelab/shared/abstract/core'

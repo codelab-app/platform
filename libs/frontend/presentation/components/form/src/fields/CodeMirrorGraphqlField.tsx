@@ -1,3 +1,8 @@
+import {
+  CodeMirrorEditor,
+  type CodeMirrorEditorProps,
+  graphqlExtensionFactory,
+} from '@codelab/frontend-presentation-components-codemirror'
 import { autocompletion, closeBrackets } from '@codemirror/autocomplete'
 import { history } from '@codemirror/commands'
 import { bracketMatching, syntaxHighlighting } from '@codemirror/language'
@@ -9,8 +14,6 @@ import type { Ref } from 'react'
 import React from 'react'
 import type { Context, FieldProps } from 'uniforms'
 import { connectField, useForm } from 'uniforms'
-import type { CodeMirrorEditorProps } from '../../codeMirror'
-import { CodeMirrorEditor, graphqlExtensionFactory } from '../../codeMirror'
 import type { MainPropsOnChange, Value } from './CodeMirrorField'
 
 export interface ICodeMirrorGraphqlProps<T> {

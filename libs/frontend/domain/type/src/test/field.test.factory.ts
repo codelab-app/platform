@@ -1,10 +1,6 @@
 import type { IFieldDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend-domain-shared'
-import type {
-  IFieldDto,
-  IRef,
-  ITypeMaybeRef,
-} from '@codelab/shared/abstract/core'
+import type { IFieldDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

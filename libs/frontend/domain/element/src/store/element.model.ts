@@ -1,6 +1,5 @@
 import type {
   IActionModel,
-  IAtomModel,
   IComponentModel,
   IElementRenderTypeModel,
   IHook,

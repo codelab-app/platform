@@ -7,7 +7,8 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -15,7 +16,6 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 
 export const KEY_GENERATOR = `function run(props) {
     // props are of type component api

@@ -1,7 +1,4 @@
-import type {
-  ITypeModel,
-  IUpdateTypeDto,
-} from '@codelab/frontend/abstract/domain'
+import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
   IArrayTypeDto,

@@ -616,6 +616,9 @@
       "@codelab/frontend-application-user/services": [
         "libs/frontend/application/user/src/services/index.ts"
       ],
+      "@codelab/frontend-application-user/use-cases/server-user": [
+        "libs/frontend/application/user/src/use-cases/server-user/index.ts"
+      ],
       "@codelab/frontend-application-user/views": [
         "libs/frontend/application/user/src/views/index.ts"
       ],
@@ -757,20 +760,29 @@
       "@codelab/frontend-infra-axios": [
         "libs/frontend/infra/axios/src/index.ts"
       ],
+      "@codelab/frontend-presentation-components-codemirror": [
+        "libs/frontend/presentation/components/codemirror/src/index.ts"
+      ],
       "@codelab/frontend-presentation-components-css-editor": [
         "libs/frontend/presentation/components/css-editor/src/index.ts"
+      ],
+      "@codelab/frontend-presentation-components-fancybox": [
+        "libs/frontend/presentation/components/fancybox/src/index.ts"
       ],
       "@codelab/frontend-presentation-components-form": [
         "libs/frontend/presentation/components/form/src/index.ts"
       ],
-      "@codelab/frontend-presentation-view/components": [
-        "libs/frontend/presentation/view/src/components/index.ts"
+      "@codelab/frontend-presentation-components-form/schema": [
+        "libs/frontend/presentation/components/form/src/schema/index.ts"
+      ],
+      "@codelab/frontend-presentation-components-lexical": [
+        "libs/frontend/presentation/components/lexical/src/index.ts"
+      ],
+      "@codelab/frontend-presentation-components-reactquill": [
+        "libs/frontend/presentation/components/reactquill/src/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/button": [
         "libs/frontend/presentation/view/src/components/button/index.ts"
-      ],
-      "@codelab/frontend-presentation-view/components/codeMirror": [
-        "libs/frontend/presentation/view/src/components/codeMirror/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/conditionalView": [
         "libs/frontend/presentation/view/src/components/conditionalView/index.ts"
@@ -778,20 +790,11 @@
       "@codelab/frontend-presentation-view/components/errorBoundary": [
         "libs/frontend/presentation/view/src/components/errorBoundary/index.ts"
       ],
-      "@codelab/frontend-presentation-view/components/fancybox": [
-        "libs/frontend/presentation/view/src/components/fancybox/index.ts"
-      ],
-      "@codelab/frontend-presentation-view/components/form": [
-        "libs/frontend/presentation/view/src/components/form/index.ts"
-      ],
       "@codelab/frontend-presentation-view/components/key": [
         "libs/frontend/presentation/view/src/components/key/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/overlay": [
         "libs/frontend/presentation/view/src/components/overlay/index.ts"
-      ],
-      "@codelab/frontend-presentation-view/components/reactQuill": [
-        "libs/frontend/presentation/view/src/components/reactQuill/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/skeleton": [
         "libs/frontend/presentation/view/src/components/skeleton/index.ts"
@@ -804,9 +807,6 @@
       ],
       "@codelab/frontend-presentation-view/components/table": [
         "libs/frontend/presentation/view/src/components/table/index.ts"
-      ],
-      "@codelab/frontend-presentation-view/components/textEditor": [
-        "libs/frontend/presentation/view/src/components/textEditor/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/upload": [
         "libs/frontend/presentation/view/src/components/upload/index.ts"

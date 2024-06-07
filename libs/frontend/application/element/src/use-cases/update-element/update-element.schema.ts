@@ -3,7 +3,7 @@ import { getSelectElementComponent } from '@codelab/frontend-application-type/in
 import {
   idSchema,
   titleCaseValidation,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form/schema'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'

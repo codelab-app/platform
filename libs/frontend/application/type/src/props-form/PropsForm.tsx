@@ -1,15 +1,15 @@
 import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
+import {
+  handleFormSubmit,
+  type SetIsLoading,
+} from '@codelab/frontend-presentation-components-form'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { DeepPartial } from 'utility-types'
 import { InterfaceForm } from '../interface-form'
-import {
-  handleFormSubmit,
-  type SetIsLoading,
-} from '@codelab/frontend-presentation-view/components/form'
 
 export interface PropsFormProps
   extends SubmitRef,

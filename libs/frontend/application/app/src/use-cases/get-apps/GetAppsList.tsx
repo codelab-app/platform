@@ -1,6 +1,5 @@
 'use client'
 
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   padding,
   threeGridCol,
@@ -8,9 +7,9 @@ import {
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAppsPreview } from '../apps-preview'
 import { CreateAppButton } from '../create-app'
 import { GetAppsItem } from './GetAppsItem'
-import { useAppsPreview } from '../apps-preview'
 
 const emptyImageStyle: React.CSSProperties = {
   height: 60,

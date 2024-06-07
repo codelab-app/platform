@@ -12,8 +12,8 @@
 
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { FieldSchema, IField } from '../field/field.dto.interface'
-import { IType, TypeSchema } from './type.dto.interface'
+import { FieldSchema } from '../field/field.dto.interface'
+import { TypeSchema } from './type.dto.interface'
 
 export const ApiSchema = Type.Object({
   fields: Type.Array(FieldSchema),

@@ -1,9 +1,6 @@
 import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
-import type {
-  IAppProps,
-  UrlParams,
-} from '@codelab/frontend/abstract/application'
+import type { IAppProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { createCoreStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
@@ -14,7 +11,6 @@ import { getEnv } from '@codelab/shared/config'
 import { adminUser } from '@codelab/shared/data/test'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { registerRootStore, setGlobalConfig } from 'mobx-keystone'
-import { useParams, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import config from '../twind.config'
 

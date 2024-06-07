@@ -1,11 +1,8 @@
-import { normalizePath, workspaceRoot } from '@nx/devkit'
 import {
   AST_NODE_TYPES,
   ESLintUtils,
-  TSESLint,
   type TSESTree,
 } from '@typescript-eslint/utils'
-import path from 'path'
 
 export const createESLintRule = ESLintUtils.RuleCreator(() => '')
 

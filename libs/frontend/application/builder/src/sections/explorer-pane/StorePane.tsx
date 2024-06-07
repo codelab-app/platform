@@ -8,6 +8,7 @@ import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/g
 import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
 import { UpdateActionModal } from '@codelab/frontend-application-store/use-cases/update-action'
 import { CreateFieldButton } from '@codelab/frontend-application-type/use-cases/create-field'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -15,7 +16,6 @@ import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
-import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components/codeMirror'
 
 const StoreHeader = ({
   children,

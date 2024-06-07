@@ -2,10 +2,8 @@ import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
 import { useResourceQuery } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  emptyJsonSchema,
-  ModalForm,
-} from '@codelab/frontend-presentation-view/components/form'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import React from 'react'

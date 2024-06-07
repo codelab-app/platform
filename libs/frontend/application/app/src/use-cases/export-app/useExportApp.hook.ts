@@ -1,5 +1,5 @@
-import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { prettifyForConsole } from '@codelab/shared/utils'
 

@@ -1,5 +1,4 @@
 import { Type } from '@sinclair/typebox'
-import { Typebox } from '../index'
 
 export const Ref = Type.Object({
   id: Type.String(),

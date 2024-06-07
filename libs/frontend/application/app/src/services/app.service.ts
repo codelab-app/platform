@@ -168,6 +168,35 @@ export class AppService
     )
   })
 
+  /**
+   * This is used for the apps list preview
+   *
+   * 1) We require the first page to create a URL
+   */
+  @modelFlow
+  loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
+    const { apps, atoms } = yield* _await(this.appRepository.appsList(where))
+
+    atoms.forEach((atom) => this.atomService.atomDomainService.hydrate(atom))
+
+    // hydrate pages to use the first page's url
+    apps
+      .flatMap((app) => app.pages)
+      .forEach((page) => {
+        this.pageService.pageDomainService.hydrate(page)
+      })
+
+    apps
+      .flatMap((app) => app.domains)
+      .forEach((domain) => {
+        this.domainService.hydrate(domain)
+      })
+
+    return apps.map((app) => {
+      return this.appDomainService.hydrate(app)
+    })
+  })
+
   @modelFlow
   @transaction
   update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {

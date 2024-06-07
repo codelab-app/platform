@@ -1,4 +1,4 @@
-import { DisplayIfField } from '@codelab/frontend-presentation-view/components/form'
+import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
 import React from 'react'
 

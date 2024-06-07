@@ -1,11 +1,8 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IResourceDto, ResourceDtoSchema } from './resource.dto.interface'
-import {
-  IResourceConfigData,
-  ResourceConfigDataSchema,
-} from './resource-config'
+import { ResourceDtoSchema } from './resource.dto.interface'
+import { ResourceConfigDataSchema } from './resource-config'
 
 export const CreateResourceDataSchema = Typebox.Overwrite(
   ResourceDtoSchema,

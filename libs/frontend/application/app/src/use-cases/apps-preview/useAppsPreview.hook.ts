@@ -1,29 +1,23 @@
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useGetAppsPreviewQuery } from './apps-preview.tan.tan.gen'
-import type { AppWhere } from '@codelab/shared/abstract/codegen'
 
 export const useAppsPreview = () => {
   const { appService, domainService, pageService, userService } = useStore()
   const user = userService.user
 
-  const { data } = useGetAppsPreviewQuery(
-    {
-      endpoint: '',
-    },
-    {
-      where: {
-        owner: {
-          id: user.id,
-        },
+  const { data } = useGetAppsPreviewQuery({
+    where: {
+      owner: {
+        id: user.id,
       },
     },
-  )
+  })
 
   if (!data) {
     return null
   }
 
-  const { atoms, apps } = data
+  const { apps, atoms } = data
 
   apps
     .flatMap((app) => app.pages)

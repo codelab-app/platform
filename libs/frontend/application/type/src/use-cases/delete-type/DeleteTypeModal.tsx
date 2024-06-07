@@ -1,11 +1,11 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import type { EmptyJsonSchemaType } from '@codelab/frontend-presentation-view/components/form'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   emptyJsonSchema,
-  ModalForm,
-} from '@codelab/frontend-presentation-view/components/form'
+  type EmptyJsonSchemaType,
+} from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { typeApi } from '../../graphql/type.api'

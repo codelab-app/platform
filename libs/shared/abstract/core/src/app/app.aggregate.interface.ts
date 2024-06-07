@@ -1,9 +1,9 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ComponentAggregateSchema, IComponentAggregate } from '../component'
-import { IPageAggregate, PageAggregateSchema } from '../page'
-import { IResource, ResourceSchema } from '../resource/resource.dto.interface'
-import { AppSchema, IApp } from './app.dto.interface'
+import { ComponentAggregateSchema } from '../component'
+import { PageAggregateSchema } from '../page'
+import { ResourceSchema } from '../resource/resource.dto.interface'
+import { AppSchema } from './app.dto.interface'
 
 export const AppAggregateSchema = Type.Object({
   app: AppSchema,

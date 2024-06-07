@@ -1,16 +1,11 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import {
   connectNodeId,
   connectOwner,
   ElementProperties,
-  interfaceTypeValidation,
   refValidation,
 } from '@codelab/shared/domain'
-import { schemaProvider } from '@codelab/shared/infra/schema'
-import type { throwIfUndefined } from '@codelab/shared/utils'
 import type { INestApplication } from '@nestjs/common'
-import { Kind, TypeGuard } from '@sinclair/typebox'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

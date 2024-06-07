@@ -1,4 +1,4 @@
-import { ElementDtoSchema, IElementDto } from '@codelab/shared/abstract/core'
+import { ElementDtoSchema } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 

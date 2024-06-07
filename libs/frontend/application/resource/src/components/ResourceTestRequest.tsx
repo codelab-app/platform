@@ -1,13 +1,13 @@
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import get from 'lodash/get'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { useForm } from 'uniforms'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components/codeMirror'
 
 interface ResourceTestRequestProps {
   fetchConfigDataFieldName: string

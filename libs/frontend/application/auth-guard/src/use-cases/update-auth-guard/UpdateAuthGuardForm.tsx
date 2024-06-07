@@ -9,7 +9,7 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'

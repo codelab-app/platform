@@ -33,7 +33,7 @@ import {
   UpdateFieldPopover,
 } from '@codelab/frontend-application-type/use-cases/update-field'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import { CodeMirrorEditor } from '@codelab/frontend-presentation-view/components/codeMirror'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'

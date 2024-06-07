@@ -1,9 +1,12 @@
+import {
+  TextEditor,
+  type TextEditorProps,
+} from '@codelab/frontend-presentation-components-lexical'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import type { EditorState, LexicalEditor } from 'lexical'
 import React from 'react'
 import type { HTMLFieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
-import { TextEditor, type TextEditorProps } from '../../textEditor'
 
 type RichTextConnectFieldProps = HTMLFieldProps<string, TextEditorProps>
 

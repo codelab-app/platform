@@ -16,13 +16,6 @@
     {
       "files": ["*.js", "*.jsx"],
       "rules": {}
-    },
-    {
-      "files": ["src/**/*.{ts,js,tsx,jsx}"],
-      "parserOptions": {
-        "project": "apps/web-e2e/tsconfig.*?.json"
-      },
-      "rules": {}
     }
   ]
 }

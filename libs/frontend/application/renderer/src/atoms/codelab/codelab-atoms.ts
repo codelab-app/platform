@@ -1,6 +1,6 @@
 import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
-import { TextEditor } from 'libs/frontend/presentation/view/src/components/textEditor'
+import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
 // Custom atom components

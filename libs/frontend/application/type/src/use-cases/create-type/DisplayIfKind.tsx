@@ -1,4 +1,4 @@
-import { DisplayIfField } from '@codelab/frontend-presentation-view/components/form'
+import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import type { ICreateTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'

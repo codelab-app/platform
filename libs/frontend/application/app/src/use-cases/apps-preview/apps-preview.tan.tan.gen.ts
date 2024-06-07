@@ -17,16 +17,10 @@ import {
   UseSuspenseQueryOptions,
 } from '@tanstack/react-query'
 
-function fetcher<TData, TVariables>(
-  endpoint: string,
-  requestInit: RequestInit,
-  query: string,
-  variables?: TVariables,
-) {
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
   return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
+    const res = await fetch('http://127.0.0.1:4000/api/graphql', {
       method: 'POST',
-      ...requestInit,
       body: JSON.stringify({ query, variables }),
     })
 
@@ -67,7 +61,6 @@ export const useGetAppsPreviewQuery = <
   TData = GetAppsPreviewQuery,
   TError = unknown,
 >(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
   variables?: GetAppsPreviewQueryVariables,
   options?: Omit<
     UseQueryOptions<GetAppsPreviewQuery, TError, TData>,
@@ -82,8 +75,6 @@ export const useGetAppsPreviewQuery = <
         ? ['GetAppsPreview']
         : ['GetAppsPreview', variables],
     queryFn: fetcher<GetAppsPreviewQuery, GetAppsPreviewQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
       GetAppsPreviewDocument,
       variables,
     ),
@@ -100,7 +91,6 @@ export const useSuspenseGetAppsPreviewQuery = <
   TData = GetAppsPreviewQuery,
   TError = unknown,
 >(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
   variables?: GetAppsPreviewQueryVariables,
   options?: Omit<
     UseSuspenseQueryOptions<GetAppsPreviewQuery, TError, TData>,
@@ -119,8 +109,6 @@ export const useSuspenseGetAppsPreviewQuery = <
         ? ['GetAppsPreviewSuspense']
         : ['GetAppsPreviewSuspense', variables],
     queryFn: fetcher<GetAppsPreviewQuery, GetAppsPreviewQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
       GetAppsPreviewDocument,
       variables,
     ),
@@ -137,13 +125,8 @@ useSuspenseGetAppsPreviewQuery.getKey = (
     ? ['GetAppsPreviewSuspense']
     : ['GetAppsPreviewSuspense', variables]
 
-useGetAppsPreviewQuery.fetcher = (
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables?: GetAppsPreviewQueryVariables,
-) =>
+useGetAppsPreviewQuery.fetcher = (variables?: GetAppsPreviewQueryVariables) =>
   fetcher<GetAppsPreviewQuery, GetAppsPreviewQueryVariables>(
-    dataSource.endpoint,
-    dataSource.fetchParams || {},
     GetAppsPreviewDocument,
     variables,
   )

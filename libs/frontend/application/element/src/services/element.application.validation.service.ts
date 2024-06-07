@@ -1,7 +1,7 @@
 import type { IElementApplicationValidationService } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { schemaTransformer } from '@codelab/frontend-application-type/interface-form'
-import { createValidator } from '@codelab/frontend-presentation-view/components/form'
+import { createValidator } from '@codelab/frontend-presentation-components-form'
 import { Model, model } from 'mobx-keystone'
 
 @model('@codelab/ElementApplicationValidationService')

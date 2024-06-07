@@ -1,11 +1,13 @@
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
+} from '@codelab/frontend-presentation-components-form'
+import {
   idSchema,
   nonEmptyString,
   refSchema,
   showFieldOnDev,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form/schema'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import {

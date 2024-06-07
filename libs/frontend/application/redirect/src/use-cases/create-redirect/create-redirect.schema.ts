@@ -3,7 +3,7 @@ import {
   SelectAuthGuard,
   SelectPage,
 } from '@codelab/frontend-application-type/interface-form'
-import { idSchema } from '@codelab/frontend-presentation-view/components/form'
+import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

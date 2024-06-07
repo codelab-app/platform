@@ -1,9 +1,9 @@
+import { CodeMirrorField } from '@codelab/frontend-presentation-components-form'
 import {
-  CodeMirrorField,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/frontend-presentation-view/components/form'
+} from '@codelab/frontend-presentation-components-form/schema'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'

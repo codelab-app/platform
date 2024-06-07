@@ -1,7 +1,7 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { FieldSchema, IField } from '../field/field.dto.interface'
+import { FieldSchema } from '../field/field.dto.interface'
 import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
