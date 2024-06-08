@@ -1,5 +1,8 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
+import {
+  CuiNavigationBar,
+  CuiResizablePanel,
+} from '@codelab/frontend/presentation/codelab-ui'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -8,7 +11,6 @@ import { Panel, PanelGroup } from 'react-resizable-panels'
 import { sidebarWidth } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplateConfigPane'
 import { defaultNavigationBarItems } from './NavigationBar'
-import ResizeHandle from './ResizeHandle'
 import type { DashboardTemplateProps } from './Types'
 
 const { Sider } = Layout
@@ -65,17 +67,19 @@ export const DashboardTemplate = observer(
           <Layout style={contentStyles}>
             <PanelGroup direction="horizontal">
               {ActivePrimarySidebar && (
-                <>
-                  <Panel defaultSize={20} order={1}>
-                    <div
-                      className="size-full"
-                      data-cy="temp-primary-panel-wrapper"
-                    >
-                      <ActivePrimarySidebar />
-                    </div>
-                  </Panel>
-                  <ResizeHandle />
-                </>
+                <CuiResizablePanel
+                  collapsible
+                  order={1}
+                  resizeDirection="right"
+                  showCollapseButton={false}
+                >
+                  <div
+                    className="size-full"
+                    data-cy="temp-primary-panel-wrapper"
+                  >
+                    <ActivePrimarySidebar />
+                  </div>
+                </CuiResizablePanel>
               )}
 
               <Panel defaultSize={60} order={2}>
@@ -85,12 +89,9 @@ export const DashboardTemplate = observer(
               </Panel>
 
               {ConfigPane && (
-                <>
-                  <ResizeHandle />
-                  <Panel defaultSize={20} order={3}>
-                    <DashboardTemplateConfigPane ConfigPane={ConfigPane} />
-                  </Panel>
-                </>
+                <CuiResizablePanel collapsible order={3} resizeDirection="left">
+                  <DashboardTemplateConfigPane ConfigPane={ConfigPane} />
+                </CuiResizablePanel>
               )}
             </PanelGroup>
           </Layout>

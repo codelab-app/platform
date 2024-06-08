@@ -94,7 +94,6 @@ const StyledBuilderContainer = styled.div`
   width: 100%;
   height: 100%;
   background: transparent;
-  overflow: scroll;
   .ant-modal-mask,
   .ant-modal-wrap {
     position: absolute;
