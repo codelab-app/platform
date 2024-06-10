@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -21,15 +22,12 @@ import {
   AtomDevelopmentFragment,
   AtomProductionFragment,
 } from '../atom/atom.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { TypeFragmentDoc } from '../type/fragments/type.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
 } from '../atom/atom.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type ElementFragment = {
   __typename: 'Element'
   childMapperPropKey?: string | null
@@ -124,153 +122,129 @@ export type ElementProductionFragment = {
     | { __typename: 'Component'; id: string }
 }
 
-export const ElementFragmentDoc = gql`
-  fragment Element on Element {
-    __typename
-    childMapperComponent {
-      id
-      name
-    }
-    childMapperPreviousSibling {
-      id
-    }
-    childMapperPropKey
-    dependantTypes {
-      ...Type
-    }
-    firstChild {
-      id
-    }
+export const ElementFragmentDoc = `
+    fragment Element on Element {
+  __typename
+  childMapperComponent {
     id
     name
-    nextSibling {
-      id
-    }
-    page {
-      id
-    }
-    parentComponent {
-      id
-    }
-    parentElement {
-      id
-    }
-    postRenderAction {
-      id
-      type
-    }
-    preRenderAction {
-      id
-      type
-    }
-    prevSibling {
-      id
-    }
-    props {
-      ...Prop
-    }
-    renderForEachPropKey
-    renderIfExpression
-    renderType {
-      ... on Atom {
-        __typename
-        ...AtomDevelopment
-      }
-      ... on Component {
-        __typename
-        id
-      }
-    }
-    style
-    tailwindClassNames
   }
-  ${TypeFragmentDoc}
-  ${PropFragmentDoc}
-  ${AtomDevelopmentFragmentDoc}
-`
-export const ElementProductionFragmentDoc = gql`
-  fragment ElementProduction on Element {
-    __typename
-    childMapperComponent {
-      id
-      name
-    }
-    childMapperPreviousSibling {
-      id
-    }
-    childMapperPropKey
-    dependantTypes {
-      ...Type
-    }
-    firstChild {
-      id
-    }
+  childMapperPreviousSibling {
     id
-    name
-    nextSibling {
-      id
-    }
-    page {
-      id
-    }
-    parentComponent {
-      id
-    }
-    parentElement {
-      id
-    }
-    postRenderAction {
-      id
-      type
-    }
-    preRenderAction {
-      id
-      type
-    }
-    prevSibling {
-      id
-    }
-    props {
-      ...Prop
-    }
-    renderForEachPropKey
-    renderIfExpression
-    renderType {
-      ... on Atom {
-        __typename
-        ...AtomProduction
-      }
-      ... on Component {
-        __typename
-        id
-      }
-    }
-    style
-    tailwindClassNames
   }
-  ${TypeFragmentDoc}
-  ${PropFragmentDoc}
-  ${AtomProductionFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${TypeFragmentDoc}
+${PropFragmentDoc}
+${AtomDevelopmentFragmentDoc}`
+export const ElementProductionFragmentDoc = `
+    fragment ElementProduction on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomProduction
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+    ${TypeFragmentDoc}
+${PropFragmentDoc}
+${AtomProductionFragmentDoc}`

@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import {
   BaseType_ActionType_Fragment,
   BaseType_AppType_Fragment,
@@ -16,10 +17,7 @@ import {
   BaseType_RichTextType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type ArrayTypeFragment = {
   itemType:
     | { id: string; kind: Types.TypeKind; name: string }
@@ -38,38 +36,15 @@ export type ArrayTypeFragment = {
     | { id: string; kind: Types.TypeKind; name: string }
 } & BaseType_ArrayType_Fragment
 
-export const ArrayTypeFragmentDoc = gql`
-  fragment ArrayType on ArrayType {
-    ...BaseType
-    itemType {
-      ... on IBaseType {
-        id
-        kind
-        name
-      }
+export const ArrayTypeFragmentDoc = `
+    fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
     }
   }
-  ${BaseTypeFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${BaseTypeFragmentDoc}`

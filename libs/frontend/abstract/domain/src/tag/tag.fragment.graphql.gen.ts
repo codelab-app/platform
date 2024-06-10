@@ -1,10 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type TagFragment = {
   id: string
   name: string
@@ -16,52 +14,29 @@ export type TagFragment = {
 
 export type TagPreviewFragment = { id: string; name: string }
 
-export const TagFragmentDoc = gql`
-  fragment Tag on Tag {
-    children {
-      id
-      name
-    }
-    descendants {
-      id
-      name
-    }
-    id
-    name
-    owner {
-      ...Owner
-    }
-    parent {
-      id
-    }
-  }
-  ${OwnerFragmentDoc}
-`
-export const TagPreviewFragmentDoc = gql`
-  fragment TagPreview on Tag {
+export const TagFragmentDoc = `
+    fragment Tag on Tag {
+  children {
     id
     name
   }
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${OwnerFragmentDoc}`
+export const TagPreviewFragmentDoc = `
+    fragment TagPreview on Tag {
+  id
+  name
+}
+    `

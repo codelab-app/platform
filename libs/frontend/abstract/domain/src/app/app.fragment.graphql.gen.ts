@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
@@ -8,8 +9,6 @@ import {
   PageDevelopmentFragment,
   PageProductionFragment,
 } from '../page/page.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { DomainFragmentDoc } from '../domain/domain.fragment.graphql.gen'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {
@@ -18,7 +17,6 @@ import {
   PageDevelopmentFragmentDoc,
   PageProductionFragmentDoc,
 } from '../page/page.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type AppPreviewFragment = {
   id: string
   name: string
@@ -53,105 +51,69 @@ export type AppProductionFragment = {
   pages: Array<PageProductionFragment>
 }
 
-export const AppPreviewFragmentDoc = gql`
-  fragment AppPreview on App {
-    domains {
-      ...Domain
-    }
-    id
-    name
-    owner {
-      ...Owner
-    }
-    pages(where: { kind: Provider }) {
-      ...PagePreview
-    }
-    slug
+export const AppPreviewFragmentDoc = `
+    fragment AppPreview on App {
+  domains {
+    ...Domain
   }
-  ${DomainFragmentDoc}
-  ${OwnerFragmentDoc}
-  ${PagePreviewFragmentDoc}
-`
-export const AppFragmentDoc = gql`
-  fragment App on App {
-    domains {
-      ...Domain
-    }
-    id
-    name
-    owner {
-      ...Owner
-    }
-    pages {
-      ...Page
-    }
-    slug
+  id
+  name
+  owner {
+    ...Owner
   }
-  ${DomainFragmentDoc}
-  ${OwnerFragmentDoc}
-  ${PageFragmentDoc}
-`
-export const AppDevelopmentFragmentDoc = gql`
-  fragment AppDevelopment on App {
-    id
-    name
-    owner {
-      ...Owner
-    }
-    pages(
-      where: {
-        OR: [
-          { compositeKey_ENDS_WITH: $pageName }
-          { kind: Provider }
-          { kind: NotFound }
-          { kind: InternalServerError }
-          { kind: Regular }
-        ]
-      }
-    ) {
-      ...PageDevelopment
-    }
-    slug
+  pages(where: {kind: Provider}) {
+    ...PagePreview
   }
-  ${OwnerFragmentDoc}
-  ${PageDevelopmentFragmentDoc}
-`
-export const AppProductionFragmentDoc = gql`
-  fragment AppProduction on App {
-    id
-    name
-    owner {
-      ...Owner
-    }
-    pages(
-      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }
-    ) {
-      ...PageProduction
-    }
-    slug
-  }
-  ${OwnerFragmentDoc}
-  ${PageProductionFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  slug
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${DomainFragmentDoc}
+${OwnerFragmentDoc}
+${PagePreviewFragmentDoc}`
+export const AppFragmentDoc = `
+    fragment App on App {
+  domains {
+    ...Domain
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages {
+    ...Page
+  }
+  slug
+}
+    ${DomainFragmentDoc}
+${OwnerFragmentDoc}
+${PageFragmentDoc}`
+export const AppDevelopmentFragmentDoc = `
+    fragment AppDevelopment on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(
+    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
+  ) {
+    ...PageDevelopment
+  }
+  slug
+}
+    ${OwnerFragmentDoc}
+${PageDevelopmentFragmentDoc}`
+export const AppProductionFragmentDoc = `
+    fragment AppProduction on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {
+    ...PageProduction
+  }
+  slug
+}
+    ${OwnerFragmentDoc}
+${PageProductionFragmentDoc}`

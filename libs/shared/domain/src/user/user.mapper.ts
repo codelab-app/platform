@@ -1,3 +1,4 @@
+import type { Claims } from '@auth0/nextjs-auth0'
 import {
   type Auth0IdToken,
   IRole,
@@ -18,5 +19,19 @@ export const mapAuth0IdTokenToUserDto = (
     id: auth0IdToken[JWT_CLAIMS].neo4j_user_id,
     roles: auth0IdToken[JWT_CLAIMS].roles.map((role) => IRole[role]),
     username: auth0IdToken.nickname,
+  }
+}
+
+export const mapClaimsToUserDto = (claims?: Claims): IUserDto => {
+  if (!claims || !claims[JWT_CLAIMS].neo4j_user_id) {
+    throw new Error('Missing user in request')
+  }
+
+  return {
+    auth0Id: claims['sub'],
+    email: claims['email'],
+    id: claims[JWT_CLAIMS].neo4j_user_id,
+    roles: claims[JWT_CLAIMS].roles.map((role: IRole) => IRole[role]),
+    username: claims['nickname'],
   }
 }
