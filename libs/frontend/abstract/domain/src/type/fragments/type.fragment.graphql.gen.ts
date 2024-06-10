@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import { ActionTypeFragment } from './action-type.fragment.graphql.gen'
 import { AppTypeFragment } from './app-type.fragment.graphql.gen'
 import { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
@@ -14,8 +15,6 @@ import { ReactNodeTypeFragment } from './react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from './render-prop.fragment.graphql.gen'
 import { RichTextTypeFragment } from './rich-text-type.fragment.graphql.gen'
 import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { ActionTypeFragmentDoc } from './action-type.fragment.graphql.gen'
 import { AppTypeFragmentDoc } from './app-type.fragment.graphql.gen'
 import { ArrayTypeFragmentDoc } from './array-type.fragment.graphql.gen'
@@ -30,7 +29,6 @@ import { ReactNodeTypeFragmentDoc } from './react-node-type.fragment.graphql.gen
 import { RenderPropTypeFragmentDoc } from './render-prop.fragment.graphql.gen'
 import { RichTextTypeFragmentDoc } from './rich-text-type.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type Type_ActionType_Fragment = ActionTypeFragment
 
 export type Type_AppType_Fragment = AppTypeFragment
@@ -75,57 +73,34 @@ export type TypeFragment =
   | Type_RichTextType_Fragment
   | Type_UnionType_Fragment
 
-export const TypeFragmentDoc = gql`
-  fragment Type on IBaseType {
-    ...ActionType
-    ...AppType
-    ...ArrayType
-    ...CodeMirrorType
-    ...ElementType
-    ...EnumType
-    ...InterfaceType
-    ...LambdaType
-    ...PageType
-    ...PrimitiveType
-    ...ReactNodeType
-    ...RenderPropType
-    ...RichTextType
-    ...UnionType
-  }
-  ${ActionTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${CodeMirrorTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ReactNodeTypeFragmentDoc}
-  ${RenderPropTypeFragmentDoc}
-  ${RichTextTypeFragmentDoc}
-  ${UnionTypeFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+export const TypeFragmentDoc = `
+    fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${ActionTypeFragmentDoc}
+${AppTypeFragmentDoc}
+${ArrayTypeFragmentDoc}
+${CodeMirrorTypeFragmentDoc}
+${ElementTypeFragmentDoc}
+${EnumTypeFragmentDoc}
+${InterfaceTypeFragmentDoc}
+${LambdaTypeFragmentDoc}
+${PageTypeFragmentDoc}
+${PrimitiveTypeFragmentDoc}
+${ReactNodeTypeFragmentDoc}
+${RenderPropTypeFragmentDoc}
+${RichTextTypeFragmentDoc}
+${UnionTypeFragmentDoc}`

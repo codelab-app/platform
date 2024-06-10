@@ -12,6 +12,10 @@ export default auth0ServerInstance.withMiddlewareAuthRequired({
 
     await auth0ServerInstance.touchSession(req, res)
 
+    const session = await auth0ServerInstance.getAccessToken()
+
+    process.env.AUTHORIZATION_TOKEN = session.accessToken
+
     return res
   },
 })

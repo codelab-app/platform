@@ -14,19 +14,21 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body>
-        <StyledComponentsRegistry>
-          <ReactQueryProvider>
-            <CuiStoreProvider>
-              <UserProvider>
-                <CuiProvider>
-                  <ConfigProvider theme={theme}>
-                    <App className="size-full">{children}</App>
-                  </ConfigProvider>
-                </CuiProvider>
-              </UserProvider>
-            </CuiStoreProvider>
-          </ReactQueryProvider>
-        </StyledComponentsRegistry>
+        <Suspense>
+          <StyledComponentsRegistry>
+            <ReactQueryProvider>
+              <CuiStoreProvider>
+                <UserProvider>
+                  <CuiProvider>
+                    <ConfigProvider theme={theme}>
+                      <App className="size-full">{children}</App>
+                    </ConfigProvider>
+                  </CuiProvider>
+                </UserProvider>
+              </CuiStoreProvider>
+            </ReactQueryProvider>
+          </StyledComponentsRegistry>
+        </Suspense>
       </body>
     </html>
   )

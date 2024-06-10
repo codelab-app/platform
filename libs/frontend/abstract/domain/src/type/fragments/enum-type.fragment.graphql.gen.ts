@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'
 import {
   BaseType_ActionType_Fragment,
@@ -17,44 +18,18 @@ import {
   BaseType_RichTextType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { EnumTypeValueFragmentDoc } from './enum-type-value.fragment.graphql.gen'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type EnumTypeFragment = {
   allowedValues: Array<EnumTypeValueFragment>
 } & BaseType_EnumType_Fragment
 
-export const EnumTypeFragmentDoc = gql`
-  fragment EnumType on EnumType {
-    allowedValues {
-      ...EnumTypeValue
-    }
-    ...BaseType
+export const EnumTypeFragmentDoc = `
+    fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
   }
-  ${EnumTypeValueFragmentDoc}
-  ${BaseTypeFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  ...BaseType
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${EnumTypeValueFragmentDoc}
+${BaseTypeFragmentDoc}`

@@ -33,7 +33,7 @@ const AppsView = auth0ServerInstance.withPageAuthRequired(async () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <BuildAppModal />
-      <CreateAppModal />
+      {/* <CreateAppModal /> */}
       <UpdateAppModal />
       <DeleteAppModal />
 

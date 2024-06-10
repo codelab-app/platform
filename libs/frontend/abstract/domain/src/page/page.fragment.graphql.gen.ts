@@ -1,18 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import {
   ElementFragment,
   ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
@@ -63,127 +61,102 @@ export type PageProductionFragment = {
   store: StoreFragment
 }
 
-export const PagePreviewFragmentDoc = gql`
-  fragment PagePreview on Page {
-    app {
-      id
-    }
+export const PagePreviewFragmentDoc = `
+    fragment PagePreview on Page {
+  app {
     id
-    kind
-    name
-    rootElement {
-      id
-    }
-    store {
-      id
-    }
-    urlPattern
   }
-`
-export const PageFragmentDoc = gql`
-  fragment Page on Page {
-    app {
-      id
-    }
-    elements {
-      ...Element
-    }
+  id
+  kind
+  name
+  rootElement {
     id
-    kind
-    name
-    pageContentContainer {
-      id
-    }
-    redirect {
-      id
-    }
-    rootElement {
-      id
-    }
-    store {
-      ...Store
-    }
-    urlPattern
   }
-  ${ElementFragmentDoc}
-  ${StoreFragmentDoc}
-`
-export const PageDevelopmentFragmentDoc = gql`
-  fragment PageDevelopment on Page {
-    app {
-      id
-    }
-    elements {
-      ...Element
-    }
+  store {
     id
-    kind
-    name
-    pageContentContainer {
-      id
-    }
-    redirect {
-      id
-    }
-    rootElement {
-      id
-    }
-    store {
-      ...Store
-    }
-    urlPattern
   }
-  ${ElementFragmentDoc}
-  ${StoreFragmentDoc}
-`
-export const PageProductionFragmentDoc = gql`
-  fragment PageProduction on Page {
-    app {
-      id
-    }
-    elements {
-      ...ElementProduction
-    }
-    id
-    kind
-    name
-    pageContentContainer {
-      id
-    }
-    redirect {
-      id
-    }
-    rootElement {
-      id
-    }
-    slug
-    store {
-      ...Store
-    }
-    urlPattern
-  }
-  ${ElementProductionFragmentDoc}
-  ${StoreFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  urlPattern
 }
-export type Sdk = ReturnType<typeof getSdk>
+    `
+export const PageFragmentDoc = `
+    fragment Page on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+    ${ElementFragmentDoc}
+${StoreFragmentDoc}`
+export const PageDevelopmentFragmentDoc = `
+    fragment PageDevelopment on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+    ${ElementFragmentDoc}
+${StoreFragmentDoc}`
+export const PageProductionFragmentDoc = `
+    fragment PageProduction on Page {
+  app {
+    id
+  }
+  elements {
+    ...ElementProduction
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  slug
+  store {
+    ...Store
+  }
+  urlPattern
+}
+    ${ElementProductionFragmentDoc}
+${StoreFragmentDoc}`

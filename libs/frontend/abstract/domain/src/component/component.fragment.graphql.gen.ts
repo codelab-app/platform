@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
@@ -8,8 +9,6 @@ import {
   ElementFragment,
   ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
@@ -18,7 +17,6 @@ import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type ComponentFragment = {
   __typename: 'Component'
   id: string
@@ -51,103 +49,78 @@ export type ComponentProductionFragment = {
   store: StoreFragment
 }
 
-export const ComponentFragmentDoc = gql`
-  fragment Component on Component {
-    __typename
-    api {
-      id
-    }
+export const ComponentFragmentDoc = `
+    fragment Component on Component {
+  __typename
+  api {
     id
-    name
-    owner {
-      ...Owner
-    }
-    props {
-      ...Prop
-    }
-    rootElement {
-      id
-    }
-    store {
-      ...Store
-    }
   }
-  ${OwnerFragmentDoc}
-  ${PropFragmentDoc}
-  ${StoreFragmentDoc}
-`
-export const ComponentDevelopmentFragmentDoc = gql`
-  fragment ComponentDevelopment on Component {
-    __typename
-    api {
-      ...InterfaceType
-    }
-    elements {
-      ...Element
-    }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
     id
-    name
-    owner {
-      ...Owner
-    }
-    props {
-      ...Prop
-    }
-    rootElement {
-      id
-      name
-    }
-    store {
-      ...Store
-    }
   }
-  ${InterfaceTypeFragmentDoc}
-  ${ElementFragmentDoc}
-  ${OwnerFragmentDoc}
-  ${PropFragmentDoc}
-  ${StoreFragmentDoc}
-`
-export const ComponentProductionFragmentDoc = gql`
-  fragment ComponentProduction on Component {
-    id
-    name
-    owner {
-      ...Owner
-    }
-    props {
-      ...Prop
-    }
-    rootElement {
-      id
-      name
-    }
-    store {
-      ...Store
-    }
+  store {
+    ...Store
   }
-  ${OwnerFragmentDoc}
-  ${PropFragmentDoc}
-  ${StoreFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${OwnerFragmentDoc}
+${PropFragmentDoc}
+${StoreFragmentDoc}`
+export const ComponentDevelopmentFragmentDoc = `
+    fragment ComponentDevelopment on Component {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  elements {
+    ...Element
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+    ${InterfaceTypeFragmentDoc}
+${ElementFragmentDoc}
+${OwnerFragmentDoc}
+${PropFragmentDoc}
+${StoreFragmentDoc}`
+export const ComponentProductionFragmentDoc = `
+    fragment ComponentProduction on Component {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+    ${OwnerFragmentDoc}
+${PropFragmentDoc}
+${StoreFragmentDoc}`

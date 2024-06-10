@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import {
   BaseType_ActionType_Fragment,
   BaseType_AppType_Fragment,
@@ -16,37 +17,11 @@ import {
   BaseType_RichTextType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type AppTypeFragment = BaseType_AppType_Fragment
 
-export const AppTypeFragmentDoc = gql`
-  fragment AppType on AppType {
-    ...BaseType
-  }
-  ${BaseTypeFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+export const AppTypeFragmentDoc = `
+    fragment AppType on AppType {
+  ...BaseType
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${BaseTypeFragmentDoc}`

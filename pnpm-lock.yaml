@@ -550,6 +550,9 @@ importers:
         specifier: 1.1.0
         version: 1.1.0
     devDependencies:
+      '@codelab-app/typescript-react-query':
+        specifier: 6.1.0
+        version: 6.1.0(graphql@16.6.0)
       '@commitlint/cli':
         specifier: 17.6.5
         version: 17.6.5(@swc/core@1.5.7(@swc/helpers@0.5.11))
@@ -577,9 +580,6 @@ importers:
       '@graphql-codegen/typescript-operations':
         specifier: 4.2.1
         version: 4.2.1(graphql@16.6.0)
-      '@graphql-codegen/typescript-react-query':
-        specifier: 6.1.0
-        version: 6.1.0(graphql@16.6.0)
       '@graphql-eslint/eslint-plugin':
         specifier: 3.20.1
         version: 3.20.1(@babel/core@7.24.5)(@types/node@18.19.33)(graphql@16.6.0)
@@ -2059,6 +2059,12 @@ packages:
     peerDependencies:
       react: '>=16.12.0'
 
+  '@codelab-app/typescript-react-query@6.1.0':
+    resolution: {integrity: sha512-NEgFIL5shIfrGDN2uVfpgJlEXZDRbb0NFbwBTOMFWKrDFK3VDg3AKElZwgIEgWk9ujzCWVIPdbW2Ca/NXBMhhg==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+
   '@codelab/eslint-plugin@file:dist/libs/tools/eslint-plugin':
     resolution: {directory: dist/libs/tools/eslint-plugin, type: directory}
 
@@ -2569,12 +2575,6 @@ packages:
 
   '@graphql-codegen/typescript-operations@4.2.1':
     resolution: {integrity: sha512-LhEPsaP+AI65zfK2j6CBAL4RT0bJL/rR9oRWlvwtHLX0t7YQr4CP4BXgvvej9brYdedAxHGPWeV1tPHy5/z9KQ==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-
-  '@graphql-codegen/typescript-react-query@6.1.0':
-    resolution: {integrity: sha512-SpaQ13fOZmog/xjgKnb7/G1CZSK54wopEbPBSav0IHN99iHaA4lJi6xJJoWrlDutOPgB26KAfGEXTD+lTm9esg==}
-    engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
@@ -16016,6 +16016,18 @@ snapshots:
       reactcss: 1.2.3(react@18.3.1)
       tinycolor2: 1.6.0
 
+  '@codelab-app/typescript-react-query@6.1.0(graphql@16.6.0)':
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.6.0)
+      '@graphql-codegen/visitor-plugin-common': 2.13.1(graphql@16.6.0)
+      auto-bind: 4.0.0
+      change-case-all: 1.0.15
+      graphql: 16.6.0
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
   '@codelab/eslint-plugin@file:dist/libs/tools/eslint-plugin(eslint@8.57.0)(nx@19.2.1(@swc-node/register@1.9.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.7(@swc/helpers@0.5.11)))(typescript@5.4.5)':
     dependencies:
       '@nx/devkit': 19.0.4(nx@19.2.1(@swc-node/register@1.9.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(typescript@5.4.5))(@swc/core@1.5.7(@swc/helpers@0.5.11)))
@@ -16723,18 +16735,6 @@ snapshots:
       '@graphql-codegen/typescript': 4.0.7(graphql@16.6.0)
       '@graphql-codegen/visitor-plugin-common': 5.2.0(graphql@16.6.0)
       auto-bind: 4.0.0
-      graphql: 16.6.0
-      tslib: 2.6.2
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
-  '@graphql-codegen/typescript-react-query@6.1.0(graphql@16.6.0)':
-    dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.6.0)
-      '@graphql-codegen/visitor-plugin-common': 2.13.1(graphql@16.6.0)
-      auto-bind: 4.0.0
-      change-case-all: 1.0.15
       graphql: 16.6.0
       tslib: 2.6.2
     transitivePeerDependencies:

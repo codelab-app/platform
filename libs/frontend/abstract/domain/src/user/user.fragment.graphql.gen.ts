@@ -1,8 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
+import { fetchParams } from '@codelab/shared/config'
 export type UserFragment = {
   auth0Id: string
   email: string
@@ -13,38 +11,16 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
-export const UserFragmentDoc = gql`
-  fragment User on User {
-    apps {
-      id
-    }
-    auth0Id
-    email
+export const UserFragmentDoc = `
+    fragment User on User {
+  apps {
     id
-    preferences
-    roles
-    username
   }
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  auth0Id
+  email
+  id
+  preferences
+  roles
+  username
 }
-export type Sdk = ReturnType<typeof getSdk>
+    `

@@ -1,5 +1,5 @@
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { useGetAppsPreviewQuery } from './apps-preview.tan.tan.gen'
+import { useGetAppsPreviewQuery } from './apps-preview.tan.graphql.gen'
 
 export const useAppsPreview = () => {
   const { appService, domainService, pageService, userService } = useStore()

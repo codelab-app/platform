@@ -1,14 +1,14 @@
 import { defineConfig, devices } from '@playwright/test'
 import { nxE2EPreset } from '@nx/playwright/preset'
-
+import * as env from 'env-var'
 import { workspaceRoot } from '@nx/devkit'
 import { getEnv } from '@codelab/shared/config'
 
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://127.0.0.1:3001'
 
-export const auth0Username = getEnv().auth0.cypressUsername
-export const auth0Password = getEnv().auth0.cypressPassword
+export const auth0Username = env.get('AUTH0_USERNAME').required().asString()
+export const auth0Password = env.get('AUTH0_PASSWORD').required().asString()
 
 /**
  * Read environment variables from file.

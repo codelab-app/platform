@@ -1,15 +1,13 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import {
   Action_ApiAction_Fragment,
   Action_CodeAction_Fragment,
 } from '../action/fragments/action.fragment.graphql.gen'
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { ActionFragmentDoc } from '../action/fragments/action.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type StoreFragment = {
   id: string
   name: string
@@ -23,49 +21,25 @@ export type ProductionStoreFragment = {
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
 }
 
-export const StoreFragmentDoc = gql`
-  fragment Store on Store {
-    actions {
-      ...Action
-    }
-    api {
-      ...InterfaceType
-    }
-    id
-    name
+export const StoreFragmentDoc = `
+    fragment Store on Store {
+  actions {
+    ...Action
   }
-  ${ActionFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-`
-export const ProductionStoreFragmentDoc = gql`
-  fragment ProductionStore on Store {
-    actions {
-      ...Action
-    }
-    id
-    name
+  api {
+    ...InterfaceType
   }
-  ${ActionFragmentDoc}
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  id
+  name
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${ActionFragmentDoc}
+${InterfaceTypeFragmentDoc}`
+export const ProductionStoreFragmentDoc = `
+    fragment ProductionStore on Store {
+  actions {
+    ...Action
+  }
+  id
+  name
+}
+    ${ActionFragmentDoc}`

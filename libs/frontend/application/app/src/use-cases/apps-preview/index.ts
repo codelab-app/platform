@@ -1,2 +1,2 @@
-export { useGetAppsPreviewQuery } from './apps-preview.tan.tan.gen'
+export { useGetAppsPreviewQuery } from './apps-preview.tan.graphql.gen'
 export * from './useAppsPreview.hook'

@@ -1,12 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { fetchParams } from '@codelab/shared/config'
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import { TagFragment } from '../tag/tag.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 import { TagFragmentDoc } from '../tag/tag.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type AtomFragment = {
   __typename: 'Atom'
   externalCssSource?: string | null
@@ -47,104 +45,80 @@ export type AtomProductionFragment = {
   suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
-export const AtomFragmentDoc = gql`
-  fragment Atom on Atom {
-    __typename
-    api {
-      ...InterfaceType
-    }
-    externalCssSource
-    externalJsSource
-    externalSourceType
-    icon
+export const AtomFragmentDoc = `
+    fragment Atom on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
     id
     name
-    requiredParents {
-      id
-      name
-      type
-    }
-    suggestedChildren {
-      id
-      name
-      type
-    }
-    tags {
-      ...Tag
-    }
     type
   }
-  ${InterfaceTypeFragmentDoc}
-  ${TagFragmentDoc}
-`
-export const AtomDevelopmentFragmentDoc = gql`
-  fragment AtomDevelopment on Atom {
-    __typename
-    api {
-      ...InterfaceType
-    }
-    icon
+  suggestedChildren {
     id
     name
-    requiredParents {
-      id
-      name
-      type
-    }
-    suggestedChildren {
-      id
-      name
-      type
-    }
-    tags {
-      ...Tag
-    }
     type
   }
-  ${InterfaceTypeFragmentDoc}
-  ${TagFragmentDoc}
-`
-export const AtomProductionFragmentDoc = gql`
-  fragment AtomProduction on Atom {
-    __typename
-    externalCssSource
-    externalJsSource
-    externalSourceType
-    icon
-    id
-    name
-    requiredParents {
-      id
-      name
-      type
-    }
-    suggestedChildren {
-      id
-      name
-      type
-    }
-    type
+  tags {
+    ...Tag
   }
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {}
+  type
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${InterfaceTypeFragmentDoc}
+${TagFragmentDoc}`
+export const AtomDevelopmentFragmentDoc = `
+    fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+    ${InterfaceTypeFragmentDoc}
+${TagFragmentDoc}`
+export const AtomProductionFragmentDoc = `
+    fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+    `
