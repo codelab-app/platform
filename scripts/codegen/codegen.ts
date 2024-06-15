@@ -5,8 +5,26 @@ const config: CodegenConfig = {
   overwrite: true,
   hooks: {
     // Uncomment to run ESLint fix after code generation
-    // afterAllFileWrite: ['pnpm eslint --fix'],
-    afterAllFileWrite: ['pnpm prettier --write'],
+    afterOneFileWrite: [
+      // 'pnpm eslint \
+      //   --rule "unused-imports/no-unused-imports-ts: 2" \
+      //   --rule "@typescript-eslint/no-explicit-any: 0" \
+      //   --rule "@typescript-eslint/member-ordering: 0" \
+      //   --rule "prefer-arrow/prefer-arrow-functions: 0" \
+      //   --rule "func-style: 0" \
+      //   --no-ignore --quiet --fix',
+    ],
+    afterAllFileWrite: [
+      // 'nx affected --target=lint -c codegen',
+      // 'pnpm eslint \
+      //   --rule "unused-imports/no-unused-imports-ts: 2" \
+      //   --rule "@typescript-eslint/no-explicit-any: 0" \
+      //   --rule "@typescript-eslint/member-ordering: 0" \
+      //   --rule "prefer-arrow/prefer-arrow-functions: 0" \
+      //   --rule "func-style: 0" \
+      //   --no-ignore --quiet --fix',
+      // 'pnpm prettier --write',
+    ],
   },
   // Uncomment for using a local schema file
   // schema: 'schema.graphql',
@@ -68,6 +86,7 @@ const config: CodegenConfig = {
       presetConfig: {
         extension: '.graphql.gen.ts',
         baseTypesPath: '~@codelab/shared/abstract/codegen',
+        // importTypesNamespace: 'Operations',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
@@ -77,10 +96,10 @@ const config: CodegenConfig = {
             content: "import { fetchParams } from '@codelab/shared/config'",
           },
         },
-        'typescript-react-query',
-        'typescript-operations',
-        // 'typescript-document-nodes',
-        'typescript-graphql-request',
+        // 'typescript-graphql-request',
+        // 'typescript-operations',
+        'typescript-document-nodes',
+        '@codelab-app/typescript-react-query',
       ],
       config: {
         /**
@@ -98,12 +117,14 @@ const config: CodegenConfig = {
         /**
          * Gql
          */
-        // documentMode: 'external',
-        // importDocumentNodeExternallyFrom: 'near-operation-file',
+        documentMode: 'external',
+        importDocumentNodeExternallyFrom: '@codelab/shared/abstract/codegen',
         inlineFragmentTypes: 'combine',
         gqlImport: 'graphql-tag#gql',
         strictScalars: true,
         defaultScalarType: 'unknown',
+        importTypesNamespace: 'Operations',
+        importOperationTypesFrom: 'Operations',
         fetcher: {
           fetchParams: 'fetchParams',
           endpoint: getEnv().endpoint.apiGraphqlUrl,

@@ -36,6 +36,7 @@
     "./scripts/eslint/.naming.eslintrc.json",
     "./scripts/eslint/.codelab.eslintrc.json",
     "./scripts/eslint/.sorting.eslintrc.json",
+    "./scripts/eslint/.codegen.eslintrc.json",
     "plugin:@tanstack/eslint-plugin-query/recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",

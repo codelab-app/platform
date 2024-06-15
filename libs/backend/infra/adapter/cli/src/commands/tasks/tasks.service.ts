@@ -106,7 +106,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             }
 
             execCommand(
-              'pnpm graphql-codegen --config ./scripts/codegen/codegen.ts',
+              'pnpm graphql-codegen --config ./scripts/codegen/codegen.ts --verbose',
             )
             await ogmService.generate()
 

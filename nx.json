@@ -1,6 +1,6 @@
 {
   "defaultBase": "master",
-  "useInferencePlugins": false,
+  "useInferencePlugins": true,
   "parallel": 3,
   "tasksRunnerOptions": {
     "default": {
@@ -130,6 +130,10 @@
           "format": "junit",
           "outputFile": "tmp/reports/lint/{projectName}.xml",
           "quiet": true
+        },
+        "codegen": {
+          "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],
+          "errorOnUnmatchedPattern": false
         }
       }
     },

@@ -551,8 +551,8 @@ importers:
         version: 1.1.0
     devDependencies:
       '@codelab-app/typescript-react-query':
-        specifier: 6.1.0
-        version: 6.1.0(graphql@16.6.0)
+        specifier: 6.1.5
+        version: 6.1.5(graphql@16.6.0)
       '@commitlint/cli':
         specifier: 17.6.5
         version: 17.6.5(@swc/core@1.5.7(@swc/helpers@0.5.11))
@@ -2059,8 +2059,8 @@ packages:
     peerDependencies:
       react: '>=16.12.0'
 
-  '@codelab-app/typescript-react-query@6.1.0':
-    resolution: {integrity: sha512-NEgFIL5shIfrGDN2uVfpgJlEXZDRbb0NFbwBTOMFWKrDFK3VDg3AKElZwgIEgWk9ujzCWVIPdbW2Ca/NXBMhhg==}
+  '@codelab-app/typescript-react-query@6.1.5':
+    resolution: {integrity: sha512-W3Gu+UdG7Bh1kLjyxjJ9Se4Bm4zsTW3wwAwoEMSKGBeBQwRz9sWUQnYqFovuI4jEfrETUTXhzw00P1y9LAcUXg==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -16016,7 +16016,7 @@ snapshots:
       reactcss: 1.2.3(react@18.3.1)
       tinycolor2: 1.6.0
 
-  '@codelab-app/typescript-react-query@6.1.0(graphql@16.6.0)':
+  '@codelab-app/typescript-react-query@6.1.5(graphql@16.6.0)':
     dependencies:
       '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.6.0)
       '@graphql-codegen/visitor-plugin-common': 2.13.1(graphql@16.6.0)
