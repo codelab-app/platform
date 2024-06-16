@@ -33,16 +33,16 @@ type ActionType implements IBaseType {
 
 type ActionTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ActionTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: ActionTypeOwnerConnectFieldInput
 }
 
 input ActionTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: ActionTypeOwnerConnectOrCreateFieldInput
 }
 
 input ActionTypeConnectOrCreateWhere {
@@ -61,7 +61,7 @@ input ActionTypeCreateInput {
   id: ID!
   kind: TypeKind! = ActionType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: ActionTypeOwnerFieldInput
 }
 
 type ActionTypeCreatedEvent {
@@ -93,8 +93,6 @@ type ActionTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input ActionTypeOnCreateInput {
@@ -125,8 +123,37 @@ input ActionTypeOwnerAggregateInput {
   node: ActionTypeOwnerNodeAggregationWhereInput
 }
 
+input ActionTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input ActionTypeOwnerConnectOrCreateFieldInput {
+  onCreate: ActionTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input ActionTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type ActionTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input ActionTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input ActionTypeOwnerFieldInput {
+  connect: ActionTypeOwnerConnectFieldInput
+  connectOrCreate: ActionTypeOwnerConnectOrCreateFieldInput
+  create: ActionTypeOwnerCreateFieldInput
 }
 
 input ActionTypeOwnerNodeAggregationWhereInput {
@@ -199,8 +226,22 @@ input ActionTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input ActionTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input ActionTypeOwnerUpdateFieldInput {
+  connect: ActionTypeOwnerConnectFieldInput
+  connectOrCreate: ActionTypeOwnerConnectOrCreateFieldInput
+  create: ActionTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: ActionTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input ActionTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: ActionTypeOwnerCreateFieldInput
 }
 
 type ActionTypeRelationshipCreatedEvent {
@@ -255,14 +296,16 @@ input ActionTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -272,8 +315,9 @@ input ActionTypeUniqueWhere {
 
 input ActionTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: ActionTypeOwnerUpdateFieldInput
 }
 
 type ActionTypeUpdatedEvent {
@@ -289,11 +333,11 @@ type ActionTypeUserOwnerAggregationSelection {
 }
 
 type ActionTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input ActionTypeWhere {
@@ -487,8 +531,8 @@ type ApiAction implements BaseAction {
 
 type ApiActionAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ApiActionConfigAggregateInput {
@@ -605,18 +649,18 @@ input ApiActionConfigUpdateFieldInput {
 
 input ApiActionConnectInput {
   config: ApiActionConfigConnectFieldInput
-  element: BaseActionElementConnectFieldInput
+  element: ApiActionElementConnectFieldInput
   errorAction: ApiActionErrorActionConnectInput
   resource: ApiActionResourceConnectFieldInput
-  store: BaseActionStoreConnectFieldInput
+  store: ApiActionStoreConnectFieldInput
   successAction: ApiActionSuccessActionConnectInput
 }
 
 input ApiActionConnectOrCreateInput {
   config: ApiActionConfigConnectOrCreateFieldInput
-  element: BaseActionElementConnectOrCreateFieldInput
+  element: ApiActionElementConnectOrCreateFieldInput
   resource: ApiActionResourceConnectOrCreateFieldInput
-  store: BaseActionStoreConnectOrCreateFieldInput
+  store: ApiActionStoreConnectOrCreateFieldInput
 }
 
 input ApiActionConnectWhere {
@@ -634,12 +678,12 @@ type ApiActionConnectedRelationships {
 
 input ApiActionCreateInput {
   config: ApiActionConfigFieldInput
-  element: BaseActionElementFieldInput
+  element: ApiActionElementFieldInput
   errorAction: ApiActionErrorActionCreateInput
   id: ID!
   name: String!
   resource: ApiActionResourceFieldInput
-  store: BaseActionStoreFieldInput
+  store: ApiActionStoreFieldInput
   successAction: ApiActionSuccessActionCreateInput
   type: ActionKind! = ApiAction
 }
@@ -691,8 +735,31 @@ input ApiActionElementAggregateInput {
   node: ApiActionElementNodeAggregationWhereInput
 }
 
+input ApiActionElementConnectFieldInput {
+  connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input ApiActionElementConnectOrCreateFieldInput {
+  onCreate: ApiActionElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ApiActionElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
 type ApiActionElementConnectedRelationship {
   node: ElementEventPayload!
+}
+
+input ApiActionElementCreateFieldInput {
+  node: ElementCreateInput!
 }
 
 type ApiActionElementElementAggregationSelection {
@@ -701,12 +768,18 @@ type ApiActionElementElementAggregationSelection {
 }
 
 type ApiActionElementElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
+}
+
+input ApiActionElementFieldInput {
+  connect: ApiActionElementConnectFieldInput
+  connectOrCreate: ApiActionElementConnectOrCreateFieldInput
+  create: ApiActionElementCreateFieldInput
 }
 
 input ApiActionElementNodeAggregationWhereInput {
@@ -792,6 +865,20 @@ input ApiActionElementNodeAggregationWhereInput {
 
 input ApiActionElementRelationshipSubscriptionWhere {
   node: ElementSubscriptionWhere
+}
+
+input ApiActionElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ApiActionElementUpdateFieldInput {
+  connect: ApiActionElementConnectFieldInput
+  connectOrCreate: ApiActionElementConnectOrCreateFieldInput
+  create: ApiActionElementCreateFieldInput
+  delete: BaseActionElementDeleteFieldInput
+  disconnect: BaseActionElementDisconnectFieldInput
+  update: ApiActionElementUpdateConnectionInput
+  where: BaseActionElementConnectionWhere
 }
 
 input ApiActionErrorActionApiActionConnectFieldInput {
@@ -946,12 +1033,8 @@ input ApiActionErrorActionUpdateInput {
 }
 
 type ApiActionEventPayload implements BaseActionEventPayload {
-  element: Element
-  elementConnection: BaseActionElementConnection!
   id: ID!
   name: String!
-  store: Store!
-  storeConnection: BaseActionStoreConnection!
   type: ActionKind!
 }
 
@@ -971,16 +1054,16 @@ type ApiActionPropConfigAggregationSelection {
 }
 
 type ApiActionPropConfigNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  data: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input ApiActionRelationInput {
   config: ApiActionConfigCreateFieldInput
-  element: BaseActionElementCreateFieldInput
+  element: ApiActionElementCreateFieldInput
   errorAction: ApiActionErrorActionCreateFieldInput
   resource: ApiActionResourceCreateFieldInput
-  store: BaseActionStoreCreateFieldInput
+  store: ApiActionStoreCreateFieldInput
   successAction: ApiActionSuccessActionCreateFieldInput
 }
 
@@ -1133,8 +1216,8 @@ type ApiActionResourceResourceAggregationSelection {
 }
 
 type ApiActionResourceResourceNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ApiActionResourceUpdateConnectionInput {
@@ -1172,8 +1255,37 @@ input ApiActionStoreAggregateInput {
   node: ApiActionStoreNodeAggregationWhereInput
 }
 
+input ApiActionStoreConnectFieldInput {
+  connect: StoreConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: StoreConnectWhere
+}
+
+input ApiActionStoreConnectOrCreateFieldInput {
+  onCreate: ApiActionStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input ApiActionStoreConnectOrCreateFieldInputOnCreate {
+  node: StoreOnCreateInput!
+}
+
 type ApiActionStoreConnectedRelationship {
   node: StoreEventPayload!
+}
+
+input ApiActionStoreCreateFieldInput {
+  node: StoreCreateInput!
+}
+
+input ApiActionStoreFieldInput {
+  connect: ApiActionStoreConnectFieldInput
+  connectOrCreate: ApiActionStoreConnectOrCreateFieldInput
+  create: ApiActionStoreCreateFieldInput
 }
 
 input ApiActionStoreNodeAggregationWhereInput {
@@ -1207,8 +1319,22 @@ type ApiActionStoreStoreAggregationSelection {
 }
 
 type ApiActionStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input ApiActionStoreUpdateConnectionInput {
+  node: StoreUpdateInput
+}
+
+input ApiActionStoreUpdateFieldInput {
+  connect: ApiActionStoreConnectFieldInput
+  connectOrCreate: ApiActionStoreConnectOrCreateFieldInput
+  create: ApiActionStoreCreateFieldInput
+  delete: BaseActionStoreDeleteFieldInput
+  disconnect: BaseActionStoreDisconnectFieldInput
+  update: ApiActionStoreUpdateConnectionInput
+  where: BaseActionStoreConnectionWhere
 }
 
 input ApiActionSubscriptionWhere {
@@ -1218,15 +1344,17 @@ input ApiActionSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   type: ActionKind
-  type_IN: [ActionKind]
+  type_IN: [ActionKind!]
 }
 
 input ApiActionSuccessActionApiActionConnectFieldInput {
@@ -1382,13 +1510,14 @@ input ApiActionSuccessActionUpdateInput {
 
 input ApiActionUpdateInput {
   config: ApiActionConfigUpdateFieldInput
-  element: BaseActionElementUpdateFieldInput
+  element: ApiActionElementUpdateFieldInput
   errorAction: ApiActionErrorActionUpdateInput
   id: ID
   name: String
   resource: ApiActionResourceUpdateFieldInput
-  store: BaseActionStoreUpdateFieldInput
+  store: ApiActionStoreUpdateFieldInput
   successAction: ApiActionSuccessActionUpdateInput
+  type: ActionKind
 }
 
 type ApiActionUpdatedEvent {
@@ -1412,8 +1541,10 @@ input ApiActionWhere {
   elementConnection: BaseActionElementConnectionWhere
   elementConnection_NOT: BaseActionElementConnectionWhere
   element_NOT: ElementWhere
+  errorAction: AnyActionWhere
   errorActionConnection: ApiActionErrorActionConnectionWhere
   errorActionConnection_NOT: ApiActionErrorActionConnectionWhere
+  errorAction_NOT: AnyActionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -1436,8 +1567,10 @@ input ApiActionWhere {
   storeConnection: BaseActionStoreConnectionWhere
   storeConnection_NOT: BaseActionStoreConnectionWhere
   store_NOT: StoreWhere
+  successAction: AnyActionWhere
   successActionConnection: ApiActionSuccessActionConnectionWhere
   successActionConnection_NOT: ApiActionSuccessActionConnectionWhere
+  successAction_NOT: AnyActionWhere
   type: ActionKind
   type_IN: [ActionKind!]
 }
@@ -1500,20 +1633,20 @@ type App implements WithOwner {
 }
 
 type AppAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
   count: Int!
-  id: IDAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
 }
 
 input AppConnectInput {
   domains: [AppDomainsConnectFieldInput!]
-  owner: WithOwnerOwnerConnectFieldInput
+  owner: AppOwnerConnectFieldInput
   pages: [AppPagesConnectFieldInput!]
 }
 
 input AppConnectOrCreateInput {
   domains: [AppDomainsConnectOrCreateFieldInput!]
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
+  owner: AppOwnerConnectOrCreateFieldInput
   pages: [AppPagesConnectOrCreateFieldInput!]
 }
 
@@ -1535,7 +1668,7 @@ input AppCreateInput {
   compositeKey: String!
   domains: AppDomainsFieldInput
   id: ID!
-  owner: WithOwnerOwnerFieldInput
+  owner: AppOwnerFieldInput
   pages: AppPagesFieldInput
 }
 
@@ -1569,8 +1702,8 @@ type AppDomainDomainsAggregationSelection {
 }
 
 type AppDomainDomainsNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AppDomainsAggregateInput {
@@ -1697,8 +1830,6 @@ type AppEdge {
 type AppEventPayload {
   compositeKey: String!
   id: ID!
-  name: String!
-  slug: String!
 }
 
 input AppOnCreateInput {
@@ -1728,8 +1859,37 @@ input AppOwnerAggregateInput {
   node: AppOwnerNodeAggregationWhereInput
 }
 
+input AppOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input AppOwnerConnectOrCreateFieldInput {
+  onCreate: AppOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input AppOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type AppOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input AppOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input AppOwnerFieldInput {
+  connect: AppOwnerConnectFieldInput
+  connectOrCreate: AppOwnerConnectOrCreateFieldInput
+  create: AppOwnerCreateFieldInput
 }
 
 input AppOwnerNodeAggregationWhereInput {
@@ -1802,15 +1962,29 @@ input AppOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input AppOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input AppOwnerUpdateFieldInput {
+  connect: AppOwnerConnectFieldInput
+  connectOrCreate: AppOwnerConnectOrCreateFieldInput
+  create: AppOwnerCreateFieldInput
+  delete: WithOwnerOwnerDeleteFieldInput
+  disconnect: WithOwnerOwnerDisconnectFieldInput
+  update: AppOwnerUpdateConnectionInput
+  where: WithOwnerOwnerConnectionWhere
+}
+
 type AppPagePagesAggregationSelection {
   count: Int!
   node: AppPagePagesNodeAggregateSelection
 }
 
 type AppPagePagesNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  urlPattern: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  urlPattern: StringAggregateSelection!
 }
 
 input AppPagesAggregateInput {
@@ -1946,7 +2120,7 @@ input AppPagesUpdateFieldInput {
 
 input AppRelationInput {
   domains: [AppDomainsCreateFieldInput!]
-  owner: WithOwnerOwnerCreateFieldInput
+  owner: AppOwnerCreateFieldInput
   pages: [AppPagesCreateFieldInput!]
 }
 
@@ -2003,23 +2177,15 @@ input AppSubscriptionWhere {
   compositeKey: String
   compositeKey_CONTAINS: String
   compositeKey_ENDS_WITH: String
-  compositeKey_IN: [String]
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String]
-  name_STARTS_WITH: String
-  slug: String
-  slug_CONTAINS: String
-  slug_ENDS_WITH: String
-  slug_IN: [String]
-  slug_STARTS_WITH: String
 }
 
 """
@@ -2045,16 +2211,16 @@ type AppType implements IBaseType {
 
 type AppTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AppTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: AppTypeOwnerConnectFieldInput
 }
 
 input AppTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: AppTypeOwnerConnectOrCreateFieldInput
 }
 
 input AppTypeConnectWhere {
@@ -2069,7 +2235,7 @@ input AppTypeCreateInput {
   id: ID!
   kind: TypeKind! = AppType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: AppTypeOwnerFieldInput
 }
 
 type AppTypeCreatedEvent {
@@ -2101,8 +2267,6 @@ type AppTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input AppTypeOptions {
@@ -2127,8 +2291,37 @@ input AppTypeOwnerAggregateInput {
   node: AppTypeOwnerNodeAggregationWhereInput
 }
 
+input AppTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input AppTypeOwnerConnectOrCreateFieldInput {
+  onCreate: AppTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input AppTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type AppTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input AppTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input AppTypeOwnerFieldInput {
+  connect: AppTypeOwnerConnectFieldInput
+  connectOrCreate: AppTypeOwnerConnectOrCreateFieldInput
+  create: AppTypeOwnerCreateFieldInput
 }
 
 input AppTypeOwnerNodeAggregationWhereInput {
@@ -2201,8 +2394,22 @@ input AppTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input AppTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input AppTypeOwnerUpdateFieldInput {
+  connect: AppTypeOwnerConnectFieldInput
+  connectOrCreate: AppTypeOwnerConnectOrCreateFieldInput
+  create: AppTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: AppTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input AppTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: AppTypeOwnerCreateFieldInput
 }
 
 type AppTypeRelationshipCreatedEvent {
@@ -2257,21 +2464,24 @@ input AppTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
 input AppTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: AppTypeOwnerUpdateFieldInput
 }
 
 type AppTypeUpdatedEvent {
@@ -2287,11 +2497,11 @@ type AppTypeUserOwnerAggregationSelection {
 }
 
 type AppTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input AppTypeWhere {
@@ -2334,7 +2544,7 @@ input AppUpdateInput {
   compositeKey: String
   domains: [AppDomainsUpdateFieldInput!]
   id: ID
-  owner: WithOwnerOwnerUpdateFieldInput
+  owner: AppOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
 }
 
@@ -2351,11 +2561,11 @@ type AppUserOwnerAggregationSelection {
 }
 
 type AppUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input AppWhere {
@@ -2497,6 +2707,10 @@ type ArrayType implements IBaseType & WithDescendants {
     options: IBaseTypeOptions
     where: IBaseTypeWhere
   ): IBaseType!
+  itemTypeAggregate(
+    directed: Boolean = true
+    where: IBaseTypeWhere
+  ): ArrayTypeIBaseTypeItemTypeAggregationSelection
   itemTypeConnection(
     after: String
     directed: Boolean = true
@@ -2522,19 +2736,19 @@ type ArrayType implements IBaseType & WithDescendants {
 
 type ArrayTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ArrayTypeConnectInput {
   fieldRefs: [ArrayTypeFieldRefsConnectFieldInput!]
   itemType: ArrayTypeItemTypeConnectFieldInput
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: ArrayTypeOwnerConnectFieldInput
 }
 
 input ArrayTypeConnectOrCreateInput {
   fieldRefs: [ArrayTypeFieldRefsConnectOrCreateFieldInput!]
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: ArrayTypeOwnerConnectOrCreateFieldInput
 }
 
 input ArrayTypeConnectWhere {
@@ -2553,7 +2767,7 @@ input ArrayTypeCreateInput {
   itemType: ArrayTypeItemTypeFieldInput
   kind: TypeKind! = ArrayType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: ArrayTypeOwnerFieldInput
 }
 
 type ArrayTypeCreatedEvent {
@@ -2590,8 +2804,6 @@ type ArrayTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 type ArrayTypeFieldFieldRefsAggregationSelection {
@@ -2600,12 +2812,12 @@ type ArrayTypeFieldFieldRefsAggregationSelection {
 }
 
 type ArrayTypeFieldFieldRefsNodeAggregateSelection {
-  defaultValues: StringAggregateSelectionNullable!
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
 }
 
 input ArrayTypeFieldRefsAggregateInput {
@@ -2784,6 +2996,28 @@ input ArrayTypeFieldRefsUpdateFieldInput {
   where: ArrayTypeFieldRefsConnectionWhere
 }
 
+type ArrayTypeIBaseTypeItemTypeAggregationSelection {
+  count: Int!
+  node: ArrayTypeIBaseTypeItemTypeNodeAggregateSelection
+}
+
+type ArrayTypeIBaseTypeItemTypeNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input ArrayTypeItemTypeAggregateInput {
+  AND: [ArrayTypeItemTypeAggregateInput!]
+  NOT: ArrayTypeItemTypeAggregateInput
+  OR: [ArrayTypeItemTypeAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ArrayTypeItemTypeNodeAggregationWhereInput
+}
+
 input ArrayTypeItemTypeConnectFieldInput {
   connect: IBaseTypeConnectInput
   where: IBaseTypeConnectWhere
@@ -2827,6 +3061,27 @@ input ArrayTypeItemTypeDisconnectFieldInput {
 input ArrayTypeItemTypeFieldInput {
   connect: ArrayTypeItemTypeConnectFieldInput
   create: ArrayTypeItemTypeCreateFieldInput
+}
+
+input ArrayTypeItemTypeNodeAggregationWhereInput {
+  AND: [ArrayTypeItemTypeNodeAggregationWhereInput!]
+  NOT: ArrayTypeItemTypeNodeAggregationWhereInput
+  OR: [ArrayTypeItemTypeNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type ArrayTypeItemTypeRelationship {
@@ -2873,8 +3128,37 @@ input ArrayTypeOwnerAggregateInput {
   node: ArrayTypeOwnerNodeAggregationWhereInput
 }
 
+input ArrayTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input ArrayTypeOwnerConnectOrCreateFieldInput {
+  onCreate: ArrayTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input ArrayTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type ArrayTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input ArrayTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input ArrayTypeOwnerFieldInput {
+  connect: ArrayTypeOwnerConnectFieldInput
+  connectOrCreate: ArrayTypeOwnerConnectOrCreateFieldInput
+  create: ArrayTypeOwnerCreateFieldInput
 }
 
 input ArrayTypeOwnerNodeAggregationWhereInput {
@@ -2947,10 +3231,24 @@ input ArrayTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input ArrayTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input ArrayTypeOwnerUpdateFieldInput {
+  connect: ArrayTypeOwnerConnectFieldInput
+  connectOrCreate: ArrayTypeOwnerConnectOrCreateFieldInput
+  create: ArrayTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: ArrayTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input ArrayTypeRelationInput {
   fieldRefs: [ArrayTypeFieldRefsCreateFieldInput!]
   itemType: ArrayTypeItemTypeCreateFieldInput
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: ArrayTypeOwnerCreateFieldInput
 }
 
 type ArrayTypeRelationshipCreatedEvent {
@@ -3007,14 +3305,16 @@ input ArrayTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -3022,8 +3322,9 @@ input ArrayTypeUpdateInput {
   fieldRefs: [ArrayTypeFieldRefsUpdateFieldInput!]
   id: ID
   itemType: ArrayTypeItemTypeUpdateFieldInput
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: ArrayTypeOwnerUpdateFieldInput
 }
 
 type ArrayTypeUpdatedEvent {
@@ -3039,11 +3340,11 @@ type ArrayTypeUserOwnerAggregationSelection {
 }
 
 type ArrayTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input ArrayTypeWhere {
@@ -3097,8 +3398,11 @@ input ArrayTypeWhere {
   id_IN: [ID!]
   id_MATCHES: String
   id_STARTS_WITH: ID
+  itemType: IBaseTypeWhere
+  itemTypeAggregate: ArrayTypeItemTypeAggregateInput
   itemTypeConnection: ArrayTypeItemTypeConnectionWhere
   itemTypeConnection_NOT: ArrayTypeItemTypeConnectionWhere
+  itemType_NOT: IBaseTypeWhere
   kind: TypeKind
   kind_IN: [TypeKind!]
   name: String
@@ -3220,12 +3524,12 @@ type Atom implements WithOwner {
 
 type AtomAggregateSelection {
   count: Int!
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  externalCssSource: StringAggregateSelection!
+  externalJsSource: StringAggregateSelection!
+  externalSourceType: StringAggregateSelection!
+  icon: StringAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AtomApiAggregateInput {
@@ -3339,12 +3643,12 @@ type AtomAtomRequiredParentsAggregationSelection {
 }
 
 type AtomAtomRequiredParentsNodeAggregateSelection {
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  externalCssSource: StringAggregateSelection!
+  externalJsSource: StringAggregateSelection!
+  externalSourceType: StringAggregateSelection!
+  icon: StringAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 type AtomAtomSuggestedChildrenAggregationSelection {
@@ -3353,18 +3657,18 @@ type AtomAtomSuggestedChildrenAggregationSelection {
 }
 
 type AtomAtomSuggestedChildrenNodeAggregateSelection {
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  externalCssSource: StringAggregateSelection!
+  externalJsSource: StringAggregateSelection!
+  externalSourceType: StringAggregateSelection!
+  icon: StringAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AtomConnectInput {
   api: AtomApiConnectFieldInput
   elements: [AtomElementsConnectFieldInput!]
-  owner: WithOwnerOwnerConnectFieldInput
+  owner: AtomOwnerConnectFieldInput
   requiredParents: [AtomRequiredParentsConnectFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenConnectFieldInput!]
   tags: [AtomTagsConnectFieldInput!]
@@ -3372,7 +3676,7 @@ input AtomConnectInput {
 
 input AtomConnectOrCreateInput {
   elements: [AtomElementsConnectOrCreateFieldInput!]
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
+  owner: AtomOwnerConnectOrCreateFieldInput
   requiredParents: [AtomRequiredParentsConnectOrCreateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenConnectOrCreateFieldInput!]
   tags: [AtomTagsConnectOrCreateFieldInput!]
@@ -3404,7 +3708,7 @@ input AtomCreateInput {
   icon: String
   id: ID!
   name: String!
-  owner: WithOwnerOwnerFieldInput
+  owner: AtomOwnerFieldInput
   requiredParents: AtomRequiredParentsFieldInput
   suggestedChildren: AtomSuggestedChildrenFieldInput
   tags: AtomTagsFieldInput
@@ -3452,12 +3756,12 @@ type AtomElementElementsAggregationSelection {
 }
 
 type AtomElementElementsNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 input AtomElementsAggregateInput {
@@ -3652,8 +3956,8 @@ type AtomInterfaceTypeApiAggregationSelection {
 }
 
 type AtomInterfaceTypeApiNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AtomOnCreateInput {
@@ -3688,8 +3992,37 @@ input AtomOwnerAggregateInput {
   node: AtomOwnerNodeAggregationWhereInput
 }
 
+input AtomOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input AtomOwnerConnectOrCreateFieldInput {
+  onCreate: AtomOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input AtomOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type AtomOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input AtomOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input AtomOwnerFieldInput {
+  connect: AtomOwnerConnectFieldInput
+  connectOrCreate: AtomOwnerConnectOrCreateFieldInput
+  create: AtomOwnerCreateFieldInput
 }
 
 input AtomOwnerNodeAggregationWhereInput {
@@ -3762,10 +4095,24 @@ input AtomOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input AtomOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input AtomOwnerUpdateFieldInput {
+  connect: AtomOwnerConnectFieldInput
+  connectOrCreate: AtomOwnerConnectOrCreateFieldInput
+  create: AtomOwnerCreateFieldInput
+  delete: WithOwnerOwnerDeleteFieldInput
+  disconnect: WithOwnerOwnerDisconnectFieldInput
+  update: AtomOwnerUpdateConnectionInput
+  where: WithOwnerOwnerConnectionWhere
+}
+
 input AtomRelationInput {
   api: AtomApiCreateFieldInput
   elements: [AtomElementsCreateFieldInput!]
-  owner: WithOwnerOwnerCreateFieldInput
+  owner: AtomOwnerCreateFieldInput
   requiredParents: [AtomRequiredParentsCreateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenCreateFieldInput!]
   tags: [AtomTagsCreateFieldInput!]
@@ -4009,34 +4356,40 @@ input AtomSubscriptionWhere {
   externalCssSource_CONTAINS: String
   externalCssSource_ENDS_WITH: String
   externalCssSource_IN: [String]
+  externalCssSource_MATCHES: String
   externalCssSource_STARTS_WITH: String
   externalJsSource: String
   externalJsSource_CONTAINS: String
   externalJsSource_ENDS_WITH: String
   externalJsSource_IN: [String]
+  externalJsSource_MATCHES: String
   externalJsSource_STARTS_WITH: String
   externalSourceType: String
   externalSourceType_CONTAINS: String
   externalSourceType_ENDS_WITH: String
   externalSourceType_IN: [String]
+  externalSourceType_MATCHES: String
   externalSourceType_STARTS_WITH: String
   icon: String
   icon_CONTAINS: String
   icon_ENDS_WITH: String
   icon_IN: [String]
+  icon_MATCHES: String
   icon_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   type: AtomType
-  type_IN: [AtomType]
+  type_IN: [AtomType!]
 }
 
 input AtomSuggestedChildrenAggregateInput {
@@ -4221,8 +4574,8 @@ type AtomTagTagsAggregationSelection {
 }
 
 type AtomTagTagsNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AtomTagsAggregateInput {
@@ -4740,7 +5093,7 @@ input AtomUpdateInput {
   icon: String
   id: ID
   name: String
-  owner: WithOwnerOwnerUpdateFieldInput
+  owner: AtomOwnerUpdateFieldInput
   requiredParents: [AtomRequiredParentsUpdateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenUpdateFieldInput!]
   tags: [AtomTagsUpdateFieldInput!]
@@ -4760,11 +5113,11 @@ type AtomUserOwnerAggregationSelection {
 }
 
 type AtomUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input AtomWhere {
@@ -5043,9 +5396,9 @@ type AuthGuard implements WithOwner {
 
 type AuthGuardAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-  responseTransformer: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  responseTransformer: StringAggregateSelection!
 }
 
 input AuthGuardConfigAggregateInput {
@@ -5162,13 +5515,13 @@ input AuthGuardConfigUpdateFieldInput {
 
 input AuthGuardConnectInput {
   config: AuthGuardConfigConnectFieldInput
-  owner: WithOwnerOwnerConnectFieldInput
+  owner: AuthGuardOwnerConnectFieldInput
   resource: AuthGuardResourceConnectFieldInput
 }
 
 input AuthGuardConnectOrCreateInput {
   config: AuthGuardConfigConnectOrCreateFieldInput
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
+  owner: AuthGuardOwnerConnectOrCreateFieldInput
   resource: AuthGuardResourceConnectOrCreateFieldInput
 }
 
@@ -5190,7 +5543,7 @@ input AuthGuardCreateInput {
   config: AuthGuardConfigFieldInput
   id: ID!
   name: String!
-  owner: WithOwnerOwnerFieldInput
+  owner: AuthGuardOwnerFieldInput
   resource: AuthGuardResourceFieldInput
   responseTransformer: String!
 }
@@ -5258,8 +5611,37 @@ input AuthGuardOwnerAggregateInput {
   node: AuthGuardOwnerNodeAggregationWhereInput
 }
 
+input AuthGuardOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input AuthGuardOwnerConnectOrCreateFieldInput {
+  onCreate: AuthGuardOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input AuthGuardOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type AuthGuardOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input AuthGuardOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input AuthGuardOwnerFieldInput {
+  connect: AuthGuardOwnerConnectFieldInput
+  connectOrCreate: AuthGuardOwnerConnectOrCreateFieldInput
+  create: AuthGuardOwnerCreateFieldInput
 }
 
 input AuthGuardOwnerNodeAggregationWhereInput {
@@ -5332,19 +5714,33 @@ input AuthGuardOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input AuthGuardOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input AuthGuardOwnerUpdateFieldInput {
+  connect: AuthGuardOwnerConnectFieldInput
+  connectOrCreate: AuthGuardOwnerConnectOrCreateFieldInput
+  create: AuthGuardOwnerCreateFieldInput
+  delete: WithOwnerOwnerDeleteFieldInput
+  disconnect: WithOwnerOwnerDisconnectFieldInput
+  update: AuthGuardOwnerUpdateConnectionInput
+  where: WithOwnerOwnerConnectionWhere
+}
+
 type AuthGuardPropConfigAggregationSelection {
   count: Int!
   node: AuthGuardPropConfigNodeAggregateSelection
 }
 
 type AuthGuardPropConfigNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  data: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input AuthGuardRelationInput {
   config: AuthGuardConfigCreateFieldInput
-  owner: WithOwnerOwnerCreateFieldInput
+  owner: AuthGuardOwnerCreateFieldInput
   resource: AuthGuardResourceCreateFieldInput
 }
 
@@ -5494,8 +5890,8 @@ type AuthGuardResourceResourceAggregationSelection {
 }
 
 type AuthGuardResourceResourceNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AuthGuardResourceUpdateConnectionInput {
@@ -5528,17 +5924,20 @@ input AuthGuardSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   responseTransformer: String
   responseTransformer_CONTAINS: String
   responseTransformer_ENDS_WITH: String
-  responseTransformer_IN: [String]
+  responseTransformer_IN: [String!]
+  responseTransformer_MATCHES: String
   responseTransformer_STARTS_WITH: String
 }
 
@@ -5550,7 +5949,7 @@ input AuthGuardUpdateInput {
   config: AuthGuardConfigUpdateFieldInput
   id: ID
   name: String
-  owner: WithOwnerOwnerUpdateFieldInput
+  owner: AuthGuardOwnerUpdateFieldInput
   resource: AuthGuardResourceUpdateFieldInput
   responseTransformer: String
 }
@@ -5568,11 +5967,11 @@ type AuthGuardUserOwnerAggregationSelection {
 }
 
 type AuthGuardUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input AuthGuardWhere {
@@ -5621,28 +6020,18 @@ type AuthGuardsConnection {
 }
 
 interface BaseAction {
-  element(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element
+  element(options: ElementOptions, where: ElementWhere): Element
   elementConnection(
     after: String
-    directed: Boolean = true
     first: Int
     sort: [BaseActionElementConnectionSort!]
     where: BaseActionElementConnectionWhere
   ): BaseActionElementConnection!
   id: ID!
   name: String!
-  store(
-    directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): Store!
+  store(options: StoreOptions, where: StoreWhere): Store!
   storeConnection(
     after: String
-    directed: Boolean = true
     first: Int
     sort: [BaseActionStoreConnectionSort!]
     where: BaseActionStoreConnectionWhere
@@ -5650,8 +6039,13 @@ interface BaseAction {
   type: ActionKind!
 }
 
+type BaseActionAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
 input BaseActionConnectInput {
-  _on: BaseActionImplementationsConnectInput
   element: BaseActionElementConnectFieldInput
   store: BaseActionStoreConnectFieldInput
 }
@@ -5666,15 +6060,18 @@ input BaseActionCreateInput {
 }
 
 input BaseActionDeleteInput {
-  _on: BaseActionImplementationsDeleteInput
   element: BaseActionElementDeleteFieldInput
   store: BaseActionStoreDeleteFieldInput
 }
 
 input BaseActionDisconnectInput {
-  _on: BaseActionImplementationsDisconnectInput
   element: BaseActionElementDisconnectFieldInput
   store: BaseActionStoreDisconnectFieldInput
+}
+
+type BaseActionEdge {
+  cursor: String!
+  node: BaseAction!
 }
 
 input BaseActionElementAggregateInput {
@@ -5737,12 +6134,6 @@ input BaseActionElementDeleteFieldInput {
 input BaseActionElementDisconnectFieldInput {
   disconnect: ElementDisconnectInput
   where: BaseActionElementConnectionWhere
-}
-
-input BaseActionElementFieldInput {
-  connect: BaseActionElementConnectFieldInput
-  connectOrCreate: BaseActionElementConnectOrCreateFieldInput
-  create: BaseActionElementCreateFieldInput
 }
 
 input BaseActionElementNodeAggregationWhereInput {
@@ -5851,34 +6242,9 @@ interface BaseActionEventPayload {
   type: ActionKind!
 }
 
-input BaseActionImplementationsConnectInput {
-  ApiAction: [ApiActionConnectInput!]
-  CodeAction: [CodeActionConnectInput!]
-}
-
-input BaseActionImplementationsDeleteInput {
-  ApiAction: [ApiActionDeleteInput!]
-  CodeAction: [CodeActionDeleteInput!]
-}
-
-input BaseActionImplementationsDisconnectInput {
-  ApiAction: [ApiActionDisconnectInput!]
-  CodeAction: [CodeActionDisconnectInput!]
-}
-
-input BaseActionImplementationsSubscriptionWhere {
-  ApiAction: ApiActionSubscriptionWhere
-  CodeAction: CodeActionSubscriptionWhere
-}
-
-input BaseActionImplementationsUpdateInput {
-  ApiAction: ApiActionUpdateInput
-  CodeAction: CodeActionUpdateInput
-}
-
-input BaseActionImplementationsWhere {
-  ApiAction: ApiActionWhere
-  CodeAction: CodeActionWhere
+enum BaseActionImplementation {
+  ApiAction
+  CodeAction
 }
 
 input BaseActionOptions {
@@ -5962,12 +6328,6 @@ input BaseActionStoreDisconnectFieldInput {
   where: BaseActionStoreConnectionWhere
 }
 
-input BaseActionStoreFieldInput {
-  connect: BaseActionStoreConnectFieldInput
-  connectOrCreate: BaseActionStoreConnectOrCreateFieldInput
-  create: BaseActionStoreCreateFieldInput
-}
-
 input BaseActionStoreNodeAggregationWhereInput {
   AND: [BaseActionStoreNodeAggregationWhereInput!]
   NOT: BaseActionStoreNodeAggregationWhereInput
@@ -6012,23 +6372,24 @@ input BaseActionSubscriptionWhere {
   AND: [BaseActionSubscriptionWhere!]
   NOT: BaseActionSubscriptionWhere
   OR: [BaseActionSubscriptionWhere!]
-  _on: BaseActionImplementationsSubscriptionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   type: ActionKind
-  type_IN: [ActionKind]
+  type_IN: [ActionKind!]
+  typename_IN: [BaseActionImplementation!]
 }
 
 input BaseActionUpdateInput {
-  _on: BaseActionImplementationsUpdateInput
   element: BaseActionElementUpdateFieldInput
   id: ID
   name: String
@@ -6036,7 +6397,9 @@ input BaseActionUpdateInput {
 }
 
 input BaseActionWhere {
-  _on: BaseActionImplementationsWhere
+  AND: [BaseActionWhere!]
+  NOT: BaseActionWhere
+  OR: [BaseActionWhere!]
   element: ElementWhere
   elementAggregate: BaseActionElementAggregateInput
   elementConnection: BaseActionElementConnectionWhere
@@ -6046,11 +6409,13 @@ input BaseActionWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   store: StoreWhere
   storeAggregate: BaseActionStoreAggregateInput
@@ -6059,6 +6424,13 @@ input BaseActionWhere {
   store_NOT: StoreWhere
   type: ActionKind
   type_IN: [ActionKind!]
+  typename_IN: [BaseActionImplementation!]
+}
+
+type BaseActionsConnection {
+  edges: [BaseActionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 input BaseTypesWhere {
@@ -6108,20 +6480,20 @@ type CodeAction implements BaseAction {
 }
 
 type CodeActionAggregateSelection {
-  code: StringAggregateSelectionNonNullable!
+  code: StringAggregateSelection!
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input CodeActionConnectInput {
-  element: BaseActionElementConnectFieldInput
-  store: BaseActionStoreConnectFieldInput
+  element: CodeActionElementConnectFieldInput
+  store: CodeActionStoreConnectFieldInput
 }
 
 input CodeActionConnectOrCreateInput {
-  element: BaseActionElementConnectOrCreateFieldInput
-  store: BaseActionStoreConnectOrCreateFieldInput
+  element: CodeActionElementConnectOrCreateFieldInput
+  store: CodeActionStoreConnectOrCreateFieldInput
 }
 
 input CodeActionConnectWhere {
@@ -6135,10 +6507,10 @@ type CodeActionConnectedRelationships {
 
 input CodeActionCreateInput {
   code: String!
-  element: BaseActionElementFieldInput
+  element: CodeActionElementFieldInput
   id: ID!
   name: String!
-  store: BaseActionStoreFieldInput
+  store: CodeActionStoreFieldInput
   type: ActionKind! = CodeAction
 }
 
@@ -6181,8 +6553,31 @@ input CodeActionElementAggregateInput {
   node: CodeActionElementNodeAggregationWhereInput
 }
 
+input CodeActionElementConnectFieldInput {
+  connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input CodeActionElementConnectOrCreateFieldInput {
+  onCreate: CodeActionElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input CodeActionElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
 type CodeActionElementConnectedRelationship {
   node: ElementEventPayload!
+}
+
+input CodeActionElementCreateFieldInput {
+  node: ElementCreateInput!
 }
 
 type CodeActionElementElementAggregationSelection {
@@ -6191,12 +6586,18 @@ type CodeActionElementElementAggregationSelection {
 }
 
 type CodeActionElementElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
+}
+
+input CodeActionElementFieldInput {
+  connect: CodeActionElementConnectFieldInput
+  connectOrCreate: CodeActionElementConnectOrCreateFieldInput
+  create: CodeActionElementCreateFieldInput
 }
 
 input CodeActionElementNodeAggregationWhereInput {
@@ -6284,17 +6685,27 @@ input CodeActionElementRelationshipSubscriptionWhere {
   node: ElementSubscriptionWhere
 }
 
+input CodeActionElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input CodeActionElementUpdateFieldInput {
+  connect: CodeActionElementConnectFieldInput
+  connectOrCreate: CodeActionElementConnectOrCreateFieldInput
+  create: CodeActionElementCreateFieldInput
+  delete: BaseActionElementDeleteFieldInput
+  disconnect: BaseActionElementDisconnectFieldInput
+  update: CodeActionElementUpdateConnectionInput
+  where: BaseActionElementConnectionWhere
+}
+
 type CodeActionEventPayload implements BaseActionEventPayload {
   """
   Code to run when action is triggered
   """
   code: String!
-  element: Element
-  elementConnection: BaseActionElementConnection!
   id: ID!
   name: String!
-  store: Store!
-  storeConnection: BaseActionStoreConnection!
   type: ActionKind!
 }
 
@@ -6309,8 +6720,8 @@ input CodeActionOptions {
 }
 
 input CodeActionRelationInput {
-  element: BaseActionElementCreateFieldInput
-  store: BaseActionStoreCreateFieldInput
+  element: CodeActionElementCreateFieldInput
+  store: CodeActionStoreCreateFieldInput
 }
 
 type CodeActionRelationshipCreatedEvent {
@@ -6372,8 +6783,37 @@ input CodeActionStoreAggregateInput {
   node: CodeActionStoreNodeAggregationWhereInput
 }
 
+input CodeActionStoreConnectFieldInput {
+  connect: StoreConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: StoreConnectWhere
+}
+
+input CodeActionStoreConnectOrCreateFieldInput {
+  onCreate: CodeActionStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input CodeActionStoreConnectOrCreateFieldInputOnCreate {
+  node: StoreOnCreateInput!
+}
+
 type CodeActionStoreConnectedRelationship {
   node: StoreEventPayload!
+}
+
+input CodeActionStoreCreateFieldInput {
+  node: StoreCreateInput!
+}
+
+input CodeActionStoreFieldInput {
+  connect: CodeActionStoreConnectFieldInput
+  connectOrCreate: CodeActionStoreConnectOrCreateFieldInput
+  create: CodeActionStoreCreateFieldInput
 }
 
 input CodeActionStoreNodeAggregationWhereInput {
@@ -6407,8 +6847,22 @@ type CodeActionStoreStoreAggregationSelection {
 }
 
 type CodeActionStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input CodeActionStoreUpdateConnectionInput {
+  node: StoreUpdateInput
+}
+
+input CodeActionStoreUpdateFieldInput {
+  connect: CodeActionStoreConnectFieldInput
+  connectOrCreate: CodeActionStoreConnectOrCreateFieldInput
+  create: CodeActionStoreCreateFieldInput
+  delete: BaseActionStoreDeleteFieldInput
+  disconnect: BaseActionStoreDisconnectFieldInput
+  update: CodeActionStoreUpdateConnectionInput
+  where: BaseActionStoreConnectionWhere
 }
 
 input CodeActionSubscriptionWhere {
@@ -6418,28 +6872,32 @@ input CodeActionSubscriptionWhere {
   code: String
   code_CONTAINS: String
   code_ENDS_WITH: String
-  code_IN: [String]
+  code_IN: [String!]
+  code_MATCHES: String
   code_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   type: ActionKind
-  type_IN: [ActionKind]
+  type_IN: [ActionKind!]
 }
 
 input CodeActionUpdateInput {
   code: String
-  element: BaseActionElementUpdateFieldInput
+  element: CodeActionElementUpdateFieldInput
   id: ID
   name: String
-  store: BaseActionStoreUpdateFieldInput
+  store: CodeActionStoreUpdateFieldInput
+  type: ActionKind
 }
 
 type CodeActionUpdatedEvent {
@@ -6524,16 +6982,16 @@ type CodeMirrorType implements IBaseType {
 
 type CodeMirrorTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input CodeMirrorTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: CodeMirrorTypeOwnerConnectFieldInput
 }
 
 input CodeMirrorTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: CodeMirrorTypeOwnerConnectOrCreateFieldInput
 }
 
 input CodeMirrorTypeConnectWhere {
@@ -6549,7 +7007,7 @@ input CodeMirrorTypeCreateInput {
   kind: TypeKind! = CodeMirrorType
   language: CodeMirrorLanguage!
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: CodeMirrorTypeOwnerFieldInput
 }
 
 type CodeMirrorTypeCreatedEvent {
@@ -6582,8 +7040,6 @@ type CodeMirrorTypeEventPayload implements IBaseTypeEventPayload {
   kind: TypeKind!
   language: CodeMirrorLanguage!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input CodeMirrorTypeOptions {
@@ -6608,8 +7064,37 @@ input CodeMirrorTypeOwnerAggregateInput {
   node: CodeMirrorTypeOwnerNodeAggregationWhereInput
 }
 
+input CodeMirrorTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input CodeMirrorTypeOwnerConnectOrCreateFieldInput {
+  onCreate: CodeMirrorTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input CodeMirrorTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type CodeMirrorTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input CodeMirrorTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input CodeMirrorTypeOwnerFieldInput {
+  connect: CodeMirrorTypeOwnerConnectFieldInput
+  connectOrCreate: CodeMirrorTypeOwnerConnectOrCreateFieldInput
+  create: CodeMirrorTypeOwnerCreateFieldInput
 }
 
 input CodeMirrorTypeOwnerNodeAggregationWhereInput {
@@ -6682,8 +7167,22 @@ input CodeMirrorTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input CodeMirrorTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input CodeMirrorTypeOwnerUpdateFieldInput {
+  connect: CodeMirrorTypeOwnerConnectFieldInput
+  connectOrCreate: CodeMirrorTypeOwnerConnectOrCreateFieldInput
+  create: CodeMirrorTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: CodeMirrorTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input CodeMirrorTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: CodeMirrorTypeOwnerCreateFieldInput
 }
 
 type CodeMirrorTypeRelationshipCreatedEvent {
@@ -6739,24 +7238,27 @@ input CodeMirrorTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   language: CodeMirrorLanguage
-  language_IN: [CodeMirrorLanguage]
+  language_IN: [CodeMirrorLanguage!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
 input CodeMirrorTypeUpdateInput {
   id: ID
+  kind: TypeKind
   language: CodeMirrorLanguage
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: CodeMirrorTypeOwnerUpdateFieldInput
 }
 
 type CodeMirrorTypeUpdatedEvent {
@@ -6772,11 +7274,11 @@ type CodeMirrorTypeUserOwnerAggregationSelection {
 }
 
 type CodeMirrorTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input CodeMirrorTypeWhere {
@@ -7005,14 +7507,14 @@ input ComponentApiUpdateFieldInput {
 
 input ComponentConnectInput {
   api: ComponentApiConnectFieldInput
-  owner: WithOwnerOwnerConnectFieldInput
+  owner: ComponentOwnerConnectFieldInput
   props: ComponentPropsConnectFieldInput
   rootElement: ComponentRootElementConnectFieldInput
   store: ComponentStoreConnectFieldInput
 }
 
 input ComponentConnectOrCreateInput {
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
+  owner: ComponentOwnerConnectOrCreateFieldInput
   props: ComponentPropsConnectOrCreateFieldInput
   rootElement: ComponentRootElementConnectOrCreateFieldInput
   store: ComponentStoreConnectOrCreateFieldInput
@@ -7083,12 +7585,12 @@ type ComponentElementRootElementAggregationSelection {
 }
 
 type ComponentElementRootElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type ComponentEventPayload {
@@ -7104,8 +7606,8 @@ type ComponentInterfaceTypeApiAggregationSelection {
 }
 
 type ComponentInterfaceTypeApiNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ComponentOnCreateInput {
@@ -7135,8 +7637,37 @@ input ComponentOwnerAggregateInput {
   node: ComponentOwnerNodeAggregationWhereInput
 }
 
+input ComponentOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input ComponentOwnerConnectOrCreateFieldInput {
+  onCreate: ComponentOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input ComponentOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type ComponentOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input ComponentOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input ComponentOwnerFieldInput {
+  connect: ComponentOwnerConnectFieldInput
+  connectOrCreate: ComponentOwnerConnectOrCreateFieldInput
+  create: ComponentOwnerCreateFieldInput
 }
 
 input ComponentOwnerNodeAggregationWhereInput {
@@ -7209,14 +7740,28 @@ input ComponentOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input ComponentOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input ComponentOwnerUpdateFieldInput {
+  connect: ComponentOwnerConnectFieldInput
+  connectOrCreate: ComponentOwnerConnectOrCreateFieldInput
+  create: ComponentOwnerCreateFieldInput
+  delete: WithOwnerOwnerDeleteFieldInput
+  disconnect: WithOwnerOwnerDisconnectFieldInput
+  update: ComponentOwnerUpdateConnectionInput
+  where: WithOwnerOwnerConnectionWhere
+}
+
 type ComponentPropPropsAggregationSelection {
   count: Int!
   node: ComponentPropPropsNodeAggregateSelection
 }
 
 type ComponentPropPropsNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  data: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input ComponentPropsAggregateInput {
@@ -7333,7 +7878,7 @@ input ComponentPropsUpdateFieldInput {
 
 input ComponentRelationInput {
   api: ComponentApiCreateFieldInput
-  owner: WithOwnerOwnerCreateFieldInput
+  owner: ComponentOwnerCreateFieldInput
   props: ComponentPropsCreateFieldInput
   rootElement: ComponentRootElementCreateFieldInput
   store: ComponentStoreCreateFieldInput
@@ -7671,8 +8216,8 @@ type ComponentStoreStoreAggregationSelection {
 }
 
 type ComponentStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ComponentStoreUpdateConnectionInput {
@@ -7701,12 +8246,14 @@ input ComponentSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   slug: String
   slug_CONTAINS: String
@@ -7743,11 +8290,11 @@ type ComponentUserOwnerAggregationSelection {
 }
 
 type ComponentUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input ComponentWhere {
@@ -7800,6 +8347,11 @@ type ComponentsConnection {
 }
 
 union ContainerNode = Component | Page
+
+input ContainerNodeWhere {
+  Component: ComponentWhere
+  Page: PageWhere
+}
 
 type CreateActionTypesMutationResponse {
   actionTypes: [ActionType!]!
@@ -8015,8 +8567,8 @@ type Domain {
 
 type DomainAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input DomainAppAggregateInput {
@@ -8037,8 +8589,8 @@ type DomainAppAppAggregationSelection {
 }
 
 type DomainAppAppNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input DomainAppConnectFieldInput {
@@ -8271,12 +8823,14 @@ input DomainSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -8447,6 +9001,10 @@ type Element {
     options: BaseActionOptions
     where: BaseActionWhere
   ): BaseAction
+  postRenderActionAggregate(
+    directed: Boolean = true
+    where: BaseActionWhere
+  ): ElementBaseActionPostRenderActionAggregationSelection
   postRenderActionConnection(
     after: String
     directed: Boolean = true
@@ -8459,6 +9017,10 @@ type Element {
     options: BaseActionOptions
     where: BaseActionWhere
   ): BaseAction
+  preRenderActionAggregate(
+    directed: Boolean = true
+    where: BaseActionWhere
+  ): ElementBaseActionPreRenderActionAggregationSelection
   preRenderActionConnection(
     after: String
     directed: Boolean = true
@@ -8513,13 +9075,33 @@ type Element {
 }
 
 type ElementAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
+}
+
+type ElementBaseActionPostRenderActionAggregationSelection {
+  count: Int!
+  node: ElementBaseActionPostRenderActionNodeAggregateSelection
+}
+
+type ElementBaseActionPostRenderActionNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+type ElementBaseActionPreRenderActionAggregationSelection {
+  count: Int!
+  node: ElementBaseActionPreRenderActionNodeAggregateSelection
+}
+
+type ElementBaseActionPreRenderActionNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ElementChildMapperComponentAggregateInput {
@@ -8960,12 +9542,12 @@ type ElementElementChildMapperPreviousSiblingAggregationSelection {
 }
 
 type ElementElementChildMapperPreviousSiblingNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type ElementElementFirstChildAggregationSelection {
@@ -8974,12 +9556,12 @@ type ElementElementFirstChildAggregationSelection {
 }
 
 type ElementElementFirstChildNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type ElementElementNextSiblingAggregationSelection {
@@ -8988,12 +9570,12 @@ type ElementElementNextSiblingAggregationSelection {
 }
 
 type ElementElementNextSiblingNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type ElementElementParentElementAggregationSelection {
@@ -9002,12 +9584,12 @@ type ElementElementParentElementAggregationSelection {
 }
 
 type ElementElementParentElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type ElementElementPrevSiblingAggregationSelection {
@@ -9016,22 +9598,20 @@ type ElementElementPrevSiblingAggregationSelection {
 }
 
 type ElementElementPrevSiblingNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type ElementEventPayload {
   childMapperPropKey: String
   compositeKey: String!
   id: ID!
-  name: String!
   renderForEachPropKey: String
   renderIfExpression: String
-  slug: String!
   style: String
   tailwindClassNames: [String!]
 }
@@ -9522,9 +10102,9 @@ type ElementPagePageAggregationSelection {
 }
 
 type ElementPagePageNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  urlPattern: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  urlPattern: StringAggregateSelection!
 }
 
 type ElementPageRelationship {
@@ -9842,6 +10422,18 @@ input ElementParentElementUpdateFieldInput {
   where: ElementParentElementConnectionWhere
 }
 
+input ElementPostRenderActionAggregateInput {
+  AND: [ElementPostRenderActionAggregateInput!]
+  NOT: ElementPostRenderActionAggregateInput
+  OR: [ElementPostRenderActionAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementPostRenderActionNodeAggregationWhereInput
+}
+
 input ElementPostRenderActionConnectFieldInput {
   connect: BaseActionConnectInput
   where: BaseActionConnectWhere
@@ -9887,6 +10479,27 @@ input ElementPostRenderActionFieldInput {
   create: ElementPostRenderActionCreateFieldInput
 }
 
+input ElementPostRenderActionNodeAggregationWhereInput {
+  AND: [ElementPostRenderActionNodeAggregationWhereInput!]
+  NOT: ElementPostRenderActionNodeAggregationWhereInput
+  OR: [ElementPostRenderActionNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
 type ElementPostRenderActionRelationship {
   cursor: String!
   node: BaseAction!
@@ -9907,6 +10520,18 @@ input ElementPostRenderActionUpdateFieldInput {
   disconnect: ElementPostRenderActionDisconnectFieldInput
   update: ElementPostRenderActionUpdateConnectionInput
   where: ElementPostRenderActionConnectionWhere
+}
+
+input ElementPreRenderActionAggregateInput {
+  AND: [ElementPreRenderActionAggregateInput!]
+  NOT: ElementPreRenderActionAggregateInput
+  OR: [ElementPreRenderActionAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementPreRenderActionNodeAggregationWhereInput
 }
 
 input ElementPreRenderActionConnectFieldInput {
@@ -9952,6 +10577,27 @@ input ElementPreRenderActionDisconnectFieldInput {
 input ElementPreRenderActionFieldInput {
   connect: ElementPreRenderActionConnectFieldInput
   create: ElementPreRenderActionCreateFieldInput
+}
+
+input ElementPreRenderActionNodeAggregationWhereInput {
+  AND: [ElementPreRenderActionNodeAggregationWhereInput!]
+  NOT: ElementPreRenderActionNodeAggregationWhereInput
+  OR: [ElementPreRenderActionNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementPreRenderActionRelationship {
@@ -10158,8 +10804,8 @@ type ElementPropPropsAggregationSelection {
 }
 
 type ElementPropPropsNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  data: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input ElementPropsAggregateInput {
@@ -10543,41 +11189,37 @@ input ElementSubscriptionWhere {
   childMapperPropKey_CONTAINS: String
   childMapperPropKey_ENDS_WITH: String
   childMapperPropKey_IN: [String]
+  childMapperPropKey_MATCHES: String
   childMapperPropKey_STARTS_WITH: String
   compositeKey: String
   compositeKey_CONTAINS: String
   compositeKey_ENDS_WITH: String
-  compositeKey_IN: [String]
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String]
-  name_STARTS_WITH: String
   renderForEachPropKey: String
   renderForEachPropKey_CONTAINS: String
   renderForEachPropKey_ENDS_WITH: String
   renderForEachPropKey_IN: [String]
+  renderForEachPropKey_MATCHES: String
   renderForEachPropKey_STARTS_WITH: String
   renderIfExpression: String
   renderIfExpression_CONTAINS: String
   renderIfExpression_ENDS_WITH: String
   renderIfExpression_IN: [String]
+  renderIfExpression_MATCHES: String
   renderIfExpression_STARTS_WITH: String
-  slug: String
-  slug_CONTAINS: String
-  slug_ENDS_WITH: String
-  slug_IN: [String]
-  slug_STARTS_WITH: String
   style: String
   style_CONTAINS: String
   style_ENDS_WITH: String
   style_IN: [String]
+  style_MATCHES: String
   style_STARTS_WITH: String
   tailwindClassNames: [String!]
   tailwindClassNames_INCLUDES: String
@@ -10617,16 +11259,16 @@ type ElementType implements IBaseType {
 
 type ElementTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ElementTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: ElementTypeOwnerConnectFieldInput
 }
 
 input ElementTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: ElementTypeOwnerConnectOrCreateFieldInput
 }
 
 input ElementTypeConnectWhere {
@@ -10642,7 +11284,7 @@ input ElementTypeCreateInput {
   id: ID!
   kind: TypeKind! = ElementType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: ElementTypeOwnerFieldInput
 }
 
 type ElementTypeCreatedEvent {
@@ -10678,8 +11320,6 @@ type ElementTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 enum ElementTypeKind {
@@ -10711,8 +11351,37 @@ input ElementTypeOwnerAggregateInput {
   node: ElementTypeOwnerNodeAggregationWhereInput
 }
 
+input ElementTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input ElementTypeOwnerConnectOrCreateFieldInput {
+  onCreate: ElementTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input ElementTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type ElementTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input ElementTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input ElementTypeOwnerFieldInput {
+  connect: ElementTypeOwnerConnectFieldInput
+  connectOrCreate: ElementTypeOwnerConnectOrCreateFieldInput
+  create: ElementTypeOwnerCreateFieldInput
 }
 
 input ElementTypeOwnerNodeAggregationWhereInput {
@@ -10785,8 +11454,22 @@ input ElementTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input ElementTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input ElementTypeOwnerUpdateFieldInput {
+  connect: ElementTypeOwnerConnectFieldInput
+  connectOrCreate: ElementTypeOwnerConnectOrCreateFieldInput
+  create: ElementTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: ElementTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input ElementTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: ElementTypeOwnerCreateFieldInput
 }
 
 type ElementTypeRelationshipCreatedEvent {
@@ -10840,26 +11523,29 @@ input ElementTypeSubscriptionWhere {
   NOT: ElementTypeSubscriptionWhere
   OR: [ElementTypeSubscriptionWhere!]
   elementKind: ElementTypeKind
-  elementKind_IN: [ElementTypeKind]
+  elementKind_IN: [ElementTypeKind!]
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: ElementTypeOwnerUpdateFieldInput
 }
 
 type ElementTypeUpdatedEvent {
@@ -10875,11 +11561,11 @@ type ElementTypeUserOwnerAggregationSelection {
 }
 
 type ElementTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input ElementTypeWhere {
@@ -11008,10 +11694,16 @@ input ElementWhere {
   parentElementConnection: ElementParentElementConnectionWhere
   parentElementConnection_NOT: ElementParentElementConnectionWhere
   parentElement_NOT: ElementWhere
+  postRenderAction: BaseActionWhere
+  postRenderActionAggregate: ElementPostRenderActionAggregateInput
   postRenderActionConnection: ElementPostRenderActionConnectionWhere
   postRenderActionConnection_NOT: ElementPostRenderActionConnectionWhere
+  postRenderAction_NOT: BaseActionWhere
+  preRenderAction: BaseActionWhere
+  preRenderActionAggregate: ElementPreRenderActionAggregateInput
   preRenderActionConnection: ElementPreRenderActionConnectionWhere
   preRenderActionConnection_NOT: ElementPreRenderActionConnectionWhere
+  preRenderAction_NOT: BaseActionWhere
   prevSibling: ElementWhere
   prevSiblingAggregate: ElementPrevSiblingAggregateInput
   prevSiblingConnection: ElementPrevSiblingConnectionWhere
@@ -11034,8 +11726,10 @@ input ElementWhere {
   renderIfExpression_IN: [String]
   renderIfExpression_MATCHES: String
   renderIfExpression_STARTS_WITH: String
+  renderType: ElementRenderTypeWhere
   renderTypeConnection: ElementRenderTypeConnectionWhere
   renderTypeConnection_NOT: ElementRenderTypeConnectionWhere
+  renderType_NOT: ElementRenderTypeWhere
   style: String
   style_CONTAINS: String
   style_ENDS_WITH: String
@@ -11109,8 +11803,8 @@ type EnumType implements IBaseType {
 
 type EnumTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input EnumTypeAllowedValuesAggregateInput {
@@ -11236,12 +11930,12 @@ input EnumTypeAllowedValuesUpdateFieldInput {
 input EnumTypeConnectInput {
   allowedValues: [EnumTypeAllowedValuesConnectFieldInput!]
   fieldRefs: [EnumTypeFieldRefsConnectFieldInput!]
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: EnumTypeOwnerConnectFieldInput
 }
 
 input EnumTypeConnectOrCreateInput {
   fieldRefs: [EnumTypeFieldRefsConnectOrCreateFieldInput!]
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: EnumTypeOwnerConnectOrCreateFieldInput
 }
 
 input EnumTypeConnectWhere {
@@ -11260,7 +11954,7 @@ input EnumTypeCreateInput {
   id: ID!
   kind: TypeKind! = EnumType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: EnumTypeOwnerFieldInput
 }
 
 type EnumTypeCreatedEvent {
@@ -11298,17 +11992,15 @@ type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
 }
 
 type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  value: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  value: StringAggregateSelection!
 }
 
 type EnumTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 type EnumTypeFieldFieldRefsAggregationSelection {
@@ -11317,12 +12009,12 @@ type EnumTypeFieldFieldRefsAggregationSelection {
 }
 
 type EnumTypeFieldFieldRefsNodeAggregateSelection {
-  defaultValues: StringAggregateSelectionNullable!
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
 }
 
 input EnumTypeFieldRefsAggregateInput {
@@ -11523,8 +12215,37 @@ input EnumTypeOwnerAggregateInput {
   node: EnumTypeOwnerNodeAggregationWhereInput
 }
 
+input EnumTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input EnumTypeOwnerConnectOrCreateFieldInput {
+  onCreate: EnumTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input EnumTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type EnumTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input EnumTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input EnumTypeOwnerFieldInput {
+  connect: EnumTypeOwnerConnectFieldInput
+  connectOrCreate: EnumTypeOwnerConnectOrCreateFieldInput
+  create: EnumTypeOwnerCreateFieldInput
 }
 
 input EnumTypeOwnerNodeAggregationWhereInput {
@@ -11597,10 +12318,24 @@ input EnumTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input EnumTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input EnumTypeOwnerUpdateFieldInput {
+  connect: EnumTypeOwnerConnectFieldInput
+  connectOrCreate: EnumTypeOwnerConnectOrCreateFieldInput
+  create: EnumTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: EnumTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input EnumTypeRelationInput {
   allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
   fieldRefs: [EnumTypeFieldRefsCreateFieldInput!]
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: EnumTypeOwnerCreateFieldInput
 }
 
 type EnumTypeRelationshipCreatedEvent {
@@ -11657,14 +12392,16 @@ input EnumTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -11672,8 +12409,9 @@ input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
   fieldRefs: [EnumTypeFieldRefsUpdateFieldInput!]
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: EnumTypeOwnerUpdateFieldInput
 }
 
 type EnumTypeUpdatedEvent {
@@ -11689,11 +12427,11 @@ type EnumTypeUserOwnerAggregationSelection {
 }
 
 type EnumTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 type EnumTypeValue {
@@ -11720,9 +12458,9 @@ type EnumTypeValue {
 
 type EnumTypeValueAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  value: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  value: StringAggregateSelection!
 }
 
 input EnumTypeValueConnectInput {
@@ -11832,8 +12570,8 @@ type EnumTypeValueEnumTypeEnumTypeAggregationSelection {
 }
 
 type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input EnumTypeValueEnumTypeFieldInput {
@@ -11956,17 +12694,20 @@ input EnumTypeValueSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   key: String
   key_CONTAINS: String
   key_ENDS_WITH: String
-  key_IN: [String]
+  key_IN: [String!]
+  key_MATCHES: String
   key_STARTS_WITH: String
   value: String
   value_CONTAINS: String
   value_ENDS_WITH: String
-  value_IN: [String]
+  value_IN: [String!]
+  value_MATCHES: String
   value_STARTS_WITH: String
 }
 
@@ -12164,6 +12905,10 @@ type Field {
     options: IBaseTypeOptions
     where: IBaseTypeWhere
   ): IBaseType!
+  fieldTypeAggregate(
+    directed: Boolean = true
+    where: IBaseTypeWhere
+  ): FieldIBaseTypeFieldTypeAggregationSelection
   fieldTypeConnection(
     after: String
     directed: Boolean = true
@@ -12211,12 +12956,12 @@ type Field {
 
 type FieldAggregateSelection {
   count: Int!
-  defaultValues: StringAggregateSelectionNullable!
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
 }
 
 input FieldApiAggregateInput {
@@ -12410,12 +13155,12 @@ type FieldFieldNextSiblingAggregationSelection {
 }
 
 type FieldFieldNextSiblingNodeAggregateSelection {
-  defaultValues: StringAggregateSelectionNullable!
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
 }
 
 type FieldFieldPrevSiblingAggregationSelection {
@@ -12424,12 +13169,24 @@ type FieldFieldPrevSiblingAggregationSelection {
 }
 
 type FieldFieldPrevSiblingNodeAggregateSelection {
-  defaultValues: StringAggregateSelectionNullable!
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input FieldFieldTypeAggregateInput {
+  AND: [FieldFieldTypeAggregateInput!]
+  NOT: FieldFieldTypeAggregateInput
+  OR: [FieldFieldTypeAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: FieldFieldTypeNodeAggregationWhereInput
 }
 
 input FieldFieldTypeConnectFieldInput {
@@ -12477,6 +13234,27 @@ input FieldFieldTypeFieldInput {
   create: FieldFieldTypeCreateFieldInput
 }
 
+input FieldFieldTypeNodeAggregationWhereInput {
+  AND: [FieldFieldTypeNodeAggregationWhereInput!]
+  NOT: FieldFieldTypeNodeAggregationWhereInput
+  OR: [FieldFieldTypeNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
 type FieldFieldTypeRelationship {
   cursor: String!
   node: IBaseType!
@@ -12499,14 +13277,24 @@ input FieldFieldTypeUpdateFieldInput {
   where: FieldFieldTypeConnectionWhere
 }
 
+type FieldIBaseTypeFieldTypeAggregationSelection {
+  count: Int!
+  node: FieldIBaseTypeFieldTypeNodeAggregateSelection
+}
+
+type FieldIBaseTypeFieldTypeNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
 type FieldInterfaceTypeApiAggregationSelection {
   count: Int!
   node: FieldInterfaceTypeApiNodeAggregateSelection
 }
 
 type FieldInterfaceTypeApiNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input FieldNextSiblingAggregateInput {
@@ -12946,31 +13734,37 @@ input FieldSubscriptionWhere {
   defaultValues_CONTAINS: String
   defaultValues_ENDS_WITH: String
   defaultValues_IN: [String]
+  defaultValues_MATCHES: String
   defaultValues_STARTS_WITH: String
   description: String
   description_CONTAINS: String
   description_ENDS_WITH: String
   description_IN: [String]
+  description_MATCHES: String
   description_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   key: String
   key_CONTAINS: String
   key_ENDS_WITH: String
-  key_IN: [String]
+  key_IN: [String!]
+  key_MATCHES: String
   key_STARTS_WITH: String
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String]
+  name_MATCHES: String
   name_STARTS_WITH: String
   validationRules: String
   validationRules_CONTAINS: String
   validationRules_ENDS_WITH: String
   validationRules_IN: [String]
+  validationRules_MATCHES: String
   validationRules_STARTS_WITH: String
 }
 
@@ -13019,8 +13813,11 @@ input FieldWhere {
   description_IN: [String]
   description_MATCHES: String
   description_STARTS_WITH: String
+  fieldType: IBaseTypeWhere
+  fieldTypeAggregate: FieldFieldTypeAggregateInput
   fieldTypeConnection: FieldFieldTypeConnectionWhere
   fieldTypeConnection_NOT: FieldFieldTypeConnectionWhere
+  fieldType_NOT: IBaseTypeWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -13076,7 +13873,7 @@ type GetBaseTypesReturn {
 
 type GetBaseTypesReturnAggregateSelection {
   count: Int!
-  totalCount: IntAggregateSelectionNonNullable!
+  totalCount: IntAggregateSelection!
 }
 
 input GetBaseTypesReturnCreateInput {
@@ -13128,7 +13925,7 @@ input GetBaseTypesReturnSubscriptionWhere {
   totalCount: Int
   totalCount_GT: Int
   totalCount_GTE: Int
-  totalCount_IN: [Int]
+  totalCount_IN: [Int!]
   totalCount_LT: Int
   totalCount_LTE: Int
 }
@@ -13203,7 +14000,7 @@ type Hook {
 
 type HookAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
 }
 
 input HookConfigAggregateInput {
@@ -13439,12 +14236,12 @@ type HookElementElementAggregationSelection {
 }
 
 type HookElementElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 input HookElementFieldInput {
@@ -13578,8 +14375,8 @@ type HookPropConfigAggregationSelection {
 }
 
 type HookPropConfigNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  data: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input HookRelationInput {
@@ -13639,10 +14436,11 @@ input HookSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   type: AtomType
-  type_IN: [AtomType]
+  type_IN: [AtomType!]
 }
 
 input HookUpdateInput {
@@ -13693,18 +14491,22 @@ interface IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  owner(options: UserOptions, where: UserWhere): User!
   ownerConnection(
     after: String
-    directed: Boolean = true
     first: Int
     sort: [IBaseTypeOwnerConnectionSort!]
     where: IBaseTypeOwnerConnectionWhere
   ): IBaseTypeOwnerConnection!
 }
 
+type IBaseTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
 input IBaseTypeConnectInput {
-  _on: IBaseTypeImplementationsConnectInput
   owner: IBaseTypeOwnerConnectFieldInput
 }
 
@@ -13730,13 +14532,16 @@ input IBaseTypeCreateInput {
 }
 
 input IBaseTypeDeleteInput {
-  _on: IBaseTypeImplementationsDeleteInput
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input IBaseTypeDisconnectInput {
-  _on: IBaseTypeImplementationsDisconnectInput
   owner: IBaseTypeOwnerDisconnectFieldInput
+}
+
+type IBaseTypeEdge {
+  cursor: String!
+  node: IBaseType!
 }
 
 interface IBaseTypeEventPayload {
@@ -13745,106 +14550,21 @@ interface IBaseTypeEventPayload {
   name: String!
 }
 
-input IBaseTypeImplementationsConnectInput {
-  ActionType: [ActionTypeConnectInput!]
-  AppType: [AppTypeConnectInput!]
-  ArrayType: [ArrayTypeConnectInput!]
-  CodeMirrorType: [CodeMirrorTypeConnectInput!]
-  ElementType: [ElementTypeConnectInput!]
-  EnumType: [EnumTypeConnectInput!]
-  InterfaceType: [InterfaceTypeConnectInput!]
-  LambdaType: [LambdaTypeConnectInput!]
-  PageType: [PageTypeConnectInput!]
-  PrimitiveType: [PrimitiveTypeConnectInput!]
-  ReactNodeType: [ReactNodeTypeConnectInput!]
-  RenderPropType: [RenderPropTypeConnectInput!]
-  RichTextType: [RichTextTypeConnectInput!]
-  UnionType: [UnionTypeConnectInput!]
-}
-
-input IBaseTypeImplementationsDeleteInput {
-  ActionType: [ActionTypeDeleteInput!]
-  AppType: [AppTypeDeleteInput!]
-  ArrayType: [ArrayTypeDeleteInput!]
-  CodeMirrorType: [CodeMirrorTypeDeleteInput!]
-  ElementType: [ElementTypeDeleteInput!]
-  EnumType: [EnumTypeDeleteInput!]
-  InterfaceType: [InterfaceTypeDeleteInput!]
-  LambdaType: [LambdaTypeDeleteInput!]
-  PageType: [PageTypeDeleteInput!]
-  PrimitiveType: [PrimitiveTypeDeleteInput!]
-  ReactNodeType: [ReactNodeTypeDeleteInput!]
-  RenderPropType: [RenderPropTypeDeleteInput!]
-  RichTextType: [RichTextTypeDeleteInput!]
-  UnionType: [UnionTypeDeleteInput!]
-}
-
-input IBaseTypeImplementationsDisconnectInput {
-  ActionType: [ActionTypeDisconnectInput!]
-  AppType: [AppTypeDisconnectInput!]
-  ArrayType: [ArrayTypeDisconnectInput!]
-  CodeMirrorType: [CodeMirrorTypeDisconnectInput!]
-  ElementType: [ElementTypeDisconnectInput!]
-  EnumType: [EnumTypeDisconnectInput!]
-  InterfaceType: [InterfaceTypeDisconnectInput!]
-  LambdaType: [LambdaTypeDisconnectInput!]
-  PageType: [PageTypeDisconnectInput!]
-  PrimitiveType: [PrimitiveTypeDisconnectInput!]
-  ReactNodeType: [ReactNodeTypeDisconnectInput!]
-  RenderPropType: [RenderPropTypeDisconnectInput!]
-  RichTextType: [RichTextTypeDisconnectInput!]
-  UnionType: [UnionTypeDisconnectInput!]
-}
-
-input IBaseTypeImplementationsSubscriptionWhere {
-  ActionType: ActionTypeSubscriptionWhere
-  AppType: AppTypeSubscriptionWhere
-  ArrayType: ArrayTypeSubscriptionWhere
-  CodeMirrorType: CodeMirrorTypeSubscriptionWhere
-  ElementType: ElementTypeSubscriptionWhere
-  EnumType: EnumTypeSubscriptionWhere
-  InterfaceType: InterfaceTypeSubscriptionWhere
-  LambdaType: LambdaTypeSubscriptionWhere
-  PageType: PageTypeSubscriptionWhere
-  PrimitiveType: PrimitiveTypeSubscriptionWhere
-  ReactNodeType: ReactNodeTypeSubscriptionWhere
-  RenderPropType: RenderPropTypeSubscriptionWhere
-  RichTextType: RichTextTypeSubscriptionWhere
-  UnionType: UnionTypeSubscriptionWhere
-}
-
-input IBaseTypeImplementationsUpdateInput {
-  ActionType: ActionTypeUpdateInput
-  AppType: AppTypeUpdateInput
-  ArrayType: ArrayTypeUpdateInput
-  CodeMirrorType: CodeMirrorTypeUpdateInput
-  ElementType: ElementTypeUpdateInput
-  EnumType: EnumTypeUpdateInput
-  InterfaceType: InterfaceTypeUpdateInput
-  LambdaType: LambdaTypeUpdateInput
-  PageType: PageTypeUpdateInput
-  PrimitiveType: PrimitiveTypeUpdateInput
-  ReactNodeType: ReactNodeTypeUpdateInput
-  RenderPropType: RenderPropTypeUpdateInput
-  RichTextType: RichTextTypeUpdateInput
-  UnionType: UnionTypeUpdateInput
-}
-
-input IBaseTypeImplementationsWhere {
-  ActionType: ActionTypeWhere
-  AppType: AppTypeWhere
-  ArrayType: ArrayTypeWhere
-  CodeMirrorType: CodeMirrorTypeWhere
-  ElementType: ElementTypeWhere
-  EnumType: EnumTypeWhere
-  InterfaceType: InterfaceTypeWhere
-  LambdaType: LambdaTypeWhere
-  PageType: PageTypeWhere
-  PrimitiveType: PrimitiveTypeWhere
-  ReactNodeType: ReactNodeTypeWhere
-  RenderPropType: RenderPropTypeWhere
-  RichTextType: RichTextTypeWhere
-  UnionType: UnionTypeWhere
+enum IBaseTypeImplementation {
+  ActionType
+  AppType
+  ArrayType
+  CodeMirrorType
+  ElementType
+  EnumType
+  InterfaceType
+  LambdaType
+  PageType
+  PrimitiveType
+  ReactNodeType
+  RenderPropType
+  RichTextType
+  UnionType
 }
 
 input IBaseTypeOptions {
@@ -13917,12 +14637,6 @@ input IBaseTypeOwnerDeleteFieldInput {
 input IBaseTypeOwnerDisconnectFieldInput {
   disconnect: UserDisconnectInput
   where: IBaseTypeOwnerConnectionWhere
-}
-
-input IBaseTypeOwnerFieldInput {
-  connect: IBaseTypeOwnerConnectFieldInput
-  connectOrCreate: IBaseTypeOwnerConnectOrCreateFieldInput
-  create: IBaseTypeOwnerCreateFieldInput
 }
 
 input IBaseTypeOwnerNodeAggregationWhereInput {
@@ -14023,34 +14737,11 @@ input IBaseTypeSubscriptionWhere {
   AND: [IBaseTypeSubscriptionWhere!]
   NOT: IBaseTypeSubscriptionWhere
   OR: [IBaseTypeSubscriptionWhere!]
-  _on: IBaseTypeImplementationsSubscriptionWhere
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID]
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String]
-  name_STARTS_WITH: String
-}
-
-input IBaseTypeUpdateInput {
-  _on: IBaseTypeImplementationsUpdateInput
-  id: ID
-  name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
-}
-
-input IBaseTypeWhere {
-  _on: IBaseTypeImplementationsWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
   kind_IN: [TypeKind!]
@@ -14058,24 +14749,59 @@ input IBaseTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  typename_IN: [IBaseTypeImplementation!]
+}
+
+input IBaseTypeUpdateInput {
+  id: ID
+  name: String
+  owner: IBaseTypeOwnerUpdateFieldInput
+}
+
+input IBaseTypeWhere {
+  AND: [IBaseTypeWhere!]
+  NOT: IBaseTypeWhere
+  OR: [IBaseTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: IBaseTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
   ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
+  typename_IN: [IBaseTypeImplementation!]
 }
 
-type IDAggregateSelectionNonNullable {
-  longest: ID!
-  shortest: ID!
+type IBaseTypesConnection {
+  edges: [IBaseTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
-type IntAggregateSelectionNonNullable {
-  average: Float!
-  max: Int!
-  min: Int!
-  sum: Int!
+type IDAggregateSelection {
+  longest: ID
+  shortest: ID
+}
+
+type IntAggregateSelection {
+  average: Float
+  max: Int
+  min: Int
+  sum: Int
 }
 
 """
@@ -14150,8 +14876,8 @@ type InterfaceType implements IBaseType & WithDescendants {
 
 type InterfaceTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input InterfaceTypeApiOfAtomsAggregateInput {
@@ -14336,26 +15062,26 @@ type InterfaceTypeAtomApiOfAtomsAggregationSelection {
 }
 
 type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  externalCssSource: StringAggregateSelection!
+  externalJsSource: StringAggregateSelection!
+  externalSourceType: StringAggregateSelection!
+  icon: StringAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input InterfaceTypeConnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
   fieldRefs: [InterfaceTypeFieldRefsConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: InterfaceTypeOwnerConnectFieldInput
 }
 
 input InterfaceTypeConnectOrCreateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
   fieldRefs: [InterfaceTypeFieldRefsConnectOrCreateFieldInput!]
   fields: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: InterfaceTypeOwnerConnectOrCreateFieldInput
 }
 
 input InterfaceTypeConnectWhere {
@@ -14376,7 +15102,7 @@ input InterfaceTypeCreateInput {
   id: ID!
   kind: TypeKind! = InterfaceType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: InterfaceTypeOwnerFieldInput
 }
 
 type InterfaceTypeCreatedEvent {
@@ -14415,8 +15141,6 @@ type InterfaceTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 type InterfaceTypeFieldFieldRefsAggregationSelection {
@@ -14425,12 +15149,12 @@ type InterfaceTypeFieldFieldRefsAggregationSelection {
 }
 
 type InterfaceTypeFieldFieldRefsNodeAggregateSelection {
-  defaultValues: StringAggregateSelectionNullable!
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
 }
 
 type InterfaceTypeFieldFieldsAggregationSelection {
@@ -14439,12 +15163,12 @@ type InterfaceTypeFieldFieldsAggregationSelection {
 }
 
 type InterfaceTypeFieldFieldsNodeAggregateSelection {
-  defaultValues: StringAggregateSelectionNullable!
-  description: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  key: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  validationRules: StringAggregateSelectionNullable!
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
 }
 
 input InterfaceTypeFieldRefsAggregateInput {
@@ -14821,8 +15545,37 @@ input InterfaceTypeOwnerAggregateInput {
   node: InterfaceTypeOwnerNodeAggregationWhereInput
 }
 
+input InterfaceTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input InterfaceTypeOwnerConnectOrCreateFieldInput {
+  onCreate: InterfaceTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input InterfaceTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type InterfaceTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input InterfaceTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input InterfaceTypeOwnerFieldInput {
+  connect: InterfaceTypeOwnerConnectFieldInput
+  connectOrCreate: InterfaceTypeOwnerConnectOrCreateFieldInput
+  create: InterfaceTypeOwnerCreateFieldInput
 }
 
 input InterfaceTypeOwnerNodeAggregationWhereInput {
@@ -14895,11 +15648,25 @@ input InterfaceTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input InterfaceTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input InterfaceTypeOwnerUpdateFieldInput {
+  connect: InterfaceTypeOwnerConnectFieldInput
+  connectOrCreate: InterfaceTypeOwnerConnectOrCreateFieldInput
+  create: InterfaceTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: InterfaceTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input InterfaceTypeRelationInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
   fieldRefs: [InterfaceTypeFieldRefsCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: InterfaceTypeOwnerCreateFieldInput
 }
 
 type InterfaceTypeRelationshipCreatedEvent {
@@ -14957,14 +15724,16 @@ input InterfaceTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -14973,8 +15742,9 @@ input InterfaceTypeUpdateInput {
   fieldRefs: [InterfaceTypeFieldRefsUpdateFieldInput!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: InterfaceTypeOwnerUpdateFieldInput
 }
 
 type InterfaceTypeUpdatedEvent {
@@ -14990,11 +15760,11 @@ type InterfaceTypeUserOwnerAggregationSelection {
 }
 
 type InterfaceTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input InterfaceTypeWhere {
@@ -15174,16 +15944,16 @@ type LambdaType implements IBaseType {
 
 type LambdaTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input LambdaTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: LambdaTypeOwnerConnectFieldInput
 }
 
 input LambdaTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: LambdaTypeOwnerConnectOrCreateFieldInput
 }
 
 input LambdaTypeConnectWhere {
@@ -15198,7 +15968,7 @@ input LambdaTypeCreateInput {
   id: ID!
   kind: TypeKind! = LambdaType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: LambdaTypeOwnerFieldInput
 }
 
 type LambdaTypeCreatedEvent {
@@ -15230,8 +16000,6 @@ type LambdaTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input LambdaTypeOptions {
@@ -15256,8 +16024,37 @@ input LambdaTypeOwnerAggregateInput {
   node: LambdaTypeOwnerNodeAggregationWhereInput
 }
 
+input LambdaTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input LambdaTypeOwnerConnectOrCreateFieldInput {
+  onCreate: LambdaTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input LambdaTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type LambdaTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input LambdaTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input LambdaTypeOwnerFieldInput {
+  connect: LambdaTypeOwnerConnectFieldInput
+  connectOrCreate: LambdaTypeOwnerConnectOrCreateFieldInput
+  create: LambdaTypeOwnerCreateFieldInput
 }
 
 input LambdaTypeOwnerNodeAggregationWhereInput {
@@ -15330,8 +16127,22 @@ input LambdaTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input LambdaTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input LambdaTypeOwnerUpdateFieldInput {
+  connect: LambdaTypeOwnerConnectFieldInput
+  connectOrCreate: LambdaTypeOwnerConnectOrCreateFieldInput
+  create: LambdaTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: LambdaTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input LambdaTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: LambdaTypeOwnerCreateFieldInput
 }
 
 type LambdaTypeRelationshipCreatedEvent {
@@ -15386,21 +16197,24 @@ input LambdaTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
 input LambdaTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: LambdaTypeOwnerUpdateFieldInput
 }
 
 type LambdaTypeUpdatedEvent {
@@ -15416,11 +16230,11 @@ type LambdaTypeUserOwnerAggregationSelection {
 }
 
 type LambdaTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input LambdaTypeWhere {
@@ -16005,10 +16819,10 @@ type Page {
 }
 
 type PageAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  urlPattern: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  urlPattern: StringAggregateSelection!
 }
 
 input PageAppAggregateInput {
@@ -16029,8 +16843,8 @@ type PageAppAppAggregationSelection {
 }
 
 type PageAppAppNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input PageAppConnectFieldInput {
@@ -16220,12 +17034,12 @@ type PageElementPageContentContainerAggregationSelection {
 }
 
 type PageElementPageContentContainerNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type PageElementRootElementAggregationSelection {
@@ -16234,20 +17048,18 @@ type PageElementRootElementAggregationSelection {
 }
 
 type PageElementRootElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 type PageEventPayload {
   compositeKey: String!
   id: ID!
   kind: PageKind!
-  name: String!
-  slug: String!
   urlPattern: String!
 }
 
@@ -16560,8 +17372,8 @@ type PageRedirectRedirectAggregationSelection {
 }
 
 type PageRedirectRedirectNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  targetUrl: StringAggregateSelectionNullable!
+  id: IDAggregateSelection!
+  targetUrl: StringAggregateSelection!
 }
 
 type PageRedirectRelationship {
@@ -16929,8 +17741,8 @@ type PageStoreStoreAggregationSelection {
 }
 
 type PageStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input PageStoreUpdateConnectionInput {
@@ -16954,29 +17766,22 @@ input PageSubscriptionWhere {
   compositeKey: String
   compositeKey_CONTAINS: String
   compositeKey_ENDS_WITH: String
-  compositeKey_IN: [String]
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: PageKind
-  kind_IN: [PageKind]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String]
-  name_STARTS_WITH: String
-  slug: String
-  slug_CONTAINS: String
-  slug_ENDS_WITH: String
-  slug_IN: [String]
-  slug_STARTS_WITH: String
+  kind_IN: [PageKind!]
   urlPattern: String
   urlPattern_CONTAINS: String
   urlPattern_ENDS_WITH: String
-  urlPattern_IN: [String]
+  urlPattern_IN: [String!]
+  urlPattern_MATCHES: String
   urlPattern_STARTS_WITH: String
 }
 
@@ -17003,16 +17808,16 @@ type PageType implements IBaseType {
 
 type PageTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input PageTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: PageTypeOwnerConnectFieldInput
 }
 
 input PageTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: PageTypeOwnerConnectOrCreateFieldInput
 }
 
 input PageTypeConnectWhere {
@@ -17027,7 +17832,7 @@ input PageTypeCreateInput {
   id: ID!
   kind: TypeKind! = PageType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: PageTypeOwnerFieldInput
 }
 
 type PageTypeCreatedEvent {
@@ -17059,8 +17864,6 @@ type PageTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input PageTypeOptions {
@@ -17085,8 +17888,37 @@ input PageTypeOwnerAggregateInput {
   node: PageTypeOwnerNodeAggregationWhereInput
 }
 
+input PageTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input PageTypeOwnerConnectOrCreateFieldInput {
+  onCreate: PageTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input PageTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type PageTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input PageTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input PageTypeOwnerFieldInput {
+  connect: PageTypeOwnerConnectFieldInput
+  connectOrCreate: PageTypeOwnerConnectOrCreateFieldInput
+  create: PageTypeOwnerCreateFieldInput
 }
 
 input PageTypeOwnerNodeAggregationWhereInput {
@@ -17159,8 +17991,22 @@ input PageTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input PageTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input PageTypeOwnerUpdateFieldInput {
+  connect: PageTypeOwnerConnectFieldInput
+  connectOrCreate: PageTypeOwnerConnectOrCreateFieldInput
+  create: PageTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: PageTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input PageTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: PageTypeOwnerCreateFieldInput
 }
 
 type PageTypeRelationshipCreatedEvent {
@@ -17215,21 +18061,24 @@ input PageTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
 input PageTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: PageTypeOwnerUpdateFieldInput
 }
 
 type PageTypeUpdatedEvent {
@@ -17245,11 +18094,11 @@ type PageTypeUserOwnerAggregationSelection {
 }
 
 type PageTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input PageTypeWhere {
@@ -17388,16 +18237,16 @@ type PrimitiveType implements IBaseType {
 
 type PrimitiveTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input PrimitiveTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: PrimitiveTypeOwnerConnectFieldInput
 }
 
 input PrimitiveTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: PrimitiveTypeOwnerConnectOrCreateFieldInput
 }
 
 input PrimitiveTypeConnectOrCreateWhere {
@@ -17416,7 +18265,7 @@ input PrimitiveTypeCreateInput {
   id: ID!
   kind: TypeKind! = PrimitiveType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: PrimitiveTypeOwnerFieldInput
   primitiveKind: PrimitiveTypeKind!
 }
 
@@ -17449,8 +18298,6 @@ type PrimitiveTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
   primitiveKind: PrimitiveTypeKind!
 }
 
@@ -17490,8 +18337,37 @@ input PrimitiveTypeOwnerAggregateInput {
   node: PrimitiveTypeOwnerNodeAggregationWhereInput
 }
 
+input PrimitiveTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input PrimitiveTypeOwnerConnectOrCreateFieldInput {
+  onCreate: PrimitiveTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input PrimitiveTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type PrimitiveTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input PrimitiveTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input PrimitiveTypeOwnerFieldInput {
+  connect: PrimitiveTypeOwnerConnectFieldInput
+  connectOrCreate: PrimitiveTypeOwnerConnectOrCreateFieldInput
+  create: PrimitiveTypeOwnerCreateFieldInput
 }
 
 input PrimitiveTypeOwnerNodeAggregationWhereInput {
@@ -17564,8 +18440,22 @@ input PrimitiveTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input PrimitiveTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input PrimitiveTypeOwnerUpdateFieldInput {
+  connect: PrimitiveTypeOwnerConnectFieldInput
+  connectOrCreate: PrimitiveTypeOwnerConnectOrCreateFieldInput
+  create: PrimitiveTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: PrimitiveTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input PrimitiveTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: PrimitiveTypeOwnerCreateFieldInput
 }
 
 type PrimitiveTypeRelationshipCreatedEvent {
@@ -17621,17 +18511,19 @@ input PrimitiveTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   primitiveKind: PrimitiveTypeKind
-  primitiveKind_IN: [PrimitiveTypeKind]
+  primitiveKind_IN: [PrimitiveTypeKind!]
 }
 
 input PrimitiveTypeUniqueWhere {
@@ -17641,8 +18533,9 @@ input PrimitiveTypeUniqueWhere {
 
 input PrimitiveTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: PrimitiveTypeOwnerUpdateFieldInput
   primitiveKind: PrimitiveTypeKind
 }
 
@@ -17659,11 +18552,11 @@ type PrimitiveTypeUserOwnerAggregationSelection {
 }
 
 type PrimitiveTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input PrimitiveTypeWhere {
@@ -17740,8 +18633,8 @@ type Prop {
 
 type PropAggregateSelection {
   count: Int!
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  data: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input PropConnectOrCreateWhere {
@@ -17809,12 +18702,14 @@ input PropSubscriptionWhere {
   data: String
   data_CONTAINS: String
   data_ENDS_WITH: String
-  data_IN: [String]
+  data_IN: [String!]
+  data_MATCHES: String
   data_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
 }
 
@@ -17870,6 +18765,8 @@ type Query {
     sort: [ActionTypeSort]
     where: ActionTypeWhere
   ): ActionTypesConnection!
+  anyActions(options: QueryOptions, where: AnyActionWhere): [AnyAction!]!
+  anyTypes(options: QueryOptions, where: AnyTypeWhere): [AnyType!]!
   apiActions(options: ApiActionOptions, where: ApiActionWhere): [ApiAction!]!
   apiActionsAggregate(where: ApiActionWhere): ApiActionAggregateSelection!
   apiActionsConnection(
@@ -17918,6 +18815,17 @@ type Query {
     sort: [AuthGuardSort]
     where: AuthGuardWhere
   ): AuthGuardsConnection!
+  baseActions(
+    options: BaseActionOptions
+    where: BaseActionWhere
+  ): [BaseAction!]!
+  baseActionsAggregate(where: BaseActionWhere): BaseActionAggregateSelection!
+  baseActionsConnection(
+    after: String
+    first: Int
+    sort: [BaseActionSort]
+    where: BaseActionWhere
+  ): BaseActionsConnection!
   baseTypes(options: GetBaseTypesOptions): GetBaseTypesReturn!
   codeActions(
     options: CodeActionOptions
@@ -17951,6 +18859,10 @@ type Query {
     sort: [ComponentSort]
     where: ComponentWhere
   ): ComponentsConnection!
+  containerNodes(
+    options: QueryOptions
+    where: ContainerNodeWhere
+  ): [ContainerNode!]!
   domains(options: DomainOptions, where: DomainWhere): [Domain!]!
   domainsAggregate(where: DomainWhere): DomainAggregateSelection!
   domainsConnection(
@@ -17959,6 +18871,10 @@ type Query {
     sort: [DomainSort]
     where: DomainWhere
   ): DomainsConnection!
+  elementRenderTypes(
+    options: QueryOptions
+    where: ElementRenderTypeWhere
+  ): [ElementRenderType!]!
   elementTypes(
     options: ElementTypeOptions
     where: ElementTypeWhere
@@ -18034,6 +18950,14 @@ type Query {
     sort: [HookSort]
     where: HookWhere
   ): HooksConnection!
+  iBaseTypes(options: IBaseTypeOptions, where: IBaseTypeWhere): [IBaseType!]!
+  iBaseTypesAggregate(where: IBaseTypeWhere): IBaseTypeAggregateSelection!
+  iBaseTypesConnection(
+    after: String
+    first: Int
+    sort: [IBaseTypeSort]
+    where: IBaseTypeWhere
+  ): IBaseTypesConnection!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -18200,6 +19124,25 @@ type Query {
     sort: [UserSort]
     where: UserWhere
   ): UsersConnection!
+  withDescendants(
+    options: WithDescendantsOptions
+    where: WithDescendantsWhere
+  ): [WithDescendants!]!
+  withDescendantsAggregate(
+    where: WithDescendantsWhere
+  ): WithDescendantsAggregateSelection!
+  withDescendantsConnection(
+    after: String
+    first: Int
+    where: WithDescendantsWhere
+  ): WithDescendantsConnection!
+  withOwners(options: WithOwnerOptions, where: WithOwnerWhere): [WithOwner!]!
+  withOwnersAggregate(where: WithOwnerWhere): WithOwnerAggregateSelection!
+  withOwnersConnection(
+    after: String
+    first: Int
+    where: WithOwnerWhere
+  ): WithOwnersConnection!
 }
 
 """
@@ -18240,16 +19183,16 @@ type ReactNodeType implements IBaseType {
 
 type ReactNodeTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ReactNodeTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: ReactNodeTypeOwnerConnectFieldInput
 }
 
 input ReactNodeTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: ReactNodeTypeOwnerConnectOrCreateFieldInput
 }
 
 input ReactNodeTypeConnectOrCreateWhere {
@@ -18268,7 +19211,7 @@ input ReactNodeTypeCreateInput {
   id: ID!
   kind: TypeKind! = ReactNodeType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: ReactNodeTypeOwnerFieldInput
 }
 
 type ReactNodeTypeCreatedEvent {
@@ -18300,8 +19243,6 @@ type ReactNodeTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input ReactNodeTypeOnCreateInput {
@@ -18332,8 +19273,37 @@ input ReactNodeTypeOwnerAggregateInput {
   node: ReactNodeTypeOwnerNodeAggregationWhereInput
 }
 
+input ReactNodeTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input ReactNodeTypeOwnerConnectOrCreateFieldInput {
+  onCreate: ReactNodeTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input ReactNodeTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type ReactNodeTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input ReactNodeTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input ReactNodeTypeOwnerFieldInput {
+  connect: ReactNodeTypeOwnerConnectFieldInput
+  connectOrCreate: ReactNodeTypeOwnerConnectOrCreateFieldInput
+  create: ReactNodeTypeOwnerCreateFieldInput
 }
 
 input ReactNodeTypeOwnerNodeAggregationWhereInput {
@@ -18406,8 +19376,22 @@ input ReactNodeTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input ReactNodeTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input ReactNodeTypeOwnerUpdateFieldInput {
+  connect: ReactNodeTypeOwnerConnectFieldInput
+  connectOrCreate: ReactNodeTypeOwnerConnectOrCreateFieldInput
+  create: ReactNodeTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: ReactNodeTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input ReactNodeTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: ReactNodeTypeOwnerCreateFieldInput
 }
 
 type ReactNodeTypeRelationshipCreatedEvent {
@@ -18462,14 +19446,16 @@ input ReactNodeTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -18479,8 +19465,9 @@ input ReactNodeTypeUniqueWhere {
 
 input ReactNodeTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: ReactNodeTypeOwnerUpdateFieldInput
 }
 
 type ReactNodeTypeUpdatedEvent {
@@ -18496,11 +19483,11 @@ type ReactNodeTypeUserOwnerAggregationSelection {
 }
 
 type ReactNodeTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input ReactNodeTypeWhere {
@@ -18590,8 +19577,8 @@ type Redirect {
 
 type RedirectAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  targetUrl: StringAggregateSelectionNullable!
+  id: IDAggregateSelection!
+  targetUrl: StringAggregateSelection!
 }
 
 input RedirectAuthGuardAggregateInput {
@@ -18612,9 +19599,9 @@ type RedirectAuthGuardAuthGuardAggregationSelection {
 }
 
 type RedirectAuthGuardAuthGuardNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-  responseTransformer: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  responseTransformer: StringAggregateSelection!
 }
 
 input RedirectAuthGuardConnectFieldInput {
@@ -18828,9 +19815,9 @@ type RedirectPageSourceAggregationSelection {
 }
 
 type RedirectPageSourceNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  urlPattern: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  urlPattern: StringAggregateSelection!
 }
 
 type RedirectPageTargetPageAggregationSelection {
@@ -18839,9 +19826,9 @@ type RedirectPageTargetPageAggregationSelection {
 }
 
 type RedirectPageTargetPageNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  urlPattern: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  urlPattern: StringAggregateSelection!
 }
 
 input RedirectRelationInput {
@@ -19035,14 +20022,16 @@ input RedirectSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   targetType: RedirectTargetType
-  targetType_IN: [RedirectTargetType]
+  targetType_IN: [RedirectTargetType!]
   targetUrl: String
   targetUrl_CONTAINS: String
   targetUrl_ENDS_WITH: String
   targetUrl_IN: [String]
+  targetUrl_MATCHES: String
   targetUrl_STARTS_WITH: String
 }
 
@@ -19281,16 +20270,16 @@ type RenderPropType implements IBaseType {
 
 type RenderPropTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input RenderPropTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: RenderPropTypeOwnerConnectFieldInput
 }
 
 input RenderPropTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: RenderPropTypeOwnerConnectOrCreateFieldInput
 }
 
 input RenderPropTypeConnectOrCreateWhere {
@@ -19309,7 +20298,7 @@ input RenderPropTypeCreateInput {
   id: ID!
   kind: TypeKind! = RenderPropType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: RenderPropTypeOwnerFieldInput
 }
 
 type RenderPropTypeCreatedEvent {
@@ -19341,8 +20330,6 @@ type RenderPropTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input RenderPropTypeOnCreateInput {
@@ -19373,8 +20360,37 @@ input RenderPropTypeOwnerAggregateInput {
   node: RenderPropTypeOwnerNodeAggregationWhereInput
 }
 
+input RenderPropTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input RenderPropTypeOwnerConnectOrCreateFieldInput {
+  onCreate: RenderPropTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input RenderPropTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type RenderPropTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input RenderPropTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input RenderPropTypeOwnerFieldInput {
+  connect: RenderPropTypeOwnerConnectFieldInput
+  connectOrCreate: RenderPropTypeOwnerConnectOrCreateFieldInput
+  create: RenderPropTypeOwnerCreateFieldInput
 }
 
 input RenderPropTypeOwnerNodeAggregationWhereInput {
@@ -19447,8 +20463,22 @@ input RenderPropTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input RenderPropTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input RenderPropTypeOwnerUpdateFieldInput {
+  connect: RenderPropTypeOwnerConnectFieldInput
+  connectOrCreate: RenderPropTypeOwnerConnectOrCreateFieldInput
+  create: RenderPropTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: RenderPropTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input RenderPropTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: RenderPropTypeOwnerCreateFieldInput
 }
 
 type RenderPropTypeRelationshipCreatedEvent {
@@ -19503,14 +20533,16 @@ input RenderPropTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -19520,8 +20552,9 @@ input RenderPropTypeUniqueWhere {
 
 input RenderPropTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: RenderPropTypeOwnerUpdateFieldInput
 }
 
 type RenderPropTypeUpdatedEvent {
@@ -19537,11 +20570,11 @@ type RenderPropTypeUserOwnerAggregationSelection {
 }
 
 type RenderPropTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input RenderPropTypeWhere {
@@ -19611,8 +20644,8 @@ type Resource implements WithOwner {
 
 type ResourceAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input ResourceConfigAggregateInput {
@@ -19729,12 +20762,12 @@ input ResourceConfigUpdateFieldInput {
 
 input ResourceConnectInput {
   config: ResourceConfigConnectFieldInput
-  owner: WithOwnerOwnerConnectFieldInput
+  owner: ResourceOwnerConnectFieldInput
 }
 
 input ResourceConnectOrCreateInput {
   config: ResourceConfigConnectOrCreateFieldInput
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
+  owner: ResourceOwnerConnectOrCreateFieldInput
 }
 
 input ResourceConnectOrCreateWhere {
@@ -19754,7 +20787,7 @@ input ResourceCreateInput {
   config: ResourceConfigFieldInput
   id: ID!
   name: String!
-  owner: WithOwnerOwnerFieldInput
+  owner: ResourceOwnerFieldInput
   type: ResourceType!
 }
 
@@ -19819,8 +20852,37 @@ input ResourceOwnerAggregateInput {
   node: ResourceOwnerNodeAggregationWhereInput
 }
 
+input ResourceOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input ResourceOwnerConnectOrCreateFieldInput {
+  onCreate: ResourceOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input ResourceOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type ResourceOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input ResourceOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input ResourceOwnerFieldInput {
+  connect: ResourceOwnerConnectFieldInput
+  connectOrCreate: ResourceOwnerConnectOrCreateFieldInput
+  create: ResourceOwnerCreateFieldInput
 }
 
 input ResourceOwnerNodeAggregationWhereInput {
@@ -19893,19 +20955,33 @@ input ResourceOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input ResourceOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input ResourceOwnerUpdateFieldInput {
+  connect: ResourceOwnerConnectFieldInput
+  connectOrCreate: ResourceOwnerConnectOrCreateFieldInput
+  create: ResourceOwnerCreateFieldInput
+  delete: WithOwnerOwnerDeleteFieldInput
+  disconnect: WithOwnerOwnerDisconnectFieldInput
+  update: ResourceOwnerUpdateConnectionInput
+  where: WithOwnerOwnerConnectionWhere
+}
+
 type ResourcePropConfigAggregationSelection {
   count: Int!
   node: ResourcePropConfigNodeAggregateSelection
 }
 
 type ResourcePropConfigNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  data: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input ResourceRelationInput {
   config: ResourceConfigCreateFieldInput
-  owner: WithOwnerOwnerCreateFieldInput
+  owner: ResourceOwnerCreateFieldInput
 }
 
 type ResourceRelationshipCreatedEvent {
@@ -19961,15 +21037,17 @@ input ResourceSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
   type: ResourceType
-  type_IN: [ResourceType]
+  type_IN: [ResourceType!]
 }
 
 enum ResourceType {
@@ -19985,7 +21063,7 @@ input ResourceUpdateInput {
   config: ResourceConfigUpdateFieldInput
   id: ID
   name: String
-  owner: WithOwnerOwnerUpdateFieldInput
+  owner: ResourceOwnerUpdateFieldInput
   type: ResourceType
 }
 
@@ -20002,11 +21080,11 @@ type ResourceUserOwnerAggregationSelection {
 }
 
 type ResourceUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input ResourceWhere {
@@ -20068,16 +21146,16 @@ type RichTextType implements IBaseType {
 
 type RichTextTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input RichTextTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: RichTextTypeOwnerConnectFieldInput
 }
 
 input RichTextTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: RichTextTypeOwnerConnectOrCreateFieldInput
 }
 
 input RichTextTypeConnectWhere {
@@ -20092,7 +21170,7 @@ input RichTextTypeCreateInput {
   id: ID!
   kind: TypeKind! = RichTextType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: RichTextTypeOwnerFieldInput
 }
 
 type RichTextTypeCreatedEvent {
@@ -20124,8 +21202,6 @@ type RichTextTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input RichTextTypeOptions {
@@ -20150,8 +21226,37 @@ input RichTextTypeOwnerAggregateInput {
   node: RichTextTypeOwnerNodeAggregationWhereInput
 }
 
+input RichTextTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input RichTextTypeOwnerConnectOrCreateFieldInput {
+  onCreate: RichTextTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input RichTextTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type RichTextTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input RichTextTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input RichTextTypeOwnerFieldInput {
+  connect: RichTextTypeOwnerConnectFieldInput
+  connectOrCreate: RichTextTypeOwnerConnectOrCreateFieldInput
+  create: RichTextTypeOwnerCreateFieldInput
 }
 
 input RichTextTypeOwnerNodeAggregationWhereInput {
@@ -20224,8 +21329,22 @@ input RichTextTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input RichTextTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input RichTextTypeOwnerUpdateFieldInput {
+  connect: RichTextTypeOwnerConnectFieldInput
+  connectOrCreate: RichTextTypeOwnerConnectOrCreateFieldInput
+  create: RichTextTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: RichTextTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input RichTextTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: RichTextTypeOwnerCreateFieldInput
 }
 
 type RichTextTypeRelationshipCreatedEvent {
@@ -20280,21 +21399,24 @@ input RichTextTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
 input RichTextTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: RichTextTypeOwnerUpdateFieldInput
 }
 
 type RichTextTypeUpdatedEvent {
@@ -20310,11 +21432,11 @@ type RichTextTypeUserOwnerAggregationSelection {
 }
 
 type RichTextTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input RichTextTypeWhere {
@@ -20553,8 +21675,8 @@ input StoreActionsUpdateInput {
 
 type StoreAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input StoreApiAggregateInput {
@@ -20725,8 +21847,8 @@ type StoreInterfaceTypeApiAggregationSelection {
 }
 
 type StoreInterfaceTypeApiNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input StoreOnCreateInput {
@@ -20801,12 +21923,14 @@ input StoreSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -20852,6 +21976,26 @@ input StoreWhere {
   Return Stores where some of the related StoreActionsConnections match this filter
   """
   actionsConnection_SOME: StoreActionsConnectionWhere
+
+  """
+  Return Stores where all of the related AnyActions match this filter
+  """
+  actions_ALL: AnyActionWhere
+
+  """
+  Return Stores where none of the related AnyActions match this filter
+  """
+  actions_NONE: AnyActionWhere
+
+  """
+  Return Stores where one of the related AnyActions match this filter
+  """
+  actions_SINGLE: AnyActionWhere
+
+  """
+  Return Stores where some of the related AnyActions match this filter
+  """
+  actions_SOME: AnyActionWhere
   api: InterfaceTypeWhere
   apiAggregate: StoreApiAggregateInput
   apiConnection: StoreApiConnectionWhere
@@ -20877,12 +22021,7 @@ type StoresConnection {
   totalCount: Int!
 }
 
-type StringAggregateSelectionNonNullable {
-  longest: String!
-  shortest: String!
-}
-
-type StringAggregateSelectionNullable {
+type StringAggregateSelection {
   longest: String
   shortest: String
 }
@@ -21311,8 +22450,8 @@ type Tag {
 
 type TagAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 type TagAtomAtomsAggregationSelection {
@@ -21321,12 +22460,12 @@ type TagAtomAtomsAggregationSelection {
 }
 
 type TagAtomAtomsNodeAggregateSelection {
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  externalCssSource: StringAggregateSelection!
+  externalJsSource: StringAggregateSelection!
+  externalSourceType: StringAggregateSelection!
+  icon: StringAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input TagAtomsAggregateInput {
@@ -22048,12 +23187,14 @@ input TagSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -22063,8 +23204,8 @@ type TagTagChildrenAggregationSelection {
 }
 
 type TagTagChildrenNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 type TagTagParentAggregationSelection {
@@ -22073,8 +23214,8 @@ type TagTagParentAggregationSelection {
 }
 
 type TagTagParentNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input TagUniqueWhere {
@@ -22104,11 +23245,11 @@ type TagUserOwnerAggregationSelection {
 }
 
 type TagUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input TagWhere {
@@ -22258,8 +23399,8 @@ type TypeReference {
 
 type TypeReferenceAggregateSelection {
   count: Int!
-  label: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  label: StringAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input TypeReferenceCreateInput {
@@ -22321,12 +23462,14 @@ input TypeReferenceSubscriptionWhere {
   label: String
   label_CONTAINS: String
   label_ENDS_WITH: String
-  label_IN: [String]
+  label_IN: [String!]
+  label_MATCHES: String
   label_STARTS_WITH: String
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -22401,17 +23544,17 @@ type UnionType implements IBaseType & WithDescendants {
 
 type UnionTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input UnionTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
+  owner: UnionTypeOwnerConnectFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeConnectInput
 }
 
 input UnionTypeConnectOrCreateInput {
-  owner: IBaseTypeOwnerConnectOrCreateFieldInput
+  owner: UnionTypeOwnerConnectOrCreateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeConnectOrCreateInput
 }
 
@@ -22432,7 +23575,7 @@ input UnionTypeCreateInput {
   id: ID!
   kind: TypeKind! = UnionType
   name: String!
-  owner: IBaseTypeOwnerFieldInput
+  owner: UnionTypeOwnerFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeCreateInput
 }
 
@@ -22468,8 +23611,6 @@ type UnionTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
-  owner: User!
-  ownerConnection: IBaseTypeOwnerConnection!
 }
 
 input UnionTypeOnCreateInput {
@@ -22500,8 +23641,37 @@ input UnionTypeOwnerAggregateInput {
   node: UnionTypeOwnerNodeAggregationWhereInput
 }
 
+input UnionTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: UserConnectWhere
+}
+
+input UnionTypeOwnerConnectOrCreateFieldInput {
+  onCreate: UnionTypeOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input UnionTypeOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
 type UnionTypeOwnerConnectedRelationship {
   node: UserEventPayload!
+}
+
+input UnionTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input UnionTypeOwnerFieldInput {
+  connect: UnionTypeOwnerConnectFieldInput
+  connectOrCreate: UnionTypeOwnerConnectOrCreateFieldInput
+  create: UnionTypeOwnerCreateFieldInput
 }
 
 input UnionTypeOwnerNodeAggregationWhereInput {
@@ -22574,8 +23744,22 @@ input UnionTypeOwnerRelationshipSubscriptionWhere {
   node: UserSubscriptionWhere
 }
 
+input UnionTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input UnionTypeOwnerUpdateFieldInput {
+  connect: UnionTypeOwnerConnectFieldInput
+  connectOrCreate: UnionTypeOwnerConnectOrCreateFieldInput
+  create: UnionTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: UnionTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
 input UnionTypeRelationInput {
-  owner: IBaseTypeOwnerCreateFieldInput
+  owner: UnionTypeOwnerCreateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeCreateFieldInput
 }
 
@@ -22632,14 +23816,16 @@ input UnionTypeSubscriptionWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
-  kind_IN: [TypeKind]
+  kind_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
+  name_MATCHES: String
   name_STARTS_WITH: String
 }
 
@@ -23535,8 +24721,9 @@ input UnionTypeUniqueWhere {
 
 input UnionTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
+  owner: UnionTypeOwnerUpdateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeUpdateInput
 }
 
@@ -23553,11 +24740,11 @@ type UnionTypeUserOwnerAggregationSelection {
 }
 
 type UnionTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 input UnionTypeWhere {
@@ -23603,6 +24790,26 @@ input UnionTypeWhere {
   Return UnionTypes where some of the related UnionTypeTypesOfUnionTypeConnections match this filter
   """
   typesOfUnionTypeConnection_SOME: UnionTypeTypesOfUnionTypeConnectionWhere
+
+  """
+  Return UnionTypes where all of the related AnyTypes match this filter
+  """
+  typesOfUnionType_ALL: AnyTypeWhere
+
+  """
+  Return UnionTypes where none of the related AnyTypes match this filter
+  """
+  typesOfUnionType_NONE: AnyTypeWhere
+
+  """
+  Return UnionTypes where one of the related AnyTypes match this filter
+  """
+  typesOfUnionType_SINGLE: AnyTypeWhere
+
+  """
+  Return UnionTypes where some of the related AnyTypes match this filter
+  """
+  typesOfUnionType_SOME: AnyTypeWhere
 }
 
 type UnionTypesConnection {
@@ -23878,6 +25085,10 @@ type User {
     options: IBaseTypeOptions
     where: IBaseTypeWhere
   ): [IBaseType!]!
+  typesAggregate(
+    directed: Boolean = true
+    where: IBaseTypeWhere
+  ): UserIBaseTypeTypesAggregationSelection
   typesConnection(
     after: String
     directed: Boolean = true
@@ -23889,12 +25100,12 @@ type User {
 }
 
 type UserAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
+  auth0Id: StringAggregateSelection!
   count: Int!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  preferences: StringAggregateSelectionNullable!
-  username: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+  preferences: StringAggregateSelection!
+  username: StringAggregateSelection!
 }
 
 type UserAppAppsAggregationSelection {
@@ -23903,8 +25114,8 @@ type UserAppAppsAggregationSelection {
 }
 
 type UserAppAppsNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input UserAppsAggregateInput {
@@ -24029,12 +25240,12 @@ type UserAtomAtomsAggregationSelection {
 }
 
 type UserAtomAtomsNodeAggregateSelection {
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  externalCssSource: StringAggregateSelection!
+  externalJsSource: StringAggregateSelection!
+  externalSourceType: StringAggregateSelection!
+  icon: StringAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input UserAtomsAggregateInput {
@@ -24429,12 +25640,12 @@ type UserElementElementsAggregationSelection {
 }
 
 type UserElementElementsNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 input UserElementsAggregateInput {
@@ -24622,6 +25833,16 @@ type UserEventPayload {
   username: String!
 }
 
+type UserIBaseTypeTypesAggregationSelection {
+  count: Int!
+  node: UserIBaseTypeTypesNodeAggregateSelection
+}
+
+type UserIBaseTypeTypesNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
 input UserOnCreateInput {
   auth0Id: String!
   email: String!
@@ -24709,29 +25930,34 @@ input UserSubscriptionWhere {
   auth0Id: String
   auth0Id_CONTAINS: String
   auth0Id_ENDS_WITH: String
-  auth0Id_IN: [String]
+  auth0Id_IN: [String!]
+  auth0Id_MATCHES: String
   auth0Id_STARTS_WITH: String
   email: String
   email_CONTAINS: String
   email_ENDS_WITH: String
-  email_IN: [String]
+  email_IN: [String!]
+  email_MATCHES: String
   email_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
+  id_MATCHES: String
   id_STARTS_WITH: ID
   preferences: String
   preferences_CONTAINS: String
   preferences_ENDS_WITH: String
   preferences_IN: [String]
+  preferences_MATCHES: String
   preferences_STARTS_WITH: String
   roles: [Role!]
   roles_INCLUDES: Role
   username: String
   username_CONTAINS: String
   username_ENDS_WITH: String
-  username_IN: [String]
+  username_IN: [String!]
+  username_MATCHES: String
   username_STARTS_WITH: String
 }
 
@@ -24741,8 +25967,8 @@ type UserTagTagsAggregationSelection {
 }
 
 type UserTagTagsNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input UserTagsAggregateInput {
@@ -24861,6 +26087,18 @@ input UserTagsUpdateFieldInput {
   where: UserTagsConnectionWhere
 }
 
+input UserTypesAggregateInput {
+  AND: [UserTypesAggregateInput!]
+  NOT: UserTypesAggregateInput
+  OR: [UserTypesAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UserTypesNodeAggregationWhereInput
+}
+
 input UserTypesConnectFieldInput {
   connect: IBaseTypeConnectInput
   where: IBaseTypeConnectWhere
@@ -24904,6 +26142,27 @@ input UserTypesDisconnectFieldInput {
 input UserTypesFieldInput {
   connect: [UserTypesConnectFieldInput!]
   create: [UserTypesCreateFieldInput!]
+}
+
+input UserTypesNodeAggregationWhereInput {
+  AND: [UserTypesNodeAggregationWhereInput!]
+  NOT: UserTypesNodeAggregationWhereInput
+  OR: [UserTypesNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserTypesRelationship {
@@ -25192,6 +26451,7 @@ input UserWhere {
   Return Users where some of the related Tags match this filter
   """
   tags_SOME: TagWhere
+  typesAggregate: UserTypesAggregateInput
 
   """
   Return Users where all of the related UserTypesConnections match this filter
@@ -25212,6 +26472,26 @@ input UserWhere {
   Return Users where some of the related UserTypesConnections match this filter
   """
   typesConnection_SOME: UserTypesConnectionWhere
+
+  """
+  Return Users where all of the related IBaseTypes match this filter
+  """
+  types_ALL: IBaseTypeWhere
+
+  """
+  Return Users where none of the related IBaseTypes match this filter
+  """
+  types_NONE: IBaseTypeWhere
+
+  """
+  Return Users where one of the related IBaseTypes match this filter
+  """
+  types_SINGLE: IBaseTypeWhere
+
+  """
+  Return Users where some of the related IBaseTypes match this filter
+  """
+  types_SOME: IBaseTypeWhere
   username: String
   username_CONTAINS: String
   username_ENDS_WITH: String
@@ -25230,28 +26510,83 @@ interface WithDescendants {
   descendantTypesIds: [ID!]!
 }
 
+type WithDescendantsAggregateSelection {
+  count: Int!
+}
+
+type WithDescendantsConnection {
+  edges: [WithDescendantsEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type WithDescendantsEdge {
+  cursor: String!
+  node: WithDescendants!
+}
+
+enum WithDescendantsImplementation {
+  ArrayType
+  InterfaceType
+  UnionType
+}
+
+input WithDescendantsOptions {
+  limit: Int
+  offset: Int
+}
+
+input WithDescendantsWhere {
+  AND: [WithDescendantsWhere!]
+  NOT: WithDescendantsWhere
+  OR: [WithDescendantsWhere!]
+  descendantTypesIds: [ID!]
+  descendantTypesIds_INCLUDES: ID
+  typename_IN: [WithDescendantsImplementation!]
+}
+
 interface WithOwner {
-  owner: User!
-  ownerConnection: WithOwnerOwnerConnection!
+  owner(options: UserOptions, where: UserWhere): User!
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
 }
 
-input WithOwnerOwnerConnectFieldInput {
-  connect: UserConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-  where: UserConnectWhere
+type WithOwnerAggregateSelection {
+  count: Int!
 }
 
-input WithOwnerOwnerConnectOrCreateFieldInput {
-  onCreate: WithOwnerOwnerConnectOrCreateFieldInputOnCreate!
-  where: UserConnectOrCreateWhere!
+type WithOwnerEdge {
+  cursor: String!
+  node: WithOwner!
 }
 
-input WithOwnerOwnerConnectOrCreateFieldInputOnCreate {
-  node: UserOnCreateInput!
+enum WithOwnerImplementation {
+  App
+  Atom
+  AuthGuard
+  Component
+  Resource
+}
+
+input WithOwnerOptions {
+  limit: Int
+  offset: Int
+}
+
+input WithOwnerOwnerAggregateInput {
+  AND: [WithOwnerOwnerAggregateInput!]
+  NOT: WithOwnerOwnerAggregateInput
+  OR: [WithOwnerOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: WithOwnerOwnerNodeAggregationWhereInput
 }
 
 type WithOwnerOwnerConnection {
@@ -25271,10 +26606,6 @@ input WithOwnerOwnerConnectionWhere {
   node: UserWhere
 }
 
-input WithOwnerOwnerCreateFieldInput {
-  node: UserCreateInput!
-}
-
 input WithOwnerOwnerDeleteFieldInput {
   delete: UserDeleteInput
   where: WithOwnerOwnerConnectionWhere
@@ -25285,10 +26616,70 @@ input WithOwnerOwnerDisconnectFieldInput {
   where: WithOwnerOwnerConnectionWhere
 }
 
-input WithOwnerOwnerFieldInput {
-  connect: WithOwnerOwnerConnectFieldInput
-  connectOrCreate: WithOwnerOwnerConnectOrCreateFieldInput
-  create: WithOwnerOwnerCreateFieldInput
+input WithOwnerOwnerNodeAggregationWhereInput {
+  AND: [WithOwnerOwnerNodeAggregationWhereInput!]
+  NOT: WithOwnerOwnerNodeAggregationWhereInput
+  OR: [WithOwnerOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  preferences_AVERAGE_LENGTH_EQUAL: Float
+  preferences_AVERAGE_LENGTH_GT: Float
+  preferences_AVERAGE_LENGTH_GTE: Float
+  preferences_AVERAGE_LENGTH_LT: Float
+  preferences_AVERAGE_LENGTH_LTE: Float
+  preferences_LONGEST_LENGTH_EQUAL: Int
+  preferences_LONGEST_LENGTH_GT: Int
+  preferences_LONGEST_LENGTH_GTE: Int
+  preferences_LONGEST_LENGTH_LT: Int
+  preferences_LONGEST_LENGTH_LTE: Int
+  preferences_SHORTEST_LENGTH_EQUAL: Int
+  preferences_SHORTEST_LENGTH_GT: Int
+  preferences_SHORTEST_LENGTH_GTE: Int
+  preferences_SHORTEST_LENGTH_LT: Int
+  preferences_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
 }
 
 type WithOwnerOwnerRelationship {
@@ -25296,16 +26687,20 @@ type WithOwnerOwnerRelationship {
   node: User!
 }
 
-input WithOwnerOwnerUpdateConnectionInput {
-  node: UserUpdateInput
+input WithOwnerWhere {
+  AND: [WithOwnerWhere!]
+  NOT: WithOwnerWhere
+  OR: [WithOwnerWhere!]
+  owner: UserWhere
+  ownerAggregate: WithOwnerOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
+  typename_IN: [WithOwnerImplementation!]
 }
 
-input WithOwnerOwnerUpdateFieldInput {
-  connect: WithOwnerOwnerConnectFieldInput
-  connectOrCreate: WithOwnerOwnerConnectOrCreateFieldInput
-  create: WithOwnerOwnerCreateFieldInput
-  delete: WithOwnerOwnerDeleteFieldInput
-  disconnect: WithOwnerOwnerDisconnectFieldInput
-  update: WithOwnerOwnerUpdateConnectionInput
-  where: WithOwnerOwnerConnectionWhere
+type WithOwnersConnection {
+  edges: [WithOwnerEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }

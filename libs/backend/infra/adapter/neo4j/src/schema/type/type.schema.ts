@@ -80,16 +80,11 @@ export const typeSchema = gql`
     name: String!
     # fields: [Field!]! @relationship(type: "FIELD_TYPE", direction: OUT)
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
-    owner: User!
-      @relationship(
-        type: "OWNED_BY",
-        direction: OUT
-      )
+    owner: User! @declareRelationship
   }
 
   interface WithDescendants {
     descendantTypesIds: [ID!]!
-        @cypher(statement: """${getTypeDescendants} AS typeDescendants""", columnName: "typeDescendants")
   }
 
   """
@@ -99,7 +94,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
   }
@@ -119,10 +114,10 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ArrayType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     # ArrayTypes can be shared between components/atoms
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
-    descendantTypesIds: [ID!]!
+    descendantTypesIds: [ID!]! @cypher(statement: """${getTypeDescendants} AS typeDescendants""", columnName: "typeDescendants")
     itemType: IBaseType!
       @relationship(
         type: "ARRAY_ITEM_TYPE",
@@ -137,8 +132,8 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
-    owner: User!
-    descendantTypesIds: [ID!]!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    descendantTypesIds: [ID!]! @cypher(statement: """${getTypeDescendants} AS typeDescendants""", columnName: "typeDescendants")
     typesOfUnionType: [AnyType!]!
       @relationship(
         type: "UNION_TYPE_CHILD",
@@ -153,10 +148,10 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     # InterfaceTypes can be shared between components/atoms
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
-    descendantTypesIds: [ID!]!
+    descendantTypesIds: [ID!]! @cypher(statement: """${getTypeDescendants} AS typeDescendants""", columnName: "typeDescendants")
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
@@ -184,7 +179,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ElementType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -206,7 +201,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: RenderPropType)
     name: String! @unique
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   """
@@ -223,7 +218,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
     name: String! @unique
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   ${elementTypeTypeKindSchema}
@@ -237,7 +232,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: EnumType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     # Allows reverse lookup and get all api's enums
     # EnumTypes can be shared between components/atoms
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
@@ -262,7 +257,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: LambdaType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   """
@@ -272,7 +267,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: PageType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   """
@@ -282,7 +277,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: AppType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   """
@@ -292,7 +287,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: RichTextType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   """
@@ -302,7 +297,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ActionType)
     name: String! @unique
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   """
@@ -312,7 +307,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: CodeMirrorType)
     name: String!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     language: CodeMirrorLanguage!
   }
 

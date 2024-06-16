@@ -17,16 +17,16 @@ export const actionSchema = gql`
     id: ID!
     name: String!
     type: ActionKind! @settable(onUpdate: false)
-    store: Store! @relationship(type: "STORE_ACTION", direction: IN)
-    element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
+    store: Store! @declareRelationship
+    element: Element @declareRelationship
   }
 
   type CodeAction implements BaseAction {
     id: ID!
     name: String!
     type: ActionKind! @default(value: CodeAction)
-    store: Store!
-    element: Element
+    store: Store! @relationship(type: "STORE_ACTION", direction: IN)
+    element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
 
     """
     Code to run when action is triggered
@@ -38,8 +38,8 @@ export const actionSchema = gql`
     id: ID!
     name: String!
     type: ActionKind! @default(value: ApiAction)
-    store: Store!
-    element: Element
+    store: Store! @relationship(type: "STORE_ACTION", direction: IN)
+    element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
 
     """
     Response handlers

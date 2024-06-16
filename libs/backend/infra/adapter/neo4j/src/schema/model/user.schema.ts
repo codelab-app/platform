@@ -59,7 +59,7 @@ export const userSchema = gql`
   }
 
   interface WithOwner {
-    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    owner: User! @declareRelationship
   }
 
   type User {

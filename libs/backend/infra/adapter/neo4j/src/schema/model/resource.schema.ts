@@ -11,6 +11,6 @@ export const resourceSchema = gql`
     type: ResourceType!
     name: String!
     config: Prop! @relationship(type: "RESOURCE_CONFIG", direction: OUT)
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 `

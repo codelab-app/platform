@@ -12,7 +12,7 @@ export const componentSchema = gql`
     # contains the rootElement, and its descendants
     elements: [Element!]!
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)
     props: Prop! @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
 
