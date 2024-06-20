@@ -16,17 +16,17 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body>
         <Suspense>
           <StyledComponentsRegistry>
-            <ReactQueryProvider>
-              <CuiStoreProvider>
-                <UserProvider>
-                  <CuiProvider>
-                    <ConfigProvider theme={theme}>
-                      <App className="size-full">{children}</App>
-                    </ConfigProvider>
-                  </CuiProvider>
-                </UserProvider>
-              </CuiStoreProvider>
-            </ReactQueryProvider>
+            {/* <ReactQueryProvider> */}
+            {/* <CuiStoreProvider> */}
+            <UserProvider>
+              <CuiProvider>
+                <ConfigProvider theme={theme}>
+                  <App className="size-full">{children}</App>
+                </ConfigProvider>
+              </CuiProvider>
+            </UserProvider>
+            {/* </CuiStoreProvider> */}
+            {/* </ReactQueryProvider> */}
           </StyledComponentsRegistry>
         </Suspense>
       </body>
