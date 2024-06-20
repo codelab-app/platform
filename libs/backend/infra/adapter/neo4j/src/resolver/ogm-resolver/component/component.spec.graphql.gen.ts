@@ -1,18 +1,18 @@
-import * as Types from '@codelab/shared/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen';
 
-import { gql } from 'graphql-tag'
+import { gql } from 'graphql-tag';
 
 export const ComponentResolverComponents = gql`
-  query componentResolverComponents {
-    components {
-      elements {
-        id
-      }
+    query componentResolverComponents {
+  components {
+    elements {
       id
-      name
-      rootElement {
-        id
-      }
+    }
+    id
+    name
+    rootElement {
+      id
     }
   }
-`
+}
+    `;

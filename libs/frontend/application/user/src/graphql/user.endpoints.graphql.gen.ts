@@ -1,125 +1,76 @@
-import * as Types from '@codelab/shared/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen';
 
-import { UserFragment } from '../../../../abstract/domain/src/user/user.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
-import { UserFragmentDoc } from '../../../../abstract/domain/src/user/user.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
+import { UserFragment } from '../../../../abstract/domain/src/user/user.fragment.graphql.gen';
+import { GraphQLClient, RequestOptions } from 'graphql-request';
+import { gql } from 'graphql-tag';
+import { UserFragmentDoc } from '../../../../abstract/domain/src/user/user.fragment.graphql.gen';
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
 export type GetUsersQueryVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.UserWhere>
-}>
+  where?: Types.InputMaybe<Types.UserWhere>;
+}>;
 
-export type GetUsersQuery = { users: Array<UserFragment> }
+
+export type GetUsersQuery = { users: Array<UserFragment> };
 
 export type CreateUserMutationVariables = Types.Exact<{
-  input: Array<Types.UserCreateInput> | Types.UserCreateInput
-}>
+  input: Array<Types.UserCreateInput> | Types.UserCreateInput;
+}>;
 
-export type CreateUserMutation = {
-  createUsers: { users: Array<{ email: string; id: string }> }
-}
+
+export type CreateUserMutation = { createUsers: { users: Array<{ email: string, id: string }> } };
 
 export type UpdateUserMutationVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.UserWhere>
-  update: Types.UserUpdateInput
-}>
+  where?: Types.InputMaybe<Types.UserWhere>;
+  update: Types.UserUpdateInput;
+}>;
 
-export type UpdateUserMutation = {
-  updateUsers: { users: Array<{ preferences?: string | null }> }
-}
+
+export type UpdateUserMutation = { updateUsers: { users: Array<{ preferences?: string | null }> } };
+
 
 export const GetUsersDocument = gql`
-  query GetUsers($where: UserWhere) {
-    users(where: $where) {
-      ...User
-    }
-  }
-  ${UserFragmentDoc}
-`
-export const CreateUserDocument = gql`
-  mutation CreateUser($input: [UserCreateInput!]!) {
-    createUsers(input: $input) {
-      users {
-        email
-        id
-      }
-    }
-  }
-`
-export const UpdateUserDocument = gql`
-  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {
-    updateUsers(update: $update, where: $where) {
-      users {
-        preferences
-      }
-    }
-  }
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {
-    GetUsers(
-      variables?: GetUsersQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<GetUsersQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetUsersQuery>(GetUsersDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'GetUsers',
-        'query',
-        variables,
-      )
-    },
-    CreateUser(
-      variables: CreateUserMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<CreateUserMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<CreateUserMutation>(CreateUserDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'CreateUser',
-        'mutation',
-        variables,
-      )
-    },
-    UpdateUser(
-      variables: UpdateUserMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<UpdateUserMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<UpdateUserMutation>(UpdateUserDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'UpdateUser',
-        'mutation',
-        variables,
-      )
-    },
+    query GetUsers($where: UserWhere) {
+  users(where: $where) {
+    ...User
   }
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${UserFragmentDoc}`;
+export const CreateUserDocument = gql`
+    mutation CreateUser($input: [UserCreateInput!]!) {
+  createUsers(input: $input) {
+    users {
+      email
+      id
+    }
+  }
+}
+    `;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {
+  updateUsers(update: $update, where: $where) {
+    users {
+      preferences
+    }
+  }
+}
+    `;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    GetUsers(variables?: GetUsersQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetUsersQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetUsersQuery>(GetUsersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetUsers', 'query', variables);
+    },
+    CreateUser(variables: CreateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateUserMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateUserMutation>(CreateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateUser', 'mutation', variables);
+    },
+    UpdateUser(variables: UpdateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateUserMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateUserMutation>(UpdateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateUser', 'mutation', variables);
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
