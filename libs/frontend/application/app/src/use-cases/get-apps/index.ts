@@ -1,1 +1,0 @@
-export { GetAppsList } from './GetAppsList'

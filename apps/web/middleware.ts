@@ -1,4 +1,7 @@
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
+import {
+  auth0ServerInstance,
+  checkExpiry,
+} from '@codelab/shared-infra-auth0/server'
 import { NextResponse } from 'next/server'
 
 /**
@@ -12,9 +15,18 @@ export default auth0ServerInstance.withMiddlewareAuthRequired({
 
     await auth0ServerInstance.touchSession(req, res)
 
-    const session = await auth0ServerInstance.getAccessToken()
+    const session = await auth0ServerInstance.getSession()
+    const expired = checkExpiry(session)
 
-    process.env.AUTHORIZATION_TOKEN = session.accessToken
+    if (expired) {
+      const url = req.nextUrl.clone()
+
+      url.pathname = '/api/auth/login'
+
+      return NextResponse.redirect(url)
+    }
+
+    process.env.AUTHORIZATION_TOKEN = session?.accessToken
 
     return res
   },

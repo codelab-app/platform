@@ -1,5 +1,3 @@
-'use client'
-
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -9,11 +7,19 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { createApp } from './create-app.action'
 import { createAppSchema } from './create-app.schema'
 
 export const CreateAppModal = observer(() => {
   const { appService } = useStore()
+
+  const onSubmit = async (appDTO: ICreateAppData) => {
+    await appService.create(appDTO)
+
+    closeModal()
+
+    return Promise.resolve()
+  }
+
   const closeModal = () => appService.createModal.close()
 
   const model = {
@@ -28,7 +34,7 @@ export const CreateAppModal = observer(() => {
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
-        onSubmit={createApp(appService)}
+        onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating app',
         })}

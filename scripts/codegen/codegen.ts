@@ -3,6 +3,7 @@ import { getEnv } from '../../libs/shared/config/src'
 
 const config: CodegenConfig = {
   overwrite: true,
+  watch: true,
   hooks: {
     // Uncomment to run ESLint fix after code generation
     afterOneFileWrite: [
@@ -15,6 +16,7 @@ const config: CodegenConfig = {
       //   --no-ignore --quiet --fix',
     ],
     afterAllFileWrite: [
+      // 'pnpm eslint -c scripts/codegen/.eslintrc.json',
       // 'nx affected --target=lint -c codegen',
       // 'pnpm eslint \
       //   --rule "unused-imports/no-unused-imports-ts: 2" \
@@ -58,6 +60,43 @@ const config: CodegenConfig = {
         },
       },
     },
+    './libs/frontend/infra/gql/src/': {
+      documents: [
+        '**/*.tsx',
+        '**/*.fragment.ts',
+        '**/*.query.ts',
+        '**/*.mutation.ts',
+      ],
+      preset: 'client',
+      presetConfig: {
+        extension: '.gen.ts',
+        fetcher: {
+          endpoint: 'http://localhost:4000/graphql',
+        },
+      },
+    },
+    // '.': {
+    //   // This somehow generates for web-e2e as well, even if ./libs
+    //   documents: ['**/*.{endpoints,fragment,subscription}.graphql'],
+    //   preset: 'near-operation-file',
+    //   presetConfig: {
+    //     extension: '.graphql.gen.ts',
+    //     baseTypesPath: '~@codelab/shared/abstract/codegen',
+    //     // importOperationTypesFrom:
+    //     // Uncomment to force export of fragment types
+    //     // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
+    //   },
+    //   plugins: ['typescript-graphql-request'],
+    //   config: {
+    //     inlineFragmentTypes: 'combine',
+    //     // Uncomment to set suffix for document variables
+    //     // documentVariableSuffix: 'Gql',
+    //     gqlImport: 'graphql-tag#gql',
+    //     strictScalars: true,
+    //     defaultScalarType: 'unknown',
+    //     // dedupeFragments: true, // Uncomment to deduplicate fragments
+    //   },
+    // },
     // '.': {
     //   // This somehow generates for web-e2e as well, even if ./libs
     //   documents: ['**/*.{endpoints,fragment,subscription}.graphql'],
@@ -79,59 +118,58 @@ const config: CodegenConfig = {
     //     // dedupeFragments: true, // Uncomment to deduplicate fragments
     //   },
     // },
-    './': {
-      // This somehow generates for web-e2e as well, even if ./libs
-      documents: ['**/*.{tan,fragment,subscription}.graphql'],
-      preset: 'near-operation-file',
-      presetConfig: {
-        extension: '.graphql.gen.ts',
-        baseTypesPath: '~@codelab/shared/abstract/codegen',
-        // importTypesNamespace: 'Operations',
-        // Uncomment to force export of fragment types
-        // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
-      },
-      plugins: [
-        {
-          add: {
-            content: "import { fetchParams } from '@codelab/shared/config'",
-          },
-        },
-        // 'typescript-graphql-request',
-        // 'typescript-operations',
-        'typescript-document-nodes',
-        '@codelab-app/typescript-react-query',
-      ],
-      config: {
-        /**
-         * React query, the docs is not up to date, for the most accurate config view the source code
-         *
-         * https://github.com/dotansimha/graphql-code-generator-community/blob/main/packages/plugins/typescript/react-query/src/config.ts
-         */
-        legacyMode: false,
-        reactQueryVersion: 5,
-        addSuspenseQuery: true,
-        exposeFetcher: true,
-        exposeDocument: true,
-        exposeQueryKeys: true,
-        exposeMutationKeys: true,
-        /**
-         * Gql
-         */
-        documentMode: 'external',
-        importDocumentNodeExternallyFrom: '@codelab/shared/abstract/codegen',
-        inlineFragmentTypes: 'combine',
-        gqlImport: 'graphql-tag#gql',
-        strictScalars: true,
-        defaultScalarType: 'unknown',
-        importTypesNamespace: 'Operations',
-        importOperationTypesFrom: 'Operations',
-        fetcher: {
-          fetchParams: 'fetchParams',
-          endpoint: getEnv().endpoint.apiGraphqlUrl,
-        },
-        dedupeFragments: true,
-      },
-    },
+    // './': {
+    //   // This somehow generates for web-e2e as well, even if ./libs
+    //   documents: ['**/*.{tan,fragment,subscription}.graphql'],
+    //   preset: 'near-operation-file',
+    //   presetConfig: {
+    //     extension: '.graphql.gen.ts',
+    //     baseTypesPath: '~@codelab/shared/abstract/codegen',
+    //     // importTypesNamespace: 'Operations',
+    //     // Uncomment to force export of fragment types
+    //     // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
+    //   },
+    //   plugins: [
+    //     {
+    //       add: {
+    //         content: "import { fetchParams } from '@codelab/shared/config'",
+    //       },
+    //     },
+    //     // 'typescript-graphql-request',
+    //     // 'typescript-operations',
+    //     // 'typescript-document-nodes',
+    //     '@codelab-app/typescript-react-query',
+    //   ],
+    //   config: {
+    //     /**
+    //      * React query, the docs is not up to date, for the most accurate config view the source code
+    //      *
+    //      * https://github.com/dotansimha/graphql-code-generator-community/blob/main/packages/plugins/typescript/react-query/src/config.ts
+    //      */
+    //     legacyMode: false,
+    //     reactQueryVersion: 5,
+    //     addSuspenseQuery: true,
+    //     exposeFetcher: true,
+    //     exposeDocument: true,
+    //     exposeQueryKeys: true,
+    //     exposeMutationKeys: true,
+    //     /**
+    //      * Gql
+    //      */
+    //     documentMode: 'graphQLTag',
+    //     inlineFragmentTypes: 'combine',
+    //     gqlImport: 'graphql-tag#gql',
+    //     strictScalars: true,
+    //     defaultScalarType: 'unknown',
+    //     importTypesNamespace: 'Types',
+    //     importOperationTypesFrom: 'Types',
+    //     fetcher: {
+    //       fetchParams: 'fetchParams',
+    //       endpoint: getEnv().endpoint.apiGraphqlUrl,
+    //     },
+    //     dedupeFragments: true,
+    //   },
+    // },
     // '.': {
     //   documents: ['**/*.{endpoints,fragment,subscription}.graphql'],
     //   preset: 'near-operation-file',
@@ -140,8 +178,8 @@ const config: CodegenConfig = {
     //     baseTypesPath: '~@codelab/shared/abstract/codegen',
     //   },
     //   plugins: [
-    //     'typescript-operations',
-    //     'typescript-document-nodes',
+    //     // 'typescript-operations',
+    //     // 'typescript-document-nodes',
     //     'typescript-graphql-request',
     //   ],
     //   config: {

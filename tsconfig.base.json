@@ -214,8 +214,8 @@
       "@codelab/frontend-application-app/use-cases/delete-app": [
         "libs/frontend/application/app/src/use-cases/delete-app/index.ts"
       ],
-      "@codelab/frontend-application-app/use-cases/get-apps": [
-        "libs/frontend/application/app/src/use-cases/get-apps/index.ts"
+      "@codelab/frontend-application-app/use-cases/app-list": [
+        "libs/frontend/application/app/src/use-cases/app-list/index.ts"
       ],
       "@codelab/frontend-application-app/use-cases/import-app": [
         "libs/frontend/application/app/src/use-cases/import-app/index.ts"
@@ -832,6 +832,7 @@
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
+      "@codelab/frontend/infra/gql": ["libs/frontend/infra/gql/src/index.ts"],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],

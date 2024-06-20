@@ -5,8 +5,12 @@ import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { type FragmentType, useFragment } from '@codelab/frontend/infra/gql'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useModalState } from '@codelab/frontend-application-shared-store/ui'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { prettifyForConsole } from '@codelab/shared/utils'
@@ -17,9 +21,20 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import React from 'react'
+import {
+  useBuildAppModal,
+  useDeleteAppModal,
+  useUpdateAppModal,
+} from '../../store/app-modal.state'
+import { useExportApp } from '../export-app/useExportApp.hook'
+import {
+  type AppListItem_AppFragment,
+  AppListItem_appFragment,
+} from './AppListItem'
+import { DomainList_appFragment } from './DomainList_domains.fragment'
 
 export interface ItemMenuProps {
-  app: IAppModel
+  app: AppListItem_AppFragment
 }
 
 const menuItemStyle: CSSProperties = {
@@ -50,17 +65,21 @@ const downloadExportedData = async (app: IAppModel) => {
   document.body.removeChild(a)
 }
 
-export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
+export const AppListItemDropdown = (props: ItemMenuProps) => {
+  const app = useFragment(AppListItem_appFragment, props.app)
   const { pathname } = useUrl()
-  const { appService, userService } = useStore()
-  const onEditClick = () => appService.updateModal.open(appRef(app))
-  const onDeleteClick = () => appService.deleteModal.open(appRef(app))
-  const onBuildClick = () => appService.buildModal.open(appRef(app))
-  const [, exportApp] = useAsync(appService.exportApp)
+  const updateApp = useUpdateAppModal()
+  const deleteApp = useDeleteAppModal()
+  const buildApp = useBuildAppModal()
+  const onEditClick = () => updateApp.openModal(app.id)
+  const onDeleteClick = () => deleteApp.openModal(app.id)
+  const onBuildClick = () => buildApp.openModal(app.id)
+  const exportApp = useExportApp(props.app)
   const router = useRouter()
+  const user = useUser()
 
   const goToDomainsPage = () =>
-    router.push(`${pathname}/${userService.user.username}/${app.slug}/domains`)
+    router.push(`${pathname}/${user.username}/${app.slug}/domains`)
 
   const menuItems: MenuProps['items'] = [
     {
@@ -99,7 +118,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
       key: 'export',
       label: 'Export',
       onClick: async () => {
-        await exportApp.execute(app)
+        await exportApp()
       },
       style: menuItemStyle,
     },
@@ -110,4 +129,4 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
       <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
     </Dropdown>
   )
-})
+}

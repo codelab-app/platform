@@ -3,6 +3,7 @@ import {
   type IAppService,
 } from '@codelab/frontend/abstract/application'
 import {
+  getAppDomainService,
   getUserDomainService,
   type IAppModel,
   type ICreateAppData,
@@ -30,6 +31,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  createContext,
   Model,
   model,
   modelFlow,
@@ -45,7 +47,7 @@ import { AppModalService } from './app-modal.service'
 export class AppService
   extends Model({
     appDevelopmentService: prop(() => new AppDevelopmentService({})),
-    appDomainService: prop(() => new AppDomainService({})),
+    // appDomainService: prop(() => new AppDomainService({})),
     appProductionService: prop(() => new AppProductionService({})),
     appRepository: prop(() => new AppRepository({})),
     buildModal: prop(() => new AppModalService({})),
@@ -56,6 +58,11 @@ export class AppService
   })
   implements IAppService
 {
+  @computed
+  get appDomainService() {
+    return getAppDomainService(this)
+  }
+
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
