@@ -29,18 +29,6 @@ import { userApi } from './user.api'
 const CODELAB_STORAGE_KEY = 'codelab-preferences'
 const DEFAULT_PREFERENCES = { apps: {}, explorerExpandedNodes: {} }
 
-const init = (data: Auth0IdToken) => {
-  const user = User.fromSession(data)
-
-  return fromDto(user)
-}
-
-const fromDto = (user: IUserDto) => {
-  return new UserService({
-    userDomainService: UserDomainService.fromDto(user),
-  })
-}
-
 @model('@codelab/UserService')
 export class UserService
   extends Model({
@@ -48,10 +36,6 @@ export class UserService
   })
   implements IUserService
 {
-  static fromDto = fromDto
-
-  static init = init
-
   get preferences(): IUserPreference {
     return this.user.preferences as IUserPreference
   }

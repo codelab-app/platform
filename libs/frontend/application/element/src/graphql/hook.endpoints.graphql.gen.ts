@@ -1,91 +1,55 @@
-import * as Types from '@codelab/shared/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen';
 
-import { HookFragment } from '../../../../abstract/domain/src/hook/hook.fragment.graphql.gen'
-import { GraphQLClient, RequestOptions } from 'graphql-request'
-import { gql } from 'graphql-tag'
-import { HookFragmentDoc } from '../../../../abstract/domain/src/hook/hook.fragment.graphql.gen'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
+import { HookFragment } from '../../../../abstract/domain/src/hook/hook.fragment.graphql.gen';
+import { GraphQLClient, RequestOptions } from 'graphql-request';
+import { gql } from 'graphql-tag';
+import { HookFragmentDoc } from '../../../../abstract/domain/src/hook/hook.fragment.graphql.gen';
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
 export type CreateHooksMutationVariables = Types.Exact<{
-  input: Array<Types.HookCreateInput> | Types.HookCreateInput
-}>
+  input: Array<Types.HookCreateInput> | Types.HookCreateInput;
+}>;
 
-export type CreateHooksMutation = {
-  createHooks: { hooks: Array<HookFragment> }
-}
+
+export type CreateHooksMutation = { createHooks: { hooks: Array<HookFragment> } };
 
 export type DeleteHooksMutationVariables = Types.Exact<{
-  where: Types.HookWhere
-}>
+  where: Types.HookWhere;
+}>;
 
-export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } }
+
+export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } };
+
 
 export const CreateHooksDocument = gql`
-  mutation CreateHooks($input: [HookCreateInput!]!) {
-    createHooks(input: $input) {
-      hooks {
-        ...Hook
-      }
+    mutation CreateHooks($input: [HookCreateInput!]!) {
+  createHooks(input: $input) {
+    hooks {
+      ...Hook
     }
-  }
-  ${HookFragmentDoc}
-`
-export const DeleteHooksDocument = gql`
-  mutation DeleteHooks($where: HookWhere!) {
-    deleteHooks(where: $where) {
-      nodesDeleted
-    }
-  }
-`
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string,
-  variables?: any,
-) => Promise<T>
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType,
-  _variables,
-) => action()
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper,
-) {
-  return {
-    CreateHooks(
-      variables: CreateHooksMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<CreateHooksMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<CreateHooksMutation>(CreateHooksDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'CreateHooks',
-        'mutation',
-        variables,
-      )
-    },
-    DeleteHooks(
-      variables: DeleteHooksMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<DeleteHooksMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<DeleteHooksMutation>(DeleteHooksDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'DeleteHooks',
-        'mutation',
-        variables,
-      )
-    },
   }
 }
-export type Sdk = ReturnType<typeof getSdk>
+    ${HookFragmentDoc}`;
+export const DeleteHooksDocument = gql`
+    mutation DeleteHooks($where: HookWhere!) {
+  deleteHooks(where: $where) {
+    nodesDeleted
+  }
+}
+    `;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    CreateHooks(variables: CreateHooksMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateHooksMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateHooksMutation>(CreateHooksDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateHooks', 'mutation', variables);
+    },
+    DeleteHooks(variables: DeleteHooksMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DeleteHooksMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteHooksMutation>(DeleteHooksDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteHooks', 'mutation', variables);
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
