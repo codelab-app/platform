@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 import { escapeDotPathKeys } from '@codelab/backend/shared/util'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
-const rolesPath = escapeDotPathKeys(`${JWT_CLAIMS}.roles`)
+const rolesPath = `${escapeDotPathKeys(JWT_CLAIMS)}.roles`
 
 /**
  * Validation auth rule to allow read access for regular authenticated user
