@@ -1,4 +1,5 @@
 export * from './constant'
+export * from './domain.store.interface'
 export * from './models'
 export * from './service'
 export * from './test'

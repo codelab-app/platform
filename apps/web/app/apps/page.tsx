@@ -19,6 +19,9 @@ export const metadata: Metadata = {
 }
 
 const AppsView = auth0ServerInstance.withPageAuthRequired(async () => {
+  // (1) Fetch data from stateless application store
+  // (2) Pass data as props into client component, which uses domain store to hydrate data
+
   return (
     <>
       <BuildAppModal />
