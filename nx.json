@@ -1,6 +1,6 @@
 {
   "defaultBase": "master",
-  "useInferencePlugins": true,
+  "useInferencePlugins": false,
   "parallel": 3,
   "tasksRunnerOptions": {
     "default": {
@@ -11,7 +11,15 @@
     }
   },
   "defaultProject": "web",
-  "plugins": [],
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint",
+        "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
+      }
+    }
+  ],
   "generators": {
     "@nx/workspace": {
       "library": {
