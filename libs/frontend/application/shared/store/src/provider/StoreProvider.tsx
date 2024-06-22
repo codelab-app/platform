@@ -1,21 +1,25 @@
 'use client'
 
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+import { createDomainStore } from '@codelab/frontend/infra/mobx'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import type { PropsWithChildren } from 'react'
 import React, { createContext, useContext } from 'react'
 
 const StoreContext = createContext<IDomainStore | null>(null)
 
 interface StoreProviderProps {
-  value: IDomainStore | null
+  user: IUserDto | null
 }
 
 export const StoreProvider: React.FC<PropsWithChildren<StoreProviderProps>> = ({
   children,
-  value,
+  user,
 }) => {
-  return value ? (
-    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+  return user ? (
+    <StoreContext.Provider value={createDomainStore(user)}>
+      {children}
+    </StoreContext.Provider>
   ) : (
     children
   )

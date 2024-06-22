@@ -16,34 +16,34 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const AppList = observer<{ apps: Array<AppPreviewFragment> }>(
-  ({ apps }) => {
-    const { appDomainService } = useStore()
+export const AppList = observer<{
+  apps: Array<AppPreviewFragment>
+}>(({ apps }) => {
+  const { appDomainService } = useStore()
 
-    useEffect(() => {
-      for (const app of apps) {
-        appDomainService.hydrate(app)
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [apps])
-
-    if (!appDomainService.appsList.length) {
-      return (
-        <Empty description="No apps found" imageStyle={emptyImageStyle}>
-          <CreateAppButton>Create Now</CreateAppButton>
-        </Empty>
-      )
+  useEffect(() => {
+    for (const app of apps) {
+      appDomainService.hydrate(app)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apps])
 
+  if (!appDomainService.appsList.length) {
     return (
-      <Row gutter={[padding.sm, padding.sm]}>
-        {appDomainService.appsList.map((app) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <Col key={app.id} {...threeGridCol}>
-            <AppListItem app={app} />
-          </Col>
-        ))}
-      </Row>
+      <Empty description="No apps found" imageStyle={emptyImageStyle}>
+        <CreateAppButton>Create Now</CreateAppButton>
+      </Empty>
     )
-  },
-)
+  }
+
+  return (
+    <Row gutter={[padding.sm, padding.sm]}>
+      {appDomainService.appsList.map((app) => (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <Col key={app.id} {...threeGridCol}>
+          <AppListItem app={app} />
+        </Col>
+      ))}
+    </Row>
+  )
+})

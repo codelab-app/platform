@@ -6,6 +6,7 @@ import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUser } from '@codelab/frontend-application-user/services'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
@@ -40,10 +41,10 @@ export const AppListItemDropdown = ({ app }: { app: IAppModel }) => {
   const onBuildClick = () => buildApp.openModal(app.id)
   const exportApp = useExportApp(app)
   const router = useRouter()
-  // const user = useUser()
+  const user = useUser()
 
   const goToDomainsPage = () => {
-    // router.push(`${pathname}/${user.username}/${app.slug}/domains`)
+    router.push(`${pathname}/${user.username}/${app.slug}/domains`)
   }
 
   const menuItems: MenuProps['items'] = [

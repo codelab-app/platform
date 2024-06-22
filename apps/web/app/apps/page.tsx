@@ -1,8 +1,7 @@
 import { getAppRepository } from '@codelab/frontend-application-app/services'
 import { AppList } from '@codelab/frontend-application-app/use-cases/app-list'
-import { useServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import type { Metadata } from 'next'
 import React from 'react'
 
@@ -11,9 +10,9 @@ export const metadata: Metadata = {
   title: 'Apps | Codelab',
 }
 
-const AppsView = auth0ServerInstance.withPageAuthRequired(async () => {
+const AppsView = async () => {
   const appRepository = getAppRepository()
-  const owner = await useServerUser()
+  const owner = await getServerUser()
 
   const { apps } = await appRepository.appsList({
     owner: { id: owner.id },
@@ -31,6 +30,6 @@ const AppsView = auth0ServerInstance.withPageAuthRequired(async () => {
       </ContentSection>
     </>
   )
-})
+}
 
 export default AppsView
