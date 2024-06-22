@@ -19,20 +19,14 @@ const emptyImageStyle: React.CSSProperties = {
 export const AppList = ({ apps }: AppListProps) => {
   if (!apps.length) {
     return (
-      <Empty description="No apps found" imageStyle={emptyImageStyle}>
-        <CreateAppButton>Create Now</CreateAppButton>
-      </Empty>
+      <Row gutter={[padding.sm, padding.sm]}>
+        {appDomainService.appsList.map((app) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <Col key={app.id} {...threeGridCol}>
+            <AppListItem app={app} />
+          </Col>
+        ))}
+      </Row>
     )
-  }
-
-  return (
-    <Row gutter={[padding.sm, padding.sm]}>
-      {apps.map((app) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        <Col key={app.id} {...threeGridCol}>
-          <AppListItem app={app} />
-        </Col>
-      ))}
-    </Row>
-  )
-}
+  },
+)

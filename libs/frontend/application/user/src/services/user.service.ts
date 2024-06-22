@@ -8,16 +8,12 @@ import { IUserDomainService } from '@codelab/frontend/abstract/domain'
 import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
-import set from 'lodash/set'
-import { computed } from 'mobx'
 import {
   _async,
   _await,
   Model,
   model,
-  modelAction,
   modelFlow,
-  prop,
   transaction,
 } from 'mobx-keystone'
 import { userApi } from './user.api'
@@ -28,22 +24,22 @@ const DEFAULT_PREFERENCES = { apps: {}, explorerExpandedNodes: {} }
 @model('@codelab/UserService')
 export class UserService
   extends Model({
-    userDomainService: prop<IUserDomainService>(),
+    // userDomainService: prop<IUserDomainService>(),
   })
   implements IUserService
 {
-  get preferences(): IUserPreference {
-    return this.user.preferences as IUserPreference
-  }
+  // get preferences(): IUserPreference {
+  //   return this.user.preferences as IUserPreference
+  // }
 
-  set preferences(value: IUserPreference) {
-    this.user.preferences = value
-  }
+  // set preferences(value: IUserPreference) {
+  //   this.user.preferences = value
+  // }
 
-  @computed
-  get user() {
-    return this.userDomainService.user
-  }
+  // @computed
+  // get user() {
+  //   return this.userDomainService.user
+  // }
 
   @modelFlow
   @transaction
@@ -60,61 +56,61 @@ export class UserService
     return yield* _await(restWebClient.post('/user/save', data))
   })
 
-  @modelAction
-  setElementTreeExpandedKeys(
-    this: UserService,
-    containerId: string,
-    expandedKeys: Array<string>,
-  ) {
-    set(this.preferences, `explorerExpandedNodes.${containerId}`, expandedKeys)
+  // @modelAction
+  // setElementTreeExpandedKeys(
+  //   this: UserService,
+  //   containerId: string,
+  //   expandedKeys: Array<string>,
+  // ) {
+  //   set(this.preferences, `explorerExpandedNodes.${containerId}`, expandedKeys)
 
-    void this.savePreferences()
-  }
+  //   void this.savePreferences()
+  // }
 
-  @modelAction
-  setSelectedBuilderBreakpoint(
-    this: UserService,
-    containerId: string,
-    breakpoint: BuilderWidthBreakPoint,
-  ) {
-    set(
-      this.preferences,
-      `apps.${containerId}.selectedBuilderBreakpoint`,
-      breakpoint,
-    )
+  // @modelAction
+  // setSelectedBuilderBreakpoint(
+  //   this: UserService,
+  //   containerId: string,
+  //   breakpoint: BuilderWidthBreakPoint,
+  // ) {
+  //   set(
+  //     this.preferences,
+  //     `apps.${containerId}.selectedBuilderBreakpoint`,
+  //     breakpoint,
+  //   )
 
-    void this.savePreferences()
-  }
+  //   void this.savePreferences()
+  // }
 
-  @modelAction
-  setSelectedBuilderWidth(
-    this: UserService,
-    containerId: string,
-    width: BuilderWidth,
-  ) {
-    set(this.preferences, `apps.${containerId}.selectedBuilderWidth`, width)
+  // @modelAction
+  // setSelectedBuilderWidth(
+  //   this: UserService,
+  //   containerId: string,
+  //   width: BuilderWidth,
+  // ) {
+  //   set(this.preferences, `apps.${containerId}.selectedBuilderWidth`, width)
 
-    void this.savePreferences()
-  }
+  //   void this.savePreferences()
+  // }
 
-  fetchPreferences() {
-    if (typeof window === 'undefined') {
-      // SSR not supported for client preferences service
-      return
-    }
+  // fetchPreferences() {
+  //   if (typeof window === 'undefined') {
+  //     // SSR not supported for client preferences service
+  //     return
+  //   }
 
-    const preferences = localStorage.getItem(CODELAB_STORAGE_KEY)
+  //   const preferences = localStorage.getItem(CODELAB_STORAGE_KEY)
 
-    this.preferences = preferences
-      ? JSON.parse(preferences)
-      : DEFAULT_PREFERENCES
-  }
+  //   this.preferences = preferences
+  //     ? JSON.parse(preferences)
+  //     : DEFAULT_PREFERENCES
+  // }
 
-  onAttachedToRootStore() {
-    void this.fetchPreferences()
-  }
+  // onAttachedToRootStore() {
+  //   void this.fetchPreferences()
+  // }
 
-  savePreferences() {
-    localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(this.preferences))
-  }
+  // savePreferences() {
+  //   localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(this.preferences))
+  // }
 }
