@@ -51,7 +51,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const onBuildClick = () => null
   const exportApp = useExportApp(appModel)
   const router = useRouter()
-  const user = useUser()
+  // const user = useUser()
 
   const goToDomainsPage = () => {
     router.push(`${pathname}/${user.username}/${appModel.slug}/domains`)
