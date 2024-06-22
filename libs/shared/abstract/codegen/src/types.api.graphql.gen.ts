@@ -27720,16 +27720,6 @@ export type GetAppProductionQuery = {
   resources: Array<ResourceFragment>
 }
 
-export type GetAppsPreviewQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsPreviewQuery = {
-  apps: Array<AppPreviewFragment>
-  atoms: Array<AtomDevelopmentFragment>
-}
-
 export type CreateAtomsMutationVariables = Exact<{
   input: Array<AtomCreateInput> | AtomCreateInput
 }>
