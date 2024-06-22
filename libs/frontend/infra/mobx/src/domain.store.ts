@@ -12,4 +12,6 @@ export const createDomainStore = () => {
       appDomainService: prop<IAppDomainService>(() => new AppDomainService({})),
     })
     implements IDomainStore {}
+
+  return new DomainStore({}) as IDomainStore
 }

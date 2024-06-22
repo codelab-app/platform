@@ -7,11 +7,9 @@ import type {
   AppWhere,
 } from '@codelab/shared/abstract/codegen'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { Model, model } from 'mobx-keystone'
 import { appApi } from '../graphql/app.api'
 
-@model('@codelab/AppRepository')
-export class AppRepository extends Model({}) implements IAppRepository {
+export class AppRepository implements IAppRepository {
   async add(app: IAppModel) {
     const {
       createApps: { apps },
@@ -36,7 +34,6 @@ export class AppRepository extends Model({}) implements IAppRepository {
     })
   }
 
-  // @clearCacheForKey('apps')
   async delete(apps: Array<IAppModel>) {
     const {
       deleteApps: { nodesDeleted },
@@ -48,7 +45,6 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return nodesDeleted
   }
 
-  // @cachedWithTTL('apps')
   async find(where?: AppWhere, options?: AppOptions) {
     return await appApi.GetApps({ options, where })
   }
@@ -57,7 +53,6 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return (await this.find(where)).items[0]
   }
 
-  // @clearCacheForKey('apps')
   async update(app: IAppModel) {
     const {
       updateApps: { apps },
@@ -73,3 +68,7 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return updatedApp
   }
 }
+
+let appRepository: IAppRepository | undefined
+
+export const getAppRepository = () => (appRepository ??= new AppRepository())

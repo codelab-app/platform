@@ -1,13 +1,13 @@
 'use client'
 
-import type { ICoreStore } from '@codelab/frontend/abstract/application'
+import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type { PropsWithChildren } from 'react'
 import React, { createContext, useContext } from 'react'
 
-const StoreContext = createContext<ICoreStore | null>(null)
+const StoreContext = createContext<IDomainStore | null>(null)
 
 interface StoreProviderProps {
-  value: ICoreStore | null
+  value: IDomainStore | null
 }
 
 export const StoreProvider: React.FC<PropsWithChildren<StoreProviderProps>> = ({

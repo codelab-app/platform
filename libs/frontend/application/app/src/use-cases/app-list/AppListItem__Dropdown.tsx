@@ -4,20 +4,11 @@ import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { type FragmentType, useFragment } from '@codelab/frontend/infra/gql'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { useModalState } from '@codelab/frontend-application-shared-store/ui'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { restWebClient } from '@codelab/frontend-infra-axios'
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
-import { prettifyForConsole } from '@codelab/shared/utils'
-import { useAsync } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import React from 'react'
@@ -27,15 +18,6 @@ import {
   useUpdateAppModal,
 } from '../../store/app-modal.state'
 import { useExportApp } from '../export-app/useExportApp.hook'
-import {
-  type AppListItem_AppFragment,
-  AppListItem_appFragment,
-} from './AppListItem'
-import { DomainList_appFragment } from './DomainList_domains.fragment'
-
-export interface ItemMenuProps {
-  app: AppListItem_AppFragment
-}
 
 const menuItemStyle: CSSProperties = {
   alignItems: 'center',
@@ -49,24 +31,7 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-const downloadExportedData = async (app: IAppModel) => {
-  const res = await restWebClient.get<IAppAggregate>(`app/export?id=${app.id}`)
-  const filename = `${app.slug}.json`
-  const contentType = 'application/json;charset=utf-8;'
-  const a = document.createElement('a')
-
-  a.download = filename
-  a.href = `data:${contentType},${encodeURIComponent(
-    prettifyForConsole(res.data),
-  )}`
-  a.target = '_blank'
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-}
-
-export const AppListItemDropdown = (props: ItemMenuProps) => {
-  const app = useFragment(AppListItem_appFragment, props.app)
+export const AppListItemDropdown = ({ app }: { app: IAppModel }) => {
   const { pathname } = useUrl()
   const updateApp = useUpdateAppModal()
   const deleteApp = useDeleteAppModal()
@@ -74,7 +39,7 @@ export const AppListItemDropdown = (props: ItemMenuProps) => {
   const onEditClick = () => updateApp.openModal(app.id)
   const onDeleteClick = () => deleteApp.openModal(app.id)
   const onBuildClick = () => buildApp.openModal(app.id)
-  const exportApp = useExportApp(props.app)
+  const exportApp = useExportApp(app)
   const router = useRouter()
   const user = useUser()
 
