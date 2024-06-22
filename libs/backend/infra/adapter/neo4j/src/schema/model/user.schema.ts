@@ -5,47 +5,37 @@ import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 const rolesPath = `${escapeDotPathKeys(JWT_CLAIMS)}.roles`
 
 /**
- * Validation auth rule to allow read access for regular authenticated user
+ * Forbid all mutations if user is not Admin
  */
-export const allowReadAccess = `
+export const restrictMutationsToAdminOnly = `
 {
-  operations: [READ],
-  where: {}
-}`
-
-/**
- * Validation auth rule to allow full access for Admin users
- */
-export const allowFullAccessForAdmin = `
-{
-  operations: [READ, UPDATE, CREATE, DELETE],
+  operations: [CREATE, UPDATE, DELETE, CREATE_RELATIONSHIP, DELETE_RELATIONSHIP],
   where: { jwt: { roles_INCLUDES: "Admin" } }
 }`
 
 /**
- * Auth rule to allow full access for Admin users
+ * Forbid all mutations if user is not the owner of data
  */
-export const allowFullAccessForOwner = `
+export const restrictMutationsToOwnerOnly = `
 {
-  operations: [UPDATE, CREATE, DELETE],
+  operations: [CREATE, UPDATE, DELETE, CREATE_RELATIONSHIP, DELETE_RELATIONSHIP],
   where: { node: { owner: { auth0Id: "$jwt.sub" } } }
 }
 `
 
 /**
- * Authorization rule to allow Read access for regular users, and full access for Admin and Owner
+ * Authorization rule to disable mutations if user is not Admin or data owner
+ * "Get" access is granted without authentication, since anonymous users
+ * need READ access to see deployed Apps in production
  */
-// export const authOwnerOrAdmin = `
-//   @authorization(
-//     validate: [
-//       ${allowReadAccess}
-//       ${allowFullAccessForAdmin}
-//       ${allowFullAccessForOwner}
-//     ]
-//   )
-// `
-
-export const authOwnerOrAdmin = ''
+export const authOwnerOrAdmin = `
+  @authorization(
+    validate: [
+      ${restrictMutationsToAdminOnly}
+      ${restrictMutationsToOwnerOnly}
+    ]
+  )
+`
 
 export const userSchema = gql`
   # https://neo4j.com/docs/graphql/current/authentication-and-authorization/configuration/
