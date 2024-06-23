@@ -1,7 +1,11 @@
-import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeComponentRef,
+  isRuntimeElementRef,
+} from '@codelab/frontend/abstract/application'
+import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
-  HoverOverlay,
+  ElementOverlay,
   MarginPaddingOverlay,
 } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
@@ -9,42 +13,74 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import { queryRenderedElementById } from '../../utils'
+import { useVirtualBoundingRect } from './hooks/use-virtual-bounding-rect'
 
 export const BuilderHoverOverlay = observer<{
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ renderContainerRef }) => {
   const { builderService } = useStore()
-  const hoveredNode = builderService.hoveredNode
-  const selectedNode = builderService.selectedNode
+  const runtimeHoveredNode = builderService.hoveredNode
+  const runtimeSelectedNode = builderService.selectedNode
 
-  if (isServer || !hoveredNode || !isRuntimeElementRef(hoveredNode)) {
-    return null
-  }
+  const hoveredNode = !runtimeHoveredNode
+    ? null
+    : isRuntimeElementRef(runtimeHoveredNode)
+    ? runtimeHoveredNode.current.element
+    : isRuntimeComponentRef(runtimeHoveredNode)
+    ? runtimeHoveredNode.current.component
+    : null
 
-  const element = queryRenderedElementById(hoveredNode.current.element.id)
+  const selectedNode = !runtimeSelectedNode
+    ? null
+    : isRuntimeElementRef(runtimeSelectedNode)
+    ? runtimeSelectedNode.current.element
+    : isRuntimeComponentRef(runtimeSelectedNode)
+    ? runtimeSelectedNode.current.component
+    : null
+
+  const renderContainer = renderContainerRef.current
+
+  const boundingRect = useVirtualBoundingRect({
+    activeNode: hoveredNode,
+    activeRuntimeNode: runtimeHoveredNode,
+    renderContainer,
+  })
 
   if (
-    !element ||
-    !renderContainerRef.current ||
-    hoveredNode.id === selectedNode?.id
+    isServer ||
+    !hoveredNode ||
+    !isElementRef(hoveredNode) ||
+    !renderContainer ||
+    hoveredNode.current.id === selectedNode?.current.id ||
+    !boundingRect
   ) {
     return null
   }
 
+  const htmlElement = queryRenderedElementById(hoveredNode.id)
+  const parentElement = hoveredNode.current.closestConcreteParent?.current
+
+  const parentHtmlElement =
+    parentElement && queryRenderedElementById(parentElement.id)
+
   return createPortal(
     <>
-      {hoveredNode.id !== selectedNode?.id && (
-        <HoverOverlay
-          element={element}
-          renderContainer={renderContainerRef.current}
+      <ElementOverlay
+        parentContainer={parentHtmlElement}
+        rootContainer={renderContainer}
+        targetBoundingRect={boundingRect}
+        toolbar={{
+          title: hoveredNode.current.name,
+        }}
+      />
+      {htmlElement && (
+        <MarginPaddingOverlay
+          element={htmlElement}
+          renderContainer={renderContainer}
         />
       )}
-      <MarginPaddingOverlay
-        element={element}
-        renderContainer={renderContainerRef.current}
-      />
     </>,
-    renderContainerRef.current,
+    renderContainer,
   )
 })
 
