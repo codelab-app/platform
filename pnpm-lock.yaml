@@ -357,9 +357,6 @@ importers:
       jest-text-transformer:
         specifier: 1.0.4
         version: 1.0.4
-      jotai:
-        specifier: ^2.8.3
-        version: 2.8.3(@types/react@18.2.24)(react@18.3.1)
       jquery:
         specifier: 3.6.4
         version: 3.6.4
@@ -10194,18 +10191,6 @@ packages:
 
   jose@5.3.0:
     resolution: {integrity: sha512-IChe9AtAE79ru084ow8jzkN2lNrG3Ntfiv65Cvj9uOCE2m5LNsdHG+9EbxWxAoWRF9TgDOqLN5jm08++owDVRg==}
-
-  jotai@2.8.3:
-    resolution: {integrity: sha512-pR4plVvdbzB6zyt7VLLHPMAkcRSKhRIvZKd+qkifQLa3CEziEo1uwZjePj4acTmQrboiISBlYSdCz3gWcr1Nkg==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': 18.2.24
-      react: '>=17.0.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
 
   joycon@3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -27874,11 +27859,6 @@ snapshots:
   jose@4.15.5: {}
 
   jose@5.3.0: {}
-
-  jotai@2.8.3(@types/react@18.2.24)(react@18.3.1):
-    optionalDependencies:
-      '@types/react': 18.2.24
-      react: 18.3.1
 
   joycon@3.1.1: {}
 

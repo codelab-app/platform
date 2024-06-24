@@ -6,7 +6,7 @@ import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { useUser } from '@codelab/frontend-application-user/services'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -15,11 +15,6 @@ import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import React, { useMemo } from 'react'
-import {
-  useBuildAppModal,
-  useDeleteAppModal,
-  useUpdateAppModal,
-} from '../../store/app-modal.state'
 import { useExportApp } from '../export-app/useExportApp.hook'
 
 export interface AppListItemDropdownProps {
@@ -40,10 +35,10 @@ const menuItemIconStyle: CSSProperties = {
 
 export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { pathname } = useUrl()
-  const { appDomainService } = useStore()
-  const updateApp = useUpdateAppModal()
-  const deleteApp = useDeleteAppModal()
-  const buildApp = useBuildAppModal()
+  const { appDomainService } = useDomainStore()
+  //  const updateApp = useUpdateAppModal()
+  //  const deleteApp = useDeleteAppModal()
+  //  const buildApp = useBuildAppModal()
 
   const appModel = useMemo(
     () => appDomainService.hydrate(app),
@@ -51,9 +46,9 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
     [app],
   )
 
-  const onEditClick = () => updateApp.openModal(appModel.id)
-  const onDeleteClick = () => deleteApp.openModal(appModel.id)
-  const onBuildClick = () => buildApp.openModal(appModel.id)
+  const onEditClick = () => null
+  const onDeleteClick = () => null
+  const onBuildClick = () => null
   const exportApp = useExportApp(appModel)
   const router = useRouter()
   const user = useUser()

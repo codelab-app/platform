@@ -2,7 +2,7 @@ import type { IAppDto } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { AppListItemDropdown } from './AppListItem__Dropdown'
+import { AppListItemDropdown } from './AppListItemDropdown'
 import { DomainList } from './DomainList'
 
 export interface AppListItemProps {
