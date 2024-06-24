@@ -1,5 +1,6 @@
 'use client'
 
+import type { ICoreStore } from '@codelab/frontend/abstract/application'
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import { createDomainStore } from '@codelab/frontend/infra/mobx'
 import type { IUserDto } from '@codelab/shared/abstract/core'
@@ -25,7 +26,7 @@ export const StoreProvider: React.FC<PropsWithChildren<StoreProviderProps>> = ({
   )
 }
 
-export const useStore = () => {
+export const useDomainStore = () => {
   const store = useContext(StoreContext)
 
   if (!store) {
@@ -35,4 +36,8 @@ export const useStore = () => {
   }
 
   return store
+}
+
+export const useStore = () => {
+  return {} as ICoreStore
 }
