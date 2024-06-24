@@ -1,11 +1,15 @@
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined'
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined'
 import LinkOutlined from '@ant-design/icons/LinkOutlined'
-import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import type { IDomainDto } from '@codelab/shared/abstract/core'
 import Link from 'next/link'
 import React from 'react'
 
-export const DomainListItem = ({ domain }: { domain: IDomainModel }) => {
+export interface DomainListItemProps {
+  domain: IDomainDto
+}
+
+export const DomainListItem = ({ domain }: DomainListItemProps) => {
   const { domainConfig, name } = domain
   const valid = !domainConfig?.misconfigured
 
