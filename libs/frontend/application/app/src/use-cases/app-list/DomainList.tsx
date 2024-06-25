@@ -1,11 +1,15 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { DomainListItem } from './DomainListItem'
 
-export const DomainList = ({ app }: { app: IAppModel }) => {
+export interface DomainListProps {
+  app: IAppDto
+}
+
+export const DomainList = ({ app }: DomainListProps) => {
   const { domains } = app
 
-  if (!domains.length) {
+  if (!domains?.length) {
     return <div className="text-red-400">No domains assigned</div>
   }
 

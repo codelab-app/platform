@@ -1,23 +1,25 @@
+'use client'
+
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { useUser } from '@codelab/frontend-application-user/services'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
-import React from 'react'
-import {
-  useBuildAppModal,
-  useDeleteAppModal,
-  useUpdateAppModal,
-} from '../../store/app-modal.state'
+import React, { useMemo } from 'react'
 import { useExportApp } from '../export-app/useExportApp.hook'
+
+export interface AppListItemDropdownProps {
+  app: IAppDto
+}
 
 const menuItemStyle: CSSProperties = {
   alignItems: 'center',
@@ -31,25 +33,33 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-export const AppListItemDropdown = ({ app }: { app: IAppModel }) => {
+export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { pathname } = useUrl()
-  const updateApp = useUpdateAppModal()
-  const deleteApp = useDeleteAppModal()
-  const buildApp = useBuildAppModal()
-  const onEditClick = () => updateApp.openModal(app.id)
-  const onDeleteClick = () => deleteApp.openModal(app.id)
-  const onBuildClick = () => buildApp.openModal(app.id)
-  const exportApp = useExportApp(app)
+  const { appDomainService } = useDomainStore()
+  //  const updateApp = useUpdateAppModal()
+  //  const deleteApp = useDeleteAppModal()
+  //  const buildApp = useBuildAppModal()
+
+  const appModel = useMemo(
+    () => appDomainService.hydrate(app),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [app],
+  )
+
+  const onEditClick = () => null
+  const onDeleteClick = () => null
+  const onBuildClick = () => null
+  const exportApp = useExportApp(appModel)
   const router = useRouter()
   const user = useUser()
 
   const goToDomainsPage = () => {
-    router.push(`${pathname}/${user.username}/${app.slug}/domains`)
+    router.push(`${pathname}/${user.username}/${appModel.slug}/domains`)
   }
 
   const menuItems: MenuProps['items'] = [
     {
-      disabled: !app.domains.some(
+      disabled: !appModel.domains.some(
         (domain) => !domain.domainConfig?.misconfigured,
       ),
       icon: <ToolOutlined style={menuItemIconStyle} />,
