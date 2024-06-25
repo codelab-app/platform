@@ -2,7 +2,7 @@ import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
-import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   IPageKindName,
   IPrimitiveTypeKind,
@@ -99,11 +99,11 @@ describe('State variables sharing between pages', () => {
       value: 'component state value',
     })
 
+    cy.intercept('POST', 'api/graphql').as('createState')
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
-
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+    cy.wait('@createState')
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
