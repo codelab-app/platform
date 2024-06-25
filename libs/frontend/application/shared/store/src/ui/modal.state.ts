@@ -1,0 +1,46 @@
+import type {
+  MODEL_ACTION,
+  ModelActionKey,
+} from '@codelab/frontend/abstract/types'
+import { atom, useAtom } from 'jotai'
+
+interface ModalState<T = unknown> {
+  data: T | null
+  isOpen: boolean
+  key: string | null
+}
+
+const modalStateAtom = atom<ModalState>({
+  data: null,
+  isOpen: false,
+  key: null,
+})
+
+const useModalState = <T>(key: ModelActionKey) => {
+  const [modalState, setModalState] = useAtom(modalStateAtom)
+
+  const open = (data: T) => {
+    setModalState({
+      data,
+      isOpen: true,
+      key,
+    })
+  }
+
+  const close = () => {
+    setModalState({
+      data: null,
+      isOpen: false,
+      key: null,
+    })
+  }
+
+  return {
+    close,
+    isOpen: modalState.isOpen,
+    modalState,
+    open,
+  }
+}
+
+export { useModalState }

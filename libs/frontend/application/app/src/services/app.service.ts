@@ -63,21 +63,6 @@ export class AppService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    const app = this.appDomainService.create({
-      id,
-      name,
-      owner: this.userDomainService.user,
-      pages: [],
-    })
-
-    yield* _await(this.appRepository.add(app))
-
-    return app
-  })
-
-  @modelFlow
-  @transaction
   delete = _async(function* (this: AppService, apps: Array<IAppModel>) {
     const deleteApp = async (app: IAppModel) => {
       /**

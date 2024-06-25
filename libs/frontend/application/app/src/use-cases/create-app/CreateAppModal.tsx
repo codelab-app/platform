@@ -8,20 +8,24 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useCreateAppModal } from '../../store/app-modal.state'
 import { createAppSchema } from './create-app.schema'
+import { useCreateAppService } from './create-app.service'
 
 export const CreateAppModal = observer(() => {
-  const { appService } = useStore()
+  const store = useStore()
+  const createAppModal = useCreateAppModal()
+  const createAppService = useCreateAppService(store)
 
   const onSubmit = async (appDTO: ICreateAppData) => {
-    await appService.create(appDTO)
+    await createAppService(appDTO)
 
     closeModal()
 
     return Promise.resolve()
   }
 
-  const closeModal = () => appService.createModal.close()
+  const closeModal = () => createAppModal.close()
 
   const model = {
     id: v4(),
@@ -31,7 +35,7 @@ export const CreateAppModal = observer(() => {
     <ModalForm.Modal
       okText="Create App"
       onCancel={closeModal}
-      open={appService.createModal.isOpen}
+      open={createAppModal.isOpen}
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
