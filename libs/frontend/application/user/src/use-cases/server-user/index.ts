@@ -1,1 +1,1 @@
-export * from './useServerUser.hook'
+export * from './get-server-user'

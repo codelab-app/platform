@@ -1,17 +1,15 @@
-import { type FragmentType, useFragment } from '@codelab/frontend/infra/gql'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import React from 'react'
-import type { DomainList_AppFragment } from './DomainList_domains.fragment'
-import { DomainList_appFragment } from './DomainList_domains.fragment'
 import { DomainListItem } from './DomainListItem'
 
 export interface DomainListProps {
-  app: DomainList_AppFragment
+  app: IAppDto
 }
 
-export const DomainList = (props: DomainListProps) => {
-  const { domains } = useFragment(DomainList_appFragment, props.app)
+export const DomainList = ({ app }: DomainListProps) => {
+  const { domains } = app
 
-  if (!domains.length) {
+  if (!domains?.length) {
     return <div className="text-red-400">No domains assigned</div>
   }
 

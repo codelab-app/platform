@@ -1,40 +1,24 @@
+'use client'
+
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { type FragmentType, useFragment } from '@codelab/frontend/infra/gql'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { useModalState } from '@codelab/frontend-application-shared-store/ui'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { restWebClient } from '@codelab/frontend-infra-axios'
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
-import { prettifyForConsole } from '@codelab/shared/utils'
-import { useAsync } from '@react-hookz/web'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
-import React from 'react'
-import {
-  useBuildAppModal,
-  useDeleteAppModal,
-  useUpdateAppModal,
-} from '../../store/app-modal.state'
+import React, { useMemo } from 'react'
 import { useExportApp } from '../export-app/useExportApp.hook'
-import {
-  type AppListItem_AppFragment,
-  AppListItem_appFragment,
-} from './AppListItem'
-import { DomainList_appFragment } from './DomainList_domains.fragment'
 
-export interface ItemMenuProps {
-  app: AppListItem_AppFragment
+export interface AppListItemDropdownProps {
+  app: IAppDto
 }
 
 const menuItemStyle: CSSProperties = {
@@ -49,41 +33,33 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-const downloadExportedData = async (app: IAppModel) => {
-  const res = await restWebClient.get<IAppAggregate>(`app/export?id=${app.id}`)
-  const filename = `${app.slug}.json`
-  const contentType = 'application/json;charset=utf-8;'
-  const a = document.createElement('a')
-
-  a.download = filename
-  a.href = `data:${contentType},${encodeURIComponent(
-    prettifyForConsole(res.data),
-  )}`
-  a.target = '_blank'
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-}
-
-export const AppListItemDropdown = (props: ItemMenuProps) => {
-  const app = useFragment(AppListItem_appFragment, props.app)
+export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { pathname } = useUrl()
-  const updateApp = useUpdateAppModal()
-  const deleteApp = useDeleteAppModal()
-  const buildApp = useBuildAppModal()
-  const onEditClick = () => updateApp.openModal(app.id)
-  const onDeleteClick = () => deleteApp.openModal(app.id)
-  const onBuildClick = () => buildApp.openModal(app.id)
-  const exportApp = useExportApp(props.app)
+  const { appDomainService } = useDomainStore()
+  //  const updateApp = useUpdateAppModal()
+  //  const deleteApp = useDeleteAppModal()
+  //  const buildApp = useBuildAppModal()
+
+  const appModel = useMemo(
+    () => appDomainService.hydrate(app),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [app],
+  )
+
+  const onEditClick = () => null
+  const onDeleteClick = () => null
+  const onBuildClick = () => null
+  const exportApp = useExportApp(appModel)
   const router = useRouter()
   const user = useUser()
 
-  const goToDomainsPage = () =>
-    router.push(`${pathname}/${user.username}/${app.slug}/domains`)
+  const goToDomainsPage = () => {
+    router.push(`${pathname}/${user.username}/${appModel.slug}/domains`)
+  }
 
   const menuItems: MenuProps['items'] = [
     {
-      disabled: !app.domains.some(
+      disabled: !appModel.domains.some(
         (domain) => !domain.domainConfig?.misconfigured,
       ),
       icon: <ToolOutlined style={menuItemIconStyle} />,

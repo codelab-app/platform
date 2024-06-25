@@ -1,7 +1,3 @@
-'use client'
-
-import { css } from 'styled-components'
-
 export const sectionStyle = {
   margin: '1rem',
 }
@@ -12,12 +8,6 @@ export const disableMenuHoverEffects = {
   backgroundColor: 'initial',
   cursor: 'inherit',
 }
-
-export const removeHoverBorder = css`
-  &:hover::after {
-    border-color: transparent !important;
-  }
-`
 
 export const twoGridCol = {
   lg: 12,

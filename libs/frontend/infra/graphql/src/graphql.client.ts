@@ -4,7 +4,7 @@ import { GraphQLClient } from 'graphql-request'
 import type { GraphQLClientResponse } from 'graphql-request/build/cjs/types'
 
 export const graphqlClient = new GraphQLClient(
-  getEnv().endpoint.graphqlApiProxyUrl,
+  getEnv().endpoint.graphqlApiUrl,
   {
     errorPolicy: 'all',
     requestMiddleware: (request: Parameters<RequestMiddleware>[0]) => {

@@ -30,7 +30,6 @@
   },
   "extends": [
     "plugin:canonical/recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/strict",

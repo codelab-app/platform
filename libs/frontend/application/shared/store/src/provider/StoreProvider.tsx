@@ -1,27 +1,32 @@
 'use client'
 
 import type { ICoreStore } from '@codelab/frontend/abstract/application'
+import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+import { createDomainStore } from '@codelab/frontend/infra/mobx'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import type { PropsWithChildren } from 'react'
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useMemo } from 'react'
 
-const StoreContext = createContext<ICoreStore | null>(null)
+const StoreContext = createContext<IDomainStore | null>(null)
 
 interface StoreProviderProps {
-  value: ICoreStore | null
+  user: IUserDto | null
 }
 
 export const StoreProvider: React.FC<PropsWithChildren<StoreProviderProps>> = ({
   children,
-  value,
+  user,
 }) => {
-  return value ? (
-    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+  const store = useMemo(() => (user ? createDomainStore(user) : null), [user])
+
+  return store ? (
+    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   ) : (
     children
   )
 }
 
-export const useStore = () => {
+export const useDomainStore = () => {
   const store = useContext(StoreContext)
 
   if (!store) {
@@ -31,4 +36,8 @@ export const useStore = () => {
   }
 
   return store
+}
+
+export const useStore = () => {
+  return {} as ICoreStore
 }

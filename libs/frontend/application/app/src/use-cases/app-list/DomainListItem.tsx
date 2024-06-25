@@ -1,32 +1,17 @@
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined'
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined'
 import LinkOutlined from '@ant-design/icons/LinkOutlined'
-import {
-  type FragmentType,
-  graphql,
-  useFragment,
-} from '@codelab/frontend/infra/gql'
+import type { IDomainDto } from '@codelab/shared/abstract/core'
 import Link from 'next/link'
 import React from 'react'
 
-const DomainListItem_domainFragment = graphql(`
-  fragment DomainListItem_domainFragment on Domain {
-    id
-    name
-    domainConfig {
-      misconfigured
-    }
-  }
-`)
-
-export interface DomainListItem {
-  domain: FragmentType<typeof DomainListItem_domainFragment>
+export interface DomainListItemProps {
+  domain: IDomainDto
 }
 
-export const DomainListItem = (props: DomainListItem) => {
-  const domain = useFragment(DomainListItem_domainFragment, props.domain)
+export const DomainListItem = ({ domain }: DomainListItemProps) => {
   const { domainConfig, name } = domain
-  const valid = !domainConfig.misconfigured
+  const valid = !domainConfig?.misconfigured
 
   const badge = valid ? (
     <span className="flex items-center text-green-400">
