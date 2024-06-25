@@ -28,9 +28,13 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { Nullish } from '@codelab/shared/abstract/types'
+import {
+  IAtomType,
+  type IElementDto,
+  IElementRenderTypeKind,
+  type IRef,
+} from '@codelab/shared/abstract/core'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   disconnectAll,
@@ -205,6 +209,21 @@ export class Element
   }
 
   @computed
+  get closestConcreteParent(): Nullable<Ref<IElementModel>> {
+    const closestParent = this.closestParentElement?.current
+
+    if (!closestParent) {
+      return null
+    }
+
+    if (closestParent.isConcreteElement) {
+      return this.closestParentElement
+    }
+
+    return closestParent.closestConcreteParent
+  }
+
+  @computed
   get closestContainerNode() {
     const closestContainerNode =
       this.closestSubTreeRootElement.parentComponent?.current ??
@@ -283,6 +302,14 @@ export class Element
     return descendants
   }
 
+  @computed
+  get isConcreteElement(): boolean {
+    return (
+      this.renderType.current.__typename === IElementRenderTypeKind.Atom &&
+      this.renderType.current.type !== IAtomType.ReactFragment
+    )
+  }
+
   /**
    * Only the root doesn't have a closestParent
    */
@@ -307,6 +334,28 @@ export class Element
   @computed
   get slug(): string {
     return slugify(this.name)
+  }
+
+  @computed
+  get smallestConcreteRepresentativeSubtree(): Array<IElementModel> {
+    if (this.isConcreteElement) {
+      return [this]
+    }
+
+    if (this.children.length > 0) {
+      return this.children
+        .map((child) => child.smallestConcreteRepresentativeSubtree)
+        .flat()
+    }
+
+    if (
+      this.renderType.current.__typename === IElementRenderTypeKind.Component
+    ) {
+      return this.renderType.current.rootElement.current
+        .smallestConcreteRepresentativeSubtree
+    }
+
+    return []
   }
 
   @computed
