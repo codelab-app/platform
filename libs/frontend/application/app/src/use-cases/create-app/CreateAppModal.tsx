@@ -2,18 +2,21 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { useCreateAppModal } from '../../store/app-modal.state'
 import { createAppSchema } from './create-app.schema'
 import { useCreateAppService } from './create-app.service'
+import { useCreateAppModal } from './create-app-modal.state'
 
 export const CreateAppModal = observer(() => {
-  const store = useStore()
+  const store = useDomainStore()
   const createAppModal = useCreateAppModal()
   const createAppService = useCreateAppService(store)
 

@@ -37,6 +37,7 @@ const useModalState = <T>(key: ModelActionKey) => {
 
   return {
     close,
+    data: modalState.data,
     isOpen: modalState.isOpen,
     modalState,
     open,

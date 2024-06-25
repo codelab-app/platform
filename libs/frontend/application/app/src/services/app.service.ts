@@ -48,11 +48,11 @@ export class AppService
     // appDomainService: prop(() => new AppDomainService({})),
     appProductionService: prop(() => new AppProductionService({})),
     appRepository: prop(() => new AppRepository({})),
-    buildModal: prop(() => new AppModalService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new AppModalService({})),
+    // buildModal: prop(() => new AppModalService({})),
+    // createModal: prop(() => new ModalService({})),
+    // deleteModal: prop(() => new AppModalService({})),
     pageRepository: prop(() => new PageRepository({})),
-    updateModal: prop(() => new AppModalService({})),
+    // updateModal: prop(() => new AppModalService({})),
   })
   implements IAppService
 {
