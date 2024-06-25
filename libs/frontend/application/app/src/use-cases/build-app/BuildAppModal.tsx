@@ -12,7 +12,6 @@ import { AutoFields } from 'uniforms-antd'
 
 export const BuildAppModal = observer(() => {
   const store = useStore()
-  const { appService } = useStore()
   const app = appService.buildModal.app
   const { regenerate } = useRegeneratePages(appService)
   const onSubmit = async () => regenerate(app as IAppModel)
