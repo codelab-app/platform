@@ -5,9 +5,9 @@ import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
 } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Divider, InputNumber, Menu, Space } from 'antd'
-import type { ItemType } from 'antd/lib/menu/hooks/useItems'
+import type { ItemType } from 'antd/lib/menu/interface'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback } from 'react'
 

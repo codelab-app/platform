@@ -8,7 +8,7 @@ import { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { RuntimeComponentModel } from '../model'
+import { RuntimeComponentModel } from '../store'
 
 /**
  * We will have a single RuntimeComponentService that contains all runtime components

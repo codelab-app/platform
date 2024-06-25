@@ -1,0 +1,18 @@
+{
+  "overrides": [
+    {
+      "files": ["*.gen.ts", "*.gen.tsx"],
+      "rules": {
+        "unused-imports/no-unused-imports-ts": "error",
+        "func-style": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/member-ordering": "off",
+        "prefer-arrow/prefer-arrow-functions": "off",
+        "@nx/enforce-module-boundaries": "off",
+        "simple-import-sort/imports": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/naming-convention": "off"
+      }
+    }
+  ]
+}

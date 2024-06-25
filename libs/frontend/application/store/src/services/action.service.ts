@@ -3,19 +3,18 @@ import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend/application/prop'
-import { ModalService } from '@codelab/frontend/application/shared/store'
-import { getTypeService } from '@codelab/frontend/application/type'
-import {
-  ActionDomainService,
-  ActionFactory,
-} from '@codelab/frontend/domain/action'
+import { getPropService } from '@codelab/frontend-application-prop/services'
+import { ModalService } from '@codelab/frontend-application-shared-store/ui'
+import { getTypeService } from '@codelab/frontend-application-type/services'
+import { ActionDomainService } from '@codelab/frontend-domain-action/services'
+import { ActionFactory } from '@codelab/frontend-domain-action/store'
 import type {
   IActionDto,
   ICreateActionData,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -105,7 +104,10 @@ export class ActionService
   @modelFlow
   @transaction
   update = _async(function* (this: ActionService, data: IUpdateActionData) {
-    const action = this.actionDomainService.actions.get(data.id)!
+    const action = this.actionDomainService.actions.get(data.id)
+
+    assertIsDefined(action)
+
     const actionDto = ActionFactory.mapDataToDto(data)
 
     // ActionFactory below should be enough

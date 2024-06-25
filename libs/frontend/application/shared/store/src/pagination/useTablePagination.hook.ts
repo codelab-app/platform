@@ -1,13 +1,21 @@
+'use client'
+
 import type {
   Filterables,
   IPaginationService,
   SupportedPaginationModel,
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TablePaginationConfig } from 'antd'
 import debounce from 'lodash/debounce'
 import isMatch from 'lodash/isMatch'
-import { useRouter } from 'next/router'
+import {
+  type ReadonlyURLSearchParams,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
+import queryString from 'query-string'
 import React, { useEffect } from 'react'
 import { extractTableQueries } from './extract-table-queries'
 
@@ -26,12 +34,19 @@ export const useTablePagination = <
   pathname,
 }: Props<U>) => {
   const router = useRouter()
+  const params = useSearchParams() as Nullable<ReadonlyURLSearchParams>
+
+  const query = {
+    ...queryString.parse(params?.toString() ?? ''),
+    page: params?.get('page'),
+    pageSize: params?.get('pageSize'),
+  }
 
   const {
     filter,
     page = 1,
     pageSize = 20,
-  } = extractTableQueries<U>(router, filterTypes)
+  } = extractTableQueries<U>(query, filterTypes)
 
   const handleChange = React.useRef(
     debounce(
@@ -53,18 +68,16 @@ export const useTablePagination = <
         paginationService.setFilter(newFilter)
         void paginationService.getData()
 
-        await router.push(
-          {
-            pathname,
-            query: {
-              ...paginationService.filter,
-              page: paginationService.currentPage,
-              pageSize: paginationService.pageSize,
-            },
+        const url = queryString.stringifyUrl({
+          query: {
+            ...paginationService.filter,
+            page: paginationService.currentPage,
+            pageSize: paginationService.pageSize,
           },
-          undefined,
-          { shallow: true },
-        )
+          url: pathname,
+        })
+
+        await router.push(url)
       },
       500,
     ),

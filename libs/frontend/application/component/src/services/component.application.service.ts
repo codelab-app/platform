@@ -11,15 +11,13 @@ import {
   componentRef,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/application/atom'
-import { restWebClient } from '@codelab/frontend/application/axios'
-import {
-  ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { getStoreService } from '@codelab/frontend/application/store'
-import { getTypeService } from '@codelab/frontend/application/type'
-import { ComponentDomainService } from '@codelab/frontend/domain/component'
+import { getAtomService } from '@codelab/frontend-application-atom/services'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
+import { ModalService } from '@codelab/frontend-application-shared-store/ui'
+import { getStoreService } from '@codelab/frontend-application-store/services'
+import { getTypeService } from '@codelab/frontend-application-type/services'
+import { ComponentDomainService } from '@codelab/frontend-domain-component/services'
+import { restWebClient } from '@codelab/frontend-infra-axios'
 import type {
   Component,
   ComponentOptions,
@@ -43,7 +41,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { ComponentDevelopmentService } from '../use-cases'
+import { ComponentDevelopmentService } from '../use-cases/component-development'
 import { ComponentRepository } from './component.repo'
 import { ComponentFormService } from './component-form.service'
 import { ComponentModalService } from './component-modal.service'
@@ -255,7 +253,7 @@ export class ComponentApplicationService
       rendererType: RendererType.ComponentBuilder,
     })
 
-    this.builderService.selectComponentNode(renderer.runtimeComponent!)
+    this.builderService.selectComponentNode(renderer.runtimeComponent)
     this.rendererService.setActiveRenderer(rendererRef(renderer))
   }
 

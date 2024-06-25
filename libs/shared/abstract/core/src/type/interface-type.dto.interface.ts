@@ -1,34 +1,35 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IField } from '../field/field.dto.interface'
-import { IDiscriminatedRef, IRef } from '../model/node-type.interface'
-import { IBaseTypeDto } from './base-type.dto.interface'
+import { FieldSchema } from '../field/field.dto.interface'
+import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IInterfaceTypeDto = Type.Composite([
-  IBaseTypeDto(Type.Literal(`${ITypeKind.InterfaceType}`)),
+export const InterfaceTypeDtoSchema = Type.Composite([
+  BaseTypeDtoSchema(`${ITypeKind.InterfaceType}`),
   Type.Object({
-    fields: Type.Array(IRef, { default: [] }),
+    fields: Type.Array(Typebox.Ref, { default: [] }),
   }),
 ])
 
-export type IInterfaceTypeDto = Static<typeof IInterfaceTypeDto>
+export type IInterfaceTypeDto = Static<typeof InterfaceTypeDtoSchema>
 
-export const IInterfaceType = Typebox.Overwrite(
-  IInterfaceTypeDto,
+export const InterfaceTypeSchema = Typebox.Overwrite(
+  InterfaceTypeDtoSchema,
   Type.Object({
-    fields: Type.Array(IField),
+    fields: Type.Array(FieldSchema),
   }),
 )
 
-export type IInterfaceType = Static<typeof IInterfaceType>
+export type IInterfaceType = Static<typeof InterfaceTypeSchema>
 
 export type ICreateInterfaceTypeDto = Pick<IInterfaceTypeDto, 'id' | 'name'>
 
 /**
  * Entity
  */
-export const IInterfaceTypeRef = IDiscriminatedRef(`${ITypeKind.InterfaceType}`)
+export const InterfaceTypeRefSchema = Typebox.DiscriminatedRef(
+  ITypeKind.InterfaceType,
+)
 
-export type IInterfaceTypeRef = Static<typeof IInterfaceTypeRef>
+export type IInterfaceTypeRef = Static<typeof InterfaceTypeRefSchema>

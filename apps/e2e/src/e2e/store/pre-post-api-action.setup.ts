@@ -44,7 +44,7 @@ export const setupTest = () => {
     .then(() =>
       cy.postApiRequest<ICodeActionDto>(
         '/action/create-action',
-        preRenderCodeActionCreateData(page!),
+        preRenderCodeActionCreateData(page),
       ),
     )
     .as('createdPreRenderCodeAction')
@@ -53,7 +53,7 @@ export const setupTest = () => {
     .then(() =>
       cy.postApiRequest<IApiActionDto>(
         '/action/create-action',
-        preRenderApiActionCreateData(page!),
+        preRenderApiActionCreateData(page),
       ),
     )
     .as('createdPreRenderApiAction')
@@ -62,7 +62,7 @@ export const setupTest = () => {
     .then(() =>
       cy.postApiRequest<ICodeActionDto>(
         '/action/create-action',
-        postRenderCodeActionCreateData(page!),
+        postRenderCodeActionCreateData(page),
       ),
     )
     .as('createdPostRenderCodeAction')
@@ -71,7 +71,7 @@ export const setupTest = () => {
     .then(() =>
       cy.postApiRequest<IApiActionDto>(
         '/action/create-action',
-        postRenderApiActionCreateData(page!),
+        postRenderApiActionCreateData(page),
       ),
     )
     .as('createdPostRenderApiAction')

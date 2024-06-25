@@ -1,9 +1,9 @@
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import type { LinkProps } from 'next/link'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
 import React from 'react'
 import styles from './CuiNavigationBar.module.css'
@@ -24,7 +24,7 @@ export interface CuiNavigationBarProps {
   secondaryItems?: Array<NavigationBarItem>
 }
 
-const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
+export const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   disabled: navBarItem.disabled,
   icon: (
     <div data-cy={CY_DATA.cuiNavigationBarItem(navBarItem.title).cyData}>
@@ -46,9 +46,8 @@ export const CuiNavigationBar = ({
   primaryItems,
   secondaryItems,
 }: CuiNavigationBarProps) => {
-  const router = useRouter()
-  const { primarySidebarKey } = router.query
-  const selectedKey = (primarySidebarKey as string) || router.pathname
+  const { pathname, primarySidebarKey } = useUrl()
+  const selectedKey = primarySidebarKey || pathname
 
   return (
     <div
@@ -71,13 +70,13 @@ export const CuiNavigationBar = ({
         defaultOpenKeys={[]}
         items={primaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={[selectedKey]}
+        selectedKeys={selectedKey ? [selectedKey] : []}
       />
       <Menu
         defaultOpenKeys={[]}
         items={secondaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={[selectedKey]}
+        selectedKeys={selectedKey ? [selectedKey] : []}
       />
     </div>
   )

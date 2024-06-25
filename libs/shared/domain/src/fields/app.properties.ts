@@ -8,16 +8,20 @@ interface AppData {
   owner: { id: never }
 }
 
-export class AppProperties {
-  static appCompositeKey = (appName: string, user: IRef) => {
-    return `${user.id}-${appName}`
-  }
+const appCompositeKey = (appName: string, user: IRef) => {
+  return `${user.id}-${appName}`
+}
 
-  static appNameFromCompositeKey = (app: DeepPick<App, AppData>) => {
-    return app.compositeKey.replace(`${app.owner.id}-`, '')
-  }
+const appNameFromCompositeKey = (app: DeepPick<App, AppData>) => {
+  return app.compositeKey.replace(`${app.owner.id}-`, '')
+}
 
-  static appSlugFromCompositeKey = (app: DeepPick<App, AppData>) => {
-    return slugify(AppProperties.appNameFromCompositeKey(app))
-  }
+const appSlugFromCompositeKey = (app: DeepPick<App, AppData>) => {
+  return slugify(AppProperties.appNameFromCompositeKey(app))
+}
+
+export const AppProperties = {
+  appCompositeKey,
+  appNameFromCompositeKey,
+  appSlugFromCompositeKey,
 }

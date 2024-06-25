@@ -10,7 +10,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const storeApiData = (): IInterfaceTypeDto => ({
-  __typename: `${ITypeKind.InterfaceType}`,
+  __typename: ITypeKind.InterfaceType,
   fields: [],
   id: v4(),
   kind: ITypeKind.InterfaceType,

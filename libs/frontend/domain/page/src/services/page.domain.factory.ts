@@ -10,11 +10,9 @@ import {
   IAppModel,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Store } from '@codelab/frontend/domain/store'
-import {
-  getTypeDomainService,
-  InterfaceType,
-} from '@codelab/frontend/domain/type'
+import { Store } from '@codelab/frontend-domain-store/store'
+import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
   ICreatePageData,
   IElementRenderTypeDto,

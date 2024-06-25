@@ -6,19 +6,21 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { rendererFactory } from '@codelab/frontend/application/renderer'
+import { createCoreStore } from '@codelab/frontend/infra/mobx'
+import { rendererFactory } from '@codelab/frontend-application-renderer/test'
 import {
   apiActionFactory,
   codeActionFactory,
-} from '@codelab/frontend/domain/action'
-import { appFactory } from '@codelab/frontend/domain/app'
-import { atomFactory } from '@codelab/frontend/domain/atom'
-import { componentFactory } from '@codelab/frontend/domain/component'
-import { elementFactory } from '@codelab/frontend/domain/element'
-import { pageFactory } from '@codelab/frontend/domain/page'
-import { propFactory } from '@codelab/frontend/domain/prop'
-import { resourceFactory } from '@codelab/frontend/domain/resource'
-import { Store, storeFactory } from '@codelab/frontend/domain/store'
+} from '@codelab/frontend-domain-action/test'
+import { appFactory } from '@codelab/frontend-domain-app/test'
+import { atomFactory } from '@codelab/frontend-domain-atom/test'
+import { componentFactory } from '@codelab/frontend-domain-component/test'
+import { elementFactory } from '@codelab/frontend-domain-element/test'
+import { pageFactory } from '@codelab/frontend-domain-page/test'
+import { propFactory } from '@codelab/frontend-domain-prop/test'
+import { resourceFactory } from '@codelab/frontend-domain-resource/test'
+import { Store } from '@codelab/frontend-domain-store/store'
+import { storeFactory } from '@codelab/frontend-domain-store/test'
 import {
   codeMirrorTypeFactory,
   fieldFactory,
@@ -27,8 +29,7 @@ import {
   reactNodeTypeFactory,
   renderPropsTypeFactory,
   richTextTypeFactory,
-} from '@codelab/frontend/domain/type'
-import { createCoreStore } from '@codelab/frontend/infra/mobx'
+} from '@codelab/frontend-domain-type/test'
 import type {
   IApiActionDto,
   IAppDto,
@@ -75,9 +76,8 @@ export const createTestStore = () => {
 
   const coreStore = createCoreStore(
     {
-      path: '',
-      pathname: '',
-      query: {},
+      params: null,
+      query: null,
     },
     adminUser,
   )
@@ -275,7 +275,7 @@ export const createTestStore = () => {
         rendererType: RendererType.Preview,
       })
 
-      const runtimeComponent = renderer.runtimeComponent!
+      const runtimeComponent = renderer.runtimeComponent
 
       return { component, renderer, runtimeComponent }
     }
@@ -332,7 +332,7 @@ export const createTestStore = () => {
           name: 'Component',
         })
 
-      const runtimeRootElement = runtimePage!.runtimeRootElement
+      const runtimeRootElement = runtimePage?.runtimeRootElement
 
       rootElement.writeCache({ renderType: component })
 
@@ -356,7 +356,7 @@ export const createTestStore = () => {
         pageKind,
       )
 
-      const runtimeRootElement = runtimePage!.runtimeRootElement
+      const runtimeRootElement = runtimePage?.runtimeRootElement
 
       return {
         page,

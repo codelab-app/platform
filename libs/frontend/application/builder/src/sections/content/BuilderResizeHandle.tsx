@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef } from 'react'
 import type { Side } from './builder-resize-controller'
@@ -61,15 +61,23 @@ export const BuilderResizeHandle = ({ children }: PropsWithChildren) => {
     <>
       <div
         className={getClassNames()}
-        onMouseLeave={() => setHovered(false)}
-        onMouseOver={() => setHovered(true)}
+        onMouseLeave={() => {
+          setHovered(false)
+        }}
+        onMouseOver={() => {
+          setHovered(true)
+        }}
         ref={beforeElementRef}
       />
       {children}
       <div
         className={`${getClassNames()} relative`}
-        onMouseLeave={() => setHovered(false)}
-        onMouseOver={() => setHovered(true)}
+        onMouseLeave={() => {
+          setHovered(false)
+        }}
+        onMouseOver={() => {
+          setHovered(true)
+        }}
         ref={afterElementRef}
       >
         <div className="absolute left-1/2 top-1/2 -translate-y-1/2 bg-inherit">

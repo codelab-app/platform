@@ -1,10 +1,11 @@
 import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAuthGuardQuery } from '@codelab/frontend/presentation/container'
-import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
@@ -18,7 +19,7 @@ export const DeleteAuthGuardModal = observer(() => {
     authGuardService.deleteModal.close()
 
     if (authGuardId === authGuard?.id) {
-      void router.push({ pathname: PageType.AuthGuards, query: {} })
+      void router.push(PageType.AuthGuards)
     }
   }
 

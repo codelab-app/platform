@@ -22,7 +22,9 @@ export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
     >
       <div className="container">
         <Input
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) => {
+            setEmail(event.target.value)
+          }}
           placeholder="email"
           size="large"
           status={!isValid ? 'error' : undefined}

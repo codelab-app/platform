@@ -12,10 +12,10 @@ import {
   getPageDomainService,
   IAppProductionDto,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/application/atom'
-import { getPageService } from '@codelab/frontend/application/page'
-import { getPropService } from '@codelab/frontend/application/prop'
-import { getStoreService } from '@codelab/frontend/application/store'
+import { getAtomService } from '@codelab/frontend-application-atom/services'
+import { getPageService } from '@codelab/frontend-application-page/services'
+import { getPropService } from '@codelab/frontend-application-prop/services'
+import { getStoreService } from '@codelab/frontend-application-store/services'
 import type { AtomProductionFragment } from '@codelab/shared/abstract/codegen'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'

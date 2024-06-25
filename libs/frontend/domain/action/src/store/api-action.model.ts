@@ -9,7 +9,7 @@ import {
   resourceRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import type {
   ApiActionCreateInput,
   ApiActionDeleteInput,
@@ -66,7 +66,7 @@ export class ApiAction
   @computed
   get toJson() {
     return {
-      __typename: `${IActionKind.ApiAction}` as const,
+      __typename: IActionKind.ApiAction as const,
       config: this.config.toJson,
       errorAction: this.errorAction?.current,
       id: this.id,

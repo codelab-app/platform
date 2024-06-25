@@ -1,21 +1,24 @@
-import type { AntDesignApi } from '@codelab/backend/abstract/core'
-import { AntDesignApiSchema } from '@codelab/backend/abstract/core'
+import {
+  AntDesignApiSchema,
+  type IAntDesignApi,
+} from '@codelab/backend/abstract/core'
+import { Value } from '@sinclair/typebox/value'
 import fs from 'fs'
 import path from 'path'
 
 export const readAntDesignApis = async (
   folder: string,
-): Promise<Array<AntDesignApi>> => {
+): Promise<Array<IAntDesignApi>> => {
   const jsonFiles = fs.readdirSync(folder)
-  const apis: Array<AntDesignApi> = []
+  const apis: Array<IAntDesignApi> = []
 
   for (const file of jsonFiles) {
     const filePath = path.resolve(folder, file)
     const fileContent = fs.readFileSync(filePath, 'utf8')
-    const apisData: Array<AntDesignApi> = JSON.parse(fileContent)
+    const apisData: Array<IAntDesignApi> = JSON.parse(fileContent)
 
     apisData.forEach((data) => {
-      return AntDesignApiSchema.parse(data)
+      return Value.Decode(AntDesignApiSchema, data)
     })
 
     apis.push(...apisData)

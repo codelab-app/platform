@@ -1,1 +1,1 @@
-export * from './app.service'
+export { getAppRepository } from './app.repo'

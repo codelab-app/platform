@@ -33,7 +33,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDto {
     return field?.key ? `${name} ${capitalize(field.key)} API` : `${name} API`
   }
 
-  __typename = `${ITypeKind.InterfaceType}` as const
+  __typename = ITypeKind.InterfaceType as const
 
   fields: Array<IRef>
 

@@ -34,7 +34,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
             execCommand('cd infra/terraform/modules && ./symlink.sh')
 
-            return execCommand(
+            execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade;`,
             )
           },
@@ -44,7 +44,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform plan',
           (argv) => argv,
           ({ stage }) => {
-            return execCommand(
+            execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} plan`,
             )
           },
@@ -59,7 +59,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform import',
           (argv) => argv,
           ({ stage }) => {
-            return execCommand(
+            execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} import aws_lambda_function.nest_cli nest_cli`,
             )
           },
@@ -72,7 +72,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             const autoApprove = stage === Stage.Prod ? '-auto-approve' : ''
 
             // Add export TF_LOG=DEBUG for verbose
-            return execCommand(
+            execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApprove}`,
             )
           },
@@ -82,7 +82,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform validate',
           (argv) => argv,
           ({ stage }) => {
-            return execCommand(
+            execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} validate`,
             )
           },
@@ -94,7 +94,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           ({ stage }) => {
             // `terraform state rm`
 
-            return execCommand(
+            execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} destroy`,
             )
           },
@@ -104,7 +104,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform lint',
           (argv) => argv,
           ({ stage }) => {
-            return execCommand(
+            execCommand(
               `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --recursive`,
             )
             // execCommand(

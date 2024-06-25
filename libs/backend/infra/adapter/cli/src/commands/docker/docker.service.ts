@@ -28,7 +28,9 @@ export class DockerService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.CI) {
-            return execCommand('')
+            execCommand('')
+
+            return
           }
         },
       )

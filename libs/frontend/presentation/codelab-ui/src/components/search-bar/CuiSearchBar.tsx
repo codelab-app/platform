@@ -34,7 +34,9 @@ export const CuiSearchBar = ({
     >
       <Input
         className="border"
-        onChange={(event) => handleChange(event.target.value)}
+        onChange={(event) => {
+          handleChange(event.target.value)
+        }}
         placeholder="Search"
         prefix={<SearchOutlined />}
         size="small"

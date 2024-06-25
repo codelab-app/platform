@@ -10,20 +10,16 @@ import {
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
 import { isAtomRef } from '@codelab/frontend/abstract/domain'
-import {
-  UpdateComponentForm,
-  UpdateComponentPropsForm,
-} from '@codelab/frontend/application/component'
-import {
-  DeleteElementButton,
-  ElementCssEditor,
-  MoveElementForm,
-  UpdateElementForm,
-  UpdateElementPropsForm,
-} from '@codelab/frontend/application/element'
-import { UpdatePageTabForm } from '@codelab/frontend/application/page'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { FormContextProvider } from '@codelab/frontend/presentation/view'
+import { UpdateComponentForm } from '@codelab/frontend-application-component/use-cases/update-component'
+import { UpdateComponentPropsForm } from '@codelab/frontend-application-component/use-cases/update-component-props'
+import { DeleteElementButton } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { MoveElementForm } from '@codelab/frontend-application-element/use-cases/move-element'
+import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
+import { UpdateElementPropsForm } from '@codelab/frontend-application-element/use-cases/update-element-props'
+import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
+import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
 import isNil from 'lodash/isNil'

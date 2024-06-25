@@ -5,7 +5,7 @@ import type {
 } from '@dnd-kit/core'
 import get from 'lodash/get'
 import { type Point, type Rect, Rectangle } from '../geometry'
-import type { WithInternalDropData } from '../internal-drop-data.interface'
+import type { WithInternalDropData } from '../hooks/internal-drop-data.interface'
 import { HierarchicalCollisionDetector } from './hierarchical-collision-detector'
 
 interface BaseHierarchyItem {

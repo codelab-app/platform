@@ -80,7 +80,9 @@ export const State = ({
           //     }
           //   }
           // })
-          .catch((err: unknown) => console.error(err))
+          .catch((err: unknown) => {
+            console.error(err)
+          })
       } else {
         // If not - directly set the state
         setState(error)

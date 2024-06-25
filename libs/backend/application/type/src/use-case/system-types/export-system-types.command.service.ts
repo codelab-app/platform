@@ -9,12 +9,12 @@ import {
 } from '@codelab/backend/domain/type'
 import type { IType } from '@codelab/shared/abstract/core'
 import {
-  IActionType,
-  ICodeMirrorType,
-  IPrimitiveType,
-  IReactNodeType,
-  IRenderPropType,
-  IRichTextType,
+  ActionTypeSchema,
+  CodeMirrorTypeSchema,
+  PrimitiveTypeSchema,
+  ReactNodeTypeSchema,
+  RenderPropTypeSchema,
+  RichTextTypeSchema,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -57,7 +57,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: IPrimitiveType,
+      schema: PrimitiveTypeSchema,
     })
 
     /**
@@ -68,7 +68,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: IReactNodeType,
+      schema: ReactNodeTypeSchema,
     })
 
     /**
@@ -79,7 +79,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: IRichTextType,
+      schema: RichTextTypeSchema,
     })
 
     /**
@@ -90,7 +90,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: IRenderPropType,
+      schema: RenderPropTypeSchema,
     })
 
     /**
@@ -101,14 +101,14 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: IActionType,
+      schema: ActionTypeSchema,
     })
 
     const codeMirrorTypes = await this.codeMirrorTypeRepository.find({
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: ICodeMirrorType,
+      schema: CodeMirrorTypeSchema,
     })
 
     /**

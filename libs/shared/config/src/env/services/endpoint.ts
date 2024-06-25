@@ -22,7 +22,7 @@ export interface IEndpointEnvVars {
   /**
    * This is the Next.js middleware that forwards to the backend graphql endpoint
    */
-  graphqlApiProxyUrl: string
+  graphqlApiUrl: string
   isLocal: boolean
   webHost: string
 }
@@ -61,12 +61,12 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    *
    * This uses the Next.js proxy middleware
    */
-  get graphqlApiProxyUrl() {
-    return new URL('api/graphql', this.webHost).toString()
+  get graphqlApiUrl() {
+    return new URL('api/graphql', this.apiHost).toString()
   }
 
   get isLocal() {
-    return this.graphqlApiProxyUrl.includes('127.0.0.1')
+    return this.graphqlApiUrl.includes('127.0.0.1')
   }
 
   /**

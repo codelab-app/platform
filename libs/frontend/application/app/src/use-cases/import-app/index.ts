@@ -1,1 +1,1 @@
-export * from './ImportAppDialog'
+export { ImportAppDialog } from './ImportAppDialog'

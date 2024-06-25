@@ -15,13 +15,13 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend/application/prop'
+import { getPropService } from '@codelab/frontend-application-prop/services'
 import {
   getActionService,
   getStoreService,
-} from '@codelab/frontend/application/store'
-import { getFieldService } from '@codelab/frontend/application/type'
-import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
+} from '@codelab/frontend-application-store/services'
+import { getFieldService } from '@codelab/frontend-application-type/services'
+import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { ICreateElementDto, IPropDto } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
@@ -195,8 +195,10 @@ export class CloneElementService
 
     const oldToNewActionIdMap = elementStore.actions.reduce(
       (acc, action, index) => {
-        if (clonedActions[index]) {
-          acc.set(action.id, clonedActions[index]!.id)
+        const clonedAction = clonedActions[index]
+
+        if (clonedAction) {
+          acc.set(action.id, clonedAction.id)
         }
 
         return acc

@@ -1,7 +1,7 @@
 import compact from 'lodash/compact'
 import { action, computed, makeObservable, observable } from 'mobx'
 import type { Key } from 'react'
-import type React from 'react'
+import React from 'react'
 import { traverseAndFlattenTrees, traverseTrees } from '../../../util'
 import type { CuiTreeBasicDataNode, WithChildren } from '../CuiTree'
 

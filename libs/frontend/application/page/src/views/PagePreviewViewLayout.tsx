@@ -1,5 +1,5 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
+import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { PageDetailHeader } from './PageDetailHeader'

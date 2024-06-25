@@ -1,12 +1,11 @@
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
-  IActionType,
-  IAtomAggregate,
-  IPrimitiveType,
+  ActionTypeSchema,
+  AtomAggregateSchema,
+  PrimitiveTypeSchema,
 } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
-import type { TSchema } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import affixJson from 'data/export-v3/admin/atoms/AntDesignAffix.json'
 import omit from 'lodash/omit'
@@ -27,7 +26,7 @@ describe('ValidationService', () => {
   describe('validateAndClean', () => {
     it('should validate and clean the input correctly', () => {
       const result = validationService.validateAndClean(
-        IAtomAggregate,
+        AtomAggregateSchema,
         affixJson,
       )
 
@@ -38,15 +37,17 @@ describe('ValidationService', () => {
     })
 
     it('should throw an error for invalid input', () => {
-      const schema: TSchema = Type.String()
+      const stringSchema = Type.String()
       const input = 123
 
-      expect(() => validationService.validateAndClean(schema, input)).toThrow()
+      expect(() =>
+        validationService.validateAndClean(stringSchema, input),
+      ).toThrow()
     })
   })
 
   describe('union validation', () => {
-    const schema = Type.Union([
+    const unionSchema = Type.Union([
       Type.Object({
         kind: Type.Literal('string'),
         val: Type.String(),
@@ -65,7 +66,7 @@ describe('ValidationService', () => {
       }
 
       expect(() =>
-        validationService.validateAndClean(schema, data),
+        validationService.validateAndClean(unionSchema, data),
       ).not.toThrow()
     })
 
@@ -75,7 +76,9 @@ describe('ValidationService', () => {
         val: 2,
       }
 
-      expect(() => validationService.validateAndClean(schema, data)).toThrow()
+      expect(() =>
+        validationService.validateAndClean(unionSchema, data),
+      ).toThrow()
     })
 
     it('should work on type output', () => {
@@ -87,7 +90,7 @@ describe('ValidationService', () => {
         primitiveKind: 'Boolean',
       }
 
-      const UnionSchema = Type.Union([IPrimitiveType, IActionType], {
+      const UnionSchema = Type.Union([PrimitiveTypeSchema, ActionTypeSchema], {
         discriminantKey: '__typename',
       })
 

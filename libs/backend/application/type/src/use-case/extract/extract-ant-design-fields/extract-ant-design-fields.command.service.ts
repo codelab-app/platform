@@ -1,4 +1,4 @@
-import type { AntDesignField } from '@codelab/backend/abstract/core'
+import type { IAntDesignField } from '@codelab/backend/abstract/core'
 import {
   Field,
   FieldRepository,
@@ -62,7 +62,7 @@ export class ExtractAntDesignFieldsHandler
 
   private async createOrUpdateField(
     atom: IAtomDto,
-    field: AntDesignField,
+    field: IAntDesignField,
   ): Promise<IFieldDto | undefined> {
     const existingField = await this.fieldRepository.findOne({
       where: {
@@ -104,7 +104,7 @@ export class ExtractAntDesignFieldsHandler
 
   private async transformFields(
     atom: IAtomDto,
-    atomFields: Array<AntDesignField>,
+    atomFields: Array<IAntDesignField>,
   ) {
     const result: Array<IFieldDto> = []
 

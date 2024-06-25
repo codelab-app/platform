@@ -1,9 +1,9 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
-  createAutoCompleteOptions,
   ToggleExpressionField,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-components-form'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import type { UiPropertiesFn } from '../types'
 

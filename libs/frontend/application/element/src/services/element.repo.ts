@@ -5,6 +5,7 @@ import type {
   ElementUniqueWhere,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { elementApi } from '../graphql/element.api'
 
@@ -20,7 +21,11 @@ export class ElementRepository extends Model({}) implements IElementRepository {
       }),
     )
 
-    return elements[0]!
+    const createdElement = elements[0]
+
+    assertIsDefined(createdElement)
+
+    return createdElement
   })
 
   @modelFlow
@@ -77,7 +82,11 @@ export class ElementRepository extends Model({}) implements IElementRepository {
       }),
     )
 
-    return elements[0]!
+    const updatedElement = elements[0]
+
+    assertIsDefined(updatedElement)
+
+    return updatedElement
   })
 
   // This seems to be faster when there are fewer fields attached when updating
@@ -95,6 +104,10 @@ export class ElementRepository extends Model({}) implements IElementRepository {
       }),
     )
 
-    return elements[0]!
+    const updatedNode = elements[0]
+
+    assertIsDefined(updatedNode)
+
+    return updatedNode
   })
 }

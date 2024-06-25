@@ -1,5 +1,5 @@
-import type CodeMirror from 'codemirror'
+import type { EditorView } from '@codemirror/view'
 
 export interface CodeMirrorHTMLElement extends HTMLElement {
-  CodeMirror: CodeMirror.EditorView
+  CodeMirror: EditorView
 }

@@ -1,18 +1,18 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IActionKind } from './action-kind.enum'
-import { IBaseActionDto } from './base-action.dto.interface'
+import { BaseActionDtoSchema } from './base-action.dto.interface'
 
-export const ICodeActionDto = Type.Composite([
-  IBaseActionDto,
+export const CodeActionDtoSchema = Type.Composite([
+  BaseActionDtoSchema,
   Type.Object({
     __typename: Type.Literal(`${IActionKind.CodeAction}`),
     code: Type.String(),
   }),
 ])
 
-export type ICodeActionDto = Static<typeof ICodeActionDto>
+export type ICodeActionDto = Static<typeof CodeActionDtoSchema>
 
-export const ICodeAction = ICodeActionDto
+export const CodeActionSchema = CodeActionDtoSchema
 
-export type ICodeAction = Static<typeof ICodeAction>
+export type ICodeAction = Static<typeof CodeActionSchema>

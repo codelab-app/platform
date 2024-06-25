@@ -1,13 +1,13 @@
 import type { RendererType } from '@codelab/frontend/abstract/application'
 import { rendererRef } from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   useAppQuery,
   usePageQuery,
 } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useAsync } from '@react-hookz/web'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 interface DevelopmentPageProps {
   rendererType: RendererType
@@ -63,7 +63,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
     } catch (error) {
       console.error(error)
 
-      await router.push({ pathname: PageType.AppList, query: {} })
+      await router.push(PageType.AppList)
     }
   })
 }

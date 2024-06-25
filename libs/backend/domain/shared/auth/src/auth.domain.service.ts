@@ -1,7 +1,7 @@
 import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
+import { mapAuth0IdTokenToUserDto } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
-import { mapAuth0IdTokenToUserDto } from './user.mapper'
 
 export interface AuthenticatedRequest extends Request {
   user?: Auth0IdToken

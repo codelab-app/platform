@@ -16,8 +16,8 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { RuntimeElementModel, RuntimeElementPropsModel } from '../model'
-import { RuntimeElementStyle } from '../model/runtime-element-style.model'
+import { RuntimeElementModel, RuntimeElementPropsModel } from '../store'
+import { RuntimeElementStyle } from '../store/runtime-element-style.model'
 
 /**
  * We will have a single RuntimeElementService that contains all runtime elements

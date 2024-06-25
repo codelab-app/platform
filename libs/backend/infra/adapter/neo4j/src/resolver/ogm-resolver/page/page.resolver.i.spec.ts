@@ -7,6 +7,7 @@ import {
   connectOwner,
   ElementProperties,
   PageProperties,
+  refValidation,
 } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
@@ -49,7 +50,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).users[0]!
+    ).users[0]
+
+    refValidation.asserts(owner)
 
     const testApp = (
       await ogmService.App.create({
@@ -61,7 +64,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).apps[0]!
+    ).apps[0]
+
+    refValidation.asserts(testApp)
 
     const testPageRef = { id: v4() }
 
@@ -75,7 +80,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).interfaceTypes[0]!
+    ).interfaceTypes[0]
+
+    refValidation.asserts(atomApi)
 
     const atomReactFragment = (
       await ogmService.Atom.create({
@@ -89,7 +96,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).atoms[0]!
+    ).atoms[0]
+
+    refValidation.asserts(atomReactFragment)
 
     const props = (
       await ogmService.Prop.create({
@@ -100,7 +109,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).props[0]!
+    ).props[0]
+
+    refValidation.asserts(props)
 
     const rootElement = (
       await ogmService.Element.create({
@@ -118,7 +129,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).elements[0]!
+    ).elements[0]
+
+    refValidation.asserts(rootElement)
 
     const childElementProps = (
       await ogmService.Prop.create({
@@ -129,7 +142,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).props[0]!
+    ).props[0]
+
+    refValidation.asserts(childElementProps)
 
     const childElement = (
       await ogmService.Element.create({
@@ -148,7 +163,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).elements[0]!
+    ).elements[0]
+
+    refValidation.asserts(childElement)
 
     const storeApi = (
       await ogmService.InterfaceType.create({
@@ -160,7 +177,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).interfaceTypes[0]!
+    ).interfaceTypes[0]
+
+    refValidation.asserts(storeApi)
 
     const store = (
       await ogmService.Store.create({
@@ -172,7 +191,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).stores[0]!
+    ).stores[0]
+
+    refValidation.asserts(store)
 
     const testPage = (
       await ogmService.Page.create({
@@ -191,7 +212,9 @@ describe('ComponentResolvers', () => {
           },
         ],
       })
-    ).pages[0]!
+    ).pages[0]
+
+    refValidation.asserts(testPage)
 
     await request(app.getHttpServer())
       .post('/graphql')

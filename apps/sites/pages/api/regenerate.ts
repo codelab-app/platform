@@ -1,23 +1,27 @@
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import type { NextApiHandler } from 'next'
 
 const regenerate: NextApiHandler = async (req, res) => {
   try {
-    const session = await auth0Instance().getSession(req, res)
+    const session = await auth0Instance.getSession(req, res)
 
     if (!session?.user) {
-      return res.status(403).send('Not Authenticated')
+      res.status(403).send('Not Authenticated')
+
+      return
     }
 
     const domain = req.headers.host
     const pages = String(req.query.pages).split(',')
 
     if (!pages.length) {
-      return res
+      res
         .status(400)
         .send(
           'Invalid input: endpoint accepts "page" parameter as an array of page names',
         )
+
+      return
     }
 
     const revalidatedPages: Array<string> = []
@@ -37,9 +41,13 @@ const regenerate: NextApiHandler = async (req, res) => {
 
     await Promise.all(revalidationPromises)
 
-    return res.json({ failedPages, revalidatedPages })
+    res.json({ failedPages, revalidatedPages })
+
+    return
   } catch (err) {
-    return res.status(500).send(err)
+    res.status(500).send(err)
+
+    return
   }
 }
 

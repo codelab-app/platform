@@ -8,9 +8,9 @@ import {
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { elementRef } from '@codelab/frontend/abstract/domain'
-import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { ClickOverlay } from '@codelab/frontend/presentation/view'
+import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { ClickOverlay } from '@codelab/frontend-presentation-view/components/overlay'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

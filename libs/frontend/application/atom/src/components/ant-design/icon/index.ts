@@ -1,1 +1,1 @@
-export * from './antd-icon'
+export * from './AntdIcon'

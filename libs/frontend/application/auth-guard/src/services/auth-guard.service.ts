@@ -8,10 +8,11 @@ import type {
 import {
   InlineFormService,
   ModalService,
-} from '@codelab/frontend/application/shared/store'
-import { AuthGuardDomainService } from '@codelab/frontend/domain/auth-guard'
+} from '@codelab/frontend-application-shared-store/ui'
+import { AuthGuardDomainService } from '@codelab/frontend-domain-auth-guard/services'
 import type { AuthGuardWhere } from '@codelab/shared/abstract/codegen'
 import type { IPropDto } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -130,7 +131,10 @@ export class AuthGuardService
       responseTransformer,
     }: IUpdateAuthGuardData,
   ) {
-    const authGuard = this.authGuardDomainService.authGuards.get(id)!
+    const authGuard = this.authGuardDomainService.authGuards.get(id)
+
+    assertIsDefined(authGuard)
+
     const config = authGuard.config
 
     config.writeCache({ data: JSON.stringify(configData.data) })

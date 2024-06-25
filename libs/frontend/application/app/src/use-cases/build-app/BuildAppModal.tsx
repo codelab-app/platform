@@ -1,13 +1,17 @@
+'use client'
+
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useRegeneratePages } from '@codelab/frontend/application/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
+import { useRegeneratePages } from '@codelab/frontend-application-domain/services'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
 export const BuildAppModal = observer(() => {
+  const store = useStore()
   const { appService } = useStore()
   const app = appService.buildModal.app
   const { regenerate } = useRegeneratePages(appService)

@@ -1,0 +1,13 @@
+{
+  "root": true,
+  "ignorePatterns": ["!**/*"],
+  "plugins": ["unused-imports"],
+  "overrides": [
+    {
+      "files": ["*.gen.ts"],
+      "rules": {
+        "unused-imports/no-unused-imports": "error"
+      }
+    }
+  ]
+}

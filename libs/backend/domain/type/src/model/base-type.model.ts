@@ -1,4 +1,7 @@
-import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  type IBaseTypeDto,
+  type ITypeKind,
+} from '@codelab/shared/abstract/core'
 
 export abstract class BaseType implements Omit<IBaseTypeDto, '__typename'> {
   id: string

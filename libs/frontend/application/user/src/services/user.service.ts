@@ -1,15 +1,12 @@
 import type {
+  BuilderWidth,
+  BuilderWidthBreakPoint,
   IUserPreference,
   IUserService,
 } from '@codelab/frontend/abstract/application'
-import {
-  BuilderWidth,
-  BuilderWidthBreakPoint,
-} from '@codelab/frontend/abstract/application'
-import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
-import { restWebClient } from '@codelab/frontend/application/axios'
-import { User, UserDomainService } from '@codelab/frontend/domain/user'
-import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
+import { IUserDomainService } from '@codelab/frontend/abstract/domain'
+import { restWebClient } from '@codelab/frontend-infra-axios'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import set from 'lodash/set'
 import { computed } from 'mobx'
@@ -28,18 +25,6 @@ import { userApi } from './user.api'
 const CODELAB_STORAGE_KEY = 'codelab-preferences'
 const DEFAULT_PREFERENCES = { apps: {}, explorerExpandedNodes: {} }
 
-const init = (data: Auth0IdToken) => {
-  const user = User.fromSession(data)
-
-  return fromDto(user)
-}
-
-const fromDto = (user: IUserDto) => {
-  return new UserService({
-    userDomainService: UserDomainService.fromDto(user),
-  })
-}
-
 @model('@codelab/UserService')
 export class UserService
   extends Model({
@@ -47,10 +32,6 @@ export class UserService
   })
   implements IUserService
 {
-  static fromDto = fromDto
-
-  static init = init
-
   get preferences(): IUserPreference {
     return this.user.preferences as IUserPreference
   }

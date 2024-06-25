@@ -18,7 +18,7 @@ const withWebpackConfig = (nextConfig = {}) =>
         type: 'asset/source',
       })
 
-      config.experiments = { ...config.experiments, topLevelAwait: true }
+      // config.experiments = { ...config.experiments, topLevelAwait: true }
 
       /**
        * Wdyr
@@ -55,7 +55,7 @@ const withWebpackConfig = (nextConfig = {}) =>
     },
   })
 
-const plugins = [withBundleAnalyzer, withWebpackConfig]
+const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
 
 /**
  * @type {WithNxOptions}
@@ -65,27 +65,23 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    // https://nextjs.org/docs/messages/import-esm-externals
+    esmExternals: 'loose',
+    // forceSwcTransforms: true,
+    // typedRoutes: true,
     // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
   },
   nx: { svgr: true },
-  reactStrictMode: false,
-  rewrites: async () => ({
-    beforeFiles: [
-      // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
-      {
-        destination: 'http://127.0.0.1:4318/:path*',
-        source: '/api/otel/:path*',
-      },
-    ],
-  }),
-  /**
-   * https://github.com/vercel/next.js/issues/58817
-   */
-  transpilePackages: [],
+  // reactStrictMode: false,
+  // rewrites: async () => ({
+  //   beforeFiles: [
+  //     // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
+  //     {
+  //       destination: 'http://127.0.0.1:4318/:path*',
+  //       source: '/api/otel/:path*',
+  //     },
+  //   ],
+  // }),
 }
 
-module.exports = (phase, context) => {
-  const config = plugins.reduce((acc, fn) => fn(acc), nextConfig)
-
-  return withNx(config)(phase, context)
-}
+module.exports = composePlugins(...plugins)(nextConfig)

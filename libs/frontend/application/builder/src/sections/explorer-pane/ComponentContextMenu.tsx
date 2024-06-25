@@ -1,10 +1,8 @@
-import type {
-  IComponentApplicationService,
-  IComponentModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentApplicationService } from '@codelab/frontend/abstract/application'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { Key } from '@codelab/frontend/presentation/view'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { MenuProps } from 'antd'
 import { Dropdown } from 'antd'

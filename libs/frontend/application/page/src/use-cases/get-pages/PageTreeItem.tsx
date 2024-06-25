@@ -18,17 +18,19 @@ import {
   MODEL_ACTION,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import { useRegeneratePages } from '@codelab/frontend/application/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useRegeneratePages } from '@codelab/frontend-application-domain/services'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+import queryString from 'query-string'
 import React from 'react'
 
 interface PageTreeItemProps {
@@ -48,21 +50,24 @@ export const PageTreeItem = observer(
     const { isRegenerating, regenerate } = useRegeneratePages(appService)
     const { popover } = useCui()
     const router = useRouter()
+    const { query } = useUrl()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
         cuiKey: MODEL_ACTION.OpenBuilderBuilder.key,
         icon: <BuildOutlined />,
         onClick: () => {
-          void router.push({
-            pathname: PageType.PageBuilder,
+          const url = queryString.stringifyUrl({
             query: {
-              ...router.query,
+              ...queryString.parse(query.toString()),
               pageSlug: page.slug,
               primarySidebarKey: ExplorerPaneType.Explorer,
               userSlug: userService.user.username,
             },
+            url: PageType.PageBuilder,
           })
+
+          void router.push(url)
         },
         title: 'Open Builder',
       },

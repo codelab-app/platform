@@ -6,12 +6,13 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { FieldDomainService } from '@codelab/frontend/domain/type'
+import { FieldDomainService } from '@codelab/frontend-domain-type/services'
 import type {
   ICreateFieldData,
   IFieldDto,
   IRef,
 } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
@@ -199,7 +200,9 @@ export class FieldService
     this: FieldService,
     updateFieldData: ICreateFieldData,
   ) {
-    const field = this.fieldDomainService.getField(updateFieldData.id)!
+    const field = this.fieldDomainService.getField(updateFieldData.id)
+
+    assertIsDefined(field)
 
     field.writeCache(FieldService.mapDataToDTO(updateFieldData))
 

@@ -3,7 +3,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 
 export class ArrayType extends BaseType implements IArrayTypeDto {
-  __typename = `${ITypeKind.ArrayType}` as const
+  __typename = ITypeKind.ArrayType as const
 
   itemType?: IRef
 

@@ -42,7 +42,7 @@ import {
 export const getFormFieldLabel = (
   subject: any,
   { label, ...options }: CommonOptions & FormFieldOptions,
-): Cypress.Chainable<any> => {
+): Cypress.Chainable => {
   const opts = logAndMute('getFormFieldLabel', label, options)
 
   return isUndefined(label)
@@ -57,7 +57,7 @@ export const getFormFieldLabel = (
 export const getFormField = (
   subject: any,
   { label, ...options }: CommonOptions & FormFieldOptions = {},
-): Cypress.Chainable<any> => {
+): Cypress.Chainable => {
   const opts = logAndMute('getFormField', label, options)
 
   return isUndefined(label)
@@ -239,8 +239,9 @@ export const expectFormFieldValue = ({
 
 export const expectFormFieldValueFn =
   (field: Omit<ExpectFormFieldValueArgs[0], 'value'>) =>
-  (value: ExpectFormFieldValueArgs[0]['value']) =>
+  (value: ExpectFormFieldValueArgs[0]['value']) => {
     expectFormFieldValue({ ...field, value })
+  }
 
 export const expectFormFieldError = ({
   error: expectedHint,
@@ -309,12 +310,13 @@ export const expectFormFieldsFn =
   (
     values: NonNullable<ExpectFormFieldsArgs[1]>['values'],
     errors: NonNullable<ExpectFormFieldsArgs[1]>['errors'],
-  ) =>
+  ) => {
     expectFormFields(fields, {
       ...options,
       errors,
       values,
     } as ExpectFormFieldsArgs[1])
+  }
 
 export const getSelectDropdown = (options?: CommonOptions) =>
   absoluteRoot(options).find(dropdownSelector, options)
@@ -614,8 +616,9 @@ export const setFormFieldValue = (
 
 export const setFormFieldValueFn =
   (field: Omit<SetFormFieldValueArgs[0], 'value'>) =>
-  (value: SetFormFieldValueArgs[0]['value']) =>
+  (value: SetFormFieldValueArgs[0]['value']) => {
     setFormFieldValue(cy, { ...field, value })
+  }
 
 export const setFormFieldValues = (
   fields:
@@ -644,5 +647,6 @@ export const setFormFieldValuesFn =
     fields: SetFormFieldValuesArgs[0],
     options: Omit<SetFormFieldValuesArgs[1], 'values'>,
   ) =>
-  (values: NonNullable<SetFormFieldValuesArgs[1]>['values']) =>
+  (values: NonNullable<SetFormFieldValuesArgs[1]>['values']) => {
     setFormFieldValues(fields, { ...options, values })
+  }

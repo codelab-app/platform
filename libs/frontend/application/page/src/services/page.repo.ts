@@ -1,12 +1,13 @@
 import type { IPageRepository } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import { Page } from '@codelab/frontend/domain/page'
+import { Page } from '@codelab/frontend-domain-page/store'
 import type {
   PageOptions,
   PageUniqueWhere,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IPage } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { pageApi } from './page.api'
 
@@ -20,7 +21,11 @@ export class PageRepository extends Model({}) implements IPageRepository {
       createPages: { pages },
     } = await pageApi.CreatePages({ input: page.toCreateInput() })
 
-    return pages[0]!
+    const createdPage = pages[0]
+
+    assertIsDefined(createdPage)
+
+    return createdPage
   }
 
   async delete(pages: Array<IPage>) {
@@ -50,6 +55,10 @@ export class PageRepository extends Model({}) implements IPageRepository {
       where: { id: page.id },
     })
 
-    return pages[0]!
+    const updatedPage = pages[0]
+
+    assertIsDefined(updatedPage)
+
+    return updatedPage
   }
 }

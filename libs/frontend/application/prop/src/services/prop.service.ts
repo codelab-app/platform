@@ -1,6 +1,6 @@
 import type { IPropService } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
-import { mergeProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import type {
   IPropData,
   IUpdatePropData,

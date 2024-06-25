@@ -6,11 +6,11 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export type DeleteAuthGuardButton = DeleteButtonProps & {
+export type IDeleteAuthGuardButton = DeleteButtonProps & {
   authGuardService: IAuthGuardService
 }
 
-export const DeleteAuthGuardButton = observer<DeleteAuthGuardButton>(
+export const DeleteAuthGuardButton = observer<IDeleteAuthGuardButton>(
   ({ authGuardService, disabled, ids }) => (
     <Button
       danger

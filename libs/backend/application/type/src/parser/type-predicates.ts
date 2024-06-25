@@ -1,4 +1,4 @@
-import type { AntDesignField, TypeRef } from '@codelab/backend/abstract/core'
+import type { IAntDesignField, TypeRef } from '@codelab/backend/abstract/core'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 import {
   containsInterfaceTypeRegex,
@@ -12,7 +12,7 @@ import {
 
 interface UnionTypeArgs {
   atom: IAtomDto
-  field: Pick<AntDesignField, 'property' | 'type'>
+  field: Pick<IAntDesignField, 'property' | 'type'>
   userId: string
 }
 

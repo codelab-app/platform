@@ -1,25 +1,24 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from '../model/node-type.interface'
-import { IPropDto } from '../prop/prop.dto.interface'
-import { IActionRef } from './action-entity.dto.interface'
+import { PropDtoSchema } from '../prop/prop.dto.interface'
+import { ActionRefSchema } from './action-entity.dto.interface'
 import { IActionKind } from './action-kind.enum'
-import { IBaseActionDto } from './base-action.dto.interface'
+import { BaseActionDtoSchema } from './base-action.dto.interface'
 
-export const IApiActionDto = Type.Composite([
-  IBaseActionDto,
+export const ApiActionDtoSchema = Type.Composite([
+  BaseActionDtoSchema,
   Type.Object({
     __typename: Type.Literal(`${IActionKind.ApiAction}`),
-    config: IPropDto,
-    errorAction: Typebox.Nullish(IActionRef),
-    resource: IRef,
-    successAction: Typebox.Nullish(IActionRef),
+    config: PropDtoSchema,
+    errorAction: Typebox.Nullish(ActionRefSchema),
+    resource: Typebox.Ref,
+    successAction: Typebox.Nullish(ActionRefSchema),
   }),
 ])
 
-export type IApiActionDto = Static<typeof IApiActionDto>
+export type IApiActionDto = Static<typeof ApiActionDtoSchema>
 
-export const IApiAction = IApiActionDto
+export const ApiActionSchema = ApiActionDtoSchema
 
-export type IApiAction = Static<typeof IApiAction>
+export type IApiAction = Static<typeof ApiActionSchema>

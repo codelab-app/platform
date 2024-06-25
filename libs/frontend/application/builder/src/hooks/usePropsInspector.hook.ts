@@ -11,10 +11,10 @@ import {
   type IPageNodeRef,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { schemaTransformer } from '@codelab/frontend/application/type'
-import { createValidator } from '@codelab/frontend/presentation/view'
 import { notify } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { schemaTransformer } from '@codelab/frontend-application-type/interface-form'
+import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateObject } from '@codelab/shared/utils'

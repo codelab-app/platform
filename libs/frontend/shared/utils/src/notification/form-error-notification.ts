@@ -21,5 +21,5 @@ export const createFormErrorNotificationHandler =
     // TODO: Need to extract description from submit error object
     const { description = '', title } = options
 
-    return notify({ ...options, description, type: 'error' })
+    notify({ ...options, description, type: 'error' })
   }

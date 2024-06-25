@@ -1,7 +1,7 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import type { IAtomAggregate } from '@codelab/shared/abstract/core'
-import { IEntity } from '@codelab/shared/abstract/types'
+import { EntitySchema } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { ExportAtomCommand } from '../use-case'
@@ -21,7 +21,7 @@ export class AtomApplicationService {
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: IEntity,
+      schema: EntitySchema,
       selectionSet: '{ id }',
     })
 

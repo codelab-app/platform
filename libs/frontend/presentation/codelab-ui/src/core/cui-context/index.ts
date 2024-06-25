@@ -1,2 +1,2 @@
-export * from './CuiProvider'
+export * from './CuiContext'
 export * from './use-cui'

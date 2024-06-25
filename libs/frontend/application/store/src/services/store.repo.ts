@@ -1,11 +1,12 @@
 import type { IStoreRepository } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
-import { Store } from '@codelab/frontend/domain/store'
+import { Store } from '@codelab/frontend-domain-store/store'
 import type {
   StoreOptions,
   StoreUniqueWhere,
   StoreWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { storeApi } from '../store'
 
@@ -21,7 +22,11 @@ export class StoreRepository extends Model({}) implements IStoreRepository {
       }),
     )
 
-    return stores[0]!
+    const createdStore = stores[0]
+
+    assertIsDefined(createdStore)
+
+    return createdStore
   })
 
   @modelFlow
@@ -66,6 +71,10 @@ export class StoreRepository extends Model({}) implements IStoreRepository {
       }),
     )
 
-    return stores[0]!
+    const updatedStore = stores[0]
+
+    assertIsDefined(updatedStore)
+
+    return updatedStore
   })
 }

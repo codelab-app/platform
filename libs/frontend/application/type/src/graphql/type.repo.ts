@@ -4,6 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import type { IBaseTypeWhere } from '@codelab/shared/abstract/codegen'
+import { refValidation } from '@codelab/shared/domain'
 import sortBy from 'lodash/sortBy'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import {
@@ -124,6 +125,8 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
       updateTypeApi[type.kind](type.toUpdateInput()),
     ))[0]
 
-    return updatedType!
+    refValidation.asserts(updatedType)
+
+    return updatedType
   })
 }

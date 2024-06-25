@@ -71,7 +71,9 @@ export const HomeMenuHeader = () => {
   return (
     <div style={{ width: collapsed ? 0 : '100%' }}>
       <Button
-        onClick={() => setCollapsed(!collapsed)}
+        onClick={() => {
+          setCollapsed(!collapsed)
+        }}
         style={{ marginBottom: 16 }}
         type="primary"
       >

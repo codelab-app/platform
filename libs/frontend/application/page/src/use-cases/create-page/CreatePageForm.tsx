@@ -2,14 +2,14 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { ICreatePageData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'

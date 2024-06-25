@@ -3,29 +3,29 @@ import {
   type IAppService,
 } from '@codelab/frontend/abstract/application'
 import {
+  getAppDomainService,
   getUserDomainService,
   type IAppModel,
   type ICreateAppData,
   type IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/application/atom'
-import { restWebClient } from '@codelab/frontend/application/axios'
+import { getAtomService } from '@codelab/frontend-application-atom/services'
 import {
   getDomainService,
   regeneratePages,
-} from '@codelab/frontend/application/domain'
+} from '@codelab/frontend-application-domain/services'
 import {
   getPageService,
   PageRepository,
-} from '@codelab/frontend/application/page'
-import { ModalService } from '@codelab/frontend/application/shared/store'
-import { AppDomainService } from '@codelab/frontend/domain/app'
+} from '@codelab/frontend-application-page/services'
+import { ModalService } from '@codelab/frontend-application-shared-store/ui'
+import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { App, AppWhere } from '@codelab/shared/abstract/codegen'
 import type {
   IAppAggregate,
   IUpdatePageData,
 } from '@codelab/shared/abstract/core'
-import { prettifyForConsole } from '@codelab/shared/utils'
+import { assertIsDefined, prettifyForConsole } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -36,7 +36,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { AppDevelopmentService, AppProductionService } from '../use-cases'
+import { AppDevelopmentService } from '../use-cases/app-development'
+import { AppProductionService } from '../use-cases/app-production'
 import { AppRepository } from './app.repo'
 import { AppModalService } from './app-modal.service'
 
@@ -44,7 +45,7 @@ import { AppModalService } from './app-modal.service'
 export class AppService
   extends Model({
     appDevelopmentService: prop(() => new AppDevelopmentService({})),
-    appDomainService: prop(() => new AppDomainService({})),
+    // appDomainService: prop(() => new AppDomainService({})),
     appProductionService: prop(() => new AppProductionService({})),
     appRepository: prop(() => new AppRepository({})),
     buildModal: prop(() => new AppModalService({})),
@@ -55,6 +56,11 @@ export class AppService
   })
   implements IAppService
 {
+  @computed
+  get appDomainService() {
+    return getAppDomainService(this)
+  }
+
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
@@ -175,31 +181,14 @@ export class AppService
   @modelFlow
   loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
     const { apps, atoms } = yield* _await(this.appRepository.appsList(where))
-
-    atoms.forEach((atom) => this.atomService.atomDomainService.hydrate(atom))
-
-    // hydrate pages to use the first page's url
-    apps
-      .flatMap((app) => app.pages)
-      .forEach((page) => {
-        this.pageService.pageDomainService.hydrate(page)
-      })
-
-    apps
-      .flatMap((app) => app.domains)
-      .forEach((domain) => {
-        this.domainService.hydrate(domain)
-      })
-
-    return apps.map((app) => {
-      return this.appDomainService.hydrate(app)
-    })
   })
 
   @modelFlow
   @transaction
   update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {
-    const app = this.appDomainService.apps.get(id)!
+    const app = this.appDomainService.apps.get(id)
+
+    assertIsDefined(app)
 
     app.writeCache({ name })
 

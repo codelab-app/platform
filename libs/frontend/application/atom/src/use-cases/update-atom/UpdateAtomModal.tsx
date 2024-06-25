@@ -1,8 +1,11 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  DisplayIfField,
+  ModalForm,
+} from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

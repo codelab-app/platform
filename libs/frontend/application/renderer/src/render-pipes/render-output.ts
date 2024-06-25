@@ -1,5 +1,5 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/application'
-import { mergeProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 

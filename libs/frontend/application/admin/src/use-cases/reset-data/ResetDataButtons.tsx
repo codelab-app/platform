@@ -1,12 +1,12 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useAsync } from '@react-hookz/web'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 export const ResetDataButtons = observer(() => {
@@ -39,7 +39,9 @@ export const ResetDataButtons = observer(() => {
             .execute()
             .then(onSuccess)
             .catch(onError)
-            .then(() => router.push('/api/auth/logout'))
+            .then(() => {
+              router.push('/api/auth/logout')
+            })
         }
       >
         Reset Database

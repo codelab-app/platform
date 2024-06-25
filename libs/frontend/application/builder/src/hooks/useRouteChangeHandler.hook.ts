@@ -1,5 +1,9 @@
+'use client'
+
 import type { PageType } from '@codelab/frontend/abstract/types'
-import { useRouter } from 'next/router'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useRouter } from 'next/navigation'
+import queryString from 'query-string'
 import { useEffect } from 'react'
 import type { IBuilderPage } from '../builder-router'
 import { extractPathParamsFromUrlInstance } from '../builder-router'
@@ -16,6 +20,8 @@ export const useRouteChangeHandler = (
   pathname: PageType.PageBuilder | PageType.PageDetail,
 ) => {
   const router = useRouter()
+  // Usage in page router causes first pass to be undefined
+  const { params, query: queryParams } = useUrl()
 
   // Define the route change handler inside useEffect or as a useMemo to avoid re-creation on each render
   useEffect(() => {
@@ -34,24 +40,26 @@ export const useRouteChangeHandler = (
         return
       }
 
-      await router.push({
-        pathname,
+      const url = queryString.stringifyUrl({
         query: {
           ...query,
-          appSlug: router.query.appSlug,
+          appSlug: params?.appSlug,
           pageSlug: page.slug,
-          primarySidebarKey: router.query.primarySidebarKey,
-          userSlug: router.query.userSlug,
+          primarySidebarKey: queryParams['primarySidebarKey'],
+          userSlug: params?.userSlug,
         },
+        url: pathname,
       })
+
+      await router.push(url)
     }
 
-    // Register the route change event listener
-    router.events.on('routeChangeStart', routeChangeHandler)
+    // // Register the route change event listener
+    // router.events.on('routeChangeStart', routeChangeHandler)
 
-    // Cleanup function to remove the event listener
-    return () => {
-      router.events.off('routeChangeStart', routeChangeHandler)
-    }
-  }, [pages, router.asPath])
+    // // Cleanup function to remove the event listener
+    // return () => {
+    //   router.events.off('routeChangeStart', routeChangeHandler)
+    // }
+  }, [pages])
 }

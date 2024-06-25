@@ -24,7 +24,7 @@ export default {
     [
       'jest-junit',
       {
-        outputName: 'cli.xml',
+        outputName: 'api.xml',
         reportTestSuiteErrors: true,
         titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',

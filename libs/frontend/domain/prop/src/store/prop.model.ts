@@ -30,7 +30,8 @@ import {
   prop,
 } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
-import { mergeProps, propSafeStringify } from '../index'
+import { mergeProps } from '../utils/merge-props'
+import { propSafeStringify } from '../utils/prop-safe-stringify'
 
 const create = ({ api, data = '{}', id }: IPropDto) => {
   return new Prop({

@@ -1,9 +1,9 @@
 import { type BuilderDragData } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import type { CollisionData } from '@codelab/frontend/application/dnd'
-import { useRequiredParentValidator } from '@codelab/frontend/application/element'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
+import type { CollisionData } from '@codelab/frontend-application-dnd/collision-detection'
+import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { ICreateElementDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
@@ -137,24 +137,30 @@ export const useDndDropHandler = (): UseDndDropHandler => {
     const parentElement = elementService.element(parentElementId)
 
     if (prevSibling && draggedElement.prevSibling?.id !== prevSiblingId) {
-      return await elementService.move({
+      await elementService.move({
         element: draggedElement,
         prevSibling,
       })
+
+      return
     }
 
     if (nextSibling && draggedElement.nextSibling?.id !== nextSiblingId) {
-      return await elementService.move({
+      await elementService.move({
         element: draggedElement,
         nextSibling,
       })
+
+      return
     }
 
     if (draggedElement.closestParentElement?.id !== parentElementId) {
-      return await elementService.move({
+      await elementService.move({
         element: draggedElement,
         parentElement,
       })
+
+      return
     }
   }
 

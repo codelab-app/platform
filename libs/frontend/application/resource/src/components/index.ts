@@ -1,2 +1,2 @@
-export * from './resource-fetch-config'
-export * from './resource-test-request'
+export * from './ResourceFetchConfigField'
+export * from './ResourceTestRequest'

@@ -1,16 +1,18 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import {
   InlineFormService,
   ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { TagDomainService, tagRef } from '@codelab/frontend/domain/tag'
+} from '@codelab/frontend-application-shared-store/ui'
+import { TagDomainService } from '@codelab/frontend-domain-tag/services'
+import { tagRef } from '@codelab/frontend-domain-tag/store'
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTagData,
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import type { Ref } from 'mobx-keystone'
 import {
   _async,
@@ -129,11 +131,13 @@ export class TagService
     this: TagService,
     { id, name, parent }: IUpdateTagData,
   ) {
-    const tag = this.tagDomainService.tags.get(id)!
+    const tag = this.tagDomainService.tags.get(id)
+
+    assertIsDefined(tag)
 
     tag.writeCache({ name, parent })
 
-    yield* _await(this.tagRepository.update(tag))!
+    yield* _await(this.tagRepository.update(tag))
 
     return tag
   })

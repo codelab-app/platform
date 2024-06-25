@@ -6,13 +6,14 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { componentRef } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import { slugify } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+import queryString from 'query-string'
 import React, { useEffect, useRef } from 'react'
 import { ComponentList } from './ComponentList'
 
@@ -38,13 +39,15 @@ export const CustomComponents = observer(() => {
     const { name } = componentService.componentDomainService.component(id)
     const componentSlug = slugify(name)
 
-    await router.push({
-      pathname: PageType.ComponentBuilder,
+    const url = queryString.stringifyUrl({
       query: {
         componentSlug,
         primarySidebarKey: ExplorerPaneType.Explorer,
       },
+      url: PageType.ComponentBuilder,
     })
+
+    await router.push(url)
   }
 
   const onBack = () => {
@@ -70,7 +73,9 @@ export const CustomComponents = observer(() => {
       {!isNil(error) ? error.message : null}
       <ComponentList
         components={componentService.componentDomainService.componentList}
-        onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
+        onDelete={(id) => {
+          componentService.deleteModal.open(componentRef(id))
+        }}
         onEdit={(id) => editComponent(id)}
         onExport={(component) => void exportComponent.execute(component)}
         onSelect={componentService.previewComponent}

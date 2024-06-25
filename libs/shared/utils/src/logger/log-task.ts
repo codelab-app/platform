@@ -2,14 +2,12 @@ import util from 'util'
 
 export const logTask = (task: string, label = '', data?: object) => {
   if (data) {
-    return console.debug(
-      `[${task}]:`,
-      label,
-      util.inspect(data, false, null, true),
-    )
+    console.debug(`[${task}]:`, label, util.inspect(data, false, null, true))
+
+    return
   }
 
-  return console.debug(`[${task}]:`, label)
+  console.debug(`[${task}]:`, label)
 }
 
 export const logSection = (task: string) => {

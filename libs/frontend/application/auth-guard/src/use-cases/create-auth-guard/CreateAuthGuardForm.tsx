@@ -3,17 +3,17 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
-} from '@codelab/frontend/application/resource'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-resource/components'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

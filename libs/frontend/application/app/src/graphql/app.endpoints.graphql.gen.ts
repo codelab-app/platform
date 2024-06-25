@@ -4,20 +4,12 @@ import {
   AppFragment,
   AppPreviewFragment,
 } from '../../../../abstract/domain/src/app/app.fragment.graphql.gen'
-import {
-  AtomDevelopmentFragment,
-  AtomProductionFragment,
-} from '../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import {
   AppFragmentDoc,
   AppPreviewFragmentDoc,
 } from '../../../../abstract/domain/src/app/app.fragment.graphql.gen'
-import {
-  AtomDevelopmentFragmentDoc,
-  AtomProductionFragmentDoc,
-} from '../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
@@ -54,10 +46,7 @@ export type GetAppsListQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AppWhere>
 }>
 
-export type GetAppsListQuery = {
-  apps: Array<AppPreviewFragment>
-  atoms: Array<AtomDevelopmentFragment>
-}
+export type GetAppsListQuery = { apps: Array<AppPreviewFragment> }
 
 export const CreateAppsDocument = gql`
   mutation CreateApps($input: [AppCreateInput!]!) {
@@ -100,12 +89,8 @@ export const GetAppsListDocument = gql`
     apps(options: $options, where: $where) {
       ...AppPreview
     }
-    atoms(where: { type: ReactFragment }) {
-      ...AtomDevelopment
-    }
   }
   ${AppPreviewFragmentDoc}
-  ${AtomDevelopmentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

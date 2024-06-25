@@ -2,7 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "composite": true,
+    "noEmit": false
   },
   "exclude": ["components/**/*.spec.ts", "components/**/*.test.ts"],
   "include": [

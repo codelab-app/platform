@@ -86,18 +86,20 @@ export const builderResizeController = (
     }
   }
 
-  pointerEventTypes.forEach((eventName) =>
-    targetElement.addEventListener(eventName, handlePointerEvent),
-  )
+  pointerEventTypes.forEach((eventName) => {
+    targetElement.addEventListener(eventName, handlePointerEvent)
+  })
 
-  return () => disposeResizeController(targetElement, handlePointerEvent)
+  return () => {
+    disposeResizeController(targetElement, handlePointerEvent)
+  }
 }
 
 const disposeResizeController = (
   targetElement: HTMLElement,
   eventHandler: (event: Event) => void,
 ) => {
-  pointerEventTypes.forEach((eventName) =>
-    targetElement.removeEventListener(eventName, eventHandler),
-  )
+  pointerEventTypes.forEach((eventName) => {
+    targetElement.removeEventListener(eventName, eventHandler)
+  })
 }

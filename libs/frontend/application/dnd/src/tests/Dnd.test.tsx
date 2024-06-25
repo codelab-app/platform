@@ -2,10 +2,10 @@
 
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
-import { DROP_INDICATOR_ID } from '../DropIndicator'
-import { DROP_OVERLAY_ID } from '../DropOverlay'
+import { DROP_INDICATOR_ID } from '../components/DropIndicator'
+import { DROP_OVERLAY_ID } from '../components/DropOverlay'
+import { DRAG_OVERLAY_ID } from '../components/MakeChildrenDraggable'
 import type { Point } from '../geometry'
-import { DRAG_OVERLAY_ID } from '../MakeChildrenDraggable'
 import { MakeElementTree } from './MakeElementTree'
 import {
   horizontalSimpleTree,

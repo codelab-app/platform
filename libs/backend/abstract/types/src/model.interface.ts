@@ -1,1 +1,3 @@
-export abstract class IModel {}
+export abstract class IModel {
+  declare __typename: string
+}

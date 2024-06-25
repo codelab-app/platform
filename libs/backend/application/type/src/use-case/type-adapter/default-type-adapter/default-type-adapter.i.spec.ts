@@ -1,35 +1,64 @@
+import {
+  InterfaceTypeRepository,
+  PrimitiveTypeRepository,
+  TypeDomainModule,
+} from '@codelab/backend/domain/type'
+import { Neo4jModule } from '@codelab/backend/infra/adapter/neo4j'
+import { initUserContext } from '@codelab/backend/test'
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { TypeApplicationModule } from '../../../type.application.module'
 import { DefaultTypeAdapterService } from './default-type-adapter.service'
 
-describe.skip('DefaultTypeAdapterService', () => {
-  const type = 'boolean | { delay: number }'
+describe('DefaultTypeAdapterService', () => {
   let service: DefaultTypeAdapterService
+  let primitiveTypeRepository: PrimitiveTypeRepository
+  let interfaceTypeRepository: InterfaceTypeRepository
 
-  beforeAll(() => {
-    const atom = {
-      name: 'TestAtom',
-    }
-
-    const field = {
-      key: 'testField',
-    }
-
-    service = new DefaultTypeAdapterService({
-      atom,
-      field,
-      owner: user,
-    })
+  const context = initUserContext({
+    imports: [TypeApplicationModule, TypeDomainModule, Neo4jModule],
+    providers: [DefaultTypeAdapterService],
   })
 
-  it('should be an interfaceType', async () => {
+  const type = 'boolean | { delay: number }'
+
+  const atom = {
+    name: 'TestAtom',
+  }
+
+  const field = {
+    key: 'testField',
+  }
+
+  beforeAll(async () => {
+    const ctx = await context
+    const module = ctx.module
+
+    service = module.get(DefaultTypeAdapterService)
+    primitiveTypeRepository = module.get(PrimitiveTypeRepository)
+    interfaceTypeRepository = module.get(InterfaceTypeRepository)
+
+    await ctx.beforeAll()
+  })
+
+  afterAll(async () => {
+    const ctx = await context
+
+    await ctx.afterAll()
+  })
+
+  it('should be an interfaceType', () => {
     const isInterfaceType = service.isInterfaceType(type)
 
     expect(isInterfaceType).toBeTruthy()
   })
 
-  it('should create a union type with boolean and interface type for given input', async () => {
-    const result = (await service.execute({ type })) as IUnionTypeDto
+  it.skip('should create a union type with boolean and interface type for given input', async () => {
+    const result = (await service.execute({
+      atom,
+      field,
+      type,
+    })) as IUnionTypeDto
 
     expect(result).toBeDefined()
     expect(result.kind).toEqual(ITypeKind.UnionType)
@@ -41,11 +70,15 @@ describe.skip('DefaultTypeAdapterService', () => {
     const interfaceTypeId = interfaceType?.id
 
     const existingBooleanType = await primitiveTypeRepository.findOne({
-      id: booleanTypeId,
+      where: {
+        id: booleanTypeId,
+      },
     })
 
     const existingInterfaceType = await interfaceTypeRepository.findOne({
-      id: interfaceTypeId,
+      where: {
+        id: interfaceTypeId,
+      },
     })
 
     expect(existingBooleanType?.primitiveKind).toEqual(

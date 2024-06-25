@@ -12,7 +12,7 @@ const updateTestConfig = (tree, projectConfig) => {
      * Only add if library is already using jest
      */
     if ((0, has_1.default)(projectConfig, 'targets.test')) {
-        console.log(`Updating ${projectConfig.name}...`);
+        // console.log(`Updating ${projectConfig.name}...`)
         /**
          * But we need to filter out reporters config, since we will use the jest config
          */

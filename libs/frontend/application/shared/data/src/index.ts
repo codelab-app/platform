@@ -1,1 +1,1 @@
-export * from './cy-data'
+export { CY_DATA } from './cy-data'

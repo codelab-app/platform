@@ -10,7 +10,7 @@ import {
   type IAtomDto,
   type IAtomType,
   type IFieldDto,
-  IOwner,
+  type IOwner,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'

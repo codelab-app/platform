@@ -5,6 +5,7 @@ import type {
   ComponentUniqueWhere,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { componentApi } from './component.api'
 
@@ -24,7 +25,11 @@ export class ComponentRepository
       componentApi.CreateComponents({ input: component.toCreateInput() }),
     )
 
-    return components[0]!
+    const createdComponent = components[0]
+
+    assertIsDefined(createdComponent)
+
+    return createdComponent
   })
 
   @modelFlow
@@ -83,6 +88,10 @@ export class ComponentRepository
       }),
     )
 
-    return components[0]!
+    const updatedComponent = components[0]
+
+    assertIsDefined(updatedComponent)
+
+    return updatedComponent
   })
 }

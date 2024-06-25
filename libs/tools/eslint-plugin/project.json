@@ -3,21 +3,101 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/tools/eslint-plugin/src",
   "projectType": "library",
-  "tags": ["projectType:library", "type:concrete"],
+  "tags": [
+    "projectType:library",
+    "type:concrete"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/tools/eslint-plugin",
         "tsConfig": "libs/tools/eslint-plugin/tsconfig.lib.json",
         "packageJson": "libs/tools/eslint-plugin/package.json",
         "main": "libs/tools/eslint-plugin/src/index.ts",
-        "assets": ["libs/tools/eslint-plugin/*.md"]
+        "assets": [
+          "libs/tools/eslint-plugin/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/tools/eslint-plugin/jest.config.ts",
+        "reporters": [
+          "default"
+        ],
+        "runInBand": true
+      },
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ]
+    },
+    "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": [
+          "i.spec.ts"
+        ],
+        "runInBand": true,
+        "jestConfig": "libs/tools/eslint-plugin/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": [
+            "default"
+          ]
+        },
+        "test": {
+          "reporters": [
+            "default"
+          ]
+        },
+        "ci": {
+          "parallel": 3
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ]
+    },
+    "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathIgnorePatterns": [
+          "i.spec.ts"
+        ],
+        "jestConfig": "libs/tools/eslint-plugin/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": [
+            "default"
+          ]
+        },
+        "test": {
+          "reporters": [
+            "default"
+          ]
+        },
+        "ci": {}
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ]
     }
   }
 }

@@ -1,17 +1,15 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import {
-  ActionsTreeView,
   CreateActionButton,
   CreateActionModal,
-  DeleteActionModal,
-  StateTreeView,
-  UpdateActionModal,
-} from '@codelab/frontend/application/store'
-import { CreateFieldButton } from '@codelab/frontend/application/type'
-import {
-  CodeMirrorEditor,
-  SkeletonWrapper,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-application-store/use-cases/create-action'
+import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
+import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
+import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
+import { UpdateActionModal } from '@codelab/frontend-application-store/use-cases/update-action'
+import { CreateFieldButton } from '@codelab/frontend-application-type/use-cases/create-field'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
+import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Collapse } from 'antd'
@@ -72,7 +70,7 @@ export const StorePane = observer<{
               onChange={() => undefined}
               singleLine={false}
               title="Current props"
-              value={store.jsonString}
+              value={store.toString()}
             />
           </Collapse.Panel>
         </Collapse>

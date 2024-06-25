@@ -8,7 +8,7 @@ import type {
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useTablePagination } from '@codelab/frontend/application/shared/store'
+import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import React, { useEffect, useState } from 'react'
 import type { ToolbarItem } from '../../abstract'
 import { CuiInput } from '../../components'
@@ -121,7 +121,9 @@ export const useToolbarPagination = <
     {
       cuiKey: MODEL_ACTION.SearchPagination.key,
       icon: <SearchOutlined />,
-      onClick: () => setShowSearchBar(!showSearchBar),
+      onClick: () => {
+        setShowSearchBar(!showSearchBar)
+      },
       title: 'Search',
     },
   ]

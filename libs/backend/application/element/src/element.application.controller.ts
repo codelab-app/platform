@@ -1,4 +1,7 @@
-import { ICreateElementData } from '@codelab/shared/abstract/core'
+import {
+  CreateElementDataSchema,
+  type ICreateElementData,
+} from '@codelab/shared/abstract/core'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -31,7 +34,7 @@ export class ElementApplicationController {
           type: 'param',
         },
         {
-          schema: ICreateElementData,
+          schema: CreateElementDataSchema,
           type: 'body',
         },
       ],

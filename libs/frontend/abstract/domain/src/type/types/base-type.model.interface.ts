@@ -21,14 +21,14 @@ import type { IRichTextTypeModel } from './rich-text-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
 
 export interface IBaseTypeModel<
-  DTO extends IBaseTypeDto,
+  Dto extends IBaseTypeDto,
   CreateInput,
   UpdateInput,
 > extends Omit<
       IModel<CreateInput, UpdateInput, void, IBaseType>,
       'toDeleteInput'
     >,
-    ICacheService<DTO, IBaseTypeModel<DTO, CreateInput, UpdateInput>> {
+    ICacheService<Dto, IBaseTypeModel<Dto, CreateInput, UpdateInput>> {
   __typename: `${ITypeKind}`
   kind: ITypeKind
   name: string

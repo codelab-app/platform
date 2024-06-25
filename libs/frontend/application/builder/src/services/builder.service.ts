@@ -157,7 +157,7 @@ export class BuilderService
     const containerId = this.activeContainer?.id
     const treeViewNode = this.activeElementTree?.treeViewNode
 
-    if (!treeViewNode || !containerId) {
+    if (!treeViewNode || !containerId || !treeViewNode.children[0]) {
       return []
     }
 
@@ -168,7 +168,7 @@ export class BuilderService
     }
 
     return isRuntimeComponent(this.activeElementTree)
-      ? [treeViewNode.children[0]!.key]
+      ? [treeViewNode.children[0]?.key]
       : [treeViewNode.key]
   }
 
@@ -184,10 +184,13 @@ export class BuilderService
       ? container.id
       : container.current.app.id
 
-    return (
-      this.userService.preferences.apps?.[containerId]
-        ?.selectedBuilderBreakpoint ?? BuilderWidthBreakPoint.MobilePortrait
-    )
+    const appPreferences = this.userService.preferences.apps?.[containerId]
+
+    if (appPreferences?.selectedBuilderBreakpoint) {
+      return appPreferences.selectedBuilderBreakpoint
+    }
+
+    return BuilderWidthBreakPoint.MobilePortrait
   }
 
   @computed
@@ -202,10 +205,13 @@ export class BuilderService
       ? container.id
       : container.current.app.id
 
-    return (
-      this.userService.preferences.apps?.[containerId]?.selectedBuilderWidth ??
-      defaultBuilderWidthBreakPoints['mobile-portrait']
-    )
+    const appPreferences = this.userService.preferences.apps?.[containerId]
+
+    if (appPreferences?.selectedBuilderWidth) {
+      return appPreferences.selectedBuilderWidth
+    }
+
+    return defaultBuilderWidthBreakPoints['mobile-portrait']
   }
 
   @modelAction

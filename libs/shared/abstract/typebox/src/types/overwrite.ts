@@ -1,5 +1,6 @@
 import type { TObject } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { ObjectTyped } from 'object-typed'
 
 /**
  * Overwrite({ a: string, b: number }, { b: string })
@@ -15,7 +16,7 @@ export const Overwrite = <T extends TObject, U extends TObject>(
   target: U,
 ) => {
   const targetProps = target.properties
-  const newOriginal = Type.Omit(original, Object.keys(targetProps))
+  const newOriginal = Type.Omit(original, ObjectTyped.keys(targetProps))
 
   return Type.Composite([newOriginal, target]) as unknown as TObject<
     Omit<T['properties'], keyof U['properties']> & U['properties']

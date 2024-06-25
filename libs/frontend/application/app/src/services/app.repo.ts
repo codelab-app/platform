@@ -1,26 +1,27 @@
 import type { IAppRepository } from '@codelab/frontend/abstract/application'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { App } from '@codelab/frontend/domain/app'
+import { App } from '@codelab/frontend-domain-app/store'
 import type {
   AppOptions,
   AppUniqueWhere,
   AppWhere,
 } from '@codelab/shared/abstract/codegen'
-import { Model, model } from 'mobx-keystone'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { appApi } from '../graphql/app.api'
 
-@model('@codelab/AppRepository')
-export class AppRepository extends Model({}) implements IAppRepository {
+export class AppRepository implements IAppRepository {
   async add(app: IAppModel) {
-    console.log(app.toCreateInput())
-
     const {
       createApps: { apps },
     } = await appApi.CreateApps({
       input: [app.toCreateInput()],
     })
 
-    return apps[0]!
+    const createdApp = apps[0]
+
+    assertIsDefined(createdApp)
+
+    return createdApp
   }
 
   /**
@@ -33,7 +34,6 @@ export class AppRepository extends Model({}) implements IAppRepository {
     })
   }
 
-  // @clearCacheForKey('apps')
   async delete(apps: Array<IAppModel>) {
     const {
       deleteApps: { nodesDeleted },
@@ -45,7 +45,6 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return nodesDeleted
   }
 
-  // @cachedWithTTL('apps')
   async find(where?: AppWhere, options?: AppOptions) {
     return await appApi.GetApps({ options, where })
   }
@@ -54,7 +53,6 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return (await this.find(where)).items[0]
   }
 
-  // @clearCacheForKey('apps')
   async update(app: IAppModel) {
     const {
       updateApps: { apps },
@@ -63,6 +61,14 @@ export class AppRepository extends Model({}) implements IAppRepository {
       where: { id: app.id },
     })
 
-    return apps[0]!
+    const updatedApp = apps[0]
+
+    assertIsDefined(updatedApp)
+
+    return updatedApp
   }
 }
+
+let appRepository: IAppRepository | undefined
+
+export const getAppRepository = () => (appRepository ??= new AppRepository())

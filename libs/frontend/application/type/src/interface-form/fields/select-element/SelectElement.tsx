@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { SelectElementOption } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { useFormContext } from '@codelab/frontend/presentation/view'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
@@ -43,7 +43,7 @@ export const SelectElement = ({
        * Prop seems to exist but not in interface
        */
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      // @ts-expect-error
       optionFilterProp="label"
       options={selectOptions}
       showSearch
@@ -51,12 +51,14 @@ export const SelectElement = ({
   )
 }
 
-export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
+export type SelectElementComponentProps = Omit<SelectElementProps, 'kind'>
+
+export const SelectChildElement = (props: SelectElementComponentProps) => (
   <SelectElement kind={IElementTypeKind.ChildrenOnly} {...props} />
 )
 
 export const SelectExcludeDescendantsElements = (
-  props: Omit<SelectElementProps, 'kind'>,
+  props: SelectElementComponentProps,
 ) => (
   <SelectElement
     kind={IElementTypeKind.ExcludeDescendantsElements}
@@ -64,13 +66,11 @@ export const SelectExcludeDescendantsElements = (
   />
 )
 
-export const SelectDescendantElement = (
-  props: Omit<SelectElementProps, 'kind'>,
-) => {
+export const SelectDescendantElement = (props: SelectElementComponentProps) => {
   return <SelectElement kind={IElementTypeKind.DescendantsOnly} {...props} />
 }
 
-export const SelectAnyElement = (props: Omit<SelectElementProps, 'kind'>) => (
+export const SelectAnyElement = (props: SelectElementComponentProps) => (
   <SelectElement kind={IElementTypeKind.AllElements} {...props} />
 )
 

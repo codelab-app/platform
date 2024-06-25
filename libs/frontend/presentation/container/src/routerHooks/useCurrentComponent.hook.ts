@@ -1,11 +1,10 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
 
 export const useCurrentComponent = () => {
   const { componentService } = useStore()
-  const { query } = useRouter()
-  const componentSlug = query.componentSlug as string
+  const { componentSlug } = useUrl()
   const componentName = getNameFromSlug(componentSlug)
 
   return componentService.componentDomainService.componentList.find(

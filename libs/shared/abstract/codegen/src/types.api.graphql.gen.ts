@@ -27687,10 +27687,7 @@ export type GetAppsListQueryVariables = Exact<{
   where?: InputMaybe<AppWhere>
 }>
 
-export type GetAppsListQuery = {
-  apps: Array<AppPreviewFragment>
-  atoms: Array<AtomDevelopmentFragment>
-}
+export type GetAppsListQuery = { apps: Array<AppPreviewFragment> }
 
 export type GetAppDevelopmentQueryVariables = Exact<{
   appCompositeKey: Scalars['String']['input']

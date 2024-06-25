@@ -5,6 +5,7 @@ import type {
   DomainUniqueWhere,
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { domainApis } from './domain.api'
 
@@ -20,7 +21,11 @@ export class DomainRepository extends Model({}) implements IDomainRepository {
       }),
     )
 
-    return domains[0]!
+    const createdDomain = domains[0]
+
+    assertIsDefined(createdDomain)
+
+    return createdDomain
   })
 
   @modelFlow
@@ -69,6 +74,10 @@ export class DomainRepository extends Model({}) implements IDomainRepository {
       }),
     )
 
-    return domains[0]!
+    const updatedDomain = domains[0]
+
+    assertIsDefined(updatedDomain)
+
+    return updatedDomain
   })
 }

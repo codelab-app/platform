@@ -4,12 +4,13 @@ import type {
   IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import {
   InlineFormService,
   ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { TypeDomainService, TypeFactory } from '@codelab/frontend/domain/type'
+} from '@codelab/frontend-application-shared-store/ui'
+import { TypeDomainService } from '@codelab/frontend-domain-type/services'
+import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTypeDto,
@@ -17,6 +18,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { assertIsDefined } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
@@ -215,7 +217,10 @@ export class TypeService
   @modelFlow
   @transaction
   update = _async(function* (this: TypeService, data: IUpdateTypeDto) {
-    const type = this.typeDomainService.types.get(data.id)!
+    const type = this.typeDomainService.types.get(data.id)
+
+    assertIsDefined(type)
+
     const typeDto = TypeFactory.mapDataToDTO(data)
 
     TypeFactory.writeCache(typeDto, type)

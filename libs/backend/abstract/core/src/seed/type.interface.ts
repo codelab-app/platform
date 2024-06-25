@@ -16,4 +16,4 @@ export const AntDesignApiSchema = Type.Object({
   fields: Type.Array(AntDesignFieldSchema),
 })
 
-export type AntDesignApi = Static<typeof AntDesignApiSchema>
+export type IAntDesignApi = Static<typeof AntDesignApiSchema>

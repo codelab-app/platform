@@ -13,10 +13,10 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { mapElementOption } from '@codelab/frontend/domain/element'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
-import { Key } from '@codelab/frontend/presentation/view'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -45,7 +45,7 @@ export const ElementContextMenu = observer<
     useState<Nullable<string>>(null)
 
   const element = elementService.elementDomainService.maybeElement(
-    treeNode.element!.id,
+    treeNode.element?.id,
   )
 
   if (!element) {
@@ -67,7 +67,7 @@ export const ElementContextMenu = observer<
   }
 
   const onDelete = () => {
-    return elementService.deleteModal.open(elementRef(element))
+    elementService.deleteModal.open(elementRef(element))
   }
 
   const onDuplicate = async () => {

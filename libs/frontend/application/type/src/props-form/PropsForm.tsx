@@ -1,8 +1,10 @@
 import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import type { SetIsLoading } from '@codelab/frontend/presentation/view'
-import { handleFormSubmit } from '@codelab/frontend/presentation/view'
+import {
+  handleFormSubmit,
+  type SetIsLoading,
+} from '@codelab/frontend-presentation-components-form'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -22,7 +24,7 @@ export interface PropsFormProps
   interfaceType?: IInterfaceTypeModel
   model?: IPropData
   setIsLoading?: SetIsLoading
-  onSubmit(values: IPropData): Promise<IPropData | void>
+  onSubmit(values: IPropData): Promise<IPropData>
 }
 
 /**

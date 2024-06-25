@@ -12,12 +12,14 @@ export const runMiddleware = (
   fn: CallbackFn,
 ) => {
   return new Promise((resolve, reject) => {
-    return fn(req, res, (result: unknown) => {
+    fn(req, res, (result: unknown) => {
       if (result instanceof Error) {
-        return reject(result)
+        reject(result)
+
+        return
       }
 
-      return resolve(result)
+      resolve(result)
     })
   })
 }

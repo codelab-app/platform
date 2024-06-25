@@ -1,6 +1,5 @@
 import type {
   IActionModel,
-  IAtomModel,
   IComponentModel,
   IElementRenderTypeModel,
   IHook,
@@ -23,7 +22,7 @@ import {
   isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -297,7 +296,7 @@ export class Element
       this.name ||
       this.renderType.maybeCurrent?.name ||
       (isAtomRef(this.renderType)
-        ? compoundCaseToTitleCase((this.renderType.current as IAtomModel).type)
+        ? compoundCaseToTitleCase(this.renderType.current.type)
         : undefined) ||
       this.parentComponent?.maybeCurrent?.name ||
       ''
@@ -693,7 +692,9 @@ export class Element
       recording: true,
     })
 
-    return () => recorder.dispose()
+    return () => {
+      recorder.dispose()
+    }
   }
 
   @computed

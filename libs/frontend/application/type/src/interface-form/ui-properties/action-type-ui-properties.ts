@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IActionTypeModel } from '@codelab/frontend/abstract/domain'
-import {
-  createAutoCompleteOptions,
-  ToggleExpressionField,
-} from '@codelab/frontend/presentation/view'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
+import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
 import { SelectAction } from '../fields'
 import type { UiPropertiesFn } from '../types'
 

@@ -10,7 +10,7 @@ import {
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { InterfaceType } from '@codelab/frontend/domain/type'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
@@ -92,7 +92,7 @@ export class Store
   get toJson() {
     return {
       actions: this.actions.map((action) => action.toJson),
-      api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
+      api: { ...this.api, __typename: ITypeKind.InterfaceType as const },
       component: this.component,
       id: this.id,
       name: this.name,

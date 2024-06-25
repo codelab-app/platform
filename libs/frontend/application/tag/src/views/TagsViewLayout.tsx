@@ -1,14 +1,14 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
+import type { DashboardTemplateProps } from '@codelab/frontend-presentation-view/templates'
+import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import React, { useMemo } from 'react'
-import { TagsPrimarySidebar } from '../use-cases'
+import { TagsPrimarySidebar } from '../use-cases/primary-sidebar'
 import { TagsViewHeader } from './TagsViewHeader'
 
-export type TagsView = CodelabPage<DashboardTemplateProps>
+export type ITagsView = CodelabPage<DashboardTemplateProps>
 
-export const TagsViewLayout: TagsView['Layout'] = ({ children }) => {
+export const TagsViewLayout: ITagsView['Layout'] = ({ children }) => {
   const memoizedPrimarySidebar = useMemo(
     () => ({
       default: ExplorerPaneType.Tag,

@@ -1,4 +1,4 @@
-import type { AntDesignField } from '@codelab/backend/abstract/core'
+import type { IAntDesignField } from '@codelab/backend/abstract/core'
 import { stripQuotes } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { stripBracketsRegex } from './matchers'
@@ -36,7 +36,7 @@ export const extractObjectFromString = (object: string): object => {
  *
  * "'error' | 'warning'" -> ['error', 'warning']
  */
-export const parseSeparators = (field: Pick<AntDesignField, 'type'>) => {
+export const parseSeparators = (field: Pick<IAntDesignField, 'type'>) => {
   const processedField = stripQuotes(field.type)
 
   return processedField.split('|').map((value) => value.trim())

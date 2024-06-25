@@ -1,4 +1,7 @@
-import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
+import {
+  idSchema,
+  nonEmptyString,
+} from '@codelab/frontend-presentation-components-form/schema'
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

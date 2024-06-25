@@ -1,12 +1,15 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
-} from '@codelab/frontend/application/resource'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-application-resource/components'
+import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  Form,
+  FormController,
+} from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'

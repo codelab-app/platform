@@ -5,22 +5,23 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
+import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import {
   InlineFormService,
   ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { getTypeService } from '@codelab/frontend/application/type'
+} from '@codelab/frontend-application-shared-store/ui'
+import { getTypeService } from '@codelab/frontend-application-type/services'
+import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
 import {
-  AtomDomainService,
   filterAtoms,
   mapAtomOptions,
-} from '@codelab/frontend/domain/atom'
+} from '@codelab/frontend-domain-atom/store'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import isEmpty from 'lodash/isEmpty'
 import { computed } from 'mobx'
 import {
@@ -188,7 +189,9 @@ export class AtomService
   ) {
     const atom = this.atomDomainService.atoms.get(id)
 
-    atom?.writeCache({
+    assertIsDefined(atom)
+
+    atom.writeCache({
       externalCssSource,
       externalJsSource,
       externalSourceType,
@@ -199,9 +202,9 @@ export class AtomService
       type,
     })
 
-    yield* _await(this.atomRepository.update(atom!))
+    yield* _await(this.atomRepository.update(atom))
 
-    return atom!
+    return atom
   })
 
   onAttachedToRootStore() {

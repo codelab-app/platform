@@ -13,7 +13,7 @@ export const domainLayerConstraint = createESLintRule({
 
     return {
       ImportDeclaration: (node) => {
-        const importSourceValue = node.source.value as string
+        const importSourceValue = node.source.value
 
         if (importSourceValue.endsWith('.graphql.gen')) {
           const currentFilename = context.getFilename()
