@@ -15,6 +15,7 @@ import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import React, { useMemo } from 'react'
+import { useBuildAppModal } from '../build-app/build-app-modal.state'
 import { useExportApp } from '../export-app/useExportApp.hook'
 
 export interface AppListItemDropdownProps {
@@ -38,7 +39,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { appDomainService } = useDomainStore()
   //  const updateApp = useUpdateAppModal()
   //  const deleteApp = useDeleteAppModal()
-  //  const buildApp = useBuildAppModal()
+  const buildAppModal = useBuildAppModal()
 
   const appModel = useMemo(
     () => appDomainService.hydrate(app),
@@ -48,7 +49,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
 
   const onEditClick = () => null
   const onDeleteClick = () => null
-  const onBuildClick = () => null
+  const onBuildClick = () => buildAppModal.open(appModel)
   const exportApp = useExportApp(appModel)
   const router = useRouter()
   const user = useUser()
