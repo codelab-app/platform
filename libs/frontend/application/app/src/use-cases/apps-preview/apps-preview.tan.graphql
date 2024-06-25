@@ -1,8 +1,0 @@
-query GetAppsPreview($options: AppOptions, $where: AppWhere) {
-  apps(options: $options, where: $where) {
-    ...AppPreview
-  }
-  atoms(where: { type: ReactFragment }) {
-    ...AtomDevelopment
-  }
-}

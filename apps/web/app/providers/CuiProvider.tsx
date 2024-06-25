@@ -1,9 +1,15 @@
 'use client'
 
+import {
+  CuiContext,
+  cuiPopoverStore,
+} from '@codelab/frontend/presentation/codelab-ui'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import { cuiPopoverStore } from '../../layout'
-import { CuiContext } from './CuiContext'
+
+/**
+ * Temporary placement until migration ends providers should be restored to their position
+ */
 
 export const CuiProvider = ({ children }: PropsWithChildren) => {
   return (

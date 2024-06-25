@@ -1,16 +1,10 @@
 'use client'
 
-import { useUser as useAuth0User } from '@auth0/nextjs-auth0/client'
-import { mapAuth0IdTokenToUserDto } from '@codelab/shared/domain'
-import { assertIsDefined } from '@codelab/shared/utils'
+import type { IUserModel } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 
-export const useUser = () => {
-  const { user } = useAuth0User()
+export const useUser = (): IUserModel => {
+  const { userDomainService } = useDomainStore()
 
-  assertIsDefined(user)
-
-  return {
-    auth0Id: user.sub,
-    username: user.nickname,
-  }
+  return userDomainService.user
 }

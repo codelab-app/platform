@@ -1,15 +1,7 @@
-import { getQueryOptions } from '@codelab/frontend/infra/graphql'
+import { getAppRepository } from '@codelab/frontend-application-app/services'
 import { AppList } from '@codelab/frontend-application-app/use-cases/app-list'
-import { BuildAppModal } from '@codelab/frontend-application-app/use-cases/build-app'
-import { CreateAppModal } from '@codelab/frontend-application-app/use-cases/create-app'
-import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/delete-app'
-import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
-import { useServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import { getEnv } from '@codelab/shared/config'
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
-import request from 'graphql-request'
 import type { Metadata } from 'next'
 import React from 'react'
 
@@ -18,22 +10,26 @@ export const metadata: Metadata = {
   title: 'Apps | Codelab',
 }
 
-const AppsView = auth0ServerInstance.withPageAuthRequired(async () => {
-  // (1) Fetch data from stateless application store
-  // (2) Pass data as props into client component, which uses domain store to hydrate data
+const AppsView = async () => {
+  const appRepository = getAppRepository()
+  const owner = await getServerUser()
+
+  const { apps } = await appRepository.appsList({
+    owner: { id: owner.id },
+  })
 
   return (
     <>
-      <BuildAppModal />
+      {/* <BuildAppModal />
       <CreateAppModal />
       <UpdateAppModal />
-      <DeleteAppModal />
+      <DeleteAppModal /> */}
 
       <ContentSection>
-        <AppList />
+        <AppList apps={apps} />
       </ContentSection>
     </>
   )
-})
+}
 
 export default AppsView

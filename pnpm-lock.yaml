@@ -108,9 +108,6 @@ importers:
       '@graphql-codegen/typescript-document-nodes':
         specifier: 4.0.7
         version: 4.0.7(graphql@16.6.0)
-      '@graphql-codegen/typescript-react-query':
-        specifier: ^6.1.0
-        version: 6.1.0(graphql@16.6.0)
       '@graphql-tools/merge':
         specifier: 8.2.11
         version: 8.2.11(graphql@16.6.0)
@@ -252,9 +249,6 @@ importers:
       '@swc/helpers':
         specifier: 0.5.11
         version: 0.5.11
-      '@tanstack/react-query':
-        specifier: 5.45.1
-        version: 5.45.1(react@18.3.1)
       '@twind/core':
         specifier: 1.1.3
         version: 1.1.3(typescript@5.4.5)
@@ -363,9 +357,6 @@ importers:
       jest-text-transformer:
         specifier: 1.0.4
         version: 1.0.4
-      jotai:
-        specifier: ^2.8.3
-        version: 2.8.3(@types/react@18.2.24)(react@18.3.1)
       jquery:
         specifier: 3.6.4
         version: 3.6.4
@@ -703,9 +694,6 @@ importers:
       '@swc/plugin-styled-components':
         specifier: 2.0.6
         version: 2.0.6
-      '@tanstack/eslint-plugin-query':
-        specifier: ^5.35.6
-        version: 5.35.6(eslint@8.57.0)(typescript@5.4.5)
       '@testing-library/cypress':
         specifier: 10.0.1
         version: 10.0.1(cypress@13.9.0)
@@ -2581,12 +2569,6 @@ packages:
 
   '@graphql-codegen/typescript-operations@4.2.1':
     resolution: {integrity: sha512-LhEPsaP+AI65zfK2j6CBAL4RT0bJL/rR9oRWlvwtHLX0t7YQr4CP4BXgvvej9brYdedAxHGPWeV1tPHy5/z9KQ==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-
-  '@graphql-codegen/typescript-react-query@6.1.0':
-    resolution: {integrity: sha512-SpaQ13fOZmog/xjgKnb7/G1CZSK54wopEbPBSav0IHN99iHaA4lJi6xJJoWrlDutOPgB26KAfGEXTD+lTm9esg==}
-    engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
@@ -5390,19 +5372,6 @@ packages:
   '@szmarczak/http-timer@4.0.6':
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
-
-  '@tanstack/eslint-plugin-query@5.35.6':
-    resolution: {integrity: sha512-XhVRLsJFJMWYNzArPzy1MWSpx2BSUnc8Zof+fvsgaAnWBy9tjNXH3DFftZoNMGA8Mw1dPIdDPkEQcSku3m80Jw==}
-    peerDependencies:
-      eslint: ^8.0.0
-
-  '@tanstack/query-core@5.45.0':
-    resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==}
-
-  '@tanstack/react-query@5.45.1':
-    resolution: {integrity: sha512-mYYfJujKg2kxmkRRjA6nn4YKG3ITsKuH22f1kteJ5IuVQqgKUgbaSQfYwVP0gBS05mhwxO03HVpD0t7BMN7WOA==}
-    peerDependencies:
-      react: ^18.0.0
 
   '@testing-library/cypress@10.0.1':
     resolution: {integrity: sha512-e8uswjTZIBhaIXjzEcrQQ8nHRWHgZH7XBxKuIWxZ/T7FxfWhCR48nFhUX5nfPizjVOKSThEfOSv67jquc1ASkw==}
@@ -10222,18 +10191,6 @@ packages:
 
   jose@5.3.0:
     resolution: {integrity: sha512-IChe9AtAE79ru084ow8jzkN2lNrG3Ntfiv65Cvj9uOCE2m5LNsdHG+9EbxWxAoWRF9TgDOqLN5jm08++owDVRg==}
-
-  jotai@2.8.3:
-    resolution: {integrity: sha512-pR4plVvdbzB6zyt7VLLHPMAkcRSKhRIvZKd+qkifQLa3CEziEo1uwZjePj4acTmQrboiISBlYSdCz3gWcr1Nkg==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': 18.2.24
-      react: '>=17.0.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
 
   joycon@3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -16860,18 +16817,6 @@ snapshots:
       - encoding
       - supports-color
 
-  '@graphql-codegen/typescript-react-query@6.1.0(graphql@16.6.0)':
-    dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.6.0)
-      '@graphql-codegen/visitor-plugin-common': 2.13.1(graphql@16.6.0)
-      auto-bind: 4.0.0
-      change-case-all: 1.0.15
-      graphql: 16.6.0
-      tslib: 2.6.2
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
   '@graphql-codegen/typescript@4.0.7(graphql@16.6.0)':
     dependencies:
       '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.6.0)
@@ -21816,21 +21761,6 @@ snapshots:
   '@szmarczak/http-timer@4.0.6':
     dependencies:
       defer-to-connect: 2.0.1
-
-  '@tanstack/eslint-plugin-query@5.35.6(eslint@8.57.0)(typescript@5.4.5)':
-    dependencies:
-      '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
-      eslint: 8.57.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-
-  '@tanstack/query-core@5.45.0': {}
-
-  '@tanstack/react-query@5.45.1(react@18.3.1)':
-    dependencies:
-      '@tanstack/query-core': 5.45.0
-      react: 18.3.1
 
   '@testing-library/cypress@10.0.1(cypress@13.9.0)':
     dependencies:
@@ -27929,11 +27859,6 @@ snapshots:
   jose@4.15.5: {}
 
   jose@5.3.0: {}
-
-  jotai@2.8.3(@types/react@18.2.24)(react@18.3.1):
-    optionalDependencies:
-      '@types/react': 18.2.24
-      react: 18.3.1
 
   joycon@3.1.1: {}
 

@@ -1,16 +1,12 @@
 import type {
+  BuilderWidth,
+  BuilderWidthBreakPoint,
   IUserPreference,
   IUserService,
 } from '@codelab/frontend/abstract/application'
-import {
-  BuilderWidth,
-  BuilderWidthBreakPoint,
-} from '@codelab/frontend/abstract/application'
-import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
-import { UserDomainService } from '@codelab/frontend-domain-user/services'
-import { User } from '@codelab/frontend-domain-user/store'
+import { IUserDomainService } from '@codelab/frontend/abstract/domain'
 import { restWebClient } from '@codelab/frontend-infra-axios'
-import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import set from 'lodash/set'
 import { computed } from 'mobx'
