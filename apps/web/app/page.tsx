@@ -1,12 +1,11 @@
-'use client'
-
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
 import React from 'react'
 
-const HomeView = () => {
-  const { user } = useUser()
+const HomeView = async () => {
+  const session = await auth0ServerInstance.getSession()
+  const user = session?.user
 
   return (
     <div>
