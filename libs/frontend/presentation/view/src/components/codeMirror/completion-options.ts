@@ -7,7 +7,9 @@ import type { Completion } from '@codemirror/autocomplete'
 import capitalize from 'lodash/capitalize'
 import isArray from 'lodash/isArray'
 import isElement from 'lodash/isElement'
+import isEqual from 'lodash/isEqual'
 import isObjectLike from 'lodash/isObjectLike'
+import { useEffect, useState } from 'react'
 
 const getOptions = (
   ctx: IPropData = {},
@@ -15,7 +17,9 @@ const getOptions = (
   sectionName: string,
 ): Array<Completion> =>
   Object.entries(ctx).flatMap(([key, value]) => {
-    const fullKey = `${parentKey}.${key}`
+    const fullKey = key.includes('-')
+      ? `${parentKey}['${key}']`
+      : `${parentKey}.${key}`
 
     const option: Completion = {
       detail: capitalize(typeof value),
@@ -59,3 +63,22 @@ export const createAutoCompleteOptions = (
   ...getOptions(ctx?.actions, 'actions', 'Actions'),
   ...getOptions(ctx?.args, 'args', 'Args'),
 ]
+
+/**
+ * Hook to compute list of autocompletion options for fields with expressions.
+ * The hook is not sensitive to ctx reference changes and would not cause UI to re-render.
+ * @param ctx Autocompletion menu context
+ * @returns array of options
+ */
+export const useAutocompleteOptions = (ctx: Maybe<IRuntimeContext>) => {
+  const [options, setOptions] = useState<Array<Completion>>([])
+  const newOptions = createAutoCompleteOptions(ctx)
+
+  useEffect(() => {
+    if (!isEqual(options, newOptions)) {
+      setOptions(newOptions)
+    }
+  })
+
+  return options
+}
