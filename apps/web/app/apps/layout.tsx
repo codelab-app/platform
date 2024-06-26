@@ -15,11 +15,11 @@ const Layout = async ({ children }: PropsWithChildren) => {
     <StyledComponentsRegistry>
       <CuiProvider>
         <StoreProvider user={user}>
-          <AntdRegistry>
-            <ConfigProvider theme={theme}>
+          <ConfigProvider theme={theme}>
+            <AntdRegistry>
               <App>{children}</App>
-            </ConfigProvider>
-          </AntdRegistry>
+            </AntdRegistry>
+          </ConfigProvider>
         </StoreProvider>
       </CuiProvider>
     </StyledComponentsRegistry>
