@@ -12,6 +12,6 @@ export const authGuardSchema = gql`
     responseTransformer: String!
 
     # redirect to another page inside the app or to a given url
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 `

@@ -1,13 +1,14 @@
 import { gql } from '@apollo/client'
 import { __PageKind } from '@codelab/shared/abstract/core'
+import { restrictMutationsToAdminOnly } from './user.schema'
 
 const pageKindSchema = `enum PageKind {
   ${Object.values(__PageKind).join('\n')}
 }`
 
-const allowFullAccessForPageOwner = `
+const restrictMutationsToOwnerOnly = `
 {
-  operations: [UPDATE, CREATE, DELETE]
+  operations: [CREATE, UPDATE, DELETE, CREATE_RELATIONSHIP, DELETE_RELATIONSHIP],
   where: { node: { app: { owner: { auth0Id: "$jwt.sub" } } } }
 }`
 
@@ -39,13 +40,12 @@ export const pageSchema = gql`
     # when the app will be deployed - the page will be available on this URL
     urlPattern: String!
   }
-`
 
-// extend type Page
-//   @authorization(
-//     validate: [
-//       ${allowReadAccess}
-//       ${allowFullAccessForAdmin}
-//       ${allowFullAccessForPageOwner}
-//     ]
-//   )
+  extend type Page
+  @authorization(
+    validate: [
+      ${restrictMutationsToAdminOnly}
+      ${restrictMutationsToOwnerOnly}
+    ]
+  )
+`

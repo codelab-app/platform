@@ -11,7 +11,7 @@ export const atomSchema = gql`
 
   type Atom implements WithOwner ${authOwnerOrAdmin} {
     id: ID! @unique
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     type: AtomType! @unique
     name: String! @unique
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
