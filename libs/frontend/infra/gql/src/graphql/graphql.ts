@@ -1,3 +1,5 @@
+/* eslint-disable */
+import { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -12397,11 +12399,11 @@ export type EnumTypesConnection = {
 }
 
 export enum EventType {
-  CREATE = 'CREATE',
-  CREATE_RELATIONSHIP = 'CREATE_RELATIONSHIP',
-  DELETE = 'DELETE',
-  DELETE_RELATIONSHIP = 'DELETE_RELATIONSHIP',
-  UPDATE = 'UPDATE',
+  Create = 'CREATE',
+  CreateRelationship = 'CREATE_RELATIONSHIP',
+  Delete = 'DELETE',
+  DeleteRelationship = 'DELETE_RELATIONSHIP',
+  Update = 'UPDATE',
 }
 
 export type Field = {
@@ -21343,9 +21345,9 @@ export enum Role {
 /** An enum for sorting in either ascending or descending order. */
 export enum SortDirection {
   /** Sort by field values in ascending order. */
-  ASC = 'ASC',
+  Asc = 'ASC',
   /** Sort by field values in descending order. */
-  DESC = 'DESC',
+  Desc = 'DESC',
 }
 
 export type Store = {
@@ -26916,116 +26918,13 @@ export type WithOwnerOwnerUpdateFieldInput = {
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
-export type DomainCreatedSubscriptionVariables = Exact<{ [key: string]: never }>
-
-export type DomainCreatedSubscription = {
-  domainCreated: {
-    event: EventType
-    timestamp: number
-    createdDomain: { id: string; name: string }
-  }
-}
-
-export type DomainUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>
-
-export type DomainUpdatedSubscription = {
-  domainUpdated: {
-    event: EventType
-    timestamp: number
-    updatedDomain: { id: string; name: string }
-  }
-}
-
-export type DomainDeletedSubscriptionVariables = Exact<{ [key: string]: never }>
-
-export type DomainDeletedSubscription = {
-  domainDeleted: {
-    event: EventType
-    timestamp: number
-    deletedDomain: { id: string; name: string }
-  }
-}
-
-export type TestCreateDomainAppsMutationVariables = Exact<{
-  input: Array<AppCreateInput> | AppCreateInput
-}>
-
-export type TestCreateDomainAppsMutation = {
-  createApps: { apps: Array<{ id: string }> }
-}
-
-export type TestCreateDomainsMutationVariables = Exact<{
-  input: Array<DomainCreateInput> | DomainCreateInput
-}>
-
-export type TestCreateDomainsMutation = {
-  createDomains: { domains: Array<{ id: string }> }
-}
-
-export type TestUpdateDomainsMutationVariables = Exact<{
-  where: DomainWhere
-  update: DomainUpdateInput
-}>
-
-export type TestUpdateDomainsMutation = {
-  updateDomains: { domains: Array<{ id: string }> }
-}
-
-export type TestDeleteDomainsMutationVariables = Exact<{
-  where: DomainWhere
-}>
-
-export type TestDeleteDomainsMutation = {
-  deleteDomains: { nodesDeleted: number }
-}
-
-export type ComponentResolverComponentsQueryVariables = Exact<{
-  [key: string]: never
-}>
-
-export type ComponentResolverComponentsQuery = {
-  components: Array<{
-    id: string
-    name: string
-    elements: Array<{ id: string }>
-    rootElement: { id: string }
-  }>
-}
-
-export type ElementDependentTypesQueryVariables = Exact<{
-  [key: string]: never
-}>
-
-export type ElementDependentTypesQuery = {
-  elements: Array<{
-    dependantTypes: Array<
-      | { id: string; name: string }
-      | { id: string; name: string }
-      | { id: string; name: string }
-      | {}
-    >
-  }>
-}
-
-export type PageResolverPagesQueryVariables = Exact<{ [key: string]: never }>
-
-export type PageResolverPagesQuery = {
-  pages: Array<{
-    id: string
-    name: string
-    slug: string
-    elements: Array<{ id: string }>
-    rootElement: { id: string }
-  }>
-}
-
 type BaseAction_ApiAction_Fragment = {
   __typename: 'ApiAction'
   id: string
   name: string
   type: ActionKind
   store: { id: string; name: string }
-}
+} & { ' $fragmentName'?: 'BaseAction_ApiAction_Fragment' }
 
 type BaseAction_CodeAction_Fragment = {
   __typename: 'CodeAction'
@@ -27033,72 +26932,108 @@ type BaseAction_CodeAction_Fragment = {
   name: string
   type: ActionKind
   store: { id: string; name: string }
-}
+} & { ' $fragmentName'?: 'BaseAction_CodeAction_Fragment' }
 
 export type BaseActionFragment =
   | BaseAction_ApiAction_Fragment
   | BaseAction_CodeAction_Fragment
 
-type Action_ApiAction_Fragment = ApiActionFragment &
-  BaseAction_ApiAction_Fragment
+type Action_ApiAction_Fragment = {
+  ' $fragmentRefs'?: {
+    ApiActionFragment: ApiActionFragment
+    BaseAction_ApiAction_Fragment: BaseAction_ApiAction_Fragment
+  }
+} & { ' $fragmentName'?: 'Action_ApiAction_Fragment' }
 
-type Action_CodeAction_Fragment = CodeActionFragment &
-  BaseAction_CodeAction_Fragment
+type Action_CodeAction_Fragment = {
+  ' $fragmentRefs'?: {
+    CodeActionFragment: CodeActionFragment
+    BaseAction_CodeAction_Fragment: BaseAction_CodeAction_Fragment
+  }
+} & { ' $fragmentName'?: 'Action_CodeAction_Fragment' }
 
 export type ActionFragment =
   | Action_ApiAction_Fragment
   | Action_CodeAction_Fragment
 
-export type ApiActionFragment = {
+export type ApiActionFragment = ({
   config: { data: string; id: string }
   errorAction?:
-    | BaseAction_ApiAction_Fragment
-    | BaseAction_CodeAction_Fragment
+    | {
+        ' $fragmentRefs'?: {
+          BaseAction_ApiAction_Fragment: BaseAction_ApiAction_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseAction_CodeAction_Fragment: BaseAction_CodeAction_Fragment
+        }
+      }
     | null
-  resource: ResourceFragment
+  resource: { ' $fragmentRefs'?: { ResourceFragment: ResourceFragment } }
   successAction?:
-    | BaseAction_ApiAction_Fragment
-    | BaseAction_CodeAction_Fragment
+    | {
+        ' $fragmentRefs'?: {
+          BaseAction_ApiAction_Fragment: BaseAction_ApiAction_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseAction_CodeAction_Fragment: BaseAction_CodeAction_Fragment
+        }
+      }
     | null
-} & BaseAction_ApiAction_Fragment
+} & {
+  ' $fragmentRefs'?: {
+    BaseAction_ApiAction_Fragment: BaseAction_ApiAction_Fragment
+  }
+}) & { ' $fragmentName'?: 'ApiActionFragment' }
 
-export type CodeActionFragment = {
-  code: string
-} & BaseAction_CodeAction_Fragment
+export type CodeActionFragment = ({ code: string } & {
+  ' $fragmentRefs'?: {
+    BaseAction_CodeAction_Fragment: BaseAction_CodeAction_Fragment
+  }
+}) & { ' $fragmentName'?: 'CodeActionFragment' }
 
 export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  domains: Array<DomainFragment>
-  owner: OwnerFragment
-  pages: Array<PagePreviewFragment>
-}
+  domains: Array<{ ' $fragmentRefs'?: { DomainFragment: DomainFragment } }>
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
+  pages: Array<{
+    ' $fragmentRefs'?: { PagePreviewFragment: PagePreviewFragment }
+  }>
+} & { ' $fragmentName'?: 'AppPreviewFragment' }
 
 export type AppFragment = {
   id: string
   name: string
   slug: string
-  domains: Array<DomainFragment>
-  owner: OwnerFragment
-  pages: Array<PageFragment>
-}
+  domains: Array<{ ' $fragmentRefs'?: { DomainFragment: DomainFragment } }>
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
+  pages: Array<{ ' $fragmentRefs'?: { PageFragment: PageFragment } }>
+} & { ' $fragmentName'?: 'AppFragment' }
 
 export type AppDevelopmentFragment = {
   id: string
   name: string
   slug: string
-  owner: OwnerFragment
-  pages: Array<PageDevelopmentFragment>
-}
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
+  pages: Array<{
+    ' $fragmentRefs'?: { PageDevelopmentFragment: PageDevelopmentFragment }
+  }>
+} & { ' $fragmentName'?: 'AppDevelopmentFragment' }
 
 export type AppProductionFragment = {
   id: string
   name: string
   slug: string
-  owner: OwnerFragment
-  pages: Array<PageProductionFragment>
-}
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
+  pages: Array<{
+    ' $fragmentRefs'?: { PageProductionFragment: PageProductionFragment }
+  }>
+} & { ' $fragmentName'?: 'AppProductionFragment' }
 
 export type AtomFragment = {
   __typename: 'Atom'
@@ -27109,11 +27044,11 @@ export type AtomFragment = {
   id: string
   name: string
   type: AtomType
-  api: InterfaceTypeFragment
+  api: { ' $fragmentRefs'?: { InterfaceTypeFragment: InterfaceTypeFragment } }
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
-  tags: Array<TagFragment>
-}
+  tags: Array<{ ' $fragmentRefs'?: { TagFragment: TagFragment } }>
+} & { ' $fragmentName'?: 'AtomFragment' }
 
 export type AtomDevelopmentFragment = {
   __typename: 'Atom'
@@ -27121,11 +27056,11 @@ export type AtomDevelopmentFragment = {
   id: string
   name: string
   type: AtomType
-  api: InterfaceTypeFragment
+  api: { ' $fragmentRefs'?: { InterfaceTypeFragment: InterfaceTypeFragment } }
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
-  tags: Array<TagFragment>
-}
+  tags: Array<{ ' $fragmentRefs'?: { TagFragment: TagFragment } }>
+} & { ' $fragmentName'?: 'AtomDevelopmentFragment' }
 
 export type AtomProductionFragment = {
   __typename: 'Atom'
@@ -27138,54 +27073,54 @@ export type AtomProductionFragment = {
   type: AtomType
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
-}
+} & { ' $fragmentName'?: 'AtomProductionFragment' }
 
 export type AuthGuardFragment = {
   id: string
   name: string
   responseTransformer: string
-  config: PropFragment
-  resource: ResourceFragment
-}
+  config: { ' $fragmentRefs'?: { PropFragment: PropFragment } }
+  resource: { ' $fragmentRefs'?: { ResourceFragment: ResourceFragment } }
+} & { ' $fragmentName'?: 'AuthGuardFragment' }
 
 export type ComponentFragment = {
   __typename: 'Component'
   id: string
   name: string
   api: { id: string }
-  owner: OwnerFragment
-  props: PropFragment
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
+  props: { ' $fragmentRefs'?: { PropFragment: PropFragment } }
   rootElement: { id: string }
-  store: StoreFragment
-}
+  store: { ' $fragmentRefs'?: { StoreFragment: StoreFragment } }
+} & { ' $fragmentName'?: 'ComponentFragment' }
 
 export type ComponentDevelopmentFragment = {
   __typename: 'Component'
   id: string
   name: string
-  api: InterfaceTypeFragment
-  elements: Array<ElementFragment>
-  owner: OwnerFragment
-  props: PropFragment
+  api: { ' $fragmentRefs'?: { InterfaceTypeFragment: InterfaceTypeFragment } }
+  elements: Array<{ ' $fragmentRefs'?: { ElementFragment: ElementFragment } }>
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
+  props: { ' $fragmentRefs'?: { PropFragment: PropFragment } }
   rootElement: { id: string; name: string }
-  store: StoreFragment
-}
+  store: { ' $fragmentRefs'?: { StoreFragment: StoreFragment } }
+} & { ' $fragmentName'?: 'ComponentDevelopmentFragment' }
 
 export type ComponentProductionFragment = {
   id: string
   name: string
-  owner: OwnerFragment
-  props: PropFragment
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
+  props: { ' $fragmentRefs'?: { PropFragment: PropFragment } }
   rootElement: { id: string; name: string }
-  store: StoreFragment
-}
+  store: { ' $fragmentRefs'?: { StoreFragment: StoreFragment } }
+} & { ' $fragmentName'?: 'ComponentProductionFragment' }
 
 export type DomainFragment = {
   id: string
   name: string
   app: { id: string }
   domainConfig: { misconfigured: boolean }
-}
+} & { ' $fragmentName'?: 'DomainFragment' }
 
 export type ElementFragment = {
   __typename: 'Element'
@@ -27199,20 +27134,60 @@ export type ElementFragment = {
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
-    | Type_ActionType_Fragment
-    | Type_AppType_Fragment
-    | Type_ArrayType_Fragment
-    | Type_CodeMirrorType_Fragment
-    | Type_ElementType_Fragment
-    | Type_EnumType_Fragment
-    | Type_InterfaceType_Fragment
-    | Type_LambdaType_Fragment
-    | Type_PageType_Fragment
-    | Type_PrimitiveType_Fragment
-    | Type_ReactNodeType_Fragment
-    | Type_RenderPropType_Fragment
-    | Type_RichTextType_Fragment
-    | Type_UnionType_Fragment
+    | {
+        ' $fragmentRefs'?: {
+          Type_ActionType_Fragment: Type_ActionType_Fragment
+        }
+      }
+    | { ' $fragmentRefs'?: { Type_AppType_Fragment: Type_AppType_Fragment } }
+    | {
+        ' $fragmentRefs'?: { Type_ArrayType_Fragment: Type_ArrayType_Fragment }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_CodeMirrorType_Fragment: Type_CodeMirrorType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_ElementType_Fragment: Type_ElementType_Fragment
+        }
+      }
+    | { ' $fragmentRefs'?: { Type_EnumType_Fragment: Type_EnumType_Fragment } }
+    | {
+        ' $fragmentRefs'?: {
+          Type_InterfaceType_Fragment: Type_InterfaceType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_LambdaType_Fragment: Type_LambdaType_Fragment
+        }
+      }
+    | { ' $fragmentRefs'?: { Type_PageType_Fragment: Type_PageType_Fragment } }
+    | {
+        ' $fragmentRefs'?: {
+          Type_PrimitiveType_Fragment: Type_PrimitiveType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_ReactNodeType_Fragment: Type_ReactNodeType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_RenderPropType_Fragment: Type_RenderPropType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_RichTextType_Fragment: Type_RichTextType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: { Type_UnionType_Fragment: Type_UnionType_Fragment }
+      }
   >
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
@@ -27228,11 +27203,13 @@ export type ElementFragment = {
     | { id: string; type: ActionKind }
     | null
   prevSibling?: { id: string } | null
-  props: PropFragment
+  props: { ' $fragmentRefs'?: { PropFragment: PropFragment } }
   renderType:
-    | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
+    | ({ __typename: 'Atom' } & {
+        ' $fragmentRefs'?: { AtomDevelopmentFragment: AtomDevelopmentFragment }
+      })
     | { __typename: 'Component'; id: string }
-}
+} & { ' $fragmentName'?: 'ElementFragment' }
 
 export type ElementProductionFragment = {
   __typename: 'Element'
@@ -27246,20 +27223,60 @@ export type ElementProductionFragment = {
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
-    | Type_ActionType_Fragment
-    | Type_AppType_Fragment
-    | Type_ArrayType_Fragment
-    | Type_CodeMirrorType_Fragment
-    | Type_ElementType_Fragment
-    | Type_EnumType_Fragment
-    | Type_InterfaceType_Fragment
-    | Type_LambdaType_Fragment
-    | Type_PageType_Fragment
-    | Type_PrimitiveType_Fragment
-    | Type_ReactNodeType_Fragment
-    | Type_RenderPropType_Fragment
-    | Type_RichTextType_Fragment
-    | Type_UnionType_Fragment
+    | {
+        ' $fragmentRefs'?: {
+          Type_ActionType_Fragment: Type_ActionType_Fragment
+        }
+      }
+    | { ' $fragmentRefs'?: { Type_AppType_Fragment: Type_AppType_Fragment } }
+    | {
+        ' $fragmentRefs'?: { Type_ArrayType_Fragment: Type_ArrayType_Fragment }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_CodeMirrorType_Fragment: Type_CodeMirrorType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_ElementType_Fragment: Type_ElementType_Fragment
+        }
+      }
+    | { ' $fragmentRefs'?: { Type_EnumType_Fragment: Type_EnumType_Fragment } }
+    | {
+        ' $fragmentRefs'?: {
+          Type_InterfaceType_Fragment: Type_InterfaceType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_LambdaType_Fragment: Type_LambdaType_Fragment
+        }
+      }
+    | { ' $fragmentRefs'?: { Type_PageType_Fragment: Type_PageType_Fragment } }
+    | {
+        ' $fragmentRefs'?: {
+          Type_PrimitiveType_Fragment: Type_PrimitiveType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_ReactNodeType_Fragment: Type_ReactNodeType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_RenderPropType_Fragment: Type_RenderPropType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Type_RichTextType_Fragment: Type_RichTextType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: { Type_UnionType_Fragment: Type_UnionType_Fragment }
+      }
   >
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
@@ -27275,20 +27292,24 @@ export type ElementProductionFragment = {
     | { id: string; type: ActionKind }
     | null
   prevSibling?: { id: string } | null
-  props: PropFragment
+  props: { ' $fragmentRefs'?: { PropFragment: PropFragment } }
   renderType:
-    | ({ __typename: 'Atom' } & AtomProductionFragment)
+    | ({ __typename: 'Atom' } & {
+        ' $fragmentRefs'?: { AtomProductionFragment: AtomProductionFragment }
+      })
     | { __typename: 'Component'; id: string }
-}
+} & { ' $fragmentName'?: 'ElementProductionFragment' }
 
-export type HookPropFragment = { data: string; id: string }
+export type HookPropFragment = { data: string; id: string } & {
+  ' $fragmentName'?: 'HookPropFragment'
+}
 
 export type HookFragment = {
   id: string
   type: AtomType
-  config: HookPropFragment
+  config: { ' $fragmentRefs'?: { HookPropFragment: HookPropFragment } }
   element: { id: string; name: string }
-}
+} & { ' $fragmentName'?: 'HookFragment' }
 
 export type PagePreviewFragment = {
   id: string
@@ -27298,7 +27319,7 @@ export type PagePreviewFragment = {
   app: { id: string }
   rootElement: { id: string }
   store: { id: string }
-}
+} & { ' $fragmentName'?: 'PagePreviewFragment' }
 
 export type PageFragment = {
   id: string
@@ -27306,12 +27327,12 @@ export type PageFragment = {
   name: string
   urlPattern: string
   app: { id: string }
-  elements: Array<ElementFragment>
+  elements: Array<{ ' $fragmentRefs'?: { ElementFragment: ElementFragment } }>
   pageContentContainer?: { id: string } | null
   redirect?: { id: string } | null
   rootElement: { id: string }
-  store: StoreFragment
-}
+  store: { ' $fragmentRefs'?: { StoreFragment: StoreFragment } }
+} & { ' $fragmentName'?: 'PageFragment' }
 
 export type PageDevelopmentFragment = {
   id: string
@@ -27319,12 +27340,12 @@ export type PageDevelopmentFragment = {
   name: string
   urlPattern: string
   app: { id: string }
-  elements: Array<ElementFragment>
+  elements: Array<{ ' $fragmentRefs'?: { ElementFragment: ElementFragment } }>
   pageContentContainer?: { id: string } | null
   redirect?: { id: string } | null
   rootElement: { id: string }
-  store: StoreFragment
-}
+  store: { ' $fragmentRefs'?: { StoreFragment: StoreFragment } }
+} & { ' $fragmentName'?: 'PageDevelopmentFragment' }
 
 export type PageProductionFragment = {
   id: string
@@ -27333,14 +27354,18 @@ export type PageProductionFragment = {
   slug: string
   urlPattern: string
   app: { id: string }
-  elements: Array<ElementProductionFragment>
+  elements: Array<{
+    ' $fragmentRefs'?: { ElementProductionFragment: ElementProductionFragment }
+  }>
   pageContentContainer?: { id: string } | null
   redirect?: { id: string } | null
   rootElement: { id: string }
-  store: StoreFragment
-}
+  store: { ' $fragmentRefs'?: { StoreFragment: StoreFragment } }
+} & { ' $fragmentName'?: 'PageProductionFragment' }
 
-export type PropFragment = { data: string; id: string }
+export type PropFragment = { data: string; id: string } & {
+  ' $fragmentName'?: 'PropFragment'
+}
 
 export type RedirectFragment = {
   id: string
@@ -27349,44 +27374,74 @@ export type RedirectFragment = {
   authGuard: { id: string }
   source: { id: string }
   targetPage?: { id: string } | null
-}
+} & { ' $fragmentName'?: 'RedirectFragment' }
 
 export type ResourceFragment = {
   id: string
   name: string
   type: ResourceType
-  config: PropFragment
-}
+  config: { ' $fragmentRefs'?: { PropFragment: PropFragment } }
+} & { ' $fragmentName'?: 'ResourceFragment' }
 
 export type StoreFragment = {
   id: string
   name: string
-  actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
-  api: InterfaceTypeFragment
-}
+  actions: Array<
+    | {
+        ' $fragmentRefs'?: {
+          Action_ApiAction_Fragment: Action_ApiAction_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Action_CodeAction_Fragment: Action_CodeAction_Fragment
+        }
+      }
+  >
+  api: { ' $fragmentRefs'?: { InterfaceTypeFragment: InterfaceTypeFragment } }
+} & { ' $fragmentName'?: 'StoreFragment' }
 
 export type ProductionStoreFragment = {
   id: string
   name: string
-  actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
-}
+  actions: Array<
+    | {
+        ' $fragmentRefs'?: {
+          Action_ApiAction_Fragment: Action_ApiAction_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          Action_CodeAction_Fragment: Action_CodeAction_Fragment
+        }
+      }
+  >
+} & { ' $fragmentName'?: 'ProductionStoreFragment' }
 
 export type TagFragment = {
   id: string
   name: string
   children: Array<{ id: string; name: string }>
   descendants: Array<{ id: string; name: string }>
-  owner: OwnerFragment
+  owner: { ' $fragmentRefs'?: { OwnerFragment: OwnerFragment } }
   parent?: { id: string } | null
+} & { ' $fragmentName'?: 'TagFragment' }
+
+export type TagPreviewFragment = { id: string; name: string } & {
+  ' $fragmentName'?: 'TagPreviewFragment'
 }
 
-export type TagPreviewFragment = { id: string; name: string }
+export type ActionTypeFragment = {
+  ' $fragmentRefs'?: {
+    BaseType_ActionType_Fragment: BaseType_ActionType_Fragment
+  }
+} & { ' $fragmentName'?: 'ActionTypeFragment' }
 
-export type ActionTypeFragment = BaseType_ActionType_Fragment
+export type AppTypeFragment = {
+  ' $fragmentRefs'?: { BaseType_AppType_Fragment: BaseType_AppType_Fragment }
+} & { ' $fragmentName'?: 'AppTypeFragment' }
 
-export type AppTypeFragment = BaseType_AppType_Fragment
-
-export type ArrayTypeFragment = {
+export type ArrayTypeFragment = ({
   itemType:
     | { id: string; kind: TypeKind; name: string }
     | { id: string; kind: TypeKind; name: string }
@@ -27402,105 +27457,109 @@ export type ArrayTypeFragment = {
     | { id: string; kind: TypeKind; name: string }
     | { id: string; kind: TypeKind; name: string }
     | { id: string; kind: TypeKind; name: string }
-} & BaseType_ArrayType_Fragment
+} & {
+  ' $fragmentRefs'?: {
+    BaseType_ArrayType_Fragment: BaseType_ArrayType_Fragment
+  }
+}) & { ' $fragmentName'?: 'ArrayTypeFragment' }
 
 type BaseType_ActionType_Fragment = {
   __typename: 'ActionType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_ActionType_Fragment' }
 
 type BaseType_AppType_Fragment = {
   __typename: 'AppType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_AppType_Fragment' }
 
 type BaseType_ArrayType_Fragment = {
   __typename: 'ArrayType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_ArrayType_Fragment' }
 
 type BaseType_CodeMirrorType_Fragment = {
   __typename: 'CodeMirrorType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_CodeMirrorType_Fragment' }
 
 type BaseType_ElementType_Fragment = {
   __typename: 'ElementType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_ElementType_Fragment' }
 
 type BaseType_EnumType_Fragment = {
   __typename: 'EnumType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_EnumType_Fragment' }
 
 type BaseType_InterfaceType_Fragment = {
   __typename: 'InterfaceType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_InterfaceType_Fragment' }
 
 type BaseType_LambdaType_Fragment = {
   __typename: 'LambdaType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_LambdaType_Fragment' }
 
 type BaseType_PageType_Fragment = {
   __typename: 'PageType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_PageType_Fragment' }
 
 type BaseType_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_PrimitiveType_Fragment' }
 
 type BaseType_ReactNodeType_Fragment = {
   __typename: 'ReactNodeType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_ReactNodeType_Fragment' }
 
 type BaseType_RenderPropType_Fragment = {
   __typename: 'RenderPropType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_RenderPropType_Fragment' }
 
 type BaseType_RichTextType_Fragment = {
   __typename: 'RichTextType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_RichTextType_Fragment' }
 
 type BaseType_UnionType_Fragment = {
   __typename: 'UnionType'
   id: string
   kind: TypeKind
   name: string
-}
+} & { ' $fragmentName'?: 'BaseType_UnionType_Fragment' }
 
 export type BaseTypeFragment =
   | BaseType_ActionType_Fragment
@@ -27518,19 +27577,31 @@ export type BaseTypeFragment =
   | BaseType_RichTextType_Fragment
   | BaseType_UnionType_Fragment
 
-export type CodeMirrorTypeFragment = {
-  language: CodeMirrorLanguage
-} & BaseType_CodeMirrorType_Fragment
+export type CodeMirrorTypeFragment = ({ language: CodeMirrorLanguage } & {
+  ' $fragmentRefs'?: {
+    BaseType_CodeMirrorType_Fragment: BaseType_CodeMirrorType_Fragment
+  }
+}) & { ' $fragmentName'?: 'CodeMirrorTypeFragment' }
 
-export type ElementTypeFragment = {
-  elementKind: ElementTypeKind
-} & BaseType_ElementType_Fragment
+export type ElementTypeFragment = ({ elementKind: ElementTypeKind } & {
+  ' $fragmentRefs'?: {
+    BaseType_ElementType_Fragment: BaseType_ElementType_Fragment
+  }
+}) & { ' $fragmentName'?: 'ElementTypeFragment' }
 
-export type EnumTypeValueFragment = { id: string; key: string; value: string }
+export type EnumTypeValueFragment = {
+  id: string
+  key: string
+  value: string
+} & { ' $fragmentName'?: 'EnumTypeValueFragment' }
 
-export type EnumTypeFragment = {
-  allowedValues: Array<EnumTypeValueFragment>
-} & BaseType_EnumType_Fragment
+export type EnumTypeFragment = ({
+  allowedValues: Array<{
+    ' $fragmentRefs'?: { EnumTypeValueFragment: EnumTypeValueFragment }
+  }>
+} & {
+  ' $fragmentRefs'?: { BaseType_EnumType_Fragment: BaseType_EnumType_Fragment }
+}) & { ' $fragmentName'?: 'EnumTypeFragment' }
 
 export type FieldFragment = {
   defaultValues?: string | null
@@ -27557,53 +27628,105 @@ export type FieldFragment = {
     | { __typename: 'UnionType'; id: string; kind: TypeKind; name: string }
   nextSibling?: { id: string } | null
   prevSibling?: { id: string } | null
-}
+} & { ' $fragmentName'?: 'FieldFragment' }
 
-export type InterfaceTypeFragment = {
-  fields: Array<FieldFragment>
-} & BaseType_InterfaceType_Fragment
+export type InterfaceTypeFragment = ({
+  fields: Array<{ ' $fragmentRefs'?: { FieldFragment: FieldFragment } }>
+} & {
+  ' $fragmentRefs'?: {
+    BaseType_InterfaceType_Fragment: BaseType_InterfaceType_Fragment
+  }
+}) & { ' $fragmentName'?: 'InterfaceTypeFragment' }
 
-export type LambdaTypeFragment = BaseType_LambdaType_Fragment
+export type LambdaTypeFragment = {
+  ' $fragmentRefs'?: {
+    BaseType_LambdaType_Fragment: BaseType_LambdaType_Fragment
+  }
+} & { ' $fragmentName'?: 'LambdaTypeFragment' }
 
-export type PageTypeFragment = BaseType_PageType_Fragment
+export type PageTypeFragment = {
+  ' $fragmentRefs'?: { BaseType_PageType_Fragment: BaseType_PageType_Fragment }
+} & { ' $fragmentName'?: 'PageTypeFragment' }
 
-export type PrimitiveTypeFragment = {
-  primitiveKind: PrimitiveTypeKind
-} & BaseType_PrimitiveType_Fragment
+export type PrimitiveTypeFragment = ({ primitiveKind: PrimitiveTypeKind } & {
+  ' $fragmentRefs'?: {
+    BaseType_PrimitiveType_Fragment: BaseType_PrimitiveType_Fragment
+  }
+}) & { ' $fragmentName'?: 'PrimitiveTypeFragment' }
 
-export type ReactNodeTypeFragment = BaseType_ReactNodeType_Fragment
+export type ReactNodeTypeFragment = {
+  ' $fragmentRefs'?: {
+    BaseType_ReactNodeType_Fragment: BaseType_ReactNodeType_Fragment
+  }
+} & { ' $fragmentName'?: 'ReactNodeTypeFragment' }
 
-export type RenderPropTypeFragment = BaseType_RenderPropType_Fragment
+export type RenderPropTypeFragment = {
+  ' $fragmentRefs'?: {
+    BaseType_RenderPropType_Fragment: BaseType_RenderPropType_Fragment
+  }
+} & { ' $fragmentName'?: 'RenderPropTypeFragment' }
 
-export type RichTextTypeFragment = BaseType_RichTextType_Fragment
+export type RichTextTypeFragment = {
+  ' $fragmentRefs'?: {
+    BaseType_RichTextType_Fragment: BaseType_RichTextType_Fragment
+  }
+} & { ' $fragmentName'?: 'RichTextTypeFragment' }
 
-type Type_ActionType_Fragment = ActionTypeFragment
+type Type_ActionType_Fragment = {
+  ' $fragmentRefs'?: { ActionTypeFragment: ActionTypeFragment }
+} & { ' $fragmentName'?: 'Type_ActionType_Fragment' }
 
-type Type_AppType_Fragment = AppTypeFragment
+type Type_AppType_Fragment = {
+  ' $fragmentRefs'?: { AppTypeFragment: AppTypeFragment }
+} & { ' $fragmentName'?: 'Type_AppType_Fragment' }
 
-type Type_ArrayType_Fragment = ArrayTypeFragment
+type Type_ArrayType_Fragment = {
+  ' $fragmentRefs'?: { ArrayTypeFragment: ArrayTypeFragment }
+} & { ' $fragmentName'?: 'Type_ArrayType_Fragment' }
 
-type Type_CodeMirrorType_Fragment = CodeMirrorTypeFragment
+type Type_CodeMirrorType_Fragment = {
+  ' $fragmentRefs'?: { CodeMirrorTypeFragment: CodeMirrorTypeFragment }
+} & { ' $fragmentName'?: 'Type_CodeMirrorType_Fragment' }
 
-type Type_ElementType_Fragment = ElementTypeFragment
+type Type_ElementType_Fragment = {
+  ' $fragmentRefs'?: { ElementTypeFragment: ElementTypeFragment }
+} & { ' $fragmentName'?: 'Type_ElementType_Fragment' }
 
-type Type_EnumType_Fragment = EnumTypeFragment
+type Type_EnumType_Fragment = {
+  ' $fragmentRefs'?: { EnumTypeFragment: EnumTypeFragment }
+} & { ' $fragmentName'?: 'Type_EnumType_Fragment' }
 
-type Type_InterfaceType_Fragment = InterfaceTypeFragment
+type Type_InterfaceType_Fragment = {
+  ' $fragmentRefs'?: { InterfaceTypeFragment: InterfaceTypeFragment }
+} & { ' $fragmentName'?: 'Type_InterfaceType_Fragment' }
 
-type Type_LambdaType_Fragment = LambdaTypeFragment
+type Type_LambdaType_Fragment = {
+  ' $fragmentRefs'?: { LambdaTypeFragment: LambdaTypeFragment }
+} & { ' $fragmentName'?: 'Type_LambdaType_Fragment' }
 
-type Type_PageType_Fragment = PageTypeFragment
+type Type_PageType_Fragment = {
+  ' $fragmentRefs'?: { PageTypeFragment: PageTypeFragment }
+} & { ' $fragmentName'?: 'Type_PageType_Fragment' }
 
-type Type_PrimitiveType_Fragment = PrimitiveTypeFragment
+type Type_PrimitiveType_Fragment = {
+  ' $fragmentRefs'?: { PrimitiveTypeFragment: PrimitiveTypeFragment }
+} & { ' $fragmentName'?: 'Type_PrimitiveType_Fragment' }
 
-type Type_ReactNodeType_Fragment = ReactNodeTypeFragment
+type Type_ReactNodeType_Fragment = {
+  ' $fragmentRefs'?: { ReactNodeTypeFragment: ReactNodeTypeFragment }
+} & { ' $fragmentName'?: 'Type_ReactNodeType_Fragment' }
 
-type Type_RenderPropType_Fragment = RenderPropTypeFragment
+type Type_RenderPropType_Fragment = {
+  ' $fragmentRefs'?: { RenderPropTypeFragment: RenderPropTypeFragment }
+} & { ' $fragmentName'?: 'Type_RenderPropType_Fragment' }
 
-type Type_RichTextType_Fragment = RichTextTypeFragment
+type Type_RichTextType_Fragment = {
+  ' $fragmentRefs'?: { RichTextTypeFragment: RichTextTypeFragment }
+} & { ' $fragmentName'?: 'Type_RichTextType_Fragment' }
 
-type Type_UnionType_Fragment = UnionTypeFragment
+type Type_UnionType_Fragment = {
+  ' $fragmentRefs'?: { UnionTypeFragment: UnionTypeFragment }
+} & { ' $fragmentName'?: 'Type_UnionType_Fragment' }
 
 export type TypeFragment =
   | Type_ActionType_Fragment
@@ -27621,26 +27744,88 @@ export type TypeFragment =
   | Type_RichTextType_Fragment
   | Type_UnionType_Fragment
 
-export type UnionTypeFragment = {
+export type UnionTypeFragment = ({
   typesOfUnionType: Array<
-    | BaseType_ActionType_Fragment
-    | BaseType_AppType_Fragment
-    | BaseType_ArrayType_Fragment
-    | BaseType_CodeMirrorType_Fragment
-    | BaseType_ElementType_Fragment
-    | BaseType_EnumType_Fragment
-    | BaseType_InterfaceType_Fragment
-    | BaseType_LambdaType_Fragment
-    | BaseType_PageType_Fragment
-    | BaseType_PrimitiveType_Fragment
-    | BaseType_ReactNodeType_Fragment
-    | BaseType_RenderPropType_Fragment
-    | BaseType_RichTextType_Fragment
-    | BaseType_UnionType_Fragment
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_ActionType_Fragment: BaseType_ActionType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_AppType_Fragment: BaseType_AppType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_ArrayType_Fragment: BaseType_ArrayType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_CodeMirrorType_Fragment: BaseType_CodeMirrorType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_ElementType_Fragment: BaseType_ElementType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_EnumType_Fragment: BaseType_EnumType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_InterfaceType_Fragment: BaseType_InterfaceType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_LambdaType_Fragment: BaseType_LambdaType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_PageType_Fragment: BaseType_PageType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_PrimitiveType_Fragment: BaseType_PrimitiveType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_ReactNodeType_Fragment: BaseType_ReactNodeType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_RenderPropType_Fragment: BaseType_RenderPropType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_RichTextType_Fragment: BaseType_RichTextType_Fragment
+        }
+      }
+    | {
+        ' $fragmentRefs'?: {
+          BaseType_UnionType_Fragment: BaseType_UnionType_Fragment
+        }
+      }
   >
-} & BaseType_UnionType_Fragment
+} & {
+  ' $fragmentRefs'?: {
+    BaseType_UnionType_Fragment: BaseType_UnionType_Fragment
+  }
+}) & { ' $fragmentName'?: 'UnionTypeFragment' }
 
-export type OwnerFragment = { id: string }
+export type OwnerFragment = { id: string } & {
+  ' $fragmentName'?: 'OwnerFragment'
+}
 
 export type UserFragment = {
   auth0Id: string
@@ -27650,1294 +27835,4035 @@ export type UserFragment = {
   roles?: Array<Role> | null
   username: string
   apps: Array<{ id: string }>
+} & { ' $fragmentName'?: 'UserFragment' }
+
+export type CreateDomainsMutationVariables = Exact<{
+  input: Array<DomainCreateInput> | DomainCreateInput
+}>
+
+export type CreateDomainsMutation = {
+  createDomains: { domains: Array<{ id: string }> }
 }
 
-export type CreateAppsMutationVariables = Exact<{
-  input: Array<AppCreateInput> | AppCreateInput
-}>
+export class TypedDocumentString<TResult, TVariables>
+  extends String
+  implements DocumentTypeDecoration<TResult, TVariables>
+{
+  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType']
 
-export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
+  constructor(private value: string, public __meta__?: Record<string, any>) {
+    super(value)
+  }
 
-export type UpdateAppsMutationVariables = Exact<{
-  where: AppWhere
-  update: AppUpdateInput
-}>
-
-export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
-
-export type DeleteAppsMutationVariables = Exact<{
-  where: AppWhere
-  delete?: InputMaybe<AppDeleteInput>
-}>
-
-export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
-
-export type GetAppsQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsQuery = {
-  aggregate: { count: number }
-  items: Array<AppFragment>
-}
-
-export type GetAppsListQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsListQuery = { apps: Array<AppPreviewFragment> }
-
-export type GetAppDevelopmentQueryVariables = Exact<{
-  appCompositeKey: Scalars['String']['input']
-  pageName: Scalars['String']['input']
-}>
-
-export type GetAppDevelopmentQuery = {
-  actionTypes: Array<ActionTypeFragment>
-  apps: Array<AppDevelopmentFragment>
-  atoms: Array<AtomDevelopmentFragment>
-  authGuards: Array<AuthGuardFragment>
-  codeMirrorTypes: Array<CodeMirrorTypeFragment>
-  components: Array<ComponentDevelopmentFragment>
-  primitiveTypes: Array<PrimitiveTypeFragment>
-  reactNodeTypes: Array<ReactNodeTypeFragment>
-  redirects: Array<RedirectFragment>
-  renderPropTypes: Array<RenderPropTypeFragment>
-  resources: Array<ResourceFragment>
-  richTextTypes: Array<RichTextTypeFragment>
-}
-
-export type GetAppProductionQueryVariables = Exact<{
-  domain: Scalars['String']['input']
-  pageUrlPattern: Scalars['String']['input']
-}>
-
-export type GetAppProductionQuery = {
-  apps: Array<AppProductionFragment>
-  atoms: Array<AtomProductionFragment>
-  resources: Array<ResourceFragment>
-}
-
-export type CreateAtomsMutationVariables = Exact<{
-  input: Array<AtomCreateInput> | AtomCreateInput
-}>
-
-export type CreateAtomsMutation = {
-  createAtoms: {
-    atoms: Array<{ id: string }>
-    info: { nodesCreated: number; relationshipsCreated: number }
+  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
+    return this.value
   }
 }
-
-export type DeleteAtomsMutationVariables = Exact<{
-  where: AtomWhere
-}>
-
-export type DeleteAtomsMutation = {
-  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
+export const DomainFragmentDoc = new TypedDocumentString(
+  `
+    fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
 }
-
-export type GetAtomsQueryVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  options?: InputMaybe<AtomOptions>
-}>
-
-export type GetAtomsQuery = {
-  aggregate: { count: number }
-  items: Array<AtomFragment>
+    `,
+  { fragmentName: 'Domain' },
+) as unknown as TypedDocumentString<DomainFragment, unknown>
+export const OwnerFragmentDoc = new TypedDocumentString(
+  `
+    fragment Owner on User {
+  id
 }
-
-export type UpdateAtomsMutationVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  update?: InputMaybe<AtomUpdateInput>
-}>
-
-export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
+    `,
+  { fragmentName: 'Owner' },
+) as unknown as TypedDocumentString<OwnerFragment, unknown>
+export const PagePreviewFragmentDoc = new TypedDocumentString(
+  `
+    fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  store {
+    id
+  }
+  urlPattern
 }
-
-export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetSelectAtomOptionsQuery = {
-  atoms: Array<{
-    __typename: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-    requiredParents: Array<{ id: string; type: AtomType }>
-  }>
+    `,
+  { fragmentName: 'PagePreview' },
+) as unknown as TypedDocumentString<PagePreviewFragment, unknown>
+export const AppPreviewFragmentDoc = new TypedDocumentString(
+  `
+    fragment AppPreview on App {
+  domains {
+    ...Domain
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(where: {kind: Provider}) {
+    ...PagePreview
+  }
+  slug
 }
-
-export type GetAuthGuardsQueryVariables = Exact<{
-  options?: InputMaybe<AuthGuardOptions>
-  where?: InputMaybe<AuthGuardWhere>
-}>
-
-export type GetAuthGuardsQuery = {
-  aggregate: { count: number }
-  items: Array<AuthGuardFragment>
+    fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
 }
-
-export type CreateAuthGuardsMutationVariables = Exact<{
-  input: Array<AuthGuardCreateInput> | AuthGuardCreateInput
-}>
-
-export type CreateAuthGuardsMutation = {
-  createAuthGuards: { authGuards: Array<{ id: string }> }
+fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  store {
+    id
+  }
+  urlPattern
 }
-
-export type UpdateAuthGuardMutationVariables = Exact<{
-  where?: InputMaybe<AuthGuardWhere>
-  update?: InputMaybe<AuthGuardUpdateInput>
-}>
-
-export type UpdateAuthGuardMutation = {
-  updateAuthGuards: { authGuards: Array<{ id: string }> }
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'AppPreview' },
+) as unknown as TypedDocumentString<AppPreviewFragment, unknown>
+export const BaseTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
-
-export type DeleteAuthGuardsMutationVariables = Exact<{
-  where?: InputMaybe<AuthGuardWhere>
-  delete?: InputMaybe<AuthGuardDeleteInput>
-}>
-
-export type DeleteAuthGuardsMutation = {
-  deleteAuthGuards: { nodesDeleted: number }
+    `,
+  { fragmentName: 'BaseType' },
+) as unknown as TypedDocumentString<BaseTypeFragment, unknown>
+export const ActionTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment ActionType on ActionType {
+  ...BaseType
 }
-
-export type CreateComponentsMutationVariables = Exact<{
-  input: Array<ComponentCreateInput> | ComponentCreateInput
-}>
-
-export type CreateComponentsMutation = {
-  createComponents: { components: Array<{ id: string }> }
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'ActionType' },
+) as unknown as TypedDocumentString<ActionTypeFragment, unknown>
+export const AppTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment AppType on AppType {
+  ...BaseType
 }
-
-export type DeleteComponentsMutationVariables = Exact<{
-  where?: InputMaybe<ComponentWhere>
-  delete?: InputMaybe<ComponentDeleteInput>
-}>
-
-export type DeleteComponentsMutation = {
-  deleteComponents: { nodesDeleted: number }
-}
-
-export type UpdateComponentsMutationVariables = Exact<{
-  where?: InputMaybe<ComponentWhere>
-  update?: InputMaybe<ComponentUpdateInput>
-}>
-
-export type UpdateComponentsMutation = {
-  updateComponents: { components: Array<{ id: string }> }
-}
-
-export type GetComponentsQueryVariables = Exact<{
-  options?: InputMaybe<ComponentOptions>
-  where?: InputMaybe<ComponentWhere>
-}>
-
-export type GetComponentsQuery = {
-  aggregate: { count: number }
-  items: Array<ComponentFragment>
-}
-
-export type GetComponentDevelopmentQueryVariables = Exact<{
-  [key: string]: never
-}>
-
-export type GetComponentDevelopmentQuery = {
-  actionTypes: Array<ActionTypeFragment>
-  atoms: Array<AtomDevelopmentFragment>
-  codeMirrorTypes: Array<CodeMirrorTypeFragment>
-  components: Array<ComponentDevelopmentFragment>
-  primitiveTypes: Array<PrimitiveTypeFragment>
-  reactNodeTypes: Array<ReactNodeTypeFragment>
-  renderPropTypes: Array<RenderPropTypeFragment>
-  resources: Array<ResourceFragment>
-  richTextTypes: Array<RichTextTypeFragment>
-}
-
-export type GetDomainsQueryVariables = Exact<{
-  options?: InputMaybe<DomainOptions>
-  where?: InputMaybe<DomainWhere>
-}>
-
-export type GetDomainsQuery = {
-  aggregate: { count: number }
-  items: Array<DomainFragment>
-}
-
-export type UpdateDomainsMutationVariables = Exact<{
-  where: DomainWhere
-  update: DomainUpdateInput
-}>
-
-export type UpdateDomainsMutation = {
-  updateDomains: { domains: Array<{ id: string }> }
-}
-
-export type DeleteDomainsMutationVariables = Exact<{
-  where: DomainWhere
-}>
-
-export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
-
-export type CreateElementsMutationVariables = Exact<{
-  input: Array<ElementCreateInput> | ElementCreateInput
-}>
-
-export type CreateElementsMutation = {
-  createElements: { elements: Array<{ id: string }> }
-}
-
-export type DeleteElementsMutationVariables = Exact<{
-  where: ElementWhere
-  delete?: InputMaybe<ElementDeleteInput>
-}>
-
-export type DeleteElementsMutation = {
-  deleteElements: { nodesDeleted: number }
-}
-
-export type UpdateElementsMutationVariables = Exact<{
-  where?: InputMaybe<ElementWhere>
-  update?: InputMaybe<ElementUpdateInput>
-}>
-
-export type UpdateElementsMutation = {
-  updateElements: { elements: Array<{ id: string }> }
-}
-
-export type GetElementsQueryVariables = Exact<{
-  options?: InputMaybe<ElementOptions>
-  where?: InputMaybe<ElementWhere>
-}>
-
-export type GetElementsQuery = {
-  aggregate: { count: number }
-  items: Array<ElementFragment>
-}
-
-export type CreateHooksMutationVariables = Exact<{
-  input: Array<HookCreateInput> | HookCreateInput
-}>
-
-export type CreateHooksMutation = {
-  createHooks: { hooks: Array<HookFragment> }
-}
-
-export type DeleteHooksMutationVariables = Exact<{
-  where: HookWhere
-}>
-
-export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } }
-
-export type CreatePagesMutationVariables = Exact<{
-  input: Array<PageCreateInput> | PageCreateInput
-}>
-
-export type CreatePagesMutation = {
-  createPages: { pages: Array<{ id: string }> }
-}
-
-export type DeletePagesMutationVariables = Exact<{
-  where?: InputMaybe<PageWhere>
-  delete?: InputMaybe<PageDeleteInput>
-}>
-
-export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
-
-export type UpdatePagesMutationVariables = Exact<{
-  where?: InputMaybe<PageWhere>
-  update?: InputMaybe<PageUpdateInput>
-}>
-
-export type UpdatePagesMutation = {
-  updatePages: { pages: Array<{ id: string }> }
-}
-
-export type GetPagesQueryVariables = Exact<{
-  options?: InputMaybe<PageOptions>
-  where?: InputMaybe<PageWhere>
-}>
-
-export type GetPagesQuery = {
-  aggregate: { count: number }
-  items: Array<PageFragment>
-}
-
-export type GetRenderedPageQueryVariables = Exact<{
-  pageId: Scalars['ID']['input']
-}>
-
-export type GetRenderedPageQuery = { pages: Array<PageDevelopmentFragment> }
-
-export type CreatePropsMutationVariables = Exact<{
-  input: Array<PropCreateInput> | PropCreateInput
-}>
-
-export type CreatePropsMutation = {
-  createProps: { props: Array<{ id: string }> }
-}
-
-export type UpdatePropsMutationVariables = Exact<{
-  where?: InputMaybe<PropWhere>
-  update?: InputMaybe<PropUpdateInput>
-}>
-
-export type UpdatePropsMutation = {
-  updateProps: { props: Array<{ id: string }> }
-}
-
-export type DeletePropsMutationVariables = Exact<{
-  where: PropWhere
-}>
-
-export type DeletePropsMutation = { deleteProps: { nodesDeleted: number } }
-
-export type GetPropsQueryVariables = Exact<{
-  options?: InputMaybe<PropOptions>
-  where?: InputMaybe<PropWhere>
-}>
-
-export type GetPropsQuery = {
-  aggregate: { count: number }
-  items: Array<PropFragment>
-}
-
-export type CreateRedirectsMutationVariables = Exact<{
-  input: Array<RedirectCreateInput> | RedirectCreateInput
-}>
-
-export type CreateRedirectsMutation = {
-  createRedirects: { redirects: Array<{ id: string }> }
-}
-
-export type DeleteRedirectsMutationVariables = Exact<{
-  where?: InputMaybe<RedirectWhere>
-  delete?: InputMaybe<RedirectDeleteInput>
-}>
-
-export type DeleteRedirectsMutation = {
-  deleteRedirects: { nodesDeleted: number }
-}
-
-export type UpdateRedirectsMutationVariables = Exact<{
-  where?: InputMaybe<RedirectWhere>
-  update?: InputMaybe<RedirectUpdateInput>
-}>
-
-export type UpdateRedirectsMutation = {
-  updateRedirects: { redirects: Array<{ id: string }> }
-}
-
-export type GetRedirectsQueryVariables = Exact<{
-  options?: InputMaybe<RedirectOptions>
-  where?: InputMaybe<RedirectWhere>
-}>
-
-export type GetRedirectsQuery = {
-  aggregate: { count: number }
-  items: Array<RedirectFragment>
-}
-
-export type GetResourcesQueryVariables = Exact<{
-  options?: InputMaybe<ResourceOptions>
-  where?: InputMaybe<ResourceWhere>
-}>
-
-export type GetResourcesQuery = {
-  aggregate: { count: number }
-  items: Array<ResourceFragment>
-}
-
-export type CreateResourcesMutationVariables = Exact<{
-  input: Array<ResourceCreateInput> | ResourceCreateInput
-}>
-
-export type CreateResourcesMutation = {
-  createResources: { resources: Array<{ id: string }> }
-}
-
-export type UpdateResourceMutationVariables = Exact<{
-  where?: InputMaybe<ResourceWhere>
-  update?: InputMaybe<ResourceUpdateInput>
-}>
-
-export type UpdateResourceMutation = {
-  updateResources: { resources: Array<{ id: string }> }
-}
-
-export type DeleteResourcesMutationVariables = Exact<{
-  where?: InputMaybe<ResourceWhere>
-  delete?: InputMaybe<ResourceDeleteInput>
-}>
-
-export type DeleteResourcesMutation = {
-  deleteResources: { nodesDeleted: number }
-}
-
-export type CreateCodeActionsMutationVariables = Exact<{
-  input: Array<CodeActionCreateInput> | CodeActionCreateInput
-}>
-
-export type CreateCodeActionsMutation = {
-  createCodeActions: { codeActions: Array<{ id: string }> }
-}
-
-export type CreateApiActionsMutationVariables = Exact<{
-  input: Array<ApiActionCreateInput> | ApiActionCreateInput
-}>
-
-export type CreateApiActionsMutation = {
-  createApiActions: { apiActions: Array<{ id: string }> }
-}
-
-export type DeleteCodeActionsMutationVariables = Exact<{
-  where: CodeActionWhere
-  delete?: InputMaybe<CodeActionDeleteInput>
-}>
-
-export type DeleteCodeActionsMutation = {
-  deleteCodeActions: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteApiActionsMutationVariables = Exact<{
-  where: ApiActionWhere
-  delete?: InputMaybe<ApiActionDeleteInput>
-}>
-
-export type DeleteApiActionsMutation = {
-  deleteApiActions: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type GetActionsQueryVariables = Exact<{
-  codeActionWhere?: InputMaybe<CodeActionWhere>
-  apiActionWhere?: InputMaybe<ApiActionWhere>
-}>
-
-export type GetActionsQuery = {
-  apiActions: Array<Action_ApiAction_Fragment>
-  codeActions: Array<Action_CodeAction_Fragment>
-}
-
-export type CreateStoresMutationVariables = Exact<{
-  input: Array<StoreCreateInput> | StoreCreateInput
-}>
-
-export type CreateStoresMutation = {
-  createStores: {
-    info: { nodesCreated: number; relationshipsCreated: number }
-    stores: Array<{ id: string }>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'AppType' },
+) as unknown as TypedDocumentString<AppTypeFragment, unknown>
+export const ArrayTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
   }
 }
-
-export type DeleteStoresMutationVariables = Exact<{
-  where?: InputMaybe<StoreWhere>
-  delete?: InputMaybe<StoreDeleteInput>
-}>
-
-export type DeleteStoresMutation = { deleteStores: { nodesDeleted: number } }
-
-export type GetStoresQueryVariables = Exact<{
-  where?: InputMaybe<StoreWhere>
-  options?: InputMaybe<StoreOptions>
-}>
-
-export type GetStoresQuery = {
-  aggregate: { count: number }
-  items: Array<StoreFragment>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'ArrayType' },
+) as unknown as TypedDocumentString<ArrayTypeFragment, unknown>
+export const CodeMirrorTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
 }
-
-export type UpdateStoresMutationVariables = Exact<{
-  where?: InputMaybe<StoreWhere>
-  update?: InputMaybe<StoreUpdateInput>
-}>
-
-export type UpdateStoresMutation = {
-  updateStores: { stores: Array<{ id: string }> }
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'CodeMirrorType' },
+) as unknown as TypedDocumentString<CodeMirrorTypeFragment, unknown>
+export const ElementTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
 }
-
-export type UpdateCodeActionsMutationVariables = Exact<{
-  connect?: InputMaybe<CodeActionConnectInput>
-  create?: InputMaybe<CodeActionRelationInput>
-  delete?: InputMaybe<CodeActionDeleteInput>
-  disconnect?: InputMaybe<CodeActionDisconnectInput>
-  update?: InputMaybe<CodeActionUpdateInput>
-  where?: InputMaybe<CodeActionWhere>
-}>
-
-export type UpdateCodeActionsMutation = {
-  updateCodeActions: { codeActions: Array<{ id: string }> }
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'ElementType' },
+) as unknown as TypedDocumentString<ElementTypeFragment, unknown>
+export const EnumTypeValueFragmentDoc = new TypedDocumentString(
+  `
+    fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
 }
-
-export type UpdateApiActionsMutationVariables = Exact<{
-  connect?: InputMaybe<ApiActionConnectInput>
-  create?: InputMaybe<ApiActionRelationInput>
-  delete?: InputMaybe<ApiActionDeleteInput>
-  disconnect?: InputMaybe<ApiActionDisconnectInput>
-  update?: InputMaybe<ApiActionUpdateInput>
-  where?: InputMaybe<ApiActionWhere>
-}>
-
-export type UpdateApiActionsMutation = {
-  updateApiActions: { apiActions: Array<{ id: string }> }
+    `,
+  { fragmentName: 'EnumTypeValue' },
+) as unknown as TypedDocumentString<EnumTypeValueFragment, unknown>
+export const EnumTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
 }
-
-export type CreateTagsMutationVariables = Exact<{
-  input: Array<TagCreateInput> | TagCreateInput
-}>
-
-export type CreateTagsMutation = { createTags: { tags: Array<{ id: string }> } }
-
-export type UpdateTagsMutationVariables = Exact<{
-  where: TagWhere
-  update: TagUpdateInput
-}>
-
-export type UpdateTagsMutation = { updateTags: { tags: Array<{ id: string }> } }
-
-export type DeleteTagsMutationVariables = Exact<{
-  where: TagWhere
-}>
-
-export type DeleteTagsMutation = { deleteTags: { nodesDeleted: number } }
-
-export type GetTagsQueryVariables = Exact<{
-  options?: InputMaybe<TagOptions>
-  where?: InputMaybe<TagWhere>
-}>
-
-export type GetTagsQuery = {
-  aggregate: { count: number }
-  items: Array<TagFragment>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
-
-export type CreatePrimitiveTypesMutationVariables = Exact<{
-  input: Array<PrimitiveTypeCreateInput> | PrimitiveTypeCreateInput
-}>
-
-export type CreatePrimitiveTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}`,
+  { fragmentName: 'EnumType' },
+) as unknown as TypedDocumentString<EnumTypeFragment, unknown>
+export const FieldFragmentDoc = new TypedDocumentString(
+  `
+    fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
 }
-
-export type CreateArrayTypesMutationVariables = Exact<{
-  input: Array<ArrayTypeCreateInput> | ArrayTypeCreateInput
-}>
-
-export type CreateArrayTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateUnionTypesMutationVariables = Exact<{
-  input: Array<UnionTypeCreateInput> | UnionTypeCreateInput
-}>
-
-export type CreateUnionTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateInterfaceTypesMutationVariables = Exact<{
-  input: Array<InterfaceTypeCreateInput> | InterfaceTypeCreateInput
-}>
-
-export type CreateInterfaceTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateElementTypesMutationVariables = Exact<{
-  input: Array<ElementTypeCreateInput> | ElementTypeCreateInput
-}>
-
-export type CreateElementTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateRenderPropTypesMutationVariables = Exact<{
-  input: Array<RenderPropTypeCreateInput> | RenderPropTypeCreateInput
-}>
-
-export type CreateRenderPropTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateReactNodeTypesMutationVariables = Exact<{
-  input: Array<ReactNodeTypeCreateInput> | ReactNodeTypeCreateInput
-}>
-
-export type CreateReactNodeTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateEnumTypesMutationVariables = Exact<{
-  input: Array<EnumTypeCreateInput> | EnumTypeCreateInput
-}>
-
-export type CreateEnumTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateLambdaTypesMutationVariables = Exact<{
-  input: Array<LambdaTypeCreateInput> | LambdaTypeCreateInput
-}>
-
-export type CreateLambdaTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreatePageTypesMutationVariables = Exact<{
-  input: Array<PageTypeCreateInput> | PageTypeCreateInput
-}>
-
-export type CreatePageTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateAppTypesMutationVariables = Exact<{
-  input: Array<AppTypeCreateInput> | AppTypeCreateInput
-}>
-
-export type CreateAppTypesMutation = { types: { types: Array<{ id: string }> } }
-
-export type CreateRichTextTypesMutationVariables = Exact<{
-  input: Array<RichTextTypeCreateInput> | RichTextTypeCreateInput
-}>
-
-export type CreateRichTextTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateActionTypesMutationVariables = Exact<{
-  input: Array<ActionTypeCreateInput> | ActionTypeCreateInput
-}>
-
-export type CreateActionTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type CreateCodeMirrorTypesMutationVariables = Exact<{
-  input: Array<CodeMirrorTypeCreateInput> | CodeMirrorTypeCreateInput
-}>
-
-export type CreateCodeMirrorTypesMutation = {
-  types: { types: Array<{ id: string }> }
-}
-
-export type DeletePrimitiveTypesMutationVariables = Exact<{
-  delete?: InputMaybe<PrimitiveTypeDeleteInput>
-  where?: InputMaybe<PrimitiveTypeWhere>
-}>
-
-export type DeletePrimitiveTypesMutation = {
-  deletePrimitiveTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteArrayTypesMutationVariables = Exact<{
-  delete?: InputMaybe<ArrayTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeWhere>
-}>
-
-export type DeleteArrayTypesMutation = {
-  deleteArrayTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteReactNodeTypesMutationVariables = Exact<{
-  delete?: InputMaybe<ReactNodeTypeDeleteInput>
-  where?: InputMaybe<ReactNodeTypeWhere>
-}>
-
-export type DeleteReactNodeTypesMutation = {
-  deleteReactNodeTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteUnionTypesMutationVariables = Exact<{
-  delete?: InputMaybe<UnionTypeDeleteInput>
-  where?: InputMaybe<UnionTypeWhere>
-}>
-
-export type DeleteUnionTypesMutation = {
-  deleteUnionTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteInterfaceTypesMutationVariables = Exact<{
-  delete?: InputMaybe<InterfaceTypeDeleteInput>
-  where?: InputMaybe<InterfaceTypeWhere>
-}>
-
-export type DeleteInterfaceTypesMutation = {
-  deleteInterfaceTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteElementTypesMutationVariables = Exact<{
-  delete?: InputMaybe<ElementTypeDeleteInput>
-  where?: InputMaybe<ElementTypeWhere>
-}>
-
-export type DeleteElementTypesMutation = {
-  deleteElementTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteRenderPropTypesMutationVariables = Exact<{
-  delete?: InputMaybe<RenderPropTypeDeleteInput>
-  where?: InputMaybe<RenderPropTypeWhere>
-}>
-
-export type DeleteRenderPropTypesMutation = {
-  deleteRenderPropTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteRichTextTypesMutationVariables = Exact<{
-  delete?: InputMaybe<RichTextTypeDeleteInput>
-  where?: InputMaybe<RichTextTypeWhere>
-}>
-
-export type DeleteRichTextTypesMutation = {
-  deleteRichTextTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteEnumTypesMutationVariables = Exact<{
-  delete?: InputMaybe<EnumTypeDeleteInput>
-  where?: InputMaybe<EnumTypeWhere>
-}>
-
-export type DeleteEnumTypesMutation = {
-  deleteEnumTypes: { nodesDeleted: number; relationshipsDeleted: number }
-  deleteEnumTypeValues: { nodesDeleted: number }
-}
-
-export type DeleteLambdaTypesMutationVariables = Exact<{
-  delete?: InputMaybe<LambdaTypeDeleteInput>
-  where?: InputMaybe<LambdaTypeWhere>
-}>
-
-export type DeleteLambdaTypesMutation = {
-  deleteLambdaTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeletePageTypesMutationVariables = Exact<{
-  delete?: InputMaybe<PageTypeDeleteInput>
-  where?: InputMaybe<PageTypeWhere>
-}>
-
-export type DeletePageTypesMutation = {
-  deletePageTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteAppTypesMutationVariables = Exact<{
-  delete?: InputMaybe<AppTypeDeleteInput>
-  where?: InputMaybe<AppTypeWhere>
-}>
-
-export type DeleteAppTypesMutation = {
-  deleteAppTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteActionTypesMutationVariables = Exact<{
-  delete?: InputMaybe<ActionTypeDeleteInput>
-  where?: InputMaybe<ActionTypeWhere>
-}>
-
-export type DeleteActionTypesMutation = {
-  deleteActionTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type DeleteCodeMirrorTypesMutationVariables = Exact<{
-  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
-  where?: InputMaybe<CodeMirrorTypeWhere>
-}>
-
-export type DeleteCodeMirrorTypesMutation = {
-  deleteCodeMirrorTypes: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type CreateFieldsMutationVariables = Exact<{
-  input: Array<FieldCreateInput> | FieldCreateInput
-}>
-
-export type CreateFieldsMutation = {
-  createFields: { fields: Array<{ id: string }> }
-}
-
-export type UpdateFieldsMutationVariables = Exact<{
-  where: FieldWhere
-  update: FieldUpdateInput
-}>
-
-export type UpdateFieldsMutation = {
-  updateFields: { fields: Array<{ id: string }> }
-}
-
-export type DeleteFieldsMutationVariables = Exact<{
-  where: FieldWhere
-}>
-
-export type DeleteFieldsMutation = { deleteFields: { nodesDeleted: number } }
-
-export type GetFieldsQueryVariables = Exact<{
-  where?: InputMaybe<FieldWhere>
-  options?: InputMaybe<FieldOptions>
-}>
-
-export type GetFieldsQuery = {
-  aggregate: { count: number }
-  items: Array<FieldFragment>
-}
-
-export type GetBaseTypesQueryVariables = Exact<{
-  options?: InputMaybe<GetBaseTypesOptions>
-}>
-
-export type GetBaseTypesQuery = {
-  baseTypes: {
-    totalCount: number
-    items: Array<
-      | BaseType_ActionType_Fragment
-      | BaseType_AppType_Fragment
-      | BaseType_ArrayType_Fragment
-      | BaseType_CodeMirrorType_Fragment
-      | BaseType_ElementType_Fragment
-      | BaseType_EnumType_Fragment
-      | BaseType_InterfaceType_Fragment
-      | BaseType_LambdaType_Fragment
-      | BaseType_PageType_Fragment
-      | BaseType_PrimitiveType_Fragment
-      | BaseType_ReactNodeType_Fragment
-      | BaseType_RenderPropType_Fragment
-      | BaseType_RichTextType_Fragment
-      | BaseType_UnionType_Fragment
-    >
+    `,
+  { fragmentName: 'Field' },
+) as unknown as TypedDocumentString<FieldFragment, unknown>
+export const InterfaceTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
   }
 }
-
-export type GetTypesQueryVariables = Exact<{
-  ids?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>
-}>
-
-export type GetTypesQuery = {
-  actionTypes: Array<Type_ActionType_Fragment>
-  appTypes: Array<Type_AppType_Fragment>
-  arrayTypes: Array<Type_ArrayType_Fragment>
-  codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>
-  elementTypes: Array<Type_ElementType_Fragment>
-  enumTypes: Array<Type_EnumType_Fragment>
-  interfaceTypes: Array<Type_InterfaceType_Fragment>
-  lambdaTypes: Array<Type_LambdaType_Fragment>
-  pageTypes: Array<Type_PageType_Fragment>
-  primitiveTypes: Array<Type_PrimitiveType_Fragment>
-  reactNodeTypes: Array<Type_ReactNodeType_Fragment>
-  renderPropTypes: Array<Type_RenderPropType_Fragment>
-  richTextTypes: Array<Type_RichTextType_Fragment>
-  unionTypes: Array<Type_UnionType_Fragment>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
-
-export type GetDescendantsQueryVariables = Exact<{
-  ids?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>
-}>
-
-export type GetDescendantsQuery = {
-  arrayTypes: Array<{ descendantTypesIds: Array<string> }>
-  interfaceTypes: Array<{ descendantTypesIds: Array<string> }>
-  unionTypes: Array<{ descendantTypesIds: Array<string> }>
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}`,
+  { fragmentName: 'InterfaceType' },
+) as unknown as TypedDocumentString<InterfaceTypeFragment, unknown>
+export const LambdaTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment LambdaType on LambdaType {
+  ...BaseType
 }
-
-export type GetPrimitiveTypesQueryVariables = Exact<{
-  options?: InputMaybe<PrimitiveTypeOptions>
-  where?: InputMaybe<PrimitiveTypeWhere>
-}>
-
-export type GetPrimitiveTypesQuery = {
-  types: Array<Type_PrimitiveType_Fragment>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'LambdaType' },
+) as unknown as TypedDocumentString<LambdaTypeFragment, unknown>
+export const PageTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment PageType on PageType {
+  ...BaseType
 }
-
-export type GetArrayTypesQueryVariables = Exact<{
-  options?: InputMaybe<ArrayTypeOptions>
-  where?: InputMaybe<ArrayTypeWhere>
-}>
-
-export type GetArrayTypesQuery = { types: Array<Type_ArrayType_Fragment> }
-
-export type GetUnionTypesQueryVariables = Exact<{
-  options?: InputMaybe<UnionTypeOptions>
-  where?: InputMaybe<UnionTypeWhere>
-}>
-
-export type GetUnionTypesQuery = { types: Array<Type_UnionType_Fragment> }
-
-export type GetInterfaceTypesQueryVariables = Exact<{
-  options?: InputMaybe<InterfaceTypeOptions>
-  where?: InputMaybe<InterfaceTypeWhere>
-}>
-
-export type GetInterfaceTypesQuery = {
-  types: Array<Type_InterfaceType_Fragment>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'PageType' },
+) as unknown as TypedDocumentString<PageTypeFragment, unknown>
+export const PrimitiveTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
 }
-
-export type GetElementTypesQueryVariables = Exact<{
-  options?: InputMaybe<ElementTypeOptions>
-  where?: InputMaybe<ElementTypeWhere>
-}>
-
-export type GetElementTypesQuery = { types: Array<Type_ElementType_Fragment> }
-
-export type GetRenderPropTypesQueryVariables = Exact<{
-  options?: InputMaybe<RenderPropTypeOptions>
-  where?: InputMaybe<RenderPropTypeWhere>
-}>
-
-export type GetRenderPropTypesQuery = {
-  types: Array<Type_RenderPropType_Fragment>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'PrimitiveType' },
+) as unknown as TypedDocumentString<PrimitiveTypeFragment, unknown>
+export const ReactNodeTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment ReactNodeType on ReactNodeType {
+  ...BaseType
 }
-
-export type GetReactNodeTypesQueryVariables = Exact<{
-  options?: InputMaybe<ReactNodeTypeOptions>
-  where?: InputMaybe<ReactNodeTypeWhere>
-}>
-
-export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> }
-
-export type GetRichTextTypesQueryVariables = Exact<{
-  options?: InputMaybe<RichTextTypeOptions>
-  where?: InputMaybe<RichTextTypeWhere>
-}>
-
-export type GetRichTextTypesQuery = { types: Array<RichTextTypeFragment> }
-
-export type GetEnumTypesQueryVariables = Exact<{
-  options?: InputMaybe<EnumTypeOptions>
-  where?: InputMaybe<EnumTypeWhere>
-}>
-
-export type GetEnumTypesQuery = { types: Array<Type_EnumType_Fragment> }
-
-export type GetLambdaTypesQueryVariables = Exact<{
-  options?: InputMaybe<LambdaTypeOptions>
-  where?: InputMaybe<LambdaTypeWhere>
-}>
-
-export type GetLambdaTypesQuery = { types: Array<Type_LambdaType_Fragment> }
-
-export type GetPageTypesQueryVariables = Exact<{
-  options?: InputMaybe<PageTypeOptions>
-  where?: InputMaybe<PageTypeWhere>
-}>
-
-export type GetPageTypesQuery = { types: Array<Type_PageType_Fragment> }
-
-export type GetAppTypesQueryVariables = Exact<{
-  options?: InputMaybe<AppTypeOptions>
-  where?: InputMaybe<AppTypeWhere>
-}>
-
-export type GetAppTypesQuery = { types: Array<Type_AppType_Fragment> }
-
-export type GetActionTypesQueryVariables = Exact<{
-  options?: InputMaybe<ActionTypeOptions>
-  where?: InputMaybe<ActionTypeWhere>
-}>
-
-export type GetActionTypesQuery = { types: Array<Type_ActionType_Fragment> }
-
-export type GetCodeMirrorTypesQueryVariables = Exact<{
-  options?: InputMaybe<CodeMirrorTypeOptions>
-  where?: InputMaybe<CodeMirrorTypeWhere>
-}>
-
-export type GetCodeMirrorTypesQuery = {
-  types: Array<Type_CodeMirrorType_Fragment>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'ReactNodeType' },
+) as unknown as TypedDocumentString<ReactNodeTypeFragment, unknown>
+export const RenderPropTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment RenderPropType on RenderPropType {
+  ...BaseType
 }
-
-export type GetTypeOptionsQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetTypeOptionsQuery = {
-  baseTypes: {
-    items: Array<
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-    >
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'RenderPropType' },
+) as unknown as TypedDocumentString<RenderPropTypeFragment, unknown>
+export const RichTextTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment RichTextType on RichTextType {
+  ...BaseType
+}
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'RichTextType' },
+) as unknown as TypedDocumentString<RichTextTypeFragment, unknown>
+export const UnionTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
   }
 }
-
-export type InterfaceForm_GetAppsQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type InterfaceForm_GetAppsQuery = {
-  apps: Array<{ id: string; name: string }>
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
+  { fragmentName: 'UnionType' },
+) as unknown as TypedDocumentString<UnionTypeFragment, unknown>
+export const TypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
 }
-
-export type InterfaceForm_GetAtomsQueryVariables = Exact<{
-  options?: InputMaybe<AtomOptions>
-  where?: InputMaybe<AtomWhere>
-}>
-
-export type InterfaceForm_GetAtomsQuery = {
-  atoms: Array<{ id: string; name: string; type: AtomType }>
+    fragment ActionType on ActionType {
+  ...BaseType
 }
-
-export type InterfaceForm_GetActionsQueryVariables = Exact<{
-  appId?: InputMaybe<Scalars['ID']['input']>
-}>
-
-export type InterfaceForm_GetActionsQuery = {
-  apiActions: Array<{ id: string; name: string }>
-  codeActions: Array<{ id: string; name: string }>
+fragment AppType on AppType {
+  ...BaseType
 }
-
-export type InterfaceForm_GetStoresQueryVariables = Exact<{
-  options?: InputMaybe<StoreOptions>
-  where?: InputMaybe<StoreWhere>
-}>
-
-export type InterfaceForm_GetStoresQuery = {
-  stores: Array<{ id: string; name: string }>
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
 }
-
-export type InterfaceForm_GetResourceQueryVariables = Exact<{
-  options?: InputMaybe<ResourceOptions>
-  where?: InputMaybe<ResourceWhere>
-}>
-
-export type InterfaceForm_GetResourceQuery = {
-  resources: Array<{ id: string; name: string }>
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
-
-export type InterfaceForm_GetPagesQueryVariables = Exact<{
-  options?: InputMaybe<PageOptions>
-  where?: InputMaybe<PageWhere>
-}>
-
-export type InterfaceForm_GetPagesQuery = {
-  pages: Array<{ id: string; name: string }>
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
 }
-
-export type IsTypeDescendantOfQueryVariables = Exact<{
-  descendantTypeId: Scalars['ID']['input']
-  parentTypeId: Scalars['ID']['input']
-}>
-
-export type IsTypeDescendantOfQuery = { isTypeDescendantOf?: boolean | null }
-
-export type GetTypeReferencesQueryVariables = Exact<{
-  typeId: Scalars['ID']['input']
-}>
-
-export type GetTypeReferencesQuery = {
-  getTypeReferences?: Array<{ label: string; name: string }> | null
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
 }
-
-export type UpdatePrimitiveTypesMutationVariables = Exact<{
-  connect?: InputMaybe<PrimitiveTypeConnectInput>
-  create?: InputMaybe<PrimitiveTypeRelationInput>
-  delete?: InputMaybe<PrimitiveTypeDeleteInput>
-  disconnect?: InputMaybe<PrimitiveTypeDisconnectInput>
-  update?: InputMaybe<PrimitiveTypeUpdateInput>
-  where?: InputMaybe<PrimitiveTypeWhere>
-}>
-
-export type UpdatePrimitiveTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
 }
-
-export type UpdateArrayTypesMutationVariables = Exact<{
-  connect?: InputMaybe<ArrayTypeConnectInput>
-  create?: InputMaybe<ArrayTypeRelationInput>
-  delete?: InputMaybe<ArrayTypeDeleteInput>
-  disconnect?: InputMaybe<ArrayTypeDisconnectInput>
-  update?: InputMaybe<ArrayTypeUpdateInput>
-  where?: InputMaybe<ArrayTypeWhere>
-}>
-
-export type UpdateArrayTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
 }
-
-export type UpdateUnionTypesMutationVariables = Exact<{
-  connect?: InputMaybe<UnionTypeConnectInput>
-  create?: InputMaybe<UnionTypeRelationInput>
-  delete?: InputMaybe<UnionTypeDeleteInput>
-  disconnect?: InputMaybe<UnionTypeDisconnectInput>
-  update?: InputMaybe<UnionTypeUpdateInput>
-  where?: InputMaybe<UnionTypeWhere>
-}>
-
-export type UpdateUnionTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
 }
-
-export type UpdateInterfaceTypesMutationVariables = Exact<{
-  connect?: InputMaybe<InterfaceTypeConnectInput>
-  create?: InputMaybe<InterfaceTypeRelationInput>
-  delete?: InputMaybe<InterfaceTypeDeleteInput>
-  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
-  update?: InputMaybe<InterfaceTypeUpdateInput>
-  where?: InputMaybe<InterfaceTypeWhere>
-}>
-
-export type UpdateInterfaceTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
 }
-
-export type UpdateReactNodeTypesMutationVariables = Exact<{
-  connect?: InputMaybe<ReactNodeTypeConnectInput>
-  create?: InputMaybe<ReactNodeTypeRelationInput>
-  delete?: InputMaybe<ReactNodeTypeDeleteInput>
-  disconnect?: InputMaybe<ReactNodeTypeDisconnectInput>
-  update?: InputMaybe<ReactNodeTypeUpdateInput>
-  where?: InputMaybe<ReactNodeTypeWhere>
-}>
-
-export type UpdateReactNodeTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment LambdaType on LambdaType {
+  ...BaseType
 }
-
-export type UpdateElementTypesMutationVariables = Exact<{
-  connect?: InputMaybe<ElementTypeConnectInput>
-  create?: InputMaybe<ElementTypeRelationInput>
-  delete?: InputMaybe<ElementTypeDeleteInput>
-  disconnect?: InputMaybe<ElementTypeDisconnectInput>
-  update?: InputMaybe<ElementTypeUpdateInput>
-  where?: InputMaybe<ElementTypeWhere>
-}>
-
-export type UpdateElementTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment PageType on PageType {
+  ...BaseType
 }
-
-export type UpdateRenderPropTypesMutationVariables = Exact<{
-  connect?: InputMaybe<RenderPropTypeConnectInput>
-  create?: InputMaybe<RenderPropTypeRelationInput>
-  delete?: InputMaybe<RenderPropTypeDeleteInput>
-  disconnect?: InputMaybe<RenderPropTypeDisconnectInput>
-  update?: InputMaybe<RenderPropTypeUpdateInput>
-  where?: InputMaybe<RenderPropTypeWhere>
-}>
-
-export type UpdateRenderPropTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
 }
-
-export type UpdateEnumTypesMutationVariables = Exact<{
-  connect?: InputMaybe<EnumTypeConnectInput>
-  create?: InputMaybe<EnumTypeRelationInput>
-  delete?: InputMaybe<EnumTypeDeleteInput>
-  disconnect?: InputMaybe<EnumTypeDisconnectInput>
-  update?: InputMaybe<EnumTypeUpdateInput>
-  where?: InputMaybe<EnumTypeWhere>
-}>
-
-export type UpdateEnumTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
 }
-
-export type UpdateLambdaTypesMutationVariables = Exact<{
-  connect?: InputMaybe<LambdaTypeConnectInput>
-  create?: InputMaybe<LambdaTypeRelationInput>
-  delete?: InputMaybe<LambdaTypeDeleteInput>
-  disconnect?: InputMaybe<LambdaTypeDisconnectInput>
-  update?: InputMaybe<LambdaTypeUpdateInput>
-  where?: InputMaybe<LambdaTypeWhere>
-}>
-
-export type UpdateLambdaTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment RenderPropType on RenderPropType {
+  ...BaseType
 }
-
-export type UpdatePageTypesMutationVariables = Exact<{
-  connect?: InputMaybe<PageTypeConnectInput>
-  create?: InputMaybe<PageTypeRelationInput>
-  delete?: InputMaybe<PageTypeDeleteInput>
-  disconnect?: InputMaybe<PageTypeDisconnectInput>
-  update?: InputMaybe<PageTypeUpdateInput>
-  where?: InputMaybe<PageTypeWhere>
-}>
-
-export type UpdatePageTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment RichTextType on RichTextType {
+  ...BaseType
 }
-
-export type UpdateAppTypesMutationVariables = Exact<{
-  connect?: InputMaybe<AppTypeConnectInput>
-  create?: InputMaybe<AppTypeRelationInput>
-  delete?: InputMaybe<AppTypeDeleteInput>
-  disconnect?: InputMaybe<AppTypeDisconnectInput>
-  update?: InputMaybe<AppTypeUpdateInput>
-  where?: InputMaybe<AppTypeWhere>
-}>
-
-export type UpdateAppTypesMutation = { types: { types: Array<{ id: string }> } }
-
-export type UpdateRichTextTypesMutationVariables = Exact<{
-  connect?: InputMaybe<RichTextTypeConnectInput>
-  create?: InputMaybe<RichTextTypeRelationInput>
-  delete?: InputMaybe<RichTextTypeDeleteInput>
-  disconnect?: InputMaybe<RichTextTypeDisconnectInput>
-  update?: InputMaybe<RichTextTypeUpdateInput>
-  where?: InputMaybe<RichTextTypeWhere>
-}>
-
-export type UpdateRichTextTypesMutation = {
-  types: { types: Array<{ id: string }> }
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}`,
+  { fragmentName: 'Type' },
+) as unknown as TypedDocumentString<TypeFragment, unknown>
+export const PropFragmentDoc = new TypedDocumentString(
+  `
+    fragment Prop on Prop {
+  data
+  id
 }
-
-export type UpdateActionTypesMutationVariables = Exact<{
-  connect?: InputMaybe<ActionTypeConnectInput>
-  create?: InputMaybe<ActionTypeRelationInput>
-  delete?: InputMaybe<ActionTypeDeleteInput>
-  disconnect?: InputMaybe<ActionTypeDisconnectInput>
-  update?: InputMaybe<ActionTypeUpdateInput>
-  where?: InputMaybe<ActionTypeWhere>
-}>
-
-export type UpdateActionTypesMutation = {
-  types: { types: Array<{ id: string }> }
+    `,
+  { fragmentName: 'Prop' },
+) as unknown as TypedDocumentString<PropFragment, unknown>
+export const TagFragmentDoc = new TypedDocumentString(
+  `
+    fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
 }
-
-export type UpdateCodeMirrorTypesMutationVariables = Exact<{
-  connect?: InputMaybe<CodeMirrorTypeConnectInput>
-  create?: InputMaybe<CodeMirrorTypeRelationInput>
-  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
-  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>
-  update?: InputMaybe<CodeMirrorTypeUpdateInput>
-  where?: InputMaybe<CodeMirrorTypeWhere>
-}>
-
-export type UpdateCodeMirrorTypesMutation = {
-  types: { types: Array<{ id: string }> }
+    fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'Tag' },
+) as unknown as TypedDocumentString<TagFragment, unknown>
+export const AtomDevelopmentFragmentDoc = new TypedDocumentString(
+  `
+    fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
 }
-
-export type GetUsersQueryVariables = Exact<{
-  where?: InputMaybe<UserWhere>
-}>
-
-export type GetUsersQuery = { users: Array<UserFragment> }
-
-export type CreateUserMutationVariables = Exact<{
-  input: Array<UserCreateInput> | UserCreateInput
-}>
-
-export type CreateUserMutation = {
-  createUsers: { users: Array<{ email: string; id: string }> }
+    fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
 }
-
-export type UpdateUserMutationVariables = Exact<{
-  where?: InputMaybe<UserWhere>
-  update: UserUpdateInput
-}>
-
-export type UpdateUserMutation = {
-  updateUsers: { users: Array<{ preferences?: string | null }> }
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'AtomDevelopment' },
+) as unknown as TypedDocumentString<AtomDevelopmentFragment, unknown>
+export const ElementFragmentDoc = new TypedDocumentString(
+  `
+    fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+    fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'Element' },
+) as unknown as TypedDocumentString<ElementFragment, unknown>
+export const BaseActionFragmentDoc = new TypedDocumentString(
+  `
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+    `,
+  { fragmentName: 'BaseAction' },
+) as unknown as TypedDocumentString<BaseActionFragment, unknown>
+export const CodeActionFragmentDoc = new TypedDocumentString(
+  `
+    fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}`,
+  { fragmentName: 'CodeAction' },
+) as unknown as TypedDocumentString<CodeActionFragment, unknown>
+export const ResourceFragmentDoc = new TypedDocumentString(
+  `
+    fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+    fragment Prop on Prop {
+  data
+  id
+}`,
+  { fragmentName: 'Resource' },
+) as unknown as TypedDocumentString<ResourceFragment, unknown>
+export const ApiActionFragmentDoc = new TypedDocumentString(
+  `
+    fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}`,
+  { fragmentName: 'ApiAction' },
+) as unknown as TypedDocumentString<ApiActionFragment, unknown>
+export const ActionFragmentDoc = new TypedDocumentString(
+  `
+    fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}`,
+  { fragmentName: 'Action' },
+) as unknown as TypedDocumentString<ActionFragment, unknown>
+export const StoreFragmentDoc = new TypedDocumentString(
+  `
+    fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}`,
+  { fragmentName: 'Store' },
+) as unknown as TypedDocumentString<StoreFragment, unknown>
+export const PageFragmentDoc = new TypedDocumentString(
+  `
+    fragment Page on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'Page' },
+) as unknown as TypedDocumentString<PageFragment, unknown>
+export const AppFragmentDoc = new TypedDocumentString(
+  `
+    fragment App on App {
+  domains {
+    ...Domain
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages {
+    ...Page
+  }
+  slug
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment Page on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'App' },
+) as unknown as TypedDocumentString<AppFragment, unknown>
+export const PageDevelopmentFragmentDoc = new TypedDocumentString(
+  `
+    fragment PageDevelopment on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'PageDevelopment' },
+) as unknown as TypedDocumentString<PageDevelopmentFragment, unknown>
+export const AppDevelopmentFragmentDoc = new TypedDocumentString(
+  `
+    fragment AppDevelopment on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(
+    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
+  ) {
+    ...PageDevelopment
+  }
+  slug
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment PageDevelopment on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'AppDevelopment' },
+) as unknown as TypedDocumentString<AppDevelopmentFragment, unknown>
+export const AtomProductionFragmentDoc = new TypedDocumentString(
+  `
+    fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+    `,
+  { fragmentName: 'AtomProduction' },
+) as unknown as TypedDocumentString<AtomProductionFragment, unknown>
+export const ElementProductionFragmentDoc = new TypedDocumentString(
+  `
+    fragment ElementProduction on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomProduction
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+    fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}`,
+  { fragmentName: 'ElementProduction' },
+) as unknown as TypedDocumentString<ElementProductionFragment, unknown>
+export const PageProductionFragmentDoc = new TypedDocumentString(
+  `
+    fragment PageProduction on Page {
+  app {
+    id
+  }
+  elements {
+    ...ElementProduction
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  slug
+  store {
+    ...Store
+  }
+  urlPattern
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+fragment ElementProduction on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomProduction
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}`,
+  { fragmentName: 'PageProduction' },
+) as unknown as TypedDocumentString<PageProductionFragment, unknown>
+export const AppProductionFragmentDoc = new TypedDocumentString(
+  `
+    fragment AppProduction on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {
+    ...PageProduction
+  }
+  slug
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+fragment ElementProduction on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomProduction
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment PageProduction on Page {
+  app {
+    id
+  }
+  elements {
+    ...ElementProduction
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  slug
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'AppProduction' },
+) as unknown as TypedDocumentString<AppProductionFragment, unknown>
+export const AtomFragmentDoc = new TypedDocumentString(
+  `
+    fragment Atom on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+    fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'Atom' },
+) as unknown as TypedDocumentString<AtomFragment, unknown>
+export const AuthGuardFragmentDoc = new TypedDocumentString(
+  `
+    fragment AuthGuard on AuthGuard {
+  config {
+    ...Prop
+  }
+  id
+  name
+  resource {
+    ...Resource
+  }
+  responseTransformer
+}
+    fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}`,
+  { fragmentName: 'AuthGuard' },
+) as unknown as TypedDocumentString<AuthGuardFragment, unknown>
+export const ComponentFragmentDoc = new TypedDocumentString(
+  `
+    fragment Component on Component {
+  __typename
+  api {
+    id
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'Component' },
+) as unknown as TypedDocumentString<ComponentFragment, unknown>
+export const ComponentDevelopmentFragmentDoc = new TypedDocumentString(
+  `
+    fragment ComponentDevelopment on Component {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  elements {
+    ...Element
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'ComponentDevelopment' },
+) as unknown as TypedDocumentString<ComponentDevelopmentFragment, unknown>
+export const ComponentProductionFragmentDoc = new TypedDocumentString(
+  `
+    fragment ComponentProduction on Component {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`,
+  { fragmentName: 'ComponentProduction' },
+) as unknown as TypedDocumentString<ComponentProductionFragment, unknown>
+export const HookPropFragmentDoc = new TypedDocumentString(
+  `
+    fragment HookProp on Prop {
+  data
+  id
+}
+    `,
+  { fragmentName: 'HookProp' },
+) as unknown as TypedDocumentString<HookPropFragment, unknown>
+export const HookFragmentDoc = new TypedDocumentString(
+  `
+    fragment Hook on Hook {
+  config {
+    ...HookProp
+  }
+  element {
+    id
+    name
+  }
+  id
+  type
+}
+    fragment HookProp on Prop {
+  data
+  id
+}`,
+  { fragmentName: 'Hook' },
+) as unknown as TypedDocumentString<HookFragment, unknown>
+export const RedirectFragmentDoc = new TypedDocumentString(
+  `
+    fragment Redirect on Redirect {
+  authGuard {
+    id
+  }
+  id
+  source {
+    id
+  }
+  targetPage {
+    id
+  }
+  targetType
+  targetUrl
+}
+    `,
+  { fragmentName: 'Redirect' },
+) as unknown as TypedDocumentString<RedirectFragment, unknown>
+export const ProductionStoreFragmentDoc = new TypedDocumentString(
+  `
+    fragment ProductionStore on Store {
+  actions {
+    ...Action
+  }
+  id
+  name
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}`,
+  { fragmentName: 'ProductionStore' },
+) as unknown as TypedDocumentString<ProductionStoreFragment, unknown>
+export const TagPreviewFragmentDoc = new TypedDocumentString(
+  `
+    fragment TagPreview on Tag {
+  id
+  name
+}
+    `,
+  { fragmentName: 'TagPreview' },
+) as unknown as TypedDocumentString<TagPreviewFragment, unknown>
+export const UserFragmentDoc = new TypedDocumentString(
+  `
+    fragment User on User {
+  apps {
+    id
+  }
+  auth0Id
+  email
+  id
+  preferences
+  roles
+  username
+}
+    `,
+  { fragmentName: 'User' },
+) as unknown as TypedDocumentString<UserFragment, unknown>
+export const CreateDomainsDocument = new TypedDocumentString(`
+    mutation CreateDomains($input: [DomainCreateInput!]!) {
+  createDomains(input: $input) {
+    domains {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateDomainsMutation,
+  CreateDomainsMutationVariables
+>

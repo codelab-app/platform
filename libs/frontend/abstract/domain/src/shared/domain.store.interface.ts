@@ -8,4 +8,5 @@ export interface IDomainStore {
   atomDomainService: IAtomDomainService
   pageDomainService: IPageDomainService
   userDomainService: IUserDomainService
+  domainDomainService: IDomainDomainService
 }

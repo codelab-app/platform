@@ -202,22 +202,6 @@ export class AppService
     return
   })
 
-  regeneratePages = async (app: IAppModel, pagesUrls?: Array<string>) => {
-    let domains = this.domainService.domainsList.filter(
-      (_domain) => _domain.app.id === app.id,
-    )
-
-    if (!domains.length) {
-      domains = await this.domainService.getAll({ app: { id: app.id } })
-    }
-
-    for (const domain of domains) {
-      const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)
-
-      await regeneratePages(pages, domain.name)
-    }
-  }
-
   @computed
   private get atomService() {
     return getAtomService(this)
