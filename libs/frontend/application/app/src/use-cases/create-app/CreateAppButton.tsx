@@ -1,20 +1,19 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Button } from 'antd'
-import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
+import { useCreateAppModal } from './create-app-modal.state'
 
-export const CreateAppButton = observer<PropsWithChildren>(({ children }) => {
-  const { appService } = useStore()
+export const CreateAppButton = ({ children }: PropsWithChildren) => {
+  const createAppModal = useCreateAppModal()
   const icon = !children && <PlusOutlined />
-  const onClick = () => appService.createModal.open()
+  const onClick = () => createAppModal.open(undefined)
 
   return (
     <Button icon={icon} onClick={onClick} type="primary">
       {children ?? 'Create App'}
     </Button>
   )
-})
+}

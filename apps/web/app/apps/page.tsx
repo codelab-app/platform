@@ -1,8 +1,6 @@
 import { getAppRepository } from '@codelab/frontend-application-app/services'
 import { AppList } from '@codelab/frontend-application-app/use-cases/app-list'
-import { BuildAppModal } from '@codelab/frontend-application-app/use-cases/build-app'
 import { CreateAppModal } from '@codelab/frontend-application-app/use-cases/create-app'
-import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
@@ -23,10 +21,11 @@ const AppsView = async () => {
 
   return (
     <>
-      <BuildAppModal />
       <CreateAppModal />
+      {/*
+      <BuildAppModal /> 
       <UpdateAppModal />
-      {/* <DeleteAppModal /> */}
+       <DeleteAppModal /> */}
 
       <ContentSection>
         <AppList apps={apps} />
