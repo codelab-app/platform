@@ -357,6 +357,9 @@ importers:
       jest-text-transformer:
         specifier: 1.0.4
         version: 1.0.4
+      jotai:
+        specifier: ^2.8.3
+        version: 2.8.3(@types/react@18.2.24)(react@18.3.1)
       jquery:
         specifier: 3.6.4
         version: 3.6.4
@@ -553,6 +556,9 @@ importers:
         specifier: ^4.5.2
         version: 4.5.2(@types/react@18.2.24)(react@18.3.1)
     devDependencies:
+      '@0no-co/graphqlsp':
+        specifier: ^1.12.8
+        version: 1.12.8(graphql@16.6.0)(typescript@5.4.5)
       '@commitlint/cli':
         specifier: 17.6.5
         version: 17.6.5(@swc/core@1.5.7(@swc/helpers@0.5.11))
@@ -1047,6 +1053,20 @@ importers:
         version: 3.10.0
 
 packages:
+
+  '@0no-co/graphql.web@1.0.7':
+    resolution: {integrity: sha512-E3Qku4mTzdrlwVWGPxklDnME5ANrEGetvYw4i2GCRlppWXXE4QD66j7pwb8HelZwS6LnqEChhrSOGCXpbiu6MQ==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    peerDependenciesMeta:
+      graphql:
+        optional: true
+
+  '@0no-co/graphqlsp@1.12.8':
+    resolution: {integrity: sha512-arW3ZzifyKIJhehoAlsP069AX73EN6q358bOCf+8z00PmfPR2DSxq7uGGSj0oFNe3vEDtGYl88HmFEWQ+0+dwQ==}
+    peerDependencies:
+      graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+      typescript: ^5.0.0
 
   '@adobe/css-tools@4.3.3':
     resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
@@ -2487,6 +2507,12 @@ packages:
     peerDependencies:
       '@fortawesome/fontawesome-svg-core': ~1 || ~6
       react: '>=16.3'
+
+  '@gql.tada/internal@1.0.1':
+    resolution: {integrity: sha512-VglE9pEUqCD7YwytLehI1RiEpxJsEkO+8onrMI8DEFTcrn+Irv2tQfPUHBC0LjtY5sFgoodCSLIcnxyZOKggYA==}
+    peerDependencies:
+      graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+      typescript: ^5.0.0
 
   '@graphql-codegen/add@3.2.3':
     resolution: {integrity: sha512-sQOnWpMko4JLeykwyjFTxnhqjd/3NOG2OyMuvK76Wnnwh8DRrNf2VEs2kmSvLl7MndMlOj7Kh5U154dVcvhmKQ==}
@@ -10192,6 +10218,18 @@ packages:
   jose@5.3.0:
     resolution: {integrity: sha512-IChe9AtAE79ru084ow8jzkN2lNrG3Ntfiv65Cvj9uOCE2m5LNsdHG+9EbxWxAoWRF9TgDOqLN5jm08++owDVRg==}
 
+  jotai@2.8.3:
+    resolution: {integrity: sha512-pR4plVvdbzB6zyt7VLLHPMAkcRSKhRIvZKd+qkifQLa3CEziEo1uwZjePj4acTmQrboiISBlYSdCz3gWcr1Nkg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': 18.2.24
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+
   joycon@3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
@@ -14740,6 +14778,16 @@ packages:
 
 snapshots:
 
+  '@0no-co/graphql.web@1.0.7(graphql@16.6.0)':
+    optionalDependencies:
+      graphql: 16.6.0
+
+  '@0no-co/graphqlsp@1.12.8(graphql@16.6.0)(typescript@5.4.5)':
+    dependencies:
+      '@gql.tada/internal': 1.0.1(graphql@16.6.0)(typescript@5.4.5)
+      graphql: 16.6.0
+      typescript: 5.4.5
+
   '@adobe/css-tools@4.3.3': {}
 
   '@alloc/quick-lru@5.2.0': {}
@@ -16616,6 +16664,12 @@ snapshots:
       '@fortawesome/fontawesome-svg-core': 6.1.2
       prop-types: 15.8.1
       react: 18.3.1
+
+  '@gql.tada/internal@1.0.1(graphql@16.6.0)(typescript@5.4.5)':
+    dependencies:
+      '@0no-co/graphql.web': 1.0.7(graphql@16.6.0)
+      graphql: 16.6.0
+      typescript: 5.4.5
 
   '@graphql-codegen/add@3.2.3(graphql@16.6.0)':
     dependencies:
@@ -27859,6 +27913,11 @@ snapshots:
   jose@4.15.5: {}
 
   jose@5.3.0: {}
+
+  jotai@2.8.3(@types/react@18.2.24)(react@18.3.1):
+    optionalDependencies:
+      '@types/react': 18.2.24
+      react: 18.3.1
 
   joycon@3.1.1: {}
 

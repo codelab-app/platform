@@ -23,6 +23,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./schema.graphql"
+      }
+    ],
     "paths": {
       "@codelab/backend/abstract/codegen": [
         "libs/backend/abstract/codegen/src/index.ts"

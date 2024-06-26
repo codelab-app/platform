@@ -20,13 +20,13 @@ export const BuildAppModal = observer(() => {
   const app = buildAppModal.data
   const { regenerate } = useRegeneratePages(appService)
   const onSubmit = async () => regenerate(app as IAppModel)
-  const closeModal = () => appService.buildModal.close()
+  const closeModal = () => buildAppModal.close()
 
   return (
     <ModalForm.Modal
       okText="Build App"
       onCancel={closeModal}
-      open={appService.buildModal.isOpen}
+      open={buildAppModal.isOpen}
     >
       <ModalForm.Form
         model={{}}
