@@ -34,3 +34,7 @@ export const WORD_BEFORE_DOT_REGEX = /\w*(\.)?/
 //       notFound: false,
 //     }
 //   }`
+
+export enum CACHE_TAGS {
+  APP_LIST = 'APP_LIST_CACHE_TAG',
+}

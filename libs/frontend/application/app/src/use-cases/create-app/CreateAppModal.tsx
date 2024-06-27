@@ -7,6 +7,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { createAppAction } from './create-app.action'
 import { createAppSchema } from './create-app.schema'
 import { useCreateAppModal } from './create-app-modal.state'
 
@@ -15,6 +16,8 @@ export const CreateAppModal = () => {
 
   const onSubmit = async (appDTO: ICreateAppData) => {
     closeModal()
+
+    await createAppAction(appDTO)
 
     return Promise.resolve()
   }
@@ -34,7 +37,6 @@ export const CreateAppModal = () => {
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
-        onChange={(md, key) => console.log(md, key)}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating app',

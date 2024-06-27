@@ -1,9 +1,11 @@
 import { getEnv } from '@codelab/shared/config'
 import type { TypedDocumentString } from './graphql/graphql'
+import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 
 export const execute = async <TResult, TVariables>(
   document: TypedDocumentString<TResult, TVariables>,
-  ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
+  variables: TVariables,
+  next?: NextFetchRequestConfig,
 ) => {
   const response = await fetch(getEnv().endpoint.graphqlApiUrl, {
     body: JSON.stringify({
@@ -15,6 +17,7 @@ export const execute = async <TResult, TVariables>(
       'Content-Type': 'application/json',
     },
     method: 'POST',
+    next: { tags: [CACHE_TAGS.APP_LIST] },
   })
 
   if (!response.ok) {
