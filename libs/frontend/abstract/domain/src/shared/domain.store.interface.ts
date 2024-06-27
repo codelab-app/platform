@@ -6,7 +6,6 @@ import type { IUserDomainService } from '../user'
 export interface IDomainStore {
   appDomainService: IAppDomainService
   atomDomainService: IAtomDomainService
-  domainDomainService: IDomainDomainService
   pageDomainService: IPageDomainService
   userDomainService: IUserDomainService
 }

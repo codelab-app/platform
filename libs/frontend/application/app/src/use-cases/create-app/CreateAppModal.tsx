@@ -23,6 +23,7 @@ export const CreateAppModal = () => {
 
   const model = {
     id: v4(),
+    name: '',
   }
 
   return (
@@ -33,6 +34,7 @@ export const CreateAppModal = () => {
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
+        onChange={(md, key) => console.log(md, key)}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating app',
