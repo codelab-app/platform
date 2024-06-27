@@ -1,3 +1,4 @@
+'use client'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'

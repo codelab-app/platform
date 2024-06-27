@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import React from 'react'
 import { useBuildAppModal } from '../build-app/build-app-modal.state'
+import { useDeleteAppModal } from '../delete-app/delete-app.state'
 import { useExportApp } from '../export-app/useExportApp.hook'
 
 export interface AppListItemDropdownProps {
@@ -36,10 +37,10 @@ const menuItemIconStyle: CSSProperties = {
 export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { pathname } = useUrl()
   //  const updateApp = useUpdateAppModal()
-  //  const deleteApp = useDeleteAppModal()
+  const deleteAppModal = useDeleteAppModal()
   const buildAppModal = useBuildAppModal()
   const onEditClick = () => null
-  const onDeleteClick = () => null
+  const onDeleteClick = () => deleteAppModal.open(app)
   const onBuildClick = () => null
   const exportApp = useExportApp(app)
   const router = useRouter()

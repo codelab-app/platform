@@ -6,19 +6,14 @@ import {
   getAppDomainService,
   getUserDomainService,
   type IAppModel,
-  type ICreateAppData,
   type IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
-import {
-  getDomainService,
-  regeneratePages,
-} from '@codelab/frontend-application-domain/services'
+import { getDomainService } from '@codelab/frontend-application-domain/services'
 import {
   getPageService,
   PageRepository,
 } from '@codelab/frontend-application-page/services'
-import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { App, AppWhere } from '@codelab/shared/abstract/codegen'
 import type {
@@ -39,7 +34,6 @@ import {
 import { AppDevelopmentService } from '../use-cases/app-development'
 import { AppProductionService } from '../use-cases/app-production'
 import { AppRepository } from './app.repo'
-import { AppModalService } from './app-modal.service'
 
 @model('@codelab/AppService')
 export class AppService
