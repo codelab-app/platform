@@ -1,5 +1,9 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IAppModel,
+  IDomainStore,
+  IDomainStore,
+} from '@codelab/frontend/abstract/domain'
 import {
   useErrorNotify,
   useSuccessNotify,
@@ -27,7 +31,7 @@ export const regeneratePages = async (pages: Array<string>, domain: string) => {
   throw new Error(error)
 }
 
-export const useRegeneratePages = (appService: IAppService) => {
+export const useRegeneratePages = ({ domainService }: IDomainStore) => {
   const [isRegenerating, setIsRegenerating] = useState(false)
 
   const successNotify = useSuccessNotify({
@@ -43,7 +47,21 @@ export const useRegeneratePages = (appService: IAppService) => {
   const regenerate = async (app: IAppModel, pagesUrls?: Array<string>) => {
     try {
       setIsRegenerating(true)
-      await appService.regeneratePages(app, pagesUrls)
+
+      let domains = this.domainService.domainsList.filter(
+        (_domain) => _domain.app.id === app.id,
+      )
+
+      if (!domains.length) {
+        domains = await this.domainService.getAll({ app: { id: app.id } })
+      }
+
+      for (const domain of domains) {
+        const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)
+
+        await regeneratePages(pages, domain.name)
+      }
+
       successNotify()
     } catch (error) {
       errorNotify(error as Error)

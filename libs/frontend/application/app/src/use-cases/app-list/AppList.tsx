@@ -1,22 +1,22 @@
+import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import {
   padding,
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
-import type { IAppDto } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import React from 'react'
 import { CreateAppButton } from '../create-app'
+import { appListAction } from './app-list.action'
 import { AppListItem } from './AppListItem'
-
-export interface AppListProps {
-  apps: Array<IAppDto>
-}
 
 const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const AppList = ({ apps }: AppListProps) => {
+export const AppList = async () => {
+  const owner = await getServerUser()
+  const apps = await appListAction({ where: { owner } })
+
   if (!apps.length) {
     return (
       <Empty description="No apps found" imageStyle={emptyImageStyle}>

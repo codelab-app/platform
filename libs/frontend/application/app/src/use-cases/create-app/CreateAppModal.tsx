@@ -1,37 +1,39 @@
 'use client'
+
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { createAppAction } from './create-app.action'
 import { createAppSchema } from './create-app.schema'
+import { useCreateAppModal } from './create-app-modal.state'
 
-export const CreateAppModal = observer(() => {
-  const { appService } = useStore()
+export const CreateAppModal = () => {
+  const createAppModal = useCreateAppModal()
 
   const onSubmit = async (appDTO: ICreateAppData) => {
-    await appService.create(appDTO)
-
     closeModal()
+
+    await createAppAction(appDTO)
 
     return Promise.resolve()
   }
 
-  const closeModal = () => appService.createModal.close()
+  const closeModal = () => createAppModal.close()
 
   const model = {
     id: v4(),
+    name: '',
   }
 
   return (
     <ModalForm.Modal
       okText="Create App"
       onCancel={closeModal}
-      open={appService.createModal.isOpen}
+      open={createAppModal.isOpen}
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
@@ -43,8 +45,8 @@ export const CreateAppModal = observer(() => {
         schema={createAppSchema}
         uiKey={MODEL_ACTION.CreateApp.key}
       >
-        <AutoFields omitFields={['storeId']} />
+        <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
   )
-})
+}

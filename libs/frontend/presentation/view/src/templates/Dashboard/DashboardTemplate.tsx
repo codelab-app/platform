@@ -1,3 +1,5 @@
+'use client'
+
 import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'

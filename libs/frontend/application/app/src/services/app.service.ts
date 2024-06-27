@@ -6,19 +6,14 @@ import {
   getAppDomainService,
   getUserDomainService,
   type IAppModel,
-  type ICreateAppData,
   type IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
-import {
-  getDomainService,
-  regeneratePages,
-} from '@codelab/frontend-application-domain/services'
+import { getDomainService } from '@codelab/frontend-application-domain/services'
 import {
   getPageService,
   PageRepository,
 } from '@codelab/frontend-application-page/services'
-import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { App, AppWhere } from '@codelab/shared/abstract/codegen'
 import type {
@@ -39,7 +34,6 @@ import {
 import { AppDevelopmentService } from '../use-cases/app-development'
 import { AppProductionService } from '../use-cases/app-production'
 import { AppRepository } from './app.repo'
-import { AppModalService } from './app-modal.service'
 
 @model('@codelab/AppService')
 export class AppService
@@ -48,11 +42,11 @@ export class AppService
     // appDomainService: prop(() => new AppDomainService({})),
     appProductionService: prop(() => new AppProductionService({})),
     appRepository: prop(() => new AppRepository({})),
-    buildModal: prop(() => new AppModalService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new AppModalService({})),
+    // buildModal: prop(() => new AppModalService({})),
+    // createModal: prop(() => new ModalService({})),
+    // deleteModal: prop(() => new AppModalService({})),
     pageRepository: prop(() => new PageRepository({})),
-    updateModal: prop(() => new AppModalService({})),
+    // updateModal: prop(() => new AppModalService({})),
   })
   implements IAppService
 {
@@ -60,21 +54,6 @@ export class AppService
   get appDomainService() {
     return getAppDomainService(this)
   }
-
-  @modelFlow
-  @transaction
-  create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    const app = this.appDomainService.create({
-      id,
-      name,
-      owner: this.userDomainService.user,
-      pages: [],
-    })
-
-    yield* _await(this.appRepository.add(app))
-
-    return app
-  })
 
   @modelFlow
   @transaction
@@ -216,22 +195,6 @@ export class AppService
 
     return
   })
-
-  regeneratePages = async (app: IAppModel, pagesUrls?: Array<string>) => {
-    let domains = this.domainService.domainsList.filter(
-      (_domain) => _domain.app.id === app.id,
-    )
-
-    if (!domains.length) {
-      domains = await this.domainService.getAll({ app: { id: app.id } })
-    }
-
-    for (const domain of domains) {
-      const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)
-
-      await regeneratePages(pages, domain.name)
-    }
-  }
 
   @computed
   private get atomService() {

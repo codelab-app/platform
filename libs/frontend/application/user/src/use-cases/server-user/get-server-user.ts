@@ -1,4 +1,5 @@
-import 'server-only'
+'use server'
+
 import type { IUserDto } from '@codelab/shared/abstract/core'
 import { mapClaimsToUserDto } from '@codelab/shared/domain'
 import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'

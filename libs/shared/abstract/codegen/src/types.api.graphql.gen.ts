@@ -27868,14 +27868,6 @@ export type GetDomainsQuery = {
   items: Array<DomainFragment>
 }
 
-export type CreateDomainsMutationVariables = Exact<{
-  input: Array<DomainCreateInput> | DomainCreateInput
-}>
-
-export type CreateDomainsMutation = {
-  createDomains: { domains: Array<{ id: string }> }
-}
-
 export type UpdateDomainsMutationVariables = Exact<{
   where: DomainWhere
   update: DomainUpdateInput
