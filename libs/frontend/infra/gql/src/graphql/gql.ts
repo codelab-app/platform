@@ -87,6 +87,8 @@ const documents = {
     types.GetAppsListDocument,
   '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.CreateAppsDocument,
+  '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteAppsDocument,
 }
 
 /**
@@ -323,6 +325,12 @@ export function graphql(
 export function graphql(
   source: '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n',
 ): typeof import('./graphql').CreateAppsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): typeof import('./graphql').DeleteAppsDocument
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

@@ -32995,6 +32995,13 @@ export type CreateAppsMutationVariables = Exact<{
 
 export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
 
+export type DeleteAppsMutationVariables = Exact<{
+  where: AppWhere
+  delete?: InputMaybe<AppDeleteInput>
+}>
+
+export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -37067,4 +37074,14 @@ export const CreateAppsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreateAppsMutation,
   CreateAppsMutationVariables
+>
+export const DeleteAppsDocument = new TypedDocumentString(`
+    mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
+  deleteApps(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteAppsMutation,
+  DeleteAppsMutationVariables
 >

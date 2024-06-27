@@ -1,3 +1,5 @@
+'use client'
+
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import {
   MODEL_ACTION,
