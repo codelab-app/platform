@@ -1,4 +1,5 @@
 'use client'
+
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -7,16 +8,12 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAppSchema } from './create-app.schema'
-import { useCreateAppService } from './create-app.service'
 import { useCreateAppModal } from './create-app-modal.state'
 
 export const CreateAppModal = () => {
   const createAppModal = useCreateAppModal()
-  const createAppService = useCreateAppService()
 
   const onSubmit = async (appDTO: ICreateAppData) => {
-    await createAppService(appDTO)
-
     closeModal()
 
     return Promise.resolve()
@@ -44,7 +41,7 @@ export const CreateAppModal = () => {
         schema={createAppSchema}
         uiKey={MODEL_ACTION.CreateApp.key}
       >
-        <AutoFields omitFields={['storeId']} />
+        <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

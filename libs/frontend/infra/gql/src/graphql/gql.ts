@@ -83,8 +83,10 @@ const documents = {
   'fragment Owner on User {\n  id\n}': types.OwnerFragmentDoc,
   'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}':
     types.UserFragmentDoc,
-  '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n':
-    types.CreateDomainsDocument,
+  '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
+    types.GetAppsListDocument,
+  '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
+    types.CreateAppsDocument,
 }
 
 /**
@@ -313,8 +315,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').CreateDomainsDocument
+  source: '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
+): typeof import('./graphql').GetAppsListDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n',
+): typeof import('./graphql').CreateAppsDocument
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

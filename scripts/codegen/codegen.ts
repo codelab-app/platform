@@ -1,4 +1,4 @@
-import { Types } from '@graphql-codegen/plugin-helpers'
+import type { Types } from '@graphql-codegen/plugin-helpers'
 
 const config: Types.Config = {
   overwrite: true,
@@ -61,10 +61,14 @@ const config: Types.Config = {
     //   },
     // },
     'libs/frontend/infra/gql/src/graphql/': {
-      documents: ['**/*.fragment.graphql', '**/*.action.ts'],
+      documents: ['**/*.fragment.graphql', '**/*.mutation.ts', '**/*.query.ts'],
       preset: 'client',
       config: {
         documentMode: 'string',
+        useTypeImports: true,
+      },
+      presetConfig: {
+        fragmentMasking: false,
       },
     },
     // 'libs/**': {
