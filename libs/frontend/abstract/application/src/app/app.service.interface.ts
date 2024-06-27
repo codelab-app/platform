@@ -20,13 +20,13 @@ import type { IAppRepository } from '.'
 
 export interface IAppService
   extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
-    IQueryService<IAppModel, AppWhere, AppOptions>,
-    ICRUDModalService<Ref<IAppModel>, { app?: IAppModel }> {
+    IQueryService<IAppModel, AppWhere, AppOptions> {
+  // ICRUDModalService<Ref<IAppModel>, { app?: IAppModel }>
   appDevelopmentService: IAppDevelopmentService
   appDomainService: IAppDomainService
   appProductionService: IAppProductionService
   appRepository: IAppRepository
-  buildModal: IEntityModalService<Ref<IAppModel>, { app?: IAppModel }>
+  // buildModal: IEntityModalService<Ref<IAppModel>, { app?: IAppModel }>
 
   exportApp(app: IAppModel): Promise<unknown>
   getSelectAppOptions(): Promise<Array<DefaultOptionType>>

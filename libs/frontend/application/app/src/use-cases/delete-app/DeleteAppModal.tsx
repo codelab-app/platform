@@ -2,38 +2,33 @@
 
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
+import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { deleteAppAction } from './delete-app.action'
+import { useDeleteAppModal } from './delete-app.state'
 
 export const DeleteAppModal = observer(() => {
-  const { appService, domainService } = useStore()
-  const app = appService.deleteModal.app
-  const closeModal = () => appService.deleteModal.close()
+  const deleteAppModal = useDeleteAppModal()
+  const closeModal = () => deleteAppModal.close()
+  const app = deleteAppModal.data as Maybe<IAppDto>
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!app) {
       return Promise.reject()
     }
 
-    // app.domains.forEach(async (domain) => {
-    //   const existingDomain = domainService.domains.get(domain.id)
-
-    //   if (existingDomain) {
-    //     await domainService.delete([existingDomain])
-    //   }
-    // })
-
-    return appService.delete([app])
+    return await deleteAppAction(app)
   }
 
   return (
     <ModalForm.Modal
       okText="Delete App"
       onCancel={closeModal}
-      open={appService.deleteModal.isOpen}
+      open={deleteAppModal.isOpen}
     >
       <ModalForm.Form
         model={{}}

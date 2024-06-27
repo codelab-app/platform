@@ -21,6 +21,8 @@ export const CreateElementDataSchema = Type.Object({
   component: Type.Optional(Type.String()),
   id: Type.String(),
   name: Type.String(),
+  page: Type.Optional(Typebox.Ref),
+  parentComponent: Type.Optional(Typebox.Ref),
   parentElement: Type.Optional(Typebox.Ref),
   postRenderAction: Typebox.Nullish(Typebox.Ref),
   preRenderAction: Typebox.Nullish(Typebox.Ref),
@@ -30,7 +32,6 @@ export const CreateElementDataSchema = Type.Object({
   // id: string
   // name: string
   // parentElement: IRef
-  // propsData?: Record<string, unknown> & { name?: string; label?: string }
 })
 
 export type ICreateElementData = Static<typeof CreateElementDataSchema>

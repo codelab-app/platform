@@ -1,10 +1,9 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { restWebClient } from '@codelab/frontend-infra-axios'
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
+import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import { prettifyForConsole } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 
-export const useExportApp = (app: IAppModel) => {
+export const useExportApp = (app: IApp) => {
   return useCallback(async () => {
     const res = await restWebClient.get<Promise<IAppAggregate>>(
       `app/export?id=${app.id}`,

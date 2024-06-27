@@ -2,6 +2,7 @@ import type { FormProps } from '@codelab/frontend/abstract/types'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'
+import type { UnknownObject } from 'uniforms'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'
@@ -18,7 +19,7 @@ import { ModalFormContext } from './modal-form.context'
  *
  * But using without `DeepPartial` causes some casting down the line
  */
-export const Form = <TData, TResponse = unknown>({
+export const Form = <TData extends UnknownObject, TResponse = unknown>({
   autosave = false,
   children,
   model,
@@ -35,11 +36,11 @@ export const Form = <TData, TResponse = unknown>({
   const { setIsLoading, submitRef } = useContext(ModalFormContext)
 
   const [bridge, setBridge] = useState(
-    schema instanceof Bridge ? schema : createBridge(schema),
+    schema instanceof Bridge ? schema : createBridge<TData>(schema),
   )
 
   useEffect(() => {
-    setBridge(schema instanceof Bridge ? schema : createBridge(schema))
+    setBridge(schema instanceof Bridge ? schema : createBridge<TData>(schema))
   }, [schema])
 
   return (

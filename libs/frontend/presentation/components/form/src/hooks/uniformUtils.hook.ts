@@ -6,6 +6,7 @@ import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 import addKeywords from 'ajv-keywords'
 import type { MutableRefObject } from 'react'
+import type { UnknownObject } from 'uniforms'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 
 export const connectUniformSubmitRef =
@@ -103,8 +104,11 @@ export const createValidator = (schema: Schema) => {
   }
 }
 
-export const createBridge = <T = unknown>(
+export const createBridge = <T extends UnknownObject>(
   schema: JSONSchemaType<T> | TSchema,
 ) => {
-  return new JSONSchemaBridge(schema, createValidator(schema))
+  return new JSONSchemaBridge({
+    schema,
+    validator: createValidator(schema),
+  })
 }
