@@ -1,8 +1,8 @@
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef } from 'react'
-import type { Side } from './builder-resize-controller'
-import { builderResizeController } from './builder-resize-controller'
+import type { Side } from '../../sections/content/builder-resize-controller'
+import { builderResizeController } from '../../sections/content/builder-resize-controller'
 
 const useResizer = ({ side }: { side: Side }) => {
   const ref = useRef<HTMLDivElement>(null)

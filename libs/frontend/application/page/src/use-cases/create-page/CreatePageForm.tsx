@@ -1,5 +1,6 @@
 'use client'
 
+import { useUser } from '@auth0/nextjs-auth0/client'
 import {
   MODEL_ACTION,
   type SubmitController,
@@ -18,7 +19,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { createPageAction } from './create-page.action'
 import { createPageSchema } from './create-page.schema'
+import { useCreatePageForm } from './create-page-form.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
@@ -32,22 +35,23 @@ export const CreatePageForm = observer(
     showFormControl = true,
     submitRef,
   }: CreatePageFormProps) => {
-    const { pageService, userService } = useStore()
-    const app = useCurrentApp()
+    const { user } = useUser()
+    const createPageForm = useCreatePageForm()
 
     const model = {
       app: { id: app?.id },
       id: v4(),
       // required for store api
       owner: {
-        auth0Id: userService.user.auth0Id,
+        auth0Id: user?.sub,
       },
     }
 
-    const closeForm = () => pageService.createForm.close()
+    const closeForm = () => createPageForm.close()
 
     const onSubmit = async (data: ICreatePageData) => {
-      await pageService.create(data)
+      await createPageAction(data)
+
       closeForm()
       onSubmitSuccess?.()
 

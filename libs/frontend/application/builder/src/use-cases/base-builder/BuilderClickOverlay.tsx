@@ -16,7 +16,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
-import { queryRenderedElementById } from '../../utils'
+import { queryRenderedElementById } from '../../utils/query-rendered-element-by-id'
 
 const StyledOverlayContainer = styled.div`
   display: flex;

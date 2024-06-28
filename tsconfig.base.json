@@ -205,6 +205,9 @@
       "@codelab/frontend-application-app/use-cases/app-development": [
         "libs/frontend/application/app/src/use-cases/app-development/index.ts"
       ],
+      "@codelab/frontend-application-app/use-cases/app-list": [
+        "libs/frontend/application/app/src/use-cases/app-list/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/app-production": [
         "libs/frontend/application/app/src/use-cases/app-production/index.ts"
       ],
@@ -220,8 +223,8 @@
       "@codelab/frontend-application-app/use-cases/delete-app": [
         "libs/frontend/application/app/src/use-cases/delete-app/index.ts"
       ],
-      "@codelab/frontend-application-app/use-cases/app-list": [
-        "libs/frontend/application/app/src/use-cases/app-list/index.ts"
+      "@codelab/frontend-application-app/use-cases/get-app": [
+        "libs/frontend/application/app/src/use-cases/get-app/index.ts"
       ],
       "@codelab/frontend-application-app/use-cases/import-app": [
         "libs/frontend/application/app/src/use-cases/import-app/index.ts"
@@ -313,6 +316,15 @@
       "@codelab/frontend-application-builder/services": [
         "libs/frontend/application/builder/src/services/index.ts"
       ],
+      "@codelab/frontend-application-builder/use-cases/base-builder": [
+        "libs/frontend/application/builder/src/use-cases/base-builder/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/page-builder": [
+        "libs/frontend/application/builder/src/use-cases/page-builder/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/page-preview": [
+        "libs/frontend/application/builder/src/use-cases/page-preview/index.ts"
+      ],
       "@codelab/frontend-application-builder/utils": [
         "libs/frontend/application/builder/src/utils/index.ts"
       ],
@@ -330,6 +342,9 @@
       ],
       "@codelab/frontend-application-component/use-cases/delete-component": [
         "libs/frontend/application/component/src/use-cases/delete-component/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/get-component": [
+        "libs/frontend/application/component/src/use-cases/get-component/index.ts"
       ],
       "@codelab/frontend-application-component/use-cases/import-component": [
         "libs/frontend/application/component/src/use-cases/import-component/index.ts"

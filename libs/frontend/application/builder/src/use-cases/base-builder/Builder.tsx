@@ -7,9 +7,9 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { useBuilderHotkeys } from '../../hooks'
-import { BuilderClickOverlay } from '../overlay-toolbar/BuilderClickOverlay'
-import { BuilderHoverOverlay } from '../overlay-toolbar/BuilderHoverOverlay'
+import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
+import { BuilderClickOverlay } from './BuilderClickOverlay'
+import { BuilderHoverOverlay } from './BuilderHoverOverlay'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
 
 /**

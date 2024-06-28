@@ -1,10 +1,10 @@
-mutation CreatePages($input: [PageCreateInput!]!) {
-  createPages(input: $input) {
-    pages {
-      id
-    }
-  }
-}
+# mutation CreatePages($input: [PageCreateInput!]!) {
+#   createPages(input: $input) {
+#     pages {
+#       id
+#     }
+#   }
+# }
 
 mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
   deletePages(delete: $delete, where: $where) {

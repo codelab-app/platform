@@ -6894,6 +6894,7 @@ export type Component = WithOwner & {
   api: InterfaceType
   apiAggregate?: Maybe<ComponentInterfaceTypeApiAggregationSelection>
   apiConnection: ComponentApiConnection
+  compositeKey: Scalars['String']['output']
   elements: Array<Element>
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
@@ -7007,6 +7008,7 @@ export type ComponentStoreConnectionArgs = {
 }
 
 export type ComponentAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -7147,6 +7149,7 @@ export type ComponentConnectedRelationships = {
 
 export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
+  compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
@@ -7203,6 +7206,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
 }
 
 export type ComponentEventPayload = {
+  compositeKey: Scalars['String']['output']
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
 }
@@ -7218,6 +7222,7 @@ export type ComponentInterfaceTypeApiNodeAggregateSelection = {
 }
 
 export type ComponentOnCreateInput = {
+  compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
@@ -7672,6 +7677,7 @@ export type ComponentRootElementUpdateFieldInput = {
 
 /** Fields to sort Components by. The order in which sorts are applied is not guaranteed when specifying many fields in one ComponentSort object. */
 export type ComponentSort = {
+  compositeKey?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
@@ -7803,6 +7809,11 @@ export type ComponentSubscriptionWhere = {
   AND?: InputMaybe<Array<ComponentSubscriptionWhere>>
   NOT?: InputMaybe<ComponentSubscriptionWhere>
   OR?: InputMaybe<Array<ComponentSubscriptionWhere>>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -7816,11 +7827,13 @@ export type ComponentSubscriptionWhere = {
 }
 
 export type ComponentUniqueWhere = {
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
@@ -7858,6 +7871,12 @@ export type ComponentWhere = {
   apiConnection?: InputMaybe<ComponentApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<ComponentApiConnectionWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -8762,6 +8781,21 @@ export type ElementChildMapperComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementChildMapperComponentNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementChildMapperComponentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementChildMapperComponentNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -9000,6 +9034,7 @@ export type ElementComponentChildMapperComponentAggregationSelection = {
 }
 
 export type ElementComponentChildMapperComponentNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -9010,6 +9045,7 @@ export type ElementComponentParentComponentAggregationSelection = {
 }
 
 export type ElementComponentParentComponentNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -9819,6 +9855,21 @@ export type ElementParentComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementParentComponentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -25963,6 +26014,7 @@ export type UserComponentComponentsAggregationSelection = {
 }
 
 export type UserComponentComponentsNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -26040,6 +26092,21 @@ export type UserComponentsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
   NOT?: InputMaybe<UserComponentsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -26674,6 +26741,7 @@ export type UserTypesUpdateFieldInput = {
 
 export type UserUniqueWhere = {
   auth0Id?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   username?: InputMaybe<Scalars['String']['input']>
 }
@@ -32962,6 +33030,1469 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
+export type GetAppDevelopmentQueryVariables = Exact<{
+  appCompositeKey: Scalars['String']['input']
+  pageName: Scalars['String']['input']
+}>
+
+export type GetAppDevelopmentQuery = {
+  actionTypes: Array<{
+    __typename: 'ActionType'
+    id: string
+    kind: TypeKind
+    name: string
+  }>
+  apps: Array<{
+    id: string
+    name: string
+    slug: string
+    owner: { id: string }
+    pages: Array<{
+      id: string
+      kind: PageKind
+      name: string
+      urlPattern: string
+      app: { id: string }
+      elements: Array<{
+        __typename: 'Element'
+        childMapperPropKey?: string | null
+        id: string
+        name: string
+        renderForEachPropKey?: string | null
+        renderIfExpression?: string | null
+        style?: string | null
+        tailwindClassNames?: Array<string> | null
+        childMapperComponent?: { id: string; name: string } | null
+        childMapperPreviousSibling?: { id: string } | null
+        dependantTypes: Array<
+          | {
+              __typename: 'ActionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'ArrayType'
+              id: string
+              kind: TypeKind
+              name: string
+              itemType:
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+                | { id: string; kind: TypeKind; name: string }
+            }
+          | {
+              __typename: 'CodeMirrorType'
+              language: CodeMirrorLanguage
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ElementType'
+              elementKind: ElementTypeKind
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'EnumType'
+              id: string
+              kind: TypeKind
+              name: string
+              allowedValues: Array<{ id: string; key: string; value: string }>
+            }
+          | {
+              __typename: 'InterfaceType'
+              id: string
+              kind: TypeKind
+              name: string
+              fields: Array<{
+                defaultValues?: string | null
+                description?: string | null
+                id: string
+                key: string
+                name?: string | null
+                validationRules?: string | null
+                api: { id: string }
+                fieldType:
+                  | {
+                      __typename: 'ActionType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'AppType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'ArrayType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'CodeMirrorType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'ElementType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'EnumType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'InterfaceType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'LambdaType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'PageType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'PrimitiveType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'ReactNodeType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'RenderPropType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'RichTextType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'UnionType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                nextSibling?: { id: string } | null
+                prevSibling?: { id: string } | null
+              }>
+            }
+          | {
+              __typename: 'LambdaType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'PrimitiveType'
+              primitiveKind: PrimitiveTypeKind
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ReactNodeType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RenderPropType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RichTextType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'UnionType'
+              id: string
+              kind: TypeKind
+              name: string
+              typesOfUnionType: Array<
+                | {
+                    __typename: 'ActionType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'AppType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'ArrayType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'CodeMirrorType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'ElementType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'EnumType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'InterfaceType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'LambdaType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'PageType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'PrimitiveType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'ReactNodeType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'RenderPropType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'RichTextType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'UnionType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+              >
+            }
+        >
+        firstChild?: { id: string } | null
+        nextSibling?: { id: string } | null
+        page?: { id: string } | null
+        parentComponent?: { id: string } | null
+        parentElement?: { id: string } | null
+        postRenderAction?:
+          | { id: string; type: ActionKind }
+          | { id: string; type: ActionKind }
+          | null
+        preRenderAction?:
+          | { id: string; type: ActionKind }
+          | { id: string; type: ActionKind }
+          | null
+        prevSibling?: { id: string } | null
+        props: { data: string; id: string }
+        renderType:
+          | {
+              __typename: 'Atom'
+              icon?: string | null
+              id: string
+              name: string
+              type: AtomType
+              api: {
+                __typename: 'InterfaceType'
+                id: string
+                kind: TypeKind
+                name: string
+                fields: Array<{
+                  defaultValues?: string | null
+                  description?: string | null
+                  id: string
+                  key: string
+                  name?: string | null
+                  validationRules?: string | null
+                  api: { id: string }
+                  fieldType:
+                    | {
+                        __typename: 'ActionType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'AppType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'ArrayType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'CodeMirrorType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'ElementType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'EnumType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'InterfaceType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'LambdaType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'PageType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'PrimitiveType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'ReactNodeType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'RenderPropType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'RichTextType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'UnionType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                  nextSibling?: { id: string } | null
+                  prevSibling?: { id: string } | null
+                }>
+              }
+              requiredParents: Array<{
+                id: string
+                name: string
+                type: AtomType
+              }>
+              suggestedChildren: Array<{
+                id: string
+                name: string
+                type: AtomType
+              }>
+              tags: Array<{
+                id: string
+                name: string
+                children: Array<{ id: string; name: string }>
+                descendants: Array<{ id: string; name: string }>
+                owner: { id: string }
+                parent?: { id: string } | null
+              }>
+            }
+          | { __typename: 'Component'; id: string }
+      }>
+      pageContentContainer?: { id: string } | null
+      redirect?: { id: string } | null
+      rootElement: { id: string }
+      store: {
+        id: string
+        name: string
+        actions: Array<
+          | {
+              __typename: 'ApiAction'
+              id: string
+              name: string
+              type: ActionKind
+              config: { data: string; id: string }
+              errorAction?:
+                | {
+                    __typename: 'ApiAction'
+                    id: string
+                    name: string
+                    type: ActionKind
+                    store: { id: string; name: string }
+                  }
+                | {
+                    __typename: 'CodeAction'
+                    id: string
+                    name: string
+                    type: ActionKind
+                    store: { id: string; name: string }
+                  }
+                | null
+              resource: {
+                id: string
+                name: string
+                type: ResourceType
+                config: { data: string; id: string }
+              }
+              successAction?:
+                | {
+                    __typename: 'ApiAction'
+                    id: string
+                    name: string
+                    type: ActionKind
+                    store: { id: string; name: string }
+                  }
+                | {
+                    __typename: 'CodeAction'
+                    id: string
+                    name: string
+                    type: ActionKind
+                    store: { id: string; name: string }
+                  }
+                | null
+              store: { id: string; name: string }
+            }
+          | {
+              __typename: 'CodeAction'
+              code: string
+              id: string
+              name: string
+              type: ActionKind
+              store: { id: string; name: string }
+            }
+        >
+        api: {
+          __typename: 'InterfaceType'
+          id: string
+          kind: TypeKind
+          name: string
+          fields: Array<{
+            defaultValues?: string | null
+            description?: string | null
+            id: string
+            key: string
+            name?: string | null
+            validationRules?: string | null
+            api: { id: string }
+            fieldType:
+              | {
+                  __typename: 'ActionType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'AppType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'ArrayType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'CodeMirrorType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'ElementType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'EnumType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'InterfaceType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'LambdaType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'PageType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'PrimitiveType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'ReactNodeType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'RenderPropType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'RichTextType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'UnionType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+            nextSibling?: { id: string } | null
+            prevSibling?: { id: string } | null
+          }>
+        }
+      }
+    }>
+  }>
+  atoms: Array<{
+    __typename: 'Atom'
+    icon?: string | null
+    id: string
+    name: string
+    type: AtomType
+    api: {
+      __typename: 'InterfaceType'
+      id: string
+      kind: TypeKind
+      name: string
+      fields: Array<{
+        defaultValues?: string | null
+        description?: string | null
+        id: string
+        key: string
+        name?: string | null
+        validationRules?: string | null
+        api: { id: string }
+        fieldType:
+          | {
+              __typename: 'ActionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'ArrayType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'CodeMirrorType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ElementType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'InterfaceType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'LambdaType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'PrimitiveType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ReactNodeType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RenderPropType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RichTextType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'UnionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+        nextSibling?: { id: string } | null
+        prevSibling?: { id: string } | null
+      }>
+    }
+    requiredParents: Array<{ id: string; name: string; type: AtomType }>
+    suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
+    tags: Array<{
+      id: string
+      name: string
+      children: Array<{ id: string; name: string }>
+      descendants: Array<{ id: string; name: string }>
+      owner: { id: string }
+      parent?: { id: string } | null
+    }>
+  }>
+  authGuards: Array<{
+    id: string
+    name: string
+    responseTransformer: string
+    config: { data: string; id: string }
+    resource: {
+      id: string
+      name: string
+      type: ResourceType
+      config: { data: string; id: string }
+    }
+  }>
+  codeMirrorTypes: Array<{
+    __typename: 'CodeMirrorType'
+    language: CodeMirrorLanguage
+    id: string
+    kind: TypeKind
+    name: string
+  }>
+  components: Array<{
+    __typename: 'Component'
+    id: string
+    name: string
+    api: {
+      __typename: 'InterfaceType'
+      id: string
+      kind: TypeKind
+      name: string
+      fields: Array<{
+        defaultValues?: string | null
+        description?: string | null
+        id: string
+        key: string
+        name?: string | null
+        validationRules?: string | null
+        api: { id: string }
+        fieldType:
+          | {
+              __typename: 'ActionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'ArrayType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'CodeMirrorType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ElementType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'InterfaceType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'LambdaType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'PrimitiveType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ReactNodeType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RenderPropType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RichTextType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'UnionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+        nextSibling?: { id: string } | null
+        prevSibling?: { id: string } | null
+      }>
+    }
+    elements: Array<{
+      __typename: 'Element'
+      childMapperPropKey?: string | null
+      id: string
+      name: string
+      renderForEachPropKey?: string | null
+      renderIfExpression?: string | null
+      style?: string | null
+      tailwindClassNames?: Array<string> | null
+      childMapperComponent?: { id: string; name: string } | null
+      childMapperPreviousSibling?: { id: string } | null
+      dependantTypes: Array<
+        | { __typename: 'ActionType'; id: string; kind: TypeKind; name: string }
+        | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
+        | {
+            __typename: 'ArrayType'
+            id: string
+            kind: TypeKind
+            name: string
+            itemType:
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+              | { id: string; kind: TypeKind; name: string }
+          }
+        | {
+            __typename: 'CodeMirrorType'
+            language: CodeMirrorLanguage
+            id: string
+            kind: TypeKind
+            name: string
+          }
+        | {
+            __typename: 'ElementType'
+            elementKind: ElementTypeKind
+            id: string
+            kind: TypeKind
+            name: string
+          }
+        | {
+            __typename: 'EnumType'
+            id: string
+            kind: TypeKind
+            name: string
+            allowedValues: Array<{ id: string; key: string; value: string }>
+          }
+        | {
+            __typename: 'InterfaceType'
+            id: string
+            kind: TypeKind
+            name: string
+            fields: Array<{
+              defaultValues?: string | null
+              description?: string | null
+              id: string
+              key: string
+              name?: string | null
+              validationRules?: string | null
+              api: { id: string }
+              fieldType:
+                | {
+                    __typename: 'ActionType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'AppType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'ArrayType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'CodeMirrorType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'ElementType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'EnumType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'InterfaceType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'LambdaType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'PageType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'PrimitiveType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'ReactNodeType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'RenderPropType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'RichTextType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+                | {
+                    __typename: 'UnionType'
+                    id: string
+                    kind: TypeKind
+                    name: string
+                  }
+              nextSibling?: { id: string } | null
+              prevSibling?: { id: string } | null
+            }>
+          }
+        | { __typename: 'LambdaType'; id: string; kind: TypeKind; name: string }
+        | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
+        | {
+            __typename: 'PrimitiveType'
+            primitiveKind: PrimitiveTypeKind
+            id: string
+            kind: TypeKind
+            name: string
+          }
+        | {
+            __typename: 'ReactNodeType'
+            id: string
+            kind: TypeKind
+            name: string
+          }
+        | {
+            __typename: 'RenderPropType'
+            id: string
+            kind: TypeKind
+            name: string
+          }
+        | {
+            __typename: 'RichTextType'
+            id: string
+            kind: TypeKind
+            name: string
+          }
+        | {
+            __typename: 'UnionType'
+            id: string
+            kind: TypeKind
+            name: string
+            typesOfUnionType: Array<
+              | {
+                  __typename: 'ActionType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'AppType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'ArrayType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'CodeMirrorType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'ElementType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'EnumType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'InterfaceType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'LambdaType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'PageType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'PrimitiveType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'ReactNodeType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'RenderPropType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'RichTextType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+              | {
+                  __typename: 'UnionType'
+                  id: string
+                  kind: TypeKind
+                  name: string
+                }
+            >
+          }
+      >
+      firstChild?: { id: string } | null
+      nextSibling?: { id: string } | null
+      page?: { id: string } | null
+      parentComponent?: { id: string } | null
+      parentElement?: { id: string } | null
+      postRenderAction?:
+        | { id: string; type: ActionKind }
+        | { id: string; type: ActionKind }
+        | null
+      preRenderAction?:
+        | { id: string; type: ActionKind }
+        | { id: string; type: ActionKind }
+        | null
+      prevSibling?: { id: string } | null
+      props: { data: string; id: string }
+      renderType:
+        | {
+            __typename: 'Atom'
+            icon?: string | null
+            id: string
+            name: string
+            type: AtomType
+            api: {
+              __typename: 'InterfaceType'
+              id: string
+              kind: TypeKind
+              name: string
+              fields: Array<{
+                defaultValues?: string | null
+                description?: string | null
+                id: string
+                key: string
+                name?: string | null
+                validationRules?: string | null
+                api: { id: string }
+                fieldType:
+                  | {
+                      __typename: 'ActionType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'AppType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'ArrayType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'CodeMirrorType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'ElementType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'EnumType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'InterfaceType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'LambdaType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'PageType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'PrimitiveType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'ReactNodeType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'RenderPropType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'RichTextType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                  | {
+                      __typename: 'UnionType'
+                      id: string
+                      kind: TypeKind
+                      name: string
+                    }
+                nextSibling?: { id: string } | null
+                prevSibling?: { id: string } | null
+              }>
+            }
+            requiredParents: Array<{ id: string; name: string; type: AtomType }>
+            suggestedChildren: Array<{
+              id: string
+              name: string
+              type: AtomType
+            }>
+            tags: Array<{
+              id: string
+              name: string
+              children: Array<{ id: string; name: string }>
+              descendants: Array<{ id: string; name: string }>
+              owner: { id: string }
+              parent?: { id: string } | null
+            }>
+          }
+        | { __typename: 'Component'; id: string }
+    }>
+    owner: { id: string }
+    props: { data: string; id: string }
+    rootElement: { id: string; name: string }
+    store: {
+      id: string
+      name: string
+      actions: Array<
+        | {
+            __typename: 'ApiAction'
+            id: string
+            name: string
+            type: ActionKind
+            config: { data: string; id: string }
+            errorAction?:
+              | {
+                  __typename: 'ApiAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | {
+                  __typename: 'CodeAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | null
+            resource: {
+              id: string
+              name: string
+              type: ResourceType
+              config: { data: string; id: string }
+            }
+            successAction?:
+              | {
+                  __typename: 'ApiAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | {
+                  __typename: 'CodeAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | null
+            store: { id: string; name: string }
+          }
+        | {
+            __typename: 'CodeAction'
+            code: string
+            id: string
+            name: string
+            type: ActionKind
+            store: { id: string; name: string }
+          }
+      >
+      api: {
+        __typename: 'InterfaceType'
+        id: string
+        kind: TypeKind
+        name: string
+        fields: Array<{
+          defaultValues?: string | null
+          description?: string | null
+          id: string
+          key: string
+          name?: string | null
+          validationRules?: string | null
+          api: { id: string }
+          fieldType:
+            | {
+                __typename: 'ActionType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'AppType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ArrayType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'CodeMirrorType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ElementType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'EnumType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'InterfaceType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'LambdaType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'PageType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'PrimitiveType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ReactNodeType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'RenderPropType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'RichTextType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'UnionType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+          nextSibling?: { id: string } | null
+          prevSibling?: { id: string } | null
+        }>
+      }
+    }
+  }>
+  primitiveTypes: Array<{
+    __typename: 'PrimitiveType'
+    primitiveKind: PrimitiveTypeKind
+    id: string
+    kind: TypeKind
+    name: string
+  }>
+  reactNodeTypes: Array<{
+    __typename: 'ReactNodeType'
+    id: string
+    kind: TypeKind
+    name: string
+  }>
+  redirects: Array<{
+    id: string
+    targetType: RedirectTargetType
+    targetUrl?: string | null
+    authGuard: { id: string }
+    source: { id: string }
+    targetPage?: { id: string } | null
+  }>
+  renderPropTypes: Array<{
+    __typename: 'RenderPropType'
+    id: string
+    kind: TypeKind
+    name: string
+  }>
+  resources: Array<{
+    id: string
+    name: string
+    type: ResourceType
+    config: { data: string; id: string }
+  }>
+  richTextTypes: Array<{
+    __typename: 'RichTextType'
+    id: string
+    kind: TypeKind
+    name: string
+  }>
+}
+
 export type GetAppsListQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
@@ -37148,6 +38679,415 @@ export const UserFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
+export const GetAppDevelopmentDocument = new TypedDocumentString(`
+    query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+  actionTypes {
+    ...ActionType
+  }
+  apps(where: {compositeKey: $appCompositeKey}) {
+    ...AppDevelopment
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomDevelopment
+  }
+  authGuards {
+    ...AuthGuard
+  }
+  codeMirrorTypes {
+    ...CodeMirrorType
+  }
+  components {
+    ...ComponentDevelopment
+  }
+  primitiveTypes {
+    ...PrimitiveType
+  }
+  reactNodeTypes {
+    ...ReactNodeType
+  }
+  redirects(where: {source: {app: {compositeKey: $appCompositeKey}}}) {
+    ...Redirect
+  }
+  renderPropTypes {
+    ...RenderPropType
+  }
+  resources {
+    ...Resource
+  }
+  richTextTypes {
+    ...RichTextType
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AppDevelopment on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(
+    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
+  ) {
+    ...PageDevelopment
+  }
+  slug
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment AuthGuard on AuthGuard {
+  config {
+    ...Prop
+  }
+  id
+  name
+  resource {
+    ...Resource
+  }
+  responseTransformer
+}
+fragment ComponentDevelopment on Component {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  elements {
+    ...Element
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment PageDevelopment on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Redirect on Redirect {
+  authGuard {
+    id
+  }
+  id
+  source {
+    id
+  }
+  targetPage {
+    id
+  }
+  targetType
+  targetUrl
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  GetAppDevelopmentQuery,
+  GetAppDevelopmentQueryVariables
+>
 export const GetAppsListDocument = new TypedDocumentString(`
     query GetAppsList($options: AppOptions, $where: AppWhere) {
   apps(options: $options, where: $where) {
