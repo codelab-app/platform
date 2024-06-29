@@ -15,7 +15,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { Context } from 'mobx-keystone'
 import type { IActionService } from '../action'
-import type { IAdminService } from '../admin'
 import type { IAppService } from '../app'
 import type { IAtomService } from '../atom'
 import type { IAuthGuardService } from '../auth-guard'
@@ -47,7 +46,6 @@ import type { IRouterService } from './router.service.interface'
 
 export interface ICoreStore {
   actionService: IActionService
-  adminService: IAdminService
   appService: IAppService
   atomService: IAtomService
   authGuardService: IAuthGuardService

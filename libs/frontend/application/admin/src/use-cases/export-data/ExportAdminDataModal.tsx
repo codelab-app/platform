@@ -1,36 +1,34 @@
+'use client'
+
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   exportDtoDefault,
   ExportDtoSchema,
   type IExportDto,
 } from '@codelab/shared/abstract/core'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { exportAdminDataAction } from './ExportAdminData.action'
+import { useExportAdminDataModal } from './ExportAdminDataModal.state'
 
-export const ExportAdminDataModal = observer(() => {
-  const { adminService } = useStore()
-
-  const closeModal = () => {
-    adminService.exportDataModal.close()
-  }
+export const ExportAdminDataModal = () => {
+  const exportDataModal = useExportAdminDataModal()
 
   return (
     <ModalForm.Modal
       okText="Export Admin Data"
-      onCancel={closeModal}
-      open={adminService.exportDataModal.isOpen}
+      onCancel={exportDataModal.close}
+      open={exportDataModal.isOpen}
     >
       <ModalForm.Form<IExportDto>
         model={exportDtoDefault}
-        onSubmit={(data) => adminService.exportData(data)}
+        onSubmit={exportAdminDataAction}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while exporting data',
         })}
-        onSubmitSuccess={closeModal}
+        onSubmitSuccess={exportDataModal.close}
         schema={ExportDtoSchema}
         uiKey={MODEL_ACTION.ExportDataAdmin.key}
       >
@@ -38,4 +36,4 @@ export const ExportAdminDataModal = observer(() => {
       </ModalForm.Form>
     </ModalForm.Modal>
   )
-})
+}

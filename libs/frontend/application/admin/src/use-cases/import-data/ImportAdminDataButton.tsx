@@ -1,20 +1,16 @@
-import ImportOutlined from '@ant-design/icons/ImportOutlined'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { Button } from 'antd'
-import { observer } from 'mobx-react-lite'
-import React from 'react'
+'use client'
 
-export const ImportAdminDataButton = observer(() => {
-  const { adminService } = useStore()
+import ImportOutlined from '@ant-design/icons/ImportOutlined'
+import { Button } from 'antd'
+import React from 'react'
+import { useImportAdminDataModal } from './ImportAdminDataModal.state'
+
+export const ImportAdminDataButton = () => {
+  const importDataModal = useImportAdminDataModal()
 
   return (
-    <Button
-      icon={<ImportOutlined />}
-      onClick={() => {
-        adminService.importDataModal.open()
-      }}
-    >
+    <Button icon={<ImportOutlined />} onClick={importDataModal.open}>
       Import Data
     </Button>
   )
-})
+}
