@@ -27072,6 +27072,7 @@ export type AppPreviewFragment = {
     urlPattern: string
     app: { id: string }
     rootElement: { id: string }
+    elements: Array<{ id: string }>
     store: { id: string }
   }>
 }
@@ -30602,6 +30603,7 @@ export type PagePreviewFragment = {
   urlPattern: string
   app: { id: string }
   rootElement: { id: string }
+  elements: Array<{ id: string }>
   store: { id: string }
 }
 
@@ -32984,7 +32986,112 @@ export type GetAppsListQuery = {
       urlPattern: string
       app: { id: string }
       rootElement: { id: string }
+      elements: Array<{ id: string }>
       store: { id: string }
+    }>
+  }>
+  atoms: Array<{
+    __typename: 'Atom'
+    icon?: string | null
+    id: string
+    name: string
+    type: AtomType
+    api: {
+      __typename: 'InterfaceType'
+      id: string
+      kind: TypeKind
+      name: string
+      fields: Array<{
+        defaultValues?: string | null
+        description?: string | null
+        id: string
+        key: string
+        name?: string | null
+        validationRules?: string | null
+        api: { id: string }
+        fieldType:
+          | {
+              __typename: 'ActionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'ArrayType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'CodeMirrorType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ElementType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'InterfaceType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'LambdaType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'PrimitiveType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ReactNodeType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RenderPropType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RichTextType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'UnionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+        nextSibling?: { id: string } | null
+        prevSibling?: { id: string } | null
+      }>
+    }
+    requiredParents: Array<{ id: string; name: string; type: AtomType }>
+    suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
+    tags: Array<{
+      id: string
+      name: string
+      children: Array<{ id: string; name: string }>
+      descendants: Array<{ id: string; name: string }>
+      owner: { id: string }
+      parent?: { id: string } | null
     }>
   }>
 }
@@ -33001,6 +33108,29 @@ export type DeleteAppsMutationVariables = Exact<{
 }>
 
 export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
+
+export type UpdateAppsMutationVariables = Exact<{
+  where: AppWhere
+  update: AppUpdateInput
+}>
+
+export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
+
+export type DeleteElementsMutationVariables = Exact<{
+  where: ElementWhere
+  delete?: InputMaybe<ElementDeleteInput>
+}>
+
+export type DeleteElementsMutation = {
+  deleteElements: { nodesDeleted: number }
+}
+
+export type DeletePagesMutationVariables = Exact<{
+  where: PageWhere
+  delete?: InputMaybe<PageDeleteInput>
+}>
+
+export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -33051,6 +33181,9 @@ export const PagePreviewFragmentDoc = new TypedDocumentString(
   rootElement {
     id
   }
+  elements {
+    id
+  }
   store {
     id
   }
@@ -33070,7 +33203,7 @@ export const AppPreviewFragmentDoc = new TypedDocumentString(
   owner {
     ...Owner
   }
-  pages(where: {kind: Provider}) {
+  pages {
     ...PagePreview
   }
   slug
@@ -33093,6 +33226,9 @@ fragment PagePreview on Page {
   kind
   name
   rootElement {
+    id
+  }
+  elements {
     id
   }
   store {
@@ -37017,6 +37153,9 @@ export const GetAppsListDocument = new TypedDocumentString(`
   apps(options: $options, where: $where) {
     ...AppPreview
   }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomDevelopment
+  }
 }
     fragment AppPreview on App {
   domains {
@@ -37027,10 +37166,33 @@ export const GetAppsListDocument = new TypedDocumentString(`
   owner {
     ...Owner
   }
-  pages(where: {kind: Provider}) {
+  pages {
     ...PagePreview
   }
   slug
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
 }
 fragment Domain on Domain {
   app {
@@ -37052,10 +37214,70 @@ fragment PagePreview on Page {
   rootElement {
     id
   }
+  elements {
+    id
+  }
   store {
     id
   }
   urlPattern
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
 }
 fragment Owner on User {
   id
@@ -37084,4 +37306,36 @@ export const DeleteAppsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   DeleteAppsMutation,
   DeleteAppsMutationVariables
+>
+export const UpdateAppsDocument = new TypedDocumentString(`
+    mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
+  updateApps(update: $update, where: $where) {
+    apps {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateAppsMutation,
+  UpdateAppsMutationVariables
+>
+export const DeleteElementsDocument = new TypedDocumentString(`
+    mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
+  deleteElements(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteElementsMutation,
+  DeleteElementsMutationVariables
+>
+export const DeletePagesDocument = new TypedDocumentString(`
+    mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {
+  deletePages(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeletePagesMutation,
+  DeletePagesMutationVariables
 >

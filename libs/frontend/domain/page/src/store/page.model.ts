@@ -35,6 +35,7 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   app,
+  elements,
   id,
   kind,
   name,
@@ -46,6 +47,7 @@ const create = ({
 }: IPageDto) => {
   return new Page({
     app: appRef(app.id),
+    elementsIds: elements?.map((element) => element.id) ?? [],
     id,
     kind,
     name,
@@ -63,6 +65,11 @@ const create = ({
 export class Page
   extends ExtendedModel(ElementTree, {
     app: prop<Ref<IAppModel>>(),
+    /**
+     * a pre-computed descendant elements ids
+     * mainly used for deletePageUseCase to avoid element hydrating
+     */
+    elementsIds: prop<Array<string>>(),
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
@@ -79,6 +86,7 @@ export class Page
 
   static toDeleteInput(): PageDeleteInput {
     return {
+      redirect: { where: {} },
       // pageContentContainer: { delete: {}, where: {} },
       rootElement: {},
       store: {

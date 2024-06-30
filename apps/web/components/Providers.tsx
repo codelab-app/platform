@@ -1,7 +1,8 @@
 'use client'
 
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
+import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import App from 'antd/lib/app'
 import ConfigProvider from 'antd/lib/config-provider'
 import { Provider } from 'jotai'
@@ -10,13 +11,18 @@ import React from 'react'
 import { theme } from '../app/theme'
 import { StyledComponentsRegistry } from './StyledComponentsRegistry'
 
-export const Providers = ({ children }: PropsWithChildren) => {
+export const Providers = ({
+  children,
+  user,
+}: PropsWithChildren<{ user: IUserDto }>) => {
   return (
     <StyledComponentsRegistry>
       <ConfigProvider theme={theme}>
         <AntdRegistry>
           <Provider>
-            <App>{children}</App>
+            <StoreProvider user={user}>
+              <App>{children}</App>
+            </StoreProvider>
           </Provider>
         </AntdRegistry>
       </ConfigProvider>
