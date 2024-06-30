@@ -17,6 +17,11 @@ export interface AppListProps {
   atoms: Array<IAtomDto>
 }
 
+export interface AppListProps {
+  apps: Array<IAppDto>
+  atoms: Array<IAtomDto>
+}
+
 const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
