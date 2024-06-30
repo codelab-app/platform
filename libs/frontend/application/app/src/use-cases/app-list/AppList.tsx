@@ -1,6 +1,5 @@
 'use client'
 
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   padding,
   threeGridCol,
@@ -8,9 +7,10 @@ import {
 import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { CreateAppButton } from '../create-app'
 import { AppListItem } from './AppListItem'
+import { useAppList } from './useAppList.hook'
 
 export interface AppListProps {
   apps: Array<IAppDto>
@@ -21,33 +21,10 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const AppList = observer<AppListProps>(({ apps, atoms }) => {
-  const { appDomainService, atomDomainService, pageDomainService } =
-    useDomainStore()
+export const AppList = observer<AppListProps>((props) => {
+  const { apps } = useAppList(props)
 
-  useEffect(() => {
-    hydrate()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apps, atoms])
-
-  const hydrate = useCallback(() => {
-    apps
-      .flatMap((app) => {
-        appDomainService.hydrate(app)
-
-        return app.pages || []
-      })
-      .forEach((page) => {
-        pageDomainService.hydrate(page)
-      })
-
-    atoms.forEach((atom) => {
-      atomDomainService.hydrate(atom)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apps, atoms])
-
-  if (!appDomainService.appsList.length) {
+  if (!apps.length) {
     return (
       <Empty description="No apps found" imageStyle={emptyImageStyle}>
         <CreateAppButton>Create Now</CreateAppButton>
