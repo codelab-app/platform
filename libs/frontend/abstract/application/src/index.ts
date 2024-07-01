@@ -1,5 +1,4 @@
 export * from './action'
-export * from './admin'
 export * from './app'
 export * from './atom'
 export * from './auth-guard'
