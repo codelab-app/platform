@@ -6,9 +6,9 @@ import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
-import type { IApp } from '@codelab/shared/abstract/core'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
@@ -17,9 +17,10 @@ import React from 'react'
 import { useBuildAppModal } from '../build-app/build-app-modal.state'
 import { useDeleteAppModal } from '../delete-app/delete-app.state'
 import { useExportApp } from '../export-app/useExportApp.hook'
+import { useUpdateAppModal } from '../update-app/update-app.state'
 
 export interface AppListItemDropdownProps {
-  app: IApp
+  app: IAppModel
 }
 
 const menuItemStyle: CSSProperties = {
@@ -36,10 +37,10 @@ const menuItemIconStyle: CSSProperties = {
 
 export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { pathname } = useUrl()
-  //  const updateApp = useUpdateAppModal()
+  const updateAppModal = useUpdateAppModal()
   const deleteAppModal = useDeleteAppModal()
   const buildAppModal = useBuildAppModal()
-  const onEditClick = () => null
+  const onEditClick = () => updateAppModal.open(app)
   const onDeleteClick = () => deleteAppModal.open(app)
   const onBuildClick = () => null
   const exportApp = useExportApp(app)

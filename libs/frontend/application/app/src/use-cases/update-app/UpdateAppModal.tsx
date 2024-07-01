@@ -3,33 +3,44 @@
 import type { IUpdateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateAppSchema } from './update-app.schema'
+import { useUpdateAppModal } from './update-app.state'
+import { updateAppUseCase } from './update-app.use-case'
 
 export const UpdateAppModal = observer(() => {
-  const { appDomainService } = useDomainStore()
-  const app = appService.updateModal.app
+  const updateAppModal = useUpdateAppModal()
+  const { userDomainService } = useDomainStore()
+  const app = updateAppModal.data
 
-  const model = {
-    id: app?.id,
-    name: app?.name,
+  if (!app) {
+    return null
   }
 
-  const onSubmit = (appDTO: IUpdateAppData) => appService.update(appDTO)
-  const closeModal = () => appService.updateModal.close()
+  const model = {
+    id: app.id,
+    name: app.name,
+  }
+
+  const onSubmit = async (data: IUpdateAppData) => {
+    return await updateAppUseCase(app, {
+      id: app.id,
+      name: data.name,
+      owner: userDomainService.user,
+    })
+  }
+
+  const closeModal = () => updateAppModal.close()
 
   return (
     <ModalForm.Modal
       okText="Update App"
       onCancel={closeModal}
-      open={appService.updateModal.isOpen}
+      open={updateAppModal.isOpen}
     >
       <ModalForm.Form<IUpdateAppData>
         model={model}
@@ -41,7 +52,7 @@ export const UpdateAppModal = observer(() => {
         schema={updateAppSchema}
         uiKey={MODEL_ACTION.UpdateApp.key}
       >
-        <AutoFields omitFields={['storeId']} />
+        <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

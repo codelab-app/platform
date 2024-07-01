@@ -640,6 +640,9 @@
       "@codelab/frontend-domain-app/services": [
         "libs/frontend/domain/app/src/services/index.ts"
       ],
+      "@codelab/frontend-domain-app/actions": [
+        "libs/frontend/domain/app/src/actions/index.ts"
+      ],
       "@codelab/frontend-domain-app/store": [
         "libs/frontend/domain/app/src/store/index.ts"
       ],
@@ -682,6 +685,9 @@
       "@codelab/frontend-domain-element/services": [
         "libs/frontend/domain/element/src/services/index.ts"
       ],
+      "@codelab/frontend-domain-element/actions": [
+        "libs/frontend/domain/element/src/actions/index.ts"
+      ],
       "@codelab/frontend-domain-element/store": [
         "libs/frontend/domain/element/src/store/index.ts"
       ],
@@ -696,6 +702,9 @@
       ],
       "@codelab/frontend-domain-page/services": [
         "libs/frontend/domain/page/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-page/actions": [
+        "libs/frontend/domain/page/src/actions/index.ts"
       ],
       "@codelab/frontend-domain-page/store": [
         "libs/frontend/domain/page/src/store/index.ts"

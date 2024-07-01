@@ -20,7 +20,7 @@ const documents = {
     types.ApiActionFragmentDoc,
   'fragment CodeAction on CodeAction {\n  ...BaseAction\n  code\n}':
     types.CodeActionFragmentDoc,
-  'fragment AppPreview on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {kind: Provider}) {\n    ...PagePreview\n  }\n  slug\n}\n\nfragment App on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...Page\n  }\n  slug\n}\n\nfragment AppDevelopment on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(\n    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}\n  ) {\n    ...PageDevelopment\n  }\n  slug\n}\n\nfragment AppProduction on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {\n    ...PageProduction\n  }\n  slug\n}':
+  'fragment AppPreview on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...PagePreview\n  }\n  slug\n}\n\nfragment App on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...Page\n  }\n  slug\n}\n\nfragment AppDevelopment on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(\n    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}\n  ) {\n    ...PageDevelopment\n  }\n  slug\n}\n\nfragment AppProduction on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {\n    ...PageProduction\n  }\n  slug\n}':
     types.AppPreviewFragmentDoc,
   'fragment Atom on Atom {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  externalCssSource\n  externalJsSource\n  externalSourceType\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  tags {\n    ...Tag\n  }\n  type\n}\n\nfragment AtomDevelopment on Atom {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  tags {\n    ...Tag\n  }\n  type\n}\n\nfragment AtomProduction on Atom {\n  __typename\n  externalCssSource\n  externalJsSource\n  externalSourceType\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  type\n}':
     types.AtomFragmentDoc,
@@ -34,7 +34,7 @@ const documents = {
     types.ElementFragmentDoc,
   'fragment HookProp on Prop {\n  data\n  id\n}\n\nfragment Hook on Hook {\n  config {\n    ...HookProp\n  }\n  element {\n    id\n    name\n  }\n  id\n  type\n}':
     types.HookPropFragmentDoc,
-  'fragment PagePreview on Page {\n  app {\n    id\n  }\n  id\n  kind\n  name\n  rootElement {\n    id\n  }\n  store {\n    id\n  }\n  urlPattern\n}\n\nfragment Page on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageDevelopment on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageProduction on Page {\n  app {\n    id\n  }\n  elements {\n    ...ElementProduction\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  slug\n  store {\n    ...Store\n  }\n  urlPattern\n}':
+  'fragment PagePreview on Page {\n  app {\n    id\n  }\n  id\n  kind\n  name\n  rootElement {\n    id\n  }\n  elements {\n    id\n  }\n  store {\n    id\n  }\n  urlPattern\n}\n\nfragment Page on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageDevelopment on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageProduction on Page {\n  app {\n    id\n  }\n  elements {\n    ...ElementProduction\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  slug\n  store {\n    ...Store\n  }\n  urlPattern\n}':
     types.PagePreviewFragmentDoc,
   'fragment Prop on Prop {\n  data\n  id\n}': types.PropFragmentDoc,
   'fragment Redirect on Redirect {\n  authGuard {\n    id\n  }\n  id\n  source {\n    id\n  }\n  targetPage {\n    id\n  }\n  targetType\n  targetUrl\n}':
@@ -83,12 +83,18 @@ const documents = {
   'fragment Owner on User {\n  id\n}': types.OwnerFragmentDoc,
   'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}':
     types.UserFragmentDoc,
-  '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
+  '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
     types.GetAppsListDocument,
   '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.CreateAppsDocument,
   '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteAppsDocument,
+  '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
+    types.UpdateAppsDocument,
+  '\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteElementsDocument,
+  '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeletePagesDocument,
 }
 
 /**
@@ -119,7 +125,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment AppPreview on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {kind: Provider}) {\n    ...PagePreview\n  }\n  slug\n}\n\nfragment App on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...Page\n  }\n  slug\n}\n\nfragment AppDevelopment on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(\n    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}\n  ) {\n    ...PageDevelopment\n  }\n  slug\n}\n\nfragment AppProduction on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {\n    ...PageProduction\n  }\n  slug\n}',
+  source: 'fragment AppPreview on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...PagePreview\n  }\n  slug\n}\n\nfragment App on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...Page\n  }\n  slug\n}\n\nfragment AppDevelopment on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(\n    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}\n  ) {\n    ...PageDevelopment\n  }\n  slug\n}\n\nfragment AppProduction on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {\n    ...PageProduction\n  }\n  slug\n}',
 ): typeof import('./graphql').AppPreviewFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -161,7 +167,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment PagePreview on Page {\n  app {\n    id\n  }\n  id\n  kind\n  name\n  rootElement {\n    id\n  }\n  store {\n    id\n  }\n  urlPattern\n}\n\nfragment Page on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageDevelopment on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageProduction on Page {\n  app {\n    id\n  }\n  elements {\n    ...ElementProduction\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  slug\n  store {\n    ...Store\n  }\n  urlPattern\n}',
+  source: 'fragment PagePreview on Page {\n  app {\n    id\n  }\n  id\n  kind\n  name\n  rootElement {\n    id\n  }\n  elements {\n    id\n  }\n  store {\n    id\n  }\n  urlPattern\n}\n\nfragment Page on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageDevelopment on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageProduction on Page {\n  app {\n    id\n  }\n  elements {\n    ...ElementProduction\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  slug\n  store {\n    ...Store\n  }\n  urlPattern\n}',
 ): typeof import('./graphql').PagePreviewFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -317,7 +323,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
+  source: '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
 ): typeof import('./graphql').GetAppsListDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -331,6 +337,24 @@ export function graphql(
 export function graphql(
   source: '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
 ): typeof import('./graphql').DeleteAppsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n',
+): typeof import('./graphql').UpdateAppsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): typeof import('./graphql').DeleteElementsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): typeof import('./graphql').DeletePagesDocument
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

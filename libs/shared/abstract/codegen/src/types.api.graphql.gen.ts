@@ -27297,6 +27297,7 @@ export type PagePreviewFragment = {
   urlPattern: string
   app: { id: string }
   rootElement: { id: string }
+  elements: Array<{ id: string }>
   store: { id: string }
 }
 

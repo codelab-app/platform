@@ -3,23 +3,30 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { createAppAction } from './create-app.action'
 import { createAppSchema } from './create-app.schema'
+import { createAppUseCase } from './create-app.use-case'
 import { useCreateAppModal } from './create-app-modal.state'
 
 export const CreateAppModal = () => {
   const createAppModal = useCreateAppModal()
+  const domainStore = useDomainStore()
 
-  const onSubmit = async (appDTO: ICreateAppData) => {
+  const onSubmit = async (data: ICreateAppData) => {
     closeModal()
 
-    await createAppAction(appDTO)
-
-    return Promise.resolve()
+    return await createAppUseCase(
+      {
+        id: data.id,
+        name: data.name,
+        owner: domainStore.userDomainService.user,
+      },
+      domainStore,
+    )
   }
 
   const closeModal = () => createAppModal.close()

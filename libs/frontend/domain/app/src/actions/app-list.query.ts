@@ -5,5 +5,8 @@ export const GetAppsListQuery = graphql(`
     apps(options: $options, where: $where) {
       ...AppPreview
     }
+    atoms(where: { type: ReactFragment }) {
+      ...AtomDevelopment
+    }
   }
 `)
