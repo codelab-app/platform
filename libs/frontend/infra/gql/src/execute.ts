@@ -1,6 +1,7 @@
 import { getEnv } from '@codelab/shared/config'
 import type { TypedDocumentString } from './graphql/graphql'
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import isArray from 'lodash/isArray'
 
 export const execute = async <TResult, TVariables>(
   document: TypedDocumentString<TResult, TVariables>,
@@ -17,14 +18,20 @@ export const execute = async <TResult, TVariables>(
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    next: { tags: [CACHE_TAGS.APP_LIST] },
+    next,
   })
 
   if (!response.ok) {
     throw new Error('Network response was not ok')
   }
 
-  const { data } = await response.json()
+  const json = await response.json()
+ 
+  const { data, errors } = json
+
+  if (isArray(errors) && errors.length) {
+    throw new Error(errors[0].message)
+  }
 
   return data as TResult
 }

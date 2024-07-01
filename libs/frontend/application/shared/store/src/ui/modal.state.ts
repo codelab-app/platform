@@ -6,14 +6,14 @@ interface ModalState<T = unknown> {
   isOpen: boolean
 }
 
-interface ModalsAtom {
-  [key: string]: ModalState
+interface ModalsAtom<T> {
+  [key: string]: ModalState<T>
 }
 
-const modalsAtom = atom<ModalsAtom>({})
+const modalsAtom = atom({})
 
 const useModalState = <T>(key: ModelActionKey) => {
-  const [modalState, setModalState] = useAtom(modalsAtom)
+  const [modalState, setModalState] = useAtom<ModalsAtom<T>>(modalsAtom)
 
   const open = (data: T) => {
     setModalState((state) => ({

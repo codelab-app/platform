@@ -1,2 +1,2 @@
-export * from './app-list.action'
+export { appListUseCase } from './app-list.use-case'
 export { AppList } from './AppList'

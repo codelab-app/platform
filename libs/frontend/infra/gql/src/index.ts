@@ -1,2 +1,3 @@
 export * from './execute'
-export * from './graphql'
+export * from './graphql/gql'
+export * from './graphql/graphql'

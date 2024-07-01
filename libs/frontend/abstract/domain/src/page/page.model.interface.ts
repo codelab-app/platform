@@ -22,6 +22,12 @@ export interface IPageModel
    */
   builderUrlInstance: string
   elements: Array<IElementModel>
+  /**
+   * a pre-computed descendant elements ids
+   * mainly used for deletePageUseCase to avoid element hydrating
+   */
+  elementsIds: Array<string>
+
   kind: IPageKind
   name: string
   /**

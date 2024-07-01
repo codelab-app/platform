@@ -5,6 +5,10 @@ import { IPageKind } from './page-kind.enum'
 
 export const PageDtoSchema = Type.Object({
   app: Typebox.Ref,
+  /**
+   * a pre-computed descendant elements ids
+   */
+  elements: Type.Optional(Type.Array(Typebox.Ref)),
   id: Type.String(),
   kind: Type.Enum(IPageKind),
   name: Type.String(),

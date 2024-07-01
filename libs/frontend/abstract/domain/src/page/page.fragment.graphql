@@ -11,6 +11,11 @@ fragment PagePreview on Page {
   rootElement {
     id
   }
+  #  a pre-computed descendant elements ids
+  #  mainly used for deletePageUseCase to avoid element hydrating
+  elements {
+    id
+  }
   store {
     id
   }
