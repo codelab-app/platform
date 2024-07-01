@@ -8,6 +8,7 @@ import {
   type IAppModel,
   type IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
+import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
 import { getDomainService } from '@codelab/frontend-application-domain/services'
 import {
@@ -20,7 +21,7 @@ import type {
   IAppAggregate,
   IUpdatePageData,
 } from '@codelab/shared/abstract/core'
-import { assertIsDefined, prettifyForConsole } from '@codelab/shared/utils'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -93,18 +94,7 @@ export class AppService
       restWebClient.get<IAppAggregate>(`app/export?id=${app.id}`),
     )
 
-    const filename = `${app.slug}.json`
-    const contentType = 'application/json;charset=utf-8;'
-    const a = document.createElement('a')
-
-    a.download = filename
-    a.href = `data:${contentType},${encodeURIComponent(
-      prettifyForConsole(res.data),
-    )}`
-    a.target = '_blank'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
+    downloadJsonAsFile(`${app.slug}.json`, res.data)
 
     return res
   })

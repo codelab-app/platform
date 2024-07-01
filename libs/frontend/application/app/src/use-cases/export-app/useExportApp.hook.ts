@@ -1,7 +1,6 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { restWebClient } from '@codelab/frontend-infra-axios'
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
-import { prettifyForConsole } from '@codelab/shared/utils'
+import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
 
 export const useExportApp = (app: IAppModel) => {
@@ -10,18 +9,7 @@ export const useExportApp = (app: IAppModel) => {
       `app/export?id=${app.id}`,
     )
 
-    const filename = `${app.slug}.json`
-    const contentType = 'application/json;charset=utf-8;'
-    const a = document.createElement('a')
-
-    a.download = filename
-    a.href = `data:${contentType},${encodeURIComponent(
-      prettifyForConsole(res.data),
-    )}`
-    a.target = '_blank'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
+    downloadJsonAsFile(`${app.slug}.json`, res.data)
 
     return res
   }, [app.id, app.slug])

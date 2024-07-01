@@ -1,6 +1,7 @@
 export * from './callback-with-params'
 export * from './client-cache'
 export * from './copy-text-to-clipboard'
+export * from './download-json-as-file'
 export * from './dynamic-loader'
 export * from './extract-error-message'
 export * from './graphql'

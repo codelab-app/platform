@@ -1,4 +1,3 @@
-import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import { type IExportDto, type IImportDto } from '@codelab/shared/abstract/core'
@@ -18,15 +17,16 @@ export class AdminController {
     private readonly commandBus: CommandBus,
     private readonly databaseService: DatabaseService,
     private seederApplicationService: SeederApplicationService,
-    private seederDomainService: SeederDomainService,
     protected loggerService: CodelabLoggerService,
   ) {}
 
   @Post('export')
   async export(@Body() exportDto: IExportDto) {
-    const { adminDataPath } = exportDto
+    const { adminDataPath, download } = exportDto
+    const exportCommand = new ExportAdminDataCommand(adminDataPath)
+    const data = await this.commandBus.execute(exportCommand)
 
-    await this.commandBus.execute(new ExportAdminDataCommand(adminDataPath))
+    return download ? data : null
   }
 
   @Post('import')

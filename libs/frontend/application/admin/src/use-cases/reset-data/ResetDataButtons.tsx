@@ -1,24 +1,17 @@
+'use client'
+
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { useAsync } from '@react-hookz/web'
 import { Button } from 'antd'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
+import { resetDatabaseAction } from './ResetData.action'
 
-export const ResetDataButtons = observer(() => {
-  const { adminService } = useStore()
+export const ResetDataButtons = () => {
   const router = useRouter()
-
-  const [{ status: resetDatabaseExceptUserStatus }, resetDatabaseExceptUser] =
-    useAsync(adminService.resetDatabaseExceptUser)
-
-  const [{ status: resetDatabaseStatus }, resetDatabase] = useAsync(
-    adminService.resetDatabase,
-  )
+  const [loading, setLoading] = useState(false)
 
   const onError = useErrorNotify({
     description: '',
@@ -33,31 +26,31 @@ export const ResetDataButtons = observer(() => {
   return (
     <>
       <Button
-        disabled={resetDatabaseStatus === 'loading'}
-        onClick={() =>
-          resetDatabase
-            .execute()
+        disabled={loading}
+        onClick={() => {
+          setLoading(true)
+
+          return resetDatabaseAction()
             .then(onSuccess)
             .catch(onError)
-            .then(() => {
-              router.push('/api/auth/logout')
-            })
-        }
+            .then(() => router.push('/api/auth/logout'))
+        }}
       >
         Reset Database
       </Button>
       {/* <Button
-        disabled={resetDatabaseExceptUserStatus === 'loading'}
-        onClick={() =>
-          resetDatabaseExceptUser
-            .execute()
+        disabled={loading}
+        onClick={() => {
+          setLoading(true)
+
+          return resetDatabaseExceptUserAction()
             .then(onSuccess)
             .catch(onError)
             .then(() => router.push('/api/auth/logout'))
-        }
+      }}
       >
         Reset Database Except User
       </Button> */}
     </>
   )
-})
+}
