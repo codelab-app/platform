@@ -1,8 +1,9 @@
 import type { ModalProps } from 'antd/lib/modal'
 import type { ReactElement } from 'react'
+import type { UnknownObject } from 'uniforms'
 import type { FormProps, SubmitRef } from './form'
 
-export type FormModalProps<TData> = ModalProps & {
+export type FormModalProps<TData extends UnknownObject> = ModalProps & {
   /**
    * SubmitRef is created inside modal, and passed down to form
    */

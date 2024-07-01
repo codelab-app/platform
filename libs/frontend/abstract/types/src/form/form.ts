@@ -3,12 +3,15 @@ import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { AutoFormProps, Bridge } from 'uniforms'
+import type { AutoFormProps, Bridge, UnknownObject } from 'uniforms'
 import type { ModelActionKey } from '../model'
 
 export type VoidCallback<TInput> = Callback<TInput, void>
 
-export type FormProps<TData, TResponse = unknown> = Partial<
+export type FormProps<
+  TData extends UnknownObject,
+  TResponse = unknown,
+> = Partial<
   Pick<
     AutoFormProps<TData>,
     'autosave' | 'modelTransform' | 'onChange' | 'onChangeModel' | 'submitField'

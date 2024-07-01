@@ -11,6 +11,7 @@ import {
   componentRef,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
+import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
 import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
@@ -28,7 +29,7 @@ import type {
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import { prettifyForConsole, slugify } from '@codelab/shared/utils'
+import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -130,18 +131,7 @@ export class ComponentApplicationService
       ),
     )
 
-    const filename = `${slugify(component.name)}.json`
-    const contentType = 'application/json;charset=utf-8;'
-    const a = document.createElement('a')
-
-    a.download = filename
-    a.href = `data:${contentType},${encodeURIComponent(
-      prettifyForConsole(res.data),
-    )}`
-    a.target = '_blank'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
+    downloadJsonAsFile(`${slugify(component.name)}.json`, res.data)
 
     return res
   })

@@ -1,36 +1,34 @@
+'use client'
+
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IImportDto } from '@codelab/shared/abstract/core'
 import {
   importDtoDefault,
   ImportDtoSchema,
 } from '@codelab/shared/abstract/core'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { importAdminDataAction } from './ImportAdminData.action'
+import { useImportAdminDataModal } from './ImportAdminDataModal.state'
 
-export const ImportAdminDataModal = observer(() => {
-  const { adminService } = useStore()
-
-  const closeModal = () => {
-    adminService.importDataModal.close()
-  }
+export const ImportAdminDataModal = () => {
+  const importDataModal = useImportAdminDataModal()
 
   return (
     <ModalForm.Modal
       okText="Import Admin Data"
-      onCancel={closeModal}
-      open={adminService.importDataModal.isOpen}
+      onCancel={importDataModal.close}
+      open={importDataModal.isOpen}
     >
       <ModalForm.Form<IImportDto>
         model={importDtoDefault}
-        onSubmit={(data) => adminService.importData(data)}
+        onSubmit={importAdminDataAction}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while importing data',
         })}
-        onSubmitSuccess={closeModal}
+        onSubmitSuccess={importDataModal.close}
         schema={ImportDtoSchema}
         uiKey={MODEL_ACTION.ImportDataAdmin.key}
       >
@@ -38,4 +36,4 @@ export const ImportAdminDataModal = observer(() => {
       </ModalForm.Form>
     </ModalForm.Modal>
   )
-})
+}
