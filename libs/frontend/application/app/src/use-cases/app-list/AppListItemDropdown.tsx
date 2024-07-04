@@ -42,7 +42,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const buildAppModal = useBuildAppModal()
   const onEditClick = () => updateAppModal.open(app)
   const onDeleteClick = () => deleteAppModal.open(app)
-  const onBuildClick = () => null
+  const onBuildClick = () => buildAppModal.open(app)
   const exportApp = useExportApp(app)
   const router = useRouter()
 

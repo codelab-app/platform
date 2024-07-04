@@ -13,23 +13,22 @@ export const useAppList = ({
   apps: Array<IAppDto>
   atoms: Array<IAtomDto>
 }): { apps: Array<IAppModel> } => {
-  const { appDomainService, atomDomainService, pageDomainService } =
-    useDomainStore()
+  const {
+    appDomainService,
+    atomDomainService,
+    domainDomainService,
+    pageDomainService,
+  } = useDomainStore()
 
   const hydrate = useCallback(() => {
-    apps
-      .flatMap((app) => {
-        appDomainService.hydrate(app)
+    apps.forEach((app) => appDomainService.hydrate(app))
+    atoms.forEach((atom) => atomDomainService.hydrate(atom))
 
-        return app.pages || []
-      })
-      .forEach((page) => {
-        pageDomainService.hydrate(page)
-      })
+    const pages = apps.flatMap((app) => app.pages ?? [])
+    const domains = apps.flatMap((app) => app.domains ?? [])
 
-    atoms.forEach((atom) => {
-      atomDomainService.hydrate(atom)
-    })
+    pages.forEach((page) => pageDomainService.hydrate(page))
+    domains.forEach((domain) => domainDomainService.hydrate(domain))
   }, [apps, atoms])
 
   useEffect(() => {
