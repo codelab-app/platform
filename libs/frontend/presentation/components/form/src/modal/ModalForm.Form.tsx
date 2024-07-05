@@ -1,15 +1,14 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
-import React, { useContext, useEffect, useState } from 'react'
-import type { UnknownObject } from 'uniforms'
-import { Bridge } from 'uniforms'
-import { AutoForm } from 'uniforms-antd'
-import { handleFormSubmit } from '../components/utils'
+import React, { useContext, useImperativeHandle, useRef } from 'react'
 import {
-  connectUniformSubmitRef,
-  createBridge,
-} from '../hooks/uniformUtils.hook'
+  type DefaultValues,
+  type FieldValues,
+  FormProvider,
+  useForm,
+} from 'react-hook-form'
+import { handleFormSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
 /**
@@ -19,52 +18,45 @@ import { ModalFormContext } from './modal-form.context'
  *
  * But using without `DeepPartial` causes some casting down the line
  */
-export const Form = <TData extends UnknownObject, TResponse = unknown>({
+export const Form = <TData extends FieldValues, TResponse = unknown>({
   autosave = false,
   children,
   model,
-  modelTransform,
-  onChange,
-  onChangeModel,
   onSubmit,
   onSubmitError = [],
   onSubmitSuccess = [],
   schema,
-}: React.PropsWithChildren<
-  Omit<FormProps<TData, TResponse>, 'submitRef'>
->): ReactElement => {
+}: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
   const { setIsLoading, submitRef } = useContext(ModalFormContext)
+  const formRef = useRef<HTMLFormElement>(null)
 
-  const [bridge, setBridge] = useState(
-    schema instanceof Bridge ? schema : createBridge<TData>(schema),
+  const methods = useForm<TData>({
+    defaultValues: model,
+  })
+
+  const throttledSubmit = throttle(
+    handleFormSubmit<TData, TResponse>(
+      onSubmit,
+      setIsLoading,
+      onSubmitSuccess,
+      onSubmitError,
+    ),
+    200,
   )
 
-  useEffect(() => {
-    setBridge(schema instanceof Bridge ? schema : createBridge<TData>(schema))
-  }, [schema])
+  useImperativeHandle(submitRef, () => ({
+    submit: () =>
+      formRef.current?.dispatchEvent(
+        new Event('submit', { bubbles: true, cancelable: true }),
+      ),
+    validate: methods.trigger,
+  }))
 
   return (
-    <AutoForm<TData>
-      autosave={autosave}
-      autosaveDelay={250}
-      model={model}
-      modelTransform={modelTransform}
-      onChange={onChange}
-      onChangeModel={onChangeModel}
-      onSubmit={throttle(
-        handleFormSubmit<TData, TResponse>(
-          onSubmit,
-          setIsLoading,
-          onSubmitSuccess,
-          onSubmitError,
-        ),
-        200,
-      )}
-      ref={connectUniformSubmitRef(submitRef)}
-      schema={bridge}
-      showInlineError
-    >
-      {children}
-    </AutoForm>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(throttledSubmit)} ref={formRef}>
+        {children}
+      </form>
+    </FormProvider>
   )
 }

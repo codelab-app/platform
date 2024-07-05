@@ -5,7 +5,7 @@ import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
-import { Bridge } from 'uniforms'
+import { Bridge, type UnknownObject } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
 import {
   connectUniformSubmitRef,
@@ -13,7 +13,7 @@ import {
 } from '../hooks/uniformUtils.hook'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
-  const Form = <TData, TResponse = unknown>({
+  const Form = <TData extends UnknownObject, TResponse = unknown>({
     autosave = false,
     children,
     cssString,

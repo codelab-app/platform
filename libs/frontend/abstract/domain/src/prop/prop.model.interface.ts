@@ -10,19 +10,19 @@ import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IInterfaceTypeModel } from '../type'
 
-export interface IPropModel
+export interface IPropModel<T extends IPropData = IPropData>
   extends IModel<PropCreateInput, PropUpdateInput, void, IProp>,
-    ICacheService<IPropDto, IPropModel> {
+    ICacheService<IPropDto, T> {
   api?: Nullable<Ref<IInterfaceTypeModel>>
-  data: Frozen<Nullable<IPropData>>
+  data: Frozen<Nullable<T>>
   jsonString: string
-  values: IPropData
+  values: T
 
-  clone(): IPropModel
+  clone(): T
   delete(key: string): void
   get(key: string): unknown
   set(key: string, value: boolean | object | string): void
-  setMany(data: IPropData): void
+  setMany(data: T): void
 }
 
 export interface IPropDataByElementId {

@@ -4,27 +4,27 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {}
     },
-    // {
-    //   "plugins": ["react"],
-    //   "files": ["*.tsx"],
-    //   "rules": {
-    //     "unicorn/filename-case": [
-    //       "error",
-    //       {
-    //         "cases": {
-    //           "camelCase": false,
-    //           "pascalCase": true
-    //         },
-    //         "ignore": [
-    //           ".*\\.hook\\.tsx?$",
-    //           ".*\\.stories\\.tsx?$",
-    //           ".*\\.spec\\.tsx?$",
-    //           "preview.tsx"
-    //         ]
-    //       }
-    //     ]
-    //   }
-    // },
+    {
+      "plugins": ["react"],
+      "files": ["*.tsx"],
+      "rules": {
+        "unicorn/filename-case": [
+          "error",
+          {
+            "cases": {
+              "camelCase": false,
+              "pascalCase": true
+            },
+            "ignore": [
+              ".*\\.hook\\.tsx?$",
+              ".*\\.stories\\.tsx?$",
+              ".*\\.spec\\.tsx?$",
+              "preview.tsx"
+            ]
+          }
+        ]
+      }
+    },
     {
       "files": ["*.hook.ts", "*.hook.tsx"],
       "rules": {

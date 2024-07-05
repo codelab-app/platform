@@ -20,15 +20,19 @@ export const UpdateAuthGuardForm = observer(() => {
   const { authGuardService, resourceService } = useStore()
   const authGuard = authGuardService.updateForm.authGuard
 
+  if (!authGuard) {
+    return null
+  }
+
   const model = {
     config: {
-      data: authGuard?.config.values,
-      id: authGuard?.config.id,
+      data: authGuard.config.values,
+      id: authGuard.config.id,
     },
-    id: authGuard?.id,
-    name: authGuard?.name,
-    resource: authGuard?.resource,
-    responseTransformer: authGuard?.responseTransformer,
+    id: authGuard.id,
+    name: authGuard.name,
+    resource: authGuard.resource,
+    responseTransformer: authGuard.responseTransformer,
   }
 
   const onSubmit = (authGuardDto: IUpdateAuthGuardData) => {
@@ -38,7 +42,7 @@ export const UpdateAuthGuardForm = observer(() => {
   }
 
   const getResource = (context: Context<IUpdateAuthGuardData>) =>
-    context.model.resource?.id
+    context.model.resource.id
       ? resourceService.resource(context.model.resource.id)
       : null
 

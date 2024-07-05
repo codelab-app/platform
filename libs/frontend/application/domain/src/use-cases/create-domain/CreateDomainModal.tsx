@@ -48,7 +48,7 @@ export const CreateDomainModal = observer(() => {
       onCancel={closeModal}
       open={domainService.createModal.isOpen}
     >
-      <ModalForm.Form
+      <ModalForm.Form<ICreateDomainData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

@@ -29,8 +29,8 @@
     "JQueryStatic": "readonly"
   },
   "extends": [
-    "plugin:canonical/recommended",
     "plugin:prettier/recommended",
+    "plugin:canonical/recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/strict",
     // "plugin:@typescript-eslint/strict-type-checked",
@@ -44,7 +44,7 @@
     "./scripts/eslint/.base.eslintrc.json",
     "./scripts/eslint/.nx.eslintrc.json",
     "./scripts/eslint/.globals.eslintrc.json",
-    "./scripts/eslint/.spacing.eslintrc.json",
+    "./scripts/eslint/.format.eslintrc.json",
     "./scripts/eslint/.naming.eslintrc.json",
     "./scripts/eslint/.codelab.eslintrc.json",
     "./scripts/eslint/.sorting.eslintrc.json",

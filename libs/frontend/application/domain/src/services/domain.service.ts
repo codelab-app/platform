@@ -21,15 +21,15 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { DomainRepository } from './domain.repo'
 import { DomainModalService } from './domain-modal.service'
-import { DomainRepository } from './index'
 
 @model('@codelab/DomainService')
 export class DomainService
   extends Model({
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new DomainModalService({})),
-    // domainRepository: prop(() => new DomainRepository({})),
+    domainRepository: prop(() => new DomainRepository()),
     domains: prop(() => objectMap<Domain>()),
     updateModal: prop(() => new DomainModalService({})),
   })

@@ -4,10 +4,10 @@ import type {
   ICreateAtomData,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import type { DefaultOptionType } from 'antd/lib/select'
+import type { DefaultOptionType, OptionProps } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
-import type { GuaranteedProps } from 'uniforms'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -39,8 +39,8 @@ export interface IAtomService
 
   delete(ids: Array<string>): Promise<number>
   getSelectAtomOptions(
-    fieldProps: GuaranteedProps<string | undefined>,
+    fieldProps: SelectOption,
     parent: IAtomModel | undefined,
-  ): Promise<Array<DefaultOptionType>>
+  ): Promise<Array<SelectOption>>
   loadApi(atomId: string): Promise<void>
 }

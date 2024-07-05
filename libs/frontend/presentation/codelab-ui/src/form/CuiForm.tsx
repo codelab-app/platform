@@ -1,34 +1,33 @@
-import { StyleProvider } from '@ant-design/cssinjs'
-import Form, { Theme as AntDTheme } from '@rjsf/antd'
-import type { FormProps } from '@rjsf/core'
-import { withTheme } from '@rjsf/core'
-import validator from '@rjsf/validator-ajv8'
-import { Button } from 'antd'
-import merge from 'lodash/merge'
-import React from 'react'
-import { extractUiSchema } from './extract-ui-schema'
+import type { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
+import { useForm } from 'react-hook-form'
 
-const ThemedForm = withTheme(AntDTheme)
+interface FormProps {
+  children: ReactNode
+  defaultValues: Record<string, any>
+  onSubmit(data: Record<string, any>): void
+}
 
-export const CuiForm = (props: FormProps) => {
-  const { onChange, onError, onSubmit, schema, uiSchema = {} } = props
-  const extractedUiSchema = extractUiSchema(schema)
+export const CuiForm = ({ children, defaultValues, onSubmit }: FormProps) => {
+  const { handleSubmit, register } = useForm({
+    defaultValues,
+  })
 
   return (
-    <StyleProvider>
-      <Form
-        // onChange={onChange}
-        // onError={onError}
-        // onSubmit={onSubmit}
-        schema={schema}
-        uiSchema={merge(extractedUiSchema, uiSchema)}
-        validator={validator}
-      >
-        <Button htmlType="submit" type="primary">
-          Submit
-        </Button>
-        <Button htmlType="button">Cancel</Button>
-      </Form>
-    </StyleProvider>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child) && child.props.name) {
+          return React.createElement(child.type, {
+            ...{
+              ...child.props,
+              key: child.props.name,
+              register: register,
+            },
+          })
+        }
+
+        return child
+      })}
+    </form>
   )
 }
