@@ -1,11 +1,14 @@
 {
   "extends": ["plugin:@nx/react", "../../../../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
+  "ignorePatterns": ["!**/*", "storybook-static"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/cui/ui/molecules/tsconfig.*?.json"]
+        "project": [
+          "libs/frontend/cui/ui/molecules/tsconfig.*?.json",
+          "libs/frontend/cui/ui/molecules/tsconfig.storybook.json"
+        ]
       },
       "rules": {
         "react/jsx-props-no-spreading": "off"

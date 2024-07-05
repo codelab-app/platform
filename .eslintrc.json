@@ -39,8 +39,8 @@
     // https://www.npmjs.com/package/eslint-plugin-import
     // "plugin:lodash/recommended"
     "eslint:recommended",
-    // "plugin:import/recommended",
     "plugin:import/typescript",
+    "plugin:import/recommended",
     "./scripts/eslint/.base.eslintrc.json",
     "./scripts/eslint/.nx.eslintrc.json",
     "./scripts/eslint/.globals.eslintrc.json",

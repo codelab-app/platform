@@ -1,12 +1,12 @@
 'use client'
 
-import { Button } from '@cui/components/ui/button'
 import { cn } from '@cui/utils'
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons'
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react'
 import * as React from 'react'
+import { Button } from './Button'
 
 type CarouselApi = UseEmblaCarouselType[1]
 

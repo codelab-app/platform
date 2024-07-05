@@ -1,5 +1,3 @@
-import type { ButtonProps } from '@cui/components/ui/button'
-import { buttonVariants } from '@cui/components/ui/button'
 import { cn } from '@cui/utils'
 import {
   ChevronLeftIcon,
@@ -7,6 +5,7 @@ import {
   DotsHorizontalIcon,
 } from '@radix-ui/react-icons'
 import * as React from 'react'
+import { type ButtonProps, buttonVariants } from './Button'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
