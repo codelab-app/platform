@@ -1,3 +1,5 @@
+'use client'
+
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'

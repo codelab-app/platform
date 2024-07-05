@@ -1,3 +1,5 @@
+'use client'
+
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 

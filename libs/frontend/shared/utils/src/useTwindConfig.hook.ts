@@ -1,3 +1,5 @@
+'use client'
+
 import install from '@twind/with-next/app'
 import { useEffect } from 'react'
 

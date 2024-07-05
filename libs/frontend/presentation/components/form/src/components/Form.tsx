@@ -1,3 +1,5 @@
+'use client'
+
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { CY_DATA } from '@codelab/frontend-application-shared-data'
