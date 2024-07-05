@@ -1,3 +1,5 @@
+'use client'
+
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'

@@ -1,3 +1,5 @@
+'use client'
+
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import {

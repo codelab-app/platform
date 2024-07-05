@@ -1,3 +1,5 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'

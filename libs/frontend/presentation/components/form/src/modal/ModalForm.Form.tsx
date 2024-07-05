@@ -1,3 +1,5 @@
+'use client'
+
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
