@@ -8,7 +8,7 @@ export type IDomainsView = CodelabPage<DashboardTemplateProps>
 
 export const DomainsViewLayout: IDomainsView['Layout'] = ({ children }) => {
   return (
-    <DynamicDashboardTemplate Header={DomainsViewHeader}>
+    <DynamicDashboardTemplate Header={<DomainsViewHeader />}>
       {children}
     </DynamicDashboardTemplate>
   )

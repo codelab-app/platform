@@ -13,7 +13,7 @@ export const AuthGuardsViewLayout: IAuthGuardsView['Layout'] = observer(
   ({ children }) => {
     return (
       <DynamicDashboardTemplate
-        Header={AuthGuardsViewHeader}
+        Header={<AuthGuardsViewHeader />}
         PrimarySidebar={{
           default: ExplorerPaneType.AuthGuards,
           items: [

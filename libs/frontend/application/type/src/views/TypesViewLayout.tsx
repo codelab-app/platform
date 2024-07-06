@@ -13,7 +13,7 @@ export const TypesViewLayout: ITypesView['Layout'] = observer(
   ({ children }) => {
     return (
       <DynamicDashboardTemplate
-        Header={TypesViewHeader}
+        Header={<TypesViewHeader />}
         PrimarySidebar={{
           default: PageType.Type,
           items: [

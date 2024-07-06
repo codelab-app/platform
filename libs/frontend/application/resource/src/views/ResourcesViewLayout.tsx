@@ -13,7 +13,7 @@ export const ResourcesViewLayout: IResourcesView['Layout'] = observer(
   ({ children }) => {
     return (
       <DynamicDashboardTemplate
-        Header={ResourcesViewHeader}
+        Header={<ResourcesViewHeader />}
         PrimarySidebar={{
           default: ExplorerPaneType.ResourceList,
           items: [
