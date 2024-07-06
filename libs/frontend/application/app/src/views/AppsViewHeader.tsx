@@ -1,3 +1,5 @@
+'use client'
+
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'

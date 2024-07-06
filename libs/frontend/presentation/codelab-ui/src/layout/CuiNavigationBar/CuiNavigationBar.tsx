@@ -1,3 +1,5 @@
+'use client'
+
 import { CY_DATA } from '@codelab/frontend-application-shared-data'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'

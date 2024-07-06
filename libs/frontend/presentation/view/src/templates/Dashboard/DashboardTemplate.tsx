@@ -1,7 +1,6 @@
 'use client'
 
 import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -17,20 +16,17 @@ const { Sider } = Layout
 
 export const DashboardTemplate = observer(
   ({
+    appSlug,
     children,
+    componentSlug,
     ConfigPane,
     contentStyles,
     Header,
+    pageSlug,
     PrimarySidebar,
+    userSlug,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
-    const { routerService } = useStore()
     const { primarySidebarKey } = useUrl()
-    const { appSlug, componentSlug, pageSlug, userSlug } = routerService
-
-    // const { appSlug } = useAppQuery()
-    // const { pageSlug } = usePageQuery()
-    // const { userSlug } = useUserQuery()
-    // const { componentSlug } = useCurrentComponent()
 
     const navigationBarItems = useMemo(
       () =>
@@ -40,7 +36,7 @@ export const DashboardTemplate = observer(
           pageSlug,
           userSlug,
         }),
-      [appSlug, pageSlug, componentSlug],
+      [appSlug, pageSlug, componentSlug, userSlug],
     )
 
     const activeSidebarKey =
@@ -51,8 +47,8 @@ export const DashboardTemplate = observer(
     )?.render
 
     return (
-      <Layout className="max-h-full min-h-full">
-        {Header && <Header />}
+      <Layout className="h-full">
+        {Header}
         {/*
           Need explicitly set `hasSider` prop to avoid flickering
           see AntD documentation or https://github.com/ant-design/ant-design/issues/8937
