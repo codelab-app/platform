@@ -6,14 +6,12 @@ import {
 } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { HttpException } from '@nestjs/common'
-import { useAsync } from '@react-hookz/web'
-import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 
 export const ImportAppDialog = observer(() => {
   const { appService } = useStore()
-  const [{ status }, importApp] = useAsync(appService.importApp)
+  // const [{ status }, importApp] = useAsync(appService.importApp)
 
   const onError = useErrorNotify({
     description: (event: HttpException) => {
@@ -37,13 +35,13 @@ export const ImportAppDialog = observer(() => {
     const appDataFile = files?.[0]
 
     if (appDataFile) {
-      await importApp.execute(appDataFile).then(onSuccess).catch(onError)
+      // await importApp.execute(appDataFile).then(onSuccess).catch(onError)
     }
   }
 
   return (
     <>
-      {status === 'loading' && <Spin className="mr-2" />}
+      {/* {status === 'loading' && <Spin className="mr-2" />} */}
       <ImportOutlined onClick={onClick} />
       <input
         accept=".json"
