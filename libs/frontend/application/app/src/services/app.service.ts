@@ -16,7 +16,7 @@ import {
   PageRepository,
 } from '@codelab/frontend-application-page/services'
 import { restWebClient } from '@codelab/frontend-infra-axios'
-import type { App, AppWhere } from '@codelab/shared/abstract/codegen'
+import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import type {
   IAppAggregate,
   IUpdatePageData,
@@ -123,23 +123,6 @@ export class AppService
       label: app.name,
       value: app.id,
     }))
-  })
-
-  @modelFlow
-  importApp = _async(function* (this: AppService, appDataFile: File) {
-    const formData = new FormData()
-
-    formData.append('file', appDataFile)
-
-    return yield* _await(
-      restWebClient
-        .post<App>('/app/import', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then(({ data }) => {
-          return this.loadAppsPreview({ id: data.id })
-        }),
-    )
   })
 
   /**

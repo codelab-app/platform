@@ -9,14 +9,13 @@ import {
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Image } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useCreateAppModal } from '../use-cases/create-app/create-app-modal.state'
 import { ImportAppDialog } from '../use-cases/import-app'
 
-export const AppsViewHeader = observer(() => {
-  const { appService } = useStore()
+export const AppsViewHeader = () => {
+  const createModal = useCreateAppModal()
 
   const toolbarItems: Array<ToolbarItem> = [
     {
@@ -27,7 +26,7 @@ export const AppsViewHeader = observer(() => {
     {
       cuiKey: MODEL_ACTION.CreateApp.key,
       icon: <PlusOutlined />,
-      onClick: () => appService.createModal.open(),
+      onClick: () => createModal.open(undefined),
       title: 'Create an App',
     },
     {
@@ -57,4 +56,4 @@ export const AppsViewHeader = observer(() => {
       }
     />
   )
-})
+}
