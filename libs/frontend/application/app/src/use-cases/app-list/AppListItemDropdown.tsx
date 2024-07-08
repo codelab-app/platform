@@ -89,9 +89,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
       icon: <ExportOutlined style={menuItemIconStyle} />,
       key: 'export',
       label: 'Export',
-      onClick: async () => {
-        await exportApp()
-      },
+      onClick: exportApp,
       style: menuItemStyle,
     },
   ]

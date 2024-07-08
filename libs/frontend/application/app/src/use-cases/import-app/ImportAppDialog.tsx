@@ -4,16 +4,13 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { HttpException } from '@nestjs/common'
-import { useAsync } from '@react-hookz/web'
 import { Spin } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useImportApp } from './useImportApp.hook'
 
-export const ImportAppDialog = observer(() => {
-  const { appService } = useStore()
-  const [{ status }, importApp] = useAsync(appService.importApp)
+export const ImportAppDialog = () => {
+  const [loading, importApp] = useImportApp()
 
   const onError = useErrorNotify({
     description: (event: HttpException) => {
@@ -23,8 +20,8 @@ export const ImportAppDialog = observer(() => {
   })
 
   const onSuccess = useSuccessNotify({
-    description: (event: Array<IAppModel>) => {
-      return `App ${event[0]?.name} imported successfully`
+    description: (app?: IAppModel) => {
+      return `App ${app?.name} imported successfully`
     },
     title: 'App imported successfully',
   })
@@ -37,13 +34,13 @@ export const ImportAppDialog = observer(() => {
     const appDataFile = files?.[0]
 
     if (appDataFile) {
-      await importApp.execute(appDataFile).then(onSuccess).catch(onError)
+      await importApp(appDataFile).then(onSuccess).catch(onError)
     }
   }
 
   return (
     <>
-      {status === 'loading' && <Spin className="mr-2" />}
+      {loading && <Spin className="mr-2" />}
       <ImportOutlined onClick={onClick} />
       <input
         accept=".json"
@@ -54,4 +51,4 @@ export const ImportAppDialog = observer(() => {
       />
     </>
   )
-})
+}

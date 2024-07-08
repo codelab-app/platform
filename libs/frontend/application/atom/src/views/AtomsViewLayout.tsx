@@ -11,7 +11,7 @@ export type IAtomsView = CodelabPage<DashboardTemplateProps>
 export const AtomsViewLayout: IAtomsView['Layout'] = ({ children }) => {
   return (
     <DynamicDashboardTemplate
-      Header={AtomsViewHeader}
+      Header={<AtomsViewHeader />}
       PrimarySidebar={{
         default: PageType.Atoms,
         items: [

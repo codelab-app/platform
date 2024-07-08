@@ -21,7 +21,7 @@ export const Providers = ({
         <AntdRegistry>
           <Provider>
             <StoreProvider user={user}>
-              <App>{children}</App>
+              <App className="h-full">{children}</App>
             </StoreProvider>
           </Provider>
         </AntdRegistry>

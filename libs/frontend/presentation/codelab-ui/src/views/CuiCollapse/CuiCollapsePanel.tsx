@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiCollapsePanelContent } from './CuiCollapsePanelContent'

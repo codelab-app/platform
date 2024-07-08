@@ -1,3 +1,5 @@
+'use client'
+
 import type { ModelUiKey } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 import React, { useRef } from 'react'

@@ -8,7 +8,7 @@ export type ILambdasView = CodelabPage<DashboardTemplateProps>
 
 export const LambdasViewLayout: ILambdasView['Layout'] = ({ children }) => {
   return (
-    <DynamicDashboardTemplate Header={LambdasViewHeader}>
+    <DynamicDashboardTemplate Header={<LambdasViewHeader />}>
       {children}
     </DynamicDashboardTemplate>
   )

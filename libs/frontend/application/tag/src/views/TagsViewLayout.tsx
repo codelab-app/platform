@@ -19,7 +19,7 @@ export const TagsViewLayout: ITagsView['Layout'] = ({ children }) => {
 
   return (
     <DynamicDashboardTemplate
-      Header={TagsViewHeader}
+      Header={<TagsViewHeader />}
       PrimarySidebar={memoizedPrimarySidebar}
     >
       {children}

@@ -26,7 +26,7 @@ const ComponentPreviewView: CodelabPage = observer(() => {
   }, [component?.name])
 
   return (
-    <DynamicDashboardTemplate Header={PageDetailHeader}>
+    <DynamicDashboardTemplate Header={<PageDetailHeader />}>
       <Head>
         <title>{component?.name} | Preview | Codelab</title>
       </Head>

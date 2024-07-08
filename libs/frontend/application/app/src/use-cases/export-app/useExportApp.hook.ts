@@ -1,16 +1,14 @@
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
-import { restWebClient } from '@codelab/frontend-infra-axios'
-import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
+import { exportAppAction } from './export-app.action'
 
 export const useExportApp = (app: IAppModel) => {
   return useCallback(async () => {
-    const res = await restWebClient.get<Promise<IAppAggregate>>(
-      `app/export?id=${app.id}`,
-    )
+    const data = await exportAppAction(app.id)
 
-    downloadJsonAsFile(`${app.slug}.json`, res.data)
+    downloadJsonAsFile(`${app.slug}.json`, data)
 
-    return res
+    return data
   }, [app.id, app.slug])
 }

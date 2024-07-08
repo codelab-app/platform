@@ -1,3 +1,5 @@
+'use client'
+
 import type { UrlParams } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
