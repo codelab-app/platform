@@ -7,7 +7,9 @@ import {
   ImportAdminDataModal,
 } from '@codelab/frontend-application-admin/use-cases/import-data'
 import { ResetDataButtons } from '@codelab/frontend-application-admin/use-cases/reset-data'
+import { AdminViewHeader } from '@codelab/frontend-application-admin/views'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
+import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { Space } from 'antd'
 import type { Metadata } from 'next'
 import React from 'react'
@@ -18,17 +20,19 @@ export const metadata: Metadata = {
 
 const AdminView = async () => {
   return (
-    <ContentSection>
-      <Space>
-        <ExportAdminDataButton />
-        <ExportAdminDataModal />
+    <DashboardTemplate Header={<AdminViewHeader />}>
+      <ContentSection>
+        <Space>
+          <ExportAdminDataButton />
+          <ExportAdminDataModal />
 
-        <ImportAdminDataButton />
-        <ImportAdminDataModal />
+          <ImportAdminDataButton />
+          <ImportAdminDataModal />
 
-        <ResetDataButtons />
-      </Space>
-    </ContentSection>
+          <ResetDataButtons />
+        </Space>
+      </ContentSection>
+    </DashboardTemplate>
   )
 }
 

@@ -7,11 +7,7 @@ import { PageDetailHeader } from './PageDetailHeader'
 export const PagePreviewViewLayout: CodelabPage['Layout'] = observer(
   ({ children }) => {
     return (
-      <DynamicDashboardTemplate
-        Header={observer(() => (
-          <PageDetailHeader />
-        ))}
-      >
+      <DynamicDashboardTemplate Header={<PageDetailHeader />}>
         {children}
       </DynamicDashboardTemplate>
     )

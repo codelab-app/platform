@@ -1,3 +1,5 @@
+'use client'
+
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import { Button, Dropdown, Menu } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'

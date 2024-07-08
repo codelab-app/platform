@@ -41,7 +41,7 @@ const ComponentBuilderView: CodelabPage = observer(() => {
           <ConfigPaneInspectorTabContainer />
         </SkeletonWrapper>
       )}
-      Header={PageDetailHeader}
+      Header={<PageDetailHeader />}
       PrimarySidebar={{
         default: ExplorerPaneType.Explorer,
         items: [

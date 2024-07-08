@@ -1,3 +1,5 @@
+'use client'
+
 import DownOutlined from '@ant-design/icons/DownOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import { CY_DATA } from '@codelab/frontend-application-shared-data'

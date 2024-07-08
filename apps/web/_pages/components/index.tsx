@@ -12,7 +12,7 @@ import React from 'react'
 const ComponentsView: CodelabPage = observer(() => {
   return (
     <DynamicDashboardTemplate
-      Header={ComponentDetailHeader}
+      Header={<ComponentDetailHeader />}
       PrimarySidebar={{
         default: ExplorerPaneType.Components,
         items: [

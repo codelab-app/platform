@@ -34,7 +34,7 @@ export const AppList = observer<AppListProps>((props) => {
 
   return (
     <Row gutter={[padding.sm, padding.sm]}>
-      {appDomainService.appsList.map((app) => (
+      {apps.map((app) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <Col key={app.id} {...threeGridCol}>
           <AppListItem app={app} />
