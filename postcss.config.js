@@ -1,5 +1,4 @@
 /* eslint-disable */
-const { join } = require('path')
 
 module.exports = {
   plugins: {
@@ -13,4 +12,5 @@ module.exports = {
     // 'postcss-import': {},
     // // Required for scss like rules for .css files
   },
+  // plugins: [require('tailwindcss'), require('tailwindcss/nesting')],
 }

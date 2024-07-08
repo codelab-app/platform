@@ -41,14 +41,14 @@
     "eslint:recommended",
     "plugin:import/typescript",
     "plugin:import/recommended",
-    "./scripts/eslint/.base.eslintrc.json",
     "./scripts/eslint/.nx.eslintrc.json",
     "./scripts/eslint/.globals.eslintrc.json",
     "./scripts/eslint/.format.eslintrc.json",
     "./scripts/eslint/.naming.eslintrc.json",
     "./scripts/eslint/.codelab.eslintrc.json",
     "./scripts/eslint/.sorting.eslintrc.json",
-    "./scripts/eslint/.codegen.eslintrc.json"
+    "./scripts/eslint/.codegen.eslintrc.json",
+    "./scripts/eslint/.base.eslintrc.json"
   ],
   // Used for import plugin
   "settings": {

@@ -42,7 +42,7 @@ export const UpdateAuthGuardForm = observer(() => {
   }
 
   const getResource = (context: Context<IUpdateAuthGuardData>) =>
-    context.model.resource.id
+    context.model.resource?.id
       ? resourceService.resource(context.model.resource.id)
       : null
 

@@ -93,7 +93,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 key={runtimeElement.compositeKey}
                 model={propsModel}
                 onSubmit={onSubmit}
-                submitField={React.Fragment}
+                submitField={<></>}
                 submitRef={submitRef}
               />
             </Col>

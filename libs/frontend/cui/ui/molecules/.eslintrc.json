@@ -5,10 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": [
-          "libs/frontend/cui/ui/molecules/tsconfig.*?.json",
-          "libs/frontend/cui/ui/molecules/tsconfig.storybook.json"
-        ]
+        "project": ["libs/frontend/cui/ui/molecules/tsconfig.*?.json"]
       },
       "rules": {
         "react/jsx-props-no-spreading": "off"

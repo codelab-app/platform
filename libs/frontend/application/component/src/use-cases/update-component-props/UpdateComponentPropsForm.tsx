@@ -9,7 +9,7 @@ import { filterEmptyStrings } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 
 export interface UpdateComponentPropsFormProps {
   runtimeComponent: IRuntimeComponentModel
@@ -56,7 +56,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
                 key={component.id}
                 model={propsModel}
                 onSubmit={onSubmit}
-                submitField={React.Fragment}
+                submitField={<></>}
               />
             </Col>
             <Col span={24}>

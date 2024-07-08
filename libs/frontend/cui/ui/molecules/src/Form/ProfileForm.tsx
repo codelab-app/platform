@@ -17,8 +17,11 @@ import { type Static, Type } from '@sinclair/typebox'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import type { z } from 'zod'
+import { CuiForm } from './CuiForm'
+import { CuiFormField } from './CuiFormField'
 
 const formSchema = Type.Object({
+  email: Type.String({}),
   username: Type.String({
     errorMessage: 'Username must be at least 2 characters.',
     minLength: 2,
@@ -30,6 +33,7 @@ type ProfileFormSchema = Static<typeof formSchema>
 export const ProfileForm = () => {
   const form = useForm<ProfileFormSchema>({
     defaultValues: {
+      email: '',
       username: '',
     },
     resolver: typeboxResolver(formSchema),
@@ -40,26 +44,10 @@ export const ProfileForm = () => {
   }
 
   return (
-    <Form {...form}>
-      <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <CuiForm<ProfileFormSchema> form={form} onSubmit={onSubmit}>
+      <CuiFormField<ProfileFormSchema> form={form} name="username" />
+      <CuiFormField<ProfileFormSchema> form={form} name="email" />
+      <Button type="submit">Submit</Button>
+    </CuiForm>
   )
 }
