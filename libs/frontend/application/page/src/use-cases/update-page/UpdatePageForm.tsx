@@ -3,7 +3,10 @@ import {
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -15,6 +18,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
+import { updatePageUseCase } from './update-page.use-case'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
@@ -29,10 +33,12 @@ export const UpdatePageForm = observer(
     submitRef,
   }: CreatePageFormProps) => {
     const { appService, pageService } = useStore()
+    const domainStore = useDomainStore()
     const pageToUpdate = pageService.updateForm.page
     const closeForm = () => pageService.updateForm.close()
 
     const onSubmit = (data: IUpdatePageData) => {
+      void updatePageUseCase(data, domainStore)
       void appService.updatePage(data)
       closeForm()
       onSubmitSuccess?.()

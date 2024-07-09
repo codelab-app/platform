@@ -1,13 +1,12 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import {
-  refreshAppListAction,
-  updateAppAction,
-} from '@codelab/frontend-domain-app/actions'
 import type { IAppDto } from '@codelab/shared/abstract/core'
+import { refreshAppListAction } from '../app-list'
+import { updateAppAction } from './update-app.action'
 
 export const updateAppUseCase = async (app: IAppModel, update: IAppDto) => {
   app.writeCache(update)
-  await updateAppAction({ id: app.id }, app.toUpdateInput())
+
+  await updateAppAction({ update: app.toUpdateInput(), where: { id: app.id } })
 
   await refreshAppListAction()
 }

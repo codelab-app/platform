@@ -48,12 +48,12 @@ export const useRegeneratePages = ({ domainService }: IDomainStore) => {
     try {
       setIsRegenerating(true)
 
-      let domains = this.domainService.domainsList.filter(
+      let domains = domainService.domainsList.filter(
         (_domain) => _domain.app.id === app.id,
       )
 
       if (!domains.length) {
-        domains = await this.domainService.getAll({ app: { id: app.id } })
+        domains = await domainService.getAll({ app: { id: app.id } })
       }
 
       for (const domain of domains) {

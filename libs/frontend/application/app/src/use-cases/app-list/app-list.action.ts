@@ -1,11 +1,23 @@
 'use server'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import type { GetAppsListQueryVariables } from '@codelab/frontend/infra/gql'
-import { execute } from '@codelab/frontend/infra/gql'
+import {
+  execute,
+  type GetAppsListQueryVariables,
+  graphql,
+} from '@codelab/frontend/infra/gql'
 import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
-import { revalidateTag } from 'next/cache'
-import { GetAppsListQuery } from './app-list.query'
+
+const GetAppsListQuery = graphql(`
+  query GetAppsList($options: AppOptions, $where: AppWhere) {
+    apps(options: $options, where: $where) {
+      ...AppPreview
+    }
+    atoms(where: { type: ReactFragment }) {
+      ...AtomDevelopment
+    }
+  }
+`)
 
 export const appListAction = async ({
   options,
@@ -25,5 +37,3 @@ export const appListAction = async ({
 
   return { apps, atoms }
 }
-
-export const refreshAppListAction = () => revalidateTag(CACHE_TAGS.PAGE_LIST)

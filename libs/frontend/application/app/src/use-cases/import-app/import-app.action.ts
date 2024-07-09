@@ -1,8 +1,8 @@
 'use server'
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { refreshAppListAction } from '@codelab/frontend-domain-app/actions'
 import { getAuthenticatedApiClient } from '@codelab/frontend-infra-axios'
+import { refreshAppListAction } from '../app-list'
 
 export const importAppAction = async (appData: string) => {
   const apiClient = await getAuthenticatedApiClient()

@@ -27734,13 +27734,6 @@ export type UpdateAppsMutationVariables = Exact<{
 
 export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
 
-export type DeleteAppsMutationVariables = Exact<{
-  where: AppWhere
-  delete?: InputMaybe<AppDeleteInput>
-}>
-
-export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
-
 export type GetAppsQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
@@ -28008,15 +28001,6 @@ export type DeletePagesMutationVariables = Exact<{
 }>
 
 export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
-
-export type UpdatePagesMutationVariables = Exact<{
-  where?: InputMaybe<PageWhere>
-  update?: InputMaybe<PageUpdateInput>
-}>
-
-export type UpdatePagesMutation = {
-  updatePages: { pages: Array<{ id: string }> }
-}
 
 export type GetPagesQueryVariables = Exact<{
   options?: InputMaybe<PageOptions>

@@ -1,3 +1,5 @@
+'use client'
+
 import type { PageHeaderProps } from '@ant-design/pro-components/lib'
 import { PageHeader } from '@ant-design/pro-components/lib'
 import type { ReactNode } from 'react'

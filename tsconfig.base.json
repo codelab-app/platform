@@ -652,9 +652,6 @@
       "@codelab/frontend-domain-action/test": [
         "libs/frontend/domain/action/src/test/index.ts"
       ],
-      "@codelab/frontend-domain-app/actions": [
-        "libs/frontend/domain/app/src/actions/index.ts"
-      ],
       "@codelab/frontend-domain-app/services": [
         "libs/frontend/domain/app/src/services/index.ts"
       ],

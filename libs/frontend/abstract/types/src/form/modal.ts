@@ -1,6 +1,5 @@
 import type { ModalProps } from 'antd/lib/modal'
 import type { ReactElement } from 'react'
-import type { UnknownObject } from 'uniforms'
 import type { FormProps, SubmitRef } from './form'
 
 export type FormModalProps<TData extends Record<string, unknown>> =

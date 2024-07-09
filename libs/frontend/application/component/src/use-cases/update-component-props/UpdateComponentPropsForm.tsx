@@ -56,7 +56,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
                 key={component.id}
                 model={propsModel}
                 onSubmit={onSubmit}
-                submitField={<></>}
+                submitField={Fragment}
               />
             </Col>
             <Col span={24}>

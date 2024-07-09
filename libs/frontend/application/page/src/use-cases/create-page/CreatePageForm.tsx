@@ -7,7 +7,10 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -19,8 +22,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { createPageAction } from './create-page.action'
 import { createPageSchema } from './create-page.schema'
+import { createPageUseCase } from './create-page.use-case'
 import { useCreatePageForm } from './create-page-form.state'
 
 interface CreatePageFormProps {
@@ -36,6 +39,8 @@ export const CreatePageForm = observer(
     submitRef,
   }: CreatePageFormProps) => {
     const { user } = useUser()
+    const app = useCurrentApp()
+    const domainStore = useDomainStore()
     const createPageForm = useCreatePageForm()
 
     const model = {
@@ -50,7 +55,7 @@ export const CreatePageForm = observer(
     const closeForm = () => createPageForm.close()
 
     const onSubmit = async (data: ICreatePageData) => {
-      await createPageAction(data)
+      await createPageUseCase(data, domainStore)
 
       closeForm()
       onSubmitSuccess?.()

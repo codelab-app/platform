@@ -11,7 +11,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useRef } from 'react'
+import React, { Fragment, useEffect, useRef } from 'react'
 
 export interface UpdateElementPropsFormProps {
   runtimeElement: IRuntimeElementModel
@@ -93,7 +93,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 key={runtimeElement.compositeKey}
                 model={propsModel}
                 onSubmit={onSubmit}
-                submitField={<></>}
+                submitField={Fragment}
                 submitRef={submitRef}
               />
             </Col>

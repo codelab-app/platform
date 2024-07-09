@@ -34647,6 +34647,210 @@ export type UpdateAppsMutationVariables = Exact<{
 
 export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
 
+export type GetComponentQueryVariables = Exact<{
+  options?: InputMaybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+}>
+
+export type GetComponentQuery = {
+  components: Array<{
+    __typename: 'Component'
+    id: string
+    name: string
+    api: { id: string }
+    owner: { id: string }
+    props: { data: string; id: string }
+    rootElement: { id: string }
+    store: {
+      id: string
+      name: string
+      actions: Array<
+        | {
+            __typename: 'ApiAction'
+            id: string
+            name: string
+            type: ActionKind
+            config: { data: string; id: string }
+            errorAction?:
+              | {
+                  __typename: 'ApiAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | {
+                  __typename: 'CodeAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | null
+            resource: {
+              id: string
+              name: string
+              type: ResourceType
+              config: { data: string; id: string }
+            }
+            successAction?:
+              | {
+                  __typename: 'ApiAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | {
+                  __typename: 'CodeAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | null
+            store: { id: string; name: string }
+          }
+        | {
+            __typename: 'CodeAction'
+            code: string
+            id: string
+            name: string
+            type: ActionKind
+            store: { id: string; name: string }
+          }
+      >
+      api: {
+        __typename: 'InterfaceType'
+        id: string
+        kind: TypeKind
+        name: string
+        fields: Array<{
+          defaultValues?: string | null
+          description?: string | null
+          id: string
+          key: string
+          name?: string | null
+          validationRules?: string | null
+          api: { id: string }
+          fieldType:
+            | {
+                __typename: 'ActionType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'AppType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ArrayType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'CodeMirrorType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ElementType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'EnumType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'InterfaceType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'LambdaType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'PageType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'PrimitiveType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ReactNodeType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'RenderPropType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'RichTextType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'UnionType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+          nextSibling?: { id: string } | null
+          prevSibling?: { id: string } | null
+        }>
+      }
+    }
+  }>
+}
+
+export type CreateDomainsMutationVariables = Exact<{
+  input: Array<DomainCreateInput> | DomainCreateInput
+}>
+
+export type CreateDomainsMutation = {
+  createDomains: { domains: Array<{ id: string }> }
+}
+
+export type CreatePagesMutationVariables = Exact<{
+  input: Array<PageCreateInput> | PageCreateInput
+}>
+
+export type CreatePagesMutation = {
+  createPages: { pages: Array<{ id: string }> }
+}
+
+export type UpdatePagesMutationVariables = Exact<{
+  where?: InputMaybe<PageWhere>
+  update?: InputMaybe<PageUpdateInput>
+}>
+
+export type UpdatePagesMutation = {
+  updatePages: { pages: Array<{ id: string }> }
+}
+
 export type DeleteElementsMutationVariables = Exact<{
   where: ElementWhere
   delete?: InputMaybe<ElementDeleteInput>
@@ -39258,6 +39462,174 @@ export const UpdateAppsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   UpdateAppsMutation,
   UpdateAppsMutationVariables
+>
+export const GetComponentDocument = new TypedDocumentString(`
+    query GetComponent($options: ComponentOptions, $where: ComponentWhere) {
+  components(options: $options, where: $where) {
+    ...Component
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Component on Component {
+  __typename
+  api {
+    id
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  GetComponentQuery,
+  GetComponentQueryVariables
+>
+export const CreateDomainsDocument = new TypedDocumentString(`
+    mutation CreateDomains($input: [DomainCreateInput!]!) {
+  createDomains(input: $input) {
+    domains {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateDomainsMutation,
+  CreateDomainsMutationVariables
+>
+export const CreatePagesDocument = new TypedDocumentString(`
+    mutation CreatePages($input: [PageCreateInput!]!) {
+  createPages(input: $input) {
+    pages {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreatePagesMutation,
+  CreatePagesMutationVariables
+>
+export const UpdatePagesDocument = new TypedDocumentString(`
+    mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
+  updatePages(update: $update, where: $where) {
+    pages {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdatePagesMutation,
+  UpdatePagesMutationVariables
 >
 export const DeleteElementsDocument = new TypedDocumentString(`
     mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
