@@ -17,8 +17,8 @@ export type FormProps<
     'autosave' | 'modelTransform' | 'onChange' | 'onChangeModel' | 'submitField'
   >
 > &
-  Pick<AutoFormProps<TData>, 'model'> &
   SubmitRef & {
+    model: Partial<TData>
     /**
      * For testing
      */
