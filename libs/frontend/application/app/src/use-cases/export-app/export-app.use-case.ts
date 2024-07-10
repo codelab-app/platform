@@ -3,7 +3,7 @@
 import { getAuthenticatedApiClient } from '@codelab/frontend-infra-axios'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
 
-export const exportAppAction = async (id: string) => {
+export const exportAppUseCase = async (id: string) => {
   const apiClient = await getAuthenticatedApiClient()
   const res = await apiClient.get<IAppAggregate>(`app/export?id=${id}`)
 

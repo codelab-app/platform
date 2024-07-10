@@ -16,7 +16,7 @@ const CreateAppsMutation = graphql(`
   }
 `)
 
-export const createAppAction = async (input: AppCreateInput) => {
+export const createAppRepository = async (input: AppCreateInput) => {
   return await execute(CreateAppsMutation, {
     input,
   })

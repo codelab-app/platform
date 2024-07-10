@@ -1,4 +1,10 @@
-import { execute, graphql } from '@codelab/frontend/infra/gql'
+'use server'
+
+import {
+  type CreateDomainsMutationVariables,
+  execute,
+  graphql,
+} from '@codelab/frontend/infra/gql'
 import type { DomainCreateInput } from '@codelab/shared/abstract/codegen'
 
 const CreateDomainsMutation = graphql(`
@@ -11,6 +17,6 @@ const CreateDomainsMutation = graphql(`
   }
 `)
 
-export const createDomainAction = async (input: DomainCreateInput) => {
-  return execute(CreateDomainsMutation, { input })
-}
+export const createDomainRepository = async ({
+  input,
+}: CreateDomainsMutationVariables) => execute(CreateDomainsMutation, { input })

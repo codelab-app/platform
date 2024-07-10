@@ -1,1 +1,1 @@
-export { deleteElementAction } from './delete-element.action'
+export { deleteElementRepository } from './delete-element.repository'

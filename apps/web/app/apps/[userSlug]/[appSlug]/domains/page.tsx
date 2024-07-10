@@ -1,12 +1,8 @@
 import { useAppQuery } from '@codelab/frontend/presentation/container'
 import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
 import { DeleteDomainModal } from '@codelab/frontend-application-domain/use-cases/delete-domain'
-import { GetDomainsList } from '@codelab/frontend-application-domain/use-cases/get-domain'
+import { GetDomainsList } from '@codelab/frontend-application-domain/use-cases/get-domains'
 import { UpdateDomainModal } from '@codelab/frontend-application-domain/use-cases/update-domain'
-import {
-  DomainsViewLayout,
-  type IDomainsView,
-} from '@codelab/frontend-application-domain/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
@@ -16,7 +12,14 @@ import { Spin } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const DomainsView: IDomainsView = (props) => {
+const DomainsRoute = ({
+  params: { appSlug, userSlug },
+}: {
+  params: {
+    userSlug: string
+    appSlug: string
+  }
+}) => {
   const { appService, userService } = useStore()
   const user = userService.user
   const { appName } = useAppQuery()
@@ -48,8 +51,8 @@ const DomainsView: IDomainsView = (props) => {
   )
 }
 
-export default DomainsView
+export default DomainsRoute
 
-export const getServerSideProps = withPageAuthRedirect()
+// export const getServerSideProps = withPageAuthRedirect()
 
-DomainsView.Layout = DomainsViewLayout
+// DomainsView.Layout = DomainsViewLayout

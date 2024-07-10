@@ -13,14 +13,14 @@ import {
 } from '@codelab/shared/abstract/core'
 import React, { useCallback } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { exportAdminDataAction } from './ExportAdminData.action'
+import { exportAdminDataUseCase } from './export-admin-data.use-case'
 import { useExportAdminDataModal } from './ExportAdminDataModal.state'
 
 export const ExportAdminDataModal = () => {
   const exportDataModal = useExportAdminDataModal()
 
   const onSubmitHandler = useCallback(async (data: IExportDto) => {
-    const exportedData = await exportAdminDataAction(data)
+    const exportedData = await exportAdminDataUseCase(data)
 
     if (exportedData) {
       downloadJsonAsFile('export.json', exportedData)

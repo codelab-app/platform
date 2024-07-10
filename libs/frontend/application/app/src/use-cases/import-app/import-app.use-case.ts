@@ -2,13 +2,13 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { getAuthenticatedApiClient } from '@codelab/frontend-infra-axios'
-import { refreshAppListAction } from '../app-list'
+import { invalidateAppListQuery } from '../app-list'
 
-export const importAppAction = async (appData: string) => {
+export const importAppUseCase = async (appData: string) => {
   const apiClient = await getAuthenticatedApiClient()
   const { data } = await apiClient.post<IAppModel>('/app/import', appData)
 
-  await refreshAppListAction()
+  await invalidateAppListQuery()
 
   return data
 }

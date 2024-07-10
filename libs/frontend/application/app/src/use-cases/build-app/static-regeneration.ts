@@ -8,6 +8,7 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
+import { domainListUseCase } from '@codelab/frontend-application-domain/use-cases/get-domains'
 import { getEnv } from '@codelab/shared/config'
 import { useState } from 'react'
 
@@ -31,7 +32,7 @@ export const regeneratePages = async (pages: Array<string>, domain: string) => {
   throw new Error(error)
 }
 
-export const useRegeneratePages = ({ domainService }: IDomainStore) => {
+export const useRegeneratePages = ({ domainDomainService }: IDomainStore) => {
   const [isRegenerating, setIsRegenerating] = useState(false)
 
   const successNotify = useSuccessNotify({
@@ -48,13 +49,7 @@ export const useRegeneratePages = ({ domainService }: IDomainStore) => {
     try {
       setIsRegenerating(true)
 
-      let domains = domainService.domainsList.filter(
-        (_domain) => _domain.app.id === app.id,
-      )
-
-      if (!domains.length) {
-        domains = await domainService.getAll({ app: { id: app.id } })
-      }
+      const domains = await domainListUseCase(app)
 
       for (const domain of domains) {
         const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)

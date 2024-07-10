@@ -34834,6 +34834,27 @@ export type CreateDomainsMutation = {
   createDomains: { domains: Array<{ id: string }> }
 }
 
+export type DeleteDomainsMutationVariables = Exact<{
+  where: DomainWhere
+}>
+
+export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
+
+export type GetDomainsQueryVariables = Exact<{
+  options?: InputMaybe<DomainOptions>
+  where?: InputMaybe<DomainWhere>
+}>
+
+export type GetDomainsQuery = {
+  aggregate: { count: number }
+  items: Array<{
+    id: string
+    name: string
+    app: { id: string }
+    domainConfig: { misconfigured: boolean }
+  }>
+}
+
 export type CreatePagesMutationVariables = Exact<{
   input: Array<PageCreateInput> | PageCreateInput
 }>
@@ -39607,6 +39628,35 @@ export const CreateDomainsDocument = new TypedDocumentString(`
   CreateDomainsMutation,
   CreateDomainsMutationVariables
 >
+export const DeleteDomainsDocument = new TypedDocumentString(`
+    mutation DeleteDomains($where: DomainWhere!) {
+  deleteDomains(where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteDomainsMutation,
+  DeleteDomainsMutationVariables
+>
+export const GetDomainsDocument = new TypedDocumentString(`
+    query GetDomains($options: DomainOptions, $where: DomainWhere) {
+  aggregate: domainsAggregate(where: $where) {
+    count
+  }
+  items: domains(options: $options, where: $where) {
+    ...Domain
+  }
+}
+    fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
+}`) as unknown as TypedDocumentString<GetDomainsQuery, GetDomainsQueryVariables>
 export const CreatePagesDocument = new TypedDocumentString(`
     mutation CreatePages($input: [PageCreateInput!]!) {
   createPages(input: $input) {

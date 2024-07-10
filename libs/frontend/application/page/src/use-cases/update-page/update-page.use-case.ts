@@ -1,6 +1,6 @@
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
-import { updatePageAction } from './update-page.action'
+import { updatePageRepository } from './update-page.repository'
 
 export const updatePageUseCase = async (
   data: IUpdatePageData,
@@ -18,7 +18,7 @@ export const updatePageUseCase = async (
   })
 
   if (page) {
-    await updatePageAction({
+    await updatePageRepository({
       update: page.toUpdateInput(),
       where: {
         id: page.id,

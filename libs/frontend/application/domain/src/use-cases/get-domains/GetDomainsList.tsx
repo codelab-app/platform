@@ -10,6 +10,7 @@ import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateDomainButton } from '../create-domain'
+import { domainListUseCase } from './get-domains.use-case'
 import { GetDomainItem } from './GetDomainsItem/GetDomainsItem'
 
 const emptyImageStyle: React.CSSProperties = {
@@ -17,14 +18,9 @@ const emptyImageStyle: React.CSSProperties = {
 }
 
 export const GetDomainsList = observer(() => {
-  const { domainService } = useStore()
   const app = useCurrentApp()
-
-  const domainsList = domainService.domainsList.filter(
-    (domain) => domain.app.id === app?.id,
-  )
-
-  const hasDomain = domainsList.length > 0
+  const domains = domainListUseCase(app)
+  const hasDomain = domains.length > 0
 
   return (
     <ErrorBoundary>
@@ -35,7 +31,7 @@ export const GetDomainsList = observer(() => {
       </DisplayIf>
 
       <Row gutter={[padding.sm, padding.sm]}>
-        {domainsList.map((domain) => (
+        {domains.map((domain) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Col key={domain.name} {...threeGridCol}>
             <GetDomainItem domain={domain} />

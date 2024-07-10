@@ -27920,16 +27920,6 @@ export type GetComponentDevelopmentQuery = {
   richTextTypes: Array<RichTextTypeFragment>
 }
 
-export type GetDomainsQueryVariables = Exact<{
-  options?: InputMaybe<DomainOptions>
-  where?: InputMaybe<DomainWhere>
-}>
-
-export type GetDomainsQuery = {
-  aggregate: { count: number }
-  items: Array<DomainFragment>
-}
-
 export type UpdateDomainsMutationVariables = Exact<{
   where: DomainWhere
   update: DomainUpdateInput
@@ -27938,12 +27928,6 @@ export type UpdateDomainsMutationVariables = Exact<{
 export type UpdateDomainsMutation = {
   updateDomains: { domains: Array<{ id: string }> }
 }
-
-export type DeleteDomainsMutationVariables = Exact<{
-  where: DomainWhere
-}>
-
-export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
 
 export type CreateElementsMutationVariables = Exact<{
   input: Array<ElementCreateInput> | ElementCreateInput

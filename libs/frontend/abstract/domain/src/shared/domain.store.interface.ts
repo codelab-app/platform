@@ -3,6 +3,7 @@ import type { IAppDomainService } from '../app'
 import type { IAtomDomainService } from '../atom'
 import type { IAuthGuardDomainService } from '../auth-guard'
 import type { IComponentDomainService } from '../component'
+import type { IDomainDomainService } from '../domain'
 import type { IElementDomainService } from '../element'
 import type { IFieldDomainService } from '../field'
 import type { IPageDomainService } from '../page'
@@ -18,6 +19,7 @@ export interface IDomainStore {
   atomDomainService: IAtomDomainService
   authGuardDomainService: IAuthGuardDomainService
   componentDomainService: IComponentDomainService
+  domainDomainService: IDomainDomainService
   elementDomainService: IElementDomainService
   fieldDomainService: IFieldDomainService
   pageDomainService: IPageDomainService

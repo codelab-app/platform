@@ -8,8 +8,8 @@ import {
   graphql,
 } from '@codelab/frontend/infra/gql'
 import type { IAppDto } from '@codelab/shared/abstract/core'
-import { refreshAppListAction } from '../app-list'
-import { createAppAction } from './create-app.action'
+import { invalidateAppListQuery } from '../app-list'
+import { createAppRepository } from './create-app.repository'
 
 export const createAppUseCase = async (
   appDto: IAppDto,
@@ -17,7 +17,7 @@ export const createAppUseCase = async (
 ) => {
   const appModel = appDomainService.create(appDto)
 
-  await createAppAction(appModel.toCreateInput())
+  await createAppRepository(appModel.toCreateInput())
 
-  await refreshAppListAction()
+  await invalidateAppListQuery()
 }

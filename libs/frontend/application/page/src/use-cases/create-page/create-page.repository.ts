@@ -16,5 +16,5 @@ const CreatePagesMutation = graphql(`
   }
 `)
 
-export const createPageAction = async (input: PageCreateInput) =>
+export const createPageRepository = async (input: PageCreateInput) =>
   await execute(CreatePagesMutation, { input })

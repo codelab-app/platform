@@ -20,7 +20,6 @@ import type { IAtomService } from '../atom'
 import type { IAuthGuardService } from '../auth-guard'
 import type { IBuilderService } from '../builder'
 import type { IComponentApplicationService } from '../component'
-import type { IDomainService } from '../domain'
 import type { IElementService } from '../element'
 import type { IFieldService } from '../field'
 import type { IPageApplicationService } from '../page'
@@ -51,7 +50,7 @@ export interface ICoreStore {
   authGuardService: IAuthGuardService
   builderService: IBuilderService
   componentService: IComponentApplicationService
-  domainService: IDomainService
+  // domainService: IDomainService
   elementService: IElementService
   fieldService: IFieldService
   pageService: IPageApplicationService
@@ -84,7 +83,7 @@ export interface ICoreStoreContext {
   builderServiceContext: MaybeContext<IBuilderService>
   componentDomainServiceContext: MaybeContext<IComponentDomainService>
   componentServiceContext: MaybeContext<IComponentApplicationService>
-  domainServiceContext: MaybeContext<IDomainService>
+  // domainServiceContext: MaybeContext<IDomainService>
   elementDomainServiceContext: MaybeContext<IElementDomainService>
   elementServiceContext: MaybeContext<IElementService>
   fieldDomainServiceContext: MaybeContext<IFieldDomainService>

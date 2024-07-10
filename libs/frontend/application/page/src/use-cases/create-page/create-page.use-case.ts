@@ -23,7 +23,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { assertIsDefined, slugify } from '@codelab/shared/utils'
 import { revalidateTag } from 'next/cache'
 import { v4 } from 'uuid'
-import { createPageAction } from './create-page.action'
+import { createPageRepository } from './create-page.repository'
 
 export const createPageUseCase: ICreatePageUseCase = async (
   { app, id, name, urlPattern }: ICreatePageData,
@@ -82,7 +82,7 @@ export const createPageUseCase: ICreatePageUseCase = async (
     urlPattern: urlPattern ?? `/${slugify(name)}`,
   })
 
-  await createPageAction(page.toCreateInput())
+  await createPageRepository(page.toCreateInput())
 
   return page
 

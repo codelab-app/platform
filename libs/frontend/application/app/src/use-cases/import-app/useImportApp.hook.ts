@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { importAppAction } from './import-app.action'
+import { importAppUseCase } from './import-app.use-case'
 
 export const useImportApp = () => {
   const [loading, setLoading] = useState(false)
@@ -9,7 +9,7 @@ export const useImportApp = () => {
 
     try {
       const fileContent = await appFile.text()
-      const importResult = await importAppAction(fileContent)
+      const importResult = await importAppUseCase(fileContent)
 
       return importResult
     } catch (error: unknown) {

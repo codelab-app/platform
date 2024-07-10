@@ -14,7 +14,7 @@ const DeleteAppsMutation = graphql(`
   }
 `)
 
-export const deleteAppAction = async ({
+export const deleteAppRepository = async ({
   delete: delete$,
   where,
 }: DeleteAppsMutationVariables) => {

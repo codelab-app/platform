@@ -19,7 +19,7 @@ const GetAppsListQuery = graphql(`
   }
 `)
 
-export const appListAction = async ({
+export const appListRepository = async ({
   options,
   where,
 }: GetAppsListQueryVariables): Promise<{

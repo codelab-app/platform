@@ -18,7 +18,7 @@ const UpdatePagesMutation = graphql(`
   }
 `)
 
-export const updatePageAction = async ({
+export const updatePageRepository = async ({
   update,
   where,
 }: UpdatePagesMutationVariables) =>

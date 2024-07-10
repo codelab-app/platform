@@ -3,7 +3,10 @@ import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,
@@ -14,10 +17,14 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createDomainSchema } from './create-domain.schema'
+import { createDomainUseCase } from './create-domain.use-case'
+import { useCreateDomainModal } from './create-domain-modal.state'
 
 export const CreateDomainModal = observer(() => {
-  const { domainService, userService } = useStore()
+  const { userService } = useStore()
   const app = useCurrentApp()
+  const createDomainModal = useCreateDomainModal()
+  const domainStore = useDomainStore()
 
   const model = {
     app: { id: app?.id },
@@ -26,10 +33,10 @@ export const CreateDomainModal = observer(() => {
   }
 
   const onSubmit = (data: ICreateDomainData) => {
-    return domainService.create(data)
+    return createDomainUseCase(data, domainStore)
   }
 
-  const closeModal = () => domainService.createModal.close()
+  const closeModal = () => createDomainModal.close()
 
   const onError = useErrorNotify({
     description: DOMAIN_EXISTS_ERROR,
@@ -46,7 +53,7 @@ export const CreateDomainModal = observer(() => {
     <ModalForm.Modal
       okText="Create Domain"
       onCancel={closeModal}
-      open={domainService.createModal.isOpen}
+      open={createDomainModal.isOpen}
     >
       <ModalForm.Form<ICreateDomainData>
         model={model}
