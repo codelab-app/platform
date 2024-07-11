@@ -1,9 +1,9 @@
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import type { HttpException } from '@nestjs/common'
 import { Spin } from 'antd'
 import React, { useRef } from 'react'
@@ -20,7 +20,7 @@ export const ImportAppDialog = () => {
   })
 
   const onSuccess = useSuccessNotify({
-    description: (app?: IAppModel) => {
+    description: (app?: IAppDto) => {
       return `App ${app?.name} imported successfully`
     },
     title: 'App imported successfully',

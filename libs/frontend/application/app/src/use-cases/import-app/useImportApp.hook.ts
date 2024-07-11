@@ -8,8 +8,13 @@ export const useImportApp = () => {
     setLoading(true)
 
     try {
-      const fileContent = await appFile.text()
-      const importResult = await importAppUseCase(fileContent)
+      const formData = new FormData()
+
+      formData.append('file', appFile)
+
+      const importResult = await importAppUseCase(formData)
+
+      console.log(importResult)
 
       return importResult
     } catch (error: unknown) {

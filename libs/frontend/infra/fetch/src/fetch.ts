@@ -21,6 +21,7 @@ export const fetchWithAuth = async (
 
 export const corsFetch = async (endpoint: string, init: RequestInit = {}) => {
   const headers = {
+    'Access-Control-Allow-Origin': '*',
     ...(init.headers ?? {}),
   }
 
@@ -32,7 +33,7 @@ export const corsFetch = async (endpoint: string, init: RequestInit = {}) => {
   })
 
   if (!response.ok) {
-    throw new Error('Network response was not ok')
+    throw new Error(await response.json())
   }
 
   return response
