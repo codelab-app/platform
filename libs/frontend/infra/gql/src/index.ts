@@ -1,3 +1,5 @@
 export * from './execute'
 export * from './graphql/gql'
 export * from './graphql/graphql'
+export * from './swr-fetcher'
+export * from './lazy-swr'

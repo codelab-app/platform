@@ -64,6 +64,7 @@ const config: Types.Config = {
       documents: [
         '**/*.fragment.graphql',
         'libs/frontend/application/**/*.repository.ts',
+        'libs/frontend/domain/**/*.repository.ts',
       ],
       preset: 'client',
       config: {

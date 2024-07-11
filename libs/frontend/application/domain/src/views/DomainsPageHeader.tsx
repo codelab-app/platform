@@ -1,3 +1,5 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import {
@@ -6,13 +8,17 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useAppQuery } from '@codelab/frontend/presentation/container'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useCreateDomainModal } from '../use-cases/create-domain/create-domain-modal.state'
 
-export const DomainsViewHeader = observer(() => {
-  const { domainService } = useStore()
+export const DomainsPageHeader = observer(() => {
+  const createDomainModal = useCreateDomainModal()
   const { appName } = useAppQuery()
 
   return (
@@ -36,7 +42,7 @@ export const DomainsViewHeader = observer(() => {
             {
               cuiKey: MODEL_ACTION.CreateDomain.key,
               icon: <PlusOutlined />,
-              onClick: () => domainService.createModal.open(),
+              onClick: () => createDomainModal.open(),
               title: 'Create Domain',
             },
           ]}

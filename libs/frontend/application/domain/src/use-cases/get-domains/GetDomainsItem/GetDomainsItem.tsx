@@ -1,3 +1,5 @@
+'use client'
+
 import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import { Card } from 'antd'

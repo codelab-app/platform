@@ -1569,6 +1569,7 @@ type AppDomainDomainsAggregationSelection {
 }
 
 type AppDomainDomainsNodeAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -1649,6 +1650,21 @@ input AppDomainsNodeAggregationWhereInput {
   AND: [AppDomainsNodeAggregationWhereInput!]
   NOT: AppDomainsNodeAggregationWhereInput
   OR: [AppDomainsNodeAggregationWhereInput!]
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   name_AVERAGE_LENGTH_EQUAL: Float
   name_AVERAGE_LENGTH_GT: Float
   name_AVERAGE_LENGTH_GTE: Float
@@ -8012,12 +8028,14 @@ type Domain {
     sort: [DomainAppConnectionSort!]
     where: DomainAppConnectionWhere
   ): DomainAppConnection!
+  compositeKey: String!
   domainConfig: ProductionDomainConfig!
   id: ID!
   name: String!
 }
 
 type DomainAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -8171,6 +8189,7 @@ type DomainConnectedRelationships {
 
 input DomainCreateInput {
   app: DomainAppFieldInput
+  compositeKey: String!
   id: ID!
   name: String!
 }
@@ -8201,11 +8220,13 @@ type DomainEdge {
 }
 
 type DomainEventPayload {
+  compositeKey: String!
   id: ID!
   name: String!
 }
 
 input DomainOnCreateInput {
+  compositeKey: String!
   id: ID!
   name: String!
 }
@@ -8264,6 +8285,7 @@ input DomainRelationshipsSubscriptionWhere {
 Fields to sort Domains by. The order in which sorts are applied is not guaranteed when specifying many fields in one DomainSort object.
 """
 input DomainSort {
+  compositeKey: SortDirection
   id: SortDirection
   name: SortDirection
 }
@@ -8272,6 +8294,11 @@ input DomainSubscriptionWhere {
   AND: [DomainSubscriptionWhere!]
   NOT: DomainSubscriptionWhere
   OR: [DomainSubscriptionWhere!]
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String]
+  compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -8285,11 +8312,13 @@ input DomainSubscriptionWhere {
 }
 
 input DomainUniqueWhere {
+  compositeKey: String
   id: ID
 }
 
 input DomainUpdateInput {
   app: DomainAppUpdateFieldInput
+  compositeKey: String
   id: ID
   name: String
 }
@@ -8310,6 +8339,12 @@ input DomainWhere {
   appConnection: DomainAppConnectionWhere
   appConnection_NOT: DomainAppConnectionWhere
   app_NOT: AppWhere
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
+  compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

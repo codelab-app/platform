@@ -1,7 +1,0 @@
-mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
-  updateDomains(update: $update, where: $where) {
-    domains {
-      id
-    }
-  }
-}

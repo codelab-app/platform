@@ -16,11 +16,6 @@ export const useAppList = ({
   const { appDomainService, atomDomainService, pageDomainService } =
     useDomainStore()
 
-  useEffect(() => {
-    hydrate()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apps, atoms])
-
   const hydrate = useCallback(() => {
     apps
       .flatMap((app) => {
@@ -35,8 +30,11 @@ export const useAppList = ({
     atoms.forEach((atom) => {
       atomDomainService.hydrate(atom)
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apps, atoms])
+
+  useEffect(() => {
+    hydrate()
+  }, [hydrate])
 
   return {
     apps: appDomainService.appsList,

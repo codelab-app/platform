@@ -83,8 +83,6 @@ const documents = {
   'fragment Owner on User {\n  id\n}': types.OwnerFragmentDoc,
   'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}':
     types.UserFragmentDoc,
-  '\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
-    types.GetAppDevelopmentDocument,
   '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
     types.GetAppsListDocument,
   '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
@@ -93,14 +91,14 @@ const documents = {
     types.DeleteAppsDocument,
   '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.UpdateAppsDocument,
-  '\n  query GetComponent($options: ComponentOptions, $where: ComponentWhere) {\n    components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n':
-    types.GetComponentDocument,
   '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n':
     types.CreateDomainsDocument,
   '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteDomainsDocument,
   '\n  query GetDomains($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    items: domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n':
     types.GetDomainsDocument,
+  '\n  mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {\n    updateDomains(update: $update, where: $where) {\n      domains {\n        id\n      }\n    }\n  }\n':
+    types.UpdateDomainsDocument,
   '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.CreatePagesDocument,
   '\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n':
@@ -337,12 +335,6 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
-): typeof import('./graphql').GetAppDevelopmentDocument
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
   source: '\n  query GetAppsList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
 ): typeof import('./graphql').GetAppsListDocument
 /**
@@ -367,12 +359,6 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetComponent($options: ComponentOptions, $where: ComponentWhere) {\n    components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n',
-): typeof import('./graphql').GetComponentDocument
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
   source: '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n',
 ): typeof import('./graphql').CreateDomainsDocument
 /**
@@ -387,6 +373,12 @@ export function graphql(
 export function graphql(
   source: '\n  query GetDomains($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    items: domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n',
 ): typeof import('./graphql').GetDomainsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {\n    updateDomains(update: $update, where: $where) {\n      domains {\n        id\n      }\n    }\n  }\n',
+): typeof import('./graphql').UpdateDomainsDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

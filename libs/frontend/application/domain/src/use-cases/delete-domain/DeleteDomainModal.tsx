@@ -1,3 +1,5 @@
+'use client'
+
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
@@ -23,7 +25,7 @@ export const DeleteDomainModal = observer(() => {
       return Promise.reject()
     }
 
-    return deleteDomainUseCase(domain, domainStore)
+    return deleteDomainUseCase(domain.current, domainStore)
   }
 
   const model = {
@@ -47,7 +49,9 @@ export const DeleteDomainModal = observer(() => {
         schema={emptyJsonSchema}
         uiKey={MODEL_ACTION.DeleteDomain.key}
       >
-        <h4>Are you sure you want to delete the domain "{domain?.name}"?</h4>
+        <h4>
+          Are you sure you want to delete the domain "{domain?.current.name}"?
+        </h4>
         <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>

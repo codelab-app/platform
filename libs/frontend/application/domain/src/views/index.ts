@@ -1,1 +1,1 @@
-export * from './DomainsViewHeader'
+export * from './DomainsPageHeader'

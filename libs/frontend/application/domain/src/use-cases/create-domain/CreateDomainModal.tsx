@@ -1,3 +1,5 @@
+'use client'
+
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
@@ -27,7 +29,7 @@ export const CreateDomainModal = observer(() => {
   const domainStore = useDomainStore()
 
   const model = {
-    app: { id: app?.id },
+    app: { id: app.id },
     auth0Id: userService.user.auth0Id,
     id: v4(),
   }

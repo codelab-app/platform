@@ -5,6 +5,8 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useDeleteDomainModal } from '../../delete-domain/delete-domain-modal.state'
+import { useUpdateDomainModal } from '../../update-domain/update-domain-modal.state'
 import { RefreshDomainButton } from './RefreshDomainButton'
 
 export interface ItemToolsProps {
@@ -13,14 +15,14 @@ export interface ItemToolsProps {
 
 export const ItemTools = observer<ItemToolsProps>(
   ({ domain }: ItemToolsProps) => {
-    const { domainService } = useStore()
+    const updateDomainModal = useUpdateDomainModal()
+    const deleteDomainModal = useDeleteDomainModal()
 
     const onEditClick = () => {
-      domainService.updateModal.open(domainRef(domain))
+      updateDomainModal.open(domainRef(domain))
     }
 
-    const onDeleteClick = () =>
-      domainService.deleteModal.open(domainRef(domain))
+    const onDeleteClick = () => deleteDomainModal.open(domainRef(domain))
 
     return (
       <React.Fragment>

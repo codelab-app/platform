@@ -1,5 +1,11 @@
 import SyncOutlined from '@ant-design/icons/SyncOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import {
+  type GetDomainsQuery,
+  type GetDomainsQueryVariables,
+  swrFetcher,
+  useLazySwr,
+} from '@codelab/frontend/infra/gql'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { AppProperties } from '@codelab/shared/domain'
@@ -7,6 +13,12 @@ import { useAsync } from '@react-hookz/web'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import useSWR from 'swr'
+import { GetDomainsDocument } from '../get-domains.repository'
+import {
+  domainListUseCase,
+  invalidateDomainListQuery,
+} from '../get-domains.use-case'
 
 interface RefreshDomainButtonProps {
   domain: IDomainModel
@@ -14,28 +26,34 @@ interface RefreshDomainButtonProps {
 
 export const RefreshDomainButton = observer(
   ({ domain }: RefreshDomainButtonProps) => {
-    const { domainService, userService } = useStore()
-    const user = userService.user
-    const app = useCurrentApp()
+    const [trigger, { data, error, isLoading }] = useLazySwr<
+      GetDomainsQuery,
+      GetDomainsQueryVariables
+    >(GetDomainsDocument)
 
-    if (!app) {
-      return null
-    }
+    // const app = useCurrentApp()
 
-    const compositeKey = AppProperties.appCompositeKey(app.name, user)
+    // if (!app) {
+    //   return null
+    // }
 
-    const [{ status }, getAllDomains] = useAsync(async () =>
-      domainService.getAll({
-        appConnection: { node: { compositeKey } },
-        id: domain.id,
-      }),
-    )
+    // const compositeKey = AppProperties.appCompositeKey(app.name, user)
+
+    // const [{ status }, getAllDomains] = useAsync(async () =>
+    //   domainService.getAll({
+    //     appConnection: { node: { compositeKey } },
+    //     id: domain.id,
+    //   }),
+    // )
 
     return (
       <Tooltip title="Refresh">
         <Button
-          icon={<SyncOutlined spin={status === 'loading'} />}
-          onClick={() => getAllDomains.execute()}
+          icon={<SyncOutlined spin={isLoading} />}
+          onClick={async () => {
+            invalidateDomainListQuery()
+            await trigger()
+          }}
           shape="circle"
           type="text"
         />
