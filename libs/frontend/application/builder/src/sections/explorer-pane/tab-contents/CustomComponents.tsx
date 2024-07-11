@@ -1,12 +1,11 @@
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import {
-  isRuntimeComponent,
-  isRuntimeElement,
-  RendererTab,
-} from '@codelab/frontend/abstract/application'
-import { componentRef } from '@codelab/frontend/abstract/domain'
+'use client'
+
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
+import { useDeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
+import { exportComponentUseCase } from '@codelab/frontend-application-component/use-cases/export-component'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import { slugify } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
@@ -14,76 +13,61 @@ import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { ComponentList } from './ComponentList'
+import { useComponentsList } from './useComponentsList.hook'
 
-export const CustomComponents = observer(() => {
-  const { builderService, componentService } = useStore()
+export const CustomComponents = observer((props) => {
+  const components = useComponentsList(props.components)
+  const { componentDomainService } = useDomainStore()
+  const deleteModal = useDeleteComponentModal()
   const router = useRouter()
-  const previousActiveNode = useRef<IRuntimeModel>()
 
   const [{ error, status }, getComponents] = useAsync(() =>
-    componentService.getAll(),
+    // componentService.getAll(),
+    Promise.resolve(),
   )
 
-  const [, exportComponent] = useAsync(componentService.exportComponent)
+  const [, exportComponent] = useAsync(async (component: IComponentModel) => {
+    const result = await exportComponentUseCase(component.id)
+
+    downloadJsonAsFile(`${slugify(component.name)}.json`, result)
+  })
+
   const isLoading = status === 'loading'
 
   useEffect(() => {
     void getComponents.execute()
-
-    return onBack
-  }, [])
+  }, [getComponents])
 
   const editComponent = async (id: string) => {
-    const { name } = componentService.componentDomainService.component(id)
+    const { name } = componentDomainService.component(id)
     const componentSlug = slugify(name)
 
     const url = queryString.stringifyUrl({
-      query: {
-        componentSlug,
-        primarySidebarKey: ExplorerPaneType.Explorer,
-      },
-      url: PageType.ComponentBuilder,
+      query: { primarySidebarKey: ExplorerPaneType.Explorer },
+      url: PageType.ComponentBuilder.replace('[componentSlug]', componentSlug),
     })
 
     await router.push(url)
-  }
-
-  const onBack = () => {
-    builderService.setActiveTab(RendererTab.Page)
-
-    if (
-      previousActiveNode.current &&
-      isRuntimeComponent(previousActiveNode.current)
-    ) {
-      builderService.selectComponentNode(previousActiveNode.current)
-    }
-
-    if (
-      previousActiveNode.current &&
-      isRuntimeElement(previousActiveNode.current)
-    ) {
-      builderService.selectElementNode(previousActiveNode.current)
-    }
   }
 
   return (
     <SkeletonWrapper isLoading={isLoading}>
       {!isNil(error) ? error.message : null}
       <ComponentList
-        components={componentService.componentDomainService.componentList}
-        onDelete={(id) => {
-          componentService.deleteModal.open(componentRef(id))
-        }}
-        onEdit={(id) => editComponent(id)}
-        onExport={(component) => void exportComponent.execute(component)}
-        onSelect={componentService.previewComponent}
-        selectedIds={
-          builderService.selectedNode
-            ? [builderService.selectedNode.id]
-            : undefined
+        components={components}
+        onDelete={(id) =>
+          deleteModal.open(componentDomainService.component(id))
         }
+        onEdit={(id) => editComponent(id)}
+        onExport={(component) => exportComponent.execute(component)}
+        // onSelect={componentService.previewComponent}
+        // selectedIds={
+        //   builderService.selectedNode
+        //     ? [builderService.selectedNode.id]
+        //     : undefined
+        // }
       />
     </SkeletonWrapper>
   )

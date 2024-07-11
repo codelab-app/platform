@@ -33030,6 +33030,23 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
+export type CreateComponentsMutationVariables = Exact<{
+  input: Array<ComponentCreateInput> | ComponentCreateInput
+}>
+
+export type CreateComponentsMutation = {
+  createComponents: { components: Array<{ id: string }> }
+}
+
+export type DeleteComponentsMutationVariables = Exact<{
+  where: ComponentWhere
+  delete?: InputMaybe<ComponentDeleteInput>
+}>
+
+export type DeleteComponentsMutation = {
+  deleteComponents: { nodesDeleted: number }
+}
+
 export type GetAppsListQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
@@ -37288,6 +37305,28 @@ export const UserFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
+export const CreateComponentsDocument = new TypedDocumentString(`
+    mutation CreateComponents($input: [ComponentCreateInput!]!) {
+  createComponents(input: $input) {
+    components {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateComponentsMutation,
+  CreateComponentsMutationVariables
+>
+export const DeleteComponentsDocument = new TypedDocumentString(`
+    mutation DeleteComponents($where: ComponentWhere!, $delete: ComponentDeleteInput) {
+  deleteComponents(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteComponentsMutation,
+  DeleteComponentsMutationVariables
+>
 export const GetAppsListDocument = new TypedDocumentString(`
     query GetAppsList($options: AppOptions, $where: AppWhere) {
   apps(options: $options, where: $where) {

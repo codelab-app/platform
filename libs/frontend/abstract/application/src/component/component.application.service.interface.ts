@@ -37,7 +37,6 @@ export interface IComponentApplicationService
   componentRepository: IComponentRepository
   createForm: IFormService
 
-  exportComponent(component: IComponentModel): Promise<unknown>
   getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
   importComponent(componentDataFile: File): Promise<Maybe<IComponentModel>>
   previewComponent(id: string): void

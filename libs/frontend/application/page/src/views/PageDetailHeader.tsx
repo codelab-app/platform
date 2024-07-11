@@ -19,6 +19,7 @@ import {
   usePageQuery,
   useUserQuery,
 } from '@codelab/frontend/presentation/container'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
@@ -30,46 +31,35 @@ export const PageDetailHeader = observer(() => {
   const router = useRouter()
   const currentPathname = usePathname()
   const component = useCurrentComponent()
-  const isComponentBuilder = currentPathname === PageType.ComponentBuilder
-  const isComponentPreview = currentPathname === PageType.ComponentPreview
+  const isBuilder = currentPathname.endsWith('/builder')
   const isPageBuilder = currentPathname === PageType.PageBuilder
-  const isPagePreview = currentPathname === PageType.PageDetail
+  const { componentSlug } = useUrl()
   const { appName, appSlug } = useAppQuery()
   const { pageName, pageSlug } = usePageQuery()
   const { userSlug } = useUserQuery()
   const componentName = component?.name || '?'
 
   const togglePreviewMode = () => {
-    let pathname
+    let path
 
-    if (isComponentPreview) {
-      pathname = PageType.ComponentBuilder
+    if (componentSlug) {
+      path = isBuilder ? PageType.ComponentPreview : PageType.ComponentBuilder
+      path = path.replace('[componentSlug]', componentSlug)
+    } else if (userSlug && appSlug && pageSlug) {
+      path = isBuilder ? PageType.PageDetail : PageType.PageBuilder
+      path = path
+        .replace('[userSlug]', userSlug)
+        .replace('[appSlug]', appSlug)
+        .replace('[pageSlug]', pageSlug)
     }
 
-    if (isComponentBuilder) {
-      pathname = PageType.ComponentPreview
-    }
-
-    if (isPagePreview) {
-      pathname = PageType.PageBuilder
-    }
-
-    if (isPageBuilder) {
-      pathname = PageType.PageDetail
-    }
-
-    if (!pathname) {
+    if (!path) {
       return
     }
 
     const url = queryString.stringifyUrl({
-      query: {
-        appSlug,
-        pageSlug,
-        primarySidebarKey: ExplorerPaneType.PageList,
-        userSlug,
-      },
-      url: PageType.PageBuilder,
+      query: { primarySidebarKey: ExplorerPaneType.Explorer },
+      url: path,
     })
 
     return router.push(url)
@@ -92,9 +82,6 @@ export const PageDetailHeader = observer(() => {
   const navigateAppsPage = useCallback(async () => {
     await router.push(PageType.AppList)
   }, [router])
-
-  // Check if we are in preview or not
-  const isBuilder = isPageBuilder || isComponentBuilder
 
   const toolbarItems: Array<ToolbarItem> = [
     isBuilder

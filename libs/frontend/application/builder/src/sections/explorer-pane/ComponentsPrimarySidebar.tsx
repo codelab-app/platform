@@ -4,81 +4,84 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
-import { CreateComponentPopover } from '@codelab/frontend-application-component/use-cases/create-component'
+import {
+  CreateComponentPopover,
+  useCreateComponentModal,
+} from '@codelab/frontend-application-component/use-cases/create-component'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { observer } from 'mobx-react-lite'
+import type { IAtomDto, IComponentDto } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { CustomComponents } from './tab-contents/CustomComponents'
 import { PreBuiltComponents } from './tab-contents/PreBuiltComponents'
 
 interface ComponentsPrimarySidebarProps {
-  isLoading: boolean
+  atoms: Array<IAtomDto>
+  components: Array<IComponentDto>
 }
 
-export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
-  ({ isLoading }) => {
-    const { componentService } = useStore()
-    const { popover } = useCui()
+export const ComponentsPrimarySidebar = ({
+  atoms,
+  components,
+}: ComponentsPrimarySidebarProps) => {
+  const { popover } = useCui()
+  const createForm = useCreateComponentModal()
 
-    const sidebarViews: Array<CuiSidebarView> = [
-      {
-        content: (
-          <div className="p-3">
-            <CustomComponents />
-          </div>
-        ),
-        isLoading,
-        key: 'custom',
-        label: 'Custom',
-        toolbar: {
-          items: [
-            {
-              cuiKey: MODEL_ACTION.CreateComponent.key,
-              icon: <PlusOutlined />,
-              onClick: () => {
-                componentService.createForm.open()
-
-                popover.open(MODEL_ACTION.CreateComponent.key)
-              },
-              title: 'Add Component',
+  const sidebarViews: Array<CuiSidebarView> = [
+    {
+      content: (
+        <div className="p-3">
+          <CustomComponents components={components} />
+        </div>
+      ),
+      // isLoading,
+      key: 'custom',
+      label: 'Custom',
+      toolbar: {
+        items: [
+          {
+            cuiKey: MODEL_ACTION.CreateComponent.key,
+            icon: <PlusOutlined />,
+            onClick: () => {
+              createForm.open({})
+              popover.open(MODEL_ACTION.CreateComponent.key)
             },
-            {
-              cuiKey: MODEL_ACTION.ImportComponent.key,
-              icon: <ImportComponentDialog key={0} />,
-              title: 'Import Component',
-            },
-          ],
-          title: 'Components Toolbar',
-        },
+            title: 'Add Component',
+          },
+          {
+            cuiKey: MODEL_ACTION.ImportComponent.key,
+            icon: <ImportComponentDialog key={0} />,
+            title: 'Import Component',
+          },
+        ],
+        title: 'Components Toolbar',
       },
-      {
-        content: (
-          <div className="p-3">
-            <PreBuiltComponents />
-          </div>
-        ),
-        isLoading,
-        key: 'pre-built',
-        label: 'Pre-built',
-      },
-    ]
+    },
+    {
+      content: (
+        <div className="p-3">
+          <PreBuiltComponents atoms={atoms} />
+        </div>
+      ),
+      // isLoading,
+      key: 'pre-built',
+      label: 'Pre-built',
+    },
+  ]
 
-    return (
-      <>
-        <CuiSidebar
-          defaultActiveViewKeys={['custom', 'pre-built']}
-          label="Components"
-          popover={<CreateComponentPopover />}
-          uiKey={MODEL_UI.SidebarComponent.key}
-          views={sidebarViews}
-        />
+  return (
+    <>
+      <CuiSidebar
+        defaultActiveViewKeys={['custom', 'pre-built']}
+        label="Components"
+        popover={<CreateComponentPopover />}
+        uiKey={MODEL_UI.SidebarComponent.key}
+        views={sidebarViews}
+      />
 
-        <DeleteComponentModal />
-      </>
-    )
-  },
-)
+      <DeleteComponentModal />
+    </>
+  )
+}
 
 ComponentsPrimarySidebar.displayName = 'ComponentsPrimarySidebar'

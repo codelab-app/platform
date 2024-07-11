@@ -6,11 +6,7 @@ import type {
   IRuntimeElementModel,
   IRuntimeModelRef,
 } from '../renderer'
-import type {
-  BuilderWidth,
-  BuilderWidthBreakPoint,
-  RendererTab,
-} from './builder.interface'
+import type { BuilderWidth, BuilderWidthBreakPoint } from './builder.interface'
 
 export type IBuilderComponent = IAtomModel
 
@@ -19,10 +15,6 @@ export interface IBuilderService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<Ref<IRuntimeComponentModel>>
-  /**
-   * Tells us which tree we are selecting in the main pane
-   */
-  activeTab: RendererTab
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
@@ -36,7 +28,6 @@ export interface IBuilderService {
   selectComponentNode(node: Nullish<IRuntimeComponentModel>): void
   selectElementNode(node: Nullish<IRuntimeElementModel>): void
   selectPreviousElementOnDelete(): void
-  setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IRuntimeModelRef>): void

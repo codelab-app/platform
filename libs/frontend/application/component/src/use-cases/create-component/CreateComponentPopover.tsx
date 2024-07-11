@@ -8,15 +8,14 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateComponentModal } from './create-component-modal.state'
 import { CreateComponentForm } from './CreateComponentForm'
 
-export const CreateComponentPopover = observer(() => {
+export const CreateComponentPopover = () => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { componentService } = useStore()
+  const createForm = useCreateComponentModal()
   const { popover } = useCui()
 
   return (
@@ -40,7 +39,7 @@ export const CreateComponentPopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              componentService.createForm.close()
+              createForm.close()
             },
             title: 'Cancel',
           },
@@ -50,9 +49,8 @@ export const CreateComponentPopover = observer(() => {
     >
       <CreateComponentForm
         onSubmitSuccess={() => popover.close()}
-        showFormControl={false}
         submitRef={submitRef}
       />
     </CuiSidebarPopover>
   )
-})
+}
