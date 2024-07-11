@@ -1,14 +1,14 @@
 'use server'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { getAuthenticatedApiClient } from '@codelab/frontend-infra-axios'
-import { invalidateAppListQuery } from '../app-list'
+import { refreshAppListAction } from '@codelab/frontend-domain-app/actions'
+import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 
 export const importAppUseCase = async (appData: string) => {
-  const apiClient = await getAuthenticatedApiClient()
-  const { data } = await apiClient.post<IAppModel>('/app/import', appData)
+  await fetchWithAuth('/app/import', {
+    body: appData,
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  })
 
-  await invalidateAppListQuery()
-
-  return data
+  await refreshAppListAction()
 }
