@@ -4,6 +4,7 @@ import {
   elementDomainServiceContext,
   type IAppDomainService,
   type IAtomDomainService,
+  IComponentDomainService,
   type IDomainStore,
   IElementDomainService,
   type IPageDomainService,
@@ -16,6 +17,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { AppDomainService } from '@codelab/frontend-domain-app/services'
 import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
+import { ComponentDomainService } from '@codelab/frontend-domain-component/services'
 import { ElementDomainService } from '@codelab/frontend-domain-element/services'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
@@ -34,6 +36,9 @@ export const createDomainStore = (user: IUserDto) => {
       appDomainService: prop<IAppDomainService>(() => new AppDomainService({})),
       atomDomainService: prop<IAtomDomainService>(
         () => new AtomDomainService({}),
+      ),
+      componentDomainService: prop<IComponentDomainService>(
+        () => new ComponentDomainService({}),
       ),
       elementDomainService: prop<IElementDomainService>(
         () => new ElementDomainService({}),

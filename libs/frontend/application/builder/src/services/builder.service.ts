@@ -13,7 +13,6 @@ import {
   isRuntimeComponentRef,
   isRuntimeElementRef,
   isRuntimePage,
-  RendererTab,
   runtimeComponentRef,
   runtimeElementRef,
   runtimeModelRef,
@@ -34,7 +33,6 @@ export const COMPONENT_TAG_NAME = 'Component'
 @model('@codelab/BuilderService')
 export class BuilderService
   extends Model({
-    activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
     hoveredNode: prop<Nullable<IRuntimeModelRef>>(null).withSetter(),
     /**

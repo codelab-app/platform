@@ -12,6 +12,6 @@ export interface IComponentDomainService
   components: ObjectMap<IComponentModel>
   sortedComponentsList: Array<IComponentModel>
 
-  add(data: ICreateComponentData): IComponentModel
   component(id: string): IComponentModel
+  create(data: ICreateComponentData): IComponentModel
 }

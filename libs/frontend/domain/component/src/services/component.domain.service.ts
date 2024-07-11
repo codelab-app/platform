@@ -44,7 +44,18 @@ export class ComponentDomainService
   }
 
   @modelAction
-  add({ id, name, rootElement }: ICreateComponentData) {
+  component(id: string) {
+    const component = this.maybeComponent(id)
+
+    if (!component) {
+      throw new Error('Missing component')
+    }
+
+    return component
+  }
+
+  @modelAction
+  create({ id, name, rootElement }: ICreateComponentData) {
     const storeApi = this.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
@@ -109,17 +120,6 @@ export class ComponentDomainService
       rootElement: rootElementModel,
       store,
     })
-
-    return component
-  }
-
-  @modelAction
-  component(id: string) {
-    const component = this.maybeComponent(id)
-
-    if (!component) {
-      throw new Error('Missing component')
-    }
 
     return component
   }

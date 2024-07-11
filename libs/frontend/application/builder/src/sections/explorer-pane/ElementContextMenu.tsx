@@ -5,10 +5,7 @@ import type {
   IElementTreeViewDataNode,
   IRuntimeComponentModel,
 } from '@codelab/frontend/abstract/application'
-import {
-  isRuntimeComponent,
-  RendererTab,
-} from '@codelab/frontend/abstract/application'
+import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
 import {
   elementRef,
   elementTreeRef,
@@ -99,8 +96,6 @@ export const ElementContextMenu = observer<
     if (!isComponent(element.renderType)) {
       return
     }
-
-    builderService.setActiveTab(RendererTab.Component)
 
     const runtimeElement = runtimeElementService.runtimeElement(treeNode.key)
 

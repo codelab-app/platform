@@ -32962,6 +32962,23 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
+export type CreateComponentsMutationVariables = Exact<{
+  input: Array<ComponentCreateInput> | ComponentCreateInput
+}>
+
+export type CreateComponentsMutation = {
+  createComponents: { components: Array<{ id: string }> }
+}
+
+export type DeleteComponentsMutationVariables = Exact<{
+  where: ComponentWhere
+  delete?: InputMaybe<ComponentDeleteInput>
+}>
+
+export type DeleteComponentsMutation = {
+  deleteComponents: { nodesDeleted: number }
+}
+
 export type GetAppsListQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
@@ -33115,6 +33132,300 @@ export type UpdateAppsMutationVariables = Exact<{
 }>
 
 export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
+
+export type GetAtomsQueryVariables = Exact<{
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}>
+
+export type GetAtomsQuery = {
+  atoms: Array<{
+    __typename: 'Atom'
+    externalCssSource?: string | null
+    externalJsSource?: string | null
+    externalSourceType?: string | null
+    icon?: string | null
+    id: string
+    name: string
+    type: AtomType
+    api: {
+      __typename: 'InterfaceType'
+      id: string
+      kind: TypeKind
+      name: string
+      fields: Array<{
+        defaultValues?: string | null
+        description?: string | null
+        id: string
+        key: string
+        name?: string | null
+        validationRules?: string | null
+        api: { id: string }
+        fieldType:
+          | {
+              __typename: 'ActionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'ArrayType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'CodeMirrorType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ElementType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'InterfaceType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'LambdaType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
+          | {
+              __typename: 'PrimitiveType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'ReactNodeType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RenderPropType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'RichTextType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+          | {
+              __typename: 'UnionType'
+              id: string
+              kind: TypeKind
+              name: string
+            }
+        nextSibling?: { id: string } | null
+        prevSibling?: { id: string } | null
+      }>
+    }
+    requiredParents: Array<{ id: string; name: string; type: AtomType }>
+    suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
+    tags: Array<{
+      id: string
+      name: string
+      children: Array<{ id: string; name: string }>
+      descendants: Array<{ id: string; name: string }>
+      owner: { id: string }
+      parent?: { id: string } | null
+    }>
+  }>
+}
+
+export type GetComponentsQueryVariables = Exact<{
+  options?: InputMaybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+}>
+
+export type GetComponentsQuery = {
+  components: Array<{
+    __typename: 'Component'
+    id: string
+    name: string
+    api: { id: string }
+    owner: { id: string }
+    props: { data: string; id: string }
+    rootElement: { id: string }
+    store: {
+      id: string
+      name: string
+      actions: Array<
+        | {
+            __typename: 'ApiAction'
+            id: string
+            name: string
+            type: ActionKind
+            config: { data: string; id: string }
+            errorAction?:
+              | {
+                  __typename: 'ApiAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | {
+                  __typename: 'CodeAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | null
+            resource: {
+              id: string
+              name: string
+              type: ResourceType
+              config: { data: string; id: string }
+            }
+            successAction?:
+              | {
+                  __typename: 'ApiAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | {
+                  __typename: 'CodeAction'
+                  id: string
+                  name: string
+                  type: ActionKind
+                  store: { id: string; name: string }
+                }
+              | null
+            store: { id: string; name: string }
+          }
+        | {
+            __typename: 'CodeAction'
+            code: string
+            id: string
+            name: string
+            type: ActionKind
+            store: { id: string; name: string }
+          }
+      >
+      api: {
+        __typename: 'InterfaceType'
+        id: string
+        kind: TypeKind
+        name: string
+        fields: Array<{
+          defaultValues?: string | null
+          description?: string | null
+          id: string
+          key: string
+          name?: string | null
+          validationRules?: string | null
+          api: { id: string }
+          fieldType:
+            | {
+                __typename: 'ActionType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'AppType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ArrayType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'CodeMirrorType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ElementType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'EnumType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'InterfaceType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'LambdaType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'PageType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'PrimitiveType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'ReactNodeType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'RenderPropType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'RichTextType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+            | {
+                __typename: 'UnionType'
+                id: string
+                kind: TypeKind
+                name: string
+              }
+          nextSibling?: { id: string } | null
+          prevSibling?: { id: string } | null
+        }>
+      }
+    }
+  }>
+}
 
 export type DeleteElementsMutationVariables = Exact<{
   where: ElementWhere
@@ -37148,6 +37459,28 @@ export const UserFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
+export const CreateComponentsDocument = new TypedDocumentString(`
+    mutation CreateComponents($input: [ComponentCreateInput!]!) {
+  createComponents(input: $input) {
+    components {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateComponentsMutation,
+  CreateComponentsMutationVariables
+>
+export const DeleteComponentsDocument = new TypedDocumentString(`
+    mutation DeleteComponents($where: ComponentWhere!, $delete: ComponentDeleteInput) {
+  deleteComponents(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteComponentsMutation,
+  DeleteComponentsMutationVariables
+>
 export const GetAppsListDocument = new TypedDocumentString(`
     query GetAppsList($options: AppOptions, $where: AppWhere) {
   apps(options: $options, where: $where) {
@@ -37318,6 +37651,230 @@ export const UpdateAppsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   UpdateAppsMutation,
   UpdateAppsMutationVariables
+>
+export const GetAtomsDocument = new TypedDocumentString(`
+    query GetAtoms($options: AtomOptions, $where: AtomWhere) {
+  atoms(options: $options, where: $where) {
+    ...Atom
+  }
+}
+    fragment Atom on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<GetAtomsQuery, GetAtomsQueryVariables>
+export const GetComponentsDocument = new TypedDocumentString(`
+    query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
+  components(options: $options, where: $where) {
+    ...Component
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Component on Component {
+  __typename
+  api {
+    id
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  GetComponentsQuery,
+  GetComponentsQueryVariables
 >
 export const DeleteElementsDocument = new TypedDocumentString(`
     mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {

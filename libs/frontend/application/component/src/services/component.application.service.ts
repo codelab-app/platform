@@ -11,7 +11,6 @@ import {
   componentRef,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
 import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
@@ -25,11 +24,9 @@ import type {
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IComponentAggregate,
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -118,22 +115,6 @@ export class ComponentApplicationService
     )
 
     return
-  })
-
-  @modelFlow
-  exportComponent = _async(function* (
-    this: ComponentApplicationService,
-    component: IComponentModel,
-  ) {
-    const res = yield* _await(
-      restWebClient.get<IComponentAggregate>(
-        `component/export?id=${component.id}`,
-      ),
-    )
-
-    downloadJsonAsFile(`${slugify(component.name)}.json`, res.data)
-
-    return res
   })
 
   @modelFlow

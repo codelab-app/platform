@@ -322,6 +322,9 @@
       "@codelab/frontend-application-component/services": [
         "libs/frontend/application/component/src/services/index.ts"
       ],
+      "@codelab/frontend-application-component/use-cases/component-list": [
+        "libs/frontend/application/component/src/use-cases/component-list/index.ts"
+      ],
       "@codelab/frontend-application-component/use-cases/component-development": [
         "libs/frontend/application/component/src/use-cases/component-development/index.ts"
       ],
@@ -330,6 +333,9 @@
       ],
       "@codelab/frontend-application-component/use-cases/delete-component": [
         "libs/frontend/application/component/src/use-cases/delete-component/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/export-component": [
+        "libs/frontend/application/component/src/use-cases/export-component/index.ts"
       ],
       "@codelab/frontend-application-component/use-cases/import-component": [
         "libs/frontend/application/component/src/use-cases/import-component/index.ts"
@@ -649,6 +655,9 @@
       "@codelab/frontend-domain-app/test": [
         "libs/frontend/domain/app/src/test/index.ts"
       ],
+      "@codelab/frontend-domain-atom/actions": [
+        "libs/frontend/domain/atom/src/actions/index.ts"
+      ],
       "@codelab/frontend-domain-atom/services": [
         "libs/frontend/domain/atom/src/services/index.ts"
       ],
@@ -666,6 +675,9 @@
       ],
       "@codelab/frontend-domain-auth-guard/test": [
         "libs/frontend/domain/auth-guard/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-component/actions": [
+        "libs/frontend/domain/component/src/actions/index.ts"
       ],
       "@codelab/frontend-domain-component/services": [
         "libs/frontend/domain/component/src/services/index.ts"
