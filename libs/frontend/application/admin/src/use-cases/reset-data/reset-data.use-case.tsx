@@ -1,15 +1,15 @@
 'use server'
 
-import { getAuthenticatedApiClient } from '@codelab/frontend-infra-axios'
+import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 
-export const resetDatabaseAction = async () => {
-  const apiClient = await getAuthenticatedApiClient()
+export const resetDatabaseUseCase = async () => {
+  const response = await fetchWithAuth('admin/reset-database', {
+    body: JSON.stringify({}),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  })
 
-  await apiClient.post('admin/reset-database', '{}')
-}
+  const { data } = await response.json()
 
-export const resetDatabaseExceptUserAction = async () => {
-  const apiClient = await getAuthenticatedApiClient()
-
-  await apiClient.post('admin/reset-database-except-user', '{}')
+  return data
 }

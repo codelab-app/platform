@@ -1,3 +1,3 @@
-# frontend-model-infra--graphql
+# frontend-infra-graphql
 
 This library was generated with [Nx](https://nx.dev).

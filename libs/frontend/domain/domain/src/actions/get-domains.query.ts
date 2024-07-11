@@ -1,4 +1,4 @@
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/frontend/infra/graphql'
 
 export const GetDomainsListQuery = graphql(`
   query GetDomains($options: DomainOptions, $where: DomainWhere) {

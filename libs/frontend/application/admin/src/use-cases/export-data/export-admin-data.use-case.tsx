@@ -1,11 +1,16 @@
 'use server'
 
-import { getAuthenticatedApiClient } from '@codelab/frontend-infra-axios'
+import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import type { IExportDto } from '@codelab/shared/abstract/core'
 
-export const exportAdminDataUseCase = async (data: IExportDto) => {
-  const apiClient = await getAuthenticatedApiClient()
-  const response = await apiClient.post('admin/export', data)
+export const exportAdminUseCase = async (dto: IExportDto) => {
+  const response = await fetchWithAuth('admin/export', {
+    body: JSON.stringify(dto),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  })
 
-  return response.data
+  const { data } = await response.json()
+
+  return data
 }

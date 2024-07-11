@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/infra/axios/tsconfig.*?.json"]
+        "project": ["libs/frontend/infra/fetch/tsconfig.*?.json"]
       },
       "rules": {}
     },

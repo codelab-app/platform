@@ -1,11 +1,8 @@
 'use server'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import {
-  execute,
-  type GetAppsListQueryVariables,
-  graphql,
-} from '@codelab/frontend/infra/gql'
+import type { GetAppsListQueryVariables } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
 
 const GetAppsListQuery = graphql(`
@@ -26,7 +23,7 @@ export const appListRepository = async ({
   atoms: Array<IAtomDto>
   apps: Array<IAppDto>
 }> => {
-  const { apps, atoms } = await execute(
+  const { apps, atoms } = await gqlFetch(
     GetAppsListQuery,
     {
       options,
@@ -37,3 +34,5 @@ export const appListRepository = async ({
 
   return { apps, atoms }
 }
+
+export const refreshAppListAction = () => revalidateTag(CACHE_TAGS.APP_LIST)

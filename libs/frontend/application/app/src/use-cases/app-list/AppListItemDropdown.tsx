@@ -16,8 +16,8 @@ import type { CSSProperties } from 'react'
 import React from 'react'
 import { useBuildAppModal } from '../build-app/build-app-modal.state'
 import { useDeleteAppModal } from '../delete-app/delete-app.state'
-import { useExportApp } from '../export-app/useExportApp.hook'
-import { useUpdateAppModal } from '../update-app/update-app-modal.state'
+import { useExportApp } from '../export-app'
+import { useUpdateAppModal } from '../update-app/update-app.state'
 
 export interface AppListItemDropdownProps {
   app: IAppModel
@@ -43,7 +43,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const onEditClick = () => updateAppModal.open(app)
   const onDeleteClick = () => deleteAppModal.open(app)
   const onBuildClick = () => buildAppModal.open(app)
-  const exportApp = useExportApp(app)
+  const { exportApp } = useExportApp(app)
   const router = useRouter()
 
   const goToDomainsPage = async () => {
