@@ -1,17 +1,18 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
-import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { restWebClient } from '@codelab/frontend/application/axios'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { Button } from '@codelab/frontend/presentation/codelab-ui'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { prettifyForConsole } from '@codelab/shared/utils'
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { useAsync } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
-import { Button, Dropdown } from 'antd'
+import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import type { CSSProperties } from 'react'
@@ -107,7 +108,9 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
 
   return (
     <Dropdown menu={{ items: menuItems }} trigger={['click']}>
-      <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
+      <Button size="icon" variant="secondary">
+        <DotsHorizontalIcon />
+      </Button>
     </Dropdown>
   )
 })

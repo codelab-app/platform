@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "aliases": {
+    "components": "@codelab/frontend/presentation/codelab-ui/components",
+    "utils": "@codelab/frontend/shared/utils"
+  },
+  "rsc": false,
+  "style": "new-york",
+  "tailwind": {
+    "baseColor": "stone",
+    "config": "apps/**/tailwind.config.js",
+    "css": "apps/**/global.css",
+    "cssVariables": true
+  }
+}
