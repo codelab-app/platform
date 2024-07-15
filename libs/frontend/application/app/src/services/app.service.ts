@@ -149,26 +149,6 @@ export class AppService
     return app
   })
 
-  @modelFlow
-  updatePage = _async(function* (this: AppService, data: IUpdatePageData) {
-    const app = this.appDomainService.apps.get(data.app.id)
-    const page = app?.page(data.id)
-    const { name, pageContentContainer, urlPattern } = data
-
-    page?.writeCache({
-      app,
-      name,
-      pageContentContainer,
-      urlPattern,
-    })
-
-    if (page) {
-      yield* _await(this.pageRepository.update(page))
-    }
-
-    return
-  })
-
   @computed
   private get atomService() {
     return getAtomService(this)

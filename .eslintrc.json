@@ -29,8 +29,8 @@
     "JQueryStatic": "readonly"
   },
   "extends": [
-    "plugin:canonical/recommended",
     "plugin:prettier/recommended",
+    "plugin:canonical/recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/strict",
     // "plugin:@typescript-eslint/strict-type-checked",
@@ -39,16 +39,16 @@
     // https://www.npmjs.com/package/eslint-plugin-import
     // "plugin:lodash/recommended"
     "eslint:recommended",
-    // "plugin:import/recommended",
     "plugin:import/typescript",
-    "./scripts/eslint/.base.eslintrc.json",
+    "plugin:import/recommended",
     "./scripts/eslint/.nx.eslintrc.json",
     "./scripts/eslint/.globals.eslintrc.json",
-    "./scripts/eslint/.spacing.eslintrc.json",
+    "./scripts/eslint/.format.eslintrc.json",
     "./scripts/eslint/.naming.eslintrc.json",
     "./scripts/eslint/.codelab.eslintrc.json",
     "./scripts/eslint/.sorting.eslintrc.json",
-    "./scripts/eslint/.codegen.eslintrc.json"
+    "./scripts/eslint/.codegen.eslintrc.json",
+    "./scripts/eslint/.base.eslintrc.json"
   ],
   // Used for import plugin
   "settings": {

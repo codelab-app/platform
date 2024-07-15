@@ -601,14 +601,6 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-      - e2e:
-          filters:
-            branches:
-              ignore:
-                - master
-                - staging
-          requires:
-            - setup-workspace
       - notify-success:
           filters:
             branches:
@@ -620,7 +612,6 @@ workflows:
             - codegen
             - unit
             - integration
-            - e2e
   infra-pr:
     jobs:
       - setup-workspace:

@@ -24,7 +24,6 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useRegeneratePages } from '@codelab/frontend-application-domain/services'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -32,6 +31,7 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import React from 'react'
+import { useRegeneratePages } from '../generate-pages'
 
 interface PageTreeItemProps {
   app: IAppModel
@@ -46,8 +46,8 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { appService, pageService, redirectService, userService } = useStore()
-    const { isRegenerating, regenerate } = useRegeneratePages(appService)
+    const { pageService, redirectService, userService } = useStore()
+    const { isRegenerating, regenerate } = useRegeneratePages()
     const { popover } = useCui()
     const router = useRouter()
     const { query } = useUrl()

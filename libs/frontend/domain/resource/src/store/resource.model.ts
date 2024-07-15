@@ -3,6 +3,11 @@ import {
   type IPropModel,
   type IResourceModel,
 } from '@codelab/frontend/abstract/domain'
+import type {
+  CreateResourcesMutationVariables,
+  DeleteResourcesMutationVariables,
+  ResourceDeleteInput,
+} from '@codelab/frontend/infra/gql'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import type {
   ResourceCreateInput,
@@ -36,6 +41,14 @@ export class Resource
   implements IResourceModel
 {
   static create = create
+
+  static toDeleteInput(): ResourceDeleteInput {
+    return {
+      config: {
+        where: {},
+      },
+    }
+  }
 
   @computed
   get client() {

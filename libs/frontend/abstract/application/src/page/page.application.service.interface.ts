@@ -1,4 +1,5 @@
 import type {
+  IDomainStore,
   IPageDomainService,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
@@ -22,12 +23,12 @@ import type {
 } from '../services'
 import type { IPageRepository } from './page.repo.interface'
 
+export interface ICreatePageUseCase {
+  (data: ICreatePageData, domainStore: IDomainStore): Promise<IPageModel>
+}
+
 export interface IPageApplicationService
-  extends Omit<
-      ICRUDService<IPageModel, ICreatePageData, IUpdatePageData>,
-      'update'
-    >,
-    IQueryService<IPageModel, PageWhere, PageOptions>,
+  extends IQueryService<IPageModel, PageWhere, PageOptions>,
     ICRUDModalService<Ref<IPageModel>, { page?: IPageModel }>,
     ICRUDFormService<Ref<IPageModel>, { page?: IPageModel }> {
   pageDomainService: IPageDomainService

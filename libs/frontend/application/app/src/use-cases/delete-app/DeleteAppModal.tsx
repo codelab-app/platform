@@ -14,7 +14,7 @@ import { deleteAppUseCase } from './delete-app.use-case'
 export const DeleteAppModal = observer(() => {
   const deleteAppModal = useDeleteAppModal()
   const closeModal = () => deleteAppModal.close()
-  const app = deleteAppModal.data as Maybe<IAppModel>
+  const app = deleteAppModal.data
 
   const onSubmit = async () => {
     if (!app) {

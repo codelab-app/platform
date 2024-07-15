@@ -38,12 +38,7 @@ export interface IResourceService
       IUpdateResourceData
     >,
     IQueryService<IResourceModel, ResourceWhere, ResourceOptions>,
-    Omit<
-      ICRUDModalService<Ref<IResourceModel>, { resource?: IResourceModel }>,
-      'createModal'
-    >,
     ICRUDFormService<Ref<IResourceModel>, { resource?: IResourceModel }> {
-  createModal: IModalService<CreateResourceData, { type?: IResourceType }>
   resourceDomainService: IResourceDomainService
   resourceList: Array<IResourceModel>
 

@@ -10,7 +10,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { importAdminDataAction } from './ImportAdminData.action'
+import { importAdminDataUseCase } from './import-admin-data.use-case'
 import { useImportAdminDataModal } from './ImportAdminDataModal.state'
 
 export const ImportAdminDataModal = () => {
@@ -24,7 +24,7 @@ export const ImportAdminDataModal = () => {
     >
       <ModalForm.Form<IImportDto>
         model={importDtoDefault}
-        onSubmit={importAdminDataAction}
+        onSubmit={importAdminDataUseCase}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while importing data',
         })}

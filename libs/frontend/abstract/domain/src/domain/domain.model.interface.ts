@@ -1,3 +1,4 @@
+import type { DeleteDomainsMutationVariables } from '@codelab/frontend/infra/gql'
 import type {
   DomainCreateInput,
   DomainDeleteInput,
@@ -11,7 +12,12 @@ import type { IModel } from '../shared/models/model.interface'
 
 export interface IDomainModel
   extends ICacheService<IDomainDto, IDomainModel>,
-    IModel<DomainCreateInput, DomainUpdateInput, DomainDeleteInput, IDomain> {
+    IModel<
+      DomainCreateInput,
+      DomainUpdateInput,
+      DeleteDomainsMutationVariables,
+      IDomain
+    > {
   app: IRef
   domainConfig: Maybe<ProductionDomainConfig>
   id: string

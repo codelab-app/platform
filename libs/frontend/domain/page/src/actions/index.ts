@@ -1,1 +1,1 @@
-export { deletePageAction } from './delete-page.action'
+export { deletePageRepository } from './delete-page.repository'

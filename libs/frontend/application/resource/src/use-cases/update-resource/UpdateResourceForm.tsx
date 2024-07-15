@@ -10,10 +10,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateResourceSchema } from './update-resource.schema'
+import { useUpdateResourceModal } from './update-resource-modal.state'
 
 export const UpdateResourceForm = observer(() => {
   const { resourceService } = useStore()
-  const resource = resourceService.updateForm.resource
+  const updateResourceModal = useUpdateResourceModal()
+  const resource = updateResourceModal.data?.current
 
   const model = {
     config: resource?.config.values,

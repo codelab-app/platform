@@ -3,7 +3,10 @@ import {
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -16,6 +19,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createResourceSchema } from './create-resource.schema'
+import { createResourceUseCase } from './create-resource.use-case'
+import { useCreateResourceModal } from './create-resource-modal.state'
 
 interface CreateResourceFormProps {
   showFormControl?: boolean
@@ -29,11 +34,13 @@ export const CreateResourceForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateResourceFormProps) => {
-    const { resourceService } = useStore()
-    const closeForm = () => resourceService.createModal.close()
+    const createResourceModal = useCreateResourceModal()
+    const closeForm = () => createResourceModal.close()
+    const resource = createResourceModal.data
+    const { resourceDomainService } = useDomainStore()
 
     const onSubmit = (resourceDTO: ICreateResourceData) => {
-      void resourceService.create(resourceDTO)
+      void createResourceUseCase(resourceDTO, resourceDomainService)
 
       closeForm()
       onSubmitSuccess?.()
@@ -43,7 +50,7 @@ export const CreateResourceForm = observer(
 
     const model = {
       id: v4(),
-      type: resourceService.createModal.metadata?.type,
+      type: resource?.type,
     }
 
     return (

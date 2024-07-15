@@ -2,7 +2,6 @@ import type { FormProps } from '@codelab/frontend/abstract/types'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'
-import type { UnknownObject } from 'uniforms'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'
@@ -19,7 +18,8 @@ import { ModalFormContext } from './modal-form.context'
  *
  * But using without `DeepPartial` causes some casting down the line
  */
-export const Form = <TData extends UnknownObject, TResponse = unknown>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Form = <TData extends Record<string, any>, TResponse = unknown>({
   autosave = false,
   children,
   model,

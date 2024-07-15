@@ -6,7 +6,10 @@ import {
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import {
   SelectActionField,
   SelectAnyElement,
@@ -46,6 +49,7 @@ export const CreateElementForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateElementFormProps) => {
+    const { atomDomainService } = useDomainStore()
     const { elementService, userService } = useStore()
     const { metadata, parentElement } = elementService.createForm
     const elementOptions = metadata?.elementOptions
@@ -88,12 +92,13 @@ export const CreateElementForm = observer(
       },
       props: {
         api: { id: v4() },
+        data: '',
         id: v4(),
       },
       renderType: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         __typename: IElementRenderTypeKind.Atom,
-        // id: atomService.defaultRenderType.id,
+        id: atomDomainService.defaultRenderType.id,
       },
       // TODO: Couldn't we only validate when field is changed or submitted?
       // Needs to be null initially so that required sub-fields

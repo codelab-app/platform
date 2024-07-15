@@ -1,24 +1,27 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { updatePageUseCase } from '../update-page/update-page.use-case'
 import { schema } from './update-page-tab.schema'
 
-export const UpdatePageTabForm = observer<{
-  appService: IAppService
-}>(({ appService }) => {
+export const UpdatePageTabForm = observer(() => {
+  const { appDomainService } = useDomainStore()
   const page = useCurrentPage()
 
   if (!page) {
     return null
   }
 
-  const onSubmit = (input: IUpdatePageData) => appService.updatePage(input)
+  const onSubmit = (input: IUpdatePageData) =>
+    updatePageUseCase(input, appDomainService)
+
   const { kind, pageContentContainer } = page
   const omitFields = ['appId']
 

@@ -7,7 +7,7 @@ import {
 import { Button } from 'antd'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { resetDatabaseAction } from './ResetData.action'
+import { resetDatabaseAction } from './reset-data.use-case'
 
 export const ResetDataButtons = () => {
   const router = useRouter()

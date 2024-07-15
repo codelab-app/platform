@@ -15,8 +15,7 @@ export const initialContext: IModalFormContext = {
   setIsLoading: (isLoading: boolean) => {
     throw new Error('ModalFormContext is not initialized')
   },
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  submitRef: null!,
+  submitRef: undefined,
 }
 
 export const ModalFormContext = createContext(initialContext)
