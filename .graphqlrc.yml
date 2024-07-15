@@ -1,4 +1,4 @@
 schema:
   - 'schema.graphql'
-  - '**/*.directive.graphql'
+  # - '**/*.directive.graphql'
 documents: '**/*.graphql'

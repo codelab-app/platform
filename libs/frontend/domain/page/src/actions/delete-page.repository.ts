@@ -1,15 +1,11 @@
 'use server'
 
-import { execute, graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type {
   PageDeleteInput,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-
-export const deletePageRepository = (
-  $where: PageWhere,
-  $delete?: PageDeleteInput,
-) => execute(DeletePagesMutation, { delete: $delete, where: $where })
 
 export const DeletePagesMutation = graphql(`
   mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {
@@ -18,3 +14,8 @@ export const DeletePagesMutation = graphql(`
     }
   }
 `)
+
+export const deletePageRepository = (
+  $where: PageWhere,
+  $delete?: PageDeleteInput,
+) => gqlFetch(DeletePagesMutation, { delete: $delete, where: $where })

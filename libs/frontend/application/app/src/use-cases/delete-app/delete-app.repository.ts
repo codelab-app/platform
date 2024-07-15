@@ -1,10 +1,8 @@
 import {
-  type AppDeleteInput,
-  type AppWhere,
   type DeleteAppsMutationVariables,
-  execute,
   graphql,
 } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 const DeleteAppsMutation = graphql(`
   mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
@@ -18,5 +16,5 @@ export const deleteAppRepository = async ({
   delete: delete$,
   where,
 }: DeleteAppsMutationVariables) => {
-  return execute(DeleteAppsMutation, { delete: delete$, where })
+  return gqlFetch(DeleteAppsMutation, { delete: delete$, where })
 }

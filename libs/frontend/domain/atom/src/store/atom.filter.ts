@@ -2,7 +2,6 @@ import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { AtomType } from '@codelab/shared/abstract/codegen'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
-import type { DefaultOptionType } from 'antd/lib/select'
 
 export const filterAtoms = (
   allAtoms: Array<

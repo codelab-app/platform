@@ -1,11 +1,13 @@
 'use server'
 
-import { getAuthenticatedApiClient } from '@codelab/frontend-infra-axios'
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
+import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
+import type { IRef } from '@codelab/shared/abstract/core'
 
-export const exportAppUseCase = async (id: string) => {
-  const apiClient = await getAuthenticatedApiClient()
-  const res = await apiClient.get<IAppAggregate>(`app/export?id=${id}`)
+export const exportAppUseCase = async (app: IRef) => {
+  const response = await fetchWithAuth(`app/export?id=${app.id}`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'GET',
+  })
 
-  return res.data
+  return await response.json()
 }

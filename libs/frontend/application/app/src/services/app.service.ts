@@ -15,12 +15,8 @@ import {
   getPageService,
   PageRepository,
 } from '@codelab/frontend-application-page/services'
-import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
-import type {
-  IAppAggregate,
-  IUpdatePageData,
-} from '@codelab/shared/abstract/core'
+import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -91,10 +87,12 @@ export class AppService
   @modelFlow
   exportApp = _async(function* (this: AppService, app: IAppModel) {
     const res = yield* _await(
-      restWebClient.get<IAppAggregate>(`app/export?id=${app.id}`),
+      authenticatedFetch<IAppAggregate>(`app/export?id=${app.id}`, {
+        method: 'GET',
+      }),
     )
 
-    downloadJsonAsFile(`${app.slug}.json`, res.data)
+    downloadJsonAsFile(`${app.slug}.json`, res)
 
     return res
   })

@@ -1,4 +1,3 @@
-import type { IAppService } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'

@@ -14,9 +14,9 @@ export const SelectPage = ({ error, label, name }: SelectPageProps) => {
   const [
     { error: queryError, result: selectPageOptions = [], status },
     getSelectPageOptions,
-  ] = useAsync(() => pageService.getSelectPageOptions(app?.id))
+  ] = useAsync(() => pageService.getSelectPageOptions(app.id))
 
-  if (!app?.id) {
+  if (!app.id) {
     console.warn('SelectPage: appId is not defined')
 
     return null

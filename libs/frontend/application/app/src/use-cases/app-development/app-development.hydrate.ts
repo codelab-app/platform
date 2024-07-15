@@ -3,8 +3,6 @@ import type {
   IDomainStore,
   IHydrateAppDevelopment,
 } from '@codelab/frontend/abstract/domain'
-import type { GetAppDevelopmentQuery } from '@codelab/frontend/infra/gql'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 
 export const hydrateAppDevelopment: IHydrateAppDevelopment = (
   data: IAppDevelopmentDto,

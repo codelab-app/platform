@@ -1,14 +1,11 @@
 import type { DeleteResourcesMutationVariables } from '@codelab/frontend/infra/gql'
 import type {
   ResourceCreateInput,
-  ResourceDeleteInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IPropData,
   IResource,
   IResourceClient,
-  IResourceConfigData,
   IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'

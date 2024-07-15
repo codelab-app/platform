@@ -4,17 +4,17 @@ import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import {
-  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
   Post,
   Request,
+  UploadedFile,
   UseInterceptors,
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Request as ExpressRequest } from 'express'
+import { Express, Request as ExpressRequest } from 'express'
 import {
   ExportAppCommand,
   ImportAppCommand,
@@ -38,7 +38,10 @@ export class AppApplicationController {
 
   @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   @Post('import')
-  async importApp(@Body() data: IAppAggregate) {
+  async importApp(@UploadedFile() file: Express.Multer.File) {
+    const json = file.buffer.toString('utf8')
+    const data = JSON.parse(json)
+
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new ImportAppCommand(data),
     )

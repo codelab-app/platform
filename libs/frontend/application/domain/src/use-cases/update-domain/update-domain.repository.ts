@@ -1,10 +1,10 @@
 'use server'
 
 import {
-  execute,
   graphql,
   type UpdateDomainsMutationVariables,
 } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 const UpdateDomainMutation = graphql(`
   mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
@@ -20,4 +20,4 @@ export const updateDomainRepository = async ({
   update,
   where,
 }: UpdateDomainsMutationVariables) =>
-  await execute(UpdateDomainMutation, { update, where })
+  await gqlFetch(UpdateDomainMutation, { update, where })

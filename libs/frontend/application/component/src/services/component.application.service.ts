@@ -11,25 +11,20 @@ import {
   componentRef,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { getAtomService } from '@codelab/frontend-application-atom/services'
 import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { getStoreService } from '@codelab/frontend-application-store/services'
 import { getTypeService } from '@codelab/frontend-application-type/services'
 import { ComponentDomainService } from '@codelab/frontend-domain-component/services'
-import { restWebClient } from '@codelab/frontend-infra-axios'
 import type {
-  Component,
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IComponentAggregate,
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -125,15 +120,13 @@ export class ComponentApplicationService
     this: ComponentApplicationService,
     component: IComponentModel,
   ) {
-    const res = yield* _await(
-      restWebClient.get<IComponentAggregate>(
-        `component/export?id=${component.id}`,
-      ),
-    )
-
-    downloadJsonAsFile(`${slugify(component.name)}.json`, res.data)
-
-    return res
+    // const res = yield* _await(
+    //   restWebClient.get<IComponentAggregate>(
+    //     `component/export?id=${component.id}`,
+    //   ),
+    // )
+    // downloadJsonAsFile(`${slugify(component.name)}.json`, res.data)
+    // return res
   })
 
   @modelFlow
@@ -201,17 +194,18 @@ export class ComponentApplicationService
 
     formData.append('file', componentDataFile)
 
-    const component = yield* _await(
-      restWebClient
-        .post<Component>('/component/import', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then(({ data }) => {
-          return this.getOne(data.id)
-        }),
-    )
+    return yield* _await(Promise.resolve(undefined))
+    // const component = yield* _await(
+    //   restWebClient
+    //     .post<Component>('/component/import', formData, {
+    //       headers: { 'Content-Type': 'multipart/form-data' },
+    //     })
+    //     .then(({ data }) => {
+    //       return this.getOne(data.id)
+    //     }),
+    // )
 
-    return component
+    // return component
   })
 
   @modelFlow

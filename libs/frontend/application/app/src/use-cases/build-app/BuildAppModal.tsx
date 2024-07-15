@@ -2,23 +2,20 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useRegeneratePages } from '@codelab/frontend-application-domain/services'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useBuildAppModal } from './build-app-modal.state'
+import { useBuildApp } from './useBuildApp.hook'
 
 export const BuildAppModal = observer(() => {
   const store = useDomainStore()
   const buildAppModal = useBuildAppModal()
   const app = buildAppModal.data
-  const { regenerate } = useRegeneratePages(appService)
+  const { regenerate } = useBuildApp()
   const onSubmit = async () => regenerate(app as IAppModel)
   const closeModal = () => buildAppModal.close()
 

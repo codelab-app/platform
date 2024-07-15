@@ -3,7 +3,7 @@
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import { Button } from 'antd'
 import React from 'react'
-import { useExportAdminDataModal } from './ExportAdminDataModal.state'
+import { useExportAdminDataModal } from './export-admin-data-modal.state'
 
 export const ExportAdminDataButton = () => {
   const exportDataModal = useExportAdminDataModal()

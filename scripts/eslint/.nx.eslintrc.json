@@ -2,7 +2,7 @@
   "overrides": [
     {
       "plugins": ["@nx"],
-      "files": ["*.ts", "*.tsx", "*.graphql"],
+      "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nx/typescript"],
       "rules": {
         "@typescript-eslint/no-unused-vars": "off",

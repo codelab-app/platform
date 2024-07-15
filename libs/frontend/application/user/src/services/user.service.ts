@@ -5,7 +5,6 @@ import type {
   IUserService,
 } from '@codelab/frontend/abstract/application'
 import { IUserDomainService } from '@codelab/frontend/abstract/domain'
-import { restWebClient } from '@codelab/frontend-infra-axios'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import set from 'lodash/set'
@@ -57,7 +56,8 @@ export class UserService
 
   @modelFlow
   saveUser = _async(function* (this: UserService, data: Auth0IdToken) {
-    return yield* _await(restWebClient.post('/user/save', data))
+    return yield* _await(Promise.resolve(undefined))
+    // return yield* _await(restWebClient.post('/user/save', data))
   })
 
   @modelAction

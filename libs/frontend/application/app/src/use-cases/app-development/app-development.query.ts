@@ -1,8 +1,5 @@
 import type { IAppDevelopmentQuery } from '@codelab/frontend/abstract/domain'
-import type {
-  AtomDevelopmentFragment,
-  GetAppDevelopmentQueryVariables,
-} from '@codelab/frontend/infra/gql'
+import type { AtomDevelopmentFragment } from '@codelab/frontend/infra/gql'
 import { execute, graphql } from '@codelab/frontend/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'

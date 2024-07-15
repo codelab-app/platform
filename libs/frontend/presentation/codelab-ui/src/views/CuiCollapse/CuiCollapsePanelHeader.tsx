@@ -47,8 +47,8 @@ export const CuiCollapsePanelHeader = ({
     >
       <div
         className="
-          flex
           min-w-1/4
+          flex
           flex-row
           items-center
           justify-start
