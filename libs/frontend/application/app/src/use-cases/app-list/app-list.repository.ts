@@ -1,9 +1,13 @@
 'use server'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import type { GetAppsListQueryVariables } from '@codelab/frontend/infra/graphql'
+import {
+  type GetAppsListQueryVariables,
+  graphql,
+} from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
+import { revalidateTag } from 'next/cache'
 
 const GetAppsListQuery = graphql(`
   query GetAppsList($options: AppOptions, $where: AppWhere) {

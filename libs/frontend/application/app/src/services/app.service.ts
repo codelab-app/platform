@@ -16,10 +16,7 @@ import {
   PageRepository,
 } from '@codelab/frontend-application-page/services'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
-import type {
-  IAppAggregate,
-  IUpdatePageData,
-} from '@codelab/shared/abstract/core'
+import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {

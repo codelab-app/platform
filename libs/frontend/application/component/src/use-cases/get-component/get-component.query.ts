@@ -1,4 +1,3 @@
-import type { GetComponentQueryVariables } from '@codelab/frontend/infra/gql'
 import { execute, graphql } from '@codelab/frontend/infra/gql'
 import { slugify } from '@codelab/shared/utils'
 

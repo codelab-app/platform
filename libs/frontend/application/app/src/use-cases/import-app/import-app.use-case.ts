@@ -1,7 +1,7 @@
 'use server'
 
-import { refreshAppListAction } from '@codelab/frontend-domain-app/actions'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
+import { refreshAppListAction } from '../app-list/app-list.repository'
 
 export const importAppUseCase = async (appData: FormData) => {
   const response = await fetchWithAuth('app/import', {

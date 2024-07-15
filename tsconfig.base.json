@@ -757,6 +757,7 @@
       "@codelab/frontend-domain-resource/store": [
         "libs/frontend/domain/resource/src/store/index.ts"
       ],
+
       "@codelab/frontend-domain-resource/test": [
         "libs/frontend/domain/resource/src/test/index.ts"
       ],
@@ -792,6 +793,9 @@
       ],
       "@codelab/frontend-domain-user/store": [
         "libs/frontend/domain/user/src/store/index.ts"
+      ],
+      "@codelab/frontend-infra-axios": [
+        "libs/frontend/infra/axios/src/index.ts"
       ],
       "@codelab/frontend-infra-fetch": [
         "libs/frontend/infra/fetch/src/index.ts"
@@ -868,9 +872,13 @@
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
+      "@codelab/frontend/infra/graphql/client": [
+        "libs/frontend/infra/graphql/src/client/index.ts"
+      ],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],
+      "@codelab/frontend/infra/gql": ["libs/frontend/infra/gql/src/index.ts"],
       "@codelab/frontend/infra/mobx": ["libs/frontend/infra/mobx/src/index.ts"],
       "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/presentation/codelab-ui": [

@@ -1,22 +1,10 @@
 'use client'
 
 import { Button } from '@cui/ui-atoms/Button'
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@cui/ui-atoms/Form'
-import { Input } from '@cui/ui-atoms/Input'
 import { typeboxResolver } from '@hookform/resolvers/typebox'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { type Static, Type } from '@sinclair/typebox'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import type { z } from 'zod'
 import { CuiForm } from './CuiForm'
 import { CuiFormField } from './CuiFormField'
 

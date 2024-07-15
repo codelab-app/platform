@@ -131,7 +131,7 @@
       "cache": true,
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx,graphql}"]
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"]
       },
       "configurations": {
         "ci": {

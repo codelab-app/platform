@@ -1,8 +1,8 @@
 'use server'
 
 import isArray from 'lodash/isArray'
-import type { TypedDocumentString } from './graphql/graphql'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
+import type { TypedDocumentString } from '@codelab/frontend/infra/gql'
 
 export const gqlFetch = async <TResult, TVariables>(
   document: TypedDocumentString<TResult, TVariables>,

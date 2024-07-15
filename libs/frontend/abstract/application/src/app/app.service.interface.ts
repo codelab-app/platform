@@ -7,7 +7,6 @@ import type {
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
 import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
-import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { ICRUDService, IQueryService } from '../services'
 import type { IAppRepository } from '.'

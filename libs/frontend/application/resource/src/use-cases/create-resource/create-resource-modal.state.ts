@@ -1,11 +1,6 @@
 import type { CreateResourceData } from '@codelab/frontend/abstract/application'
-import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useModalState } from '@codelab/frontend-application-shared-store/ui'
-import type {
-  IResource,
-  IResourceConfigData,
-} from '@codelab/shared/abstract/core'
 
 export const useCreateResourceModal = () =>
   useModalState<CreateResourceData>(MODEL_ACTION.CreateResource.key)

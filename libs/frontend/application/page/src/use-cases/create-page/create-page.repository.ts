@@ -1,10 +1,7 @@
 'use server'
 
-import {
-  execute,
-  graphql,
-  type PageCreateInput,
-} from '@codelab/frontend/infra/gql'
+import { graphql, type PageCreateInput } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 const CreatePagesMutation = graphql(`
   mutation CreatePages($input: [PageCreateInput!]!) {
@@ -17,4 +14,4 @@ const CreatePagesMutation = graphql(`
 `)
 
 export const createPageRepository = async (input: PageCreateInput) =>
-  await execute(CreatePagesMutation, { input })
+  await gqlFetch(CreatePagesMutation, { input })

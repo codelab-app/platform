@@ -7,10 +7,7 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -44,7 +41,7 @@ export const CreatePageForm = observer(
     const createPageForm = useCreatePageForm()
 
     const model = {
-      app: { id: app?.id },
+      app: { id: app.id },
       id: v4(),
       // required for store api
       owner: {

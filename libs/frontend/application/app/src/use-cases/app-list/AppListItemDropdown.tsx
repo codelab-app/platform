@@ -17,7 +17,7 @@ import React from 'react'
 import { useBuildAppModal } from '../build-app/build-app-modal.state'
 import { useDeleteAppModal } from '../delete-app/delete-app.state'
 import { useExportApp } from '../export-app'
-import { useUpdateAppModal } from '../update-app/update-app.state'
+import { useUpdateAppModal } from '../update-app/update-app-modal.state'
 
 export interface AppListItemDropdownProps {
   app: IAppModel

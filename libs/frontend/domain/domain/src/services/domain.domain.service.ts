@@ -29,7 +29,7 @@ export class DomainDomainService
   hydrate = (dto: IDomainDto) => {
     let domain = this.domains.get(dto.id)
 
-   domain = domain ? domain.writeCache(dto) : Domain.create(dto)
+    domain = domain ? domain.writeCache(dto) : Domain.create(dto)
 
     this.domains.set(domain.id, domain)
 

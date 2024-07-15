@@ -5,37 +5,20 @@ import {
   getUserService,
   type IPageApplicationService,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IInterfaceTypeModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import {
-  elementRef,
   getAtomDomainService,
   getStoreDomainService,
-  typeRef,
 } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend-application-shared-store/ui'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
-import { Store } from '@codelab/frontend-domain-store/store'
 import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import type {
-  ICreatePageData,
-  IElementDto,
-  IPropDto,
-} from '@codelab/shared/abstract/core'
-import {
-  IElementRenderTypeKind,
-  IPageKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { slugify, throwIfUndefined } from '@codelab/shared/utils'
+import type { IElementDto } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -47,7 +30,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { pageApi } from './page.api'
 import { PageRepository } from './page.repo'
 import { PageFormService } from './page-form.service'

@@ -15,13 +15,7 @@ import type {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
-import type {
-  ICRUDFormService,
-  ICRUDModalService,
-  ICRUDService,
-  IModalService,
-  IQueryService,
-} from '../services'
+import type { ICRUDFormService, ICRUDService, IQueryService } from '../services'
 
 export interface CreateResourceData {
   type?: IResourceType

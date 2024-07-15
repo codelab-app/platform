@@ -156,7 +156,9 @@ const toast = ({ ...props }: Toast) => {
       ...props,
       id,
       onOpenChange: (open: boolean) => {
-        if (!open) dismiss()
+        if (!open) {
+          dismiss()
+        }
       },
       open: true,
     },

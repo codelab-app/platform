@@ -1,9 +1,8 @@
 import {
   type DeleteResourcesMutationVariables,
-  execute,
   graphql,
-  type ResourceDeleteInput,
 } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 const DeleteResourcesDocument = graphql(`
   mutation DeleteResources(
@@ -18,4 +17,4 @@ const DeleteResourcesDocument = graphql(`
 
 export const deleteResourcesRepository = async (
   input: DeleteResourcesMutationVariables,
-) => await execute(DeleteResourcesDocument, input)
+) => await gqlFetch(DeleteResourcesDocument, input)
