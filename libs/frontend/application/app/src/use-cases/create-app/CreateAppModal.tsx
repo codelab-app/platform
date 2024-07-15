@@ -14,7 +14,7 @@ import { useCreateAppModal } from './create-app-modal.state'
 
 export const CreateAppModal = () => {
   const createAppModal = useCreateAppModal()
-  const domainStore = useDomainStore()
+  const { appDomainService, userDomainService } = useDomainStore()
 
   const onSubmit = async (data: ICreateAppData) => {
     closeModal()
@@ -23,9 +23,9 @@ export const CreateAppModal = () => {
       {
         id: data.id,
         name: data.name,
-        owner: domainStore.userDomainService.user,
+        owner: userDomainService.user,
       },
-      domainStore,
+      appDomainService,
     )
   }
 

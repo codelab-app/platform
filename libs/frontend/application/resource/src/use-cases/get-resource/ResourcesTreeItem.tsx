@@ -14,6 +14,7 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../views'
+import { useDeleteResourceModal } from '../delete-resource/delete-resource-modal.state'
 
 interface ResourcesTreeItemProps {
   data: ITreeNode<IResourceNodeData>
@@ -23,13 +24,14 @@ export const ResourcesTreeItem = observer(
   ({ data }: ResourcesTreeItemProps) => {
     const { resourceService } = useStore()
     const resource = data.extraData.node
+    const deleteResourceModal = useDeleteResourceModal()
 
     const onEdit = () => {
       resourceService.updateForm.open(resourceRef(resource))
     }
 
     const onDelete = () => {
-      resourceService.deleteModal.open(resourceRef(resource))
+      deleteResourceModal.open(resourceRef(resource))
     }
 
     const toolbarItems: Array<ToolbarItem> = [

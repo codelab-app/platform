@@ -1,4 +1,5 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import type { DeleteDomainsMutationVariables } from '@codelab/frontend/infra/gql'
 import type {
   DomainDeleteInput,
   ProductionDomainConfig,
@@ -59,6 +60,14 @@ export class Domain
       app: connectNodeId(this.app.id),
       id: this.id,
       name: this.name,
+    }
+  }
+
+  toDeleteInput(): DeleteDomainsMutationVariables {
+    return {
+      where: {
+        id: this.id,
+      },
     }
   }
 

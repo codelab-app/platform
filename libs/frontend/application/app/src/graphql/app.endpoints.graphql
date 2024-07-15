@@ -14,12 +14,6 @@ mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
   }
 }
 
-mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
-  deleteApps(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-
 query GetApps($options: AppOptions, $where: AppWhere) {
   aggregate: appsAggregate(where: $where) {
     count

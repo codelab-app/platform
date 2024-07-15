@@ -6892,6 +6892,7 @@ export type Component = WithOwner & {
   api: InterfaceType
   apiAggregate?: Maybe<ComponentInterfaceTypeApiAggregationSelection>
   apiConnection: ComponentApiConnection
+  compositeKey: Scalars['String']['output']
   elements: Array<Element>
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
@@ -7005,6 +7006,7 @@ export type ComponentStoreConnectionArgs = {
 }
 
 export type ComponentAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -7145,6 +7147,7 @@ export type ComponentConnectedRelationships = {
 
 export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
+  compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
@@ -7201,6 +7204,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
 }
 
 export type ComponentEventPayload = {
+  compositeKey: Scalars['String']['output']
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
 }
@@ -7216,6 +7220,7 @@ export type ComponentInterfaceTypeApiNodeAggregateSelection = {
 }
 
 export type ComponentOnCreateInput = {
+  compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
@@ -7670,6 +7675,7 @@ export type ComponentRootElementUpdateFieldInput = {
 
 /** Fields to sort Components by. The order in which sorts are applied is not guaranteed when specifying many fields in one ComponentSort object. */
 export type ComponentSort = {
+  compositeKey?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
@@ -7801,6 +7807,11 @@ export type ComponentSubscriptionWhere = {
   AND?: InputMaybe<Array<ComponentSubscriptionWhere>>
   NOT?: InputMaybe<ComponentSubscriptionWhere>
   OR?: InputMaybe<Array<ComponentSubscriptionWhere>>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -7814,11 +7825,13 @@ export type ComponentSubscriptionWhere = {
 }
 
 export type ComponentUniqueWhere = {
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
@@ -7856,6 +7869,12 @@ export type ComponentWhere = {
   apiConnection?: InputMaybe<ComponentApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<ComponentApiConnectionWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -8760,6 +8779,21 @@ export type ElementChildMapperComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementChildMapperComponentNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementChildMapperComponentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementChildMapperComponentNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -8998,6 +9032,7 @@ export type ElementComponentChildMapperComponentAggregationSelection = {
 }
 
 export type ElementComponentChildMapperComponentNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -9008,6 +9043,7 @@ export type ElementComponentParentComponentAggregationSelection = {
 }
 
 export type ElementComponentParentComponentNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -9817,6 +9853,21 @@ export type ElementParentComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementParentComponentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -25961,6 +26012,7 @@ export type UserComponentComponentsAggregationSelection = {
 }
 
 export type UserComponentComponentsNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -26038,6 +26090,21 @@ export type UserComponentsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
   NOT?: InputMaybe<UserComponentsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -26672,6 +26739,7 @@ export type UserTypesUpdateFieldInput = {
 
 export type UserUniqueWhere = {
   auth0Id?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   username?: InputMaybe<Scalars['String']['input']>
 }
@@ -27666,13 +27734,6 @@ export type UpdateAppsMutationVariables = Exact<{
 
 export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
 
-export type DeleteAppsMutationVariables = Exact<{
-  where: AppWhere
-  delete?: InputMaybe<AppDeleteInput>
-}>
-
-export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
-
 export type GetAppsQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
@@ -27859,31 +27920,6 @@ export type GetComponentDevelopmentQuery = {
   richTextTypes: Array<RichTextTypeFragment>
 }
 
-export type GetDomainsQueryVariables = Exact<{
-  options?: InputMaybe<DomainOptions>
-  where?: InputMaybe<DomainWhere>
-}>
-
-export type GetDomainsQuery = {
-  aggregate: { count: number }
-  items: Array<DomainFragment>
-}
-
-export type UpdateDomainsMutationVariables = Exact<{
-  where: DomainWhere
-  update: DomainUpdateInput
-}>
-
-export type UpdateDomainsMutation = {
-  updateDomains: { domains: Array<{ id: string }> }
-}
-
-export type DeleteDomainsMutationVariables = Exact<{
-  where: DomainWhere
-}>
-
-export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
-
 export type CreateElementsMutationVariables = Exact<{
   input: Array<ElementCreateInput> | ElementCreateInput
 }>
@@ -27934,29 +27970,12 @@ export type DeleteHooksMutationVariables = Exact<{
 
 export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } }
 
-export type CreatePagesMutationVariables = Exact<{
-  input: Array<PageCreateInput> | PageCreateInput
-}>
-
-export type CreatePagesMutation = {
-  createPages: { pages: Array<{ id: string }> }
-}
-
 export type DeletePagesMutationVariables = Exact<{
   where?: InputMaybe<PageWhere>
   delete?: InputMaybe<PageDeleteInput>
 }>
 
 export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
-
-export type UpdatePagesMutationVariables = Exact<{
-  where?: InputMaybe<PageWhere>
-  update?: InputMaybe<PageUpdateInput>
-}>
-
-export type UpdatePagesMutation = {
-  updatePages: { pages: Array<{ id: string }> }
-}
 
 export type GetPagesQueryVariables = Exact<{
   options?: InputMaybe<PageOptions>
@@ -28053,14 +28072,6 @@ export type GetResourcesQuery = {
   items: Array<ResourceFragment>
 }
 
-export type CreateResourcesMutationVariables = Exact<{
-  input: Array<ResourceCreateInput> | ResourceCreateInput
-}>
-
-export type CreateResourcesMutation = {
-  createResources: { resources: Array<{ id: string }> }
-}
-
 export type UpdateResourceMutationVariables = Exact<{
   where?: InputMaybe<ResourceWhere>
   update?: InputMaybe<ResourceUpdateInput>
@@ -28068,15 +28079,6 @@ export type UpdateResourceMutationVariables = Exact<{
 
 export type UpdateResourceMutation = {
   updateResources: { resources: Array<{ id: string }> }
-}
-
-export type DeleteResourcesMutationVariables = Exact<{
-  where?: InputMaybe<ResourceWhere>
-  delete?: InputMaybe<ResourceDeleteInput>
-}>
-
-export type DeleteResourcesMutation = {
-  deleteResources: { nodesDeleted: number }
 }
 
 export type CreateCodeActionsMutationVariables = Exact<{

@@ -5,19 +5,20 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateResourceModal } from './update-resource-modal.state'
 
 export type UpdateResourceButtonProps = UpdateButtonProps
 
 export const UpdateResourceButton = observer(
   ({ disabled, id }: UpdateResourceButtonProps) => {
-    const { resourceService } = useStore()
+    const updateResourceModal = useUpdateResourceModal()
 
     return (
       <Button
         disabled={disabled}
         ghost
         icon={<EditOutlined />}
-        onClick={() => resourceService.updateModal.open(resourceRef(id))}
+        onClick={() => updateResourceModal.open(resourceRef(id))}
         size="small"
         type="primary"
       />

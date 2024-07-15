@@ -1,12 +1,16 @@
 'use client'
 
+import { useUser } from '@auth0/nextjs-auth0/client'
 import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -19,6 +23,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createPageSchema } from './create-page.schema'
+import { createPageUseCase } from './create-page.use-case'
+import { useCreatePageForm } from './create-page-form.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
@@ -32,22 +38,25 @@ export const CreatePageForm = observer(
     showFormControl = true,
     submitRef,
   }: CreatePageFormProps) => {
-    const { pageService, userService } = useStore()
+    const { user } = useUser()
     const app = useCurrentApp()
+    const domainStore = useDomainStore()
+    const createPageForm = useCreatePageForm()
 
     const model = {
       app: { id: app?.id },
       id: v4(),
       // required for store api
       owner: {
-        auth0Id: userService.user.auth0Id,
+        auth0Id: user?.sub,
       },
     }
 
-    const closeForm = () => pageService.createForm.close()
+    const closeForm = () => createPageForm.close()
 
     const onSubmit = async (data: ICreatePageData) => {
-      await pageService.create(data)
+      await createPageUseCase(data, domainStore)
+
       closeForm()
       onSubmitSuccess?.()
 

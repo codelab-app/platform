@@ -6829,6 +6829,7 @@ type Component implements WithOwner {
     sort: [ComponentApiConnectionSort!]
     where: ComponentApiConnectionWhere
   ): ComponentApiConnection!
+  compositeKey: String!
   elements: [Element!]!
   id: ID!
   name: String!
@@ -6891,6 +6892,7 @@ type Component implements WithOwner {
 }
 
 type ComponentAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -7034,6 +7036,7 @@ type ComponentConnectedRelationships {
 
 input ComponentCreateInput {
   api: ComponentApiFieldInput
+  compositeKey: String!
   id: ID!
   name: String!
   owner: WithOwnerOwnerFieldInput
@@ -7090,6 +7093,7 @@ type ComponentElementRootElementNodeAggregateSelection {
 }
 
 type ComponentEventPayload {
+  compositeKey: String!
   id: ID!
   name: String!
 }
@@ -7105,6 +7109,7 @@ type ComponentInterfaceTypeApiNodeAggregateSelection {
 }
 
 input ComponentOnCreateInput {
+  compositeKey: String!
   id: ID!
   name: String!
 }
@@ -7555,6 +7560,7 @@ input ComponentRootElementUpdateFieldInput {
 Fields to sort Components by. The order in which sorts are applied is not guaranteed when specifying many fields in one ComponentSort object.
 """
 input ComponentSort {
+  compositeKey: SortDirection
   id: SortDirection
   name: SortDirection
 }
@@ -7689,6 +7695,11 @@ input ComponentSubscriptionWhere {
   AND: [ComponentSubscriptionWhere!]
   NOT: ComponentSubscriptionWhere
   OR: [ComponentSubscriptionWhere!]
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String]
+  compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -7702,11 +7713,13 @@ input ComponentSubscriptionWhere {
 }
 
 input ComponentUniqueWhere {
+  compositeKey: String
   id: ID
 }
 
 input ComponentUpdateInput {
   api: ComponentApiUpdateFieldInput
+  compositeKey: String
   id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
@@ -7744,6 +7757,12 @@ input ComponentWhere {
   apiConnection: ComponentApiConnectionWhere
   apiConnection_NOT: ComponentApiConnectionWhere
   api_NOT: InterfaceTypeWhere
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
+  compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -8583,6 +8602,21 @@ input ElementChildMapperComponentNodeAggregationWhereInput {
   AND: [ElementChildMapperComponentNodeAggregationWhereInput!]
   NOT: ElementChildMapperComponentNodeAggregationWhereInput
   OR: [ElementChildMapperComponentNodeAggregationWhereInput!]
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   name_AVERAGE_LENGTH_EQUAL: Float
   name_AVERAGE_LENGTH_GT: Float
   name_AVERAGE_LENGTH_GTE: Float
@@ -8805,6 +8839,7 @@ type ElementComponentChildMapperComponentAggregationSelection {
 }
 
 type ElementComponentChildMapperComponentNodeAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -8815,6 +8850,7 @@ type ElementComponentParentComponentAggregationSelection {
 }
 
 type ElementComponentParentComponentNodeAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -9611,6 +9647,21 @@ input ElementParentComponentNodeAggregationWhereInput {
   AND: [ElementParentComponentNodeAggregationWhereInput!]
   NOT: ElementParentComponentNodeAggregationWhereInput
   OR: [ElementParentComponentNodeAggregationWhereInput!]
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   name_AVERAGE_LENGTH_EQUAL: Float
   name_AVERAGE_LENGTH_GT: Float
   name_AVERAGE_LENGTH_GTE: Float
@@ -24204,6 +24255,7 @@ type UserComponentComponentsAggregationSelection {
 }
 
 type UserComponentComponentsNodeAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -24284,6 +24336,21 @@ input UserComponentsNodeAggregationWhereInput {
   AND: [UserComponentsNodeAggregationWhereInput!]
   NOT: UserComponentsNodeAggregationWhereInput
   OR: [UserComponentsNodeAggregationWhereInput!]
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   name_AVERAGE_LENGTH_EQUAL: Float
   name_AVERAGE_LENGTH_GT: Float
   name_AVERAGE_LENGTH_GTE: Float
@@ -24915,6 +24982,7 @@ input UserTypesUpdateFieldInput {
 
 input UserUniqueWhere {
   auth0Id: String
+  email: String
   id: ID
   username: String
 }

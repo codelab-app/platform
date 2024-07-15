@@ -2,7 +2,7 @@ import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'
 
 interface ModalState<T = unknown> {
-  data: T | null
+  data?: T
   isOpen: boolean
 }
 
@@ -15,7 +15,7 @@ const modalsAtom = atom({})
 const useModalState = <T>(key: ModelActionKey) => {
   const [modalState, setModalState] = useAtom<ModalsAtom<T>>(modalsAtom)
 
-  const open = (data: T) => {
+  const open = (data?: T) => {
     setModalState((state) => ({
       ...state,
       [key]: { data, isOpen: true },
@@ -25,7 +25,7 @@ const useModalState = <T>(key: ModelActionKey) => {
   const close = () => {
     setModalState((state) => ({
       ...state,
-      [key]: { data: null, isOpen: false },
+      [key]: { data: undefined, isOpen: false },
     }))
   }
 

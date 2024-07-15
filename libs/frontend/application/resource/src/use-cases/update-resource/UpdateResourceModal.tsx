@@ -7,10 +7,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateResourceSchema } from './update-resource.schema'
+import { useUpdateResourceModal } from './update-resource-modal.state'
 
 export const UpdateResourceModal = observer(() => {
   const { resourceService } = useStore()
-  const resource = resourceService.updateModal.resource
+  const updateResourceModal = useUpdateResourceModal()
+  const resource = updateResourceModal.data?.current
 
   const model = {
     config: resource?.config.values,
@@ -19,7 +21,7 @@ export const UpdateResourceModal = observer(() => {
     type: resource?.type,
   }
 
-  const closeModal = () => resourceService.updateModal.close()
+  const closeModal = () => updateResourceModal.close()
 
   const onSubmit = (resourceDTO: IUpdateResourceData) => {
     void resourceService.update(resourceDTO)
@@ -33,7 +35,7 @@ export const UpdateResourceModal = observer(() => {
     <ModalForm.Modal
       okText="Update Resource"
       onCancel={closeModal}
-      open={resourceService.updateModal.isOpen}
+      open={updateResourceModal.isOpen}
     >
       <ModalForm.Form<IUpdateResourceData>
         model={model}

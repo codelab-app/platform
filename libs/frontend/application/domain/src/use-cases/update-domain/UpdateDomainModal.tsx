@@ -1,3 +1,5 @@
+'use client'
+
 import type { ApolloError } from '@apollo/client'
 import type { IUpdateDomainData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
@@ -10,18 +12,24 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateDomainSchema } from './update-domain.schema'
+import { updateDomainUseCase } from './update-domain.use-case'
+import { useUpdateDomainModal } from './update-domain-modal.state'
 
 export const UpdateDomainModal = observer(() => {
-  const { domainService } = useStore()
-  const domain = domainService.updateModal.domain
-  const isOpen = domainService.updateModal.isOpen
+  const updateDomainModal = useUpdateDomainModal()
+  const domain = updateDomainModal.data
+  const isOpen = updateDomainModal.isOpen
   const app = useCurrentApp()
 
-  const onSubmit = (domainDTO: IUpdateDomainData) => {
-    return domainService.update(domainDTO)
+  if (!domain) {
+    return null
   }
 
-  const closeModal = () => domainService.updateModal.close()
+  const onSubmit = (domainDto: IUpdateDomainData) => {
+    return updateDomainUseCase(domain.current, domainDto)
+  }
+
+  const closeModal = () => updateDomainModal.close()
 
   const onError = useErrorNotify({
     description: '',
@@ -35,9 +43,9 @@ export const UpdateDomainModal = observer(() => {
   }
 
   const model = {
-    app: { id: app?.id },
-    id: domain?.id,
-    name: domain?.name,
+    app: { id: app.id },
+    id: domain.id,
+    name: domain.current.name,
   }
 
   return (

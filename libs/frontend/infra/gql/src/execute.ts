@@ -1,6 +1,5 @@
 import { getEnv } from '@codelab/shared/config'
 import type { TypedDocumentString } from './graphql/graphql'
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import isArray from 'lodash/isArray'
 
 export const execute = async <TResult, TVariables>(
@@ -26,7 +25,7 @@ export const execute = async <TResult, TVariables>(
   }
 
   const json = await response.json()
- 
+
   const { data, errors } = json
 
   if (isArray(errors) && errors.length) {

@@ -8,6 +8,7 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { deletePageUseCase } from './delete-page.use-case'
 
 export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
   const { pageService } = useStore()
@@ -21,7 +22,7 @@ export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
     >
       <ModalForm.Form
         model={{}}
-        onSubmit={() => pageService.delete([page])}
+        onSubmit={() => deletePageUseCase(page)}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting page',
         })}

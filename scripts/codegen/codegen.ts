@@ -61,7 +61,11 @@ const config: Types.Config = {
     //   },
     // },
     'libs/frontend/infra/gql/src/graphql/': {
-      documents: ['**/*.fragment.graphql', '**/*.mutation.ts', '**/*.query.ts'],
+      documents: [
+        '**/*.fragment.graphql',
+        'libs/frontend/application/**/*.repository.ts',
+        'libs/frontend/domain/**/*.repository.ts',
+      ],
       preset: 'client',
       config: {
         documentMode: 'string',

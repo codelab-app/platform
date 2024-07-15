@@ -29,7 +29,7 @@ export const CreateAuthGuardModal = observer(() => {
       onCancel={closeModal}
       open={authGuardService.createModal.isOpen}
     >
-      <ModalForm.Form
+      <ModalForm.Form<IUpdateAuthGuardData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

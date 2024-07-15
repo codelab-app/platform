@@ -13,6 +13,7 @@ import type {
   TypeFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { IDomainStore } from '../shared'
 import type { IAppModel } from './app.model.interface'
 
 export interface IAppDevelopmentArgs {
@@ -40,4 +41,16 @@ export interface IAppDevelopmentDto {
 export interface IAppDevelopmentService {
   getAppDevelopmentData(data: IAppDevelopmentArgs): Promise<IAppDevelopmentDto>
   hydrateAppDevelopmentData(data: IAppDevelopmentDto): IAppModel
+}
+
+export interface IAppDevelopmentQuery {
+  (data: {
+    pageSlug: string
+    userId: string
+    appSlug: string
+  }): Promise<IAppDevelopmentDto>
+}
+
+export interface IHydrateAppDevelopment {
+  (query: IAppDevelopmentDto, domainStore: IDomainStore): IAppModel
 }

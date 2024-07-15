@@ -1,5 +1,5 @@
 import { type IElementModel } from '@codelab/frontend/abstract/domain'
-import { deleteElementAction } from '@codelab/frontend-domain-element/actions'
+import { deleteElementRepository } from '@codelab/frontend-domain-element/actions'
 
 export const deleteElementUseCase = async (element: IElementModel) => {
   const descendantIds = element.descendantElements.map(
@@ -11,7 +11,7 @@ export const deleteElementUseCase = async (element: IElementModel) => {
   /**
    * delete props
    */
-  await deleteElementAction({ id_IN }, { props: { where: {} } })
+  await deleteElementRepository({ id_IN }, { props: { where: {} } })
 
   // TODO: refresh elements
 }

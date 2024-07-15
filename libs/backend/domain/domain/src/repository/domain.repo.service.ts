@@ -36,6 +36,7 @@ export class DomainRepository extends AbstractRepository<
       ).create({
         input: domains.map(({ app, id, name }) => ({
           app: connectNodeId(app.id),
+          compositeKey: '',
           id,
           name,
         })),

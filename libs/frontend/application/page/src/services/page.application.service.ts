@@ -68,63 +68,6 @@ export class PageApplicationService
 {
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: PageApplicationService,
-    { app, id, name, urlPattern }: ICreatePageData,
-  ) {
-    const rootElementProps: IPropDto = {
-      data: '{}',
-      id: v4(),
-    }
-
-    const rootElement = this.elementService.elementDomainService.hydrate({
-      id: v4(),
-      name: ROOT_ELEMENT_NAME,
-      page: { id },
-      props: rootElementProps,
-      renderType: this.atomDomainService.defaultRenderType,
-    })
-
-    const appModel = throwIfUndefined(
-      this.appService.appDomainService.apps.get(app.id),
-    )
-
-    const { user } = this.userService
-    const userName = user.username
-
-    const interfaceType = this.typeDomainService.hydrateInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(
-        `${appModel.name}(${userName}) ${name} Store`,
-      ),
-    })
-
-    const store = this.storeDomainService.hydrate({
-      api: typeRef<IInterfaceTypeModel>(interfaceType.id),
-      id: v4(),
-      name: Store.createName({ name }),
-    })
-
-    const page = this.pageDomainService.hydrate({
-      app,
-      id,
-      kind: IPageKind.Regular,
-      name,
-      rootElement: elementRef(rootElement.id),
-      store,
-      // for new pages we allow user to omit url, in this case we autogenerate it
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      urlPattern: urlPattern ?? `/${slugify(name)}`,
-    })
-
-    yield* _await(this.pageRepository.add(page))
-
-    return page
-  })
-
-  @modelFlow
-  @transaction
   delete = _async(function* (
     this: PageApplicationService,
     pagesModel: Array<IPageModel>,

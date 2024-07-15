@@ -4,6 +4,8 @@ import { authOwnerOrAdmin } from './user.schema'
 export const componentSchema = gql`
   type Component implements WithOwner ${authOwnerOrAdmin} {
     id: ID! @unique
+    # auth0Id-name
+    compositeKey: String! @unique
     name: String!
     rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
     # contains the rootElement, and its descendants

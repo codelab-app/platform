@@ -1,2 +1,1 @@
-export * from './DomainsViewHeader'
-export * from './DomainsViewLayout'
+export * from './DomainsPageHeader'
