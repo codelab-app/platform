@@ -1,7 +1,6 @@
 import type { DeleteDomainsMutationVariables } from '@codelab/frontend/infra/gql'
 import type {
   DomainCreateInput,
-  DomainDeleteInput,
   DomainUpdateInput,
   ProductionDomainConfig,
 } from '@codelab/shared/abstract/codegen'

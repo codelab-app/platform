@@ -1,7 +1,4 @@
-import type {
-  IAppDomainService,
-  IDomainStore,
-} from '@codelab/frontend/abstract/domain'
+import type { IAppDomainService } from '@codelab/frontend/abstract/domain'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { updatePageRepository } from './update-page.repository'
 

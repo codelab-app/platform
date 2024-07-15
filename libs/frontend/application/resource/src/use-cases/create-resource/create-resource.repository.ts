@@ -1,8 +1,5 @@
-import {
-  execute,
-  graphql,
-  type ResourceCreateInput,
-} from '@codelab/frontend/infra/gql'
+import { graphql, type ResourceCreateInput } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 const CreateResourcesDocument = graphql(`
   mutation CreateResources($input: [ResourceCreateInput!]!) {
@@ -15,5 +12,5 @@ const CreateResourcesDocument = graphql(`
 `)
 
 export const createResourcesRepository = async (input: ResourceCreateInput) => {
-  await execute(CreateResourcesDocument, { input })
+  await gqlFetch(CreateResourcesDocument, { input })
 }

@@ -1,4 +1,3 @@
-import { useAppQuery } from '@codelab/frontend/presentation/container'
 import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
 import { DeleteDomainModal } from '@codelab/frontend-application-domain/use-cases/delete-domain'
 import {
@@ -6,14 +5,8 @@ import {
   GetDomainsList,
 } from '@codelab/frontend-application-domain/use-cases/get-domains'
 import { UpdateDomainModal } from '@codelab/frontend-application-domain/use-cases/update-domain'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import { AppProperties } from '@codelab/shared/domain'
-import { useAsync, useMountEffect } from '@react-hookz/web'
-import { Spin } from 'antd'
 import type { Metadata } from 'next'
-import Head from 'next/head'
 import React from 'react'
 
 export const metadata: Metadata = {

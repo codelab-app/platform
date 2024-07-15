@@ -1,3 +1,3 @@
-export * from './graphql.client'
-export * from './lazy-swr'
+export * from './gql-fetch'
 export * from './swr-fetcher'
+export * from './graphql.client'

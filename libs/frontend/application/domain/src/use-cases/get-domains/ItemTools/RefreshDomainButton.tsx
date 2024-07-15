@@ -4,20 +4,12 @@ import {
   type GetDomainsQuery,
   type GetDomainsQueryVariables,
 } from '@codelab/frontend/infra/gql'
-import { useLazySwr } from '@codelab/frontend/infra/graphql'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import { AppProperties } from '@codelab/shared/domain'
-import { useAsync } from '@react-hookz/web'
+import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import useSWR from 'swr'
 import { GetDomainsDocument } from '../get-domains.document'
-import {
-  domainListUseCase,
-  invalidateDomainListQuery,
-} from '../get-domains.use-case'
+import { invalidateDomainListQuery } from '../get-domains.use-case'
 
 interface RefreshDomainButtonProps {
   domain: IDomainModel

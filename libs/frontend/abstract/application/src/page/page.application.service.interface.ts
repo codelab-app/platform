@@ -11,14 +11,12 @@ import type {
 import type {
   ICreatePageData,
   IElementDto,
-  IUpdatePageData,
 } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
-  ICRUDService,
   IQueryService,
 } from '../services'
 import type { IPageRepository } from './page.repo.interface'

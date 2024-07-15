@@ -1,5 +1,3 @@
-import { execute, graphql } from '@codelab/frontend/infra/gql'
-
 // export const GetAppQuery = graphql(`
 //   query GetApp($appCompositeKey: String!, $pageName: String!) {
 //     id

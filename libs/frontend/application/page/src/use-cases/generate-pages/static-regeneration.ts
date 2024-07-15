@@ -1,5 +1,4 @@
-import type { IAppService } from '@codelab/frontend/abstract/application'
-import type { IAppModel, IDomainStore } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import {
   useErrorNotify,
   useSuccessNotify,

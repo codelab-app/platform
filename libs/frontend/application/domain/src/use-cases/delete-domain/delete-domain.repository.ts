@@ -2,10 +2,9 @@
 
 import {
   type DeleteDomainsMutationVariables,
-  type DomainDeleteInput,
-  execute,
   graphql,
 } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 const DeleteDomainsMutation = graphql(`
   mutation DeleteDomains($where: DomainWhere!) {
@@ -17,4 +16,4 @@ const DeleteDomainsMutation = graphql(`
 
 export const deleteDomainsRepository = async ({
   where,
-}: DeleteDomainsMutationVariables) => execute(DeleteDomainsMutation, { where })
+}: DeleteDomainsMutationVariables) => gqlFetch(DeleteDomainsMutation, { where })

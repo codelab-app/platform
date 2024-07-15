@@ -1,6 +1,6 @@
 import 'server-only'
 import type { Session } from '@auth0/nextjs-auth0'
-import { restApiClient } from '@codelab/frontend-infra-axios'
+import { corsFetch } from '@codelab/frontend-infra-fetch'
 import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import { type NextRequest, NextResponse } from 'next/server'
@@ -20,18 +20,16 @@ export const GET = auth0Instance.handleAuth({
        */
       if (process.env['NODE_ENV'] === 'development') {
         /**
-         * Cannot call frontend proxy here, since session is not created yet
+         * Cannot call fetchWithAuth since session is not created yet
          */
-        await restApiClient.post(
-          'admin/setup-dev',
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${session.accessToken}`,
-              'X-ID-TOKEN': session.idToken,
-            },
+        await corsFetch('admin/setup-dev', {
+          body: JSON.stringify({}),
+          headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+            'X-ID-TOKEN': session.idToken ?? '',
           },
-        )
+          method: 'POST',
+        })
 
         return session
       }
@@ -40,18 +38,14 @@ export const GET = auth0Instance.handleAuth({
        * Create user in our neo4j database
        */
       if (process.env['NEXT_PUBLIC_WEB_HOST']?.includes('codelab.app')) {
-        console.log('Using restApiClient', restApiClient.getUri())
-
-        await restApiClient.post(
-          'user/save',
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${session.accessToken}`,
-              'X-ID-TOKEN': session.idToken,
-            },
+        await corsFetch('user/save', {
+          body: JSON.stringify({}),
+          headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+            'X-ID-TOKEN': session.idToken ?? '',
           },
-        )
+          method: 'POST',
+        })
       }
 
       return session

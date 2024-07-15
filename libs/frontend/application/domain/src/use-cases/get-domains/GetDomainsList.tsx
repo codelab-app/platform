@@ -1,10 +1,6 @@
 'use client'
 
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/errorBoundary'
 import {
@@ -16,7 +12,6 @@ import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateDomainButton } from '../create-domain'
-import { domainListUseCase } from './get-domains.use-case'
 import { GetDomainItem } from './GetDomainsItem/GetDomainsItem'
 
 const emptyImageStyle: React.CSSProperties = {

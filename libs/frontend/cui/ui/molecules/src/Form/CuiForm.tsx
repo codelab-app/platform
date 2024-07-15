@@ -1,9 +1,8 @@
 import { Form } from '@cui/ui-atoms/Form'
-import React, { type FormEventHandler } from 'react'
+import React from 'react'
 import {
   type FieldValues,
   type SubmitHandler,
-  type UseFormHandleSubmit,
   type UseFormReturn,
 } from 'react-hook-form'
 
