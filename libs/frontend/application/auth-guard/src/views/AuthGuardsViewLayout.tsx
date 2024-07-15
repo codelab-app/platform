@@ -19,7 +19,7 @@ export const AuthGuardsViewLayout: IAuthGuardsView['Layout'] = observer(
           items: [
             {
               key: ExplorerPaneType.AuthGuards,
-              render: AuthGuardsPrimarySidebar,
+              render: <AuthGuardsPrimarySidebar />,
             },
           ],
         }}

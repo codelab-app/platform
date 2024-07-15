@@ -7,17 +7,16 @@ import {
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { HttpException } from '@nestjs/common'
-import { useAsync } from '@react-hookz/web'
-import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { importComponentDataUseCase } from './import-component-data.use-case'
 
 export const ImportComponentDialog = observer(() => {
   const { componentService } = useStore()
 
-  const [{ status }, importComponent] = useAsync(
-    componentService.importComponent,
-  )
+  // const [{ status }, importComponent] = useAsync(
+  //   componentService.importComponent,
+  // )
 
   const onError = useErrorNotify({
     description: (event: HttpException) => {
@@ -39,18 +38,21 @@ export const ImportComponentDialog = observer(() => {
   const onFileChange = async () => {
     const files = inputFile.current?.files
     const componentDataFile = files?.[0]
+    const formData = new FormData()
 
     if (componentDataFile) {
-      await importComponent
-        .execute(componentDataFile)
-        .then(onSuccess)
-        .catch(onError)
+      formData.append('file', componentDataFile)
+      await importComponentDataUseCase(formData)
+      // await importComponent
+      //   .execute(componentDataFile)
+      //   .then(onSuccess)
+      //   .catch(onError)
     }
   }
 
   return (
     <>
-      {status === 'loading' && <Spin className="mr-2" />}
+      {/* {status === 'loading' && <Spin className="mr-2" />} */}
       <ImportOutlined onClick={onClick} />
       <input
         accept=".json"

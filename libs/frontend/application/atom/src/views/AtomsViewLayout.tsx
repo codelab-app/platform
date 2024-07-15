@@ -17,7 +17,7 @@ export const AtomsViewLayout: IAtomsView['Layout'] = ({ children }) => {
         items: [
           {
             key: PageType.Atoms,
-            render: AtomsPrimarySidebar,
+            render: <AtomsPrimarySidebar />,
           },
         ],
       }}

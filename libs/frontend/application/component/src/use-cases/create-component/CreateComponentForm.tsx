@@ -3,12 +3,8 @@ import {
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
-import {
-  Form,
-  FormController,
-} from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { Form } from '@codelab/frontend-presentation-components-form'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -16,39 +12,28 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
-
-export const KEY_GENERATOR = `function run(props) {
-    // props are of type component api
-    return props.id
-}`
+import { createComponentUseCase } from './create-component.use-case'
+import { useCreateComponentModal } from './create-component-modal.state'
 
 interface CreateComponentFormProps {
-  showFormControl?: boolean
   submitRef?: React.MutableRefObject<Maybe<SubmitController>>
   onSubmitSuccess?(): void
 }
 
 export const CreateComponentForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreateComponentFormProps) => {
-    const { componentService, userService } = useStore()
+  ({ onSubmitSuccess, submitRef }: CreateComponentFormProps) => {
+    const createForm = useCreateComponentModal()
+    const domainStore = useDomainStore()
 
-    const onSubmit = (componentData: ICreateComponentData) => {
-      const promise = componentService.create(componentData)
+    const onSubmit = async (componentData: ICreateComponentData) => {
+      await createComponentUseCase(componentData, domainStore)
 
       onSubmitSuccess?.()
-
-      return promise
     }
-
-    const closeForm = () => componentService.createForm.close()
 
     const model = {
       id: v4(),
-      owner: { auth0Id: userService.user.auth0Id },
+      name: '',
     }
 
     return (
@@ -58,16 +43,12 @@ export const CreateComponentForm = observer(
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating component',
         })}
-        onSubmitSuccess={closeForm}
+        onSubmitSuccess={createForm.close}
         schema={createComponentSchema}
         submitRef={submitRef}
         uiKey={MODEL_ACTION.CreateComponent.key}
       >
         <AutoFields omitFields={['api']} />
-
-        <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Component" />
-        </DisplayIf>
       </Form>
     )
   },

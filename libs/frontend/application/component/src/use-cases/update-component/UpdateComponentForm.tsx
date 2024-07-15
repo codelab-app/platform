@@ -1,3 +1,5 @@
+'use client'
+
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'

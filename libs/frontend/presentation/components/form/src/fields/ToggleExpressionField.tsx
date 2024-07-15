@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
+'use client'
+
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { hasExpression } from '@codelab/shared/utils'

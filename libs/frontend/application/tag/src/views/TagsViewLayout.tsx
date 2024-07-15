@@ -12,7 +12,7 @@ export const TagsViewLayout: ITagsView['Layout'] = ({ children }) => {
   const memoizedPrimarySidebar = useMemo(
     () => ({
       default: ExplorerPaneType.Tag,
-      items: [{ key: ExplorerPaneType.Tag, render: TagsPrimarySidebar }],
+      items: [{ key: ExplorerPaneType.Tag, render: <TagsPrimarySidebar /> }],
     }),
     [],
   )

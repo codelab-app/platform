@@ -1,4 +1,6 @@
 /* eslint-disable tailwindcss/no-custom-classname */
+'use client'
+
 import './styles.css'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'

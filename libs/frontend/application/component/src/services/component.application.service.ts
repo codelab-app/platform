@@ -116,20 +116,6 @@ export class ComponentApplicationService
   })
 
   @modelFlow
-  exportComponent = _async(function* (
-    this: ComponentApplicationService,
-    component: IComponentModel,
-  ) {
-    // const res = yield* _await(
-    //   restWebClient.get<IComponentAggregate>(
-    //     `component/export?id=${component.id}`,
-    //   ),
-    // )
-    // downloadJsonAsFile(`${slugify(component.name)}.json`, res.data)
-    // return res
-  })
-
-  @modelFlow
   @transaction
   getAll = _async(function* (
     this: ComponentApplicationService,
