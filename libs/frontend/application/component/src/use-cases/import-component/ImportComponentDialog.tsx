@@ -9,7 +9,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { HttpException } from '@nestjs/common'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
-import { importComponentDataAction } from './ImportComponent.action'
+import { importComponentDataUseCase } from './import-component-data.use-case'
 
 export const ImportComponentDialog = observer(() => {
   const { componentService } = useStore()
@@ -38,9 +38,11 @@ export const ImportComponentDialog = observer(() => {
   const onFileChange = async () => {
     const files = inputFile.current?.files
     const componentDataFile = files?.[0]
+    const formData = new FormData()
 
     if (componentDataFile) {
-      await importComponentDataAction(componentDataFile)
+      formData.append('file', componentDataFile)
+      await importComponentDataUseCase(formData)
       // await importComponent
       //   .execute(componentDataFile)
       //   .then(onSuccess)

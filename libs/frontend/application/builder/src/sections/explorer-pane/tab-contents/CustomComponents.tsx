@@ -7,6 +7,7 @@ import { useDeleteComponentModal } from '@codelab/frontend-application-component
 import { exportComponentUseCase } from '@codelab/frontend-application-component/use-cases/export-component'
 import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
@@ -17,7 +18,11 @@ import React, { useEffect } from 'react'
 import { ComponentList } from './ComponentList'
 import { useComponentsList } from './useComponentsList.hook'
 
-export const CustomComponents = observer((props) => {
+interface CustomComponentProps {
+  components: Array<IComponentDto>
+}
+
+export const CustomComponents = observer((props: CustomComponentProps) => {
   const components = useComponentsList(props.components)
   const { componentDomainService } = useDomainStore()
   const deleteModal = useDeleteComponentModal()

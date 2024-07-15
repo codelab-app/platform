@@ -1,9 +1,7 @@
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
+import { atomListUseCase } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
 import { ComponentsPrimarySidebar } from '@codelab/frontend-application-builder/sections'
-import {
-  atomListUseCase,
-  componentListUseCase,
-} from '@codelab/frontend-application-component/use-cases/component-list'
+import { componentListUseCase } from '@codelab/frontend-application-component/use-cases/component-list'
 import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'

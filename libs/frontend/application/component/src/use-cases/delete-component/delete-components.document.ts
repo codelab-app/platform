@@ -1,6 +1,6 @@
 import { graphql } from '@codelab/frontend/infra/gql'
 
-export const DeleteComponentsMutation = graphql(`
+export const DeleteComponentsDocument = graphql(`
   mutation DeleteComponents(
     $where: ComponentWhere!
     $delete: ComponentDeleteInput

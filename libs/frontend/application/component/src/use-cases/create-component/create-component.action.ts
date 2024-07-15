@@ -1,10 +1,10 @@
 'use server'
 
-import { execute } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { CreateComponentMutation } from './create-component.mutation'
+import { CreateComponentsDocument } from './create-components.document'
 
 export const createComponentAction = async (input: ComponentCreateInput) =>
-  await execute(CreateComponentMutation, {
+  await gqlFetch(CreateComponentsDocument, {
     input,
   })

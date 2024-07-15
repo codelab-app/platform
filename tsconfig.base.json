@@ -262,6 +262,9 @@
       "@codelab/frontend-application-atom/use-cases/get-atoms": [
         "libs/frontend/application/atom/src/use-cases/get-atoms/index.ts"
       ],
+      "@codelab/frontend-application-atom/use-cases/get-atoms/server": [
+        "libs/frontend/application/atom/src/use-cases/get-atoms/server/index.ts"
+      ],
       "@codelab/frontend-application-atom/use-cases/get-select-atom-options": [
         "libs/frontend/application/atom/src/use-cases/get-select-atom-options/index.ts"
       ],

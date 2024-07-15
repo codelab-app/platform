@@ -2,18 +2,18 @@
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import type { GetComponentsQueryVariables } from '@codelab/frontend/infra/gql'
-import { execute } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
-import { GetComponentsListQuery } from './component-list.query'
+import { ComponentListDocument } from './component-list.document'
 
-export const componentListAction = async ({
+export const componentListRepository = async ({
   options,
   where,
 }: GetComponentsQueryVariables): Promise<{
   components: Array<IComponentDto>
 }> => {
-  const { components } = await execute(
-    GetComponentsListQuery,
+  const { components } = await gqlFetch(
+    ComponentListDocument,
     { options, where },
     { tags: [CACHE_TAGS.COMPONENTS_LIST] },
   )

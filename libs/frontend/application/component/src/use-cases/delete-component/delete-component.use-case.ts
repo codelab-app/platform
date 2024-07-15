@@ -1,11 +1,14 @@
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { Component } from '@codelab/frontend-domain-component/store'
-import { deleteElementAction } from '@codelab/frontend-domain-element/actions'
+import { deleteElementRepository } from '@codelab/frontend-domain-element/actions'
 import { refreshComponentListAction } from '../component-list'
-import { deleteComponentAction } from './delete-component.action'
+import { deleteComponentRepository } from './delete-component.repository'
 
 export const deleteComponentUseCase = async (component: IComponentModel) => {
-  await deleteElementAction({ parentComponent: { id: component.id } })
-  await deleteComponentAction({ id: component.id }, Component.toDeleteInput())
+  await deleteElementRepository({ parentComponent: { id: component.id } })
+  await deleteComponentRepository(
+    { id: component.id },
+    Component.toDeleteInput(),
+  )
   await refreshComponentListAction()
 }

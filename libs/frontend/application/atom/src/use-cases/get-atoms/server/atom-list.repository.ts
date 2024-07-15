@@ -2,18 +2,18 @@
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import type { GetAtomsQueryVariables } from '@codelab/frontend/infra/gql'
-import { execute } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
-import { GetAtomsListQuery } from './atoms-list.query'
+import { AtomListDocument } from './atom-list.document'
 
-export const atomListAction = async ({
+export const atomListRepository = async ({
   options,
   where,
 }: GetAtomsQueryVariables): Promise<{
   atoms: Array<IAtomDto>
 }> => {
-  const { atoms } = await execute(
-    GetAtomsListQuery,
+  const { atoms } = await gqlFetch(
+    AtomListDocument,
     { options, where },
     { tags: [CACHE_TAGS.ATOM_LIST] },
   )
