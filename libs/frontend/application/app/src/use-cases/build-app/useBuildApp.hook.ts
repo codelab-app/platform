@@ -3,7 +3,7 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { getDomainsUseCase } from '@codelab/frontend-application-domain/use-cases/get-domain'
+import { domainListUseCase } from '@codelab/frontend-application-domain/use-cases/get-domains'
 import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { useState } from 'react'
 import { buildAppUseCase } from './build-app.use-case'
@@ -31,7 +31,7 @@ export const useBuildApp = () => {
       )
 
       if (!domains.length) {
-        domains = (await getDomainsUseCase(app)).domains.map((domain) => {
+        domains = (await domainListUseCase(app)).map((domain) => {
           return domainDomainService.hydrate(domain)
         })
       }
