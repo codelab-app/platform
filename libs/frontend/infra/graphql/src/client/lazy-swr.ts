@@ -1,5 +1,4 @@
 import type { TypedDocumentString } from '@codelab/frontend/infra/gql'
-import type { TypedDocumentNode } from '@graphql-typed-document-node/core'
 import { useCallback, useState } from 'react'
 import useSWR, { type SWRResponse } from 'swr'
 import { swrFetcher } from '../swr-fetcher'

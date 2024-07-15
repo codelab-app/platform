@@ -1,0 +1,24 @@
+{
+  "name": "frontend-infra-action",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/action/src",
+  "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:frontend"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/frontend/infra/action",
+        "main": "libs/frontend/infra/action/src/index.ts",
+        "tsConfig": "libs/frontend/infra/action/tsconfig.lib.json",
+        "assets": ["libs/frontend/infra/action/*.md"]
+      }
+    }
+  }
+}

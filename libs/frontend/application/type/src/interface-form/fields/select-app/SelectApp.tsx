@@ -1,30 +1,39 @@
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+'use client'
+
+import {
+  AppListDocument,
+  type AppListQuery,
+  type AppListQueryVariables,
+} from '@codelab/frontend/infra/gql'
+import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import { useAsync } from '@react-hookz/web'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
 export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
-  const { appService } = useStore()
+  // const [
+  //   { error: queryError, result: selectAppOptions = [], status },
+  //   useSelectAppOptions,
+  // ] = useAsync(() => useSelectAppOptions())
 
-  const [
-    { error: queryError, result: selectAppOptions = [], status },
-    getSelectAppOptions,
-  ] = useAsync(() => appService.getSelectAppOptions())
+  const [trigger, { data, error: queryError, isLoading }] = useLazySwr<
+    AppListQuery,
+    AppListQueryVariables
+  >(AppListDocument)
 
   return (
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      loading={status === 'loading'}
+      loading={isLoading}
       name={name}
       onDropdownVisibleChange={async (open) => {
-        if (open && status === 'not-executed') {
-          await getSelectAppOptions.execute()
+        if (open) {
+          await trigger()
         }
       }}
       optionFilterProp="label"
-      options={selectAppOptions}
+      options={data?.apps}
       showSearch
     />
   )

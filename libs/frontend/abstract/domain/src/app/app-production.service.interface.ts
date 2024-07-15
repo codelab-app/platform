@@ -11,7 +11,7 @@ import type {
 import type { IAppModel } from './app.model.interface'
 
 export interface IAppProductionArgs {
-  domain: string
+  domainSlug: string
   pageUrlPattern: string
 }
 

@@ -27721,36 +27721,6 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
-export type CreateAppsMutationVariables = Exact<{
-  input: Array<AppCreateInput> | AppCreateInput
-}>
-
-export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
-
-export type UpdateAppsMutationVariables = Exact<{
-  where: AppWhere
-  update: AppUpdateInput
-}>
-
-export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
-
-export type GetAppsQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsQuery = {
-  aggregate: { count: number }
-  items: Array<AppFragment>
-}
-
-export type GetAppsListQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsListQuery = { apps: Array<AppPreviewFragment> }
-
 export type GetAppDevelopmentQueryVariables = Exact<{
   appCompositeKey: Scalars['String']['input']
   pageName: Scalars['String']['input']
@@ -27769,17 +27739,6 @@ export type GetAppDevelopmentQuery = {
   renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
   richTextTypes: Array<RichTextTypeFragment>
-}
-
-export type GetAppProductionQueryVariables = Exact<{
-  domain: Scalars['String']['input']
-  pageUrlPattern: Scalars['String']['input']
-}>
-
-export type GetAppProductionQuery = {
-  apps: Array<AppProductionFragment>
-  atoms: Array<AtomProductionFragment>
-  resources: Array<ResourceFragment>
 }
 
 export type CreateAtomsMutationVariables = Exact<{

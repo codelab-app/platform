@@ -2,12 +2,11 @@
 
 import {
   graphql,
-  type UpdateAppsMutation,
   type UpdateAppsMutationVariables,
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
-const UpdateAppsMutation = graphql(`
+const UpdateAppsDocument = graphql(`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
     updateApps(update: $update, where: $where) {
       apps {
@@ -21,7 +20,7 @@ export const updateAppRepository = async ({
   update,
   where,
 }: UpdateAppsMutationVariables) =>
-  await gqlFetch(UpdateAppsMutation, {
+  await gqlFetch(UpdateAppsDocument, {
     update,
     where,
   })

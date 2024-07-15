@@ -193,12 +193,6 @@
       "@codelab/frontend-application-admin/views": [
         "libs/frontend/application/admin/src/views/index.ts"
       ],
-      "@codelab/frontend-application-app/graphql": [
-        "libs/frontend/application/app/src/graphql/index.ts"
-      ],
-      "@codelab/frontend-application-app/services": [
-        "libs/frontend/application/app/src/services/index.ts"
-      ],
       "@codelab/frontend-application-app/use-cases/app-development": [
         "libs/frontend/application/app/src/use-cases/app-development/index.ts"
       ],
@@ -220,11 +214,17 @@
       "@codelab/frontend-application-app/use-cases/delete-app": [
         "libs/frontend/application/app/src/use-cases/delete-app/index.ts"
       ],
+      "@codelab/frontend-application-app/use-cases/export-app": [
+        "libs/frontend/application/app/src/use-cases/export-app/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/get-app": [
         "libs/frontend/application/app/src/use-cases/get-app/index.ts"
       ],
       "@codelab/frontend-application-app/use-cases/import-app": [
         "libs/frontend/application/app/src/use-cases/import-app/index.ts"
+      ],
+      "@codelab/frontend-application-app/use-cases/select-app-options": [
+        "libs/frontend/application/app/src/use-cases/select-app-options/index.ts"
       ],
       "@codelab/frontend-application-app/use-cases/update-app": [
         "libs/frontend/application/app/src/use-cases/update-app/index.ts"
@@ -334,11 +334,11 @@
       "@codelab/frontend-application-component/services": [
         "libs/frontend/application/component/src/services/index.ts"
       ],
-      "@codelab/frontend-application-component/use-cases/component-list": [
-        "libs/frontend/application/component/src/use-cases/component-list/index.ts"
-      ],
       "@codelab/frontend-application-component/use-cases/component-development": [
         "libs/frontend/application/component/src/use-cases/component-development/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/component-list": [
+        "libs/frontend/application/component/src/use-cases/component-list/index.ts"
       ],
       "@codelab/frontend-application-component/use-cases/create-component": [
         "libs/frontend/application/component/src/use-cases/create-component/index.ts"
@@ -346,11 +346,11 @@
       "@codelab/frontend-application-component/use-cases/delete-component": [
         "libs/frontend/application/component/src/use-cases/delete-component/index.ts"
       ],
-      "@codelab/frontend-application-component/use-cases/get-component": [
-        "libs/frontend/application/component/src/use-cases/get-component/index.ts"
-      ],
       "@codelab/frontend-application-component/use-cases/export-component": [
         "libs/frontend/application/component/src/use-cases/export-component/index.ts"
+      ],
+      "@codelab/frontend-application-component/use-cases/get-component": [
+        "libs/frontend/application/component/src/use-cases/get-component/index.ts"
       ],
       "@codelab/frontend-application-component/use-cases/import-component": [
         "libs/frontend/application/component/src/use-cases/import-component/index.ts"
@@ -381,6 +381,9 @@
       ],
       "@codelab/frontend-application-domain/use-cases/delete-domain": [
         "libs/frontend/application/domain/src/use-cases/delete-domain/index.ts"
+      ],
+      "@codelab/frontend-application-domain/use-cases/get-domain": [
+        "libs/frontend/application/domain/src/use-cases/get-domain/index.ts"
       ],
       "@codelab/frontend-application-domain/use-cases/get-domains": [
         "libs/frontend/application/domain/src/use-cases/get-domains/index.ts"
@@ -703,6 +706,9 @@
       "@codelab/frontend-domain-component/test": [
         "libs/frontend/domain/component/src/test/index.ts"
       ],
+      "@codelab/frontend-domain-domain/actions": [
+        "libs/frontend/domain/domain/src/actions/index.ts"
+      ],
       "@codelab/frontend-domain-domain/errors": [
         "libs/frontend/domain/domain/src/errors/index.ts"
       ],
@@ -711,12 +717,6 @@
       ],
       "@codelab/frontend-domain-domain/store": [
         "libs/frontend/domain/domain/src/store/index.ts"
-      ],
-      "@codelab/frontend-domain-domain/services": [
-        "libs/frontend/domain/domain/src/services/index.ts"
-      ],
-      "@codelab/frontend-domain-domain/actions": [
-        "libs/frontend/domain/domain/src/actions/index.ts"
       ],
       "@codelab/frontend-domain-element/actions": [
         "libs/frontend/domain/element/src/actions/index.ts"
@@ -772,7 +772,6 @@
       "@codelab/frontend-domain-resource/store": [
         "libs/frontend/domain/resource/src/store/index.ts"
       ],
-
       "@codelab/frontend-domain-resource/test": [
         "libs/frontend/domain/resource/src/test/index.ts"
       ],
@@ -887,13 +886,16 @@
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
-      "@codelab/frontend/infra/graphql/client": [
-        "libs/frontend/infra/graphql/src/client/index.ts"
+      "@codelab/frontend/infra/action": [
+        "libs/frontend/infra/action/src/index.ts"
       ],
+      "@codelab/frontend/infra/gql": ["libs/frontend/infra/gql/src/index.ts"],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],
-      "@codelab/frontend/infra/gql": ["libs/frontend/infra/gql/src/index.ts"],
+      "@codelab/frontend/infra/graphql/client": [
+        "libs/frontend/infra/graphql/src/client/index.ts"
+      ],
       "@codelab/frontend/infra/mobx": ["libs/frontend/infra/mobx/src/index.ts"],
       "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/presentation/codelab-ui": [
