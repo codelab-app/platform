@@ -7,7 +7,6 @@ import {
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
-import { revalidateTag } from 'next/cache'
 
 const AppListDocument = graphql(`
   query AppList($options: AppOptions, $where: AppWhere) {
@@ -38,5 +37,3 @@ export const appListRepository = async ({
 
   return { apps, atoms }
 }
-
-export const refreshAppListAction = () => revalidateTag(CACHE_TAGS.APP_LIST)

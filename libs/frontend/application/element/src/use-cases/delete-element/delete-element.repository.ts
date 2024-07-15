@@ -7,7 +7,7 @@ import type {
 import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
-export const DeleteElementsMutation = graphql(`
+const DeleteElementsMutation = graphql(`
   mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
     deleteElements(delete: $delete, where: $where) {
       nodesDeleted

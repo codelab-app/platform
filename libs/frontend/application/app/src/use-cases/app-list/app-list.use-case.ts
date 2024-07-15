@@ -13,4 +13,4 @@ export const appListUseCase = async () => {
   })
 }
 
-export const invalidateAppListQuery = () => revalidateTag(CACHE_TAGS.PAGE_LIST)
+export const invalidateAppListQuery = () => revalidateTag(CACHE_TAGS.APP_LIST)

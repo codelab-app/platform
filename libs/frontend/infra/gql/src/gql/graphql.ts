@@ -34064,6 +34064,15 @@ export type UpdateDomainsMutation = {
   updateDomains: { domains: Array<{ id: string }> }
 }
 
+export type DeleteElementsMutationVariables = Exact<{
+  where: ElementWhere
+  delete?: InputMaybe<ElementDeleteInput>
+}>
+
+export type DeleteElementsMutation = {
+  deleteElements: { nodesDeleted: number }
+}
+
 export type CreatePagesMutationVariables = Exact<{
   input: Array<PageCreateInput> | PageCreateInput
 }>
@@ -34096,15 +34105,6 @@ export type DeleteResourcesMutationVariables = Exact<{
 
 export type DeleteResourcesMutation = {
   deleteResources: { nodesDeleted: number }
-}
-
-export type DeleteElementsMutationVariables = Exact<{
-  where: ElementWhere
-  delete?: InputMaybe<ElementDeleteInput>
-}>
-
-export type DeleteElementsMutation = {
-  deleteElements: { nodesDeleted: number }
 }
 
 export type DeletePagesMutationVariables = Exact<{
@@ -38908,6 +38908,16 @@ export const UpdateDomainsDocument = new TypedDocumentString(`
   UpdateDomainsMutation,
   UpdateDomainsMutationVariables
 >
+export const DeleteElementsDocument = new TypedDocumentString(`
+    mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
+  deleteElements(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteElementsMutation,
+  DeleteElementsMutationVariables
+>
 export const CreatePagesDocument = new TypedDocumentString(`
     mutation CreatePages($input: [PageCreateInput!]!) {
   createPages(input: $input) {
@@ -38953,16 +38963,6 @@ export const DeleteResourcesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   DeleteResourcesMutation,
   DeleteResourcesMutationVariables
->
-export const DeleteElementsDocument = new TypedDocumentString(`
-    mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
-  deleteElements(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteElementsMutation,
-  DeleteElementsMutationVariables
 >
 export const DeletePagesDocument = new TypedDocumentString(`
     mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {

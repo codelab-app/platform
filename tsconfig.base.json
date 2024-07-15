@@ -718,8 +718,8 @@
       "@codelab/frontend-domain-domain/store": [
         "libs/frontend/domain/domain/src/store/index.ts"
       ],
-      "@codelab/frontend-domain-element/actions": [
-        "libs/frontend/domain/element/src/actions/index.ts"
+      "@codelab/frontend-domain-domain/services": [
+        "libs/frontend/domain/domain/src/services/index.ts"
       ],
       "@codelab/frontend-domain-element/services": [
         "libs/frontend/domain/element/src/services/index.ts"
