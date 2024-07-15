@@ -21,7 +21,7 @@ export interface IAuthGuardModel
       IAuthGuard
     >,
     ICacheService<IAuthGuardDto, IAuthGuardModel> {
-  config: IPropModel<IResourceFetchConfig>
+  config: IPropModel
   id: string
   name: string
   resource: Ref<IResourceModel>

@@ -1655,7 +1655,6 @@ export type AppDomainDomainsAggregationSelection = {
 }
 
 export type AppDomainDomainsNodeAggregateSelection = {
-  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -1733,21 +1732,6 @@ export type AppDomainsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<AppDomainsNodeAggregationWhereInput>>
   NOT?: InputMaybe<AppDomainsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<AppDomainsNodeAggregationWhereInput>>
-  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -8125,7 +8109,6 @@ export type Domain = {
   app: App
   appAggregate?: Maybe<DomainAppAppAggregationSelection>
   appConnection: DomainAppConnection
-  compositeKey: Scalars['String']['output']
   domainConfig: ProductionDomainConfig
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
@@ -8151,7 +8134,6 @@ export type DomainAppConnectionArgs = {
 }
 
 export type DomainAggregateSelection = {
-  compositeKey: StringAggregateSelectionNonNullable
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -8302,7 +8284,6 @@ export type DomainConnectedRelationships = {
 
 export type DomainCreateInput = {
   app?: InputMaybe<DomainAppFieldInput>
-  compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
@@ -8333,13 +8314,11 @@ export type DomainEdge = {
 }
 
 export type DomainEventPayload = {
-  compositeKey: Scalars['String']['output']
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
 }
 
 export type DomainOnCreateInput = {
-  compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
@@ -8393,7 +8372,6 @@ export type DomainRelationshipsSubscriptionWhere = {
 
 /** Fields to sort Domains by. The order in which sorts are applied is not guaranteed when specifying many fields in one DomainSort object. */
 export type DomainSort = {
-  compositeKey?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
@@ -8402,11 +8380,6 @@ export type DomainSubscriptionWhere = {
   AND?: InputMaybe<Array<DomainSubscriptionWhere>>
   NOT?: InputMaybe<DomainSubscriptionWhere>
   OR?: InputMaybe<Array<DomainSubscriptionWhere>>
-  compositeKey?: InputMaybe<Scalars['String']['input']>
-  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
-  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -8420,13 +8393,11 @@ export type DomainSubscriptionWhere = {
 }
 
 export type DomainUniqueWhere = {
-  compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type DomainUpdateInput = {
   app?: InputMaybe<DomainAppUpdateFieldInput>
-  compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
@@ -8447,12 +8418,6 @@ export type DomainWhere = {
   appConnection?: InputMaybe<DomainAppConnectionWhere>
   appConnection_NOT?: InputMaybe<DomainAppConnectionWhere>
   app_NOT?: InputMaybe<AppWhere>
-  compositeKey?: InputMaybe<Scalars['String']['input']>
-  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
-  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -33274,6 +33239,23 @@ export type UpdatePagesMutation = {
   updatePages: { pages: Array<{ id: string }> }
 }
 
+export type CreateResourcesMutationVariables = Exact<{
+  input: Array<ResourceCreateInput> | ResourceCreateInput
+}>
+
+export type CreateResourcesMutation = {
+  createResources: { resources: Array<{ id: string }> }
+}
+
+export type DeleteResourcesMutationVariables = Exact<{
+  where?: InputMaybe<ResourceWhere>
+  delete?: InputMaybe<ResourceDeleteInput>
+}>
+
+export type DeleteResourcesMutation = {
+  deleteResources: { nodesDeleted: number }
+}
+
 export type DeleteElementsMutationVariables = Exact<{
   where: ElementWhere
   delete?: InputMaybe<ElementDeleteInput>
@@ -37553,6 +37535,28 @@ export const UpdatePagesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   UpdatePagesMutation,
   UpdatePagesMutationVariables
+>
+export const CreateResourcesDocument = new TypedDocumentString(`
+    mutation CreateResources($input: [ResourceCreateInput!]!) {
+  createResources(input: $input) {
+    resources {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateResourcesMutation,
+  CreateResourcesMutationVariables
+>
+export const DeleteResourcesDocument = new TypedDocumentString(`
+    mutation DeleteResources($where: ResourceWhere, $delete: ResourceDeleteInput) {
+  deleteResources(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteResourcesMutation,
+  DeleteResourcesMutationVariables
 >
 export const DeleteElementsDocument = new TypedDocumentString(`
     mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {

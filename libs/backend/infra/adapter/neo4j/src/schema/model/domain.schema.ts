@@ -10,7 +10,7 @@ export const domainSchema = gql`
   type Domain {
     id: ID! @unique
     # appId-name format to make it unique across apps
-    compositeKey: String! @unique
+    # compositeKey: String! @unique
     name: String!
     app: App! @relationship(type: "APP_DOMAIN", direction: OUT)
     domainConfig: ProductionDomainConfig!

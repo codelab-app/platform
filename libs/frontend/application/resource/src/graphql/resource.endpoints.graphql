@@ -7,24 +7,10 @@ query GetResources($options: ResourceOptions, $where: ResourceWhere) {
   }
 }
 
-mutation CreateResources($input: [ResourceCreateInput!]!) {
-  createResources(input: $input) {
-    resources {
-      id
-    }
-  }
-}
-
 mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
   updateResources(update: $update, where: $where) {
     resources {
       id
     }
-  }
-}
-
-mutation DeleteResources($where: ResourceWhere, $delete: ResourceDeleteInput) {
-  deleteResources(where: $where, delete: $delete) {
-    nodesDeleted
   }
 }

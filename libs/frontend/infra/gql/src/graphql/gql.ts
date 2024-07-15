@@ -103,6 +103,10 @@ const documents = {
     types.CreatePagesDocument,
   '\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.UpdatePagesDocument,
+  '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n':
+    types.CreateResourcesDocument,
+  '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteResourcesDocument,
   '\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteElementsDocument,
   '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
@@ -391,6 +395,18 @@ export function graphql(
 export function graphql(
   source: '\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n',
 ): typeof import('./graphql').UpdatePagesDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n',
+): typeof import('./graphql').CreateResourcesDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n',
+): typeof import('./graphql').DeleteResourcesDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

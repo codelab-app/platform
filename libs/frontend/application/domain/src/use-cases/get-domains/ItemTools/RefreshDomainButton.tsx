@@ -3,9 +3,8 @@ import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import {
   type GetDomainsQuery,
   type GetDomainsQueryVariables,
-  swrFetcher,
-  useLazySwr,
 } from '@codelab/frontend/infra/gql'
+import { useLazySwr } from '@codelab/frontend/infra/graphql'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { AppProperties } from '@codelab/shared/domain'
@@ -14,7 +13,7 @@ import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import useSWR from 'swr'
-import { GetDomainsDocument } from '../get-domains.repository'
+import { GetDomainsDocument } from '../get-domains.document'
 import {
   domainListUseCase,
   invalidateDomainListQuery,

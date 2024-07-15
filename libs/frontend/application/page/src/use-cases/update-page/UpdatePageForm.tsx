@@ -32,14 +32,13 @@ export const UpdatePageForm = observer(
     showFormControl = true,
     submitRef,
   }: CreatePageFormProps) => {
-    const { appService, pageService } = useStore()
-    const domainStore = useDomainStore()
+    const { pageService } = useStore()
+    const { appDomainService } = useDomainStore()
     const pageToUpdate = pageService.updateForm.page
     const closeForm = () => pageService.updateForm.close()
 
     const onSubmit = (data: IUpdatePageData) => {
-      void updatePageUseCase(data, domainStore)
-      void appService.updatePage(data)
+      void updatePageUseCase(data, appDomainService)
       closeForm()
       onSubmitSuccess?.()
 

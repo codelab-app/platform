@@ -1,9 +1,5 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
-import type {
-  IAppModel,
-  IDomainStore,
-  IDomainStore,
-} from '@codelab/frontend/abstract/domain'
+import type { IAppModel, IDomainStore } from '@codelab/frontend/abstract/domain'
 import {
   useErrorNotify,
   useSuccessNotify,
@@ -32,7 +28,7 @@ export const regeneratePages = async (pages: Array<string>, domain: string) => {
   throw new Error(error)
 }
 
-export const useRegeneratePages = ({ domainDomainService }: IDomainStore) => {
+export const useRegeneratePages = () => {
   const [isRegenerating, setIsRegenerating] = useState(false)
 
   const successNotify = useSuccessNotify({

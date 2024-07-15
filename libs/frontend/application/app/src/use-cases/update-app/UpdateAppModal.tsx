@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateAppSchema } from './update-app.schema'
-import { useUpdateAppModal } from './update-app.state'
+import { useUpdateAppModal } from './update-app-modal.state'
 import { updateAppUseCase } from './update-app.use-case'
 
 export const UpdateAppModal = observer(() => {

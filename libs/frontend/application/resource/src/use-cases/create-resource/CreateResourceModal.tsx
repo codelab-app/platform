@@ -1,6 +1,9 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -8,13 +11,17 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createResourceSchema } from './create-resource.schema'
+import { createResourceUseCase } from './create-resource.use-case'
+import { useCreateResourceModal } from './create-resource-modal.state'
 
 export const CreateResourceModal = observer(() => {
-  const { resourceService, userService } = useStore()
-  const closeModal = () => resourceService.createModal.close()
+  const { userService } = useStore()
+  const { resourceDomainService } = useDomainStore()
+  const createResourceModal = useCreateResourceModal()
+  const closeModal = () => createResourceModal.close()
 
   const onSubmit = (resourceDTO: ICreateResourceData) => {
-    void resourceService.create(resourceDTO)
+    void createResourceUseCase(resourceDTO, resourceDomainService)
 
     closeModal()
 
@@ -26,14 +33,14 @@ export const CreateResourceModal = observer(() => {
     owner: {
       auth0Id: userService.user.auth0Id,
     },
-    type: resourceService.createModal.metadata?.type,
+    type: createResourceModal.data?.type,
   }
 
   return (
     <ModalForm.Modal
       okText="Create Resource"
       onCancel={closeModal}
-      open={resourceService.createModal.isOpen}
+      open={createResourceModal.isOpen}
     >
       <ModalForm.Form
         model={model}

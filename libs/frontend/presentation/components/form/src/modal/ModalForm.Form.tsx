@@ -1,14 +1,14 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
-import React, { useContext, useImperativeHandle, useRef } from 'react'
-import {
-  type DefaultValues,
-  type FieldValues,
-  FormProvider,
-  useForm,
-} from 'react-hook-form'
+import React, { useContext, useEffect, useState } from 'react'
+import { Bridge } from 'uniforms'
+import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'
+import {
+  connectUniformSubmitRef,
+  createBridge,
+} from '../hooks/uniformUtils.hook'
 import { ModalFormContext } from './modal-form.context'
 
 /**
@@ -18,45 +18,53 @@ import { ModalFormContext } from './modal-form.context'
  *
  * But using without `DeepPartial` causes some casting down the line
  */
-export const Form = <TData extends FieldValues, TResponse = unknown>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Form = <TData extends Record<string, any>, TResponse = unknown>({
   autosave = false,
   children,
   model,
+  modelTransform,
+  onChange,
+  onChangeModel,
   onSubmit,
   onSubmitError = [],
   onSubmitSuccess = [],
   schema,
-}: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
+}: React.PropsWithChildren<
+  Omit<FormProps<TData, TResponse>, 'submitRef'>
+>): ReactElement => {
   const { setIsLoading, submitRef } = useContext(ModalFormContext)
-  const formRef = useRef<HTMLFormElement>(null)
 
-  const methods = useForm<TData>({
-    defaultValues: model,
-  })
-
-  const throttledSubmit = throttle(
-    handleFormSubmit<TData, TResponse>(
-      onSubmit,
-      setIsLoading,
-      onSubmitSuccess,
-      onSubmitError,
-    ),
-    200,
+  const [bridge, setBridge] = useState(
+    schema instanceof Bridge ? schema : createBridge<TData>(schema),
   )
 
-  useImperativeHandle(submitRef, () => ({
-    submit: () =>
-      formRef.current?.dispatchEvent(
-        new Event('submit', { bubbles: true, cancelable: true }),
-      ),
-    validate: methods.trigger,
-  }))
+  useEffect(() => {
+    setBridge(schema instanceof Bridge ? schema : createBridge<TData>(schema))
+  }, [schema])
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(throttledSubmit)} ref={formRef}>
-        {children}
-      </form>
-    </FormProvider>
+    <AutoForm<TData>
+      autosave={autosave}
+      autosaveDelay={250}
+      model={model}
+      modelTransform={modelTransform}
+      onChange={onChange}
+      onChangeModel={onChangeModel}
+      onSubmit={throttle(
+        handleFormSubmit<TData, TResponse>(
+          onSubmit,
+          setIsLoading,
+          onSubmitSuccess,
+          onSubmitError,
+        ),
+        200,
+      )}
+      ref={connectUniformSubmitRef(submitRef)}
+      schema={bridge}
+      showInlineError
+    >
+      {children}
+    </AutoForm>
   )
 }

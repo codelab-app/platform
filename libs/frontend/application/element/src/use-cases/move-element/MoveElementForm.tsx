@@ -35,7 +35,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
 
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
-      parentElement: { id: element.parentElement?.id },
+      parentElement: { id: element.parentElement?.current.id },
       prevSibling: { id: element.prevSibling?.current.id },
     })
 
@@ -84,7 +84,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       <div key={element.id}>
         <MoveElementAutoForm<MoveData>
           autosave
-          model={model}
+          model={model as MoveData}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({
             title: 'Error while moving element',

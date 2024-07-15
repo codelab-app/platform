@@ -8,17 +8,14 @@ import type { ModelActionKey } from '../model'
 
 export type VoidCallback<TInput> = Callback<TInput, void>
 
-export type FormProps<
-  TData extends Record<string, unknown>,
-  TResponse = unknown,
-> = Partial<
+export type FormProps<TData, TResponse = unknown> = Partial<
   Pick<
     AutoFormProps<TData>,
     'autosave' | 'modelTransform' | 'onChange' | 'onChangeModel' | 'submitField'
   >
 > &
+  Pick<AutoFormProps<TData>, 'model'> &
   SubmitRef & {
-    model: Partial<TData>
     /**
      * For testing
      */

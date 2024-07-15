@@ -7,7 +7,7 @@ import type { SetIsLoading } from '../components/utils'
 export interface IModalFormContext {
   isLoading: boolean
   setIsLoading: SetIsLoading
-  submitRef: Maybe<MutableRefObject<SubmitController>>
+  submitRef: Maybe<MutableRefObject<Maybe<SubmitController>>>
 }
 
 export const initialContext: IModalFormContext = {

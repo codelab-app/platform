@@ -26,7 +26,7 @@ export const UpdateDomainModal = observer(() => {
   }
 
   const onSubmit = (domainDto: IUpdateDomainData) => {
-    return updateDomainUseCase(domain, domainDto)
+    return updateDomainUseCase(domain.current, domainDto)
   }
 
   const closeModal = () => updateDomainModal.close()
@@ -45,7 +45,7 @@ export const UpdateDomainModal = observer(() => {
   const model = {
     app: { id: app.id },
     id: domain.id,
-    name: domain.name,
+    name: domain.current.name,
   }
 
   return (
