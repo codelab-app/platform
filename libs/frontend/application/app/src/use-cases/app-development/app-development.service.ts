@@ -42,9 +42,12 @@ export class AppDevelopmentService
     this: AppDevelopmentService,
     { appName, pageName, userId }: IAppDevelopmentArgs,
   ) {
-    const appCompositeKey = AppProperties.appCompositeKey(appName, {
-      id: userId,
-    })
+    const appCompositeKey = AppProperties.appCompositeKey(
+      { name: appName },
+      {
+        id: userId,
+      },
+    )
 
     const data = yield* _await(
       appDevelopmentApi.GetAppDevelopment({

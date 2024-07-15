@@ -58,7 +58,10 @@ describe('ComponentResolvers', () => {
       await ogmService.App.create({
         input: [
           {
-            compositeKey: AppProperties.appCompositeKey('My App', owner),
+            compositeKey: AppProperties.appCompositeKey(
+              { name: 'My App' },
+              owner,
+            ),
             id: v4(),
             owner: connectOwner(owner),
           },

@@ -40,21 +40,19 @@ export class AppRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(apps: Array<IAppDto>) {
-    return (
-      await (
-        await this.ogmService.App
-      ).create({
-        input: apps.map(({ id, name, pages }) => ({
-          compositeKey: AppProperties.appCompositeKey(
-            name,
-            this.authService.currentUser,
-          ),
-          id,
-          owner: connectOwner(this.authService.currentUser),
-          pages: connectNodeIds(pages?.map((page) => page.id)),
-        })),
-      })
-    ).apps
+    return await (
+      await this.ogmService.App
+    ).create({
+      input: apps.map(({ id, name, pages }) => ({
+        compositeKey: AppProperties.appCompositeKey(
+          { name },
+          this.authService.currentUser,
+        ),
+        id,
+        owner: connectOwner(this.authService.currentUser),
+        pages: connectNodeIds(pages?.map((page) => page.id)),
+      })),
+    }).apps
   }
 
   protected async _find({
@@ -74,39 +72,35 @@ export class AppRepository extends AbstractRepository<
   }
 
   protected async _update({ name, pages }: IAppDto, where: AppWhere) {
-    return (
-      await (
-        await this.ogmService.App
-      ).update({
-        update: {
-          compositeKey: AppProperties.appCompositeKey(
-            name,
-            this.authService.currentUser,
-          ),
-          pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
-            (input) => ({
-              ...input,
-              // overriding disconnect from reconnectNodeIds because it disconnects everything
-              // including the pages connected in previous items of the input array. This causes
-              // the transaction to register only the last page being connected in the input array
-              // TODO: Check it it's the case for other places using reconnectNodeIds and if so update it.
-              disconnect: [
-                {
-                  where: {
-                    NOT: {
-                      node: {
-                        id_IN: pages?.map((page) => page.id),
-                      },
-                    },
+    return await (
+      await this.ogmService.App
+    ).update({
+      update: {
+        compositeKey: AppProperties.appCompositeKey(
+          { name },
+          this.authService.currentUser,
+        ),
+        pages: reconnectNodeIds(pages?.map((page) => page.id)).map((input) => ({
+          ...input,
+          // overriding disconnect from reconnectNodeIds because it disconnects everything
+          // including the pages connected in previous items of the input array. This causes
+          // the transaction to register only the last page being connected in the input array
+          // TODO: Check it it's the case for other places using reconnectNodeIds and if so update it.
+          disconnect: [
+            {
+              where: {
+                NOT: {
+                  node: {
+                    id_IN: pages?.map((page) => page.id),
                   },
                 },
-              ],
-            }),
-          ),
-        },
-        where,
-      })
-    ).apps[0]
+              },
+            },
+          ],
+        })),
+      },
+      where,
+    }).apps[0]
   }
 }
 

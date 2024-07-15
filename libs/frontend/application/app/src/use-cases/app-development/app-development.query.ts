@@ -58,9 +58,12 @@ export const appDevelopmentQuery: IAppDevelopmentQuery = async ({
   const appName = getNameFromSlug(pageSlug)
   const pageName = getNameFromSlug(pageSlug)
 
-  const appCompositeKey = AppProperties.appCompositeKey(appName, {
-    id: userId,
-  })
+  const appCompositeKey = AppProperties.appCompositeKey(
+    { name: appName },
+    {
+      id: userId,
+    },
+  )
 
   const data = await execute(AppDevelopmentQuery, {
     appCompositeKey,
