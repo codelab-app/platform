@@ -3,7 +3,7 @@
 import { type AppCreateInput, graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
-const CreateAppsMutation = graphql(`
+const CreateAppsDocument = graphql(`
   mutation CreateApps($input: [AppCreateInput!]!) {
     createApps(input: $input) {
       apps {
@@ -14,7 +14,7 @@ const CreateAppsMutation = graphql(`
 `)
 
 export const createAppRepository = async (input: AppCreateInput) => {
-  return await gqlFetch(CreateAppsMutation, {
+  return await gqlFetch(CreateAppsDocument, {
     input,
   })
 }

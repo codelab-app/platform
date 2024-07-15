@@ -2,15 +2,15 @@
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import {
-  type GetAppsListQueryVariables,
+  type AppListQueryVariables,
   graphql,
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
 import { revalidateTag } from 'next/cache'
 
-const GetAppsListQuery = graphql(`
-  query GetAppsList($options: AppOptions, $where: AppWhere) {
+const AppListDocument = graphql(`
+  query AppList($options: AppOptions, $where: AppWhere) {
     apps(options: $options, where: $where) {
       ...AppPreview
     }
@@ -23,12 +23,12 @@ const GetAppsListQuery = graphql(`
 export const appListRepository = async ({
   options,
   where,
-}: GetAppsListQueryVariables): Promise<{
+}: AppListQueryVariables): Promise<{
   atoms: Array<IAtomDto>
   apps: Array<IAppDto>
 }> => {
   const { apps, atoms } = await gqlFetch(
-    GetAppsListQuery,
+    AppListDocument,
     {
       options,
       where,

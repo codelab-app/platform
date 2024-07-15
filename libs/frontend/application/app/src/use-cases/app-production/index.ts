@@ -1,2 +1,2 @@
-export { AppProductionService } from './app-production.service'
+export * from './app-production.repository'
 export { useAppProduction } from './useAppProduction.hook'
