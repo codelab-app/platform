@@ -20,6 +20,7 @@ import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
+import { slugify } from '@codelab/shared/utils'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import {
@@ -43,7 +44,7 @@ export class AppDevelopmentService
     { appName, pageName, userId }: IAppDevelopmentArgs,
   ) {
     const appCompositeKey = AppProperties.appCompositeKey(
-      { name: appName },
+      { slug: slugify(appName) },
       {
         id: userId,
       },

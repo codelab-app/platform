@@ -11,6 +11,7 @@ import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 import React from 'react'
+import { StoreHydrator } from '../../components'
 
 export const metadata: Metadata = {
   // description: '...',
@@ -21,16 +22,17 @@ const AppsView = async () => {
   const { apps, atoms } = await appListUseCase()
 
   return (
-    <DashboardTemplate Header={<AppsViewHeader />}>
-      <CreateAppModal />
-      <DeleteAppModal />
-      <UpdateAppModal />
-      <BuildAppModal />
-
-      <ContentSection>
-        <AppList apps={apps} atoms={atoms} />
-      </ContentSection>
-    </DashboardTemplate>
+    <StoreHydrator apps={apps} atoms={atoms}>
+      <DashboardTemplate Header={<AppsViewHeader />}>
+        <CreateAppModal />
+        <DeleteAppModal />
+        <UpdateAppModal />
+        <BuildAppModal />
+        <ContentSection>
+          <AppList />
+        </ContentSection>
+      </DashboardTemplate>
+    </StoreHydrator>
   )
 }
 

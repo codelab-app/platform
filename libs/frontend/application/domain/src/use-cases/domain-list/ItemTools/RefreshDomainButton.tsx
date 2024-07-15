@@ -1,15 +1,11 @@
 import SyncOutlined from '@ant-design/icons/SyncOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
-import {
-  type GetDomainsQuery,
-  type GetDomainsQueryVariables,
-} from '@codelab/frontend/infra/gql'
+import {} from '@codelab/frontend/infra/gql'
 import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { GetDomainsDocument } from '../get-domains.document'
-import { invalidateDomainListQuery } from '../get-domains.use-case'
+import { invalidateDomainListQuery } from '../domain-list-use-case'
 
 interface RefreshDomainButtonProps {
   domain: IDomainModel
@@ -17,10 +13,10 @@ interface RefreshDomainButtonProps {
 
 export const RefreshDomainButton = observer(
   ({ domain }: RefreshDomainButtonProps) => {
-    const [trigger, { data, error, isLoading }] = useLazySwr<
-      GetDomainsQuery,
-      GetDomainsQueryVariables
-    >(GetDomainsDocument)
+    // const [trigger, { data, error, isLoading }] = useLazySwr<
+    //   GetDomainsQuery,
+    //   GetDomainsQueryVariables
+    // >(GetDomainsDocument)
 
     // const app = useCurrentApp()
 
@@ -40,10 +36,10 @@ export const RefreshDomainButton = observer(
     return (
       <Tooltip title="Refresh">
         <Button
-          icon={<SyncOutlined spin={isLoading} />}
+          icon={<SyncOutlined spin={false} />}
           onClick={async () => {
             invalidateDomainListQuery()
-            await trigger()
+            // await trigger()
           }}
           shape="circle"
           type="text"

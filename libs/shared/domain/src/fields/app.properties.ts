@@ -1,5 +1,5 @@
 import type { App } from '@codelab/shared/abstract/codegen'
-import type { IAppDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { IApp, IAppDto, IUserDto } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 
@@ -8,12 +8,8 @@ interface AppData {
   owner: { id: never }
 }
 
-const appCompositeKey = (
-  app: Pick<IAppDto, 'name'>,
-  user: Pick<IUserDto, 'id'>,
-) => {
-  return `${user.id}-${slugify(app.name)}`
-}
+const appCompositeKey = (app: Pick<IApp, 'slug'>, user: Pick<IUserDto, 'id'>) =>
+  `${user.id}-${app.slug}`
 
 const appNameFromCompositeKey = (app: DeepPick<App, AppData>) => {
   return app.compositeKey.replace(`${app.owner.id}-`, '')

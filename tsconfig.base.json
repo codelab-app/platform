@@ -385,8 +385,8 @@
       "@codelab/frontend-application-domain/use-cases/get-domain": [
         "libs/frontend/application/domain/src/use-cases/get-domain/index.ts"
       ],
-      "@codelab/frontend-application-domain/use-cases/get-domains": [
-        "libs/frontend/application/domain/src/use-cases/get-domains/index.ts"
+      "@codelab/frontend-application-domain/use-cases/domain-list": [
+        "libs/frontend/application/domain/src/use-cases/domain-list/index.ts"
       ],
       "@codelab/frontend-application-domain/use-cases/update-domain": [
         "libs/frontend/application/domain/src/use-cases/update-domain/index.ts"

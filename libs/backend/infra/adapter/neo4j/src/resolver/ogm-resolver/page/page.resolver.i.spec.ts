@@ -59,7 +59,7 @@ describe('ComponentResolvers', () => {
         input: [
           {
             compositeKey: AppProperties.appCompositeKey(
-              { name: 'My App' },
+              { slug: 'my-app' },
               owner,
             ),
             id: v4(),

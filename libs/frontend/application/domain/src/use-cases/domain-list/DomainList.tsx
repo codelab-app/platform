@@ -12,18 +12,15 @@ import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateDomainButton } from '../create-domain'
-import { GetDomainItem } from './GetDomainsItem/GetDomainsItem'
+import { DomainListItem } from './DomainListItem/DomainListItem'
 
 const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-interface DomainListProps {
-  domains: Array<IDomainDto>
-}
-
-export const GetDomainsList = observer(({ domains }: DomainListProps) => {
+export const DomainList = observer(() => {
   const { domainDomainService } = useDomainStore()
+  const domains = domainDomainService.domainsList
 
   return (
     <ErrorBoundary>
@@ -38,7 +35,7 @@ export const GetDomainsList = observer(({ domains }: DomainListProps) => {
           return (
             // eslint-disable-next-line react/jsx-props-no-spreading
             <Col key={domain.name} {...threeGridCol}>
-              <GetDomainItem domain={domainDomainService.hydrate(domain)} />
+              <DomainListItem domain={domain} />
             </Col>
           )
         })}
