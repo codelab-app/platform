@@ -3,10 +3,9 @@ import {
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export const ComponentDetailHeader = observer(() => {
+export const ComponentDetailHeader = () => {
   const directionItems = [{ title: 'Components' }]
 
   return (
@@ -22,4 +21,4 @@ export const ComponentDetailHeader = observer(() => {
       }
     />
   )
-})
+}

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,

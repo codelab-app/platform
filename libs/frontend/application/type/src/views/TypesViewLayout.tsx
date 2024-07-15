@@ -19,7 +19,7 @@ export const TypesViewLayout: ITypesView['Layout'] = observer(
           items: [
             {
               key: PageType.Type,
-              render: TypesPrimarySidebar,
+              render: <TypesPrimarySidebar />,
             },
           ],
         }}

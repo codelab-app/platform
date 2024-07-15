@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * useScroll React custom hook
  * Usage:

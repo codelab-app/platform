@@ -1,7 +1,6 @@
 import {
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
-  RendererTab,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
@@ -68,8 +67,6 @@ export const ElementTreeView = observer<{
       }}
       onSelect={([id], { nativeEvent, node }) => {
         nativeEvent.stopPropagation()
-
-        builderService.setActiveTab(RendererTab.Page)
 
         if (!id) {
           return

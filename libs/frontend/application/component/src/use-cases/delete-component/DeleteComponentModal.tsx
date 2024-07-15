@@ -1,30 +1,25 @@
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { deleteComponentUseCase } from './delete-component.use-case'
+import { useDeleteComponentModal } from './delete-component-modal.state'
 
 export const DeleteComponentModal = observer(() => {
-  const { componentService } = useStore()
-  const closeModal = () => componentService.deleteModal.close()
-  const component = componentService.deleteModal.component
-
-  const onSubmit = () => {
-    if (!component) {
-      return Promise.reject()
-    }
-
-    return componentService.delete([component])
-  }
+  const deleteModal = useDeleteComponentModal()
+  const closeModal = () => deleteModal.close()
+  const component = deleteModal.data as IComponentModel | null
+  const onSubmit = () => deleteComponentUseCase(component!)
 
   return (
     <ModalForm.Modal
       okText="Delete Component"
       onCancel={closeModal}
-      open={componentService.deleteModal.isOpen}
+      open={deleteModal.isOpen}
     >
       <ModalForm.Form
         model={{}}

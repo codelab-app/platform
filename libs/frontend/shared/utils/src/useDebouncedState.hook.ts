@@ -1,3 +1,5 @@
+'use client'
+
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Dispatch, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'

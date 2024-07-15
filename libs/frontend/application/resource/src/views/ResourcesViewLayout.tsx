@@ -19,7 +19,7 @@ export const ResourcesViewLayout: IResourcesView['Layout'] = observer(
           items: [
             {
               key: ExplorerPaneType.ResourceList,
-              render: ResourcesPrimarySidebar,
+              render: <ResourcesPrimarySidebar />,
             },
           ],
         }}
