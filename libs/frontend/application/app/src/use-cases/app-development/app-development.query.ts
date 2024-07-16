@@ -3,7 +3,7 @@ import type { AtomDevelopmentFragment } from '@codelab/frontend/infra/gql'
 import { execute, graphql } from '@codelab/frontend/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
-import { getNameFromSlug } from '@codelab/shared/utils'
+import { getNameFromSlug, slugify } from '@codelab/shared/utils'
 import uniqBy from 'lodash/uniqBy'
 
 export const AppDevelopmentQuery = graphql(`
@@ -58,9 +58,12 @@ export const appDevelopmentQuery: IAppDevelopmentQuery = async ({
   const appName = getNameFromSlug(pageSlug)
   const pageName = getNameFromSlug(pageSlug)
 
-  const appCompositeKey = AppProperties.appCompositeKey(appName, {
-    id: userId,
-  })
+  const appCompositeKey = AppProperties.appCompositeKey(
+    { slug: slugify(appName) },
+    {
+      id: userId,
+    },
+  )
 
   const data = await execute(AppDevelopmentQuery, {
     appCompositeKey,

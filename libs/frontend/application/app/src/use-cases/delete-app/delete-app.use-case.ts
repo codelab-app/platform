@@ -1,6 +1,6 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { deleteElementRepository } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { App } from '@codelab/frontend-domain-app/store'
-import { deleteElementRepository } from '@codelab/frontend-domain-element/actions'
 import { invalidateAppListQuery } from '../app-list'
 import { deleteAppRepository } from './delete-app.repository'
 

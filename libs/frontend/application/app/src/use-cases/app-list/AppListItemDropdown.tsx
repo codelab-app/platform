@@ -7,8 +7,8 @@ import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
@@ -37,6 +37,7 @@ const menuItemIconStyle: CSSProperties = {
 
 export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { pathname } = useUrl()
+  const { userDomainService } = useDomainStore()
   const updateAppModal = useUpdateAppModal()
   const deleteAppModal = useDeleteAppModal()
   const buildAppModal = useBuildAppModal()
@@ -47,8 +48,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const router = useRouter()
 
   const goToDomainsPage = async () => {
-    const user = await getServerUser()
-    const domainPage = `${pathname}/${user.username}/${app.slug}/domains`
+    const domainPage = `${pathname}/${app.slug}/domains`
 
     router.push(domainPage)
   }

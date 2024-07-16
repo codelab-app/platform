@@ -23,14 +23,18 @@ import { createDomainUseCase } from './create-domain.use-case'
 import { useCreateDomainModal } from './create-domain-modal.state'
 
 export const CreateDomainModal = observer(() => {
-  const { userService } = useStore()
+  const { userDomainService } = useDomainStore()
   const app = useCurrentApp()
   const createDomainModal = useCreateDomainModal()
   const domainStore = useDomainStore()
 
+  if (!app) {
+    return null
+  }
+
   const model = {
     app: { id: app.id },
-    auth0Id: userService.user.auth0Id,
+    auth0Id: userDomainService.user.auth0Id,
     id: v4(),
   }
 

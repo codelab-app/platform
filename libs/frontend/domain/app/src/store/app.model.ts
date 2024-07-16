@@ -139,7 +139,7 @@ export class App
   toCreateInput(): AppCreateInput {
     return {
       compositeKey: AppProperties.appCompositeKey(
-        this.name,
+        this,
         this.userDomainService.user,
       ),
       id: this.id,
@@ -155,7 +155,7 @@ export class App
   toUpdateInput(): AppUpdateInput {
     return {
       compositeKey: AppProperties.appCompositeKey(
-        this.name,
+        this,
         this.userDomainService.user,
       ),
     }
