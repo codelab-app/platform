@@ -1,3 +1,5 @@
+'use server'
+
 import {
   type DeleteAppsMutationVariables,
   graphql,

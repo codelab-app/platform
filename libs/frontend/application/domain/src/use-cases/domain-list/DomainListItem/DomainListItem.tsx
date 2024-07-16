@@ -6,16 +6,24 @@ import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
+import { css } from 'styled-components'
 import { ItemTools } from '../ItemTools/ItemTools'
 import { ConfigGuide } from './ConfigGuideTab/ConfigGuideTab'
 import { ConfigStatus } from './ConfigStatus'
-import { hideAntBody } from './get-domains-item.styles'
 
-export interface GetAppsItemProps {
+export interface DomainListItemProps {
   domain: IDomainModel
 }
 
-export const GetDomainItem = observer<GetAppsItemProps>(({ domain }) => {
+const hideAntBody = css`
+  :global {
+    body {
+      display: none;
+    }
+  }
+`
+
+export const DomainListItem = observer<DomainListItemProps>(({ domain }) => {
   const { domainConfig } = domain
   const url = `https://${domain.name}`
   const { misconfigured } = domainConfig ?? {}

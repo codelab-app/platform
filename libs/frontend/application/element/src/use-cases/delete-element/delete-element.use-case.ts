@@ -1,5 +1,5 @@
 import { type IElementModel } from '@codelab/frontend/abstract/domain'
-import { deleteElementRepository } from '@codelab/frontend-domain-element/actions'
+import { deleteElementRepository } from './delete-element.repository'
 
 export const deleteElementUseCase = async (element: IElementModel) => {
   const descendantIds = element.descendantElements.map(

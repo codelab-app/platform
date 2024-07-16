@@ -19,6 +19,7 @@ import {
   reconnectNodeIds,
 } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
+import { slugify } from 'voca'
 
 @Injectable()
 export class AppRepository extends AbstractRepository<
@@ -40,13 +41,13 @@ export class AppRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(apps: Array<IAppDto>) {
-    return (
+    return await (
       await (
         await this.ogmService.App
       ).create({
         input: apps.map(({ id, name, pages }) => ({
           compositeKey: AppProperties.appCompositeKey(
-            name,
+            { slug: slugify(name) },
             this.authService.currentUser,
           ),
           id,
@@ -74,13 +75,13 @@ export class AppRepository extends AbstractRepository<
   }
 
   protected async _update({ name, pages }: IAppDto, where: AppWhere) {
-    return (
+    return await (
       await (
         await this.ogmService.App
       ).update({
         update: {
           compositeKey: AppProperties.appCompositeKey(
-            name,
+            { slug: slugify(name) },
             this.authService.currentUser,
           ),
           pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
