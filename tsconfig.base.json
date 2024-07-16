@@ -808,9 +808,6 @@
       "@codelab/frontend-domain-user/store": [
         "libs/frontend/domain/user/src/store/index.ts"
       ],
-      "@codelab/frontend-infra-axios": [
-        "libs/frontend/infra/axios/src/index.ts"
-      ],
       "@codelab/frontend-infra-fetch": [
         "libs/frontend/infra/fetch/src/index.ts"
       ],
