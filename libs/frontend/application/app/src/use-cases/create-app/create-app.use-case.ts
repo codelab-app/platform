@@ -4,7 +4,7 @@ import type { IAppDto } from '@codelab/shared/abstract/core'
 import { invalidateAppListQuery } from '../app-list'
 import { createAppRepository } from './create-app.repository'
 
-export const createAppUseCase: IAppService['createAppUseCase'] = async (
+export const createAppUseCase: IAppService['createApp'] = async (
   appDto: IAppDto,
   appDomainService: IAppDomainService,
 ) => {

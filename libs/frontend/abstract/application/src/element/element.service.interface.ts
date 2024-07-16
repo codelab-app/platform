@@ -72,7 +72,7 @@ export interface IElementService
   validationService: IElementApplicationValidationService
 
   createElement(data: IElementDto): Promise<IElementModel>
-  delete(subRoot: IElementModel): Promise<void>
+  // delete(subRoot: IElementModel): Promise<void>
   element(id: string): IElementModel
   getSelectElementOptions(
     props: SelectElementOptions,

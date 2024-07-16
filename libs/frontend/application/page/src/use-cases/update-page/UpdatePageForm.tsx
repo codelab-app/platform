@@ -19,6 +19,7 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
 import { updatePageUseCase } from './update-page.use-case'
+import { useUpdatePageForm } from './update-page-form.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
@@ -32,10 +33,10 @@ export const UpdatePageForm = observer(
     showFormControl = true,
     submitRef,
   }: CreatePageFormProps) => {
-    const { pageService } = useStore()
     const { appDomainService } = useDomainStore()
-    const pageToUpdate = pageService.updateForm.page
-    const closeForm = () => pageService.updateForm.close()
+    const updatePageForm = useUpdatePageForm()
+    const pageToUpdate = updatePageForm.data?.current
+    const closeForm = () => updatePageForm.close()
 
     const onSubmit = (data: IUpdatePageData) => {
       void updatePageUseCase(data, appDomainService)

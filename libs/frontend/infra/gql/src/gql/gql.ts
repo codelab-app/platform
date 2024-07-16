@@ -103,6 +103,8 @@ const documents = {
     types.DeleteElementsDocument,
   '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.CreatePagesDocument,
+  '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n':
+    types.PageListDocument,
   '\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.UpdatePagesDocument,
   '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n':
@@ -395,6 +397,12 @@ export function graphql(
 export function graphql(
   source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n',
 ): typeof import('./graphql').CreatePagesDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n',
+): typeof import('./graphql').PageListDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

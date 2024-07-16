@@ -5,7 +5,7 @@
   "projectType": "library",
   "tags": [
     "projectType:library",
-    "type:concrete",
+    "type:abstract",
     "layer:infra",
     "scope:frontend"
   ],

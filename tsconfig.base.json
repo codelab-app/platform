@@ -30,6 +30,9 @@
       }
     ],
     "paths": {
+      "@codelab-codegen/fetch": [
+        "libs/external/codelab-codegen/fetch/src/index.ts"
+      ],
       "@codelab/backend/abstract/codegen": [
         "libs/backend/abstract/codegen/src/index.ts"
       ],
@@ -717,9 +720,6 @@
       ],
       "@codelab/frontend-domain-domain/store": [
         "libs/frontend/domain/domain/src/store/index.ts"
-      ],
-      "@codelab/frontend-domain-domain/services": [
-        "libs/frontend/domain/domain/src/services/index.ts"
       ],
       "@codelab/frontend-domain-element/services": [
         "libs/frontend/domain/element/src/services/index.ts"

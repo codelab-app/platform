@@ -1,3 +1,4 @@
+import type { IAppService } from '@codelab/frontend/abstract/application'
 import type {
   IAppModel,
   IUpdateAppData,
@@ -5,7 +6,7 @@ import type {
 import { invalidateAppListQuery } from '../app-list'
 import { updateAppRepository } from './update-app.repository'
 
-export const updateAppUseCase = async (
+export const updateAppUseCase: IAppService['updateApp'] = async (
   app: IAppModel,
   update: IUpdateAppData,
 ) => {

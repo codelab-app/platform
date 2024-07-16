@@ -1,23 +1,6 @@
-# mutation CreatePages($input: [PageCreateInput!]!) {
-#   createPages(input: $input) {
-#     pages {
-#       id
-#     }
-#   }
-# }
-
 mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
   deletePages(delete: $delete, where: $where) {
     nodesDeleted
-  }
-}
-
-query GetPages($options: PageOptions, $where: PageWhere) {
-  aggregate: pagesAggregate(where: $where) {
-    count
-  }
-  items: pages(options: $options, where: $where) {
-    ...Page
   }
 }
 

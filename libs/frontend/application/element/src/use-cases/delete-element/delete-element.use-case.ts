@@ -1,17 +1,69 @@
-import { type IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IBuilderService } from '@codelab/frontend/abstract/application'
+import {
+  type IDomainStore,
+  type IElementDomainService,
+  type IElementModel,
+} from '@codelab/frontend/abstract/domain'
+import { updateElementsRepository } from '../update-element/update-element.repository'
 import { deleteElementRepository } from './delete-element.repository'
 
-export const deleteElementUseCase = async (element: IElementModel) => {
-  const descendantIds = element.descendantElements.map(
-    (descendant) => descendant.id,
-  )
+/**
+ * Need to take care of reconnecting parent/sibling nodes
+ */
+export const deleteElementUseCase = async (
+  subRootElement: IElementModel,
+  elementDomainService: IElementDomainService,
+  builderService: IBuilderService,
+) => {
+  // const parentComponent = subRootElement.parentComponent?.current
+  // Check if the element is linked as a children container in parent component
+  // and replace this link to component root before element is deleted
+  // if (parentComponent && childrenContainer?.id === subRootElement.id) {
+  //   yield* _await(
+  //     this.componentService.update({
+  //       id: parentComponent.id,
+  //       name: parentComponent.name,
+  //     }),
+  //   )
+  // }
 
-  const id_IN = [element.id].concat(descendantIds)
+  const elementsToDelete = [
+    subRootElement,
+    ...subRootElement.descendantElements,
+  ]
+
+  builderService.selectPreviousElementOnDelete()
+
+  subRootElement.detachFromTree()
 
   /**
    * delete props
    */
-  await deleteElementRepository({ id_IN }, { props: { where: {} } })
+  await deleteElementRepository({
+    where: { id_IN: elementsToDelete.map((element) => element.id) },
+  })
 
-  // TODO: refresh elements
+  elementsToDelete.reverse().forEach((element) => {
+    // this.removeClones(element.id)
+    elementDomainService.elements.delete(element.id)
+  })
+
+  await syncModifiedElements(elementDomainService)
+}
+
+export const syncModifiedElements = async (
+  elementDomainService: IElementDomainService,
+) => {
+  const elements = elementDomainService.modifiedElements
+
+  const updates = elements.map((element) =>
+    updateElementsRepository({
+      update: element.toUpdateNodesInput(),
+      where: { id: element.id },
+    }),
+  )
+
+  await Promise.all(updates)
+
+  elementDomainService.resetModifiedElements()
 }

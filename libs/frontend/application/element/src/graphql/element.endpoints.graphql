@@ -12,14 +12,6 @@ mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
   }
 }
 
-mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
-  updateElements(update: $update, where: $where) {
-    elements {
-      id
-    }
-  }
-}
-
 query GetElements($options: ElementOptions, $where: ElementWhere) {
   aggregate: elementsAggregate(where: $where) {
     count

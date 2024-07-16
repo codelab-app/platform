@@ -14,11 +14,12 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useUpdatePageForm } from './update-page-form.state'
 import { UpdatePageForm } from './UpdatePageForm'
 
 export const UpdatePagePopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { pageService } = useStore()
+  const updatePageForm = useUpdatePageForm()
   const { popover } = useCui()
 
   return (
@@ -42,7 +43,7 @@ export const UpdatePagePopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              pageService.updateForm.close()
+              updatePageForm.close()
             },
             title: 'Cancel',
           },

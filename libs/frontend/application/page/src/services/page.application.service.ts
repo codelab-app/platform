@@ -38,13 +38,8 @@ import { PageModalService } from './page-modal.service'
 @model('@codelab/PageApplicationService')
 export class PageApplicationService
   extends Model({
-    createForm: prop(() => new InlineFormService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new PageModalService({})),
     pageDomainService: prop(() => new PageDomainService({})),
     pageRepository: prop(() => new PageRepository({})),
-    updateForm: prop(() => new PageFormService({})),
-    updateModal: prop(() => new PageModalService({})),
   })
   implements IPageApplicationService
 {

@@ -27896,15 +27896,6 @@ export type DeleteElementsMutation = {
   deleteElements: { nodesDeleted: number }
 }
 
-export type UpdateElementsMutationVariables = Exact<{
-  where?: InputMaybe<ElementWhere>
-  update?: InputMaybe<ElementUpdateInput>
-}>
-
-export type UpdateElementsMutation = {
-  updateElements: { elements: Array<{ id: string }> }
-}
-
 export type GetElementsQueryVariables = Exact<{
   options?: InputMaybe<ElementOptions>
   where?: InputMaybe<ElementWhere>
@@ -27935,16 +27926,6 @@ export type DeletePagesMutationVariables = Exact<{
 }>
 
 export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
-
-export type GetPagesQueryVariables = Exact<{
-  options?: InputMaybe<PageOptions>
-  where?: InputMaybe<PageWhere>
-}>
-
-export type GetPagesQuery = {
-  aggregate: { count: number }
-  items: Array<PageFragment>
-}
 
 export type GetRenderedPageQueryVariables = Exact<{
   pageId: Scalars['ID']['input']

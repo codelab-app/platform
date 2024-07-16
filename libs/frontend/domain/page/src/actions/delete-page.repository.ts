@@ -6,6 +6,7 @@ import type {
   PageDeleteInput,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
+import { Page } from '../store'
 
 export const DeletePagesMutation = graphql(`
   mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {
@@ -17,5 +18,5 @@ export const DeletePagesMutation = graphql(`
 
 export const deletePageRepository = (
   $where: PageWhere,
-  $delete?: PageDeleteInput,
+  $delete: PageDeleteInput = Page.toDeleteInput(),
 ) => gqlFetch(DeletePagesMutation, { delete: $delete, where: $where })

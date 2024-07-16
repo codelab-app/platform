@@ -1,0 +1,40 @@
+{
+  "name": "codelab-codegen-fetch",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/external/codelab-codegen/fetch/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": ["scope:shared"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/external/codelab-codegen/fetch",
+        "tsConfig": "libs/external/codelab-codegen/fetch/tsconfig.lib.json",
+        "packageJson": "libs/external/codelab-codegen/fetch/package.json",
+        "main": "libs/external/codelab-codegen/fetch/src/index.ts",
+        "assets": ["libs/external/codelab-codegen/fetch/*.md"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/external/codelab-codegen/fetch/jest.config.ts"
+      }
+    }
+  }
+}
