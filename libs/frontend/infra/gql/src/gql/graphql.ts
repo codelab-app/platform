@@ -33030,6 +33030,14 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
+export type CreateComponentsMutationVariables = Exact<{
+  input: Array<ComponentCreateInput> | ComponentCreateInput
+}>
+
+export type CreateComponentsMutation = {
+  createComponents: { components: Array<{ id: string }> }
+}
+
 export type AppListQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
@@ -33715,25 +33723,6 @@ export type UpdateAppsMutationVariables = Exact<{
 
 export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
 
-export type CreateAtomsMutationVariables = Exact<{
-  input: Array<AtomCreateInput> | AtomCreateInput
-}>
-
-export type CreateAtomsMutation = {
-  createAtoms: {
-    atoms: Array<{ id: string }>
-    info: { nodesCreated: number; relationshipsCreated: number }
-  }
-}
-
-export type DeleteAtomsMutationVariables = Exact<{
-  where: AtomWhere
-}>
-
-export type DeleteAtomsMutation = {
-  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
 export type AtomListQueryVariables = Exact<{
   options?: InputMaybe<AtomOptions>
   where?: InputMaybe<AtomWhere>
@@ -33847,6 +33836,25 @@ export type AtomListQuery = {
       parent?: { id: string } | null
     }>
   }>
+}
+
+export type CreateAtomsMutationVariables = Exact<{
+  input: Array<AtomCreateInput> | AtomCreateInput
+}>
+
+export type CreateAtomsMutation = {
+  createAtoms: {
+    atoms: Array<{ id: string }>
+    info: { nodesCreated: number; relationshipsCreated: number }
+  }
+}
+
+export type DeleteAtomsMutationVariables = Exact<{
+  where: AtomWhere
+}>
+
+export type DeleteAtomsMutation = {
+  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type UpdateAtomsMutationVariables = Exact<{
@@ -34037,14 +34045,6 @@ export type GetComponentsQuery = {
   }>
 }
 
-export type CreateComponentsMutationVariables = Exact<{
-  input: Array<ComponentCreateInput> | ComponentCreateInput
-}>
-
-export type CreateComponentsMutation = {
-  createComponents: { components: Array<{ id: string }> }
-}
-
 export type DeleteComponentsMutationVariables = Exact<{
   where: ComponentWhere
   delete?: InputMaybe<ComponentDeleteInput>
@@ -34067,6 +34067,21 @@ export type DeleteDomainsMutationVariables = Exact<{
 }>
 
 export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
+
+export type DomainListQueryVariables = Exact<{
+  options?: InputMaybe<DomainOptions>
+  where?: InputMaybe<DomainWhere>
+}>
+
+export type DomainListQuery = {
+  aggregate: { count: number }
+  items: Array<{
+    id: string
+    name: string
+    app: { id: string }
+    domainConfig: { misconfigured: boolean }
+  }>
+}
 
 export type UpdateDomainsMutationVariables = Exact<{
   where: DomainWhere
@@ -34102,6 +34117,13 @@ export type CreatePagesMutationVariables = Exact<{
 export type CreatePagesMutation = {
   createPages: { pages: Array<{ id: string }> }
 }
+
+export type DeletePagesMutationVariables = Exact<{
+  where: PageWhere
+  delete?: InputMaybe<PageDeleteInput>
+}>
+
+export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
 
 export type PageListQueryVariables = Exact<{
   options?: InputMaybe<PageOptions>
@@ -34727,13 +34749,6 @@ export type DeleteResourcesMutationVariables = Exact<{
 export type DeleteResourcesMutation = {
   deleteResources: { nodesDeleted: number }
 }
-
-export type DeletePagesMutationVariables = Exact<{
-  where: PageWhere
-  delete?: InputMaybe<PageDeleteInput>
-}>
-
-export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -38751,6 +38766,18 @@ export const UserFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
+export const CreateComponentsDocument = new TypedDocumentString(`
+    mutation CreateComponents($input: [ComponentCreateInput!]!) {
+  createComponents(input: $input) {
+    components {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateComponentsMutation,
+  CreateComponentsMutationVariables
+>
 export const AppListDocument = new TypedDocumentString(`
     query AppList($options: AppOptions, $where: AppWhere) {
   apps(options: $options, where: $where) {
@@ -39230,33 +39257,6 @@ export const UpdateAppsDocument = new TypedDocumentString(`
   UpdateAppsMutation,
   UpdateAppsMutationVariables
 >
-export const CreateAtomsDocument = new TypedDocumentString(`
-    mutation CreateAtoms($input: [AtomCreateInput!]!) {
-  createAtoms(input: $input) {
-    atoms {
-      id
-    }
-    info {
-      nodesCreated
-      relationshipsCreated
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateAtomsMutation,
-  CreateAtomsMutationVariables
->
-export const DeleteAtomsDocument = new TypedDocumentString(`
-    mutation DeleteAtoms($where: AtomWhere!) {
-  deleteAtoms(where: $where) {
-    nodesDeleted
-    relationshipsDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteAtomsMutation,
-  DeleteAtomsMutationVariables
->
 export const AtomListDocument = new TypedDocumentString(`
     query AtomList($options: AtomOptions, $where: AtomWhere) {
   atoms(options: $options, where: $where) {
@@ -39349,6 +39349,33 @@ fragment InterfaceType on InterfaceType {
 fragment Owner on User {
   id
 }`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
+export const CreateAtomsDocument = new TypedDocumentString(`
+    mutation CreateAtoms($input: [AtomCreateInput!]!) {
+  createAtoms(input: $input) {
+    atoms {
+      id
+    }
+    info {
+      nodesCreated
+      relationshipsCreated
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateAtomsMutation,
+  CreateAtomsMutationVariables
+>
+export const DeleteAtomsDocument = new TypedDocumentString(`
+    mutation DeleteAtoms($where: AtomWhere!) {
+  deleteAtoms(where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteAtomsMutation,
+  DeleteAtomsMutationVariables
+>
 export const UpdateAtomsDocument = new TypedDocumentString(`
     mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
   updateAtoms(update: $update, where: $where) {
@@ -39493,18 +39520,6 @@ fragment Owner on User {
   GetComponentsQuery,
   GetComponentsQueryVariables
 >
-export const CreateComponentsDocument = new TypedDocumentString(`
-    mutation CreateComponents($input: [ComponentCreateInput!]!) {
-  createComponents(input: $input) {
-    components {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateComponentsMutation,
-  CreateComponentsMutationVariables
->
 export const DeleteComponentsDocument = new TypedDocumentString(`
     mutation DeleteComponents($where: ComponentWhere!, $delete: ComponentDeleteInput) {
   deleteComponents(delete: $delete, where: $where) {
@@ -39537,6 +39552,25 @@ export const DeleteDomainsDocument = new TypedDocumentString(`
   DeleteDomainsMutation,
   DeleteDomainsMutationVariables
 >
+export const DomainListDocument = new TypedDocumentString(`
+    query DomainList($options: DomainOptions, $where: DomainWhere) {
+  aggregate: domainsAggregate(where: $where) {
+    count
+  }
+  items: domains(options: $options, where: $where) {
+    ...Domain
+  }
+}
+    fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
+}`) as unknown as TypedDocumentString<DomainListQuery, DomainListQueryVariables>
 export const UpdateDomainsDocument = new TypedDocumentString(`
     mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
   updateDomains(update: $update, where: $where) {
@@ -39582,6 +39616,16 @@ export const CreatePagesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreatePagesMutation,
   CreatePagesMutationVariables
+>
+export const DeletePagesDocument = new TypedDocumentString(`
+    mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {
+  deletePages(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeletePagesMutation,
+  DeletePagesMutationVariables
 >
 export const PageListDocument = new TypedDocumentString(`
     query PageList($options: PageOptions, $where: PageWhere) {
@@ -39927,14 +39971,4 @@ export const DeleteResourcesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   DeleteResourcesMutation,
   DeleteResourcesMutationVariables
->
-export const DeletePagesDocument = new TypedDocumentString(`
-    mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {
-  deletePages(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeletePagesMutation,
-  DeletePagesMutationVariables
 >

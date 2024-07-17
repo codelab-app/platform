@@ -1,3 +1,7 @@
-export * from './create-domain.repository'
-export * from './delete-domain.repository'
-export * from './update-domain.repository'
+export { createDomainRepository } from './create-domain.repository'
+export { deleteDomainsRepository } from './delete-domain.repository'
+export {
+  domainListRepository,
+  revalidateDomainListOperation,
+} from './domain-list.repository'
+export { updateDomainRepository } from './update-domain.repository'

@@ -1,2 +1,2 @@
-export * from './delete-element.repository'
-export * from './update-element.repository'
+export { deleteElementRepository } from './delete-element.repository'
+export { updateElementsRepository } from './update-element.repository'

@@ -6,7 +6,7 @@ import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
 
-export const ComponentListDocument = graphql(`
+const ComponentListDocument = graphql(`
   query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
     components(options: $options, where: $where) {
       ...Component

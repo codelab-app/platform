@@ -8,7 +8,7 @@ import {
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 
-export const AtomListDocument = graphql(`
+const AtomListDocument = graphql(`
   query AtomList($options: AtomOptions, $where: AtomWhere) {
     atoms(options: $options, where: $where) {
       ...Atom

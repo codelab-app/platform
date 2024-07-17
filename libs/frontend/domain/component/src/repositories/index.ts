@@ -1,2 +1,2 @@
-export * from './component-list.repository'
-export * from './delete-component.repository'
+export { componentListRepository } from './component-list.repository'
+export { deleteComponentRepository } from './delete-component.repository'
