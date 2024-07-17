@@ -1,6 +1,9 @@
 'use server'
 
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import {
+  CACHE_TAGS,
+  type IDomainModel,
+} from '@codelab/frontend/abstract/domain'
 import { appListRepository } from '@codelab/frontend-application-app/use-cases/app-list'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import type { IApp } from '@codelab/shared/abstract/core'
@@ -11,9 +14,15 @@ export const domainListUseCase = async (app: Pick<IApp, 'slug'>) => {
   const user = await getServerUser()
   const compositeKey = AppProperties.appCompositeKey(app, user)
 
-  return await appListRepository({
+  const { apps, atoms } = await appListRepository({
     where: { compositeKey },
   })
+
+  const domains = apps
+    .flatMap((_app) => _app.domains)
+    .filter((_domain): _domain is IDomainModel => _domain !== undefined)
+
+  return { apps, atoms, domains }
 }
 
 export const invalidateDomainListQuery = () =>

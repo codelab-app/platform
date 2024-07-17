@@ -27741,44 +27741,6 @@ export type GetAppDevelopmentQuery = {
   richTextTypes: Array<RichTextTypeFragment>
 }
 
-export type CreateAtomsMutationVariables = Exact<{
-  input: Array<AtomCreateInput> | AtomCreateInput
-}>
-
-export type CreateAtomsMutation = {
-  createAtoms: {
-    atoms: Array<{ id: string }>
-    info: { nodesCreated: number; relationshipsCreated: number }
-  }
-}
-
-export type DeleteAtomsMutationVariables = Exact<{
-  where: AtomWhere
-}>
-
-export type DeleteAtomsMutation = {
-  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type GetAtomsQueryVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  options?: InputMaybe<AtomOptions>
-}>
-
-export type GetAtomsQuery = {
-  aggregate: { count: number }
-  items: Array<AtomFragment>
-}
-
-export type UpdateAtomsMutationVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  update?: InputMaybe<AtomUpdateInput>
-}>
-
-export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
-}
-
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {

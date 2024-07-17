@@ -3,7 +3,7 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { domainListUseCase } from '@codelab/frontend-application-domain/use-cases/get-domains'
+import { domainListUseCase } from '@codelab/frontend-application-domain/use-cases/domain-list'
 import { getEnv } from '@codelab/shared/config'
 import { useState } from 'react'
 
@@ -44,7 +44,7 @@ export const useRegeneratePages = () => {
     try {
       setIsRegenerating(true)
 
-      const domains = await domainListUseCase(app)
+      const { domains } = await domainListUseCase(app)
 
       for (const domain of domains) {
         const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)
