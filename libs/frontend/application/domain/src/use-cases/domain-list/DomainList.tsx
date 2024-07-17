@@ -7,7 +7,6 @@ import {
   padding,
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
-import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

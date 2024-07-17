@@ -10,15 +10,15 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreatePageForm } from './create-page-form.state'
 import { CreatePageForm } from './CreatePageForm'
 
 export const CreatePagePopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { pageService } = useStore()
+  const createPageForm = useCreatePageForm()
   const { popover } = useCui()
 
   return (
@@ -42,7 +42,7 @@ export const CreatePagePopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              pageService.createForm.close()
+              createPageForm.close()
             },
             title: 'Cancel',
           },

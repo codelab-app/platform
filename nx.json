@@ -194,5 +194,10 @@
       "!{projectRoot}/.storybook/**/*",
       "!{projectRoot}/tsconfig.storybook.json"
     ]
+  },
+  "release": {
+    "version": {
+      "preVersionCommand": "pnpm dlx nx run-many -t build"
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
-import { atomListRepository } from './atom-list.repository'
+import { atomListRepository } from '@codelab/frontend-domain-atom/repositories'
 
 export const atomListUseCase = async () => {
   const owner = await getServerUser()

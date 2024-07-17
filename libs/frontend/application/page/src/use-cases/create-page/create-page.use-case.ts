@@ -7,6 +7,7 @@ import {
   type IInterfaceTypeModel,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
+import { createPageRepository } from '@codelab/frontend-domain-page/repositories'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
@@ -18,7 +19,6 @@ import {
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { assertIsDefined, slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { createPageRepository } from './create-page.repository'
 
 export const createPageUseCase: ICreatePageUseCase = async (
   { app, id, name, urlPattern }: ICreatePageData,

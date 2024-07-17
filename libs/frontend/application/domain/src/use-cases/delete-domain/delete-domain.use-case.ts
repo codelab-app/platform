@@ -2,7 +2,7 @@ import type {
   IDomainModel,
   IDomainStore,
 } from '@codelab/frontend/abstract/domain'
-import { deleteDomainsRepository } from './delete-domain.repository'
+import { deleteDomainsRepository } from '@codelab/frontend-domain-domain/repositories'
 
 export const deleteDomainUseCase = async (
   domain: IDomainModel,

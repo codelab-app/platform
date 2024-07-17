@@ -2,7 +2,7 @@ import type {
   IDomainModel,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
-import { updateDomainRepository } from './update-domain.repository'
+import { updateDomainRepository } from '@codelab/frontend-domain-domain/repositories'
 
 export const updateDomainUseCase = async (
   domain: IDomainModel,

@@ -2,8 +2,8 @@ import type {
   ICreateDomainData,
   IDomainStore,
 } from '@codelab/frontend/abstract/domain'
+import { createDomainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { invalidateDomainListQuery } from '../domain-list'
-import { createDomainRepository } from './create-domain.repository'
 
 export const createDomainUseCase = async (
   domainData: ICreateDomainData,

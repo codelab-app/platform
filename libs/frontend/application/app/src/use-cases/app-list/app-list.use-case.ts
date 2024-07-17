@@ -2,8 +2,8 @@
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { appListRepository } from '@codelab/frontend-domain-app/repositories'
 import { revalidateTag } from 'next/cache'
-import { appListRepository } from './app-list.repository'
 
 export const appListUseCase = async () => {
   const owner = await getServerUser()

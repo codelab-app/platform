@@ -12,10 +12,6 @@ export const useCurrentPage = () => {
   const pageName = getNameFromSlug(pageSlug)
 
   return useMemo(() => {
-    if (!app) {
-      return undefined
-    }
-
     return app.pages.find((_page) => _page.name === pageName)
   }, [pageName])
 }

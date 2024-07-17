@@ -10,10 +10,6 @@ import {
   getAtomDomainService,
   getStoreDomainService,
 } from '@codelab/frontend/abstract/domain'
-import {
-  InlineFormService,
-  ModalService,
-} from '@codelab/frontend-application-shared-store/ui'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
@@ -32,19 +28,12 @@ import {
 } from 'mobx-keystone'
 import { pageApi } from './page.api'
 import { PageRepository } from './page.repo'
-import { PageFormService } from './page-form.service'
-import { PageModalService } from './page-modal.service'
 
 @model('@codelab/PageApplicationService')
 export class PageApplicationService
   extends Model({
-    createForm: prop(() => new InlineFormService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new PageModalService({})),
     pageDomainService: prop(() => new PageDomainService({})),
     pageRepository: prop(() => new PageRepository({})),
-    updateForm: prop(() => new PageFormService({})),
-    updateModal: prop(() => new PageModalService({})),
   })
   implements IPageApplicationService
 {
