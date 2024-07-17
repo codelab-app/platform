@@ -4,17 +4,19 @@ import { Empty, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { UpdateAtomForm } from '../update-atom'
+import { useUpdateAtomModal } from '../update-atom/update-atom-modal.state'
 
 export const AtomForm = observer(() => {
-  const { atomService, fieldService } = useStore()
+  const { fieldService } = useStore()
+  const updateAtomForm = useUpdateAtomModal()
 
-  const formLabel = atomService.updateForm.isOpen
+  const formLabel = updateAtomForm.isOpen
     ? 'Edit Atom'
     : fieldService.updateForm.isOpen
     ? 'Edit Field'
     : null
 
-  const atomStory = atomService.updateForm.isOpen ? (
+  const atomStory = updateAtomForm.isOpen ? (
     <>
       <Typography className="text-2xl">Examples</Typography>
       <div className="flex grow flex-col justify-center">
@@ -28,7 +30,7 @@ export const AtomForm = observer(() => {
       {atomStory}
 
       <Typography className="text-2xl">{formLabel}</Typography>
-      {atomService.updateForm.isOpen && <UpdateAtomForm />}
+      {updateAtomForm.isOpen && <UpdateAtomForm />}
       {fieldService.updateForm.isOpen && <UpdateFieldForm />}
     </div>
   )

@@ -1,14 +1,12 @@
-import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import type {
   BaseTypeFragment,
   GetBaseTypesOptions,
   IBaseTypeOptions,
   IBaseTypeWhere,
   TypeFragment,
-} from '@codelab/shared/abstract/codegen'
-import type { IRepository } from '../services'
-
-export type BaseTypesOptions = GetBaseTypesOptions
+} from '@codelab/frontend/infra/gql'
+import type { IRepository } from '../shared'
+import type { ITypeModel } from './types'
 
 export type ITypeRepository = IRepository<
   ITypeModel,
@@ -17,7 +15,7 @@ export type ITypeRepository = IRepository<
   IBaseTypeOptions
 > & {
   findDescendants(parentIds: Array<string>): Promise<Array<TypeFragment>>
-  findBaseTypes(options: BaseTypesOptions): Promise<{
+  findBaseTypes(options: GetBaseTypesOptions): Promise<{
     items: Array<BaseTypeFragment>
     totalCount: number
   }>

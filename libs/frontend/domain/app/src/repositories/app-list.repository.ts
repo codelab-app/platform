@@ -1,8 +1,11 @@
-'use server'
-
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import {
+  CACHE_TAGS,
+  type IAppRepository,
+} from '@codelab/frontend/abstract/domain'
 import {
   type AppListQueryVariables,
+  type AppOptions,
+  type AppWhere,
   graphql,
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
@@ -10,23 +13,20 @@ import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
 
 const AppListDocument = graphql(`
   query AppList($options: AppOptions, $where: AppWhere) {
-    apps(options: $options, where: $where) {
-      ...AppPreview
+    aggregate: appsAggregate(where: $where) {
+      count
     }
-    atoms(where: { type: ReactFragment }) {
-      ...AtomDevelopment
+    items: apps(options: $options, where: $where) {
+      ...AppPreview
     }
   }
 `)
 
-export const appListRepository = async ({
-  options,
-  where,
-}: AppListQueryVariables): Promise<{
-  atoms: Array<IAtomDto>
-  apps: Array<IAppDto>
-}> => {
-  const { apps, atoms } = await gqlFetch(
+export const appListRepository: IAppRepository['find'] = async (
+  where?: AppWhere,
+  options?: AppOptions,
+) => {
+  return await gqlFetch(
     AppListDocument,
     {
       options,
@@ -34,6 +34,4 @@ export const appListRepository = async ({
     },
     { tags: [CACHE_TAGS.APP_LIST] },
   )
-
-  return { apps, atoms }
 }

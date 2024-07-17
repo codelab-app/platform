@@ -3,7 +3,7 @@ import type {
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/shared/abstract/core'
-import type { IPropRepository } from './prop.repo.interface'
+import type { IPropRepository } from '../../../domain/src/prop/prop.repo.interface'
 
 export interface IPropService {
   propRepository: IPropRepository

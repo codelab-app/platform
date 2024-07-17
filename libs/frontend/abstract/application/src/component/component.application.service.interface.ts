@@ -21,7 +21,7 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../services/query.service.interface'
-import type { IComponentRepository } from './component.repo.interface'
+import type { IComponentRepository } from '../../../domain/src/component/component.repo.interface'
 
 export interface IComponentApplicationService
   extends ICRUDService<

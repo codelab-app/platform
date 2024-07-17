@@ -1,10 +1,10 @@
-import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type {
   StoreFragment,
   StoreOptions,
   StoreWhere,
-} from '@codelab/shared/abstract/codegen'
-import type { IRepository } from '../services'
+} from '@codelab/frontend/infra/gql'
+import type { IRepository } from '../shared'
+import type { IStoreModel } from './store.model.interface'
 
 export type IStoreRepository = IRepository<
   IStoreModel,

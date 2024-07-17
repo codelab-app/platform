@@ -22,7 +22,7 @@ import type {
   IPaginateable,
   IQueryService,
 } from '../services'
-import type { ITypeRepository } from './type.repo.interface'
+import type { ITypeRepository } from '../../../domain/src/type/type.repo.interface'
 
 export interface ITypeService
   extends ICRUDService<ITypeModel, ICreateTypeDto, IUpdateTypeDto>,

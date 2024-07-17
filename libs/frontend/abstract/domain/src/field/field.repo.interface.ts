@@ -1,10 +1,10 @@
-import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type {
   FieldFragment,
   FieldOptions,
   FieldWhere,
-} from '@codelab/shared/abstract/codegen'
-import type { IRepository } from '../services'
+} from '@codelab/frontend/infra/gql'
+import type { IRepository } from '../shared'
+import type { IFieldModel } from './field.model.interface'
 
 export type IFieldRepository = IRepository<
   IFieldModel,

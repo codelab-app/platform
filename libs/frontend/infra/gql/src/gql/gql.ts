@@ -85,7 +85,7 @@ const documents = {
     types.UserFragmentDoc,
   '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n':
     types.CreateComponentsDocument,
-  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
+  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
     types.AppListDocument,
   '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    # Need to load all dependent types\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
     types.GetAppProductionDocument,
@@ -95,7 +95,7 @@ const documents = {
     types.DeleteAppsDocument,
   '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.UpdateAppsDocument,
-  '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n':
+  '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    aggregate: atomsAggregate(where: $where) {\n      count\n    }\n    items: atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n':
     types.AtomListDocument,
   '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n':
     types.CreateAtomsDocument,
@@ -365,7 +365,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
+  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
 ): typeof import('./graphql').AppListDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -395,7 +395,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n',
+  source: '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    aggregate: atomsAggregate(where: $where) {\n      count\n    }\n    items: atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n',
 ): typeof import('./graphql').AtomListDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

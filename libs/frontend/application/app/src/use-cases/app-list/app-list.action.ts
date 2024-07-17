@@ -5,11 +5,11 @@ import { getServerUser } from '@codelab/frontend-application-user/use-cases/serv
 import { appListRepository } from '@codelab/frontend-domain-app/repositories'
 import { revalidateTag } from 'next/cache'
 
-export const appListUseCase = async () => {
+export const appListAction = async () => {
   const owner = await getServerUser()
 
   return await appListRepository({
-    where: { owner },
+    owner,
   })
 }
 

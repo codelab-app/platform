@@ -12,11 +12,13 @@ import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { SelectAtom } from '../select-atom'
 import { updateAtomSchema } from './update-atom.schema'
+import { useUpdateAppModal } from 'libs/frontend/application/app/src/use-cases/update-app/update-app-modal.state'
 
 export const UpdateAtomModal = observer(() => {
   const { atomService, tagService } = useStore()
-  const atom = atomService.updateModal.atom
-  const closeModal = () => atomService.updateModal.close()
+  const updateAtomModal = useUpdateAppModal()
+  const atom = updateAtomModal.data
+  const closeModal = () => updateAtomModal.close()
 
   const onSubmit = (atomDTO: IUpdateAtomData) => {
     return atomService.update(atomDTO)

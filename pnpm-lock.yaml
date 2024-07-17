@@ -361,8 +361,8 @@ importers:
         specifier: 5.18.3
         version: 5.18.3(date-fns@3.6.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       auth0:
-        specifier: 4.4.0
-        version: 4.4.0
+        specifier: 4.7.0
+        version: 4.7.0
       auto-bind:
         specifier: ^5.0.1
         version: 5.0.1
@@ -463,8 +463,8 @@ importers:
         specifier: 1.0.4
         version: 1.0.4
       jotai:
-        specifier: ^2.8.3
-        version: 2.8.3(@types/react@18.2.24)(react@18.3.1)
+        specifier: 2.9.0
+        version: 2.9.0(@types/react@18.2.24)(react@18.3.1)
       jquery:
         specifier: 3.6.4
         version: 3.6.4
@@ -7942,8 +7942,8 @@ packages:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
 
-  auth0@4.4.0:
-    resolution: {integrity: sha512-umlAogwQDUYvL1Pd4RnViyps7lkvntZ3+VVDW+/4ML7/GzkJcq6VGJ20Nb60eYosQkxa7up1n9lrA4Of+BZsUg==}
+  auth0@4.7.0:
+    resolution: {integrity: sha512-i8GvzdRlg8TcgRXsFEtejy+5dUOeWbnEYbU6CAkH+l8FgClGEmZpBInOJzWMkcwNae4q5AlBsCATK6nAvLtVGw==}
     engines: {node: '>=18'}
 
   auto-bind@4.0.0:
@@ -11852,8 +11852,8 @@ packages:
   jose@5.3.0:
     resolution: {integrity: sha512-IChe9AtAE79ru084ow8jzkN2lNrG3Ntfiv65Cvj9uOCE2m5LNsdHG+9EbxWxAoWRF9TgDOqLN5jm08++owDVRg==}
 
-  jotai@2.8.3:
-    resolution: {integrity: sha512-pR4plVvdbzB6zyt7VLLHPMAkcRSKhRIvZKd+qkifQLa3CEziEo1uwZjePj4acTmQrboiISBlYSdCz3gWcr1Nkg==}
+  jotai@2.9.0:
+    resolution: {integrity: sha512-MioTpMvR78IGfJ+W8EwQj3kwTkb+u0reGnTyg3oJZMWK9rK9v8NBSC9Rhrg9jrrFYA6bGZtzJa96zsuAYF6W3w==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': 18.2.24
@@ -16065,6 +16065,9 @@ packages:
 
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
+  undici-types@6.19.2:
+    resolution: {integrity: sha512-jvI+p8VJnrOIQ8AU4PyB1ytW68EyrLnI2xvCO3e5umm3nmhNjpugMD1wo+X994PyvUT9dWS/k3vO1wwRIh730Q==}
 
   unicode-canonical-property-names-ecmascript@2.0.0:
     resolution: {integrity: sha512-yY5PpDlfVIU5+y/BSCxAJRBIS1Zc2dDG3Ujq+sR0U+JjUevW2JhocOF+soROYDSaAezOzOKuyyixhD6mBknSmQ==}
@@ -26514,9 +26517,10 @@ snapshots:
 
   atomic-sleep@1.0.0: {}
 
-  auth0@4.4.0:
+  auth0@4.7.0:
     dependencies:
       jose: 4.15.5
+      undici-types: 6.19.2
       uuid: 9.0.1
 
   auto-bind@4.0.0: {}
@@ -31608,7 +31612,7 @@ snapshots:
 
   jose@5.3.0: {}
 
-  jotai@2.8.3(@types/react@18.2.24)(react@18.3.1):
+  jotai@2.9.0(@types/react@18.2.24)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.2.24
       react: 18.3.1
@@ -36385,6 +36389,8 @@ snapshots:
   unc-path-regex@0.1.2: {}
 
   undici-types@5.26.5: {}
+
+  undici-types@6.19.2: {}
 
   unicode-canonical-property-names-ecmascript@2.0.0: {}
 

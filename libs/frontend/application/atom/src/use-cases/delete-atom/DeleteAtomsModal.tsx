@@ -6,18 +6,20 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { deleteAtomsUseCase } from './delete-atoms.use-case'
+import { useDeleteAtomsModal } from './delete-atoms-modal.state'
 
 export const DeleteAtomsModal = observer(() => {
-  const { atomService } = useStore()
-  const atoms = atomService.deleteManyModal.atoms ?? []
-  const onSubmit = () => atomService.delete(atoms.map((atom) => atom.id))
-  const closeModal = () => atomService.deleteManyModal.close()
+  const deleteAtomsModal = useDeleteAtomsModal()
+  const atoms = deleteAtomsModal.data ?? []
+  const onSubmit = () => deleteAtomsUseCase(atoms.map((atom) => atom.current))
+  const closeModal = () => deleteAtomsModal.close()
 
   return (
     <ModalForm.Modal
       okText="Delete Atom"
       onCancel={closeModal}
-      open={atomService.deleteManyModal.isOpen}
+      open={deleteAtomsModal.isOpen}
       title="Delete Confirmation"
     >
       <ModalForm.Form

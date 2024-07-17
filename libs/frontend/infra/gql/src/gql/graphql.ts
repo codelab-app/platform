@@ -33044,7 +33044,8 @@ export type AppListQueryVariables = Exact<{
 }>
 
 export type AppListQuery = {
-  apps: Array<{
+  aggregate: { count: number }
+  items: Array<{
     id: string
     name: string
     slug: string
@@ -33064,110 +33065,6 @@ export type AppListQuery = {
       rootElement: { id: string }
       elements: Array<{ id: string }>
       store: { id: string }
-    }>
-  }>
-  atoms: Array<{
-    __typename: 'Atom'
-    icon?: string | null
-    id: string
-    name: string
-    type: AtomType
-    api: {
-      __typename: 'InterfaceType'
-      id: string
-      kind: TypeKind
-      name: string
-      fields: Array<{
-        defaultValues?: string | null
-        description?: string | null
-        id: string
-        key: string
-        name?: string | null
-        validationRules?: string | null
-        api: { id: string }
-        fieldType:
-          | {
-              __typename: 'ActionType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
-          | {
-              __typename: 'ArrayType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | {
-              __typename: 'CodeMirrorType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | {
-              __typename: 'ElementType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
-          | {
-              __typename: 'InterfaceType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | {
-              __typename: 'LambdaType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
-          | {
-              __typename: 'PrimitiveType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | {
-              __typename: 'ReactNodeType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | {
-              __typename: 'RenderPropType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | {
-              __typename: 'RichTextType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-          | {
-              __typename: 'UnionType'
-              id: string
-              kind: TypeKind
-              name: string
-            }
-        nextSibling?: { id: string } | null
-        prevSibling?: { id: string } | null
-      }>
-    }
-    requiredParents: Array<{ id: string; name: string; type: AtomType }>
-    suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
-    tags: Array<{
-      id: string
-      name: string
-      children: Array<{ id: string; name: string }>
-      descendants: Array<{ id: string; name: string }>
-      owner: { id: string }
-      parent?: { id: string } | null
     }>
   }>
 }
@@ -33729,7 +33626,8 @@ export type AtomListQueryVariables = Exact<{
 }>
 
 export type AtomListQuery = {
-  atoms: Array<{
+  aggregate: { count: number }
+  items: Array<{
     __typename: 'Atom'
     externalCssSource?: string | null
     externalJsSource?: string | null
@@ -38780,11 +38678,11 @@ export const CreateComponentsDocument = new TypedDocumentString(`
 >
 export const AppListDocument = new TypedDocumentString(`
     query AppList($options: AppOptions, $where: AppWhere) {
-  apps(options: $options, where: $where) {
-    ...AppPreview
+  aggregate: appsAggregate(where: $where) {
+    count
   }
-  atoms(where: {type: ReactFragment}) {
-    ...AtomDevelopment
+  items: apps(options: $options, where: $where) {
+    ...AppPreview
   }
 }
     fragment AppPreview on App {
@@ -38800,29 +38698,6 @@ export const AppListDocument = new TypedDocumentString(`
     ...PagePreview
   }
   slug
-}
-fragment AtomDevelopment on Atom {
-  __typename
-  api {
-    ...InterfaceType
-  }
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  tags {
-    ...Tag
-  }
-  type
 }
 fragment Domain on Domain {
   app {
@@ -38851,63 +38726,6 @@ fragment PagePreview on Page {
     id
   }
   urlPattern
-}
-fragment Tag on Tag {
-  children {
-    id
-    name
-  }
-  descendants {
-    id
-    name
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  parent {
-    id
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
 }
 fragment Owner on User {
   id
@@ -39259,7 +39077,10 @@ export const UpdateAppsDocument = new TypedDocumentString(`
 >
 export const AtomListDocument = new TypedDocumentString(`
     query AtomList($options: AtomOptions, $where: AtomWhere) {
-  atoms(options: $options, where: $where) {
+  aggregate: atomsAggregate(where: $where) {
+    count
+  }
+  items: atoms(options: $options, where: $where) {
     ...Atom
   }
 }

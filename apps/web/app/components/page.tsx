@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const ComponentsView = async () => {
   const { components } = await componentListUseCase()
-  const { atoms } = await atomListUseCase()
+  const { items: atoms } = await atomListUseCase()
 
   return (
     <DashboardTemplate

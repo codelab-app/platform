@@ -16,7 +16,7 @@ import type {
   IEntityFormService,
   IEntityModalService,
 } from '../services'
-import type { IFieldRepository } from './field.repo.interface'
+import type { IFieldRepository } from '../../../domain/src/field/field.repo.interface'
 
 export interface IFieldService
   extends Omit<

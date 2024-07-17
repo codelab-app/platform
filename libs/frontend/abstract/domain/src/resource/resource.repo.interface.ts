@@ -1,10 +1,10 @@
-import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import type {
   ResourceFragment,
   ResourceOptions,
   ResourceWhere,
-} from '@codelab/shared/abstract/codegen'
-import type { IRepository } from '../services'
+} from '@codelab/frontend/infra/gql'
+import type { IRepository } from '../shared'
+import type { IResourceModel } from './resource.model.interface'
 
 export type IResourceRepository = IRepository<
   IResourceModel,

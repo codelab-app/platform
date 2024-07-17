@@ -1,3 +1,7 @@
+import type {
+  IAtomModel,
+  IAtomRepository,
+} from '@codelab/frontend/abstract/domain'
 import {
   graphql,
   type UpdateAtomsMutationVariables,
@@ -14,6 +18,15 @@ const UpdateAtomDocument = graphql(`
   }
 `)
 
-export const updateAtomRepository = async (
-  variables: UpdateAtomsMutationVariables,
-) => gqlFetch(UpdateAtomDocument, variables)
+export const updateAtomRepository: IAtomRepository['update'] = async (
+  atom: IAtomModel,
+) => {
+  const {
+    updateAtoms: { atoms },
+  } = await gqlFetch(UpdateAtomDocument, {
+    update: atom.toUpdateInput(),
+    where: { id: atom.id },
+  })
+
+  return atoms[0]
+}

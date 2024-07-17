@@ -18,7 +18,7 @@ import type {
 } from '../services'
 import type { ICloneElementService } from './clone-element.service.interface'
 import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
-import type { IElementRepository } from './element.repo.interface'
+import type { IElementRepository } from '../../../domain/src/element/element.repo.interface'
 
 /**
  * Used for modal input

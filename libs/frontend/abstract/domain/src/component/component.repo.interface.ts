@@ -1,10 +1,10 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type {
   ComponentFragment,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/abstract/codegen'
-import type { IRepository } from '../services'
+} from '@codelab/frontend/infra/gql'
+import type { IRepository } from '../shared'
+import type { IComponentModel } from './component.model.interface'
 
 export type IComponentRepository = IRepository<
   IComponentModel,

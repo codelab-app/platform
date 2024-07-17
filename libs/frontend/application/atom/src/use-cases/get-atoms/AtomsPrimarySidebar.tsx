@@ -15,12 +15,14 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { CreateAtomPopover } from '../create-atom'
+import { CreateAtomModal, CreateAtomPopover } from '../create-atom'
+import { useCreateAtomModal } from '../create-atom/create-atom-modal.state'
 import { AtomsTreeView } from './AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
   const { atomService } = useStore()
   const { popover } = useCui()
+  const createAtomForm = useCreateAtomModal()
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
     atomService,
@@ -51,7 +53,7 @@ export const AtomsPrimarySidebar = observer(() => {
                 cuiKey: MODEL_ACTION.CreateAtom.key,
                 icon: <PlusOutlined />,
                 onClick: () => {
-                  atomService.createForm.open()
+                  createAtomForm.open()
                   popover.open(MODEL_ACTION.CreateAtom.key)
                 },
                 title: 'Create Atom',

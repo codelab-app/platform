@@ -5,6 +5,7 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { PageType } from '@codelab/frontend/abstract/types'
+import type { AtomFragment } from '@codelab/frontend/infra/gql'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { IAtomService } from '../atom'
 import type { IComponentApplicationService } from '../component'
@@ -16,6 +17,7 @@ export interface Filterables {
 }
 
 export type SupportedPaginationModel =
+  | AtomFragment
   | IAtomModel
   | IComponentModel
   | ITagModel

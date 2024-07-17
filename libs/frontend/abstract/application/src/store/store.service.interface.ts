@@ -15,7 +15,7 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../services'
-import type { IStoreRepository } from './store.repo.interface'
+import type { IStoreRepository } from '../../../domain/src/store/store.repo.interface'
 
 export interface IStoreService
   extends ICRUDService<IStoreModel, IStoreDto, IStoreDto>,

@@ -12,10 +12,7 @@ export const updateAppUseCase: IAppService['updateApp'] = async (
 ) => {
   app.writeCache(update)
 
-  await updateAppRepository({
-    update: app.toUpdateInput(),
-    where: { id: app.id },
-  })
+  await updateAppRepository(app)
 
   await invalidateAppListQuery()
 }
