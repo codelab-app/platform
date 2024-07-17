@@ -27741,44 +27741,6 @@ export type GetAppDevelopmentQuery = {
   richTextTypes: Array<RichTextTypeFragment>
 }
 
-export type CreateAtomsMutationVariables = Exact<{
-  input: Array<AtomCreateInput> | AtomCreateInput
-}>
-
-export type CreateAtomsMutation = {
-  createAtoms: {
-    atoms: Array<{ id: string }>
-    info: { nodesCreated: number; relationshipsCreated: number }
-  }
-}
-
-export type DeleteAtomsMutationVariables = Exact<{
-  where: AtomWhere
-}>
-
-export type DeleteAtomsMutation = {
-  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type GetAtomsQueryVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  options?: InputMaybe<AtomOptions>
-}>
-
-export type GetAtomsQuery = {
-  aggregate: { count: number }
-  items: Array<AtomFragment>
-}
-
-export type UpdateAtomsMutationVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  update?: InputMaybe<AtomUpdateInput>
-}>
-
-export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
-}
-
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
@@ -27896,15 +27858,6 @@ export type DeleteElementsMutation = {
   deleteElements: { nodesDeleted: number }
 }
 
-export type UpdateElementsMutationVariables = Exact<{
-  where?: InputMaybe<ElementWhere>
-  update?: InputMaybe<ElementUpdateInput>
-}>
-
-export type UpdateElementsMutation = {
-  updateElements: { elements: Array<{ id: string }> }
-}
-
 export type GetElementsQueryVariables = Exact<{
   options?: InputMaybe<ElementOptions>
   where?: InputMaybe<ElementWhere>
@@ -27935,16 +27888,6 @@ export type DeletePagesMutationVariables = Exact<{
 }>
 
 export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
-
-export type GetPagesQueryVariables = Exact<{
-  options?: InputMaybe<PageOptions>
-  where?: InputMaybe<PageWhere>
-}>
-
-export type GetPagesQuery = {
-  aggregate: { count: number }
-  items: Array<PageFragment>
-}
 
 export type GetRenderedPageQueryVariables = Exact<{
   pageId: Scalars['ID']['input']

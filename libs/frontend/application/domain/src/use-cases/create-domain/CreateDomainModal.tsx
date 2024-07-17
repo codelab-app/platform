@@ -5,10 +5,7 @@ import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,
@@ -27,10 +24,6 @@ export const CreateDomainModal = observer(() => {
   const app = useCurrentApp()
   const createDomainModal = useCreateDomainModal()
   const domainStore = useDomainStore()
-
-  if (!app) {
-    return null
-  }
 
   const model = {
     app: { id: app.id },

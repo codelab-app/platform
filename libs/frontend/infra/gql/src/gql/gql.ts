@@ -83,34 +83,54 @@ const documents = {
   'fragment Owner on User {\n  id\n}': types.OwnerFragmentDoc,
   'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}':
     types.UserFragmentDoc,
+  '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n':
+    types.CreateComponentsDocument,
   '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
     types.AppListDocument,
+  '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    # Need to load all dependent types\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
+    types.GetAppProductionDocument,
   '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.CreateAppsDocument,
   '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteAppsDocument,
   '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.UpdateAppsDocument,
+  '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n':
+    types.AtomListDocument,
+  '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n':
+    types.CreateAtomsDocument,
+  '\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteAtomsDocument,
+  '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n':
+    types.UpdateAtomsDocument,
+  '\n  query GetComponents($options: ComponentOptions, $where: ComponentWhere) {\n    components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n':
+    types.GetComponentsDocument,
+  '\n  mutation DeleteComponents(\n    $where: ComponentWhere!\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteComponentsDocument,
   '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n':
     types.CreateDomainsDocument,
   '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteDomainsDocument,
-  '\n  query DomainList($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n':
+  '\n  query DomainList($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    items: domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n':
     types.DomainListDocument,
   '\n  mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {\n    updateDomains(update: $update, where: $where) {\n      domains {\n        id\n      }\n    }\n  }\n':
     types.UpdateDomainsDocument,
   '\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteElementsDocument,
+  '\n  mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {\n    updateElements(update: $update, where: $where) {\n      elements {\n        id\n      }\n    }\n  }\n':
+    types.UpdateElementsDocument,
   '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.CreatePagesDocument,
+  '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeletePagesDocument,
+  '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n':
+    types.PageListDocument,
   '\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.UpdatePagesDocument,
   '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n':
     types.CreateResourcesDocument,
   '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteResourcesDocument,
-  '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
-    types.DeletePagesDocument,
 }
 
 /**
@@ -339,8 +359,20 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n',
+): typeof import('./graphql').CreateComponentsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
 ): typeof import('./graphql').AppListDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    # Need to load all dependent types\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n',
+): typeof import('./graphql').GetAppProductionDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -363,6 +395,42 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n',
+): typeof import('./graphql').AtomListDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n',
+): typeof import('./graphql').CreateAtomsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): typeof import('./graphql').DeleteAtomsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n',
+): typeof import('./graphql').UpdateAtomsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetComponents($options: ComponentOptions, $where: ComponentWhere) {\n    components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n',
+): typeof import('./graphql').GetComponentsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteComponents(\n    $where: ComponentWhere!\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): typeof import('./graphql').DeleteComponentsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n',
 ): typeof import('./graphql').CreateDomainsDocument
 /**
@@ -375,7 +443,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query DomainList($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n',
+  source: '\n  query DomainList($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    items: domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n',
 ): typeof import('./graphql').DomainListDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -393,8 +461,26 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {\n    updateElements(update: $update, where: $where) {\n      elements {\n        id\n      }\n    }\n  }\n',
+): typeof import('./graphql').UpdateElementsDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n',
 ): typeof import('./graphql').CreatePagesDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): typeof import('./graphql').DeletePagesDocument
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n',
+): typeof import('./graphql').PageListDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -413,12 +499,6 @@ export function graphql(
 export function graphql(
   source: '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n',
 ): typeof import('./graphql').DeleteResourcesDocument
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeletePagesDocument
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

@@ -107,51 +107,6 @@ export class ElementService
   })
 
   /**
-   * Need to take care of reconnecting parent/sibling nodes
-   */
-  @modelFlow
-  @transaction
-  delete = _async(function* (
-    this: ElementService,
-    subRootElement: IElementModel,
-  ) {
-    console.debug('ElementService.delete', subRootElement)
-
-    // const parentComponent = subRootElement.parentComponent?.current
-    // Check if the element is linked as a children container in parent component
-    // and replace this link to component root before element is deleted
-    // if (parentComponent && childrenContainer?.id === subRootElement.id) {
-    //   yield* _await(
-    //     this.componentService.update({
-    //       id: parentComponent.id,
-    //       name: parentComponent.name,
-    //     }),
-    //   )
-    // }
-
-    // Get elements before detaching
-    const elementsToDelete = [
-      subRootElement,
-      ...subRootElement.descendantElements,
-    ]
-
-    this.builderService.selectPreviousElementOnDelete()
-
-    subRootElement.detachFromTree()
-
-    yield* _await(this.elementRepository.delete(elementsToDelete))
-
-    elementsToDelete.reverse().forEach((element) => {
-      // this.removeClones(element.id)
-      this.elementDomainService.elements.delete(element.id)
-    })
-
-    yield* _await(this.syncModifiedElements())
-
-    return
-  })
-
-  /**
    * Load the types for this element. An element could be `atom` or `component` type, and we want to load the corresponding types.
    */
   @modelFlow

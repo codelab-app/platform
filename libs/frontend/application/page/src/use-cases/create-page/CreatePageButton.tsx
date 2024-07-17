@@ -1,19 +1,21 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Button } from 'antd'
 import React from 'react'
+import { useUpdatePageForm } from '../update-page/update-page-form.state'
+import { useCreatePageForm } from './create-page-form.state'
 
 export const CreatePageButton = () => {
-  const { pageService } = useStore()
-  const onClick = () => pageService.createForm.open()
+  const createPageForm = useCreatePageForm()
+  const updatePageForm = useUpdatePageForm()
+  const onClick = () => createPageForm.open()
 
   const onClose = () => {
-    pageService.createForm.close()
-    pageService.updateForm.close()
+    createPageForm.close()
+    updatePageForm.close()
   }
 
-  return pageService.createForm.isOpen || pageService.updateForm.isOpen ? (
+  return createPageForm.isOpen || updatePageForm.isOpen ? (
     <Button
       icon={<CloseOutlined />}
       onClick={onClose}

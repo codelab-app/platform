@@ -1,20 +1,20 @@
+import type { IAppService } from '@codelab/frontend/abstract/application'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { deleteElementRepository } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { deleteAppRepository } from '@codelab/frontend-domain-app/repositories'
 import { App } from '@codelab/frontend-domain-app/store'
+import { deleteElementRepository } from '@codelab/frontend-domain-element/repositories'
 import { invalidateAppListQuery } from '../app-list'
-import { deleteAppRepository } from './delete-app.repository'
 
-export const deleteAppUseCase = async (app: IAppModel) => {
+export const deleteAppUseCase: IAppService['deleteApp'] = async (
+  app: IAppModel,
+) => {
   const elementsIds = app.pages.flatMap((page) => page.elementsIds)
 
   /**
    * - don't use deletePageUseCase because elements maybe not hydrate
    * - pages will be deleted inside app mutation
    */
-  await deleteElementRepository(
-    { id_IN: elementsIds },
-    { props: { where: {} } },
-  )
+  await deleteElementRepository({ where: { id_IN: elementsIds } })
   await deleteAppRepository({
     delete: App.toDeleteInput(),
     where: { id: app.id },

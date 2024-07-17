@@ -1,6 +1,6 @@
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
-import { refreshComponentListAction } from '../component-list'
+import { revalidateComponentListOperation } from '../component-list'
 import { createComponentAction } from './create-component.action'
 
 export const createComponentUseCase = async (
@@ -13,5 +13,5 @@ export const createComponentUseCase = async (
   })
 
   await createComponentAction(componentModel.toCreateInput())
-  await refreshComponentListAction()
+  await revalidateComponentListOperation()
 }

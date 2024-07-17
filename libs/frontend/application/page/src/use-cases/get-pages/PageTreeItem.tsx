@@ -33,7 +33,9 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import React from 'react'
+import { useDeletePageModal } from '../delete-page/delete-page-modal.state'
 import { useRegeneratePages } from '../generate-pages'
+import { useUpdatePageForm } from '../update-page/update-page-form.state'
 
 interface PageTreeItemProps {
   app: IAppModel
@@ -48,8 +50,10 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { pageService, redirectService, userService } = useStore()
+    const { redirectService, userService } = useStore()
     const { isRegenerating, regenerate } = useRegeneratePages()
+    const deletePageModal = useDeletePageModal()
+    const updatePageForm = useUpdatePageForm()
     const { popover } = useCui()
     const router = useRouter()
     const { query } = useUrl()
@@ -79,7 +83,7 @@ export const PageTreeItem = observer(
       {
         cuiKey: MODEL_ACTION.DeletePage.key,
         icon: <DeleteOutlined />,
-        onClick: () => pageService.deleteModal.open(pageRef(page)),
+        onClick: () => deletePageModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
@@ -108,7 +112,7 @@ export const PageTreeItem = observer(
         cuiKey: MODEL_ACTION.UpdatePage.key,
         icon: <EditOutlined />,
         onClick: () => {
-          pageService.updateForm.open(pageRef(page))
+          updatePageForm.open(pageRef(page))
           popover.open(MODEL_ACTION.UpdatePage.key)
         },
         title: 'Edit',

@@ -13,7 +13,7 @@ import voca from 'voca'
 
 interface CuiFormFieldProps<
   TFieldValues extends FieldValues = FieldValues,
-  TContext = any,
+  TContext = unknown,
   TTransformedValues extends FieldValues | undefined = undefined,
 > {
   description?: string

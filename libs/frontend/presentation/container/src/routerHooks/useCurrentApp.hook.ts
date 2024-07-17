@@ -10,6 +10,8 @@ export const useCurrentApp = () => {
   return useMemo(() => {
     const app = appDomainService.appsList.find((item) => item.name === appSlug)
 
+    assertIsDefined(app)
+
     return app
   }, [appDomainService.appsList])
 }

@@ -8,7 +8,7 @@ import {
 
 interface CuiFormProps<
   TFieldValues extends FieldValues = FieldValues,
-  TContext = any,
+  TContext = unknown,
   TTransformedValues extends FieldValues | undefined = undefined,
 > {
   children: React.ReactNode
@@ -22,7 +22,7 @@ interface CuiFormProps<
 
 export const CuiForm = <
   TFieldvalues extends FieldValues,
-  TContext = any,
+  TContext = unknown,
   TTransformedValues extends FieldValues | undefined = undefined,
 >({
   children,

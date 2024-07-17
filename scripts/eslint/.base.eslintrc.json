@@ -8,7 +8,7 @@
         "no-dupe-class-members": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "off",
-        // "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-imports": "error",
         "sort-destructure-keys/sort-destructure-keys": [
           "error",
           { "caseSensitive": false }
@@ -148,7 +148,7 @@
       "plugins": ["@graphql-eslint"],
       "extends": ["plugin:@graphql-eslint/schema-all"],
       "parserOptions": {
-        // "skipGraphQLConfig": true,
+        "skipGraphQLConfig": true,
         "schema": "schema.graphql"
       },
       "rules": {
