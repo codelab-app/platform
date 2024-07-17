@@ -1,6 +1,6 @@
 import type { IAppDomainService } from '@codelab/frontend/abstract/domain'
+import { updatePageRepository } from '@codelab/frontend-domain-page/repositories'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
-import { updatePageRepository } from './update-page.repository'
 
 export const updatePageUseCase = async (
   data: IUpdatePageData,

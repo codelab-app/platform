@@ -1,19 +1,13 @@
-import type { IRendererService } from '@codelab/frontend/abstract/application'
-import {
-  type IDomainStore,
-  type IPageModel,
-} from '@codelab/frontend/abstract/domain'
-import {
-  deleteElementRepository,
-  deleteElementUseCase,
-} from '@codelab/frontend-application-element/use-cases/delete-element'
+import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import {
   useDomainStore,
   useStore,
 } from '@codelab/frontend-application-shared-store/provider'
-import { deletePageRepository } from '@codelab/frontend-domain-page/actions'
-import { Page } from '@codelab/frontend-domain-page/store'
-import { pageListRepository } from '../get-pages/page-list.repository'
+import { deleteElementRepository } from '@codelab/frontend-domain-element/repositories'
+import {
+  deletePageRepository,
+  pageListRepository,
+} from '@codelab/frontend-domain-page/repositories'
 
 export const useDeletePageUseCase = async (pageModel: IPageModel) => {
   const { elementDomainService, pageDomainService } = useDomainStore()

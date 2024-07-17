@@ -25,6 +25,7 @@ exports.aliasMap = {
     '^frontend-application-type$': ['interface-form', 'props-form'],
     '^frontend-domain-[a-z]+$': [
         'services',
+        'repositories',
         'store',
         'test',
         'views',

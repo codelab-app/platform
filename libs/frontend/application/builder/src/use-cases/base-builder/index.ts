@@ -1,1 +1,1 @@
-export * from './builder.tsx'
+export * from './Builder'

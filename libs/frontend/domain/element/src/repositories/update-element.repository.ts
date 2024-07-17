@@ -1,4 +1,3 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   graphql,
   type UpdateElementsMutationVariables,

@@ -41,7 +41,7 @@ export const CreatePageForm = observer(
     const createPageForm = useCreatePageForm()
 
     const model = {
-      app: { id: app?.id },
+      app: { id: app.id },
       id: v4(),
       // required for store api
       owner: {

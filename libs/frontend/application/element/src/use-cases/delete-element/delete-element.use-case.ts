@@ -1,11 +1,12 @@
 import type { IBuilderService } from '@codelab/frontend/abstract/application'
 import {
-  type IDomainStore,
   type IElementDomainService,
   type IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import { updateElementsRepository } from '../update-element/update-element.repository'
-import { deleteElementRepository } from './delete-element.repository'
+import {
+  deleteElementRepository,
+  updateElementsRepository,
+} from '@codelab/frontend-domain-element/repositories'
 
 /**
  * Need to take care of reconnecting parent/sibling nodes

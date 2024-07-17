@@ -1,24 +1,13 @@
 import type {
   IDomainStore,
-  IPageDomainService,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  GetRenderedPageQuery,
-  PageOptions,
-  PageWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { GetRenderedPageQuery } from '@codelab/shared/abstract/codegen'
 import type {
   ICreatePageData,
   IElementDto,
 } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
-import type { Ref } from 'mobx-keystone'
-import type {
-  ICRUDFormService,
-  ICRUDModalService,
-  IQueryService,
-} from '../services'
 
 export interface ICreatePageUseCase {
   (data: ICreatePageData, domainStore: IDomainStore): Promise<IPageModel>

@@ -11,7 +11,7 @@ import {
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { importAdminDataUseCase } from './import-admin-data.use-case'
-import { useImportAdminDataModal } from './ImportAdminDataModal.state'
+import { useImportAdminDataModal } from './import-admin-data-modal.state'
 
 export const ImportAdminDataModal = () => {
   const importDataModal = useImportAdminDataModal()

@@ -4,8 +4,8 @@ import {
   CACHE_TAGS,
   type IDomainModel,
 } from '@codelab/frontend/abstract/domain'
-import { appListRepository } from '@codelab/frontend-application-app/use-cases/app-list'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { appListRepository } from '@codelab/frontend-domain-app/repositories'
 import type { IApp } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
 import { revalidateTag } from 'next/cache'

@@ -2,8 +2,8 @@ import type {
   IResourceDomainService,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
+import { deleteResourcesRepository } from '@codelab/frontend-domain-resource/repositories'
 import { Resource } from '@codelab/frontend-domain-resource/store'
-import { deleteResourcesRepository } from './delete-resource.repository'
 
 export const deleteResourceUseCase = async (
   resource: IResourceModel,

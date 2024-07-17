@@ -7,6 +7,7 @@ import {
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { Type } from '@sinclair/typebox'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import affixJson from 'data/export-v3/admin/atoms/AntDesignAffix.json'
 import omit from 'lodash/omit'
 import { ValidationService } from './validation.service'

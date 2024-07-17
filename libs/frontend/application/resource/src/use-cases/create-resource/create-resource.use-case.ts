@@ -1,10 +1,10 @@
 import type { IResourceDomainService } from '@codelab/frontend/abstract/domain'
+import { createResourcesRepository } from '@codelab/frontend-domain-resource/repositories'
 import type {
   ICreateResourceData,
   IPropDto,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
-import { createResourcesRepository } from './create-resource.repository'
 
 export const createResourceUseCase = async (
   data: ICreateResourceData,
