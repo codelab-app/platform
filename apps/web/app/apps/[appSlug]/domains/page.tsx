@@ -18,12 +18,12 @@ const DomainsPage = async ({
 }: {
   params: { appSlug: string }
 }) => {
-  const { apps, atoms } = await domainListUseCase({ slug: appSlug })
+  const { apps } = await domainListUseCase({ slug: appSlug })
 
   return (
-    <StoreHydrator apps={apps} atoms={atoms}>
+    <StoreHydrator apps={apps}>
       <CreateDomainModal />
-      {/* 
+      {/*
         <DeleteDomainModal />
         <UpdateDomainModal /> */}
 

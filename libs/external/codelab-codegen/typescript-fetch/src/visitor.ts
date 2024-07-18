@@ -22,7 +22,7 @@ const additionalExportedTypes = `
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 `
 
-export class FetchVisitor extends ClientSideBaseVisitor<
+export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
   RawGraphQLRequestPluginConfig,
   GraphQLRequestPluginConfig
 > {
@@ -83,7 +83,7 @@ export class FetchVisitor extends ClientSideBaseVisitor<
         print(node),
       )
 
-      return null
+      return ''
     }
 
     return super.OperationDefinition(node)
@@ -108,7 +108,7 @@ export class FetchVisitor extends ClientSideBaseVisitor<
       operationVariablesTypes,
     })
 
-    return null
+    return ''
   }
 
   private getDocumentNodeVariable(documentVariableName: string): string {
@@ -123,7 +123,7 @@ export class FetchVisitor extends ClientSideBaseVisitor<
     const allPossibleActions = this._operationsToInclude
       .map((o) => {
         const operationType = o.node.operation
-        const operationName = o.node.name.value
+        const operationName = o.node.name?.value
 
         const optionalVariables =
           !o.node.variableDefinitions ||

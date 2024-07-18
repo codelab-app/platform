@@ -18,7 +18,6 @@ import type {
 } from '../services'
 import type { ICloneElementService } from './clone-element.service.interface'
 import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
-import type { IElementRepository } from '../../../domain/src/element/element.repo.interface'
 
 /**
  * Used for modal input
@@ -65,7 +64,6 @@ export interface IElementService
   cloneElementService: ICloneElementService
   createForm: IFormService<CreateElementData, CreateElementProperties>
   elementDomainService: IElementDomainService
-  elementRepository: IElementRepository
   // Moved from element model to decouple renderer
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>

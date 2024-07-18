@@ -18,7 +18,8 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/external/codelab-codegen/fetch',
+  coverageDirectory:
+    '../../../../coverage/external/codelab-codegen/typescript-fetch',
   reporters: [
     'default',
     [

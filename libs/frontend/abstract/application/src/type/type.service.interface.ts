@@ -22,7 +22,6 @@ import type {
   IPaginateable,
   IQueryService,
 } from '../services'
-import type { ITypeRepository } from '../../../domain/src/type/type.repo.interface'
 
 export interface ITypeService
   extends ICRUDService<ITypeModel, ICreateTypeDto, IUpdateTypeDto>,
@@ -31,7 +30,6 @@ export interface ITypeService
     ICRUDFormService<Ref<ITypeModel>, { type?: ITypeModel }>,
     IPaginateable<ITypeModel, { name?: string }> {
   typeDomainService: ITypeDomainService
-  typeRepository: ITypeRepository
 
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>

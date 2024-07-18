@@ -1,4 +1,5 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
+import typescriptFetch from '../../node_modules/@codelab-codegen/typescript-fetch'
 
 const config: Types.Config = {
   overwrite: true,
@@ -73,6 +74,27 @@ const config: Types.Config = {
       },
       presetConfig: {
         fragmentMasking: false,
+      },
+    },
+    '.': {
+      // This somehow generates for web-e2e as well, even if ./libs
+      documents: ['**/*.{api,fragment}.graphql'],
+      preset: 'near-operation-file',
+      presetConfig: {
+        extension: '.graphql.gen.ts',
+        baseTypesPath: '~@codelab/frontend/infra/gql',
+        // Uncomment to force export of fragment types
+        // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
+      },
+      plugins: ['typescript-operations', typescriptFetch],
+      config: {
+        inlineFragmentTypes: 'combine',
+        // Uncomment to set suffix for document variables
+        // documentVariableSuffix: 'Gql',
+        gqlImport: 'graphql-tag#gql',
+        strictScalars: true,
+        defaultScalarType: 'unknown',
+        // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
     },
     // 'libs/**': {

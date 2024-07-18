@@ -22,7 +22,7 @@ const AppListDocument = graphql(`
   }
 `)
 
-export const appListRepository: IAppRepository['find'] = async (
+export const appListRepository = async (
   where?: AppWhere,
   options?: AppOptions,
 ) => {

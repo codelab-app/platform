@@ -9,7 +9,7 @@ import type { IAppModel } from './app.model.interface'
 
 export type IAppRepository = IRepository<
   IAppModel,
-  AppFragment | AppPreviewFragment,
+  AppFragment,
   AppWhere,
   AppOptions
 >

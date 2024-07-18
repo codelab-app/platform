@@ -1,5 +1,5 @@
 import { createContext } from 'mobx-keystone'
-import type { IComponentApplicationService } from './component.application.service.interface'
+import type { IComponentApplicationService } from './component.service.interface'
 
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const componentServiceContext =

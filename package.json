@@ -44,6 +44,7 @@
     "@auth0/nextjs-auth0": "3.5.0",
     "@codelab/eslint-plugin": "file:dist/libs/tools/eslint-plugin",
     "@codelab/tools-workspace": "file:dist/libs/tools/workspace",
+    "@codelab-codegen/typescript-fetch": "file:dist/libs/external/codelab-codegen/typescript-fetch",
     "@codemirror/autocomplete": "6.12.0",
     "@codemirror/commands": "6.3.3",
     "@codemirror/lang-css": "6.2.1",

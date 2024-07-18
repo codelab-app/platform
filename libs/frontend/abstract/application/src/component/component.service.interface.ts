@@ -21,7 +21,6 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../services/query.service.interface'
-import type { IComponentRepository } from '../../../domain/src/component/component.repo.interface'
 
 export interface IComponentApplicationService
   extends ICRUDService<
@@ -34,7 +33,6 @@ export interface IComponentApplicationService
     IPaginateable<IComponentModel, { name?: string }> {
   componentDevelopmentService: IComponentDevelopmentService
   componentDomainService: IComponentDomainService
-  componentRepository: IComponentRepository
   createForm: IFormService
 
   getSelectComponentOptions(): Promise<Array<DefaultOptionType>>

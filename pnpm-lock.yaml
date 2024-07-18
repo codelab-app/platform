@@ -33,6 +33,9 @@ importers:
       '@auth0/nextjs-auth0':
         specifier: 3.5.0
         version: 3.5.0(next@14.2.4(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(@playwright/test@1.44.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.2))
+      '@codelab-codegen/typescript-fetch':
+        specifier: file:dist/libs/external/codelab-codegen/typescript-fetch
+        version: file:dist/libs/external/codelab-codegen/typescript-fetch(graphql-request@6.1.0(graphql@16.6.0))(graphql-tag@2.12.6(graphql@16.6.0))(graphql@16.6.0)
       '@codelab/eslint-plugin':
         specifier: file:dist/libs/tools/eslint-plugin
         version: file:dist/libs/tools/eslint-plugin(eslint@8.57.0)(nx@19.4.4(@swc-node/register@1.9.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.7(@swc/helpers@0.5.11)))(typescript@5.4.5)
@@ -2257,6 +2260,13 @@ packages:
     resolution: {integrity: sha512-obzSy26cb7Pm7OprWyVpgMpIlrZpZ0B7vbrU0RMbvRg0YAI890S5Xy02Aj1Nhl4+KTbi1lVYHt6HQP8Hm9s+1w==}
     peerDependencies:
       react: '>=16.12.0'
+
+  '@codelab-codegen/typescript-fetch@file:dist/libs/external/codelab-codegen/typescript-fetch':
+    resolution: {directory: dist/libs/external/codelab-codegen/typescript-fetch, type: directory}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-request: ^6.0.0
+      graphql-tag: ^2.0.0
 
   '@codelab/eslint-plugin@file:dist/libs/tools/eslint-plugin':
     resolution: {directory: dist/libs/tools/eslint-plugin, type: directory}
@@ -18224,6 +18234,19 @@ snapshots:
       react: 18.3.1
       reactcss: 1.2.3(react@18.3.1)
       tinycolor2: 1.6.0
+
+  '@codelab-codegen/typescript-fetch@file:dist/libs/external/codelab-codegen/typescript-fetch(graphql-request@6.1.0(graphql@16.6.0))(graphql-tag@2.12.6(graphql@16.6.0))(graphql@16.6.0)':
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.6.0)
+      '@graphql-codegen/visitor-plugin-common': 2.13.1(graphql@16.6.0)
+      auto-bind: 4.0.0
+      graphql: 16.6.0
+      graphql-request: 6.1.0(graphql@16.6.0)
+      graphql-tag: 2.12.6(graphql@16.6.0)
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
 
   '@codelab/eslint-plugin@file:dist/libs/tools/eslint-plugin(eslint@8.57.0)(nx@19.4.4(@swc-node/register@1.9.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.5.7(@swc/helpers@0.5.11)))(typescript@5.4.5)':
     dependencies:

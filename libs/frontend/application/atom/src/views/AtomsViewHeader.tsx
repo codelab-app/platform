@@ -6,21 +6,21 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom-modal.state'
 
 export const AtomsViewHeader = observer(() => {
-  const { atomService, fieldService } = useStore()
-  const atomToUpdate = atomService.updateForm.atom?.name || ''
+  const { fieldService } = useStore()
+  const updateAtomForm = useUpdateAtomModal()
+  const atomToUpdate = updateAtomForm.data?.current.name || ''
   const fieldToUpdate = fieldService.updateForm.field?.key || ''
 
-  const atomOrField = atomService.updateForm.isOpen
+  const atomOrField = updateAtomForm.isOpen
     ? 'atom'
     : fieldService.updateForm.isOpen
     ? 'field'
     : ''
 
-  const atomOrFieldName = atomService.updateForm.isOpen
-    ? atomToUpdate
-    : fieldToUpdate
+  const atomOrFieldName = updateAtomForm.isOpen ? atomToUpdate : fieldToUpdate
 
   return (
     <CuiHeader
