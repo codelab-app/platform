@@ -1,5 +1,7 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
-import typescriptFetch from '../../node_modules/@codelab-codegen/typescript-fetch'
+
+const pathToTypescriptFetch =
+  '../../node_modules/@codelab-codegen/typescript-fetch'
 
 const config: Types.Config = {
   overwrite: true,
@@ -61,23 +63,22 @@ const config: Types.Config = {
     //     // dedupeFragments: true, // Uncomment to deduplicate fragments
     //   },
     // },
-    'libs/frontend/infra/gql/src/gql/': {
-      documents: [
-        '**/*.fragment.graphql',
-        'libs/frontend/application/**/*.{repository,document}.ts',
-        'libs/frontend/domain/**/*.{repository,document}.ts',
-      ],
-      preset: 'client',
-      config: {
-        documentMode: 'string',
-        useTypeImports: true,
-      },
-      presetConfig: {
-        fragmentMasking: false,
-      },
-    },
-    '.': {
-      // This somehow generates for web-e2e as well, even if ./libs
+    // 'libs/frontend/infra/gql/src/gql/': {
+    //   documents: [
+    //     '**/*.fragment.graphql',
+    //     'libs/frontend/application/**/*.{repository,document}.ts',
+    //     'libs/frontend/domain/**/*.{repository,document}.ts',
+    //   ],
+    //   preset: 'client',
+    //   config: {
+    //     documentMode: 'string',
+    //     useTypeImports: true,
+    //   },
+    //   presetConfig: {
+    //     fragmentMasking: false,
+    //   },
+    // },
+    './': {
       documents: ['**/*.{api,fragment}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
@@ -86,7 +87,7 @@ const config: Types.Config = {
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
-      plugins: ['typescript-operations', typescriptFetch],
+      plugins: [pathToTypescriptFetch],
       config: {
         inlineFragmentTypes: 'combine',
         // Uncomment to set suffix for document variables

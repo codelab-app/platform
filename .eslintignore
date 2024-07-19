@@ -7,7 +7,7 @@ public
 *.d.ts
 *.mp4
 *.log
-**/*.gen.ts
+# **/*.gen.ts
 jest.config.ts
 *.directive.graphql
 

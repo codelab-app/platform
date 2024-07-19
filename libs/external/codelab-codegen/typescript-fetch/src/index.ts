@@ -10,7 +10,7 @@ import type {
 } from '@graphql-codegen/visitor-plugin-common'
 import type { FragmentDefinitionNode, GraphQLSchema } from 'graphql'
 import { concatAST, Kind } from 'graphql'
-import { extname } from 'path'
+import { basename, extname } from 'path'
 import type { RawGraphQLRequestPluginConfig } from './config.js'
 import { GraphQLRequestVisitor } from './visitor.js'
 
@@ -19,6 +19,18 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
   documents: Array<Types.DocumentFile>,
   config: RawGraphQLRequestPluginConfig,
 ) => {
+  console.log(documents)
+
+  // Check if the current file is a fragment file
+  const isFragmentFile = documents.some((doc) =>
+    basename(doc.location || '').endsWith('.fragment.graphql'),
+  )
+
+  // If it's a fragment file, return empty content
+  if (isFragmentFile) {
+    return ''
+  }
+
   const allAst = concatAST(documents.map((v) => v.document!))
 
   const allFragments: Array<LoadedFragment> = [
@@ -42,7 +54,7 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
     content: [
       visitor.fragments,
       ...visitorResult.definitions.filter((t) => typeof t === 'string'),
-      visitor.sdkContent,
+      visitor.content,
     ].join('\n'),
     prepend: visitor.getImports(),
   }
@@ -54,9 +66,9 @@ export const validate: PluginValidateFn<any> = async (
   config: RawClientSideBasePluginConfig,
   outputFile: string,
 ) => {
-  if (!['.ts', '.mts', '.cts'].includes(extname(outputFile))) {
+  if (!['.ts', '.graphql'].includes(extname(outputFile))) {
     throw new Error(
-      'Plugin "typescript-graphql-request" requires extension to be ".ts", ".mts" or ".cts"!',
+      'Plugin "typescript-fetch" requires extension to be ".ts", ".graphql"!',
     )
   }
 }

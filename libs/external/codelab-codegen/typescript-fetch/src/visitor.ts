@@ -9,18 +9,12 @@ import {
   indentMultiline,
 } from '@graphql-codegen/visitor-plugin-common'
 import autoBind from 'auto-bind'
+import { pascalCase } from 'change-case-all'
 import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
 import { Kind, print } from 'graphql'
 import type { RawGraphQLRequestPluginConfig } from './config.js'
 
-export interface GraphQLRequestPluginConfig extends ClientSideBasePluginConfig {
-  rawRequest: boolean
-  extensionsType: string
-}
-
-const additionalExportedTypes = `
-export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
-`
+export type GraphQLRequestPluginConfig = ClientSideBasePluginConfig
 
 export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
   RawGraphQLRequestPluginConfig,
@@ -42,51 +36,65 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     rawConfig: RawGraphQLRequestPluginConfig,
   ) {
     super(schema, fragments, rawConfig, {
-      extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
-      rawRequest: getConfigValue(rawConfig.rawRequest, false),
+      documentMode: DocumentMode.string,
     })
 
     autoBind(this)
 
-    const typeImport = this.config.useTypeImports ? 'import type' : 'import'
+    this._additionalImports = [
+      "import { graphql } from '@codelab/frontend/infra/gql'",
+      "import { gqlFetch } from '@codelab/frontend/infra/graphql'",
+    ]
 
-    this._additionalImports.push(
-      `${typeImport} { GraphQLClient, RequestOptions } from 'graphql-request';`,
-    )
-
-    if (this.config.rawRequest) {
-      if (this.config.documentMode !== DocumentMode.string) {
-        this._additionalImports.push(
-          "import { GraphQLError, print } from 'graphql'",
-        )
-      } else {
-        this._additionalImports.push("import { GraphQLError } from 'graphql'")
-      }
-    }
-
-    this._additionalImports.push(
-      "type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];",
-    )
-
-    this._externalImportPrefix = this.config.importOperationTypesFrom
-      ? `${this.config.importOperationTypesFrom}.`
-      : ''
+    // this._externalImportPrefix = this.config.importOperationTypesFrom
+    //   ? `${this.config.importOperationTypesFrom}`
+    //   : '@codelab/frontend/infra/gql'
   }
 
-  public override OperationDefinition(node: OperationDefinitionNode) {
-    const operationName = node.name?.value
+  public override OperationDefinition(node: OperationDefinitionNode): string {
+    this._collectedOperations.push(node)
 
-    if (!operationName) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'Anonymous GraphQL operation was ignored in "typescript-graphql-request", please make sure to name your operation: ',
-        print(node),
-      )
+    const documentVariableName = this.getOperationVariableName(node)
+    const operationType: string = pascalCase(node.operation)
 
-      return ''
+    const operationTypeSuffix: string = this.getOperationSuffix(
+      node,
+      operationType,
+    )
+
+    const operationResultType: string = this.convertName(node, {
+      suffix: operationTypeSuffix + this._parsedConfig.operationResultSuffix,
+    })
+
+    const operationVariablesTypes: string = this.convertName(node, {
+      suffix: operationTypeSuffix + 'Variables',
+    })
+
+    let documentString = ''
+
+    if (documentVariableName !== '') {
+      documentString = `
+      export const ${documentVariableName} = graphql(${this._gql(
+        node,
+      )})${this.getDocumentNodeSignature(
+        operationResultType,
+        operationVariablesTypes,
+        node,
+      )}`
     }
 
-    return super.OperationDefinition(node)
+    const hasRequiredVariables = this.checkVariablesRequirements(node)
+
+    const additional = this.buildOperation(
+      node,
+      documentVariableName,
+      operationType,
+      operationResultType,
+      operationVariablesTypes,
+      hasRequiredVariables,
+    )
+
+    return [documentString, additional].filter((a) => a).join('\n')
   }
 
   protected override buildOperation(
@@ -95,10 +103,11 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     operationType: string,
     operationResultType: string,
     operationVariablesTypes: string,
+    _hasRequiredVariables: boolean,
   ): string {
-    operationResultType = this._externalImportPrefix + operationResultType
-    operationVariablesTypes =
-      this._externalImportPrefix + operationVariablesTypes
+    // operationResultType = this._externalImportPrefix + operationResultType
+    // operationVariablesTypes =
+    //   this._externalImportPrefix + operationVariablesTypes
 
     this._operationsToInclude.push({
       documentVariableName,
@@ -111,72 +120,39 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     return ''
   }
 
-  private getDocumentNodeVariable(documentVariableName: string): string {
-    return this.config.documentMode === DocumentMode.external
-      ? `Operations.${documentVariableName}`
-      : documentVariableName
-  }
+  public get content(): string {
+    const typeImports = this._operationsToInclude
+      .map((o) => `type ${o.operationVariablesTypes}`)
+      .join(', ')
 
-  public get sdkContent(): string {
-    const extraVariables: Array<string> = []
+    const documentImports = this._operationsToInclude
+      .map((o) => o.documentVariableName)
+      .join(', ')
 
-    const allPossibleActions = this._operationsToInclude
+    const imports = [
+      `import { ${typeImports} } from '${this._externalImportPrefix}'`,
+      // ...this._additionalImports,
+    ]
+
+    const apiFunctions = this._operationsToInclude
       .map((o) => {
-        const operationType = o.node.operation
         const operationName = o.node.name?.value
 
-        const optionalVariables =
-          !o.node.variableDefinitions ||
-          o.node.variableDefinitions.length === 0 ||
-          o.node.variableDefinitions.every(
-            (v) => v.type.kind !== Kind.NON_NULL_TYPE || v.defaultValue,
-          )
-
-        const docVarName = this.getDocumentNodeVariable(o.documentVariableName)
-
-        if (this.config.rawRequest) {
-          let docArg = docVarName
-
-          if (this.config.documentMode !== DocumentMode.string) {
-            docArg = `${docVarName}String`
-            extraVariables.push(`const ${docArg} = print(${docVarName});`)
-          }
-
-          return `${operationName}(variables${optionalVariables ? '?' : ''}: ${
-            o.operationVariablesTypes
-          }, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: ${
-            o.operationResultType
-          }; errors?: GraphQLError[]; extensions?: ${
-            this.config.extensionsType
-          }; headers: Headers; status: number; }> {
-    return withWrapper((wrappedRequestHeaders) => client.rawRequest<${
-      o.operationResultType
-    }>(${docArg}, variables, {...requestHeaders, ...wrappedRequestHeaders}), '${operationName}', '${operationType}', variables);
-}`
+        if (!operationName) {
+          return ''
         }
 
-        return `${operationName}(variables${optionalVariables ? '?' : ''}: ${
-          o.operationVariablesTypes
-        }, requestHeaders?: GraphQLClientRequestHeaders): Promise<${
-          o.operationResultType
-        }> {
-  return withWrapper((wrappedRequestHeaders) => client.request<${
-    o.operationResultType
-  }>(${docVarName}, variables, {...requestHeaders, ...wrappedRequestHeaders}), '${operationName}', '${operationType}', variables);
-}`
+        const camelCaseName =
+          operationName.charAt(0).toLowerCase() + operationName.slice(1)
+
+        return `export const ${camelCaseName}${o.operationType} = (variables: ${o.operationVariablesTypes}) =>
+  gqlFetch(${o.documentVariableName}, variables)`
       })
       .filter(Boolean)
-      .map((s) => indentMultiline(s, 2))
 
-    return `${additionalExportedTypes}
+    return `${imports.join('\n')}
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
-${extraVariables.join('\n')}
-export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-  return {
-${allPossibleActions.join(',\n')}
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;`
+    ${apiFunctions.join('\n\n')}
+`
   }
 }

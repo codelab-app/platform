@@ -12,8 +12,8 @@ export const compoundCaseToTitleCase = (input: string) =>
     .replace(/^./, (str) => str.toUpperCase())
     .trim()
 
-// export const toPascalCase = (value: string) =>
-//   v.chain(value).camelCase().capitalize().value()
+export const toPascalCase = (value: string) =>
+  voca.chain(value).camelCase().capitalize().value()
 
 // export const toCamelCase = (value: string) => v.chain(value).camelCase().value()
 

@@ -28846,3 +28846,9 @@ export type UpdateUserMutationVariables = Exact<{
 export type UpdateUserMutation = {
   updateUsers: { users: Array<{ preferences?: string | null }> }
 }
+
+export type CreateAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
+}>
+
+export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
