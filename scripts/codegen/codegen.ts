@@ -1,4 +1,5 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
+import { deleteSync } from 'del'
 
 const pathToTypescriptFetch =
   '../../node_modules/@codelab-codegen/typescript-fetch'
@@ -8,7 +9,18 @@ const config: Types.Config = {
   hooks: {
     // Uncomment to run ESLint fix after code generation
     // afterAllFileWrite: ['pnpm eslint --fix'],
-    afterAllFileWrite: ['pnpm prettier --write'],
+    afterAllFileWrite: [
+      'pnpm prettier --write',
+      (...files) => {
+        console.log(files)
+
+        const fragmentFiles = files.filter((file) =>
+          file.includes('.fragment.graphql.gen.ts'),
+        )
+
+        deleteSync(fragmentFiles)
+      },
+    ],
   },
   // Uncomment for using a local schema file
   // schema: 'schema.graphql',
@@ -97,6 +109,21 @@ const config: Types.Config = {
         defaultScalarType: 'unknown',
         // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
+      // hooks: {
+      //   // Uncomment to run ESLint fix after code generation
+      //   // afterAllFileWrite: ['pnpm eslint --fix'],
+      //   afterAllFileWrite: [
+      //     (...args) => {
+      //       console.log(args)
+
+      //       // const fragmentFiles = files.filter((file) =>
+      //       //   file.includes('.fragment.graphql.gen.ts'),
+      //       // )
+
+      //       deleteSync('**/*.fragment.graphql.gen.ts')
+      //     },
+      //   ],
+      // },
     },
     // 'libs/**': {
     //   // This somehow generates for web-e2e as well, even if ./libs

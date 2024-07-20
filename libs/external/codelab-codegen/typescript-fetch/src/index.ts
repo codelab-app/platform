@@ -19,8 +19,6 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
   documents: Array<Types.DocumentFile>,
   config: RawGraphQLRequestPluginConfig,
 ) => {
-  console.log(documents)
-
   // Check if the current file is a fragment file
   const isFragmentFile = documents.some((doc) =>
     basename(doc.location || '').endsWith('.fragment.graphql'),
@@ -66,11 +64,11 @@ export const validate: PluginValidateFn<any> = async (
   config: RawClientSideBasePluginConfig,
   outputFile: string,
 ) => {
-  if (!['.ts', '.graphql'].includes(extname(outputFile))) {
-    throw new Error(
-      'Plugin "typescript-fetch" requires extension to be ".ts", ".graphql"!',
-    )
-  }
+  // if (!['.ts', '.graphql'].includes(extname(outputFile))) {
+  //   throw new Error(
+  //     'Plugin "typescript-fetch" requires extension to be ".ts", ".graphql"!',
+  //   )
+  // }
 }
 
 export { GraphQLRequestVisitor }

@@ -46,9 +46,9 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       "import { gqlFetch } from '@codelab/frontend/infra/graphql'",
     ]
 
-    // this._externalImportPrefix = this.config.importOperationTypesFrom
-    //   ? `${this.config.importOperationTypesFrom}`
-    //   : '@codelab/frontend/infra/gql'
+    this._externalImportPrefix = this.config.importOperationTypesFrom
+      ? `${this.config.importOperationTypesFrom}`
+      : '@codelab/frontend/infra/gql'
   }
 
   public override OperationDefinition(node: OperationDefinitionNode): string {
