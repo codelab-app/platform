@@ -1,16 +1,11 @@
-import type { ComponentType } from 'react'
 import React from 'react'
 
 export interface ConfigPaneProps {
-  ConfigPane: ComponentType
+  ConfigPane: React.ReactElement
 }
 
 export const DashboardTemplateConfigPane = ({
   ConfigPane,
 }: ConfigPaneProps) => {
-  return (
-    <div className="size-full overflow-y-auto bg-white">
-      <ConfigPane />
-    </div>
-  )
+  return <div className="size-full overflow-y-auto bg-white">{ConfigPane}</div>
 }
