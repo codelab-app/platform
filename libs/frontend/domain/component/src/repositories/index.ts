@@ -1,3 +1,4 @@
+export { componentDevelopmentRepository } from './component-development.repository'
 export { componentListRepository } from './component-list.repository'
 export { createComponentRepository } from './create-component.repository'
 export { deleteComponentRepository } from './delete-component.repository'

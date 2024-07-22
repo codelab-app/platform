@@ -26,7 +26,10 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -50,7 +53,8 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { redirectService, userService } = useStore()
+    const { userDomainService } = useDomainStore()
+    const { redirectService } = useStore()
     const { isRegenerating, regenerate } = useRegeneratePages()
     const deletePageModal = useDeletePageModal()
     const updatePageForm = useUpdatePageForm()
@@ -68,7 +72,7 @@ export const PageTreeItem = observer(
               ...queryString.parse(query.toString()),
               pageSlug: page.slug,
               primarySidebarKey: ExplorerPaneType.Explorer,
-              userSlug: userService.user.username,
+              userSlug: userDomainService.user.username,
             },
             url: PageType.PageBuilder,
           })

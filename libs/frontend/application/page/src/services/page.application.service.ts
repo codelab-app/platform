@@ -2,7 +2,6 @@ import {
   getAppService,
   getElementService,
   getRendererService,
-  getUserService,
   type IPageApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
@@ -197,10 +196,5 @@ export class PageApplicationService
   @computed
   private get typeDomainService() {
     return getTypeDomainService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
   }
 }

@@ -3,10 +3,10 @@ import {
   DomainList,
   domainListUseCase,
 } from '@codelab/frontend-application-domain/use-cases/domain-list'
+import { StoreHydrator } from '@codelab/frontend-application-shared-store/hydrator'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
 import React from 'react'
-import { StoreHydrator } from '../../../../components'
 
 export const metadata: Metadata = {
   // description: '...',

@@ -1,14 +1,11 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
-import { mapAtomOptions } from '@codelab/frontend-domain-atom/store'
+import { StoreHydrator } from '@codelab/frontend-application-shared-store/hydrator'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import React from 'react'
-import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
+import { atomListUseCase } from '../get-atoms/server'
+import { useAtomOptionsList } from './useAtomOptionsList.hook'
 
 export type SelectAtomProps = Pick<
   UniformSelectFieldProps,
@@ -21,40 +18,37 @@ export type SelectAtomProps = Pick<
 }
 
 export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
-  const { atomService } = useStore()
-  const { atomDomainService } = useDomainStore()
-  const [fieldProps] = useField<{ value?: string }>(name, {})
-  const fallbackAtomOptions = atomDomainService.atomsList.map(mapAtomOptions)
-
   const [{ error: queryError, result, status }, getSelectAtomOptions] =
-    useAsync(() =>
-      atomService.getSelectAtomOptions({ ...fieldProps, label }, parent),
-    )
+    useAsync(() => atomListUseCase())
+
+  const atomOptionsList = useAtomOptionsList(parent)
 
   return (
-    <SelectField
-      error={error || queryError}
-      getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      label={label}
-      loading={status === 'loading'}
-      name={name}
-      onDropdownVisibleChange={async (open) => {
-        if (open && status === 'not-executed') {
-          await getSelectAtomOptions.execute()
-        }
-      }}
-      onSelect={(value, option) => {
-        /**
-         * Api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation.
-         *
-         * Fetch here instead of createElement so we save some time
-         */
-        // return atomService.loadApi(value)
-      }}
-      optionFilterProp="label"
-      optionLabelProp="label"
-      options={result ?? fallbackAtomOptions}
-      showSearch
-    />
+    <StoreHydrator atoms={result?.items}>
+      <SelectField
+        error={error || queryError}
+        getPopupContainer={(triggerNode) => triggerNode.parentElement}
+        label={label}
+        loading={status === 'loading'}
+        name={name}
+        onDropdownVisibleChange={async (open) => {
+          if (open && status === 'not-executed') {
+            await getSelectAtomOptions.execute()
+          }
+        }}
+        onSelect={(value, option) => {
+          /**
+           * Api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation.
+           *
+           * Fetch here instead of createElement so we save some time
+           */
+          // return atomService.loadApi(value)
+        }}
+        optionFilterProp="label"
+        optionLabelProp="label"
+        options={atomOptionsList}
+        showSearch
+      />
+    </StoreHydrator>
   )
 }

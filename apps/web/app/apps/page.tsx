@@ -8,11 +8,11 @@ import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/dele
 import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
 import { AppsViewHeader } from '@codelab/frontend-application-app/views'
 import { defaultAtomAction } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
+import { StoreHydrator } from '@codelab/frontend-application-shared-store/hydrator'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 import React from 'react'
-import { StoreHydrator } from '../../components'
 
 export const metadata: Metadata = {
   // description: '...',

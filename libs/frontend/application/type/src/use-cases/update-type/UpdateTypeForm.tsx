@@ -1,7 +1,10 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -18,9 +21,10 @@ import { validateNonRecursive } from './validate-non-recursive'
 
 export const UpdateTypeForm = observer(() => {
   const { typeService } = useStore()
+  const { typeDomainService } = useDomainStore()
   const closeForm = () => typeService.updateForm.close()
 
-  const typeToUpdate = typeService.typeDomainService.types.get(
+  const typeToUpdate = typeDomainService.types.get(
     typeService.updateForm.type?.id ?? '',
   )
 
@@ -87,10 +91,7 @@ export const UpdateTypeForm = observer(() => {
     >
       <AutoFields fields={['name']} />
       {typeToUpdate?.kind === ITypeKind.UnionType && (
-        <AutoField
-          name="unionTypeIds"
-          types={typeService.typeDomainService.typesList}
-        />
+        <AutoField name="unionTypeIds" types={typeDomainService.typesList} />
       )}
       {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
         <AutoField name="primitiveKind" />

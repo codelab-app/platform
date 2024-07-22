@@ -1,14 +1,10 @@
 'use client'
 
-import type {
-  IAppDevelopmentDto,
-  IHydrateableData,
-} from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
-import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
+import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React, { useCallback, useEffect } from 'react'
+import { useDomainStore } from '../provider/StoreProvider'
 
 export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
   ({

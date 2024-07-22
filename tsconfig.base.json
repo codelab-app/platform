@@ -208,9 +208,6 @@
       "@codelab/frontend-application-app/use-cases/app-production": [
         "libs/frontend/application/app/src/use-cases/app-production/index.ts"
       ],
-      "@codelab/frontend-application-app/use-cases/apps-preview": [
-        "libs/frontend/application/app/src/use-cases/apps-preview/index.ts"
-      ],
       "@codelab/frontend-application-app/use-cases/build-app": [
         "libs/frontend/application/app/src/use-cases/build-app/index.ts"
       ],
@@ -546,6 +543,9 @@
       ],
       "@codelab/frontend-application-shared-store/provider": [
         "libs/frontend/application/shared/store/src/provider/index.ts"
+      ],
+      "@codelab/frontend-application-shared-store/hydrator": [
+        "libs/frontend/application/shared/store/src/hydrator/index.ts"
       ],
       "@codelab/frontend-application-shared-store/repository": [
         "libs/frontend/application/shared/store/src/repository/index.ts"

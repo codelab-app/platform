@@ -1,9 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -15,7 +12,7 @@ import { createResourceUseCase } from './create-resource.use-case'
 import { useCreateResourceModal } from './create-resource-modal.state'
 
 export const CreateResourceModal = observer(() => {
-  const { userService } = useStore()
+  const { userDomainService } = useDomainStore()
   const { resourceDomainService } = useDomainStore()
   const createResourceModal = useCreateResourceModal()
   const closeModal = () => createResourceModal.close()
@@ -31,7 +28,7 @@ export const CreateResourceModal = observer(() => {
   const model = {
     id: v4(),
     owner: {
-      auth0Id: userService.user.auth0Id,
+      auth0Id: userDomainService.user.auth0Id,
     },
     type: createResourceModal.data?.type,
   }

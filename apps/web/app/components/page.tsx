@@ -12,8 +12,10 @@ export const metadata: Metadata = {
 }
 
 const ComponentsView = async () => {
-  const { components } = await componentListUseCase()
-  const { items: atoms } = await atomListUseCase()
+  const [{ components }, { items: atoms }] = await Promise.all([
+    componentListUseCase(),
+    atomListUseCase(),
+  ])
 
   return (
     <DashboardTemplate

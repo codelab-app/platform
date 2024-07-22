@@ -12,6 +12,4 @@ export type IAtomRepository = IRepository<
   AtomFragment,
   AtomWhere,
   AtomOptions
-> & {
-  getSelectAtomOptions(): Promise<GetSelectAtomOptionsQuery['atoms']>
-}
+>

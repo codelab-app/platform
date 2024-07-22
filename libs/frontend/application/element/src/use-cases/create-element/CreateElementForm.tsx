@@ -49,8 +49,8 @@ export const CreateElementForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateElementFormProps) => {
-    const { atomDomainService } = useDomainStore()
-    const { elementService, userService } = useStore()
+    const { atomDomainService, userDomainService } = useDomainStore()
+    const { elementService } = useStore()
     const { metadata, parentElement } = elementService.createForm
     const elementOptions = metadata?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
@@ -86,7 +86,7 @@ export const CreateElementForm = observer(
 
     const model = {
       id: v4(),
-      owner: userService.user.auth0Id,
+      owner: userDomainService.user.auth0Id,
       parentElement: {
         id: parentElement.id,
       },
