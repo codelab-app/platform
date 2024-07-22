@@ -6,7 +6,10 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend-application-type/interface-form'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { observer } from 'mobx-react-lite'
@@ -31,7 +34,8 @@ export interface MoveElementFormProps {
  */
 export const MoveElementForm = observer<MoveElementFormProps>(
   ({ runtimeElement }) => {
-    const { atomService, elementService, rendererService } = useStore()
+    const { atomDomainService } = useDomainStore()
+    const { elementService, rendererService } = useStore()
     const elementTree = rendererService.activeElementTree
     const element = runtimeElement.element.current
 
@@ -70,7 +74,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       return Promise.resolve()
     }
 
-    const elementAtomRequiredParents = atomService.atomDomainService.atoms
+    const elementAtomRequiredParents = atomDomainService.atoms
       .get(element.renderType.id)
       ?.requiredParents.map((parent) => parent.id)
 

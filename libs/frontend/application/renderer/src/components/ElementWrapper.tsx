@@ -1,7 +1,7 @@
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -32,14 +32,13 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       onRendered()
     }, [])
 
-    const { atomService } = useStore()
+    const { atomDomainService } = useDomainStore()
 
     const ReactComponent: IComponentType =
       renderOutput.atomType &&
-      atomService.atomDomainService.dynamicComponents[renderOutput.atomType]
-        ? atomService.atomDomainService.dynamicComponents[
-            renderOutput.atomType
-          ] ?? React.Fragment
+      atomDomainService.dynamicComponents[renderOutput.atomType]
+        ? atomDomainService.dynamicComponents[renderOutput.atomType] ??
+          React.Fragment
         : getReactComponent(renderOutput)
 
     const tailwindClassNames = {

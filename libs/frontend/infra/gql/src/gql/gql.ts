@@ -83,6 +83,8 @@ const documents = {
   'fragment Owner on User {\n  id\n}': types.OwnerFragmentDoc,
   'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}':
     types.UserFragmentDoc,
+  "\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    # Need to load all dependent types\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    # Load system types\n    # workaround for lack of ability to recursively fetch field's types\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n":
+    types.GetComponentDevelopmentDocument,
   '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n':
     types.CreateComponentsDocument,
   '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
@@ -355,6 +357,12 @@ export function graphql(
 export function graphql(
   source: 'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}',
 ): typeof import('./graphql').UserFragmentDoc
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    # Need to load all dependent types\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    # Load system types\n    # workaround for lack of ability to recursively fetch field's types\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n",
+): typeof import('./graphql').GetComponentDevelopmentDocument
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

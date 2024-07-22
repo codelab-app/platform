@@ -1,7 +1,10 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -14,10 +17,11 @@ import { updateTypeSchema } from './update-type.schema'
 import { validateNonRecursive } from './validate-non-recursive'
 
 export const UpdateTypeModal = observer(() => {
+  const { typeDomainService } = useDomainStore()
   const { typeService } = useStore()
   const closeModal = () => typeService.updateModal.close()
 
-  const typeToUpdate = typeService.typeDomainService.types.get(
+  const typeToUpdate = typeDomainService.types.get(
     typeService.updateModal.type?.id ?? '',
   )
 
@@ -90,10 +94,7 @@ export const UpdateTypeModal = observer(() => {
       >
         <AutoFields fields={['name']} />
         {typeToUpdate?.kind === ITypeKind.UnionType && (
-          <AutoField
-            name="unionTypeIds"
-            types={typeService.typeDomainService.typesList}
-          />
+          <AutoField name="unionTypeIds" types={typeDomainService.typesList} />
         )}
         {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
           <AutoField name="primitiveKind" />

@@ -1,5 +1,8 @@
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -11,11 +14,12 @@ import React, { useCallback } from 'react'
 export const RichTextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
-  const { propService, typeService } = useStore()
+  const { propService } = useStore()
+  const { typeDomainService } = useDomainStore()
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
 
-  const richTextType = typeService.typeDomainService.typesList.find(
+  const richTextType = typeDomainService.typesList.find(
     (type) => type.kind === ITypeKind.RichTextType,
   )
 
@@ -74,11 +78,12 @@ export const RichTextEditorWrapper = observer<{
 export const CodeMirrorEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
-  const { propService, typeService } = useStore()
+  const { propService } = useStore()
+  const { typeDomainService } = useDomainStore()
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
 
-  const codeMirrorType = typeService.typeDomainService.typesList.find(
+  const codeMirrorType = typeDomainService.typesList.find(
     (type) => type.kind === ITypeKind.CodeMirrorType,
   )
 

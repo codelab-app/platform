@@ -1,4 +1,7 @@
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'
@@ -13,6 +16,7 @@ export interface TypeSelectProps {
 }
 
 export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
+  const { typeDomainService } = useDomainStore()
   const { typeService } = useStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
 
@@ -23,7 +27,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
   // On update mode, the current selected type can be used
   // to show the type name instead of showing just the id
   const currentType = fieldProps.value
-    ? typeService.typeDomainService.types.get(fieldProps.value)
+    ? typeDomainService.types.get(fieldProps.value)
     : undefined
 
   const typeOptions = uniqBy(compact([currentType, ...result]), 'id').map(

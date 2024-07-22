@@ -1,3 +1,5 @@
+'use client'
+
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { elementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'

@@ -1,15 +1,19 @@
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 
 export const useRequiredParentValidator = () => {
-  const { atomService, elementService } = useStore()
+  const { atomDomainService } = useDomainStore()
+  const { elementService } = useStore()
 
   const validate = (childAtomId?: string, parentAtomId?: string) => {
-    const parentAtom = atomService.atomDomainService.atomsList.find(
+    const parentAtom = atomDomainService.atomsList.find(
       (atom) => atom.id === parentAtomId,
     )
 
-    const childAtom = atomService.atomDomainService.atomsList.find(
+    const childAtom = atomDomainService.atomsList.find(
       (atom) => atom.id === childAtomId,
     )
 

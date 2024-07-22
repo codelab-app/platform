@@ -12,10 +12,6 @@ import {
 } from '@codelab/frontend-application-shared-store/ui'
 import { getTypeService } from '@codelab/frontend-application-type/services'
 import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
-import {
-  filterAtoms,
-  mapAtomOptions,
-} from '@codelab/frontend-domain-atom/store'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   IElementRenderTypeKind,
@@ -148,18 +144,6 @@ export class AtomService
     const all = yield* _await(this.getAll({ id }))
 
     return all[0]
-  })
-
-  @modelFlow
-  getSelectAtomOptions = _async(function* (
-    this: AtomService,
-    fieldProps: { value?: string },
-    parent?: IAtomModel,
-  ) {
-    const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())
-    const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
-
-    return atomOptions.map(mapAtomOptions)
   })
 
   @modelFlow

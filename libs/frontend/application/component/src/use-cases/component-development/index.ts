@@ -1,2 +1,3 @@
-export * from './component-development.service'
+export * from './component-development.use-case'
+export * from './ComponentPreview'
 export * from './useComponentDevelopment.hook'

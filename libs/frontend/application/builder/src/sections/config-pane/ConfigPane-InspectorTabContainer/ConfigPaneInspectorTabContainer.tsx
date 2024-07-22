@@ -1,3 +1,5 @@
+'use client'
+
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
@@ -53,9 +55,7 @@ export const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
-  const { appService, builderService, elementService, rendererService } =
-    useStore()
-
+  const { builderService, elementService, rendererService } = useStore()
   const elementTree = rendererService.activeElementTree
   const selectedNode = builderService.selectedNode?.current
   const activeRenderer = rendererService.activeRenderer?.maybeCurrent

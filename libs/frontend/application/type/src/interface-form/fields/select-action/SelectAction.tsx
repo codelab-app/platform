@@ -1,5 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
@@ -15,7 +18,8 @@ export type SelectActionProps = Pick<
 }
 
 export const SelectAction = (fieldProps: SelectActionProps) => {
-  const { actionService, builderService } = useStore()
+  const { actionDomainService } = useDomainStore()
+  const { builderService } = useStore()
   const selectedNode = builderService.selectedNode?.current
   const runtimeStore = selectedNode?.runtimeStore
   const store = runtimeStore?.store.current
@@ -24,7 +28,7 @@ export const SelectAction = (fieldProps: SelectActionProps) => {
     runtimeStore?.runtimeProviderStore?.current.store.current
 
   const selectActionOptions = store
-    ? actionService.actionDomainService.getSelectActionOptions(
+    ? actionDomainService.getSelectActionOptions(
         store,
         providerStore,
         fieldProps.updatedAction,
