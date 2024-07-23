@@ -30,6 +30,9 @@
       }
     ],
     "paths": {
+      "@codelab-codegen/client-preset": [
+        "libs/external/codelab-codegen/client-preset/src/index.ts"
+      ],
       "@codelab-codegen/fetch": [
         "libs/external/codelab-codegen/fetch/src/index.ts"
       ],

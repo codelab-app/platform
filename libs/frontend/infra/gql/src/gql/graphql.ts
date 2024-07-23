@@ -29,12 +29,11 @@ export type Scalars = {
   Float: { input: number; output: number }
 }
 
-export enum ActionKind {
+export type ActionKind =
   /** Action responsible for fetching data from a resource */
-  ApiAction = 'ApiAction',
+  | 'ApiAction'
   /** Action with custom code */
-  CodeAction = 'CodeAction',
-}
+  | 'CodeAction'
 
 /** Allows picking a action from the list of actions */
 export type ActionType = IBaseType & {
@@ -4461,388 +4460,387 @@ export type AtomTagsUpdateFieldInput = {
   where?: InputMaybe<AtomTagsConnectionWhere>
 }
 
-export enum AtomType {
-  AntDesignAffix = 'AntDesignAffix',
-  AntDesignAlert = 'AntDesignAlert',
-  AntDesignAnchor = 'AntDesignAnchor',
-  AntDesignAnchorLink = 'AntDesignAnchorLink',
-  AntDesignAutoComplete = 'AntDesignAutoComplete',
-  AntDesignAvatar = 'AntDesignAvatar',
-  AntDesignBackTop = 'AntDesignBackTop',
-  AntDesignBadge = 'AntDesignBadge',
-  AntDesignBreadcrumb = 'AntDesignBreadcrumb',
-  AntDesignBreadcrumbItem = 'AntDesignBreadcrumbItem',
-  AntDesignBreadcrumbSeparator = 'AntDesignBreadcrumbSeparator',
-  AntDesignButton = 'AntDesignButton',
-  AntDesignCalendar = 'AntDesignCalendar',
-  AntDesignCard = 'AntDesignCard',
-  AntDesignCardGrid = 'AntDesignCardGrid',
-  AntDesignCardMeta = 'AntDesignCardMeta',
-  AntDesignCarousel = 'AntDesignCarousel',
-  AntDesignCascader = 'AntDesignCascader',
-  AntDesignCheckbox = 'AntDesignCheckbox',
-  AntDesignCheckboxGroup = 'AntDesignCheckboxGroup',
-  AntDesignCollapse = 'AntDesignCollapse',
-  AntDesignCollapsePanel = 'AntDesignCollapsePanel',
-  AntDesignComment = 'AntDesignComment',
-  AntDesignConfigProvider = 'AntDesignConfigProvider',
-  AntDesignDatePicker = 'AntDesignDatePicker',
-  AntDesignDescriptions = 'AntDesignDescriptions',
-  AntDesignDescriptionsItem = 'AntDesignDescriptionsItem',
-  AntDesignDivider = 'AntDesignDivider',
-  AntDesignDrawer = 'AntDesignDrawer',
-  AntDesignDropdown = 'AntDesignDropdown',
-  AntDesignDropdownButton = 'AntDesignDropdownButton',
-  AntDesignEmpty = 'AntDesignEmpty',
-  AntDesignForm = 'AntDesignForm',
-  AntDesignFormErrorList = 'AntDesignFormErrorList',
-  AntDesignFormItem = 'AntDesignFormItem',
-  AntDesignFormList = 'AntDesignFormList',
-  AntDesignFormProvider = 'AntDesignFormProvider',
-  AntDesignGridCol = 'AntDesignGridCol',
-  AntDesignGridRow = 'AntDesignGridRow',
-  AntDesignIcon = 'AntDesignIcon',
-  AntDesignImage = 'AntDesignImage',
-  AntDesignInput = 'AntDesignInput',
-  AntDesignInputNumber = 'AntDesignInputNumber',
-  AntDesignInputSearch = 'AntDesignInputSearch',
-  AntDesignInputTextArea = 'AntDesignInputTextArea',
-  AntDesignLayout = 'AntDesignLayout',
-  AntDesignLayoutContent = 'AntDesignLayoutContent',
-  AntDesignLayoutFooter = 'AntDesignLayoutFooter',
-  AntDesignLayoutHeader = 'AntDesignLayoutHeader',
-  AntDesignLayoutSider = 'AntDesignLayoutSider',
-  AntDesignList = 'AntDesignList',
-  AntDesignListItem = 'AntDesignListItem',
-  AntDesignListItemMeta = 'AntDesignListItemMeta',
-  AntDesignMentions = 'AntDesignMentions',
-  AntDesignMentionsOption = 'AntDesignMentionsOption',
-  AntDesignMenu = 'AntDesignMenu',
-  AntDesignMessage = 'AntDesignMessage',
-  AntDesignModal = 'AntDesignModal',
-  AntDesignNotification = 'AntDesignNotification',
-  AntDesignPagination = 'AntDesignPagination',
-  AntDesignPopconfirm = 'AntDesignPopconfirm',
-  AntDesignPopover = 'AntDesignPopover',
-  AntDesignProgress = 'AntDesignProgress',
-  AntDesignRadio = 'AntDesignRadio',
-  AntDesignRadioGroup = 'AntDesignRadioGroup',
-  AntDesignRate = 'AntDesignRate',
-  AntDesignResult = 'AntDesignResult',
-  AntDesignSegmented = 'AntDesignSegmented',
-  AntDesignSelect = 'AntDesignSelect',
-  AntDesignSelectOption = 'AntDesignSelectOption',
-  AntDesignSkeleton = 'AntDesignSkeleton',
-  AntDesignSlider = 'AntDesignSlider',
-  AntDesignSpace = 'AntDesignSpace',
-  AntDesignSpin = 'AntDesignSpin',
-  AntDesignStatistic = 'AntDesignStatistic',
-  AntDesignSteps = 'AntDesignSteps',
-  AntDesignStepsStep = 'AntDesignStepsStep',
-  AntDesignSwitch = 'AntDesignSwitch',
-  AntDesignTable = 'AntDesignTable',
-  AntDesignTabs = 'AntDesignTabs',
-  AntDesignTabsTabPane = 'AntDesignTabsTabPane',
-  AntDesignTag = 'AntDesignTag',
-  AntDesignTimePicker = 'AntDesignTimePicker',
-  AntDesignTimeline = 'AntDesignTimeline',
-  AntDesignTimelineItem = 'AntDesignTimelineItem',
-  AntDesignTooltip = 'AntDesignTooltip',
-  AntDesignTransfer = 'AntDesignTransfer',
-  AntDesignTree = 'AntDesignTree',
-  AntDesignTreeSelect = 'AntDesignTreeSelect',
-  AntDesignTypographyParagraph = 'AntDesignTypographyParagraph',
-  AntDesignTypographyText = 'AntDesignTypographyText',
-  AntDesignTypographyTitle = 'AntDesignTypographyTitle',
-  AntDesignUpload = 'AntDesignUpload',
-  ExternalComponent = 'ExternalComponent',
-  GridLayout = 'GridLayout',
-  HookGraphqlMutation = 'HookGraphqlMutation',
-  HookGraphqlQuery = 'HookGraphqlQuery',
-  HookQueryConfig = 'HookQueryConfig',
-  HookQueryLambda = 'HookQueryLambda',
-  HookQueryPage = 'HookQueryPage',
-  HookQueryPages = 'HookQueryPages',
-  HookRecoilState = 'HookRecoilState',
-  HookRouter = 'HookRouter',
-  HtmlA = 'HtmlA',
-  HtmlAbbr = 'HtmlAbbr',
-  HtmlArea = 'HtmlArea',
-  HtmlArticle = 'HtmlArticle',
-  HtmlAside = 'HtmlAside',
-  HtmlAudio = 'HtmlAudio',
-  HtmlB = 'HtmlB',
-  HtmlBase = 'HtmlBase',
-  HtmlBdo = 'HtmlBdo',
-  HtmlBlockquote = 'HtmlBlockquote',
-  HtmlBr = 'HtmlBr',
-  HtmlButton = 'HtmlButton',
-  HtmlCanvas = 'HtmlCanvas',
-  HtmlCaption = 'HtmlCaption',
-  HtmlCite = 'HtmlCite',
-  HtmlCode = 'HtmlCode',
-  HtmlCol = 'HtmlCol',
-  HtmlData = 'HtmlData',
-  HtmlDatalist = 'HtmlDatalist',
-  HtmlDetails = 'HtmlDetails',
-  HtmlDfn = 'HtmlDfn',
-  HtmlDialog = 'HtmlDialog',
-  HtmlDiv = 'HtmlDiv',
-  HtmlDl = 'HtmlDl',
-  HtmlEm = 'HtmlEm',
-  HtmlEmbed = 'HtmlEmbed',
-  HtmlFieldset = 'HtmlFieldset',
-  HtmlFooter = 'HtmlFooter',
-  HtmlForm = 'HtmlForm',
-  HtmlH1 = 'HtmlH1',
-  HtmlH2 = 'HtmlH2',
-  HtmlH3 = 'HtmlH3',
-  HtmlH4 = 'HtmlH4',
-  HtmlH5 = 'HtmlH5',
-  HtmlH6 = 'HtmlH6',
-  HtmlHead = 'HtmlHead',
-  HtmlHeader = 'HtmlHeader',
-  HtmlHr = 'HtmlHr',
-  HtmlI = 'HtmlI',
-  HtmlIframe = 'HtmlIframe',
-  HtmlImg = 'HtmlImg',
-  HtmlInput = 'HtmlInput',
-  HtmlKbd = 'HtmlKbd',
-  HtmlLabel = 'HtmlLabel',
-  HtmlLegend = 'HtmlLegend',
-  HtmlLi = 'HtmlLi',
-  HtmlLink = 'HtmlLink',
-  HtmlMain = 'HtmlMain',
-  HtmlMap = 'HtmlMap',
-  HtmlMark = 'HtmlMark',
-  HtmlMath = 'HtmlMath',
-  HtmlMeta = 'HtmlMeta',
-  HtmlMeter = 'HtmlMeter',
-  HtmlNav = 'HtmlNav',
-  HtmlNoscript = 'HtmlNoscript',
-  HtmlObject = 'HtmlObject',
-  HtmlOl = 'HtmlOl',
-  HtmlOptgroup = 'HtmlOptgroup',
-  HtmlOption = 'HtmlOption',
-  HtmlOutput = 'HtmlOutput',
-  HtmlP = 'HtmlP',
-  HtmlParam = 'HtmlParam',
-  HtmlPicture = 'HtmlPicture',
-  HtmlPre = 'HtmlPre',
-  HtmlProgress = 'HtmlProgress',
-  HtmlQ = 'HtmlQ',
-  HtmlRuby = 'HtmlRuby',
-  HtmlS = 'HtmlS',
-  HtmlSamp = 'HtmlSamp',
-  HtmlScript = 'HtmlScript',
-  HtmlSection = 'HtmlSection',
-  HtmlSelect = 'HtmlSelect',
-  HtmlSmall = 'HtmlSmall',
-  HtmlSource = 'HtmlSource',
-  HtmlSpan = 'HtmlSpan',
-  HtmlStrong = 'HtmlStrong',
-  HtmlStyle = 'HtmlStyle',
-  HtmlSub = 'HtmlSub',
-  HtmlSup = 'HtmlSup',
-  HtmlSvg = 'HtmlSvg',
-  HtmlTable = 'HtmlTable',
-  HtmlTd = 'HtmlTd',
-  HtmlTemplate = 'HtmlTemplate',
-  HtmlTextarea = 'HtmlTextarea',
-  HtmlTh = 'HtmlTh',
-  HtmlTime = 'HtmlTime',
-  HtmlTitle = 'HtmlTitle',
-  HtmlTr = 'HtmlTr',
-  HtmlTrack = 'HtmlTrack',
-  HtmlU = 'HtmlU',
-  HtmlUl = 'HtmlUl',
-  HtmlVar = 'HtmlVar',
-  HtmlVideo = 'HtmlVideo',
-  HtmlWbr = 'HtmlWbr',
-  LexicalEditor = 'LexicalEditor',
-  MuiAccordion = 'MuiAccordion',
-  MuiAccordionActions = 'MuiAccordionActions',
-  MuiAccordionDetails = 'MuiAccordionDetails',
-  MuiAccordionSummary = 'MuiAccordionSummary',
-  MuiAlert = 'MuiAlert',
-  MuiAlertTitle = 'MuiAlertTitle',
-  MuiAppBar = 'MuiAppBar',
-  MuiAutocomplete = 'MuiAutocomplete',
-  MuiAvatar = 'MuiAvatar',
-  MuiAvatarGroup = 'MuiAvatarGroup',
-  MuiBackdrop = 'MuiBackdrop',
-  MuiBadge = 'MuiBadge',
-  MuiBadgeUnstyled = 'MuiBadgeUnstyled',
-  MuiBottomNavigation = 'MuiBottomNavigation',
-  MuiBottomNavigationAction = 'MuiBottomNavigationAction',
-  MuiBox = 'MuiBox',
-  MuiBreadcrumbs = 'MuiBreadcrumbs',
-  MuiButton = 'MuiButton',
-  MuiButtonBase = 'MuiButtonBase',
-  MuiButtonGroup = 'MuiButtonGroup',
-  MuiButtonUnstyled = 'MuiButtonUnstyled',
-  MuiCalendarPicker = 'MuiCalendarPicker',
-  MuiCalendarPickerSkeleton = 'MuiCalendarPickerSkeleton',
-  MuiCard = 'MuiCard',
-  MuiCardActionArea = 'MuiCardActionArea',
-  MuiCardActions = 'MuiCardActions',
-  MuiCardContent = 'MuiCardContent',
-  MuiCardHeader = 'MuiCardHeader',
-  MuiCardMedia = 'MuiCardMedia',
-  MuiCheckbox = 'MuiCheckbox',
-  MuiChip = 'MuiChip',
-  MuiCircularProgress = 'MuiCircularProgress',
-  MuiClickAwayListener = 'MuiClickAwayListener',
-  MuiClockPicker = 'MuiClockPicker',
-  MuiCollapse = 'MuiCollapse',
-  MuiContainer = 'MuiContainer',
-  MuiCssBaseline = 'MuiCssBaseline',
-  MuiDataGrid = 'MuiDataGrid',
-  MuiDatePicker = 'MuiDatePicker',
-  MuiDateRangePicker = 'MuiDateRangePicker',
-  MuiDateRangePickerDay = 'MuiDateRangePickerDay',
-  MuiDateTimePicker = 'MuiDateTimePicker',
-  MuiDesktopDatePicker = 'MuiDesktopDatePicker',
-  MuiDesktopDateRangePicker = 'MuiDesktopDateRangePicker',
-  MuiDesktopDateTimePicker = 'MuiDesktopDateTimePicker',
-  MuiDesktopTimePicker = 'MuiDesktopTimePicker',
-  MuiDialog = 'MuiDialog',
-  MuiDialogActions = 'MuiDialogActions',
-  MuiDialogContent = 'MuiDialogContent',
-  MuiDialogContentText = 'MuiDialogContentText',
-  MuiDialogTitle = 'MuiDialogTitle',
-  MuiDivider = 'MuiDivider',
-  MuiDrawer = 'MuiDrawer',
-  MuiFab = 'MuiFab',
-  MuiFade = 'MuiFade',
-  MuiFilledInput = 'MuiFilledInput',
-  MuiFormControl = 'MuiFormControl',
-  MuiFormControlLabel = 'MuiFormControlLabel',
-  MuiFormControlUnstyled = 'MuiFormControlUnstyled',
-  MuiFormGroup = 'MuiFormGroup',
-  MuiFormHelperText = 'MuiFormHelperText',
-  MuiFormLabel = 'MuiFormLabel',
-  MuiGlobalStyles = 'MuiGlobalStyles',
-  MuiGrid = 'MuiGrid',
-  MuiGridColDef = 'MuiGridColDef',
-  MuiGrow = 'MuiGrow',
-  MuiHidden = 'MuiHidden',
-  MuiIcon = 'MuiIcon',
-  MuiIconButton = 'MuiIconButton',
-  MuiImageList = 'MuiImageList',
-  MuiImageListItem = 'MuiImageListItem',
-  MuiImageListItemBar = 'MuiImageListItemBar',
-  MuiInput = 'MuiInput',
-  MuiInputAdornment = 'MuiInputAdornment',
-  MuiInputBase = 'MuiInputBase',
-  MuiInputLabel = 'MuiInputLabel',
-  MuiLinearProgress = 'MuiLinearProgress',
-  MuiLink = 'MuiLink',
-  MuiList = 'MuiList',
-  MuiListItem = 'MuiListItem',
-  MuiListItemAvatar = 'MuiListItemAvatar',
-  MuiListItemButton = 'MuiListItemButton',
-  MuiListItemIcon = 'MuiListItemIcon',
-  MuiListItemSecondaryAction = 'MuiListItemSecondaryAction',
-  MuiListItemText = 'MuiListItemText',
-  MuiListSubheader = 'MuiListSubheader',
-  MuiLoadingButton = 'MuiLoadingButton',
-  MuiMasonry = 'MuiMasonry',
-  MuiMasonryItem = 'MuiMasonryItem',
-  MuiMenu = 'MuiMenu',
-  MuiMenuItem = 'MuiMenuItem',
-  MuiMenuList = 'MuiMenuList',
-  MuiMobileDatePicker = 'MuiMobileDatePicker',
-  MuiMobileDateRangePicker = 'MuiMobileDateRangePicker',
-  MuiMobileDateTimePicker = 'MuiMobileDateTimePicker',
-  MuiMobileStepper = 'MuiMobileStepper',
-  MuiMobileTimePicker = 'MuiMobileTimePicker',
-  MuiModal = 'MuiModal',
-  MuiModalUnstyled = 'MuiModalUnstyled',
-  MuiMonthPicker = 'MuiMonthPicker',
-  MuiNativeSelect = 'MuiNativeSelect',
-  MuiNoSsr = 'MuiNoSsr',
-  MuiOutlinedInput = 'MuiOutlinedInput',
-  MuiPagination = 'MuiPagination',
-  MuiPaginationItem = 'MuiPaginationItem',
-  MuiPaper = 'MuiPaper',
-  MuiPickersDay = 'MuiPickersDay',
-  MuiPopover = 'MuiPopover',
-  MuiPopper = 'MuiPopper',
-  MuiPortal = 'MuiPortal',
-  MuiRadio = 'MuiRadio',
-  MuiRadioGroup = 'MuiRadioGroup',
-  MuiRating = 'MuiRating',
-  MuiScopedCssBaseline = 'MuiScopedCssBaseline',
-  MuiSelect = 'MuiSelect',
-  MuiSkeleton = 'MuiSkeleton',
-  MuiSlide = 'MuiSlide',
-  MuiSlider = 'MuiSlider',
-  MuiSliderUnstyled = 'MuiSliderUnstyled',
-  MuiSnackbar = 'MuiSnackbar',
-  MuiSnackbarContent = 'MuiSnackbarContent',
-  MuiSpeedDial = 'MuiSpeedDial',
-  MuiSpeedDialAction = 'MuiSpeedDialAction',
-  MuiSpeedDialIcon = 'MuiSpeedDialIcon',
-  MuiStack = 'MuiStack',
-  MuiStaticDatePicker = 'MuiStaticDatePicker',
-  MuiStaticDateRangePicker = 'MuiStaticDateRangePicker',
-  MuiStaticDateTimePicker = 'MuiStaticDateTimePicker',
-  MuiStaticTimePicker = 'MuiStaticTimePicker',
-  MuiStep = 'MuiStep',
-  MuiStepButton = 'MuiStepButton',
-  MuiStepConnector = 'MuiStepConnector',
-  MuiStepContent = 'MuiStepContent',
-  MuiStepIcon = 'MuiStepIcon',
-  MuiStepLabel = 'MuiStepLabel',
-  MuiStepper = 'MuiStepper',
-  MuiSvgIcon = 'MuiSvgIcon',
-  MuiSwipeableDrawer = 'MuiSwipeableDrawer',
-  MuiSwitch = 'MuiSwitch',
-  MuiSwitchUnstyled = 'MuiSwitchUnstyled',
-  MuiTab = 'MuiTab',
-  MuiTabContext = 'MuiTabContext',
-  MuiTabList = 'MuiTabList',
-  MuiTabPanel = 'MuiTabPanel',
-  MuiTabScrollButton = 'MuiTabScrollButton',
-  MuiTable = 'MuiTable',
-  MuiTableBody = 'MuiTableBody',
-  MuiTableCell = 'MuiTableCell',
-  MuiTableContainer = 'MuiTableContainer',
-  MuiTableFooter = 'MuiTableFooter',
-  MuiTableHead = 'MuiTableHead',
-  MuiTablePagination = 'MuiTablePagination',
-  MuiTableRow = 'MuiTableRow',
-  MuiTableSortLabel = 'MuiTableSortLabel',
-  MuiTabs = 'MuiTabs',
-  MuiTextField = 'MuiTextField',
-  MuiTextareaAutosize = 'MuiTextareaAutosize',
-  MuiTimePicker = 'MuiTimePicker',
-  MuiTimeline = 'MuiTimeline',
-  MuiTimelineConnector = 'MuiTimelineConnector',
-  MuiTimelineContent = 'MuiTimelineContent',
-  MuiTimelineDot = 'MuiTimelineDot',
-  MuiTimelineItem = 'MuiTimelineItem',
-  MuiTimelineOppositeContent = 'MuiTimelineOppositeContent',
-  MuiTimelineSeparator = 'MuiTimelineSeparator',
-  MuiToggleButton = 'MuiToggleButton',
-  MuiToggleButtonGroup = 'MuiToggleButtonGroup',
-  MuiToolbar = 'MuiToolbar',
-  MuiTooltip = 'MuiTooltip',
-  MuiTreeItem = 'MuiTreeItem',
-  MuiTreeView = 'MuiTreeView',
-  MuiTypography = 'MuiTypography',
-  MuiUnstableTrapFocus = 'MuiUnstableTrapFocus',
-  MuiYearPicker = 'MuiYearPicker',
-  MuiZoom = 'MuiZoom',
-  NextLink = 'NextLink',
-  Query = 'Query',
-  ReactFragment = 'ReactFragment',
-  Script = 'Script',
-  State = 'State',
-  Text = 'Text',
-  TextList = 'TextList',
-}
+export type AtomType =
+  | 'AntDesignAffix'
+  | 'AntDesignAlert'
+  | 'AntDesignAnchor'
+  | 'AntDesignAnchorLink'
+  | 'AntDesignAutoComplete'
+  | 'AntDesignAvatar'
+  | 'AntDesignBackTop'
+  | 'AntDesignBadge'
+  | 'AntDesignBreadcrumb'
+  | 'AntDesignBreadcrumbItem'
+  | 'AntDesignBreadcrumbSeparator'
+  | 'AntDesignButton'
+  | 'AntDesignCalendar'
+  | 'AntDesignCard'
+  | 'AntDesignCardGrid'
+  | 'AntDesignCardMeta'
+  | 'AntDesignCarousel'
+  | 'AntDesignCascader'
+  | 'AntDesignCheckbox'
+  | 'AntDesignCheckboxGroup'
+  | 'AntDesignCollapse'
+  | 'AntDesignCollapsePanel'
+  | 'AntDesignComment'
+  | 'AntDesignConfigProvider'
+  | 'AntDesignDatePicker'
+  | 'AntDesignDescriptions'
+  | 'AntDesignDescriptionsItem'
+  | 'AntDesignDivider'
+  | 'AntDesignDrawer'
+  | 'AntDesignDropdown'
+  | 'AntDesignDropdownButton'
+  | 'AntDesignEmpty'
+  | 'AntDesignForm'
+  | 'AntDesignFormErrorList'
+  | 'AntDesignFormItem'
+  | 'AntDesignFormList'
+  | 'AntDesignFormProvider'
+  | 'AntDesignGridCol'
+  | 'AntDesignGridRow'
+  | 'AntDesignIcon'
+  | 'AntDesignImage'
+  | 'AntDesignInput'
+  | 'AntDesignInputNumber'
+  | 'AntDesignInputSearch'
+  | 'AntDesignInputTextArea'
+  | 'AntDesignLayout'
+  | 'AntDesignLayoutContent'
+  | 'AntDesignLayoutFooter'
+  | 'AntDesignLayoutHeader'
+  | 'AntDesignLayoutSider'
+  | 'AntDesignList'
+  | 'AntDesignListItem'
+  | 'AntDesignListItemMeta'
+  | 'AntDesignMentions'
+  | 'AntDesignMentionsOption'
+  | 'AntDesignMenu'
+  | 'AntDesignMessage'
+  | 'AntDesignModal'
+  | 'AntDesignNotification'
+  | 'AntDesignPagination'
+  | 'AntDesignPopconfirm'
+  | 'AntDesignPopover'
+  | 'AntDesignProgress'
+  | 'AntDesignRadio'
+  | 'AntDesignRadioGroup'
+  | 'AntDesignRate'
+  | 'AntDesignResult'
+  | 'AntDesignSegmented'
+  | 'AntDesignSelect'
+  | 'AntDesignSelectOption'
+  | 'AntDesignSkeleton'
+  | 'AntDesignSlider'
+  | 'AntDesignSpace'
+  | 'AntDesignSpin'
+  | 'AntDesignStatistic'
+  | 'AntDesignSteps'
+  | 'AntDesignStepsStep'
+  | 'AntDesignSwitch'
+  | 'AntDesignTable'
+  | 'AntDesignTabs'
+  | 'AntDesignTabsTabPane'
+  | 'AntDesignTag'
+  | 'AntDesignTimePicker'
+  | 'AntDesignTimeline'
+  | 'AntDesignTimelineItem'
+  | 'AntDesignTooltip'
+  | 'AntDesignTransfer'
+  | 'AntDesignTree'
+  | 'AntDesignTreeSelect'
+  | 'AntDesignTypographyParagraph'
+  | 'AntDesignTypographyText'
+  | 'AntDesignTypographyTitle'
+  | 'AntDesignUpload'
+  | 'ExternalComponent'
+  | 'GridLayout'
+  | 'HookGraphqlMutation'
+  | 'HookGraphqlQuery'
+  | 'HookQueryConfig'
+  | 'HookQueryLambda'
+  | 'HookQueryPage'
+  | 'HookQueryPages'
+  | 'HookRecoilState'
+  | 'HookRouter'
+  | 'HtmlA'
+  | 'HtmlAbbr'
+  | 'HtmlArea'
+  | 'HtmlArticle'
+  | 'HtmlAside'
+  | 'HtmlAudio'
+  | 'HtmlB'
+  | 'HtmlBase'
+  | 'HtmlBdo'
+  | 'HtmlBlockquote'
+  | 'HtmlBr'
+  | 'HtmlButton'
+  | 'HtmlCanvas'
+  | 'HtmlCaption'
+  | 'HtmlCite'
+  | 'HtmlCode'
+  | 'HtmlCol'
+  | 'HtmlData'
+  | 'HtmlDatalist'
+  | 'HtmlDetails'
+  | 'HtmlDfn'
+  | 'HtmlDialog'
+  | 'HtmlDiv'
+  | 'HtmlDl'
+  | 'HtmlEm'
+  | 'HtmlEmbed'
+  | 'HtmlFieldset'
+  | 'HtmlFooter'
+  | 'HtmlForm'
+  | 'HtmlH1'
+  | 'HtmlH2'
+  | 'HtmlH3'
+  | 'HtmlH4'
+  | 'HtmlH5'
+  | 'HtmlH6'
+  | 'HtmlHead'
+  | 'HtmlHeader'
+  | 'HtmlHr'
+  | 'HtmlI'
+  | 'HtmlIframe'
+  | 'HtmlImg'
+  | 'HtmlInput'
+  | 'HtmlKbd'
+  | 'HtmlLabel'
+  | 'HtmlLegend'
+  | 'HtmlLi'
+  | 'HtmlLink'
+  | 'HtmlMain'
+  | 'HtmlMap'
+  | 'HtmlMark'
+  | 'HtmlMath'
+  | 'HtmlMeta'
+  | 'HtmlMeter'
+  | 'HtmlNav'
+  | 'HtmlNoscript'
+  | 'HtmlObject'
+  | 'HtmlOl'
+  | 'HtmlOptgroup'
+  | 'HtmlOption'
+  | 'HtmlOutput'
+  | 'HtmlP'
+  | 'HtmlParam'
+  | 'HtmlPicture'
+  | 'HtmlPre'
+  | 'HtmlProgress'
+  | 'HtmlQ'
+  | 'HtmlRuby'
+  | 'HtmlS'
+  | 'HtmlSamp'
+  | 'HtmlScript'
+  | 'HtmlSection'
+  | 'HtmlSelect'
+  | 'HtmlSmall'
+  | 'HtmlSource'
+  | 'HtmlSpan'
+  | 'HtmlStrong'
+  | 'HtmlStyle'
+  | 'HtmlSub'
+  | 'HtmlSup'
+  | 'HtmlSvg'
+  | 'HtmlTable'
+  | 'HtmlTd'
+  | 'HtmlTemplate'
+  | 'HtmlTextarea'
+  | 'HtmlTh'
+  | 'HtmlTime'
+  | 'HtmlTitle'
+  | 'HtmlTr'
+  | 'HtmlTrack'
+  | 'HtmlU'
+  | 'HtmlUl'
+  | 'HtmlVar'
+  | 'HtmlVideo'
+  | 'HtmlWbr'
+  | 'LexicalEditor'
+  | 'MuiAccordion'
+  | 'MuiAccordionActions'
+  | 'MuiAccordionDetails'
+  | 'MuiAccordionSummary'
+  | 'MuiAlert'
+  | 'MuiAlertTitle'
+  | 'MuiAppBar'
+  | 'MuiAutocomplete'
+  | 'MuiAvatar'
+  | 'MuiAvatarGroup'
+  | 'MuiBackdrop'
+  | 'MuiBadge'
+  | 'MuiBadgeUnstyled'
+  | 'MuiBottomNavigation'
+  | 'MuiBottomNavigationAction'
+  | 'MuiBox'
+  | 'MuiBreadcrumbs'
+  | 'MuiButton'
+  | 'MuiButtonBase'
+  | 'MuiButtonGroup'
+  | 'MuiButtonUnstyled'
+  | 'MuiCalendarPicker'
+  | 'MuiCalendarPickerSkeleton'
+  | 'MuiCard'
+  | 'MuiCardActionArea'
+  | 'MuiCardActions'
+  | 'MuiCardContent'
+  | 'MuiCardHeader'
+  | 'MuiCardMedia'
+  | 'MuiCheckbox'
+  | 'MuiChip'
+  | 'MuiCircularProgress'
+  | 'MuiClickAwayListener'
+  | 'MuiClockPicker'
+  | 'MuiCollapse'
+  | 'MuiContainer'
+  | 'MuiCssBaseline'
+  | 'MuiDataGrid'
+  | 'MuiDatePicker'
+  | 'MuiDateRangePicker'
+  | 'MuiDateRangePickerDay'
+  | 'MuiDateTimePicker'
+  | 'MuiDesktopDatePicker'
+  | 'MuiDesktopDateRangePicker'
+  | 'MuiDesktopDateTimePicker'
+  | 'MuiDesktopTimePicker'
+  | 'MuiDialog'
+  | 'MuiDialogActions'
+  | 'MuiDialogContent'
+  | 'MuiDialogContentText'
+  | 'MuiDialogTitle'
+  | 'MuiDivider'
+  | 'MuiDrawer'
+  | 'MuiFab'
+  | 'MuiFade'
+  | 'MuiFilledInput'
+  | 'MuiFormControl'
+  | 'MuiFormControlLabel'
+  | 'MuiFormControlUnstyled'
+  | 'MuiFormGroup'
+  | 'MuiFormHelperText'
+  | 'MuiFormLabel'
+  | 'MuiGlobalStyles'
+  | 'MuiGrid'
+  | 'MuiGridColDef'
+  | 'MuiGrow'
+  | 'MuiHidden'
+  | 'MuiIcon'
+  | 'MuiIconButton'
+  | 'MuiImageList'
+  | 'MuiImageListItem'
+  | 'MuiImageListItemBar'
+  | 'MuiInput'
+  | 'MuiInputAdornment'
+  | 'MuiInputBase'
+  | 'MuiInputLabel'
+  | 'MuiLinearProgress'
+  | 'MuiLink'
+  | 'MuiList'
+  | 'MuiListItem'
+  | 'MuiListItemAvatar'
+  | 'MuiListItemButton'
+  | 'MuiListItemIcon'
+  | 'MuiListItemSecondaryAction'
+  | 'MuiListItemText'
+  | 'MuiListSubheader'
+  | 'MuiLoadingButton'
+  | 'MuiMasonry'
+  | 'MuiMasonryItem'
+  | 'MuiMenu'
+  | 'MuiMenuItem'
+  | 'MuiMenuList'
+  | 'MuiMobileDatePicker'
+  | 'MuiMobileDateRangePicker'
+  | 'MuiMobileDateTimePicker'
+  | 'MuiMobileStepper'
+  | 'MuiMobileTimePicker'
+  | 'MuiModal'
+  | 'MuiModalUnstyled'
+  | 'MuiMonthPicker'
+  | 'MuiNativeSelect'
+  | 'MuiNoSsr'
+  | 'MuiOutlinedInput'
+  | 'MuiPagination'
+  | 'MuiPaginationItem'
+  | 'MuiPaper'
+  | 'MuiPickersDay'
+  | 'MuiPopover'
+  | 'MuiPopper'
+  | 'MuiPortal'
+  | 'MuiRadio'
+  | 'MuiRadioGroup'
+  | 'MuiRating'
+  | 'MuiScopedCssBaseline'
+  | 'MuiSelect'
+  | 'MuiSkeleton'
+  | 'MuiSlide'
+  | 'MuiSlider'
+  | 'MuiSliderUnstyled'
+  | 'MuiSnackbar'
+  | 'MuiSnackbarContent'
+  | 'MuiSpeedDial'
+  | 'MuiSpeedDialAction'
+  | 'MuiSpeedDialIcon'
+  | 'MuiStack'
+  | 'MuiStaticDatePicker'
+  | 'MuiStaticDateRangePicker'
+  | 'MuiStaticDateTimePicker'
+  | 'MuiStaticTimePicker'
+  | 'MuiStep'
+  | 'MuiStepButton'
+  | 'MuiStepConnector'
+  | 'MuiStepContent'
+  | 'MuiStepIcon'
+  | 'MuiStepLabel'
+  | 'MuiStepper'
+  | 'MuiSvgIcon'
+  | 'MuiSwipeableDrawer'
+  | 'MuiSwitch'
+  | 'MuiSwitchUnstyled'
+  | 'MuiTab'
+  | 'MuiTabContext'
+  | 'MuiTabList'
+  | 'MuiTabPanel'
+  | 'MuiTabScrollButton'
+  | 'MuiTable'
+  | 'MuiTableBody'
+  | 'MuiTableCell'
+  | 'MuiTableContainer'
+  | 'MuiTableFooter'
+  | 'MuiTableHead'
+  | 'MuiTablePagination'
+  | 'MuiTableRow'
+  | 'MuiTableSortLabel'
+  | 'MuiTabs'
+  | 'MuiTextField'
+  | 'MuiTextareaAutosize'
+  | 'MuiTimePicker'
+  | 'MuiTimeline'
+  | 'MuiTimelineConnector'
+  | 'MuiTimelineContent'
+  | 'MuiTimelineDot'
+  | 'MuiTimelineItem'
+  | 'MuiTimelineOppositeContent'
+  | 'MuiTimelineSeparator'
+  | 'MuiToggleButton'
+  | 'MuiToggleButtonGroup'
+  | 'MuiToolbar'
+  | 'MuiTooltip'
+  | 'MuiTreeItem'
+  | 'MuiTreeView'
+  | 'MuiTypography'
+  | 'MuiUnstableTrapFocus'
+  | 'MuiYearPicker'
+  | 'MuiZoom'
+  | 'NextLink'
+  | 'Query'
+  | 'ReactFragment'
+  | 'Script'
+  | 'State'
+  | 'Text'
+  | 'TextList'
 
 export type AtomUniqueWhere = {
   externalSourceType?: InputMaybe<Scalars['String']['input']>
@@ -6563,14 +6561,13 @@ export type CodeActionsConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export enum CodeMirrorLanguage {
-  Css = 'Css',
-  CssInJs = 'CssInJs',
-  Graphql = 'Graphql',
-  Javascript = 'Javascript',
-  Json = 'Json',
-  Typescript = 'Typescript',
-}
+export type CodeMirrorLanguage =
+  | 'Css'
+  | 'CssInJs'
+  | 'Graphql'
+  | 'Javascript'
+  | 'Json'
+  | 'Typescript'
 
 /** Allows editing the value using a code mirror editor */
 export type CodeMirrorType = IBaseType & {
@@ -10988,12 +10985,11 @@ export type ElementTypeEventPayload = IBaseTypeEventPayload & {
   ownerConnection: IBaseTypeOwnerConnection
 }
 
-export enum ElementTypeKind {
-  AllElements = 'AllElements',
-  ChildrenOnly = 'ChildrenOnly',
-  DescendantsOnly = 'DescendantsOnly',
-  ExcludeDescendantsElements = 'ExcludeDescendantsElements',
-}
+export type ElementTypeKind =
+  | 'AllElements'
+  | 'ChildrenOnly'
+  | 'DescendantsOnly'
+  | 'ExcludeDescendantsElements'
 
 export type ElementTypeOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -12449,13 +12445,12 @@ export type EnumTypesConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export enum EventType {
-  Create = 'CREATE',
-  CreateRelationship = 'CREATE_RELATIONSHIP',
-  Delete = 'DELETE',
-  DeleteRelationship = 'DELETE_RELATIONSHIP',
-  Update = 'UPDATE',
-}
+export type EventType =
+  | 'CREATE'
+  | 'CREATE_RELATIONSHIP'
+  | 'DELETE'
+  | 'DELETE_RELATIONSHIP'
+  | 'UPDATE'
 
 export type Field = {
   api: InterfaceType
@@ -16868,12 +16863,11 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>
 }
 
-export enum PageKind {
-  InternalServerError = 'InternalServerError',
-  NotFound = 'NotFound',
-  Provider = 'Provider',
-  Regular = 'Regular',
-}
+export type PageKind =
+  | 'InternalServerError'
+  | 'NotFound'
+  | 'Provider'
+  | 'Regular'
 
 export type PageOnCreateInput = {
   compositeKey: Scalars['String']['input']
@@ -18089,12 +18083,7 @@ export type PrimitiveTypeEventPayload = IBaseTypeEventPayload & {
   primitiveKind: PrimitiveTypeKind
 }
 
-export enum PrimitiveTypeKind {
-  Boolean = 'Boolean',
-  Integer = 'Integer',
-  Number = 'Number',
-  String = 'String',
-}
+export type PrimitiveTypeKind = 'Boolean' | 'Integer' | 'Number' | 'String'
 
 export type PrimitiveTypeOnCreateInput = {
   id: Scalars['ID']['input']
@@ -20169,12 +20158,11 @@ export type RedirectTargetPageUpdateFieldInput = {
   where?: InputMaybe<RedirectTargetPageConnectionWhere>
 }
 
-export enum RedirectTargetType {
+export type RedirectTargetType =
   /** Redirect to a page in the same app */
-  Page = 'Page',
+  | 'Page'
   /** Redirect responsible for fetching data from a resource */
-  Url = 'Url',
-}
+  | 'Url'
 
 export type RedirectUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>
@@ -21006,10 +20994,7 @@ export type ResourceSubscriptionWhere = {
   type_IN?: InputMaybe<Array<InputMaybe<ResourceType>>>
 }
 
-export enum ResourceType {
-  GraphQl = 'GraphQl',
-  Rest = 'Rest',
-}
+export type ResourceType = 'GraphQl' | 'Rest'
 
 export type ResourceUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>
@@ -21388,18 +21373,14 @@ export type RichTextTypesConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export enum Role {
-  Admin = 'Admin',
-  User = 'User',
-}
+export type Role = 'Admin' | 'User'
 
 /** An enum for sorting in either ascending or descending order. */
-export enum SortDirection {
+export type SortDirection =
   /** Sort by field values in ascending order. */
-  Asc = 'ASC',
+  | 'ASC'
   /** Sort by field values in descending order. */
-  Desc = 'DESC',
-}
+  | 'DESC'
 
 export type Store = {
   actions: Array<AnyAction>
@@ -23697,22 +23678,21 @@ export type TagsConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export enum TypeKind {
-  ActionType = 'ActionType',
-  AppType = 'AppType',
-  ArrayType = 'ArrayType',
-  CodeMirrorType = 'CodeMirrorType',
-  ElementType = 'ElementType',
-  EnumType = 'EnumType',
-  InterfaceType = 'InterfaceType',
-  LambdaType = 'LambdaType',
-  PageType = 'PageType',
-  PrimitiveType = 'PrimitiveType',
-  ReactNodeType = 'ReactNodeType',
-  RenderPropType = 'RenderPropType',
-  RichTextType = 'RichTextType',
-  UnionType = 'UnionType',
-}
+export type TypeKind =
+  | 'ActionType'
+  | 'AppType'
+  | 'ArrayType'
+  | 'CodeMirrorType'
+  | 'ElementType'
+  | 'EnumType'
+  | 'InterfaceType'
+  | 'LambdaType'
+  | 'PageType'
+  | 'PrimitiveType'
+  | 'ReactNodeType'
+  | 'RenderPropType'
+  | 'RichTextType'
+  | 'UnionType'
 
 export type TypeReference = {
   /** The type of resource - Atom, InterfaceType, etc. */
@@ -33030,20 +33010,32 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
-export type CreateComponentsMutationVariables = Exact<{
-  input: Array<ComponentCreateInput> | ComponentCreateInput
+export type CreateAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
 }>
 
-export type CreateComponentsMutation = {
-  createComponents: { components: Array<{ id: string }> }
-}
+export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
 
-export type AppListQueryVariables = Exact<{
+export type UpdateAppsMutationVariables = Exact<{
+  where: AppWhere
+  update: AppUpdateInput
+}>
+
+export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
+
+export type DeleteAppsMutationVariables = Exact<{
+  where: AppWhere
+  delete?: InputMaybe<AppDeleteInput>
+}>
+
+export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
+
+export type GetAppsQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
 }>
 
-export type AppListQuery = {
+export type GetAppsQuery = {
   aggregate: { count: number }
   items: Array<{
     id: string
@@ -33060,31 +33052,6 @@ export type AppListQuery = {
       id: string
       kind: PageKind
       name: string
-      urlPattern: string
-      app: { id: string }
-      rootElement: { id: string }
-      elements: Array<{ id: string }>
-      store: { id: string }
-    }>
-  }>
-}
-
-export type GetAppProductionQueryVariables = Exact<{
-  domain: Scalars['String']['input']
-  pageUrlPattern: Scalars['String']['input']
-}>
-
-export type GetAppProductionQuery = {
-  apps: Array<{
-    id: string
-    name: string
-    slug: string
-    owner: { id: string }
-    pages: Array<{
-      id: string
-      kind: PageKind
-      name: string
-      slug: string
       urlPattern: string
       app: { id: string }
       elements: Array<{
@@ -33393,13 +33360,112 @@ export type GetAppProductionQuery = {
         renderType:
           | {
               __typename: 'Atom'
-              externalCssSource?: string | null
-              externalJsSource?: string | null
-              externalSourceType?: string | null
               icon?: string | null
               id: string
               name: string
               type: AtomType
+              api: {
+                __typename: 'InterfaceType'
+                id: string
+                kind: TypeKind
+                name: string
+                fields: Array<{
+                  defaultValues?: string | null
+                  description?: string | null
+                  id: string
+                  key: string
+                  name?: string | null
+                  validationRules?: string | null
+                  api: { id: string }
+                  fieldType:
+                    | {
+                        __typename: 'ActionType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'AppType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'ArrayType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'CodeMirrorType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'ElementType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'EnumType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'InterfaceType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'LambdaType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'PageType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'PrimitiveType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'ReactNodeType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'RenderPropType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'RichTextType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                    | {
+                        __typename: 'UnionType'
+                        id: string
+                        kind: TypeKind
+                        name: string
+                      }
+                  nextSibling?: { id: string } | null
+                  prevSibling?: { id: string } | null
+                }>
+              }
               requiredParents: Array<{
                 id: string
                 name: string
@@ -33409,6 +33475,14 @@ export type GetAppProductionQuery = {
                 id: string
                 name: string
                 type: AtomType
+              }>
+              tags: Array<{
+                id: string
+                name: string
+                children: Array<{ id: string; name: string }>
+                descendants: Array<{ id: string; name: string }>
+                owner: { id: string }
+                parent?: { id: string } | null
               }>
             }
           | { __typename: 'Component'; id: string }
@@ -33580,58 +33654,38 @@ export type GetAppProductionQuery = {
       }
     }>
   }>
-  atoms: Array<{
-    __typename: 'Atom'
-    externalCssSource?: string | null
-    externalJsSource?: string | null
-    externalSourceType?: string | null
-    icon?: string | null
-    id: string
-    name: string
-    type: AtomType
-    requiredParents: Array<{ id: string; name: string; type: AtomType }>
-    suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
-  }>
-  resources: Array<{
-    id: string
-    name: string
-    type: ResourceType
-    config: { data: string; id: string }
-  }>
 }
 
-export type CreateAppsMutationVariables = Exact<{
-  input: Array<AppCreateInput> | AppCreateInput
+export type GetAppsListQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
 }>
 
-export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
-
-export type DeleteAppsMutationVariables = Exact<{
-  where: AppWhere
-  delete?: InputMaybe<AppDeleteInput>
-}>
-
-export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
-
-export type UpdateAppsMutationVariables = Exact<{
-  where: AppWhere
-  update: AppUpdateInput
-}>
-
-export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
-
-export type AtomListQueryVariables = Exact<{
-  options?: InputMaybe<AtomOptions>
-  where?: InputMaybe<AtomWhere>
-}>
-
-export type AtomListQuery = {
-  aggregate: { count: number }
-  items: Array<{
+export type GetAppsListQuery = {
+  apps: Array<{
+    id: string
+    name: string
+    slug: string
+    domains: Array<{
+      id: string
+      name: string
+      app: { id: string }
+      domainConfig: { misconfigured: boolean }
+    }>
+    owner: { id: string }
+    pages: Array<{
+      id: string
+      kind: PageKind
+      name: string
+      urlPattern: string
+      app: { id: string }
+      rootElement: { id: string }
+      elements: Array<{ id: string }>
+      store: { id: string }
+    }>
+  }>
+  atoms: Array<{
     __typename: 'Atom'
-    externalCssSource?: string | null
-    externalJsSource?: string | null
-    externalSourceType?: string | null
     icon?: string | null
     id: string
     name: string
@@ -33734,918 +33788,6 @@ export type AtomListQuery = {
       parent?: { id: string } | null
     }>
   }>
-}
-
-export type CreateAtomsMutationVariables = Exact<{
-  input: Array<AtomCreateInput> | AtomCreateInput
-}>
-
-export type CreateAtomsMutation = {
-  createAtoms: {
-    atoms: Array<{ id: string }>
-    info: { nodesCreated: number; relationshipsCreated: number }
-  }
-}
-
-export type DeleteAtomsMutationVariables = Exact<{
-  where: AtomWhere
-}>
-
-export type DeleteAtomsMutation = {
-  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type UpdateAtomsMutationVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  update?: InputMaybe<AtomUpdateInput>
-}>
-
-export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
-}
-
-export type GetComponentsQueryVariables = Exact<{
-  options?: InputMaybe<ComponentOptions>
-  where?: InputMaybe<ComponentWhere>
-}>
-
-export type GetComponentsQuery = {
-  components: Array<{
-    __typename: 'Component'
-    id: string
-    name: string
-    api: { id: string }
-    owner: { id: string }
-    props: { data: string; id: string }
-    rootElement: { id: string }
-    store: {
-      id: string
-      name: string
-      actions: Array<
-        | {
-            __typename: 'ApiAction'
-            id: string
-            name: string
-            type: ActionKind
-            config: { data: string; id: string }
-            errorAction?:
-              | {
-                  __typename: 'ApiAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | {
-                  __typename: 'CodeAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | null
-            resource: {
-              id: string
-              name: string
-              type: ResourceType
-              config: { data: string; id: string }
-            }
-            successAction?:
-              | {
-                  __typename: 'ApiAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | {
-                  __typename: 'CodeAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | null
-            store: { id: string; name: string }
-          }
-        | {
-            __typename: 'CodeAction'
-            code: string
-            id: string
-            name: string
-            type: ActionKind
-            store: { id: string; name: string }
-          }
-      >
-      api: {
-        __typename: 'InterfaceType'
-        id: string
-        kind: TypeKind
-        name: string
-        fields: Array<{
-          defaultValues?: string | null
-          description?: string | null
-          id: string
-          key: string
-          name?: string | null
-          validationRules?: string | null
-          api: { id: string }
-          fieldType:
-            | {
-                __typename: 'ActionType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'AppType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'ArrayType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'CodeMirrorType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'ElementType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'EnumType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'InterfaceType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'LambdaType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'PageType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'PrimitiveType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'ReactNodeType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'RenderPropType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'RichTextType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'UnionType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-          nextSibling?: { id: string } | null
-          prevSibling?: { id: string } | null
-        }>
-      }
-    }
-  }>
-}
-
-export type DeleteComponentsMutationVariables = Exact<{
-  where: ComponentWhere
-  delete?: InputMaybe<ComponentDeleteInput>
-}>
-
-export type DeleteComponentsMutation = {
-  deleteComponents: { nodesDeleted: number }
-}
-
-export type CreateDomainsMutationVariables = Exact<{
-  input: Array<DomainCreateInput> | DomainCreateInput
-}>
-
-export type CreateDomainsMutation = {
-  createDomains: { domains: Array<{ id: string }> }
-}
-
-export type DeleteDomainsMutationVariables = Exact<{
-  where: DomainWhere
-}>
-
-export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
-
-export type DomainListQueryVariables = Exact<{
-  options?: InputMaybe<DomainOptions>
-  where?: InputMaybe<DomainWhere>
-}>
-
-export type DomainListQuery = {
-  aggregate: { count: number }
-  items: Array<{
-    id: string
-    name: string
-    app: { id: string }
-    domainConfig: { misconfigured: boolean }
-  }>
-}
-
-export type UpdateDomainsMutationVariables = Exact<{
-  where: DomainWhere
-  update: DomainUpdateInput
-}>
-
-export type UpdateDomainsMutation = {
-  updateDomains: { domains: Array<{ id: string }> }
-}
-
-export type DeleteElementsMutationVariables = Exact<{
-  where: ElementWhere
-  delete?: InputMaybe<ElementDeleteInput>
-}>
-
-export type DeleteElementsMutation = {
-  deleteElements: { nodesDeleted: number }
-}
-
-export type UpdateElementsMutationVariables = Exact<{
-  where?: InputMaybe<ElementWhere>
-  update?: InputMaybe<ElementUpdateInput>
-}>
-
-export type UpdateElementsMutation = {
-  updateElements: { elements: Array<{ id: string }> }
-}
-
-export type CreatePagesMutationVariables = Exact<{
-  input: Array<PageCreateInput> | PageCreateInput
-}>
-
-export type CreatePagesMutation = {
-  createPages: { pages: Array<{ id: string }> }
-}
-
-export type DeletePagesMutationVariables = Exact<{
-  where: PageWhere
-  delete?: InputMaybe<PageDeleteInput>
-}>
-
-export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
-
-export type PageListQueryVariables = Exact<{
-  options?: InputMaybe<PageOptions>
-  where?: InputMaybe<PageWhere>
-}>
-
-export type PageListQuery = {
-  pages: Array<{
-    id: string
-    kind: PageKind
-    name: string
-    urlPattern: string
-    app: { id: string }
-    elements: Array<{
-      __typename: 'Element'
-      childMapperPropKey?: string | null
-      id: string
-      name: string
-      renderForEachPropKey?: string | null
-      renderIfExpression?: string | null
-      style?: string | null
-      tailwindClassNames?: Array<string> | null
-      childMapperComponent?: { id: string; name: string } | null
-      childMapperPreviousSibling?: { id: string } | null
-      dependantTypes: Array<
-        | { __typename: 'ActionType'; id: string; kind: TypeKind; name: string }
-        | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
-        | {
-            __typename: 'ArrayType'
-            id: string
-            kind: TypeKind
-            name: string
-            itemType:
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-              | { id: string; kind: TypeKind; name: string }
-          }
-        | {
-            __typename: 'CodeMirrorType'
-            language: CodeMirrorLanguage
-            id: string
-            kind: TypeKind
-            name: string
-          }
-        | {
-            __typename: 'ElementType'
-            elementKind: ElementTypeKind
-            id: string
-            kind: TypeKind
-            name: string
-          }
-        | {
-            __typename: 'EnumType'
-            id: string
-            kind: TypeKind
-            name: string
-            allowedValues: Array<{ id: string; key: string; value: string }>
-          }
-        | {
-            __typename: 'InterfaceType'
-            id: string
-            kind: TypeKind
-            name: string
-            fields: Array<{
-              defaultValues?: string | null
-              description?: string | null
-              id: string
-              key: string
-              name?: string | null
-              validationRules?: string | null
-              api: { id: string }
-              fieldType:
-                | {
-                    __typename: 'ActionType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'AppType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'ArrayType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'CodeMirrorType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'ElementType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'EnumType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'InterfaceType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'LambdaType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'PageType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'PrimitiveType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'ReactNodeType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'RenderPropType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'RichTextType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-                | {
-                    __typename: 'UnionType'
-                    id: string
-                    kind: TypeKind
-                    name: string
-                  }
-              nextSibling?: { id: string } | null
-              prevSibling?: { id: string } | null
-            }>
-          }
-        | { __typename: 'LambdaType'; id: string; kind: TypeKind; name: string }
-        | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
-        | {
-            __typename: 'PrimitiveType'
-            primitiveKind: PrimitiveTypeKind
-            id: string
-            kind: TypeKind
-            name: string
-          }
-        | {
-            __typename: 'ReactNodeType'
-            id: string
-            kind: TypeKind
-            name: string
-          }
-        | {
-            __typename: 'RenderPropType'
-            id: string
-            kind: TypeKind
-            name: string
-          }
-        | {
-            __typename: 'RichTextType'
-            id: string
-            kind: TypeKind
-            name: string
-          }
-        | {
-            __typename: 'UnionType'
-            id: string
-            kind: TypeKind
-            name: string
-            typesOfUnionType: Array<
-              | {
-                  __typename: 'ActionType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'AppType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'ArrayType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'CodeMirrorType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'ElementType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'EnumType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'InterfaceType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'LambdaType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'PageType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'PrimitiveType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'ReactNodeType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'RenderPropType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'RichTextType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-              | {
-                  __typename: 'UnionType'
-                  id: string
-                  kind: TypeKind
-                  name: string
-                }
-            >
-          }
-      >
-      firstChild?: { id: string } | null
-      nextSibling?: { id: string } | null
-      page?: { id: string } | null
-      parentComponent?: { id: string } | null
-      parentElement?: { id: string } | null
-      postRenderAction?:
-        | { id: string; type: ActionKind }
-        | { id: string; type: ActionKind }
-        | null
-      preRenderAction?:
-        | { id: string; type: ActionKind }
-        | { id: string; type: ActionKind }
-        | null
-      prevSibling?: { id: string } | null
-      props: { data: string; id: string }
-      renderType:
-        | {
-            __typename: 'Atom'
-            icon?: string | null
-            id: string
-            name: string
-            type: AtomType
-            api: {
-              __typename: 'InterfaceType'
-              id: string
-              kind: TypeKind
-              name: string
-              fields: Array<{
-                defaultValues?: string | null
-                description?: string | null
-                id: string
-                key: string
-                name?: string | null
-                validationRules?: string | null
-                api: { id: string }
-                fieldType:
-                  | {
-                      __typename: 'ActionType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'AppType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'ArrayType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'CodeMirrorType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'ElementType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'EnumType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'InterfaceType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'LambdaType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'PageType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'PrimitiveType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'ReactNodeType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'RenderPropType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'RichTextType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                  | {
-                      __typename: 'UnionType'
-                      id: string
-                      kind: TypeKind
-                      name: string
-                    }
-                nextSibling?: { id: string } | null
-                prevSibling?: { id: string } | null
-              }>
-            }
-            requiredParents: Array<{ id: string; name: string; type: AtomType }>
-            suggestedChildren: Array<{
-              id: string
-              name: string
-              type: AtomType
-            }>
-            tags: Array<{
-              id: string
-              name: string
-              children: Array<{ id: string; name: string }>
-              descendants: Array<{ id: string; name: string }>
-              owner: { id: string }
-              parent?: { id: string } | null
-            }>
-          }
-        | { __typename: 'Component'; id: string }
-    }>
-    pageContentContainer?: { id: string } | null
-    redirect?: { id: string } | null
-    rootElement: { id: string }
-    store: {
-      id: string
-      name: string
-      actions: Array<
-        | {
-            __typename: 'ApiAction'
-            id: string
-            name: string
-            type: ActionKind
-            config: { data: string; id: string }
-            errorAction?:
-              | {
-                  __typename: 'ApiAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | {
-                  __typename: 'CodeAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | null
-            resource: {
-              id: string
-              name: string
-              type: ResourceType
-              config: { data: string; id: string }
-            }
-            successAction?:
-              | {
-                  __typename: 'ApiAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | {
-                  __typename: 'CodeAction'
-                  id: string
-                  name: string
-                  type: ActionKind
-                  store: { id: string; name: string }
-                }
-              | null
-            store: { id: string; name: string }
-          }
-        | {
-            __typename: 'CodeAction'
-            code: string
-            id: string
-            name: string
-            type: ActionKind
-            store: { id: string; name: string }
-          }
-      >
-      api: {
-        __typename: 'InterfaceType'
-        id: string
-        kind: TypeKind
-        name: string
-        fields: Array<{
-          defaultValues?: string | null
-          description?: string | null
-          id: string
-          key: string
-          name?: string | null
-          validationRules?: string | null
-          api: { id: string }
-          fieldType:
-            | {
-                __typename: 'ActionType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'AppType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'ArrayType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'CodeMirrorType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'ElementType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'EnumType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'InterfaceType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'LambdaType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'PageType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'PrimitiveType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'ReactNodeType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'RenderPropType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'RichTextType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-            | {
-                __typename: 'UnionType'
-                id: string
-                kind: TypeKind
-                name: string
-              }
-          nextSibling?: { id: string } | null
-          prevSibling?: { id: string } | null
-        }>
-      }
-    }
-  }>
-}
-
-export type UpdatePagesMutationVariables = Exact<{
-  where?: InputMaybe<PageWhere>
-  update?: InputMaybe<PageUpdateInput>
-}>
-
-export type UpdatePagesMutation = {
-  updatePages: { pages: Array<{ id: string }> }
-}
-
-export type CreateResourcesMutationVariables = Exact<{
-  input: Array<ResourceCreateInput> | ResourceCreateInput
-}>
-
-export type CreateResourcesMutation = {
-  createResources: { resources: Array<{ id: string }> }
-}
-
-export type DeleteResourcesMutationVariables = Exact<{
-  where?: InputMaybe<ResourceWhere>
-  delete?: InputMaybe<ResourceDeleteInput>
-}>
-
-export type DeleteResourcesMutation = {
-  deleteResources: { nodesDeleted: number }
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -38664,383 +37806,6 @@ export const UserFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
-export const CreateComponentsDocument = new TypedDocumentString(`
-    mutation CreateComponents($input: [ComponentCreateInput!]!) {
-  createComponents(input: $input) {
-    components {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateComponentsMutation,
-  CreateComponentsMutationVariables
->
-export const AppListDocument = new TypedDocumentString(`
-    query AppList($options: AppOptions, $where: AppWhere) {
-  aggregate: appsAggregate(where: $where) {
-    count
-  }
-  items: apps(options: $options, where: $where) {
-    ...AppPreview
-  }
-}
-    fragment AppPreview on App {
-  domains {
-    ...Domain
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  pages {
-    ...PagePreview
-  }
-  slug
-}
-fragment Domain on Domain {
-  app {
-    id
-  }
-  domainConfig {
-    misconfigured
-  }
-  id
-  name
-}
-fragment PagePreview on Page {
-  app {
-    id
-  }
-  id
-  kind
-  name
-  rootElement {
-    id
-  }
-  elements {
-    id
-  }
-  store {
-    id
-  }
-  urlPattern
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<AppListQuery, AppListQueryVariables>
-export const GetAppProductionDocument = new TypedDocumentString(`
-    query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
-  apps(where: {domains_SOME: {name_IN: [$domain]}}) {
-    ...AppProduction
-  }
-  atoms(where: {type: ReactFragment}) {
-    ...AtomProduction
-  }
-  resources {
-    ...Resource
-  }
-}
-    fragment BaseAction on BaseAction {
-  __typename
-  id
-  name
-  store {
-    id
-    name
-  }
-  type
-}
-fragment Action on BaseAction {
-  ...BaseAction
-  ... on CodeAction {
-    ...CodeAction
-  }
-  ... on ApiAction {
-    ...ApiAction
-  }
-}
-fragment ApiAction on ApiAction {
-  ...BaseAction
-  config {
-    data
-    id
-  }
-  errorAction {
-    ...BaseAction
-  }
-  resource {
-    ...Resource
-  }
-  successAction {
-    ...BaseAction
-  }
-}
-fragment CodeAction on CodeAction {
-  ...BaseAction
-  code
-}
-fragment AppProduction on App {
-  id
-  name
-  owner {
-    ...Owner
-  }
-  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {
-    ...PageProduction
-  }
-  slug
-}
-fragment AtomProduction on Atom {
-  __typename
-  externalCssSource
-  externalJsSource
-  externalSourceType
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  type
-}
-fragment ElementProduction on Element {
-  __typename
-  childMapperComponent {
-    id
-    name
-  }
-  childMapperPreviousSibling {
-    id
-  }
-  childMapperPropKey
-  dependantTypes {
-    ...Type
-  }
-  firstChild {
-    id
-  }
-  id
-  name
-  nextSibling {
-    id
-  }
-  page {
-    id
-  }
-  parentComponent {
-    id
-  }
-  parentElement {
-    id
-  }
-  postRenderAction {
-    id
-    type
-  }
-  preRenderAction {
-    id
-    type
-  }
-  prevSibling {
-    id
-  }
-  props {
-    ...Prop
-  }
-  renderForEachPropKey
-  renderIfExpression
-  renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
-  }
-  style
-  tailwindClassNames
-}
-fragment PageProduction on Page {
-  app {
-    id
-  }
-  elements {
-    ...ElementProduction
-  }
-  id
-  kind
-  name
-  pageContentContainer {
-    id
-  }
-  redirect {
-    id
-  }
-  rootElement {
-    id
-  }
-  slug
-  store {
-    ...Store
-  }
-  urlPattern
-}
-fragment Prop on Prop {
-  data
-  id
-}
-fragment Resource on Resource {
-  config {
-    ...Prop
-  }
-  id
-  name
-  type
-}
-fragment Store on Store {
-  actions {
-    ...Action
-  }
-  api {
-    ...InterfaceType
-  }
-  id
-  name
-}
-fragment ActionType on ActionType {
-  ...BaseType
-}
-fragment AppType on AppType {
-  ...BaseType
-}
-fragment ArrayType on ArrayType {
-  ...BaseType
-  itemType {
-    ... on IBaseType {
-      id
-      kind
-      name
-    }
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-}
-fragment CodeMirrorType on CodeMirrorType {
-  ...BaseType
-  language
-}
-fragment ElementType on ElementType {
-  ...BaseType
-  elementKind
-}
-fragment EnumTypeValue on EnumTypeValue {
-  id
-  key
-  value
-}
-fragment EnumType on EnumType {
-  allowedValues {
-    ...EnumTypeValue
-  }
-  ...BaseType
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
-}
-fragment LambdaType on LambdaType {
-  ...BaseType
-}
-fragment PageType on PageType {
-  ...BaseType
-}
-fragment PrimitiveType on PrimitiveType {
-  ...BaseType
-  primitiveKind
-}
-fragment ReactNodeType on ReactNodeType {
-  ...BaseType
-}
-fragment RenderPropType on RenderPropType {
-  ...BaseType
-}
-fragment RichTextType on RichTextType {
-  ...BaseType
-}
-fragment Type on IBaseType {
-  ...ActionType
-  ...AppType
-  ...ArrayType
-  ...CodeMirrorType
-  ...ElementType
-  ...EnumType
-  ...InterfaceType
-  ...LambdaType
-  ...PageType
-  ...PrimitiveType
-  ...ReactNodeType
-  ...RenderPropType
-  ...RichTextType
-  ...UnionType
-}
-fragment UnionType on UnionType {
-  ...BaseType
-  typesOfUnionType {
-    ... on IBaseType {
-      ...BaseType
-    }
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<
-  GetAppProductionQuery,
-  GetAppProductionQueryVariables
->
 export const CreateAppsDocument = new TypedDocumentString(`
     mutation CreateApps($input: [AppCreateInput!]!) {
   createApps(input: $input) {
@@ -39052,16 +37817,6 @@ export const CreateAppsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreateAppsMutation,
   CreateAppsMutationVariables
->
-export const DeleteAppsDocument = new TypedDocumentString(`
-    mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
-  deleteApps(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteAppsMutation,
-  DeleteAppsMutationVariables
 >
 export const UpdateAppsDocument = new TypedDocumentString(`
     mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
@@ -39075,144 +37830,23 @@ export const UpdateAppsDocument = new TypedDocumentString(`
   UpdateAppsMutation,
   UpdateAppsMutationVariables
 >
-export const AtomListDocument = new TypedDocumentString(`
-    query AtomList($options: AtomOptions, $where: AtomWhere) {
-  aggregate: atomsAggregate(where: $where) {
+export const DeleteAppsDocument = new TypedDocumentString(`
+    mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
+  deleteApps(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteAppsMutation,
+  DeleteAppsMutationVariables
+>
+export const GetAppsDocument = new TypedDocumentString(`
+    query GetApps($options: AppOptions, $where: AppWhere) {
+  aggregate: appsAggregate(where: $where) {
     count
   }
-  items: atoms(options: $options, where: $where) {
-    ...Atom
-  }
-}
-    fragment Atom on Atom {
-  __typename
-  api {
-    ...InterfaceType
-  }
-  externalCssSource
-  externalJsSource
-  externalSourceType
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  tags {
-    ...Tag
-  }
-  type
-}
-fragment Tag on Tag {
-  children {
-    id
-    name
-  }
-  descendants {
-    id
-    name
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  parent {
-    id
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
-export const CreateAtomsDocument = new TypedDocumentString(`
-    mutation CreateAtoms($input: [AtomCreateInput!]!) {
-  createAtoms(input: $input) {
-    atoms {
-      id
-    }
-    info {
-      nodesCreated
-      relationshipsCreated
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateAtomsMutation,
-  CreateAtomsMutationVariables
->
-export const DeleteAtomsDocument = new TypedDocumentString(`
-    mutation DeleteAtoms($where: AtomWhere!) {
-  deleteAtoms(where: $where) {
-    nodesDeleted
-    relationshipsDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteAtomsMutation,
-  DeleteAtomsMutationVariables
->
-export const UpdateAtomsDocument = new TypedDocumentString(`
-    mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
-  updateAtoms(update: $update, where: $where) {
-    atoms {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateAtomsMutation,
-  UpdateAtomsMutationVariables
->
-export const GetComponentsDocument = new TypedDocumentString(`
-    query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
-  components(options: $options, where: $where) {
-    ...Component
+  items: apps(options: $options, where: $where) {
+    ...App
   }
 }
     fragment BaseAction on BaseAction {
@@ -39254,244 +37888,19 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment Component on Component {
-  __typename
-  api {
-    id
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  props {
-    ...Prop
-  }
-  rootElement {
-    id
-  }
-  store {
-    ...Store
-  }
-}
-fragment Prop on Prop {
-  data
-  id
-}
-fragment Resource on Resource {
-  config {
-    ...Prop
-  }
-  id
-  name
-  type
-}
-fragment Store on Store {
-  actions {
-    ...Action
-  }
-  api {
-    ...InterfaceType
-  }
-  id
-  name
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<
-  GetComponentsQuery,
-  GetComponentsQueryVariables
->
-export const DeleteComponentsDocument = new TypedDocumentString(`
-    mutation DeleteComponents($where: ComponentWhere!, $delete: ComponentDeleteInput) {
-  deleteComponents(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteComponentsMutation,
-  DeleteComponentsMutationVariables
->
-export const CreateDomainsDocument = new TypedDocumentString(`
-    mutation CreateDomains($input: [DomainCreateInput!]!) {
-  createDomains(input: $input) {
-    domains {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateDomainsMutation,
-  CreateDomainsMutationVariables
->
-export const DeleteDomainsDocument = new TypedDocumentString(`
-    mutation DeleteDomains($where: DomainWhere!) {
-  deleteDomains(where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteDomainsMutation,
-  DeleteDomainsMutationVariables
->
-export const DomainListDocument = new TypedDocumentString(`
-    query DomainList($options: DomainOptions, $where: DomainWhere) {
-  aggregate: domainsAggregate(where: $where) {
-    count
-  }
-  items: domains(options: $options, where: $where) {
+fragment App on App {
+  domains {
     ...Domain
   }
-}
-    fragment Domain on Domain {
-  app {
-    id
-  }
-  domainConfig {
-    misconfigured
-  }
   id
   name
-}`) as unknown as TypedDocumentString<DomainListQuery, DomainListQueryVariables>
-export const UpdateDomainsDocument = new TypedDocumentString(`
-    mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
-  updateDomains(update: $update, where: $where) {
-    domains {
-      id
-    }
+  owner {
+    ...Owner
   }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateDomainsMutation,
-  UpdateDomainsMutationVariables
->
-export const DeleteElementsDocument = new TypedDocumentString(`
-    mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
-  deleteElements(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteElementsMutation,
-  DeleteElementsMutationVariables
->
-export const UpdateElementsDocument = new TypedDocumentString(`
-    mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
-  updateElements(update: $update, where: $where) {
-    elements {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateElementsMutation,
-  UpdateElementsMutationVariables
->
-export const CreatePagesDocument = new TypedDocumentString(`
-    mutation CreatePages($input: [PageCreateInput!]!) {
-  createPages(input: $input) {
-    pages {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreatePagesMutation,
-  CreatePagesMutationVariables
->
-export const DeletePagesDocument = new TypedDocumentString(`
-    mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {
-  deletePages(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeletePagesMutation,
-  DeletePagesMutationVariables
->
-export const PageListDocument = new TypedDocumentString(`
-    query PageList($options: PageOptions, $where: PageWhere) {
-  pages(options: $options, where: $where) {
+  pages {
     ...Page
   }
-}
-    fragment BaseAction on BaseAction {
-  __typename
-  id
-  name
-  store {
-    id
-    name
-  }
-  type
-}
-fragment Action on BaseAction {
-  ...BaseAction
-  ... on CodeAction {
-    ...CodeAction
-  }
-  ... on ApiAction {
-    ...ApiAction
-  }
-}
-fragment ApiAction on ApiAction {
-  ...BaseAction
-  config {
-    data
-    id
-  }
-  errorAction {
-    ...BaseAction
-  }
-  resource {
-    ...Resource
-  }
-  successAction {
-    ...BaseAction
-  }
-}
-fragment CodeAction on CodeAction {
-  ...BaseAction
-  code
+  slug
 }
 fragment AtomDevelopment on Atom {
   __typename
@@ -39515,6 +37924,16 @@ fragment AtomDevelopment on Atom {
     ...Tag
   }
   type
+}
+fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
 }
 fragment Element on Element {
   __typename
@@ -39758,38 +38177,141 @@ fragment UnionType on UnionType {
 }
 fragment Owner on User {
   id
-}`) as unknown as TypedDocumentString<PageListQuery, PageListQueryVariables>
-export const UpdatePagesDocument = new TypedDocumentString(`
-    mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
-  updatePages(update: $update, where: $where) {
-    pages {
+}`) as unknown as TypedDocumentString<GetAppsQuery, GetAppsQueryVariables>
+export const GetAppsListDocument = new TypedDocumentString(`
+    query GetAppsList($options: AppOptions, $where: AppWhere) {
+  apps(options: $options, where: $where) {
+    ...AppPreview
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomDevelopment
+  }
+}
+    fragment AppPreview on App {
+  domains {
+    ...Domain
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages {
+    ...PagePreview
+  }
+  slug
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
+}
+fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  elements {
+    id
+  }
+  store {
+    id
+  }
+  urlPattern
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
       id
     }
   }
-}
-    `) as unknown as TypedDocumentString<
-  UpdatePagesMutation,
-  UpdatePagesMutationVariables
->
-export const CreateResourcesDocument = new TypedDocumentString(`
-    mutation CreateResources($input: [ResourceCreateInput!]!) {
-  createResources(input: $input) {
-    resources {
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
       id
+      kind
+      name
     }
   }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
 }
-    `) as unknown as TypedDocumentString<
-  CreateResourcesMutation,
-  CreateResourcesMutationVariables
->
-export const DeleteResourcesDocument = new TypedDocumentString(`
-    mutation DeleteResources($where: ResourceWhere, $delete: ResourceDeleteInput) {
-  deleteResources(where: $where, delete: $delete) {
-    nodesDeleted
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
   }
 }
-    `) as unknown as TypedDocumentString<
-  DeleteResourcesMutation,
-  DeleteResourcesMutationVariables
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  GetAppsListQuery,
+  GetAppsListQueryVariables
 >

@@ -5,11 +5,9 @@ import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
   AppFragmentDoc,
   AppPreviewFragmentDoc,
-} from '../../../../abstract/domain/src/app/app.fragment.graphql.gen'
-import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
-} from '../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
+} from '@codelab/frontend/infra/gql'
 
 export const CreateAppsDocument = graphql(`
   mutation CreateApps($input: [AppCreateInput!]!) {
@@ -48,7 +46,6 @@ export const GetAppsDocument = graphql(`
       ...App
     }
   }
-  ${AppFragmentDoc}
 `)
 
 export const GetAppsListDocument = graphql(`
@@ -60,8 +57,6 @@ export const GetAppsListDocument = graphql(`
       ...AtomDevelopment
     }
   }
-  ${AppPreviewFragmentDoc}
-  ${AtomDevelopmentFragmentDoc}
 `)
 import {
   type CreateAppsMutationVariables,

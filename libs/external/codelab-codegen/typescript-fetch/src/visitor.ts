@@ -14,7 +14,10 @@ import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
 import { Kind, print } from 'graphql'
 import type { RawGraphQLRequestPluginConfig } from './config.js'
 
-export type GraphQLRequestPluginConfig = ClientSideBasePluginConfig
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface GraphQLRequestPluginConfig extends ClientSideBasePluginConfig {
+  // extensionsType: string;
+}
 
 export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
   RawGraphQLRequestPluginConfig,
@@ -37,6 +40,8 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
   ) {
     super(schema, fragments, rawConfig, {
       documentMode: DocumentMode.string,
+      // From `graphql-request` to show how to add additional params
+      // extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
     })
 
     autoBind(this)
@@ -49,6 +54,24 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     this._externalImportPrefix = this.config.importOperationTypesFrom
       ? `${this.config.importOperationTypesFrom}`
       : '@codelab/frontend/infra/gql'
+  }
+
+  /**
+   * `export const GetAppsDocument = graphql(gql`
+  query GetApps($options: AppOptions, $where: AppWhere) {
+    aggregate: appsAggregate(where: $where) {
+      count
+    }
+    items: apps(options: $options, where: $where) {
+      ...App
+    }
+  }
+  ${AppFragmentDoc}
+`)`
+    Removes fragments
+   */
+  protected override _includeFragments() {
+    return ''
   }
 
   public override OperationDefinition(node: OperationDefinitionNode): string {
@@ -73,6 +96,8 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     let documentString = ''
 
     if (documentVariableName !== '') {
+      console.log(this._gql(node))
+
       documentString = `
       export const ${documentVariableName} = graphql(${this._gql(
         node,
@@ -134,21 +159,19 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       // ...this._additionalImports,
     ]
 
-    const apiFunctions = this._operationsToInclude
-      .map((o) => {
-        const operationName = o.node.name?.value
+    const apiFunctions = this._operationsToInclude.map((o) => {
+      const operationName = o.node.name?.value
 
-        if (!operationName) {
-          return ''
-        }
+      if (!operationName) {
+        throw new Error('Missing operation name')
+      }
 
-        const camelCaseName =
-          operationName.charAt(0).toLowerCase() + operationName.slice(1)
+      const camelCaseName =
+        operationName.charAt(0).toLowerCase() + operationName.slice(1)
 
-        return `export const ${camelCaseName}${o.operationType} = (variables: ${o.operationVariablesTypes}) =>
+      return `export const ${camelCaseName}${o.operationType} = (variables: ${o.operationVariablesTypes}) =>
   gqlFetch(${o.documentVariableName}, variables)`
-      })
-      .filter(Boolean)
+    })
 
     return `${imports.join('\n')}
 

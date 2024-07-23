@@ -1,10 +1,13 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
+import { preset } from '@codelab-app/client-preset'
 import { deleteSync } from 'del'
 
 const pathToTypescriptFetch =
   '../../node_modules/@codelab-codegen/typescript-fetch'
 
 const config: Types.Config = {
+  debug: true,
+  verbose: true,
   overwrite: true,
   hooks: {
     // Uncomment to run ESLint fix after code generation
@@ -12,8 +15,6 @@ const config: Types.Config = {
     afterAllFileWrite: [
       'pnpm prettier --write',
       (...files) => {
-        console.log(files)
-
         const fragmentFiles = files.filter((file) =>
           file.includes('.fragment.graphql.gen.ts'),
         )
@@ -43,61 +44,48 @@ const config: Types.Config = {
     'schema.graphql': {
       plugins: ['schema-ast'],
     },
-    'libs/shared/abstract/codegen/src/types.api.graphql.gen.ts': {
-      documents: ['{apps,libs}/**/*.graphql'],
-      plugins: ['typescript', 'typescript-operations'],
-      config: {
-        inlineFragmentTypes: 'combine',
-        namingConvention: {
-          enumValues: 'keep',
-          // dedupeFragments: true, // Uncomment to deduplicate fragments
-        },
-      },
-    },
-    // '.': {
-    //   // This somehow generates for web-e2e as well, even if ./libs
-    //   documents: ['**/*.{endpoints,fragment,subscription}.graphql'],
-    //   preset: 'near-operation-file',
-    //   presetConfig: {
-    //     extension: '.graphql.gen.ts',
-    //     baseTypesPath: '~@codelab/shared/abstract/codegen',
-    //     // Uncomment to force export of fragment types
-    //     // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
-    //   },
-    //   plugins: ['typescript-operations', 'typescript-graphql-request'],
+    // 'libs/shared/abstract/codegen/src/types.api.graphql.gen.ts': {
+    //   documents: ['{apps,libs}/**/*.graphql'],
+    //   plugins: ['typescript', 'typescript-operations'],
     //   config: {
     //     inlineFragmentTypes: 'combine',
-    //     // Uncomment to set suffix for document variables
-    //     // documentVariableSuffix: 'Gql',
-    //     gqlImport: 'graphql-tag#gql',
-    //     strictScalars: true,
-    //     defaultScalarType: 'unknown',
-    //     // dedupeFragments: true, // Uncomment to deduplicate fragments
+    //     namingConvention: {
+    //       enumValues: 'keep',
+    //       // dedupeFragments: true, // Uncomment to deduplicate fragments
+    //     },
     //   },
     // },
-    // 'libs/frontend/infra/gql/src/gql/': {
-    //   documents: [
-    //     '**/*.fragment.graphql',
-    //     'libs/frontend/application/**/*.{repository,document}.ts',
-    //     'libs/frontend/domain/**/*.{repository,document}.ts',
-    //   ],
-    //   preset: 'client',
-    //   config: {
-    //     documentMode: 'string',
-    //     useTypeImports: true,
-    //   },
-    //   presetConfig: {
-    //     fragmentMasking: false,
-    //   },
-    // },
+    /**
+     * Instead of `gql` wrapping documents, which requires client side runtime conversion, we build the queries at build time
+     */
+    'libs/frontend/infra/gql/src/gql/': {
+      documents: [
+        '**/*.fragment.graphql',
+        '**/*.api.graphql',
+        // 'libs/frontend/application/**/*.{repository,document}.ts',
+        // 'libs/frontend/domain/**/*.{repository,document}.ts',
+      ],
+      preset,
+      config: {
+        documentMode: 'string',
+        useTypeImports: true,
+        enumsAsTypes: true,
+      },
+      presetConfig: {
+        importAllFragmentsFrom: '~@codelab/frontend/infra/gql',
+        fragmentMasking: false,
+      },
+    },
+    /**
+     * We create our own plugin as a layer on top of client preset, to wrap doucments with `graphql`
+     */
     './': {
       documents: ['**/*.{api,fragment}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
+        importAllFragmentsFrom: '~@codelab/frontend/infra/gql',
         extension: '.graphql.gen.ts',
         baseTypesPath: '~@codelab/frontend/infra/gql',
-        // Uncomment to force export of fragment types
-        // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
       plugins: [pathToTypescriptFetch],
       config: {
@@ -109,43 +97,7 @@ const config: Types.Config = {
         defaultScalarType: 'unknown',
         // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
-      // hooks: {
-      //   // Uncomment to run ESLint fix after code generation
-      //   // afterAllFileWrite: ['pnpm eslint --fix'],
-      //   afterAllFileWrite: [
-      //     (...args) => {
-      //       console.log(args)
-
-      //       // const fragmentFiles = files.filter((file) =>
-      //       //   file.includes('.fragment.graphql.gen.ts'),
-      //       // )
-
-      //       deleteSync('**/*.fragment.graphql.gen.ts')
-      //     },
-      //   ],
-      // },
     },
-    // 'libs/**': {
-    //   // This somehow generates for web-e2e as well, even if ./libs
-    //   documents: ['**/*.spec.graphql'],
-    //   preset: 'near-operation-file',
-    //   presetConfig: {
-    //     extension: '.graphql.gen.ts',
-    //     baseTypesPath: '~@codelab/shared/abstract/codegen',
-    //     // Uncomment to force export of fragment types
-    //     // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
-    //   },
-    //   plugins: ['typescript-document-nodes'],
-    //   config: {
-    //     inlineFragmentTypes: 'combine',
-    //     // Uncomment to set suffix for document variables
-    //     // documentVariableSuffix: 'Gql',
-    //     gqlImport: 'graphql-tag#gql',
-    //     strictScalars: true,
-    //     defaultScalarType: 'unknown',
-    //     // dedupeFragments: true, // Uncomment to deduplicate fragments
-    //   },
-    // },
   },
 }
 
