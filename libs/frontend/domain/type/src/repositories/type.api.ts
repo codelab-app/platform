@@ -3,7 +3,6 @@ import type {
   ITypeWhere,
   IUpdateTypeVars,
 } from '@codelab/frontend/abstract/domain'
-import { graphqlClient } from '@codelab/frontend/infra/graphql'
 import type {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,

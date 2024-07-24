@@ -27620,6 +27620,26 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
+export type GetAppDevelopmentQueryVariables = Exact<{
+  appCompositeKey: Scalars['String']['input']
+  pageName: Scalars['String']['input']
+}>
+
+export type GetAppDevelopmentQuery = {
+  actionTypes: Array<ActionTypeFragment>
+  apps: Array<AppDevelopmentFragment>
+  atoms: Array<AtomDevelopmentFragment>
+  authGuards: Array<AuthGuardFragment>
+  codeMirrorTypes: Array<CodeMirrorTypeFragment>
+  components: Array<ComponentDevelopmentFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
+  redirects: Array<RedirectFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
+  resources: Array<ResourceFragment>
+  richTextTypes: Array<RichTextTypeFragment>
+}
+
 export type CreateAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput
 }>
@@ -27717,6 +27737,70 @@ export type UpdateAtomsMutationVariables = Exact<{
 
 export type UpdateAtomsMutation = {
   updateAtoms: { atoms: Array<{ id: string }> }
+}
+
+export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSelectAtomOptionsQuery = {
+  atoms: Array<{
+    __typename: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+    requiredParents: Array<{ id: string; type: AtomType }>
+  }>
+}
+
+export type GetAuthGuardsQueryVariables = Exact<{
+  options?: InputMaybe<AuthGuardOptions>
+  where?: InputMaybe<AuthGuardWhere>
+}>
+
+export type GetAuthGuardsQuery = {
+  aggregate: { count: number }
+  items: Array<AuthGuardFragment>
+}
+
+export type CreateAuthGuardsMutationVariables = Exact<{
+  input: Array<AuthGuardCreateInput> | AuthGuardCreateInput
+}>
+
+export type CreateAuthGuardsMutation = {
+  createAuthGuards: { authGuards: Array<{ id: string }> }
+}
+
+export type UpdateAuthGuardMutationVariables = Exact<{
+  where?: InputMaybe<AuthGuardWhere>
+  update?: InputMaybe<AuthGuardUpdateInput>
+}>
+
+export type UpdateAuthGuardMutation = {
+  updateAuthGuards: { authGuards: Array<{ id: string }> }
+}
+
+export type DeleteAuthGuardsMutationVariables = Exact<{
+  where?: InputMaybe<AuthGuardWhere>
+  delete?: InputMaybe<AuthGuardDeleteInput>
+}>
+
+export type DeleteAuthGuardsMutation = {
+  deleteAuthGuards: { nodesDeleted: number }
+}
+
+export type GetComponentDevelopmentQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type GetComponentDevelopmentQuery = {
+  actionTypes: Array<ActionTypeFragment>
+  atoms: Array<AtomDevelopmentFragment>
+  codeMirrorTypes: Array<CodeMirrorTypeFragment>
+  components: Array<ComponentDevelopmentFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
+  resources: Array<ResourceFragment>
+  richTextTypes: Array<RichTextTypeFragment>
 }
 
 export type CreateComponentsMutationVariables = Exact<{
@@ -27824,6 +27908,20 @@ export type ElementListQuery = {
   items: Array<ElementFragment>
 }
 
+export type CreateHooksMutationVariables = Exact<{
+  input: Array<HookCreateInput> | HookCreateInput
+}>
+
+export type CreateHooksMutation = {
+  createHooks: { hooks: Array<HookFragment> }
+}
+
+export type DeleteHooksMutationVariables = Exact<{
+  where: HookWhere
+}>
+
+export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } }
+
 export type CreatePagesMutationVariables = Exact<{
   input: Array<PageCreateInput> | PageCreateInput
 }>
@@ -27864,6 +27962,75 @@ export type GetRenderedPageQueryVariables = Exact<{
 
 export type GetRenderedPageQuery = { pages: Array<PageDevelopmentFragment> }
 
+export type CreatePropsMutationVariables = Exact<{
+  input: Array<PropCreateInput> | PropCreateInput
+}>
+
+export type CreatePropsMutation = {
+  createProps: { props: Array<{ id: string }> }
+}
+
+export type UpdatePropsMutationVariables = Exact<{
+  where?: InputMaybe<PropWhere>
+  update?: InputMaybe<PropUpdateInput>
+}>
+
+export type UpdatePropsMutation = {
+  updateProps: { props: Array<{ id: string }> }
+}
+
+export type DeletePropsMutationVariables = Exact<{
+  where: PropWhere
+}>
+
+export type DeletePropsMutation = { deleteProps: { nodesDeleted: number } }
+
+export type GetPropsQueryVariables = Exact<{
+  options?: InputMaybe<PropOptions>
+  where?: InputMaybe<PropWhere>
+}>
+
+export type GetPropsQuery = {
+  aggregate: { count: number }
+  items: Array<PropFragment>
+}
+
+export type CreateRedirectsMutationVariables = Exact<{
+  input: Array<RedirectCreateInput> | RedirectCreateInput
+}>
+
+export type CreateRedirectsMutation = {
+  createRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type DeleteRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  delete?: InputMaybe<RedirectDeleteInput>
+}>
+
+export type DeleteRedirectsMutation = {
+  deleteRedirects: { nodesDeleted: number }
+}
+
+export type UpdateRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  update?: InputMaybe<RedirectUpdateInput>
+}>
+
+export type UpdateRedirectsMutation = {
+  updateRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type GetRedirectsQueryVariables = Exact<{
+  options?: InputMaybe<RedirectOptions>
+  where?: InputMaybe<RedirectWhere>
+}>
+
+export type GetRedirectsQuery = {
+  aggregate: { count: number }
+  items: Array<RedirectFragment>
+}
+
 export type ResourceListQueryVariables = Exact<{
   options?: InputMaybe<ResourceOptions>
   where?: InputMaybe<ResourceWhere>
@@ -27898,6 +28065,142 @@ export type DeleteResourcesMutationVariables = Exact<{
 
 export type DeleteResourcesMutation = {
   deleteResources: { nodesDeleted: number }
+}
+
+export type CreateCodeActionsMutationVariables = Exact<{
+  input: Array<CodeActionCreateInput> | CodeActionCreateInput
+}>
+
+export type CreateCodeActionsMutation = {
+  createCodeActions: { codeActions: Array<{ id: string }> }
+}
+
+export type CreateApiActionsMutationVariables = Exact<{
+  input: Array<ApiActionCreateInput> | ApiActionCreateInput
+}>
+
+export type CreateApiActionsMutation = {
+  createApiActions: { apiActions: Array<{ id: string }> }
+}
+
+export type DeleteCodeActionsMutationVariables = Exact<{
+  where: CodeActionWhere
+  delete?: InputMaybe<CodeActionDeleteInput>
+}>
+
+export type DeleteCodeActionsMutation = {
+  deleteCodeActions: { nodesDeleted: number; relationshipsDeleted: number }
+}
+
+export type DeleteApiActionsMutationVariables = Exact<{
+  where: ApiActionWhere
+  delete?: InputMaybe<ApiActionDeleteInput>
+}>
+
+export type DeleteApiActionsMutation = {
+  deleteApiActions: { nodesDeleted: number; relationshipsDeleted: number }
+}
+
+export type GetActionsQueryVariables = Exact<{
+  codeActionWhere?: InputMaybe<CodeActionWhere>
+  apiActionWhere?: InputMaybe<ApiActionWhere>
+}>
+
+export type GetActionsQuery = {
+  apiActions: Array<Action_ApiAction_Fragment>
+  codeActions: Array<Action_CodeAction_Fragment>
+}
+
+export type CreateStoresMutationVariables = Exact<{
+  input: Array<StoreCreateInput> | StoreCreateInput
+}>
+
+export type CreateStoresMutation = {
+  createStores: {
+    info: { nodesCreated: number; relationshipsCreated: number }
+    stores: Array<{ id: string }>
+  }
+}
+
+export type DeleteStoresMutationVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  delete?: InputMaybe<StoreDeleteInput>
+}>
+
+export type DeleteStoresMutation = { deleteStores: { nodesDeleted: number } }
+
+export type GetStoresQueryVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  options?: InputMaybe<StoreOptions>
+}>
+
+export type GetStoresQuery = {
+  aggregate: { count: number }
+  items: Array<StoreFragment>
+}
+
+export type UpdateStoresMutationVariables = Exact<{
+  where?: InputMaybe<StoreWhere>
+  update?: InputMaybe<StoreUpdateInput>
+}>
+
+export type UpdateStoresMutation = {
+  updateStores: { stores: Array<{ id: string }> }
+}
+
+export type UpdateCodeActionsMutationVariables = Exact<{
+  connect?: InputMaybe<CodeActionConnectInput>
+  create?: InputMaybe<CodeActionRelationInput>
+  delete?: InputMaybe<CodeActionDeleteInput>
+  disconnect?: InputMaybe<CodeActionDisconnectInput>
+  update?: InputMaybe<CodeActionUpdateInput>
+  where?: InputMaybe<CodeActionWhere>
+}>
+
+export type UpdateCodeActionsMutation = {
+  updateCodeActions: { codeActions: Array<{ id: string }> }
+}
+
+export type UpdateApiActionsMutationVariables = Exact<{
+  connect?: InputMaybe<ApiActionConnectInput>
+  create?: InputMaybe<ApiActionRelationInput>
+  delete?: InputMaybe<ApiActionDeleteInput>
+  disconnect?: InputMaybe<ApiActionDisconnectInput>
+  update?: InputMaybe<ApiActionUpdateInput>
+  where?: InputMaybe<ApiActionWhere>
+}>
+
+export type UpdateApiActionsMutation = {
+  updateApiActions: { apiActions: Array<{ id: string }> }
+}
+
+export type CreateTagsMutationVariables = Exact<{
+  input: Array<TagCreateInput> | TagCreateInput
+}>
+
+export type CreateTagsMutation = { createTags: { tags: Array<{ id: string }> } }
+
+export type UpdateTagsMutationVariables = Exact<{
+  where: TagWhere
+  update: TagUpdateInput
+}>
+
+export type UpdateTagsMutation = { updateTags: { tags: Array<{ id: string }> } }
+
+export type DeleteTagsMutationVariables = Exact<{
+  where: TagWhere
+}>
+
+export type DeleteTagsMutation = { deleteTags: { nodesDeleted: number } }
+
+export type GetTagsQueryVariables = Exact<{
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}>
+
+export type GetTagsQuery = {
+  aggregate: { count: number }
+  items: Array<TagFragment>
 }
 
 export type CreatePrimitiveTypesMutationVariables = Exact<{
@@ -28603,6 +28906,29 @@ export type UpdateCodeMirrorTypesMutationVariables = Exact<{
 
 export type UpdateCodeMirrorTypesMutation = {
   types: { types: Array<{ id: string }> }
+}
+
+export type GetUsersQueryVariables = Exact<{
+  where?: InputMaybe<UserWhere>
+}>
+
+export type GetUsersQuery = { users: Array<UserFragment> }
+
+export type CreateUserMutationVariables = Exact<{
+  input: Array<UserCreateInput> | UserCreateInput
+}>
+
+export type CreateUserMutation = {
+  createUsers: { users: Array<{ email: string; id: string }> }
+}
+
+export type UpdateUserMutationVariables = Exact<{
+  where?: InputMaybe<UserWhere>
+  update: UserUpdateInput
+}>
+
+export type UpdateUserMutation = {
+  updateUsers: { users: Array<{ preferences?: string | null }> }
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -32621,6 +32947,415 @@ export const UserFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
+export const GetAppDevelopmentDocument = new TypedDocumentString(`
+    query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+  actionTypes {
+    ...ActionType
+  }
+  apps(where: {compositeKey: $appCompositeKey}) {
+    ...AppDevelopment
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomDevelopment
+  }
+  authGuards {
+    ...AuthGuard
+  }
+  codeMirrorTypes {
+    ...CodeMirrorType
+  }
+  components {
+    ...ComponentDevelopment
+  }
+  primitiveTypes {
+    ...PrimitiveType
+  }
+  reactNodeTypes {
+    ...ReactNodeType
+  }
+  redirects(where: {source: {app: {compositeKey: $appCompositeKey}}}) {
+    ...Redirect
+  }
+  renderPropTypes {
+    ...RenderPropType
+  }
+  resources {
+    ...Resource
+  }
+  richTextTypes {
+    ...RichTextType
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AppDevelopment on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(
+    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
+  ) {
+    ...PageDevelopment
+  }
+  slug
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment AuthGuard on AuthGuard {
+  config {
+    ...Prop
+  }
+  id
+  name
+  resource {
+    ...Resource
+  }
+  responseTransformer
+}
+fragment ComponentDevelopment on Component {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  elements {
+    ...Element
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment PageDevelopment on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Redirect on Redirect {
+  authGuard {
+    id
+  }
+  id
+  source {
+    id
+  }
+  targetPage {
+    id
+  }
+  targetType
+  targetUrl
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  GetAppDevelopmentQuery,
+  GetAppDevelopmentQueryVariables
+>
 export const CreateAppsDocument = new TypedDocumentString(`
     mutation CreateApps($input: [AppCreateInput!]!) {
   createApps(input: $input) {
@@ -33629,6 +34364,430 @@ export const UpdateAtomsDocument = new TypedDocumentString(`
   UpdateAtomsMutation,
   UpdateAtomsMutationVariables
 >
+export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
+    query GetSelectAtomOptions {
+  atoms {
+    __typename
+    id
+    name
+    requiredParents {
+      id
+      type
+    }
+    type
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetSelectAtomOptionsQuery,
+  GetSelectAtomOptionsQueryVariables
+>
+export const GetAuthGuardsDocument = new TypedDocumentString(`
+    query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {
+  aggregate: authGuardsAggregate(where: $where) {
+    count
+  }
+  items: authGuards(options: $options, where: $where) {
+    ...AuthGuard
+  }
+}
+    fragment AuthGuard on AuthGuard {
+  config {
+    ...Prop
+  }
+  id
+  name
+  resource {
+    ...Resource
+  }
+  responseTransformer
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}`) as unknown as TypedDocumentString<
+  GetAuthGuardsQuery,
+  GetAuthGuardsQueryVariables
+>
+export const CreateAuthGuardsDocument = new TypedDocumentString(`
+    mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {
+  createAuthGuards(input: $input) {
+    authGuards {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateAuthGuardsMutation,
+  CreateAuthGuardsMutationVariables
+>
+export const UpdateAuthGuardDocument = new TypedDocumentString(`
+    mutation UpdateAuthGuard($where: AuthGuardWhere, $update: AuthGuardUpdateInput) {
+  updateAuthGuards(update: $update, where: $where) {
+    authGuards {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateAuthGuardMutation,
+  UpdateAuthGuardMutationVariables
+>
+export const DeleteAuthGuardsDocument = new TypedDocumentString(`
+    mutation DeleteAuthGuards($where: AuthGuardWhere, $delete: AuthGuardDeleteInput) {
+  deleteAuthGuards(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteAuthGuardsMutation,
+  DeleteAuthGuardsMutationVariables
+>
+export const GetComponentDevelopmentDocument = new TypedDocumentString(`
+    query GetComponentDevelopment {
+  actionTypes {
+    ...ActionType
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomDevelopment
+  }
+  codeMirrorTypes {
+    ...CodeMirrorType
+  }
+  components {
+    ...ComponentDevelopment
+  }
+  primitiveTypes {
+    ...PrimitiveType
+  }
+  reactNodeTypes {
+    ...ReactNodeType
+  }
+  renderPropTypes {
+    ...RenderPropType
+  }
+  resources {
+    ...Resource
+  }
+  richTextTypes {
+    ...RichTextType
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AtomDevelopment on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment ComponentDevelopment on Component {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  elements {
+    ...Element
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomDevelopment
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  GetComponentDevelopmentQuery,
+  GetComponentDevelopmentQueryVariables
+>
 export const CreateComponentsDocument = new TypedDocumentString(`
     mutation CreateComponents($input: [ComponentCreateInput!]!) {
   createComponents(input: $input) {
@@ -34120,6 +35279,42 @@ fragment Owner on User {
 }`) as unknown as TypedDocumentString<
   ElementListQuery,
   ElementListQueryVariables
+>
+export const CreateHooksDocument = new TypedDocumentString(`
+    mutation CreateHooks($input: [HookCreateInput!]!) {
+  createHooks(input: $input) {
+    hooks {
+      ...Hook
+    }
+  }
+}
+    fragment HookProp on Prop {
+  data
+  id
+}
+fragment Hook on Hook {
+  config {
+    ...HookProp
+  }
+  element {
+    id
+    name
+  }
+  id
+  type
+}`) as unknown as TypedDocumentString<
+  CreateHooksMutation,
+  CreateHooksMutationVariables
+>
+export const DeleteHooksDocument = new TypedDocumentString(`
+    mutation DeleteHooks($where: HookWhere!) {
+  deleteHooks(where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteHooksMutation,
+  DeleteHooksMutationVariables
 >
 export const CreatePagesDocument = new TypedDocumentString(`
     mutation CreatePages($input: [PageCreateInput!]!) {
@@ -34783,6 +35978,113 @@ fragment Owner on User {
   GetRenderedPageQuery,
   GetRenderedPageQueryVariables
 >
+export const CreatePropsDocument = new TypedDocumentString(`
+    mutation CreateProps($input: [PropCreateInput!]!) {
+  createProps(input: $input) {
+    props {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreatePropsMutation,
+  CreatePropsMutationVariables
+>
+export const UpdatePropsDocument = new TypedDocumentString(`
+    mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {
+  updateProps(update: $update, where: $where) {
+    props {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdatePropsMutation,
+  UpdatePropsMutationVariables
+>
+export const DeletePropsDocument = new TypedDocumentString(`
+    mutation DeleteProps($where: PropWhere!) {
+  deleteProps(where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeletePropsMutation,
+  DeletePropsMutationVariables
+>
+export const GetPropsDocument = new TypedDocumentString(`
+    query GetProps($options: PropOptions, $where: PropWhere) {
+  aggregate: propsAggregate(where: $where) {
+    count
+  }
+  items: props(options: $options, where: $where) {
+    ...Prop
+  }
+}
+    fragment Prop on Prop {
+  data
+  id
+}`) as unknown as TypedDocumentString<GetPropsQuery, GetPropsQueryVariables>
+export const CreateRedirectsDocument = new TypedDocumentString(`
+    mutation CreateRedirects($input: [RedirectCreateInput!]!) {
+  createRedirects(input: $input) {
+    redirects {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateRedirectsMutation,
+  CreateRedirectsMutationVariables
+>
+export const DeleteRedirectsDocument = new TypedDocumentString(`
+    mutation DeleteRedirects($where: RedirectWhere, $delete: RedirectDeleteInput) {
+  deleteRedirects(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteRedirectsMutation,
+  DeleteRedirectsMutationVariables
+>
+export const UpdateRedirectsDocument = new TypedDocumentString(`
+    mutation UpdateRedirects($where: RedirectWhere, $update: RedirectUpdateInput) {
+  updateRedirects(update: $update, where: $where) {
+    redirects {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateRedirectsMutation,
+  UpdateRedirectsMutationVariables
+>
+export const GetRedirectsDocument = new TypedDocumentString(`
+    query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {
+  aggregate: redirectsAggregate(where: $where) {
+    count
+  }
+  items: redirects(options: $options, where: $where) {
+    ...Redirect
+  }
+}
+    fragment Redirect on Redirect {
+  authGuard {
+    id
+  }
+  id
+  source {
+    id
+  }
+  targetPage {
+    id
+  }
+  targetType
+  targetUrl
+}`) as unknown as TypedDocumentString<
+  GetRedirectsQuery,
+  GetRedirectsQueryVariables
+>
 export const ResourceListDocument = new TypedDocumentString(`
     query ResourceList($options: ResourceOptions, $where: ResourceWhere) {
   aggregate: resourcesAggregate(where: $where) {
@@ -34841,6 +36143,361 @@ export const DeleteResourcesDocument = new TypedDocumentString(`
   DeleteResourcesMutation,
   DeleteResourcesMutationVariables
 >
+export const CreateCodeActionsDocument = new TypedDocumentString(`
+    mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {
+  createCodeActions(input: $input) {
+    codeActions {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateCodeActionsMutation,
+  CreateCodeActionsMutationVariables
+>
+export const CreateApiActionsDocument = new TypedDocumentString(`
+    mutation CreateApiActions($input: [ApiActionCreateInput!]!) {
+  createApiActions(input: $input) {
+    apiActions {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateApiActionsMutation,
+  CreateApiActionsMutationVariables
+>
+export const DeleteCodeActionsDocument = new TypedDocumentString(`
+    mutation DeleteCodeActions($where: CodeActionWhere!, $delete: CodeActionDeleteInput) {
+  deleteCodeActions(delete: $delete, where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteCodeActionsMutation,
+  DeleteCodeActionsMutationVariables
+>
+export const DeleteApiActionsDocument = new TypedDocumentString(`
+    mutation DeleteApiActions($where: ApiActionWhere!, $delete: ApiActionDeleteInput) {
+  deleteApiActions(delete: $delete, where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteApiActionsMutation,
+  DeleteApiActionsMutationVariables
+>
+export const GetActionsDocument = new TypedDocumentString(`
+    query GetActions($codeActionWhere: CodeActionWhere, $apiActionWhere: ApiActionWhere) {
+  apiActions(where: $apiActionWhere) {
+    ...Action
+  }
+  codeActions(where: $codeActionWhere) {
+    ...Action
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}`) as unknown as TypedDocumentString<GetActionsQuery, GetActionsQueryVariables>
+export const CreateStoresDocument = new TypedDocumentString(`
+    mutation CreateStores($input: [StoreCreateInput!]!) {
+  createStores(input: $input) {
+    info {
+      nodesCreated
+      relationshipsCreated
+    }
+    stores {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateStoresMutation,
+  CreateStoresMutationVariables
+>
+export const DeleteStoresDocument = new TypedDocumentString(`
+    mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
+  deleteStores(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteStoresMutation,
+  DeleteStoresMutationVariables
+>
+export const GetStoresDocument = new TypedDocumentString(`
+    query GetStores($where: StoreWhere, $options: StoreOptions) {
+  aggregate: storesAggregate(where: $where) {
+    count
+  }
+  items: stores(options: $options, where: $where) {
+    ...Store
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}`) as unknown as TypedDocumentString<GetStoresQuery, GetStoresQueryVariables>
+export const UpdateStoresDocument = new TypedDocumentString(`
+    mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
+  updateStores(update: $update, where: $where) {
+    stores {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateStoresMutation,
+  UpdateStoresMutationVariables
+>
+export const UpdateCodeActionsDocument = new TypedDocumentString(`
+    mutation UpdateCodeActions($connect: CodeActionConnectInput, $create: CodeActionRelationInput, $delete: CodeActionDeleteInput, $disconnect: CodeActionDisconnectInput, $update: CodeActionUpdateInput, $where: CodeActionWhere) {
+  updateCodeActions(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    codeActions {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateCodeActionsMutation,
+  UpdateCodeActionsMutationVariables
+>
+export const UpdateApiActionsDocument = new TypedDocumentString(`
+    mutation UpdateApiActions($connect: ApiActionConnectInput, $create: ApiActionRelationInput, $delete: ApiActionDeleteInput, $disconnect: ApiActionDisconnectInput, $update: ApiActionUpdateInput, $where: ApiActionWhere) {
+  updateApiActions(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    apiActions {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateApiActionsMutation,
+  UpdateApiActionsMutationVariables
+>
+export const CreateTagsDocument = new TypedDocumentString(`
+    mutation CreateTags($input: [TagCreateInput!]!) {
+  createTags(input: $input) {
+    tags {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateTagsMutation,
+  CreateTagsMutationVariables
+>
+export const UpdateTagsDocument = new TypedDocumentString(`
+    mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
+  updateTags(update: $update, where: $where) {
+    tags {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateTagsMutation,
+  UpdateTagsMutationVariables
+>
+export const DeleteTagsDocument = new TypedDocumentString(`
+    mutation DeleteTags($where: TagWhere!) {
+  deleteTags(where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteTagsMutation,
+  DeleteTagsMutationVariables
+>
+export const GetTagsDocument = new TypedDocumentString(`
+    query GetTags($options: TagOptions, $where: TagWhere) {
+  aggregate: tagsAggregate(where: $where) {
+    count
+  }
+  items: tags(options: $options, where: $where) {
+    ...Tag
+  }
+}
+    fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<GetTagsQuery, GetTagsQueryVariables>
 export const CreatePrimitiveTypesDocument = new TypedDocumentString(`
     mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
   types: createPrimitiveTypes(input: $input) {
@@ -37352,4 +39009,46 @@ export const UpdateCodeMirrorTypesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   UpdateCodeMirrorTypesMutation,
   UpdateCodeMirrorTypesMutationVariables
+>
+export const GetUsersDocument = new TypedDocumentString(`
+    query GetUsers($where: UserWhere) {
+  users(where: $where) {
+    ...User
+  }
+}
+    fragment User on User {
+  apps {
+    id
+  }
+  auth0Id
+  email
+  id
+  preferences
+  roles
+  username
+}`) as unknown as TypedDocumentString<GetUsersQuery, GetUsersQueryVariables>
+export const CreateUserDocument = new TypedDocumentString(`
+    mutation CreateUser($input: [UserCreateInput!]!) {
+  createUsers(input: $input) {
+    users {
+      email
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>
+export const UpdateUserDocument = new TypedDocumentString(`
+    mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {
+  updateUsers(update: $update, where: $where) {
+    users {
+      preferences
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
 >

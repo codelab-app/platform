@@ -23,7 +23,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { TagRepository } from './tag.repo'
+import { TagRepository } from '../../../../domain/tag/src/repositories/tag.repository'
 import { TagFormService } from './tag-form.service'
 import { TagModalService, TagsModalService } from './tag-modal.service'
 

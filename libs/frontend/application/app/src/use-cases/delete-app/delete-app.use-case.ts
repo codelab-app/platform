@@ -1,7 +1,6 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { deleteAppRepository } from '@codelab/frontend-domain-app/repositories'
-import { App } from '@codelab/frontend-domain-app/store'
 import { deleteElementRepository } from '@codelab/frontend-domain-element/repositories'
 import { invalidateAppListQuery } from '../app-list'
 

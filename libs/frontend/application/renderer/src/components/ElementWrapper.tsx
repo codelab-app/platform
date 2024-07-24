@@ -1,10 +1,7 @@
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect } from 'react'

@@ -1,8 +1,4 @@
-import {
-  graphql,
-  type PageListQueryVariables,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { type PageListQueryVariables } from '@codelab/frontend/infra/gql'
 import { pageApi } from './page.api'
 
 export const pageListRepository = async ({

@@ -1,7 +1,4 @@
-import type {
-  MODEL_ACTION,
-  ModelActionKey,
-} from '@codelab/frontend/abstract/types'
+import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 

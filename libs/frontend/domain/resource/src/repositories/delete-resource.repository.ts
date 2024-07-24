@@ -1,8 +1,4 @@
-import {
-  type DeleteResourcesMutationVariables,
-  graphql,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { type DeleteResourcesMutationVariables } from '@codelab/frontend/infra/gql'
 import { resourceApi } from './resource.api'
 
 export const deleteResourcesRepository = async (

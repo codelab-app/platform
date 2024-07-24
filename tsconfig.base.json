@@ -445,9 +445,6 @@
       "@codelab/frontend-application-lambda/views": [
         "libs/frontend/application/lambda/src/views/index.ts"
       ],
-      "@codelab/frontend-application-page/graphql": [
-        "libs/frontend/application/page/src/graphql/index.ts"
-      ],
       "@codelab/frontend-application-page/services": [
         "libs/frontend/application/page/src/services/index.ts"
       ],
@@ -472,14 +469,8 @@
       "@codelab/frontend-application-page/views": [
         "libs/frontend/application/page/src/views/index.ts"
       ],
-      "@codelab/frontend-application-prop/graphql": [
-        "libs/frontend/application/prop/src/graphql/index.ts"
-      ],
       "@codelab/frontend-application-prop/services": [
         "libs/frontend/application/prop/src/services/index.ts"
-      ],
-      "@codelab/frontend-application-redirect/graphql": [
-        "libs/frontend/application/redirect/src/graphql/index.ts"
       ],
       "@codelab/frontend-application-redirect/services": [
         "libs/frontend/application/redirect/src/services/index.ts"
@@ -807,6 +798,9 @@
       ],
       "@codelab/frontend-domain-store/test": [
         "libs/frontend/domain/store/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-tag/repositories": [
+        "libs/frontend/domain/tag/src/repositories/index.ts"
       ],
       "@codelab/frontend-domain-tag/services": [
         "libs/frontend/domain/tag/src/services/index.ts"

@@ -29,7 +29,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { FieldRepository } from '../graphql/field.repo'
+import { FieldRepository } from '../../../../domain/type/src/repositories/field.repo'
 import { CreateFieldFormService, FieldFormService } from './field-form.service'
 import {
   CreateFieldModalService,

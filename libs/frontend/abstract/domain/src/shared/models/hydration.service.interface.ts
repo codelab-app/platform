@@ -1,11 +1,9 @@
 import type {
-  AppFragment,
   AtomDevelopmentFragment,
   AuthGuardFragment,
   ComponentDevelopmentFragment,
   ElementFragment,
   FieldFragment,
-  PageDevelopmentFragment,
   PropFragment,
   RedirectFragment,
   ResourceFragment,

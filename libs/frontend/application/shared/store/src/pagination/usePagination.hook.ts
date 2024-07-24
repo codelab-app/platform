@@ -1,9 +1,7 @@
 import type {
   Filterables,
-  IPaginationService,
   SupportedPaginationModel,
 } from '@codelab/frontend/abstract/application'
-import type { INodeType } from '@codelab/shared/abstract/core'
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import sortBy from 'lodash/sortBy'

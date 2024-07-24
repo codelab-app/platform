@@ -112,6 +112,8 @@ const documents = {
   '\n  fragment Owner on User {\n    id\n  }\n': types.OwnerFragmentDoc,
   '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n':
     types.UserFragmentDoc,
+  '\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
+    types.GetAppDevelopmentDocument,
   '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.CreateAppsDocument,
   '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
@@ -134,6 +136,18 @@ const documents = {
     types.AtomListDocument,
   '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n':
     types.UpdateAtomsDocument,
+  '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n':
+    types.GetSelectAtomOptionsDocument,
+  '\n  query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {\n    aggregate: authGuardsAggregate(where: $where) {\n      count\n    }\n    items: authGuards(options: $options, where: $where) {\n      ...AuthGuard\n    }\n  }\n':
+    types.GetAuthGuardsDocument,
+  '\n  mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {\n    createAuthGuards(input: $input) {\n      authGuards {\n        id\n      }\n    }\n  }\n':
+    types.CreateAuthGuardsDocument,
+  '\n  mutation UpdateAuthGuard(\n    $where: AuthGuardWhere\n    $update: AuthGuardUpdateInput\n  ) {\n    updateAuthGuards(update: $update, where: $where) {\n      authGuards {\n        id\n      }\n    }\n  }\n':
+    types.UpdateAuthGuardDocument,
+  '\n  mutation DeleteAuthGuards(\n    $where: AuthGuardWhere\n    $delete: AuthGuardDeleteInput\n  ) {\n    deleteAuthGuards(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteAuthGuardsDocument,
+  '\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
+    types.GetComponentDevelopmentDocument,
   '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n':
     types.CreateComponentsDocument,
   '\n  mutation DeleteComponents(\n    $where: ComponentWhere\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
@@ -158,6 +172,10 @@ const documents = {
     types.UpdateElementsDocument,
   '\n  query ElementList($options: ElementOptions, $where: ElementWhere) {\n    aggregate: elementsAggregate(where: $where) {\n      count\n    }\n    items: elements(options: $options, where: $where) {\n      ...Element\n    }\n  }\n':
     types.ElementListDocument,
+  '\n  mutation CreateHooks($input: [HookCreateInput!]!) {\n    createHooks(input: $input) {\n      hooks {\n        ...Hook\n      }\n    }\n  }\n':
+    types.CreateHooksDocument,
+  '\n  mutation DeleteHooks($where: HookWhere!) {\n    deleteHooks(where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteHooksDocument,
   '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.CreatePagesDocument,
   '\n  mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
@@ -168,6 +186,22 @@ const documents = {
     types.PageListDocument,
   '\n  query GetRenderedPage($pageId: ID!) {\n    pages(where: { id: $pageId }) {\n      ...PageDevelopment\n    }\n  }\n':
     types.GetRenderedPageDocument,
+  '\n  mutation CreateProps($input: [PropCreateInput!]!) {\n    createProps(input: $input) {\n      props {\n        id\n      }\n    }\n  }\n':
+    types.CreatePropsDocument,
+  '\n  mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {\n    updateProps(update: $update, where: $where) {\n      props {\n        id\n      }\n    }\n  }\n':
+    types.UpdatePropsDocument,
+  '\n  mutation DeleteProps($where: PropWhere!) {\n    deleteProps(where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeletePropsDocument,
+  '\n  query GetProps($options: PropOptions, $where: PropWhere) {\n    aggregate: propsAggregate(where: $where) {\n      count\n    }\n    items: props(options: $options, where: $where) {\n      ...Prop\n    }\n  }\n':
+    types.GetPropsDocument,
+  '\n  mutation CreateRedirects($input: [RedirectCreateInput!]!) {\n    createRedirects(input: $input) {\n      redirects {\n        id\n      }\n    }\n  }\n':
+    types.CreateRedirectsDocument,
+  '\n  mutation DeleteRedirects(\n    $where: RedirectWhere\n    $delete: RedirectDeleteInput\n  ) {\n    deleteRedirects(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteRedirectsDocument,
+  '\n  mutation UpdateRedirects(\n    $where: RedirectWhere\n    $update: RedirectUpdateInput\n  ) {\n    updateRedirects(update: $update, where: $where) {\n      redirects {\n        id\n      }\n    }\n  }\n':
+    types.UpdateRedirectsDocument,
+  '\n  query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...Redirect\n    }\n  }\n':
+    types.GetRedirectsDocument,
   '\n  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {\n    aggregate: resourcesAggregate(where: $where) {\n      count\n    }\n    items: resources(options: $options, where: $where) {\n      ...Resource\n    }\n  }\n':
     types.ResourceListDocument,
   '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n':
@@ -176,6 +210,36 @@ const documents = {
     types.UpdateResourceDocument,
   '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteResourcesDocument,
+  '\n  mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {\n    createCodeActions(input: $input) {\n      codeActions {\n        id\n      }\n    }\n  }\n':
+    types.CreateCodeActionsDocument,
+  '\n  mutation CreateApiActions($input: [ApiActionCreateInput!]!) {\n    createApiActions(input: $input) {\n      apiActions {\n        id\n      }\n    }\n  }\n':
+    types.CreateApiActionsDocument,
+  '\n  mutation DeleteCodeActions(\n    $where: CodeActionWhere!\n    $delete: CodeActionDeleteInput\n  ) {\n    deleteCodeActions(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteCodeActionsDocument,
+  '\n  mutation DeleteApiActions(\n    $where: ApiActionWhere!\n    $delete: ApiActionDeleteInput\n  ) {\n    deleteApiActions(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteApiActionsDocument,
+  '\n  query GetActions(\n    $codeActionWhere: CodeActionWhere\n    $apiActionWhere: ApiActionWhere\n  ) {\n    apiActions(where: $apiActionWhere) {\n      ...Action\n    }\n    codeActions(where: $codeActionWhere) {\n      ...Action\n    }\n  }\n':
+    types.GetActionsDocument,
+  '\n  mutation CreateStores($input: [StoreCreateInput!]!) {\n    createStores(input: $input) {\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n      stores {\n        id\n      }\n    }\n  }\n':
+    types.CreateStoresDocument,
+  '\n  mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {\n    deleteStores(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteStoresDocument,
+  '\n  query GetStores($where: StoreWhere, $options: StoreOptions) {\n    aggregate: storesAggregate(where: $where) {\n      count\n    }\n    items: stores(options: $options, where: $where) {\n      ...Store\n    }\n  }\n':
+    types.GetStoresDocument,
+  '\n  mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {\n    updateStores(update: $update, where: $where) {\n      stores {\n        id\n      }\n    }\n  }\n':
+    types.UpdateStoresDocument,
+  '\n  mutation UpdateCodeActions(\n    $connect: CodeActionConnectInput\n    $create: CodeActionRelationInput\n    $delete: CodeActionDeleteInput\n    $disconnect: CodeActionDisconnectInput\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      codeActions {\n        id\n      }\n    }\n  }\n':
+    types.UpdateCodeActionsDocument,
+  '\n  mutation UpdateApiActions(\n    $connect: ApiActionConnectInput\n    $create: ApiActionRelationInput\n    $delete: ApiActionDeleteInput\n    $disconnect: ApiActionDisconnectInput\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      apiActions {\n        id\n      }\n    }\n  }\n':
+    types.UpdateApiActionsDocument,
+  '\n  mutation CreateTags($input: [TagCreateInput!]!) {\n    createTags(input: $input) {\n      tags {\n        id\n      }\n    }\n  }\n':
+    types.CreateTagsDocument,
+  '\n  mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {\n    updateTags(update: $update, where: $where) {\n      tags {\n        id\n      }\n    }\n  }\n':
+    types.UpdateTagsDocument,
+  '\n  mutation DeleteTags($where: TagWhere!) {\n    deleteTags(where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteTagsDocument,
+  '\n  query GetTags($options: TagOptions, $where: TagWhere) {\n    aggregate: tagsAggregate(where: $where) {\n      count\n    }\n    items: tags(options: $options, where: $where) {\n      ...Tag\n    }\n  }\n':
+    types.GetTagsDocument,
   '\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n':
     types.CreatePrimitiveTypesDocument,
   '\n  mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {\n    types: createArrayTypes(input: $input) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n':
@@ -320,6 +384,12 @@ const documents = {
     types.UpdateActionTypesDocument,
   '\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateCodeMirrorTypesDocument,
+  '\n  query GetUsers($where: UserWhere) {\n    users(where: $where) {\n      ...User\n    }\n  }\n':
+    types.GetUsersDocument,
+  '\n  mutation CreateUser($input: [UserCreateInput!]!) {\n    createUsers(input: $input) {\n      users {\n        email\n        id\n      }\n    }\n  }\n':
+    types.CreateUserDocument,
+  '\n  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        preferences\n      }\n    }\n  }\n':
+    types.UpdateUserDocument,
 }
 
 /**
@@ -632,6 +702,12 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
+): (typeof documents)['\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n']
 /**
@@ -694,6 +770,42 @@ export function graphql(
 export function graphql(
   source: '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n',
+): (typeof documents)['\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {\n    aggregate: authGuardsAggregate(where: $where) {\n      count\n    }\n    items: authGuards(options: $options, where: $where) {\n      ...AuthGuard\n    }\n  }\n',
+): (typeof documents)['\n  query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {\n    aggregate: authGuardsAggregate(where: $where) {\n      count\n    }\n    items: authGuards(options: $options, where: $where) {\n      ...AuthGuard\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {\n    createAuthGuards(input: $input) {\n      authGuards {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {\n    createAuthGuards(input: $input) {\n      authGuards {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateAuthGuard(\n    $where: AuthGuardWhere\n    $update: AuthGuardUpdateInput\n  ) {\n    updateAuthGuards(update: $update, where: $where) {\n      authGuards {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateAuthGuard(\n    $where: AuthGuardWhere\n    $update: AuthGuardUpdateInput\n  ) {\n    updateAuthGuards(update: $update, where: $where) {\n      authGuards {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteAuthGuards(\n    $where: AuthGuardWhere\n    $delete: AuthGuardDeleteInput\n  ) {\n    deleteAuthGuards(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteAuthGuards(\n    $where: AuthGuardWhere\n    $delete: AuthGuardDeleteInput\n  ) {\n    deleteAuthGuards(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
+): (typeof documents)['\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -770,6 +882,18 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  mutation CreateHooks($input: [HookCreateInput!]!) {\n    createHooks(input: $input) {\n      hooks {\n        ...Hook\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateHooks($input: [HookCreateInput!]!) {\n    createHooks(input: $input) {\n      hooks {\n        ...Hook\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteHooks($where: HookWhere!) {\n    deleteHooks(where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteHooks($where: HookWhere!) {\n    deleteHooks(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n']
 /**
@@ -800,6 +924,54 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  mutation CreateProps($input: [PropCreateInput!]!) {\n    createProps(input: $input) {\n      props {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateProps($input: [PropCreateInput!]!) {\n    createProps(input: $input) {\n      props {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {\n    updateProps(update: $update, where: $where) {\n      props {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {\n    updateProps(update: $update, where: $where) {\n      props {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteProps($where: PropWhere!) {\n    deleteProps(where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteProps($where: PropWhere!) {\n    deleteProps(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetProps($options: PropOptions, $where: PropWhere) {\n    aggregate: propsAggregate(where: $where) {\n      count\n    }\n    items: props(options: $options, where: $where) {\n      ...Prop\n    }\n  }\n',
+): (typeof documents)['\n  query GetProps($options: PropOptions, $where: PropWhere) {\n    aggregate: propsAggregate(where: $where) {\n      count\n    }\n    items: props(options: $options, where: $where) {\n      ...Prop\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateRedirects($input: [RedirectCreateInput!]!) {\n    createRedirects(input: $input) {\n      redirects {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateRedirects($input: [RedirectCreateInput!]!) {\n    createRedirects(input: $input) {\n      redirects {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteRedirects(\n    $where: RedirectWhere\n    $delete: RedirectDeleteInput\n  ) {\n    deleteRedirects(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteRedirects(\n    $where: RedirectWhere\n    $delete: RedirectDeleteInput\n  ) {\n    deleteRedirects(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateRedirects(\n    $where: RedirectWhere\n    $update: RedirectUpdateInput\n  ) {\n    updateRedirects(update: $update, where: $where) {\n      redirects {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateRedirects(\n    $where: RedirectWhere\n    $update: RedirectUpdateInput\n  ) {\n    updateRedirects(update: $update, where: $where) {\n      redirects {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...Redirect\n    }\n  }\n',
+): (typeof documents)['\n  query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...Redirect\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {\n    aggregate: resourcesAggregate(where: $where) {\n      count\n    }\n    items: resources(options: $options, where: $where) {\n      ...Resource\n    }\n  }\n',
 ): (typeof documents)['\n  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {\n    aggregate: resourcesAggregate(where: $where) {\n      count\n    }\n    items: resources(options: $options, where: $where) {\n      ...Resource\n    }\n  }\n']
 /**
@@ -820,6 +992,96 @@ export function graphql(
 export function graphql(
   source: '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n',
 ): (typeof documents)['\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {\n    createCodeActions(input: $input) {\n      codeActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {\n    createCodeActions(input: $input) {\n      codeActions {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateApiActions($input: [ApiActionCreateInput!]!) {\n    createApiActions(input: $input) {\n      apiActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateApiActions($input: [ApiActionCreateInput!]!) {\n    createApiActions(input: $input) {\n      apiActions {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteCodeActions(\n    $where: CodeActionWhere!\n    $delete: CodeActionDeleteInput\n  ) {\n    deleteCodeActions(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteCodeActions(\n    $where: CodeActionWhere!\n    $delete: CodeActionDeleteInput\n  ) {\n    deleteCodeActions(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteApiActions(\n    $where: ApiActionWhere!\n    $delete: ApiActionDeleteInput\n  ) {\n    deleteApiActions(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteApiActions(\n    $where: ApiActionWhere!\n    $delete: ApiActionDeleteInput\n  ) {\n    deleteApiActions(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetActions(\n    $codeActionWhere: CodeActionWhere\n    $apiActionWhere: ApiActionWhere\n  ) {\n    apiActions(where: $apiActionWhere) {\n      ...Action\n    }\n    codeActions(where: $codeActionWhere) {\n      ...Action\n    }\n  }\n',
+): (typeof documents)['\n  query GetActions(\n    $codeActionWhere: CodeActionWhere\n    $apiActionWhere: ApiActionWhere\n  ) {\n    apiActions(where: $apiActionWhere) {\n      ...Action\n    }\n    codeActions(where: $codeActionWhere) {\n      ...Action\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateStores($input: [StoreCreateInput!]!) {\n    createStores(input: $input) {\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n      stores {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateStores($input: [StoreCreateInput!]!) {\n    createStores(input: $input) {\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n      stores {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {\n    deleteStores(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {\n    deleteStores(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetStores($where: StoreWhere, $options: StoreOptions) {\n    aggregate: storesAggregate(where: $where) {\n      count\n    }\n    items: stores(options: $options, where: $where) {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  query GetStores($where: StoreWhere, $options: StoreOptions) {\n    aggregate: storesAggregate(where: $where) {\n      count\n    }\n    items: stores(options: $options, where: $where) {\n      ...Store\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {\n    updateStores(update: $update, where: $where) {\n      stores {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {\n    updateStores(update: $update, where: $where) {\n      stores {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateCodeActions(\n    $connect: CodeActionConnectInput\n    $create: CodeActionRelationInput\n    $delete: CodeActionDeleteInput\n    $disconnect: CodeActionDisconnectInput\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      codeActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateCodeActions(\n    $connect: CodeActionConnectInput\n    $create: CodeActionRelationInput\n    $delete: CodeActionDeleteInput\n    $disconnect: CodeActionDisconnectInput\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      codeActions {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateApiActions(\n    $connect: ApiActionConnectInput\n    $create: ApiActionRelationInput\n    $delete: ApiActionDeleteInput\n    $disconnect: ApiActionDisconnectInput\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      apiActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateApiActions(\n    $connect: ApiActionConnectInput\n    $create: ApiActionRelationInput\n    $delete: ApiActionDeleteInput\n    $disconnect: ApiActionDisconnectInput\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      apiActions {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateTags($input: [TagCreateInput!]!) {\n    createTags(input: $input) {\n      tags {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateTags($input: [TagCreateInput!]!) {\n    createTags(input: $input) {\n      tags {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {\n    updateTags(update: $update, where: $where) {\n      tags {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {\n    updateTags(update: $update, where: $where) {\n      tags {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteTags($where: TagWhere!) {\n    deleteTags(where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteTags($where: TagWhere!) {\n    deleteTags(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetTags($options: TagOptions, $where: TagWhere) {\n    aggregate: tagsAggregate(where: $where) {\n      count\n    }\n    items: tags(options: $options, where: $where) {\n      ...Tag\n    }\n  }\n',
+): (typeof documents)['\n  query GetTags($options: TagOptions, $where: TagWhere) {\n    aggregate: tagsAggregate(where: $where) {\n      count\n    }\n    items: tags(options: $options, where: $where) {\n      ...Tag\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1252,6 +1514,24 @@ export function graphql(
 export function graphql(
   source: '\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetUsers($where: UserWhere) {\n    users(where: $where) {\n      ...User\n    }\n  }\n',
+): (typeof documents)['\n  query GetUsers($where: UserWhere) {\n    users(where: $where) {\n      ...User\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateUser($input: [UserCreateInput!]!) {\n    createUsers(input: $input) {\n      users {\n        email\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateUser($input: [UserCreateInput!]!) {\n    createUsers(input: $input) {\n      users {\n        email\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        preferences\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        preferences\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

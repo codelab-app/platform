@@ -1,5 +1,5 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
-import { typeApi } from '../../../../../domain/type/src/repositories/type.api'
+import { typeApi } from '@codelab/frontend-domain-type/repositories'
 
 const getInnerTypeIds = (submitData: IUpdateTypeDto) => [
   ...(submitData.unionTypeIds ?? []),

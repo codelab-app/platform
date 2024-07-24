@@ -5,6 +5,7 @@ import {
   readProjectConfiguration,
   updateProjectConfiguration,
 } from '@nx/devkit'
+import { removeGraphqlEslintConfig } from './eslint/remove-graphql-eslint-config'
 import { addProjectTags } from './project-tags/add-project-tags'
 import type { EslintGeneratorSchema } from './schema'
 import { updateTestConfig } from './test/project-json'
@@ -38,6 +39,7 @@ export const nxProjectConfigGenerator = async (
      */
     // addGraphqlEslintConfig(tree, projectConfig)
     // addGraphqlExtension(tree, projectConfig)
+    removeGraphqlEslintConfig(tree, projectConfig)
 
     updateTestConfig(tree, projectConfig)
     addProjectTags(tree, projectConfig)
