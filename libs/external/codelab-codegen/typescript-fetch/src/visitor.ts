@@ -159,23 +159,44 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       // ...this._additionalImports,
     ]
 
-    const apiFunctions = this._operationsToInclude.map((o) => {
+    const graphqlOperations = this._operationsToInclude.map((o) => {
       const operationName = o.node.name?.value
 
       if (!operationName) {
         throw new Error('Missing operation name')
       }
 
-      const camelCaseName =
-        operationName.charAt(0).toLowerCase() + operationName.slice(1)
+      const pascalCaseName =
+        operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
-      return `export const ${camelCaseName}${o.operationType} = (variables: ${o.operationVariablesTypes}) =>
-  gqlFetch(${o.documentVariableName}, variables)`
+      return `const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
+  gqlFetch(${o.documentVariableName}, variables, next)`
     })
+
+    /**
+     * Export everything under a function `getSdk()` to resemble the `graphql-request` package for easier migration
+     */
+
+    const sdkExport = `export const getSdk = () => ({ ${this._operationsToInclude
+      .map((o) => {
+        const operationName = o.node.name?.value
+
+        if (!operationName) {
+          throw new Error('Missing operation name')
+        }
+
+        const pascalCaseName =
+          operationName.charAt(0).toUpperCase() + operationName.slice(1)
+
+        return `${pascalCaseName}`
+      })
+      .join(',')} })`
 
     return `${imports.join('\n')}
 
-    ${apiFunctions.join('\n\n')}
+    ${graphqlOperations.join('\n\n')}
+
+    ${sdkExport}
 `
   }
 }

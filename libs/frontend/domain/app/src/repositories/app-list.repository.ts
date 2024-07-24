@@ -10,24 +10,13 @@ import {
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
-
-const AppListDocument = graphql(`
-  query AppList($options: AppOptions, $where: AppWhere) {
-    aggregate: appsAggregate(where: $where) {
-      count
-    }
-    items: apps(options: $options, where: $where) {
-      ...AppPreview
-    }
-  }
-`)
+import { appApi } from './app.api'
 
 export const appListRepository = async (
   where?: AppWhere,
   options?: AppOptions,
 ) => {
-  return await gqlFetch(
-    AppListDocument,
+  return await appApi.AppList(
     {
       options,
       where,

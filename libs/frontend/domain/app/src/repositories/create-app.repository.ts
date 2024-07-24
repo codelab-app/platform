@@ -6,23 +6,15 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { type AppCreateInput, graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-const CreateAppsDocument = graphql(`
-  mutation CreateApps($input: [AppCreateInput!]!) {
-    createApps(input: $input) {
-      apps {
-        id
-      }
-    }
-  }
-`)
+import { assertIsDefined } from '@codelab/shared/utils'
+import { appApi } from './app.api'
 
 export const createAppRepository: IAppRepository['add'] = async (
   app: IAppModel,
 ) => {
   const {
     createApps: { apps },
-  } = await gqlFetch(CreateAppsDocument, {
+  } = await appApi.CreateApps({
     input: app.toCreateInput(),
   })
 

@@ -12,24 +12,13 @@ import {
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
-
-const AtomListDocument = graphql(`
-  query AtomList($options: AtomOptions, $where: AtomWhere) {
-    aggregate: atomsAggregate(where: $where) {
-      count
-    }
-    items: atoms(options: $options, where: $where) {
-      ...Atom
-    }
-  }
-`)
+import { atomApi } from './atom.api'
 
 export const atomListRepository: IAtomRepository['find'] = async (
   where?: AtomWhere,
   options?: AtomOptions,
 ) => {
-  const results = await gqlFetch(
-    AtomListDocument,
+  const results = await atomApi.AtomList(
     { options, where },
     { tags: [CACHE_TAGS.ATOM_LIST] },
   )

@@ -3,20 +3,13 @@
 import type { DeleteElementsMutationVariables } from '@codelab/frontend/infra/gql'
 import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-const DeleteElementsMutation = graphql(`
-  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
-    deleteElements(delete: $delete, where: $where) {
-      nodesDeleted
-    }
-  }
-`)
+import { elementApi } from './element.api'
 
 export const deleteElementRepository = ({
   delete: $delete = { props: {} },
   where,
 }: DeleteElementsMutationVariables) =>
-  gqlFetch(DeleteElementsMutation, {
+  elementApi.DeleteElements({
     delete: $delete,
     where,
   })

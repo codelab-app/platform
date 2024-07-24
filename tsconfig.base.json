@@ -814,6 +814,9 @@
       "@codelab/frontend-domain-tag/store": [
         "libs/frontend/domain/tag/src/store/index.ts"
       ],
+      "@codelab/frontend-domain-type/repositories": [
+        "libs/frontend/domain/type/src/repositories/index.ts"
+      ],
       "@codelab/frontend-domain-type/services": [
         "libs/frontend/domain/type/src/services/index.ts"
       ],

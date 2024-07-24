@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 const AppsView = async () => {
-  const [{ items: apps }, { items: atoms }] = await Promise.all([
+  const [{ apps }, { items: atoms }] = await Promise.all([
     appListAction(),
     defaultAtomAction(),
   ])

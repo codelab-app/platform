@@ -3,10 +3,12 @@ import * as Types from '@codelab/frontend/infra/gql'
 import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
-  AppFragmentDoc,
   AppPreviewFragmentDoc,
+  AppFragmentDoc,
+  AppProductionFragmentDoc,
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
+  ResourceFragmentDoc,
 } from '@codelab/frontend/infra/gql'
 
 export const CreateAppsDocument = graphql(`
@@ -37,6 +39,17 @@ export const DeleteAppsDocument = graphql(`
   }
 `)
 
+export const AppListPreviewDocument = graphql(`
+  query AppListPreview($options: AppOptions, $where: AppWhere) {
+    aggregate: appsAggregate(where: $where) {
+      count
+    }
+    items: apps(options: $options, where: $where) {
+      ...AppPreview
+    }
+  }
+`)
+
 export const GetAppsDocument = graphql(`
   query GetApps($options: AppOptions, $where: AppWhere) {
     aggregate: appsAggregate(where: $where) {
@@ -48,8 +61,8 @@ export const GetAppsDocument = graphql(`
   }
 `)
 
-export const GetAppsListDocument = graphql(`
-  query GetAppsList($options: AppOptions, $where: AppWhere) {
+export const AppListDocument = graphql(`
+  query AppList($options: AppOptions, $where: AppWhere) {
     apps(options: $options, where: $where) {
       ...AppPreview
     }
@@ -58,25 +71,71 @@ export const GetAppsListDocument = graphql(`
     }
   }
 `)
+
+export const GetAppProductionDocument = graphql(`
+  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
+    apps(where: { domains_SOME: { name_IN: [$domain] } }) {
+      ...AppProduction
+    }
+    atoms(where: { type: ReactFragment }) {
+      ...AtomProduction
+    }
+    resources {
+      ...Resource
+    }
+  }
+`)
 import {
   type CreateAppsMutationVariables,
   type UpdateAppsMutationVariables,
   type DeleteAppsMutationVariables,
+  type AppListPreviewQueryVariables,
   type GetAppsQueryVariables,
-  type GetAppsListQueryVariables,
+  type AppListQueryVariables,
+  type GetAppProductionQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-export const createAppsMutation = (variables: CreateAppsMutationVariables) =>
-  gqlFetch(CreateAppsDocument, variables)
+const CreateApps = (
+  variables: CreateAppsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(CreateAppsDocument, variables, next)
 
-export const updateAppsMutation = (variables: UpdateAppsMutationVariables) =>
-  gqlFetch(UpdateAppsDocument, variables)
+const UpdateApps = (
+  variables: UpdateAppsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(UpdateAppsDocument, variables, next)
 
-export const deleteAppsMutation = (variables: DeleteAppsMutationVariables) =>
-  gqlFetch(DeleteAppsDocument, variables)
+const DeleteApps = (
+  variables: DeleteAppsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(DeleteAppsDocument, variables, next)
 
-export const getAppsQuery = (variables: GetAppsQueryVariables) =>
-  gqlFetch(GetAppsDocument, variables)
+const AppListPreview = (
+  variables: AppListPreviewQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(AppListPreviewDocument, variables, next)
 
-export const getAppsListQuery = (variables: GetAppsListQueryVariables) =>
-  gqlFetch(GetAppsListDocument, variables)
+const GetApps = (
+  variables: GetAppsQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(GetAppsDocument, variables, next)
+
+const AppList = (
+  variables: AppListQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(AppListDocument, variables, next)
+
+const GetAppProduction = (
+  variables: GetAppProductionQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(GetAppProductionDocument, variables, next)
+
+export const getSdk = () => ({
+  CreateApps,
+  UpdateApps,
+  DeleteApps,
+  AppListPreview,
+  GetApps,
+  AppList,
+  GetAppProduction,
+})

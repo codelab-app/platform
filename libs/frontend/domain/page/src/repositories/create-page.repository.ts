@@ -1,17 +1,17 @@
 'use server'
 
+import type {
+  IPageModel,
+  IPageRepository,
+} from '@codelab/frontend/abstract/domain'
 import { graphql, type PageCreateInput } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { pageApi } from './page.api'
 
-const CreatePagesMutation = graphql(`
-  mutation CreatePages($input: [PageCreateInput!]!) {
-    createPages(input: $input) {
-      pages {
-        id
-      }
-    }
-  }
-`)
+export const createPageRepository: IPageRepository['add'] = async (
+  page: IPageModel,
+) => {
+  const pages = await pageApi.CreatePages({ input: page.toCreateInput() })
 
-export const createPageRepository = async (input: PageCreateInput) =>
-  await gqlFetch(CreatePagesMutation, { input })
+  return pages.createPages.pages[0]
+}

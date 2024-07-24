@@ -13,21 +13,21 @@ import type {
 import type { IRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { getSdk as getCreateSdk } from './create-type.endpoints.graphql.gen'
-import { getSdk as getDeleteSdk } from './delete-type.endpoints.graphql.gen'
-import { getSdk as getGetSdk } from './get-type.endpoints.graphql.gen'
-import { getSdk } from './type.endpoints.graphql.gen'
-import { getSdk as getUpdateSdk } from './update-type.endpoints.graphql.gen'
+import { getSdk as getCreateSdk } from './create-type.api.graphql.gen'
+import { getSdk as getDeleteSdk } from './delete-type.api.graphql.gen'
+import { getSdk as getGetSdk } from './get-type.api.graphql.gen'
+import { getSdk } from './type.api.graphql.gen'
+import { getSdk as getUpdateSdk } from './update-type.api.graphql.gen'
 
 // Neo4j provides us with a way to query/mutate each individual type but not all of them at once.
 // so here are a collection of helper functions that allow us to universally query/mutate a type, based on its type kind
 
-export const typeApi = getSdk(graphqlClient)
+export const typeApi = getSdk()
 
 //
 // Create
 //
-const _createApi = getCreateSdk(graphqlClient)
+const _createApi = getCreateSdk()
 
 type CreateTypesRecord = Record<
   ITypeKind,
@@ -85,7 +85,7 @@ export const createTypeApi: CreateTypesRecord = {
     _createApi.CreatePageTypes({ input }).then(({ types }) => types.types),
 }
 
-export const getTypeApi = getGetSdk(graphqlClient)
+export const getTypeApi = getGetSdk()
 
 export const getAllTypes = async (
   // where?: BaseTypeWhere
@@ -129,7 +129,7 @@ export const getAllTypes = async (
 //
 // Update
 //
-const _updateApi = getUpdateSdk(graphqlClient)
+const _updateApi = getUpdateSdk()
 
 type UpdateTypesRecord = Record<
   ITypeKind,
@@ -170,7 +170,7 @@ export const updateTypeApi: UpdateTypesRecord = {
 //
 // Delete
 //
-const _deleteApi = getDeleteSdk(graphqlClient)
+const _deleteApi = getDeleteSdk()
 
 type DeleteTypesRecord = Record<
   ITypeKind,

@@ -20,6 +20,15 @@ mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
   }
 }
 
+query AppListPreview($options: AppOptions, $where: AppWhere) {
+  aggregate: appsAggregate(where: $where) {
+    count
+  }
+  items: apps(options: $options, where: $where) {
+    ...AppPreview
+  }
+}
+
 query GetApps($options: AppOptions, $where: AppWhere) {
   aggregate: appsAggregate(where: $where) {
     count
@@ -29,11 +38,24 @@ query GetApps($options: AppOptions, $where: AppWhere) {
   }
 }
 
-query GetAppsList($options: AppOptions, $where: AppWhere) {
+query AppList($options: AppOptions, $where: AppWhere) {
   apps(options: $options, where: $where) {
     ...AppPreview
   }
   atoms(where: { type: ReactFragment }) {
     ...AtomDevelopment
+  }
+}
+
+query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
+  apps(where: { domains_SOME: { name_IN: [$domain] } }) {
+    ...AppProduction
+  }
+  # Need to load all dependent types
+  atoms(where: { type: ReactFragment }) {
+    ...AtomProduction
+  }
+  resources {
+    ...Resource
   }
 }

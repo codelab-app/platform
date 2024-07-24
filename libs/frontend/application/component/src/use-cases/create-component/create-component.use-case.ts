@@ -1,7 +1,7 @@
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+import { createComponentRepository } from '@codelab/frontend-domain-component/repositories'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import { revalidateComponentListOperation } from '../component-list'
-import { createComponentAction } from './create-component.action'
 
 export const createComponentUseCase = async (
   componentData: ICreateComponentData,
@@ -12,6 +12,6 @@ export const createComponentUseCase = async (
     name: componentData.name,
   })
 
-  await createComponentAction(componentModel.toCreateInput())
+  await createComponentRepository(componentModel)
   await revalidateComponentListOperation()
 }

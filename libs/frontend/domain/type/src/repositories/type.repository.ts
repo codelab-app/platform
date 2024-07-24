@@ -16,7 +16,7 @@ import {
 
 export const typeRepository: ITypeRepository = {
   add: async (type: ITypeModel) => {
-    const createdTypes = createTypeApi[type.kind]([type.toCreateInput()])
+    const createdTypes = await createTypeApi[type.kind]([type.toCreateInput()])
 
     return createdTypes[0]
   },
@@ -36,7 +36,7 @@ export const typeRepository: ITypeRepository = {
 
   find: async (where: IBaseTypeWhere) => {
     const ids = where.id_IN ?? undefined
-    const types = getAllTypes(ids)
+    const types = await getAllTypes(ids)
 
     return { aggregate: { count: types.length }, items: types }
   },
@@ -44,7 +44,7 @@ export const typeRepository: ITypeRepository = {
   findBaseTypes: async ({ limit, offset, where }: GetBaseTypesOptions) => {
     const {
       baseTypes: { items, totalCount },
-    } = getTypeApi.GetBaseTypes({
+    } = await getTypeApi.GetBaseTypes({
       options: {
         limit,
         offset,
@@ -60,7 +60,7 @@ export const typeRepository: ITypeRepository = {
 
   findDescendants: async (parentIds: Array<string>) => {
     const { arrayTypes, interfaceTypes, unionTypes } =
-      getTypeApi.GetDescendants({ ids: parentIds })
+      await getTypeApi.GetDescendants({ ids: parentIds })
 
     const allDescendantIdsWithoutParents = [
       ...arrayTypes,
@@ -90,14 +90,14 @@ export const typeRepository: ITypeRepository = {
   findOptions: async () => {
     const {
       baseTypes: { items },
-    } = getTypeApi.GetTypeOptions()
+    } = await getTypeApi.GetTypeOptions({})
 
     return sortBy(items, 'name')
   },
 
   update: async (type: ITypeModel) => {
-    const updatedType = updateTypeApi[type.kind](type.toUpdateInput())[0]
+    const updatedType = await updateTypeApi[type.kind](type.toUpdateInput())
 
-    return updatedType!
+    return updatedType[0]!
   },
 }

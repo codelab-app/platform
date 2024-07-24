@@ -2283,8 +2283,8 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
-  '@codelab-app/gql-tag-operations@4.0.30':
-    resolution: {integrity: sha512-X542KGLU3D53GUul71DQyHYbz1eyjGBUImtZFJtWJ+/tsIQWThWmBaa/eVFQBKg594bsLYLFhTBBCMWO21pMLA==}
+  '@codelab-app/gql-tag-operations@4.0.37':
+    resolution: {integrity: sha512-YN5T7nHI73G0Bus7HZmmvpG87WTs/x/V8XqEj1hi3QvjOmNxLhIpdxW7QapwFFGMXirp1xSnd1dtI76klWTGjQ==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
@@ -18569,7 +18569,7 @@ snapshots:
     dependencies:
       '@babel/helper-plugin-utils': 7.24.8
       '@babel/template': 7.24.7
-      '@codelab-app/gql-tag-operations': 4.0.30(graphql@16.8.0)
+      '@codelab-app/gql-tag-operations': 4.0.37(graphql@16.8.0)
       '@graphql-codegen/add': 5.0.3(graphql@16.8.0)
       '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.8.0)
       '@graphql-codegen/typed-document-node': 5.0.9(graphql@16.8.0)
@@ -18585,7 +18585,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@codelab-app/gql-tag-operations@4.0.30(graphql@16.8.0)':
+  '@codelab-app/gql-tag-operations@4.0.37(graphql@16.8.0)':
     dependencies:
       '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.8.0)
       '@graphql-codegen/visitor-plugin-common': 5.3.1(graphql@16.8.0)

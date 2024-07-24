@@ -14,7 +14,7 @@ export const domainListUseCase = async (app: Pick<IApp, 'slug'>) => {
   const user = await getServerUser()
   const compositeKey = AppProperties.appCompositeKey(app, user)
 
-  const { items: apps } = await appListRepository({
+  const { apps } = await appListRepository({
     compositeKey,
   })
 

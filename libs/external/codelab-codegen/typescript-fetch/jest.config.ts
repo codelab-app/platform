@@ -25,7 +25,7 @@ export default {
     [
       'jest-junit',
       {
-        outputName: 'codelab-codegen-fetch.xml',
+        outputName: 'codelab-codegen-typescript-fetch.xml',
         reportTestSuiteErrors: true,
         titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',

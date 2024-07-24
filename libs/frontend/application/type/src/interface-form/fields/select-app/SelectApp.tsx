@@ -33,7 +33,7 @@ export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
         }
       }}
       optionFilterProp="label"
-      options={data?.items}
+      options={data?.apps}
       showSearch
     />
   )

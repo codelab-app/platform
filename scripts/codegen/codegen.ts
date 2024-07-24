@@ -68,8 +68,9 @@ const config: Types.Config = {
       preset,
       config: {
         documentMode: 'string',
-        useTypeImports: true,
-        enumsAsTypes: true,
+        inlineFragmentTypes: 'combine',
+        // useTypeImports: true,
+        // enumsAsTypes: true,
       },
       presetConfig: {
         importAllFragmentsFrom: '~@codelab/frontend/infra/gql',
