@@ -10,7 +10,7 @@ export interface ICRUDService<
   /**
    * Delete many is used many places, so default to plural form. Also return type is rarely used
    */
-  delete(items: Array<Entity>): Promise<void>
+  delete(items: Array<IRef>): Promise<void>
   update(data: UpdateData): Promise<Entity>
 }
 

@@ -17,5 +17,5 @@ export const createResourceUseCase = async (
 
   const resource = resourceDomainService.hydrate({ ...data, config })
 
-  await createResourcesRepository(resource.toCreateInput())
+  await createResourcesRepository(resource)
 }

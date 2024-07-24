@@ -14,15 +14,13 @@ export const domainListUseCase = async (app: Pick<IApp, 'slug'>) => {
   const user = await getServerUser()
   const compositeKey = AppProperties.appCompositeKey(app, user)
 
-  const { apps, atoms } = await appListRepository({
-    where: { compositeKey },
+  const { apps } = await appListRepository({
+    compositeKey,
   })
 
-  const domains = apps
-    .flatMap((_app) => _app.domains)
-    .filter((_domain): _domain is IDomainModel => _domain !== undefined)
+  const domains = apps.flatMap((_app) => _app.domains)
 
-  return { apps, atoms, domains }
+  return { apps, domains }
 }
 
 export const invalidateDomainListQuery = () =>

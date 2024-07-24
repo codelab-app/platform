@@ -28846,3 +28846,43 @@ export type UpdateUserMutationVariables = Exact<{
 export type UpdateUserMutation = {
   updateUsers: { users: Array<{ preferences?: string | null }> }
 }
+
+export type CreateAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
+}>
+
+export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
+
+export type UpdateAppsMutationVariables = Exact<{
+  where: AppWhere
+  update: AppUpdateInput
+}>
+
+export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
+
+export type DeleteAppsMutationVariables = Exact<{
+  where: AppWhere
+  delete?: InputMaybe<AppDeleteInput>
+}>
+
+export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
+
+export type GetAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetAppsQuery = {
+  aggregate: { count: number }
+  items: Array<AppFragment>
+}
+
+export type GetAppsListQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetAppsListQuery = {
+  apps: Array<AppPreviewFragment>
+  atoms: Array<AtomDevelopmentFragment>
+}

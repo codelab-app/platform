@@ -15,10 +15,7 @@ export const deleteAppUseCase: IAppService['deleteApp'] = async (
    * - pages will be deleted inside app mutation
    */
   await deleteElementRepository({ where: { id_IN: elementsIds } })
-  await deleteAppRepository({
-    delete: App.toDeleteInput(),
-    where: { id: app.id },
-  })
+  await deleteAppRepository([app])
 
   await invalidateAppListQuery()
 }

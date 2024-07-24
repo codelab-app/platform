@@ -1,10 +1,10 @@
+import type { ActionFragment } from '@codelab/frontend/infra/gql'
 import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IStoreModel } from '../store'
 import type { IActionModel } from './action.model.interface'
-import type { ActionFragment } from './fragments'
 
 export interface IActionFactory {
   fromActionFragment(fragment: ActionFragment): IActionDto

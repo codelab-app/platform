@@ -1,22 +1,22 @@
 'use server'
 
-import {
-  type DeleteAppsMutationVariables,
-  graphql,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import type {
+  IAppModel,
+  IAppRepository,
+  IRepository,
+} from '@codelab/frontend/abstract/domain'
+import { App } from '../store'
+import { appApi } from './app.api'
 
-const DeleteAppsMutation = graphql(`
-  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
-    deleteApps(delete: $delete, where: $where) {
-      nodesDeleted
-    }
-  }
-`)
+export const deleteAppRepository: IAppRepository['delete'] = async (
+  apps: Array<IAppModel>,
+) => {
+  const {
+    deleteApps: { nodesDeleted },
+  } = await appApi.DeleteApps({
+    delete: App.toDeleteInput(),
+    where: { id_IN: apps.map((app) => app.id) },
+  })
 
-export const deleteAppRepository = async ({
-  delete: delete$,
-  where,
-}: DeleteAppsMutationVariables) => {
-  return gqlFetch(DeleteAppsMutation, { delete: delete$, where })
+  return nodesDeleted
 }

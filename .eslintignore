@@ -9,6 +9,4 @@ public
 *.log
 **/*.gen.ts
 jest.config.ts
-*.directive.graphql
-
 

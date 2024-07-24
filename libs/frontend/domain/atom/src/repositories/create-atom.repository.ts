@@ -1,20 +1,17 @@
+import type {
+  IAtomModel,
+  IAtomRepository,
+} from '@codelab/frontend/abstract/domain'
 import { type AtomCreateInput, graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { atomApi } from './atom.api'
 
-const CreateAtomDocument = graphql(`
-  mutation CreateAtoms($input: [AtomCreateInput!]!) {
-    createAtoms(input: $input) {
-      atoms {
-        id
-      }
-      info {
-        nodesCreated
-        relationshipsCreated
-      }
-    }
-  }
-`)
+export const createAtomRepository: IAtomRepository['add'] = async (
+  atom: IAtomModel,
+) => {
+  const {
+    createAtoms: { atoms },
+  } = await atomApi.CreateAtoms({ input: atom.toCreateInput() })
 
-export const createAtomRepository = async (input: AtomCreateInput) => {
-  return gqlFetch(CreateAtomDocument, { input })
+  return atoms[0]
 }

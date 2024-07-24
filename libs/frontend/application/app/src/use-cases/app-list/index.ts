@@ -1,3 +1,2 @@
-export { appListUseCase } from './app-list.use-case'
-export { invalidateAppListQuery } from './app-list.use-case'
+export { appListAction, invalidateAppListQuery } from './app-list.action'
 export { AppList } from './AppList'

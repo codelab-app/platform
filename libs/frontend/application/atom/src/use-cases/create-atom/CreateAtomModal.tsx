@@ -12,10 +12,12 @@ import React from 'react'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAtomSchema } from './create-atom.schema'
+import { useCreateAtomModal } from './create-atom-modal.state'
 
 export const CreateAtomModal = observer(() => {
   const { atomService, tagService } = useStore()
-  const closeModal = () => atomService.createModal.close()
+  const createAtomModal = useCreateAtomModal()
+  const closeModal = () => createAtomModal.close()
 
   const onSubmit = async (data: ICreateAtomData) =>
     await atomService.create(data)
@@ -30,7 +32,7 @@ export const CreateAtomModal = observer(() => {
     <ModalForm.Modal
       okText="Create Atom"
       onCancel={closeModal}
-      open={atomService.createModal.isOpen}
+      open={createAtomModal.isOpen}
     >
       <ModalForm.Form<ICreateAtomData>
         model={{

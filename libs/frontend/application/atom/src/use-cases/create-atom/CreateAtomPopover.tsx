@@ -12,11 +12,12 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateAtomModal } from './create-atom-modal.state'
 import { CreateAtomForm } from './CreateAtomForm'
 
 export const CreateAtomPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { atomService } = useStore()
+  const createAtomForm = useCreateAtomModal()
   const { popover } = useCui()
 
   return (
@@ -40,7 +41,7 @@ export const CreateAtomPopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              atomService.createForm.close()
+              createAtomForm.close()
             },
             title: 'Cancel',
           },
