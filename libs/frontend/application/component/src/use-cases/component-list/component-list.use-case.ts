@@ -1,3 +1,5 @@
+'use server'
+
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { componentListRepository } from '@codelab/frontend-domain-component/repositories'
