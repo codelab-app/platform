@@ -1,5 +1,8 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import {
+  useDomainStore,
+  useStore,
+} from '@codelab/frontend-application-shared-store/provider'
 import { mapAtomOptions } from '@codelab/frontend-domain-atom/store'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
@@ -19,10 +22,9 @@ export type SelectAtomProps = Pick<
 
 export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const { atomService } = useStore()
+  const { atomDomainService } = useDomainStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
-
-  const fallbackAtomOptions =
-    atomService.atomDomainService.atomsList.map(mapAtomOptions)
+  const fallbackAtomOptions = atomDomainService.atomsList.map(mapAtomOptions)
 
   const [{ error: queryError, result, status }, getSelectAtomOptions] =
     useAsync(() =>

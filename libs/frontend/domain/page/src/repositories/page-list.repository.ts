@@ -3,18 +3,11 @@ import {
   type PageListQueryVariables,
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-const PageListDocument = graphql(`
-  query PageList($options: PageOptions, $where: PageWhere) {
-    pages(options: $options, where: $where) {
-      ...Page
-    }
-  }
-`)
+import { pageApi } from './page.api'
 
 export const pageListRepository = async ({
   options,
   where,
 }: PageListQueryVariables) => {
-  return (await gqlFetch(PageListDocument, { options, where })).pages
+  return (await pageApi.PageList({ options, where })).items
 }

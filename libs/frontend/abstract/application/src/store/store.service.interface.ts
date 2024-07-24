@@ -15,14 +15,12 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../services'
-import type { IStoreRepository } from './store.repo.interface'
 
 export interface IStoreService
   extends ICRUDService<IStoreModel, IStoreDto, IStoreDto>,
     IQueryService<IStoreModel, StoreWhere, StoreOptions>,
     ICRUDModalService<Ref<IStoreModel>, { store?: IStoreModel }> {
   storeDomainService: IStoreDomainService
-  storeRepository: IStoreRepository
 
   load(stores: Array<StoreFragment>): Array<IStoreModel>
   store(id: string): Maybe<IStoreModel>

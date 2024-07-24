@@ -1,0 +1,61 @@
+mutation CreateApps($input: [AppCreateInput!]!) {
+  createApps(input: $input) {
+    apps {
+      id
+    }
+  }
+}
+
+mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
+  updateApps(update: $update, where: $where) {
+    apps {
+      id
+    }
+  }
+}
+
+mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
+  deleteApps(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+
+query AppListPreview($options: AppOptions, $where: AppWhere) {
+  aggregate: appsAggregate(where: $where) {
+    count
+  }
+  items: apps(options: $options, where: $where) {
+    ...AppPreview
+  }
+}
+
+query GetApps($options: AppOptions, $where: AppWhere) {
+  aggregate: appsAggregate(where: $where) {
+    count
+  }
+  items: apps(options: $options, where: $where) {
+    ...App
+  }
+}
+
+query AppList($options: AppOptions, $where: AppWhere) {
+  apps(options: $options, where: $where) {
+    ...AppPreview
+  }
+  atoms(where: { type: ReactFragment }) {
+    ...AtomDevelopment
+  }
+}
+
+query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
+  apps(where: { domains_SOME: { name_IN: [$domain] } }) {
+    ...AppProduction
+  }
+  # Need to load all dependent types
+  atoms(where: { type: ReactFragment }) {
+    ...AtomProduction
+  }
+  resources {
+    ...Resource
+  }
+}

@@ -12,14 +12,19 @@ import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { SelectAtom } from '../select-atom'
 import { updateAtomSchema } from './update-atom.schema'
+import { useUpdateAppModal } from 'libs/frontend/application/app/src/use-cases/update-app/update-app-modal.state'
+import { useUpdateAtomAction } from './update-atom.action'
+import { useUpdateAtomModal } from './update-atom-modal.state'
 
 export const UpdateAtomModal = observer(() => {
   const { atomService, tagService } = useStore()
-  const atom = atomService.updateModal.atom
-  const closeModal = () => atomService.updateModal.close()
+  const updateAtomModal = useUpdateAtomModal()
+  const updateAtomAction = useUpdateAtomAction
+  const atom = updateAtomModal.data?.current
+  const closeModal = () => updateAtomModal.close()
 
   const onSubmit = (atomDTO: IUpdateAtomData) => {
-    return atomService.update(atomDTO)
+    return updateAtomAction(atomDTO)
   }
 
   const onSubmitError = createFormErrorNotificationHandler({
@@ -47,7 +52,7 @@ export const UpdateAtomModal = observer(() => {
     <ModalForm.Modal
       okText="Update Atom"
       onCancel={closeModal}
-      open={atomService.updateModal.isOpen}
+      open={updateAtomModal.isOpen}
     >
       <ModalForm.Form<IUpdateAtomData>
         model={model}

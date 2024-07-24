@@ -12,493 +12,1246 @@ import * as types from './graphql'
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  'fragment BaseAction on BaseAction {\n  __typename\n  id\n  name\n  store {\n    id\n    name\n  }\n  type\n}':
+  '\n  fragment BaseAction on BaseAction {\n    __typename\n    id\n    name\n    store {\n      id\n      name\n    }\n    type\n  }\n':
     types.BaseActionFragmentDoc,
-  'fragment Action on BaseAction {\n  ...BaseAction\n  ... on CodeAction {\n    ...CodeAction\n  }\n  ... on ApiAction {\n    ...ApiAction\n  }\n}':
+  '\n  fragment Action on BaseAction {\n    ...BaseAction\n    ... on CodeAction {\n      ...CodeAction\n    }\n    ... on ApiAction {\n      ...ApiAction\n    }\n  }\n':
     types.ActionFragmentDoc,
-  'fragment ApiAction on ApiAction {\n  ...BaseAction\n  config {\n    data\n    id\n  }\n  errorAction {\n    ...BaseAction\n  }\n  resource {\n    ...Resource\n  }\n  successAction {\n    ...BaseAction\n  }\n}':
+  '\n  fragment ApiAction on ApiAction {\n    ...BaseAction\n    config {\n      data\n      id\n    }\n    errorAction {\n      ...BaseAction\n    }\n    resource {\n      ...Resource\n    }\n    successAction {\n      ...BaseAction\n    }\n  }\n':
     types.ApiActionFragmentDoc,
-  'fragment CodeAction on CodeAction {\n  ...BaseAction\n  code\n}':
+  '\n  fragment CodeAction on CodeAction {\n    ...BaseAction\n    code\n  }\n':
     types.CodeActionFragmentDoc,
-  'fragment AppPreview on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...PagePreview\n  }\n  slug\n}\n\nfragment App on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...Page\n  }\n  slug\n}\n\nfragment AppDevelopment on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(\n    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}\n  ) {\n    ...PageDevelopment\n  }\n  slug\n}\n\nfragment AppProduction on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {\n    ...PageProduction\n  }\n  slug\n}':
+  '\n  fragment AppPreview on App {\n    domains {\n      ...Domain\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages {\n      ...PagePreview\n    }\n    slug\n  }\n':
     types.AppPreviewFragmentDoc,
-  'fragment Atom on Atom {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  externalCssSource\n  externalJsSource\n  externalSourceType\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  tags {\n    ...Tag\n  }\n  type\n}\n\nfragment AtomDevelopment on Atom {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  tags {\n    ...Tag\n  }\n  type\n}\n\nfragment AtomProduction on Atom {\n  __typename\n  externalCssSource\n  externalJsSource\n  externalSourceType\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  type\n}':
+  '\n  fragment App on App {\n    domains {\n      ...Domain\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages {\n      ...Page\n    }\n    slug\n  }\n':
+    types.AppFragmentDoc,
+  '\n  fragment AppDevelopment on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n':
+    types.AppDevelopmentFragmentDoc,
+  '\n  fragment AppProduction on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }\n    ) {\n      ...PageProduction\n    }\n    slug\n  }\n':
+    types.AppProductionFragmentDoc,
+  '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n  }\n':
     types.AtomFragmentDoc,
-  'fragment AuthGuard on AuthGuard {\n  config {\n    ...Prop\n  }\n  id\n  name\n  resource {\n    ...Resource\n  }\n  responseTransformer\n}':
+  '\n  fragment AtomDevelopment on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n  }\n':
+    types.AtomDevelopmentFragmentDoc,
+  '\n  fragment AtomProduction on Atom {\n    __typename\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    type\n  }\n':
+    types.AtomProductionFragmentDoc,
+  '\n  fragment AuthGuard on AuthGuard {\n    config {\n      ...Prop\n    }\n    id\n    name\n    resource {\n      ...Resource\n    }\n    responseTransformer\n  }\n':
     types.AuthGuardFragmentDoc,
-  'fragment Component on Component {\n  __typename\n  api {\n    id\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  props {\n    ...Prop\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n}\n\nfragment ComponentDevelopment on Component {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  elements {\n    ...Element\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  props {\n    ...Prop\n  }\n  rootElement {\n    id\n    name\n  }\n  store {\n    ...Store\n  }\n}\n\nfragment ComponentProduction on Component {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  props {\n    ...Prop\n  }\n  rootElement {\n    id\n    name\n  }\n  store {\n    ...Store\n  }\n}':
+  '\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n':
     types.ComponentFragmentDoc,
-  'fragment Domain on Domain {\n  app {\n    id\n  }\n  domainConfig {\n    misconfigured\n  }\n  id\n  name\n}':
+  '\n  fragment ComponentDevelopment on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
+    types.ComponentDevelopmentFragmentDoc,
+  '\n  fragment ComponentProduction on Component {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
+    types.ComponentProductionFragmentDoc,
+  '\n  fragment Domain on Domain {\n    app {\n      id\n    }\n    domainConfig {\n      misconfigured\n    }\n    id\n    name\n  }\n':
     types.DomainFragmentDoc,
-  'fragment Element on Element {\n  __typename\n  childMapperComponent {\n    id\n    name\n  }\n  childMapperPreviousSibling {\n    id\n  }\n  childMapperPropKey\n  dependantTypes {\n    ...Type\n  }\n  firstChild {\n    id\n  }\n  id\n  name\n  nextSibling {\n    id\n  }\n  page {\n    id\n  }\n  parentComponent {\n    id\n  }\n  parentElement {\n    id\n  }\n  postRenderAction {\n    id\n    type\n  }\n  preRenderAction {\n    id\n    type\n  }\n  prevSibling {\n    id\n  }\n  props {\n    ...Prop\n  }\n  renderForEachPropKey\n  renderIfExpression\n  renderType {\n    ... on Atom {\n      __typename\n      ...AtomDevelopment\n    }\n    ... on Component {\n      __typename\n      id\n    }\n  }\n  style\n  tailwindClassNames\n}\n\nfragment ElementProduction on Element {\n  __typename\n  childMapperComponent {\n    id\n    name\n  }\n  childMapperPreviousSibling {\n    id\n  }\n  childMapperPropKey\n  dependantTypes {\n    ...Type\n  }\n  firstChild {\n    id\n  }\n  id\n  name\n  nextSibling {\n    id\n  }\n  page {\n    id\n  }\n  parentComponent {\n    id\n  }\n  parentElement {\n    id\n  }\n  postRenderAction {\n    id\n    type\n  }\n  preRenderAction {\n    id\n    type\n  }\n  prevSibling {\n    id\n  }\n  props {\n    ...Prop\n  }\n  renderForEachPropKey\n  renderIfExpression\n  renderType {\n    ... on Atom {\n      __typename\n      ...AtomProduction\n    }\n    ... on Component {\n      __typename\n      id\n    }\n  }\n  style\n  tailwindClassNames\n}':
+  '\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomDevelopment\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n':
     types.ElementFragmentDoc,
-  'fragment HookProp on Prop {\n  data\n  id\n}\n\nfragment Hook on Hook {\n  config {\n    ...HookProp\n  }\n  element {\n    id\n    name\n  }\n  id\n  type\n}':
+  '\n  fragment ElementProduction on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomProduction\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n':
+    types.ElementProductionFragmentDoc,
+  '\n  fragment HookProp on Prop {\n    data\n    id\n  }\n':
     types.HookPropFragmentDoc,
-  'fragment PagePreview on Page {\n  app {\n    id\n  }\n  id\n  kind\n  name\n  rootElement {\n    id\n  }\n  elements {\n    id\n  }\n  store {\n    id\n  }\n  urlPattern\n}\n\nfragment Page on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageDevelopment on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageProduction on Page {\n  app {\n    id\n  }\n  elements {\n    ...ElementProduction\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  slug\n  store {\n    ...Store\n  }\n  urlPattern\n}':
+  '\n  fragment Hook on Hook {\n    config {\n      ...HookProp\n    }\n    element {\n      id\n      name\n    }\n    id\n    type\n  }\n':
+    types.HookFragmentDoc,
+  '\n  fragment PagePreview on Page {\n    app {\n      id\n    }\n    id\n    kind\n    name\n    rootElement {\n      id\n    }\n    elements {\n      id\n    }\n    store {\n      id\n    }\n    urlPattern\n  }\n':
     types.PagePreviewFragmentDoc,
-  'fragment Prop on Prop {\n  data\n  id\n}': types.PropFragmentDoc,
-  'fragment Redirect on Redirect {\n  authGuard {\n    id\n  }\n  id\n  source {\n    id\n  }\n  targetPage {\n    id\n  }\n  targetType\n  targetUrl\n}':
+  '\n  fragment Page on Page {\n    app {\n      id\n    }\n    elements {\n      ...Element\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n':
+    types.PageFragmentDoc,
+  '\n  fragment PageDevelopment on Page {\n    app {\n      id\n    }\n    elements {\n      ...Element\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n':
+    types.PageDevelopmentFragmentDoc,
+  '\n  fragment PageProduction on Page {\n    app {\n      id\n    }\n    elements {\n      ...ElementProduction\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    slug\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n':
+    types.PageProductionFragmentDoc,
+  '\n  fragment Prop on Prop {\n    data\n    id\n  }\n': types.PropFragmentDoc,
+  '\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n':
     types.RedirectFragmentDoc,
-  'fragment Resource on Resource {\n  config {\n    ...Prop\n  }\n  id\n  name\n  type\n}':
+  '\n  fragment Resource on Resource {\n    config {\n      ...Prop\n    }\n    id\n    name\n    type\n  }\n':
     types.ResourceFragmentDoc,
-  'fragment Store on Store {\n  actions {\n    ...Action\n  }\n  api {\n    ...InterfaceType\n  }\n  id\n  name\n}\n\nfragment ProductionStore on Store {\n  actions {\n    ...Action\n  }\n  id\n  name\n}':
+  '\n  fragment Store on Store {\n    actions {\n      ...Action\n    }\n    api {\n      ...InterfaceType\n    }\n    id\n    name\n  }\n':
     types.StoreFragmentDoc,
-  'fragment Tag on Tag {\n  children {\n    id\n    name\n  }\n  descendants {\n    id\n    name\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  parent {\n    id\n  }\n}\n\nfragment TagPreview on Tag {\n  id\n  name\n}':
+  '\n  fragment ProductionStore on Store {\n    actions {\n      ...Action\n    }\n    id\n    name\n  }\n':
+    types.ProductionStoreFragmentDoc,
+  '\n  fragment Tag on Tag {\n    children {\n      id\n      name\n    }\n    descendants {\n      id\n      name\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    parent {\n      id\n    }\n  }\n':
     types.TagFragmentDoc,
-  'fragment ActionType on ActionType {\n  ...BaseType\n}':
+  '\n  fragment TagPreview on Tag {\n    id\n    name\n  }\n':
+    types.TagPreviewFragmentDoc,
+  '\n  fragment ActionType on ActionType {\n    ...BaseType\n  }\n':
     types.ActionTypeFragmentDoc,
-  'fragment AppType on AppType {\n  ...BaseType\n}': types.AppTypeFragmentDoc,
-  'fragment ArrayType on ArrayType {\n  ...BaseType\n  itemType {\n    ... on IBaseType {\n      id\n      kind\n      name\n    }\n  }\n}':
+  '\n  fragment AppType on AppType {\n    ...BaseType\n  }\n':
+    types.AppTypeFragmentDoc,
+  '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        id\n        kind\n        name\n      }\n    }\n  }\n':
     types.ArrayTypeFragmentDoc,
-  'fragment BaseType on IBaseType {\n  __typename\n  id\n  kind\n  name\n}':
+  '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n':
     types.BaseTypeFragmentDoc,
-  'fragment CodeMirrorType on CodeMirrorType {\n  ...BaseType\n  language\n}':
+  '\n  fragment CodeMirrorType on CodeMirrorType {\n    ...BaseType\n    language\n  }\n':
     types.CodeMirrorTypeFragmentDoc,
-  'fragment ElementType on ElementType {\n  ...BaseType\n  elementKind\n}':
+  '\n  fragment ElementType on ElementType {\n    ...BaseType\n    elementKind\n  }\n':
     types.ElementTypeFragmentDoc,
-  'fragment EnumTypeValue on EnumTypeValue {\n  id\n  key\n  value\n}':
+  '\n  fragment EnumTypeValue on EnumTypeValue {\n    id\n    key\n    value\n  }\n':
     types.EnumTypeValueFragmentDoc,
-  'fragment EnumType on EnumType {\n  allowedValues {\n    ...EnumTypeValue\n  }\n  ...BaseType\n}':
+  '\n  fragment EnumType on EnumType {\n    allowedValues {\n      ...EnumTypeValue\n    }\n    ...BaseType\n  }\n':
     types.EnumTypeFragmentDoc,
-  'fragment Field on Field {\n  api {\n    ... on InterfaceType {\n      id\n    }\n  }\n  defaultValues\n  description\n  fieldType {\n    ... on IBaseType {\n      __typename\n      id\n      kind\n      name\n    }\n  }\n  id\n  key\n  name\n  nextSibling {\n    id\n  }\n  prevSibling {\n    id\n  }\n  validationRules\n}':
+  '\n  fragment Field on Field {\n    api {\n      ... on InterfaceType {\n        id\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        __typename\n        id\n        kind\n        name\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n':
     types.FieldFragmentDoc,
-  'fragment InterfaceType on InterfaceType {\n  ...BaseType\n  fields {\n    ...Field\n  }\n}':
+  '\n  fragment InterfaceType on InterfaceType {\n    ...BaseType\n    fields {\n      ...Field\n    }\n  }\n':
     types.InterfaceTypeFragmentDoc,
-  'fragment LambdaType on LambdaType {\n  ...BaseType\n}':
+  '\n  fragment LambdaType on LambdaType {\n    ...BaseType\n  }\n':
     types.LambdaTypeFragmentDoc,
-  'fragment PageType on PageType {\n  ...BaseType\n}':
+  '\n  fragment PageType on PageType {\n    ...BaseType\n  }\n':
     types.PageTypeFragmentDoc,
-  'fragment PrimitiveType on PrimitiveType {\n  ...BaseType\n  primitiveKind\n}':
+  '\n  fragment PrimitiveType on PrimitiveType {\n    ...BaseType\n    primitiveKind\n  }\n':
     types.PrimitiveTypeFragmentDoc,
-  'fragment ReactNodeType on ReactNodeType {\n  ...BaseType\n}':
+  '\n  fragment ReactNodeType on ReactNodeType {\n    ...BaseType\n  }\n':
     types.ReactNodeTypeFragmentDoc,
-  'fragment RenderPropType on RenderPropType {\n  ...BaseType\n}':
+  '\n  fragment RenderPropType on RenderPropType {\n    ...BaseType\n  }\n':
     types.RenderPropTypeFragmentDoc,
-  'fragment RichTextType on RichTextType {\n  ...BaseType\n}':
+  '\n  fragment RichTextType on RichTextType {\n    ...BaseType\n  }\n':
     types.RichTextTypeFragmentDoc,
-  'fragment Type on IBaseType {\n  ...ActionType\n  ...AppType\n  ...ArrayType\n  ...CodeMirrorType\n  ...ElementType\n  ...EnumType\n  ...InterfaceType\n  ...LambdaType\n  ...PageType\n  ...PrimitiveType\n  ...ReactNodeType\n  ...RenderPropType\n  ...RichTextType\n  ...UnionType\n}':
+  '\n  fragment Type on IBaseType {\n    ...ActionType\n    ...AppType\n    ...ArrayType\n    ...CodeMirrorType\n    ...ElementType\n    ...EnumType\n    ...InterfaceType\n    ...LambdaType\n    ...PageType\n    ...PrimitiveType\n    ...ReactNodeType\n    ...RenderPropType\n    ...RichTextType\n    ...UnionType\n  }\n':
     types.TypeFragmentDoc,
-  'fragment UnionType on UnionType {\n  ...BaseType\n  typesOfUnionType {\n    ... on IBaseType {\n      ...BaseType\n    }\n  }\n}':
+  '\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n':
     types.UnionTypeFragmentDoc,
-  'fragment Owner on User {\n  id\n}': types.OwnerFragmentDoc,
-  'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}':
+  '\n  fragment Owner on User {\n    id\n  }\n': types.OwnerFragmentDoc,
+  '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n':
     types.UserFragmentDoc,
-  '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n':
-    types.CreateComponentsDocument,
-  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
-    types.AppListDocument,
-  '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    # Need to load all dependent types\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
-    types.GetAppProductionDocument,
   '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.CreateAppsDocument,
-  '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
-    types.DeleteAppsDocument,
   '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.UpdateAppsDocument,
-  '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n':
-    types.AtomListDocument,
+  '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteAppsDocument,
+  '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
+    types.AppListPreviewDocument,
+  '\n  query GetApps($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n  }\n':
+    types.GetAppsDocument,
+  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
+    types.AppListDocument,
+  '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
+    types.GetAppProductionDocument,
   '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n':
     types.CreateAtomsDocument,
   '\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
     types.DeleteAtomsDocument,
+  '\n  query AtomList($where: AtomWhere, $options: AtomOptions) {\n    aggregate: atomsAggregate(where: $where) {\n      count\n    }\n    items: atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n':
+    types.AtomListDocument,
   '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n':
     types.UpdateAtomsDocument,
-  '\n  query GetComponents($options: ComponentOptions, $where: ComponentWhere) {\n    components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n':
-    types.GetComponentsDocument,
-  '\n  mutation DeleteComponents(\n    $where: ComponentWhere!\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+  '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n':
+    types.CreateComponentsDocument,
+  '\n  mutation DeleteComponents(\n    $where: ComponentWhere\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteComponentsDocument,
-  '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n':
-    types.CreateDomainsDocument,
-  '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n':
-    types.DeleteDomainsDocument,
+  '\n  mutation UpdateComponents(\n    $where: ComponentWhere\n    $update: ComponentUpdateInput\n  ) {\n    updateComponents(update: $update, where: $where) {\n      components {\n        id\n      }\n    }\n  }\n':
+    types.UpdateComponentsDocument,
+  '\n  query ComponentList($options: ComponentOptions, $where: ComponentWhere) {\n    aggregate: componentsAggregate(where: $where) {\n      count\n    }\n    items: components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n':
+    types.ComponentListDocument,
   '\n  query DomainList($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    items: domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n':
     types.DomainListDocument,
+  '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n':
+    types.CreateDomainsDocument,
   '\n  mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {\n    updateDomains(update: $update, where: $where) {\n      domains {\n        id\n      }\n    }\n  }\n':
     types.UpdateDomainsDocument,
+  '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteDomainsDocument,
+  '\n  mutation CreateElements($input: [ElementCreateInput!]!) {\n    createElements(input: $input) {\n      elements {\n        id\n      }\n    }\n  }\n':
+    types.CreateElementsDocument,
   '\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteElementsDocument,
   '\n  mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {\n    updateElements(update: $update, where: $where) {\n      elements {\n        id\n      }\n    }\n  }\n':
     types.UpdateElementsDocument,
+  '\n  query ElementList($options: ElementOptions, $where: ElementWhere) {\n    aggregate: elementsAggregate(where: $where) {\n      count\n    }\n    items: elements(options: $options, where: $where) {\n      ...Element\n    }\n  }\n':
+    types.ElementListDocument,
   '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.CreatePagesDocument,
-  '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+  '\n  mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeletePagesDocument,
-  '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n':
-    types.PageListDocument,
   '\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n':
     types.UpdatePagesDocument,
+  '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    aggregate: pagesAggregate(where: $where) {\n      count\n    }\n    items: pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n':
+    types.PageListDocument,
+  '\n  query GetRenderedPage($pageId: ID!) {\n    pages(where: { id: $pageId }) {\n      ...PageDevelopment\n    }\n  }\n':
+    types.GetRenderedPageDocument,
+  '\n  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {\n    aggregate: resourcesAggregate(where: $where) {\n      count\n    }\n    items: resources(options: $options, where: $where) {\n      ...Resource\n    }\n  }\n':
+    types.ResourceListDocument,
   '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n':
     types.CreateResourcesDocument,
+  '\n  mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {\n    updateResources(update: $update, where: $where) {\n      resources {\n        id\n      }\n    }\n  }\n':
+    types.UpdateResourceDocument,
   '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteResourcesDocument,
+  '\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreatePrimitiveTypesDocument,
+  '\n  mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {\n    types: createArrayTypes(input: $input) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateArrayTypesDocument,
+  '\n  mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {\n    types: createUnionTypes(input: $input) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateUnionTypesDocument,
+  '\n  mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {\n    types: createInterfaceTypes(input: $input) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateInterfaceTypesDocument,
+  '\n  mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {\n    types: createElementTypes(input: $input) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateElementTypesDocument,
+  '\n  mutation CreateRenderPropTypes($input: [RenderPropTypeCreateInput!]!) {\n    types: createRenderPropTypes(input: $input) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateRenderPropTypesDocument,
+  '\n  mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {\n    types: createReactNodeTypes(input: $input) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateReactNodeTypesDocument,
+  '\n  mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {\n    types: createEnumTypes(input: $input) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateEnumTypesDocument,
+  '\n  mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {\n    types: createLambdaTypes(input: $input) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateLambdaTypesDocument,
+  '\n  mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {\n    types: createPageTypes(input: $input) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreatePageTypesDocument,
+  '\n  mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {\n    types: createAppTypes(input: $input) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateAppTypesDocument,
+  '\n  mutation CreateRichTextTypes($input: [RichTextTypeCreateInput!]!) {\n    types: createRichTextTypes(input: $input) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateRichTextTypesDocument,
+  '\n  mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {\n    types: createActionTypes(input: $input) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateActionTypesDocument,
+  '\n  mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {\n    types: createCodeMirrorTypes(input: $input) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n':
+    types.CreateCodeMirrorTypesDocument,
+  '\n  mutation DeletePrimitiveTypes(\n    $delete: PrimitiveTypeDeleteInput\n    $where: PrimitiveTypeWhere\n  ) {\n    deletePrimitiveTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeletePrimitiveTypesDocument,
+  '\n  mutation DeleteArrayTypes(\n    $delete: ArrayTypeDeleteInput\n    $where: ArrayTypeWhere\n  ) {\n    deleteArrayTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteArrayTypesDocument,
+  '\n  mutation DeleteReactNodeTypes(\n    $delete: ReactNodeTypeDeleteInput\n    $where: ReactNodeTypeWhere\n  ) {\n    deleteReactNodeTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteReactNodeTypesDocument,
+  '\n  mutation DeleteUnionTypes(\n    $delete: UnionTypeDeleteInput\n    $where: UnionTypeWhere\n  ) {\n    deleteUnionTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteUnionTypesDocument,
+  '\n  mutation DeleteInterfaceTypes(\n    $delete: InterfaceTypeDeleteInput\n    $where: InterfaceTypeWhere\n  ) {\n    deleteInterfaceTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteInterfaceTypesDocument,
+  '\n  mutation DeleteElementTypes(\n    $delete: ElementTypeDeleteInput\n    $where: ElementTypeWhere\n  ) {\n    deleteElementTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteElementTypesDocument,
+  '\n  mutation DeleteRenderPropTypes(\n    $delete: RenderPropTypeDeleteInput\n    $where: RenderPropTypeWhere\n  ) {\n    deleteRenderPropTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteRenderPropTypesDocument,
+  '\n  mutation DeleteRichTextTypes(\n    $delete: RichTextTypeDeleteInput\n    $where: RichTextTypeWhere\n  ) {\n    deleteRichTextTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteRichTextTypesDocument,
+  '\n  mutation DeleteEnumTypes(\n    $delete: EnumTypeDeleteInput\n    $where: EnumTypeWhere\n  ) {\n    deleteEnumTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n    deleteEnumTypeValues(where: { enumTypeConnection: { node: $where } }) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteEnumTypesDocument,
+  '\n  mutation DeleteLambdaTypes(\n    $delete: LambdaTypeDeleteInput\n    $where: LambdaTypeWhere\n  ) {\n    deleteLambdaTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteLambdaTypesDocument,
+  '\n  mutation DeletePageTypes(\n    $delete: PageTypeDeleteInput\n    $where: PageTypeWhere\n  ) {\n    deletePageTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeletePageTypesDocument,
+  '\n  mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {\n    deleteAppTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteAppTypesDocument,
+  '\n  mutation DeleteActionTypes(\n    $delete: ActionTypeDeleteInput\n    $where: ActionTypeWhere\n  ) {\n    deleteActionTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteActionTypesDocument,
+  '\n  mutation DeleteCodeMirrorTypes(\n    $delete: CodeMirrorTypeDeleteInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    deleteCodeMirrorTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+    types.DeleteCodeMirrorTypesDocument,
+  '\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n':
+    types.CreateFieldsDocument,
+  '\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n':
+    types.UpdateFieldsDocument,
+  '\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteFieldsDocument,
+  '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n':
+    types.GetFieldsDocument,
+  '\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n':
+    types.GetBaseTypesDocument,
+  '\n  query GetTypes($ids: [ID!]) {\n    actionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    appTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    arrayTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    codeMirrorTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    elementTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    enumTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    lambdaTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    pageTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    primitiveTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    reactNodeTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    renderPropTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    richTextTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n  }\n':
+    types.GetTypesDocument,
+  '\n  query GetDescendants($ids: [ID!]) {\n    arrayTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n  }\n':
+    types.GetDescendantsDocument,
+  '\n  query GetPrimitiveTypes(\n    $options: PrimitiveTypeOptions\n    $where: PrimitiveTypeWhere\n  ) {\n    types: primitiveTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetPrimitiveTypesDocument,
+  '\n  query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {\n    types: arrayTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetArrayTypesDocument,
+  '\n  query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {\n    types: unionTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetUnionTypesDocument,
+  '\n  query GetInterfaceTypes(\n    $options: InterfaceTypeOptions\n    $where: InterfaceTypeWhere\n  ) {\n    types: interfaceTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetInterfaceTypesDocument,
+  '\n  query GetElementTypes(\n    $options: ElementTypeOptions\n    $where: ElementTypeWhere\n  ) {\n    types: elementTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetElementTypesDocument,
+  '\n  query GetRenderPropTypes(\n    $options: RenderPropTypeOptions\n    $where: RenderPropTypeWhere\n  ) {\n    types: renderPropTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetRenderPropTypesDocument,
+  '\n  query GetReactNodeTypes(\n    $options: ReactNodeTypeOptions\n    $where: ReactNodeTypeWhere\n  ) {\n    types: reactNodeTypes(options: $options, where: $where) {\n      ...ReactNodeType\n    }\n  }\n':
+    types.GetReactNodeTypesDocument,
+  '\n  query GetRichTextTypes(\n    $options: RichTextTypeOptions\n    $where: RichTextTypeWhere\n  ) {\n    types: richTextTypes(options: $options, where: $where) {\n      ...RichTextType\n    }\n  }\n':
+    types.GetRichTextTypesDocument,
+  '\n  query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {\n    types: enumTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetEnumTypesDocument,
+  '\n  query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {\n    types: lambdaTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetLambdaTypesDocument,
+  '\n  query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {\n    types: pageTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetPageTypesDocument,
+  '\n  query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {\n    types: appTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetAppTypesDocument,
+  '\n  query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {\n    types: actionTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetActionTypesDocument,
+  '\n  query GetCodeMirrorTypes(\n    $options: CodeMirrorTypeOptions\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: codeMirrorTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
+    types.GetCodeMirrorTypesDocument,
+  '\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n':
+    types.GetTypeOptionsDocument,
+  '\n  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n':
+    types.InterfaceForm_GetAppsDocument,
+  '\n  query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      id\n      name\n      type\n    }\n  }\n':
+    types.InterfaceForm_GetAtomsDocument,
+  '\n  query InterfaceForm_GetActions($appId: ID) {\n    apiActions {\n      id\n      name\n    }\n    codeActions {\n      id\n      name\n    }\n  }\n':
+    types.InterfaceForm_GetActionsDocument,
+  '\n  query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {\n    stores(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n':
+    types.InterfaceForm_GetStoresDocument,
+  '\n  query InterfaceForm_GetResource(\n    $options: ResourceOptions\n    $where: ResourceWhere\n  ) {\n    resources(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n':
+    types.InterfaceForm_GetResourceDocument,
+  '\n  query InterfaceForm_GetPages($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n':
+    types.InterfaceForm_GetPagesDocument,
+  '\n  query IsTypeDescendantOf($descendantTypeId: ID!, $parentTypeId: ID!) {\n    isTypeDescendantOf(\n      descendantTypeId: $descendantTypeId\n      parentTypeId: $parentTypeId\n    )\n  }\n':
+    types.IsTypeDescendantOfDocument,
+  '\n  query GetTypeReferences($typeId: ID!) {\n    getTypeReferences(typeId: $typeId) {\n      label\n      name\n    }\n  }\n':
+    types.GetTypeReferencesDocument,
+  '\n  mutation UpdatePrimitiveTypes(\n    $connect: PrimitiveTypeConnectInput\n    $create: PrimitiveTypeRelationInput\n    $delete: PrimitiveTypeDeleteInput\n    $disconnect: PrimitiveTypeDisconnectInput\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdatePrimitiveTypesDocument,
+  '\n  mutation UpdateArrayTypes(\n    $connect: ArrayTypeConnectInput\n    $create: ArrayTypeRelationInput\n    $delete: ArrayTypeDeleteInput\n    $disconnect: ArrayTypeDisconnectInput\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateArrayTypesDocument,
+  '\n  mutation UpdateUnionTypes(\n    $connect: UnionTypeConnectInput\n    $create: UnionTypeRelationInput\n    $delete: UnionTypeDeleteInput\n    $disconnect: UnionTypeDisconnectInput\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateUnionTypesDocument,
+  '\n  mutation UpdateInterfaceTypes(\n    $connect: InterfaceTypeConnectInput\n    $create: InterfaceTypeRelationInput\n    $delete: InterfaceTypeDeleteInput\n    $disconnect: InterfaceTypeDisconnectInput\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateInterfaceTypesDocument,
+  '\n  mutation UpdateReactNodeTypes(\n    $connect: ReactNodeTypeConnectInput\n    $create: ReactNodeTypeRelationInput\n    $delete: ReactNodeTypeDeleteInput\n    $disconnect: ReactNodeTypeDisconnectInput\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateReactNodeTypesDocument,
+  '\n  mutation UpdateElementTypes(\n    $connect: ElementTypeConnectInput\n    $create: ElementTypeRelationInput\n    $delete: ElementTypeDeleteInput\n    $disconnect: ElementTypeDisconnectInput\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateElementTypesDocument,
+  '\n  mutation UpdateRenderPropTypes(\n    $connect: RenderPropTypeConnectInput\n    $create: RenderPropTypeRelationInput\n    $delete: RenderPropTypeDeleteInput\n    $disconnect: RenderPropTypeDisconnectInput\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateRenderPropTypesDocument,
+  '\n  mutation UpdateEnumTypes(\n    $connect: EnumTypeConnectInput\n    $create: EnumTypeRelationInput\n    $delete: EnumTypeDeleteInput\n    $disconnect: EnumTypeDisconnectInput\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateEnumTypesDocument,
+  '\n  mutation UpdateLambdaTypes(\n    $connect: LambdaTypeConnectInput\n    $create: LambdaTypeRelationInput\n    $delete: LambdaTypeDeleteInput\n    $disconnect: LambdaTypeDisconnectInput\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateLambdaTypesDocument,
+  '\n  mutation UpdatePageTypes(\n    $connect: PageTypeConnectInput\n    $create: PageTypeRelationInput\n    $delete: PageTypeDeleteInput\n    $disconnect: PageTypeDisconnectInput\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdatePageTypesDocument,
+  '\n  mutation UpdateAppTypes(\n    $connect: AppTypeConnectInput\n    $create: AppTypeRelationInput\n    $delete: AppTypeDeleteInput\n    $disconnect: AppTypeDisconnectInput\n    $update: AppTypeUpdateInput\n    $where: AppTypeWhere\n  ) {\n    types: updateAppTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateAppTypesDocument,
+  '\n  mutation UpdateRichTextTypes(\n    $connect: RichTextTypeConnectInput\n    $create: RichTextTypeRelationInput\n    $delete: RichTextTypeDeleteInput\n    $disconnect: RichTextTypeDisconnectInput\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateRichTextTypesDocument,
+  '\n  mutation UpdateActionTypes(\n    $connect: ActionTypeConnectInput\n    $create: ActionTypeRelationInput\n    $delete: ActionTypeDeleteInput\n    $disconnect: ActionTypeDisconnectInput\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateActionTypesDocument,
+  '\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n':
+    types.UpdateCodeMirrorTypesDocument,
 }
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment BaseAction on BaseAction {\n  __typename\n  id\n  name\n  store {\n    id\n    name\n  }\n  type\n}',
-): typeof import('./graphql').BaseActionFragmentDoc
+  source: '\n  fragment BaseAction on BaseAction {\n    __typename\n    id\n    name\n    store {\n      id\n      name\n    }\n    type\n  }\n',
+): (typeof documents)['\n  fragment BaseAction on BaseAction {\n    __typename\n    id\n    name\n    store {\n      id\n      name\n    }\n    type\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Action on BaseAction {\n  ...BaseAction\n  ... on CodeAction {\n    ...CodeAction\n  }\n  ... on ApiAction {\n    ...ApiAction\n  }\n}',
-): typeof import('./graphql').ActionFragmentDoc
+  source: '\n  fragment Action on BaseAction {\n    ...BaseAction\n    ... on CodeAction {\n      ...CodeAction\n    }\n    ... on ApiAction {\n      ...ApiAction\n    }\n  }\n',
+): (typeof documents)['\n  fragment Action on BaseAction {\n    ...BaseAction\n    ... on CodeAction {\n      ...CodeAction\n    }\n    ... on ApiAction {\n      ...ApiAction\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment ApiAction on ApiAction {\n  ...BaseAction\n  config {\n    data\n    id\n  }\n  errorAction {\n    ...BaseAction\n  }\n  resource {\n    ...Resource\n  }\n  successAction {\n    ...BaseAction\n  }\n}',
-): typeof import('./graphql').ApiActionFragmentDoc
+  source: '\n  fragment ApiAction on ApiAction {\n    ...BaseAction\n    config {\n      data\n      id\n    }\n    errorAction {\n      ...BaseAction\n    }\n    resource {\n      ...Resource\n    }\n    successAction {\n      ...BaseAction\n    }\n  }\n',
+): (typeof documents)['\n  fragment ApiAction on ApiAction {\n    ...BaseAction\n    config {\n      data\n      id\n    }\n    errorAction {\n      ...BaseAction\n    }\n    resource {\n      ...Resource\n    }\n    successAction {\n      ...BaseAction\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment CodeAction on CodeAction {\n  ...BaseAction\n  code\n}',
-): typeof import('./graphql').CodeActionFragmentDoc
+  source: '\n  fragment CodeAction on CodeAction {\n    ...BaseAction\n    code\n  }\n',
+): (typeof documents)['\n  fragment CodeAction on CodeAction {\n    ...BaseAction\n    code\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment AppPreview on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...PagePreview\n  }\n  slug\n}\n\nfragment App on App {\n  domains {\n    ...Domain\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages {\n    ...Page\n  }\n  slug\n}\n\nfragment AppDevelopment on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(\n    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}\n  ) {\n    ...PageDevelopment\n  }\n  slug\n}\n\nfragment AppProduction on App {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {\n    ...PageProduction\n  }\n  slug\n}',
-): typeof import('./graphql').AppPreviewFragmentDoc
+  source: '\n  fragment AppPreview on App {\n    domains {\n      ...Domain\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages {\n      ...PagePreview\n    }\n    slug\n  }\n',
+): (typeof documents)['\n  fragment AppPreview on App {\n    domains {\n      ...Domain\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages {\n      ...PagePreview\n    }\n    slug\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Atom on Atom {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  externalCssSource\n  externalJsSource\n  externalSourceType\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  tags {\n    ...Tag\n  }\n  type\n}\n\nfragment AtomDevelopment on Atom {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  tags {\n    ...Tag\n  }\n  type\n}\n\nfragment AtomProduction on Atom {\n  __typename\n  externalCssSource\n  externalJsSource\n  externalSourceType\n  icon\n  id\n  name\n  requiredParents {\n    id\n    name\n    type\n  }\n  suggestedChildren {\n    id\n    name\n    type\n  }\n  type\n}',
-): typeof import('./graphql').AtomFragmentDoc
+  source: '\n  fragment App on App {\n    domains {\n      ...Domain\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages {\n      ...Page\n    }\n    slug\n  }\n',
+): (typeof documents)['\n  fragment App on App {\n    domains {\n      ...Domain\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages {\n      ...Page\n    }\n    slug\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment AuthGuard on AuthGuard {\n  config {\n    ...Prop\n  }\n  id\n  name\n  resource {\n    ...Resource\n  }\n  responseTransformer\n}',
-): typeof import('./graphql').AuthGuardFragmentDoc
+  source: '\n  fragment AppDevelopment on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n',
+): (typeof documents)['\n  fragment AppDevelopment on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Component on Component {\n  __typename\n  api {\n    id\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  props {\n    ...Prop\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n}\n\nfragment ComponentDevelopment on Component {\n  __typename\n  api {\n    ...InterfaceType\n  }\n  elements {\n    ...Element\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  props {\n    ...Prop\n  }\n  rootElement {\n    id\n    name\n  }\n  store {\n    ...Store\n  }\n}\n\nfragment ComponentProduction on Component {\n  id\n  name\n  owner {\n    ...Owner\n  }\n  props {\n    ...Prop\n  }\n  rootElement {\n    id\n    name\n  }\n  store {\n    ...Store\n  }\n}',
-): typeof import('./graphql').ComponentFragmentDoc
+  source: '\n  fragment AppProduction on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }\n    ) {\n      ...PageProduction\n    }\n    slug\n  }\n',
+): (typeof documents)['\n  fragment AppProduction on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }\n    ) {\n      ...PageProduction\n    }\n    slug\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Domain on Domain {\n  app {\n    id\n  }\n  domainConfig {\n    misconfigured\n  }\n  id\n  name\n}',
-): typeof import('./graphql').DomainFragmentDoc
+  source: '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n  }\n',
+): (typeof documents)['\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Element on Element {\n  __typename\n  childMapperComponent {\n    id\n    name\n  }\n  childMapperPreviousSibling {\n    id\n  }\n  childMapperPropKey\n  dependantTypes {\n    ...Type\n  }\n  firstChild {\n    id\n  }\n  id\n  name\n  nextSibling {\n    id\n  }\n  page {\n    id\n  }\n  parentComponent {\n    id\n  }\n  parentElement {\n    id\n  }\n  postRenderAction {\n    id\n    type\n  }\n  preRenderAction {\n    id\n    type\n  }\n  prevSibling {\n    id\n  }\n  props {\n    ...Prop\n  }\n  renderForEachPropKey\n  renderIfExpression\n  renderType {\n    ... on Atom {\n      __typename\n      ...AtomDevelopment\n    }\n    ... on Component {\n      __typename\n      id\n    }\n  }\n  style\n  tailwindClassNames\n}\n\nfragment ElementProduction on Element {\n  __typename\n  childMapperComponent {\n    id\n    name\n  }\n  childMapperPreviousSibling {\n    id\n  }\n  childMapperPropKey\n  dependantTypes {\n    ...Type\n  }\n  firstChild {\n    id\n  }\n  id\n  name\n  nextSibling {\n    id\n  }\n  page {\n    id\n  }\n  parentComponent {\n    id\n  }\n  parentElement {\n    id\n  }\n  postRenderAction {\n    id\n    type\n  }\n  preRenderAction {\n    id\n    type\n  }\n  prevSibling {\n    id\n  }\n  props {\n    ...Prop\n  }\n  renderForEachPropKey\n  renderIfExpression\n  renderType {\n    ... on Atom {\n      __typename\n      ...AtomProduction\n    }\n    ... on Component {\n      __typename\n      id\n    }\n  }\n  style\n  tailwindClassNames\n}',
-): typeof import('./graphql').ElementFragmentDoc
+  source: '\n  fragment AtomDevelopment on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n  }\n',
+): (typeof documents)['\n  fragment AtomDevelopment on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment HookProp on Prop {\n  data\n  id\n}\n\nfragment Hook on Hook {\n  config {\n    ...HookProp\n  }\n  element {\n    id\n    name\n  }\n  id\n  type\n}',
-): typeof import('./graphql').HookPropFragmentDoc
+  source: '\n  fragment AtomProduction on Atom {\n    __typename\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    type\n  }\n',
+): (typeof documents)['\n  fragment AtomProduction on Atom {\n    __typename\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    type\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment PagePreview on Page {\n  app {\n    id\n  }\n  id\n  kind\n  name\n  rootElement {\n    id\n  }\n  elements {\n    id\n  }\n  store {\n    id\n  }\n  urlPattern\n}\n\nfragment Page on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageDevelopment on Page {\n  app {\n    id\n  }\n  elements {\n    ...Element\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  store {\n    ...Store\n  }\n  urlPattern\n}\n\nfragment PageProduction on Page {\n  app {\n    id\n  }\n  elements {\n    ...ElementProduction\n  }\n  id\n  kind\n  name\n  pageContentContainer {\n    id\n  }\n  redirect {\n    id\n  }\n  rootElement {\n    id\n  }\n  slug\n  store {\n    ...Store\n  }\n  urlPattern\n}',
-): typeof import('./graphql').PagePreviewFragmentDoc
+  source: '\n  fragment AuthGuard on AuthGuard {\n    config {\n      ...Prop\n    }\n    id\n    name\n    resource {\n      ...Resource\n    }\n    responseTransformer\n  }\n',
+): (typeof documents)['\n  fragment AuthGuard on AuthGuard {\n    config {\n      ...Prop\n    }\n    id\n    name\n    resource {\n      ...Resource\n    }\n    responseTransformer\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Prop on Prop {\n  data\n  id\n}',
-): typeof import('./graphql').PropFragmentDoc
+  source: '\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Redirect on Redirect {\n  authGuard {\n    id\n  }\n  id\n  source {\n    id\n  }\n  targetPage {\n    id\n  }\n  targetType\n  targetUrl\n}',
-): typeof import('./graphql').RedirectFragmentDoc
+  source: '\n  fragment ComponentDevelopment on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  fragment ComponentDevelopment on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Resource on Resource {\n  config {\n    ...Prop\n  }\n  id\n  name\n  type\n}',
-): typeof import('./graphql').ResourceFragmentDoc
+  source: '\n  fragment ComponentProduction on Component {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  fragment ComponentProduction on Component {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Store on Store {\n  actions {\n    ...Action\n  }\n  api {\n    ...InterfaceType\n  }\n  id\n  name\n}\n\nfragment ProductionStore on Store {\n  actions {\n    ...Action\n  }\n  id\n  name\n}',
-): typeof import('./graphql').StoreFragmentDoc
+  source: '\n  fragment Domain on Domain {\n    app {\n      id\n    }\n    domainConfig {\n      misconfigured\n    }\n    id\n    name\n  }\n',
+): (typeof documents)['\n  fragment Domain on Domain {\n    app {\n      id\n    }\n    domainConfig {\n      misconfigured\n    }\n    id\n    name\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Tag on Tag {\n  children {\n    id\n    name\n  }\n  descendants {\n    id\n    name\n  }\n  id\n  name\n  owner {\n    ...Owner\n  }\n  parent {\n    id\n  }\n}\n\nfragment TagPreview on Tag {\n  id\n  name\n}',
-): typeof import('./graphql').TagFragmentDoc
+  source: '\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomDevelopment\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n',
+): (typeof documents)['\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomDevelopment\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment ActionType on ActionType {\n  ...BaseType\n}',
-): typeof import('./graphql').ActionTypeFragmentDoc
+  source: '\n  fragment ElementProduction on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomProduction\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n',
+): (typeof documents)['\n  fragment ElementProduction on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomProduction\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment AppType on AppType {\n  ...BaseType\n}',
-): typeof import('./graphql').AppTypeFragmentDoc
+  source: '\n  fragment HookProp on Prop {\n    data\n    id\n  }\n',
+): (typeof documents)['\n  fragment HookProp on Prop {\n    data\n    id\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment ArrayType on ArrayType {\n  ...BaseType\n  itemType {\n    ... on IBaseType {\n      id\n      kind\n      name\n    }\n  }\n}',
-): typeof import('./graphql').ArrayTypeFragmentDoc
+  source: '\n  fragment Hook on Hook {\n    config {\n      ...HookProp\n    }\n    element {\n      id\n      name\n    }\n    id\n    type\n  }\n',
+): (typeof documents)['\n  fragment Hook on Hook {\n    config {\n      ...HookProp\n    }\n    element {\n      id\n      name\n    }\n    id\n    type\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment BaseType on IBaseType {\n  __typename\n  id\n  kind\n  name\n}',
-): typeof import('./graphql').BaseTypeFragmentDoc
+  source: '\n  fragment PagePreview on Page {\n    app {\n      id\n    }\n    id\n    kind\n    name\n    rootElement {\n      id\n    }\n    elements {\n      id\n    }\n    store {\n      id\n    }\n    urlPattern\n  }\n',
+): (typeof documents)['\n  fragment PagePreview on Page {\n    app {\n      id\n    }\n    id\n    kind\n    name\n    rootElement {\n      id\n    }\n    elements {\n      id\n    }\n    store {\n      id\n    }\n    urlPattern\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment CodeMirrorType on CodeMirrorType {\n  ...BaseType\n  language\n}',
-): typeof import('./graphql').CodeMirrorTypeFragmentDoc
+  source: '\n  fragment Page on Page {\n    app {\n      id\n    }\n    elements {\n      ...Element\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n',
+): (typeof documents)['\n  fragment Page on Page {\n    app {\n      id\n    }\n    elements {\n      ...Element\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment ElementType on ElementType {\n  ...BaseType\n  elementKind\n}',
-): typeof import('./graphql').ElementTypeFragmentDoc
+  source: '\n  fragment PageDevelopment on Page {\n    app {\n      id\n    }\n    elements {\n      ...Element\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n',
+): (typeof documents)['\n  fragment PageDevelopment on Page {\n    app {\n      id\n    }\n    elements {\n      ...Element\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment EnumTypeValue on EnumTypeValue {\n  id\n  key\n  value\n}',
-): typeof import('./graphql').EnumTypeValueFragmentDoc
+  source: '\n  fragment PageProduction on Page {\n    app {\n      id\n    }\n    elements {\n      ...ElementProduction\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    slug\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n',
+): (typeof documents)['\n  fragment PageProduction on Page {\n    app {\n      id\n    }\n    elements {\n      ...ElementProduction\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    slug\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment EnumType on EnumType {\n  allowedValues {\n    ...EnumTypeValue\n  }\n  ...BaseType\n}',
-): typeof import('./graphql').EnumTypeFragmentDoc
+  source: '\n  fragment Prop on Prop {\n    data\n    id\n  }\n',
+): (typeof documents)['\n  fragment Prop on Prop {\n    data\n    id\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Field on Field {\n  api {\n    ... on InterfaceType {\n      id\n    }\n  }\n  defaultValues\n  description\n  fieldType {\n    ... on IBaseType {\n      __typename\n      id\n      kind\n      name\n    }\n  }\n  id\n  key\n  name\n  nextSibling {\n    id\n  }\n  prevSibling {\n    id\n  }\n  validationRules\n}',
-): typeof import('./graphql').FieldFragmentDoc
+  source: '\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n',
+): (typeof documents)['\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment InterfaceType on InterfaceType {\n  ...BaseType\n  fields {\n    ...Field\n  }\n}',
-): typeof import('./graphql').InterfaceTypeFragmentDoc
+  source: '\n  fragment Resource on Resource {\n    config {\n      ...Prop\n    }\n    id\n    name\n    type\n  }\n',
+): (typeof documents)['\n  fragment Resource on Resource {\n    config {\n      ...Prop\n    }\n    id\n    name\n    type\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment LambdaType on LambdaType {\n  ...BaseType\n}',
-): typeof import('./graphql').LambdaTypeFragmentDoc
+  source: '\n  fragment Store on Store {\n    actions {\n      ...Action\n    }\n    api {\n      ...InterfaceType\n    }\n    id\n    name\n  }\n',
+): (typeof documents)['\n  fragment Store on Store {\n    actions {\n      ...Action\n    }\n    api {\n      ...InterfaceType\n    }\n    id\n    name\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment PageType on PageType {\n  ...BaseType\n}',
-): typeof import('./graphql').PageTypeFragmentDoc
+  source: '\n  fragment ProductionStore on Store {\n    actions {\n      ...Action\n    }\n    id\n    name\n  }\n',
+): (typeof documents)['\n  fragment ProductionStore on Store {\n    actions {\n      ...Action\n    }\n    id\n    name\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment PrimitiveType on PrimitiveType {\n  ...BaseType\n  primitiveKind\n}',
-): typeof import('./graphql').PrimitiveTypeFragmentDoc
+  source: '\n  fragment Tag on Tag {\n    children {\n      id\n      name\n    }\n    descendants {\n      id\n      name\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    parent {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment Tag on Tag {\n    children {\n      id\n      name\n    }\n    descendants {\n      id\n      name\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    parent {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment ReactNodeType on ReactNodeType {\n  ...BaseType\n}',
-): typeof import('./graphql').ReactNodeTypeFragmentDoc
+  source: '\n  fragment TagPreview on Tag {\n    id\n    name\n  }\n',
+): (typeof documents)['\n  fragment TagPreview on Tag {\n    id\n    name\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment RenderPropType on RenderPropType {\n  ...BaseType\n}',
-): typeof import('./graphql').RenderPropTypeFragmentDoc
+  source: '\n  fragment ActionType on ActionType {\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment ActionType on ActionType {\n    ...BaseType\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment RichTextType on RichTextType {\n  ...BaseType\n}',
-): typeof import('./graphql').RichTextTypeFragmentDoc
+  source: '\n  fragment AppType on AppType {\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment AppType on AppType {\n    ...BaseType\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Type on IBaseType {\n  ...ActionType\n  ...AppType\n  ...ArrayType\n  ...CodeMirrorType\n  ...ElementType\n  ...EnumType\n  ...InterfaceType\n  ...LambdaType\n  ...PageType\n  ...PrimitiveType\n  ...ReactNodeType\n  ...RenderPropType\n  ...RichTextType\n  ...UnionType\n}',
-): typeof import('./graphql').TypeFragmentDoc
+  source: '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        id\n        kind\n        name\n      }\n    }\n  }\n',
+): (typeof documents)['\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        id\n        kind\n        name\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment UnionType on UnionType {\n  ...BaseType\n  typesOfUnionType {\n    ... on IBaseType {\n      ...BaseType\n    }\n  }\n}',
-): typeof import('./graphql').UnionTypeFragmentDoc
+  source: '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n',
+): (typeof documents)['\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Owner on User {\n  id\n}',
-): typeof import('./graphql').OwnerFragmentDoc
+  source: '\n  fragment CodeMirrorType on CodeMirrorType {\n    ...BaseType\n    language\n  }\n',
+): (typeof documents)['\n  fragment CodeMirrorType on CodeMirrorType {\n    ...BaseType\n    language\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment User on User {\n  apps {\n    id\n  }\n  auth0Id\n  email\n  id\n  preferences\n  roles\n  username\n}',
-): typeof import('./graphql').UserFragmentDoc
+  source: '\n  fragment ElementType on ElementType {\n    ...BaseType\n    elementKind\n  }\n',
+): (typeof documents)['\n  fragment ElementType on ElementType {\n    ...BaseType\n    elementKind\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').CreateComponentsDocument
+  source: '\n  fragment EnumTypeValue on EnumTypeValue {\n    id\n    key\n    value\n  }\n',
+): (typeof documents)['\n  fragment EnumTypeValue on EnumTypeValue {\n    id\n    key\n    value\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
-): typeof import('./graphql').AppListDocument
+  source: '\n  fragment EnumType on EnumType {\n    allowedValues {\n      ...EnumTypeValue\n    }\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment EnumType on EnumType {\n    allowedValues {\n      ...EnumTypeValue\n    }\n    ...BaseType\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    # Need to load all dependent types\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n',
-): typeof import('./graphql').GetAppProductionDocument
+  source: '\n  fragment Field on Field {\n    api {\n      ... on InterfaceType {\n        id\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        __typename\n        id\n        kind\n        name\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n',
+): (typeof documents)['\n  fragment Field on Field {\n    api {\n      ... on InterfaceType {\n        id\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        __typename\n        id\n        kind\n        name\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment InterfaceType on InterfaceType {\n    ...BaseType\n    fields {\n      ...Field\n    }\n  }\n',
+): (typeof documents)['\n  fragment InterfaceType on InterfaceType {\n    ...BaseType\n    fields {\n      ...Field\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment LambdaType on LambdaType {\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment LambdaType on LambdaType {\n    ...BaseType\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment PageType on PageType {\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment PageType on PageType {\n    ...BaseType\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment PrimitiveType on PrimitiveType {\n    ...BaseType\n    primitiveKind\n  }\n',
+): (typeof documents)['\n  fragment PrimitiveType on PrimitiveType {\n    ...BaseType\n    primitiveKind\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment ReactNodeType on ReactNodeType {\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment ReactNodeType on ReactNodeType {\n    ...BaseType\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment RenderPropType on RenderPropType {\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment RenderPropType on RenderPropType {\n    ...BaseType\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment RichTextType on RichTextType {\n    ...BaseType\n  }\n',
+): (typeof documents)['\n  fragment RichTextType on RichTextType {\n    ...BaseType\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment Type on IBaseType {\n    ...ActionType\n    ...AppType\n    ...ArrayType\n    ...CodeMirrorType\n    ...ElementType\n    ...EnumType\n    ...InterfaceType\n    ...LambdaType\n    ...PageType\n    ...PrimitiveType\n    ...ReactNodeType\n    ...RenderPropType\n    ...RichTextType\n    ...UnionType\n  }\n',
+): (typeof documents)['\n  fragment Type on IBaseType {\n    ...ActionType\n    ...AppType\n    ...ArrayType\n    ...CodeMirrorType\n    ...ElementType\n    ...EnumType\n    ...InterfaceType\n    ...LambdaType\n    ...PageType\n    ...PrimitiveType\n    ...ReactNodeType\n    ...RenderPropType\n    ...RichTextType\n    ...UnionType\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n',
+): (typeof documents)['\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment Owner on User {\n    id\n  }\n',
+): (typeof documents)['\n  fragment Owner on User {\n    id\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n',
+): (typeof documents)['\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').CreateAppsDocument
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeleteAppsDocument
+): (typeof documents)['\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').UpdateAppsDocument
+): (typeof documents)['\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query AtomList($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n',
-): typeof import('./graphql').AtomListDocument
+  source: '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
+): (typeof documents)['\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetApps($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n  }\n',
+): (typeof documents)['\n  query GetApps($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
+): (typeof documents)['\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n',
+): (typeof documents)['\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n',
-): typeof import('./graphql').CreateAtomsDocument
+): (typeof documents)['\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeleteAtomsDocument
+): (typeof documents)['\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AtomList($where: AtomWhere, $options: AtomOptions) {\n    aggregate: atomsAggregate(where: $where) {\n      count\n    }\n    items: atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n',
+): (typeof documents)['\n  query AtomList($where: AtomWhere, $options: AtomOptions) {\n    aggregate: atomsAggregate(where: $where) {\n      count\n    }\n    items: atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').UpdateAtomsDocument
+): (typeof documents)['\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetComponents($options: ComponentOptions, $where: ComponentWhere) {\n    components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n',
-): typeof import('./graphql').GetComponentsDocument
+  source: '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation DeleteComponents(\n    $where: ComponentWhere!\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeleteComponentsDocument
+  source: '\n  mutation DeleteComponents(\n    $where: ComponentWhere\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteComponents(\n    $where: ComponentWhere\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').CreateDomainsDocument
+  source: '\n  mutation UpdateComponents(\n    $where: ComponentWhere\n    $update: ComponentUpdateInput\n  ) {\n    updateComponents(update: $update, where: $where) {\n      components {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateComponents(\n    $where: ComponentWhere\n    $update: ComponentUpdateInput\n  ) {\n    updateComponents(update: $update, where: $where) {\n      components {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeleteDomainsDocument
+  source: '\n  query ComponentList($options: ComponentOptions, $where: ComponentWhere) {\n    aggregate: componentsAggregate(where: $where) {\n      count\n    }\n    items: components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n',
+): (typeof documents)['\n  query ComponentList($options: ComponentOptions, $where: ComponentWhere) {\n    aggregate: componentsAggregate(where: $where) {\n      count\n    }\n    items: components(options: $options, where: $where) {\n      ...Component\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  query DomainList($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    items: domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n',
-): typeof import('./graphql').DomainListDocument
+): (typeof documents)['\n  query DomainList($options: DomainOptions, $where: DomainWhere) {\n    aggregate: domainsAggregate(where: $where) {\n      count\n    }\n    items: domains(options: $options, where: $where) {\n      ...Domain\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateDomains($input: [DomainCreateInput!]!) {\n    createDomains(input: $input) {\n      domains {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {\n    updateDomains(update: $update, where: $where) {\n      domains {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').UpdateDomainsDocument
+): (typeof documents)['\n  mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {\n    updateDomains(update: $update, where: $where) {\n      domains {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateElements($input: [ElementCreateInput!]!) {\n    createElements(input: $input) {\n      elements {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateElements($input: [ElementCreateInput!]!) {\n    createElements(input: $input) {\n      elements {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeleteElementsDocument
+): (typeof documents)['\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {\n    updateElements(update: $update, where: $where) {\n      elements {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').UpdateElementsDocument
+): (typeof documents)['\n  mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {\n    updateElements(update: $update, where: $where) {\n      elements {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query ElementList($options: ElementOptions, $where: ElementWhere) {\n    aggregate: elementsAggregate(where: $where) {\n      count\n    }\n    items: elements(options: $options, where: $where) {\n      ...Element\n    }\n  }\n',
+): (typeof documents)['\n  query ElementList($options: ElementOptions, $where: ElementWhere) {\n    aggregate: elementsAggregate(where: $where) {\n      count\n    }\n    items: elements(options: $options, where: $where) {\n      ...Element\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').CreatePagesDocument
+): (typeof documents)['\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation DeletePages($where: PageWhere!, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeletePagesDocument
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n',
-): typeof import('./graphql').PageListDocument
+  source: '\n  mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').UpdatePagesDocument
+): (typeof documents)['\n  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {\n    updatePages(update: $update, where: $where) {\n      pages {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query PageList($options: PageOptions, $where: PageWhere) {\n    aggregate: pagesAggregate(where: $where) {\n      count\n    }\n    items: pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n',
+): (typeof documents)['\n  query PageList($options: PageOptions, $where: PageWhere) {\n    aggregate: pagesAggregate(where: $where) {\n      count\n    }\n    items: pages(options: $options, where: $where) {\n      ...Page\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetRenderedPage($pageId: ID!) {\n    pages(where: { id: $pageId }) {\n      ...PageDevelopment\n    }\n  }\n',
+): (typeof documents)['\n  query GetRenderedPage($pageId: ID!) {\n    pages(where: { id: $pageId }) {\n      ...PageDevelopment\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {\n    aggregate: resourcesAggregate(where: $where) {\n      count\n    }\n    items: resources(options: $options, where: $where) {\n      ...Resource\n    }\n  }\n',
+): (typeof documents)['\n  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {\n    aggregate: resourcesAggregate(where: $where) {\n      count\n    }\n    items: resources(options: $options, where: $where) {\n      ...Resource\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n',
-): typeof import('./graphql').CreateResourcesDocument
+): (typeof documents)['\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {\n    updateResources(update: $update, where: $where) {\n      resources {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {\n    updateResources(update: $update, where: $where) {\n      resources {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n',
-): typeof import('./graphql').DeleteResourcesDocument
+): (typeof documents)['\n  mutation DeleteResources(\n    $where: ResourceWhere\n    $delete: ResourceDeleteInput\n  ) {\n    deleteResources(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {\n    types: createArrayTypes(input: $input) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {\n    types: createArrayTypes(input: $input) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {\n    types: createUnionTypes(input: $input) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {\n    types: createUnionTypes(input: $input) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {\n    types: createInterfaceTypes(input: $input) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {\n    types: createInterfaceTypes(input: $input) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {\n    types: createElementTypes(input: $input) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {\n    types: createElementTypes(input: $input) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateRenderPropTypes($input: [RenderPropTypeCreateInput!]!) {\n    types: createRenderPropTypes(input: $input) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateRenderPropTypes($input: [RenderPropTypeCreateInput!]!) {\n    types: createRenderPropTypes(input: $input) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {\n    types: createReactNodeTypes(input: $input) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {\n    types: createReactNodeTypes(input: $input) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {\n    types: createEnumTypes(input: $input) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {\n    types: createEnumTypes(input: $input) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {\n    types: createLambdaTypes(input: $input) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {\n    types: createLambdaTypes(input: $input) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {\n    types: createPageTypes(input: $input) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {\n    types: createPageTypes(input: $input) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {\n    types: createAppTypes(input: $input) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {\n    types: createAppTypes(input: $input) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateRichTextTypes($input: [RichTextTypeCreateInput!]!) {\n    types: createRichTextTypes(input: $input) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateRichTextTypes($input: [RichTextTypeCreateInput!]!) {\n    types: createRichTextTypes(input: $input) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {\n    types: createActionTypes(input: $input) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {\n    types: createActionTypes(input: $input) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {\n    types: createCodeMirrorTypes(input: $input) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {\n    types: createCodeMirrorTypes(input: $input) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeletePrimitiveTypes(\n    $delete: PrimitiveTypeDeleteInput\n    $where: PrimitiveTypeWhere\n  ) {\n    deletePrimitiveTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeletePrimitiveTypes(\n    $delete: PrimitiveTypeDeleteInput\n    $where: PrimitiveTypeWhere\n  ) {\n    deletePrimitiveTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteArrayTypes(\n    $delete: ArrayTypeDeleteInput\n    $where: ArrayTypeWhere\n  ) {\n    deleteArrayTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteArrayTypes(\n    $delete: ArrayTypeDeleteInput\n    $where: ArrayTypeWhere\n  ) {\n    deleteArrayTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteReactNodeTypes(\n    $delete: ReactNodeTypeDeleteInput\n    $where: ReactNodeTypeWhere\n  ) {\n    deleteReactNodeTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteReactNodeTypes(\n    $delete: ReactNodeTypeDeleteInput\n    $where: ReactNodeTypeWhere\n  ) {\n    deleteReactNodeTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteUnionTypes(\n    $delete: UnionTypeDeleteInput\n    $where: UnionTypeWhere\n  ) {\n    deleteUnionTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteUnionTypes(\n    $delete: UnionTypeDeleteInput\n    $where: UnionTypeWhere\n  ) {\n    deleteUnionTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteInterfaceTypes(\n    $delete: InterfaceTypeDeleteInput\n    $where: InterfaceTypeWhere\n  ) {\n    deleteInterfaceTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteInterfaceTypes(\n    $delete: InterfaceTypeDeleteInput\n    $where: InterfaceTypeWhere\n  ) {\n    deleteInterfaceTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteElementTypes(\n    $delete: ElementTypeDeleteInput\n    $where: ElementTypeWhere\n  ) {\n    deleteElementTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteElementTypes(\n    $delete: ElementTypeDeleteInput\n    $where: ElementTypeWhere\n  ) {\n    deleteElementTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteRenderPropTypes(\n    $delete: RenderPropTypeDeleteInput\n    $where: RenderPropTypeWhere\n  ) {\n    deleteRenderPropTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteRenderPropTypes(\n    $delete: RenderPropTypeDeleteInput\n    $where: RenderPropTypeWhere\n  ) {\n    deleteRenderPropTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteRichTextTypes(\n    $delete: RichTextTypeDeleteInput\n    $where: RichTextTypeWhere\n  ) {\n    deleteRichTextTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteRichTextTypes(\n    $delete: RichTextTypeDeleteInput\n    $where: RichTextTypeWhere\n  ) {\n    deleteRichTextTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteEnumTypes(\n    $delete: EnumTypeDeleteInput\n    $where: EnumTypeWhere\n  ) {\n    deleteEnumTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n    deleteEnumTypeValues(where: { enumTypeConnection: { node: $where } }) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteEnumTypes(\n    $delete: EnumTypeDeleteInput\n    $where: EnumTypeWhere\n  ) {\n    deleteEnumTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n    deleteEnumTypeValues(where: { enumTypeConnection: { node: $where } }) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteLambdaTypes(\n    $delete: LambdaTypeDeleteInput\n    $where: LambdaTypeWhere\n  ) {\n    deleteLambdaTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteLambdaTypes(\n    $delete: LambdaTypeDeleteInput\n    $where: LambdaTypeWhere\n  ) {\n    deleteLambdaTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeletePageTypes(\n    $delete: PageTypeDeleteInput\n    $where: PageTypeWhere\n  ) {\n    deletePageTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeletePageTypes(\n    $delete: PageTypeDeleteInput\n    $where: PageTypeWhere\n  ) {\n    deletePageTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {\n    deleteAppTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {\n    deleteAppTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteActionTypes(\n    $delete: ActionTypeDeleteInput\n    $where: ActionTypeWhere\n  ) {\n    deleteActionTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteActionTypes(\n    $delete: ActionTypeDeleteInput\n    $where: ActionTypeWhere\n  ) {\n    deleteActionTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteCodeMirrorTypes(\n    $delete: CodeMirrorTypeDeleteInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    deleteCodeMirrorTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteCodeMirrorTypes(\n    $delete: CodeMirrorTypeDeleteInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    deleteCodeMirrorTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n',
+): (typeof documents)['\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n',
+): (typeof documents)['\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetTypes($ids: [ID!]) {\n    actionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    appTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    arrayTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    codeMirrorTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    elementTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    enumTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    lambdaTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    pageTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    primitiveTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    reactNodeTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    renderPropTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    richTextTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetTypes($ids: [ID!]) {\n    actionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    appTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    arrayTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    codeMirrorTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    elementTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    enumTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    lambdaTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    pageTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    primitiveTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    reactNodeTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    renderPropTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    richTextTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetDescendants($ids: [ID!]) {\n    arrayTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n  }\n',
+): (typeof documents)['\n  query GetDescendants($ids: [ID!]) {\n    arrayTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      descendantTypesIds\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetPrimitiveTypes(\n    $options: PrimitiveTypeOptions\n    $where: PrimitiveTypeWhere\n  ) {\n    types: primitiveTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetPrimitiveTypes(\n    $options: PrimitiveTypeOptions\n    $where: PrimitiveTypeWhere\n  ) {\n    types: primitiveTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {\n    types: arrayTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {\n    types: arrayTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {\n    types: unionTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {\n    types: unionTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetInterfaceTypes(\n    $options: InterfaceTypeOptions\n    $where: InterfaceTypeWhere\n  ) {\n    types: interfaceTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetInterfaceTypes(\n    $options: InterfaceTypeOptions\n    $where: InterfaceTypeWhere\n  ) {\n    types: interfaceTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetElementTypes(\n    $options: ElementTypeOptions\n    $where: ElementTypeWhere\n  ) {\n    types: elementTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetElementTypes(\n    $options: ElementTypeOptions\n    $where: ElementTypeWhere\n  ) {\n    types: elementTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetRenderPropTypes(\n    $options: RenderPropTypeOptions\n    $where: RenderPropTypeWhere\n  ) {\n    types: renderPropTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetRenderPropTypes(\n    $options: RenderPropTypeOptions\n    $where: RenderPropTypeWhere\n  ) {\n    types: renderPropTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetReactNodeTypes(\n    $options: ReactNodeTypeOptions\n    $where: ReactNodeTypeWhere\n  ) {\n    types: reactNodeTypes(options: $options, where: $where) {\n      ...ReactNodeType\n    }\n  }\n',
+): (typeof documents)['\n  query GetReactNodeTypes(\n    $options: ReactNodeTypeOptions\n    $where: ReactNodeTypeWhere\n  ) {\n    types: reactNodeTypes(options: $options, where: $where) {\n      ...ReactNodeType\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetRichTextTypes(\n    $options: RichTextTypeOptions\n    $where: RichTextTypeWhere\n  ) {\n    types: richTextTypes(options: $options, where: $where) {\n      ...RichTextType\n    }\n  }\n',
+): (typeof documents)['\n  query GetRichTextTypes(\n    $options: RichTextTypeOptions\n    $where: RichTextTypeWhere\n  ) {\n    types: richTextTypes(options: $options, where: $where) {\n      ...RichTextType\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {\n    types: enumTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {\n    types: enumTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {\n    types: lambdaTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {\n    types: lambdaTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {\n    types: pageTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {\n    types: pageTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {\n    types: appTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {\n    types: appTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {\n    types: actionTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {\n    types: actionTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetCodeMirrorTypes(\n    $options: CodeMirrorTypeOptions\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: codeMirrorTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
+): (typeof documents)['\n  query GetCodeMirrorTypes(\n    $options: CodeMirrorTypeOptions\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: codeMirrorTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n',
+): (typeof documents)['\n  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      id\n      name\n      type\n    }\n  }\n',
+): (typeof documents)['\n  query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      id\n      name\n      type\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query InterfaceForm_GetActions($appId: ID) {\n    apiActions {\n      id\n      name\n    }\n    codeActions {\n      id\n      name\n    }\n  }\n',
+): (typeof documents)['\n  query InterfaceForm_GetActions($appId: ID) {\n    apiActions {\n      id\n      name\n    }\n    codeActions {\n      id\n      name\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {\n    stores(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n',
+): (typeof documents)['\n  query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {\n    stores(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query InterfaceForm_GetResource(\n    $options: ResourceOptions\n    $where: ResourceWhere\n  ) {\n    resources(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n',
+): (typeof documents)['\n  query InterfaceForm_GetResource(\n    $options: ResourceOptions\n    $where: ResourceWhere\n  ) {\n    resources(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query InterfaceForm_GetPages($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n',
+): (typeof documents)['\n  query InterfaceForm_GetPages($options: PageOptions, $where: PageWhere) {\n    pages(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query IsTypeDescendantOf($descendantTypeId: ID!, $parentTypeId: ID!) {\n    isTypeDescendantOf(\n      descendantTypeId: $descendantTypeId\n      parentTypeId: $parentTypeId\n    )\n  }\n',
+): (typeof documents)['\n  query IsTypeDescendantOf($descendantTypeId: ID!, $parentTypeId: ID!) {\n    isTypeDescendantOf(\n      descendantTypeId: $descendantTypeId\n      parentTypeId: $parentTypeId\n    )\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetTypeReferences($typeId: ID!) {\n    getTypeReferences(typeId: $typeId) {\n      label\n      name\n    }\n  }\n',
+): (typeof documents)['\n  query GetTypeReferences($typeId: ID!) {\n    getTypeReferences(typeId: $typeId) {\n      label\n      name\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdatePrimitiveTypes(\n    $connect: PrimitiveTypeConnectInput\n    $create: PrimitiveTypeRelationInput\n    $delete: PrimitiveTypeDeleteInput\n    $disconnect: PrimitiveTypeDisconnectInput\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdatePrimitiveTypes(\n    $connect: PrimitiveTypeConnectInput\n    $create: PrimitiveTypeRelationInput\n    $delete: PrimitiveTypeDeleteInput\n    $disconnect: PrimitiveTypeDisconnectInput\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateArrayTypes(\n    $connect: ArrayTypeConnectInput\n    $create: ArrayTypeRelationInput\n    $delete: ArrayTypeDeleteInput\n    $disconnect: ArrayTypeDisconnectInput\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateArrayTypes(\n    $connect: ArrayTypeConnectInput\n    $create: ArrayTypeRelationInput\n    $delete: ArrayTypeDeleteInput\n    $disconnect: ArrayTypeDisconnectInput\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateUnionTypes(\n    $connect: UnionTypeConnectInput\n    $create: UnionTypeRelationInput\n    $delete: UnionTypeDeleteInput\n    $disconnect: UnionTypeDisconnectInput\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateUnionTypes(\n    $connect: UnionTypeConnectInput\n    $create: UnionTypeRelationInput\n    $delete: UnionTypeDeleteInput\n    $disconnect: UnionTypeDisconnectInput\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateInterfaceTypes(\n    $connect: InterfaceTypeConnectInput\n    $create: InterfaceTypeRelationInput\n    $delete: InterfaceTypeDeleteInput\n    $disconnect: InterfaceTypeDisconnectInput\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateInterfaceTypes(\n    $connect: InterfaceTypeConnectInput\n    $create: InterfaceTypeRelationInput\n    $delete: InterfaceTypeDeleteInput\n    $disconnect: InterfaceTypeDisconnectInput\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateReactNodeTypes(\n    $connect: ReactNodeTypeConnectInput\n    $create: ReactNodeTypeRelationInput\n    $delete: ReactNodeTypeDeleteInput\n    $disconnect: ReactNodeTypeDisconnectInput\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateReactNodeTypes(\n    $connect: ReactNodeTypeConnectInput\n    $create: ReactNodeTypeRelationInput\n    $delete: ReactNodeTypeDeleteInput\n    $disconnect: ReactNodeTypeDisconnectInput\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateElementTypes(\n    $connect: ElementTypeConnectInput\n    $create: ElementTypeRelationInput\n    $delete: ElementTypeDeleteInput\n    $disconnect: ElementTypeDisconnectInput\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateElementTypes(\n    $connect: ElementTypeConnectInput\n    $create: ElementTypeRelationInput\n    $delete: ElementTypeDeleteInput\n    $disconnect: ElementTypeDisconnectInput\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateRenderPropTypes(\n    $connect: RenderPropTypeConnectInput\n    $create: RenderPropTypeRelationInput\n    $delete: RenderPropTypeDeleteInput\n    $disconnect: RenderPropTypeDisconnectInput\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateRenderPropTypes(\n    $connect: RenderPropTypeConnectInput\n    $create: RenderPropTypeRelationInput\n    $delete: RenderPropTypeDeleteInput\n    $disconnect: RenderPropTypeDisconnectInput\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateEnumTypes(\n    $connect: EnumTypeConnectInput\n    $create: EnumTypeRelationInput\n    $delete: EnumTypeDeleteInput\n    $disconnect: EnumTypeDisconnectInput\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateEnumTypes(\n    $connect: EnumTypeConnectInput\n    $create: EnumTypeRelationInput\n    $delete: EnumTypeDeleteInput\n    $disconnect: EnumTypeDisconnectInput\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateLambdaTypes(\n    $connect: LambdaTypeConnectInput\n    $create: LambdaTypeRelationInput\n    $delete: LambdaTypeDeleteInput\n    $disconnect: LambdaTypeDisconnectInput\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateLambdaTypes(\n    $connect: LambdaTypeConnectInput\n    $create: LambdaTypeRelationInput\n    $delete: LambdaTypeDeleteInput\n    $disconnect: LambdaTypeDisconnectInput\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdatePageTypes(\n    $connect: PageTypeConnectInput\n    $create: PageTypeRelationInput\n    $delete: PageTypeDeleteInput\n    $disconnect: PageTypeDisconnectInput\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdatePageTypes(\n    $connect: PageTypeConnectInput\n    $create: PageTypeRelationInput\n    $delete: PageTypeDeleteInput\n    $disconnect: PageTypeDisconnectInput\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateAppTypes(\n    $connect: AppTypeConnectInput\n    $create: AppTypeRelationInput\n    $delete: AppTypeDeleteInput\n    $disconnect: AppTypeDisconnectInput\n    $update: AppTypeUpdateInput\n    $where: AppTypeWhere\n  ) {\n    types: updateAppTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateAppTypes(\n    $connect: AppTypeConnectInput\n    $create: AppTypeRelationInput\n    $delete: AppTypeDeleteInput\n    $disconnect: AppTypeDisconnectInput\n    $update: AppTypeUpdateInput\n    $where: AppTypeWhere\n  ) {\n    types: updateAppTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateRichTextTypes(\n    $connect: RichTextTypeConnectInput\n    $create: RichTextTypeRelationInput\n    $delete: RichTextTypeDeleteInput\n    $disconnect: RichTextTypeDisconnectInput\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateRichTextTypes(\n    $connect: RichTextTypeConnectInput\n    $create: RichTextTypeRelationInput\n    $delete: RichTextTypeDeleteInput\n    $disconnect: RichTextTypeDisconnectInput\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateActionTypes(\n    $connect: ActionTypeConnectInput\n    $create: ActionTypeRelationInput\n    $delete: ActionTypeDeleteInput\n    $disconnect: ActionTypeDisconnectInput\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateActionTypes(\n    $connect: ActionTypeConnectInput\n    $create: ActionTypeRelationInput\n    $delete: ActionTypeDeleteInput\n    $disconnect: ActionTypeDisconnectInput\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

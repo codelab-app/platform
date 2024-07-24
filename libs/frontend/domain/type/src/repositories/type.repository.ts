@@ -1,0 +1,103 @@
+import type {
+  ITypeModel,
+  ITypeRepository,
+} from '@codelab/frontend/abstract/domain'
+import type { GetBaseTypesOptions } from '@codelab/frontend/infra/gql'
+import type { IBaseTypeWhere } from '@codelab/shared/abstract/codegen'
+import sortBy from 'lodash/sortBy'
+import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
+import {
+  createTypeApi,
+  deleteTypeApi,
+  getAllTypes,
+  getTypeApi,
+  updateTypeApi,
+} from './type.api'
+
+export const typeRepository: ITypeRepository = {
+  add: async (type: ITypeModel) => {
+    const createdTypes = await createTypeApi[type.kind]([type.toCreateInput()])
+
+    return createdTypes[0]
+  },
+
+  delete: async (types: Array<ITypeModel>) => {
+    const results = await Promise.all(
+      types.map((type) => deleteTypeApi[type.kind]({ where: { id: type.id } })),
+    )
+
+    const nodesDeleted = results.reduce(
+      (acc, result) => acc + result.nodesDeleted,
+      0,
+    )
+
+    return nodesDeleted
+  },
+
+  find: async (where: IBaseTypeWhere) => {
+    const ids = where.id_IN ?? undefined
+    const types = await getAllTypes(ids)
+
+    return { aggregate: { count: types.length }, items: types }
+  },
+
+  findBaseTypes: async ({ limit, offset, where }: GetBaseTypesOptions) => {
+    const {
+      baseTypes: { items, totalCount },
+    } = await getTypeApi.GetBaseTypes({
+      options: {
+        limit,
+        offset,
+        where,
+      },
+    })
+
+    return {
+      items,
+      totalCount,
+    }
+  },
+
+  findDescendants: async (parentIds: Array<string>) => {
+    const { arrayTypes, interfaceTypes, unionTypes } =
+      await getTypeApi.GetDescendants({ ids: parentIds })
+
+    const allDescendantIdsWithoutParents = [
+      ...arrayTypes,
+      ...unionTypes,
+      ...interfaceTypes,
+    ]
+      .reduce<Array<string>>(
+        (descendantIds, { descendantTypesIds }) => [
+          ...descendantIds,
+          ...descendantTypesIds.flat(),
+        ],
+        [],
+      )
+      .filter((id) => !parentIds.includes(id))
+
+    if (allDescendantIdsWithoutParents.length === 0) {
+      return []
+    }
+
+    return getAllTypes(allDescendantIdsWithoutParents)
+  },
+
+  findOne: async (where: IBaseTypeWhere) => {
+    return (await typeRepository.find(where)).items[0]
+  },
+
+  findOptions: async () => {
+    const {
+      baseTypes: { items },
+    } = await getTypeApi.GetTypeOptions({})
+
+    return sortBy(items, 'name')
+  },
+
+  update: async (type: ITypeModel) => {
+    const updatedType = await updateTypeApi[type.kind](type.toUpdateInput())
+
+    return updatedType[0]!
+  },
+}

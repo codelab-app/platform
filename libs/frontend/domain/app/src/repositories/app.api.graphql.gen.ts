@@ -1,0 +1,141 @@
+import * as Types from '@codelab/frontend/infra/gql'
+
+import { graphql } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import {
+  AppPreviewFragmentDoc,
+  AppFragmentDoc,
+  AppProductionFragmentDoc,
+  AtomDevelopmentFragmentDoc,
+  AtomProductionFragmentDoc,
+  ResourceFragmentDoc,
+} from '@codelab/frontend/infra/gql'
+
+export const CreateAppsDocument = graphql(`
+  mutation CreateApps($input: [AppCreateInput!]!) {
+    createApps(input: $input) {
+      apps {
+        id
+      }
+    }
+  }
+`)
+
+export const UpdateAppsDocument = graphql(`
+  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
+    updateApps(update: $update, where: $where) {
+      apps {
+        id
+      }
+    }
+  }
+`)
+
+export const DeleteAppsDocument = graphql(`
+  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
+    deleteApps(delete: $delete, where: $where) {
+      nodesDeleted
+    }
+  }
+`)
+
+export const AppListPreviewDocument = graphql(`
+  query AppListPreview($options: AppOptions, $where: AppWhere) {
+    aggregate: appsAggregate(where: $where) {
+      count
+    }
+    items: apps(options: $options, where: $where) {
+      ...AppPreview
+    }
+  }
+`)
+
+export const GetAppsDocument = graphql(`
+  query GetApps($options: AppOptions, $where: AppWhere) {
+    aggregate: appsAggregate(where: $where) {
+      count
+    }
+    items: apps(options: $options, where: $where) {
+      ...App
+    }
+  }
+`)
+
+export const AppListDocument = graphql(`
+  query AppList($options: AppOptions, $where: AppWhere) {
+    apps(options: $options, where: $where) {
+      ...AppPreview
+    }
+    atoms(where: { type: ReactFragment }) {
+      ...AtomDevelopment
+    }
+  }
+`)
+
+export const GetAppProductionDocument = graphql(`
+  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
+    apps(where: { domains_SOME: { name_IN: [$domain] } }) {
+      ...AppProduction
+    }
+    atoms(where: { type: ReactFragment }) {
+      ...AtomProduction
+    }
+    resources {
+      ...Resource
+    }
+  }
+`)
+import {
+  type CreateAppsMutationVariables,
+  type UpdateAppsMutationVariables,
+  type DeleteAppsMutationVariables,
+  type AppListPreviewQueryVariables,
+  type GetAppsQueryVariables,
+  type AppListQueryVariables,
+  type GetAppProductionQueryVariables,
+} from '@codelab/frontend/infra/gql'
+
+const CreateApps = (
+  variables: CreateAppsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(CreateAppsDocument, variables, next)
+
+const UpdateApps = (
+  variables: UpdateAppsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(UpdateAppsDocument, variables, next)
+
+const DeleteApps = (
+  variables: DeleteAppsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(DeleteAppsDocument, variables, next)
+
+const AppListPreview = (
+  variables: AppListPreviewQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(AppListPreviewDocument, variables, next)
+
+const GetApps = (
+  variables: GetAppsQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(GetAppsDocument, variables, next)
+
+const AppList = (
+  variables: AppListQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(AppListDocument, variables, next)
+
+const GetAppProduction = (
+  variables: GetAppProductionQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(GetAppProductionDocument, variables, next)
+
+export const getSdk = () => ({
+  CreateApps,
+  UpdateApps,
+  DeleteApps,
+  AppListPreview,
+  GetApps,
+  AppList,
+  GetAppProduction,
+})

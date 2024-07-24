@@ -6,19 +6,9 @@ import type {
 } from '@codelab/frontend/infra/gql'
 import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-const DeleteComponentsDocument = graphql(`
-  mutation DeleteComponents(
-    $where: ComponentWhere!
-    $delete: ComponentDeleteInput
-  ) {
-    deleteComponents(delete: $delete, where: $where) {
-      nodesDeleted
-    }
-  }
-`)
+import { componentApi } from './component.api'
 
 export const deleteComponentRepository = (
   where: ComponentWhere,
   $delete?: ComponentDeleteInput,
-) => gqlFetch(DeleteComponentsDocument, { delete: $delete, where })
+) => componentApi.DeleteComponents({ delete: $delete, where })

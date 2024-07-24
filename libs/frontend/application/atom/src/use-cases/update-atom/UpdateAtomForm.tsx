@@ -12,14 +12,18 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { SelectAtom } from '../select-atom'
+import { useUpdateAtomAction } from './update-atom.action'
 import { updateAtomSchema } from './update-atom.schema'
+import { useUpdateAtomModal } from './update-atom-modal.state'
 
 export const UpdateAtomForm = observer(() => {
-  const { atomService, tagService } = useStore()
-  const atom = atomService.updateForm.atom
+  const { tagService } = useStore()
+  const updateAtomForm = useUpdateAtomModal()
+  const updateAtomAction = useUpdateAtomAction
+  const atom = updateAtomForm.data?.current
 
   const onSubmit = (atomDTO: IUpdateAtomData) => {
-    return atomService.update(atomDTO)
+    return updateAtomAction(atomDTO)
   }
 
   const onSubmitError = createFormErrorNotificationHandler({

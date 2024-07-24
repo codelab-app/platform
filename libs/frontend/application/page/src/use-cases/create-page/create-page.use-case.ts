@@ -77,7 +77,7 @@ export const createPageUseCase: ICreatePageUseCase = async (
     urlPattern: urlPattern ?? `/${slugify(name)}`,
   })
 
-  await createPageRepository(page.toCreateInput())
+  await createPageRepository(page)
 
   return page
 

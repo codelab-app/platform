@@ -12,7 +12,6 @@ import {
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend-application-atom/services'
 import { getPropService } from '@codelab/frontend-application-prop/services'
 import { getTypeService } from '@codelab/frontend-application-type/services'
 import { ElementDomainService } from '@codelab/frontend-domain-element/services'
@@ -300,11 +299,6 @@ export class ElementService
             Boolean(selectElementOption),
         ) ?? []
     )
-  }
-
-  @computed
-  private get atomService() {
-    return getAtomService(this)
   }
 
   @computed

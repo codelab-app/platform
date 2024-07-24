@@ -16,7 +16,6 @@ import type {
   IEntityFormService,
   IEntityModalService,
 } from '../services'
-import type { IFieldRepository } from './field.repo.interface'
 
 export interface IFieldService
   extends Omit<
@@ -40,7 +39,6 @@ export interface IFieldService
     { interface?: IInterfaceTypeModel }
   >
   fieldDomainService: IFieldDomainService
-  fieldRepository: IFieldRepository
 
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   delete(fields: Array<IFieldModel>): Promise<number>

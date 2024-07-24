@@ -5,19 +5,9 @@ import {
   type UpdatePagesMutationVariables,
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-const UpdatePagesMutation = graphql(`
-  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
-    updatePages(update: $update, where: $where) {
-      pages {
-        id
-      }
-    }
-  }
-`)
+import { pageApi } from './page.api'
 
 export const updatePageRepository = async ({
   update,
   where,
-}: UpdatePagesMutationVariables) =>
-  await gqlFetch(UpdatePagesMutation, { update, where })
+}: UpdatePagesMutationVariables) => await pageApi.UpdatePages({ update, where })

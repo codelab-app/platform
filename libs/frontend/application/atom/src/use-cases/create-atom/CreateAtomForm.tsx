@@ -17,7 +17,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useCreateAtomAction } from './create-atom.action'
 import { createAtomSchema } from './create-atom.schema'
+import { useCreateAtomModal } from './create-atom-modal.state'
 
 interface CreateAtomFormProps {
   showFormControl?: boolean
@@ -32,11 +34,13 @@ export const CreateAtomForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateAtomFormProps) => {
-    const { atomService, tagService } = useStore()
-    const closeForm = () => atomService.createForm.close()
+    const { tagService } = useStore()
+    const createAtomAction = useCreateAtomAction
+    const createAtomForm = useCreateAtomModal()
+    const closeForm = () => createAtomForm.close()
 
     const onSubmit = async (data: ICreateAtomData) => {
-      const res = await atomService.create(data)
+      const res = await createAtomAction(data)
 
       onSubmitSuccess?.()
 

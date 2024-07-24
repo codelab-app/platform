@@ -8,9 +8,9 @@ export const createAppUseCase: IAppService['createApp'] = async (
   appDto: IAppDto,
   appDomainService: IAppDomainService,
 ) => {
-  const appModel = appDomainService.create(appDto)
+  const app = appDomainService.create(appDto)
 
-  await createAppRepository(appModel.toCreateInput())
+  await createAppRepository(app)
 
   await invalidateAppListQuery()
 }

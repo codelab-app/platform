@@ -1,0 +1,36 @@
+mutation CreatePages($input: [PageCreateInput!]!) {
+  createPages(input: $input) {
+    pages {
+      id
+    }
+  }
+}
+
+mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
+  deletePages(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+
+mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
+  updatePages(update: $update, where: $where) {
+    pages {
+      id
+    }
+  }
+}
+
+query PageList($options: PageOptions, $where: PageWhere) {
+  aggregate: pagesAggregate(where: $where) {
+    count
+  }
+  items: pages(options: $options, where: $where) {
+    ...Page
+  }
+}
+
+query GetRenderedPage($pageId: ID!) {
+  pages(where: { id: $pageId }) {
+    ...PageDevelopment
+  }
+}

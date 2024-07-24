@@ -5,17 +5,8 @@ import {
   graphql,
 } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-const CreateDomainsMutation = graphql(`
-  mutation CreateDomains($input: [DomainCreateInput!]!) {
-    createDomains(input: $input) {
-      domains {
-        id
-      }
-    }
-  }
-`)
+import { domainApi } from './domain.api'
 
 export const createDomainRepository = async ({
   input,
-}: CreateDomainsMutationVariables) => gqlFetch(CreateDomainsMutation, { input })
+}: CreateDomainsMutationVariables) => domainApi.CreateDomains({ input })

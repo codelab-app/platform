@@ -1,41 +1,48 @@
-import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+import type {
+  MODEL_ACTION,
+  ModelActionKey,
+} from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'
+import { atomFamily } from 'jotai/utils'
 
 interface ModalState<T = unknown> {
   data?: T
   isOpen: boolean
+  key: ModelActionKey
 }
 
-interface ModalsAtom<T> {
-  [key: string]: ModalState<T>
-}
+/**
+ * atom family is used for dynamic atoms
+ */
+const modalStateAtomFamily = <T>() =>
+  atomFamily((key: ModelActionKey) =>
+    atom<ModalState<T>>({ data: undefined, isOpen: false, key }),
+  )
 
-const modalsAtom = atom({})
-
-const useModalState = <T>(key: ModelActionKey) => {
-  const [modalState, setModalState] = useAtom<ModalsAtom<T>>(modalsAtom)
+export const useModalState = <T>(key: ModelActionKey) => {
+  const [modalState, setModalState] = useAtom(modalStateAtomFamily<T>()(key))
 
   const open = (data?: T) => {
     setModalState((state) => ({
       ...state,
-      [key]: { data, isOpen: true },
+      data,
+      isOpen: true,
     }))
   }
 
   const close = () => {
     setModalState((state) => ({
       ...state,
-      [key]: { data: undefined, isOpen: false },
+      data: undefined,
+      isOpen: false,
     }))
   }
 
   return {
     close,
-    data: modalState[key]?.data,
-    isOpen: modalState[key]?.isOpen,
-    modalState: modalState[key],
+    data: modalState.data,
+    isOpen: modalState.isOpen,
+    modalState,
     open,
   }
 }
-
-export { useModalState }

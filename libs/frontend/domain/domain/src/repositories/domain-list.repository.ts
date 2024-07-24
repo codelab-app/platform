@@ -6,24 +6,13 @@ import {
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { revalidateTag } from 'next/cache'
-
-const DomainListDocument = graphql(`
-  query DomainList($options: DomainOptions, $where: DomainWhere) {
-    aggregate: domainsAggregate(where: $where) {
-      count
-    }
-    items: domains(options: $options, where: $where) {
-      ...Domain
-    }
-  }
-`)
+import { domainApi } from './domain.api'
 
 export const domainListRepository = async ({
   options,
   where,
 }: DomainListQueryVariables): Promise<{ domains: Array<IDomainDto> }> => {
-  const { items: domains } = await gqlFetch(
-    DomainListDocument,
+  const { items: domains } = await domainApi.DomainList(
     {
       options,
       where,

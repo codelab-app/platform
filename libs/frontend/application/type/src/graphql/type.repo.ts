@@ -13,7 +13,7 @@ import {
   getAllTypes,
   getTypeApi,
   updateTypeApi,
-} from './type.api'
+} from '../../../../domain/type/src/repositories/type.api'
 
 @model('@codelab/TypeRepository')
 export class TypeRepository extends Model({}) implements ITypeRepository {

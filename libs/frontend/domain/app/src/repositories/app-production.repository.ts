@@ -6,28 +6,15 @@ import type { AtomProductionFragment } from '@codelab/frontend/infra/gql'
 import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import uniqBy from 'lodash/uniqBy'
+import { appApi } from './app.api'
 
 //  In production we have domain and pageUrlPattern we filter app by domain and page by url
-export const AppProductionDocument = graphql(`
-  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
-    apps(where: { domains_SOME: { name_IN: [$domain] } }) {
-      ...AppProduction
-    }
-    # Need to load all dependent types
-    atoms(where: { type: ReactFragment }) {
-      ...AtomProduction
-    }
-    resources {
-      ...Resource
-    }
-  }
-`)
 
 export const appProductionRepository = async ({
   domainSlug,
   pageUrlPattern,
 }: IAppProductionArgs): Promise<IAppProductionDto> => {
-  const data = await gqlFetch(AppProductionDocument, {
+  const data = await appApi.GetAppProduction({
     domain: domainSlug,
     pageUrlPattern,
   })

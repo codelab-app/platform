@@ -15,30 +15,34 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import React from 'react'
+import { useDeleteAtomsModal } from '../delete-atom/delete-atoms-modal.state'
+import { useUpdateAtomModal } from '../update-atom/update-atom-modal.state'
 
 interface AtomsTreeItemProps {
   data: ITreeNode<IAtomTreeNodeData>
 }
 
 export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
-  const { atomService, fieldService } = useStore()
+  const { fieldService } = useStore()
   const { popover } = useCui()
   const { node, type } = data.extraData
   const icon = type === 'atom' ? node.library.icon : null
+  const updateAtomForm = useUpdateAtomModal()
+  const deleteAtomsModal = useDeleteAtomsModal()
 
   const onEdit = () => {
     if (type === 'atom') {
-      atomService.updateForm.open(atomRef(node))
+      updateAtomForm.open(atomRef(node))
       fieldService.updateForm.close()
     } else {
       fieldService.updateForm.open(fieldRef(node))
-      atomService.updateForm.close()
+      updateAtomForm.close()
     }
   }
 
   const onDelete = () => {
     if (type === 'atom') {
-      atomService.deleteManyModal.open([atomRef(node)])
+      deleteAtomsModal.open([atomRef(node)])
     } else {
       fieldService.deleteModal.open(fieldRef(node))
     }
