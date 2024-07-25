@@ -13,7 +13,7 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import React from 'react'
 import { useDeleteAtomsModal } from '../delete-atom/delete-atoms.state'
 import { useUpdateAtomModal } from '../update-atom/update-atom.state'

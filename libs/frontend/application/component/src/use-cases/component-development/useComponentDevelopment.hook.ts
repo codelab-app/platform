@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useComponentQuery } from '@codelab/frontend/presentation/container'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 

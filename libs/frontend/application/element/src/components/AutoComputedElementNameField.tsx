@@ -1,5 +1,5 @@
 'use client'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'

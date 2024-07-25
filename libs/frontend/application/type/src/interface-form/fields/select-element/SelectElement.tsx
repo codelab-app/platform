@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { SelectElementOption } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
