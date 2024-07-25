@@ -3,7 +3,7 @@ import {
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'

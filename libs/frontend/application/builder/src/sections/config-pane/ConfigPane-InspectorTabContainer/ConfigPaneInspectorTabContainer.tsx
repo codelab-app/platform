@@ -17,7 +17,7 @@ import { MoveElementForm } from '@codelab/frontend-application-element/use-cases
 import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
 import { UpdateElementPropsForm } from '@codelab/frontend-application-element/use-cases/update-element-props'
 import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'

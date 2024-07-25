@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { elementRef } from '@codelab/frontend/abstract/domain'
 import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { ClickOverlay } from '@codelab/frontend-presentation-view/components/overlay'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'

@@ -2,7 +2,7 @@ import type {
   IAppDevelopmentArgs,
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { appDevelopmentApi } from '@codelab/frontend-domain-app/repositories'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'

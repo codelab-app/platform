@@ -4,7 +4,7 @@ import {
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   DisplayIfField,
   Form,

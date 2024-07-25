@@ -3,7 +3,7 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

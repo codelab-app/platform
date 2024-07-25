@@ -3,7 +3,7 @@ import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { ActionFactory } from '@codelab/frontend-domain-action/store'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import type {

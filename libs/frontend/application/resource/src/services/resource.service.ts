@@ -1,5 +1,5 @@
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import type {

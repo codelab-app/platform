@@ -7,7 +7,7 @@ import type {
   AtomDevelopmentFragment,
   GetComponentDevelopmentQuery,
 } from '@codelab/frontend/infra/gql'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { componentDevelopmentApi } from '@codelab/frontend-domain-component/repositories'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'

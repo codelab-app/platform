@@ -13,7 +13,7 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import React from 'react'

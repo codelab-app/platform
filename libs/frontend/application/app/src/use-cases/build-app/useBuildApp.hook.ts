@@ -3,7 +3,7 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useState } from 'react'
 import { buildAppUseCase } from './build-app.use-case'
 

@@ -1,6 +1,6 @@
 import { type ICreateAtomData } from '@codelab/frontend/abstract/domain'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   atomListRepository,
   createAtomRepository,

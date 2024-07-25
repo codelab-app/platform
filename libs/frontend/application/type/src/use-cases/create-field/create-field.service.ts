@@ -1,4 +1,4 @@
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import { fieldService } from '../../services'
 

@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type {
   ICreateActionData,
   IUpdateActionData,

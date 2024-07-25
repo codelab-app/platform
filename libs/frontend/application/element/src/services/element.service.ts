@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'

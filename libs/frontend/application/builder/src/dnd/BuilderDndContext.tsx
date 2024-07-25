@@ -7,7 +7,7 @@ import {
   DropIndicator,
   DropOverlay,
 } from '@codelab/frontend-application-dnd/components'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 import { DndContext, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'

@@ -6,7 +6,7 @@ import type {
 import { type CheckedKeys, PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'

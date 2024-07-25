@@ -1,5 +1,5 @@
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
 import { ITypeKind } from '@codelab/shared/abstract/core'

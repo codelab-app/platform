@@ -14,7 +14,7 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 
