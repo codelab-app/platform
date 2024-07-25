@@ -1,11 +1,7 @@
 'use server'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import {
-  type ComponentListQueryVariables,
-  graphql,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { type ComponentListQueryVariables } from '@codelab/frontend/infra/gql'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { componentApi } from './component.api'
 

@@ -6,17 +6,17 @@ import {
   MODEL_UI,
   PageType,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebar,
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { CreateAtomModal, CreateAtomPopover } from '../create-atom'
-import { useCreateAtomModal } from '../create-atom/create-atom-modal.state'
+import { CreateAtomPopover } from '../create-atom'
+import { useCreateAtomModal } from '../create-atom/create-atom.state'
 import { AtomsTreeView } from './AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {

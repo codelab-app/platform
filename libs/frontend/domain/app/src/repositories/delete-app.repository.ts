@@ -3,7 +3,6 @@
 import type {
   IAppModel,
   IAppRepository,
-  IRepository,
 } from '@codelab/frontend/abstract/domain'
 import { App } from '../store'
 import { appApi } from './app.api'

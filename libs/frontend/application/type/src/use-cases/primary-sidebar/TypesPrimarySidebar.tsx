@@ -4,12 +4,12 @@ import {
   MODEL_UI,
   PageType,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebar,
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateFieldPopover } from '../create-field'

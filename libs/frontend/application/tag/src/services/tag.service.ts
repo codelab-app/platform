@@ -1,162 +1,141 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
-import {
-  InlineFormService,
-  ModalService,
-} from '@codelab/frontend-application-shared-store/ui'
-import { TagDomainService } from '@codelab/frontend-domain-tag/services'
+import type { TagOptions, TagWhere } from '@codelab/frontend/infra/gql'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
+import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTagData,
+  IRef,
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
+import { atom, useAtom } from 'jotai'
 import type { Ref } from 'mobx-keystone'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
-import { TagRepository } from './tag.repo'
-import { TagFormService } from './tag-form.service'
-import { TagModalService, TagsModalService } from './tag-modal.service'
 
-@model('@codelab/TagService')
-export class TagService
-  extends Model({
-    checkedTags: prop<Array<Ref<ITagModel>>>(() => []).withSetter(),
-    createForm: prop(() => new InlineFormService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteManyModal: prop(() => new TagsModalService({})),
-    paginationService: prop(
-      () => new PaginationService<ITagModel, { name?: string }>({}),
-    ),
-    tagDomainService: prop(() => new TagDomainService({})),
-    tagRepository: prop(() => new TagRepository({})),
-    updateForm: prop(() => new TagFormService({})),
-    updateModal: prop(() => new TagModalService({})),
-  })
-  implements ITagService
-{
-  @modelFlow
-  @transaction
-  create = _async(function* (this: TagService, data: ICreateTagData) {
-    const tag = this.tagDomainService.hydrate(data)
+const checkedTagsAtom = atom<Array<Ref<ITagModel>>>([])
 
-    yield* _await(this.tagRepository.add(tag))
+export const useTagService = (): ITagService => {
+  const { tagDomainService } = useDomainStore()
+  const [checkedTags, setCheckedTags] = useAtom(checkedTagsAtom)
 
-    this.paginationService.dataRefs.set(tag.id, tagRef(tag))
+  const getDataFn = async (
+    page: number,
+    pageSize: number,
+    filter: { name?: string },
+  ) => {
+    const {
+      aggregate: { count: totalItems },
+      items,
+    } = await tagRepository.find(
+      {
+        name_MATCHES: `(?i).*${filter.name ?? ''}.*`,
+        parentAggregate: { count: 0 },
+      },
+      {
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+      },
+    )
+
+    const tags = items.map((tag) => {
+      tag.children.forEach((child) => tagDomainService.hydrate(child))
+
+      return tagDomainService.hydrate(tag)
+    })
+
+    return { items: tags, totalItems }
+  }
+
+  const paginationService = usePaginationService<ITagModel, { name?: string }>(
+    'tag',
+    getDataFn,
+  )
+
+  const create = async (data: ICreateTagData) => {
+    const tag = tagDomainService.hydrate(data)
+
+    await tagRepository.add(tag)
+
+    paginationService.dataRefs.set(tag.id, tagRef(tag))
 
     if (!tag.parent) {
       return tag
     }
 
-    // Add the current tag to the parent as the child
     tag.parent.current.writeCache({
       children: [...tag.parent.current.children, tagRef(tag)],
     })
 
-    // Expand the parent tree node to show the newly created child
-    this.tagDomainService.setExpandedNodes([
-      ...this.tagDomainService.expandedNodes,
+    tagDomainService.setExpandedNodes([
+      ...tagDomainService.expandedNodes,
       tag.id,
     ])
 
     return tag
-  })
+  }
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: TagService, ids: Array<string>) {
-    const tags = yield* _await(this.getAll({ id_IN: ids }))
+  const remove = async (ids: Array<IRef>) => {
+    const tags = await getAll({ id_IN: ids.map(({ id }) => id) })
     const tagsToRemove = []
 
     for (const tag of tags) {
-      // Remove parent
-      this.tagDomainService.tags.delete(tag.id)
+      tagDomainService.tags.delete(tag.id)
       tagsToRemove.push(tag)
 
-      // Remove descendants
       tag.descendants.forEach((descendant) => {
         tagsToRemove.push(descendant)
-        this.tagDomainService.tags.delete(descendant.id)
+        tagDomainService.tags.delete(descendant.id)
       })
     }
 
-    return yield* _await(this.tagRepository.delete(tagsToRemove))
-  })
+    return await tagRepository.delete(tagsToRemove)
+  }
 
-  @modelFlow
-  @transaction
-  deleteCheckedTags = _async(function* (this: TagService) {
-    const checkedTags = this.checkedTags.map((checkedTag) => checkedTag.current)
-
-    checkedTags.length &&
-      (yield* _await(this.delete(checkedTags.map((tag) => tag.id))))
-  })
-
-  @modelFlow
-  @transaction
-  getAll = _async(function* (
-    this: TagService,
-    where?: TagWhere,
-    options?: TagOptions,
-  ) {
+  const getAll = async (where?: TagWhere, options?: TagOptions) => {
     const {
       aggregate: { count },
       items: tags,
-    } = yield* _await(this.tagRepository.find(where, options))
+    } = await tagRepository.find(where, options)
 
-    this.paginationService.totalItems = count
+    paginationService.totalItems = count
 
     return tags.map((tag) => {
-      /**
-       * Pagination may cause child data to not be loaded, we hydrate it separately here
-       */
-      tag.children.forEach((child) => this.tagDomainService.hydrate(child))
+      tag.children.forEach((child) => tagDomainService.hydrate(child))
 
-      return this.tagDomainService.hydrate(tag)
+      return tagDomainService.hydrate(tag)
     })
-  })
+  }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: TagService,
-    { id, name, parent }: IUpdateTagData,
-  ) {
-    const tag = this.tagDomainService.tags.get(id)
+  const update = async ({ id, name, parent }: IUpdateTagData) => {
+    const tag = tagDomainService.tags.get(id)
 
     assertIsDefined(tag)
 
     tag.writeCache({ name, parent })
 
-    yield* _await(this.tagRepository.update(tag))
+    await tagRepository.update(tag)
 
     return tag
-  })
+  }
 
-  onAttachedToRootStore() {
-    this.paginationService.getDataFn = async (page, pageSize, filter) => {
-      const items = await this.getAll(
-        {
-          name_MATCHES: `(?i).*${filter.name ?? ''}.*`,
-          // Fetch only the root tags
-          parentAggregate: { count: 0 },
-        },
-        {
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        },
-      )
+  const deleteCheckedTags = async () => {
+    const tagsToDelete = checkedTags.map((ref) => ({
+      id: ref.current.id,
+    }))
 
-      return { items, totalItems: this.paginationService.totalItems }
-    }
+    await remove(tagsToDelete)
+    setCheckedTags([])
+  }
+
+  return {
+    checkedTags,
+    create,
+    deleteCheckedTags,
+    getAll,
+    remove,
+    setCheckedTags,
+    update,
   }
 }

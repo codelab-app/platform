@@ -7,12 +7,12 @@ import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/applic
 import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'

@@ -1,8 +1,5 @@
+import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
 
 export const useRequiredParentValidator = () => {
   const { elementService } = useStore()
@@ -47,8 +44,8 @@ export const useRequiredParentValidator = () => {
     childElementId?: string,
     parentElementId?: string,
   ) => {
-    const parentElement = elementService.element(String(parentElementId))
-    const childElement = elementService.element(String(childElementId))
+    const parentElement = elementService.getElement(String(parentElementId))
+    const childElement = elementService.getElement(String(childElementId))
 
     return validate(childElement.renderType.id, parentElement.renderType.id)
   }
@@ -57,7 +54,7 @@ export const useRequiredParentValidator = () => {
     childAtomId?: string,
     parentElementId?: string,
   ) => {
-    const parentElement = elementService.element(String(parentElementId))
+    const parentElement = elementService.getElement(String(parentElementId))
 
     if (!childAtomId) {
       return true

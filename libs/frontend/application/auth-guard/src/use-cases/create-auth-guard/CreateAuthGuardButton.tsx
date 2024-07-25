@@ -1,17 +1,17 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useCreateAuthGuardModal } from './create-auth-guard.state'
 
 export const CreateAuthGuardButton = observer(() => {
-  const { authGuardService } = useStore()
+  const createAuthGuardModal = useCreateAuthGuardModal()
 
   return (
     <Button
       className="size-full"
       icon={<PlusOutlined />}
-      onClick={() => authGuardService.createModal.open()}
+      onClick={() => createAuthGuardModal.open()}
       type="primary"
     />
   )

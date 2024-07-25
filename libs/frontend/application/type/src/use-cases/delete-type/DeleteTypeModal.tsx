@@ -1,6 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { typeApi } from '@codelab/frontend-domain-type/repositories'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
@@ -35,7 +35,7 @@ export const DeleteTypeModal = observer(() => {
       throw new Error(`Can't delete typed since it's referenced in ${label}`)
     }
 
-    await typeService.delete([typeToDelete])
+    await typeService.remove([typeToDelete])
 
     /**
      * typeService.delete writes into cache

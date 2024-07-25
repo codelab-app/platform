@@ -5,7 +5,6 @@ import type {
 import type { GetBaseTypesOptions } from '@codelab/frontend/infra/gql'
 import type { IBaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
-import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import {
   createTypeApi,
   deleteTypeApi,

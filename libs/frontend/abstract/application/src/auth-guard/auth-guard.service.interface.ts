@@ -1,5 +1,4 @@
 import type {
-  IAuthGuardDomainService,
   IAuthGuardModel,
   IAuthGuardRef,
   ICreateAuthGuardData,
@@ -11,13 +10,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
-import type { Ref } from 'mobx-keystone'
-import type {
-  ICRUDFormService,
-  ICRUDModalService,
-  ICRUDService,
-  IQueryService,
-} from '../services'
+import type { ICRUDService, IQueryService } from '../services'
 
 export interface IAuthGuardService
   extends ICRUDService<
@@ -25,10 +18,7 @@ export interface IAuthGuardService
       ICreateAuthGuardData,
       IUpdateAuthGuardData
     >,
-    IQueryService<IAuthGuardModel, AuthGuardWhere, AuthGuardOptions>,
-    ICRUDModalService<Ref<IAuthGuardModel>, { authGuard: IAuthGuardModel }>,
-    ICRUDFormService<Ref<IAuthGuardModel>, { authGuard: IAuthGuardModel }> {
-  authGuardDomainService: IAuthGuardDomainService
+    IQueryService<IAuthGuardModel, AuthGuardWhere, AuthGuardOptions> {
   authGuardList: Array<IAuthGuardModel>
 
   authGuard(authGuard: IAuthGuardRef): Maybe<IAuthGuardModel>

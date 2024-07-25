@@ -1,1 +1,2 @@
-export * from './domain.store'
+export * from './ApplicationStoreProvider'
+export * from './DomainStoreProvider'

@@ -1,5 +1,5 @@
 import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   HoverOverlay,
   MarginPaddingOverlay,

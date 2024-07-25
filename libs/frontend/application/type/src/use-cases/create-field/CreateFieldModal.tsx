@@ -1,6 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIfField,
   ModalForm,
@@ -14,6 +14,7 @@ import { v4 } from 'uuid'
 import { SelectDefaultValue } from '../../interface-form'
 import { TypeSelect } from '../select-types'
 import { createFieldSchema } from './create-field.schema'
+import { useCreateFieldModal } from './create-field.state'
 import {
   canSetDefaultValue,
   filterValidationRules,
@@ -26,8 +27,9 @@ import {
 
 export const CreateFieldModal = observer(() => {
   const { fieldService, typeService } = useStore()
-  const closeModal = () => fieldService.createModal.close()
-  const interfaceTypeId = fieldService.createModal.interface?.id
+  const createFieldModal = useCreateFieldModal()
+  const closeModal = () => createFieldModal.close()
+  const interfaceTypeId = createFieldModal.data?.id
 
   const onSubmit = (input: ICreateFieldData) => {
     if (!interfaceTypeId) {

@@ -28,7 +28,8 @@ export const filterValidationRules = (
 
 export const isPrimitive: FieldCondition = (typeService, fieldType) =>
   Boolean(
-    fieldType && typeService.type(fieldType)?.kind === ITypeKind.PrimitiveType,
+    fieldType &&
+      typeService.getType(fieldType)?.kind === ITypeKind.PrimitiveType,
   )
 
 export const isString: FieldCondition = (typeService, fieldType) =>
@@ -46,8 +47,8 @@ export const isInteger: FieldCondition = (typeService, fieldType) =>
 export const canSetDefaultValue: FieldCondition = (typeService, fieldType) =>
   Boolean(
     fieldType &&
-      typeService.type(fieldType)?.kind !== ITypeKind.InterfaceType &&
-      typeService.type(fieldType)?.kind !== ITypeKind.ReactNodeType,
+      typeService.getType(fieldType)?.kind !== ITypeKind.InterfaceType &&
+      typeService.getType(fieldType)?.kind !== ITypeKind.ReactNodeType,
   )
 
 export const isFloat: FieldCondition = (typeService, fieldType) =>

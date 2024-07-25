@@ -9,8 +9,10 @@ export interface ICRUDService<
   create(data: CreateData): Promise<Entity>
   /**
    * Delete many is used many places, so default to plural form. Also return type is rarely used
+   *
+   * Renamed from `delete` to `remove` since a function name cannot be `delete`
    */
-  delete(items: Array<IRef>): Promise<void>
+  remove(items: Array<IRef>): Promise<number>
   update(data: UpdateData): Promise<Entity>
 }
 

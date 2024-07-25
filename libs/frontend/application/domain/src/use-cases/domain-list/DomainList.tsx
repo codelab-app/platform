@@ -1,6 +1,6 @@
 'use client'
 
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/errorBoundary'
 import {

@@ -1,7 +1,5 @@
 'use server'
 
-import { graphql } from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import type {
   PageDeleteInput,
   PageWhere,

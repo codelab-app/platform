@@ -10,9 +10,9 @@ import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/us
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreatePagePopover } from '../use-cases/create-page'
-import { useCreatePageForm } from '../use-cases/create-page/create-page-form.state'
+import { useCreatePageForm } from '../use-cases/create-page/create-page.state'
 import { DeletePageModal } from '../use-cases/delete-page'
-import { useDeletePageModal } from '../use-cases/delete-page/delete-page-modal.state'
+import { useDeletePageModal } from '../use-cases/delete-page/delete-page.state'
 import { PageList } from '../use-cases/get-pages'
 import { UpdatePagePopover } from '../use-cases/update-page'
 

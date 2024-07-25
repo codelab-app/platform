@@ -2,13 +2,13 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useBuildAppModal } from './build-app-modal.state'
+import { useBuildAppModal } from './build-app.state'
 import { useBuildApp } from './useBuildApp.hook'
 
 export const BuildAppModal = observer(() => {

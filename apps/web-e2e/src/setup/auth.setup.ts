@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { auth0Password, auth0Username } from '../../playwright.config'
 
 const authFile = 'playwright/.auth/user.json'
@@ -8,7 +8,7 @@ test('authenticate', async ({ page }) => {
   await page.goto('/api/auth/login')
   await page.getByLabel('Email address*').fill(auth0Username)
   await page.getByLabel('Password*').fill(auth0Password)
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
+  await page.getByRole('button', { exact: true, name: 'Continue' }).click()
   // Wait until the page receives the cookies.
   //
   // Sometimes login flow sets cookies in the process of several redirects.
@@ -20,8 +20,8 @@ test('authenticate', async ({ page }) => {
   //   page.getByRole('button', { name: 'View profile and more' }),
   // ).toBeVisible()
 
-  expect(
-    await page.getByRole('link', { name: 'Log Out', exact: true }),
+  await expect(
+    page.getByRole('link', { exact: true, name: 'Log Out' }),
   ).toBeVisible()
 
   // End of authentication steps.

@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 import { useAsync } from '@react-hookz/web'

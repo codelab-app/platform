@@ -5,9 +5,9 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -20,8 +20,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createPageSchema } from './create-page.schema'
+import { useCreatePageForm } from './create-page.state'
 import { createPageUseCase } from './create-page.use-case'
-import { useCreatePageForm } from './create-page-form.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean

@@ -1,7 +1,7 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIfField,
   ModalForm,
@@ -12,10 +12,11 @@ import React from 'react'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAtomSchema } from './create-atom.schema'
-import { useCreateAtomModal } from './create-atom-modal.state'
+import { useCreateAtomModal } from './create-atom.state'
 
 export const CreateAtomModal = observer(() => {
-  const { atomService, tagService } = useStore()
+  const { atomService } = useStore()
+  const { tagDomainService } = useDomainStore()
   const createAtomModal = useCreateAtomModal()
   const closeModal = () => createAtomModal.close()
 
@@ -26,7 +27,7 @@ export const CreateAtomModal = observer(() => {
     title: 'Error while creating atom',
   })
 
-  const tagsSelectionOptions = tagService.tagDomainService.tagsSelectOptions
+  const tagsSelectionOptions = tagDomainService.tagsSelectOptions
 
   return (
     <ModalForm.Modal

@@ -2,8 +2,8 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -15,8 +15,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
+import { useUpdatePageForm } from './update-page.state'
 import { updatePageUseCase } from './update-page.use-case'
-import { useUpdatePageForm } from './update-page-form.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean

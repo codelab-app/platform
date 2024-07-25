@@ -10,6 +10,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -19,7 +20,6 @@ import {
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { CreateElementPopover } from '@codelab/frontend-application-element/use-cases/create-element'
 import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { CreateActionPopover } from '@codelab/frontend-application-store/use-cases/create-action'
 import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
 import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
@@ -52,7 +52,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       elementService,
       fieldService,
       rendererService,
-    } = useStore()
+    } = useApplicationStore()
 
     const { popover } = useCui()
     const page = useCurrentPage()

@@ -1,6 +1,5 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIfField,
   ModalForm,
@@ -11,6 +10,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { SelectDefaultValue } from '../../interface-form'
+import { useFieldService, useTypeService } from '../../services'
 import {
   canSetDefaultValue,
   createFieldSchema,
@@ -22,11 +22,14 @@ import {
   isString,
 } from '../create-field'
 import { TypeSelect } from '../select-types'
+import { useUpdateFieldModal } from './update-field.state'
 
 export const UpdateFieldModal = observer(() => {
-  const { fieldService, typeService } = useStore()
-  const closeModal = () => fieldService.updateModal.close()
-  const field = fieldService.updateModal.field
+  const updateFieldModal = useUpdateFieldModal()
+  const fieldService = useFieldService()
+  const typeService = useTypeService()
+  const closeModal = () => updateFieldModal.close()
+  const field = updateFieldModal.data?.current
 
   const onSubmit = (input: IUpdateFieldData) => {
     if (!field) {
@@ -49,7 +52,7 @@ export const UpdateFieldModal = observer(() => {
     <ModalForm.Modal
       okText="Update"
       onCancel={closeModal}
-      open={fieldService.updateModal.isOpen}
+      open={updateFieldModal.isOpen}
       title={<span className="font-semibold">Update field</span>}
     >
       <ModalForm.Form<IUpdateFieldData>

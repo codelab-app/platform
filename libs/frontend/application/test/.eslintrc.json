@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "plugin:@nx/react",
-    // "plugin:@codelab/recommended",
-    "../../../../.eslintrc.json"
-  ],
+  "extends": ["plugin:@nx/react", "../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {

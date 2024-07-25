@@ -80,7 +80,12 @@ export const addProjectTags = (
    * Add `type:abstract`
    */
   const isAbstract = appendTagsToProjectConfig(
-    ['libs/shared/abstract', 'libs/frontend/abstract', 'libs/backend/abstract'],
+    [
+      'libs/shared/abstract',
+      'libs/frontend/abstract',
+      'libs/backend/abstract',
+      'libs/frontend/infra/gql',
+    ],
     'type:abstract',
     projectConfig,
   )

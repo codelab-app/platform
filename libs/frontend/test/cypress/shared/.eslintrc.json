@@ -26,10 +26,6 @@
       "rules": {
         "@nx/dependency-checks": "error"
       }
-    },
-    {
-      "files": ["*.graphql"],
-      "rules": {}
     }
   ]
 }

@@ -6,8 +6,8 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDeleteComponentModal } from './delete-component.state'
 import { deleteComponentUseCase } from './delete-component.use-case'
-import { useDeleteComponentModal } from './delete-component-modal.state'
 
 export const DeleteComponentModal = observer(() => {
   const deleteModal = useDeleteComponentModal()

@@ -1,0 +1,44 @@
+import * as Types from '@codelab/frontend/infra/gql'
+
+import { graphql } from '@codelab/frontend/infra/gql'
+import { gqlFetch } from '@codelab/frontend/infra/graphql'
+
+export const DeleteCodeActionsDocument = graphql(`
+  mutation DeleteCodeActions(
+    $where: CodeActionWhere!
+    $delete: CodeActionDeleteInput
+  ) {
+    deleteCodeActions(delete: $delete, where: $where) {
+      nodesDeleted
+      relationshipsDeleted
+    }
+  }
+`)
+
+export const DeleteApiActionsDocument = graphql(`
+  mutation DeleteApiActions(
+    $where: ApiActionWhere!
+    $delete: ApiActionDeleteInput
+  ) {
+    deleteApiActions(delete: $delete, where: $where) {
+      nodesDeleted
+      relationshipsDeleted
+    }
+  }
+`)
+import {
+  type DeleteCodeActionsMutationVariables,
+  type DeleteApiActionsMutationVariables,
+} from '@codelab/frontend/infra/gql'
+
+const DeleteCodeActions = (
+  variables: DeleteCodeActionsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(DeleteCodeActionsDocument, variables, next)
+
+const DeleteApiActions = (
+  variables: DeleteApiActionsMutationVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(DeleteApiActionsDocument, variables, next)
+
+export const getSdk = () => ({ DeleteCodeActions, DeleteApiActions })

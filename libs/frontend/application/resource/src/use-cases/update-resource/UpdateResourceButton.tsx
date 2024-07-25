@@ -4,7 +4,7 @@ import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useUpdateResourceModal } from './update-resource-modal.state'
+import { useUpdateResourceModal } from './update-resource.state'
 
 export type UpdateResourceButtonProps = UpdateButtonProps
 

@@ -1,8 +1,5 @@
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { deleteElementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   deletePageRepository,

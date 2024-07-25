@@ -1,61 +1,23 @@
 import type { IAppDevelopmentQuery } from '@codelab/frontend/abstract/domain'
 import type { AtomDevelopmentFragment } from '@codelab/frontend/infra/gql'
-import { execute, graphql } from '@codelab/frontend/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
 import { getNameFromSlug, slugify } from '@codelab/shared/utils'
 import uniqBy from 'lodash/uniqBy'
+import { getSdk } from './app-development.api.graphql.gen'
 
-export const AppDevelopmentQuery = graphql(`
-  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
-    actionTypes {
-      ...ActionType
-    }
-    apps(where: { compositeKey: $appCompositeKey }) {
-      ...AppDevelopment
-    }
-    atoms(where: { type: ReactFragment }) {
-      ...AtomDevelopment
-    }
-    authGuards {
-      ...AuthGuard
-    }
-    codeMirrorTypes {
-      ...CodeMirrorType
-    }
-    components {
-      ...ComponentDevelopment
-    }
-    primitiveTypes {
-      ...PrimitiveType
-    }
-    reactNodeTypes {
-      ...ReactNodeType
-    }
-    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
-      ...Redirect
-    }
-    renderPropTypes {
-      ...RenderPropType
-    }
-    resources {
-      ...Resource
-    }
-    richTextTypes {
-      ...RichTextType
-    }
-  }
-`)
+const appDevelopmentApi = getSdk()
 
 export const appDevelopmentQuery: IAppDevelopmentQuery = async ({
+  appSlug,
   pageSlug,
   userId,
 }: {
   pageSlug: string
-  appSlug: string
   userId: string
+  appSlug: string
 }) => {
-  const appName = getNameFromSlug(pageSlug)
+  const appName = getNameFromSlug(appSlug)
   const pageName = getNameFromSlug(pageSlug)
 
   const appCompositeKey = AppProperties.appCompositeKey(
@@ -65,7 +27,7 @@ export const appDevelopmentQuery: IAppDevelopmentQuery = async ({
     },
   )
 
-  const data = await execute(AppDevelopmentQuery, {
+  const data = await appDevelopmentApi.GetAppDevelopment({
     appCompositeKey,
     pageName,
   })

@@ -1,10 +1,6 @@
 'use server'
 
-import {
-  type DeleteDomainsMutationVariables,
-  graphql,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { type DeleteDomainsMutationVariables } from '@codelab/frontend/infra/gql'
 import { domainApi } from './domain.api'
 
 export const deleteDomainsRepository = async ({

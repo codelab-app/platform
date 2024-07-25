@@ -1,10 +1,6 @@
 'use server'
 
-import {
-  type CreateDomainsMutationVariables,
-  graphql,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { type CreateDomainsMutationVariables } from '@codelab/frontend/infra/gql'
 import { domainApi } from './domain.api'
 
 export const createDomainRepository = async ({

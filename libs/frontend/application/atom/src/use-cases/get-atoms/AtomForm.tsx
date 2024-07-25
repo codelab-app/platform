@@ -1,10 +1,10 @@
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { UpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Empty, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { UpdateAtomForm } from '../update-atom'
-import { useUpdateAtomModal } from '../update-atom/update-atom-modal.state'
+import { useUpdateAtomModal } from '../update-atom/update-atom.state'
 
 export const AtomForm = observer(() => {
   const { fieldService } = useStore()

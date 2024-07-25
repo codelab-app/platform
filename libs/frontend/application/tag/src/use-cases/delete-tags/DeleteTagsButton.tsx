@@ -1,5 +1,5 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

@@ -20,22 +20,22 @@ import {
   MODEL_ACTION,
   PageType,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import React from 'react'
-import { useDeletePageModal } from '../delete-page/delete-page-modal.state'
+import { useDeletePageModal } from '../delete-page/delete-page.state'
 import { useRegeneratePages } from '../generate-pages'
-import { useUpdatePageForm } from '../update-page/update-page-form.state'
+import { useUpdatePageForm } from '../update-page/update-page.state'
 
 interface PageTreeItemProps {
   app: IAppModel

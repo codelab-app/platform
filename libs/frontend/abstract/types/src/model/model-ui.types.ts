@@ -10,4 +10,8 @@ export interface ModelUiData {
 
 export enum CuiComponents {
   Sidebar = 'Sidebar',
+  Modal = 'Modal',
+  Form = 'Form',
 }
+
+export type CuiComponentsKey = keyof typeof CuiComponents

@@ -1,63 +1,59 @@
 import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
 import { useAuthGuardQuery } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { useAuthGuardService } from '../../services'
+import { useDeleteAuthGuardModal } from './delete-auth-guard.state'
 
 export const DeleteAuthGuardModal = observer(() => {
-  const { authGuardService } = useStore()
+  const deleteAuthGuardModal = useDeleteAuthGuardModal()
   const router = useRouter()
+  const authGuardService = useAuthGuardService()
   const authGuardId = useAuthGuardQuery()
-  const authGuard = authGuardService.deleteModal.authGuard
+  const authGuard = deleteAuthGuardModal.data?.current
+  const closeModal = () => deleteAuthGuardModal.close()
+
+  const onSubmit = async () => {
+    if (!authGuard) {
+      return Promise.reject()
+    }
+
+    return await authGuardService.remove([authGuard])
+  }
 
   const onSubmitSuccess = () => {
-    authGuardService.deleteModal.close()
+    closeModal()
 
     if (authGuardId === authGuard?.id) {
       void router.push(PageType.AuthGuards)
     }
   }
 
-  const closeModal = () => authGuardService.deleteModal.close()
-
-  const onSubmit = () => {
-    if (!authGuard) {
-      return Promise.reject()
-    }
-
-    void authGuardService.delete([authGuard])
-
-    closeModal()
-
-    return Promise.resolve()
-  }
-
-  const onSubmitError = createFormErrorNotificationHandler({
-    title: 'Error while deleting authGuard',
-  })
-
   return (
     <ModalForm.Modal
-      okText="Delete authGuard"
-      onCancel={onSubmitSuccess}
-      open={authGuardService.deleteModal.isOpen}
+      okText="Delete Auth Guard"
+      onCancel={closeModal}
+      open={deleteAuthGuardModal.isOpen}
       title="Delete Confirmation"
     >
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while deleting auth guard',
+        })}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
         uiKey={MODEL_ACTION.DeleteAuthGuard.key}
       >
-        <h4>Are you sure you want to delete auth guard "{authGuard?.name}"</h4>
-        <AutoFields />
+        <h4>
+          Are you sure you want to delete auth guard "{authGuard?.name}
+          "?
+        </h4>
       </ModalForm.Form>
     </ModalForm.Modal>
   )

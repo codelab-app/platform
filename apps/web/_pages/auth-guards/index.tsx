@@ -3,21 +3,21 @@ import { DeleteAuthGuardModal } from '@codelab/frontend-application-auth-guard/u
 import {
   UpdateAuthGuardForm,
   UpdateAuthGuardModal,
+  useUpdateAuthGuardForm,
 } from '@codelab/frontend-application-auth-guard/use-cases/update-auth-guard'
 import {
   AuthGuardsViewLayout,
   type IAuthGuardsView,
 } from '@codelab/frontend-application-auth-guard/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
 const AuthGuardsView: IAuthGuardsView = observer(() => {
-  const { authGuardService } = useStore()
-  const authGuard = authGuardService.updateForm.authGuard
+  const updateAuthGuardForm = useUpdateAuthGuardForm()
+  const authGuard = updateAuthGuardForm.data
 
   return (
     <>

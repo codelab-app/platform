@@ -3,17 +3,17 @@ import type {
   IPaginationService,
   SupportedPaginationModel,
 } from '@codelab/frontend/abstract/application'
-import type { INodeType } from '@codelab/shared/abstract/core'
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import sortBy from 'lodash/sortBy'
+import type { Ref } from 'mobx-keystone'
 
 interface PaginationState<
   T extends SupportedPaginationModel,
   U extends Filterables,
 > {
   currentPage: number
-  dataRefs: Map<string, T>
+  dataRefs: Map<string, Ref<T>>
   filter: U
   isLoading: boolean
   pageSize: number
@@ -41,8 +41,8 @@ const createPaginationAtomFamily = <
         return {
           ...state,
           data: sortBy(Array.from(state.dataRefs.values()), (item) =>
-            item.name.toLowerCase(),
-          ),
+            item.current.name.toLowerCase(),
+          ).map((ref) => ref.current),
         }
       },
       (get, set, update: Partial<PaginationState<T, U>>) => {
@@ -58,13 +58,13 @@ export const usePaginationService = <
   T extends SupportedPaginationModel,
   U extends Filterables,
 >(
-  key: 'atom',
+  key: 'atom' | 'tag' | 'type',
   getDataFn: (
     page: number,
     pageSize: number,
     filter: U,
   ) => Promise<{ items: Array<T>; totalItems: number }>,
-) => {
+): IPaginationService<T, U> => {
   const paginationAtomFamily = createPaginationAtomFamily<T, U>()
   const [state, setState] = useAtom(paginationAtomFamily(key))
   const setCurrentPage = (page: number) => setState({ currentPage: page })
@@ -80,22 +80,32 @@ export const usePaginationService = <
       state.filter,
     )
 
-    const newDataRefs = new Map(items.map((item) => [item.id, item]))
-
     setState({
-      dataRefs: newDataRefs,
       isLoading: false,
       totalItems,
     })
 
-    return items
+    return items.map((item) => item)
+  }
+
+  const setDataRefs = (ref: Ref<T>) => {
+    setState({
+      dataRefs: new Map(state.dataRefs).set(ref.current.id, ref),
+    })
   }
 
   return {
-    ...state,
+    currentPage: state.currentPage,
+    data: state.data,
+    dataRefs: state.dataRefs,
+    filter: state.filter,
     getData,
+    isLoading: state.isLoading,
+    pageSize: state.pageSize,
     setCurrentPage,
+    setDataRefs,
     setFilter,
     setPageSize,
+    totalItems: state.totalItems,
   }
 }

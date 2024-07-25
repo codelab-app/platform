@@ -2,8 +2,8 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIfField,
   Form,
@@ -21,6 +21,7 @@ import { SelectDefaultValue } from '../../interface-form'
 import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
 import { createFieldSchema } from './create-field.schema'
+import { useCreateFieldForm } from './create-field.state'
 import {
   canSetDefaultValue,
   filterValidationRules,
@@ -45,8 +46,9 @@ export const CreateFieldForm = observer(
   }: CreateFieldFormProps) => {
     const { fieldService, typeService } = useStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
-    const closeForm = () => fieldService.createForm.close()
-    const interfaceTypeId = fieldService.createForm.interface?.id
+    const createFieldForm = useCreateFieldForm()
+    const closeForm = () => createFieldForm.close()
+    const interfaceTypeId = createFieldForm.data?.id
 
     const onSubmit = (input: ICreateFieldData) => {
       if (!interfaceTypeId) {

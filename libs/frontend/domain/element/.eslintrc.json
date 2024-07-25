@@ -17,10 +17,6 @@
     {
       "files": ["*.js", "*.jsx"],
       "rules": {}
-    },
-    {
-      "files": ["*.graphql"],
-      "rules": {}
     }
   ]
 }
