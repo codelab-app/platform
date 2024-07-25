@@ -1,6 +1,5 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useResourceService } from '@codelab/frontend-application-resource/services'
 import { useAsync } from '@react-hookz/web'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
@@ -8,8 +7,8 @@ export interface SelectResourcesProps {
   name: string
 }
 
-export const SelectResource = observer<SelectResourcesProps>(({ name }) => {
-  const { resourceService } = useStore()
+export const SelectResource = ({ name }: SelectResourcesProps) => {
+  const resourceService = useResourceService()
 
   const [
     { error: queryError, result: selectResourceOptions, status },
@@ -31,4 +30,4 @@ export const SelectResource = observer<SelectResourcesProps>(({ name }) => {
       showSearch
     />
   )
-})
+}
