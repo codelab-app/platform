@@ -1,9 +1,9 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { CreateResourceModal } from '@codelab/frontend-application-resource/use-cases/create-resource'
 import { DeleteResourceModal } from '@codelab/frontend-application-resource/use-cases/delete-resource'
 import {
   UpdateResourceForm,
   UpdateResourceModal,
+  useUpdateResourceForm,
 } from '@codelab/frontend-application-resource/use-cases/update-resource'
 import {
   type IResourcesView,
@@ -16,8 +16,8 @@ import Head from 'next/head'
 import React from 'react'
 
 const ResourcesView: IResourcesView = observer(() => {
-  const { resourceService } = useStore()
-  const resource = resourceService.updateForm.resource
+  const updateResourceForm = useUpdateResourceForm()
+  const resource = updateResourceForm.data
 
   return (
     <>

@@ -17,7 +17,7 @@ import uniq from 'lodash/uniq'
 import { v4 } from 'uuid'
 import { useTypeService } from './type.service'
 
-export const useFieldService = () => {
+export const useFieldService = (): IFieldService => {
   const { fieldDomainService } = useDomainStore()
   const typeService = useTypeService()
 
@@ -38,6 +38,26 @@ export const useFieldService = () => {
     await fieldRepository.add(newField)
 
     return newField
+  }
+
+  const create = async (createFieldData: ICreateFieldData) => {
+    await typeService.getOne(createFieldData.fieldType)
+
+    const field = fieldDomainService.hydrate(
+      fieldService.mapDataToDTO(createFieldData),
+    )
+
+    const interfaceType = typeService.getType(
+      field.api.id,
+    ) as IInterfaceTypeModel
+
+    interfaceType.writeCache({
+      fields: [{ id: field.id }],
+    })
+
+    await fieldRepository.add(field)
+
+    return field
   }
 
   const deleteField = async (fields: Array<IFieldModel>) => {
@@ -103,11 +123,13 @@ export const useFieldService = () => {
       targetField,
     })
 
-    return Promise.all(
+    await Promise.all(
       uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
         fieldRepository.updateNodes(getField(id)),
       ),
     )
+
+    return
   }
 
   const update = async (updateFieldData: ICreateFieldData) => {
@@ -187,7 +209,14 @@ export const useFieldService = () => {
     return compact(affectedNodeIds)
   }
 
-  return {}
+  return {
+    cloneField,
+    create,
+    deleteField,
+    moveFieldAsNextSibling,
+    moveFieldAsPrevSibling,
+    update,
+  }
 }
 
 export const fieldService = {

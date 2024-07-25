@@ -1,6 +1,5 @@
 'use client'
 
-import type { ICoreStore } from '@codelab/frontend/abstract/application'
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type { IUserDto } from '@codelab/shared/abstract/core'
 import { createContext, useContext } from 'react'
@@ -22,7 +21,3 @@ export const useDomainStore = () => {
 
   return store
 }
-
-// export const useStore = () => {
-//   return {} as ICoreStore
-// }

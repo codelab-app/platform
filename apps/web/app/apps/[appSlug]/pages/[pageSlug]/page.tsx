@@ -1,5 +1,5 @@
 import { appDevelopmentQuery } from '@codelab/frontend-application-app/use-cases/app-development'
-import { RootRenderer } from '@codelab/frontend-application-renderer/components'
+import { BuilderPreview } from '@codelab/frontend-application-builder/use-cases/builder-preview'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import React from 'react'
 import { StoreHydrator } from '../../../../../components'
@@ -14,12 +14,6 @@ const PagePreview = async ({
 }) => {
   const user = await getServerUser()
   const dto = await appDevelopmentQuery({ appSlug, pageSlug, userId: user.id })
-
-  // const { renderer } = useAppDev({
-  //   dto,
-  //   pageSlug,
-  //   rendererType: RendererType.Preview,
-  // })
 
   return (
     <StoreHydrator
@@ -37,7 +31,7 @@ const PagePreview = async ({
       stores={dto.stores}
       types={dto.types}
     >
-      <RootRenderer renderer={renderer} />
+      <BuilderPreview pageSlug={pageSlug} />
     </StoreHydrator>
   )
 }

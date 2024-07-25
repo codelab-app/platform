@@ -262,9 +262,6 @@
       "@codelab/frontend-application-atom/use-cases/get-atoms/server": [
         "libs/frontend/application/atom/src/use-cases/get-atoms/server/index.ts"
       ],
-      "@codelab/frontend-application-atom/use-cases/get-select-atom-options": [
-        "libs/frontend/application/atom/src/use-cases/get-select-atom-options/index.ts"
-      ],
       "@codelab/frontend-application-atom/use-cases/helper": [
         "libs/frontend/application/atom/src/use-cases/helper/index.ts"
       ],
@@ -315,6 +312,9 @@
       ],
       "@codelab/frontend-application-builder/use-cases/base-builder": [
         "libs/frontend/application/builder/src/use-cases/base-builder/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/builder-preview": [
+        "libs/frontend/application/builder/src/use-cases/builder-preview/index.ts"
       ],
       "@codelab/frontend-application-builder/use-cases/page-builder": [
         "libs/frontend/application/builder/src/use-cases/page-builder/index.ts"
@@ -676,11 +676,11 @@
       "@codelab/frontend-domain-atom/test": [
         "libs/frontend/domain/atom/src/test/index.ts"
       ],
-      "@codelab/frontend-domain-auth-guard/services": [
-        "libs/frontend/domain/auth-guard/src/services/index.ts"
-      ],
       "@codelab/frontend-domain-auth-guard/repositories": [
         "libs/frontend/domain/auth-guard/src/repositories/index.ts"
+      ],
+      "@codelab/frontend-domain-auth-guard/services": [
+        "libs/frontend/domain/auth-guard/src/services/index.ts"
       ],
       "@codelab/frontend-domain-auth-guard/store": [
         "libs/frontend/domain/auth-guard/src/store/index.ts"
