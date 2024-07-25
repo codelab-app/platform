@@ -1,9 +1,5 @@
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import {
-  type DomainListQueryVariables,
-  graphql,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { type DomainListQueryVariables } from '@codelab/frontend/infra/gql'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { revalidateTag } from 'next/cache'
 import { domainApi } from './domain.api'

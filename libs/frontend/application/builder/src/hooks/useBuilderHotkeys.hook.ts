@@ -1,16 +1,18 @@
 import {
   type IBuilderService,
-  type IElementService,
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { elementRef } from '@codelab/frontend/abstract/domain'
+import type { IToggleState } from '@codelab/frontend-application-shared-store/ui'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
   IBuilderService,
   'selectedNode' | 'setSelectedNode'
-> &
-  Pick<IElementService, 'deleteModal'>
+> & {
+  deleteModal: IToggleState
+}
+// Pick<IElementService, 'deleteModal'>
 
 /**
  * Registers keyboard shortcuts for the Builder

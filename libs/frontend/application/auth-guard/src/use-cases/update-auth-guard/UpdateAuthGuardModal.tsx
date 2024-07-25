@@ -1,16 +1,18 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
+import { useUpdateAuthGuardModal } from './update-auth-guard.state'
 
 export const UpdateAuthGuardModal = observer(() => {
   const { authGuardService } = useStore()
-  const authGuard = authGuardService.updateModal.authGuard
+  const updateAuthGuardModal = useUpdateAuthGuardModal()
+  const authGuard = updateAuthGuardModal.data
 
   const model = {
     id: authGuard?.id,
@@ -18,7 +20,7 @@ export const UpdateAuthGuardModal = observer(() => {
     resource: authGuard?.resource,
   }
 
-  const closeModal = () => authGuardService.updateModal.close()
+  const closeModal = () => updateAuthGuardModal.close()
 
   const onSubmit = (authGuardDTO: IUpdateAuthGuardData) => {
     void authGuardService.update(authGuardDTO)
@@ -32,7 +34,7 @@ export const UpdateAuthGuardModal = observer(() => {
     <ModalForm.Modal
       okText="Update Auth Guard"
       onCancel={closeModal}
-      open={authGuardService.updateModal.isOpen}
+      open={updateAuthGuardModal.isOpen}
     >
       <ModalForm.Form<IUpdateAuthGuardData>
         model={model}

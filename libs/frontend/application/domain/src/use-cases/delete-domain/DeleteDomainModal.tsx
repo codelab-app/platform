@@ -1,15 +1,15 @@
 'use client'
 
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDeleteDomainModal } from './delete-domain.state'
 import { deleteDomainUseCase } from './delete-domain.use-case'
-import { useDeleteDomainModal } from './delete-domain-modal.state'
 
 export const DeleteDomainModal = observer(() => {
   const deleteDomainModal = useDeleteDomainModal()

@@ -1,7 +1,7 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIfField,
   Form,
@@ -14,16 +14,16 @@ import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { SelectAtom } from '../select-atom'
 import { useUpdateAtomAction } from './update-atom.action'
 import { updateAtomSchema } from './update-atom.schema'
-import { useUpdateAtomModal } from './update-atom-modal.state'
+import { useUpdateAtomForm } from './update-atom.state'
 
 export const UpdateAtomForm = observer(() => {
-  const { tagService } = useStore()
-  const updateAtomForm = useUpdateAtomModal()
+  const { tagDomainService } = useDomainStore()
+  const updateAtomForm = useUpdateAtomForm()
   const updateAtomAction = useUpdateAtomAction
   const atom = updateAtomForm.data?.current
 
-  const onSubmit = (atomDTO: IUpdateAtomData) => {
-    return updateAtomAction(atomDTO)
+  const onSubmit = (atomDto: IUpdateAtomData) => {
+    return updateAtomAction(atomDto)
   }
 
   const onSubmitError = createFormErrorNotificationHandler({
@@ -45,7 +45,7 @@ export const UpdateAtomForm = observer(() => {
     type: atom?.type,
   }
 
-  const tagListOption = tagService.tagDomainService.tagsSelectOptions
+  const tagListOption = tagDomainService.tagsSelectOptions
 
   return (
     <Form<IUpdateAtomData>

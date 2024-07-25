@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import { useCreateDomainModal } from './create-domain-modal.state'
+import { useCreateDomainModal } from './create-domain.state'
 
 export const CreateDomainButton = observer<PropsWithChildren>(
   ({ children }) => {

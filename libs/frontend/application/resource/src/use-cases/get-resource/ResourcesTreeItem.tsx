@@ -5,16 +5,16 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { resourceRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../views'
-import { useDeleteResourceModal } from '../delete-resource/delete-resource-modal.state'
+import { useDeleteResourceModal } from '../delete-resource/delete-resource.state'
 
 interface ResourcesTreeItemProps {
   data: ITreeNode<IResourceNodeData>

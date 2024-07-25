@@ -3,8 +3,6 @@ import type {
   IAppProductionDto,
 } from '@codelab/frontend/abstract/domain'
 import type { AtomProductionFragment } from '@codelab/frontend/infra/gql'
-import { graphql } from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import uniqBy from 'lodash/uniqBy'
 import { appApi } from './app.api'
 

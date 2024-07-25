@@ -3,14 +3,15 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useFieldService } from '@codelab/frontend-application-type/services'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
   ({ interfaceType }) => {
-    const { fieldService, userService } = useStore()
+    const fieldService = useFieldService()
+    const updateFieldModal = useUpdateFieldModal()
 
     if (!isAdmin(userService.user)) {
       return null

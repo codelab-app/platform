@@ -1,48 +1,23 @@
 import type {
   IAppDevelopmentArgs,
-  IAppDevelopmentService,
-} from '@codelab/frontend/abstract/domain'
-import {
-  getActionDomainService,
-  getAppDomainService,
-  getAtomDomainService,
-  getAuthGuardDomainService,
-  getComponentDomainService,
-  getElementDomainService,
-  getFieldDomainService,
-  getPageDomainService,
-  getRedirectDomainService,
-  getResourceDomainService,
-  getStoreDomainService,
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
-import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { appDevelopmentApi } from '@codelab/frontend-domain-app/repositories'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
 import { slugify } from '@codelab/shared/utils'
 import uniqBy from 'lodash/uniqBy'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-} from 'mobx-keystone'
-import { appDevelopmentApi } from './app-development.api'
 
-@model('@codelab/AppDevelopmentService')
-export class AppDevelopmentService
-  extends Model({})
-  implements IAppDevelopmentService
-{
-  @modelFlow
-  getAppDevelopmentData = _async(function* (
-    this: AppDevelopmentService,
-    { appName, pageName, userId }: IAppDevelopmentArgs,
-  ) {
+export const useAppDevelopmentService = () => {
+  const domainStore = useDomainStore()
+
+  const getAppDevelopmentData = async ({
+    appName,
+    pageName,
+    userId,
+  }: IAppDevelopmentArgs) => {
     const appCompositeKey = AppProperties.appCompositeKey(
       { slug: slugify(appName) },
       {
@@ -50,12 +25,10 @@ export class AppDevelopmentService
       },
     )
 
-    const data = yield* _await(
-      appDevelopmentApi.GetAppDevelopment({
-        appCompositeKey,
-        pageName,
-      }),
-    )
+    const data = await appDevelopmentApi.GetAppDevelopment({
+      appCompositeKey,
+      pageName,
+    })
 
     const app = data.apps[0]
 
@@ -162,104 +135,54 @@ export class AppDevelopmentService
       stores,
       types: [...types, ...elementsDependantTypes, ...systemTypes],
     }
-  })
+  }
 
-  @modelAction
-  hydrateAppDevelopmentData(data: IAppDevelopmentDto) {
-    data.atoms.forEach((atom) => this.atomDomainService.hydrate(atom))
+  const hydrateAppDevelopmentData = (data: IAppDevelopmentDto) => {
+    data.atoms.forEach((atom) => domainStore.atomDomainService.hydrate(atom))
 
-    data.types.forEach((type) => this.typeDomainService.hydrate(type))
+    data.types.forEach((type) => domainStore.typeDomainService.hydrate(type))
 
-    data.fields.forEach((field) => this.fieldDomainService.hydrate(field))
+    data.fields.forEach((field) =>
+      domainStore.fieldDomainService.hydrate(field),
+    )
 
     data.elements.forEach((element) =>
-      this.elementDomainService.hydrate(element),
+      domainStore.elementDomainService.hydrate(element),
     )
 
     data.components.forEach((component) =>
-      this.componentDomainService.hydrate(component),
+      domainStore.componentDomainService.hydrate(component),
     )
 
-    data.pages.forEach((page) => this.pageDomainService.hydrate(page))
+    data.pages.forEach((page) => domainStore.pageDomainService.hydrate(page))
 
-    data.stores.forEach((store) => this.storeDomainService.hydrate(store))
+    data.stores.forEach((store) =>
+      domainStore.storeDomainService.hydrate(store),
+    )
 
-    data.actions.forEach((action) => this.actionDomainService.hydrate(action))
+    data.actions.forEach((action) =>
+      domainStore.actionDomainService.hydrate(action),
+    )
 
     data.resources.forEach((resource) =>
-      this.resourceDomainService.hydrate(resource),
+      domainStore.resourceDomainService.hydrate(resource),
     )
 
     data.authGuards.forEach((authGuard) =>
-      this.authGuardDomainService.hydrate(authGuard),
+      domainStore.authGuardDomainService.hydrate(authGuard),
     )
 
     data.redirects.forEach((redirect) =>
-      this.redirectDomainService.hydrate(redirect),
+      domainStore.redirectDomainService.hydrate(redirect),
     )
 
-    this.elementDomainService.logElementTreeState()
+    domainStore.elementDomainService.logElementTreeState()
 
-    return this.appDomainService.hydrate(data.app)
+    return domainStore.appDomainService.hydrate(data.app)
   }
 
-  @computed
-  private get actionDomainService() {
-    return getActionDomainService(this)
-  }
-
-  @computed
-  private get appDomainService() {
-    return getAppDomainService(this)
-  }
-
-  @computed
-  private get atomDomainService() {
-    return getAtomDomainService(this)
-  }
-
-  @computed
-  private get authGuardDomainService() {
-    return getAuthGuardDomainService(this)
-  }
-
-  @computed
-  private get componentDomainService() {
-    return getComponentDomainService(this)
-  }
-
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
-  }
-
-  @computed
-  private get fieldDomainService() {
-    return getFieldDomainService(this)
-  }
-
-  @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
-  private get redirectDomainService() {
-    return getRedirectDomainService(this)
-  }
-
-  @computed
-  private get resourceDomainService() {
-    return getResourceDomainService(this)
-  }
-
-  @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
-  }
-
-  @computed
-  private get typeDomainService() {
-    return getTypeDomainService(this)
+  return {
+    getAppDevelopmentData,
+    hydrateAppDevelopmentData,
   }
 }

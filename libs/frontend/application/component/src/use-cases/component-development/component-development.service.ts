@@ -1,200 +1,155 @@
 import type {
   IComponentDevelopmentArgs,
+  IComponentDevelopmentDto,
   IComponentDevelopmentService,
 } from '@codelab/frontend/abstract/domain'
-import {
-  getActionDomainService,
-  getAtomDomainService,
-  getComponentDomainService,
-  getElementDomainService,
-  getFieldDomainService,
-  getResourceDomainService,
-  getStoreDomainService,
-  IComponentDevelopmentDto,
-} from '@codelab/frontend/abstract/domain'
-import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
 import type {
   AtomDevelopmentFragment,
   GetComponentDevelopmentQuery,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/frontend/infra/gql'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { componentDevelopmentApi } from '@codelab/frontend-domain-component/repositories'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-} from 'mobx-keystone'
-import { componentDevelopmentApi } from './component-development.api'
+import { useCallback } from 'react'
 
-@model('@codelab/ComponentDevelopmentService')
-export class ComponentDevelopmentService
-  extends Model({})
-  implements IComponentDevelopmentService
-{
-  @modelFlow
-  getComponentDevelopmentData = _async(function* (
-    this: ComponentDevelopmentService,
-    { componentName }: IComponentDevelopmentArgs,
-  ) {
-    const data: GetComponentDevelopmentQuery = yield* _await(
-      componentDevelopmentApi.GetComponentDevelopment(),
-    )
+export const useComponentDevelopmentService =
+  (): IComponentDevelopmentService => {
+    const {
+      actionDomainService,
+      atomDomainService,
+      componentDomainService,
+      elementDomainService,
+      fieldDomainService,
+      resourceDomainService,
+      storeDomainService,
+      typeDomainService,
+    } = useDomainStore()
 
-    const components = data.components
+    const getComponentDevelopmentData = useCallback(
+      async ({ componentName }: IComponentDevelopmentArgs) => {
+        const data: GetComponentDevelopmentQuery =
+          await componentDevelopmentApi.GetComponentDevelopment({})
 
-    const currentComponent = components.find(
-      (component) => component.name === componentName,
-    )
+        const components = data.components
 
-    if (!currentComponent) {
-      throw new Error('Missing component')
-    }
+        const currentComponent = components.find(
+          (component) => component.name === componentName,
+        )
 
-    const elements = components.flatMap((component) =>
-      component.elements.map((element) => ({
-        ...element,
-        closestContainerNode: { id: component.id },
-        component: { id: component.id },
-      })),
-    )
+        if (!currentComponent) {
+          throw new Error('Missing component')
+        }
 
-    const resources = data.resources
+        const elements = components.flatMap((component) =>
+          component.elements.map((element) => ({
+            ...element,
+            closestContainerNode: { id: component.id },
+            component: { id: component.id },
+          })),
+        )
 
-    const props = elements
-      .flatMap((element) => element.props)
-      .concat(resources.map((resource) => resource.config))
+        const resources = data.resources
 
-    const stores = components.map((component) => ({
-      ...component.store,
-      component: { id: component.id },
-    }))
+        const props = elements
+          .flatMap((element) => element.props)
+          .concat(resources.map((resource) => resource.config))
 
-    const actions = stores.flatMap((store) => store.actions)
+        const stores = components.map((component) => ({
+          ...component.store,
+          component: { id: component.id },
+        }))
 
-    const atoms = uniqBy(
-      [
-        // Load all the atoms used by elements
-        ...elements
-          .flatMap((element) => element.renderType)
-          .filter(
-            (item): item is AtomDevelopmentFragment =>
-              item.__typename === 'Atom',
+        const actions = stores.flatMap((store) => store.actions)
+
+        const atoms = uniqBy(
+          [
+            ...elements
+              .flatMap((element) => element.renderType)
+              .filter(
+                (item): item is AtomDevelopmentFragment =>
+                  item.__typename === 'Atom',
+              ),
+            ...data.atoms,
+          ],
+          (atom) => atom.id,
+        )
+
+        const elementsDependantTypes = elements
+          .map((element) => element.dependantTypes)
+          .flat()
+
+        const types = [
+          ...atoms.flatMap((type) => type.api),
+          ...stores.map((store) => store.api),
+          ...components.map((component) => component.api),
+          ...elementsDependantTypes.filter(
+            (type) => type.kind === ITypeKind.InterfaceType,
           ),
-        // Also load the default atoms, here is just type `ReactFragment`
-        ...data.atoms,
-      ],
-      // Filter by id in case `ReactFragment` already exists
-      (atom) => atom.id,
+        ]
+
+        const systemTypes = [
+          ...data.codeMirrorTypes,
+          ...data.primitiveTypes,
+          ...data.reactNodeTypes,
+          ...data.richTextTypes,
+          ...data.renderPropTypes,
+          ...data.actionTypes,
+        ]
+
+        const fields = types.flatMap((type) =>
+          'fields' in type ? type.fields : [],
+        )
+
+        return {
+          actions,
+          atoms,
+          component: currentComponent,
+          components,
+          elements,
+          fields,
+          props,
+          resources: data.resources,
+          stores,
+          types: [...types, ...elementsDependantTypes, ...systemTypes],
+        }
+      },
+      [],
     )
 
-    const elementsDependantTypes = elements
-      .map((element) => element.dependantTypes)
-      .flat()
+    const hydrateComponentDevelopmentData = useCallback(
+      (data: IComponentDevelopmentDto) => {
+        data.atoms.forEach((atom) => atomDomainService.hydrate(atom))
+        data.types.forEach((type) => typeDomainService.hydrate(type))
+        data.fields.forEach((field) => fieldDomainService.hydrate(field))
+        data.elements.forEach((element) =>
+          elementDomainService.hydrate(element),
+        )
+        data.components.forEach((component) =>
+          componentDomainService.hydrate(component),
+        )
+        data.stores.forEach((store) => storeDomainService.hydrate(store))
+        data.actions.forEach((action) => actionDomainService.hydrate(action))
+        data.resources.forEach((resource) =>
+          resourceDomainService.hydrate(resource),
+        )
 
-    const types = [
-      ...atoms.flatMap((type) => type.api),
-      ...stores.map((store) => store.api),
-      ...components.map((component) => component.api),
-      ...elementsDependantTypes.filter(
-        (type) => type.kind === ITypeKind.InterfaceType,
-      ),
-    ]
-
-    const systemTypes = [
-      ...data.codeMirrorTypes,
-      ...data.primitiveTypes,
-      ...data.reactNodeTypes,
-      ...data.richTextTypes,
-      ...data.renderPropTypes,
-      ...data.actionTypes,
-    ]
-
-    const fields = types.flatMap((type) =>
-      'fields' in type ? type.fields : [],
+        return componentDomainService.component(data.component.id)
+      },
+      [
+        atomDomainService,
+        typeDomainService,
+        fieldDomainService,
+        elementDomainService,
+        componentDomainService,
+        storeDomainService,
+        actionDomainService,
+        resourceDomainService,
+      ],
     )
 
     return {
-      actions,
-      atoms,
-      component: currentComponent,
-      components,
-      elements,
-      fields,
-      props,
-      resources: data.resources,
-      stores,
-      types: [...types, ...elementsDependantTypes, ...systemTypes],
+      getComponentDevelopmentData,
+      hydrateComponentDevelopmentData,
     }
-  })
-
-  @modelAction
-  hydrateComponentDevelopmentData(data: IComponentDevelopmentDto) {
-    data.atoms.forEach((atom) => this.atomDomainService.hydrate(atom))
-
-    data.types.forEach((type) => this.typeDomainService.hydrate(type))
-
-    data.fields.forEach((field) => this.fieldDomainService.hydrate(field))
-
-    data.elements.forEach((element) =>
-      this.elementDomainService.hydrate(element),
-    )
-
-    data.components.forEach((component) =>
-      this.componentDomainService.hydrate(component),
-    )
-
-    data.stores.forEach((store) => this.storeDomainService.hydrate(store))
-
-    data.actions.forEach((action) => this.actionDomainService.hydrate(action))
-
-    data.resources.forEach((resource) =>
-      this.resourceDomainService.hydrate(resource),
-    )
-
-    return this.componentDomainService.component(data.component.id)
   }
-
-  @computed
-  private get actionDomainService() {
-    return getActionDomainService(this)
-  }
-
-  @computed
-  private get atomDomainService() {
-    return getAtomDomainService(this)
-  }
-
-  @computed
-  private get componentDomainService() {
-    return getComponentDomainService(this)
-  }
-
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
-  }
-
-  @computed
-  private get fieldDomainService() {
-    return getFieldDomainService(this)
-  }
-
-  @computed
-  private get resourceDomainService() {
-    return getResourceDomainService(this)
-  }
-
-  @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
-  }
-
-  @computed
-  private get typeDomainService() {
-    return getTypeDomainService(this)
-  }
-}

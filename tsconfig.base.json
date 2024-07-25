@@ -208,9 +208,6 @@
       "@codelab/frontend-application-app/use-cases/app-production": [
         "libs/frontend/application/app/src/use-cases/app-production/index.ts"
       ],
-      "@codelab/frontend-application-app/use-cases/apps-preview": [
-        "libs/frontend/application/app/src/use-cases/apps-preview/index.ts"
-      ],
       "@codelab/frontend-application-app/use-cases/build-app": [
         "libs/frontend/application/app/src/use-cases/build-app/index.ts"
       ],
@@ -222,9 +219,6 @@
       ],
       "@codelab/frontend-application-app/use-cases/export-app": [
         "libs/frontend/application/app/src/use-cases/export-app/index.ts"
-      ],
-      "@codelab/frontend-application-app/use-cases/get-app": [
-        "libs/frontend/application/app/src/use-cases/get-app/index.ts"
       ],
       "@codelab/frontend-application-app/use-cases/import-app": [
         "libs/frontend/application/app/src/use-cases/import-app/index.ts"
@@ -267,9 +261,6 @@
       ],
       "@codelab/frontend-application-atom/use-cases/get-atoms/server": [
         "libs/frontend/application/atom/src/use-cases/get-atoms/server/index.ts"
-      ],
-      "@codelab/frontend-application-atom/use-cases/get-select-atom-options": [
-        "libs/frontend/application/atom/src/use-cases/get-select-atom-options/index.ts"
       ],
       "@codelab/frontend-application-atom/use-cases/helper": [
         "libs/frontend/application/atom/src/use-cases/helper/index.ts"
@@ -321,6 +312,9 @@
       ],
       "@codelab/frontend-application-builder/use-cases/base-builder": [
         "libs/frontend/application/builder/src/use-cases/base-builder/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/builder-preview": [
+        "libs/frontend/application/builder/src/use-cases/builder-preview/index.ts"
       ],
       "@codelab/frontend-application-builder/use-cases/page-builder": [
         "libs/frontend/application/builder/src/use-cases/page-builder/index.ts"
@@ -445,9 +439,6 @@
       "@codelab/frontend-application-lambda/views": [
         "libs/frontend/application/lambda/src/views/index.ts"
       ],
-      "@codelab/frontend-application-page/graphql": [
-        "libs/frontend/application/page/src/graphql/index.ts"
-      ],
       "@codelab/frontend-application-page/services": [
         "libs/frontend/application/page/src/services/index.ts"
       ],
@@ -472,14 +463,8 @@
       "@codelab/frontend-application-page/views": [
         "libs/frontend/application/page/src/views/index.ts"
       ],
-      "@codelab/frontend-application-prop/graphql": [
-        "libs/frontend/application/prop/src/graphql/index.ts"
-      ],
       "@codelab/frontend-application-prop/services": [
         "libs/frontend/application/prop/src/services/index.ts"
-      ],
-      "@codelab/frontend-application-redirect/graphql": [
-        "libs/frontend/application/redirect/src/graphql/index.ts"
       ],
       "@codelab/frontend-application-redirect/services": [
         "libs/frontend/application/redirect/src/services/index.ts"
@@ -558,9 +543,6 @@
       ],
       "@codelab/frontend-application-store/services": [
         "libs/frontend/application/store/src/services/index.ts"
-      ],
-      "@codelab/frontend-application-store/store": [
-        "libs/frontend/application/store/src/store/index.ts"
       ],
       "@codelab/frontend-application-store/use-cases/action-hooks": [
         "libs/frontend/application/store/src/use-cases/action-hooks/index.ts"
@@ -694,6 +676,9 @@
       "@codelab/frontend-domain-atom/test": [
         "libs/frontend/domain/atom/src/test/index.ts"
       ],
+      "@codelab/frontend-domain-auth-guard/repositories": [
+        "libs/frontend/domain/auth-guard/src/repositories/index.ts"
+      ],
       "@codelab/frontend-domain-auth-guard/services": [
         "libs/frontend/domain/auth-guard/src/services/index.ts"
       ],
@@ -751,9 +736,6 @@
       "@codelab/frontend-domain-element/use-cases/incremented-name": [
         "libs/frontend/domain/element/src/use-cases/incremented-name/index.ts"
       ],
-      "@codelab/frontend-domain-page/actions": [
-        "libs/frontend/domain/page/src/actions/index.ts"
-      ],
       "@codelab/frontend-domain-page/repositories": [
         "libs/frontend/domain/page/src/repositories/index.ts"
       ],
@@ -766,6 +748,9 @@
       "@codelab/frontend-domain-page/test": [
         "libs/frontend/domain/page/src/test/index.ts"
       ],
+      "@codelab/frontend-domain-prop/repositories": [
+        "libs/frontend/domain/prop/src/repositories/index.ts"
+      ],
       "@codelab/frontend-domain-prop/store": [
         "libs/frontend/domain/prop/src/store/index.ts"
       ],
@@ -774,6 +759,9 @@
       ],
       "@codelab/frontend-domain-prop/utils": [
         "libs/frontend/domain/prop/src/utils/index.ts"
+      ],
+      "@codelab/frontend-domain-redirect/repositories": [
+        "libs/frontend/domain/redirect/src/repositories/index.ts"
       ],
       "@codelab/frontend-domain-redirect/services": [
         "libs/frontend/domain/redirect/src/services/index.ts"
@@ -799,6 +787,9 @@
       "@codelab/frontend-domain-shared": [
         "libs/frontend/domain/shared/src/index.ts"
       ],
+      "@codelab/frontend-domain-store/repositories": [
+        "libs/frontend/domain/store/src/repositories/index.ts"
+      ],
       "@codelab/frontend-domain-store/services": [
         "libs/frontend/domain/store/src/services/index.ts"
       ],
@@ -807,6 +798,9 @@
       ],
       "@codelab/frontend-domain-store/test": [
         "libs/frontend/domain/store/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-tag/repositories": [
+        "libs/frontend/domain/tag/src/repositories/index.ts"
       ],
       "@codelab/frontend-domain-tag/services": [
         "libs/frontend/domain/tag/src/services/index.ts"
@@ -825,6 +819,9 @@
       ],
       "@codelab/frontend-domain-type/test": [
         "libs/frontend/domain/type/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-user/repositories": [
+        "libs/frontend/domain/user/src/repositories/index.ts"
       ],
       "@codelab/frontend-domain-user/services": [
         "libs/frontend/domain/user/src/services/index.ts"

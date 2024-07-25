@@ -1,8 +1,7 @@
-import { defineConfig, devices } from '@playwright/test'
-import { nxE2EPreset } from '@nx/playwright/preset'
-import * as env from 'env-var'
 import { workspaceRoot } from '@nx/devkit'
-import { getEnv } from '@codelab/shared/config'
+import { nxE2EPreset } from '@nx/playwright/preset'
+import { defineConfig, devices } from '@playwright/test'
+import * as env from 'env-var'
 
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://127.0.0.1:3001'
@@ -21,38 +20,16 @@ export const auth0Password = env.get('AUTH0_PASSWORD').required().asString()
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    baseURL,
-    video: { mode: 'on' },
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-  },
-  /* Run your local dev server before starting the tests */
-  webServer: [
-    {
-      command: 'pnpm nx serve web -c test',
-      url: baseURL,
-      reuseExistingServer: !process.env.CI,
-      cwd: workspaceRoot,
-    },
-    {
-      command: 'pnpm nx serve api -c test',
-      url: 'http://127.0.0.1:4001/api/graphql',
-      reuseExistingServer: !process.env.CI,
-      cwd: workspaceRoot,
-    },
-  ],
-  timeout: 10000,
+
   projects: [
     { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
+      dependencies: ['setup'],
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/user.json',
       },
-      dependencies: ['setup'],
     },
     // {
     //   name: 'firefox',
@@ -82,5 +59,31 @@ export default defineConfig({
       name: 'Google Chrome',
       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     } */
+  ],
+
+  timeout: 10000,
+
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  use: {
+    baseURL,
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    trace: 'on-first-retry',
+
+    video: { mode: 'on' },
+  },
+  /* Run your local dev server before starting the tests */
+  webServer: [
+    {
+      command: 'pnpm nx serve web -c test',
+      cwd: workspaceRoot,
+      reuseExistingServer: !process.env.CI,
+      url: baseURL,
+    },
+    {
+      command: 'pnpm nx serve api -c test',
+      cwd: workspaceRoot,
+      reuseExistingServer: !process.env.CI,
+      url: 'http://127.0.0.1:4001/api/graphql',
+    },
   ],
 })

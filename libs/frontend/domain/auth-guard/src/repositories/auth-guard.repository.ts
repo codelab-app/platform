@@ -1,0 +1,61 @@
+import type {
+  IAuthGuardModel,
+  IAuthGuardRepository,
+} from '@codelab/frontend/abstract/domain'
+import type {
+  AuthGuardOptions,
+  AuthGuardUniqueWhere,
+  AuthGuardWhere,
+} from '@codelab/frontend/infra/gql'
+import { assertIsDefined } from '@codelab/shared/utils'
+import { authGuardApi } from './auth-guard.api'
+
+export const authGuardRepository: IAuthGuardRepository = {
+  add: async (authGuard: IAuthGuardModel) => {
+    const {
+      createAuthGuards: { authGuards },
+    } = await authGuardApi.CreateAuthGuards({
+      input: [authGuard.toCreateInput()],
+    })
+
+    const createdAuthGuard = authGuards[0]
+
+    assertIsDefined(createdAuthGuard)
+
+    return createdAuthGuard
+  },
+
+  delete: async (authGuards: Array<IAuthGuardModel>) => {
+    const {
+      deleteAuthGuards: { nodesDeleted },
+    } = await authGuardApi.DeleteAuthGuards({
+      delete: { config: { where: {} } },
+      where: { id_IN: authGuards.map((authGuard) => authGuard.id) },
+    })
+
+    return nodesDeleted
+  },
+
+  find: async (where?: AuthGuardWhere, options?: AuthGuardOptions) => {
+    return await authGuardApi.GetAuthGuards({ options, where })
+  },
+
+  findOne: async (where: AuthGuardUniqueWhere) => {
+    return (await authGuardRepository.find(where)).items[0]
+  },
+
+  update: async (authGuard: IAuthGuardModel) => {
+    const {
+      updateAuthGuards: { authGuards },
+    } = await authGuardApi.UpdateAuthGuard({
+      update: authGuard.toUpdateInput(),
+      where: { id: authGuard.id },
+    })
+
+    const updatedAuthGuard = authGuards[0]
+
+    assertIsDefined(updatedAuthGuard)
+
+    return updatedAuthGuard
+  },
+}

@@ -1,15 +1,18 @@
 'use client'
 
+import { RendererType } from '@codelab/frontend/abstract/application'
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
+import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { RootRenderer } from '@codelab/frontend-application-renderer/components'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
+import { useBuilderService, useInitializeBuilder } from '../../services'
 import { BuilderClickOverlay } from './BuilderClickOverlay'
 import { BuilderHoverOverlay } from './BuilderHoverOverlay'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
@@ -17,8 +20,10 @@ import { BuilderResizeHandle } from './BuilderResizeHandle'
 /**
  * Generic builder used for both Component & Element
  */
-export const Builder = observer(() => {
-  const { builderService, elementService, rendererService } = useStore()
+export const Builder = observer(({ pageSlug }: { pageSlug: string }) => {
+  const { rendererService } = useApplicationStore()
+  const builderService = useBuilderService()
+  const deleteElementModal = useDeleteElementModal()
   const renderer = rendererService.activeRenderer?.current
   const elementTree = rendererService.activeElementTree
   const { selectedNode } = builderService
@@ -26,10 +31,11 @@ export const Builder = observer(() => {
   const ref = useRef<HTMLDivElement>(null)
 
   useBuilderHotkeys({
-    deleteModal: elementService.deleteModal,
+    deleteModal: deleteElementModal,
     selectedNode,
     setSelectedNode: builderService.setSelectedNode.bind(builderService),
   })
+  useInitializeBuilder({ pageSlug, rendererType: RendererType.PageBuilder })
 
   useEffect(() => {
     if (!containerRef.current) {

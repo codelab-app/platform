@@ -1,6 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   Form,
   FormController,
@@ -10,12 +10,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateResourceSchema } from './update-resource.schema'
-import { useUpdateResourceModal } from './update-resource-modal.state'
+import { useUpdateResourceForm } from './update-resource.state'
 
 export const UpdateResourceForm = observer(() => {
   const { resourceService } = useStore()
-  const updateResourceModal = useUpdateResourceModal()
-  const resource = updateResourceModal.data?.current
+  const updateResourceForm = useUpdateResourceForm()
+  const resource = updateResourceForm.data?.current
 
   const model = {
     config: resource?.config.values,

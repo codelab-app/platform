@@ -1,8 +1,5 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { mapAtomOptions } from '@codelab/frontend-domain-atom/store'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'

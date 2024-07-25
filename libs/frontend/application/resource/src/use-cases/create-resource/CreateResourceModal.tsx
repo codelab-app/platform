@@ -1,9 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -11,8 +8,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createResourceSchema } from './create-resource.schema'
+import { useCreateResourceModal } from './create-resource.state'
 import { createResourceUseCase } from './create-resource.use-case'
-import { useCreateResourceModal } from './create-resource-modal.state'
 
 export const CreateResourceModal = observer(() => {
   const { userService } = useStore()

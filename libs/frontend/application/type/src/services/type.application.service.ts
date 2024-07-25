@@ -1,11 +1,5 @@
-import type { ITypeService } from '@codelab/frontend/abstract/application'
-import type {
-  IFieldDomainService,
-  ITypeDomainService,
-  ITypeModel,
-  ITypeRepository,
-} from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
 import sortBy from 'lodash/sortBy'

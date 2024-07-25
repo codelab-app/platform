@@ -29,18 +29,12 @@ query AppListPreview($options: AppOptions, $where: AppWhere) {
   }
 }
 
-query GetApps($options: AppOptions, $where: AppWhere) {
-  aggregate: appsAggregate(where: $where) {
-    count
-  }
+query AppList($options: AppOptions, $where: AppWhere) {
   items: apps(options: $options, where: $where) {
     ...App
   }
-}
-
-query AppList($options: AppOptions, $where: AppWhere) {
-  apps(options: $options, where: $where) {
-    ...AppPreview
+  aggregate: appsAggregate(where: $where) {
+    count
   }
   atoms(where: { type: ReactFragment }) {
     ...AtomDevelopment

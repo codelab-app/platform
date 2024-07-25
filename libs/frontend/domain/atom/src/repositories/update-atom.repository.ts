@@ -2,11 +2,6 @@ import type {
   IAtomModel,
   IAtomRepository,
 } from '@codelab/frontend/abstract/domain'
-import {
-  graphql,
-  type UpdateAtomsMutationVariables,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import { atomApi } from './atom.api'
 
 export const updateAtomRepository: IAtomRepository['update'] = async (

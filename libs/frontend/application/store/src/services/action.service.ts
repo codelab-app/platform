@@ -3,11 +3,9 @@ import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend-application-prop/services'
-import { ModalService } from '@codelab/frontend-application-shared-store/ui'
-import { getTypeService } from '@codelab/frontend-application-type/services'
-import { ActionDomainService } from '@codelab/frontend-domain-action/services'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { ActionFactory } from '@codelab/frontend-domain-action/store'
+import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import type {
   IActionDto,
   ICreateActionData,
@@ -15,117 +13,60 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { ActionRepository } from './action.repo'
-import {
-  ActionFormService,
-  CreateActionFormService,
-} from './action-form.service'
-import { ActionModalService } from './action-modal.service'
 
-@model('@codelab/ActionService')
-export class ActionService
-  extends Model({
-    actionDomainService: prop(() => new ActionDomainService({})),
-    actionRepository: prop(() => new ActionRepository({})),
-    createForm: prop(() => new CreateActionFormService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new ActionModalService({})),
-    updateForm: prop(() => new ActionFormService({})),
-    updateModal: prop(() => new ActionModalService({})),
-  })
-  implements IActionService
-{
-  @modelFlow
-  @transaction
-  cloneAction = _async(function* (
-    this: ActionService,
-    action: IActionModel,
-    storeId: string,
-  ) {
-    return yield* _await(this.recursiveClone(action, storeId))
-  })
+export const useActionService = (): IActionService => {
+  const { actionDomainService } = useDomainStore()
 
-  @modelFlow
-  @transaction
-  create = _async(function* (this: ActionService, data: ICreateActionData) {
-    const action = this.actionDomainService.hydrate(
-      ActionFactory.mapDataToDto(data),
-    )
+  const cloneAction = async (action: IActionModel, storeId: string) => {
+    return await recursiveClone(action, storeId)
+  }
 
-    yield* _await(this.actionRepository.add(action))
+  const create = async (data: ICreateActionData) => {
+    const action = actionDomainService.hydrate(ActionFactory.mapDataToDto(data))
+
+    await actionRepository.add(action)
 
     return action
-  })
+  }
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (
-    this: ActionService,
-    actions: Array<IActionModel>,
-  ) {
+  const remove = async (actions: Array<IActionModel>) => {
     for (const action of actions) {
       const { id } = action
 
-      this.actionDomainService.actions.delete(id)
+      actionDomainService.actions.delete(id)
     }
 
-    yield* _await(this.actionRepository.delete(actions))
-  })
+    return await actionRepository.delete(actions)
+  }
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: ActionService, where: IActionWhere) {
-    const { items: actionFragments } = yield* _await(
-      this.actionRepository.find(where),
-    )
+  const getAll = async (where: IActionWhere) => {
+    const { items: actionFragments } = await actionRepository.find(where)
 
-    return this.actionDomainService.load(actionFragments)
-  })
+    return actionDomainService.load(actionFragments)
+  }
 
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: ActionService, id: string) {
-    return this.actionDomainService.actions.has(id)
-      ? this.actionDomainService.actions.get(id)
-      : (yield* _await(this.getAll({ id })))[0]
-  })
+  const getOne = async (id: string) => {
+    return actionDomainService.actions.has(id)
+      ? actionDomainService.actions.get(id)
+      : (await getAll({ id }))[0]
+  }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (this: ActionService, data: IUpdateActionData) {
-    const action = this.actionDomainService.actions.get(data.id)
+  const update = async (data: IUpdateActionData) => {
+    const action = actionDomainService.actions.get(data.id)
 
     assertIsDefined(action)
 
     const actionDto = ActionFactory.mapDataToDto(data)
 
-    // ActionFactory below should be enough
-    //
-    // if (action.type === IActionKind.ApiAction) {
-    //   action.config.writeCache({
-    //     data: JSON.stringify(data.config.data),
-    //   })
-    // }
-
     ActionFactory.writeCache(actionDto, action)
 
-    yield* _await(this.actionRepository.update(action))
+    await actionRepository.update(action)
 
     return action
-  })
+  }
 
-  private async recursiveClone(action: IActionModel, storeId: string) {
+  const recursiveClone = async (action: IActionModel, storeId: string) => {
     const actionDto = ActionFactory.mapActionToDto(action)
 
     let newActionDto: IActionDto = {
@@ -136,7 +77,7 @@ export class ActionService
 
     if (action.type === IActionKind.ApiAction) {
       if (action.successAction?.current) {
-        const successActionCloned = await this.recursiveClone(
+        const successActionCloned = await recursiveClone(
           action.successAction.current,
           storeId,
         )
@@ -148,7 +89,7 @@ export class ActionService
       }
 
       if (action.errorAction?.current) {
-        const errorActionCloned = await this.recursiveClone(
+        const errorActionCloned = await recursiveClone(
           action.errorAction.current,
           storeId,
         )
@@ -160,20 +101,19 @@ export class ActionService
       }
     }
 
-    const newAction = this.actionDomainService.hydrate(newActionDto)
+    const newAction = actionDomainService.hydrate(newActionDto)
 
-    await this.actionRepository.add(newAction)
+    await actionRepository.add(newAction)
 
     return newAction
   }
 
-  @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
+  return {
+    cloneAction,
+    create,
+    getAll,
+    getOne,
+    remove,
+    update,
   }
 }

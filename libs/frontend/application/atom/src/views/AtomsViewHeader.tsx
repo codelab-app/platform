@@ -1,12 +1,12 @@
+import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom-modal.state'
+import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom.state'
 
 export const AtomsViewHeader = observer(() => {
   const { fieldService } = useStore()

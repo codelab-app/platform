@@ -1,11 +1,7 @@
 'use client'
 
-import type {
-  IAppDevelopmentDto,
-  IHydrateableData,
-} from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
-import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
+import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React, { useCallback, useEffect } from 'react'
@@ -20,6 +16,7 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
     components,
     elements,
     fields,
+    pages,
     redirects,
     resources,
     stores,
@@ -54,8 +51,6 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
         componentDomainService.hydrate(component),
       )
 
-      // data.pages?.forEach((page) => pageDomainService.hydrate(page))
-
       stores?.forEach((store) => storeDomainService.hydrate(store))
 
       actions?.forEach((action) => actionDomainService.hydrate(action))
@@ -69,6 +64,8 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
       redirects?.forEach((redirect) => redirectDomainService.hydrate(redirect))
 
       apps?.forEach((app) => appDomainService.hydrate(app))
+
+      pages?.forEach((page) => pageDomainService.hydrate(page))
 
       apps
         ?.flatMap((app) => app.pages ?? [])

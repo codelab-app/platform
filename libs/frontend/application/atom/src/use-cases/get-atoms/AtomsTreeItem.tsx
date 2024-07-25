@@ -7,16 +7,16 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import React from 'react'
-import { useDeleteAtomsModal } from '../delete-atom/delete-atoms-modal.state'
-import { useUpdateAtomModal } from '../update-atom/update-atom-modal.state'
+import { useDeleteAtomsModal } from '../delete-atom/delete-atoms.state'
+import { useUpdateAtomModal } from '../update-atom/update-atom.state'
 
 interface AtomsTreeItemProps {
   data: ITreeNode<IAtomTreeNodeData>

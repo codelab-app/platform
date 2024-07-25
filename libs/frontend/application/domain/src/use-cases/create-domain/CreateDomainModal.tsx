@@ -3,9 +3,9 @@
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,
@@ -16,8 +16,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createDomainSchema } from './create-domain.schema'
+import { useCreateDomainModal } from './create-domain.state'
 import { createDomainUseCase } from './create-domain.use-case'
-import { useCreateDomainModal } from './create-domain-modal.state'
 
 export const CreateDomainModal = observer(() => {
   const { userDomainService } = useDomainStore()

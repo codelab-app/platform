@@ -3,8 +3,8 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIfField,
   Form,
@@ -19,7 +19,7 @@ import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { useCreateAtomAction } from './create-atom.action'
 import { createAtomSchema } from './create-atom.schema'
-import { useCreateAtomModal } from './create-atom-modal.state'
+import { useCreateAtomModal } from './create-atom.state'
 
 interface CreateAtomFormProps {
   showFormControl?: boolean
@@ -34,7 +34,7 @@ export const CreateAtomForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateAtomFormProps) => {
-    const { tagService } = useStore()
+    const { tagDomainService } = useDomainStore()
     const createAtomAction = useCreateAtomAction
     const createAtomForm = useCreateAtomModal()
     const closeForm = () => createAtomForm.close()
@@ -51,7 +51,7 @@ export const CreateAtomForm = observer(
       title: 'Error while creating atom',
     })
 
-    const tagsSelectionOptions = tagService.tagDomainService.tagsSelectOptions
+    const tagsSelectionOptions = tagDomainService.tagsSelectOptions
 
     return (
       <Form<ICreateAtomData>

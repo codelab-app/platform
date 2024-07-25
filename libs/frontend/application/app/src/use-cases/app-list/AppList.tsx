@@ -1,6 +1,6 @@
 'use client'
 
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   padding,
   threeGridCol,

@@ -1,6 +1,6 @@
 'use client'
 
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'

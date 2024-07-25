@@ -19,10 +19,6 @@
     {
       "files": ["*.spec*.ts"],
       "rules": {}
-    },
-    {
-      "files": ["*.graphql"],
-      "rules": {}
     }
   ]
 }

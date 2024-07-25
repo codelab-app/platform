@@ -56,7 +56,12 @@ const addProjectTags = (tree, projectConfig) => {
     /**
      * Add `type:abstract`
      */
-    const isAbstract = appendTagsToProjectConfig(['libs/shared/abstract', 'libs/frontend/abstract', 'libs/backend/abstract'], 'type:abstract', projectConfig);
+    const isAbstract = appendTagsToProjectConfig([
+        'libs/shared/abstract',
+        'libs/frontend/abstract',
+        'libs/backend/abstract',
+        'libs/frontend/infra/gql',
+    ], 'type:abstract', projectConfig);
     if (!isAbstract) {
         appendTags('type:concrete', projectConfig);
     }

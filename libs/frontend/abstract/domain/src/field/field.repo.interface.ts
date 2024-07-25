@@ -3,6 +3,7 @@ import type {
   FieldOptions,
   FieldWhere,
 } from '@codelab/frontend/infra/gql'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { IRepository } from '../shared'
 import type { IFieldModel } from './field.model.interface'
 
@@ -11,4 +12,6 @@ export type IFieldRepository = IRepository<
   FieldFragment,
   FieldWhere,
   FieldOptions
->
+> & {
+  updateNodes(field: IFieldModel): Promise<IRef>
+}

@@ -10,6 +10,7 @@ import type { IPageDomainService } from '../page'
 import type { IRedirectDomainService } from '../redirect'
 import type { IResourceDomainService } from '../resource'
 import type { IStoreDomainService } from '../store'
+import type { ITagDomainService } from '../tag'
 import type { ITypeDomainService } from '../type'
 import type { IUserDomainService } from '../user'
 
@@ -26,6 +27,7 @@ export interface IDomainStore {
   redirectDomainService: IRedirectDomainService
   resourceDomainService: IResourceDomainService
   storeDomainService: IStoreDomainService
+  tagDomainService: ITagDomainService
   typeDomainService: ITypeDomainService
   userDomainService: IUserDomainService
 }

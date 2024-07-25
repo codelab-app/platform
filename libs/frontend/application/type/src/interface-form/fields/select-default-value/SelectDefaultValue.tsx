@@ -1,6 +1,6 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPropData, IValidationRules } from '@codelab/shared/abstract/core'

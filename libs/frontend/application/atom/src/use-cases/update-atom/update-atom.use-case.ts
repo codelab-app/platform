@@ -1,5 +1,5 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { updateAtomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { assertIsDefined } from '@codelab/shared/utils'
 

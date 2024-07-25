@@ -1,14 +1,13 @@
 import type {
+  BuilderWidth,
   IBuilderService,
   IRuntimeComponentModel,
   IRuntimeElementModel,
   IRuntimeModelRef,
 } from '@codelab/frontend/abstract/application'
 import {
-  BuilderWidth,
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
-  getUserService,
   isRuntimeComponent,
   isRuntimeComponentRef,
   isRuntimeElementRef,
@@ -17,42 +16,23 @@ import {
   runtimeElementRef,
   runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
-import {
-  getAtomDomainService,
-  getTagDomainService,
-  isComponentRef,
-} from '@codelab/frontend/abstract/domain'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { isComponentRef } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { useUserService } from '@codelab/frontend-application-user/services'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
+import { atom, useAtom } from 'jotai'
 import groupBy from 'lodash/groupBy'
-import { computed } from 'mobx'
-import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 export const COMPONENT_TAG_NAME = 'Component'
 
-@model('@codelab/BuilderService')
-export class BuilderService
-  extends Model({
-    builderContainerWidth: prop<number>(0).withSetter(),
-    hoveredNode: prop<Nullable<IRuntimeModelRef>>(null).withSetter(),
-    /**
-     * select a node would add it to expand list
-     * sometimes, it's not necessary to expand the node.
-     *
-     * E.g:
-     *   - when deleting a node because that node needs to be expanded to delete
-     *   - clear node selection
-     */
-    selectedNode: prop<Nullable<IRuntimeModelRef>>(null).withSetter(),
-  })
-  implements IBuilderService
-{
-  /**
-   * When we select an element within a component tree, we need to know which component we're in. This allows us to find the component and return it
-   */
-  @computed
-  get activeComponent() {
-    const selectedNode = this.selectedNode
+const builderContainerWidthAtom = atom(0)
+const hoveredNodeAtom = atom<Nullable<IRuntimeModelRef>>(null)
+const selectedNodeAtom = atom<Nullable<IRuntimeModelRef>>(null)
+
+const activeComponentAtom = atom(
+  (get) => {
+    const selectedNode = get(selectedNodeAtom)
 
     if (!selectedNode) {
       return null
@@ -69,91 +49,79 @@ export class BuilderService
     }
 
     return null
+  },
+  // (_get, _set, _newValue) => {},
+)
+
+const activeContainerAtom = atom((get) => {
+  const activeElementTree = get(activeElementTreeAtom)
+
+  if (!activeElementTree) {
+    return null
   }
 
-  @computed
-  get activeContainer() {
-    if (!this.activeElementTree) {
-      return null
-    }
+  return isRuntimePage(activeElementTree)
+    ? activeElementTree.page
+    : activeElementTree.component
+})
 
-    return isRuntimePage(this.activeElementTree)
-      ? this.activeElementTree.page
-      : this.activeElementTree.component
-  }
-
-  /**
-   * Based on which node is selected in the builder tree, we will display a different element tree for the rendered view
-   */
-  @computed
-  get activeElementTree() {
-    const selectedNode = this.selectedNode
+const activeElementTreeAtom = atom(
+  (get) => {
+    const selectedNode = get(selectedNodeAtom)
 
     if (!selectedNode) {
       return undefined
     }
 
-    /**
-     * If we're selecting the component
-     */
     if (isRuntimeComponentRef(selectedNode)) {
       return selectedNode.current
     }
 
-    /**
-     * If we're selecting an element within the component
-     */
     if (isRuntimeElementRef(selectedNode)) {
-      /**
-       * Given the node, we want the reference that belongs to an ElementTree.
-       */
       const elementTree = selectedNode.current.closestContainerNode.current
 
       return elementTree
     }
 
     return undefined
-  }
+  },
+  // (_get, _set, _newValue) => {},
+)
 
-  /**
-   * Get all components that have `Component` tag
-   */
-  @computed
-  get componentTagNames() {
-    // all component tags are marked under the component tag
-    return Array.from(this.tagDomainService.tags.values())
-      .filter((tag) => tag.name === COMPONENT_TAG_NAME)
-      .flatMap((tag) =>
-        tag.children.map(({ id }) => this.tagDomainService.tag(id)),
-      )
-      .map((tag) => tag?.name)
-      .filter(isNonNullable)
-  }
+export const useBuilderService = (): IBuilderService => {
+  const { atomDomainService, tagDomainService } = useDomainStore()
 
-  /**
-   * Each component has a category tag
-   */
-  get componentsGroupedByCategory() {
-    // atoms are internal components while components are created by users
-    const components = [...this.atomDomainService.atoms.values()].filter(
-      (component) => Boolean(component.tags),
-    )
+  const [builderContainerWidth, setBuilderContainerWidth] = useAtom(
+    builderContainerWidthAtom,
+  )
 
-    return groupBy(
-      components,
-      (component) =>
-        // Here we assume each atom only has one category tag
-        component.tags.filter(
-          (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
-        )[0]?.maybeCurrent?.name ?? '',
-    )
-  }
+  const [hoveredNode, setHoveredNode] = useAtom(hoveredNodeAtom)
+  const [selectedNode, setSelectedNode] = useAtom(selectedNodeAtom)
+  const [activeComponent] = useAtom(activeComponentAtom)
+  const [activeContainer] = useAtom(activeContainerAtom)
+  const [activeElementTree] = useAtom(activeElementTreeAtom)
+  const userService = useUserService()
 
-  @computed
-  get expandedElementTreeNodeIds() {
-    const preferences = this.userService.preferences
-    const containerId = this.activeContainer?.id
-    const treeViewNode = this.activeElementTree?.treeViewNode
+  const componentTagNames = Array.from(tagDomainService.tags.values())
+    .filter((tag) => tag.name === COMPONENT_TAG_NAME)
+    .flatMap((tag) => tag.children.map(({ id }) => tagDomainService.tag(id)))
+    .map((tag) => tag?.name)
+    .filter(isNonNullable)
+
+  const componentsGroupedByCategory = groupBy(
+    [...atomDomainService.atoms.values()].filter((component) =>
+      Boolean(component.tags),
+    ),
+    (component) =>
+      component.tags.filter(
+        (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
+      )[0]?.maybeCurrent?.name ?? '',
+  )
+
+  const expandedElementTreeNodeIds = (() => {
+    const preferences = userService.preferences
+    const containerId = activeContainer?.id
+    const treeViewNode = activeElementTree?.treeViewNode
 
     if (!treeViewNode || !containerId || !treeViewNode.children[0]) {
       return []
@@ -165,169 +133,142 @@ export class BuilderService
       return expandedNodes
     }
 
-    return isRuntimeComponent(this.activeElementTree)
+    return isRuntimeComponent(activeElementTree)
       ? [treeViewNode.children[0]?.key]
       : [treeViewNode.key]
-  }
+  })()
 
-  @computed
-  get selectedBuilderBreakpoint() {
-    const container = this.activeContainer
-
-    if (!container) {
+  const selectedBuilderBreakpoint = (() => {
+    if (!activeContainer) {
       return BuilderWidthBreakPoint.None
     }
 
-    const containerId = isComponentRef(container)
-      ? container.id
-      : container.current.app.id
+    const containerId = isComponentRef(activeContainer)
+      ? activeContainer.id
+      : activeContainer.current.app.id
 
-    const appPreferences = this.userService.preferences.apps?.[containerId]
+    const appPreferences = userService.preferences.apps?.[containerId]
 
     if (appPreferences?.selectedBuilderBreakpoint) {
       return appPreferences.selectedBuilderBreakpoint
     }
 
     return BuilderWidthBreakPoint.MobilePortrait
-  }
+  })()
 
-  @computed
-  get selectedBuilderWidth() {
-    const container = this.activeContainer
-
-    if (!container) {
+  const selectedBuilderWidth = (() => {
+    if (!activeContainer) {
       return defaultBuilderWidthBreakPoints['mobile-portrait']
     }
 
-    const containerId = isComponentRef(container)
-      ? container.id
-      : container.current.app.id
+    const containerId = isComponentRef(activeContainer)
+      ? activeContainer.id
+      : activeContainer.current.app.id
 
-    const appPreferences = this.userService.preferences.apps?.[containerId]
+    const appPreferences = userService.preferences.apps?.[containerId]
 
     if (appPreferences?.selectedBuilderWidth) {
       return appPreferences.selectedBuilderWidth
     }
 
     return defaultBuilderWidthBreakPoints['mobile-portrait']
-  }
+  })()
 
-  @modelAction
-  hoverElementNode(node: Nullable<IRuntimeElementModel>) {
+  const hoverElementNode = (node: Nullable<IRuntimeElementModel>) => {
     if (!node) {
-      this.hoveredNode = null
+      setHoveredNode(null)
 
       return
     }
 
-    this.hoveredNode = runtimeElementRef(node)
+    setHoveredNode(runtimeElementRef(node))
   }
 
-  @modelAction
-  selectComponentNode(node: Nullish<IRuntimeComponentModel>) {
+  const selectComponentNode = (node: Nullish<IRuntimeComponentModel>) => {
     if (!node) {
       return
     }
 
-    this.selectedNode = runtimeComponentRef(node)
-    this.updateExpandedNodes()
+    setSelectedNode(runtimeComponentRef(node))
+    updateExpandedNodes()
   }
 
-  @modelAction
-  selectElementNode(node: Nullish<IRuntimeElementModel>) {
+  const selectElementNode = (node: Nullish<IRuntimeElementModel>) => {
     if (!node) {
       return
     }
 
-    this.selectedNode = runtimeElementRef(node)
-    this.updateExpandedNodes()
+    setSelectedNode(runtimeElementRef(node))
+    updateExpandedNodes()
   }
 
-  @modelAction
-  selectPreviousElementOnDelete() {
-    if (!this.selectedNode || !isRuntimeElementRef(this.selectedNode)) {
-      this.setSelectedNode(null)
+  const selectPreviousElementOnDelete = () => {
+    if (!selectedNode || !isRuntimeElementRef(selectedNode)) {
+      setSelectedNode(null)
 
       return
     }
 
-    const parent = this.selectedNode.current.parentElement
+    const parent = selectedNode.current.parentElement
     const siblings = parent?.children || []
-    const index = siblings.indexOf(this.selectedNode.current)
+    const index = siblings.indexOf(selectedNode.current)
     const newSelectedNode = index > 0 ? siblings[index - 1] : parent
 
     if (!newSelectedNode) {
       throw new Error('Unable to find a new element to select')
     }
 
-    this.setSelectedNode(runtimeModelRef(newSelectedNode))
+    setSelectedNode(runtimeModelRef(newSelectedNode))
   }
 
-  @modelAction
-  setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>) {
-    if (!this.activeContainer) {
+  const setExpandedElementTreeNodeIds = (expandedNodeIds: Array<string>) => {
+    if (!activeContainer) {
       return
     }
 
-    this.userService.setElementTreeExpandedKeys(
-      this.activeContainer.id,
-      expandedNodeIds,
-    )
+    userService.setElementTreeExpandedKeys(activeContainer.id, expandedNodeIds)
   }
 
-  @modelAction
-  setSelectedBuilderBreakpoint(breakpoint: BuilderWidthBreakPoint) {
-    const container = this.activeContainer
-
-    if (!container) {
+  const setSelectedBuilderBreakpoint = (breakpoint: BuilderWidthBreakPoint) => {
+    if (!activeContainer) {
       return
     }
 
-    const containerId = isComponentRef(container)
-      ? container.id
-      : container.current.app.id
+    const containerId = isComponentRef(activeContainer)
+      ? activeContainer.id
+      : activeContainer.current.app.id
 
-    this.userService.setSelectedBuilderBreakpoint(containerId, breakpoint)
+    userService.setSelectedBuilderBreakpoint(containerId, breakpoint)
   }
 
-  @modelAction
-  setSelectedBuilderWidth(width: BuilderWidth) {
-    // -1 max width means fill the screen, so we use the available
-    // container width as long as it's not smaller than the min
-    const selectedBuilderWidth = {
+  const setSelectedBuilderWidth = (width: BuilderWidth) => {
+    const _selectedBuilderWidth = {
       default:
         width.default < 0
-          ? Math.max(width.min, this.builderContainerWidth)
+          ? Math.max(width.min, builderContainerWidth)
           : width.default,
       max:
-        width.max < 0
-          ? Math.max(width.min, this.builderContainerWidth)
-          : width.max,
+        width.max < 0 ? Math.max(width.min, builderContainerWidth) : width.max,
       min: width.min,
     }
 
-    const container = this.activeContainer
-
-    if (!container) {
+    if (!activeContainer) {
       return
     }
 
-    const containerId = isComponentRef(container)
-      ? container.id
-      : container.current.app.id
+    const containerId = isComponentRef(activeContainer)
+      ? activeContainer.id
+      : activeContainer.current.app.id
 
-    this.userService.setSelectedBuilderWidth(containerId, selectedBuilderWidth)
+    userService.setSelectedBuilderWidth(containerId, _selectedBuilderWidth)
   }
 
-  @modelAction
-  updateExpandedNodes = () => {
-    const { expandedElementTreeNodeIds, selectedNode } = this
-
+  const updateExpandedNodes = () => {
     if (!selectedNode) {
       return
     }
 
-    const newNodesToExpand = this.findNodesToExpand(
+    const newNodesToExpand = findNodesToExpand(
       selectedNode,
       expandedElementTreeNodeIds,
     )
@@ -336,34 +277,30 @@ export class BuilderService
       return
     }
 
-    this.setExpandedElementTreeNodeIds([
+    setExpandedElementTreeNodeIds([
       ...expandedElementTreeNodeIds,
       ...newNodesToExpand,
     ])
   }
 
-  findNodesToExpand = (
-    selectedNode: IRuntimeModelRef,
+  const findNodesToExpand = (
+    node: IRuntimeModelRef,
     alreadyExpandedNodeIds: Array<string>,
   ): Array<string> => {
-    /**
-     * If we delete an element, the whole tree collapses. Instead,
-     * we want to show the sibling or parent as selected.
-     */
-    const pathResult = this.getPathFromRoot(selectedNode)
+    const pathResult = getPathFromRoot(node)
     const expandedSet = new Set(alreadyExpandedNodeIds)
 
     return pathResult.filter((el) => !expandedSet.has(el))
   }
 
-  getPathFromRoot(selectedNode: IRuntimeModelRef): Array<string> {
+  const getPathFromRoot = (node: IRuntimeModelRef): Array<string> => {
     const path = []
 
-    if (!isRuntimeElementRef(selectedNode)) {
-      return [selectedNode.current.compositeKey]
+    if (!isRuntimeElementRef(node)) {
+      return [node.current.compositeKey]
     }
 
-    let currentElement = selectedNode.maybeCurrent
+    let currentElement = node.maybeCurrent
 
     while (currentElement) {
       path.push(currentElement.compositeKey)
@@ -373,18 +310,25 @@ export class BuilderService
     return path.reverse()
   }
 
-  @computed
-  private get atomDomainService() {
-    return getAtomDomainService(this)
-  }
-
-  @computed
-  private get tagDomainService() {
-    return getTagDomainService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
+  return {
+    activeComponent,
+    builderContainerWidth,
+    componentsGroupedByCategory,
+    componentTagNames,
+    expandedElementTreeNodeIds,
+    hoveredNode,
+    hoverElementNode,
+    selectComponentNode,
+    selectedBuilderBreakpoint,
+    selectedBuilderWidth,
+    selectedNode,
+    selectElementNode,
+    selectPreviousElementOnDelete,
+    setBuilderContainerWidth,
+    setExpandedElementTreeNodeIds,
+    setHoveredNode,
+    setSelectedBuilderBreakpoint,
+    setSelectedBuilderWidth,
+    setSelectedNode,
   }
 }

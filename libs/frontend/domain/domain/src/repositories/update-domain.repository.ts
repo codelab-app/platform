@@ -1,10 +1,6 @@
 'use server'
 
-import {
-  graphql,
-  type UpdateDomainsMutationVariables,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { type UpdateDomainsMutationVariables } from '@codelab/frontend/infra/gql'
 import { domainApi } from './domain.api'
 
 export const updateDomainRepository = async ({

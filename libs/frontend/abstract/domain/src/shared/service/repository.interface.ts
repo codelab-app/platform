@@ -16,7 +16,7 @@ export interface IRepository<
   Option extends { limit?: number | null; offset?: number | null },
 > {
   add(model: Model): Promise<IRef | undefined>
-  delete(models: Array<object>): Promise<number>
+  delete(models: Array<IRef>): Promise<number>
   find(
     where?: Where,
     options?: Option,

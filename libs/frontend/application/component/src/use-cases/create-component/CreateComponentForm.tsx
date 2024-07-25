@@ -2,8 +2,8 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -12,8 +12,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
+import { useCreateComponentForm } from './create-component.state'
 import { createComponentUseCase } from './create-component.use-case'
-import { useCreateComponentModal } from './create-component-modal.state'
 
 interface CreateComponentFormProps {
   submitRef?: React.MutableRefObject<Maybe<SubmitController>>
@@ -22,7 +22,7 @@ interface CreateComponentFormProps {
 
 export const CreateComponentForm = observer(
   ({ onSubmitSuccess, submitRef }: CreateComponentFormProps) => {
-    const createForm = useCreateComponentModal()
+    const createForm = useCreateComponentForm()
     const domainStore = useDomainStore()
 
     const onSubmit = async (componentData: ICreateComponentData) => {

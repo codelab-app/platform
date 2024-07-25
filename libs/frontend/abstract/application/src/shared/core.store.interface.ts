@@ -47,7 +47,7 @@ export interface ICoreStore {
   actionService: IActionService
   appService: IAppService
   atomService: IAtomService
-  authGuardService: IAuthGuardService
+  // authGuardService: IAuthGuardService
   builderService: IBuilderService
   componentService: IComponentApplicationService
   // domainService: IDomainService

@@ -1,15 +1,5 @@
-import {
-  CACHE_TAGS,
-  type IAppRepository,
-} from '@codelab/frontend/abstract/domain'
-import {
-  type AppListQueryVariables,
-  type AppOptions,
-  type AppWhere,
-  graphql,
-} from '@codelab/frontend/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
+import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { type AppOptions, type AppWhere } from '@codelab/frontend/infra/gql'
 import { appApi } from './app.api'
 
 export const appListRepository = async (

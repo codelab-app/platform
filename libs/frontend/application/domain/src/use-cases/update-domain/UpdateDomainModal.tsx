@@ -11,8 +11,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateDomainSchema } from './update-domain.schema'
+import { useUpdateDomainModal } from './update-domain.state'
 import { updateDomainUseCase } from './update-domain.use-case'
-import { useUpdateDomainModal } from './update-domain-modal.state'
 
 export const UpdateDomainModal = observer(() => {
   const updateDomainModal = useUpdateDomainModal()

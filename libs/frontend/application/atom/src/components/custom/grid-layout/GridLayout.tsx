@@ -1,5 +1,5 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { ObjectTyped } from 'object-typed'
 import React, { useMemo } from 'react'
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'
@@ -94,7 +94,7 @@ export const GridLayout = React.memo(
         layouts: allLayouts,
       }
 
-      const element = elementService.element(elementId)
+      const element = elementService.getElement(elementId)
 
       void propService.update(element.props, {
         data: JSON.stringify(newProps),

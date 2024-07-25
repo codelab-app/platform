@@ -1,7 +1,6 @@
 import type {
   AppFragment,
   AppOptions,
-  AppPreviewFragment,
   AppWhere,
 } from '@codelab/frontend/infra/gql'
 import type { IRepository } from '../shared'
