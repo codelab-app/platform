@@ -8,7 +8,6 @@ import type {
 import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
-  getUserService,
   isRuntimeComponent,
   isRuntimeComponentRef,
   isRuntimeElementRef,
@@ -17,12 +16,8 @@ import {
   runtimeElementRef,
   runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
-import {
-  getAtomDomainService,
-  getTagDomainService,
-  isComponentRef,
-} from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { isComponentRef } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useUserService } from '@codelab/frontend-application-user/services'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'

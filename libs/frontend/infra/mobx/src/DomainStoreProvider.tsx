@@ -7,27 +7,28 @@ import type { IUserDto } from '@codelab/shared/abstract/core'
 import type { PropsWithChildren } from 'react'
 import React, { createContext, useContext, useMemo } from 'react'
 
-const StoreContext = createContext<IDomainStore | null>(null)
+const DomainStoreContext = createContext<IDomainStore | null>(null)
 
-interface StoreProviderProps {
+interface DomainStoreProviderProps {
   user: IUserDto | null
 }
 
-export const StoreProvider: React.FC<PropsWithChildren<StoreProviderProps>> = ({
-  children,
-  user,
-}) => {
+export const DomainStoreProvider: React.FC<
+  PropsWithChildren<DomainStoreProviderProps>
+> = ({ children, user }) => {
   const store = useMemo(() => (user ? createDomainStore(user) : null), [user])
 
   return store ? (
-    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
+    <DomainStoreContext.Provider value={store}>
+      {children}
+    </DomainStoreContext.Provider>
   ) : (
     children
   )
 }
 
 export const useDomainStore = () => {
-  const store = useContext(StoreContext)
+  const store = useContext(DomainStoreContext)
 
   if (!store) {
     throw new Error(

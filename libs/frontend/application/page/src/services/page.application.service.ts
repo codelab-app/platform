@@ -1,5 +1,5 @@
 import { type IPageApplicationService } from '@codelab/frontend/abstract/application'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   pageApi,
   pageRepository,

@@ -1,8 +1,5 @@
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 
 export const useRequiredParentValidator = () => {
   const { elementService } = useStore()

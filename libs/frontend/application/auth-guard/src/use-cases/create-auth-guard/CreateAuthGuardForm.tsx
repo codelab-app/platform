@@ -1,13 +1,20 @@
-'use client'
-
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
 } from '@codelab/frontend-application-resource/components'
-import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import {
+  Form,
+  FormController,
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -15,36 +22,37 @@ import { useAuthGuardService } from '../../services'
 import { createAuthGuardSchema } from './create-auth-guard.schema'
 import { useCreateAuthGuardForm } from './create-auth-guard.state'
 
-export const CreateAuthGuardModal = () => {
-  const createAuthGuardForm = useCreateAuthGuardForm()
-  const authGuardService = useAuthGuardService()
+interface CreateAuthGuardFormProps {
+  showFormControl?: boolean
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
+}
 
-  const onSubmit = async (data: ICreateAuthGuardData) => {
-    closeModal()
+export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+    const authGuardService = useAuthGuardService()
+    const createAuthGuardForm = useCreateAuthGuardForm()
+    const closeForm = () => createAuthGuardForm.close()
 
-    return await authGuardService.create(data)
-  }
+    const onSubmit = (authGuardData: ICreateAuthGuardData) => {
+      void authGuardService.create(authGuardData)
 
-  const closeModal = () => createAuthGuardForm.close()
+      closeForm()
+      onSubmitSuccess?.()
 
-  const model = {
-    id: v4(),
-  }
+      return Promise.resolve()
+    }
 
-  return (
-    <ModalForm.Modal
-      okText="Create Auth Guard"
-      onCancel={closeModal}
-      open={createAuthGuardForm.isOpen}
-    >
-      <ModalForm.Form<ICreateAuthGuardData>
-        model={model}
+    return (
+      <Form<ICreateAuthGuardData>
+        model={{ id: v4() }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating auth guard',
+          title: 'Error while creating resource',
         })}
-        onSubmitSuccess={closeModal}
+        onSubmitSuccess={closeForm}
         schema={createAuthGuardSchema}
+        submitRef={submitRef}
         uiKey={MODEL_ACTION.CreateAuthGuard.key}
       >
         <AutoFields omitFields={['config']} />
@@ -53,7 +61,11 @@ export const CreateAuthGuardModal = () => {
           fetchConfigDataFieldName="config.data"
           resourceIdFieldName="resource.id"
         />
-      </ModalForm.Form>
-    </ModalForm.Modal>
-  )
-}
+
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Create Type" />
+        </DisplayIf>
+      </Form>
+    )
+  },
+)

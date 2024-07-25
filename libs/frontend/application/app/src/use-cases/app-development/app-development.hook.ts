@@ -3,10 +3,7 @@ import {
   type RendererType,
 } from '@codelab/frontend/abstract/application'
 import type { IAppDevelopmentDto } from '@codelab/frontend/abstract/domain'
-import {
-  useDomainStore,
-  useStore,
-} from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { hydrateAppDevelopment } from './app-development.hydrate'
 

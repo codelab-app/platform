@@ -4,7 +4,7 @@ import type {
   ICreateAuthGuardData,
   IUpdateAuthGuardData,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import type { AuthGuardWhere } from '@codelab/shared/abstract/codegen'
 import type { IPropDto } from '@codelab/shared/abstract/core'

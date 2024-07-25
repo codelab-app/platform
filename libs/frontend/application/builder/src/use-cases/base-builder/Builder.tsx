@@ -4,12 +4,14 @@ import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
+import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { RootRenderer } from '@codelab/frontend-application-renderer/components'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
+import { useBuilderService } from '../../services'
 import { BuilderClickOverlay } from './BuilderClickOverlay'
 import { BuilderHoverOverlay } from './BuilderHoverOverlay'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
@@ -18,7 +20,9 @@ import { BuilderResizeHandle } from './BuilderResizeHandle'
  * Generic builder used for both Component & Element
  */
 export const Builder = observer(() => {
-  const { builderService, elementService, rendererService } = useStore()
+  const { rendererService } = useApplicationStore()
+  const builderService = useBuilderService()
+  const deleteElementModal = useDeleteElementModal()
   const renderer = rendererService.activeRenderer?.current
   const elementTree = rendererService.activeElementTree
   const { selectedNode } = builderService
@@ -26,7 +30,7 @@ export const Builder = observer(() => {
   const ref = useRef<HTMLDivElement>(null)
 
   useBuilderHotkeys({
-    deleteModal: elementService.deleteModal,
+    deleteModal: deleteElementModal,
     selectedNode,
     setSelectedNode: builderService.setSelectedNode.bind(builderService),
   })

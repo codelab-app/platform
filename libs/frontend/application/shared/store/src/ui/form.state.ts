@@ -1,6 +1,5 @@
 import {
   CuiComponents,
-  MODEL_UI,
   type ModelActionKey,
 } from '@codelab/frontend/abstract/types'
 import { useToggleState } from './toggle.state'

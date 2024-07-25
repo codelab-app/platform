@@ -1,6 +1,5 @@
 import type { IPropService } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import { propRepository } from '@codelab/frontend-domain-prop/repositories'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import type {

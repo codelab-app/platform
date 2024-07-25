@@ -1,18 +1,13 @@
 import { type IStoreService } from '@codelab/frontend/abstract/application'
 import { type IStoreModel } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
-import { ModalService } from '@codelab/frontend-application-shared-store/ui'
-import { getTypeService } from '@codelab/frontend-application-type/services'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
-import { StoreDomainService } from '@codelab/frontend-domain-store/services'
 import {
   type StoreFragment,
   type StoreWhere,
 } from '@codelab/shared/abstract/codegen'
 import { type IStoreDto } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { getActionService } from './action.service.context'
-import { StoreModalService } from './store-modal.service'
 
 export const useStoreService = (): IStoreService => {
   const { actionDomainService, storeDomainService, typeDomainService } =

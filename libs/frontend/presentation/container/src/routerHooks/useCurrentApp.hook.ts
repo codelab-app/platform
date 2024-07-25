@@ -1,4 +1,4 @@
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useMemo } from 'react'

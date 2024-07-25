@@ -7,7 +7,7 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   Form,
   FormController,
@@ -20,8 +20,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createPageSchema } from './create-page.schema'
-import { createPageUseCase } from './create-page.use-case'
 import { useCreatePageForm } from './create-page.state'
+import { createPageUseCase } from './create-page.use-case'
 
 interface CreatePageFormProps {
   showFormControl?: boolean

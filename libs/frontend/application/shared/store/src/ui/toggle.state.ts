@@ -1,8 +1,6 @@
 import type {
-  CuiComponents,
   CuiComponentsKey,
   ModelActionKey,
-  ModelUiKey,
 } from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'

@@ -1,7 +1,7 @@
 'use client'
 
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
+import { DomainStoreProvider } from '@codelab/frontend-application-shared-store/provider'
 import type { IUserDto } from '@codelab/shared/abstract/core'
 import App from 'antd/lib/app'
 import ConfigProvider from 'antd/lib/config-provider'
@@ -20,9 +20,9 @@ export const Providers = ({
       <ConfigProvider theme={theme}>
         <AntdRegistry>
           <Provider>
-            <StoreProvider user={user}>
+            <DomainStoreProvider user={user}>
               <App className="h-full">{children}</App>
-            </StoreProvider>
+            </DomainStoreProvider>
           </Provider>
         </AntdRegistry>
       </ConfigProvider>
