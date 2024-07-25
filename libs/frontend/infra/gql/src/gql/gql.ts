@@ -122,9 +122,7 @@ const documents = {
     types.DeleteAppsDocument,
   '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
     types.AppListPreviewDocument,
-  '\n  query GetApps($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n  }\n':
-    types.GetAppsDocument,
-  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
+  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n':
     types.AppListDocument,
   '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
     types.GetAppProductionDocument,
@@ -732,14 +730,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetApps($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n  }\n',
-): (typeof documents)['\n  query GetApps($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
-): (typeof documents)['\n  query AppList($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n']
+  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n',
+): (typeof documents)['\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

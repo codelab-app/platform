@@ -10,6 +10,7 @@ import {
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
 import { isAtomRef } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { UpdateComponentForm } from '@codelab/frontend-application-component/use-cases/update-component'
 import { UpdateComponentPropsForm } from '@codelab/frontend-application-component/use-cases/update-component-props'
 import { DeleteElementButton } from '@codelab/frontend-application-element/use-cases/delete-element'
@@ -17,7 +18,6 @@ import { MoveElementForm } from '@codelab/frontend-application-element/use-cases
 import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
 import { UpdateElementPropsForm } from '@codelab/frontend-application-element/use-cases/update-element-props'
 import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'

@@ -1,8 +1,8 @@
+import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -11,7 +11,7 @@ export const useFormState = <T>(modelActionKey: ModelActionKey) => {
     close: toggleState.close,
     data: toggleState.data,
     isOpen: toggleState.isOpen,
-    modalState: toggleState.state,
+    // modalState: toggleState.state,
     open: toggleState.open,
   }
 }

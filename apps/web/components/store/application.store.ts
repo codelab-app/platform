@@ -1,4 +1,4 @@
-import { IRendererService } from '@codelab/frontend/abstract/application'
+import type { IRendererService } from '@codelab/frontend/abstract/application'
 import { RendererApplicationService } from '@codelab/frontend-application-renderer/services'
 import { Model, model, prop } from 'mobx-keystone'
 

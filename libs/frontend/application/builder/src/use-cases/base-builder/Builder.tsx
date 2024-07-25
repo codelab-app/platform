@@ -1,5 +1,6 @@
 'use client'
 
+import { RendererType } from '@codelab/frontend/abstract/application'
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
@@ -11,7 +12,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
-import { useBuilderService } from '../../services'
+import { useBuilderService, useInitializeBuilder } from '../../services'
 import { BuilderClickOverlay } from './BuilderClickOverlay'
 import { BuilderHoverOverlay } from './BuilderHoverOverlay'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
@@ -19,7 +20,7 @@ import { BuilderResizeHandle } from './BuilderResizeHandle'
 /**
  * Generic builder used for both Component & Element
  */
-export const Builder = observer(() => {
+export const Builder = observer(({ pageSlug }: { pageSlug: string }) => {
   const { rendererService } = useApplicationStore()
   const builderService = useBuilderService()
   const deleteElementModal = useDeleteElementModal()
@@ -34,6 +35,7 @@ export const Builder = observer(() => {
     selectedNode,
     setSelectedNode: builderService.setSelectedNode.bind(builderService),
   })
+  useInitializeBuilder({ pageSlug, rendererType: RendererType.PageBuilder })
 
   useEffect(() => {
     if (!containerRef.current) {

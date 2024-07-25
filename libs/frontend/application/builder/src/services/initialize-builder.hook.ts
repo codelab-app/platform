@@ -2,23 +2,25 @@ import {
   rendererRef,
   type RendererType,
 } from '@codelab/frontend/abstract/application'
-import type { IAppDevelopmentDto } from '@codelab/frontend/abstract/domain'
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend/infra/mobx'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { hydrateAppDevelopment } from './app-development.hydrate'
+import { useBuilderService } from './builder.service'
 
-export const useAppDev = ({
-  dto,
+export const useInitializeBuilder = ({
   pageSlug,
   rendererType,
 }: {
   rendererType: RendererType
-  dto: IAppDevelopmentDto
   pageSlug: string
 }) => {
   const domainStore = useDomainStore()
-  const { builderService, rendererService } = useStore()
-  const app = hydrateAppDevelopment(dto, domainStore)
+  const app = useCurrentApp(domainStore)
+  const builderService = useBuilderService()
+  const { rendererService } = useApplicationStore()
   const page = app.pageByName(getNameFromSlug(pageSlug))
 
   const renderer = rendererService.hydrate({
@@ -33,7 +35,6 @@ export const useAppDev = ({
   )
 
   void renderer.expressionTransformer.init()
-  // await renderer.expressionTransformer.init()
 
   return {
     app,

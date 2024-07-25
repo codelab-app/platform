@@ -4,8 +4,8 @@ import type {
   IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
-import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import { TypeKind } from '@codelab/shared/abstract/codegen'

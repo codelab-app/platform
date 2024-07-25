@@ -8,13 +8,13 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { actionRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 

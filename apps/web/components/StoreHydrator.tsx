@@ -16,6 +16,7 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
     components,
     elements,
     fields,
+    pages,
     redirects,
     resources,
     stores,
@@ -50,8 +51,6 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
         componentDomainService.hydrate(component),
       )
 
-      // data.pages?.forEach((page) => pageDomainService.hydrate(page))
-
       stores?.forEach((store) => storeDomainService.hydrate(store))
 
       actions?.forEach((action) => actionDomainService.hydrate(action))
@@ -65,6 +64,8 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
       redirects?.forEach((redirect) => redirectDomainService.hydrate(redirect))
 
       apps?.forEach((app) => appDomainService.hydrate(app))
+
+      pages?.forEach((page) => pageDomainService.hydrate(page))
 
       apps
         ?.flatMap((app) => app.pages ?? [])

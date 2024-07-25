@@ -20,13 +20,13 @@ import {
   MODEL_ACTION,
   PageType,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

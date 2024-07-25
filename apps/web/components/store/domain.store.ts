@@ -14,15 +14,15 @@ import {
   type IComponentDomainService,
   type IDomainDomainService,
   type IDomainStore,
-  IElementDomainService,
+  type IElementDomainService,
   type IFieldDomainService,
   type IPageDomainService,
   type IRedirectDomainService,
   type IResourceDomainService,
-  IStoreDomainService,
-  ITagDomainService,
-  ITypeDomainService,
-  IUserDomainService,
+  type IStoreDomainService,
+  type ITagDomainService,
+  type ITypeDomainService,
+  type IUserDomainService,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
@@ -48,7 +48,7 @@ import {
   typeDomainServiceContext,
 } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
-import { IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createDomainStore = (user: IUserDto) => {

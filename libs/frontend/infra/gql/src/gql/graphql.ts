@@ -27670,23 +27670,14 @@ export type AppListPreviewQuery = {
   items: Array<AppPreviewFragment>
 }
 
-export type GetAppsQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsQuery = {
-  aggregate: { count: number }
-  items: Array<AppFragment>
-}
-
 export type AppListQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>
   where?: InputMaybe<AppWhere>
 }>
 
 export type AppListQuery = {
-  apps: Array<AppPreviewFragment>
+  items: Array<AppFragment>
+  aggregate: { count: number }
   atoms: Array<AtomDevelopmentFragment>
 }
 
@@ -33447,13 +33438,16 @@ fragment Owner on User {
   AppListPreviewQuery,
   AppListPreviewQueryVariables
 >
-export const GetAppsDocument = new TypedDocumentString(`
-    query GetApps($options: AppOptions, $where: AppWhere) {
+export const AppListDocument = new TypedDocumentString(`
+    query AppList($options: AppOptions, $where: AppWhere) {
+  items: apps(options: $options, where: $where) {
+    ...App
+  }
   aggregate: appsAggregate(where: $where) {
     count
   }
-  items: apps(options: $options, where: $where) {
-    ...App
+  atoms(where: {type: ReactFragment}) {
+    ...AtomDevelopment
   }
 }
     fragment BaseAction on BaseAction {
@@ -33780,140 +33774,6 @@ fragment UnionType on UnionType {
     ... on IBaseType {
       ...BaseType
     }
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<GetAppsQuery, GetAppsQueryVariables>
-export const AppListDocument = new TypedDocumentString(`
-    query AppList($options: AppOptions, $where: AppWhere) {
-  apps(options: $options, where: $where) {
-    ...AppPreview
-  }
-  atoms(where: {type: ReactFragment}) {
-    ...AtomDevelopment
-  }
-}
-    fragment AppPreview on App {
-  domains {
-    ...Domain
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  pages {
-    ...PagePreview
-  }
-  slug
-}
-fragment AtomDevelopment on Atom {
-  __typename
-  api {
-    ...InterfaceType
-  }
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  tags {
-    ...Tag
-  }
-  type
-}
-fragment Domain on Domain {
-  app {
-    id
-  }
-  domainConfig {
-    misconfigured
-  }
-  id
-  name
-}
-fragment PagePreview on Page {
-  app {
-    id
-  }
-  id
-  kind
-  name
-  rootElement {
-    id
-  }
-  elements {
-    id
-  }
-  store {
-    id
-  }
-  urlPattern
-}
-fragment Tag on Tag {
-  children {
-    id
-    name
-  }
-  descendants {
-    id
-    name
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  parent {
-    id
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
   }
 }
 fragment Owner on User {

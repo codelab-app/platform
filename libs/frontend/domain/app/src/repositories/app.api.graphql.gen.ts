@@ -50,21 +50,13 @@ export const AppListPreviewDocument = graphql(`
   }
 `)
 
-export const GetAppsDocument = graphql(`
-  query GetApps($options: AppOptions, $where: AppWhere) {
-    aggregate: appsAggregate(where: $where) {
-      count
-    }
+export const AppListDocument = graphql(`
+  query AppList($options: AppOptions, $where: AppWhere) {
     items: apps(options: $options, where: $where) {
       ...App
     }
-  }
-`)
-
-export const AppListDocument = graphql(`
-  query AppList($options: AppOptions, $where: AppWhere) {
-    apps(options: $options, where: $where) {
-      ...AppPreview
+    aggregate: appsAggregate(where: $where) {
+      count
     }
     atoms(where: { type: ReactFragment }) {
       ...AtomDevelopment
@@ -90,7 +82,6 @@ import {
   type UpdateAppsMutationVariables,
   type DeleteAppsMutationVariables,
   type AppListPreviewQueryVariables,
-  type GetAppsQueryVariables,
   type AppListQueryVariables,
   type GetAppProductionQueryVariables,
 } from '@codelab/frontend/infra/gql'
@@ -115,11 +106,6 @@ const AppListPreview = (
   next?: NextFetchRequestConfig,
 ) => gqlFetch(AppListPreviewDocument, variables, next)
 
-const GetApps = (
-  variables: GetAppsQueryVariables,
-  next?: NextFetchRequestConfig,
-) => gqlFetch(GetAppsDocument, variables, next)
-
 const AppList = (
   variables: AppListQueryVariables,
   next?: NextFetchRequestConfig,
@@ -135,7 +121,6 @@ export const getSdk = () => ({
   UpdateApps,
   DeleteApps,
   AppListPreview,
-  GetApps,
   AppList,
   GetAppProduction,
 })

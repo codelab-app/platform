@@ -1,3 +1,4 @@
+import { useStore } from '@codelab/frontend/infra/mobx'
 import { CreateResourceModal } from '@codelab/frontend-application-resource/use-cases/create-resource'
 import { DeleteResourceModal } from '@codelab/frontend-application-resource/use-cases/delete-resource'
 import {
@@ -9,7 +10,6 @@ import {
   ResourcesViewLayout,
 } from '@codelab/frontend-application-resource/views'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

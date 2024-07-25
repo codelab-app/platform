@@ -1,3 +1,4 @@
+export * from './app.repository'
 export * from './app-development.api'
 export { appListRepository } from './app-list.repository'
 export { appProductionRepository } from './app-production.repository'

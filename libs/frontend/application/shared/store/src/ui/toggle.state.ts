@@ -24,13 +24,18 @@ const toggleStateAtomFamily = <T>() =>
       }),
   )
 
+export type IToggleState<T = unknown> = Omit<ToggleState<T>, 'key'> & {
+  close(): void
+  open(data: T): void
+}
+
 /**
  * Composable by form and modals, used internally
  */
 export const useToggleState = <T>(
   action: ModelActionKey,
   ui: CuiComponentsKey,
-) => {
+): IToggleState<T> => {
   const [toggleState, setToggleState] = useAtom(
     toggleStateAtomFamily<T>()({ action, ui }),
   )
@@ -56,6 +61,6 @@ export const useToggleState = <T>(
     data: toggleState.data,
     isOpen: toggleState.isOpen,
     open,
-    state: toggleState,
+    // state: toggleState,
   }
 }

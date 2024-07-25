@@ -2,8 +2,8 @@
 
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useStore } from '@codelab/frontend/infra/mobx'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

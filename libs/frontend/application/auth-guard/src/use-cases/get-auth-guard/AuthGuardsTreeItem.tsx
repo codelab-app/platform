@@ -5,12 +5,12 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 

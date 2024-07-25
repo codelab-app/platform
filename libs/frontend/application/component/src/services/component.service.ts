@@ -10,9 +10,9 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/frontend/infra/gql'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'

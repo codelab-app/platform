@@ -3,8 +3,8 @@ import {
   IRuntimeNodeType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/infra/mobx'
+import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

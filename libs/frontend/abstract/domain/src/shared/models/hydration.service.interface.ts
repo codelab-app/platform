@@ -10,7 +10,7 @@ import type {
   StoreFragment,
   TypeFragment,
 } from '@codelab/frontend/infra/gql'
-import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
+import type { IAppDto, IPageDto, IRef } from '@codelab/shared/abstract/core'
 
 export interface IHydrateable<Dto, Model> {
   hydrate(dto: Dto): Model
@@ -25,6 +25,7 @@ export interface IHydrateableData {
   elements?: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields?: Array<FieldFragment>
   // pages?: Array<PageDevelopmentFragment>
+  pages?: Array<IPageDto>
   props?: Array<PropFragment>
   redirects?: Array<RedirectFragment>
   resources?: Array<ResourceFragment>

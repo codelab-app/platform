@@ -1,8 +1,8 @@
 'use client'
 
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
 import { useStore } from '@codelab/frontend/infra/mobx'
+import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
 import { PropsForm } from '@codelab/frontend-application-type/props-form'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
