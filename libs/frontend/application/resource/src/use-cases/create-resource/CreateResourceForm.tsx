@@ -16,8 +16,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createResourceSchema } from './create-resource.schema'
+import { useCreateResourceForm } from './create-resource.state'
 import { createResourceUseCase } from './create-resource.use-case'
-import { useCreateResourceModal } from './create-resource-modal.state'
 
 interface CreateResourceFormProps {
   showFormControl?: boolean
@@ -31,9 +31,9 @@ export const CreateResourceForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateResourceFormProps) => {
-    const createResourceModal = useCreateResourceModal()
-    const closeForm = () => createResourceModal.close()
-    const resource = createResourceModal.data
+    const createResourceForm = useCreateResourceForm()
+    const closeForm = () => createResourceForm.close()
+    const resource = createResourceForm.data
     const { resourceDomainService } = useDomainStore()
 
     const onSubmit = (resourceDTO: ICreateResourceData) => {

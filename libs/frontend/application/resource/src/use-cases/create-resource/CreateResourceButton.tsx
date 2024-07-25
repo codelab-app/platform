@@ -5,7 +5,7 @@ import type { ItemType } from 'antd/lib/menu/interface'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../views'
-import { useCreateResourceModal } from './create-resource-modal.state'
+import { useCreateResourceModal } from './create-resource.state'
 
 export const CreateResourceButton = observer(() => {
   const createResourceModal = useCreateResourceModal()

@@ -8,11 +8,8 @@
     "simple-import-sort",
     "lodash",
     "prefer-arrow",
-    // https://github.com/gajus/eslint-plugin-canonical#no-unused-exports
     "canonical",
     "sort-destructure-keys",
-    // @typescript-eslint/member-ordering doesn't auto-fix
-    // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
     "typescript-sort-keys",
     "unicorn",
     "@stylistic/ts",
@@ -20,8 +17,8 @@
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
-    "browser": true, // For browser globals like window and document
-    "node": true, // For Node.js globals like process and console
+    "browser": true,
+    "node": true,
     "jest/globals": true
   },
   "globals": {
@@ -33,11 +30,6 @@
     "plugin:canonical/recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/strict",
-    // "plugin:@typescript-eslint/strict-type-checked",
-    // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
-    // "plugin:typescript-sort-keys/recommended"
-    // https://www.npmjs.com/package/eslint-plugin-import
-    // "plugin:lodash/recommended"
     "eslint:recommended",
     "plugin:import/typescript",
     "plugin:import/recommended",
@@ -50,7 +42,6 @@
     "./scripts/eslint/.codegen.eslintrc.json",
     "./scripts/eslint/.base.eslintrc.json"
   ],
-  // Used for import plugin
   "settings": {
     "react": {
       "version": "detect"

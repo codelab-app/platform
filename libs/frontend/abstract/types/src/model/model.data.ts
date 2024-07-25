@@ -44,7 +44,7 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.Delete,
     ],
-    uis: [CuiComponents.Sidebar],
+    uis: [CuiComponents.Sidebar, CuiComponents.Form, CuiComponents.Modal],
   },
   [ModelName.Builder]: {
     actions: ['OpenBuilder', 'OpenPreview'],

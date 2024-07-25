@@ -7,10 +7,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
+import { useUpdateAuthGuardModal } from './update-auth-guard.state'
 
 export const UpdateAuthGuardModal = observer(() => {
   const { authGuardService } = useStore()
-  const authGuard = authGuardService.updateModal.authGuard
+  const updateAuthGuardModal = useUpdateAuthGuardModal()
+  const authGuard = updateAuthGuardModal.data
 
   const model = {
     id: authGuard?.id,
@@ -18,7 +20,7 @@ export const UpdateAuthGuardModal = observer(() => {
     resource: authGuard?.resource,
   }
 
-  const closeModal = () => authGuardService.updateModal.close()
+  const closeModal = () => updateAuthGuardModal.close()
 
   const onSubmit = (authGuardDTO: IUpdateAuthGuardData) => {
     void authGuardService.update(authGuardDTO)
@@ -32,7 +34,7 @@ export const UpdateAuthGuardModal = observer(() => {
     <ModalForm.Modal
       okText="Update Auth Guard"
       onCancel={closeModal}
-      open={authGuardService.updateModal.isOpen}
+      open={updateAuthGuardModal.isOpen}
     >
       <ModalForm.Form<IUpdateAuthGuardData>
         model={model}

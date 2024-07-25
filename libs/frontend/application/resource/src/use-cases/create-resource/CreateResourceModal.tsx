@@ -11,8 +11,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createResourceSchema } from './create-resource.schema'
+import { useCreateResourceModal } from './create-resource.state'
 import { createResourceUseCase } from './create-resource.use-case'
-import { useCreateResourceModal } from './create-resource-modal.state'
 
 export const CreateResourceModal = observer(() => {
   const { userService } = useStore()

@@ -26,7 +26,7 @@ export const DeleteRedirectModal = observer(() => {
       return Promise.reject()
     }
 
-    void redirectService.delete([redirect])
+    void redirectService.remove([redirect])
 
     closeModal()
 

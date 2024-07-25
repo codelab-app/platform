@@ -8,8 +8,8 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDeleteResourceModal } from './delete-resource.state'
 import { deleteResourceUseCase } from './delete-resource.use-case'
-import { useDeleteResourceModal } from './delete-resource-modal.state'
 
 export const DeleteResourceModal = observer(() => {
   const { resourceDomainService } = useDomainStore()

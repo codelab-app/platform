@@ -1,7 +1,7 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useStore } from '@codelab/frontend-application-shared-store/provider'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
 import {
   DisplayIfField,
   ModalForm,
@@ -11,13 +11,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { SelectAtom } from '../select-atom'
-import { updateAtomSchema } from './update-atom.schema'
-import { useUpdateAppModal } from 'libs/frontend/application/app/src/use-cases/update-app/update-app-modal.state'
 import { useUpdateAtomAction } from './update-atom.action'
-import { useUpdateAtomModal } from './update-atom-modal.state'
+import { updateAtomSchema } from './update-atom.schema'
+import { useUpdateAtomModal } from './update-atom.state'
 
 export const UpdateAtomModal = observer(() => {
-  const { atomService, tagService } = useStore()
+  const { tagDomainService } = useDomainStore()
   const updateAtomModal = useUpdateAtomModal()
   const updateAtomAction = useUpdateAtomAction
   const atom = updateAtomModal.data?.current
@@ -46,7 +45,7 @@ export const UpdateAtomModal = observer(() => {
     type: atom?.type,
   }
 
-  const tagListOption = tagService.tagDomainService.tagsSelectOptions
+  const tagListOption = tagDomainService.tagsSelectOptions
 
   return (
     <ModalForm.Modal

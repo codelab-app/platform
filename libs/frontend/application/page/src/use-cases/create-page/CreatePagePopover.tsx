@@ -13,7 +13,7 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
-import { useCreatePageForm } from './create-page-form.state'
+import { useCreatePageForm } from './create-page.state'
 import { CreatePageForm } from './CreatePageForm'
 
 export const CreatePagePopover = observer(() => {

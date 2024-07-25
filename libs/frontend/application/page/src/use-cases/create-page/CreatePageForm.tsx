@@ -21,7 +21,7 @@ import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createPageSchema } from './create-page.schema'
 import { createPageUseCase } from './create-page.use-case'
-import { useCreatePageForm } from './create-page-form.state'
+import { useCreatePageForm } from './create-page.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean

@@ -9,8 +9,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAppSchema } from './create-app.schema'
+import { useCreateAppModal } from './create-app.state'
 import { createAppUseCase } from './create-app.use-case'
-import { useCreateAppModal } from './create-app-modal.state'
 
 export const CreateAppModal = () => {
   const createAppModal = useCreateAppModal()

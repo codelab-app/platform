@@ -8,8 +8,8 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDeleteDomainModal } from './delete-domain.state'
 import { deleteDomainUseCase } from './delete-domain.use-case'
-import { useDeleteDomainModal } from './delete-domain-modal.state'
 
 export const DeleteDomainModal = observer(() => {
   const deleteDomainModal = useDeleteDomainModal()

@@ -14,11 +14,11 @@ import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { SelectAtom } from '../select-atom'
 import { useUpdateAtomAction } from './update-atom.action'
 import { updateAtomSchema } from './update-atom.schema'
-import { useUpdateAtomModal } from './update-atom-modal.state'
+import { useUpdateAtomForm } from './update-atom.state'
 
 export const UpdateAtomForm = observer(() => {
   const { tagService } = useStore()
-  const updateAtomForm = useUpdateAtomModal()
+  const updateAtomForm = useUpdateAtomForm()
   const updateAtomAction = useUpdateAtomAction
   const atom = updateAtomForm.data?.current
 

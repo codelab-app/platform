@@ -10,8 +10,8 @@ import {
 } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useImportAdminDataModal } from './import-admin-data.state'
 import { importAdminDataUseCase } from './import-admin-data.use-case'
-import { useImportAdminDataModal } from './import-admin-data-modal.state'
 
 export const ImportAdminDataModal = () => {
   const importDataModal = useImportAdminDataModal()

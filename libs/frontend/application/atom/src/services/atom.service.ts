@@ -1,11 +1,8 @@
-import type { ITypeService } from '@codelab/frontend/abstract/application'
-import type {
-  IAtomDomainService,
-  ITypeRepository,
-} from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { useTypeService } from '@codelab/frontend-application-type/services'
 
-export const useAtomService = (typeService: ITypeService) => {
+export const useAtomService = () => {
+  const typeService = useTypeService()
   const { atomDomainService } = useDomainStore()
 
   const loadApi = async (id: string) => {

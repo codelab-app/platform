@@ -26,6 +26,12 @@
       }
     },
     {
+      "files": ["_app.tsx", "_document.tsx"],
+      "rules": {
+        "unicorn/filename-case": ["off"]
+      }
+    },
+    {
       "files": ["*.hook.ts", "*.hook.tsx"],
       "rules": {
         "unicorn/filename-case": [

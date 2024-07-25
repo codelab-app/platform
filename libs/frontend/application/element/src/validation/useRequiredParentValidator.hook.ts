@@ -47,8 +47,8 @@ export const useRequiredParentValidator = () => {
     childElementId?: string,
     parentElementId?: string,
   ) => {
-    const parentElement = elementService.element(String(parentElementId))
-    const childElement = elementService.element(String(childElementId))
+    const parentElement = elementService.getElement(String(parentElementId))
+    const childElement = elementService.getElement(String(childElementId))
 
     return validate(childElement.renderType.id, parentElement.renderType.id)
   }
@@ -57,7 +57,7 @@ export const useRequiredParentValidator = () => {
     childAtomId?: string,
     parentElementId?: string,
   ) => {
-    const parentElement = elementService.element(String(parentElementId))
+    const parentElement = elementService.getElement(String(parentElementId))
 
     if (!childAtomId) {
       return true

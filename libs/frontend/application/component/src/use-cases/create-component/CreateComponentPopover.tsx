@@ -10,12 +10,12 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import React, { useRef } from 'react'
-import { useCreateComponentModal } from './create-component-modal.state'
+import { useCreateComponentForm } from './create-component.state'
 import { CreateComponentForm } from './CreateComponentForm'
 
 export const CreateComponentPopover = () => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createForm = useCreateComponentModal()
+  const createForm = useCreateComponentForm()
   const { popover } = useCui()
 
   return (

@@ -94,7 +94,7 @@ export const GridLayout = React.memo(
         layouts: allLayouts,
       }
 
-      const element = elementService.element(elementId)
+      const element = elementService.getElement(elementId)
 
       void propService.update(element.props, {
         data: JSON.stringify(newProps),

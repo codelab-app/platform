@@ -35,7 +35,7 @@ export const DeleteTypeModal = observer(() => {
       throw new Error(`Can't delete typed since it's referenced in ${label}`)
     }
 
-    await typeService.delete([typeToDelete])
+    await typeService.remove([typeToDelete])
 
     /**
      * typeService.delete writes into cache

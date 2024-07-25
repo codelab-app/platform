@@ -20,7 +20,7 @@ import type {
 export interface IFieldService
   extends Omit<
       ICRUDService<IFieldModel, ICreateFieldData, IUpdateFieldData>,
-      'delete'
+      'remove'
     >,
     Omit<
       ICRUDModalService<Ref<IFieldModel>, { field?: IFieldModel }>,

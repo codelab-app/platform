@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateResourceSchema } from './update-resource.schema'
-import { useUpdateResourceModal } from './update-resource-modal.state'
+import { useUpdateResourceModal } from './update-resource.state'
 
 export const UpdateResourceModal = observer(() => {
   const { resourceService } = useStore()

@@ -4,7 +4,7 @@ import { Empty, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { UpdateAtomForm } from '../update-atom'
-import { useUpdateAtomModal } from '../update-atom/update-atom-modal.state'
+import { useUpdateAtomModal } from '../update-atom/update-atom.state'
 
 export const AtomForm = observer(() => {
   const { fieldService } = useStore()

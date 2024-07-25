@@ -16,8 +16,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createDomainSchema } from './create-domain.schema'
+import { useCreateDomainModal } from './create-domain.state'
 import { createDomainUseCase } from './create-domain.use-case'
-import { useCreateDomainModal } from './create-domain-modal.state'
 
 export const CreateDomainModal = observer(() => {
   const { userDomainService } = useDomainStore()

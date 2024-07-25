@@ -14,10 +14,10 @@ import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import React from 'react'
-import { useBuildAppModal } from '../build-app/build-app-modal.state'
+import { useBuildAppModal } from '../build-app/build-app.state'
 import { useDeleteAppModal } from '../delete-app/delete-app.state'
 import { useExportApp } from '../export-app'
-import { useUpdateAppModal } from '../update-app/update-app-modal.state'
+import { useUpdateAppModal } from '../update-app/update-app.state'
 
 export interface AppListItemDropdownProps {
   app: IAppModel

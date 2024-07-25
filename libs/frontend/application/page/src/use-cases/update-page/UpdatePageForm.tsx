@@ -16,7 +16,7 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
 import { updatePageUseCase } from './update-page.use-case'
-import { useUpdatePageForm } from './update-page-form.state'
+import { useUpdatePageForm } from './update-page.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean

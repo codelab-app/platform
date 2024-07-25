@@ -17,7 +17,7 @@ export const DeleteActionModal = observer(() => {
       return Promise.reject()
     }
 
-    return actionService.delete([action])
+    return actionService.remove([action])
   }
 
   return (

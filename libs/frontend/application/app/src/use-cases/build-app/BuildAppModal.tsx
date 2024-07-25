@@ -8,7 +8,7 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useBuildAppModal } from './build-app-modal.state'
+import { useBuildAppModal } from './build-app.state'
 import { useBuildApp } from './useBuildApp.hook'
 
 export const BuildAppModal = observer(() => {

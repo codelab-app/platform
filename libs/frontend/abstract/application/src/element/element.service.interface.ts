@@ -1,5 +1,4 @@
 import type {
-  IElementDomainService,
   IElementModel,
   IElementTree,
   IMoveElementContext,
@@ -11,11 +10,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type {
-  ICRUDModalService,
-  IEntityModalService,
-  IFormService,
-} from '../services'
+import type { ICRUDModalService } from '../services'
 import type { ICloneElementService } from './clone-element.service.interface'
 import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
 
@@ -62,16 +57,12 @@ export interface IElementService
     'createModal'
   > {
   cloneElementService: ICloneElementService
-  createForm: IFormService<CreateElementData, CreateElementProperties>
-  elementDomainService: IElementDomainService
   // Moved from element model to decouple renderer
-  updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
-  updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   validationService: IElementApplicationValidationService
 
   createElement(data: IElementDto): Promise<IElementModel>
-  // delete(subRoot: IElementModel): Promise<void>
-  element(id: string): IElementModel
+  deleteElement(subRoot: IElementModel): Promise<void>
+  getElement(id: string): IElementModel
   getSelectElementOptions(
     props: SelectElementOptions,
   ): Array<SelectElementOption>

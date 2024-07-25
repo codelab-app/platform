@@ -1,2 +1,2 @@
-export * from './delete-component-modal.state'
+export * from './delete-component.state'
 export * from './DeleteComponentModal'

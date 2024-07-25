@@ -4,108 +4,66 @@ import type {
   IRedirectModel,
   IUpdateRedirectData,
 } from '@codelab/frontend/abstract/domain'
-import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import type { RedirectWhere } from '@codelab/shared/abstract/codegen'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
-import { RedirectRepository } from './redirect.repo'
-import {
-  CreateRedirectFormService,
-  RedirectFormService,
-} from './redirect-form.service'
 
-@model('@codelab/RedirectService')
-export class RedirectService
-  extends Model({
-    createForm: prop(() => new CreateRedirectFormService({})),
-    deleteModal: prop(() => new RedirectFormService({})),
-    redirectDomainService: prop(() => new RedirectDomainService({})),
-    redirectRepository: prop(() => new RedirectRepository({})),
-    updateForm: prop(() => new RedirectFormService({})),
-  })
-  implements IRedirectService
-{
-  @computed
-  get redirectList() {
-    return [...this.redirectDomainService.redirects.values()]
-  }
+export const useRedirectService = (): IRedirectService => {
+  const { redirectDomainService } = useDomainStore()
+  const redirectList = [...redirectDomainService.redirects.values()]
 
-  @modelFlow
-  @transaction
-  create = _async(function* (
-    this: RedirectService,
-    redirectDto: ICreateRedirectData,
-  ) {
-    const redirect = this.redirectDomainService.hydrate(redirectDto)
+  const create = async (redirectDto: ICreateRedirectData) => {
+    const redirect = redirectDomainService.hydrate(redirectDto)
 
-    yield* _await(this.redirectRepository.add(redirect))
+    await redirectRepository.add(redirect)
 
     return redirect
-  })
+  }
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (
-    this: RedirectService,
-    redirectsModel: Array<IRedirectModel>,
-  ) {
+  const remove = async (redirectsModel: Array<IRedirectModel>) => {
     redirectsModel.forEach((redirect) =>
-      this.redirectDomainService.redirects.delete(redirect.id),
+      redirectDomainService.redirects.delete(redirect.id),
     )
 
-    /**
-     * Redirect can delete all other info
-     */
-    yield* _await(this.redirectRepository.delete(redirectsModel))
-  })
+    return await redirectRepository.delete(redirectsModel)
+  }
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: RedirectService, where: RedirectWhere) {
-    const { items: redirects } = yield* _await(
-      this.redirectRepository.find(where),
-    )
+  const getAll = async (where: RedirectWhere) => {
+    const { items: redirects } = await redirectRepository.find(where)
 
-    return redirects.map((redirect) =>
-      this.redirectDomainService.hydrate(redirect),
-    )
-  })
+    return redirects.map((redirect) => redirectDomainService.hydrate(redirect))
+  }
 
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: RedirectService, id: string) {
-    const redirects = yield* _await(this.getAll({ id }))
+  const getOne = async (id: string) => {
+    const redirects = await getAll({ id })
 
     return redirects[0]
-  })
+  }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: RedirectService,
-    redirectDto: IUpdateRedirectData,
-  ) {
-    const redirect = this.redirectDomainService.redirects.get(redirectDto.id)
+  const update = async (redirectDto: IUpdateRedirectData) => {
+    const redirect = redirectDomainService.redirects.get(redirectDto.id)
 
     assertIsDefined(redirect)
 
     redirect.writeCache(redirectDto)
 
-    yield* _await(this.redirectRepository.update(redirect))
+    await redirectRepository.update(redirect)
 
     return redirect
-  })
+  }
 
-  redirect(id: string) {
-    return this.redirectDomainService.redirects.get(id)
+  const redirect = (id: string) => {
+    return redirectDomainService.redirects.get(id)
+  }
+
+  return {
+    create,
+    getAll,
+    getOne,
+    redirect,
+    redirectList,
+    remove,
+    update,
   }
 }

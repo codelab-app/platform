@@ -11,7 +11,7 @@ import { useAppQuery } from '@codelab/frontend/presentation/container'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useCreateDomainModal } from '../use-cases/create-domain/create-domain-modal.state'
+import { useCreateDomainModal } from '../use-cases/create-domain/create-domain.state'
 
 export const DomainsPageHeader = observer(() => {
   const createDomainModal = useCreateDomainModal()

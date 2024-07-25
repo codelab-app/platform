@@ -15,10 +15,12 @@ import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
+import { useUpdateAuthGuardModal } from './update-auth-guard.state'
 
 export const UpdateAuthGuardForm = observer(() => {
   const { authGuardService, resourceService } = useStore()
-  const authGuard = authGuardService.updateForm.authGuard
+  const updateAuthGuardModal = useUpdateAuthGuardModal()
+  const authGuard = updateAuthGuardModal.data
 
   if (!authGuard) {
     return null

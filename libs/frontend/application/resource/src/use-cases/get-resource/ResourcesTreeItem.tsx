@@ -14,7 +14,7 @@ import { useStore } from '@codelab/frontend-application-shared-store/provider'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../views'
-import { useDeleteResourceModal } from '../delete-resource/delete-resource-modal.state'
+import { useDeleteResourceModal } from '../delete-resource/delete-resource.state'
 
 interface ResourcesTreeItemProps {
   data: ITreeNode<IResourceNodeData>

@@ -1,10 +1,6 @@
-import type { IResourceService } from '@codelab/frontend/abstract/application'
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
-import {
-  InlineFormService,
-  ModalService,
-} from '@codelab/frontend-application-shared-store/ui'
-import { ResourceDomainService } from '@codelab/frontend-domain-resource/services'
+import { useDomainStore } from '@codelab/frontend-application-shared-store/provider'
+import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateResourceData,
@@ -13,141 +9,104 @@ import type {
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { ResourceRepository } from './resource.repo'
-import { ResourceFormService } from './resource-form.service'
-import { ResourceModalService } from './resource-modal.service'
 
-@model('@codelab/ResourceService')
-export class ResourceService
-  extends Model({
-    createForm: prop(() => new InlineFormService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new ResourceModalService({})),
-    resourceDomainService: prop(() => new ResourceDomainService({})),
-    resourceRepository: prop(() => new ResourceRepository({})),
-    updateForm: prop(() => new ResourceFormService({})),
-    updateModal: prop(() => new ResourceModalService({})),
-  })
-  implements IResourceService
-{
-  @computed
-  get resourceList() {
-    return [...this.resourceDomainService.resources.values()]
+export const useResourceService = () => {
+  const { resourceDomainService } = useDomainStore()
+
+  const getResourceList = () => {
+    return [...resourceDomainService.resources.values()]
   }
 
-  @modelFlow
-  @transaction
-  create = _async(function* (
-    this: ResourceService,
-    { config: configData, id, name, type }: ICreateResourceData,
-  ) {
+  const create = async ({
+    config: configData,
+    id,
+    name,
+    type,
+  }: ICreateResourceData) => {
     const configProps: IPropDto = {
       data: JSON.stringify(configData),
       id: v4(),
     }
 
-    const resource = this.resourceDomainService.hydrate({
+    const resource = resourceDomainService.hydrate({
       config: configProps,
       id,
       name,
       type,
     })
 
-    yield* _await(this.resourceRepository.add(resource))
+    await resourceRepository.add(resource)
 
     return resource
-  })
+  }
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (
-    this: ResourceService,
-    resources: Array<IResourceModel>,
-  ) {
-    // const { id } = resource
-
-    resources.map((resource) => {
-      this.resourceDomainService.resources.delete(resource.id)
+  const deleteResources = async (resources: Array<IResourceModel>) => {
+    resources.forEach((resource) => {
+      resourceDomainService.resources.delete(resource.id)
     })
 
-    yield* _await(this.resourceRepository.delete(resources))
+    await resourceRepository.delete(resources)
+  }
 
-    return
-  })
+  const getAll = async (where: ResourceWhere = {}) => {
+    const { items: resources } = await resourceRepository.find(where)
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
-    const { items: resources } = yield* _await(
-      this.resourceRepository.find(where),
-    )
+    return resources.map((resource) => resourceDomainService.hydrate(resource))
+  }
 
-    return resources.map((resource) =>
-      this.resourceDomainService.hydrate(resource),
-    )
-  })
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: ResourceService, id: string) {
-    const [resource] = yield* _await(this.getAll({ id }))
+  const getOne = async (id: string) => {
+    const [resource] = await getAll({ id })
 
     return resource
-  })
+  }
 
-  @modelFlow
-  getSelectResourceOptions = _async(function* (this: ResourceService) {
-    const resources = yield* _await(this.getAll())
+  const getSelectResourceOptions = async () => {
+    const resources = await getAll()
 
     return resources.map((resource) => ({
       label: resource.name,
       value: resource.id,
     }))
-  })
+  }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: ResourceService,
-    { config: configData, id, name, type }: IUpdateResourceData,
-  ) {
-    const resource = this.resourceDomainService.resources.get(id)
+  const update = async ({
+    config: configData,
+    id,
+    name,
+    type,
+  }: IUpdateResourceData) => {
+    const resource = resourceDomainService.resources.get(id)
 
     assertIsDefined(resource)
 
     const config = resource.config
 
-    /**
-     * Write cache for inner model config of type Prop
-     */
     config.writeCache({ data: JSON.stringify(configData) })
     resource.writeCache({ name, type })
 
-    yield* _await(this.resourceRepository.update(resource))
+    await resourceRepository.update(resource)
 
     return resource
-  })
-
-  @modelAction
-  load(resources: Array<IResourceDto>) {
-    resources.forEach((resource) =>
-      this.resourceDomainService.hydrate(resource),
-    )
   }
 
-  resource(id: string) {
-    return this.resourceDomainService.resources.get(id)
+  const load = (resources: Array<IResourceDto>) => {
+    resources.forEach((resource) => resourceDomainService.hydrate(resource))
+  }
+
+  const getResource = (id: string) => {
+    return resourceDomainService.resources.get(id)
+  }
+
+  return {
+    create,
+    deleteResources,
+    getAll,
+    getOne,
+    getResource,
+    getResourceList,
+    getSelectResourceOptions,
+    load,
+    update,
   }
 }

@@ -33,9 +33,9 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import React from 'react'
-import { useDeletePageModal } from '../delete-page/delete-page-modal.state'
+import { useDeletePageModal } from '../delete-page/delete-page.state'
 import { useRegeneratePages } from '../generate-pages'
-import { useUpdatePageForm } from '../update-page/update-page-form.state'
+import { useUpdatePageForm } from '../update-page/update-page.state'
 
 interface PageTreeItemProps {
   app: IAppModel

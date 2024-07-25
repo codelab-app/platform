@@ -26,7 +26,7 @@ export const DeleteElementModal = observer(() => {
   const elementToDelete = elementService.deleteModal.element
 
   const onSubmit = ({ element }: DeleteElementData) => {
-    const targetElement = elementService.element(element.id)
+    const targetElement = elementService.getElement(element.id)
 
     // Don't wait so we don't block the UI
     void deleteElementUseCase(

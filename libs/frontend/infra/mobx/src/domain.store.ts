@@ -20,12 +20,14 @@ import {
   type IRedirectDomainService,
   type IResourceDomainService,
   IStoreDomainService,
+  ITagDomainService,
   ITypeDomainService,
   IUserDomainService,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
   storeDomainServiceContext,
+  tagDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { ActionDomainService } from '@codelab/frontend-domain-action/services'
@@ -39,6 +41,7 @@ import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
 import { ResourceDomainService } from '@codelab/frontend-domain-resource/services'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
+import { TagDomainService } from '@codelab/frontend-domain-tag/services'
 import {
   FieldDomainService,
   TypeDomainService,
@@ -86,6 +89,7 @@ export const createDomainStore = (user: IUserDto) => {
       storeDomainService: prop<IStoreDomainService>(
         () => new StoreDomainService({}),
       ),
+      tagDomainService: prop<ITagDomainService>(() => new TagDomainService({})),
       typeDomainService: prop<ITypeDomainService>(
         () => new TypeDomainService({}),
       ),
@@ -108,6 +112,7 @@ export const createDomainStore = (user: IUserDto) => {
       redirectDomainServiceContext.set(this, this.redirectDomainService)
       resourceDomainServiceContext.set(this, this.resourceDomainService)
       storeDomainServiceContext.set(this, this.storeDomainService)
+      tagDomainServiceContext.set(this, this.tagDomainService)
       typeDomainServiceContext.set(this, this.typeDomainService)
       userDomainServiceContext.set(this, this.userDomainService)
     }
