@@ -1,9 +1,6 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type {
-  IElementService,
-  IEntityFormService,
-} from '@codelab/frontend/abstract/application'
+import type { IEntityFormService } from '@codelab/frontend/abstract/application'
 import type {
   IElementModel,
   IElementTree,
@@ -14,22 +11,23 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import React from 'react'
+import { useCreateElementForm } from './create-element.state'
 
 export type CreateElementButtonProps = React.ComponentProps<typeof Button> & {
   activeForm?: IEntityFormService<Ref<IElementModel>> | null
-  createElementForm: IElementService['createForm']
   selectedElementId: Maybe<string>
   elementTree: IElementTree
 }
 
 export const CreateElementButton = ({
   activeForm,
-  createElementForm,
   elementTree,
   selectedElementId,
   title,
   type,
 }: CreateElementButtonProps) => {
+  const createElementForm = useCreateElementForm()
+
   const selectedElement = selectedElementId
     ? elementRef(selectedElementId)
     : undefined

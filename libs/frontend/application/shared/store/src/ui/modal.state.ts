@@ -4,8 +4,8 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useToggleState } from './toggle.state'
 
-export const useModalState = <T>(modelActionKey: ModelActionKey) => {
-  const toggleState = useToggleState<T>(modelActionKey, CuiComponents.Modal)
+export const useModalState = <TData>(modelActionKey: ModelActionKey) => {
+  const toggleState = useToggleState<TData>(modelActionKey, CuiComponents.Modal)
 
   return {
     close: toggleState.close,

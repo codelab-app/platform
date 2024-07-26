@@ -1,3 +1,4 @@
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { usePageApplicationService } from '@codelab/frontend-application-page/services'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
@@ -8,7 +9,8 @@ import { SelectField } from 'uniforms-antd'
 export type SelectPageProps = UniformSelectFieldProps
 
 export const SelectPage = ({ error, label, name }: SelectPageProps) => {
-  const app = useCurrentApp()
+  const domainStore = useDomainStore()
+  const app = useCurrentApp(domainStore)
   const pageService = usePageApplicationService()
 
   const [

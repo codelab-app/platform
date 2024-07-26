@@ -5,7 +5,7 @@ import { ResourceFetchConfigField } from '@codelab/frontend-application-resource
 import {
   SelectAction,
   SelectResource,
-} from '@codelab/frontend-application-type/interface-form'
+} from '@codelab/frontend/presentation/components/interface-form'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'

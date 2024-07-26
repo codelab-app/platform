@@ -7,7 +7,7 @@ import type {
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { SelectExcludeDescendantsElements } from '@codelab/frontend-application-type/interface-form'
+import { SelectExcludeDescendantsElements } from '@codelab/frontend/presentation/components/interface-form'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'

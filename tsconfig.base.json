@@ -919,6 +919,9 @@
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
       ],
+      "@codelab/frontend/presentation/components/interface-form": [
+        "libs/frontend/presentation/components/interface-form/src/index.ts"
+      ],
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
       ],

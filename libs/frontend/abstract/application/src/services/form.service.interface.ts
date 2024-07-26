@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { IToggleController } from './toggle.service.interface'
+import type { IToggleService } from './toggle.service.interface'
 
 export type IFormService<
-  Metadata extends object = object,
+  TData extends object = object,
   Properties extends object = Record<string, any>,
-> = IToggleController<Metadata> & {
+> = IToggleService<TData> & {
   /**
    * Previously used partial, but we want the key to exist, ust that the value we are not sure about
    */
@@ -14,19 +14,19 @@ export type IFormService<
 }
 
 export type IEntityFormService<
-  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
+  TData extends ArrayOrSingle<Ref<AnyModel>>,
   Properties extends Record<string, ArrayOrSingle<AnyModel>> = Record<
     string,
     any
   >,
-> = IToggleController<Metadata> & {
+> = IToggleService<TData> & {
   [K in keyof Properties]: Properties[K] | undefined
 }
 
 export interface ICRUDFormService<
-  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
+  TData extends ArrayOrSingle<Ref<AnyModel>>,
   Properties extends Record<string, AnyModel>,
 > {
   createForm: IFormService
-  updateForm: IEntityFormService<Metadata, Properties>
+  updateForm: IEntityFormService<TData, Properties>
 }

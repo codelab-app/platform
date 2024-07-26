@@ -1,10 +1,15 @@
 /**
  * Re-useable interface that allows some UI to be toggled open and close
  */
-export interface IToggleController<Metadata extends object> {
+export interface IToggleService<TData = void, TOutput = TData> {
+  data: TOutput | undefined
   isOpen: boolean
-  metadata: Metadata | undefined
 
   close(): void
-  open(args?: Metadata): void
+  open(args?: TData): void
 }
+
+export type IToggleState<TData = void, TOutput = TData> = Pick<
+  IToggleService<TData, TOutput>,
+  'data' | 'isOpen'
+>

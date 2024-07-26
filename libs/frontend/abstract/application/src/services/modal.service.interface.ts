@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { IToggleController } from './toggle.service.interface'
+import type { IToggleService } from './toggle.service.interface'
 
 /**
  * Used for base modal, since a class can only implement an object type or intersection of object types with statically known members
  */
 export type IModalService<
-  Metadata extends object = object,
-  Properties extends object = Record<string, any>,
-> = IToggleController<Metadata> & {
+  TData = void,
+  Properties = void,
+> = IToggleService<TData> & {
   /**
-   * Previously used partial, but we want the key to exist, ust that the value we are not sure about
+   * Previously used partial, but we want the key to exist, just that the value we are not sure about
    */
   [K in keyof Properties]: Properties[K] | undefined
 }
@@ -24,7 +24,7 @@ export type IEntityModalService<
    *
    * But using model doesn't work, since it already has a parent
    */
-  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
+  TData extends ArrayOrSingle<Ref<AnyModel>>,
   /**
    * With this interface, you can't have an object that has a property of a type other than number. It's restrictive in that sense.
    *
@@ -34,15 +34,15 @@ export type IEntityModalService<
     string,
     any
   >,
-> = IToggleController<Metadata> & {
+> = IToggleService<TData> & {
   [K in keyof Properties]: Properties[K] | undefined
 }
 
 export interface ICRUDModalService<
-  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
+  TData extends ArrayOrSingle<Ref<AnyModel>>,
   Properties extends Record<string, AnyModel>,
 > {
   createModal: IModalService
-  deleteModal: IEntityModalService<Metadata, Properties>
-  updateModal: IEntityModalService<Metadata, Properties>
+  deleteModal: IEntityModalService<TData, Properties>
+  updateModal: IEntityModalService<TData, Properties>
 }

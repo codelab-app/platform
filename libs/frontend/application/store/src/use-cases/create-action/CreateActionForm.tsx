@@ -8,7 +8,7 @@ import { ResourceFetchConfigField } from '@codelab/frontend-application-resource
 import {
   SelectAction,
   SelectResource,
-} from '@codelab/frontend-application-type/interface-form'
+} from '@codelab/frontend/presentation/components/interface-form'
 import {
   DisplayIfField,
   Form,
