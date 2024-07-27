@@ -1,17 +1,16 @@
-import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useMemo } from 'react'
 
-export const useCurrentApp = (domainStore: IDomainStore) => {
-  const { appDomainService } = domainStore
+export const useCurrentApp = () => {
+  const { appDomainService } = useDomainStore()
   const { appSlug } = useUrl()
 
   return useMemo(() => {
     const app = appDomainService.appsList.find((item) => item.name === appSlug)
 
-    assertIsDefined(app)
+    // assertIsDefined(app)
 
     return app
-  }, [appDomainService.appsList])
+  }, [appSlug, appDomainService.appsList])
 }

@@ -6,30 +6,33 @@ import { ComponentDetailHeader } from '@codelab/frontend-application-component/v
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 import React from 'react'
+import { StoreHydrator } from '../../components/StoreHydrator'
 
 export const metadata: Metadata = {
   title: 'Components | Codelab',
 }
 
 const ComponentsView = async () => {
-  const { components } = await componentListUseCase()
-  const { items: atoms } = await atomListUseCase()
+  const [{ components }, { items: atoms }] = await Promise.all([
+    componentListUseCase(),
+    atomListUseCase(),
+  ])
 
   return (
-    <DashboardTemplate
-      Header={<ComponentDetailHeader />}
-      PrimarySidebar={{
-        default: ExplorerPaneType.Components,
-        items: [
-          {
-            key: ExplorerPaneType.Components,
-            render: (
-              <ComponentsPrimarySidebar atoms={atoms} components={components} />
-            ),
-          },
-        ],
-      }}
-    />
+    <StoreHydrator atoms={atoms} components={components}>
+      <DashboardTemplate
+        Header={<ComponentDetailHeader />}
+        PrimarySidebar={{
+          default: ExplorerPaneType.Components,
+          items: [
+            {
+              key: ExplorerPaneType.Components,
+              render: <ComponentsPrimarySidebar />,
+            },
+          ],
+        }}
+      />
+    </StoreHydrator>
   )
 }
 

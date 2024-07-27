@@ -7,7 +7,6 @@ import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { useDeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { exportComponentUseCase } from '@codelab/frontend-application-component/use-cases/export-component'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
-import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
@@ -16,14 +15,12 @@ import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import React, { useEffect } from 'react'
 import { ComponentList } from './ComponentList'
-import { useComponentsList } from './useComponentsList.hook'
 
 interface CustomComponentProps {
-  components: Array<IComponentDto>
+  components: Array<IComponentModel>
 }
 
 export const CustomComponents = observer((props: CustomComponentProps) => {
-  const components = useComponentsList(props.components)
   const { componentDomainService } = useDomainStore()
   const deleteModal = useDeleteComponentModal()
   const router = useRouter()
@@ -61,7 +58,7 @@ export const CustomComponents = observer((props: CustomComponentProps) => {
     <SkeletonWrapper isLoading={isLoading}>
       {!isNil(error) ? error.message : null}
       <ComponentList
-        components={components}
+        components={props.components}
         onDelete={(id) =>
           deleteModal.open(componentDomainService.component(id))
         }

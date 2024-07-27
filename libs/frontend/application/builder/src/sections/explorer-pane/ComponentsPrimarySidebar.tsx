@@ -2,39 +2,32 @@
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CreateComponentPopover,
-  useCreateComponentModal,
+  useCreateComponentForm,
 } from '@codelab/frontend-application-component/use-cases/create-component'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
-import type { IAtomDto, IComponentDto } from '@codelab/shared/abstract/core'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { ComponentList } from './tab-contents/ComponentList'
 import { CustomComponents } from './tab-contents/CustomComponents'
-import { PreBuiltComponents } from './tab-contents/PreBuiltComponents'
 
-interface ComponentsPrimarySidebarProps {
-  atoms: Array<IAtomDto>
-  components: Array<IComponentDto>
-}
-
-export const ComponentsPrimarySidebar = ({
-  atoms,
-  components,
-}: ComponentsPrimarySidebarProps) => {
+export const ComponentsPrimarySidebar = observer(() => {
+  const { atomDomainService, componentDomainService } = useDomainStore()
   const { popover } = useCui()
-  const createForm = useCreateComponentModal()
+  const createForm = useCreateComponentForm()
 
   const sidebarViews: Array<CuiSidebarView> = [
     {
       content: (
         <div className="p-3">
-          <CustomComponents components={components} />
+          <CustomComponents components={componentDomainService.componentList} />
         </div>
       ),
-      // isLoading,
       key: 'custom',
       label: 'Custom',
       toolbar: {
@@ -60,10 +53,9 @@ export const ComponentsPrimarySidebar = ({
     {
       content: (
         <div className="p-3">
-          <PreBuiltComponents atoms={atoms} />
+          <ComponentList components={atomDomainService.atomsList} />
         </div>
       ),
-      // isLoading,
       key: 'pre-built',
       label: 'Pre-built',
     },
@@ -82,6 +74,6 @@ export const ComponentsPrimarySidebar = ({
       <DeleteComponentModal />
     </>
   )
-}
+})
 
 ComponentsPrimarySidebar.displayName = 'ComponentsPrimarySidebar'

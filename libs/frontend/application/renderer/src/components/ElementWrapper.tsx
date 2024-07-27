@@ -1,3 +1,5 @@
+'use client'
+
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'

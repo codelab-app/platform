@@ -14,15 +14,15 @@ interface ToggleState<T = unknown> {
 /**
  * atom family is used for dynamic atoms
  */
-const toggleStateAtomFamily = <T>() =>
-  atomFamily(
-    ({ action, ui }: { action: ModelActionKey; ui: CuiComponentsKey }) =>
-      atom<ToggleState<T>>({
-        data: undefined,
-        isOpen: false,
-        key: `${action}-${ui}`,
-      }),
-  )
+const toggleStateAtomFamily = atomFamily(
+  ({ action, ui }: { action: ModelActionKey; ui: CuiComponentsKey }) =>
+    atom<ToggleState>({
+      data: undefined,
+      isOpen: false,
+      key: `${action}-${ui}`,
+    }),
+  (a, b) => a.action === b.action && a.ui === b.ui,
+)
 
 export type IToggleState<T = unknown> = Omit<ToggleState<T>, 'key'> & {
   close(): void
@@ -37,7 +37,7 @@ export const useToggleState = <T>(
   ui: CuiComponentsKey,
 ): IToggleState<T> => {
   const [toggleState, setToggleState] = useAtom(
-    toggleStateAtomFamily<T>()({ action, ui }),
+    toggleStateAtomFamily({ action, ui }),
   )
 
   const open = (data?: T) => {
@@ -58,7 +58,7 @@ export const useToggleState = <T>(
 
   return {
     close,
-    data: toggleState.data,
+    data: toggleState.data as T,
     isOpen: toggleState.isOpen,
     open,
     // state: toggleState,
