@@ -60,4 +60,23 @@ describe('useToggleState', () => {
     expect(result.current.isOpen).toBe(true)
     expect(result.current.data).toBe('updated data')
   })
+
+  it('should transform input data using mapper function', () => {
+    const mapper = (input: string) => {
+      const [firstname, lastname] = input.split(' ')
+
+      return { firstname: firstname!, lastname: lastname! }
+    }
+
+    const { result } = renderHook(() =>
+      useToggleState<string, { firstname: string; lastname: string }>(mapper),
+    )
+
+    act(() => {
+      result.current.open('John Doe')
+    })
+
+    expect(result.current.isOpen).toBe(true)
+    expect(result.current.data).toEqual({ firstname: 'John', lastname: 'Doe' })
+  })
 })

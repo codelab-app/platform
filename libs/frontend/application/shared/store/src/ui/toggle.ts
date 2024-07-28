@@ -1,14 +1,40 @@
 import type { IToggleService } from '@codelab/frontend/abstract/application'
-import { useAtom } from 'jotai'
+import { atom, useAtom } from 'jotai'
+import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
 import { createToggleStateAtom } from './toggle.state'
 
-export const useToggleState = <
-  TData = undefined,
-  TOutput extends Record<string, void> | undefined = undefined,
->(): IToggleService<TData, TOutput> => {
+const defaultMapper = <TData, TOutput = TData>(state: TData): TOutput =>
+  state as unknown as TOutput
+
+export const useToggleState = <TData = undefined, TOutput = TData>(
+  mapper: (state: TData) => TOutput = defaultMapper,
+): IToggleService<TData, TOutput> => {
   const toggleStateAtom = useMemo(() => createToggleStateAtom<TData>(), [])
-  const [toggleState, setToggleState] = useAtom(toggleStateAtom)
+
+  const derivedToggleStateAtom = useMemo(
+    () =>
+      atom(
+        (get) => {
+          const state = get(toggleStateAtom)
+
+          return {
+            ...state,
+            data: state.data !== undefined ? mapper(state.data) : undefined,
+          }
+        },
+        (get, set, newState) => {
+          const currentState = get(toggleStateAtom)
+
+          if (!isEqual(currentState, newState)) {
+            set(toggleStateAtom, newState)
+          }
+        },
+      ),
+    [toggleStateAtom, mapper],
+  )
+
+  const [toggleState, setToggleState] = useAtom(derivedToggleStateAtom)
 
   const open = (data?: TData) => {
     setToggleState({ data, isOpen: true })

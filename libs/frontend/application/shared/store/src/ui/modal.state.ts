@@ -4,13 +4,10 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useToggleState } from './toggle.state'
 
-export const useModalState = <
-  TToggleData = undefined,
-  TAdditionalProperties extends Record<string, void> | undefined = undefined,
->(
+export const useModalState = <TData = undefined, TOutput = TData>(
   modelActionKey: ModelActionKey,
 ) => {
-  const toggleState = useToggleState<TToggleData, TAdditionalProperties>(
+  const toggleState = useToggleState<TData, TOutput>(
     modelActionKey,
     CuiComponents.Modal,
   )

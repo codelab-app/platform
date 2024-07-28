@@ -3,13 +3,16 @@ import type {
   CuiComponentsKey,
   ModelActionKey,
 } from '@codelab/frontend/abstract/types'
-import { type Atom, atom, useAtom } from 'jotai'
+import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 
 export interface ToggleState<TData = undefined> {
-  data: TData
+  data: TData | undefined
   isOpen: boolean
 }
+
+export const defaultMapper = <TData, TOutput = TData>(state: TData): TOutput =>
+  state as unknown as TOutput
 
 export const createToggleStateAtom = <TData = undefined>() =>
   atom<ToggleState<TData>>({
@@ -24,10 +27,6 @@ export const createToggleStateAtom = <TData = undefined>() =>
  * Args - args passed into set (the data)
  * Result - return type of set (the state, or mapped state)
  */
-
-type ReadCallback<TData> = (
-  atom: Atom<ToggleState<TData>>,
-) => Atom<TData>['read']
 
 const toggleStateAtomFamily = <
   TData = undefined,
@@ -65,13 +64,10 @@ const toggleStateAtomFamily = <
     },
   )
 
-export const useToggleState = <
-  TData = undefined,
-  TOutput extends Record<string, void> | undefined = undefined,
->(
+export const useToggleState = <TData = undefined, TOutput = TData>(
   action: ModelActionKey,
   ui: CuiComponentsKey,
-  readCallback: ReadCallback<TData>,
+  mapper: (state: TData) => TOutput,
 ): IToggleService<TData, TOutput> => {
   const toggleStateAtom = toggleStateAtomFamily<TData>(readCallback)({
     action,

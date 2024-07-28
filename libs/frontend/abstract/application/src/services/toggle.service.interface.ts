@@ -2,16 +2,16 @@
  * Re-useable interface that allows some UI to be toggled open and close
  */
 export interface IToggleService<
-  IToggleData = undefined,
+  TData = undefined,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TOutput extends Record<string, any> | undefined = undefined,
+  TOutput = TData,
 > {
-  data: IToggleData | undefined
+  data: TOutput | undefined
   // output: TOutput
   isOpen: boolean
 
   close(): void
-  open(args?: IToggleData): void
+  open(args?: TData): void
 }
 
 export type IToggleState<
