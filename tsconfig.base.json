@@ -586,12 +586,6 @@
       "@codelab/frontend-application-test": [
         "libs/frontend/application/test/src/index.ts"
       ],
-      "@codelab/frontend-application-type/interface-form": [
-        "libs/frontend/application/type/src/interface-form/index.ts"
-      ],
-      "@codelab/frontend-application-type/props-form": [
-        "libs/frontend/application/type/src/props-form/index.ts"
-      ],
       "@codelab/frontend-application-type/services": [
         "libs/frontend/application/type/src/services/index.ts"
       ],

@@ -7,14 +7,9 @@ import type { IToggleService } from './toggle.service.interface'
  * Used for base modal, since a class can only implement an object type or intersection of object types with statically known members
  */
 export type IModalService<
-  TData = void,
-  Properties = void,
-> = IToggleService<TData> & {
-  /**
-   * Previously used partial, but we want the key to exist, just that the value we are not sure about
-   */
-  [K in keyof Properties]: Properties[K] | undefined
-}
+  TToggleData = undefined,
+  TAdditionalProperties extends Record<string, void> | undefined = undefined,
+> = IToggleService<TToggleData, TAdditionalProperties>
 
 export type IEntityModalService<
   /**
@@ -24,19 +19,17 @@ export type IEntityModalService<
    *
    * But using model doesn't work, since it already has a parent
    */
-  TData extends ArrayOrSingle<Ref<AnyModel>>,
+  TToggleData extends ArrayOrSingle<Ref<AnyModel>>,
   /**
    * With this interface, you can't have an object that has a property of a type other than number. It's restrictive in that sense.
    *
    * However, with a type, TypeScript allows the object to have properties that don't necessarily adhere to the index signature, in addition to properties that do.
    */
-  Properties extends Record<string, ArrayOrSingle<AnyModel>> = Record<
+  TAdditionalProperties extends Record<
     string,
-    any
-  >,
-> = IToggleService<TData> & {
-  [K in keyof Properties]: Properties[K] | undefined
-}
+    ArrayOrSingle<AnyModel>
+  > = Record<string, any>,
+> = IToggleService<TToggleData, TAdditionalProperties>
 
 export interface ICRUDModalService<
   TData extends ArrayOrSingle<Ref<AnyModel>>,

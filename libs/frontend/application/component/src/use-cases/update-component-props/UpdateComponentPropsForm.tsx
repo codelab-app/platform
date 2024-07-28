@@ -1,9 +1,10 @@
 'use client'
 
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { PropsForm } from '@codelab/frontend/presentation/components/interface-form'
 import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
-import { PropsForm } from '@codelab/frontend-application-type/props-form'
+import { usePropService } from '@codelab/frontend-application-prop/services'
+import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -19,7 +20,8 @@ export interface UpdateComponentPropsFormProps {
 
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
   ({ runtimeComponent }) => {
-    const { propService, typeService } = useStore()
+    const typeService = useTypeService()
+    const propService = usePropService()
     const component = runtimeComponent.component.current
     const api = component.api.current
 

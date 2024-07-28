@@ -18,7 +18,7 @@ export class CreateActionFormService
 {
   @computed
   get store() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }
 
@@ -32,6 +32,6 @@ export class ActionFormService
 {
   @computed
   get action() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

@@ -1,11 +1,11 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/infra/mobx'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import {
   SelectAction,
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'

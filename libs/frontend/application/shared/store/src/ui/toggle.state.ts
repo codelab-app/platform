@@ -3,61 +3,89 @@ import type {
   CuiComponentsKey,
   ModelActionKey,
 } from '@codelab/frontend/abstract/types'
-import { atom, useAtom } from 'jotai'
+import { type Atom, atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 
-// interface ToggleState<TData = unknown, TOutput = TData> {
-//   data?: TOutput
-//   isOpen: boolean
-//   key: `${ModelActionKey}-${CuiComponentsKey}`
-// }
-
-/**
- * atom family is used for dynamic atoms
- */
-const toggleStateAtomFamily = <TData, TOutput>() =>
-  atomFamily(
-    ({ action, ui }: { action: ModelActionKey; ui: CuiComponentsKey }) =>
-      atom<IToggleState<TData, TOutput>>({
-        data: undefined,
-        isOpen: false,
-        // key: `${action}-${ui}`,
-      }),
-  )
-
-export type IToggleState<T = unknown, R = T> = Omit<
-  IToggleService<T, R>,
-  'key'
-> & {
-  close(): void
-  open(data: T): void
+export interface ToggleState<TData = undefined> {
+  data: TData
+  isOpen: boolean
 }
 
+export const createToggleStateAtom = <TData = undefined>() =>
+  atom<ToggleState<TData>>({
+    data: undefined,
+    isOpen: false,
+  })
+
+// type Getter = <Value>(atom: Atom<Value>) => Value
+
 /**
- * Composable by form and modals, used internally
+ * Value - value of the atom (the state)
+ * Args - args passed into set (the data)
+ * Result - return type of set (the state, or mapped state)
  */
-export const useToggleState = <TData, TOutput = TData>(
-  action: ModelActionKey,
-  ui: CuiComponentsKey,
-): IToggleState<TData, TOutput> => {
-  const [toggleState, setToggleState] = useAtom(
-    toggleStateAtomFamily<TData, TOutput>()({ action, ui }),
+
+type ReadCallback<TData> = (
+  atom: Atom<ToggleState<TData>>,
+) => Atom<TData>['read']
+
+const toggleStateAtomFamily = <
+  TData = undefined,
+  TOutput extends Record<string, void> | undefined = undefined,
+>(
+  dataMapper: (data?: TData) => TOutput,
+) =>
+  atomFamily(
+    ({ action, ui }: { action: ModelActionKey; ui: CuiComponentsKey }) => {
+      const toggleStateAtom = createToggleStateAtom<TData>()
+
+      const myAtom = atom<
+        ToggleState<TData>,
+        [Partial<ToggleState<TData>>],
+        TOutput
+      >(
+        (get) => {
+          const currentState = get(toggleStateAtom)
+
+          return {
+            ...currentState,
+            data: dataMapper(currentState.data),
+          }
+        },
+        (get, set, update: Partial<ToggleState<TData>>) => {
+          const newState = { ...get(toggleStateAtom), ...update }
+
+          set(toggleStateAtom, newState)
+
+          return newState
+        },
+      )
+
+      return myAtom
+    },
   )
 
-  const open = (data?: TData, mapper?: (data?: TData) => TOutput) => {
-    setToggleState((state) => ({
-      ...state,
-      data: mapper ? mapper(data) : (data as TOutput),
-      isOpen: true,
-    }))
+export const useToggleState = <
+  TData = undefined,
+  TOutput extends Record<string, void> | undefined = undefined,
+>(
+  action: ModelActionKey,
+  ui: CuiComponentsKey,
+  readCallback: ReadCallback<TData>,
+): IToggleService<TData, TOutput> => {
+  const toggleStateAtom = toggleStateAtomFamily<TData>(readCallback)({
+    action,
+    ui,
+  })
+
+  const [toggleState, setToggleState] = useAtom(toggleStateAtom)
+
+  const open = (data?: TData) => {
+    setToggleState({ data, isOpen: true })
   }
 
   const close = () => {
-    setToggleState((state) => ({
-      ...state,
-      data: undefined,
-      isOpen: false,
-    }))
+    setToggleState({ data: undefined, isOpen: false })
   }
 
   return {
@@ -65,6 +93,5 @@ export const useToggleState = <TData, TOutput = TData>(
     data: toggleState.data,
     isOpen: toggleState.isOpen,
     open,
-    // state: toggleState,
   }
 }

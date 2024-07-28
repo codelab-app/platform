@@ -1,4 +1,5 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -9,7 +10,6 @@ import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { SelectDefaultValue } from '../../interface-form'
 import { useFieldService, useTypeService } from '../../services'
 import {
   canSetDefaultValue,

@@ -2,7 +2,7 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -16,7 +16,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { SelectDefaultValue } from '../../interface-form'
+import { useFieldService, useTypeService } from '../../services'
 import {
   canSetDefaultValue,
   createFieldSchema,
@@ -42,8 +42,9 @@ export const UpdateFieldForm = observer(
     showFormControl = true,
     submitRef,
   }: UpdateFieldFormProps) => {
-    const { fieldService, typeService } = useStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
+    const fieldService = useFieldService()
+    const typeService = useTypeService()
     const closeForm = () => fieldService.updateForm.close()
     const field = fieldService.updateForm.field
 

@@ -41,13 +41,13 @@ export const getUiProperties = (
   type: ITypeModel,
   context?: UiPropertiesContext,
 ) => {
-  const fn: UiPropertiesFn | undefined = uiPropertiesContainer[type.kind] as
+  const func: UiPropertiesFn | undefined = uiPropertiesContainer[type.kind] as
     | UiPropertiesFn
     | undefined
 
-  if (!fn) {
+  if (!func) {
     return {}
   }
 
-  return fn(type, context)
+  return func(type, context)
 }

@@ -16,6 +16,6 @@ export class ComponentModalService
 {
   @computed
   get component() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

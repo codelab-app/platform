@@ -27,8 +27,8 @@ export class CreateElementModalService
    */
   @computed
   get parentElement() {
-    const elementTree = this.metadata?.elementTree.current
-    const selectedElement = this.metadata?.selectedElement?.current
+    const elementTree = this.data?.elementTree.current
+    const selectedElement = this.data?.selectedElement?.current
 
     if (!elementTree) {
       return undefined
@@ -52,7 +52,7 @@ export class UpdateElementModalService
 {
   @computed
   get element() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }
 
@@ -66,6 +66,6 @@ export class ElementModalService
 {
   @computed
   get element() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

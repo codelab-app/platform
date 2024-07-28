@@ -4,14 +4,9 @@ import type { ArrayOrSingle } from 'ts-essentials'
 import type { IToggleService } from './toggle.service.interface'
 
 export type IFormService<
-  TData extends object = object,
-  Properties extends object = Record<string, any>,
-> = IToggleService<TData> & {
-  /**
-   * Previously used partial, but we want the key to exist, ust that the value we are not sure about
-   */
-  [K in keyof Properties]: Properties[K] | undefined
-}
+  TToggleData = undefined,
+  TAdditionalProperties extends Record<string, void> | undefined = undefined,
+> = IToggleService<TToggleData, TAdditionalProperties>
 
 export type IEntityFormService<
   TData extends ArrayOrSingle<Ref<AnyModel>>,
@@ -27,6 +22,6 @@ export interface ICRUDFormService<
   TData extends ArrayOrSingle<Ref<AnyModel>>,
   Properties extends Record<string, AnyModel>,
 > {
-  createForm: IFormService
+  createForm: IToggleService
   updateForm: IEntityFormService<TData, Properties>
 }

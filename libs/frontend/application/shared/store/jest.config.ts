@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'frontend-presentation-components-interface-form',
+  displayName: 'frontend-application-shared-store',
   preset: '../../../../../jest.preset.js',
   transform: {
     '^.+.[tj]sx?$': [
@@ -18,13 +18,13 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory:
-    '../../../../../coverage/libs/frontend/presentation/components/interface-form',
+    '../../../../../coverage/libs/frontend/application/shared/store',
   reporters: [
     'default',
     [
       'jest-junit',
       {
-        outputName: 'frontend-presentation-components-interface-form.xml',
+        outputName: 'frontend-application-shared-store.xml',
         reportTestSuiteErrors: true,
         titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',

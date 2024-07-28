@@ -7,23 +7,23 @@ export class ModalService<TMetadata extends object>
     // eslint-disable-next-line @typescript-eslint/no-shadow
     TMetadata,
   >() => ({
+    data: prop<TMetadata | undefined>(undefined),
     isOpen: prop<boolean>(false),
-    metadata: prop<TMetadata | undefined>(undefined),
   }))<TMetadata>
   implements IModalService<TMetadata>
 {
   @modelAction
   close() {
     this.isOpen = false
-    this.metadata = undefined
+    this.data = undefined
 
     // Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 
   @modelAction
-  open(metadata: TMetadata) {
+  open(data: TMetadata) {
     this.isOpen = true
-    this.metadata = metadata
+    this.data = data
 
     // Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }

@@ -14,8 +14,8 @@ import {
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/infra/mobx'
-import { notify } from '@codelab/frontend/shared/utils'
 import { schemaTransformer } from '@codelab/frontend/presentation/components/interface-form'
+import { notify } from '@codelab/frontend/shared/utils'
 import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'

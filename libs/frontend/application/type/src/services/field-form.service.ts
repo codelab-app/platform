@@ -22,7 +22,7 @@ export class CreateFieldFormService
 {
   @computed
   get interface() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }
 
@@ -36,6 +36,6 @@ export class FieldFormService
 {
   @computed
   get field() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

@@ -1,29 +1,29 @@
-import type { IFormService } from '@codelab/frontend/abstract/application'
+import type { IToggleService } from '@codelab/frontend/abstract/application'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 @model('@codelab/InlineFormService')
-export class InlineFormService<TMetadata extends object = object>
+export class InlineFormService<TData = undefined>
   extends Model(<
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    TMetadata,
+    TData,
   >() => ({
+    data: prop<TData | undefined>(undefined),
     isOpen: prop<boolean>(false),
-    metadata: prop<TMetadata | undefined>(undefined),
-  }))<TMetadata>
-  implements IFormService<TMetadata>
+  }))<TData>
+  implements IToggleService<TData>
 {
   @modelAction
   close() {
     this.isOpen = false
-    this.metadata = undefined
+    this.data = undefined
 
     // Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 
   @modelAction
-  open(metadata: TMetadata) {
+  open(metadata: TData) {
     this.isOpen = true
-    this.metadata = metadata
+    this.data = metadata
 
     // Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
