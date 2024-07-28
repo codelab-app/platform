@@ -2,7 +2,7 @@ import type { IToggleService } from '@codelab/frontend/abstract/application'
 import { atom, useAtom } from 'jotai'
 import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
-import { createToggleStateAtom } from './toggle.state'
+import { createToggleStateAtom, type ToggleState } from './toggle.state'
 
 const defaultMapper = <TData, TOutput = TData>(state: TData): TOutput =>
   state as unknown as TOutput
@@ -23,7 +23,7 @@ export const useToggleState = <TData = undefined, TOutput = TData>(
             data: state.data !== undefined ? mapper(state.data) : undefined,
           }
         },
-        (get, set, newState) => {
+        (get, set, newState: ToggleState<TData>) => {
           const currentState = get(toggleStateAtom)
 
           if (!isEqual(currentState, newState)) {
