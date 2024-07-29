@@ -3,7 +3,7 @@ import {
   CuiComponents,
   type ModelActionKey,
 } from '@codelab/frontend/abstract/types'
-import { useToggleState } from './toggle.state'
+import { useToggleState } from '../family-toggle/toggle.state'
 
 export const useFormState = <TData>(
   modelActionKey: ModelActionKey,

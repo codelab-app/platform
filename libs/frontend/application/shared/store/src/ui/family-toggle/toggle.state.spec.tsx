@@ -1,20 +1,26 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { CuiComponents, MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { act, renderHook } from '@testing-library/react'
 import { useToggleState } from './toggle.state'
 
 describe('useToggleState', () => {
-  const useCreateAppForm = () => useToggleState(MODEL_ACTION.CreateApp.key)
+  const key = {
+    action: MODEL_ACTION.CreateApp.key,
+    ui: CuiComponents.Form,
+  }
+
+  const useCreateAppForm = () => useToggleState<string>(key)
 
   it('should initialize with default values', () => {
     const { result } = renderHook(() => useCreateAppForm())
 
+    console.log(result)
+
     expect(result.current.isOpen).toBe(false)
     expect(result.current.data).toBeUndefined()
-    expect(result.current.output).toBeUndefined()
   })
 
   it('should open with provided data', () => {
-    const { result } = renderHook(() => useToggleState<string>(action, ui))
+    const { result } = renderHook(() => useCreateAppForm())
 
     act(() => {
       result.current.open('test data')
@@ -25,7 +31,7 @@ describe('useToggleState', () => {
   })
 
   it('should close and reset data', () => {
-    const { result } = renderHook(() => useToggleState<string>(action, ui))
+    const { result } = renderHook(() => useCreateAppForm())
 
     act(() => {
       result.current.open('test data')
@@ -37,18 +43,13 @@ describe('useToggleState', () => {
 
     expect(result.current.isOpen).toBe(false)
     expect(result.current.data).toBeUndefined()
-    expect(result.current.output).toBeUndefined()
   })
 
   it('should use mapper function when provided', () => {
     const mapper = (data?: string) => ({ mappedData: data?.toUpperCase() })
 
     const { result } = renderHook(() =>
-      useToggleState<string, { mappedData: string | undefined }>(
-        action,
-        ui,
-        mapper,
-      ),
+      useToggleState<string, { mappedData: string | undefined }>(key, mapper),
     )
 
     act(() => {
@@ -56,7 +57,6 @@ describe('useToggleState', () => {
     })
 
     expect(result.current.isOpen).toBe(true)
-    expect(result.current.data).toBe('test data')
-    expect(result.current.output).toEqual({ mappedData: 'TEST DATA' })
+    expect(result.current.data).toEqual({ mappedData: 'TEST DATA' })
   })
 })
