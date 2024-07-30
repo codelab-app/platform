@@ -17,6 +17,12 @@ test('authenticate', async ({ page }) => {
   // go back to landing page
   await page.goto('/')
 
+  // after login use will be redirected to /apps
+  await page.waitForURL('/apps')
+  // go back to landing page
+  await page.goto('/')
+
+  
   await expect(
     page.getByRole('link', { exact: true, name: 'Log Out' }),
   ).toBeVisible()

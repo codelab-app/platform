@@ -30,6 +30,7 @@ export const CreateAppModal = () => {
     id: v4(),
     name: '',
   }
+  console.log(createAppModal.isOpen)
 
   return (
     <ModalForm.Modal
