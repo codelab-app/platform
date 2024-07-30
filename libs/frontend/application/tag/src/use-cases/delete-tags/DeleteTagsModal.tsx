@@ -1,20 +1,22 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, ListField } from 'uniforms-antd'
+import { useTagService } from '../../services'
 import type { DeleteTagsData } from './delete-tags.schema'
 import { deleteTagsSchema } from './delete-tags.schema'
+import { useDeleteTagsModal } from './delete-tags.state'
 
 export const DeleteTagsModal = observer(() => {
-  const { tagService } = useStore()
-  const tags = tagService.deleteManyModal.tags
-  const closeModal = () => tagService.deleteManyModal.close()
+  const deleteTagsModal = useDeleteTagsModal()
+  const tagService = useTagService()
+  const tags = deleteTagsModal.data
+  const closeModal = () => deleteTagsModal.close()
 
   const onSubmit = () => {
-    void tagService.delete(tags?.map((tag) => tag.id) ?? [])
+    void tagService.remove(tags ?? [])
 
     closeModal()
 
@@ -25,7 +27,7 @@ export const DeleteTagsModal = observer(() => {
     <ModalForm.Modal
       okText="Delete Tags"
       onCancel={closeModal}
-      open={tagService.deleteManyModal.isOpen}
+      open={deleteTagsModal.isOpen}
       title={<span className="font-semibold">Delete tags</span>}
     >
       <ModalForm.Form<DeleteTagsData>

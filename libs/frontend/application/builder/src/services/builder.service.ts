@@ -23,6 +23,8 @@ import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import { atom, useAtom } from 'jotai'
 import groupBy from 'lodash/groupBy'
+import { componentRepository } from '../../../../domain/component/src/repositories/component.repository'
+import { useComponentService } from '../../../component/src/services/component.service'
 
 export const COMPONENT_TAG_NAME = 'Component'
 
@@ -89,7 +91,9 @@ const activeElementTreeAtom = atom(
 )
 
 export const useBuilderService = (): IBuilderService => {
-  const { atomDomainService, tagDomainService } = useDomainStore()
+  const componentService = useComponentService()
+  const { atomDomainService, componentDomainService, tagDomainService } =
+    useDomainStore()
 
   const [builderContainerWidth, setBuilderContainerWidth] = useAtom(
     builderContainerWidthAtom,

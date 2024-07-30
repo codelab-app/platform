@@ -1,9 +1,8 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { elementRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useDeleteElementModal } from './delete-element.state'
 
 interface DeleteElementProps {
   className?: string
@@ -13,9 +12,9 @@ interface DeleteElementProps {
 
 export const DeleteElementButton = observer<DeleteElementProps>(
   ({ className, disabled, runtimeElement }) => {
-    const { elementService } = useStore()
+    const deleteElementModal = useDeleteElementModal()
     const element = runtimeElement.element.current
-    const onClick = () => elementService.deleteModal.open(elementRef(element))
+    const onClick = () => deleteElementModal.open(element)
 
     return (
       <Button

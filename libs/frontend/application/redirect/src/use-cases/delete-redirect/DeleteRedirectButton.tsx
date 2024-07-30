@@ -1,21 +1,18 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { redirectRef } from '@codelab/frontend/abstract/domain'
 import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useDeleteRedirectModal } from './delete-redirect.state'
 
 export const DeleteRedirectButton = observer<DeleteButtonProps>(({ ids }) => {
-  const { redirectService } = useStore()
+  const deleteRedirectModal = useDeleteRedirectModal()
 
   return (
     <Button
       danger
       icon={<DeleteOutlined />}
-      onClick={() =>
-        ids[0] && redirectService.deleteModal.open(redirectRef(ids[0]))
-      }
+      onClick={() => ids[0] && deleteRedirectModal.open({ id: ids[0] })}
     >
       Delete
     </Button>

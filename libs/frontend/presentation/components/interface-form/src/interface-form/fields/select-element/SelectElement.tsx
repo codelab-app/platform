@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { SelectElementOption } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import type {
+  IElementService,
+  SelectElementOption,
+} from '@codelab/frontend/abstract/application'
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
@@ -12,19 +14,20 @@ export type SelectElementProps = UniformSelectFieldProps & {
   allElementOptions?: Array<SelectElementOption>
   disableWhenOneOpt?: boolean
   kind: IElementTypeKind
+  elementService: IElementService
   targetElementId?: string
 }
 
 export const SelectElement = ({
   allElementOptions,
   disableWhenOneOpt = false,
+  elementService,
   kind,
   name,
   targetElementId,
   ...props
 }: SelectElementProps) => {
   const { elementTree } = useFormContext()
-  const { elementService } = useStore()
 
   const selectOptions = elementService.getSelectElementOptions({
     allElementOptions,

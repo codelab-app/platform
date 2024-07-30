@@ -7,15 +7,16 @@ import {
   BuilderDndAction,
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { elementRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
+import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { ClickOverlay } from '@codelab/frontend-presentation-view/components/overlay'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
+import { useBuilderService } from '../../services'
 import { queryRenderedElementById } from '../../utils/query-rendered-element-by-id'
 
 const StyledOverlayContainer = styled.div`
@@ -45,8 +46,10 @@ const StyledOverlayButtonGroup = styled.div`
 export const BuilderClickOverlay = observer<{
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ renderContainerRef }) => {
-  const { builderService, elementService, runtimeElementService } = useStore()
+  const { runtimeElementService } = useApplicationStore()
+  const builderService = useBuilderService()
   const selectedNode = builderService.selectedNode
+  const deleteElementModal = useDeleteElementModal()
 
   if (isServer || !selectedNode || !isRuntimeElementRef(selectedNode)) {
     return null
@@ -66,7 +69,7 @@ export const BuilderClickOverlay = observer<{
           className="flex size-7 cursor-pointer items-center justify-center align-middle"
           onClick={(event) => {
             event.stopPropagation()
-            elementService.deleteModal.open(elementRef(selectedNode.id))
+            deleteElementModal.open(element)
           }}
         >
           <div

@@ -5,7 +5,6 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { SelectActionField } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
@@ -21,6 +20,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import ChildMapperCompositeField from '../../components/ChildMapperCompositeField'
 import { RenderTypeCompositeField } from '../../components/RenderTypeCompositeField'
+import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
@@ -30,7 +30,7 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ runtimeElement }) => {
-    const { elementService } = useStore()
+    const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)

@@ -1,5 +1,4 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
@@ -8,14 +7,17 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useTypeService } from '../../services'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
+import { useCreateTypeModal } from './create-type.state'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer(() => {
-  const { typeService } = useStore()
-  const isOpen = typeService.createModal.isOpen
-  const closeModal = () => typeService.createModal.close()
+  const createTypeModal = useCreateTypeModal()
+  const typeService = useTypeService()
+  const isOpen = createTypeModal.isOpen
+  const closeModal = () => createTypeModal.close()
 
   const onSubmit = async (data: ICreateTypeDto) => {
     const input = {

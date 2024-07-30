@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useAuthGuardService } from '@codelab/frontend-application-auth-guard/services'
 import { useAsync } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -9,7 +9,7 @@ export interface SelectAuthGuardsProps {
 }
 
 export const SelectAuthGuard = observer<SelectAuthGuardsProps>(({ name }) => {
-  const { authGuardService } = useStore()
+  const authGuardService = useAuthGuardService()
 
   const [
     { error: queryError, result: selectAuthGuardOptions, status },

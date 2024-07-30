@@ -1,6 +1,5 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   SelectAction,
   SelectResource,
@@ -17,7 +16,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useActionService } from '../../services'
 import { createActionSchema } from './create-action.schema'
+import { useCreateActionModal } from './create-action.state'
 
 const CODE_ACTION = `function run() {
     // insert your code here
@@ -26,13 +27,14 @@ const CODE_ACTION = `function run() {
 
 export const CreateActionModal = observer<{ store?: IStoreModel }>(
   ({ store }) => {
-    const { actionService } = useStore()
+    const actionService = useActionService()
+    const createActionModal = useCreateActionModal()
 
-    const onSubmit = (actionDTO: ICreateActionData) => {
-      return actionService.create(actionDTO)
+    const onSubmit = (actionDto: ICreateActionData) => {
+      return actionService.create(actionDto)
     }
 
-    const closeModal = () => actionService.createModal.close()
+    const closeModal = () => createActionModal.close()
 
     const model = {
       code: CODE_ACTION,
@@ -56,7 +58,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
       <ModalForm.Modal
         okText="Create Action"
         onCancel={closeModal}
-        open={actionService.createModal.isOpen}
+        open={createActionModal.isOpen}
       >
         <ModalForm.Form<ICreateActionData>
           model={model}

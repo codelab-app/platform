@@ -1,20 +1,188 @@
+import type { IAtomService } from '@codelab/frontend/abstract/application'
+import type {
+  IAtomModel,
+  ICreateAtomData,
+  IUpdateAtomData,
+} from '@codelab/frontend/abstract/domain'
+import { atomRef } from '@codelab/frontend/abstract/domain'
+import type { AtomOptions, AtomWhere } from '@codelab/frontend/infra/gql'
 import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
+import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
+import {
+  filterAtoms,
+  mapAtomOptions,
+} from '@codelab/frontend-domain-atom/store'
+import {
+  IElementRenderTypeKind,
+  type IRef,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
+import isEmpty from 'lodash/isEmpty'
+import { v4 } from 'uuid'
 
-export const useAtomService = () => {
+export const useAtomService = (): IAtomService => {
+  const { atomDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
-  const { atomDomainService } = useDomainStore()
+
+  const getDataFn = async (
+    page: number,
+    pageSize: number,
+    filter: { name?: string },
+  ) => {
+    const { aggregate, items } = await atomRepository.find(
+      { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+      {
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+      },
+    )
+
+    const atoms = items.map((atom) => atomDomainService.hydrate(atom))
+
+    return { items: atoms, totalItems: aggregate.count }
+  }
+
+  const paginationService = usePaginationService<IAtomModel, { name?: string }>(
+    'atom',
+    getDataFn,
+  )
+
+  const create = async ({
+    externalCssSource,
+    externalJsSource,
+    externalSourceType,
+    id,
+    name,
+    tags = [],
+    type,
+  }: ICreateAtomData) => {
+    const api = typeDomainService.hydrateInterface({
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: `${name} API`,
+    })
+
+    const atom = atomDomainService.hydrate({
+      __typename: IElementRenderTypeKind.Atom,
+      api,
+      externalCssSource,
+      externalJsSource,
+      externalSourceType,
+      id,
+      name,
+      tags,
+      type,
+    })
+
+    await atomRepository.add(atom)
+
+    paginationService.dataRefs.set(atom.id, atomRef(atom))
+
+    return atom
+  }
+
+  const deleteAtom = async (items: Array<IRef>) => {
+    const atomsToDelete: Array<IAtomModel> = []
+
+    items.forEach(({ id }) => {
+      const atom = atomDomainService.atoms.get(id)
+
+      if (atom) {
+        atomsToDelete.push(atom)
+        atomDomainService.atoms.delete(id)
+      }
+    })
+
+    return await atomRepository.delete(atomsToDelete)
+  }
+
+  const getAll = async (where?: AtomWhere, options?: AtomOptions) => {
+    const {
+      aggregate: { count },
+      items: atoms,
+    } = await atomRepository.find(where, options)
+
+    paginationService.totalItems = count
+
+    if (!isEmpty(where) || options?.limit) {
+      typeDomainService.hydrateTypes({
+        interfaceTypes: atoms.map((atom) => atom.api),
+      })
+    }
+
+    return atoms.map((atom) => atomDomainService.hydrate(atom))
+  }
+
+  const getOne = async (id: string) => {
+    if (atomDomainService.atoms.has(id)) {
+      return atomDomainService.atoms.get(id)
+    }
+
+    const all = await getAll({ id })
+
+    return all[0]
+  }
+
+  const getSelectAtomOptions = async (
+    fieldProps: { value?: string },
+    parent?: IAtomModel,
+  ) => {
+    const atoms = await atomRepository.getSelectAtomOptions()
+    const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
+
+    return atomOptions.map(mapAtomOptions)
+  }
 
   const loadApi = async (id: string) => {
     const atom = atomDomainService.atoms.get(id)
-    const interfaceTypeId = atom?.api.id
 
-    if (interfaceTypeId) {
-      await typeService.getAll([interfaceTypeId])
+    if (atom?.api) {
+      await typeService.getInterface(atom.api.id)
     }
   }
 
+  const update = async ({
+    externalCssSource,
+    externalJsSource,
+    externalSourceType,
+    id,
+    name,
+    requiredParents = [],
+    suggestedChildren = [],
+    tags = [],
+    type,
+  }: IUpdateAtomData) => {
+    const atom = atomDomainService.atoms.get(id)
+
+    assertIsDefined(atom)
+
+    atom.writeCache({
+      externalCssSource,
+      externalJsSource,
+      externalSourceType,
+      name,
+      requiredParents: requiredParents.map((child) => ({ id: child.id })),
+      suggestedChildren: suggestedChildren.map((child) => ({ id: child.id })),
+      tags,
+      type,
+    })
+
+    await atomRepository.update(atom)
+
+    return atom
+  }
+
   return {
+    create,
+    getAll,
+    getOne,
+    getSelectAtomOptions,
     loadApi,
+    paginationService,
+    remove: deleteAtom,
+    update,
   }
 }

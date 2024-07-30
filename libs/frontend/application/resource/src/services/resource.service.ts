@@ -1,3 +1,4 @@
+import type { IResourceService } from '@codelab/frontend/abstract/application'
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
@@ -11,12 +12,9 @@ import type {
 import { assertIsDefined } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
-export const useResourceService = () => {
+export const useResourceService = (): IResourceService => {
   const { resourceDomainService } = useDomainStore()
-
-  const getResourceList = () => {
-    return [...resourceDomainService.resources.values()]
-  }
+  const resourceList = [...resourceDomainService.resources.values()]
 
   const create = async ({
     config: configData,
@@ -41,12 +39,12 @@ export const useResourceService = () => {
     return resource
   }
 
-  const deleteResources = async (resources: Array<IResourceModel>) => {
+  const remove = async (resources: Array<IResourceModel>) => {
     resources.forEach((resource) => {
       resourceDomainService.resources.delete(resource.id)
     })
 
-    await resourceRepository.delete(resources)
+    return await resourceRepository.delete(resources)
   }
 
   const getAll = async (where: ResourceWhere = {}) => {
@@ -100,13 +98,13 @@ export const useResourceService = () => {
 
   return {
     create,
-    deleteResources,
     getAll,
     getOne,
     getResource,
-    getResourceList,
     getSelectResourceOptions,
     load,
+    remove,
+    resourceList,
     update,
   }
 }

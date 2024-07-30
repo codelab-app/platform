@@ -2,7 +2,6 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
@@ -16,6 +15,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useTypeService } from '../../services'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
@@ -32,7 +32,7 @@ export const CreateTypeForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateTypeFormProps) => {
-    const { typeService } = useStore()
+    const typeService = useTypeService()
     const closeForm = () => typeService.createForm.close()
 
     const onSubmit = async (data: ICreateTypeDto) => {

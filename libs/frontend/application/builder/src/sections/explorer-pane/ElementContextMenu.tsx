@@ -12,14 +12,21 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend/infra/mobx'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
+import { useElementService } from '@codelab/frontend-application-element/services'
+import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
+import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
+import { useBuilderService } from '../../services'
 
 export interface ContextMenuProps {
   onBlur?(): unknown
@@ -36,16 +43,19 @@ export type ElementContextMenuProps = ContextMenuProps & {
 export const ElementContextMenu = observer<
   React.PropsWithChildren<ElementContextMenuProps>
 >(({ children, treeNode }) => {
-  const { builderService, elementService, runtimeElementService } = useStore()
+  const { runtimeElementService } = useApplicationStore()
+  const { elementDomainService } = useDomainStore()
+  const elementService = useElementService()
+  const builderService = useBuilderService()
+  const createElementForm = useCreateElementForm()
+  const deleteElementModal = useDeleteElementModal()
   const { user } = useUser()
   const { popover } = useCui()
 
   const [contextMenuItemId, setContextMenuNodeId] =
     useState<Nullable<string>>(null)
 
-  const element = elementService.elementDomainService.maybeElement(
-    treeNode.element?.id,
-  )
+  const element = elementDomainService.maybeElement(treeNode.element?.id)
 
   if (!element) {
     return null
@@ -56,7 +66,7 @@ export const ElementContextMenu = observer<
   const onAddChild = () => {
     popover.open(MODEL_ACTION.CreateElement.key)
 
-    elementService.createForm.open({
+    createElementForm.open({
       elementOptions:
         element.closestContainerNode.elements.map(mapElementOption),
       elementTree: elementTreeRef(element.closestContainerNode.id),
@@ -66,7 +76,7 @@ export const ElementContextMenu = observer<
   }
 
   const onDelete = () => {
-    elementService.deleteModal.open(elementRef(element))
+    deleteElementModal.open(element)
   }
 
   const onDuplicate = async () => {

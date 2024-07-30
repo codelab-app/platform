@@ -1,13 +1,12 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { useColumnSearchProps } from '@codelab/frontend-presentation-view/components/table'
 import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAtomService } from '../../services'
 import { ActionColumn } from './columns/ActionColumn'
 import { LibraryColumn } from './columns/LibraryColumn'
 import { PropsColumn } from './columns/PropsColumn'
@@ -16,8 +15,8 @@ import { SuggestedChildrenColumn } from './columns/SuggestedChildrenColumn'
 import { TagsColumn } from './columns/TagsColumn'
 import { onLibraryFilter } from './dataSource/on-library-filter'
 
-export const AtomsTable = observer(() => {
-  const { atomService } = useStore()
+export const AtomsTable = () => {
+  const atomService = useAtomService()
 
   const { data, filter, handleChange, isLoading, pagination } =
     useTablePagination<IAtomModel, { name: string }>({
@@ -102,4 +101,4 @@ export const AtomsTable = observer(() => {
       size="small"
     />
   )
-})
+}

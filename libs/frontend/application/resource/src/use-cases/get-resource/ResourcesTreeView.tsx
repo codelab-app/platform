@@ -2,7 +2,7 @@ import type {
   IResourceNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSkeletonWrapper,
   CuiTree,
@@ -10,14 +10,16 @@ import {
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useResourceService } from '../../services'
 import { ResourcesTreeItem } from './ResourcesTreeItem'
 
 export const ResourcesTreeView = observer(() => {
-  const { resourceService } = useStore()
+  const resourceService = useResourceService()
+  const { resourceDomainService } = useDomainStore()
   const [{ status }, getResources] = useAsync(() => resourceService.getAll())
 
   const resourceList: Array<ITreeNode<IResourceNodeData>> =
-    resourceService.resourceList.map((resource) => ({
+    resourceDomainService.resourceList.map((resource) => ({
       extraData: {
         node: resource,
         type: 'resource',

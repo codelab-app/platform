@@ -1,7 +1,8 @@
 import { type BuilderDragData } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import type { CollisionData } from '@codelab/frontend-application-dnd/collision-detection'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { ICreateElementDto } from '@codelab/shared/abstract/core'
@@ -15,7 +16,8 @@ export interface UseDndDropHandler {
 }
 
 export const useDndDropHandler = (): UseDndDropHandler => {
-  const { elementService, rendererService, runtimeElementService } = useStore()
+  const { rendererService, runtimeElementService } = useApplicationStore()
+  const elementService = useElementService()
 
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
@@ -50,7 +52,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
       return
     }
 
-    const parentElement = elementService.element(parentElementId)
+    const parentElement = elementService.getElement(parentElementId)
 
     const createElementDto: ICreateElementDto = {
       closestContainerNode: {
@@ -120,7 +122,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
             ?.element.id
         : undefined
 
-    const draggedElement = elementService.element(draggedElementId)
+    const draggedElement = elementService.getElement(draggedElementId)
 
     if (
       !parentElementId ||
@@ -132,9 +134,13 @@ export const useDndDropHandler = (): UseDndDropHandler => {
       return
     }
 
-    const prevSibling = prevSiblingId && elementService.element(prevSiblingId)
-    const nextSibling = nextSiblingId && elementService.element(nextSiblingId)
-    const parentElement = elementService.element(parentElementId)
+    const prevSibling =
+      prevSiblingId && elementService.getElement(prevSiblingId)
+
+    const nextSibling =
+      nextSiblingId && elementService.getElement(nextSiblingId)
+
+    const parentElement = elementService.getElement(parentElementId)
 
     if (prevSibling && draggedElement.prevSibling?.id !== prevSiblingId) {
       await elementService.move({

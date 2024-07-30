@@ -4,7 +4,6 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebarPopover,
   useCui,
@@ -12,11 +11,12 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateAuthGuardForm } from './create-auth-guard.state'
 import { CreateAuthGuardForm } from './CreateAuthGuardForm'
 
 export const CreateAuthGuardPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { authGuardService } = useStore()
+  const createAuthGuardForm = useCreateAuthGuardForm()
   const { popover } = useCui()
 
   return (
@@ -40,7 +40,7 @@ export const CreateAuthGuardPopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              authGuardService.createForm.close()
+              createAuthGuardForm.close()
             },
             title: 'Cancel',
           },

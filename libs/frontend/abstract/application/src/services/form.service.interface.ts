@@ -3,10 +3,10 @@ import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { IToggleService } from './toggle.service.interface'
 
-export type IFormService<
-  TToggleData = undefined,
-  TAdditionalProperties extends Record<string, void> | undefined = undefined,
-> = IToggleService<TToggleData, TAdditionalProperties>
+export type IFormService<TData = undefined, TOutput = TData> = IToggleService<
+  TData,
+  TOutput
+>
 
 export type IEntityFormService<
   TData extends ArrayOrSingle<Ref<AnyModel>>,

@@ -134,6 +134,7 @@ export const useTagService = (): ITagService => {
     create,
     deleteCheckedTags,
     getAll,
+    paginationService,
     remove,
     setCheckedTags,
     update,

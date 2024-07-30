@@ -6,13 +6,13 @@ import type {
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import { useMemo } from 'react'
-import type { ToggleState } from './toggle.state.interface'
+import type { IToggleState } from './toggle.state.interface'
 
-const defaultMapper = <TData, TOutput = TData>(state: TData): TOutput =>
+export const defaultMapper = <TData, TOutput = TData>(state?: TData): TOutput =>
   state as unknown as TOutput
 
 export const createToggleStateAtom = <TData = undefined>() =>
-  atom<ToggleState<TData>>({
+  atom<IToggleState<TData>>({
     data: undefined,
     isOpen: false,
   })
@@ -37,10 +37,10 @@ export const useToggleState = <TData = undefined, TOutput = TData>(
 
             return {
               ...state,
-              data: mapper(state.data),
+              data: state.data ? mapper(state.data) : undefined,
             }
           },
-          (get, set, newState: ToggleState<TData>) => {
+          (get, set, newState: IToggleState<TData>) => {
             set(toggleStateAtom, newState)
           },
         )

@@ -25,7 +25,7 @@ interface CustomComponentProps {
 export const CustomComponents = observer((props: CustomComponentProps) => {
   const components = useComponentsList(props.components)
   const { componentDomainService } = useDomainStore()
-  const deleteModal = useDeleteComponentModal()
+  const deleteComponentModal = useDeleteComponentModal()
   const router = useRouter()
 
   const [{ error, status }, getComponents] = useAsync(() =>
@@ -63,7 +63,7 @@ export const CustomComponents = observer((props: CustomComponentProps) => {
       <ComponentList
         components={components}
         onDelete={(id) =>
-          deleteModal.open(componentDomainService.component(id))
+          deleteComponentModal.open(componentDomainService.component(id))
         }
         onEdit={(id) => editComponent(id)}
         onExport={(component) => exportComponent.execute(component)}

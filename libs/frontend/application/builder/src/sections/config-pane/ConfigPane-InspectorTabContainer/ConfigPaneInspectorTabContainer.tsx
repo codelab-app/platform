@@ -10,9 +10,10 @@ import {
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
 import { isAtomRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { UpdateComponentForm } from '@codelab/frontend-application-component/use-cases/update-component'
 import { UpdateComponentPropsForm } from '@codelab/frontend-application-component/use-cases/update-component-props'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import { DeleteElementButton } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { MoveElementForm } from '@codelab/frontend-application-element/use-cases/move-element'
 import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
@@ -26,6 +27,7 @@ import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
 import React from 'react'
+import { useBuilderService } from '../../../services'
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPaneInspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
@@ -53,9 +55,9 @@ export const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
-  const { appService, builderService, elementService, rendererService } =
-    useStore()
-
+  const { rendererService } = useApplicationStore()
+  const elementService = useElementService()
+  const builderService = useBuilderService()
   const elementTree = rendererService.activeElementTree
   const selectedNode = builderService.selectedNode?.current
   const activeRenderer = rendererService.activeRenderer?.maybeCurrent
@@ -111,9 +113,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
             <SettingOutlined
               style={
                 isRuntimeElement(selectedNode) &&
-                elementService.validationService.propsHaveErrors(
-                  selectedNode.element.current,
-                )
+                elementService.propsHaveErrors(selectedNode.element.current)
                   ? { color: 'red' }
                   : {}
               }

@@ -1,4 +1,4 @@
-export interface ToggleState<TData = undefined> {
+export interface IToggleState<TData = undefined> {
   data: TData | undefined
   isOpen: boolean
 }

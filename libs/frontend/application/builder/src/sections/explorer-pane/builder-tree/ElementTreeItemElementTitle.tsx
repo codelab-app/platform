@@ -7,12 +7,13 @@ import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/applic
 import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useElementService } from '@codelab/frontend-application-element/services'
+import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -20,18 +21,19 @@ import React from 'react'
 
 const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
   ({ treeNode }) => {
-    const { elementService } = useStore()
+    const elementService = useElementService()
+    const createElementForm = useCreateElementForm()
     const { popover } = useCui()
 
     if (!treeNode.element) {
       return
     }
 
-    const element = elementService.element(treeNode.element.id)
+    const element = elementService.getElement(treeNode.element.id)
 
     const onClick = () => {
       popover.open(MODEL_ACTION.CreateElement.key)
-      elementService.createForm.open({
+      createElementForm.open({
         elementOptions:
           element.closestContainerNode.elements.map(mapElementOption),
         elementTree: elementTreeRef(element.closestContainerNode.id),

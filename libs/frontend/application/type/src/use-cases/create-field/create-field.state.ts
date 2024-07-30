@@ -4,10 +4,9 @@ import {
   useFormState,
   useModalState,
 } from '@codelab/frontend-application-shared-store/ui'
-import type { Ref } from 'mobx-keystone'
 
 export const useCreateFieldForm = () =>
-  useFormState<Ref<IInterfaceTypeModel>>(MODEL_ACTION.CreateField.key)
+  useFormState<IInterfaceTypeModel>(MODEL_ACTION.CreateField.key)
 
 export const useCreateFieldModal = () =>
-  useModalState<Ref<IInterfaceTypeModel>>(MODEL_ACTION.CreateField.key)
+  useModalState<IInterfaceTypeModel>(MODEL_ACTION.CreateField.key)

@@ -7,13 +7,8 @@ import type {
 import type { ICRUDService } from '../services'
 
 export interface IFieldService
-  extends Omit<
-    ICRUDService<IFieldModel, ICreateFieldData, IUpdateFieldData>,
-    'remove'
-  > {
+  extends ICRUDService<IFieldModel, ICreateFieldData, IUpdateFieldData> {
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
-  deleteField(fields: Array<IFieldModel>): Promise<number>
-
   moveFieldAsNextSibling(props: {
     field: IRef
     targetField: IRef

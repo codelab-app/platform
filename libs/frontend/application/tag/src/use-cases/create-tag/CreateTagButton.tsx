@@ -1,19 +1,18 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { Button } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useCreateTagModal } from './create-tag.data'
 
-export const CreateTagButton = observer(() => {
-  const { tagService } = useStore()
+export const CreateTagButton = () => {
+  const createTagModal = useCreateTagModal()
 
   return (
     <Button
       icon={<PlusOutlined />}
-      onClick={() => tagService.createModal.open()}
+      onClick={() => createTagModal.open()}
       type="primary"
     >
       Create Tag
     </Button>
   )
-})
+}

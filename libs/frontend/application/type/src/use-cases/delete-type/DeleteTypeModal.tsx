@@ -1,5 +1,4 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { typeApi } from '@codelab/frontend-domain-type/repositories'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -9,11 +8,14 @@ import {
 } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useTypeService } from '../../services'
+import { useDeleteTypeModal } from './delete-type.state'
 
 export const DeleteTypeModal = observer(() => {
-  const { typeService } = useStore()
-  const closeModal = () => typeService.deleteModal.close()
-  const typeToDelete = typeService.deleteModal.type
+  const typeService = useTypeService()
+  const deleteTypeModal = useDeleteTypeModal()
+  const closeModal = () => deleteTypeModal.close()
+  const typeToDelete = deleteTypeModal.data
 
   const onSubmit = async () => {
     if (!typeToDelete?.kind) {
@@ -49,7 +51,7 @@ export const DeleteTypeModal = observer(() => {
     <ModalForm.Modal
       okText="Delete"
       onCancel={closeModal}
-      open={typeService.deleteModal.isOpen}
+      open={deleteTypeModal.isOpen}
       title={<span className="font-semibold">Delete type</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>

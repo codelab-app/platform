@@ -9,20 +9,19 @@ import { useFormState } from '@codelab/frontend-application-shared-store/ui'
 export const useCreateElementForm = (): IFormService<
   CreateElementData,
   CreateElementProperties
-> => {
-  const formState = useFormState<CreateElementData>(
+> =>
+  useFormState<CreateElementData, CreateElementProperties>(
     MODEL_ACTION.CreateElement.key,
+    (data) => {
+      return {
+        parentElement: data?.elementTree
+          ? data.selectedElement &&
+            data.elementTree.current.elements.includes(
+              data.selectedElement.current,
+            )
+            ? data.selectedElement.current
+            : data.elementTree.current.rootElement.current
+          : undefined,
+      }
+    },
   )
-
-  const data = formState.data
-
-  return {
-    ...formState,
-    parentElement: data?.elementTree
-      ? data.selectedElement &&
-        data.elementTree.current.elements.includes(data.selectedElement.current)
-        ? data.selectedElement.current
-        : data.elementTree.current.rootElement.current
-      : undefined,
-  }
-}

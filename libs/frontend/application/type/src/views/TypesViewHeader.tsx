@@ -1,4 +1,3 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -6,21 +5,22 @@ import {
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateFieldForm } from '../use-cases/update-field'
+import { useUpdateTypeForm } from '../use-cases/update-type'
 
 export const TypesViewHeader = observer(() => {
-  const { fieldService, typeService } = useStore()
-  const typeToUpdate = typeService.updateForm.type?.name || ''
-  const fieldToUpdate = fieldService.updateForm.field?.key || ''
+  const updateTypeForm = useUpdateTypeForm()
+  const updateFieldForm = useUpdateFieldForm()
+  const typeToUpdate = updateTypeForm.data?.name || ''
+  const fieldToUpdate = updateFieldForm.data?.key || ''
 
-  const typeOrField = typeService.updateForm.isOpen
+  const typeOrField = updateTypeForm.isOpen
     ? 'type'
-    : fieldService.updateForm.isOpen
+    : updateFieldForm.isOpen
     ? 'field'
     : ''
 
-  const typeOrFieldName = typeService.updateForm.isOpen
-    ? typeToUpdate
-    : fieldToUpdate
+  const typeOrFieldName = updateTypeForm.isOpen ? typeToUpdate : fieldToUpdate
 
   return (
     <CuiHeader

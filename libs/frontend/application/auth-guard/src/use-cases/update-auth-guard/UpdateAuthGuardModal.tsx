@@ -1,18 +1,18 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useAuthGuardService } from '../../services'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
 import { useUpdateAuthGuardModal } from './update-auth-guard.state'
 
 export const UpdateAuthGuardModal = observer(() => {
-  const { authGuardService } = useStore()
+  const authGuardService = useAuthGuardService()
   const updateAuthGuardModal = useUpdateAuthGuardModal()
-  const authGuard = updateAuthGuardModal.data
+  const authGuard = updateAuthGuardModal.data?.current
 
   const model = {
     id: authGuard?.id,

@@ -5,9 +5,8 @@ import type {
   ITreeNode,
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -15,32 +14,41 @@ import {
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Ref } from 'mobx-keystone'
 import React from 'react'
+import { useCreateFieldForm } from '../create-field'
+import { useDeleteFieldModal } from '../delete-field'
+import { useDeleteTypeModal } from '../delete-type'
+import { useUpdateFieldForm } from '../update-field'
+import { useUpdateTypeForm } from '../update-type'
 
 interface TypesTreeItemProps {
   data: ITreeNode<ITypeTreeNodeData>
 }
 
 export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
-  const { fieldService, typeService } = useStore()
+  const createFieldForm = useCreateFieldForm()
+  const updateTypeForm = useUpdateTypeForm()
+  const updateFieldForm = useUpdateFieldForm()
+  const deleteFieldModal = useDeleteFieldModal()
+  const deleteTypeModal = useDeleteTypeModal()
+  const { fieldDomainService } = useDomainStore()
   const { popover } = useCui()
 
   const onEdit = () => {
     if (data.extraData.type === 'type') {
-      typeService.updateForm.open(typeRef(data.extraData.node))
-      fieldService.updateForm.close()
+      updateTypeForm.open(data.extraData.node)
+      updateFieldForm.close()
     } else {
-      fieldService.updateForm.open(fieldRef(data.extraData.node))
-      typeService.updateForm.close()
+      updateFieldForm.open(data.extraData.node)
+      updateTypeForm.close()
     }
   }
 
   const onDelete = () => {
     if (data.extraData.type === 'type') {
-      typeService.deleteModal.open(typeRef(data.extraData.node))
+      deleteTypeModal.open(data.extraData.node)
     } else {
-      fieldService.deleteModal.open(fieldRef(data.extraData.node))
+      deleteFieldModal.open(data.extraData.node)
     }
   }
 
@@ -64,9 +72,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.current
         : data.extraData.node
 
-    fieldService.createForm.open(
-      typeRef(interfaceType) as Ref<IInterfaceTypeModel>,
-    )
+    createFieldForm.open(interfaceType as IInterfaceTypeModel)
 
     popover.open(MODEL_ACTION.CreateField.key)
   }
@@ -85,8 +91,8 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   if (
     (data.extraData.type === 'field' &&
-      fieldService.fieldDomainService.getField(data.extraData.node.id)?.type
-        .maybeCurrent?.kind === ITypeKind.InterfaceType) ||
+      fieldDomainService.getField(data.extraData.node.id)?.type.maybeCurrent
+        ?.kind === ITypeKind.InterfaceType) ||
     (data.extraData.type === 'type' &&
       data.extraData.node.kind === ITypeKind.InterfaceType)
   ) {

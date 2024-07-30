@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'
@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
+import { useTypeService } from '../../services'
 
 export interface TypeSelectProps {
   label: string
@@ -13,7 +14,8 @@ export interface TypeSelectProps {
 }
 
 export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
-  const { typeService } = useStore()
+  const typeService = useTypeService()
+  const { typeDomainService } = useDomainStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
 
   const [{ error, result = [], status }, getTypes] = useAsync(() =>
@@ -23,7 +25,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
   // On update mode, the current selected type can be used
   // to show the type name instead of showing just the id
   const currentType = fieldProps.value
-    ? typeService.typeDomainService.types.get(fieldProps.value)
+    ? typeDomainService.types.get(fieldProps.value)
     : undefined
 
   const typeOptions = uniqBy(compact([currentType, ...result]), 'id').map(

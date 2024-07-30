@@ -1,5 +1,4 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   SelectAction,
   SelectResource,
@@ -12,12 +11,15 @@ import { IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { useActionService } from '../../services'
 import { updateActionSchema } from './update-action.schema'
+import { useUpdateActionModal } from './update-action.state'
 
 export const UpdateActionModal = observer(() => {
-  const { actionService, resourceService } = useStore()
-  const closeModal = () => actionService.updateModal.close()
-  const actionToUpdate = actionService.updateModal.action
+  const actionService = useActionService()
+  const updateActionModal = useUpdateActionModal()
+  const closeModal = () => updateActionModal.close()
+  const actionToUpdate = updateActionModal.data
 
   const onSubmit = (actionDTO: IUpdateActionData) => {
     return actionService.update(actionDTO)
@@ -55,7 +57,7 @@ export const UpdateActionModal = observer(() => {
     <ModalForm.Modal
       okText="Update Action"
       onCancel={closeModal}
-      open={actionService.updateModal.isOpen}
+      open={updateActionModal.isOpen}
     >
       <ModalForm.Form<IUpdateActionData>
         model={model}

@@ -4,13 +4,14 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { type CheckedKeys, PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useTagService } from '../../services'
 import { TagsTreeItem } from './TagsTreeItem'
 
 interface TagsTreeViewProps {
@@ -18,7 +19,8 @@ interface TagsTreeViewProps {
 }
 
 export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
-  const { tagService } = useStore()
+  const tagService = useTagService()
+  const { tagDomainService } = useDomainStore()
 
   const { data, filter, handleChange, isLoading } = useTablePagination<
     ITagModel,
@@ -50,9 +52,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     if (selectedKeys[0]) {
-      tagService.tagDomainService.setSelectedTag(
-        tagRef(selectedKeys[0].toString()),
-      )
+      tagDomainService.setSelectedTag(tagRef(selectedKeys[0].toString()))
     }
   }
 
@@ -67,11 +67,11 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
       checkStrictly
       checkable
       checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
-      expandedKeys={tagService.tagDomainService.expandedNodes}
+      expandedKeys={tagDomainService.expandedNodes}
       isLoading={isLoading}
       onCheck={onCheck}
       onExpand={(expandedKeys) => {
-        tagService.tagDomainService.setExpandedNodes(
+        tagDomainService.setExpandedNodes(
           expandedKeys.map((key) => key.toString()),
         )
       }}

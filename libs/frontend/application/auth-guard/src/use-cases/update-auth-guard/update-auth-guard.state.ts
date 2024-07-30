@@ -12,10 +12,7 @@ import type { Ref } from 'mobx-keystone'
 
 export const useUpdateAuthGuardModal = (): IModalService<
   Ref<IAuthGuardModel>
-> =>
-  useModalState<Ref<IAuthGuardModel>, { authGuard: IAuthGuardModel }>(
-    MODEL_ACTION.UpdateAuthGuard.key,
-  )
+> => useModalState<Ref<IAuthGuardModel>>(MODEL_ACTION.UpdateAuthGuard.key)
 
-export const useUpdateAuthGuardForm = (): IFormService =>
-  useFormState<IAuthGuardModel>(MODEL_ACTION.UpdateAuthGuard.key)
+export const useUpdateAuthGuardForm = (): IFormService<Ref<IAuthGuardModel>> =>
+  useFormState<Ref<IAuthGuardModel>>(MODEL_ACTION.UpdateAuthGuard.key)

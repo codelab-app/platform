@@ -7,7 +7,6 @@ import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
@@ -37,7 +36,6 @@ const menuItemIconStyle: CSSProperties = {
 
 export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const { pathname } = useUrl()
-  const { userDomainService } = useDomainStore()
   const updateAppModal = useUpdateAppModal()
   const deleteAppModal = useDeleteAppModal()
   const buildAppModal = useBuildAppModal()

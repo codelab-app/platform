@@ -1,4 +1,7 @@
-import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
+import type {
+  IElementService,
+  IRuntimeContext,
+} from '@codelab/frontend/abstract/application'
 import type {
   IInterfaceTypeModel,
   ITypeModel,
@@ -36,6 +39,7 @@ export interface UiPropertiesContext {
    */
   autocomplete?: IRuntimeContext
   defaultValues?: IFieldDefaultValue | null
+  elementService: IElementService
   fieldName?: string | null
   validationRules?: IValidationRules
 }

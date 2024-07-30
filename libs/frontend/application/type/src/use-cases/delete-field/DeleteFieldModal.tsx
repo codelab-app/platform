@@ -1,5 +1,4 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
@@ -9,11 +8,14 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useFieldService } from '../../services'
+import { useDeleteFieldModal } from './delete-field.state'
 
 export const DeleteFieldModal = observer(() => {
-  const { fieldService } = useStore()
-  const closeModal = () => fieldService.deleteModal.close()
-  const { field } = fieldService.deleteModal
+  const deleteFieldModal = useDeleteFieldModal()
+  const fieldService = useFieldService()
+  const closeModal = () => deleteFieldModal.close()
+  const field = deleteFieldModal.data
 
   if (!field) {
     return null
@@ -24,7 +26,7 @@ export const DeleteFieldModal = observer(() => {
       okButtonProps={{ danger: true }}
       okText="Delete"
       onCancel={closeModal}
-      open={fieldService.deleteModal.isOpen}
+      open={deleteFieldModal.isOpen}
       title={<span className="font-semibold">Delete field</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>

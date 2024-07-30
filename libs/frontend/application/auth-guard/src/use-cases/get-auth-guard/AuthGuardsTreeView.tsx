@@ -2,18 +2,17 @@ import type {
   IAuthGuardNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useAsync, useMountEffect } from '@react-hookz/web'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAuthGuardService } from '../../services'
 import { AuthGuardsTreeItem } from './AuthGuardsTreeItem'
 
-export const AuthGuardsTreeView = observer(() => {
-  const { authGuardService } = useStore()
+export const AuthGuardsTreeView = () => {
+  const authGuardService = useAuthGuardService()
   const [{ status }, getAuthGuards] = useAsync(() => authGuardService.getAll())
 
   const authGuardList: Array<ITreeNode<IAuthGuardNodeData>> =
@@ -39,4 +38,4 @@ export const AuthGuardsTreeView = observer(() => {
       />
     </CuiSkeletonWrapper>
   )
-})
+}

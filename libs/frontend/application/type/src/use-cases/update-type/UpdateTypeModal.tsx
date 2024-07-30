@@ -1,6 +1,6 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -8,17 +8,21 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useTypeService } from '../../services'
 import { DisplayIfKind } from '../create-type/DisplayIfKind'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { updateTypeSchema } from './update-type.schema'
+import { useUpdateTypeModal } from './update-type.state'
 import { validateNonRecursive } from './validate-non-recursive'
 
 export const UpdateTypeModal = observer(() => {
-  const { typeService } = useStore()
-  const closeModal = () => typeService.updateModal.close()
+  const typeService = useTypeService()
+  const { typeDomainService } = useDomainStore()
+  const updateTypeModal = useUpdateTypeModal()
+  const closeModal = () => updateTypeModal.close()
 
-  const typeToUpdate = typeService.typeDomainService.types.get(
-    typeService.updateModal.type?.id ?? '',
+  const typeToUpdate = typeDomainService.types.get(
+    updateTypeModal.data?.id ?? '',
   )
 
   const handleSubmit = async (submitData: IUpdateTypeDto) => {
@@ -75,7 +79,7 @@ export const UpdateTypeModal = observer(() => {
     <ModalForm.Modal
       okText="Update"
       onCancel={closeModal}
-      open={typeService.updateModal.isOpen}
+      open={updateTypeModal.isOpen}
       title={<span className="font-semibold">Update type</span>}
     >
       <ModalForm.Form<IUpdateTypeDto>
@@ -90,10 +94,7 @@ export const UpdateTypeModal = observer(() => {
       >
         <AutoFields fields={['name']} />
         {typeToUpdate?.kind === ITypeKind.UnionType && (
-          <AutoField
-            name="unionTypeIds"
-            types={typeService.typeDomainService.typesList}
-          />
+          <AutoField name="unionTypeIds" types={typeDomainService.typesList} />
         )}
         {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
           <AutoField name="primitiveKind" />

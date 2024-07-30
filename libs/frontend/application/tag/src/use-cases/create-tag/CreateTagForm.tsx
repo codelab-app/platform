@@ -2,7 +2,7 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
@@ -15,7 +15,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useTagService } from '../../services'
 import { createTagSchema } from './create.tag.schema'
+import { useCreateTagForm } from './create-tag.data'
 
 interface CreateTagFormProps {
   showFormControl?: boolean
@@ -29,7 +31,9 @@ export const CreateTagForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateTagFormProps) => {
-    const { tagService } = useStore()
+    const tagService = useTagService()
+    const { tagDomainService } = useDomainStore()
+    const createTagForm = useCreateTagForm()
 
     const onSubmit = (input: ICreateTagData) => {
       void tagService.create(input)
@@ -40,8 +44,8 @@ export const CreateTagForm = observer(
       return Promise.resolve()
     }
 
-    const selectedOption = tagService.tagDomainService.selectedOption
-    const closeForm = () => tagService.createForm.close()
+    const selectedOption = tagDomainService.selectedOption
+    const closeForm = () => createTagForm.close()
 
     const model = {
       id: v4(),

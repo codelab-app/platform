@@ -1,13 +1,10 @@
 /**
  * Re-useable interface that allows some UI to be toggled open and close
+ *
+ * Previously needed to use refs since the keystone model could not have 2 parents
  */
-export interface IToggleService<
-  TData = undefined,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TOutput = TData,
-> {
+export interface IToggleService<TData = undefined, TOutput = TData> {
   data: TOutput | undefined
-  // output: TOutput
   isOpen: boolean
 
   close(): void

@@ -6,15 +6,17 @@ import type {
   IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
+import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import type { Ref } from 'mobx-keystone'
 import React from 'react'
 
@@ -23,22 +25,23 @@ interface StateTreeItemProps {
 }
 
 export const StateTreeItem = ({ data }: StateTreeItemProps) => {
-  const { fieldService } = useStore()
+  const updateFieldForm = useUpdateFieldForm()
+  const deleteFieldModal = useDeleteFieldModal()
+  const createFieldForm = useCreateFieldForm()
   const { popover } = useCui()
+  const { fieldDomainService } = useDomainStore()
 
   const onEdit = () => {
-    fieldService.updateForm.open(fieldRef(data.extraData.node))
+    updateFieldForm.open(data.extraData.node)
     popover.open(MODEL_ACTION.UpdateField.key)
   }
 
   const onDelete = () => {
-    fieldService.deleteModal.open(fieldRef(data.extraData.node))
+    deleteFieldModal.open(data.extraData.node)
   }
 
   const onAddField = () => {
-    fieldService.createForm.open(
-      data.extraData.node.type as Ref<IInterfaceTypeModel>,
-    )
+    createFieldForm.open(data.extraData.node.type as Ref<IInterfaceTypeModel>)
     popover.open(MODEL_ACTION.CreateField.key)
   }
 
@@ -58,8 +61,8 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   ]
 
   if (
-    fieldService.fieldDomainService.getField(data.extraData.node.id)?.type
-      .maybeCurrent?.kind === 'InterfaceType'
+    fieldDomainService.getField(data.extraData.node.id)?.type.maybeCurrent
+      ?.kind === 'InterfaceType'
   ) {
     toolbarItems.push({
       cuiKey: MODEL_ACTION.CreateField.key,
