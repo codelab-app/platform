@@ -1,3 +1,4 @@
+import { ariaLabels } from '@codelab/frontend-application-shared-data'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { expect, test } from '@playwright/test'
 import {

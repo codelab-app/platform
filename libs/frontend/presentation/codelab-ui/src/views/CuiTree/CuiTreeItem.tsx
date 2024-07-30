@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { DATA_TEST_ID } from '@codelab/frontend-application-shared-data'
 import classNames from 'classnames'
 import type { ReactNode } from 'react'
 import React from 'react'
@@ -36,7 +36,7 @@ export const CuiTreeItem = ({
         'cui-tree-item h-full flex flex-row justify-between overflow-hidden',
         variantColors[variant ?? 'primary'],
       )}
-      data-cy={CY_DATA.cuiTreeItem().cyData}
+      data-testid={DATA_TEST_ID.cuiTreeItem}
       onClick={onClick}
     >
       <div className="flex h-full flex-row justify-start overflow-hidden">
@@ -45,9 +45,7 @@ export const CuiTreeItem = ({
           <p className="m-0 truncate">
             <span
               className="font-semibold"
-              data-cy={
-                CY_DATA.cuiTreeItemPrimaryTitle(primaryTitle || '').cyData
-              }
+              data-cy={DATA_TEST_ID.cuiTreeItemPrimaryTitle(primaryTitle || '')}
             >
               <CuiHighlightedText
                 highlight={highlight?.primaryTitle}
@@ -56,9 +54,9 @@ export const CuiTreeItem = ({
             </span>
             <span
               className="pl-2 font-normal"
-              data-cy={
-                CY_DATA.cuiTreeItemSecondaryTitle(secondaryTitle || '').cyData
-              }
+              data-cy={DATA_TEST_ID.cuiTreeItemSecondaryTitle(
+                secondaryTitle || '',
+              )}
             >
               <CuiHighlightedText
                 highlight={highlight?.secondaryTitle}

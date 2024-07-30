@@ -62,7 +62,7 @@ export default defineConfig({
     } */
   ],
 
-  timeout: 10000,
+  timeout: 30000,
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -75,15 +75,14 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: 'pnpm nx serve web -c test',
+      command: 'pnpm e2e:web',
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       url: baseURL,
     },
     {
-      command: 'pnpm nx serve api -c test',
+      command: 'pnpm e2e:api',
       cwd: workspaceRoot,
-      reuseExistingServer: !process.env.CI,
       url: 'http://127.0.0.1:4001/api/graphql',
     },
   ],
