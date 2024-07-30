@@ -1,4 +1,3 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -6,10 +5,11 @@ import {
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateTagForm } from '../use-cases/update-tag'
 
 export const TagsViewHeader = observer(() => {
-  const { tagService } = useStore()
-  const tag = tagService.updateForm.tag
+  const updateTagForm = useUpdateTagForm()
+  const tag = updateTagForm.data
 
   return (
     <CuiHeader

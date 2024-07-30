@@ -6,7 +6,6 @@ import {
   elementRef,
   elementTreeRef,
   isComponent,
-  storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
@@ -18,9 +17,15 @@ import {
   useCurrentPage,
 } from '@codelab/frontend/presentation/container'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
-import { CreateElementPopover } from '@codelab/frontend-application-element/use-cases/create-element'
+import {
+  CreateElementPopover,
+  useCreateElementForm,
+} from '@codelab/frontend-application-element/use-cases/create-element'
 import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
-import { CreateActionPopover } from '@codelab/frontend-application-store/use-cases/create-action'
+import {
+  CreateActionPopover,
+  useCreateActionForm,
+} from '@codelab/frontend-application-store/use-cases/create-action'
 import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
 import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
 import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
@@ -28,6 +33,7 @@ import { UpdateActionPopover } from '@codelab/frontend-application-store/use-cas
 import {
   CreateFieldModal,
   CreateFieldPopover,
+  useCreateFieldForm,
 } from '@codelab/frontend-application-type/use-cases/create-field'
 import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import {
@@ -42,18 +48,16 @@ import { Collapse } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useBuilderService } from '../../services'
 import { ElementTreeView } from './builder-tree/ElementTreeView'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
-    const {
-      actionService,
-      builderService,
-      elementService,
-      fieldService,
-      rendererService,
-    } = useApplicationStore()
-
+    const { rendererService } = useApplicationStore()
+    const createActionForm = useCreateActionForm()
+    const builderService = useBuilderService()
+    const createFieldForm = useCreateFieldForm()
+    const createElementForm = useCreateElementForm()
     const { popover } = useCui()
     const page = useCurrentPage()
     const component = useCurrentComponent()
@@ -87,7 +91,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   ? elementRef(selectedElementId)
                   : undefined
 
-                elementService.createForm.open({
+                createElementForm.open({
                   elementOptions: containerNode.elements.map(mapElementOption),
                   elementTree: elementTreeRef(containerNode.id),
                   selectedElement,
@@ -116,10 +120,10 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return null
                 }
 
-                const form = fieldService.createForm
-
                 if (store.api.id) {
-                  form.open(typeRef(store.api.id) as Ref<IInterfaceTypeModel>)
+                  createFieldForm.open(
+                    typeRef(store.api.id) as Ref<IInterfaceTypeModel>,
+                  )
                   popover.open(MODEL_ACTION.CreateField.key)
                 }
               },
@@ -145,7 +149,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                actionService.createForm.open(storeRef(store))
+                createActionForm.open(store)
                 popover.open(MODEL_ACTION.CreateAction.key)
               },
               title: 'Add Action',

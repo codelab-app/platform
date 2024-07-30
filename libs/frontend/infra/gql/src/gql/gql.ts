@@ -132,10 +132,10 @@ const documents = {
     types.DeleteAtomsDocument,
   '\n  query AtomList($where: AtomWhere, $options: AtomOptions) {\n    aggregate: atomsAggregate(where: $where) {\n      count\n    }\n    items: atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n':
     types.AtomListDocument,
-  '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n':
-    types.UpdateAtomsDocument,
   '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n':
     types.GetSelectAtomOptionsDocument,
+  '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n':
+    types.UpdateAtomsDocument,
   '\n  query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {\n    aggregate: authGuardsAggregate(where: $where) {\n      count\n    }\n    items: authGuards(options: $options, where: $where) {\n      ...AuthGuard\n    }\n  }\n':
     types.GetAuthGuardsDocument,
   '\n  mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {\n    createAuthGuards(input: $input) {\n      authGuards {\n        id\n      }\n    }\n  }\n':
@@ -760,14 +760,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n']
+  source: '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n',
+): (typeof documents)['\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n',
-): (typeof documents)['\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n']
+  source: '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

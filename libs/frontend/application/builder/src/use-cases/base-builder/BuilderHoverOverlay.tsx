@@ -1,5 +1,4 @@
 import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   HoverOverlay,
   MarginPaddingOverlay,
@@ -8,12 +7,13 @@ import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
+import { useBuilderService } from '../../services'
 import { queryRenderedElementById } from '../../utils/query-rendered-element-by-id'
 
 export const BuilderHoverOverlay = observer<{
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ renderContainerRef }) => {
-  const { builderService } = useStore()
+  const builderService = useBuilderService()
   const hoveredNode = builderService.hoveredNode
   const selectedNode = builderService.selectedNode
 

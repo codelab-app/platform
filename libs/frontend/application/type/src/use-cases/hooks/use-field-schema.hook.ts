@@ -1,10 +1,15 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend/infra/mobx'
 import type {
   ICreateFieldData,
   IUpdateFieldData,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import { useMemo } from 'react'
+import { useCreateFieldForm } from '../create-field'
+import { useUpdateFieldForm } from '../update-field'
 
 /**
  * @param schema
@@ -13,14 +18,17 @@ import { useMemo } from 'react'
 export const useFieldSchema = (
   schema: JSONSchemaType<ICreateFieldData | IUpdateFieldData>,
 ) => {
-  const { fieldService, rendererService, storeService } = useStore()
+  const { rendererService } = useApplicationStore()
+  const updateFieldForm = useUpdateFieldForm()
+  const createFieldForm = useCreateFieldForm()
+  const { storeDomainService } = useDomainStore()
 
   return useMemo(() => {
     const renderer = rendererService.activeRenderer?.current
     const runtimeStore = renderer?.runtimeContainerNode?.runtimeStore
 
     const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
-      (fieldName) => fieldName !== fieldService.updateForm.field?.key,
+      (fieldName) => fieldName !== updateFieldForm.data?.key,
     )
 
     return {
@@ -36,8 +44,8 @@ export const useFieldSchema = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     schema,
-    fieldService.createForm.interface,
-    fieldService.updateForm.field,
-    storeService.storeDomainService.storesList,
+    createFieldForm.data,
+    updateFieldForm.data,
+    storeDomainService.storesList,
   ])
 }

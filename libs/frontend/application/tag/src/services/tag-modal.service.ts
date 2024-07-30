@@ -15,7 +15,7 @@ export class TagModalService
 {
   @computed
   get tag() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }
 
@@ -30,6 +30,6 @@ export class TagsModalService
 {
   @computed
   get tags() {
-    return this.metadata?.map((tag) => tag.current)
+    return this.data?.map((tag) => tag.current)
   }
 }

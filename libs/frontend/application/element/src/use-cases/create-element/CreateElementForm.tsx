@@ -5,12 +5,13 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   SelectActionField,
   SelectAnyElement,
-} from '@codelab/frontend-application-type/interface-form'
+} from '@codelab/frontend/presentation/components/interface-form'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useUserService } from '@codelab/frontend-application-user/services'
 import {
   Form,
   FormController,
@@ -30,9 +31,11 @@ import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import { RenderTypeCompositeField } from '../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../components/SelectLinkElement'
+import { useElementService } from '../../services'
 import { useRequiredParentValidator } from '../../validation/useRequiredParentValidator.hook'
 import type { ICreateElementDto } from './create-element.schema'
 import { createElementSchema } from './create-element.schema'
+import { useCreateElementForm } from './create-element.state'
 
 interface CreateElementFormProps {
   showFormControl?: boolean
@@ -47,9 +50,12 @@ export const CreateElementForm = observer(
     submitRef,
   }: CreateElementFormProps) => {
     const { atomDomainService } = useDomainStore()
-    const { elementService, userService } = useStore()
-    const { metadata, parentElement } = elementService.createForm
-    const elementOptions = metadata?.elementOptions
+    const userService = useUserService()
+    const elementService = useElementService()
+    const createElementForm = useCreateElementForm()
+    const element = createElementForm.data
+    const parentElement = element?.parentElement?.maybeCurrent
+    // const elementOptions = metadata?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
 
     if (!parentElement) {
@@ -78,7 +84,7 @@ export const CreateElementForm = observer(
     }
 
     const closeForm = () => {
-      return elementService.createForm.close()
+      return createElementForm.close()
     }
 
     const model = {

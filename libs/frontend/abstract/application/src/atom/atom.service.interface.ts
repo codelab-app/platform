@@ -3,7 +3,7 @@ import type {
   ICreateAtomData,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import type { AtomOptions, AtomWhere } from '@codelab/frontend/infra/gql'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { GuaranteedProps } from 'uniforms'
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'

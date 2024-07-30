@@ -27,8 +27,8 @@ export class CreateElementFormService
    */
   @computed
   get parentElement() {
-    const elementTree = this.metadata?.elementTree
-    const selectedElement = this.metadata?.selectedElement
+    const elementTree = this.data?.elementTree
+    const selectedElement = this.data?.selectedElement
 
     if (!elementTree) {
       return undefined
@@ -55,6 +55,6 @@ export class UpdateElementFormService
 {
   @computed
   get element() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

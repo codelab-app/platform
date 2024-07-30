@@ -1,7 +1,12 @@
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useModalState } from '@codelab/frontend-application-shared-store/ui'
-import type { Ref } from 'mobx-keystone'
+import {
+  useFormState,
+  useModalState,
+} from '@codelab/frontend-application-shared-store/ui'
 
 export const useUpdateFieldModal = () =>
-  useModalState<Ref<IFieldModel>>(MODEL_ACTION.UpdateField.key)
+  useModalState<IFieldModel>(MODEL_ACTION.UpdateField.key)
+
+export const useUpdateFieldForm = () =>
+  useFormState<IFieldModel>(MODEL_ACTION.UpdateField.key)

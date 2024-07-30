@@ -7,21 +7,25 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useCreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
+import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { AtomColumnProps } from './types'
 
 export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {
-  const { fieldService } = useStore()
+  const updateFieldModal = useUpdateFieldModal()
+  const deleteFieldModal = useDeleteFieldModal()
+  const createFieldModal = useCreateFieldModal()
 
   const onEdit = (field: IFieldModel<ITypeModel>) => {
-    fieldService.updateModal.open(fieldRef(field))
+    updateFieldModal.open(fieldRef(field))
   }
 
   const onDelete = (field: IFieldModel<ITypeModel>) => {
-    fieldService.deleteModal.open(fieldRef(field))
+    deleteFieldModal.open(fieldRef(field))
   }
 
   const editMenuItems = atom.api.current.fields.map((field) => {
@@ -49,9 +53,7 @@ export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {
               return
             }
 
-            fieldService.createModal.open(
-              typeRef<IInterfaceTypeModel>(atom.api.id),
-            )
+            createFieldModal.open(typeRef<IInterfaceTypeModel>(atom.api.id))
           }}
         >
           <PlusOutlined />

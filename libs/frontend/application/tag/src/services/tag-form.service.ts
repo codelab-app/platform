@@ -15,6 +15,6 @@ export class TagFormService
 {
   @computed
   get tag() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

@@ -1,5 +1,5 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
@@ -7,11 +7,15 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useTagService } from '../../services'
 import { createTagSchema } from './create.tag.schema'
+import { useCreateTagModal } from './create-tag.data'
 
 export const CreateTagModal = observer(() => {
-  const { tagService } = useStore()
-  const isOpen = tagService.createModal.isOpen
+  const tagService = useTagService()
+  const { tagDomainService } = useDomainStore()
+  const createTagModal = useCreateTagModal()
+  const isOpen = createTagModal.isOpen
 
   const onSubmit = (input: ICreateTagData) => {
     void tagService.create(input)
@@ -21,8 +25,8 @@ export const CreateTagModal = observer(() => {
     return Promise.resolve()
   }
 
-  const defaultOption = tagService.tagDomainService.selectedOption
-  const closeModal = () => tagService.createModal.close()
+  const defaultOption = tagDomainService.selectedOption
+  const closeModal = () => createTagModal.close()
 
   return (
     <ModalForm.Modal okText="Create Tag" onCancel={closeModal} open={isOpen}>

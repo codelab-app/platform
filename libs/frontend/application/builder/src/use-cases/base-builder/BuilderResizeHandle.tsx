@@ -1,12 +1,12 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef } from 'react'
 import type { Side } from '../../sections/content/builder-resize-controller'
 import { builderResizeController } from '../../sections/content/builder-resize-controller'
+import { useBuilderService } from '../../services'
 
 const useResizer = ({ side }: { side: Side }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const { builderService } = useStore()
+  const builderService = useBuilderService()
 
   useEffect(() => {
     if (ref.current === null) {

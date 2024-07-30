@@ -1,18 +1,22 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
+import { useTagService } from '../../services'
 import { updateTagSchema } from './update-tag.schema'
+import { useUpdateTagModal } from './update-tag.state'
 
 export const UpdateTagModal = observer(() => {
-  const { tagService } = useStore()
-  const tag = tagService.updateModal.tag
+  const tagService = useTagService()
+  const updateTagModal = useUpdateTagModal()
+  const { tagDomainService } = useDomainStore()
+  const tag = updateTagModal.data
 
-  const options = tagService.tagDomainService.tagsSelectOptions.filter(
+  const options = tagDomainService.tagsSelectOptions.filter(
     (option) => option.value !== tag?.id,
   )
 
@@ -22,7 +26,7 @@ export const UpdateTagModal = observer(() => {
     parent: tag?.parent ? { id: tag.parent.id } : undefined,
   }
 
-  const closeModal = () => tagService.updateModal.close()
+  const closeModal = () => updateTagModal.close()
 
   const onSubmit = (tagDTO: IUpdateTagData) => {
     void tagService.update(tagDTO)
@@ -36,7 +40,7 @@ export const UpdateTagModal = observer(() => {
     <ModalForm.Modal
       okText="Update Tag"
       onCancel={closeModal}
-      open={tagService.updateModal.isOpen}
+      open={updateTagModal.isOpen}
     >
       <ModalForm.Form<IUpdateTagData>
         model={model}

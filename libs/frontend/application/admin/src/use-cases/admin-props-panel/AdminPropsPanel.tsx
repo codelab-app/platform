@@ -3,26 +3,31 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/domain'
-import { useFieldService } from '@codelab/frontend-application-type/services'
+import { useCreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
+import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
+import { useUserService } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
   ({ interfaceType }) => {
-    const fieldService = useFieldService()
+    const userService = useUserService()
     const updateFieldModal = useUpdateFieldModal()
+    const createFieldModal = useCreateFieldModal()
+    const deleteFieldModal = useDeleteFieldModal()
 
     if (!isAdmin(userService.user)) {
       return null
     }
 
     const onEdit = (field: IFieldModel) => {
-      fieldService.updateModal.open(fieldRef(field))
+      updateFieldModal.open(fieldRef(field))
     }
 
     const onDelete = (field: IFieldModel) => {
-      fieldService.deleteModal.open(fieldRef(field))
+      deleteFieldModal.open(fieldRef(field))
     }
 
     const editMenuItems = interfaceType.fields.map((field) => {
@@ -50,7 +55,7 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
         <Col>
           <Button
             onClick={() => {
-              fieldService.createModal.open(typeRef(interfaceType))
+              createFieldModal.open(typeRef(interfaceType))
             }}
           >
             Add

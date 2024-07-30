@@ -3,9 +3,11 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
+import { PropsForm } from '@codelab/frontend/presentation/components/interface-form'
 import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
-import { PropsForm } from '@codelab/frontend-application-type/props-form'
+import { usePropService } from '@codelab/frontend-application-prop/services'
+import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -14,6 +16,7 @@ import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect, useRef } from 'react'
+import { useElementService } from '../../services'
 
 export interface UpdateElementPropsFormProps {
   runtimeElement: IRuntimeElementModel
@@ -24,9 +27,10 @@ export interface UpdateElementPropsFormProps {
  */
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ runtimeElement }) => {
-    const { elementService, propService, rendererService, typeService } =
-      useStore()
-
+    const { rendererService } = useApplicationStore()
+    const elementService = useElementService()
+    const propService = usePropService()
+    const typeService = useTypeService()
     const currentElement = runtimeElement.element.current
     const apiId = currentElement.renderType.current.api.id
 

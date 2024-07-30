@@ -38,6 +38,21 @@ export const AtomListDocument = graphql(`
   }
 `)
 
+export const GetSelectAtomOptionsDocument = graphql(`
+  query GetSelectAtomOptions {
+    atoms {
+      __typename
+      id
+      name
+      requiredParents {
+        id
+        type
+      }
+      type
+    }
+  }
+`)
+
 export const UpdateAtomsDocument = graphql(`
   mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
     updateAtoms(update: $update, where: $where) {
@@ -51,6 +66,7 @@ import {
   type CreateAtomsMutationVariables,
   type DeleteAtomsMutationVariables,
   type AtomListQueryVariables,
+  type GetSelectAtomOptionsQueryVariables,
   type UpdateAtomsMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
@@ -69,6 +85,11 @@ const AtomList = (
   next?: NextFetchRequestConfig,
 ) => gqlFetch(AtomListDocument, variables, next)
 
+const GetSelectAtomOptions = (
+  variables: GetSelectAtomOptionsQueryVariables,
+  next?: NextFetchRequestConfig,
+) => gqlFetch(GetSelectAtomOptionsDocument, variables, next)
+
 const UpdateAtoms = (
   variables: UpdateAtomsMutationVariables,
   next?: NextFetchRequestConfig,
@@ -78,5 +99,6 @@ export const getSdk = () => ({
   CreateAtoms,
   DeleteAtoms,
   AtomList,
+  GetSelectAtomOptions,
   UpdateAtoms,
 })

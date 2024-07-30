@@ -6,7 +6,6 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebarPopover,
   useCui,
@@ -14,11 +13,12 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateActionForm } from './create-action.state'
 import { CreateActionForm } from './CreateActionForm'
 
 export const CreateActionPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { actionService } = useStore()
+  const createActionForm = useCreateActionForm()
   const { popover } = useCui()
 
   return (
@@ -42,7 +42,7 @@ export const CreateActionPopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              actionService.createForm.close()
+              createActionForm.close()
             },
             title: 'Cancel',
           },

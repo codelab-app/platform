@@ -3,7 +3,6 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -16,8 +15,10 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { useRedirectService } from '../../services'
 import { DeleteRedirectButton } from '../delete-redirect'
 import { updateRedirectSchema } from './update-redirect.schema'
+import { useUpdateRedirectForm } from './update-redirect.state'
 
 interface UpdateRedirectFormProps {
   showFormControl?: boolean
@@ -27,9 +28,10 @@ interface UpdateRedirectFormProps {
 
 export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { redirectService } = useStore()
-    const redirect = redirectService.updateForm.redirect
-    const closeForm = () => redirectService.updateForm.close()
+    const updateRedirectForm = useUpdateRedirectForm()
+    const redirectService = useRedirectService()
+    const redirect = updateRedirectForm.data
+    const closeForm = () => updateRedirectForm.close()
 
     const model = {
       authGuard: redirect?.authGuard,

@@ -4,7 +4,6 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebarPopover,
   useCui,
@@ -12,11 +11,12 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateTagForm } from './create-tag.data'
 import { CreateTagForm } from './CreateTagForm'
 
 export const CreateTagPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { tagService } = useStore()
+  const createTagForm = useCreateTagForm()
   const { popover } = useCui()
 
   return (
@@ -40,7 +40,7 @@ export const CreateTagPopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              tagService.createForm.close()
+              createTagForm.close()
             },
             title: 'Cancel',
           },

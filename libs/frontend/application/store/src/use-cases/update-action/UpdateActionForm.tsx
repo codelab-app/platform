@@ -2,13 +2,12 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import {
   SelectAction,
   SelectResource,
-} from '@codelab/frontend-application-type/interface-form'
+} from '@codelab/frontend/presentation/components/interface-form'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import {
   Form,
   FormController,
@@ -20,8 +19,10 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
 import { updateActionSchema } from './update-action.schema'
+import { useUpdateActionForm } from './update-action.state'
 
 interface UpdateActionFormProps {
   showFormControl?: boolean
@@ -35,10 +36,11 @@ export const UpdateActionForm = observer(
     showFormControl = true,
     submitRef,
   }: UpdateActionFormProps) => {
-    const { actionService } = useStore()
+    const actionService = useActionService()
+    const updateActionForm = useUpdateActionForm()
     const actionSchema = useActionSchema(updateActionSchema)
-    const closeForm = () => actionService.updateForm.close()
-    const actionToUpdate = actionService.updateForm.action
+    const closeForm = () => updateActionForm.close()
+    const actionToUpdate = updateActionForm.data
 
     const onSubmit = (actionDTO: IUpdateActionData) => {
       const promise = actionService.update(actionDTO)

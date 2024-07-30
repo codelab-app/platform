@@ -3,7 +3,6 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { Alert, Layout } from 'antd'
 import { Content } from 'antd/lib/layout/layout'
 import React from 'react'
-import { Builder } from '../../use-cases/base-builder/Builder'
 
 interface BuilderTabsProps {
   error?: Parameters<typeof extractErrorMessage>[0]
@@ -11,13 +10,15 @@ interface BuilderTabsProps {
 }
 
 export const BuilderTabs = ({ error, isLoading = false }: BuilderTabsProps) => {
+  // const { pageSlug } = useUrl()
+
   return (
     <Layout style={{ height: '100%' }}>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
 
       <Content>
         <Spinner center isLoading={isLoading}>
-          <Builder />
+          {/* <Builder > */}
         </Spinner>
       </Content>
     </Layout>

@@ -61,10 +61,14 @@ export const useTypeService = (): ITypeService => {
 
       typeDomainService.types.delete(id)
 
-      await typeRepository.delete([type])
+      return await typeRepository.delete([type])
     }
 
-    await Promise.all(types.map((type) => deleteTypeOperation(type)))
+    const items = await Promise.all(
+      types.map((type) => deleteTypeOperation(type)),
+    )
+
+    return items.length
   }
 
   const getAll = async (ids?: Array<string>) => {
@@ -223,11 +227,9 @@ export const useTypeService = (): ITypeService => {
     getOne,
     getOptions,
     getType,
+    paginationService,
     primitiveKind,
     remove: deleteType,
-    shouldLoadType,
-    typeDomainService,
-    typeRepository,
     update,
   }
 }

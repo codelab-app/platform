@@ -1,11 +1,11 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
 } from '@codelab/frontend-application-resource/components'
+import { useResourceService } from '@codelab/frontend-application-resource/services'
 import {
   Form,
   FormController,
@@ -14,13 +14,15 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import { useAuthGuardService } from '../../services'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
 import { useUpdateAuthGuardModal } from './update-auth-guard.state'
 
 export const UpdateAuthGuardForm = observer(() => {
-  const { authGuardService, resourceService } = useStore()
+  const authGuardService = useAuthGuardService()
+  const resourceService = useResourceService()
   const updateAuthGuardModal = useUpdateAuthGuardModal()
-  const authGuard = updateAuthGuardModal.data
+  const authGuard = updateAuthGuardModal.data?.current
 
   if (!authGuard) {
     return null
@@ -45,7 +47,7 @@ export const UpdateAuthGuardForm = observer(() => {
 
   const getResource = (context: Context<IUpdateAuthGuardData>) =>
     context.model.resource?.id
-      ? resourceService.resource(context.model.resource.id)
+      ? resourceService.getResource(context.model.resource.id)
       : null
 
   return (

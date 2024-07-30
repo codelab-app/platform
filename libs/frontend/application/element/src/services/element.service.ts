@@ -8,38 +8,30 @@ import {
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend/infra/mobx'
+import { schemaTransformer } from '@codelab/frontend/presentation/components/interface-form'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'
 import uniqBy from 'lodash/uniqBy'
 import { CloneElementService } from './clone-element.service'
-import { ElementApplicationValidationService } from './element.application.validation.service'
-import {
-  CreateElementFormService,
-  UpdateElementFormService,
-} from './element-form.service'
-import {
-  ElementModalService,
-  UpdateElementModalService,
-} from './element-modal.service'
 
 export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
+  const { rendererService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const cloneElementService = new CloneElementService({})
-  const validationService = new ElementApplicationValidationService({})
-  const createForm = new CreateElementFormService({})
-  const updateForm = new UpdateElementFormService({})
-  const deleteModal = new ElementModalService({})
-  const updateModal = new UpdateElementModalService({})
 
   const createElement = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
@@ -214,18 +206,29 @@ export const useElementService = (): IElementService => {
     )
   }
 
+  const propsHaveErrors = (element?: IElementModel) => {
+    if (!element) {
+      return false
+    }
+
+    const { props, renderType } = element
+    const schema = schemaTransformer.transform(renderType.current.api.current)
+    const validate = createValidator(schema)
+    const result = validate(props.values)
+
+    return result ? result.details.length > 0 : false
+  }
+
   return {
     cloneElementService,
     createElement,
     deleteElement,
-    deleteModal,
     getElement,
     getSelectElementOptions,
     loadDependantTypes,
     move,
+    propsHaveErrors,
     syncModifiedElements,
     update,
-    updateModal,
-    validationService,
   }
 }

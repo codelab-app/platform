@@ -1,5 +1,6 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type {
   IRuntimeComponentModel,

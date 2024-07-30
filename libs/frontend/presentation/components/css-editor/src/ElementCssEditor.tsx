@@ -2,7 +2,7 @@
 
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
@@ -31,7 +31,7 @@ export interface ElementCssEditorInternalProps {
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ runtimeElement }) => {
-    const { elementService } = useStore()
+    const elementService = useElementService()
     const lastStateRef = useRef(runtimeElement.style.toString())
 
     const lastTailwindClassNames = useRef(

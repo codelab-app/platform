@@ -15,6 +15,6 @@ export class TypeFormService
 {
   @computed
   get type() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

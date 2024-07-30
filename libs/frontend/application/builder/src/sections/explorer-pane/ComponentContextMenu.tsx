@@ -1,7 +1,5 @@
-import type { IComponentApplicationService } from '@codelab/frontend/abstract/application'
+import type { IToggleService } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import { componentRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { MenuProps } from 'antd'
@@ -11,20 +9,18 @@ import React, { useState } from 'react'
 import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItemComponentTitle'
 import type { ContextMenuProps } from './ElementContextMenu'
 
-export type ComponentContextMenuProps = ContextMenuProps &
-  Pick<IComponentApplicationService, 'deleteModal'> & {
-    component: IComponentModel
-  }
+export type ComponentContextMenuProps = ContextMenuProps & {
+  component: IComponentModel
+  deleteModal: IToggleService<IComponentModel>
+}
 
 export const ComponentContextMenu = observer<ComponentContextMenuProps>(
   ({ component, deleteModal, onBlur, onClick }) => {
-    const { builderService, elementService } = useStore()
-
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
     const onDelete = () => {
-      return deleteModal.open(componentRef(component.id))
+      return deleteModal.open(component)
     }
 
     const menuItems: MenuProps['items'] = [
@@ -55,11 +51,7 @@ export const ComponentContextMenu = observer<ComponentContextMenuProps>(
         trigger={['contextMenu']}
       >
         <div>
-          <BuilderTreeItemComponentTitle
-            builderService={builderService}
-            component={component}
-            elementService={elementService}
-          />
+          <BuilderTreeItemComponentTitle component={component} />
         </div>
       </Dropdown>
     )

@@ -3,12 +3,13 @@ import {
   IRuntimeNodeType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
+import { useBuilderService } from '../../../services'
 import {
   DISABLE_HOVER_CLASSNAME,
   TREE_NODE_WRAPPER_SELECTOR,
@@ -21,9 +22,10 @@ import { ElementTreeItemTitle } from './ElementTreeItemTitle'
 export const ElementTreeView = observer<{
   treeData?: IElementTreeViewDataNode
 }>(({ treeData }) => {
-  const { builderService, runtimeComponentService, runtimeElementService } =
-    useStore()
+  const { runtimeComponentService, runtimeElementService } =
+    useApplicationStore()
 
+  const builderService = useBuilderService()
   const selectedNode = builderService.selectedNode
   const { handleDrop, isMoving } = useElementTreeDrop()
 
