@@ -5,11 +5,11 @@ import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
 } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/interface'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback } from 'react'
+import { useBuilderService } from '../../../builder/src/services/builder.service'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean
@@ -33,8 +33,8 @@ const menuItemCommonStyle = {
   justifyContent: 'center',
 }
 
-export const BuilderSizeMenu = observer(() => {
-  const { builderService } = useStore()
+export const BuilderSizeMenu = () => {
+  const builderService = useBuilderService()
   const selectedWidthBreakpoint = builderService.selectedBuilderBreakpoint
 
   const handleBreakpointSelected = useCallback(
@@ -136,4 +136,4 @@ export const BuilderSizeMenu = observer(() => {
       </Space>
     </div>
   )
-})
+}

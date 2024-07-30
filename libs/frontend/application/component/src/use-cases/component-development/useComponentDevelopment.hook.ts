@@ -3,10 +3,11 @@ import {
   type RendererType,
 } from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { useComponentQuery } from '@codelab/frontend/presentation/container'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
+import { useComponentDevelopmentService } from './component-development.service'
 
 interface DevelopmentComponentProps {
   rendererType: RendererType
@@ -18,21 +19,20 @@ interface DevelopmentComponentProps {
 export const useComponentDevelopment = ({
   rendererType,
 }: DevelopmentComponentProps) => {
-  const { builderService, componentService, rendererService, userService } =
-    useStore()
-
+  const { rendererService } = useApplicationStore()
+  const componentDevelopmentService = useComponentDevelopmentService()
   const router = useRouter()
   const { componentName } = useComponentQuery()
 
   return useAsync(async () => {
     try {
       const componentDevelopmentData =
-        await componentService.componentDevelopmentService.getComponentDevelopmentData(
-          { componentName },
-        )
+        await componentDevelopmentService.getComponentDevelopmentData({
+          componentName,
+        })
 
       const component =
-        await componentService.componentDevelopmentService.hydrateComponentDevelopmentData(
+        await componentDevelopmentService.hydrateComponentDevelopmentData(
           componentDevelopmentData,
         )
 
@@ -43,9 +43,9 @@ export const useComponentDevelopment = ({
       })
 
       rendererService.setActiveRenderer(rendererRef(renderer.id))
-      builderService.selectElementNode(
-        renderer.runtimeRootContainerNode.runtimeRootElement,
-      )
+      // builderService.selectElementNode(
+      //   renderer.runtimeRootContainerNode.runtimeRootElement,
+      // )
 
       await renderer.expressionTransformer.init()
 

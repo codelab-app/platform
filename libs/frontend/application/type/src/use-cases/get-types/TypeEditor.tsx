@@ -1,16 +1,16 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { UpdateFieldForm } from '../update-field'
-import { UpdateTypeForm } from '../update-type'
+import { UpdateFieldForm, useUpdateFieldForm } from '../update-field'
+import { UpdateTypeForm, useUpdateTypeForm } from '../update-type'
 
 export const TypeEditor = observer(() => {
-  const { fieldService, typeService } = useStore()
+  const updateFieldForm = useUpdateFieldForm()
+  const updateTypeForm = useUpdateTypeForm()
 
   return (
     <div className="size-full overflow-auto">
-      {fieldService.updateForm.isOpen && <UpdateFieldForm />}
-      {typeService.updateForm.isOpen && <UpdateTypeForm />}
+      {updateFieldForm.isOpen && <UpdateFieldForm />}
+      {updateTypeForm.isOpen && <UpdateTypeForm />}
     </div>
   )
 })

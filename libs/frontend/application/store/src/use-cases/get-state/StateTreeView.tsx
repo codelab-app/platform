@@ -3,19 +3,19 @@ import type {
   IStoreModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiEmpty,
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useTypeService } from '@codelab/frontend-application-type/services'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { StateTreeItem } from './StateTreeItem'
 
 export const StateTreeView = observer<{ store: IStoreModel }>(({ store }) => {
-  const { typeService } = useStore()
+  const typeService = useTypeService()
 
   const [{ result: type, status }, getOne] = useAsync(
     async () => (await typeService.getAll([store.api.id]))[0],

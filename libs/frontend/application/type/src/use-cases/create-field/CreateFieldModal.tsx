@@ -1,5 +1,5 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { SelectDefaultValue } from '../../interface-form'
+import { useFieldService, useTypeService } from '../../services'
 import { TypeSelect } from '../select-types'
 import { createFieldSchema } from './create-field.schema'
 import { useCreateFieldModal } from './create-field.state'
@@ -26,7 +26,8 @@ import {
 } from './field-utils'
 
 export const CreateFieldModal = observer(() => {
-  const { fieldService, typeService } = useStore()
+  const fieldService = useFieldService()
+  const typeService = useTypeService()
   const createFieldModal = useCreateFieldModal()
   const closeModal = () => createFieldModal.close()
   const interfaceTypeId = createFieldModal.data?.id
@@ -52,7 +53,7 @@ export const CreateFieldModal = observer(() => {
     <ModalForm.Modal
       okText="Create"
       onCancel={closeModal}
-      open={fieldService.createModal.isOpen}
+      open={createFieldModal.isOpen}
       title={<span className="font-semibold">Create field</span>}
     >
       <ModalForm.Form<ICreateFieldData>

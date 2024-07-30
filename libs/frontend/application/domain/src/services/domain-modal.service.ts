@@ -15,6 +15,6 @@ export class DomainModalService
 {
   @computed
   get domain() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

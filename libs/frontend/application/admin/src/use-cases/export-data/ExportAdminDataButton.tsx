@@ -9,7 +9,7 @@ export const ExportAdminDataButton = () => {
   const exportDataModal = useExportAdminDataModal()
 
   return (
-    <Button icon={<ImportOutlined />} onClick={exportDataModal.open}>
+    <Button icon={<ImportOutlined />} onClick={() => exportDataModal.open()}>
       Export Data
     </Button>
   )

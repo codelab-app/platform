@@ -4,7 +4,6 @@ import {
   MODEL_UI,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebar,
   useCui,
@@ -12,12 +11,15 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useTypeService } from '../../services'
 import { CreateFieldPopover } from '../create-field'
 import { CreateTypePopover } from '../create-type'
+import { useCreateTypeForm } from '../create-type/create-type.state'
 import { TypesTreeView } from '../get-types'
 
 export const TypesPrimarySidebar = observer(() => {
-  const { typeService } = useStore()
+  const typeService = useTypeService()
+  const createTypeForm = useCreateTypeForm()
   const { popover } = useCui()
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
@@ -50,7 +52,7 @@ export const TypesPrimarySidebar = observer(() => {
                 icon: <PlusOutlined />,
                 onClick: () => {
                   popover.open(MODEL_ACTION.CreateType.key)
-                  typeService.createForm.open()
+                  createTypeForm.open()
                 },
                 title: 'Create Type',
               },

@@ -1,5 +1,4 @@
 import {
-  getRendererService,
   type IComponentApplicationService,
   rendererRef,
   RendererType,
@@ -10,176 +9,117 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/frontend/infra/gql'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend/infra/mobx'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
-import { ModalService } from '@codelab/frontend-application-shared-store/ui'
 import { useStoreService } from '@codelab/frontend-application-store/services'
-import { useTypeService } from '@codelab/frontend-application-type/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import type {
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import { useCallback } from 'react'
-import { ComponentDevelopmentService } from '../use-cases/component-development'
-import { ComponentFormService } from './component-form.service'
-import { ComponentModalService } from './component-modal.service'
 
 export const useComponentService = (): IComponentApplicationService => {
   const { componentDomainService } = useDomainStore()
-  const builderService = useBuilderService()
   const elementService = useElementService()
-  const rendererService = getRendererService()
+  const { rendererService } = useApplicationStore()
   const storeService = useStoreService()
-  const typeService = useTypeService()
-  // const paginationService = new PaginationService({})
-  const modalService = new ModalService({})
-  const componentDevelopmentService = new ComponentDevelopmentService({})
-  const componentFormService = new ComponentFormService({})
-  const componentModalService = new ComponentModalService({})
 
-  const create = useCallback(
-    async ({ id, name, rootElement }: ICreateComponentData) => {
-      const component = componentDomainService.add({ id, name, rootElement })
+  const create = async ({ id, name, rootElement }: ICreateComponentData) => {
+    const component = componentDomainService.add({ id, name, rootElement })
 
-      if (!rootElement) {
-        await elementRepository.add(component.rootElement.current)
-      }
+    if (!rootElement) {
+      await elementRepository.add(component.rootElement.current)
+    }
 
-      await componentRepository.add(component)
+    await componentRepository.add(component)
 
-      paginationService.dataRefs.set(component.id, componentRef(component))
+    paginationService.dataRefs.set(component.id, componentRef(component))
+
+    return component
+  }
+
+  const remove = async (components: Array<IComponentModel>) => {
+    const deleteComponent = async (component: IComponentModel) => {
+      const { id } = component
+      const store = component.store.current
+      const rootElement = component.rootElement.current
+
+      await elementService.deleteElement(rootElement)
+
+      componentDomainService.components.delete(id)
+
+      await storeService.remove([store])
+      await componentRepository.delete([component])
 
       return component
-    },
-    [
-      componentDomainService,
-      elementService,
-      componentRepository,
-      paginationService,
-    ],
-  )
+    }
 
-  const remove = useCallback(
-    async (components: Array<IComponentModel>) => {
-      const deleteComponent = async (component: IComponentModel) => {
-        const { id } = component
-        const store = component.store.current
-        const rootElement = component.rootElement.current
-
-        await elementService.deleteElement(rootElement)
-
-        componentDomainService.components.delete(id)
-
-        await storeService.remove([store])
-        await componentRepository.delete([component])
-
-        return component
-      }
-
-      return (
-        await Promise.all(
-          components.map((component) => deleteComponent(component)),
-        )
-      ).length
-    },
-    [componentDomainService, elementService, storeService, componentRepository],
-  )
-
-  const getAll = useCallback(
-    async (where: ComponentWhere = {}, options?: ComponentOptions) => {
-      const { items: components } = await componentRepository.find(
-        where,
-        options,
+    return (
+      await Promise.all(
+        components.map((component) => deleteComponent(component)),
       )
+    ).length
+  }
 
-      return components.map((component) =>
-        componentDomainService.hydrate(component),
-      )
-    },
-    [componentDomainService, componentRepository],
-  )
+  const getAll = async (
+    where: ComponentWhere = {},
+    options?: ComponentOptions,
+  ) => {
+    const { items: components } = await componentRepository.find(where, options)
 
-  const getOne = useCallback(
-    async (id: string) => {
-      if (componentDomainService.components.has(id)) {
-        return componentDomainService.components.get(id)
-      }
-
-      const all = await getAll({ id })
-
-      return all[0]
-    },
-    [componentDomainService, getAll],
-  )
-
-  const getSelectComponentOptions = useCallback(async () => {
-    await getAll()
-
-    const parentComponent = builderService.activeComponent?.current
-
-    const filtered = componentDomainService.sortedComponentsList.filter(
-      (component) => {
-        if (component.id === parentComponent?.component.id) {
-          return false
-        }
-
-        const parentIsDescendant = component.descendantComponents.some(
-          ({ id }) => id === parentComponent?.component.id,
-        )
-
-        return !parentComponent?.component.id || !parentIsDescendant
-      },
+    return components.map((component) =>
+      componentDomainService.hydrate(component),
     )
+  }
 
-    return filtered.map((component) => ({
-      label: component.name,
-      value: component.id,
-    }))
-  }, [componentDomainService, builderService, getAll])
+  const getOne = async (id: string) => {
+    if (componentDomainService.components.has(id)) {
+      return componentDomainService.components.get(id)
+    }
 
-  const importComponent = useCallback(async (componentDataFile: File) => {
+    const all = await getAll({ id })
+
+    return all[0]
+  }
+
+  const importComponent = async (componentDataFile: File) => {
     const formData = new FormData()
 
     formData.append('file', componentDataFile)
 
     return Promise.resolve(undefined)
-  }, [])
+  }
 
-  const update = useCallback(
-    async ({ id, name }: IUpdateComponentData) => {
-      const component = componentDomainService.components.get(id)
+  const update = async ({ id, name }: IUpdateComponentData) => {
+    const component = componentDomainService.components.get(id)
 
-      if (!component) {
-        throw new Error('ID not found')
-      }
+    if (!component) {
+      throw new Error('ID not found')
+    }
 
-      component.writeCache({ name })
+    component.writeCache({ name })
 
-      await componentRepository.update(component)
+    await componentRepository.update(component)
 
-      return component
-    },
-    [componentDomainService, componentRepository],
-  )
+    return component
+  }
 
-  const previewComponent = useCallback(
-    (id: string) => {
-      const component = componentDomainService.component(id)
+  const previewComponent = (id: string) => {
+    const component = componentDomainService.component(id)
 
-      const renderer = rendererService.hydrate({
-        containerNode: component,
-        id: component.id,
-        rendererType: RendererType.ComponentBuilder,
-      })
+    const renderer = rendererService.hydrate({
+      containerNode: component,
+      id: component.id,
+      rendererType: RendererType.ComponentBuilder,
+    })
 
-      // builderService.selectComponentNode(renderer.runtimeComponent)
-      rendererService.setActiveRenderer(rendererRef(renderer))
-    },
-    [componentDomainService, rendererService],
-  )
+    rendererService.setActiveRenderer(rendererRef(renderer))
+  }
 
   // Initialize pagination service
   const getDataFn = async (
@@ -207,7 +147,6 @@ export const useComponentService = (): IComponentApplicationService => {
     create,
     getAll,
     getOne,
-    getSelectComponentOptions,
     importComponent,
     paginationService,
     previewComponent,

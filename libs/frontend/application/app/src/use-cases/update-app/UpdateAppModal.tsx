@@ -13,7 +13,7 @@ import { updateAppUseCase } from './update-app.use-case'
 
 export const UpdateAppModal = observer(() => {
   const updateAppModal = useUpdateAppModal()
-  const app = updateAppModal.data
+  const app = updateAppModal.data?.app
 
   if (!app) {
     return null

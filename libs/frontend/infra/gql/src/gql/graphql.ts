@@ -27721,15 +27721,6 @@ export type AtomListQuery = {
   items: Array<AtomFragment>
 }
 
-export type UpdateAtomsMutationVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  update?: InputMaybe<AtomUpdateInput>
-}>
-
-export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
-}
-
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
@@ -27740,6 +27731,15 @@ export type GetSelectAtomOptionsQuery = {
     type: AtomType
     requiredParents: Array<{ id: string; type: AtomType }>
   }>
+}
+
+export type UpdateAtomsMutationVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  update?: InputMaybe<AtomUpdateInput>
+}>
+
+export type UpdateAtomsMutation = {
+  updateAtoms: { atoms: Array<{ id: string }> }
 }
 
 export type GetAuthGuardsQueryVariables = Exact<{
@@ -34212,18 +34212,6 @@ fragment InterfaceType on InterfaceType {
 fragment Owner on User {
   id
 }`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
-export const UpdateAtomsDocument = new TypedDocumentString(`
-    mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
-  updateAtoms(update: $update, where: $where) {
-    atoms {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateAtomsMutation,
-  UpdateAtomsMutationVariables
->
 export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
     query GetSelectAtomOptions {
   atoms {
@@ -34240,6 +34228,18 @@ export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   GetSelectAtomOptionsQuery,
   GetSelectAtomOptionsQueryVariables
+>
+export const UpdateAtomsDocument = new TypedDocumentString(`
+    mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
+  updateAtoms(update: $update, where: $where) {
+    atoms {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateAtomsMutation,
+  UpdateAtomsMutationVariables
 >
 export const GetAuthGuardsDocument = new TypedDocumentString(`
     query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {

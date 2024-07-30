@@ -9,7 +9,7 @@ export const ImportAdminDataButton = () => {
   const importDataModal = useImportAdminDataModal()
 
   return (
-    <Button icon={<ImportOutlined />} onClick={importDataModal.open}>
+    <Button icon={<ImportOutlined />} onClick={() => importDataModal.open()}>
       Import Data
     </Button>
   )

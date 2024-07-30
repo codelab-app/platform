@@ -6,7 +6,7 @@ import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CreateComponentPopover,
-  useCreateComponentModal,
+  useCreateComponentForm,
 } from '@codelab/frontend-application-component/use-cases/create-component'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
@@ -25,7 +25,7 @@ export const ComponentsPrimarySidebar = ({
   components,
 }: ComponentsPrimarySidebarProps) => {
   const { popover } = useCui()
-  const createForm = useCreateComponentModal()
+  const createComponentForm = useCreateComponentForm()
 
   const sidebarViews: Array<CuiSidebarView> = [
     {
@@ -43,7 +43,7 @@ export const ComponentsPrimarySidebar = ({
             cuiKey: MODEL_ACTION.CreateComponent.key,
             icon: <PlusOutlined />,
             onClick: () => {
-              createForm.open({})
+              createComponentForm.open()
               popover.open(MODEL_ACTION.CreateComponent.key)
             },
             title: 'Add Component',

@@ -1,5 +1,5 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { usePropService } from '@codelab/frontend-application-prop/services'
 import { ObjectTyped } from 'object-typed'
 import React, { useMemo } from 'react'
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'
@@ -15,7 +15,8 @@ export interface RenderedComponentProps {
 export const GridLayout = React.memo(
   ({ children, ...restProps }: RenderedComponentProps & ResponsiveProps) => {
     const elementId = restProps[DATA_ELEMENT_ID]
-    const { elementService, propService } = useStore()
+    // const elementService = useElementService()
+    const propService = usePropService()
 
     const rglChildren = useMemo(() => {
       return React.Children.map(children, (child) => {
@@ -94,12 +95,12 @@ export const GridLayout = React.memo(
         layouts: allLayouts,
       }
 
-      const element = elementService.getElement(elementId)
+      // const element = elementService.getElement(elementId)
 
-      void propService.update(element.props, {
-        data: JSON.stringify(newProps),
-        id: element.props.id,
-      })
+      // void propService.update(element.props, {
+      //   data: JSON.stringify(newProps),
+      //   id: element.props.id,
+      // })
     }
 
     return (

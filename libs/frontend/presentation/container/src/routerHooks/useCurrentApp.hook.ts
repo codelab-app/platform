@@ -1,10 +1,9 @@
-import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+import type { IAppDomainService } from '@codelab/frontend/abstract/domain'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useMemo } from 'react'
 
-export const useCurrentApp = (domainStore: IDomainStore) => {
-  const { appDomainService } = domainStore
+export const useCurrentApp = (appDomainService: IAppDomainService) => {
   const { appSlug } = useUrl()
 
   return useMemo(() => {

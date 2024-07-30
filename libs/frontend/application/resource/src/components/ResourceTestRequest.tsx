@@ -1,6 +1,5 @@
 'use client'
 
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
@@ -10,6 +9,7 @@ import get from 'lodash/get'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { useForm } from 'uniforms'
+import { useResourceService } from '../services'
 
 interface ResourceTestRequestProps {
   fetchConfigDataFieldName: string
@@ -18,10 +18,10 @@ interface ResourceTestRequestProps {
 
 export const ResourceTestRequest = observer<ResourceTestRequestProps>(
   ({ fetchConfigDataFieldName, resourceIdFieldName }) => {
-    const { resourceService } = useStore()
+    const resourceService = useResourceService()
     const { model } = useForm()
     const resourceId = get(model, resourceIdFieldName)
-    const resource = resourceId ? resourceService.resource(resourceId) : null
+    const resource = resourceId ? resourceService.getResource(resourceId) : null
     const config = get(model, fetchConfigDataFieldName)
     const [response, setResponse] = useState<object>({})
 

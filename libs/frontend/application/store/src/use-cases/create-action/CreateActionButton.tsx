@@ -1,12 +1,17 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useCreateActionForm } from './create-action.state'
 
-export const CreateActionButton = observer(() => {
-  const { actionService, builderService } = useStore()
-  const store = builderService.selectedNode?.current.runtimeStore.store
+interface ICreateActionProps {
+  store: IStoreModel
+}
+
+export const CreateActionButton = observer<ICreateActionProps>(({ store }) => {
+  const createActionForm = useCreateActionForm()
+  // const store = builderService.selectedNode?.current.runtimeStore.store.current
 
   return (
     <Button
@@ -14,7 +19,7 @@ export const CreateActionButton = observer(() => {
       icon={<PlusOutlined />}
       onClick={(event) => {
         event.stopPropagation()
-        store && actionService.createForm.open(store)
+        createActionForm.open(store)
       }}
       size="small"
     >

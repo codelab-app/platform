@@ -1,6 +1,6 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
@@ -11,17 +11,21 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useTypeService } from '../../services'
 import { DisplayIfKind } from '../create-type/DisplayIfKind'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { updateTypeSchema } from './update-type.schema'
+import { useUpdateTypeForm } from './update-type.state'
 import { validateNonRecursive } from './validate-non-recursive'
 
 export const UpdateTypeForm = observer(() => {
-  const { typeService } = useStore()
-  const closeForm = () => typeService.updateForm.close()
+  const { typeDomainService } = useDomainStore()
+  const typeService = useTypeService()
+  const updateTypeForm = useUpdateTypeForm()
+  const closeForm = () => updateTypeForm.close()
 
-  const typeToUpdate = typeService.typeDomainService.types.get(
-    typeService.updateForm.type?.id ?? '',
+  const typeToUpdate = typeDomainService.types.get(
+    updateTypeForm.data?.id ?? '',
   )
 
   const handleSubmit = async (submitData: IUpdateTypeDto) => {
@@ -87,10 +91,7 @@ export const UpdateTypeForm = observer(() => {
     >
       <AutoFields fields={['name']} />
       {typeToUpdate?.kind === ITypeKind.UnionType && (
-        <AutoField
-          name="unionTypeIds"
-          types={typeService.typeDomainService.typesList}
-        />
+        <AutoField name="unionTypeIds" types={typeDomainService.typesList} />
       )}
       {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
         <AutoField name="primitiveKind" />

@@ -1,6 +1,6 @@
 import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
 import { ElementStylePseudoClass } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { Collapse, ConfigProvider, Select, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -22,7 +22,7 @@ const panelHeader = (title: string) => {
 
 export const StylesEditor = observer(() => {
   const className = '[&>*:first-child]:bg-gray-100 [&>*:first-child]:!py-1.5'
-  const { runtimeElementService } = useStore()
+  const { runtimeElementService } = useApplicationStore()
 
   return (
     <ConfigProvider

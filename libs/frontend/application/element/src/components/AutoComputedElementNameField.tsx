@@ -1,5 +1,8 @@
 'use client'
-import { useStore } from '@codelab/frontend/infra/mobx'
+
+import { useApplicationStore } from '@codelab/frontend/infra/mobx'
+import { useAtomService } from '@codelab/frontend-application-atom/services'
+import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
@@ -25,7 +28,8 @@ type AutoComputedElementNameProps = FieldProps<
  */
 const AutoComputedElementName = observer<AutoComputedElementNameProps>(
   (props) => {
-    const { atomService, componentService, rendererService } = useStore()
+    const { rendererService } = useApplicationStore()
+    const atomService = useAtomService()
     const { name, onChange, value } = props
 
     const [renderTypeField] = useField<{
@@ -51,7 +55,9 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
       }
 
       if (renderType.__typename === IElementRenderTypeKind.Component) {
-        renderTypeName = (await componentService.getOne(renderType.id))?.name
+        renderTypeName = (
+          await componentRepository.findOne({ id: renderType.id })
+        )?.name
       }
 
       renderTypeName = renderTypeName

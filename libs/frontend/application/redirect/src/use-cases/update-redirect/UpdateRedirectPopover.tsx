@@ -6,7 +6,6 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebarPopover,
   useCui,
@@ -14,11 +13,12 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useUpdateRedirectForm } from './update-redirect.state'
 import { UpdateRedirectForm } from './UpdateRedirectForm'
 
 export const UpdateRedirectPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { redirectService } = useStore()
+  const updateRedirectForm = useUpdateRedirectForm()
   const { popover } = useCui()
 
   return (
@@ -42,7 +42,7 @@ export const UpdateRedirectPopover = observer(() => {
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              redirectService.updateForm.close()
+              updateRedirectForm.close()
             },
             title: 'Cancel',
           },

@@ -6,9 +6,7 @@ import type {
   IActionNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { actionRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -17,21 +15,24 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import React from 'react'
+import { useDeleteActionModal } from '../delete-action'
+import { useUpdateActionForm } from '../update-action'
 
 interface ActionsTreeItemProps {
   data: ITreeNode<IActionNodeData>
 }
 
 export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
-  const { actionService } = useStore()
+  const deleteActionModal = useDeleteActionModal()
+  const updateActionForm = useUpdateActionForm()
   const { popover } = useCui()
 
   const onDelete = () => {
-    actionService.deleteModal.open(actionRef(data.extraData.node))
+    deleteActionModal.open(data.extraData.node)
   }
 
   const onEdit = () => {
-    actionService.updateForm.open(actionRef(data.extraData.node))
+    updateActionForm.open(data.extraData.node)
     popover.open(MODEL_ACTION.UpdateAction.key)
   }
 

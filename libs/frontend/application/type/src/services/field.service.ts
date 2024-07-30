@@ -60,26 +60,12 @@ export const useFieldService = (): IFieldService => {
     return field
   }
 
-  const deleteField = async (fields: Array<IFieldModel>) => {
-    // const input = { where: { id: fieldId }, interfaceId }
+  const remove = async (fields: Array<IFieldModel>) => {
     fields.forEach((field) => fieldDomainService.fields.delete(field.id))
 
     const nodesDeleted = fieldRepository.delete(fields)
 
     return nodesDeleted
-
-    //     interfaceType,
-    // yield* _await(this.updateDefaults(interfaceId, null, field.key))
-
-    // Returns current edges, not deleted edges
-    // const deletedField =
-    //   res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
-    //
-    // if (!deletedField) {
-    //   throw new Error(`Failed to delete field with id ${fieldId}`)
-    // }
-
-    // interfaceType.deleteFieldLocal(field)
   }
 
   const moveFieldAsNextSibling = async ({
@@ -212,9 +198,9 @@ export const useFieldService = (): IFieldService => {
   return {
     cloneField,
     create,
-    deleteField,
     moveFieldAsNextSibling,
     moveFieldAsPrevSibling,
+    remove,
     update,
   }
 }

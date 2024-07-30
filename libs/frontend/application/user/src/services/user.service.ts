@@ -9,14 +9,14 @@ import type { UserWhere } from '@codelab/shared/abstract/types'
 import { atom, useAtom } from 'jotai'
 import set from 'lodash/set'
 import { useCallback } from 'react'
+import { useUser } from './user.hook'
 
 const CODELAB_STORAGE_KEY = 'codelab-preferences'
 const DEFAULT_PREFERENCES = { apps: {}, explorerExpandedNodes: {} }
-const userAtom = atom(null)
 const preferencesAtom = atom<IUserPreference>(DEFAULT_PREFERENCES)
 
 export const useUserService = () => {
-  const [user, setUser] = useAtom(userAtom)
+  const user = useUser()
   const [preferences, setPreferences] = useAtom(preferencesAtom)
 
   const getOne = useCallback(async (where: UserWhere) => {

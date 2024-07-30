@@ -1,22 +1,22 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom.state'
 
 export const AtomsViewHeader = observer(() => {
-  const { fieldService } = useStore()
+  const updateFieldForm = useUpdateFieldForm()
   const updateAtomForm = useUpdateAtomModal()
   const atomToUpdate = updateAtomForm.data?.current.name || ''
-  const fieldToUpdate = fieldService.updateForm.field?.key || ''
+  const fieldToUpdate = updateFieldForm.data?.current.key || ''
 
   const atomOrField = updateAtomForm.isOpen
     ? 'atom'
-    : fieldService.updateForm.isOpen
+    : updateFieldForm.isOpen
     ? 'field'
     : ''
 

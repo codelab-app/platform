@@ -16,6 +16,6 @@ export class ResourceFormService
 {
   @computed
   get resource() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

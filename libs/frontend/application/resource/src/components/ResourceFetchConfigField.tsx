@@ -1,4 +1,3 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import type { IRef } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'
@@ -6,17 +5,18 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoField } from 'uniforms-antd'
+import { useResourceService } from '../services'
 
 interface WithResourceRef {
   resource: IRef
 }
 
 export const ResourceFetchConfigField = observer(() => {
-  const { resourceService } = useStore()
+  const resourceService = useResourceService()
 
   const getResource = (context: Context<WithResourceRef>) =>
     context.model.resource?.id
-      ? resourceService.resource(context.model.resource.id)
+      ? resourceService.getResource(context.model.resource.id)
       : null
 
   const getResourceType = (context: Context<WithResourceRef>) =>

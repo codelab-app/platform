@@ -3,9 +3,7 @@ import type {
   IResourceNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { resourceRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -15,6 +13,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../views'
 import { useDeleteResourceModal } from '../delete-resource/delete-resource.state'
+import { useUpdateResourceForm } from '../update-resource'
 
 interface ResourcesTreeItemProps {
   data: ITreeNode<IResourceNodeData>
@@ -22,16 +21,16 @@ interface ResourcesTreeItemProps {
 
 export const ResourcesTreeItem = observer(
   ({ data }: ResourcesTreeItemProps) => {
-    const { resourceService } = useStore()
+    const updateResourceForm = useUpdateResourceForm()
     const resource = data.extraData.node
     const deleteResourceModal = useDeleteResourceModal()
 
     const onEdit = () => {
-      resourceService.updateForm.open(resourceRef(resource))
+      updateResourceForm.open(resource)
     }
 
     const onDelete = () => {
-      deleteResourceModal.open(resourceRef(resource))
+      deleteResourceModal.open(resource)
     }
 
     const toolbarItems: Array<ToolbarItem> = [

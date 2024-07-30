@@ -1,13 +1,15 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useTagService } from '../../services'
+import { useDeleteTagsModal } from './delete-tags.state'
 
 export const DeleteTagsButton = observer<{ disabled: boolean }>(
   ({ disabled }) => {
-    const { tagService } = useStore()
+    const tagService = useTagService()
+    const deleteTagsModal = useDeleteTagsModal()
     const tags = tagService.checkedTags.map((tag) => tagRef(tag.current))
 
     return (
@@ -15,7 +17,7 @@ export const DeleteTagsButton = observer<{ disabled: boolean }>(
         danger
         disabled={disabled}
         icon={<DeleteOutlined />}
-        onClick={() => tagService.deleteManyModal.open(tags)}
+        onClick={() => deleteTagsModal.open(tags)}
         type="primary"
       >
         Delete Tags

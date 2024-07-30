@@ -17,8 +17,8 @@ export const useInitializeBuilder = ({
   rendererType: RendererType
   pageSlug: string
 }) => {
-  const domainStore = useDomainStore()
-  const app = useCurrentApp(domainStore)
+  const { appDomainService } = useDomainStore()
+  const app = useCurrentApp(appDomainService)
   const builderService = useBuilderService()
   const { rendererService } = useApplicationStore()
   const page = app.pageByName(getNameFromSlug(pageSlug))

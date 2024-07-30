@@ -1,15 +1,14 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateAuthGuardPopover } from '../create-auth-guard'
+import { useCreateAuthGuardForm } from '../create-auth-guard/create-auth-guard.state'
 import { AuthGuardsTreeView } from '../get-auth-guard'
 
-export const AuthGuardsPrimarySidebar = observer(() => {
-  const { authGuardService } = useStore()
+export const AuthGuardsPrimarySidebar = () => {
+  const createAuthGuardForm = useCreateAuthGuardForm()
   const { popover } = useCui()
 
   const items: Array<ToolbarItem> = [
@@ -17,7 +16,7 @@ export const AuthGuardsPrimarySidebar = observer(() => {
       cuiKey: MODEL_ACTION.CreateAuthGuard.key,
       icon: <PlusOutlined />,
       onClick: () => {
-        authGuardService.createForm.open()
+        createAuthGuardForm.open()
         popover.open(MODEL_ACTION.CreateAuthGuard.key)
       },
       title: 'Add an Auth Guard',
@@ -39,4 +38,4 @@ export const AuthGuardsPrimarySidebar = observer(() => {
       ]}
     />
   )
-})
+}

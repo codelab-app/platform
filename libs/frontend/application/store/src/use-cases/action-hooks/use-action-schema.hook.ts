@@ -1,4 +1,3 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type {
   ICreateActionData,
   IUpdateActionData,
@@ -13,7 +12,8 @@ import { useMemo } from 'react'
 export const useActionSchema = (
   schema: JSONSchemaType<ICreateActionData | IUpdateActionData>,
 ) => {
-  const { actionService, rendererService } = useStore()
+  const { rendererService } = useStore()
+  const updateActionForm = useUpdateActionForP
 
   return useMemo(() => {
     const renderer = rendererService.activeRenderer?.current

@@ -10,9 +10,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ICRUDModalService } from '../services'
 import type { ICloneElementService } from './clone-element.service.interface'
-import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
 
 /**
  * Used for modal input
@@ -51,14 +49,9 @@ export interface SelectElementOptions {
   targetElementId?: string
 }
 
-export interface IElementService
-  extends Omit<
-    ICRUDModalService<Ref<IElementModel>, { element?: IElementModel }>,
-    'createModal'
-  > {
+export interface IElementService {
   cloneElementService: ICloneElementService
   // Moved from element model to decouple renderer
-  validationService: IElementApplicationValidationService
 
   createElement(data: IElementDto): Promise<IElementModel>
   deleteElement(subRoot: IElementModel): Promise<void>
@@ -73,6 +66,7 @@ export interface IElementService
 
   loadDependantTypes(element: IElementModel): void
   move(context: IMoveElementContext): Promise<void>
+  propsHaveErrors(element?: IElementModel): boolean
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>
 }

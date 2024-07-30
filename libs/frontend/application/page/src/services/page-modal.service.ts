@@ -15,6 +15,6 @@ export class PageModalService
 {
   @computed
   get page() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

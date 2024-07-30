@@ -7,13 +7,15 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
+import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import React from 'react'
 import { useDeleteAtomsModal } from '../delete-atom/delete-atoms.state'
 import { useUpdateAtomModal } from '../update-atom/update-atom.state'
@@ -23,19 +25,21 @@ interface AtomsTreeItemProps {
 }
 
 export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
-  const { fieldService } = useStore()
+  const updateFieldForm = useUpdateFieldForm()
   const { popover } = useCui()
   const { node, type } = data.extraData
+  const deleteFieldModal = useDeleteFieldModal()
   const icon = type === 'atom' ? node.library.icon : null
   const updateAtomForm = useUpdateAtomModal()
   const deleteAtomsModal = useDeleteAtomsModal()
+  const createFieldForm = useCreateFieldForm()
 
   const onEdit = () => {
     if (type === 'atom') {
       updateAtomForm.open(atomRef(node))
-      fieldService.updateForm.close()
+      updateFieldForm.close()
     } else {
-      fieldService.updateForm.open(fieldRef(node))
+      updateFieldForm.open(fieldRef(node))
       updateAtomForm.close()
     }
   }
@@ -44,7 +48,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     if (type === 'atom') {
       deleteAtomsModal.open([atomRef(node)])
     } else {
-      fieldService.deleteModal.open(fieldRef(node))
+      deleteFieldModal.open(fieldRef(node))
     }
   }
 
@@ -56,7 +60,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
       : undefined
 
     if (interfaceRef) {
-      fieldService.createForm.open(interfaceRef)
+      createFieldForm.open(interfaceRef)
       popover.open(MODEL_ACTION.CreateField.key)
     }
   }

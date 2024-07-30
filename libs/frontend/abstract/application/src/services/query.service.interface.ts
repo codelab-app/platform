@@ -12,7 +12,7 @@ export interface ICRUDService<
    *
    * Renamed from `delete` to `remove` since a function name cannot be `delete`
    */
-  remove(items: Array<IRef>): Promise<number>
+  remove(items: Array<Entity>): Promise<number>
   update(data: UpdateData): Promise<Entity>
 }
 

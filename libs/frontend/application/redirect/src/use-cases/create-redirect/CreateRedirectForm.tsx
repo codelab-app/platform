@@ -3,7 +3,6 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -17,7 +16,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useRedirectService } from '../../services'
 import { createRedirectSchema } from './create-redirect.schema'
+import { useCreateRedirectForm } from './create-redirect.state'
 
 interface CreateRedirectFormProps {
   showFormControl?: boolean
@@ -27,8 +28,9 @@ interface CreateRedirectFormProps {
 
 export const CreateRedirectForm = observer<CreateRedirectFormProps>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { redirectService } = useStore()
-    const closeForm = () => redirectService.createForm.close()
+    const redirectService = useRedirectService()
+    const createRedirectForm = useCreateRedirectForm()
+    const closeForm = () => createRedirectForm.close()
 
     const onSubmit = async (redirectDTO: ICreateRedirectData) => {
       await redirectService.create(redirectDTO)
@@ -42,7 +44,7 @@ export const CreateRedirectForm = observer<CreateRedirectFormProps>(
     const model = {
       id: v4(),
       source: {
-        id: redirectService.createForm.metadata?.id,
+        id: createRedirectForm.data?.id,
       },
     }
 

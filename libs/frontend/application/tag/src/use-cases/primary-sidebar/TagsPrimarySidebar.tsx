@@ -5,7 +5,6 @@ import {
   MODEL_UI,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiSidebar,
@@ -15,11 +14,16 @@ import {
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useTagService } from '../../services'
 import { CreateTagPopover } from '../create-tag'
+import { useCreateTagForm } from '../create-tag/create-tag.data'
+import { useDeleteTagsModal } from '../delete-tags/delete-tags.state'
 import { TagsTreeView } from '../get-tags'
 
 export const TagsPrimarySidebar = observer(() => {
-  const { tagService } = useStore()
+  const tagService = useTagService()
+  const createTagForm = useCreateTagForm()
+  const deleteTagsModal = useDeleteTagsModal()
   const { popover } = useCui()
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
@@ -35,7 +39,7 @@ export const TagsPrimarySidebar = observer(() => {
       cuiKey: MODEL_ACTION.CreateTag.key,
       icon: <PlusOutlined />,
       onClick: () => {
-        tagService.createForm.open()
+        createTagForm.open()
         popover.open(MODEL_ACTION.CreateTag.key)
       },
       title: 'Create Tag',
@@ -43,7 +47,7 @@ export const TagsPrimarySidebar = observer(() => {
     {
       cuiKey: MODEL_ACTION.DeleteTag.key,
       icon: <DeleteOutlined />,
-      onClick: () => tagService.deleteManyModal.open(tags),
+      onClick: () => deleteTagsModal.open(tags.map((tag) => tag.current)),
       title: 'Delete Tag',
     },
   ]

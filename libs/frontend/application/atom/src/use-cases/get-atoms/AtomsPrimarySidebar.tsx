@@ -6,7 +6,6 @@ import {
   MODEL_UI,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSidebar,
   useCui,
@@ -15,12 +14,13 @@ import {
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAtomService } from '../../services'
 import { CreateAtomPopover } from '../create-atom'
 import { useCreateAtomModal } from '../create-atom/create-atom.state'
 import { AtomsTreeView } from './AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
-  const { atomService } = useStore()
+  const atomService = useAtomService()
   const { popover } = useCui()
   const createAtomForm = useCreateAtomModal()
 

@@ -1,6 +1,6 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -11,11 +11,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useAtomService } from '../../services'
 import { createAtomSchema } from './create-atom.schema'
 import { useCreateAtomModal } from './create-atom.state'
 
 export const CreateAtomModal = observer(() => {
-  const { atomService } = useStore()
+  const atomService = useAtomService()
   const { tagDomainService } = useDomainStore()
   const createAtomModal = useCreateAtomModal()
   const closeModal = () => createAtomModal.close()

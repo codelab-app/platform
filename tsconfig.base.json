@@ -412,6 +412,9 @@
       "@codelab/frontend-application-element/use-cases/remove-hook-from-element": [
         "libs/frontend/application/element/src/use-cases/remove-hook-from-element/index.ts"
       ],
+      "@codelab/frontend-application-element/use-cases/select-element": [
+        "libs/frontend/application/element/src/use-cases/select-element/index.ts"
+      ],
       "@codelab/frontend-application-element/use-cases/update-element": [
         "libs/frontend/application/element/src/use-cases/update-element/index.ts"
       ],
@@ -585,12 +588,6 @@
       ],
       "@codelab/frontend-application-test": [
         "libs/frontend/application/test/src/index.ts"
-      ],
-      "@codelab/frontend-application-type/interface-form": [
-        "libs/frontend/application/type/src/interface-form/index.ts"
-      ],
-      "@codelab/frontend-application-type/props-form": [
-        "libs/frontend/application/type/src/props-form/index.ts"
       ],
       "@codelab/frontend-application-type/services": [
         "libs/frontend/application/type/src/services/index.ts"
@@ -918,6 +915,9 @@
       "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
+      ],
+      "@codelab/frontend/presentation/components/interface-form": [
+        "libs/frontend/presentation/components/interface-form/src/index.ts"
       ],
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"

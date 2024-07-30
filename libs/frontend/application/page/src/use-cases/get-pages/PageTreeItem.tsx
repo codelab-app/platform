@@ -20,14 +20,15 @@ import {
   MODEL_ACTION,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useRedirectService } from '@codelab/frontend-application-redirect/services'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUserService } from '@codelab/frontend-application-user/services'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -50,7 +51,9 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { redirectService, userService } = useStore()
+    const redirectService = useRedirectService()
+    const updateRedirectForm = useUpdateRe
+    const userService = useUserService()
     const { isRegenerating, regenerate } = useRegeneratePages()
     const deletePageModal = useDeletePageModal()
     const updatePageForm = useUpdatePageForm()

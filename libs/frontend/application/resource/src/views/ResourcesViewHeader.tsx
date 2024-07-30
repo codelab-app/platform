@@ -1,4 +1,3 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -6,10 +5,11 @@ import {
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateResourceForm } from '../use-cases/update-resource'
 
 export const ResourcesViewHeader = observer(() => {
-  const { resourceService } = useStore()
-  const resource = resourceService.updateForm.resource
+  const updateResourceForm = useUpdateResourceForm()
+  const resource = updateResourceForm.data
 
   return (
     <CuiHeader

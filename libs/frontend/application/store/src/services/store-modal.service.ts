@@ -15,6 +15,6 @@ export class StoreModalService
 {
   @computed
   get store() {
-    return this.metadata?.current
+    return this.data?.current
   }
 }

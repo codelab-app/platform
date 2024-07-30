@@ -1,4 +1,3 @@
-import { useStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -6,10 +5,11 @@ import {
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateAuthGuardForm } from '../use-cases/update-auth-guard'
 
 export const AuthGuardsViewHeader = observer(() => {
-  const { authGuardService } = useStore()
-  const authGuard = authGuardService.updateForm.authGuard
+  const updateAuthGuardForm = useUpdateAuthGuardForm()
+  const authGuard = updateAuthGuardForm.data?.current
 
   return (
     <CuiHeader
