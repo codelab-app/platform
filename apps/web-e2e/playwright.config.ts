@@ -88,6 +88,7 @@ export default defineConfig({
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       url: apiUrl,
+      reuseExistingServer: !process.env.CI,
     },
   ],
 })
