@@ -11,6 +11,7 @@ import { EffectsEditor } from '../effects'
 import { PositionEditor } from '../position'
 import { SizeEditor } from '../size'
 import { SpacingEditor } from '../spacing'
+import type { IStyleProps } from '../style.hook'
 import { TypographyEditor } from '../typography'
 
 const { Panel } = Collapse
@@ -20,7 +21,7 @@ const panelHeader = (title: string) => {
   return <Typography className="text-[12px] font-semibold">{title}</Typography>
 }
 
-export const StylesEditor = observer(() => {
+export const StylesEditor = observer<IStyleProps>(({ selectedNode }) => {
   const className = '[&>*:first-child]:bg-gray-100 [&>*:first-child]:!py-1.5'
   const { runtimeElementService } = useApplicationStore()
 
@@ -85,10 +86,10 @@ export const StylesEditor = observer(() => {
           header={panelHeader('Backgrounds')}
           key="6"
         >
-          <BackgroundEditor />
+          <BackgroundEditor selectedNode={selectedNode} />
         </Panel>
         <Panel className={className} header={panelHeader('Borders')} key="7">
-          <BorderEditor />
+          <BorderEditor selectedNode={selectedNode} />
         </Panel>
         <Panel className={className} header={panelHeader('Effects')} key="8">
           <EffectsEditor />

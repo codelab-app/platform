@@ -11,7 +11,7 @@ const useCreateFieldService = async (createFieldData: ICreateFieldData) => {
   }
 
   const field = fieldDomainService.hydrate(
-    fieldService.mapDataToDTO(createFieldData),
+    fieldService.mapDataToDto(createFieldData),
   )
 
   const interfaceType = typeService.type(field.api.id) as IInterfaceTypeModel

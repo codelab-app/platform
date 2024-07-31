@@ -9,12 +9,8 @@ import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
-import type {
-  ICreateTypeDto,
-  IPrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { assertIsDefined } from '@codelab/shared/utils'
 
 export const useTypeService = (): ITypeService => {
@@ -85,7 +81,7 @@ export const useTypeService = (): ITypeService => {
   }
 
   const getInterface = async (interfaceTypeId: string) => {
-    const interfaceFromStore = getType(interfaceTypeId)
+    const interfaceFromStore = typeDomainService.getType(interfaceTypeId)
 
     if (
       interfaceFromStore &&
@@ -132,20 +128,6 @@ export const useTypeService = (): ITypeService => {
     await typeRepository.update(type)
 
     return type
-  }
-
-  const primitiveKind = (id: string): Nullable<IPrimitiveTypeKind> => {
-    const type = typeDomainService.types.get(id)
-
-    if (type?.kind === ITypeKind.PrimitiveType) {
-      return type.primitiveKind
-    }
-
-    return null
-  }
-
-  const getType = (id: string) => {
-    return typeDomainService.types.get(id)
   }
 
   const shouldLoadType = (typeId: string) => {
@@ -196,7 +178,6 @@ export const useTypeService = (): ITypeService => {
     getOne,
     getOptions,
     paginationService,
-    primitiveKind,
     remove: deleteType,
     update,
   }

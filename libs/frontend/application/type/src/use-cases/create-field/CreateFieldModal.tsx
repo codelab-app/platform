@@ -1,6 +1,7 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   ModalForm,
@@ -11,7 +12,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { useFieldService, useTypeService } from '../../services'
+import { useFieldService } from '../../services'
 import { TypeSelect } from '../select-types'
 import { createFieldSchema } from './create-field.schema'
 import { useCreateFieldModal } from './create-field.state'
@@ -27,7 +28,7 @@ import {
 
 export const CreateFieldModal = observer(() => {
   const fieldService = useFieldService()
-  const typeService = useTypeService()
+  const { typeDomainService } = useDomainStore()
   const createFieldModal = useCreateFieldModal()
   const closeModal = () => createFieldModal.close()
   const interfaceTypeId = createFieldModal.data?.id
@@ -39,7 +40,7 @@ export const CreateFieldModal = observer(() => {
 
     const validationRules = filterValidationRules(
       input.validationRules,
-      typeService.primitiveKind(input.fieldType),
+      typeDomainService.primitiveKind(input.fieldType),
     )
 
     void fieldService.create({ ...input, validationRules })
@@ -67,7 +68,7 @@ export const CreateFieldModal = observer(() => {
           if (
             mode === 'form' &&
             model.fieldType &&
-            !canSetDefaultValue(typeService, model.fieldType)
+            !canSetDefaultValue(typeDomainService, model.fieldType)
           ) {
             return {
               ...model,
@@ -100,31 +101,39 @@ export const CreateFieldModal = observer(() => {
         <TypeSelect label="Type" name="fieldType" />
         <DisplayIfField<ICreateFieldData>
           condition={({ model }) =>
-            !isBoolean(typeService, model.fieldType) &&
-            canSetDefaultValue(typeService, model.fieldType)
+            !isBoolean(typeDomainService, model.fieldType) &&
+            canSetDefaultValue(typeDomainService, model.fieldType)
           }
         >
           <AutoFields fields={['validationRules.general']} />
         </DisplayIfField>
         <DisplayIfField<ICreateFieldData>
-          condition={({ model }) => isPrimitive(typeService, model.fieldType)}
+          condition={({ model }) =>
+            isPrimitive(typeDomainService, model.fieldType)
+          }
         >
           <DisplayIfField<ICreateFieldData>
-            condition={({ model }) => isString(typeService, model.fieldType)}
+            condition={({ model }) =>
+              isString(typeDomainService, model.fieldType)
+            }
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.String}`]}
             />
           </DisplayIfField>
           <DisplayIfField<ICreateFieldData>
-            condition={({ model }) => isInteger(typeService, model.fieldType)}
+            condition={({ model }) =>
+              isInteger(typeDomainService, model.fieldType)
+            }
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
             />
           </DisplayIfField>
           <DisplayIfField<ICreateFieldData>
-            condition={({ model }) => isFloat(typeService, model.fieldType)}
+            condition={({ model }) =>
+              isFloat(typeDomainService, model.fieldType)
+            }
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.Number}`]}
@@ -133,7 +142,7 @@ export const CreateFieldModal = observer(() => {
         </DisplayIfField>
         <DisplayIfField<ICreateFieldData>
           condition={({ model }) =>
-            canSetDefaultValue(typeService, model.fieldType)
+            canSetDefaultValue(typeDomainService, model.fieldType)
           }
         >
           <SelectDefaultValue />

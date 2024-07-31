@@ -8,7 +8,10 @@ import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'
 
-interface IStyleProps {
+/**
+ * TODO: Refactor this to remove prop drilling
+ */
+export interface IStyleProps {
   selectedNode: Nullable<IRuntimeModel>
 }
 

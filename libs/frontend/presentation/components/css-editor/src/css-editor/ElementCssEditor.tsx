@@ -10,9 +10,9 @@ import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { InheritedStyles } from './inherited-styles/InheritedStyles'
+import { InheritedStyles } from '../inherited-styles/InheritedStyles'
+import { TailwindClassEditor } from '../tailwind-class-editor/TailwindClassEditor'
 import { StylesEditor } from './StylesEditor'
-import { TailwindClassEditor } from './tailwind-class-editor/TailwindClassEditor'
 
 const Label = styled.span`
   display: inline-flex;
@@ -115,7 +115,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           <TailwindClassEditor element={runtimeElement.element.current} />
         </Col>
         <Col span={24}>
-          <StylesEditor />
+          <StylesEditor selectedNode={runtimeElement} />
         </Col>
       </Row>
     )

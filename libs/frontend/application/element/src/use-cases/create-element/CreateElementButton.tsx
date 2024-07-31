@@ -1,6 +1,6 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type { IEntityFormService } from '@codelab/frontend/abstract/application'
+import type { IFormService } from '@codelab/frontend/abstract/application'
 import type {
   IElementModel,
   IElementTree,
@@ -14,7 +14,7 @@ import React from 'react'
 import { useCreateElementForm } from './create-element.state'
 
 export type CreateElementButtonProps = React.ComponentProps<typeof Button> & {
-  activeForm?: IEntityFormService<Ref<IElementModel>> | null
+  activeForm?: IFormService<Ref<IElementModel>> | null
   selectedElementId: Maybe<string>
   elementTree: IElementTree
 }

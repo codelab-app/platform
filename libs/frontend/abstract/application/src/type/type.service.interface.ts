@@ -8,11 +8,7 @@ import type {
   IBaseTypeOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  ICreateTypeDto,
-  IPrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 
 export interface ITypeService
@@ -22,5 +18,4 @@ export interface ITypeService
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
-  primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
 }

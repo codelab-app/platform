@@ -1,3 +1,4 @@
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import {
   ApplicationStoreContext,
   type ApplicationStoreProviderProps,
@@ -8,7 +9,8 @@ import { createApplicationStore } from '../stores/application.store'
 export const ApplicationStoreProvider: React.FC<
   PropsWithChildren<ApplicationStoreProviderProps>
 > = ({ children }) => {
-  const store = useMemo(() => createApplicationStore(), [])
+  const url = useUrl()
+  const store = useMemo(() => createApplicationStore(url), [])
 
   return (
     <ApplicationStoreContext.Provider value={store}>
