@@ -1,3 +1,4 @@
+import type { IBuilderService } from '@codelab/frontend/abstract/application'
 import {
   type IElementDomainService,
   type IElementModel,
@@ -16,7 +17,7 @@ export const deleteElementUseCase = async (
   subRootElement: IElementModel,
   elementDomainService: IElementDomainService,
   // builderService: IBuilderService,
-  afterElementDeleteCallback: AfterElementDelete,
+  selectPreviousElementOnDelete: IBuilderService['selectPreviousElementOnDelete'],
 ) => {
   // const parentComponent = subRootElement.parentComponent?.current
   // Check if the element is linked as a children container in parent component
@@ -35,8 +36,7 @@ export const deleteElementUseCase = async (
     ...subRootElement.descendantElements,
   ]
 
-  afterElementDeleteCallback()
-  // builderService.selectPreviousElementOnDelete()
+  selectPreviousElementOnDelete()
 
   subRootElement.detachFromTree()
 

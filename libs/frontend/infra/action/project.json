@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/infra/action/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-infra-action",
     "projectType:library",
     "type:concrete",
     "layer:infra",

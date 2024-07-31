@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/logger/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-logger",
     "projectType:library",
     "type:concrete",
     "layer:infra",

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/test/cypress/utils/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-test-cypress-utils",
     "projectType:library",
     "type:concrete",
     "type:test",

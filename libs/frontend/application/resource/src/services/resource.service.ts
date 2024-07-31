@@ -14,7 +14,6 @@ import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {
   const { resourceDomainService } = useDomainStore()
-  const resourceList = [...resourceDomainService.resources.values()]
 
   const create = async ({
     config: configData,
@@ -104,7 +103,6 @@ export const useResourceService = (): IResourceService => {
     getSelectResourceOptions,
     load,
     remove,
-    resourceList,
     update,
   }
 }

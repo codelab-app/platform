@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/backend/domain/auth-guard/src",
   "tags": [
+    "projectName:backend-domain-auth-guard",
     "projectType:library",
     "type:concrete",
     "scope:backend",

@@ -3,7 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/abstract/typebox/src",
   "projectType": "library",
-  "tags": ["projectType:library", "type:abstract", "scope:shared"],
+  "tags": [
+    "projectName:shared-abstract-typebox",
+    "projectType:library",
+    "type:abstract",
+    "scope:shared"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

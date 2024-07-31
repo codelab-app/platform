@@ -5,5 +5,6 @@ import type { IResourceModel } from './resource.model.interface'
 
 export interface IResourceDomainService
   extends IHydrateable<IResourceDto, IResourceModel> {
+  resourceList: Array<IResourceModel>
   resources: ObjectMap<IResourceModel>
 }

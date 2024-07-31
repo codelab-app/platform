@@ -4,6 +4,7 @@
   "sourceRoot": "libs/shared/infra/logging/src",
   "projectType": "library",
   "tags": [
+    "projectName:shared-infra-logging",
     "projectType:library",
     "type:concrete",
     "layer:infra",

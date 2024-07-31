@@ -3,6 +3,7 @@ import type {
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
 import { IResourceDto } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Resource } from '../store'
 
@@ -13,6 +14,11 @@ export class ResourceDomainService
   })
   implements IResourceDomainService
 {
+  @computed
+  get resourceList() {
+    return [...this.resources.values()]
+  }
+
   @modelAction
   hydrate({ config, id, name, type }: IResourceDto) {
     let resource = this.resources.get(id)

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/infra/graphql/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-infra-graphql",
     "projectType:library",
     "type:concrete",
     "layer:infra",

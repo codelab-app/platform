@@ -11,7 +11,11 @@
       }
     }
   },
-  "tags": ["projectType:library", "type:concrete"],
+  "tags": [
+    "projectName:codelab-codegen-typescript-fetch",
+    "projectType:library",
+    "type:concrete"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",

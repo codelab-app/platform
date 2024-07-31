@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/test/cypress/auth0/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-test-cypress-auth0",
     "projectType:library",
     "type:concrete",
     "type:test",

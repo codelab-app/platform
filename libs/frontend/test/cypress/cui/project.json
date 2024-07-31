@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/test/cypress/cui/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-test-cypress-codelab",
     "projectType:library",
     "type:concrete",
     "type:test",

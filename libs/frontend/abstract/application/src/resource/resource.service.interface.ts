@@ -28,8 +28,6 @@ export interface IResourceService
       IUpdateResourceData
     >,
     IQueryService<IResourceModel, ResourceWhere, ResourceOptions> {
-  resourceList: Array<IResourceModel>
-
   getResource(id: string): Maybe<IResourceModel>
   getSelectResourceOptions(): Promise<Array<SelectOption>>
   load(resources: Array<IResourceDto>): void

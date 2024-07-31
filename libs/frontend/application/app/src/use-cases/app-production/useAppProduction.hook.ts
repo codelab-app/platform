@@ -6,14 +6,17 @@ import type {
   IAppProductionDto,
   IDomainStore,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore, useStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { v4 } from 'uuid'
 
 /**
  * Fetch related data for rendering page, and load them into store
  */
 export const useAppProduction = (appProductionData: IAppProductionDto) => {
-  const { rendererService } = useStore()
+  const { rendererService } = useApplicationStore()
   const domainStore = useDomainStore()
   const { appName, pageName } = appProductionData
 

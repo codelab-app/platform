@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/domain/shared/auth/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-domain-shared-auth",
     "projectType:library",
     "type:concrete",
     "scope:backend",

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/application/admin/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-application-admin",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

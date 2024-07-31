@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/infra/mobx/store/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-infra-mobx-store",
     "projectType:library",
     "type:concrete",
     "layer:infra",

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/domain/admin/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-domain-admin",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

@@ -230,7 +230,11 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         <UpdateFieldModal />
         <DeleteFieldModal />
         <DeleteComponentModal />
-        <DeleteElementModal />
+        <DeleteElementModal
+          selectPreviousElementOnDelete={
+            builderService.selectPreviousElementOnDelete
+          }
+        />
         <DeleteActionModal />
       </>
     )

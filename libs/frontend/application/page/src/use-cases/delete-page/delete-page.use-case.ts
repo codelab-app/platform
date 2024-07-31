@@ -4,11 +4,14 @@ import {
   deletePageRepository,
   pageListRepository,
 } from '@codelab/frontend-domain-page/repositories'
-import { useDomainStore, useStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 
 export const useDeletePageUseCase = async (pageModel: IPageModel) => {
   const { elementDomainService, pageDomainService } = useDomainStore()
-  const { rendererService } = useStore()
+  const { rendererService } = useApplicationStore()
   const pages = await pageListRepository({ where: { id: pageModel.id } })
   const elements = pages.flatMap((page) => page.elements)
 

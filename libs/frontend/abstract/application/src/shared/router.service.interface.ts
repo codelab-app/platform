@@ -17,7 +17,7 @@ export interface UrlParams {
  * ?key=value
  */
 export interface UrlQuery {
-  [key: string]: string | undefined
+  // [key: string]: string | undefined
   primarySidebarKey?: string
 }
 

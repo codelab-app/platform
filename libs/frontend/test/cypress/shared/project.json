@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/test/cypress/shared/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-test-cypress-shared",
     "projectType:library",
     "type:concrete",
     "type:test",

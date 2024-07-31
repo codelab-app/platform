@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/test/data/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-test-data",
     "projectType:library",
     "type:concrete",
     "type:test",

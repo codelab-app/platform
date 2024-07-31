@@ -4,6 +4,7 @@
   "sourceRoot": "libs/shared/infra/otel/src",
   "projectType": "library",
   "tags": [
+    "projectName:shared-infra-otel",
     "projectType:library",
     "type:concrete",
     "layer:infra",

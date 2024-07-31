@@ -1,4 +1,5 @@
 'use client'
+import type { IBuilderService } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -10,14 +11,11 @@ import { useElementService } from '../../services'
 import type { DeleteElementData } from './delete-element.schema'
 import { deleteElementSchema } from './delete-element.schema'
 import { useDeleteElementModal } from './delete-element.state'
-import {
-  type AfterElementDelete,
-  deleteElementUseCase,
-} from './delete-element.use-case'
+import { deleteElementUseCase } from './delete-element.use-case'
 
 export const DeleteElementModal = observer<{
-  afterElementDeleteCallback: AfterElementDelete
-}>(({ afterElementDeleteCallback }) => {
+  selectPreviousElementOnDelete: IBuilderService['selectPreviousElementOnDelete']
+}>(({ selectPreviousElementOnDelete }) => {
   const elementService = useElementService()
   const deleteElementModal = useDeleteElementModal()
   const { elementDomainService } = useDomainStore()
@@ -37,7 +35,7 @@ export const DeleteElementModal = observer<{
     void deleteElementUseCase(
       targetElement,
       elementDomainService,
-      afterElementDeleteCallback,
+      selectPreviousElementOnDelete,
     )
 
     return Promise.resolve()

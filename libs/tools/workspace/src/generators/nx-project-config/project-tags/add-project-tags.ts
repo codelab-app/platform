@@ -48,6 +48,11 @@ export const addProjectTags = (
   // We want to re-construct the tags each time
   projectConfig.tags = []
 
+  // Add tag equivalent to the project name
+  const projectName = projectConfig.name || ''
+
+  appendTags(`projectName:${projectName}`, projectConfig)
+
   /**
    * Add `type:data`
    */

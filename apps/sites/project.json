@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/sites/src",
   "projectType": "application",
-  "tags": ["projectType:application", "type:concrete"],
+  "tags": ["projectName:sites", "projectType:application", "type:concrete"],
   "implicitDependencies": [],
   "generators": {},
   "targets": {

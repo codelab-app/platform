@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/domain/renderer/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-domain-renderer",
     "projectType:library",
     "type:concrete",
     "scope:frontend",
