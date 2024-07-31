@@ -3,8 +3,8 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateFieldData,
   IFieldDto,
@@ -18,18 +18,21 @@ import { v4 } from 'uuid'
 import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
-  const { fieldDomainService } = useDomainStore()
+  const { fieldDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
   const cloneField = async (field: IFieldModel, apiId: string) => {
     const fieldDto = {
-      ...fieldService.mapFieldToDTO(field),
+      ...fieldService.mapFieldToDto(field),
       api: { id: apiId },
       id: v4(),
     }
 
     const newField = fieldDomainService.hydrate(fieldDto)
-    const interfaceType = typeService.getType(apiId) as IInterfaceTypeModel
+
+    const interfaceType = typeDomainService.getType(
+      apiId,
+    ) as IInterfaceTypeModel
 
     interfaceType.writeCache({
       fields: [{ id: newField.id }],
@@ -44,10 +47,10 @@ export const useFieldService = (): IFieldService => {
     await typeService.getOne(createFieldData.fieldType)
 
     const field = fieldDomainService.hydrate(
-      fieldService.mapDataToDTO(createFieldData),
+      fieldService.mapDataToDto(createFieldData),
     )
 
-    const interfaceType = typeService.getType(
+    const interfaceType = typeDomainService.getType(
       field.api.id,
     ) as IInterfaceTypeModel
 
@@ -123,7 +126,7 @@ export const useFieldService = (): IFieldService => {
 
     assertIsDefined(field)
 
-    field.writeCache(fieldService.mapDataToDTO(updateFieldData))
+    field.writeCache(fieldService.mapDataToDto(updateFieldData))
 
     await fieldRepository.update(field)
 
@@ -206,7 +209,7 @@ export const useFieldService = (): IFieldService => {
 }
 
 export const fieldService = {
-  mapDataToDTO: (fieldData: ICreateFieldData) => {
+  mapDataToDto: (fieldData: ICreateFieldData) => {
     return {
       ...fieldData,
       api: { id: fieldData.interfaceTypeId },
@@ -220,7 +223,7 @@ export const fieldService = {
     }
   },
 
-  mapFieldToDTO: (field: IFieldModel): IFieldDto => {
+  mapFieldToDto: (field: IFieldModel): IFieldDto => {
     return {
       api: { id: field.api.id },
       defaultValues: field.defaultValues

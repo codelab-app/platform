@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/rest-client/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-rest-client",
     "projectType:library",
     "type:concrete",
     "layer:infra",

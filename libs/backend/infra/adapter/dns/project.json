@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/dns/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-dns",
     "projectType:library",
     "type:concrete",
     "layer:infra",

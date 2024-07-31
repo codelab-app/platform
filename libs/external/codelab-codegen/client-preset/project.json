@@ -3,7 +3,11 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/external/codelab-codegen/client-preset/src",
   "projectType": "library",
-  "tags": ["projectType:library", "type:concrete"],
+  "tags": [
+    "projectName:codelab-codegen-client-preset",
+    "projectType:library",
+    "type:concrete"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",

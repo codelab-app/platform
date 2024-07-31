@@ -7,9 +7,9 @@ import {
   BuilderDndAction,
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { ClickOverlay } from '@codelab/frontend-presentation-view/components/overlay'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'

@@ -32,7 +32,7 @@ export const DeleteFieldModal = observer(() => {
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
         onSubmit={(input) => {
-          return fieldService.delete([field])
+          return fieldService.remove([field])
         }}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting field',

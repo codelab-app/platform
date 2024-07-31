@@ -3,7 +3,12 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/cui/ui/molecules/src",
   "projectType": "library",
-  "tags": ["projectType:library", "type:concrete", "scope:frontend"],
+  "tags": [
+    "projectName:frontend-cui-ui-molecules",
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend"
+  ],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

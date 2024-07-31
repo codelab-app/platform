@@ -14,7 +14,7 @@ import type {
   IPageNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { pageRef, redirectRef } from '@codelab/frontend/abstract/domain'
+import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
   MODEL_ACTION,
@@ -26,7 +26,8 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useRedirectService } from '@codelab/frontend-application-redirect/services'
+import { useCreateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
+import { useUpdateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { useUserService } from '@codelab/frontend-application-user/services'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -51,8 +52,8 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const redirectService = useRedirectService()
-    const updateRedirectForm = useUpdateRe
+    const updateRedirectForm = useUpdateRedirectForm()
+    const createRedirectForm = useCreateRedirectForm()
     const userService = useUserService()
     const { isRegenerating, regenerate } = useRegeneratePages()
     const deletePageModal = useDeletePageModal()
@@ -96,10 +97,10 @@ export const PageTreeItem = observer(
         icon: <SafetyOutlined />,
         onClick: () => {
           if (page.redirect) {
-            redirectService.updateForm.open(redirectRef(page.redirect.id))
+            updateRedirectForm.open(page.redirect.current)
             popover.open(MODEL_ACTION.UpdateRedirect.key)
           } else {
-            redirectService.createForm.open(pageRef(page))
+            createRedirectForm.open(page)
             popover.open(MODEL_ACTION.CreateRedirect.key)
           }
         },

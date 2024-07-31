@@ -5,9 +5,9 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,

@@ -40,8 +40,7 @@ import {
   patchRecorder,
   prop,
 } from 'mobx-keystone'
-import type { ReactElement, ReactNode } from 'react'
-import React from 'react'
+import { createElement, type ReactElement, type ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
 import { ElementWrapper } from '../components'
 
@@ -217,7 +216,7 @@ export class RuntimeElementModel
       runtimeElement: this,
     }
 
-    return React.createElement(ElementWrapper, wrapperProps)
+    return createElement(ElementWrapper, wrapperProps)
   }
 
   /**
@@ -311,7 +310,7 @@ export class RuntimeElementModel
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? 'Something went wrong in a parent element'
-      : this.elementService.validationService.propsHaveErrors(element)
+      : this.elementService.propsHaveErrors(element)
       ? 'Some props are not correctly set'
       : undefined
 

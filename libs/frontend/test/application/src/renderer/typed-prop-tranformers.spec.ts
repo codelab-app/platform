@@ -1,5 +1,7 @@
-import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
-import { createTestStore } from '@codelab/frontend-application-test'
+import {
+  createTestStore,
+  TestStoreProvider,
+} from '@codelab/frontend-infra-mobx/store'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
@@ -121,8 +123,8 @@ describe('TypedPropTransformers', () => {
 
     render(
       React.createElement(
-        StoreProvider,
-        { value: testStore.coreStore },
+        TestStoreProvider,
+        { value: testStore },
         renderedProp(textPropValue),
       ),
     )

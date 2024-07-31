@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
 import { useAsync } from '@react-hookz/web'
 import type { Ref } from 'mobx-keystone'

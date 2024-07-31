@@ -24,7 +24,7 @@ interface IAtomFamilyParm {
 
 export const useToggleState = <TData = undefined, TOutput = TData>(
   key: IAtomFamilyParm,
-  mapper: (state?: TData) => TOutput = defaultMapper,
+  mapper: (state: TData) => TOutput = defaultMapper,
 ): IToggleService<TData, TOutput> => {
   const toggleStateAtomFamily = useMemo(
     () =>

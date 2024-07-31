@@ -1,5 +1,6 @@
 import { appDevelopmentQuery } from '@codelab/frontend-application-app/use-cases/app-development'
 import { BuilderPreview } from '@codelab/frontend-application-builder/use-cases/builder-preview'
+import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import React from 'react'
 import { StoreHydrator } from '../../../../../components'
@@ -31,7 +32,13 @@ const PagePreview = async ({
       stores={dto.stores}
       types={dto.types}
     >
-      <BuilderPreview pageSlug={pageSlug} />
+      {/* Decouple renderer from builder */}
+      <BuilderPreview
+        RootRenderer={({ ref, renderer }) => (
+          <RootRenderer ref={ref} renderer={renderer} />
+        )}
+        pageSlug={pageSlug}
+      />
     </StoreHydrator>
   )
 }

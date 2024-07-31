@@ -4,20 +4,14 @@ import type {
   IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
-import type {
-  ICreateTypeDto,
-  IPrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { assertIsDefined } from '@codelab/shared/utils'
-import compact from 'lodash/compact'
-import sortBy from 'lodash/sortBy'
 
 export const useTypeService = (): ITypeService => {
   const { fieldDomainService, typeDomainService } = useDomainStore()
@@ -72,51 +66,22 @@ export const useTypeService = (): ITypeService => {
   }
 
   const getAll = async (ids?: Array<string>) => {
-    const existingTypes = compact(
-      ids?.map((id) => typeDomainService.types.get(id)) ?? [],
-    )
+    // Fetch type fragments
+    const typeFragments = await typeRepository.getAll(ids)
 
-    const idsToLoad = ids?.filter((id) => shouldLoadType(id))
-    let newTypes: Array<ITypeModel> = []
+    const types = typeFragments.map((typeFragment) => {
+      if (typeFragment.__typename === TypeKind.InterfaceType) {
+        typeFragment.fields.forEach(fieldDomainService.hydrate)
+      }
 
-    if (idsToLoad?.length || !ids) {
-      const { items: typeFragments } = await typeRepository.find({
-        id_IN: idsToLoad,
-      })
+      return typeDomainService.hydrate(typeFragment)
+    })
 
-      const parentIds = typeFragments.map((typeFragment) => typeFragment.id)
-
-      const descendantTypeFragments = ids
-        ? await typeRepository.findDescendants(parentIds)
-        : []
-
-      const newFragments = [...typeFragments, ...descendantTypeFragments]
-
-      newTypes = compact(
-        newFragments.map((typeFragment) => {
-          if (typeFragment.__typename === TypeKind.InterfaceType) {
-            typeFragment.fields.forEach((fieldFragment) => {
-              fieldDomainService.hydrate(fieldFragment)
-            })
-          }
-
-          const newType = typeDomainService.hydrate(typeFragment)
-
-          return idsToLoad?.includes(typeFragment.id) || !ids
-            ? newType
-            : undefined
-        }),
-      )
-    }
-
-    const allTypes = [...existingTypes, ...newTypes]
-    const result = sortBy(allTypes, ({ name }) => name.toLowerCase())
-
-    return result
+    return types
   }
 
   const getInterface = async (interfaceTypeId: string) => {
-    const interfaceFromStore = getType(interfaceTypeId)
+    const interfaceFromStore = typeDomainService.getType(interfaceTypeId)
 
     if (
       interfaceFromStore &&
@@ -163,20 +128,6 @@ export const useTypeService = (): ITypeService => {
     await typeRepository.update(type)
 
     return type
-  }
-
-  const primitiveKind = (id: string): Nullable<IPrimitiveTypeKind> => {
-    const type = typeDomainService.types.get(id)
-
-    if (type?.kind === ITypeKind.PrimitiveType) {
-      return type.primitiveKind
-    }
-
-    return null
-  }
-
-  const getType = (id: string) => {
-    return typeDomainService.types.get(id)
   }
 
   const shouldLoadType = (typeId: string) => {
@@ -226,9 +177,7 @@ export const useTypeService = (): ITypeService => {
     getInterface,
     getOne,
     getOptions,
-    getType,
     paginationService,
-    primitiveKind,
     remove: deleteType,
     update,
   }

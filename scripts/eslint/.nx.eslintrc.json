@@ -134,6 +134,16 @@
               {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
+              },
+              // Domain lib specific constraints
+              {
+                "allSourceTags": [
+                  "projectName:frontend-application-element",
+                  "projectName:frontend-application-component"
+                ],
+                "notDependOnLibsWithTags": [
+                  "projectName:frontend-application-builder"
+                ]
               }
             ]
           }

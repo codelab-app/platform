@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/landing",
   "projectType": "application",
-  "tags": ["projectType:application", "type:concrete"],
+  "tags": ["projectName:landing", "projectType:application", "type:concrete"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",

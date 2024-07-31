@@ -5,13 +5,13 @@ import {
   MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   SelectActionField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useUserService } from '@codelab/frontend-application-user/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -54,8 +54,8 @@ export const CreateElementForm = observer(
     const elementService = useElementService()
     const createElementForm = useCreateElementForm()
     const element = createElementForm.data
-    const parentElement = element?.parentElement?.maybeCurrent
-    // const elementOptions = metadata?.elementOptions
+    const parentElement = element?.parentElement
+    const elementOptions = element?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
 
     if (!parentElement) {

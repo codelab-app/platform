@@ -1,6 +1,7 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   ModalForm,
@@ -10,7 +11,7 @@ import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useFieldService, useTypeService } from '../../services'
+import { useFieldService } from '../../services'
 import {
   canSetDefaultValue,
   createFieldSchema,
@@ -27,9 +28,9 @@ import { useUpdateFieldModal } from './update-field.state'
 export const UpdateFieldModal = observer(() => {
   const updateFieldModal = useUpdateFieldModal()
   const fieldService = useFieldService()
-  const typeService = useTypeService()
+  const { typeDomainService } = useDomainStore()
   const closeModal = () => updateFieldModal.close()
-  const field = updateFieldModal.data?.current
+  const field = updateFieldModal.data
 
   const onSubmit = (input: IUpdateFieldData) => {
     if (!field) {
@@ -38,7 +39,7 @@ export const UpdateFieldModal = observer(() => {
 
     const validationRules = filterValidationRules(
       input.validationRules,
-      typeService.primitiveKind(input.fieldType),
+      typeDomainService.primitiveKind(input.fieldType),
     )
 
     void fieldService.update({ ...input, validationRules })
@@ -72,7 +73,7 @@ export const UpdateFieldModal = observer(() => {
           if (
             mode === 'form' &&
             model.fieldType &&
-            !canSetDefaultValue(typeService, model.fieldType)
+            !canSetDefaultValue(typeDomainService, model.fieldType)
           ) {
             return {
               ...model,
@@ -98,31 +99,39 @@ export const UpdateFieldModal = observer(() => {
         <TypeSelect label="Type" name="fieldType" />
         <DisplayIfField<IUpdateFieldData>
           condition={({ model }) =>
-            !isBoolean(typeService, model.fieldType) &&
-            canSetDefaultValue(typeService, model.fieldType)
+            !isBoolean(typeDomainService, model.fieldType) &&
+            canSetDefaultValue(typeDomainService, model.fieldType)
           }
         >
           <AutoFields fields={['validationRules.general']} />
         </DisplayIfField>
         <DisplayIfField<IUpdateFieldData>
-          condition={({ model }) => isPrimitive(typeService, model.fieldType)}
+          condition={({ model }) =>
+            isPrimitive(typeDomainService, model.fieldType)
+          }
         >
           <DisplayIfField<IUpdateFieldData>
-            condition={({ model }) => isString(typeService, model.fieldType)}
+            condition={({ model }) =>
+              isString(typeDomainService, model.fieldType)
+            }
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.String}`]}
             />
           </DisplayIfField>
           <DisplayIfField<IUpdateFieldData>
-            condition={({ model }) => isInteger(typeService, model.fieldType)}
+            condition={({ model }) =>
+              isInteger(typeDomainService, model.fieldType)
+            }
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
             />
           </DisplayIfField>
           <DisplayIfField<IUpdateFieldData>
-            condition={({ model }) => isFloat(typeService, model.fieldType)}
+            condition={({ model }) =>
+              isFloat(typeDomainService, model.fieldType)
+            }
           >
             <AutoFields
               fields={[`validationRules.${PrimitiveTypeKind.Number}`]}
@@ -132,7 +141,7 @@ export const UpdateFieldModal = observer(() => {
 
         <DisplayIfField<IUpdateFieldData>
           condition={({ model }) =>
-            canSetDefaultValue(typeService, model.fieldType)
+            canSetDefaultValue(typeDomainService, model.fieldType)
           }
         >
           <SelectDefaultValue />

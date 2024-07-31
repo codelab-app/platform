@@ -1,7 +1,7 @@
 {
   "name": "codelab",
   "$schema": "node_modules/nx/schemas/project-schema.json",
-  "tags": ["type:concrete"],
+  "tags": ["projectName:codelab", "type:concrete"],
   "targets": {
     "local-registry": {
       "executor": "@nx/js:verdaccio",

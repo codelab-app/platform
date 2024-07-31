@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/application/domain/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-application-domain",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

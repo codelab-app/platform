@@ -1,6 +1,7 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useTypeService } from '@codelab/frontend-application-type/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPropData, IValidationRules } from '@codelab/shared/abstract/core'
@@ -15,12 +16,12 @@ import { AutoFields } from 'uniforms-antd'
 import { schemaTransformer } from '../../type-schema.factory'
 
 export const SelectDefaultValue = () => {
-  const typeService = useTypeService()
+  const { typeDomainService } = useDomainStore()
 
   // Need to load the type if not loaded yet
   // otherwise default value form will not be rendered
   const [, getType] = useAsync(() =>
-    typeService.getAll(fieldType.value ? [fieldType.value] : []),
+    typeRepository.getAll(fieldType.value ? [fieldType.value] : []),
   )
 
   useMountEffect(getType.execute)
@@ -33,7 +34,7 @@ export const SelectDefaultValue = () => {
   )
 
   const type = fieldType.value
-    ? typeService.getType(fieldType.value as string)
+    ? typeDomainService.getType(fieldType.value as string)
     : null
 
   // Typecasting just for conditional check if field type is primitive

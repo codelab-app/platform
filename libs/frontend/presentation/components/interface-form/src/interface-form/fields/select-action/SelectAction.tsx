@@ -1,8 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
-import { useBuilderService } from '@codelab/frontend-application-builder/services'
+import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+// import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import type { IRef } from '@codelab/shared/abstract/core'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type {
+  Nullable,
+  UniformSelectFieldProps,
+} from '@codelab/shared/abstract/types'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
@@ -11,14 +15,16 @@ export type SelectActionProps = Pick<
   'error' | 'label' | 'name' | 'required' | 'value'
 > & {
   updatedAction?: IRef
+  selectedNode: Nullable<IRuntimeModel>
 
   onChange(value: unknown): void
 }
 
-export const SelectAction = (fieldProps: SelectActionProps) => {
-  const builderService = useBuilderService()
+export const SelectAction = ({
+  selectedNode,
+  ...fieldProps
+}: SelectActionProps) => {
   const { actionDomainService } = useDomainStore()
-  const selectedNode = builderService.selectedNode?.current
   const runtimeStore = selectedNode?.runtimeStore
   const store = runtimeStore?.store.current
 

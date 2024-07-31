@@ -88,7 +88,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
             />
           </DisplayIf>
         </Form>
-        <DeleteRedirectButton ids={redirect ? [redirect.id] : []} />
+        <DeleteRedirectButton redirect={redirect} />
       </>
     )
   },

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/application/shared/data/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-application-shared-data",
     "type:data",
     "projectType:library",
     "type:concrete",

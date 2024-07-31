@@ -94,6 +94,31 @@ export const typeRepository: ITypeRepository = {
     return sortBy(items, 'name')
   },
 
+  getAll: async (ids?: Array<string>) => {
+    // Fetch type fragments
+    const { items: typeFragments } = await typeRepository.find({
+      id_IN: ids,
+    })
+
+    // Fetch descendant types if ids are provided
+    const descendantTypeFragments = ids
+      ? await typeRepository.findDescendants(
+          typeFragments.map((fragment) => fragment.id),
+        )
+      : []
+
+    // Combine all fragments
+    const allFragments = [...typeFragments, ...descendantTypeFragments]
+
+    // Filter types if ids are provided, otherwise return all
+    const filteredTypes = ids
+      ? allFragments.filter((type) => ids.includes(type.id))
+      : allFragments
+
+    // Sort and return the result
+    return sortBy(filteredTypes, ({ name }) => name.toLowerCase())
+  },
+
   update: async (type: ITypeModel) => {
     const updatedType = await updateTypeApi[type.kind](type.toUpdateInput())
 

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/test/application/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-test-application",
     "projectType:library",
     "type:concrete",
     "type:test",

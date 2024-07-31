@@ -3,13 +3,13 @@
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,
 } from '@codelab/frontend-domain-domain/errors'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

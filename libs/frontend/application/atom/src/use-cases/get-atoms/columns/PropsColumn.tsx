@@ -6,7 +6,7 @@ import type {
   IInterfaceTypeModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import { useCreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
@@ -21,11 +21,11 @@ export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {
   const createFieldModal = useCreateFieldModal()
 
   const onEdit = (field: IFieldModel<ITypeModel>) => {
-    updateFieldModal.open(fieldRef(field))
+    updateFieldModal.open(field)
   }
 
   const onDelete = (field: IFieldModel<ITypeModel>) => {
-    deleteFieldModal.open(fieldRef(field))
+    deleteFieldModal.open(field)
   }
 
   const editMenuItems = atom.api.current.fields.map((field) => {
@@ -53,7 +53,9 @@ export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {
               return
             }
 
-            createFieldModal.open(typeRef<IInterfaceTypeModel>(atom.api.id))
+            createFieldModal.open(
+              typeRef<IInterfaceTypeModel>(atom.api.id).current,
+            )
           }}
         >
           <PlusOutlined />

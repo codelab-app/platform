@@ -1,8 +1,6 @@
-import type { DefaultOptionType } from 'antd/lib/select'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
 
-type SelectComponentOptions = Promise<Array<DefaultOptionType>>
-
-const getSelectComponentOptions = async (): SelectComponentOptions => {
+const getSelectComponentOptions = async (): Promise<Array<SelectOption>> => {
   await componentService.getAll()
 
   const parentComponent = activeComponent?.current

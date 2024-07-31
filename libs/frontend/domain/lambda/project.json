@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/domain/lambda/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-domain-lambda",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

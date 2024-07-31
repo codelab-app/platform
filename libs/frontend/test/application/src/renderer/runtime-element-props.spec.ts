@@ -1,8 +1,10 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
-import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
-import { createTestStore } from '@codelab/frontend-application-test'
+import {
+  createTestStore,
+  TestStoreProvider,
+} from '@codelab/frontend-infra-mobx/store'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { act, render } from '@testing-library/react'
@@ -321,7 +323,7 @@ describe('Runtime Element props', () => {
     ])(
       'should evaluate ref expression with %s in %s',
       async (refsKey, pageKind) => {
-        const { rendererService } = testStore.coreStore
+        const { rendererService } = testStore.applicationStore
         const isProviderPage = pageKind === IPageKind.Provider
 
         const { page, rendered, rootElement, runtimeRootElement } =
@@ -340,8 +342,8 @@ describe('Runtime Element props', () => {
         await act(async () => {
           render(
             React.createElement(
-              StoreProvider,
-              { value: testStore.coreStore },
+              TestStoreProvider,
+              { value: testStore },
               rendered,
             ),
           )
@@ -371,8 +373,8 @@ describe('Runtime Element props', () => {
         await act(async () => {
           render(
             React.createElement(
-              StoreProvider,
-              { value: testStore.coreStore },
+              TestStoreProvider,
+              { value: testStore },
               rendererService.activeRenderer?.current.render,
             ),
           )
@@ -469,7 +471,7 @@ describe('Runtime Element props', () => {
       const urlKey = 'urlKey'
       const urlPropValue = 'urlPropValue'
 
-      testStore.coreStore.routerService.update({
+      testStore.applicationStore.routerService.update({
         query: {
           [urlKey]: urlPropValue,
         },

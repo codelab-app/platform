@@ -21,6 +21,11 @@ export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
     AppListQueryVariables
   >(AppListDocument)
 
+  const options = data?.items.map((app) => ({
+    label: app.name,
+    value: app.id,
+  }))
+
   return (
     <SelectField
       error={error || queryError}
@@ -33,7 +38,7 @@ export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
         }
       }}
       optionFilterProp="label"
-      options={data?.apps}
+      options={options}
       showSearch
     />
   )

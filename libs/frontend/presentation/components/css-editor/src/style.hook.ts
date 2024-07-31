@@ -1,13 +1,22 @@
-import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend/infra/mobx'
-import { useBuilderService } from '@codelab/frontend-application-builder/services'
+import {
+  type IRuntimeModel,
+  isRuntimeElement,
+} from '@codelab/frontend/abstract/application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'
 
-export const useStyle = () => {
+/**
+ * TODO: Refactor this to remove prop drilling
+ */
+export interface IStyleProps {
+  selectedNode: Nullable<IRuntimeModel>
+}
+
+export const useStyle = ({ selectedNode }: IStyleProps) => {
   const { runtimeElementService } = useApplicationStore()
-  const builderService = useBuilderService()
 
   const [currentStyles, setCurrentStyles] = useState<{
     [key: string]: string
@@ -20,14 +29,9 @@ export const useStyle = () => {
   }, [runtimeElementService.currentStylePseudoClass])
 
   const loadCurrentStyles = () => {
-    if (
-      builderService.selectedNode &&
-      isRuntimeElementRef(builderService.selectedNode)
-    ) {
+    if (selectedNode && isRuntimeElement(selectedNode)) {
       const newStyles = JSON.parse(
-        builderService.selectedNode.current.style.guiCss(
-          currentStylePseudoClass,
-        ) || '{}',
+        selectedNode.style.guiCss(currentStylePseudoClass) || '{}',
       )
 
       setCurrentStyles(newStyles)
@@ -48,9 +52,7 @@ export const useStyle = () => {
 
   // Set a new style value and update memoized styles
   const setStyle = (key: CssProperty, value: string) => {
-    const { selectedNode } = builderService
-
-    if (!selectedNode || !isRuntimeElementRef(selectedNode)) {
+    if (!selectedNode || !isRuntimeElement(selectedNode)) {
       return
     }
 
@@ -58,11 +60,11 @@ export const useStyle = () => {
 
     setCurrentStyles(updatedStyles)
 
-    selectedNode.current.style.appendToGuiCss(currentStylePseudoClass, {
+    selectedNode.style.appendToGuiCss(currentStylePseudoClass, {
       [key]: value,
     })
 
-    console.log(selectedNode.current.style.styleParsed)
+    console.log(selectedNode.style.styleParsed)
   }
 
   const resetStyle = (property: CssProperty) => {
@@ -81,16 +83,11 @@ export const useStyle = () => {
   }
 
   const removeStyles = (properties: Array<CssProperty>) => {
-    const { selectedNode } = builderService
-
-    if (!selectedNode || !isRuntimeElementRef(selectedNode)) {
+    if (!selectedNode || !isRuntimeElement(selectedNode)) {
       return
     }
 
-    selectedNode.current.style.deleteFromGuiCss(
-      currentStylePseudoClass,
-      properties,
-    )
+    selectedNode.style.deleteFromGuiCss(currentStylePseudoClass, properties)
 
     loadCurrentStyles()
   }

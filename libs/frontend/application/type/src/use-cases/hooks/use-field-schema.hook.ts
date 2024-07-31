@@ -1,7 +1,7 @@
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend/infra/mobx'
+} from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateFieldData,
   IUpdateFieldData,

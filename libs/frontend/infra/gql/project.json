@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/infra/gql/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-infra-gql",
     "projectType:library",
     "type:abstract",
     "layer:infra",

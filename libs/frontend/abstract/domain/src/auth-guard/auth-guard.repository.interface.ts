@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type {
   AuthGuardFragment,
   AuthGuardOptions,
@@ -11,4 +12,6 @@ export type IAuthGuardRepository = IRepository<
   AuthGuardFragment,
   AuthGuardWhere,
   AuthGuardOptions
->
+> & {
+  selectOptions(): Promise<Array<SelectOption>>
+}

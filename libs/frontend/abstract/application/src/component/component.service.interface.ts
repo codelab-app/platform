@@ -14,7 +14,7 @@ import type {
   IQueryService,
 } from '../services/query.service.interface'
 
-export interface IComponentApplicationService
+export interface IComponentService
   extends ICRUDService<
       IComponentModel,
       ICreateComponentData,

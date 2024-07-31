@@ -5,14 +5,18 @@ import type {
   MoveData,
 } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { SelectLinkElement } from '../../components/SelectLinkElement'
+import { useElementService } from '../../services'
 import { moveElementSchema } from './move-element.schema'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
 
@@ -31,10 +35,11 @@ export interface MoveElementFormProps {
  */
 export const MoveElementForm = observer<MoveElementFormProps>(
   ({ runtimeElement }) => {
-    const { elementService, rendererService } = useStore()
-    const { atomDomainService } = useDomainStore()
+    const { rendererService } = useApplicationStore()
+    const { atomDomainService, elementDomainService } = useDomainStore()
     const elementTree = rendererService.activeElementTree
     const element = runtimeElement.element.current
+    const elementService = useElementService()
 
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
@@ -55,12 +60,11 @@ export const MoveElementForm = observer<MoveElementFormProps>(
        * Create new model of desired state
        */
 
-      const parentElementModel =
-        elementService.elementDomainService.elements.get(parentElement.id)
-
-      const prevSiblingModel = elementService.elementDomainService.elements.get(
-        prevSibling.id,
+      const parentElementModel = elementDomainService.elements.get(
+        parentElement.id,
       )
+
+      const prevSiblingModel = elementDomainService.elements.get(prevSibling.id)
 
       await elementService.move({
         element,

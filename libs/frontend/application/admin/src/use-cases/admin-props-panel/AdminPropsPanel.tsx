@@ -2,7 +2,7 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/domain'
+import { isAdmin } from '@codelab/frontend/abstract/domain'
 import { useCreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
@@ -23,11 +23,11 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
     }
 
     const onEdit = (field: IFieldModel) => {
-      updateFieldModal.open(fieldRef(field))
+      updateFieldModal.open(field)
     }
 
     const onDelete = (field: IFieldModel) => {
-      deleteFieldModal.open(fieldRef(field))
+      deleteFieldModal.open(field)
     }
 
     const editMenuItems = interfaceType.fields.map((field) => {
@@ -55,7 +55,7 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
         <Col>
           <Button
             onClick={() => {
-              createFieldModal.open(typeRef(interfaceType))
+              createFieldModal.open(interfaceType)
             }}
           >
             Add

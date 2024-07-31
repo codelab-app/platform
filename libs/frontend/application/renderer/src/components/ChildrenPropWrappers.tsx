@@ -1,6 +1,6 @@
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { usePropService } from '@codelab/frontend-application-prop/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
 import { ITypeKind } from '@codelab/shared/abstract/core'

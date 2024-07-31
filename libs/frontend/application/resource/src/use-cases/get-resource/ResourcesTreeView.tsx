@@ -2,11 +2,11 @@ import type {
   IResourceNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

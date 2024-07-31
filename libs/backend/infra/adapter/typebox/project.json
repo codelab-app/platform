@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/typebox/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-typebox",
     "projectType:library",
     "type:concrete",
     "layer:infra",

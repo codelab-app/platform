@@ -2,8 +2,8 @@
 
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

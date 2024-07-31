@@ -2,7 +2,6 @@
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
@@ -18,8 +17,7 @@ import { PageList } from '../use-cases/get-pages'
 import { UpdatePagePopover } from '../use-cases/update-page'
 
 export const PagesPrimarySidebar = observer(() => {
-  const { appDomainService } = useDomainStore()
-  const app = useCurrentApp(appDomainService)
+  const app = useCurrentApp()
   const { popover } = useCui()
   const createPageForm = useCreatePageForm()
   const deletePageModal = useDeletePageModal()

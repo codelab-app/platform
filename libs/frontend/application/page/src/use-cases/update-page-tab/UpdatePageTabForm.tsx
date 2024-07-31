@@ -1,6 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'

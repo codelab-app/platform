@@ -1,11 +1,11 @@
-import type { ITypeService } from '@codelab/frontend/abstract/application'
+import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
 import type { IValidationRules } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import pick from 'lodash/pick'
 
 type FieldCondition = (
-  typeService: ITypeService,
+  typeDomainService: ITypeDomainService,
   fieldTypeId: Maybe<string>,
 ) => boolean
 
@@ -26,39 +26,42 @@ export const filterValidationRules = (
   return { general, ...rest }
 }
 
-export const isPrimitive: FieldCondition = (typeService, fieldType) =>
+export const isPrimitive: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
-      typeService.getType(fieldType)?.kind === ITypeKind.PrimitiveType,
+      typeDomainService.getType(fieldType)?.kind === ITypeKind.PrimitiveType,
   )
 
-export const isString: FieldCondition = (typeService, fieldType) =>
+export const isString: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
-      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.String,
+      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.String,
   )
 
-export const isInteger: FieldCondition = (typeService, fieldType) =>
+export const isInteger: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
-      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Integer,
+      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Integer,
   )
 
-export const canSetDefaultValue: FieldCondition = (typeService, fieldType) =>
+export const canSetDefaultValue: FieldCondition = (
+  typeDomainService,
+  fieldType,
+) =>
   Boolean(
     fieldType &&
-      typeService.getType(fieldType)?.kind !== ITypeKind.InterfaceType &&
-      typeService.getType(fieldType)?.kind !== ITypeKind.ReactNodeType,
+      typeDomainService.getType(fieldType)?.kind !== ITypeKind.InterfaceType &&
+      typeDomainService.getType(fieldType)?.kind !== ITypeKind.ReactNodeType,
   )
 
-export const isFloat: FieldCondition = (typeService, fieldType) =>
+export const isFloat: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
-      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Number,
+      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Number,
   )
 
-export const isBoolean: FieldCondition = (typeService, fieldType) =>
+export const isBoolean: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
-      typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Boolean,
+      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Boolean,
   )

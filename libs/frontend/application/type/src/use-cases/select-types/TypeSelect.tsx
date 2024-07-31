@@ -1,4 +1,4 @@
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'

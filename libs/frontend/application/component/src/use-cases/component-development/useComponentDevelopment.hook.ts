@@ -3,8 +3,8 @@ import {
   type RendererType,
 } from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { useComponentQuery } from '@codelab/frontend/presentation/container'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useComponentDevelopmentService } from './component-development.service'

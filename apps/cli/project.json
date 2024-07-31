@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/cli/src",
   "projectType": "application",
-  "tags": ["projectType:application", "type:concrete"],
+  "tags": ["projectName:cli", "projectType:application", "type:concrete"],
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",

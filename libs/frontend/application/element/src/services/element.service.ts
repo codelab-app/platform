@@ -1,29 +1,21 @@
-import type {
-  IElementService,
-  SelectElementOption,
-  SelectElementOptions,
-} from '@codelab/frontend/abstract/application'
+import type { IElementService } from '@codelab/frontend/abstract/application'
 import {
   type IElementModel,
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend/infra/mobx'
 import { schemaTransformer } from '@codelab/frontend/presentation/components/interface-form'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import { IElementTypeKind } from '@codelab/shared/abstract/core'
-import difference from 'lodash/difference'
 import uniqBy from 'lodash/uniqBy'
-import { CloneElementService } from './clone-element.service'
 
 export const useElementService = (): IElementService => {
   const atomService = useAtomService()
@@ -31,7 +23,6 @@ export const useElementService = (): IElementService => {
   const propService = usePropService()
   const { rendererService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
-  const cloneElementService = new CloneElementService({})
 
   const createElement = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
@@ -111,99 +102,8 @@ export const useElementService = (): IElementService => {
     )
   }
 
-  const getSelectElementOptions = ({
-    allElementOptions,
-    elementTree,
-    kind,
-    targetElementId,
-  }: SelectElementOptions) => {
-    const targetElement = allElementOptions?.find(
-      (element) => element.value === targetElementId,
-    )
-
-    const allActiveTreeElements =
-      rendererService.activeElementTree?.elements ?? []
-
-    const allActiveTreeElementOptions =
-      allActiveTreeElements.map(mapElementOption)
-
-    const elementMap = (allElementOptions ?? []).reduce((acc, element) => {
-      acc[element.value] = element
-
-      return acc
-    }, {} as Record<string, SelectElementOption>)
-
-    let selectOptions: Array<SelectElementOption> = []
-
-    if (!targetElement) {
-      selectOptions = allElementOptions ?? allActiveTreeElementOptions
-    } else {
-      switch (kind) {
-        case IElementTypeKind.AllElements: {
-          selectOptions = allElementOptions ?? allActiveTreeElementOptions
-          break
-        }
-
-        case IElementTypeKind.ChildrenOnly: {
-          selectOptions = getElementChildren(targetElement, elementMap)
-          break
-        }
-
-        case IElementTypeKind.DescendantsOnly: {
-          selectOptions = getDescendants(targetElement, elementMap)
-          break
-        }
-
-        case IElementTypeKind.ExcludeDescendantsElements: {
-          selectOptions = difference(
-            allElementOptions,
-            getDescendants(targetElement, elementMap),
-          ).filter(({ value }) => value !== targetElement.value)
-          break
-        }
-
-        default:
-          selectOptions = []
-      }
-    }
-
-    return selectOptions
-  }
-
   const getElement = (id: string) => {
     return elementDomainService.element(id)
-  }
-
-  const getDescendants = (
-    element: SelectElementOption,
-    elementMap: Record<string, SelectElementOption>,
-  ) => {
-    const descendants: Array<SelectElementOption> = []
-
-    const _getDescendants = (el: SelectElementOption) => {
-      for (const child of getElementChildren(el, elementMap)) {
-        descendants.push(child)
-        _getDescendants(child)
-      }
-    }
-
-    _getDescendants(element)
-
-    return descendants
-  }
-
-  const getElementChildren = (
-    element: SelectElementOption,
-    elementMap: Record<string, SelectElementOption>,
-  ) => {
-    return (
-      element.childrenIds
-        ?.map((childId) => elementMap[childId])
-        .filter(
-          (selectElementOption): selectElementOption is SelectElementOption =>
-            Boolean(selectElementOption),
-        ) ?? []
-    )
   }
 
   const propsHaveErrors = (element?: IElementModel) => {
@@ -220,11 +120,9 @@ export const useElementService = (): IElementService => {
   }
 
   return {
-    cloneElementService,
     createElement,
     deleteElement,
     getElement,
-    getSelectElementOptions,
     loadDependantTypes,
     move,
     propsHaveErrors,

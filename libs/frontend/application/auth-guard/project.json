@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/frontend/application/auth-guard/src",
   "tags": [
+    "projectName:frontend-application-auth-guard",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

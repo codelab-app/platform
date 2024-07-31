@@ -1,6 +1,7 @@
 'use client'
 
 import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { DomainStoreProvider } from '@codelab/frontend-infra-mobx/store'
 import type { IUserDto } from '@codelab/shared/abstract/core'
 import App from 'antd/lib/app'
 import ConfigProvider from 'antd/lib/config-provider'
@@ -8,7 +9,6 @@ import { Provider } from 'jotai'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 import { theme } from '../app/theme'
-import { DomainStoreProvider } from './store/DomainStoreProvider'
 import { StyledComponentsRegistry } from './StyledComponentsRegistry'
 
 export const Providers = ({

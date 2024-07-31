@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/auth0/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-auth0",
     "projectType:library",
     "type:concrete",
     "layer:infra",
