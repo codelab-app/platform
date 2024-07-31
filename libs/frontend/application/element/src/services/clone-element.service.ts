@@ -1,12 +1,10 @@
 import type {
+  IBuilderService,
   ICloneElementService,
+  IComponentService,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import {
-  getBuilderService,
-  getComponentService,
-  getElementService,
-  getRendererService,
   isRuntimeElement,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
@@ -15,48 +13,54 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend-application-prop/services'
 import {
-  getActionService,
-  getStoreService,
+  useActionService,
+  useStoreService,
 } from '@codelab/frontend-application-store/services'
-import { getFieldService } from '@codelab/frontend-application-type/services'
+import { useFieldService } from '@codelab/frontend-application-type/services'
+import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
+import { propRepository } from '@codelab/frontend-domain-prop/repositories'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import type { ICreateElementDto, IPropDto } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { useElementService } from './element.service'
 
-@model('@codelab/CloneElementService')
-export class CloneElementService
-  extends Model({})
-  implements ICloneElementService
-{
-  @modelFlow
-  @transaction
-  cloneElement = _async(function* (
-    this: CloneElementService,
+interface ICloneElementProps {
+  builderService: IBuilderService
+  componentService: IComponentService
+}
+
+export const useCloneElementService = ({
+  builderService,
+  componentService,
+}: ICloneElementProps): ICloneElementService => {
+  const { rendererService } = useApplicationStore()
+  const { elementDomainService } = useDomainStore()
+  const actionService = useActionService()
+  const elementService = useElementService()
+  const fieldService = useFieldService()
+  const storeService = useStoreService()
+
+  const cloneElement = async (
     targetElement: IElementModel,
     targetParent: IElementModel,
-  ) {
-    const oldToNewIdMap = yield* _await(
-      this.recursiveDuplicate(targetElement, targetParent, true),
+  ) => {
+    const oldToNewIdMap = await recursiveDuplicate(
+      targetElement,
+      targetParent,
+      true,
     )
 
     const createdElements = [...oldToNewIdMap.values()]
-    // re-attach the prop map bindings now that we have the new ids
     const allInputs = [targetElement, ...targetElement.descendantElements]
 
     for (const inputElement of allInputs) {
@@ -74,14 +78,11 @@ export class CloneElementService
     }
 
     return createdElements
-  })
+  }
 
-  @modelFlow
-  @transaction
-  convertElementToComponent = _async(function* (
-    this: CloneElementService,
+  const convertElementToComponent = async (
     runtimeElement: IRuntimeElementModel,
-  ) {
+  ) => {
     const element = runtimeElement.element.current
     const runtimeParentElement = runtimeElement.parentElement
 
@@ -96,31 +97,20 @@ export class CloneElementService
       prevSibling,
     } = element
 
-    // 1. deselect active element to avoid script errors if the selected element
-    // is a child of the element we are converting or the element itself
-    this.builderService.setSelectedNode(null)
+    builderService.setSelectedNode(null)
 
-    // 2. create the component and pass element as rootElement for component,
-    const createdComponent: IComponentModel = yield* _await(
-      this.componentService.create({
-        id: v4(),
-        name,
-        rootElement: { id: element.id },
-      }),
-    )
+    const createdComponent: IComponentModel = await componentService.create({
+      id: v4(),
+      name,
+      rootElement: { id: element.id },
+    })
 
-    yield* _await(this.cloneElementStore(element, createdComponent))
-
-    // 3. Detach should happen only after store access is no longer needed
+    await cloneElementStore(element, createdComponent)
     element.detachFromTree()
-
-    // 4. Attach root element to component
     element.setParentComponent(componentRef(createdComponent.id))
 
-    // 5. persist changes occurred on elements
-    yield* _await(this.elementService.syncModifiedElements())
+    await elementService.syncModifiedElements()
 
-    // 6. create a new element as an instance of the component
     const componentId = createdComponent.id
 
     const renderType = {
@@ -142,54 +132,42 @@ export class CloneElementService
       renderType,
     }
 
-    const createdElement = yield* _await(
-      this.elementService.createElement({
-        ...instanceElement,
-        prevSibling,
-      }),
-    )
+    const createdElement = await elementService.createElement({
+      ...instanceElement,
+      prevSibling,
+    })
 
-    // 6. set newly created element as selected element in builder tree
     const runtimeCreatedElement = runtimeParentElement?.children.find(
       (child): child is IRuntimeElementModel =>
         isRuntimeElement(child) && child.element.id === createdElement.id,
     )
 
     if (runtimeCreatedElement) {
-      this.builderService.setSelectedNode(
+      builderService.setSelectedNode(
         runtimeElementRef(runtimeCreatedElement.compositeKey),
       )
     }
 
     return createdElement
-  })
+  }
 
-  /**
-   * Creates a clone of the actions and state fields of the element
-   * in the component's store and updates the element props to use
-   * the actions in the component store.
-   * @param element - The element to clone the actions and state fields from
-   * @param component - The component to clone the actions and state fields to
-   */
-  private async cloneElementStore(
+  const cloneElementStore = async (
     element: IElementModel,
     component: IComponentModel,
-  ) {
+  ) => {
     const elementStore = element.store.current
     const componentStore = component.store.current
     const componentStoreId = componentStore.api.current.id
 
-    // Duplicate state fields into the component store api
     await Promise.all(
       elementStore.api.current.fields.map((field) =>
-        this.fieldService.cloneField(field, componentStoreId),
+        fieldService.cloneField(field, componentStoreId),
       ),
     )
 
-    // Duplicate actions into the component store
     const clonedActions = await Promise.all(
       elementStore.actions.map((action) =>
-        this.actionService.cloneAction(action, componentStore.id),
+        actionService.cloneAction(action, componentStore.id),
       ),
     )
 
@@ -206,7 +184,6 @@ export class CloneElementService
       new Map<string, string>(),
     )
 
-    // Update element and its descendants props values to use new action ids
     const elementProps = [
       element.props,
       ...element.descendantElements.map(
@@ -230,25 +207,19 @@ export class CloneElementService
     })
 
     await Promise.all(
-      updatedElementProps.map((props) =>
-        this.propService.propRepository.update(props),
-      ),
+      updatedElementProps.map((props) => propRepository.update(props)),
     )
 
-    // This is required to load the added actions and fields into the component store
-    // otherwise the actions won't be available until the page is refreshed
-    await this.storeService.getOne(componentStore.id)
+    await storeService.getOne(componentStore.id)
   }
 
-  private async recursiveDuplicate(
+  const recursiveDuplicate = async (
     element: IElementModel,
     parentElement: IElementModel,
     isRoot: boolean,
-  ) {
+  ) => {
     const duplicateName = makeAutoIncrementedName(
-      this.rendererService.activeElementTree?.elements.map(
-        ({ name }) => name,
-      ) || [],
+      rendererService.activeElementTree?.elements.map(({ name }) => name) || [],
       element.name,
       true,
     )
@@ -275,10 +246,8 @@ export class CloneElementService
       parentComponent: element.parentComponent
         ? { id: element.parentComponent.id }
         : null,
-      // parent has no children it means the cloned element is the first child
       parentElement: !lastChild ? parentElement : undefined,
-      // we cloning the root element of a sub tree attach cloned element to the original one
-      // attach it to the last child because we are cloning progressively.
+
       prevSibling: isRoot ? element : lastChild,
       props: propsDto,
       renderForEachPropKey: element.renderForEachPropKey,
@@ -287,14 +256,13 @@ export class CloneElementService
       style: element.style,
     }
 
-    const elementCloneModel =
-      this.elementService.elementDomainService.addTreeNode(cloneElementDto)
+    const elementCloneModel = elementDomainService.addTreeNode(cloneElementDto)
 
-    await this.elementService.elementRepository.add(elementCloneModel)
+    await elementRepository.add(elementCloneModel)
 
     const children = await Promise.all(
       element.children.map((child) =>
-        this.recursiveDuplicate(child, elementCloneModel, false),
+        recursiveDuplicate(child, elementCloneModel, false),
       ),
     )
 
@@ -306,43 +274,8 @@ export class CloneElementService
     return oldToNewIdMap
   }
 
-  @computed
-  private get actionService() {
-    return getActionService(this)
-  }
-
-  @computed
-  private get builderService() {
-    return getBuilderService(this)
-  }
-
-  @computed
-  private get componentService() {
-    return getComponentService(this)
-  }
-
-  @computed
-  private get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  private get fieldService() {
-    return getFieldService(this)
-  }
-
-  @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  private get rendererService() {
-    return getRendererService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
+  return {
+    cloneElement,
+    convertElementToComponent,
   }
 }

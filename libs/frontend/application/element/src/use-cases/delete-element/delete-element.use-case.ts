@@ -1,4 +1,3 @@
-import type { IBuilderService } from '@codelab/frontend/abstract/application'
 import {
   type IElementDomainService,
   type IElementModel,
@@ -8,13 +7,16 @@ import {
   updateElementsRepository,
 } from '@codelab/frontend-domain-element/repositories'
 
+export type AfterElementDelete = () => void
+
 /**
  * Need to take care of reconnecting parent/sibling nodes
  */
 export const deleteElementUseCase = async (
   subRootElement: IElementModel,
   elementDomainService: IElementDomainService,
-  builderService: IBuilderService,
+  // builderService: IBuilderService,
+  afterElementDeleteCallback: AfterElementDelete,
 ) => {
   // const parentComponent = subRootElement.parentComponent?.current
   // Check if the element is linked as a children container in parent component
@@ -33,7 +35,8 @@ export const deleteElementUseCase = async (
     ...subRootElement.descendantElements,
   ]
 
-  builderService.selectPreviousElementOnDelete()
+  afterElementDeleteCallback()
+  // builderService.selectPreviousElementOnDelete()
 
   subRootElement.detachFromTree()
 

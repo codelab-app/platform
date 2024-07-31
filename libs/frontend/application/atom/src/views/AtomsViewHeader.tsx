@@ -12,7 +12,7 @@ export const AtomsViewHeader = observer(() => {
   const updateFieldForm = useUpdateFieldForm()
   const updateAtomForm = useUpdateAtomModal()
   const atomToUpdate = updateAtomForm.data?.current.name || ''
-  const fieldToUpdate = updateFieldForm.data?.current.key || ''
+  const fieldToUpdate = updateFieldForm.data?.key || ''
 
   const atomOrField = updateAtomForm.isOpen
     ? 'atom'

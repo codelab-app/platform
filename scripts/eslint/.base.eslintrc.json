@@ -13,6 +13,18 @@
           "error",
           { "caseSensitive": false }
         ],
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "antd/lib/select",
+                "importNames": ["DefaultOptionType"],
+                "message": "Please use `SelectOption` from `@codelab/frontend/abstract/types` instead"
+              }
+            ]
+          }
+        ],
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",

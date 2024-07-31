@@ -24,10 +24,13 @@ import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import React, { type ElementType, useCallback } from 'react'
+import React, { type ReactNode, useCallback } from 'react'
 
 interface IPageDetailHeaderProps {
-  BuilderResizeMenu: ElementType
+  /**
+   * Decouples `builder` from `page`
+   */
+  BuilderResizeMenu: ReactNode
 }
 
 export const PageDetailHeader = observer<IPageDetailHeaderProps>(
@@ -117,7 +120,7 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
 
     return (
       <CuiHeader
-        centralArea={isPageBuilder ? <BuilderResizeMenu /> : null}
+        centralArea={isPageBuilder ? <>{BuilderResizeMenu}</> : null}
         direction={<CuiHeaderBreadcrumb items={directionItems} />}
         logo={
           <Image

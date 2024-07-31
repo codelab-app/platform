@@ -54,8 +54,8 @@ export const CreateElementForm = observer(
     const elementService = useElementService()
     const createElementForm = useCreateElementForm()
     const element = createElementForm.data
-    const parentElement = element?.parentElement?.maybeCurrent
-    // const elementOptions = metadata?.elementOptions
+    const parentElement = element?.parentElement
+    const elementOptions = element?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
 
     if (!parentElement) {

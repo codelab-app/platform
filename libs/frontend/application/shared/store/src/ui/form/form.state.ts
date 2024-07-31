@@ -7,7 +7,7 @@ import { defaultMapper, useToggleState } from '../family-toggle/toggle.state'
 
 export const useFormState = <TData = undefined, TOutput = TData>(
   modelActionKey: ModelActionKey,
-  mapper: (state: TData | undefined) => TOutput = defaultMapper,
+  mapper: (state: TData) => TOutput = defaultMapper,
 ): IToggleService<TData, TOutput> => {
   const key = {
     action: modelActionKey,

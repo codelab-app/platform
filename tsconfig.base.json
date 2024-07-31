@@ -400,9 +400,6 @@
       "@codelab/frontend-application-element/use-cases/remove-hook-from-element": [
         "libs/frontend/application/element/src/use-cases/remove-hook-from-element/index.ts"
       ],
-      "@codelab/frontend-application-element/use-cases/select-element": [
-        "libs/frontend/application/element/src/use-cases/select-element/index.ts"
-      ],
       "@codelab/frontend-application-element/use-cases/update-element": [
         "libs/frontend/application/element/src/use-cases/update-element/index.ts"
       ],

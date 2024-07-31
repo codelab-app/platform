@@ -32,6 +32,7 @@ const PageBuilder = async ({
       stores={dto.stores}
       types={dto.types}
     >
+      {/* Decouple renderer from builder */}
       <Builder
         RootRenderer={({ ref, renderer }) => (
           <RootRenderer ref={ref} renderer={renderer} />

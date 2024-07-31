@@ -8,7 +8,7 @@ import type { PageType } from '@codelab/frontend/abstract/types'
 import type { AtomFragment } from '@codelab/frontend/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { IAtomService } from '../atom'
-import type { IComponentApplicationService } from '../component'
+import type { IComponentService } from '../component'
 import type { ITagService } from '../tag'
 import type { ITypeService } from '../type'
 
@@ -31,7 +31,7 @@ export type SupportedPaginationModelPage =
 
 export type SupportedPaginationModelService =
   | IAtomService
-  | IComponentApplicationService
+  | IComponentService
   | ITagService
   | ITypeService
 

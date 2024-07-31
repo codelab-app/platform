@@ -7,7 +7,6 @@ import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
 import { DeleteRedirectModal } from '@codelab/frontend-application-redirect/use-cases/delete-redirect'
 import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreatePagePopover } from '../use-cases/create-page'
@@ -18,8 +17,7 @@ import { PageList } from '../use-cases/get-pages'
 import { UpdatePagePopover } from '../use-cases/update-page'
 
 export const PagesPrimarySidebar = observer(() => {
-  const { appDomainService } = useDomainStore()
-  const app = useCurrentApp(appDomainService)
+  const app = useCurrentApp()
   const { popover } = useCui()
   const createPageForm = useCreatePageForm()
   const deletePageModal = useDeletePageModal()

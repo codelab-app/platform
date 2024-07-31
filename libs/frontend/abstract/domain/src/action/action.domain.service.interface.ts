@@ -1,7 +1,7 @@
+import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { ActionFragment } from '@codelab/frontend/infra/gql'
 import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { DefaultOptionType } from 'antd/lib/select'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IStoreModel } from '../store'
 import type { IActionModel } from './action.model.interface'
@@ -20,7 +20,7 @@ export interface IActionDomainService {
     selectedNodeStore: IStoreModel,
     providerStore?: IStoreModel,
     actionEntity?: IRef,
-  ): Array<DefaultOptionType>
+  ): Array<SelectOption>
   hydrate<T extends IActionDto>(action: T): IActionModel
   load(actions: Array<ActionFragment>): Array<IActionModel>
 }

@@ -1,5 +1,5 @@
 import {
-  type IComponentApplicationService,
+  type IComponentService,
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
@@ -23,7 +23,7 @@ import type {
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
 
-export const useComponentService = (): IComponentApplicationService => {
+export const useComponentService = (): IComponentService => {
   const { componentDomainService } = useDomainStore()
   const elementService = useElementService()
   const { rendererService } = useApplicationStore()
