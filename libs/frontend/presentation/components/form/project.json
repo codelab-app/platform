@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/presentation/components/form/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-presentation-components-form",
     "layer:presentation",
     "projectType:library",
     "type:concrete",

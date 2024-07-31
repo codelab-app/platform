@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/digitalocean/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-digitalocean",
     "projectType:library",
     "type:concrete",
     "layer:infra",

@@ -1,6 +1,7 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useUserService } from '@codelab/frontend-application-user/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -12,13 +13,13 @@ import { useCreateResourceModal } from './create-resource.state'
 import { createResourceUseCase } from './create-resource.use-case'
 
 export const CreateResourceModal = observer(() => {
-  const { userService } = useStore()
+  const userService = useUserService()
   const { resourceDomainService } = useDomainStore()
   const createResourceModal = useCreateResourceModal()
   const closeModal = () => createResourceModal.close()
 
-  const onSubmit = (resourceDTO: ICreateResourceData) => {
-    void createResourceUseCase(resourceDTO, resourceDomainService)
+  const onSubmit = (resourceDto: ICreateResourceData) => {
+    void createResourceUseCase(resourceDto, resourceDomainService)
 
     closeModal()
 

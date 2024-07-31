@@ -18,6 +18,7 @@ import { v4 } from 'uuid'
 import { useTypeService } from '../../services'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
+import { useCreateTypeForm } from './create-type.state'
 import { DisplayIfKind } from './DisplayIfKind'
 
 interface CreateTypeFormProps {
@@ -33,7 +34,8 @@ export const CreateTypeForm = observer(
     submitRef,
   }: CreateTypeFormProps) => {
     const typeService = useTypeService()
-    const closeForm = () => typeService.createForm.close()
+    const createTypeForm = useCreateTypeForm()
+    const closeForm = () => createTypeForm.close()
 
     const onSubmit = async (data: ICreateTypeDto) => {
       const input = {

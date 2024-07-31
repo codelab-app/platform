@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/abstract/codegen/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-abstract-codegen",
     "projectType:library",
     "type:abstract",
     "scope:codegen",

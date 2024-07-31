@@ -1,7 +1,7 @@
 import type { IAtomService } from '@codelab/frontend/abstract/application'
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { updateAtomRepository } from '@codelab/frontend-domain-atom/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { assertIsDefined } from '@codelab/shared/utils'
 
 export const useUpdateAtomAction: IAtomService['update'] = async (

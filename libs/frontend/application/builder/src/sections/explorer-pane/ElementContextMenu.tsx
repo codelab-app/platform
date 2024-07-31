@@ -12,15 +12,16 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend/infra/mobx'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
-import { useElementService } from '@codelab/frontend-application-element/services'
+import { useComponentService } from '@codelab/frontend-application-component/services'
+import { useCloneElementService } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
@@ -45,8 +46,14 @@ export const ElementContextMenu = observer<
 >(({ children, treeNode }) => {
   const { runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
-  const elementService = useElementService()
   const builderService = useBuilderService()
+  const componentService = useComponentService()
+
+  const cloneElementService = useCloneElementService({
+    builderService,
+    componentService,
+  })
+
   const createElementForm = useCreateElementForm()
   const deleteElementModal = useDeleteElementModal()
   const { user } = useUser()
@@ -72,6 +79,7 @@ export const ElementContextMenu = observer<
       elementTree: elementTreeRef(element.closestContainerNode.id),
       selectedElement: elementRef(element.id),
     })
+
     setContextMenuNodeId(null)
   }
 
@@ -84,7 +92,7 @@ export const ElementContextMenu = observer<
       return
     }
 
-    return elementService.cloneElementService.cloneElement(
+    return cloneElementService.cloneElement(
       element,
       element.closestParentElement.current,
     )
@@ -97,9 +105,7 @@ export const ElementContextMenu = observer<
 
     const runtimeElement = runtimeElementService.runtimeElement(treeNode.key)
 
-    await elementService.cloneElementService.convertElementToComponent(
-      runtimeElement,
-    )
+    await cloneElementService.convertElementToComponent(runtimeElement)
   }
 
   const onEditComponent = () => {

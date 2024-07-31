@@ -1,4 +1,4 @@
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'

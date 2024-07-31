@@ -1,13 +1,15 @@
 'use client'
 
-import { RendererType } from '@codelab/frontend/abstract/application'
+import {
+  type IRootRenderer,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
-import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
-import { RootRenderer } from '@codelab/frontend-application-renderer/components'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
@@ -17,10 +19,15 @@ import { BuilderClickOverlay } from './BuilderClickOverlay'
 import { BuilderHoverOverlay } from './BuilderHoverOverlay'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
 
+interface IBuilderProps {
+  RootRenderer: IRootRenderer
+  pageSlug: string
+}
+
 /**
  * Generic builder used for both Component & Element
  */
-export const Builder = observer(({ pageSlug }: { pageSlug: string }) => {
+export const Builder = observer<IBuilderProps>(({ pageSlug, RootRenderer }) => {
   const { rendererService } = useApplicationStore()
   const builderService = useBuilderService()
   const deleteElementModal = useDeleteElementModal()
@@ -55,7 +62,7 @@ export const Builder = observer(({ pageSlug }: { pageSlug: string }) => {
     return () => {
       resizeObserver.disconnect()
     }
-  }, [])
+  }, [builderService])
 
   if (!elementTree || !renderer) {
     return null
@@ -68,7 +75,7 @@ export const Builder = observer(({ pageSlug }: { pageSlug: string }) => {
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
         >
-          <RootRenderer ref={ref} renderer={renderer} />
+          {RootRenderer({ ref, renderer })}
           <BuilderClickOverlay renderContainerRef={ref} />
           <BuilderHoverOverlay renderContainerRef={ref} />
         </StyledBuilderResizeContainer>

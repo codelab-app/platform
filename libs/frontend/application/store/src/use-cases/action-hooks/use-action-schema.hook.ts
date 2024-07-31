@@ -1,9 +1,11 @@
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateActionData,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import { useMemo } from 'react'
+import { useUpdateActionForm } from '../update-action'
 
 /**
  * @param schema
@@ -12,15 +14,15 @@ import { useMemo } from 'react'
 export const useActionSchema = (
   schema: JSONSchemaType<ICreateActionData | IUpdateActionData>,
 ) => {
-  const { rendererService } = useStore()
-  const updateActionForm = useUpdateActionForP
+  const { rendererService } = useApplicationStore()
+  const updateActionForm = useUpdateActionForm()
 
   return useMemo(() => {
     const renderer = rendererService.activeRenderer?.current
     const runtimeStore = renderer?.runtimeContainerNode?.runtimeStore
 
     const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
-      (fieldName) => fieldName !== actionService.updateForm.action?.name,
+      (fieldName) => fieldName !== updateActionForm.data?.name,
     )
 
     return {
@@ -33,5 +35,5 @@ export const useActionSchema = (
         },
       },
     }
-  }, [schema, actionService.createForm.store, actionService.updateForm.action])
+  }, [rendererService.activeRenderer, schema, updateActionForm.data?.name])
 }

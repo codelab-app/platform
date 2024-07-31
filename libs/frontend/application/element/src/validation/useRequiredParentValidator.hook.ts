@@ -1,8 +1,9 @@
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useElementService } from '../services'
 
 export const useRequiredParentValidator = () => {
-  const { elementService } = useStore()
+  const elementService = useElementService()
   const { atomDomainService } = useDomainStore()
 
   const validate = (childAtomId?: string, parentAtomId?: string) => {

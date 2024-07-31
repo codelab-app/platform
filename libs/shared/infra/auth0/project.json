@@ -4,6 +4,7 @@
   "sourceRoot": "libs/shared/infra/auth0/src",
   "projectType": "library",
   "tags": [
+    "projectName:shared-infra-auth0",
     "projectType:library",
     "type:concrete",
     "layer:infra",

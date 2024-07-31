@@ -1,7 +1,9 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
-import { StoreProvider } from '@codelab/frontend-application-shared-store/provider'
-import { createTestStore } from '@codelab/frontend-application-test'
+import {
+  createTestStore,
+  TestStoreProvider,
+} from '@codelab/frontend-infra-mobx/store'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render, screen } from '@testing-library/react'
 import React from 'react'
@@ -46,8 +48,8 @@ describe('Runtime Element', () => {
 
     // render itself adds `body > div`
     render(
-      React.createElement(
-        StoreProvider,
+      createElement(
+        TestStoreProvider,
         { value: testStore.coreStore },
         renderer.render,
       ),

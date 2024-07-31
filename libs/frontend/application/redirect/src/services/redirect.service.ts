@@ -4,8 +4,8 @@ import type {
   IRedirectModel,
   IUpdateRedirectData,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { RedirectWhere } from '@codelab/shared/abstract/codegen'
 import { assertIsDefined } from '@codelab/shared/utils'
 

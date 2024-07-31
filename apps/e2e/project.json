@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/e2e/src",
   "projectType": "application",
-  "tags": ["projectType:application", "type:concrete"],
+  "tags": ["projectName:e2e", "projectType:application", "type:concrete"],
   "implicitDependencies": ["web", "api"],
   "targets": {
     "e2e": {

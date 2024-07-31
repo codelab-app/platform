@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/application/atom/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-application-atom",
     "projectType:library",
     "type:concrete",
     "scope:backend",

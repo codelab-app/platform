@@ -1,4 +1,4 @@
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import { fieldService } from '../../services'
 
@@ -11,7 +11,7 @@ const useCreateFieldService = async (createFieldData: ICreateFieldData) => {
   }
 
   const field = fieldDomainService.hydrate(
-    fieldService.mapDataToDTO(createFieldData),
+    fieldService.mapDataToDto(createFieldData),
   )
 
   const interfaceType = typeService.type(field.api.id) as IInterfaceTypeModel

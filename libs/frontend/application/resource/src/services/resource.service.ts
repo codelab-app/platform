@@ -1,7 +1,7 @@
 import type { IResourceService } from '@codelab/frontend/abstract/application'
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateResourceData,
@@ -14,7 +14,6 @@ import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {
   const { resourceDomainService } = useDomainStore()
-  const resourceList = [...resourceDomainService.resources.values()]
 
   const create = async ({
     config: configData,
@@ -104,7 +103,6 @@ export const useResourceService = (): IResourceService => {
     getSelectResourceOptions,
     load,
     remove,
-    resourceList,
     update,
   }
 }

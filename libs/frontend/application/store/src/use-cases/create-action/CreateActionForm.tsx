@@ -21,8 +21,10 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
 import { createActionSchema } from './create-action.schema'
+import { useCreateActionForm } from './create-action.state'
 
 const CODE_ACTION = `function run() {
     // insert your code here
@@ -41,7 +43,8 @@ export const CreateActionForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateActionFormProps) => {
-    const { actionService, resourceService } = useStore()
+    const actionService = useActionService()
+    const createActionForm = useCreateActionForm()
     const actionSchema = useActionSchema(createActionSchema)
 
     const onSubmit = (actionDto: ICreateActionData) => {
@@ -52,7 +55,7 @@ export const CreateActionForm = observer(
       return promise
     }
 
-    const closeForm = () => actionService.createForm.close()
+    const closeForm = () => createActionForm.close()
 
     const model = {
       code: CODE_ACTION,
@@ -69,7 +72,7 @@ export const CreateActionForm = observer(
         id: v4(),
       },
       id: v4(),
-      storeId: actionService.createForm.store?.id,
+      storeId: createActionForm.data?.id,
     }
 
     return (

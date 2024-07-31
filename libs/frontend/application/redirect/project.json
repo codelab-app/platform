@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/frontend/application/redirect/src",
   "tags": [
+    "projectName:frontend-application-redirect",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

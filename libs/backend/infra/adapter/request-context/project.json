@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/request-context/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-request-context",
     "projectType:library",
     "type:concrete",
     "layer:infra",

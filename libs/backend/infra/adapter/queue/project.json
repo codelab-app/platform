@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/queue/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-queue",
     "projectType:library",
     "type:concrete",
     "layer:infra",

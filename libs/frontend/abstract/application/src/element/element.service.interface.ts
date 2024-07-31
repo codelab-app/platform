@@ -4,13 +4,9 @@ import type {
   IMoveElementContext,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IElementDto,
-  IElementTypeKind,
-} from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ICloneElementService } from './clone-element.service.interface'
 
 /**
  * Used for modal input
@@ -36,29 +32,13 @@ export type UpdateElementProperties = {
   element?: IElementModel
 }
 
-export interface SelectElementOption {
-  childrenIds?: Array<string>
-  label: string
-  value: string
-}
-
-export interface SelectElementOptions {
-  allElementOptions?: Array<SelectElementOption>
-  elementTree?: IElementTree
-  kind: IElementTypeKind
-  targetElementId?: string
-}
-
 export interface IElementService {
-  cloneElementService: ICloneElementService
   // Moved from element model to decouple renderer
 
   createElement(data: IElementDto): Promise<IElementModel>
   deleteElement(subRoot: IElementModel): Promise<void>
   getElement(id: string): IElementModel
-  getSelectElementOptions(
-    props: SelectElementOptions,
-  ): Array<SelectElementOption>
+
   // loadComponentTree(component: ComponentDevelopmentFragment): {
   //   hydratedElements: Array<IElementModel>
   //   rootElement: IElementModel

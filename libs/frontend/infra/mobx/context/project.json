@@ -1,0 +1,18 @@
+{
+  "name": "frontend-infra-mobx-context",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/mobx/context/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:frontend-infra-mobx-context",
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:frontend"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

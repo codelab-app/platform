@@ -44,6 +44,15 @@ export const authGuardRepository: IAuthGuardRepository = {
     return (await authGuardRepository.find(where)).items[0]
   },
 
+  selectOptions: async () => {
+    const { items: authGuards } = await authGuardRepository.find({})
+
+    return authGuards.map((authGuard) => ({
+      label: authGuard.name,
+      value: authGuard.id,
+    }))
+  },
+
   update: async (authGuard: IAuthGuardModel) => {
     const {
       updateAuthGuards: { authGuards },

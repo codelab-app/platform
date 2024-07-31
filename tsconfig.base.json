@@ -274,9 +274,6 @@
       "@codelab/frontend-application-atom/views": [
         "libs/frontend/application/atom/src/views/index.ts"
       ],
-      "@codelab/frontend-application-auth-guard/graphql": [
-        "libs/frontend/application/auth-guard/src/graphql/index.ts"
-      ],
       "@codelab/frontend-application-auth-guard/services": [
         "libs/frontend/application/auth-guard/src/services/index.ts"
       ],
@@ -316,11 +313,8 @@
       "@codelab/frontend-application-builder/use-cases/builder-preview": [
         "libs/frontend/application/builder/src/use-cases/builder-preview/index.ts"
       ],
-      "@codelab/frontend-application-builder/use-cases/page-builder": [
-        "libs/frontend/application/builder/src/use-cases/page-builder/index.ts"
-      ],
-      "@codelab/frontend-application-builder/use-cases/page-preview": [
-        "libs/frontend/application/builder/src/use-cases/page-preview/index.ts"
+      "@codelab/frontend-application-builder/use-cases/resize": [
+        "libs/frontend/application/builder/src/use-cases/resize/index.ts"
       ],
       "@codelab/frontend-application-builder/utils": [
         "libs/frontend/application/builder/src/utils/index.ts"
@@ -367,9 +361,6 @@
       "@codelab/frontend-application-dnd/components": [
         "libs/frontend/application/dnd/src/components/index.ts"
       ],
-      "@codelab/frontend-application-domain/graphql": [
-        "libs/frontend/application/domain/src/graphql/index.ts"
-      ],
       "@codelab/frontend-application-domain/services": [
         "libs/frontend/application/domain/src/services/index.ts"
       ],
@@ -381,9 +372,6 @@
       ],
       "@codelab/frontend-application-domain/use-cases/domain-list": [
         "libs/frontend/application/domain/src/use-cases/domain-list/index.ts"
-      ],
-      "@codelab/frontend-application-domain/use-cases/get-domain": [
-        "libs/frontend/application/domain/src/use-cases/get-domain/index.ts"
       ],
       "@codelab/frontend-application-domain/use-cases/update-domain": [
         "libs/frontend/application/domain/src/use-cases/update-domain/index.ts"
@@ -411,9 +399,6 @@
       ],
       "@codelab/frontend-application-element/use-cases/remove-hook-from-element": [
         "libs/frontend/application/element/src/use-cases/remove-hook-from-element/index.ts"
-      ],
-      "@codelab/frontend-application-element/use-cases/select-element": [
-        "libs/frontend/application/element/src/use-cases/select-element/index.ts"
       ],
       "@codelab/frontend-application-element/use-cases/update-element": [
         "libs/frontend/application/element/src/use-cases/update-element/index.ts"
@@ -499,6 +484,9 @@
       "@codelab/frontend-application-renderer/test": [
         "libs/frontend/application/renderer/src/test/index.ts"
       ],
+      "@codelab/frontend-application-renderer/use-cases/root-renderer": [
+        "libs/frontend/application/renderer/src/use-cases/root-renderer/index.ts"
+      ],
       "@codelab/frontend-application-resource/components": [
         "libs/frontend/application/resource/src/components/index.ts"
       ],
@@ -531,9 +519,6 @@
       ],
       "@codelab/frontend-application-shared-store/pagination": [
         "libs/frontend/application/shared/store/src/pagination/index.ts"
-      ],
-      "@codelab/frontend-application-shared-store/provider": [
-        "libs/frontend/application/shared/store/src/provider/index.ts"
       ],
       "@codelab/frontend-application-shared-store/repository": [
         "libs/frontend/application/shared/store/src/repository/index.ts"
@@ -585,9 +570,6 @@
       ],
       "@codelab/frontend-application-tag/views": [
         "libs/frontend/application/tag/src/views/index.ts"
-      ],
-      "@codelab/frontend-application-test": [
-        "libs/frontend/application/test/src/index.ts"
       ],
       "@codelab/frontend-application-type/services": [
         "libs/frontend/application/type/src/services/index.ts"
@@ -658,9 +640,6 @@
       "@codelab/frontend-domain-app/test": [
         "libs/frontend/domain/app/src/test/index.ts"
       ],
-      "@codelab/frontend-domain-atom/actions": [
-        "libs/frontend/domain/atom/src/actions/index.ts"
-      ],
       "@codelab/frontend-domain-atom/repositories": [
         "libs/frontend/domain/atom/src/repositories/index.ts"
       ],
@@ -685,9 +664,6 @@
       "@codelab/frontend-domain-auth-guard/test": [
         "libs/frontend/domain/auth-guard/src/test/index.ts"
       ],
-      "@codelab/frontend-domain-component/actions": [
-        "libs/frontend/domain/component/src/actions/index.ts"
-      ],
       "@codelab/frontend-domain-component/repositories": [
         "libs/frontend/domain/component/src/repositories/index.ts"
       ],
@@ -699,9 +675,6 @@
       ],
       "@codelab/frontend-domain-component/test": [
         "libs/frontend/domain/component/src/test/index.ts"
-      ],
-      "@codelab/frontend-domain-domain/actions": [
-        "libs/frontend/domain/domain/src/actions/index.ts"
       ],
       "@codelab/frontend-domain-domain/errors": [
         "libs/frontend/domain/domain/src/errors/index.ts"
@@ -829,6 +802,12 @@
       "@codelab/frontend-infra-fetch": [
         "libs/frontend/infra/fetch/src/index.ts"
       ],
+      "@codelab/frontend-infra-mobx/context": [
+        "libs/frontend/infra/mobx/context/src/index.ts"
+      ],
+      "@codelab/frontend-infra-mobx/store": [
+        "libs/frontend/infra/mobx/store/src/index.ts"
+      ],
       "@codelab/frontend-presentation-components-codemirror": [
         "libs/frontend/presentation/components/codemirror/src/index.ts"
       ],
@@ -911,7 +890,6 @@
       "@codelab/frontend/infra/graphql/client": [
         "libs/frontend/infra/graphql/src/client/index.ts"
       ],
-      "@codelab/frontend/infra/mobx": ["libs/frontend/infra/mobx/src/index.ts"],
       "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
@@ -981,7 +959,7 @@
       "@cui/ui-atoms/Button": ["libs/frontend/cui/ui/atoms/src/Button.tsx"],
       "@cui/ui-atoms/Form": ["libs/frontend/cui/ui/atoms/src/Form.tsx"],
       "@cui/ui-atoms/Input": ["libs/frontend/cui/ui/atoms/src/Input.tsx"],
-      "@cui/ui-atoms/Toast": ["libs/frontend/cui/ui/atoms/src/Toast.tsx"],
+      "@cui/ui-atoms/Toast": ["libs/frontend/cui/ui/atoms/src/Toast/index.ts"],
       "@cui/ui-molecules": ["libs/frontend/cui/ui/molecules/src/index.ts"],
       "@cui/ui-organisms": ["libs/frontend/cui/ui/organisms/src/index.ts"],
       "@cui/utils": ["libs/frontend/cui/utils/src/index.ts"]

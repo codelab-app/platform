@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/backend/application/redirect/src",
   "tags": [
+    "projectName:backend-application-redirect",
     "projectType:library",
     "type:concrete",
     "scope:backend",

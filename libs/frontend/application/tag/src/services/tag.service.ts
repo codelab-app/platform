@@ -1,10 +1,10 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import type { TagOptions, TagWhere } from '@codelab/frontend/infra/gql'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateTagData,
   IRef,

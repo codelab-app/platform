@@ -1,4 +1,5 @@
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type {
   ResourceOptions,
   ResourceWhere,
@@ -10,7 +11,6 @@ import type {
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { DefaultOptionType } from 'antd/lib/select'
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface CreateResourceData {
@@ -28,9 +28,7 @@ export interface IResourceService
       IUpdateResourceData
     >,
     IQueryService<IResourceModel, ResourceWhere, ResourceOptions> {
-  resourceList: Array<IResourceModel>
-
   getResource(id: string): Maybe<IResourceModel>
-  getSelectResourceOptions(): Promise<Array<DefaultOptionType>>
+  getSelectResourceOptions(): Promise<Array<SelectOption>>
   load(resources: Array<IResourceDto>): void
 }

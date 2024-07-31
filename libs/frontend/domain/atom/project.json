@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/domain/atom/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-domain-atom",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

@@ -9,7 +9,6 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -41,11 +40,11 @@ import {
   UpdateFieldPopover,
 } from '@codelab/frontend-application-type/use-cases/update-field'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
-import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useBuilderService } from '../../services'
@@ -122,7 +121,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
                 if (store.api.id) {
                   createFieldForm.open(
-                    typeRef(store.api.id) as Ref<IInterfaceTypeModel>,
+                    typeRef<IInterfaceTypeModel>(store.api.id).current,
                   )
                   popover.open(MODEL_ACTION.CreateField.key)
                 }
@@ -231,7 +230,11 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         <UpdateFieldModal />
         <DeleteFieldModal />
         <DeleteComponentModal />
-        <DeleteElementModal />
+        <DeleteElementModal
+          selectPreviousElementOnDelete={
+            builderService.selectPreviousElementOnDelete
+          }
+        />
         <DeleteActionModal />
       </>
     )

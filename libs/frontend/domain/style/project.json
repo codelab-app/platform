@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/domain/style/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-domain-style",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

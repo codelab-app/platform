@@ -1,3 +1,4 @@
+import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
 import { PageDetailHeader } from '@codelab/frontend-application-page/views'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
 }
 
 const ComponentPreviewView = async () => {
-  return <DashboardTemplate Header={<PageDetailHeader />}></DashboardTemplate>
+  return (
+    <DashboardTemplate
+      Header={<PageDetailHeader BuilderResizeMenu={<BuilderResizeMenu />} />}
+    ></DashboardTemplate>
+  )
 }
 
 export default ComponentPreviewView

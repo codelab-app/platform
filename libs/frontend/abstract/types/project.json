@@ -3,7 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/abstract/types/src",
   "projectType": "library",
-  "tags": ["projectType:library", "type:abstract", "scope:frontend"],
+  "tags": [
+    "projectName:frontend-abstract-types",
+    "projectType:library",
+    "type:abstract",
+    "scope:frontend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

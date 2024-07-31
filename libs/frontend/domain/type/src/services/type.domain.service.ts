@@ -4,7 +4,11 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
 import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
-import { ICreateTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
+import {
+  ICreateTypeDto,
+  ITypeDto,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { InterfaceType, TypeFactory } from '../store'
@@ -27,6 +31,11 @@ export class TypeDomainService
     return Array.from(this.types.values()).sort((typeA, typeB) =>
       typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
     )
+  }
+
+  @computed
+  getType(id: string) {
+    return this.types.get(id)
   }
 
   @modelAction
@@ -82,6 +91,17 @@ export class TypeDomainService
     }
 
     return loadedTypes
+  }
+
+  @modelAction
+  primitiveKind(id: string) {
+    const type = this.types.get(id)
+
+    if (type?.kind === ITypeKind.PrimitiveType) {
+      return type.primitiveKind
+    }
+
+    return null
   }
 
   @computed

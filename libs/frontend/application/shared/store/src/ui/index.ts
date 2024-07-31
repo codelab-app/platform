@@ -1,6 +1,4 @@
 export * from './family-toggle/toggle.state'
 export * from './family-toggle/toggle.state.interface'
 export * from './form/form.state'
-export * from './form/inline-form.service'
-export * from './modal/modal.service'
 export * from './modal/modal.state'

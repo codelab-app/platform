@@ -5,7 +5,7 @@ import type {
   IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -39,7 +39,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
       updateAtomForm.open(atomRef(node))
       updateFieldForm.close()
     } else {
-      updateFieldForm.open(fieldRef(node))
+      updateFieldForm.open(node)
       updateAtomForm.close()
     }
   }
@@ -48,7 +48,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     if (type === 'atom') {
       deleteAtomsModal.open([atomRef(node)])
     } else {
-      deleteFieldModal.open(fieldRef(node))
+      deleteFieldModal.open(node)
     }
   }
 
@@ -60,7 +60,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
       : undefined
 
     if (interfaceRef) {
-      createFieldForm.open(interfaceRef)
+      createFieldForm.open(interfaceRef.current)
       popover.open(MODEL_ACTION.CreateField.key)
     }
   }

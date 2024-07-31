@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/data/seed/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-data-seed",
     "type:data",
     "projectType:library",
     "type:concrete",

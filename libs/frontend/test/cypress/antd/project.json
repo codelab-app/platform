@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/test/cypress/antd/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-test-cypress-antd",
     "projectType:library",
     "type:concrete",
     "type:test",

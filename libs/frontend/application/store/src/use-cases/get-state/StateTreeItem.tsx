@@ -7,7 +7,6 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -17,7 +16,7 @@ import {
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
-import type { Ref } from 'mobx-keystone'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import React from 'react'
 
 interface StateTreeItemProps {
@@ -41,7 +40,9 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   }
 
   const onAddField = () => {
-    createFieldForm.open(data.extraData.node.type as Ref<IInterfaceTypeModel>)
+    createFieldForm.open(
+      data.extraData.node.type.current as IInterfaceTypeModel,
+    )
     popover.open(MODEL_ACTION.CreateField.key)
   }
 

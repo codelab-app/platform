@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/infra/fetch/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-infra-fetch",
     "projectType:library",
     "type:concrete",
     "layer:infra",
