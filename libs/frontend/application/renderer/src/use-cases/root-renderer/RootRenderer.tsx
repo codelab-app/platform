@@ -1,15 +1,17 @@
+'use client'
+
 import {
   type IRendererModel,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
+import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { MakeChildrenDroppable } from '@codelab/frontend-application-dnd/components'
 import { WrapIf } from '@codelab/frontend-presentation-view/components/wrapIf'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo } from 'react'
-import { useBuilderService } from '../../../builder/src/services/builder.service'
+import React, { forwardRef, useMemo } from 'react'
 
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.
@@ -35,7 +37,7 @@ import { useBuilderService } from '../../../builder/src/services/builder.service
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
 
-const RootRendererComponent = React.forwardRef<
+const RootRendererComponent = forwardRef<
   HTMLDivElement,
   WithStyleProp<{ renderer: IRendererModel }>
 >(({ renderer }, ref) => {

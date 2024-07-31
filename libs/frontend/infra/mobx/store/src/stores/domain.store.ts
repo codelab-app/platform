@@ -118,5 +118,5 @@ export const createDomainStore = (user: IUserDto) => {
     }
   }
 
-  return new DomainStore({}) as IDomainStore
+  return new DomainStore({})
 }

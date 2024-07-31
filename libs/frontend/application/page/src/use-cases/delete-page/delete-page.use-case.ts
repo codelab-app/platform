@@ -1,10 +1,10 @@
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
 import { deleteElementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   deletePageRepository,
   pageListRepository,
 } from '@codelab/frontend-domain-page/repositories'
+import { useDomainStore, useStore } from '@codelab/frontend-infra-mobx/context'
 
 export const useDeletePageUseCase = async (pageModel: IPageModel) => {
   const { elementDomainService, pageDomainService } = useDomainStore()

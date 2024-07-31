@@ -12,7 +12,7 @@ import type {
   ICreateTypeDto,
   IPrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 
 export interface ITypeService
@@ -22,6 +22,5 @@ export interface ITypeService
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
-  getType(id: string): Maybe<ITypeModel>
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
 }

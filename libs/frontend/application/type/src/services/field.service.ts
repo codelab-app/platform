@@ -3,8 +3,8 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateFieldData,
   IFieldDto,

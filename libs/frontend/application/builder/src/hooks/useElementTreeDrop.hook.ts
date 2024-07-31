@@ -3,10 +3,10 @@ import type {
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/application'
 import type { IElementTree } from '@codelab/frontend/abstract/domain'
-import { useApplicationStore } from '@codelab/frontend/infra/mobx'
 import { notify } from '@codelab/frontend/shared/utils'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
 import {

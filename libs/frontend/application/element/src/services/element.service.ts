@@ -8,16 +8,16 @@ import {
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend/infra/mobx'
 import { schemaTransformer } from '@codelab/frontend/presentation/components/interface-form'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'

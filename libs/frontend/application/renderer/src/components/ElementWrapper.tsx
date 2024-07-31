@@ -1,8 +1,10 @@
+'use client'
+
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -50,6 +52,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const selectionHandlers = useSelectionHandlers(
       runtimeElement,
       renderer.rendererType,
+      // (runtimeElement) => .
     )
 
     const propsOverrides = makeOverrideAtomProps(

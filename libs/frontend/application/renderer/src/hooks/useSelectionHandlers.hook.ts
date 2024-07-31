@@ -1,5 +1,6 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
+import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { type MouseEvent, useCallback } from 'react'
 
 /**
@@ -10,9 +11,9 @@ let lastEditedElement: IRuntimeElementModel | undefined
 export const useSelectionHandlers = (
   runtimeElement: IRuntimeElementModel,
   rendererType: RendererType,
-  handleClickCb: (runtimeElement: IRuntimeElementModel) => void,
-  handleHoverCb: (runtimeElement: IRuntimeElementModel | null) => void,
 ) => {
+  const builderService = useBuilderService()
+
   const handleClick = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation()
@@ -24,10 +25,9 @@ export const useSelectionHandlers = (
         lastEditedElement.element.current.setIsTextContentEditable(false)
       }
 
-      handleClickCb(runtimeElement)
-      // builderService.selectElementNode(runtimeElement)
+      builderService.selectElementNode(runtimeElement)
     },
-    [handleClickCb, runtimeElement],
+    [builderService, runtimeElement],
   )
 
   const handleDoubleClick = useCallback(
@@ -44,10 +44,7 @@ export const useSelectionHandlers = (
     (event: MouseEvent) => {
       event.stopPropagation()
 
-      handleHoverCb(runtimeElement)
-
-      /**
-       * // To prevent continuous re-rendering when the mouse moves over the same element
+      // To prevent continuous re-rendering when the mouse moves over the same element
       if (
         builderService.hoveredNode?.current.compositeKey ===
         runtimeElement.compositeKey
@@ -56,20 +53,17 @@ export const useSelectionHandlers = (
       }
 
       builderService.hoverElementNode(runtimeElement)
-       */
     },
-    [handleHoverCb, runtimeElement],
+    [builderService, runtimeElement],
   )
 
   const handleMouseLeave = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation()
 
-      handleHoverCb(null)
-
-      //  builderService.hoverElementNode(null)
+      builderService.hoverElementNode(null)
     },
-    [handleHoverCb],
+    [builderService],
   )
 
   if (

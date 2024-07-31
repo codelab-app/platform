@@ -1,9 +1,9 @@
 import {
   ApplicationStoreContext,
   type ApplicationStoreProviderProps,
-} from '@codelab/frontend/infra/mobx'
+} from '@codelab/frontend-infra-mobx/context'
 import React, { type PropsWithChildren, useMemo } from 'react'
-import { createApplicationStore } from './application.store'
+import { createApplicationStore } from '../stores/application.store'
 
 export const ApplicationStoreProvider: React.FC<
   PropsWithChildren<ApplicationStoreProviderProps>

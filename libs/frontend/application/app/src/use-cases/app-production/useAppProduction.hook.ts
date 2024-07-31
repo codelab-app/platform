@@ -6,7 +6,7 @@ import type {
   IAppProductionDto,
   IDomainStore,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore, useStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore, useStore } from '@codelab/frontend-infra-mobx/context'
 import { v4 } from 'uuid'
 
 /**

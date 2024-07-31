@@ -7,9 +7,8 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/interface'
-import { observer } from 'mobx-react-lite'
 import React, { useCallback } from 'react'
-import { useBuilderService } from '../../../builder/src/services/builder.service'
+import { useBuilderService } from '../../services/builder.service'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean
@@ -33,7 +32,7 @@ const menuItemCommonStyle = {
   justifyContent: 'center',
 }
 
-export const BuilderSizeMenu = () => {
+export const BuilderResizeMenu = () => {
   const builderService = useBuilderService()
   const selectedWidthBreakpoint = builderService.selectedBuilderBreakpoint
 

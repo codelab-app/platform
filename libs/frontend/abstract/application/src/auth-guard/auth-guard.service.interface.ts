@@ -9,7 +9,6 @@ import type {
   AuthGuardWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { DefaultOptionType } from 'antd/lib/select'
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface IAuthGuardService
@@ -22,5 +21,4 @@ export interface IAuthGuardService
   authGuardList: Array<IAuthGuardModel>
 
   authGuard(authGuard: IAuthGuardRef): Maybe<IAuthGuardModel>
-  getSelectAuthGuardOptions(): Promise<Array<DefaultOptionType>>
 }

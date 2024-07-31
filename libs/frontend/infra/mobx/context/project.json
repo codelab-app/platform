@@ -1,7 +1,7 @@
 {
-  "name": "frontend-infra-mobx",
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/infra/mobx/src",
+  "name": "frontend-infra-mobx-context",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/mobx/context/src",
   "projectType": "library",
   "tags": [
     "projectType:library",

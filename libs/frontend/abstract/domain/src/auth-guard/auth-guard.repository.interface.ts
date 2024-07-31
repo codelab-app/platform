@@ -3,6 +3,7 @@ import type {
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/frontend/infra/gql'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { IRepository } from '../shared'
 import type { IAuthGuardModel } from './auth-guard.model.interface'
 
@@ -11,4 +12,6 @@ export type IAuthGuardRepository = IRepository<
   AuthGuardFragment,
   AuthGuardWhere,
   AuthGuardOptions
->
+> & {
+  selectOptions(): Promise<Array<DefaultOptionType>>
+}

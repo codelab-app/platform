@@ -1,6 +1,6 @@
 import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
 import { ElementStylePseudoClass } from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend/infra/mobx'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Collapse, ConfigProvider, Select, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

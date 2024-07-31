@@ -9,15 +9,15 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/frontend/infra/gql'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend/infra/mobx'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateComponentData,
   IUpdateComponentData,

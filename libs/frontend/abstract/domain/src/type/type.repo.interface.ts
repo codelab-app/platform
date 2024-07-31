@@ -14,6 +14,7 @@ export type ITypeRepository = IRepository<
   IBaseTypeWhere,
   IBaseTypeOptions
 > & {
+  getAll(ids?: Array<string>): Promise<Array<TypeFragment>>
   findDescendants(parentIds: Array<string>): Promise<Array<TypeFragment>>
   findBaseTypes(options: GetBaseTypesOptions): Promise<{
     items: Array<BaseTypeFragment>

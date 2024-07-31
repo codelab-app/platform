@@ -4,10 +4,10 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { type CheckedKeys, PageType } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

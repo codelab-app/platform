@@ -1,10 +1,10 @@
 import { type ICreateAtomData } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import {
   atomListRepository,
   createAtomRepository,
 } from '@codelab/frontend-domain-atom/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
   ITypeKind,

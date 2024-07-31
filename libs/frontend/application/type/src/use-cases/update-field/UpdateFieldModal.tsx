@@ -29,7 +29,7 @@ export const UpdateFieldModal = observer(() => {
   const fieldService = useFieldService()
   const typeService = useTypeService()
   const closeModal = () => updateFieldModal.close()
-  const field = updateFieldModal.data?.current
+  const field = updateFieldModal.data
 
   const onSubmit = (input: IUpdateFieldData) => {
     if (!field) {

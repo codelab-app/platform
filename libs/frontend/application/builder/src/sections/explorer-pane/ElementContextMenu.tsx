@@ -12,15 +12,15 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend/infra/mobx'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'

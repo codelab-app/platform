@@ -1,4 +1,4 @@
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 import { useEffect } from 'react'
 

@@ -2,10 +2,10 @@
 
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { useDeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { exportComponentUseCase } from '@codelab/frontend-application-component/use-cases/export-component'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'

@@ -4,8 +4,8 @@ import type {
   ICreateAuthGuardData,
   IUpdateAuthGuardData,
 } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { AuthGuardWhere } from '@codelab/shared/abstract/codegen'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
@@ -56,15 +56,6 @@ export const useAuthGuardService = (): IAuthGuardService => {
     return authGuard
   }
 
-  const getSelectAuthGuardOptions = async () => {
-    const authGuards = await getAll()
-
-    return authGuards.map((authGuard) => ({
-      label: authGuard.name,
-      value: authGuard.id,
-    }))
-  }
-
   const update = async ({
     config: configData,
     id,
@@ -97,7 +88,6 @@ export const useAuthGuardService = (): IAuthGuardService => {
     create,
     getAll,
     getOne,
-    getSelectAuthGuardOptions,
     remove,
     update,
   }

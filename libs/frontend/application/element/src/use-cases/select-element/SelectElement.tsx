@@ -34,6 +34,7 @@ export const SelectElement = ({
   return (
     <SelectField
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...(props as SelectFieldProps)}
       disabled={disableWhenOneOpt && !selectOptions.length}
       name={name}

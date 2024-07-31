@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
 import type { AtomOptions, AtomWhere } from '@codelab/frontend/infra/gql'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -14,6 +13,7 @@ import {
   filterAtoms,
   mapAtomOptions,
 } from '@codelab/frontend-domain-atom/store'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
   type IRef,

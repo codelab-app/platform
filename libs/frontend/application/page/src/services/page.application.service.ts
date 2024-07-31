@@ -1,10 +1,10 @@
 import { type IPageApplicationService } from '@codelab/frontend/abstract/application'
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import {
   pageApi,
   pageRepository,
 } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'

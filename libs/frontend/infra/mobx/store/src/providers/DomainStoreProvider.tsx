@@ -1,10 +1,10 @@
 import {
   DomainStoreContext,
   type DomainStoreProviderProps,
-} from '@codelab/frontend/infra/mobx'
+} from '@codelab/frontend-infra-mobx/context'
 import { type PropsWithChildren, useMemo } from 'react'
 import React from 'react'
-import { createDomainStore } from './domain.store'
+import { createDomainStore } from '../stores/domain.store'
 
 export const DomainStoreProvider: React.FC<
   PropsWithChildren<DomainStoreProviderProps>

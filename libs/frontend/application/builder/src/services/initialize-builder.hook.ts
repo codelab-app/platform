@@ -2,11 +2,11 @@ import {
   rendererRef,
   type RendererType,
 } from '@codelab/frontend/abstract/application'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend/infra/mobx'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
+} from '@codelab/frontend-infra-mobx/context'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { useBuilderService } from './builder.service'
 

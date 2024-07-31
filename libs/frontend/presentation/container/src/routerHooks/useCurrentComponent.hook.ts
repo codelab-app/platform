@@ -1,5 +1,5 @@
-import { useDomainStore } from '@codelab/frontend/infra/mobx'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { getNameFromSlug } from '@codelab/shared/utils'
 
 export const useCurrentComponent = () => {

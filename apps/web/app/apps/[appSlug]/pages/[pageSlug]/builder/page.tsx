@@ -1,5 +1,6 @@
 import { appDevelopmentQuery } from '@codelab/frontend-application-app/use-cases/app-development'
 import { Builder } from '@codelab/frontend-application-builder/use-cases/base-builder'
+import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import React from 'react'
 import { StoreHydrator } from '../../../../../../components'
@@ -31,7 +32,12 @@ const PageBuilder = async ({
       stores={dto.stores}
       types={dto.types}
     >
-      <Builder pageSlug={pageSlug} />
+      <Builder
+        RootRenderer={({ ref, renderer }) => (
+          <RootRenderer ref={ref} renderer={renderer} />
+        )}
+        pageSlug={pageSlug}
+      />
     </StoreHydrator>
   )
 }
