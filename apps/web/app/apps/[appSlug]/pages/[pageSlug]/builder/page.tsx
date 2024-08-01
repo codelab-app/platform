@@ -1,11 +1,11 @@
-import { appDevelopmentQuery } from '@codelab/frontend-application-app/use-cases/app-development'
-import { Builder } from '@codelab/frontend-application-builder/use-cases/base-builder'
+import { StoreHydrator } from '@codelab/frontend/infra/context'
+import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
+import { PageBuilder } from '@codelab/frontend-application-builder/use-cases/page-builder'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import React from 'react'
-import { StoreHydrator } from '../../../../../../components'
 
-const PageBuilder = async ({
+const PageBuilderPage = async ({
   params: { appSlug, pageSlug },
 }: {
   params: {
@@ -14,7 +14,7 @@ const PageBuilder = async ({
   }
 }) => {
   const user = await getServerUser()
-  const dto = await appDevelopmentQuery({ appSlug, pageSlug, userId: user.id })
+  const dto = await appBuilderQuery({ appSlug, pageSlug, userId: user.id })
 
   return (
     <StoreHydrator
@@ -33,14 +33,9 @@ const PageBuilder = async ({
       types={dto.types}
     >
       {/* Decouple renderer from builder */}
-      <Builder
-        RootRenderer={({ ref, renderer }) => (
-          <RootRenderer ref={ref} renderer={renderer} />
-        )}
-        pageSlug={pageSlug}
-      />
+      <PageBuilder RootRenderer={RootRenderer} pageSlug={pageSlug} />
     </StoreHydrator>
   )
 }
 
-export default PageBuilder
+export default PageBuilderPage

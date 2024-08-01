@@ -199,8 +199,8 @@
       "@codelab/frontend-application-admin/views": [
         "libs/frontend/application/admin/src/views/index.ts"
       ],
-      "@codelab/frontend-application-app/use-cases/app-development": [
-        "libs/frontend/application/app/src/use-cases/app-development/index.ts"
+      "@codelab/frontend-application-app/use-cases/app-builder": [
+        "libs/frontend/application/app/src/use-cases/app-builder/index.ts"
       ],
       "@codelab/frontend-application-app/use-cases/app-list": [
         "libs/frontend/application/app/src/use-cases/app-list/index.ts"
@@ -310,8 +310,17 @@
       "@codelab/frontend-application-builder/use-cases/base-builder": [
         "libs/frontend/application/builder/src/use-cases/base-builder/index.ts"
       ],
-      "@codelab/frontend-application-builder/use-cases/builder-preview": [
-        "libs/frontend/application/builder/src/use-cases/builder-preview/index.ts"
+      "@codelab/frontend-application-builder/use-cases/component-builder": [
+        "libs/frontend/application/builder/src/use-cases/component-builder/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/component-builder-preview": [
+        "libs/frontend/application/builder/src/use-cases/component-builder-preview/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/page-builder": [
+        "libs/frontend/application/builder/src/use-cases/page-builder/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/page-builder-preview": [
+        "libs/frontend/application/builder/src/use-cases/page-builder-preview/index.ts"
       ],
       "@codelab/frontend-application-builder/use-cases/resize": [
         "libs/frontend/application/builder/src/use-cases/resize/index.ts"
@@ -325,8 +334,8 @@
       "@codelab/frontend-application-component/services": [
         "libs/frontend/application/component/src/services/index.ts"
       ],
-      "@codelab/frontend-application-component/use-cases/component-development": [
-        "libs/frontend/application/component/src/use-cases/component-development/index.ts"
+      "@codelab/frontend-application-component/use-cases/component-builder": [
+        "libs/frontend/application/component/src/use-cases/component-builder/index.ts"
       ],
       "@codelab/frontend-application-component/use-cases/component-list": [
         "libs/frontend/application/component/src/use-cases/component-list/index.ts"
@@ -882,6 +891,9 @@
       ],
       "@codelab/frontend/infra/action": [
         "libs/frontend/infra/action/src/index.ts"
+      ],
+      "@codelab/frontend/infra/context": [
+        "libs/frontend/infra/context/src/index.ts"
       ],
       "@codelab/frontend/infra/gql": ["libs/frontend/infra/gql/src/index.ts"],
       "@codelab/frontend/infra/graphql": [

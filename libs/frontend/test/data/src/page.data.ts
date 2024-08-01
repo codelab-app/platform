@@ -10,5 +10,5 @@ export const pageDto: IPageDto = {
     id: v4(),
   },
   store: { id: v4() },
-  url: '',
+  urlPattern: '',
 }

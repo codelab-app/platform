@@ -1,4 +1,3 @@
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { getSelectPageOptions } from '@codelab/frontend-domain-page/repositories'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
@@ -9,19 +8,12 @@ import { SelectField } from 'uniforms-antd'
 export type SelectPageProps = UniformSelectFieldProps
 
 export const SelectPage = ({ error, label, name }: SelectPageProps) => {
-  const domainStore = useDomainStore()
-  const app = useCurrentApp(domainStore)
+  const app = useCurrentApp()
 
   const [
     { error: queryError, result: selectPageOptions = [], status },
     _getSelectPageOptions,
   ] = useAsync(() => getSelectPageOptions(app.id))
-
-  if (!app.id) {
-    console.warn('SelectPage: appId is not defined')
-
-    return null
-  }
 
   return (
     <SelectField

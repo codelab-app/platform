@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-// import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   Nullable,
@@ -15,7 +14,7 @@ export type SelectActionProps = Pick<
   'error' | 'label' | 'name' | 'required' | 'value'
 > & {
   updatedAction?: IRef
-  selectedNode: Nullable<IRuntimeModel>
+  selectedNode?: Nullable<IRuntimeModel>
 
   onChange(value: unknown): void
 }

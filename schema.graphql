@@ -6873,6 +6873,7 @@ type Component implements WithOwner {
     sort: [ComponentRootElementConnectionSort!]
     where: ComponentRootElementConnectionWhere
   ): ComponentRootElementConnection!
+  slug: String!
   store(
     directed: Boolean = true
     options: StoreOptions
@@ -7096,6 +7097,7 @@ type ComponentEventPayload {
   compositeKey: String!
   id: ID!
   name: String!
+  slug: String!
 }
 
 type ComponentInterfaceTypeApiAggregationSelection {
@@ -7710,6 +7712,11 @@ input ComponentSubscriptionWhere {
   name_ENDS_WITH: String
   name_IN: [String]
   name_STARTS_WITH: String
+  slug: String
+  slug_CONTAINS: String
+  slug_ENDS_WITH: String
+  slug_IN: [String]
+  slug_STARTS_WITH: String
 }
 
 input ComponentUniqueWhere {

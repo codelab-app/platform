@@ -1,7 +1,7 @@
 import type {
-  AtomDevelopmentFragment,
+  AtomBuilderFragment,
   AuthGuardFragment,
-  ComponentDevelopmentFragment,
+  ComponentBuilderFragment,
   ElementFragment,
   FieldFragment,
   PropFragment,
@@ -19,9 +19,9 @@ export interface IHydrateable<Dto, Model> {
 export interface IHydrateableData {
   actions?: StoreFragment['actions']
   apps?: Array<IAppDto>
-  atoms?: Array<AtomDevelopmentFragment>
+  atoms?: Array<AtomBuilderFragment>
   authGuards?: Array<AuthGuardFragment>
-  components?: Array<ComponentDevelopmentFragment>
+  components?: Array<ComponentBuilderFragment>
   elements?: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields?: Array<FieldFragment>
   // pages?: Array<PageDevelopmentFragment>

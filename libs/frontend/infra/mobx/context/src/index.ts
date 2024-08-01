@@ -1,2 +1,2 @@
-export * from './ApplicationStoreProvider'
-export * from './DomainStoreProvider'
+export * from './application-store.context'
+export * from './domain-store.context'

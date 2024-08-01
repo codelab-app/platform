@@ -56,6 +56,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const createActionForm = useCreateActionForm()
     const builderService = useBuilderService()
     const createFieldForm = useCreateFieldForm()
+    const selectedNode = builderService.selectedNode?.current
     const createElementForm = useCreateElementForm()
     const { popover } = useCui()
     const page = useCurrentPage()
@@ -218,7 +219,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
             <>
               <UpdateFieldPopover />
               <CreateFieldPopover />
-              <CreateElementPopover />
+              <CreateElementPopover selectedNode={selectedNode} />
               <CreateActionPopover />
               <UpdateActionPopover />
             </>
