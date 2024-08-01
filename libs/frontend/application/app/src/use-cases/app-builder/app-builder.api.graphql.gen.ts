@@ -4,7 +4,7 @@ import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
   ActionTypeFragmentDoc,
-  AppDevelopmentFragmentDoc,
+  AppBuilderFragmentDoc,
   CodeMirrorTypeFragmentDoc,
   PrimitiveTypeFragmentDoc,
   ReactNodeTypeFragmentDoc,
@@ -14,17 +14,17 @@ import {
   AtomProductionFragmentDoc,
   ResourceFragmentDoc,
   AuthGuardFragmentDoc,
-  ComponentDevelopmentFragmentDoc,
+  ComponentBuilderFragmentDoc,
   RedirectFragmentDoc,
 } from '@codelab/frontend/infra/gql'
 
-export const GetAppDevelopmentDocument = graphql(`
-  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+export const GetAppBuilderDocument = graphql(`
+  query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {
     actionTypes {
       ...ActionType
     }
     apps(where: { compositeKey: $appCompositeKey }) {
-      ...AppDevelopment
+      ...AppBuilder
     }
     atoms(where: { type: ReactFragment }) {
       ...AtomDevelopment
@@ -36,7 +36,7 @@ export const GetAppDevelopmentDocument = graphql(`
       ...CodeMirrorType
     }
     components {
-      ...ComponentDevelopment
+      ...ComponentBuilder
     }
     primitiveTypes {
       ...PrimitiveType
@@ -58,11 +58,11 @@ export const GetAppDevelopmentDocument = graphql(`
     }
   }
 `)
-import { type GetAppDevelopmentQueryVariables } from '@codelab/frontend/infra/gql'
+import { type GetAppBuilderQueryVariables } from '@codelab/frontend/infra/gql'
 
-const GetAppDevelopment = (
-  variables: GetAppDevelopmentQueryVariables,
+const GetAppBuilder = (
+  variables: GetAppBuilderQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetAppDevelopmentDocument, variables, next)
+) => gqlFetch(GetAppBuilderDocument, variables, next)
 
-export const getSdk = () => ({ GetAppDevelopment })
+export const getSdk = () => ({ GetAppBuilder })

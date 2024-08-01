@@ -1,14 +1,14 @@
-import type { IAppDevelopmentQuery } from '@codelab/frontend/abstract/domain'
+import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
 import type { AtomDevelopmentFragment } from '@codelab/frontend/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
 import { getNameFromSlug, slugify } from '@codelab/shared/utils'
 import uniqBy from 'lodash/uniqBy'
-import { getSdk } from './app-development.api.graphql.gen'
+import { getSdk } from './app-builder.api.graphql.gen'
 
-const appDevelopmentApi = getSdk()
+const appBuilderApi = getSdk()
 
-export const appDevelopmentQuery: IAppDevelopmentQuery = async ({
+export const appBuilderQuery: IAppBuilderQuery = async ({
   appSlug,
   pageSlug,
   userId,
@@ -27,7 +27,7 @@ export const appDevelopmentQuery: IAppDevelopmentQuery = async ({
     },
   )
 
-  const data = await appDevelopmentApi.GetAppDevelopment({
+  const data = await appBuilderApi.GetAppDevelopment({
     appCompositeKey,
     pageName,
   })

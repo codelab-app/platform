@@ -11,11 +11,11 @@ import type {
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { IComponentModel } from './component.model.interface'
 
-export interface IComponentDevelopmentArgs {
+export interface IComponentBuilderArgs {
   componentName: string
 }
 
-export interface IComponentDevelopmentDto {
+export interface IComponentBuilderDto {
   actions: StoreFragment['actions']
   atoms: Array<AtomDevelopmentFragment>
   component: IRef
@@ -28,11 +28,10 @@ export interface IComponentDevelopmentDto {
   types: Array<TypeFragment>
 }
 
-export interface IComponentDevelopmentService {
-  getComponentDevelopmentData(
-    data: IComponentDevelopmentArgs,
-  ): Promise<IComponentDevelopmentDto>
-  hydrateComponentDevelopmentData(
-    data: IComponentDevelopmentDto,
-  ): IComponentModel
+export interface IComponentBuilderService {
+  hydrateComponentDevelopmentData(data: IComponentBuilderDto): IComponentModel
 }
+
+export type IComponentBuilderQuery = (
+  args: IComponentBuilderArgs,
+) => Promise<IComponentBuilderDto>

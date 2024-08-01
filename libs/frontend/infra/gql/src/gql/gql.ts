@@ -24,8 +24,8 @@ const documents = {
     types.AppPreviewFragmentDoc,
   '\n  fragment App on App {\n    domains {\n      ...Domain\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages {\n      ...Page\n    }\n    slug\n  }\n':
     types.AppFragmentDoc,
-  '\n  fragment AppDevelopment on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n':
-    types.AppDevelopmentFragmentDoc,
+  '\n  fragment AppBuilder on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n':
+    types.AppBuilderFragmentDoc,
   '\n  fragment AppProduction on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }\n    ) {\n      ...PageProduction\n    }\n    slug\n  }\n':
     types.AppProductionFragmentDoc,
   '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n  }\n':
@@ -38,8 +38,8 @@ const documents = {
     types.AuthGuardFragmentDoc,
   '\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n':
     types.ComponentFragmentDoc,
-  '\n  fragment ComponentDevelopment on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
-    types.ComponentDevelopmentFragmentDoc,
+  '\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
+    types.ComponentBuilderFragmentDoc,
   '\n  fragment ComponentProduction on Component {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
     types.ComponentProductionFragmentDoc,
   '\n  fragment Domain on Domain {\n    app {\n      id\n    }\n    domainConfig {\n      misconfigured\n    }\n    id\n    name\n  }\n':
@@ -112,8 +112,8 @@ const documents = {
   '\n  fragment Owner on User {\n    id\n  }\n': types.OwnerFragmentDoc,
   '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n':
     types.UserFragmentDoc,
-  '\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
-    types.GetAppDevelopmentDocument,
+  '\n  query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
+    types.GetAppBuilderDocument,
   '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
     types.CreateAppsDocument,
   '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
@@ -144,8 +144,8 @@ const documents = {
     types.UpdateAuthGuardDocument,
   '\n  mutation DeleteAuthGuards(\n    $where: AuthGuardWhere\n    $delete: AuthGuardDeleteInput\n  ) {\n    deleteAuthGuards(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteAuthGuardsDocument,
-  '\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
-    types.GetComponentDevelopmentDocument,
+  '\n  query GetComponentBuilder {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
+    types.GetComponentBuilderDocument,
   '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        id\n      }\n    }\n  }\n':
     types.CreateComponentsDocument,
   '\n  mutation DeleteComponents(\n    $where: ComponentWhere\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
@@ -430,8 +430,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment AppDevelopment on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n',
-): (typeof documents)['\n  fragment AppDevelopment on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n']
+  source: '\n  fragment AppBuilder on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n',
+): (typeof documents)['\n  fragment AppBuilder on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: {\n        OR: [\n          { compositeKey_ENDS_WITH: $pageName }\n          { kind: Provider }\n          { kind: NotFound }\n          { kind: InternalServerError }\n          { kind: Regular }\n        ]\n      }\n    ) {\n      ...PageDevelopment\n    }\n    slug\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -472,8 +472,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment ComponentDevelopment on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
-): (typeof documents)['\n  fragment ComponentDevelopment on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
+  source: '\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -700,8 +700,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
-): (typeof documents)['\n  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppDevelopment\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
+  source: '\n  query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
+): (typeof documents)['\n  query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { compositeKey: $appCompositeKey }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -796,8 +796,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
-): (typeof documents)['\n  query GetComponentDevelopment {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentDevelopment\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
+  source: '\n  query GetComponentBuilder {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
+): (typeof documents)['\n  query GetComponentBuilder {\n    actionTypes {\n      ...ActionType\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomDevelopment\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

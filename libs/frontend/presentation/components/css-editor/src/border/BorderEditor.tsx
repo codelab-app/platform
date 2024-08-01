@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
 import type { CssProperty } from '../css'
-import { type IStyleProps, useStyle } from '../style.hook'
+import { useStyle } from '../style.hook'
 import { Side } from '../utils'
 import { BorderRadiusEditor } from './BorderRadiusEditor'
 import { BorderSidePicker } from './BorderSidePicker'
@@ -43,11 +43,8 @@ const getSidePropertyName = (side: Side, property: string) => {
   return key as CssProperty
 }
 
-export const BorderEditor = ({ selectedNode }: IStyleProps) => {
-  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle({
-    selectedNode,
-  })
-
+export const BorderEditor = () => {
+  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
   const [selectedSide, setSelectedSide] = useState(Side.Center)
 
   const isSideModified = (side: Side) => {

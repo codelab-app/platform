@@ -1,4 +1,4 @@
-query GetComponentDevelopment {
+query GetComponentBuilder {
   actionTypes {
     ...ActionType
   }
@@ -12,7 +12,7 @@ query GetComponentDevelopment {
     ...CodeMirrorType
   }
   components {
-    ...ComponentDevelopment
+    ...ComponentBuilder
   }
   primitiveTypes {
     ...PrimitiveType

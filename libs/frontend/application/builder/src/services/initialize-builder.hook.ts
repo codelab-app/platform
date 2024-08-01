@@ -2,30 +2,31 @@ import {
   rendererRef,
   type RendererType,
 } from '@codelab/frontend/abstract/application'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import type {
+  IComponentModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { getNameFromSlug } from '@codelab/shared/utils'
 import { useBuilderService } from './builder.service'
 
 export const useInitializeBuilder = ({
-  pageSlug,
+  containerNode,
   rendererType,
 }: {
   rendererType: RendererType
-  pageSlug: string
+  containerNode: IComponentModel | IPageModel
 }) => {
-  const app = useCurrentApp()
   const builderService = useBuilderService()
   const { rendererService } = useApplicationStore()
-  const page = app.pageByName(getNameFromSlug(pageSlug))
 
   const renderer = rendererService.hydrate({
-    containerNode: page,
-    id: page.id,
+    containerNode: containerNode,
+    id: containerNode.id,
     rendererType,
   })
 
   rendererService.setActiveRenderer(rendererRef(renderer.id))
+
   builderService.selectElementNode(
     renderer.runtimeRootContainerNode.runtimeRootElement,
   )
@@ -33,9 +34,6 @@ export const useInitializeBuilder = ({
   void renderer.expressionTransformer.init()
 
   return {
-    app,
-    elementTree: page,
-    page,
     renderer,
   }
 }

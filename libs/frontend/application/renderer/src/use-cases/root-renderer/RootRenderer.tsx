@@ -2,10 +2,10 @@
 
 import {
   type IRendererModel,
+  type IRootRenderer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import type { WithStyleProp } from '@codelab/frontend/abstract/types'
 import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { MakeChildrenDroppable } from '@codelab/frontend-application-dnd/components'
 import { WrapIf } from '@codelab/frontend-presentation-view/components/wrapIf'
@@ -39,7 +39,7 @@ import React, { forwardRef, useMemo } from 'react'
 
 const RootRendererComponent = forwardRef<
   HTMLDivElement,
-  WithStyleProp<{ renderer: IRendererModel }>
+  { renderer: IRendererModel }
 >(({ renderer }, ref) => {
   const builderService = useBuilderService()
   const { selectedBuilderWidth } = builderService
@@ -71,4 +71,4 @@ const RootRendererComponent = forwardRef<
 
 RootRendererComponent.displayName = 'RootRendererComponent'
 
-export const RootRenderer = observer(RootRendererComponent)
+export const RootRenderer: IRootRenderer = observer(RootRendererComponent)

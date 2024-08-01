@@ -6907,6 +6907,7 @@ export type Component = WithOwner & {
   rootElement: Element
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   rootElementConnection: ComponentRootElementConnection
+  slug: Scalars['String']['output']
   store: Store
   storeAggregate?: Maybe<ComponentStoreStoreAggregationSelection>
   storeConnection: ComponentStoreConnection
@@ -7209,6 +7210,7 @@ export type ComponentEventPayload = {
   compositeKey: Scalars['String']['output']
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
+  slug: Scalars['String']['output']
 }
 
 export type ComponentInterfaceTypeApiAggregationSelection = {
@@ -7824,6 +7826,11 @@ export type ComponentSubscriptionWhere = {
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug?: InputMaybe<Scalars['String']['input']>
+  slug_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  slug_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  slug_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  slug_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ComponentUniqueWhere = {
@@ -27051,7 +27058,7 @@ export type AppFragment = {
   pages: Array<PageFragment>
 }
 
-export type AppDevelopmentFragment = {
+export type AppBuilderFragment = {
   id: string
   name: string
   slug: string
@@ -27126,7 +27133,7 @@ export type ComponentFragment = {
   store: StoreFragment
 }
 
-export type ComponentDevelopmentFragment = {
+export type ComponentBuilderFragment = {
   __typename: 'Component'
   id: string
   name: string
@@ -27620,18 +27627,18 @@ export type UserFragment = {
   apps: Array<{ id: string }>
 }
 
-export type GetAppDevelopmentQueryVariables = Exact<{
+export type GetAppBuilderQueryVariables = Exact<{
   appCompositeKey: Scalars['String']['input']
   pageName: Scalars['String']['input']
 }>
 
-export type GetAppDevelopmentQuery = {
+export type GetAppBuilderQuery = {
   actionTypes: Array<ActionTypeFragment>
-  apps: Array<AppDevelopmentFragment>
+  apps: Array<AppBuilderFragment>
   atoms: Array<AtomDevelopmentFragment>
   authGuards: Array<AuthGuardFragment>
   codeMirrorTypes: Array<CodeMirrorTypeFragment>
-  components: Array<ComponentDevelopmentFragment>
+  components: Array<ComponentBuilderFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
   redirects: Array<RedirectFragment>
@@ -27778,15 +27785,13 @@ export type DeleteAuthGuardsMutation = {
   deleteAuthGuards: { nodesDeleted: number }
 }
 
-export type GetComponentDevelopmentQueryVariables = Exact<{
-  [key: string]: never
-}>
+export type GetComponentBuilderQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetComponentDevelopmentQuery = {
+export type GetComponentBuilderQuery = {
   actionTypes: Array<ActionTypeFragment>
   atoms: Array<AtomDevelopmentFragment>
   codeMirrorTypes: Array<CodeMirrorTypeFragment>
-  components: Array<ComponentDevelopmentFragment>
+  components: Array<ComponentBuilderFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment>
@@ -30990,9 +30995,9 @@ fragment Owner on User {
 }`,
   { fragmentName: 'PageDevelopment' },
 ) as unknown as TypedDocumentString<PageDevelopmentFragment, unknown>
-export const AppDevelopmentFragmentDoc = new TypedDocumentString(
+export const AppBuilderFragmentDoc = new TypedDocumentString(
   `
-    fragment AppDevelopment on App {
+    fragment AppBuilder on App {
   id
   name
   owner {
@@ -31310,8 +31315,8 @@ fragment UnionType on UnionType {
 fragment Owner on User {
   id
 }`,
-  { fragmentName: 'AppDevelopment' },
-) as unknown as TypedDocumentString<AppDevelopmentFragment, unknown>
+  { fragmentName: 'AppBuilder' },
+) as unknown as TypedDocumentString<AppBuilderFragment, unknown>
 export const AtomProductionFragmentDoc = new TypedDocumentString(
   `
     fragment AtomProduction on Atom {
@@ -32371,9 +32376,9 @@ fragment Owner on User {
 }`,
   { fragmentName: 'Component' },
 ) as unknown as TypedDocumentString<ComponentFragment, unknown>
-export const ComponentDevelopmentFragmentDoc = new TypedDocumentString(
+export const ComponentBuilderFragmentDoc = new TypedDocumentString(
   `
-    fragment ComponentDevelopment on Component {
+    fragment ComponentBuilder on Component {
   __typename
   api {
     ...InterfaceType
@@ -32678,8 +32683,8 @@ fragment UnionType on UnionType {
 fragment Owner on User {
   id
 }`,
-  { fragmentName: 'ComponentDevelopment' },
-) as unknown as TypedDocumentString<ComponentDevelopmentFragment, unknown>
+  { fragmentName: 'ComponentBuilder' },
+) as unknown as TypedDocumentString<ComponentBuilderFragment, unknown>
 export const ComponentProductionFragmentDoc = new TypedDocumentString(
   `
     fragment ComponentProduction on Component {
@@ -32938,13 +32943,13 @@ export const UserFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
-export const GetAppDevelopmentDocument = new TypedDocumentString(`
-    query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+export const GetAppBuilderDocument = new TypedDocumentString(`
+    query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {
   actionTypes {
     ...ActionType
   }
   apps(where: {compositeKey: $appCompositeKey}) {
-    ...AppDevelopment
+    ...AppBuilder
   }
   atoms(where: {type: ReactFragment}) {
     ...AtomDevelopment
@@ -32956,7 +32961,7 @@ export const GetAppDevelopmentDocument = new TypedDocumentString(`
     ...CodeMirrorType
   }
   components {
-    ...ComponentDevelopment
+    ...ComponentBuilder
   }
   primitiveTypes {
     ...PrimitiveType
@@ -33016,7 +33021,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AppDevelopment on App {
+fragment AppBuilder on App {
   id
   name
   owner {
@@ -33063,7 +33068,7 @@ fragment AuthGuard on AuthGuard {
   }
   responseTransformer
 }
-fragment ComponentDevelopment on Component {
+fragment ComponentBuilder on Component {
   __typename
   api {
     ...InterfaceType
@@ -33344,8 +33349,8 @@ fragment UnionType on UnionType {
 fragment Owner on User {
   id
 }`) as unknown as TypedDocumentString<
-  GetAppDevelopmentQuery,
-  GetAppDevelopmentQueryVariables
+  GetAppBuilderQuery,
+  GetAppBuilderQueryVariables
 >
 export const CreateAppsDocument = new TypedDocumentString(`
     mutation CreateApps($input: [AppCreateInput!]!) {
@@ -34310,8 +34315,8 @@ export const DeleteAuthGuardsDocument = new TypedDocumentString(`
   DeleteAuthGuardsMutation,
   DeleteAuthGuardsMutationVariables
 >
-export const GetComponentDevelopmentDocument = new TypedDocumentString(`
-    query GetComponentDevelopment {
+export const GetComponentBuilderDocument = new TypedDocumentString(`
+    query GetComponentBuilder {
   actionTypes {
     ...ActionType
   }
@@ -34322,7 +34327,7 @@ export const GetComponentDevelopmentDocument = new TypedDocumentString(`
     ...CodeMirrorType
   }
   components {
-    ...ComponentDevelopment
+    ...ComponentBuilder
   }
   primitiveTypes {
     ...PrimitiveType
@@ -34402,7 +34407,7 @@ fragment AtomDevelopment on Atom {
   }
   type
 }
-fragment ComponentDevelopment on Component {
+fragment ComponentBuilder on Component {
   __typename
   api {
     ...InterfaceType
@@ -34645,8 +34650,8 @@ fragment UnionType on UnionType {
 fragment Owner on User {
   id
 }`) as unknown as TypedDocumentString<
-  GetComponentDevelopmentQuery,
-  GetComponentDevelopmentQueryVariables
+  GetComponentBuilderQuery,
+  GetComponentBuilderQueryVariables
 >
 export const CreateComponentsDocument = new TypedDocumentString(`
     mutation CreateComponents($input: [ComponentCreateInput!]!) {

@@ -25,6 +25,7 @@ import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain'
+import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -106,6 +107,11 @@ export class Component
   }
 
   @computed
+  get slug() {
+    return slugify(this.name)
+  }
+
+  @computed
   get toJson() {
     return {
       __typename: this.__typename,
@@ -114,6 +120,7 @@ export class Component
       name: this.name,
       props: this.props.toJson,
       rootElement: this.rootElement,
+      slug: this.slug,
       store: this.store,
     }
   }

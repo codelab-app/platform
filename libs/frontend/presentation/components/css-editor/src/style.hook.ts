@@ -1,21 +1,13 @@
-import {
-  type IRuntimeModel,
-  isRuntimeElement,
-} from '@codelab/frontend/abstract/application'
+import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'
 
-/**
- * TODO: Refactor this to remove prop drilling
- */
-export interface IStyleProps {
-  selectedNode: Nullable<IRuntimeModel>
-}
-
-export const useStyle = ({ selectedNode }: IStyleProps) => {
+export const useStyle = () => {
+  const builderService = useBuilderService()
+  const selectedNode = builderService.selectedNode
   const { runtimeElementService } = useApplicationStore()
 
   const [currentStyles, setCurrentStyles] = useState<{

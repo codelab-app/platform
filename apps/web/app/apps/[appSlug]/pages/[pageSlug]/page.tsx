@@ -1,4 +1,4 @@
-import { appDevelopmentQuery } from '@codelab/frontend-application-app/use-cases/app-development'
+import { appBuilderQuery } from 'libs/frontend/application/app/src/use-cases/app-builder'
 import { BuilderPreview } from '@codelab/frontend-application-builder/use-cases/builder-preview'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
@@ -14,7 +14,7 @@ const PagePreview = async ({
   }
 }) => {
   const user = await getServerUser()
-  const dto = await appDevelopmentQuery({ appSlug, pageSlug, userId: user.id })
+  const dto = await appBuilderQuery({ appSlug, pageSlug, userId: user.id })
 
   return (
     <StoreHydrator

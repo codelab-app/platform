@@ -26,6 +26,7 @@ export interface IComponentModel
   descendantComponents: Array<IComponentModel>
   instanceElement: Nullable<Ref<IElementModel>>
   props: IPropModel
+  slug: string
   /**
    * to render a component we create a duplicate for each instance
    * keeps track of source component in case this is a duplicate

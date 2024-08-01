@@ -112,7 +112,7 @@ export class TypeSchemaFactory {
     return {
       ...extra,
       items: type.itemType?.isValid
-        ? this.transform(type.itemType.current)
+        ? this.transform(type.itemType.current, context)
         : {},
       type: 'array',
     }
@@ -156,6 +156,7 @@ export class TypeSchemaFactory {
         ...this.transform(field.type.current, {
           autocomplete: context?.autocomplete,
           defaultValues: field.defaultValues,
+          // elementService: context.elementService,
           fieldName: field.name,
           validationRules: field.validationRules ?? undefined,
         }),
@@ -287,7 +288,7 @@ export class TypeSchemaFactory {
     return {
       ...extra,
       oneOf: type.typesOfUnionType.map((innerType) => {
-        const typeSchema = this.transform(innerType.current)
+        const typeSchema = this.transform(innerType.current, context)
 
         return typeSchema.isTypedProp
           ? {

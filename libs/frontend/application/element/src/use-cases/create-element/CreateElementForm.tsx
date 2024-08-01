@@ -1,5 +1,6 @@
 'use client'
 
+import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import {
   MODEL_ACTION,
@@ -21,6 +22,7 @@ import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type {
   Maybe,
+  Nullable,
   UniformSelectFieldProps,
 } from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
@@ -38,17 +40,15 @@ import { createElementSchema } from './create-element.schema'
 import { useCreateElementForm } from './create-element.state'
 
 interface CreateElementFormProps {
+  // Prevent builder ciricular dep
+  selectedNode?: Nullable<IRuntimeModel>
   showFormControl?: boolean
   submitRef: React.MutableRefObject<Maybe<SubmitController>>
   onSubmitSuccess?(): void
 }
 
-export const CreateElementForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreateElementFormProps) => {
+export const CreateElementForm = observer<CreateElementFormProps>(
+  ({ onSubmitSuccess, selectedNode, showFormControl = true, submitRef }) => {
     const { atomDomainService } = useDomainStore()
     const userService = useUserService()
     const elementService = useElementService()
@@ -156,8 +156,11 @@ export const CreateElementForm = observer(
           required={false}
         />
         <RenderTypeCompositeField name="renderType" parentAtom={parentAtom} />
-        <SelectActionField name="preRenderAction" />
-        <SelectActionField name="postRenderAction" />
+        <SelectActionField name="preRenderAction" selectedNode={selectedNode} />
+        <SelectActionField
+          name="postRenderAction"
+          selectedNode={selectedNode}
+        />
         <Divider />
         <AutoComputedElementNameField label="Name" name="name" />
         <DisplayIf condition={showFormControl}>

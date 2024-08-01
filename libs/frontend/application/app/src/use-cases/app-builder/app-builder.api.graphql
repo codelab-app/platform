@@ -1,9 +1,9 @@
-query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {
   actionTypes {
     ...ActionType
   }
   apps(where: { compositeKey: $appCompositeKey }) {
-    ...AppDevelopment
+    ...AppBuilder
   }
   atoms(where: { type: ReactFragment }) {
     ...AtomDevelopment
@@ -15,7 +15,7 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
     ...CodeMirrorType
   }
   components {
-    ...ComponentDevelopment
+    ...ComponentBuilder
   }
   primitiveTypes {
     ...PrimitiveType

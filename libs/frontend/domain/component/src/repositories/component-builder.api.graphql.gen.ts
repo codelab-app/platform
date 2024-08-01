@@ -4,48 +4,36 @@ import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
   ActionTypeFragmentDoc,
-  AppDevelopmentFragmentDoc,
+  AtomDevelopmentFragmentDoc,
+  AtomProductionFragmentDoc,
   CodeMirrorTypeFragmentDoc,
+  ComponentBuilderFragmentDoc,
   PrimitiveTypeFragmentDoc,
   ReactNodeTypeFragmentDoc,
   RenderPropTypeFragmentDoc,
   RichTextTypeFragmentDoc,
-  AtomDevelopmentFragmentDoc,
-  AtomProductionFragmentDoc,
   ResourceFragmentDoc,
-  AuthGuardFragmentDoc,
-  ComponentDevelopmentFragmentDoc,
-  RedirectFragmentDoc,
 } from '@codelab/frontend/infra/gql'
 
-export const GetAppDevelopmentDocument = graphql(`
-  query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+export const GetComponentBuilderDocument = graphql(`
+  query GetComponentBuilder {
     actionTypes {
       ...ActionType
     }
-    apps(where: { compositeKey: $appCompositeKey }) {
-      ...AppDevelopment
-    }
     atoms(where: { type: ReactFragment }) {
       ...AtomDevelopment
-    }
-    authGuards {
-      ...AuthGuard
     }
     codeMirrorTypes {
       ...CodeMirrorType
     }
     components {
-      ...ComponentDevelopment
+      ...ComponentBuilder
     }
     primitiveTypes {
       ...PrimitiveType
     }
     reactNodeTypes {
       ...ReactNodeType
-    }
-    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
-      ...Redirect
     }
     renderPropTypes {
       ...RenderPropType
@@ -58,11 +46,11 @@ export const GetAppDevelopmentDocument = graphql(`
     }
   }
 `)
-import { type GetAppDevelopmentQueryVariables } from '@codelab/frontend/infra/gql'
+import { type GetComponentBuilderQueryVariables } from '@codelab/frontend/infra/gql'
 
-const GetAppDevelopment = (
-  variables: GetAppDevelopmentQueryVariables,
+const GetComponentBuilder = (
+  variables: GetComponentBuilderQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetAppDevelopmentDocument, variables, next)
+) => gqlFetch(GetComponentBuilderDocument, variables, next)
 
-export const getSdk = () => ({ GetAppDevelopment })
+export const getSdk = () => ({ GetComponentBuilder })
