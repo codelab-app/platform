@@ -484,14 +484,14 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       mobx:
-        specifier: 6.12.3
-        version: 6.12.3
+        specifier: 6.13.1
+        version: 6.13.1
       mobx-keystone:
-        specifier: 1.10.1
-        version: 1.10.1(mobx@6.12.3)
+        specifier: 1.10.2
+        version: 1.10.2(mobx@6.13.1)
       mobx-react-lite:
         specifier: 4.0.7
-        version: 4.0.7(mobx@6.12.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.0.7(mobx@6.13.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       multer:
         specifier: 1.4.5-lts.1
         version: 1.4.5-lts.1
@@ -12917,8 +12917,8 @@ packages:
   mlly@1.7.1:
     resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
 
-  mobx-keystone@1.10.1:
-    resolution: {integrity: sha512-IRTU462+FMUA4jbS+gkIVP4/72KGLZ6rgCD7gGDel+J7h2BemJgQjk3HT5R8+eGEq1UWcgr6LRv1ww7rdFifVA==}
+  mobx-keystone@1.10.2:
+    resolution: {integrity: sha512-UjvTITj3s/vBgbBu/G6BS+bdKvQACOvZ8YgE9Msmb3QqRbCIApCatoDuWwFepnvZG8BzKyqwGUc6WCpfT0hfQQ==}
     peerDependencies:
       mobx: ^6.0.0 || ^5.0.0 || ^4.0.0
 
@@ -12935,8 +12935,8 @@ packages:
       react-native:
         optional: true
 
-  mobx@6.12.3:
-    resolution: {integrity: sha512-c8NKkO4R2lShkSXZ2Ongj1ycjugjzFFo/UswHBnS62y07DMcTc9Rvo03/3nRyszIvwPNljlkd4S828zIBv/piw==}
+  mobx@6.13.1:
+    resolution: {integrity: sha512-ekLRxgjWJr8hVxj9ZKuClPwM/iHckx3euIJ3Np7zLVNtqJvfbbq7l370W/98C8EabdQ1pB5Jd3BbDWxJPNnaOg==}
 
   mocha@10.7.0:
     resolution: {integrity: sha512-v8/rBWr2VO5YkspYINnvu81inSz2y3ODJrhO175/Exzor1RcEZZkizgE2A+w/CAXXoESS8Kys5E62dOHGHzULA==}
@@ -33452,23 +33452,23 @@ snapshots:
       pkg-types: 1.1.3
       ufo: 1.5.4
 
-  mobx-keystone@1.10.1(mobx@6.12.3):
+  mobx-keystone@1.10.2(mobx@6.13.1):
     dependencies:
       fast-deep-equal: 3.1.3
-      mobx: 6.12.3
+      mobx: 6.13.1
       nanoid: 3.3.7
       ts-toolbelt: 9.6.0
       tslib: 2.6.3
 
-  mobx-react-lite@4.0.7(mobx@6.12.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  mobx-react-lite@4.0.7(mobx@6.13.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      mobx: 6.12.3
+      mobx: 6.13.1
       react: 18.3.1
       use-sync-external-store: 1.2.2(react@18.3.1)
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
 
-  mobx@6.12.3: {}
+  mobx@6.13.1: {}
 
   mocha@10.7.0:
     dependencies:
