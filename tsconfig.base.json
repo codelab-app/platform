@@ -310,14 +310,17 @@
       "@codelab/frontend-application-builder/use-cases/base-builder": [
         "libs/frontend/application/builder/src/use-cases/base-builder/index.ts"
       ],
-      "@codelab/frontend-application-builder/use-cases/page-builder-preview": [
-        "libs/frontend/application/builder/src/use-cases/page-builder-preview/index.ts"
-      ],
       "@codelab/frontend-application-builder/use-cases/component-builder": [
         "libs/frontend/application/builder/src/use-cases/component-builder/index.ts"
       ],
+      "@codelab/frontend-application-builder/use-cases/component-builder-preview": [
+        "libs/frontend/application/builder/src/use-cases/component-builder-preview/index.ts"
+      ],
       "@codelab/frontend-application-builder/use-cases/page-builder": [
         "libs/frontend/application/builder/src/use-cases/page-builder/index.ts"
+      ],
+      "@codelab/frontend-application-builder/use-cases/page-builder-preview": [
+        "libs/frontend/application/builder/src/use-cases/page-builder-preview/index.ts"
       ],
       "@codelab/frontend-application-builder/use-cases/resize": [
         "libs/frontend/application/builder/src/use-cases/resize/index.ts"

@@ -1,3 +1,4 @@
+import { StoreHydrator } from '@codelab/frontend/infra/context'
 import {
   AppList,
   appListAction,
@@ -12,14 +13,13 @@ import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 import React from 'react'
-import { StoreHydrator } from '../../components'
 
 export const metadata: Metadata = {
   // description: '...',
   title: 'Apps | Codelab',
 }
 
-const AppsView = async () => {
+const AppListPage = async () => {
   const [{ items: apps }, { items: atoms }] = await Promise.all([
     appListAction(),
     defaultAtomAction(),
@@ -40,4 +40,4 @@ const AppsView = async () => {
   )
 }
 
-export default AppsView
+export default AppListPage

@@ -33,11 +33,6 @@ export class TypeDomainService
     )
   }
 
-  @computed
-  getType(id: string) {
-    return this.types.get(id)
-  }
-
   @modelAction
   hydrate(typeDto: ITypeDto) {
     const existingType = this.types.get(typeDto.id)
@@ -102,6 +97,10 @@ export class TypeDomainService
     }
 
     return null
+  }
+
+  getType(id: string) {
+    return this.types.get(id)
   }
 
   @computed

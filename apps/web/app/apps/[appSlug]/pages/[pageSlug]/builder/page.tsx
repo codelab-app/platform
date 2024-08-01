@@ -1,9 +1,9 @@
+import { StoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { PageBuilder } from '@codelab/frontend-application-builder/use-cases/page-builder'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import React from 'react'
-import { StoreHydrator } from '../../../../../../components'
 
 const PageBuilderPage = async ({
   params: { appSlug, pageSlug },

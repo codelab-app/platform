@@ -8,10 +8,10 @@ import ConfigProvider from 'antd/lib/config-provider'
 import { Provider } from 'jotai'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import { theme } from '../app/theme'
 import { StyledComponentsRegistry } from './StyledComponentsRegistry'
+import { theme } from './theme'
 
-export const Providers = ({
+export const RootProviders = ({
   children,
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
