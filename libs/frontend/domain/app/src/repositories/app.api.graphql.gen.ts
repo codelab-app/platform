@@ -6,7 +6,7 @@ import {
   AppPreviewFragmentDoc,
   AppFragmentDoc,
   AppProductionFragmentDoc,
-  AtomDevelopmentFragmentDoc,
+  AtomBuilderFragmentDoc,
   AtomProductionFragmentDoc,
   ResourceFragmentDoc,
 } from '@codelab/frontend/infra/gql'
@@ -59,7 +59,7 @@ export const AppListDocument = graphql(`
       count
     }
     atoms(where: { type: ReactFragment }) {
-      ...AtomDevelopment
+      ...AtomBuilder
     }
   }
 `)

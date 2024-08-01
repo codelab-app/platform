@@ -25,7 +25,7 @@ fragment Atom on Atom {
   type
 }
 
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType

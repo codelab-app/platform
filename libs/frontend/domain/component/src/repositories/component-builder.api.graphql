@@ -4,7 +4,7 @@ query GetComponentBuilder {
   }
   # Need to load all dependent types
   atoms(where: { type: ReactFragment }) {
-    ...AtomDevelopment
+    ...AtomBuilder
   }
   # Load system types
   # workaround for lack of ability to recursively fetch field's types

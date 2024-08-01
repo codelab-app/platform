@@ -3,8 +3,8 @@ import type {
   IComponentBuilderQuery,
 } from '@codelab/frontend/abstract/domain'
 import type {
-  AtomDevelopmentFragment,
-  GetComponentDevelopmentQuery,
+  AtomBuilderFragment,
+  GetComponentBuilderQuery,
 } from '@codelab/frontend/infra/gql'
 import { componentBuilderApi } from '@codelab/frontend-domain-component/repositories'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -13,8 +13,8 @@ import uniqBy from 'lodash/uniqBy'
 export const componentBuilderQuery: IComponentBuilderQuery = async ({
   componentName,
 }: IComponentBuilderArgs) => {
-  const data: GetComponentDevelopmentQuery =
-    await componentBuilderApi.GetComponentDevelopment({})
+  const data: GetComponentBuilderQuery =
+    await componentBuilderApi.GetComponentBuilder({})
 
   const components = data.components
 
@@ -52,7 +52,7 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
       ...elements
         .flatMap((element) => element.renderType)
         .filter(
-          (item): item is AtomDevelopmentFragment => item.__typename === 'Atom',
+          (item): item is AtomBuilderFragment => item.__typename === 'Atom',
         ),
       ...data.atoms,
     ],

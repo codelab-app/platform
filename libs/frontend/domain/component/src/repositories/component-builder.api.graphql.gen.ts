@@ -4,7 +4,7 @@ import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
   ActionTypeFragmentDoc,
-  AtomDevelopmentFragmentDoc,
+  AtomBuilderFragmentDoc,
   AtomProductionFragmentDoc,
   CodeMirrorTypeFragmentDoc,
   ComponentBuilderFragmentDoc,
@@ -21,7 +21,7 @@ export const GetComponentBuilderDocument = graphql(`
       ...ActionType
     }
     atoms(where: { type: ReactFragment }) {
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     codeMirrorTypes {
       ...CodeMirrorType

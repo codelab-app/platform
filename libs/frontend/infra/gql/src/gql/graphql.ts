@@ -27089,7 +27089,7 @@ export type AtomFragment = {
   tags: Array<TagFragment>
 }
 
-export type AtomDevelopmentFragment = {
+export type AtomBuilderFragment = {
   __typename: 'Atom'
   icon?: string | null
   id: string
@@ -27204,7 +27204,7 @@ export type ElementFragment = {
   prevSibling?: { id: string } | null
   props: PropFragment
   renderType:
-    | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
+    | ({ __typename: 'Atom' } & AtomBuilderFragment)
     | { __typename: 'Component'; id: string }
 }
 
@@ -27635,7 +27635,7 @@ export type GetAppBuilderQueryVariables = Exact<{
 export type GetAppBuilderQuery = {
   actionTypes: Array<ActionTypeFragment>
   apps: Array<AppBuilderFragment>
-  atoms: Array<AtomDevelopmentFragment>
+  atoms: Array<AtomBuilderFragment>
   authGuards: Array<AuthGuardFragment>
   codeMirrorTypes: Array<CodeMirrorTypeFragment>
   components: Array<ComponentBuilderFragment>
@@ -27685,7 +27685,7 @@ export type AppListQueryVariables = Exact<{
 export type AppListQuery = {
   items: Array<AppFragment>
   aggregate: { count: number }
-  atoms: Array<AtomDevelopmentFragment>
+  atoms: Array<AtomBuilderFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{
@@ -27789,7 +27789,7 @@ export type GetComponentBuilderQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetComponentBuilderQuery = {
   actionTypes: Array<ActionTypeFragment>
-  atoms: Array<AtomDevelopmentFragment>
+  atoms: Array<AtomBuilderFragment>
   codeMirrorTypes: Array<CodeMirrorTypeFragment>
   components: Array<ComponentBuilderFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
@@ -29479,9 +29479,9 @@ export const TagFragmentDoc = new TypedDocumentString(
 }`,
   { fragmentName: 'Tag' },
 ) as unknown as TypedDocumentString<TagFragment, unknown>
-export const AtomDevelopmentFragmentDoc = new TypedDocumentString(
+export const AtomBuilderFragmentDoc = new TypedDocumentString(
   `
-    fragment AtomDevelopment on Atom {
+    fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -29564,8 +29564,8 @@ fragment InterfaceType on InterfaceType {
 fragment Owner on User {
   id
 }`,
-  { fragmentName: 'AtomDevelopment' },
-) as unknown as TypedDocumentString<AtomDevelopmentFragment, unknown>
+  { fragmentName: 'AtomBuilder' },
+) as unknown as TypedDocumentString<AtomBuilderFragment, unknown>
 export const ElementFragmentDoc = new TypedDocumentString(
   `
     fragment Element on Element {
@@ -29617,7 +29617,7 @@ export const ElementFragmentDoc = new TypedDocumentString(
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -29627,7 +29627,7 @@ export const ElementFragmentDoc = new TypedDocumentString(
   style
   tailwindClassNames
 }
-    fragment AtomDevelopment on Atom {
+    fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -30109,7 +30109,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -30181,7 +30181,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -30408,7 +30408,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -30490,7 +30490,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -30751,7 +30751,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -30823,7 +30823,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -31049,7 +31049,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -31121,7 +31121,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -32441,7 +32441,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -32513,7 +32513,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -32952,7 +32952,7 @@ export const GetAppBuilderDocument = new TypedDocumentString(`
     ...AppBuilder
   }
   atoms(where: {type: ReactFragment}) {
-    ...AtomDevelopment
+    ...AtomBuilder
   }
   authGuards {
     ...AuthGuard
@@ -33034,7 +33034,7 @@ fragment AppBuilder on App {
   }
   slug
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -33141,7 +33141,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -33452,7 +33452,7 @@ export const AppListDocument = new TypedDocumentString(`
     count
   }
   atoms(where: {type: ReactFragment}) {
-    ...AtomDevelopment
+    ...AtomBuilder
   }
 }
     fragment BaseAction on BaseAction {
@@ -33508,7 +33508,7 @@ fragment App on App {
   }
   slug
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -33590,7 +33590,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -34321,7 +34321,7 @@ export const GetComponentBuilderDocument = new TypedDocumentString(`
     ...ActionType
   }
   atoms(where: {type: ReactFragment}) {
-    ...AtomDevelopment
+    ...AtomBuilder
   }
   codeMirrorTypes {
     ...CodeMirrorType
@@ -34384,7 +34384,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -34480,7 +34480,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -34918,7 +34918,7 @@ export const ElementListDocument = new TypedDocumentString(`
     ...Element
   }
 }
-    fragment AtomDevelopment on Atom {
+    fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -34990,7 +34990,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -35263,7 +35263,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -35335,7 +35335,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename
@@ -35574,7 +35574,7 @@ fragment CodeAction on CodeAction {
   ...BaseAction
   code
 }
-fragment AtomDevelopment on Atom {
+fragment AtomBuilder on Atom {
   __typename
   api {
     ...InterfaceType
@@ -35646,7 +35646,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename

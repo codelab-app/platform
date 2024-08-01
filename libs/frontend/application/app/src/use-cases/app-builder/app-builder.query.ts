@@ -1,5 +1,5 @@
 import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
-import type { AtomDevelopmentFragment } from '@codelab/frontend/infra/gql'
+import type { AtomBuilderFragment } from '@codelab/frontend/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
 import { getNameFromSlug, slugify } from '@codelab/shared/utils'
@@ -27,7 +27,7 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
     },
   )
 
-  const data = await appBuilderApi.GetAppDevelopment({
+  const data = await appBuilderApi.GetAppBuilder({
     appCompositeKey,
     pageName,
   })
@@ -86,7 +86,7 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
       ...elements
         .flatMap((element) => element.renderType)
         .filter(
-          (item): item is AtomDevelopmentFragment => item.__typename === 'Atom',
+          (item): item is AtomBuilderFragment => item.__typename === 'Atom',
         ),
       // Also load the default atoms, here is just type `ReactFragment`
       ...data.atoms,

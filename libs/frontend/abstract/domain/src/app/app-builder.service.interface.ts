@@ -1,8 +1,8 @@
 import type {
-  AppDevelopmentFragment,
-  AtomDevelopmentFragment,
+  AppBuilderFragment,
+  AtomBuilderFragment,
   AuthGuardFragment,
-  ComponentDevelopmentFragment,
+  ComponentBuilderFragment,
   ElementFragment,
   FieldFragment,
   PageDevelopmentFragment,
@@ -11,15 +11,15 @@ import type {
   ResourceFragment,
   StoreFragment,
   TypeFragment,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/frontend/infra/gql'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface IAppBuilderDto {
   actions: StoreFragment['actions']
-  app: AppDevelopmentFragment
-  atoms: Array<AtomDevelopmentFragment>
+  app: AppBuilderFragment
+  atoms: Array<AtomBuilderFragment>
   authGuards: Array<AuthGuardFragment>
-  components: Array<ComponentDevelopmentFragment>
+  components: Array<ComponentBuilderFragment>
   elements: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields: Array<FieldFragment>
   pages: Array<PageDevelopmentFragment>

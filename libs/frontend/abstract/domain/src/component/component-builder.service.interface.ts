@@ -1,13 +1,13 @@
 import type {
-  AtomDevelopmentFragment,
-  ComponentDevelopmentFragment,
+  AtomBuilderFragment,
+  ComponentBuilderFragment,
   ElementFragment,
   FieldFragment,
   PropFragment,
   ResourceFragment,
   StoreFragment,
   TypeFragment,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/frontend/infra/gql'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { IComponentModel } from './component.model.interface'
 
@@ -17,9 +17,9 @@ export interface IComponentBuilderArgs {
 
 export interface IComponentBuilderDto {
   actions: StoreFragment['actions']
-  atoms: Array<AtomDevelopmentFragment>
+  atoms: Array<AtomBuilderFragment>
   component: IRef
-  components: Array<ComponentDevelopmentFragment>
+  components: Array<ComponentBuilderFragment>
   elements: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields: Array<FieldFragment>
   props: Array<PropFragment>

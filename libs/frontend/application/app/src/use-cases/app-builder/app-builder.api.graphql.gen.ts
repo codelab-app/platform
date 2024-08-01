@@ -10,7 +10,7 @@ import {
   ReactNodeTypeFragmentDoc,
   RenderPropTypeFragmentDoc,
   RichTextTypeFragmentDoc,
-  AtomDevelopmentFragmentDoc,
+  AtomBuilderFragmentDoc,
   AtomProductionFragmentDoc,
   ResourceFragmentDoc,
   AuthGuardFragmentDoc,
@@ -27,7 +27,7 @@ export const GetAppBuilderDocument = graphql(`
       ...AppBuilder
     }
     atoms(where: { type: ReactFragment }) {
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     authGuards {
       ...AuthGuard
