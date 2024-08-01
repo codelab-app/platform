@@ -32,7 +32,7 @@ fragment App on App {
   slug
 }
 
-fragment AppDevelopment on App {
+fragment AppBuilder on App {
   id
   name
   owner {

@@ -3,6 +3,7 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import { IPageDto } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -35,5 +36,13 @@ export class PageDomainService
 
       return page
     }
+  }
+
+  findBySlug(slug: string) {
+    const found = this.pagesList.find((page) => page.slug === slug)
+
+    assertIsDefined(found)
+
+    return found
   }
 }

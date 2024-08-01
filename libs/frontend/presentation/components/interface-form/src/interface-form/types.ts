@@ -39,7 +39,7 @@ export interface UiPropertiesContext {
    */
   autocomplete?: IRuntimeContext
   defaultValues?: IFieldDefaultValue | null
-  elementService: IElementService
+  // elementService: IElementService
   fieldName?: string | null
   validationRules?: IValidationRules
 }

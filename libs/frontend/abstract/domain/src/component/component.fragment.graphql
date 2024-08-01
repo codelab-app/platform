@@ -19,7 +19,7 @@ fragment Component on Component {
   }
 }
 
-fragment ComponentDevelopment on Component {
+fragment ComponentBuilder on Component {
   __typename
   api {
     ...InterfaceType

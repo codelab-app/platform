@@ -1,3 +1,4 @@
+import { StoreHydrator } from '@codelab/frontend/infra/context'
 import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
 import {
   DomainList,
@@ -6,7 +7,6 @@ import {
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
 import React from 'react'
-import { StoreHydrator } from '../../../../components'
 
 export const metadata: Metadata = {
   // description: '...',

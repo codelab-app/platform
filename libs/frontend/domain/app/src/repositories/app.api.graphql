@@ -37,7 +37,7 @@ query AppList($options: AppOptions, $where: AppWhere) {
     count
   }
   atoms(where: { type: ReactFragment }) {
-    ...AtomDevelopment
+    ...AtomBuilder
   }
 }
 

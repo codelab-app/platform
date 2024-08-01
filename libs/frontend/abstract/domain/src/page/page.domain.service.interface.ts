@@ -20,4 +20,5 @@ export interface IPageDomainService extends IHydrateable<IPageDto, IPageModel> {
   pageFactory: IPageFactory
   pages: ObjectMap<IPageModel>
   pagesList: Array<IPageModel>
+  findBySlug(slug: string): IPageModel
 }

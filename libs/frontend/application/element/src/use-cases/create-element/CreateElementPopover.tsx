@@ -2,6 +2,7 @@
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
+import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import {
   MODEL_ACTION,
   type SubmitController,
@@ -10,13 +11,16 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { useCreateElementForm } from './create-element.state'
 import { CreateElementForm } from './CreateElementForm'
 
-export const CreateElementPopover = observer(() => {
+export const CreateElementPopover = observer<{
+  // Prevent builder ciricular dep
+  selectedNode?: Nullable<IRuntimeModel>
+}>(({ selectedNode }) => {
   const submitRef = useRef<Maybe<SubmitController>>()
   const createElementForm = useCreateElementForm()
   const { popover } = useCui()
@@ -52,6 +56,7 @@ export const CreateElementPopover = observer(() => {
     >
       <CreateElementForm
         onSubmitSuccess={() => popover.close()}
+        selectedNode={selectedNode}
         showFormControl={false}
         submitRef={submitRef}
       />

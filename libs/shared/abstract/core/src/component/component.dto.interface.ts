@@ -24,6 +24,7 @@ export const ComponentSchema = Type.Composite([
     ComponentDtoSchema,
     Type.Object({
       props: PropSchema,
+      slug: Type.String(),
     }),
   ),
 ])

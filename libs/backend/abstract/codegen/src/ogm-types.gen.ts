@@ -3433,6 +3433,7 @@ export type Component = WithOwner & {
   id: Scalars['ID']['output']
   compositeKey: Scalars['String']['output']
   name: Scalars['String']['output']
+  slug: Scalars['String']['output']
   elements: Array<Element>
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   rootElement: Element

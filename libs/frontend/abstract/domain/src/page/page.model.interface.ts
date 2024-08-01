@@ -27,7 +27,6 @@ export interface IPageModel
    * mainly used for deletePageUseCase to avoid element hydrating
    */
   elementsIds: Array<string>
-
   kind: IPageKind
   name: string
   /**

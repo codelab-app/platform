@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'
 import { ResetIcon } from '../components/ResetIcon'
 import { CssProperty } from '../css'
-import { type IStyleProps, useStyle } from '../style.hook'
+import { useStyle } from '../style.hook'
 
 const sideOptions = [
   {
@@ -23,9 +23,9 @@ const sideOptions = [
   },
 ]
 
-export const BorderRadiusEditor = ({ selectedNode }: IStyleProps) => {
+export const BorderRadiusEditor = () => {
   const { canReset, getCurrentStyle, removeStyles, resetStyle, setStyle } =
-    useStyle({ selectedNode })
+    useStyle()
 
   const areAllSidesNotTheSame = (): boolean => {
     return [
