@@ -1,3 +1,5 @@
+'use client'
+
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
