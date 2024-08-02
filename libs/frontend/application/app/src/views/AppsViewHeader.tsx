@@ -15,7 +15,7 @@ import { useCreateAppModal } from '../use-cases/create-app/create-app.state'
 import { ImportAppDialog } from '../use-cases/import-app'
 
 export const AppsViewHeader = () => {
-  const createModal = useCreateAppModal()
+  const createAppModal = useCreateAppModal()
 
   const toolbarItems: Array<ToolbarItem> = [
     {
@@ -26,7 +26,7 @@ export const AppsViewHeader = () => {
     {
       cuiKey: MODEL_ACTION.CreateApp.key,
       icon: <PlusOutlined />,
-      onClick: () => createModal.open(undefined),
+      onClick: () => createAppModal.open(),
       title: 'Create an App',
     },
     {

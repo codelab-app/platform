@@ -13,8 +13,6 @@ describe('useToggleState', () => {
   it('should initialize with default values', () => {
     const { result } = renderHook(() => useCreateAppForm())
 
-    console.log(result)
-
     expect(result.current.isOpen).toBe(false)
     expect(result.current.data).toBeUndefined()
   })

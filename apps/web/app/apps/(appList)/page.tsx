@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: 'Apps | Codelab',
 }
 
-const AppListPage = async () => {
+const AppsView = async () => {
   const [{ items: apps }, { items: atoms }] = await Promise.all([
     appListAction(),
     defaultAtomAction(),
@@ -27,17 +27,15 @@ const AppListPage = async () => {
 
   return (
     <StoreHydrator apps={apps} atoms={atoms}>
-      <DashboardTemplate Header={<AppsViewHeader />}>
-        <CreateAppModal />
-        <DeleteAppModal />
-        <UpdateAppModal />
-        <BuildAppModal />
-        <ContentSection>
-          <AppList />
-        </ContentSection>
-      </DashboardTemplate>
+      <CreateAppModal />
+      <DeleteAppModal />
+      <UpdateAppModal />
+      <BuildAppModal />
+      <ContentSection>
+        <AppList />
+      </ContentSection>
     </StoreHydrator>
   )
 }
 
-export default AppListPage
+export default AppsView
