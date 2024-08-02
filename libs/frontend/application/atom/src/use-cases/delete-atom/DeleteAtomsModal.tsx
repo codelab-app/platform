@@ -33,7 +33,7 @@ export const DeleteAtomsModal = observer(() => {
       >
         <h4>
           Are you sure you want to delete atoms "
-          {atoms.map((atom) => atom.name).join(', ')}"?
+          {atoms.map((atom) => atom.current.name).join(', ')}"?
         </h4>
         <AutoFields />
       </ModalForm.Form>

@@ -9,7 +9,7 @@ import { useCreateAppModal } from './create-app.state'
 export const CreateAppButton = ({ children }: PropsWithChildren) => {
   const createAppModal = useCreateAppModal()
   const icon = !children && <PlusOutlined />
-  const onClick = () => createAppModal.open(undefined)
+  const onClick = () => createAppModal.open()
 
   return (
     <Button icon={icon} onClick={onClick} type="primary">

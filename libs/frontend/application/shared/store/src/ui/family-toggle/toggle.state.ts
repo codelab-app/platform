@@ -5,7 +5,8 @@ import type {
 } from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
-import { useMemo } from 'react'
+import isEqual from 'lodash/isEqual'
+import { useCallback, useMemo } from 'react'
 import type { IToggleState } from './toggle.state.interface'
 
 export const defaultMapper = <TData, TOutput = TData>(state?: TData): TOutput =>
@@ -17,40 +18,26 @@ export const createToggleStateAtom = <TData = undefined>() =>
     isOpen: false,
   })
 
-interface IAtomFamilyParm {
+export interface IAtomFamilyParam {
   action: ModelActionKey
   ui: CuiComponentsKey
 }
 
+const toggleAtomFamily = atomFamily(
+  (key: IAtomFamilyParam) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    atom<IToggleState<any>>({
+      data: undefined,
+      isOpen: false,
+    }),
+  isEqual,
+)
+
 export const useToggleState = <TData = undefined, TOutput = TData>(
-  key: IAtomFamilyParm,
+  key: IAtomFamilyParam,
   mapper: (state: TData) => TOutput = defaultMapper,
 ): IToggleService<TData, TOutput> => {
-  const toggleStateAtomFamily = useMemo(
-    () =>
-      atomFamily((_key: IAtomFamilyParm) => {
-        const toggleStateAtom = createToggleStateAtom<TData>()
-
-        const derivedAtom = atom(
-          (get) => {
-            const state = get(toggleStateAtom)
-
-            return {
-              ...state,
-              data: state.data ? mapper(state.data) : undefined,
-            }
-          },
-          (get, set, newState: IToggleState<TData>) => {
-            set(toggleStateAtom, newState)
-          },
-        )
-
-        return derivedAtom
-      }),
-    [mapper],
-  )
-
-  const [toggleState, setToggleState] = useAtom(toggleStateAtomFamily(key))
+  const [toggleState, setToggleState] = useAtom(toggleAtomFamily(key))
 
   const open = (data?: TData) => {
     setToggleState({ data, isOpen: true })
@@ -62,7 +49,7 @@ export const useToggleState = <TData = undefined, TOutput = TData>(
 
   return {
     close,
-    data: toggleState.data,
+    data: mapper(toggleState.data),
     isOpen: toggleState.isOpen,
     open,
   }
