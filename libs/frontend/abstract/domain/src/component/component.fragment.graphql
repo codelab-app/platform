@@ -5,6 +5,7 @@ fragment Component on Component {
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -29,6 +30,7 @@ fragment ComponentBuilder on Component {
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -47,6 +49,7 @@ fragment ComponentBuilder on Component {
 fragment ComponentProduction on Component {
   id
   name
+  compositeKey
   owner {
     ...Owner
   }

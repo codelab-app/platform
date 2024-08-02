@@ -9,20 +9,20 @@ interface ComponentData {
 }
 
 const componentCompositeKey = (
-  app: Pick<IComponent, 'slug'>,
+  component: Pick<IComponent, 'slug'>,
   user: Pick<IUserDto, 'id'>,
-) => `${user.id}-${app.slug}`
+) => `${user.id}-${component.slug}`
 
 const componentNameFromCompositeKey = (
-  app: DeepPick<Component, ComponentData>,
+  component: DeepPick<Component, ComponentData>,
 ) => {
-  return app.compositeKey.replace(`${app.owner.id}-`, '')
+  return component.compositeKey.replace(`${component.owner.id}-`, '')
 }
 
 const componentSlugFromCompositeKey = (
-  app: DeepPick<Component, ComponentData>,
+  component: DeepPick<Component, ComponentData>,
 ) => {
-  return slugify(ComponentProperties.componentNameFromCompositeKey(app))
+  return slugify(ComponentProperties.componentNameFromCompositeKey(component))
 }
 
 export const ComponentProperties = {

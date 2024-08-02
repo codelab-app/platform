@@ -12,8 +12,10 @@ export const metadata: Metadata = {
 }
 
 const ComponentsRoute = async () => {
-  const { items: components } = await componentListQuery()
-  const { items: atoms } = await atomListQuery()
+  const [{ items: components }, { items: atoms }] = await Promise.all([
+    componentListQuery(),
+    atomListQuery(),
+  ])
 
   return (
     <DashboardTemplate

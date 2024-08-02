@@ -42,11 +42,11 @@ const documents = {
     types.AtomProductionFragmentDoc,
   '\n  fragment AuthGuard on AuthGuard {\n    config {\n      ...Prop\n    }\n    id\n    name\n    resource {\n      ...Resource\n    }\n    responseTransformer\n  }\n':
     types.AuthGuardFragmentDoc,
-  '\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n':
+  '\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n':
     types.ComponentFragmentDoc,
-  '\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
+  '\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
     types.ComponentBuilderFragmentDoc,
-  '\n  fragment ComponentProduction on Component {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
+  '\n  fragment ComponentProduction on Component {\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n':
     types.ComponentProductionFragmentDoc,
   '\n  fragment Domain on Domain {\n    app {\n      id\n    }\n    domainConfig {\n      misconfigured\n    }\n    id\n    name\n  }\n':
     types.DomainFragmentDoc,
@@ -490,20 +490,20 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n',
-): (typeof documents)['\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n']
+  source: '\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  fragment Component on Component {\n    __typename\n    api {\n      id\n    }\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n    }\n    store {\n      ...Store\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
-): (typeof documents)['\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
+  source: '\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  fragment ComponentBuilder on Component {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    elements {\n      ...Element\n    }\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment ComponentProduction on Component {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
-): (typeof documents)['\n  fragment ComponentProduction on Component {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
+  source: '\n  fragment ComponentProduction on Component {\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n',
+): (typeof documents)['\n  fragment ComponentProduction on Component {\n    id\n    name\n    compositeKey\n    owner {\n      ...Owner\n    }\n    props {\n      ...Prop\n    }\n    rootElement {\n      id\n      name\n    }\n    store {\n      ...Store\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

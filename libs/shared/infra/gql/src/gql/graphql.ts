@@ -27156,6 +27156,7 @@ export type ComponentFragment = {
   __typename: 'Component'
   id: string
   name: string
+  compositeKey: string
   api: { id: string }
   owner: OwnerFragment
   props: PropFragment
@@ -27167,6 +27168,7 @@ export type ComponentBuilderFragment = {
   __typename: 'Component'
   id: string
   name: string
+  compositeKey: string
   api: InterfaceTypeFragment
   elements: Array<ElementFragment>
   owner: OwnerFragment
@@ -27178,6 +27180,7 @@ export type ComponentBuilderFragment = {
 export type ComponentProductionFragment = {
   id: string
   name: string
+  compositeKey: string
   owner: OwnerFragment
   props: PropFragment
   rootElement: { id: string; name: string }
@@ -32288,6 +32291,7 @@ export const ComponentFragmentDoc = new TypedDocumentString(
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -32418,6 +32422,7 @@ export const ComponentBuilderFragmentDoc = new TypedDocumentString(
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -32720,6 +32725,7 @@ export const ComponentProductionFragmentDoc = new TypedDocumentString(
     fragment ComponentProduction on Component {
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -33153,6 +33159,7 @@ fragment ComponentBuilder on Component {
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -34492,6 +34499,7 @@ fragment ComponentBuilder on Component {
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -34817,6 +34825,7 @@ fragment Component on Component {
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
