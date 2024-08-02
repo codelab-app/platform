@@ -6,46 +6,24 @@ import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { useDeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { exportComponentService } from '@codelab/frontend-application-component/use-cases/export-component'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
-import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import isNil from 'lodash/isNil'
+import { useAsync } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import React, { useEffect } from 'react'
-import { useAsyncFn } from 'react-use'
+import React from 'react'
 import { ComponentList } from './ComponentList'
-import { useComponentsList } from './useComponentsList.hook'
 
-interface CustomComponentProps {
-  components: Array<IComponentDto>
-}
-
-export const CustomComponents = observer((props: CustomComponentProps) => {
-  const components = useComponentsList(props.components)
+export const CustomComponents = observer(() => {
   const { componentDomainService } = useDomainStore()
   const deleteComponentModal = useDeleteComponentModal()
   const router = useRouter()
 
-  const [state, getComponents] = useAsyncFn(() =>
-    // componentService.getAll(),
-    Promise.resolve(),
-  )
+  const [, exportComponent] = useAsync(async (component: IComponentModel) => {
+    const result = await exportComponentService(component.id)
 
-  const [exportState, exportComponent] = useAsyncFn(
-    async (component: IComponentModel) => {
-      const result = await exportComponentService(component.id)
-
-      downloadJsonAsFile(`${slugify(component.name)}.json`, result)
-    },
-  )
-
-  const isLoading = state.loading
-
-  useEffect(() => {
-    void getComponents()
-  }, [getComponents])
+    downloadJsonAsFile(`${slugify(component.name)}.json`, result)
+  })
 
   const editComponent = async (id: string) => {
     const { name } = componentDomainService.component(id)
@@ -60,22 +38,19 @@ export const CustomComponents = observer((props: CustomComponentProps) => {
   }
 
   return (
-    <SkeletonWrapper isLoading={isLoading}>
-      {!isNil(state.error) ? state.error.message : null}
-      <ComponentList
-        components={components}
-        onDelete={(id) =>
-          deleteComponentModal.open(componentDomainService.component(id))
-        }
-        onEdit={(id) => editComponent(id)}
-        onExport={(component) => exportComponent(component)}
-        // onSelect={componentService.previewComponent}
-        // selectedIds={
-        //   builderService.selectedNode
-        //     ? [builderService.selectedNode.id]
-        //     : undefined
-        // }
-      />
-    </SkeletonWrapper>
+    <ComponentList
+      components={componentDomainService.componentList}
+      onDelete={(id) =>
+        deleteComponentModal.open(componentDomainService.component(id))
+      }
+      onEdit={(id) => editComponent(id)}
+      onExport={(component) => exportComponent.execute(component)}
+      // onSelect={componentService.previewComponent}
+      // selectedIds={
+      //   builderService.selectedNode
+      //     ? [builderService.selectedNode.id]
+      //     : undefined
+      // }
+    />
   )
 })

@@ -1,4 +1,5 @@
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
+import { StoreHydrator } from '@codelab/frontend/infra/context'
 import { atomListQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
 import { ComponentsPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 import { componentListQuery } from '@codelab/frontend-application-component/use-cases/component-list'
@@ -18,20 +19,20 @@ const ComponentsRoute = async () => {
   ])
 
   return (
-    <DashboardTemplate
-      Header={<ComponentDetailHeader />}
-      PrimarySidebar={{
-        default: ExplorerPaneType.Components,
-        items: [
-          {
-            key: ExplorerPaneType.Components,
-            render: (
-              <ComponentsPrimarySidebar atoms={atoms} components={components} />
-            ),
-          },
-        ],
-      }}
-    />
+    <StoreHydrator atoms={atoms} components={components}>
+      <DashboardTemplate
+        Header={<ComponentDetailHeader />}
+        PrimarySidebar={{
+          default: ExplorerPaneType.Components,
+          items: [
+            {
+              key: ExplorerPaneType.Components,
+              render: <ComponentsPrimarySidebar />,
+            },
+          ],
+        }}
+      />
+    </StoreHydrator>
   )
 }
 
