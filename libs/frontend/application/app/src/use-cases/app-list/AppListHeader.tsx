@@ -11,10 +11,10 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
 import React from 'react'
-import { useCreateAppModal } from '../use-cases/create-app/create-app.state'
-import { ImportAppDialog } from '../use-cases/import-app'
+import { useCreateAppModal } from '../create-app/create-app.state'
+import { ImportAppDialog } from '../import-app'
 
-export const AppsViewHeader = () => {
+export const AppListHeader = () => {
   const createAppModal = useCreateAppModal()
 
   const toolbarItems: Array<ToolbarItem> = [

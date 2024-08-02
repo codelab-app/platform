@@ -1,10 +1,11 @@
 import '../styles/global.css'
+import { RootProviders } from '@codelab/frontend/infra/context'
+import { userDto } from '@codelab/frontend/test/data'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { guestUser } from '@codelab/shared/data/test'
 import type { Preview } from '@storybook/react'
 import { ConfigProvider } from 'antd'
 import React from 'react'
-import { Providers } from '../components'
 
 const preview: Preview = {
   decorators: [
@@ -12,11 +13,11 @@ const preview: Preview = {
       const { params, query } = useUrl()
 
       return (
-        <Providers user={guestUser}>
+        <RootProviders user={userDto}>
           <ConfigProvider theme={{ token: {} }}>
             <Story />
           </ConfigProvider>
-        </Providers>
+        </RootProviders>
       )
     },
   ],

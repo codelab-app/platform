@@ -1,3 +1,5 @@
+'use client'
+
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'

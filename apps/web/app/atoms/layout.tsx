@@ -1,16 +1,19 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
+import {
+  AtomsPrimarySidebar,
+  AtomsViewHeader,
+} from '@codelab/frontend-application-atom/views'
 import type { DashboardTemplateProps } from '@codelab/frontend-presentation-view/templates'
-import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
-import React from 'react'
-import { AtomsPrimarySidebar } from '../use-cases/get-atoms'
-import { AtomsViewHeader } from './AtomsViewHeader'
+import {
+  DashboardTemplate,
+  DynamicDashboardTemplate,
+} from '@codelab/frontend-presentation-view/templates'
+import React, { type ReactNode } from 'react'
 
-export type IAtomsView = CodelabPage<DashboardTemplateProps>
-
-export const AtomsViewLayout: IAtomsView['Layout'] = ({ children }) => {
+const AtomsRouteLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <DynamicDashboardTemplate
+    <DashboardTemplate
       Header={<AtomsViewHeader />}
       PrimarySidebar={{
         default: PageType.Atoms,
@@ -23,6 +26,8 @@ export const AtomsViewLayout: IAtomsView['Layout'] = ({ children }) => {
       }}
     >
       {children}
-    </DynamicDashboardTemplate>
+    </DashboardTemplate>
   )
 }
+
+export default AtomsRouteLayout

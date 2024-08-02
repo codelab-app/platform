@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'Components | Codelab',
 }
 
-const ComponentsView = async () => {
+const ComponentsRoute = async () => {
   const { components } = await componentListUseCase()
   const { items: atoms } = await atomListUseCase()
 
@@ -33,4 +33,4 @@ const ComponentsView = async () => {
   )
 }
 
-export default ComponentsView
+export default ComponentsRoute

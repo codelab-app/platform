@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useUpdateTagForm } from '../use-cases/update-tag'
 
-export const TagsViewHeader = observer(() => {
+export const TagsViewHeader = () => {
   const updateTagForm = useUpdateTagForm()
   const tag = updateTagForm.data
 
@@ -28,4 +28,4 @@ export const TagsViewHeader = observer(() => {
       }
     />
   )
-})
+}

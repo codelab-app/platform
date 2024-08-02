@@ -414,7 +414,7 @@
     "eslint-plugin-sort-destructure-keys": "1.5.0",
     "eslint-plugin-tailwindcss": "3.17.4",
     "eslint-plugin-typescript-sort-keys": "3.1.0",
-    "eslint-plugin-unicorn": "49.0.0",
+    "eslint-plugin-unicorn": "55.0.0",
     "eslint-plugin-unused-imports": "3.2.0",
     "execa": "5.1.1",
     "git-changed-files": "1.0.0",

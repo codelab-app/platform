@@ -5,21 +5,19 @@ import {
   UpdateTagForm,
   UpdateTagModal,
 } from '@codelab/frontend-application-tag/use-cases/update-tag'
-import {
-  type ITagsView,
-  TagsViewLayout,
-} from '@codelab/frontend-application-tag/views'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
+import type { Metadata } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
-const TagsView: ITagsView = () => {
+export const metadata: Metadata = {
+  // description: '...',
+  title: 'Tags | Codelab',
+}
+
+const TagsRoute = () => {
   return (
     <>
-      <Head>
-        <title>Tags | Codelab</title>
-      </Head>
-
       <CreateTagModal />
       <UpdateTagModal />
       <DeleteTagsModal />
@@ -31,8 +29,4 @@ const TagsView: ITagsView = () => {
   )
 }
 
-export default TagsView
-
-TagsView.Layout = TagsViewLayout
-
-export const getServerSideProps = withPageAuthRedirect()
+export default TagsRoute

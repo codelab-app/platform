@@ -1,14 +1,16 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { CreateResourcePopover } from '../create-resource'
-import { useCreateResourceForm } from '../create-resource/create-resource.state'
-import { ResourcesTreeView } from '../get-resource'
+import { CreateResourcePopover } from '../use-cases/create-resource'
+import { useCreateResourceForm } from '../use-cases/create-resource/create-resource.state'
+import { ResourcesTreeView } from '../use-cases/get-resource'
 
-export const ResourcesPrimarySidebar = observer(() => {
+export const ResourcesPrimarySidebar = () => {
   const { popover } = useCui()
   const createResourceForm = useCreateResourceForm()
 
@@ -39,4 +41,4 @@ export const ResourcesPrimarySidebar = observer(() => {
       ]}
     />
   )
-})
+}

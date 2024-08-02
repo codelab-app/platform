@@ -625,9 +625,6 @@
       "@codelab/frontend-application-user/use-cases/server-user": [
         "libs/frontend/application/user/src/use-cases/server-user/index.ts"
       ],
-      "@codelab/frontend-application-user/views": [
-        "libs/frontend/application/user/src/views/index.ts"
-      ],
       "@codelab/frontend-domain-action/services": [
         "libs/frontend/domain/action/src/services/index.ts"
       ],

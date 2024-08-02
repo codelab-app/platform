@@ -1,14 +1,16 @@
 import type { IUserModel } from '@codelab/frontend/abstract/domain'
 import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
-import {
-  type IUsersView,
-  UsersViewLayout,
-} from '@codelab/frontend-application-user/views'
 import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
+import type { Metadata } from 'next'
 import React from 'react'
 
-const UsersView: IUsersView = () => {
+export const metadata: Metadata = {
+  // description: '...',
+  title: 'Users | Codelab',
+}
+
+const UsersRoute = () => {
   // const { data } = useGetUsersQuery()
   const data = { users: [] }
 
@@ -47,8 +49,4 @@ const UsersView: IUsersView = () => {
   )
 }
 
-export default UsersView
-
-export const getServerSideProps = withPageAuthRedirect()
-
-UsersView.Layout = UsersViewLayout
+export default UsersRoute
