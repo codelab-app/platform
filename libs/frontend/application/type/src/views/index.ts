@@ -1,1 +1,2 @@
-export * from './TypesViewLayout'
+export * from './TypesPrimarySidebar'
+export * from './TypesViewHeader'

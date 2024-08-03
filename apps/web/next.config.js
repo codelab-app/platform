@@ -1,5 +1,6 @@
 const { composePlugins, withNx } = require('@nx/next')
 const path = require('path')
+const { get } = require('env-var')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE_BUNDLE === 'true',
@@ -56,6 +57,9 @@ const withWebpackConfig = (nextConfig = {}) =>
   })
 
 const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
+const port = get('NEXT_PUBLIC_API_PORT').required().asString()
+const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
+const apiHost = `${url}:${port}`
 
 /**
  * @type {WithNxOptions}
@@ -76,15 +80,23 @@ const nextConfig = {
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
   // reactStrictMode: false,
-  // rewrites: async () => ({
-  //   beforeFiles: [
-  //     // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
-  //     {
-  //       destination: 'http://127.0.0.1:4318/:path*',
-  //       source: '/api/otel/:path*',
-  //     },
-  //   ],
-  // }),
+  rewrites: async () => ({
+    // beforeFiles: [
+    //   // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
+    //   {
+    //     destination: 'http://127.0.0.1:4318/:path*',
+    //     source: '/api/otel/:path*',
+    //   },
+    // ],
+    fallback: [
+      // These rewrites are checked after both pages/public files
+      // and dynamic routes are checked
+      {
+        destination: `${apiHost}/:path*`,
+        source: '/api/:path*',
+      },
+    ],
+  }),
 }
 
 module.exports = composePlugins(...plugins)(nextConfig)

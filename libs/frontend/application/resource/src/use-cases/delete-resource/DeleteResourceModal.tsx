@@ -1,3 +1,5 @@
+'use client'
+
 import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
 import { useResourceQuery } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'

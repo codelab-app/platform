@@ -1,2 +1,3 @@
 export * from './ResourceIcon'
-export * from './ResourcesViewLayout'
+export * from './ResourcesPrimarySidebar'
+export * from './ResourcesViewHeader'
