@@ -5,7 +5,6 @@ import Link from 'next/link'
 import React from 'react'
 import { AppListItemDropdown } from './AppListItemDropdown'
 import { DomainList } from './DomainList'
-import { ariaLabels } from '@codelab/frontend-application-shared-data'
 
 export interface AppListItemProps {
   app: IAppModel
