@@ -7012,7 +7012,6 @@ export type ComponentAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
 }
 
 export type ComponentApiAggregateInput = {
@@ -7152,7 +7151,6 @@ export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
   compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
-  name: Scalars['String']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   props?: InputMaybe<ComponentPropsFieldInput>
   rootElement?: InputMaybe<ComponentRootElementFieldInput>
@@ -7226,7 +7224,6 @@ export type ComponentInterfaceTypeApiNodeAggregateSelection = {
 export type ComponentOnCreateInput = {
   compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
-  name: Scalars['String']['input']
 }
 
 export type ComponentOptions = {
@@ -7681,7 +7678,6 @@ export type ComponentRootElementUpdateFieldInput = {
 export type ComponentSort = {
   compositeKey?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
 }
 
 export type ComponentStoreAggregateInput = {
@@ -7842,7 +7838,6 @@ export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
-  name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
@@ -7890,12 +7885,6 @@ export type ComponentWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
   id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
-  name?: InputMaybe<Scalars['String']['input']>
-  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  name_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  name_MATCHES?: InputMaybe<Scalars['String']['input']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ComponentOwnerAggregateInput>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
@@ -8803,21 +8792,6 @@ export type ElementChildMapperComponentNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type ElementChildMapperComponentRelationship = {
@@ -9043,7 +9017,6 @@ export type ElementComponentChildMapperComponentAggregationSelection = {
 export type ElementComponentChildMapperComponentNodeAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
 }
 
 export type ElementComponentParentComponentAggregationSelection = {
@@ -9054,7 +9027,6 @@ export type ElementComponentParentComponentAggregationSelection = {
 export type ElementComponentParentComponentNodeAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
 }
 
 export type ElementConnectInput = {
@@ -9877,21 +9849,6 @@ export type ElementParentComponentNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type ElementParentComponentRelationship = {
@@ -26023,7 +25980,6 @@ export type UserComponentComponentsAggregationSelection = {
 export type UserComponentComponentsNodeAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
 }
 
 export type UserComponentsAggregateInput = {
@@ -26114,21 +26070,6 @@ export type UserComponentsNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type UserComponentsRelationship = {

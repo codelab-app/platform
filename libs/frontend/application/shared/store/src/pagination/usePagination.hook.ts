@@ -7,6 +7,7 @@ import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import sortBy from 'lodash/sortBy'
 import type { Ref } from 'mobx-keystone'
+import { useMemo } from 'react'
 
 interface PaginationState<
   T extends SupportedPaginationModel,
@@ -65,7 +66,11 @@ export const usePaginationService = <
     filter: U,
   ) => Promise<{ items: Array<T>; totalItems: number }>,
 ): IPaginationService<T, U> => {
-  const paginationAtomFamily = createPaginationAtomFamily<T, U>()
+  const paginationAtomFamily = useMemo(
+    () => createPaginationAtomFamily<T, U>(),
+    [],
+  )
+
   const [state, setState] = useAtom(paginationAtomFamily(key))
   const setCurrentPage = (page: number) => setState({ currentPage: page })
   const setPageSize = (size: number) => setState({ pageSize: size })
