@@ -1,3 +1,5 @@
+'use client'
+
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'

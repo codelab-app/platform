@@ -11,36 +11,25 @@
         "unicorn/filename-case": [
           "error",
           {
-            "cases": {
-              "camelCase": false,
-              "pascalCase": true
-            },
+            "case": "pascalCase",
             "ignore": [
               ".*\\.hook\\.tsx?$",
-              ".*\\.stories\\.tsx?$",
               ".*\\.spec\\.tsx?$",
-              "preview.tsx"
+              "^preview\\.tsx",
+              "^_app\\.tsx",
+              "^_document\\.tsx"
             ]
           }
         ]
       }
     },
     {
-      "files": ["_app.tsx", "_document.tsx"],
-      "rules": {
-        "unicorn/filename-case": ["off"]
-      }
-    },
-    {
-      "files": ["*.hook.ts", "*.hook.tsx"],
+      "files": ["*.hook.tsx?"],
       "rules": {
         "unicorn/filename-case": [
           "error",
           {
-            "cases": {
-              "camelCase": true,
-              "pascalCase": false
-            }
+            "case": "camelCase"
           }
         ]
       }
@@ -98,12 +87,12 @@
           }
         ]
       }
-    },
-    {
-      "files": ["**/app/**/*", "*.query.ts", "*.fragment.ts"],
-      "rules": {
-        "unicorn/filename-case": "off"
-      }
     }
+    // {
+    //   "files": ["**/app/**/*", "*.query.ts", "*.fragment.ts"],
+    //   "rules": {
+    //     "unicorn/filename-case": "off"
+    //   }
+    // }
   ]
 }

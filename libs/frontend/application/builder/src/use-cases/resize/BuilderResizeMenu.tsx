@@ -1,3 +1,5 @@
+'use client'
+
 import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import MobileOutlined from '@ant-design/icons/MobileOutlined'
 import TabletOutlined from '@ant-design/icons/TabletOutlined'

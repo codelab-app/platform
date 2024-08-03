@@ -1,3 +1,5 @@
+'use client'
+
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'

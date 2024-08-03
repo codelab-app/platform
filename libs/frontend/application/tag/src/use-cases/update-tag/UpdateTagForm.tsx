@@ -1,3 +1,5 @@
+'use client'
+
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -29,8 +31,8 @@ export const UpdateTagForm = observer(() => {
     parent: tag?.parent ? { id: tag.parent.id } : undefined,
   }
 
-  const onSubmit = (tagDTO: IUpdateTagData) => {
-    void tagService.update(tagDTO)
+  const onSubmit = (tagDto: IUpdateTagData) => {
+    void tagService.update(tagDto)
 
     return Promise.resolve()
   }

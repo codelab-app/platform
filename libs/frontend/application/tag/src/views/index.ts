@@ -1,1 +1,2 @@
-export * from './TagsViewLayout'
+export * from './TagsPrimarySidebar'
+export * from './TagsViewHeader'

@@ -17,7 +17,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useFieldService, useTypeService } from '../../services'
+import { useFieldService } from '../../services'
 import {
   canSetDefaultValue,
   createFieldSchema,

@@ -24,7 +24,9 @@ const BuilderLayout = ({ children }: { children: ReactNode }) => {
           // },
         ],
       }}
-    />
+    >
+      {children}
+    </DashboardTemplate>
   )
 }
 

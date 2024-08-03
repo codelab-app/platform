@@ -1,3 +1,5 @@
+'use client'
+
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { typeApi } from '@codelab/frontend-domain-type/repositories'
