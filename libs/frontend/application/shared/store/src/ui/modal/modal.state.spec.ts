@@ -1,9 +1,5 @@
-import {
-  CuiComponents,
-  MODEL_ACTION,
-  ModelActionKey,
-} from '@codelab/frontend/abstract/types'
-import { act, renderHook, waitFor } from '@testing-library/react'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { act, renderHook } from '@testing-library/react'
 import { useModalState } from './modal.state'
 
 describe('useModalState', () => {

@@ -14,11 +14,11 @@ import {
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useTagService } from '../../services'
-import { CreateTagPopover } from '../create-tag'
-import { useCreateTagForm } from '../create-tag/create-tag.data'
-import { useDeleteTagsModal } from '../delete-tags/delete-tags.state'
-import { TagsTreeView } from '../get-tags'
+import { useTagService } from '../services'
+import { CreateTagPopover } from '../use-cases/create-tag'
+import { useCreateTagForm } from '../use-cases/create-tag/create-tag.data'
+import { useDeleteTagsModal } from '../use-cases/delete-tags/delete-tags.state'
+import { TagsTreeView } from '../use-cases/get-tags'
 
 export const TagsPrimarySidebar = observer(() => {
   const tagService = useTagService()

@@ -1,15 +1,18 @@
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-import type { NextApiHandler } from 'next'
+import type { NextRequest, NextResponse } from 'next/server'
 
-export const authMiddleware: NextApiHandler = async (req, res) => {
+export const authMiddleware = async (
+  request: NextRequest,
+  response: NextResponse,
+) => {
   try {
     /**
      * Requires `headers.cookie` to be set by client
      */
-    const session = await auth0Instance.getSession(req, res)
+    const session = await auth0Instance.getSession(request, response)
 
     if (session?.user) {
-      Object.assign(req, { user: session.user })
+      Object.assign(request, { user: session.user })
     }
 
     const accessToken = session?.accessToken
@@ -18,7 +21,7 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
      * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
      */
     if (accessToken) {
-      req.headers.authorization = `Bearer ${accessToken}`
+      request.headers.set('Authorization', `Bearer ${accessToken}`)
     }
 
     /**
@@ -27,7 +30,7 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
     const idToken = session?.idToken
 
     if (idToken) {
-      req.headers['X-ID-TOKEN'] = idToken
+      request.headers.set('X-ID-TOKEN', idToken)
     }
   } catch (error) {
     console.error('error when getting session', error)

@@ -161,6 +161,9 @@
       "@codelab/backend/infra/adapter/logger": [
         "libs/backend/infra/adapter/logger/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/middleware": [
+        "libs/backend/infra/adapter/middleware/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/neo4j": [
         "libs/backend/infra/adapter/neo4j/src/index.ts"
       ],
@@ -285,9 +288,6 @@
       ],
       "@codelab/frontend-application-auth-guard/use-cases/get-auth-guard": [
         "libs/frontend/application/auth-guard/src/use-cases/get-auth-guard/index.ts"
-      ],
-      "@codelab/frontend-application-auth-guard/use-cases/primary-sidebar": [
-        "libs/frontend/application/auth-guard/src/use-cases/primary-sidebar/index.ts"
       ],
       "@codelab/frontend-application-auth-guard/use-cases/update-auth-guard": [
         "libs/frontend/application/auth-guard/src/use-cases/update-auth-guard/index.ts"
@@ -511,9 +511,6 @@
       "@codelab/frontend-application-resource/use-cases/get-resource": [
         "libs/frontend/application/resource/src/use-cases/get-resource/index.ts"
       ],
-      "@codelab/frontend-application-resource/use-cases/primary-sidebar": [
-        "libs/frontend/application/resource/src/use-cases/primary-sidebar/index.ts"
-      ],
       "@codelab/frontend-application-resource/use-cases/update-resource": [
         "libs/frontend/application/resource/src/use-cases/update-resource/index.ts"
       ],
@@ -571,9 +568,6 @@
       "@codelab/frontend-application-tag/use-cases/get-tags": [
         "libs/frontend/application/tag/src/use-cases/get-tags/index.ts"
       ],
-      "@codelab/frontend-application-tag/use-cases/primary-sidebar": [
-        "libs/frontend/application/tag/src/use-cases/primary-sidebar/index.ts"
-      ],
       "@codelab/frontend-application-tag/use-cases/update-tag": [
         "libs/frontend/application/tag/src/use-cases/update-tag/index.ts"
       ],
@@ -604,9 +598,6 @@
       "@codelab/frontend-application-type/use-cases/hooks": [
         "libs/frontend/application/type/src/use-cases/hooks/index.ts"
       ],
-      "@codelab/frontend-application-type/use-cases/primary-sidebar": [
-        "libs/frontend/application/type/src/use-cases/primary-sidebar/index.ts"
-      ],
       "@codelab/frontend-application-type/use-cases/select-types": [
         "libs/frontend/application/type/src/use-cases/select-types/index.ts"
       ],
@@ -624,6 +615,9 @@
       ],
       "@codelab/frontend-application-user/use-cases/server-user": [
         "libs/frontend/application/user/src/use-cases/server-user/index.ts"
+      ],
+      "@codelab/frontend-application-user/use-cases/user-list": [
+        "libs/frontend/application/user/src/use-cases/user-list/index.ts"
       ],
       "@codelab/frontend-domain-action/services": [
         "libs/frontend/domain/action/src/services/index.ts"

@@ -6,7 +6,6 @@ import type {
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import isEqual from 'lodash/isEqual'
-import { useCallback, useMemo } from 'react'
 import type { IToggleState } from './toggle.state.interface'
 
 export const defaultMapper = <TData, TOutput = TData>(state?: TData): TOutput =>

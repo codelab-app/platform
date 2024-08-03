@@ -1,7 +1,4 @@
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend-application-shared-auth'
 import type { Metadata } from 'next'
-import Head from 'next/head'
 import React from 'react'
 
 export const metadata: Metadata = {

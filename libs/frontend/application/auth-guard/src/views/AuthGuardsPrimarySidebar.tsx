@@ -1,11 +1,13 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import React from 'react'
-import { CreateAuthGuardPopover } from '../create-auth-guard'
-import { useCreateAuthGuardForm } from '../create-auth-guard/create-auth-guard.state'
-import { AuthGuardsTreeView } from '../get-auth-guard'
+import { CreateAuthGuardPopover } from '../use-cases/create-auth-guard'
+import { useCreateAuthGuardForm } from '../use-cases/create-auth-guard/create-auth-guard.state'
+import { AuthGuardsTreeView } from '../use-cases/get-auth-guard'
 
 export const AuthGuardsPrimarySidebar = () => {
   const createAuthGuardForm = useCreateAuthGuardForm()

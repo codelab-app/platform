@@ -1,3 +1,5 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
   MODEL_ACTION,
@@ -9,15 +11,14 @@ import {
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useTypeService } from '../../services'
-import { CreateFieldPopover } from '../create-field'
-import { CreateTypePopover } from '../create-type'
-import { useCreateTypeForm } from '../create-type/create-type.state'
-import { TypesTreeView } from '../get-types'
+import { useTypeService } from '../services'
+import { CreateFieldPopover } from '../use-cases/create-field'
+import { CreateTypePopover } from '../use-cases/create-type'
+import { useCreateTypeForm } from '../use-cases/create-type/create-type.state'
+import { TypesTreeView } from '../use-cases/get-types'
 
-export const TypesPrimarySidebar = observer(() => {
+export const TypesPrimarySidebar = () => {
   const typeService = useTypeService()
   const createTypeForm = useCreateTypeForm()
   const { popover } = useCui()
@@ -63,4 +64,4 @@ export const TypesPrimarySidebar = observer(() => {
       ]}
     />
   )
-})
+}
