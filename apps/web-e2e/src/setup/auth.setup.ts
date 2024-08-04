@@ -12,13 +12,11 @@ test('authenticate', async ({ page }) => {
   await page.getByLabel('Password*').fill(auth0Password)
   await page.getByRole('button', { exact: true, name: 'Continue' }).click()
 
-
-  // after login use will be redirected to /apps
+  // after login user will be redirected to /apps
   await page.waitForURL('/apps')
   // go back to landing page
   await page.goto('/')
 
-  
   await expect(
     page.getByRole('link', { exact: true, name: 'Log Out' }),
   ).toBeVisible()

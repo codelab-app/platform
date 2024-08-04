@@ -83,6 +83,7 @@ export default defineConfig({
     {
       command: 'pnpm e2e:api',
       cwd: workspaceRoot,
+      reuseExistingServer: !process.env.CI,
       url: 'http://127.0.0.1:4001/api/graphql',
     },
   ],
