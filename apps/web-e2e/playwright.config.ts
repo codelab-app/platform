@@ -87,6 +87,7 @@ export default defineConfig({
       command: 'pnpm e2e:api',
       cwd: workspaceRoot,
       url: apiUrl,
+      reuseExistingServer: !process.env.CI,
     },
   ],
 })
