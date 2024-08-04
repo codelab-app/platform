@@ -4,13 +4,12 @@ import type {
   ICreateAppData,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
-import type { App, AppWhere } from '@codelab/frontend/infra/gql'
+import type { AppWhere } from '@codelab/frontend/infra/gql'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
-import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
@@ -90,25 +89,6 @@ export const useAppService = (): IAppService => {
     }))
   }
 
-  const importApp = async (appDataFile: File) => {
-    const formData = new FormData()
-
-    formData.append('file', appDataFile)
-
-    const response = await fetchWithAuth('app/import', {
-      body: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-      method: 'POST',
-    })
-
-    const data: App = await response.json()
-
-    // Reload appList in fetch
-    // return loadAppsPreview({ id: data.id })
-
-    return data
-  }
-
   /**
    * This is used for the apps list preview
    *
@@ -145,6 +125,8 @@ export const useAppService = (): IAppService => {
     app.writeCache({ name })
 
     await appRepository.update(app)
+
+    await invalidateAppListQuery()
 
     return app
   }
@@ -185,10 +167,8 @@ export const useAppService = (): IAppService => {
 
   return {
     create,
-    exportApp,
     getAll,
     getOne,
-    importApp,
     regeneratePages: regeneratePagesForApp,
     remove,
     update,

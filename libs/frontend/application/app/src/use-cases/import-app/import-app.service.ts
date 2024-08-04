@@ -1,14 +1,16 @@
 'use server'
 
-import type { IAppService } from '@codelab/frontend/abstract/application'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { invalidateAppListQuery } from '../app-list'
 
-export const importAppUseCase: IAppService['importApp'] = async (
-  appData: FormData,
-) => {
+export const importAppService = async (appData: File) => {
+  const formData = new FormData()
+
+  formData.append('file', appData)
+
   const response = await fetchWithAuth('app/import', {
-    body: appData,
+    body: formData,
+    headers: { 'Content-Type': 'multipart/form-data' },
     method: 'POST',
   })
 

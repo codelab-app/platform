@@ -79,7 +79,6 @@ const nextConfig = {
   nx: { svgr: true },
   // disable to support uniforms.
   // https://github.com/vazco/uniforms/issues/1194
-  reactStrictMode: false,
   // reactStrictMode: false,
   rewrites: async () => ({
     afterFiles: [
