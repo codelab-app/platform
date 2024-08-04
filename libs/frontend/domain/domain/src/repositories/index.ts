@@ -1,5 +1,6 @@
 export { createDomainRepository } from './create-domain.repository'
 export { deleteDomainsRepository } from './delete-domain.repository'
+export * from './domain.repository'
 export {
   domainListRepository,
   revalidateDomainListOperation,

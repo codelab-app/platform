@@ -6,6 +6,7 @@ import * as env from 'env-var'
 const { get } = env.from({
   NEXT_PUBLIC_API_HOSTNAME: process.env['NEXT_PUBLIC_API_HOSTNAME'],
   NEXT_PUBLIC_API_PORT: process.env['NEXT_PUBLIC_API_PORT'],
+  NEXT_PUBLIC_BASE_API_PATH: process.env['NEXT_PUBLIC_BASE_API_PATH'],
   NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
 })
 
@@ -15,6 +16,10 @@ export interface IEndpointEnvVars {
    */
   apiGraphqlUrl: string
   apiHost: string
+  /**
+   * `api/v1`
+   */
+  baseApiPath: string
   /**
    * Used to secure pages on production
    */
@@ -47,6 +52,10 @@ export class EndpointEnvVars implements IEndpointEnvVars {
     const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject()
 
     return (this._apiHost = new URL(`${url.origin}:${port}`).toString())
+  }
+
+  get baseApiPath() {
+    return get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
   }
 
   /**

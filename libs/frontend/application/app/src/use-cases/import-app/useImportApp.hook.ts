@@ -8,11 +8,7 @@ export const useImportApp = () => {
     setLoading(true)
 
     try {
-      const formData = new FormData()
-
-      formData.append('file', appFile)
-
-      const importResult = await importAppUseCase(formData)
+      const importResult = await importAppUseCase(appFile)
 
       console.log(importResult)
 

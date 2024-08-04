@@ -1,16 +1,16 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPropData, IValidationRules } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { useAsync, useMountEffect } from '@react-hookz/web'
 import type { JSONSchemaType } from 'ajv'
 import isNil from 'lodash/isNil'
 import React, { useMemo } from 'react'
+import { useAsyncFn, useMount } from 'react-use'
 import { useField } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { schemaTransformer } from '../../type-schema.factory'
@@ -20,11 +20,13 @@ export const SelectDefaultValue = () => {
 
   // Need to load the type if not loaded yet
   // otherwise default value form will not be rendered
-  const [, getType] = useAsync(() =>
+  const [getTypeState, getType] = useAsyncFn(() =>
     typeRepository.getAll(fieldType.value ? [fieldType.value] : []),
   )
 
-  useMountEffect(getType.execute)
+  useMount(() => {
+    void getType()
+  })
 
   const [fieldType, context] = useField<{ value?: string }>('fieldType', {})
 

@@ -25,7 +25,10 @@ export const corsFetch = async (endpoint: string, init: RequestInit = {}) => {
     ...(init.headers ?? {}),
   }
 
-  const apiUrl = new URL(`api/${endpoint}`, getEnv().endpoint.apiHost)
+  const apiUrl = new URL(
+    `${getEnv().endpoint.baseApiPath}/${endpoint}`,
+    getEnv().endpoint.apiHost,
+  )
 
   const response = await fetch(apiUrl, {
     ...init,

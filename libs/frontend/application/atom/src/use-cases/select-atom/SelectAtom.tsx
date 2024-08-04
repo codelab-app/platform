@@ -2,9 +2,9 @@ import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { mapAtomOptions } from '@codelab/frontend-domain-atom/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import { useAsync } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsyncFn } from 'react-use'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 import { useAtomService } from '../../services'
@@ -26,21 +26,20 @@ export const SelectAtom = observer<SelectAtomProps>(
     const [fieldProps] = useField<{ value?: string }>(name, {})
     const fallbackAtomOptions = atomDomainService.atomsList.map(mapAtomOptions)
 
-    const [{ error: queryError, result, status }, getSelectAtomOptions] =
-      useAsync(() =>
-        atomService.getSelectAtomOptions({ ...fieldProps, label }, parent),
-      )
+    const [state, getSelectAtomOptions] = useAsyncFn(() =>
+      atomService.getSelectAtomOptions({ ...fieldProps, label }, parent),
+    )
 
     return (
       <SelectField
-        error={error || queryError}
+        error={error || state.error}
         getPopupContainer={(triggerNode) => triggerNode.parentElement}
         label={label}
-        loading={status === 'loading'}
+        loading={state.loading}
         name={name}
         onDropdownVisibleChange={async (open) => {
-          if (open && status === 'not-executed') {
-            await getSelectAtomOptions.execute()
+          if (open && !state.loading && !state.value) {
+            await getSelectAtomOptions()
           }
         }}
         onSelect={(value, option) => {
@@ -53,7 +52,7 @@ export const SelectAtom = observer<SelectAtomProps>(
         }}
         optionFilterProp="label"
         optionLabelProp="label"
-        options={result ?? fallbackAtomOptions}
+        options={state.value ?? fallbackAtomOptions}
         showSearch
       />
     )

@@ -1,7 +1,7 @@
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
-import { useAsync } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
 export interface SelectAuthGuardsProps {
@@ -9,22 +9,22 @@ export interface SelectAuthGuardsProps {
 }
 
 export const SelectAuthGuard = observer<SelectAuthGuardsProps>(({ name }) => {
-  const [{ error, result, status }, getSelectAuthGuardOptions] = useAsync(() =>
+  const [state, getSelectAuthGuardOptions] = useAsyncFn(() =>
     authGuardRepository.selectOptions(),
   )
 
   return (
     <SelectField
-      error={error}
+      error={state.error}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       name={name}
       onDropdownVisibleChange={async (open) => {
-        if (open && status === 'not-executed') {
-          await getSelectAuthGuardOptions.execute()
+        if (open && !state.loading && !state.value) {
+          await getSelectAuthGuardOptions()
         }
       }}
       optionFilterProp="label"
-      options={result}
+      options={state.value}
       showSearch
     />
   )

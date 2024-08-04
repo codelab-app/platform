@@ -42,7 +42,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const onEditClick = () => updateAppModal.open(app)
   const onDeleteClick = () => deleteAppModal.open(app)
   const onBuildClick = () => buildAppModal.open(app)
-  const { exportApp } = useExportApp(app)
+  const { exportApp, loading: loadingExportApp } = useExportApp(app)
   const router = useRouter()
 
   const goToDomainsPage = async () => {
@@ -84,7 +84,9 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
       style: menuItemStyle,
     },
     {
-      icon: <ExportOutlined style={menuItemIconStyle} />,
+      icon: (
+        <ExportOutlined spin={loadingExportApp} style={menuItemIconStyle} />
+      ),
       key: 'export',
       label: 'Export',
       onClick: exportApp,

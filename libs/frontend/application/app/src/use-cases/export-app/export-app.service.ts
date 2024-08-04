@@ -1,14 +1,16 @@
 'use server'
 
-import type { IAppService } from '@codelab/frontend/abstract/application'
+import type { App } from '@codelab/frontend/infra/gql'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import type { IRef } from '@codelab/shared/abstract/core'
 
-export const exportAppUseCase: IAppService['exportApp'] = async (app: IRef) => {
+export const exportAppService = async (app: IRef) => {
   const response = await fetchWithAuth(`app/export?id=${app.id}`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'GET',
   })
 
-  return await response.json()
+  const data: App = await response.json()
+
+  return data
 }

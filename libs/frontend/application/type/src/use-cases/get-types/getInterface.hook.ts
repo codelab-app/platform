@@ -4,8 +4,8 @@ import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { useAsync } from '@react-hookz/web'
 import { useEffect } from 'react'
+import { useAsyncFn } from 'react-use'
 
 export const useCurrentInterfaceId = () => {
   const { params, query } = useUrl()
@@ -25,20 +25,20 @@ export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   const interfaceId = useCurrentInterfaceId()
   const { typeDomainService } = useDomainStore()
 
-  const [{ error, status }, getInterface] = useAsync(() =>
+  const [state, getInterface] = useAsyncFn(() =>
     // We need the whole graph, not just the interface, because we need to reference all the field types
     typeService.getInterface(interfaceId),
   )
 
   useEffect(() => {
-    void getInterface.execute()
+    void getInterface()
   }, [interfaceId])
 
   return {
-    error,
-    loading: status === 'loading',
+    error: state.error,
+    loading: state.loading,
     type:
-      interfaceId && status !== 'loading'
+      interfaceId && !state.loading
         ? (typeDomainService.getType(interfaceId) as IInterfaceTypeModel)
         : undefined,
   }
