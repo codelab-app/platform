@@ -6,14 +6,14 @@ import {
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useAsync, useMountEffect } from '@react-hookz/web'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAsyncFn } from 'react-use'
 import { useAuthGuardService } from '../../services'
 import { AuthGuardsTreeItem } from './AuthGuardsTreeItem'
 
 export const AuthGuardsTreeView = () => {
   const authGuardService = useAuthGuardService()
-  const [{ status }, getAuthGuards] = useAsync(() => authGuardService.getAll())
+  const [state, getAuthGuards] = useAsyncFn(() => authGuardService.getAll())
 
   const authGuardList: Array<ITreeNode<IAuthGuardNodeData>> =
     authGuardService.authGuardList.map((authGuard) => ({
@@ -26,10 +26,12 @@ export const AuthGuardsTreeView = () => {
       title: authGuard.name,
     }))
 
-  useMountEffect(getAuthGuards.execute)
+  useEffect(() => {
+    void getAuthGuards()
+  }, [])
 
   return (
-    <CuiSkeletonWrapper isLoading={status === 'loading'}>
+    <CuiSkeletonWrapper isLoading={state.loading}>
       <CuiTree
         titleRender={(node) => {
           return <AuthGuardsTreeItem data={node} />

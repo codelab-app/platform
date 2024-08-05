@@ -5,13 +5,12 @@ import {
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
 import type { HttpException } from '@nestjs/common'
-import { useAsync } from '@react-hookz/web'
 import React, { useRef } from 'react'
+import { useAsyncFn } from 'react-use'
 import { importComponentDataUseCase } from './import-component-data.use-case'
 
 export const ImportComponentDialog = () => {
-  const [{ status }, importComponent] = useAsync(importComponentDataUseCase)
-  const loading = status === 'loading'
+  const [{ loading }, importComponent] = useAsyncFn(importComponentDataUseCase)
   const Icon = loading ? LoadingOutlined : ImportOutlined
 
   const onError = useErrorNotify({
@@ -35,7 +34,7 @@ export const ImportComponentDialog = () => {
     if (componentDataFile) {
       formData.append('file', componentDataFile)
 
-      await importComponent.execute(formData).then(onSuccess).catch(onError)
+      await importComponent(formData).then(onSuccess).catch(onError)
     }
   }
 

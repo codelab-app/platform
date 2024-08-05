@@ -1,8 +1,8 @@
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import type { Completion, CompletionSource } from '@codemirror/autocomplete'
-import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsyncFn, useMount } from 'react-use'
 import type { CodeMirrorInputProps } from './CodeMirrorInput'
 import { CodeMirrorInput } from './CodeMirrorInput'
 import { getDefaultExtensions } from './setup'
@@ -54,16 +54,18 @@ export const CodeMirrorEditor = observer((props: CodeMirrorEditorProps) => {
     overrideExtensions = false,
   } = props
 
-  const [{ result }, actions] = useAsync(() =>
+  const [state, fetchExtensions] = useAsyncFn(() =>
     Promise.all([
       getLanguageExtension(language),
       overrideExtensions ? [] : getDefaultExtensions(props),
     ]),
   )
 
-  useMountEffect(actions.execute)
+  useMount(() => {
+    void fetchExtensions()
+  })
 
-  const [languageExtension, basicExtensions] = result ?? []
+  const [languageExtension, basicExtensions] = state.value ?? []
 
   const mergedExtension = [
     ...(languageExtension ?? []),

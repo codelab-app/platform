@@ -1,6 +1,6 @@
 import { useResourceService } from '@codelab/frontend-application-resource/services'
-import { useAsync } from '@react-hookz/web'
 import React from 'react'
+import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
 export interface SelectResourcesProps {
@@ -11,9 +11,9 @@ export const SelectResource = ({ name }: SelectResourcesProps) => {
   const resourceService = useResourceService()
 
   const [
-    { error: queryError, result: selectResourceOptions, status },
+    { error: queryError, value: selectResourceOptions },
     getSelectResourceOptions,
-  ] = useAsync(() => resourceService.getSelectResourceOptions())
+  ] = useAsyncFn(() => resourceService.getSelectResourceOptions())
 
   return (
     <SelectField
@@ -21,8 +21,8 @@ export const SelectResource = ({ name }: SelectResourcesProps) => {
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       name={name}
       onDropdownVisibleChange={async (open) => {
-        if (open && status === 'not-executed') {
-          await getSelectResourceOptions.execute()
+        if (open && !selectResourceOptions) {
+          await getSelectResourceOptions()
         }
       }}
       optionFilterProp="label"

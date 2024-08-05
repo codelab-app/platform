@@ -9,10 +9,10 @@ import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { filterEmptyStrings } from '@codelab/shared/utils'
-import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect } from 'react'
+import { useAsyncFn } from 'react-use'
 
 export interface UpdateComponentPropsFormProps {
   runtimeComponent: IRuntimeComponentModel
@@ -25,13 +25,13 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     const component = runtimeComponent.component.current
     const api = component.api.current
 
-    const [{ result: interfaceType, status }, getInterface] = useAsync(() =>
+    const [{ loading, value: interfaceType }, getInterface] = useAsyncFn(() =>
       typeService.getInterface(api.id),
     )
 
     useEffect(() => {
-      void getInterface.execute()
-    }, [api.id])
+      void getInterface()
+    }, [api.id, getInterface])
 
     const onSubmit = async (data: IPropData) => {
       const filteredData = filterEmptyStrings(data)
@@ -50,7 +50,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     )
 
     return (
-      <Spinner isLoading={status === 'loading'}>
+      <Spinner isLoading={loading}>
         {interfaceType && (
           <Row gutter={[0, 16]}>
             <Col span={24}>

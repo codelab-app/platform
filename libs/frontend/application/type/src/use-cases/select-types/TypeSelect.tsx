@@ -1,9 +1,9 @@
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsyncFn } from 'react-use'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 import { useTypeService } from '../../services'
@@ -18,7 +18,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
   const { typeDomainService } = useDomainStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
 
-  const [{ error, result = [], status }, getTypes] = useAsync(() =>
+  const [{ error, loading, value: result = [] }, getTypes] = useAsyncFn(() =>
     typeService.getOptions(),
   )
 
@@ -39,11 +39,11 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
     <SelectField
       error={error}
       label={label}
-      loading={status === 'loading'}
+      loading={loading}
       name={name}
       onDropdownVisibleChange={async (open) => {
-        if (open && status === 'not-executed') {
-          await getTypes.execute()
+        if (open && !result.length) {
+          await getTypes()
         }
       }}
       optionFilterProp="label"

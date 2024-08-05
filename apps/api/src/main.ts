@@ -27,9 +27,15 @@ const bootstrap = async () => {
   /**
    * Add global prefix
    */
-  const globalPrefix = 'api'
 
-  app.setGlobalPrefix(globalPrefix)
+  const configService = app.get(ConfigService)
+
+  const config: ConfigType<typeof endpointConfig> =
+    configService.getOrThrow(ENDPOINT_CONFIG_KEY)
+
+  const baseApiPath = config.baseApiPath
+
+  app.setGlobalPrefix(baseApiPath)
 
   /**
    * Add exceptions filter
@@ -50,15 +56,11 @@ const bootstrap = async () => {
 
   const document = SwaggerModule.createDocument(app, swaggerConfig)
 
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup(baseApiPath, app, document)
 
   /**
    * Set port number from config
    */
-  const configService = app.get(ConfigService)
-
-  const config: ConfigType<typeof endpointConfig> =
-    configService.getOrThrow(ENDPOINT_CONFIG_KEY)
 
   const port = config.apiPort
 
@@ -68,7 +70,7 @@ const bootstrap = async () => {
     graphqlService.emitServerReady()
   })
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
+    `🚀 Application is running on: http://localhost:${port}${baseApiPath}`,
   )
 }
 

@@ -7,11 +7,12 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useAppService } from '../../services'
 import { updateAppSchema } from './update-app.schema'
 import { useUpdateAppModal } from './update-app.state'
-import { updateAppUseCase } from './update-app.use-case'
 
 export const UpdateAppModal = observer(() => {
+  const appService = useAppService()
   const updateAppModal = useUpdateAppModal()
   const app = updateAppModal.data?.app
 
@@ -25,7 +26,7 @@ export const UpdateAppModal = observer(() => {
   }
 
   const onSubmit = async (data: IUpdateAppData) => {
-    return await updateAppUseCase(app, data)
+    return await appService.update(data)
   }
 
   const closeModal = () => updateAppModal.close()

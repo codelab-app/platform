@@ -9,12 +9,12 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import React, { useEffect } from 'react'
+import { useAsyncFn } from 'react-use'
 import { ComponentList } from './ComponentList'
 import { useComponentsList } from './useComponentsList.hook'
 
@@ -28,21 +28,23 @@ export const CustomComponents = observer((props: CustomComponentProps) => {
   const deleteComponentModal = useDeleteComponentModal()
   const router = useRouter()
 
-  const [{ error, status }, getComponents] = useAsync(() =>
+  const [state, getComponents] = useAsyncFn(() =>
     // componentService.getAll(),
     Promise.resolve(),
   )
 
-  const [, exportComponent] = useAsync(async (component: IComponentModel) => {
-    const result = await exportComponentUseCase(component.id)
+  const [exportState, exportComponent] = useAsyncFn(
+    async (component: IComponentModel) => {
+      const result = await exportComponentUseCase(component.id)
 
-    downloadJsonAsFile(`${slugify(component.name)}.json`, result)
-  })
+      downloadJsonAsFile(`${slugify(component.name)}.json`, result)
+    },
+  )
 
-  const isLoading = status === 'loading'
+  const isLoading = state.loading
 
   useEffect(() => {
-    void getComponents.execute()
+    void getComponents()
   }, [getComponents])
 
   const editComponent = async (id: string) => {
@@ -59,14 +61,14 @@ export const CustomComponents = observer((props: CustomComponentProps) => {
 
   return (
     <SkeletonWrapper isLoading={isLoading}>
-      {!isNil(error) ? error.message : null}
+      {!isNil(state.error) ? state.error.message : null}
       <ComponentList
         components={components}
         onDelete={(id) =>
           deleteComponentModal.open(componentDomainService.component(id))
         }
         onEdit={(id) => editComponent(id)}
-        onExport={(component) => exportComponent.execute(component)}
+        onExport={(component) => exportComponent(component)}
         // onSelect={componentService.previewComponent}
         // selectedIds={
         //   builderService.selectedNode

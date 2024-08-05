@@ -1,18 +1,14 @@
 import { useCallback, useState } from 'react'
-import { importAppUseCase } from './import-app.use-case'
+import { importAppService } from './import-app.service'
 
 export const useImportApp = () => {
   const [loading, setLoading] = useState(false)
 
-  const importApp = useCallback(async (appFile: File) => {
+  const importApp = useCallback(async (appData: File) => {
     setLoading(true)
 
     try {
-      const formData = new FormData()
-
-      formData.append('file', appFile)
-
-      const importResult = await importAppUseCase(formData)
+      const importResult = await importAppService(appData)
 
       console.log(importResult)
 

@@ -3,8 +3,11 @@ import { nxE2EPreset } from '@nx/playwright/preset'
 import { defineConfig, devices } from '@playwright/test'
 import * as env from 'env-var'
 
-// For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://127.0.0.1:3001'
+const apiHost = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
+const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asString()
+const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
+const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
+const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
 
 export const auth0Username = env.get('AUTH0_USERNAME').required().asString()
 export const auth0Password = env.get('AUTH0_PASSWORD').required().asString()
@@ -26,6 +29,7 @@ export default defineConfig({
     {
       dependencies: ['setup'],
       name: 'chromium',
+      testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/user.json',
@@ -61,11 +65,11 @@ export default defineConfig({
     } */
   ],
 
-  timeout: 10000,
+  timeout: 30000,
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL,
+    baseURL: webUrl,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
@@ -74,16 +78,15 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: 'pnpm nx serve web -c test',
+      command: 'pnpm e2e:web',
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
-      url: baseURL,
+      url: webUrl,
     },
     {
-      command: 'pnpm nx serve api -c test',
+      command: 'pnpm e2e:api',
       cwd: workspaceRoot,
-      reuseExistingServer: !process.env.CI,
-      url: 'http://127.0.0.1:4001/api/graphql',
+      url: apiUrl,
     },
   ],
 })

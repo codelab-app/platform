@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
-import { useAsync } from '@react-hookz/web'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { Ref } from 'mobx-keystone'
 import React from 'react'
+import { useAsyncFn } from 'react-use'
 import type { SelectFieldProps } from 'uniforms-antd'
 import { SelectField } from 'uniforms-antd'
 
@@ -21,20 +21,22 @@ export const SelectComponent = ({
 }: SelectComponentProps) => {
   const { componentDomainService } = useDomainStore()
 
-  const [{ error: queryError, result, status }, selectComponentOptions] =
-    useAsync(() =>
-      getSelectComponentOptions(componentDomainService, activeComponent),
-    )
+  const [
+    { error: queryError, loading, value: result },
+    selectComponentOptions,
+  ] = useAsyncFn(() =>
+    getSelectComponentOptions(componentDomainService, activeComponent),
+  )
 
   return (
     <SelectField
       {...fieldProps}
       error={fieldProps.error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      loading={status === 'loading'}
+      loading={loading}
       onDropdownVisibleChange={async (open) => {
-        if (open && status === 'not-executed') {
-          await selectComponentOptions.execute()
+        if (open && !result) {
+          await selectComponentOptions()
         }
       }}
       optionFilterProp="label"

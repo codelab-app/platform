@@ -61,7 +61,7 @@ import { GraphqlService } from './graphql.service'
             return response
           },
           introspection: true,
-          path: 'api/graphql',
+          path: 'api/v1/graphql',
           playground: false,
           plugins: [
             ApolloServerPluginLandingPageLocalDefault(),
