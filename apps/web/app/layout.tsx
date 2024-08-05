@@ -52,6 +52,8 @@ const nunito = Nunito({
 const fontClasses = cn(inter.variable, montserrat.variable, nunito.variable)
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // useTwindConfig(config)
+
   return (
     <html className={fontClasses} lang="en" suppressHydrationWarning>
       <head>
