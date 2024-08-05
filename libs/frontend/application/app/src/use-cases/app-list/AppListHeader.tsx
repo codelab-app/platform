@@ -9,6 +9,7 @@ import {
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { ariaLabels } from '@codelab/frontend-application-shared-data'
 import { Image } from 'antd'
 import React from 'react'
 import { useCreateAppModal } from '../create-app/create-app.state'
@@ -24,6 +25,7 @@ export const AppListHeader = () => {
       title: 'Import an app',
     },
     {
+      ariaLabel: ariaLabels.createAppButton,
       cuiKey: MODEL_ACTION.CreateApp.key,
       icon: <PlusOutlined />,
       onClick: () => createAppModal.open(),

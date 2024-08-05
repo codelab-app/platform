@@ -1,6 +1,7 @@
 'use client'
 
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { ariaLabels } from '@codelab/frontend-application-shared-data'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ModalProps as AntModalProps } from 'antd/lib/modal'
 import AntdModal from 'antd/lib/modal'
@@ -42,9 +43,6 @@ export const Modal = ({
           ...cancelButtonProps,
           disabled: isLoading,
         }}
-        className={className}
-        // This is needed, because otherwise form values persist even after closing the modal
-        destroyOnClose
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop
           ...okButtonProps,
@@ -55,6 +53,9 @@ export const Modal = ({
         onCancel={onCancel}
         onOk={handleSubmitRefModalOk(submitRef, onOk)}
         open={open}
+        className={className}
+        // This is needed, because otherwise form values persist even after closing the modal
+        destroyOnClose
       >
         {children}
       </AntdModal>
