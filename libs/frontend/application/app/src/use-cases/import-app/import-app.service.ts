@@ -1,6 +1,7 @@
 'use server'
 
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
+import { getEnv } from '@codelab/shared/config'
 import { invalidateAppListQuery } from '../app-list'
 
 export const importAppService = async (appData: File) => {
@@ -8,7 +9,7 @@ export const importAppService = async (appData: File) => {
 
   formData.append('file', appData)
 
-  const response = await fetchWithAuth('app/import', {
+  const response = await fetchWithAuth(getEnv().endpoint.app.import, {
     body: formData,
     headers: { 'Content-Type': 'multipart/form-data' },
     method: 'POST',

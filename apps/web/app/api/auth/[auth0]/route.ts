@@ -1,6 +1,6 @@
 import 'server-only'
 import type { Session } from '@auth0/nextjs-auth0'
-import { corsFetch } from '@codelab/frontend-infra-fetch'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import { type NextRequest, NextResponse } from 'next/server'
@@ -22,7 +22,7 @@ export const GET = auth0Instance.handleAuth({
         /**
          * Cannot call fetchWithAuth since session is not created yet
          */
-        await corsFetch('admin/setup-dev', {
+        await fetch(getEnv().endpoint.admin.setupDev, {
           body: JSON.stringify({}),
           headers: {
             Authorization: `Bearer ${session.accessToken}`,
@@ -38,7 +38,7 @@ export const GET = auth0Instance.handleAuth({
        * Create user in our neo4j database
        */
       if (process.env['NEXT_PUBLIC_WEB_HOST']?.includes('codelab.app')) {
-        await corsFetch('user/save', {
+        await fetch(getEnv().endpoint.user.save, {
           body: JSON.stringify({}),
           headers: {
             Authorization: `Bearer ${session.accessToken}`,
@@ -52,7 +52,7 @@ export const GET = auth0Instance.handleAuth({
     },
   }),
   login: auth0Instance.handleLogin({
-    returnTo: new URL('/apps', getEnv().auth0.baseUrl).toString(),
+    returnTo: new URL(PageType.AppList, getEnv().auth0.baseUrl).toString(),
   }),
   logout: auth0Instance.handleLogout(() => {
     return {

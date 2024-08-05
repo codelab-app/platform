@@ -84,7 +84,7 @@ const nextConfig = {
     afterFiles: [
       {
         destination: `${apiHost}/:path*`,
-        source: `/${baseApiPath}/:path*`,
+        source: `${baseApiPath}/:path*`,
       },
     ],
     // beforeFiles: [

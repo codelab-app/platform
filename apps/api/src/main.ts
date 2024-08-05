@@ -70,7 +70,7 @@ const bootstrap = async () => {
     graphqlService.emitServerReady()
   })
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${baseApiPath}`,
+    `🚀 Application is running on: http://localhost:${port}${baseApiPath}`,
   )
 }
 

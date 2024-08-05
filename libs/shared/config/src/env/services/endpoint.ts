@@ -10,12 +10,57 @@ const { get } = env.from({
   NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
 })
 
+interface IAdminEndpoints {
+  /**
+   * export all data into a json file
+   */
+  export: string
+  /**
+   * import all from a json file
+   */
+  import: string
+  /**
+   * delete all data from database including user infos
+   */
+  resetDatabase: string
+  /**
+   * seed data on login (used for development only)
+   */
+  setupDev: string
+}
+
+interface IAppEndpoints {
+  export: string
+  import: string
+}
+
+interface IComponentEndpoints {
+  export: string
+  import: string
+}
+
+interface IUserEndpoints {
+  /**
+   * save user data on login (used for development only)
+   */
+  save: string
+}
+
 export interface IEndpointEnvVars {
+  /**
+   * admin endpoints
+   */
+  admin: IAdminEndpoints
   /**
    * The actual backend GraphQL endpoint
    */
   apiGraphqlUrl: string
   apiHost: string
+  /**
+   * app endpoints
+   */
+  app: IAppEndpoints
+
   /**
    * `api/v1`
    */
@@ -25,19 +70,44 @@ export interface IEndpointEnvVars {
    */
   canActivateUrl: string
   /**
+   * component endpoints
+   */
+  component: IComponentEndpoints
+  /**
    * This is the Next.js middleware that forwards to the backend graphql endpoint
    */
   graphqlApiUrl: string
   isLocal: boolean
+
+  regenerate: string
+
+  /**
+   * user endpoints
+   */
+  user: IUserEndpoints
   webHost: string
 }
 
 export class EndpointEnvVars implements IEndpointEnvVars {
+  get admin(): IAdminEndpoints {
+    const exportEndpoint = `${this.baseApiPath}/admin/export`
+    const importEndpoint = `${this.baseApiPath}/admin/import`
+    const resetDatabaseEndpoint = `${this.baseApiPath}/admin/reset-database`
+    const setupDev = `${this.baseApiPath}/admin/setup-dev`
+
+    return {
+      export: new URL(exportEndpoint, this.apiUrl).toString(),
+      import: new URL(importEndpoint, this.apiUrl).toString(),
+      resetDatabase: new URL(resetDatabaseEndpoint, this.apiUrl).toString(),
+      setupDev: new URL(setupDev, this.apiUrl).toString(),
+    }
+  }
+
   /**
    * http://127.0.0.1:4000/api/graphql
    */
   get apiGraphqlUrl(): string {
-    return new URL('api/graphql', this.apiHost).toString()
+    return new URL(`${this.baseApiPath}/graphql`, this.apiHost).toString()
   }
 
   /**
@@ -54,6 +124,20 @@ export class EndpointEnvVars implements IEndpointEnvVars {
     return (this._apiHost = new URL(`${url.origin}:${port}`).toString())
   }
 
+  get apiUrl() {
+    return new URL(this.baseApiPath, this.webHost).toString()
+  }
+
+  get app(): IAppEndpoints {
+    const exportEndpoint = `${this.baseApiPath}/app/export`
+    const importEndpoint = `${this.baseApiPath}/app/import`
+
+    return {
+      export: new URL(exportEndpoint, this.webHost).toString(),
+      import: new URL(importEndpoint, this.webHost).toString(),
+    }
+  }
+
   get baseApiPath() {
     return get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
   }
@@ -62,7 +146,17 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * URL is protocol + origin
    */
   get canActivateUrl() {
-    return new URL('api/can-activate', this.apiHost).toString()
+    return new URL(`${this.baseApiPath}/can-activate`, this.webHost).toString()
+  }
+
+  get component(): IComponentEndpoints {
+    const exportEndpoint = `${this.baseApiPath}/component/export`
+    const importEndpoint = `${this.baseApiPath}/component/import`
+
+    return {
+      export: new URL(exportEndpoint, this.webHost).toString(),
+      import: new URL(importEndpoint, this.webHost).toString(),
+    }
   }
 
   /**
@@ -71,11 +165,23 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This uses the Next.js proxy middleware
    */
   get graphqlApiUrl() {
-    return new URL('api/graphql', this.webHost).toString()
+    return new URL(`${this.baseApiPath}/graphql`, this.webHost).toString()
   }
 
   get isLocal() {
     return this.graphqlApiUrl.includes('127.0.0.1')
+  }
+
+  get regenerate(): string {
+    return new URL(`${this.baseApiPath}/regenerate`, this.apiUrl).toString()
+  }
+
+  get user(): IUserEndpoints {
+    const saveEndpoint = `${this.baseApiPath}/user/save`
+
+    return {
+      save: new URL(saveEndpoint, this.apiUrl).toString(),
+    }
   }
 
   /**

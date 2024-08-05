@@ -1,1 +1,1 @@
-export * from './fetch'
+export * from './fetch-with-auth'
