@@ -1,3 +1,5 @@
+'use server'
+
 import * as Types from '@codelab/frontend/infra/gql'
 
 import { graphql } from '@codelab/frontend/infra/gql'

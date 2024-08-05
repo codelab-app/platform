@@ -61,7 +61,8 @@ const config: Types.Config = {
     'libs/frontend/infra/gql/src/gql/': {
       documents: [
         '**/*.fragment.graphql',
-        '**/*.api.graphql',
+        // '**/*.api.graphql',
+        '**/app.api.graphql',
         // 'libs/frontend/application/**/*.{repository,document}.ts',
         // 'libs/frontend/domain/**/*.{repository,document}.ts',
       ],

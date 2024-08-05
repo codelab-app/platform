@@ -92,6 +92,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             .map((o) => o.documentVariableName)
             .join(', ');
         const imports = [
+            'use server',
             `import { ${typeImports} } from '${this._externalImportPrefix}'`,
             // ...this._additionalImports,
         ];
@@ -101,7 +102,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
                 throw new Error('Missing operation name');
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-            return `const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
+            return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
   gqlFetch(${o.documentVariableName}, variables, next)`;
         });
         /**
@@ -120,8 +121,6 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         return `${imports.join('\n')}
 
     ${graphqlOperations.join('\n\n')}
-
-    ${sdkExport}
 `;
     }
 }
