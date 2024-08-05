@@ -11,6 +11,18 @@ export const getServerUser = async (): Promise<IUserDto> => {
 
   if (!user) {
     return redirect('/')
+    // return redirect('/api/auth/login')
+  }
+
+  return mapClaimsToUserDto(user)
+}
+
+export const getMaybeServerUser = async () => {
+  const session = await auth0ServerInstance.getSession()
+  const user = session?.user
+
+  if (!user) {
+    return null
   }
 
   return mapClaimsToUserDto(user)
