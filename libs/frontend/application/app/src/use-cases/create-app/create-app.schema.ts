@@ -10,10 +10,9 @@ export const createAppSchema: JSONSchemaType<ICreateAppData> = {
   properties: {
     ...idSchema(),
     name: {
-      type: 'string',
-      // autoFocus: true,
-      // ...nonEmptyString,
-      // ...titleCaseValidation,
+      autoFocus: true,
+      ...nonEmptyString,
+      ...titleCaseValidation,
     },
   },
   required: ['name'],
