@@ -1,6 +1,7 @@
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ariaLabels } from '@codelab/frontend-application-shared-data'
-import { expect, type Page } from '@playwright/test'
+import type { Locator, Page } from '@playwright/test'
+import { expect } from '@playwright/test'
 
 class BasePage {
   readonly page: Page
@@ -9,8 +10,8 @@ class BasePage {
     this.page = page
   }
 
-  getButton(options: { label: RegExp | string }) {
-    return this.page.getByRole('button', { name: options.label })
+  getButton(options: { label: RegExp | string }, locator?: Locator) {
+    return (locator ?? this.page).getByRole('button', { name: options.label })
   }
 
   getByExactText(text: RegExp | string) {
@@ -29,7 +30,7 @@ class BasePage {
 export class AppListPage extends BasePage {
   async fillCreateAppForm() {
     await this.getTextBox({ label: 'Name' }).fill(this.appName)
-    await this.getButton({ label: 'Create App' }).click()
+    await this.getButton({ label: 'Create App' }, this.getModal()).click()
     // check if the modal is closed
     await expect(this.getModal()).toBeHidden()
   }
