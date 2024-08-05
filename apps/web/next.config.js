@@ -59,7 +59,8 @@ const withWebpackConfig = (nextConfig = {}) =>
 const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
-const apiHost = `${url}:${port}`
+const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
+const apiHost = `${url}:${port}/${baseApiPath}`
 
 /**
  * @type {WithNxOptions}
@@ -79,8 +80,13 @@ const nextConfig = {
   // disable to support uniforms.
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
-  // reactStrictMode: false,
   rewrites: async () => ({
+    afterFiles: [
+      {
+        destination: `${apiHost}/:path*`,
+        source: `${baseApiPath}/:path*`,
+      },
+    ],
     // beforeFiles: [
     //   // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
     //   {
@@ -88,14 +94,6 @@ const nextConfig = {
     //     source: '/api/otel/:path*',
     //   },
     // ],
-    fallback: [
-      // These rewrites are checked after both pages/public files
-      // and dynamic routes are checked
-      {
-        destination: `${apiHost}/:path*`,
-        source: '/api/:path*',
-      },
-    ],
   }),
 }
 

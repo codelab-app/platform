@@ -18,5 +18,8 @@ export const endpointConfig = registerAs(ENDPOINT_CONFIG_KEY, () => {
     get apiPort() {
       return env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
     },
+    get baseApiPath() {
+      return env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
+    },
   }
 })

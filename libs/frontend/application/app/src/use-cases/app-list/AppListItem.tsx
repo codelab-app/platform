@@ -1,4 +1,5 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { ariaLabels } from '@codelab/frontend-application-shared-data'
 import { Card } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -10,11 +11,18 @@ export interface AppListItemProps {
 }
 
 export const AppListItem = ({ app }: AppListItemProps) => {
-  const Title = <Link href="/apps">{app.name}</Link>
+  const { link, root } = ariaLabels.appListItem
+
+  const Title = (
+    <Link aria-label={link(app.name)} href="/apps">
+      {app.name}
+    </Link>
+  )
+
   const Dropdown = <AppListItemDropdown app={app} />
 
   return (
-    <Card extra={Dropdown} title={Title}>
+    <Card aria-label={root(app.name)} extra={Dropdown} title={Title}>
       <DomainList app={app} />
     </Card>
   )

@@ -5,8 +5,8 @@ import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
 import { Col, Row } from 'antd'
+import debounce from 'lodash/debounce'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
@@ -38,12 +38,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       runtimeElement.element.current.tailwindClassNames,
     )
 
-    const cssChangeHandler = useDebouncedCallback(
-      (value: string) => {
+    const cssChangeHandler = useCallback(
+      debounce((value: string) => {
         runtimeElement.style.setCustomCss(value)
-      },
+      }, CSS_AUTOSAVE_TIMEOUT),
       [runtimeElement],
-      CSS_AUTOSAVE_TIMEOUT,
     )
 
     const updateElementStyles = useCallback(
@@ -73,14 +72,8 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       [elementService],
     )
 
-    useDebouncedEffect(
-      () => {
-        updateElementStyles(runtimeElement)
-      },
-      [
-        runtimeElement.style.toString(),
-        runtimeElement.element.current.tailwindClassNames,
-      ],
+    const debouncedUpdateElementStyles = debounce(
+      updateElementStyles,
       CSS_AUTOSAVE_TIMEOUT,
     )
 
@@ -89,10 +82,13 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
-      () => () => {
-        updateElementStyles(runtimeElement)
+      () => {
+        debouncedUpdateElementStyles(runtimeElement)
       },
-      [runtimeElement, updateElementStyles],
+      [
+        runtimeElement.style.toString(),
+        runtimeElement.element.current.tailwindClassNames,
+      ],
     )
 
     return (
@@ -115,7 +111,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           <TailwindClassEditor element={runtimeElement.element.current} />
         </Col>
         <Col span={24}>
-          <StylesEditor selectedNode={runtimeElement} />
+          <StylesEditor />
         </Col>
       </Row>
     )

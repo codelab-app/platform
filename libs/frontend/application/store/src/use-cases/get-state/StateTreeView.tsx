@@ -9,24 +9,26 @@ import {
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useTypeService } from '@codelab/frontend-application-type/services'
-import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsyncFn, useMount } from 'react-use'
 import { StateTreeItem } from './StateTreeItem'
 
 export const StateTreeView = observer<{ store: IStoreModel }>(({ store }) => {
   const typeService = useTypeService()
 
-  const [{ result: type, status }, getOne] = useAsync(
+  const [{ loading, value: type }, getOne] = useAsyncFn(
     async () => (await typeService.getAll([store.api.id]))[0],
   )
 
-  useMountEffect(getOne.execute)
+  useMount(() => {
+    void getOne()
+  })
 
   const treeData = type?.kind === 'InterfaceType' ? type.fieldsTree : []
 
   return (
-    <CuiSkeletonWrapper isLoading={status === 'loading'}>
+    <CuiSkeletonWrapper isLoading={loading}>
       {treeData.length > 0 ? (
         <CuiTree<ITreeNode<IFieldNodeData>>
           titleRender={(node) => {

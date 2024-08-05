@@ -8,10 +8,10 @@ import { history } from '@codemirror/commands'
 import { bracketMatching, syntaxHighlighting } from '@codemirror/language'
 import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
 import { lineNumbers } from '@codemirror/view'
-import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Form, Spin } from 'antd'
 import type { Ref } from 'react'
 import React from 'react'
+import { useAsyncFn, useMount } from 'react-use'
 import type { Context, FieldProps } from 'uniforms'
 import { connectField, useForm } from 'uniforms'
 import type { MainPropsOnChange, Value } from './CodeMirrorField'
@@ -42,12 +42,9 @@ export const CodeMirrorGraphqlField = <T,>(
       const merged = { ...mainProps, ...baseProps }
       const form = useForm<T>()
       const url = baseProps.getUrl(form)
+      const [state, factory] = useAsyncFn(() => graphqlExtensionFactory(url))
 
-      const [{ result: graphqlExtension, status }, factory] = useAsync(() =>
-        graphqlExtensionFactory(url),
-      )
-
-      useMountEffect(factory.execute)
+      useMount(factory)
 
       const extension = [
         bracketMatching(),
@@ -57,12 +54,12 @@ export const CodeMirrorGraphqlField = <T,>(
         lineNumbers(),
         oneDark,
         syntaxHighlighting(oneDarkHighlightStyle),
-        graphqlExtension ?? [],
+        state.value ?? [],
       ]
 
       return (
         <Form.Item label={baseProps.label ?? ''}>
-          {status === 'loading' ? (
+          {state.loading ? (
             <Spin />
           ) : (
             <CodeMirrorEditor

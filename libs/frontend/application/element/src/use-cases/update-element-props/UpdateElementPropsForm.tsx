@@ -12,10 +12,10 @@ import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect, useRef } from 'react'
+import { useAsyncFn } from 'react-use'
 import { useElementService } from '../../services'
 
 export interface UpdateElementPropsFormProps {
@@ -34,7 +34,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const currentElement = runtimeElement.element.current
     const apiId = currentElement.renderType.current.api.id
 
-    const [{ result: interfaceType, status }, getInterface] = useAsync(
+    const [{ loading, value: interfaceType }, getInterface] = useAsyncFn(
       async () => {
         const rootElement =
           rendererService.activeElementTree?.rootElement.current
@@ -50,7 +50,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     )
 
     useEffect(() => {
-      void getInterface.execute()
+      void getInterface()
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
@@ -87,7 +87,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }, [submitRef.current])
 
     return (
-      <Spinner isLoading={status === 'loading'}>
+      <Spinner isLoading={loading}>
         {interfaceType && (
           <Row className="mb-5" gutter={[0, 16]}>
             <Col span={24}>
