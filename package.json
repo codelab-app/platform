@@ -10,7 +10,7 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "e2e": "nx e2e web-e2e",
+    "e2e": "nx e2e web-e2e -c test",
     "e2e:web": "nx serve web -c test",
     "e2e:api": "nx serve api -c test",
     "cli": "scripts/nx/cli.sh",

@@ -24,17 +24,15 @@ test.describe('Apps CRUD', () => {
       await page.goto('/apps')
 
       // check that we don't have app with test-name
-      await expect(page.getByText(appName, { exact: true })).not.toBeVisible({
-        timeout: 0,
-      })
+      await expect(page.getByText(appName, { exact: true })).toBeHidden()
 
-      await (await getButton(page, { label: /Create Now/ })).click()
+      await getButton(page, { label: /Create Now/ }).click()
 
-      const modal = await getModal(page)
+      const modal = getModal(page)
 
       await setFormFieldValue(page, { label: 'Name', value: appName })
 
-      await (await getModalAction(modal, /Create App/)).click()
+      await getModalAction(modal, /Create App/).click()
 
       await expect(modal).toBeHidden()
       await expect(page.getByText(appName)).toBeVisible()

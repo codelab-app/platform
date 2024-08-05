@@ -15,6 +15,9 @@
       "configurations": {
         "dev": {
           "ui": true
+        },
+        "test": {
+          "ui": true
         }
       }
     },
