@@ -59,7 +59,7 @@ const withWebpackConfig = (nextConfig = {}) =>
 const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
-const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH')
+const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiHost = `${url}:${port}/${baseApiPath}`
 
 /**
@@ -79,12 +79,12 @@ const nextConfig = {
   nx: { svgr: true },
   // disable to support uniforms.
   // https://github.com/vazco/uniforms/issues/1194
-  // reactStrictMode: false,
+  reactStrictMode: false,
   rewrites: async () => ({
     afterFiles: [
       {
         destination: `${apiHost}/:path*`,
-        source: `/${baseApiPath}/:path*`,
+        source: `${baseApiPath}/:path*`,
       },
     ],
     // beforeFiles: [

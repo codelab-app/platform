@@ -3,13 +3,14 @@
 import isArray from 'lodash/isArray'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import type { TypedDocumentString } from '@codelab/frontend/infra/gql'
+import { getEnv } from '@codelab/shared/config'
 
 export const gqlFetch = async <TResult, TVariables>(
   document: TypedDocumentString<TResult, TVariables>,
   variables: TVariables,
   next?: NextFetchRequestConfig,
 ) => {
-  const response = await fetchWithAuth('graphql', {
+  const response = await fetchWithAuth(getEnv().endpoint.graphqlApiUrl, {
     body: JSON.stringify({
       query: document,
       variables,

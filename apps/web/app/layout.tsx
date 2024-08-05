@@ -1,7 +1,5 @@
 import '../styles/global.css'
 import '../styles/shadcn.global.css'
-import { RootProviders } from '@codelab/frontend/infra/context'
-import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { getEnv } from '@codelab/shared/config'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
@@ -54,10 +52,6 @@ const nunito = Nunito({
 const fontClasses = cn(inter.variable, montserrat.variable, nunito.variable)
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-  const user = await getServerUser()
-
-  // useTwindConfig(config)
-
   return (
     <html className={fontClasses} lang="en" suppressHydrationWarning>
       <head>
@@ -81,7 +75,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
         ></Script>
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <RootProviders user={user}>{children}</RootProviders>
+        {children}
       </body>
     </html>
   )

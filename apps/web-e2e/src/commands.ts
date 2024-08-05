@@ -1,20 +1,14 @@
 import type { Locator, Page } from '@playwright/test'
 
-export const getButton = async (
-  page: Page,
-  options: { label: RegExp | string },
-) => {
+export const getButton = (page: Page, options: { label: RegExp | string }) => {
   return page.getByRole('button', { name: options.label })
 }
 
-export const getModal = async (page: Page) => {
+export const getModal = (page: Page) => {
   return page.locator('.ant-modal:visible')
 }
 
-export const getModalAction = async (
-  modal: Locator,
-  label: RegExp | string,
-) => {
+export const getModalAction = (modal: Locator, label: RegExp | string) => {
   return modal.getByRole('button', { name: label })
 }
 
@@ -27,11 +21,11 @@ export const setFormFieldValue = async (
   await field.fill(options.value)
 }
 
-export const getCard = async (page: Page, options: { title: string }) => {
+export const getCard = (page: Page, options: { title: string }) => {
   return page.locator(`.ant-card:has-text("${options.title}")`)
 }
 
-export const getDropdownItem = async (page: Page, label: string) => {
+export const getDropdownItem = (page: Page, label: string) => {
   return page.getByRole('menuitem', { name: label })
 }
 
