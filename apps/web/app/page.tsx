@@ -1,11 +1,10 @@
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
+import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
 import React from 'react'
 
 const HomeView = async () => {
-  const session = await auth0ServerInstance.getSession()
-  const user = session?.user
+  const maybeUser = await getMaybeServerUser()
 
   return (
     <div>
@@ -20,7 +19,7 @@ const HomeView = async () => {
         Prometheus
       </Link> */}
       {/* Must use normal link since Next.js Link will send a cors request for prefetching */}
-      {user ? (
+      {maybeUser ? (
         <Button href="/api/auth/logout" id="logout" type="primary">
           Log Out
         </Button>
