@@ -10,7 +10,7 @@ import type {
 } from '@graphql-codegen/visitor-plugin-common'
 import type { FragmentDefinitionNode, GraphQLSchema } from 'graphql'
 import { concatAST, Kind } from 'graphql'
-import { basename, extname } from 'path'
+import { extname } from 'path'
 import type { RawGraphQLRequestPluginConfig } from './config.js'
 import { GraphQLRequestVisitor } from './visitor.js'
 

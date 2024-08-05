@@ -1,12 +1,12 @@
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { type AppOptions, type AppWhere } from '@codelab/frontend/infra/gql'
-import { appApi } from './app.api'
+import { AppList } from './app.api.graphql.gen'
 
 export const appListRepository = async (
   where?: AppWhere,
   options?: AppOptions,
 ) => {
-  return await appApi.AppList(
+  return await AppList(
     {
       options,
       where,

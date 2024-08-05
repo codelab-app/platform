@@ -9,7 +9,12 @@ import type {
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { App } from '../store'
-import { appApi } from './app.api'
+import {
+  AppList,
+  CreateApps,
+  DeleteApps,
+  UpdateApps,
+} from './app.api.graphql.gen'
 
 export const appRepository: IAppRepository = {
   add: async (app: IAppModel) => {
@@ -17,7 +22,7 @@ export const appRepository: IAppRepository = {
 
     const {
       createApps: { apps },
-    } = await appApi.CreateApps({
+    } = await CreateApps({
       input: [app.toCreateInput()],
     })
 
@@ -31,7 +36,7 @@ export const appRepository: IAppRepository = {
   delete: async (apps: Array<IAppModel>) => {
     const {
       deleteApps: { nodesDeleted },
-    } = await appApi.DeleteApps({
+    } = await DeleteApps({
       delete: App.toDeleteInput(),
       where: { id_IN: apps.map((app) => app.id) },
     })
@@ -40,7 +45,7 @@ export const appRepository: IAppRepository = {
   },
 
   find: async (where?: AppWhere, options?: AppOptions) => {
-    return await appApi.AppList({
+    return await AppList({
       options,
       where,
     })
@@ -53,7 +58,7 @@ export const appRepository: IAppRepository = {
   update: async (app: IAppModel) => {
     const {
       updateApps: { apps },
-    } = await appApi.UpdateApps({
+    } = await UpdateApps({
       update: app.toUpdateInput(),
       where: { id: app.id },
     })

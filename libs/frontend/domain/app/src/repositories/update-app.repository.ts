@@ -5,14 +5,14 @@ import type {
   IAppRepository,
 } from '@codelab/frontend/abstract/domain'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { appApi } from './app.api'
+import { UpdateApps } from './app.api.graphql.gen'
 
 export const updateAppRepository: IAppRepository['update'] = async (
   app: IAppModel,
 ) => {
   const {
     updateApps: { apps },
-  } = await appApi.UpdateApps({
+  } = await UpdateApps({
     update: app.toUpdateInput(),
     where: { id: app.id },
   })

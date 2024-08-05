@@ -8,7 +8,9 @@ const change_case_all_1 = require("change-case-all");
 class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisitor {
     constructor(schema, fragments, rawConfig) {
         super(schema, fragments, rawConfig, {
-            documentMode: visitor_plugin_common_1.DocumentMode.string,
+            documentMode: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.documentMode, visitor_plugin_common_1.DocumentMode.string),
+            importOperationTypesFrom: '',
+            inlineFragmentTypes: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.inlineFragmentTypes, 'combine'),
             // From `graphql-request` to show how to add additional params
             // extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
         });
@@ -63,7 +65,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         });
         let documentString = '';
         if (documentVariableName !== '') {
-            console.log(this._gql(node));
+            // console.log(this._gql(node))
             documentString = `
       export const ${documentVariableName} = graphql(${this._gql(node)})${this.getDocumentNodeSignature(operationResultType, operationVariablesTypes, node)}`;
         }
@@ -88,11 +90,10 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         const typeImports = this._operationsToInclude
             .map((o) => `type ${o.operationVariablesTypes}`)
             .join(', ');
-        const documentImports = this._operationsToInclude
-            .map((o) => o.documentVariableName)
-            .join(', ');
+        // const documentImports = this._operationsToInclude
+        //   .map((o) => o.documentVariableName)
+        //   .join(', ')
         const imports = [
-            'use server',
             `import { ${typeImports} } from '${this._externalImportPrefix}'`,
             // ...this._additionalImports,
         ];
@@ -105,23 +106,10 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
   gqlFetch(${o.documentVariableName}, variables, next)`;
         });
-        /**
-         * Export everything under a function `getSdk()` to resemble the `graphql-request` package for easier migration
-         */
-        const sdkExport = `export const getSdk = () => ({ ${this._operationsToInclude
-            .map((o) => {
-            const operationName = o.node.name?.value;
-            if (!operationName) {
-                throw new Error('Missing operation name');
-            }
-            const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-            return `${pascalCaseName}`;
-        })
-            .join(',')} })`;
-        return `${imports.join('\n')}
+        return `
+      ${imports.join('\n')}
 
-    ${graphqlOperations.join('\n\n')}
-`;
+      ${graphqlOperations.join('\n\n')}`;
     }
 }
 exports.GraphQLRequestVisitor = GraphQLRequestVisitor;
