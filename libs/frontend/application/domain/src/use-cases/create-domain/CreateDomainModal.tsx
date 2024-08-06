@@ -15,15 +15,15 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useDomainService } from '../../services'
 import { createDomainSchema } from './create-domain.schema'
 import { useCreateDomainModal } from './create-domain.state'
-import { createDomainUseCase } from './create-domain.use-case'
 
 export const CreateDomainModal = observer(() => {
   const { userDomainService } = useDomainStore()
+  const domainService = useDomainService()
   const app = useCurrentApp()
   const createDomainModal = useCreateDomainModal()
-  const domainStore = useDomainStore()
 
   const model = {
     app: { id: app.id },
@@ -32,7 +32,7 @@ export const CreateDomainModal = observer(() => {
   }
 
   const onSubmit = (data: ICreateDomainData) => {
-    return createDomainUseCase(data, domainStore)
+    return domainService.create(data)
   }
 
   const closeModal = () => createDomainModal.close()

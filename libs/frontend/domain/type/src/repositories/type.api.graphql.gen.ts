@@ -20,19 +20,18 @@ export const GetTypeReferencesDocument = graphql(`
     }
   }
 `)
+
 import {
   type IsTypeDescendantOfQueryVariables,
   type GetTypeReferencesQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const IsTypeDescendantOf = (
+export const IsTypeDescendantOf = (
   variables: IsTypeDescendantOfQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(IsTypeDescendantOfDocument, variables, next)
+) => gqlFetch(IsTypeDescendantOfDocument.toString(), variables, next)
 
-const GetTypeReferences = (
+export const GetTypeReferences = (
   variables: GetTypeReferencesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetTypeReferencesDocument, variables, next)
-
-export const getSdk = () => ({ IsTypeDescendantOf, GetTypeReferences })
+) => gqlFetch(GetTypeReferencesDocument.toString(), variables, next)

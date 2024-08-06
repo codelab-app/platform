@@ -42,6 +42,7 @@ export const GetPropsDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreatePropsMutationVariables,
   type UpdatePropsMutationVariables,
@@ -49,29 +50,22 @@ import {
   type GetPropsQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateProps = (
+export const CreateProps = (
   variables: CreatePropsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreatePropsDocument, variables, next)
+) => gqlFetch(CreatePropsDocument.toString(), variables, next)
 
-const UpdateProps = (
+export const UpdateProps = (
   variables: UpdatePropsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdatePropsDocument, variables, next)
+) => gqlFetch(UpdatePropsDocument.toString(), variables, next)
 
-const DeleteProps = (
+export const DeleteProps = (
   variables: DeletePropsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeletePropsDocument, variables, next)
+) => gqlFetch(DeletePropsDocument.toString(), variables, next)
 
-const GetProps = (
+export const GetProps = (
   variables: GetPropsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetPropsDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateProps,
-  UpdateProps,
-  DeleteProps,
-  GetProps,
-})
+) => gqlFetch(GetPropsDocument.toString(), variables, next)

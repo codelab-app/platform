@@ -48,6 +48,7 @@ export const ComponentListDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateComponentsMutationVariables,
   type DeleteComponentsMutationVariables,
@@ -55,29 +56,22 @@ import {
   type ComponentListQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateComponents = (
+export const CreateComponents = (
   variables: CreateComponentsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateComponentsDocument, variables, next)
+) => gqlFetch(CreateComponentsDocument.toString(), variables, next)
 
-const DeleteComponents = (
+export const DeleteComponents = (
   variables: DeleteComponentsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteComponentsDocument, variables, next)
+) => gqlFetch(DeleteComponentsDocument.toString(), variables, next)
 
-const UpdateComponents = (
+export const UpdateComponents = (
   variables: UpdateComponentsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateComponentsDocument, variables, next)
+) => gqlFetch(UpdateComponentsDocument.toString(), variables, next)
 
-const ComponentList = (
+export const ComponentList = (
   variables: ComponentListQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(ComponentListDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateComponents,
-  DeleteComponents,
-  UpdateComponents,
-  ComponentList,
-})
+) => gqlFetch(ComponentListDocument.toString(), variables, next)

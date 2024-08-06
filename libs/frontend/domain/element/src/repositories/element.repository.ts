@@ -8,13 +8,18 @@ import type {
   ElementWhere,
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { elementApi } from './element.api'
+import {
+  CreateElements,
+  DeleteElements,
+  ElementList,
+  UpdateElements,
+} from './element.api.graphql.gen'
 
 export const elementRepository: IElementRepository = {
   add: async (element: IElementModel) => {
     const {
       createElements: { elements },
-    } = await elementApi.CreateElements({
+    } = await CreateElements({
       input: element.toCreateInput(),
     })
 
@@ -30,7 +35,7 @@ export const elementRepository: IElementRepository = {
 
     const {
       deleteElements: { nodesDeleted },
-    } = await elementApi.DeleteElements({
+    } = await DeleteElements({
       delete: {
         props: {},
       },
@@ -43,7 +48,7 @@ export const elementRepository: IElementRepository = {
   },
 
   find: async (where: ElementWhere, options?: ElementOptions) => {
-    return await elementApi.ElementList({ options, where })
+    return await ElementList({ options, where })
   },
 
   findOne: async (where: ElementUniqueWhere) => {
@@ -53,7 +58,7 @@ export const elementRepository: IElementRepository = {
   update: async (element: IElementModel) => {
     const {
       updateElements: { elements },
-    } = await elementApi.UpdateElements({
+    } = await UpdateElements({
       update: element.toUpdateInput(),
       where: { id: element.id },
     })
@@ -68,7 +73,7 @@ export const elementRepository: IElementRepository = {
   updateNodes: async (element: IElementModel) => {
     const {
       updateElements: { elements },
-    } = await elementApi.UpdateElements({
+    } = await UpdateElements({
       update: element.toUpdateNodesInput(),
       where: { id: element.id },
     })

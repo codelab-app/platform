@@ -7,11 +7,18 @@ import type {
 import { ApiAction, CodeAction } from '@codelab/frontend-domain-action/store'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import {
-  createActionApi,
-  deleteActionApi,
-  getActionApi,
-  updateActionApi,
-} from './action.api'
+  CreateApiActions,
+  CreateCodeActions,
+} from './create-action.api.graphql.gen'
+import {
+  DeleteApiActions,
+  DeleteCodeActions,
+} from './delete-action.api.graphql.gen'
+import { GetActions } from './get-action.api.graphql.gen'
+import {
+  UpdateApiActions,
+  UpdateCodeActions,
+} from './update-action.api.graphql.gen'
 
 export const actionRepository: IActionRepository = {
   add: async (action: IActionModel) => {
@@ -19,7 +26,7 @@ export const actionRepository: IActionRepository = {
       case IActionKind.CodeAction: {
         const {
           createCodeActions: { codeActions },
-        } = await createActionApi.CreateCodeActions({
+        } = await CreateCodeActions({
           input: action.toCreateInput(),
         })
 
@@ -29,7 +36,7 @@ export const actionRepository: IActionRepository = {
       case IActionKind.ApiAction: {
         const {
           createApiActions: { apiActions },
-        } = await createActionApi.CreateApiActions({
+        } = await CreateApiActions({
           input: action.toCreateInput(),
         })
 
@@ -46,7 +53,7 @@ export const actionRepository: IActionRepository = {
         case IActionKind.CodeAction: {
           const {
             deleteCodeActions: { nodesDeleted: deleted },
-          } = await deleteActionApi.DeleteCodeActions({
+          } = await DeleteCodeActions({
             delete: CodeAction.toDeleteInput(),
             where: { id: action.id },
           })
@@ -58,7 +65,7 @@ export const actionRepository: IActionRepository = {
         case IActionKind.ApiAction: {
           const {
             deleteApiActions: { nodesDeleted: deleted },
-          } = await deleteActionApi.DeleteApiActions({
+          } = await DeleteApiActions({
             delete: ApiAction.toDeleteInput(),
             where: { id: action.id },
           })
@@ -73,7 +80,7 @@ export const actionRepository: IActionRepository = {
   },
 
   find: async (where: IActionWhere = {}, options?: IActionOptions) => {
-    const { apiActions, codeActions } = await getActionApi.GetActions({
+    const { apiActions, codeActions } = await GetActions({
       apiActionWhere: where,
       codeActionWhere: where,
     })
@@ -99,7 +106,7 @@ export const actionRepository: IActionRepository = {
       case IActionKind.CodeAction: {
         const {
           updateCodeActions: { codeActions },
-        } = await updateActionApi.UpdateCodeActions({
+        } = await UpdateCodeActions({
           update: action.toUpdateInput(),
           where: { id: action.id },
         })
@@ -110,7 +117,7 @@ export const actionRepository: IActionRepository = {
       case IActionKind.ApiAction: {
         const {
           updateApiActions: { apiActions },
-        } = await updateActionApi.UpdateApiActions({
+        } = await UpdateApiActions({
           update: action.toUpdateInput(),
           where: { id: action.id },
         })

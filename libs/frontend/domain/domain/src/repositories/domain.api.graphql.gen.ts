@@ -42,6 +42,7 @@ export const DeleteDomainsDocument = graphql(`
     }
   }
 `)
+
 import {
   type DomainListQueryVariables,
   type CreateDomainsMutationVariables,
@@ -49,29 +50,22 @@ import {
   type DeleteDomainsMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const DomainList = (
+export const DomainList = (
   variables: DomainListQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DomainListDocument, variables, next)
+) => gqlFetch(DomainListDocument.toString(), variables, next)
 
-const CreateDomains = (
+export const CreateDomains = (
   variables: CreateDomainsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateDomainsDocument, variables, next)
+) => gqlFetch(CreateDomainsDocument.toString(), variables, next)
 
-const UpdateDomains = (
+export const UpdateDomains = (
   variables: UpdateDomainsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateDomainsDocument, variables, next)
+) => gqlFetch(UpdateDomainsDocument.toString(), variables, next)
 
-const DeleteDomains = (
+export const DeleteDomains = (
   variables: DeleteDomainsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteDomainsDocument, variables, next)
-
-export const getSdk = () => ({
-  DomainList,
-  CreateDomains,
-  UpdateDomains,
-  DeleteDomains,
-})
+) => gqlFetch(DeleteDomainsDocument.toString(), variables, next)

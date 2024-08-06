@@ -1,7 +1,6 @@
-export { createPageRepository } from './create-page.repository'
-export { deletePageRepository } from './delete-page.repository'
-export * from './page.api'
+import { GetRenderedPage } from './page.api.graphql.gen'
+
 export * from './page.repository'
-export { pageListRepository } from './page-list.repository'
 export * from './select-page-options'
-export { updatePageRepository } from './update-page.repository'
+
+export { GetRenderedPage }

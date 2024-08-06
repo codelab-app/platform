@@ -1,3 +1,3 @@
 // eslint-disable-next-line barrel-files/avoid-barrel-files
-export { atomListUseCase } from './atom-list.use-case'
-export { defaultAtomAction } from './default-atom.action'
+export { atomListQuery } from './atom-list.query'
+export { defaultAtomQuery } from './default-atom.query'

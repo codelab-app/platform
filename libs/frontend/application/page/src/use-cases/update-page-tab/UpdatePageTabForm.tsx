@@ -7,20 +7,18 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updatePageUseCase } from '../update-page/update-page.use-case'
+import { usePageService } from '../../services'
 import { schema } from './update-page-tab.schema'
 
 export const UpdatePageTabForm = observer(() => {
-  const { appDomainService } = useDomainStore()
+  const pageService = usePageService()
   const page = useCurrentPage()
 
   if (!page) {
     return null
   }
 
-  const onSubmit = (input: IUpdatePageData) =>
-    updatePageUseCase(input, appDomainService)
-
+  const onSubmit = (input: IUpdatePageData) => pageService.update(input)
   const { kind, pageContentContainer } = page
   const omitFields = ['appId']
 

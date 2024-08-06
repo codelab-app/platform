@@ -1,4 +1,5 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
@@ -31,7 +32,7 @@ export const useTypeService = () => {
       // load the descendants of the requested types
       // we don't need to get the descendants if all types are requested i.e. no `ids` provided
       const descendantTypeFragments = ids
-        ? await this.typeRepository.findDescendants(parentIds)
+        ? await typeRepository.findDescendants(parentIds)
         : []
 
       const newFragments = [...typeFragments, ...descendantTypeFragments]
@@ -45,7 +46,7 @@ export const useTypeService = () => {
             })
           }
 
-          const newType = this.typeDomainService.hydrate(typeFragment)
+          const newType = typeDomainService.hydrate(typeFragment)
 
           return ids?.includes(typeFragment.id) || !ids ? newType : undefined
         }),

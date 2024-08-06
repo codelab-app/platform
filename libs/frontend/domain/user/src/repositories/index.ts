@@ -1,1 +1,3 @@
-export * from './user.api'
+import { GetUsers } from './user.api.graphql.gen'
+
+export { GetUsers }

@@ -338,6 +338,7 @@ export const UpdateCodeMirrorTypesDocument = graphql(`
     }
   }
 `)
+
 import {
   type UpdatePrimitiveTypesMutationVariables,
   type UpdateArrayTypesMutationVariables,
@@ -355,89 +356,72 @@ import {
   type UpdateCodeMirrorTypesMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const UpdatePrimitiveTypes = (
+export const UpdatePrimitiveTypes = (
   variables: UpdatePrimitiveTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdatePrimitiveTypesDocument, variables, next)
+) => gqlFetch(UpdatePrimitiveTypesDocument.toString(), variables, next)
 
-const UpdateArrayTypes = (
+export const UpdateArrayTypes = (
   variables: UpdateArrayTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateArrayTypesDocument, variables, next)
+) => gqlFetch(UpdateArrayTypesDocument.toString(), variables, next)
 
-const UpdateUnionTypes = (
+export const UpdateUnionTypes = (
   variables: UpdateUnionTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateUnionTypesDocument, variables, next)
+) => gqlFetch(UpdateUnionTypesDocument.toString(), variables, next)
 
-const UpdateInterfaceTypes = (
+export const UpdateInterfaceTypes = (
   variables: UpdateInterfaceTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateInterfaceTypesDocument, variables, next)
+) => gqlFetch(UpdateInterfaceTypesDocument.toString(), variables, next)
 
-const UpdateReactNodeTypes = (
+export const UpdateReactNodeTypes = (
   variables: UpdateReactNodeTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateReactNodeTypesDocument, variables, next)
+) => gqlFetch(UpdateReactNodeTypesDocument.toString(), variables, next)
 
-const UpdateElementTypes = (
+export const UpdateElementTypes = (
   variables: UpdateElementTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateElementTypesDocument, variables, next)
+) => gqlFetch(UpdateElementTypesDocument.toString(), variables, next)
 
-const UpdateRenderPropTypes = (
+export const UpdateRenderPropTypes = (
   variables: UpdateRenderPropTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateRenderPropTypesDocument, variables, next)
+) => gqlFetch(UpdateRenderPropTypesDocument.toString(), variables, next)
 
-const UpdateEnumTypes = (
+export const UpdateEnumTypes = (
   variables: UpdateEnumTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateEnumTypesDocument, variables, next)
+) => gqlFetch(UpdateEnumTypesDocument.toString(), variables, next)
 
-const UpdateLambdaTypes = (
+export const UpdateLambdaTypes = (
   variables: UpdateLambdaTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateLambdaTypesDocument, variables, next)
+) => gqlFetch(UpdateLambdaTypesDocument.toString(), variables, next)
 
-const UpdatePageTypes = (
+export const UpdatePageTypes = (
   variables: UpdatePageTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdatePageTypesDocument, variables, next)
+) => gqlFetch(UpdatePageTypesDocument.toString(), variables, next)
 
-const UpdateAppTypes = (
+export const UpdateAppTypes = (
   variables: UpdateAppTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateAppTypesDocument, variables, next)
+) => gqlFetch(UpdateAppTypesDocument.toString(), variables, next)
 
-const UpdateRichTextTypes = (
+export const UpdateRichTextTypes = (
   variables: UpdateRichTextTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateRichTextTypesDocument, variables, next)
+) => gqlFetch(UpdateRichTextTypesDocument.toString(), variables, next)
 
-const UpdateActionTypes = (
+export const UpdateActionTypes = (
   variables: UpdateActionTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateActionTypesDocument, variables, next)
+) => gqlFetch(UpdateActionTypesDocument.toString(), variables, next)
 
-const UpdateCodeMirrorTypes = (
+export const UpdateCodeMirrorTypes = (
   variables: UpdateCodeMirrorTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateCodeMirrorTypesDocument, variables, next)
-
-export const getSdk = () => ({
-  UpdatePrimitiveTypes,
-  UpdateArrayTypes,
-  UpdateUnionTypes,
-  UpdateInterfaceTypes,
-  UpdateReactNodeTypes,
-  UpdateElementTypes,
-  UpdateRenderPropTypes,
-  UpdateEnumTypes,
-  UpdateLambdaTypes,
-  UpdatePageTypes,
-  UpdateAppTypes,
-  UpdateRichTextTypes,
-  UpdateActionTypes,
-  UpdateCodeMirrorTypes,
-})
+) => gqlFetch(UpdateCodeMirrorTypesDocument.toString(), variables, next)

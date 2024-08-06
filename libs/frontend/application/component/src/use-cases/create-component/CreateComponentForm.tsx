@@ -11,9 +11,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useComponentService } from '../../services'
 import { createComponentSchema } from './create-component.schema'
 import { useCreateComponentForm } from './create-component.state'
-import { createComponentUseCase } from './create-component.use-case'
 
 interface CreateComponentFormProps {
   submitRef?: React.MutableRefObject<Maybe<SubmitController>>
@@ -23,10 +23,10 @@ interface CreateComponentFormProps {
 export const CreateComponentForm = observer(
   ({ onSubmitSuccess, submitRef }: CreateComponentFormProps) => {
     const createForm = useCreateComponentForm()
-    const domainStore = useDomainStore()
+    const componentService = useComponentService()
 
     const onSubmit = async (componentData: ICreateComponentData) => {
-      await createComponentUseCase(componentData, domainStore)
+      await componentService.create(componentData)
 
       onSubmitSuccess?.()
     }

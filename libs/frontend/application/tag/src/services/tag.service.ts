@@ -76,7 +76,7 @@ export const useTagService = (): ITagService => {
     return tag
   }
 
-  const remove = async (ids: Array<IRef>) => {
+  const remove = async (ids: Array<ITagModel>) => {
     const tags = await getAll({ id_IN: ids.map(({ id }) => id) })
     const tagsToRemove = []
 
@@ -121,11 +121,7 @@ export const useTagService = (): ITagService => {
   }
 
   const deleteCheckedTags = async () => {
-    const tagsToDelete = checkedTags.map((ref) => ({
-      id: ref.current.id,
-    }))
-
-    await remove(tagsToDelete)
+    await remove(checkedTags.map((tag) => tag.current))
     setCheckedTags([])
   }
 

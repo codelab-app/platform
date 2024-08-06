@@ -39,7 +39,12 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     rawConfig: RawGraphQLRequestPluginConfig,
   ) {
     super(schema, fragments, rawConfig, {
-      documentMode: DocumentMode.string,
+      documentMode: getConfigValue(rawConfig.documentMode, DocumentMode.string),
+      importOperationTypesFrom: '',
+      inlineFragmentTypes: getConfigValue(
+        rawConfig.inlineFragmentTypes,
+        'combine',
+      ),
       // From `graphql-request` to show how to add additional params
       // extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
     })
@@ -96,7 +101,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     let documentString = ''
 
     if (documentVariableName !== '') {
-      console.log(this._gql(node))
+      // console.log(this._gql(node))
 
       documentString = `
       export const ${documentVariableName} = graphql(${this._gql(
@@ -150,9 +155,9 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       .map((o) => `type ${o.operationVariablesTypes}`)
       .join(', ')
 
-    const documentImports = this._operationsToInclude
-      .map((o) => o.documentVariableName)
-      .join(', ')
+    // const documentImports = this._operationsToInclude
+    //   .map((o) => o.documentVariableName)
+    //   .join(', ')
 
     const imports = [
       `import { ${typeImports} } from '${this._externalImportPrefix}'`,
@@ -169,34 +174,14 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       const pascalCaseName =
         operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
-      return `const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
-  gqlFetch(${o.documentVariableName}, variables, next)`
+      // server actions must be exported individually
+      return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
+  gqlFetch(${o.documentVariableName}.toString(), variables, next)`
     })
 
-    /**
-     * Export everything under a function `getSdk()` to resemble the `graphql-request` package for easier migration
-     */
+    return `
+      ${imports.join('\n')}
 
-    const sdkExport = `export const getSdk = () => ({ ${this._operationsToInclude
-      .map((o) => {
-        const operationName = o.node.name?.value
-
-        if (!operationName) {
-          throw new Error('Missing operation name')
-        }
-
-        const pascalCaseName =
-          operationName.charAt(0).toUpperCase() + operationName.slice(1)
-
-        return `${pascalCaseName}`
-      })
-      .join(',')} })`
-
-    return `${imports.join('\n')}
-
-    ${graphqlOperations.join('\n\n')}
-
-    ${sdkExport}
-`
+      ${graphqlOperations.join('\n\n')}`
   }
 }

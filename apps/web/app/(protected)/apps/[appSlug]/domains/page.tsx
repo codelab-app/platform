@@ -2,7 +2,7 @@ import { StoreHydrator } from '@codelab/frontend/infra/context'
 import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
 import {
   DomainList,
-  domainListUseCase,
+  domainListQuery,
 } from '@codelab/frontend-application-domain/use-cases/domain-list'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
@@ -18,7 +18,7 @@ const DomainsPage = async ({
 }: {
   params: { appSlug: string }
 }) => {
-  const { apps } = await domainListUseCase({ slug: appSlug })
+  const { apps } = await domainListQuery({ slug: appSlug })
 
   return (
     <StoreHydrator apps={apps}>

@@ -21,19 +21,18 @@ export const DeleteHooksDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateHooksMutationVariables,
   type DeleteHooksMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateHooks = (
+export const CreateHooks = (
   variables: CreateHooksMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateHooksDocument, variables, next)
+) => gqlFetch(CreateHooksDocument.toString(), variables, next)
 
-const DeleteHooks = (
+export const DeleteHooks = (
   variables: DeleteHooksMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteHooksDocument, variables, next)
-
-export const getSdk = () => ({ CreateHooks, DeleteHooks })
+) => gqlFetch(DeleteHooksDocument.toString(), variables, next)

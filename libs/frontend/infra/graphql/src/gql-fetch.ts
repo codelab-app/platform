@@ -4,9 +4,11 @@ import isArray from 'lodash/isArray'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import type { TypedDocumentString } from '@codelab/frontend/infra/gql'
 import { getEnv } from '@codelab/shared/config'
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 export const gqlFetch = async <TResult, TVariables>(
-  document: TypedDocumentString<TResult, TVariables>,
+  // use `.toString()` version of `TypedDocumentString`
+  document: DocumentTypeDecoration<TResult, TVariables>,
   variables: TVariables,
   next?: NextFetchRequestConfig,
 ) => {

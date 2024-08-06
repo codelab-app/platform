@@ -77,6 +77,7 @@ export const GetAppProductionDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateAppsMutationVariables,
   type UpdateAppsMutationVariables,
@@ -86,41 +87,32 @@ import {
   type GetAppProductionQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateApps = (
+export const CreateApps = (
   variables: CreateAppsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateAppsDocument, variables, next)
+) => gqlFetch(CreateAppsDocument.toString(), variables, next)
 
-const UpdateApps = (
+export const UpdateApps = (
   variables: UpdateAppsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateAppsDocument, variables, next)
+) => gqlFetch(UpdateAppsDocument.toString(), variables, next)
 
-const DeleteApps = (
+export const DeleteApps = (
   variables: DeleteAppsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteAppsDocument, variables, next)
+) => gqlFetch(DeleteAppsDocument.toString(), variables, next)
 
-const AppListPreview = (
+export const AppListPreview = (
   variables: AppListPreviewQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(AppListPreviewDocument, variables, next)
+) => gqlFetch(AppListPreviewDocument.toString(), variables, next)
 
-const AppList = (
+export const AppList = (
   variables: AppListQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(AppListDocument, variables, next)
+) => gqlFetch(AppListDocument.toString(), variables, next)
 
-const GetAppProduction = (
+export const GetAppProduction = (
   variables: GetAppProductionQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetAppProductionDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateApps,
-  UpdateApps,
-  DeleteApps,
-  AppListPreview,
-  AppList,
-  GetAppProduction,
-})
+) => gqlFetch(GetAppProductionDocument.toString(), variables, next)

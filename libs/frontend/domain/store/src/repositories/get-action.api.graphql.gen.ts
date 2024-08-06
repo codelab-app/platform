@@ -17,11 +17,10 @@ export const GetActionsDocument = graphql(`
     }
   }
 `)
+
 import { type GetActionsQueryVariables } from '@codelab/frontend/infra/gql'
 
-const GetActions = (
+export const GetActions = (
   variables: GetActionsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetActionsDocument, variables, next)
-
-export const getSdk = () => ({ GetActions })
+) => gqlFetch(GetActionsDocument.toString(), variables, next)

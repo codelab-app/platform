@@ -7,13 +7,18 @@ import type {
   RedirectWhere,
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { redirectApi } from './redirect.api'
+import {
+  CreateRedirects,
+  DeleteRedirects,
+  GetRedirects,
+  UpdateRedirects,
+} from './redirect.api.graphql.gen'
 
 export const redirectRepository: IRedirectRepository = {
   add: async (redirect: IRedirectModel) => {
     const {
       createRedirects: { redirects },
-    } = await redirectApi.CreateRedirects({ input: redirect.toCreateInput() })
+    } = await CreateRedirects({ input: redirect.toCreateInput() })
 
     const createdRedirect = redirects[0]
 
@@ -25,7 +30,7 @@ export const redirectRepository: IRedirectRepository = {
   delete: async (redirects: Array<IRedirectModel>) => {
     const {
       deleteRedirects: { nodesDeleted },
-    } = await redirectApi.DeleteRedirects({
+    } = await DeleteRedirects({
       where: { id_IN: redirects.map((redirect) => redirect.id) },
     })
 
@@ -33,7 +38,7 @@ export const redirectRepository: IRedirectRepository = {
   },
 
   find: async (where?: RedirectWhere, options?: RedirectOptions) => {
-    return redirectApi.GetRedirects({ options, where })
+    return GetRedirects({ options, where })
   },
 
   findOne: async (where: RedirectWhere) => {
@@ -43,7 +48,7 @@ export const redirectRepository: IRedirectRepository = {
   update: async (redirect: IRedirectModel) => {
     const {
       updateRedirects: { redirects },
-    } = await redirectApi.UpdateRedirects({
+    } = await UpdateRedirects({
       update: redirect.toUpdateInput(),
       where: { id: redirect.id },
     })

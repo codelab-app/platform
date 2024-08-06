@@ -3,7 +3,7 @@ import type {
   BuilderWidthBreakPoint,
   IUserPreference,
 } from '@codelab/frontend/abstract/application'
-import { userApi } from '@codelab/frontend-domain-user/repositories'
+import { GetUsers } from '@codelab/frontend-domain-user/repositories'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import { atom, useAtom } from 'jotai'
@@ -20,7 +20,7 @@ export const useUserService = () => {
   const [preferences, setPreferences] = useAtom(preferencesAtom)
 
   const getOne = useCallback(async (where: UserWhere) => {
-    const { users } = await userApi.GetUsers({ where })
+    const { users } = await GetUsers({ where })
 
     return users[0]
   }, [])
