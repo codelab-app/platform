@@ -14,9 +14,9 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { usePageService } from '../../services'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
 import { useUpdatePageForm } from './update-page.state'
-import { updatePageService } from './update-page.service'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
@@ -31,12 +31,13 @@ export const UpdatePageForm = observer(
     submitRef,
   }: CreatePageFormProps) => {
     const { appDomainService } = useDomainStore()
+    const pageService = usePageService()
     const updatePageForm = useUpdatePageForm()
     const pageToUpdate = updatePageForm.data?.current
     const closeForm = () => updatePageForm.close()
 
     const onSubmit = (data: IUpdatePageData) => {
-      void updatePageService(data, appDomainService)
+      void pageService.update(data)
       closeForm()
       onSubmitSuccess?.()
 

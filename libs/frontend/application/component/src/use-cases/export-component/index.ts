@@ -1,1 +1,1 @@
-export * from './export-component.use-case'
+export * from './export-component.service'

@@ -2,7 +2,7 @@
 
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { typeApi } from '@codelab/frontend-domain-type/repositories'
+import { GetTypeReferences } from '@codelab/frontend-domain-type/repositories'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   emptyJsonSchema,
@@ -25,7 +25,7 @@ export const DeleteTypeModal = observer(() => {
     }
 
     // Make sure this type is not referenced anywhere else or the data may become corrupt
-    const { getTypeReferences } = await typeApi.GetTypeReferences({
+    const { getTypeReferences } = await GetTypeReferences({
       typeId: typeToDelete.id,
     })
 

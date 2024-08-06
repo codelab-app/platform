@@ -1,1 +1,1 @@
-export * from './component-list.use-case'
+export * from './component-list.query'

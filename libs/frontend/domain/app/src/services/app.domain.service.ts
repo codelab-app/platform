@@ -1,9 +1,14 @@
 import {
   getAtomDomainService,
+  getElementDomainService,
   getPageDomainService,
+  getStoreDomainService,
+  getTypeDomainService,
+  getUserDomainService,
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
+import { pageFactory } from '@codelab/frontend-domain-page/services'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -32,10 +37,13 @@ export class AppDomainService
     const app = this.hydrate(appDto)
     const renderType = this.atomDomainService.defaultRenderType
 
-    const pages = this.pageDomainService.pageFactory.addSystemPages(
-      app,
-      renderType,
-    )
+    const pages = pageFactory({
+      elementDomainService: this.elementDomainService,
+      pageDomainService: this.pageDomainService,
+      storeDomainService: this.storeDomainService,
+      typeDomainService: this.typeDomainService,
+      userDomainService: this.userDomainService,
+    }).addSystemPages(app, renderType)
 
     return app.writeCache({ pages })
   }
@@ -71,7 +79,27 @@ export class AppDomainService
   }
 
   @computed
+  private get elementDomainService() {
+    return getElementDomainService(this)
+  }
+
+  @computed
   private get pageDomainService() {
     return getPageDomainService(this)
+  }
+
+  @computed
+  private get storeDomainService() {
+    return getStoreDomainService(this)
+  }
+
+  @computed
+  private get typeDomainService() {
+    return getTypeDomainService(this)
+  }
+
+  @computed
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

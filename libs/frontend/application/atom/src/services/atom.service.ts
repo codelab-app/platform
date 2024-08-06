@@ -84,7 +84,7 @@ export const useAtomService = (): IAtomService => {
     return atom
   }
 
-  const deleteAtom = async (items: Array<IRef>) => {
+  const remove = async (items: Array<IAtomModel>) => {
     const atomsToDelete: Array<IAtomModel> = []
 
     items.forEach(({ id }) => {
@@ -182,7 +182,7 @@ export const useAtomService = (): IAtomService => {
     getSelectAtomOptions,
     loadApi,
     paginationService,
-    remove: deleteAtom,
+    remove,
     update,
   }
 }

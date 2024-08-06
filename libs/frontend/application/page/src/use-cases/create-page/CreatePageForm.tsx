@@ -19,9 +19,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { usePageService } from '../../services'
 import { createPageSchema } from './create-page.schema'
 import { useCreatePageForm } from './create-page.state'
-import { createPageUseCase } from './create-page.use-case'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
@@ -37,6 +37,7 @@ export const CreatePageForm = observer(
   }: CreatePageFormProps) => {
     const { user } = useUser()
     const app = useCurrentApp()
+    const pageService = usePageService()
     const domainStore = useDomainStore()
     const createPageForm = useCreatePageForm()
 
@@ -52,7 +53,7 @@ export const CreatePageForm = observer(
     const closeForm = () => createPageForm.close()
 
     const onSubmit = async (data: ICreatePageData) => {
-      await createPageUseCase(data, domainStore)
+      await pageService.create(data)
 
       closeForm()
       onSubmitSuccess?.()

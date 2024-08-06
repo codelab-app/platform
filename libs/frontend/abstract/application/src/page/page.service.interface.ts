@@ -8,15 +8,17 @@ import type { GetRenderedPageQuery } from '@codelab/shared/abstract/codegen'
 import type {
   ICreatePageData,
   IElementDto,
+  IUpdatePageData,
 } from '@codelab/shared/abstract/core'
-import type { IQueryService } from '../services'
+import type { ICRUDService, IQueryService } from '../services'
 
 export interface ICreatePageUseCase {
   (data: ICreatePageData, domainStore: IDomainStore): Promise<IPageModel>
 }
 
-export interface IPageApplicationService
-  extends IQueryService<IPageModel, PageWhere, PageOptions> {
+export interface IPageService
+  extends IQueryService<IPageModel, PageWhere, PageOptions>,
+    ICRUDService<IPageModel, ICreatePageData, IUpdatePageData> {
   getPagesByApp(appId: string): Array<IPageModel>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   getSelectPageOptions(appId?: string): Promise<Array<SelectOption>>

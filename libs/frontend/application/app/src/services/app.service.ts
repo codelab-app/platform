@@ -6,18 +6,25 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { AppWhere } from '@codelab/frontend/infra/gql'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
-import { appRepository } from '@codelab/frontend-domain-app/repositories'
+import {
+  appRepository,
+  invalidateAppListQuery,
+} from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
+import { pageFactory } from '@codelab/frontend-domain-page/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { invalidateAppListQuery } from '../use-cases/app-list'
 
 export const useAppService = (): IAppService => {
-  const { appDomainService, pageDomainService, userDomainService } =
-    useDomainStore()
+  const {
+    appDomainService,
+    atomDomainService,
+    pageDomainService,
+    userDomainService,
+  } = useDomainStore()
 
   const create = async ({ id, name }: ICreateAppData) => {
     const app = appDomainService.create({

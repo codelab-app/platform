@@ -15,9 +15,9 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useResourceService } from '../../services'
 import { createResourceSchema } from './create-resource.schema'
 import { useCreateResourceForm } from './create-resource.state'
-import { createResourceUseCase } from './create-resource.use-case'
 
 interface CreateResourceFormProps {
   showFormControl?: boolean
@@ -32,12 +32,12 @@ export const CreateResourceForm = observer(
     submitRef,
   }: CreateResourceFormProps) => {
     const createResourceForm = useCreateResourceForm()
+    const resourceService = useResourceService()
     const closeForm = () => createResourceForm.close()
     const resource = createResourceForm.data
-    const { resourceDomainService } = useDomainStore()
 
-    const onSubmit = (resourceDTO: ICreateResourceData) => {
-      void createResourceUseCase(resourceDTO, resourceDomainService)
+    const onSubmit = (data: ICreateResourceData) => {
+      void resourceService.create(data)
 
       closeForm()
       onSubmitSuccess?.()

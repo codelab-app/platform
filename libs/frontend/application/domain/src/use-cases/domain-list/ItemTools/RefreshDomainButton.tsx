@@ -4,7 +4,7 @@ import {} from '@codelab/frontend/infra/gql'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { invalidateDomainListQuery } from '../domain-list-use-case'
+import { invalidateDomainListQuery } from '../domain-list.query'
 
 interface RefreshDomainButtonProps {
   domain: IDomainModel

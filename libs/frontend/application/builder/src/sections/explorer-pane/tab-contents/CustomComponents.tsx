@@ -4,7 +4,7 @@ import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { useDeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
-import { exportComponentUseCase } from '@codelab/frontend-application-component/use-cases/export-component'
+import { exportComponentService } from '@codelab/frontend-application-component/use-cases/export-component'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
@@ -35,7 +35,7 @@ export const CustomComponents = observer((props: CustomComponentProps) => {
 
   const [exportState, exportComponent] = useAsyncFn(
     async (component: IComponentModel) => {
-      const result = await exportComponentUseCase(component.id)
+      const result = await exportComponentService(component.id)
 
       downloadJsonAsFile(`${slugify(component.name)}.json`, result)
     },

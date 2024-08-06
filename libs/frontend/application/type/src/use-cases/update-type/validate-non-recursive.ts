@@ -1,5 +1,5 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
-import { typeApi } from '@codelab/frontend-domain-type/repositories'
+import { IsTypeDescendantOf } from '@codelab/frontend-domain-type/repositories'
 
 const getInnerTypeIds = (submitData: IUpdateTypeDto) => [
   ...(submitData.unionTypeIds ?? []),
@@ -20,7 +20,7 @@ export const validateNonRecursive = async (
   if (innerTypes.length > 0) {
     const results = await Promise.all(
       innerTypes.map((innerTypeId) =>
-        typeApi.IsTypeDescendantOf({
+        IsTypeDescendantOf({
           descendantTypeId: updateId,
           parentTypeId: innerTypeId,
         }),
