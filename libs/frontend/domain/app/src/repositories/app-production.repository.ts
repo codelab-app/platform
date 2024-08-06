@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { AtomProductionFragment } from '@codelab/frontend/infra/gql'
 import uniqBy from 'lodash/uniqBy'
-import { appApi } from './app.api'
+import { GetAppProduction } from './app.api.graphql.gen'
 
 //  In production we have domain and pageUrlPattern we filter app by domain and page by url
 
@@ -12,7 +12,7 @@ export const appProductionRepository = async ({
   domainSlug,
   pageUrlPattern,
 }: IAppProductionArgs): Promise<IAppProductionDto> => {
-  const data = await appApi.GetAppProduction({
+  const data = await GetAppProduction({
     domain: domainSlug,
     pageUrlPattern,
   })

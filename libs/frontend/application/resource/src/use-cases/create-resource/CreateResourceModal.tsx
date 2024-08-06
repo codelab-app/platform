@@ -10,18 +10,18 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useResourceService } from '../../services'
 import { createResourceSchema } from './create-resource.schema'
 import { useCreateResourceModal } from './create-resource.state'
-import { createResourceUseCase } from './create-resource.use-case'
 
 export const CreateResourceModal = observer(() => {
   const userService = useUserService()
-  const { resourceDomainService } = useDomainStore()
+  const resourceService = useResourceService()
   const createResourceModal = useCreateResourceModal()
   const closeModal = () => createResourceModal.close()
 
   const onSubmit = (resourceDto: ICreateResourceData) => {
-    void createResourceUseCase(resourceDto, resourceDomainService)
+    void resourceService.create(resourceDto)
 
     closeModal()
 

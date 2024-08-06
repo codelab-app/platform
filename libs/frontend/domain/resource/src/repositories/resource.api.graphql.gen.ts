@@ -45,6 +45,7 @@ export const DeleteResourcesDocument = graphql(`
     }
   }
 `)
+
 import {
   type ResourceListQueryVariables,
   type CreateResourcesMutationVariables,
@@ -52,29 +53,22 @@ import {
   type DeleteResourcesMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const ResourceList = (
+export const ResourceList = (
   variables: ResourceListQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(ResourceListDocument, variables, next)
+) => gqlFetch(ResourceListDocument.toString(), variables, next)
 
-const CreateResources = (
+export const CreateResources = (
   variables: CreateResourcesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateResourcesDocument, variables, next)
+) => gqlFetch(CreateResourcesDocument.toString(), variables, next)
 
-const UpdateResource = (
+export const UpdateResource = (
   variables: UpdateResourceMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateResourceDocument, variables, next)
+) => gqlFetch(UpdateResourceDocument.toString(), variables, next)
 
-const DeleteResources = (
+export const DeleteResources = (
   variables: DeleteResourcesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteResourcesDocument, variables, next)
-
-export const getSdk = () => ({
-  ResourceList,
-  CreateResources,
-  UpdateResource,
-  DeleteResources,
-})
+) => gqlFetch(DeleteResourcesDocument.toString(), variables, next)

@@ -7,7 +7,12 @@ import type {
   FieldUniqueWhere,
   FieldWhere,
 } from '@codelab/frontend/infra/gql'
-import { fieldApi } from './field.api'
+import {
+  CreateFields,
+  DeleteFields,
+  GetFields,
+  UpdateFields,
+} from './field.api.graphql.gen'
 
 export const fieldRepository: IFieldRepository = {
   add: async (field: IFieldModel) => {
@@ -15,7 +20,7 @@ export const fieldRepository: IFieldRepository = {
       createFields: {
         fields: [fieldFragment],
       },
-    } = await fieldApi.CreateFields({
+    } = await CreateFields({
       input: field.toCreateInput(),
     })
 
@@ -25,7 +30,7 @@ export const fieldRepository: IFieldRepository = {
   delete: async (fields: Array<IFieldModel>) => {
     const {
       deleteFields: { nodesDeleted },
-    } = await fieldApi.DeleteFields({
+    } = await DeleteFields({
       where: {
         id_IN: fields.map((field) => field.id),
       },
@@ -35,7 +40,7 @@ export const fieldRepository: IFieldRepository = {
   },
 
   find: async (where?: FieldWhere, options?: FieldOptions) => {
-    return await fieldApi.GetFields({ options, where })
+    return await GetFields({ options, where })
   },
 
   findOne: async (where: FieldUniqueWhere) => {
@@ -47,7 +52,7 @@ export const fieldRepository: IFieldRepository = {
       updateFields: {
         fields: [fieldFragment],
       },
-    } = await fieldApi.UpdateFields({
+    } = await UpdateFields({
       update: field.toUpdateInput(),
       where: {
         id: field.id,
@@ -60,7 +65,7 @@ export const fieldRepository: IFieldRepository = {
   updateNodes: async (field: IFieldModel) => {
     const {
       updateFields: { fields },
-    } = await fieldApi.UpdateFields({
+    } = await UpdateFields({
       update: field.toUpdateNodesInput(),
       where: { id: field.id },
     })

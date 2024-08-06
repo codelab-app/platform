@@ -6,14 +6,22 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useComponentService } from '../../services'
 import { useDeleteComponentModal } from './delete-component.state'
-import { deleteComponentUseCase } from './delete-component.use-case'
 
 export const DeleteComponentModal = observer(() => {
   const deleteModal = useDeleteComponentModal()
+  const componentService = useComponentService()
   const closeModal = () => deleteModal.close()
-  const component = deleteModal.data as IComponentModel | null
-  const onSubmit = () => deleteComponentUseCase(component!)
+  const component = deleteModal.data
+
+  const onSubmit = () => {
+    if (!component) {
+      return Promise.reject()
+    }
+
+    return componentService.remove([component])
+  }
 
   return (
     <ModalForm.Modal

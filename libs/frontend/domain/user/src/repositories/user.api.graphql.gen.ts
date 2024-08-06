@@ -32,25 +32,24 @@ export const UpdateUserDocument = graphql(`
     }
   }
 `)
+
 import {
   type GetUsersQueryVariables,
   type CreateUserMutationVariables,
   type UpdateUserMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const GetUsers = (
+export const GetUsers = (
   variables: GetUsersQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetUsersDocument, variables, next)
+) => gqlFetch(GetUsersDocument.toString(), variables, next)
 
-const CreateUser = (
+export const CreateUser = (
   variables: CreateUserMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateUserDocument, variables, next)
+) => gqlFetch(CreateUserDocument.toString(), variables, next)
 
-const UpdateUser = (
+export const UpdateUser = (
   variables: UpdateUserMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateUserDocument, variables, next)
-
-export const getSdk = () => ({ GetUsers, CreateUser, UpdateUser })
+) => gqlFetch(UpdateUserDocument.toString(), variables, next)

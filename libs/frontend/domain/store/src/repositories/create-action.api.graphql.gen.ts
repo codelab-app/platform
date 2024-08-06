@@ -22,19 +22,18 @@ export const CreateApiActionsDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateCodeActionsMutationVariables,
   type CreateApiActionsMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateCodeActions = (
+export const CreateCodeActions = (
   variables: CreateCodeActionsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateCodeActionsDocument, variables, next)
+) => gqlFetch(CreateCodeActionsDocument.toString(), variables, next)
 
-const CreateApiActions = (
+export const CreateApiActions = (
   variables: CreateApiActionsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateApiActionsDocument, variables, next)
-
-export const getSdk = () => ({ CreateCodeActions, CreateApiActions })
+) => gqlFetch(CreateApiActionsDocument.toString(), variables, next)

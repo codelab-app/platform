@@ -11,19 +11,19 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { useAtomService } from '../../services'
 import { SelectAtom } from '../select-atom'
-import { useUpdateAtomAction } from './update-atom.action'
 import { updateAtomSchema } from './update-atom.schema'
 import { useUpdateAtomForm } from './update-atom.state'
 
 export const UpdateAtomForm = observer(() => {
   const { tagDomainService } = useDomainStore()
   const updateAtomForm = useUpdateAtomForm()
-  const updateAtomAction = useUpdateAtomAction
+  const atomService = useAtomService()
   const atom = updateAtomForm.data?.current
 
-  const onSubmit = (atomDto: IUpdateAtomData) => {
-    return updateAtomAction(atomDto)
+  const onSubmit = (data: IUpdateAtomData) => {
+    return atomService.update(data)
   }
 
   const onSubmitError = createFormErrorNotificationHandler({

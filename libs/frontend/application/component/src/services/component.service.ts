@@ -22,6 +22,7 @@ import type {
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
+import { revalidateComponentListOperation } from '../use-cases/component-list'
 
 export const useComponentService = (): IComponentService => {
   const { componentDomainService } = useDomainStore()
@@ -37,6 +38,8 @@ export const useComponentService = (): IComponentService => {
     }
 
     await componentRepository.add(component)
+
+    await revalidateComponentListOperation()
 
     paginationService.dataRefs.set(component.id, componentRef(component))
 
@@ -59,11 +62,13 @@ export const useComponentService = (): IComponentService => {
       return component
     }
 
-    return (
-      await Promise.all(
-        components.map((component) => deleteComponent(component)),
-      )
-    ).length
+    const operations = await Promise.all(
+      components.map((component) => deleteComponent(component)),
+    )
+
+    await revalidateComponentListOperation()
+
+    return operations.length
   }
 
   const getAll = async (

@@ -42,6 +42,7 @@ export const GetFieldsDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateFieldsMutationVariables,
   type UpdateFieldsMutationVariables,
@@ -49,29 +50,22 @@ import {
   type GetFieldsQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateFields = (
+export const CreateFields = (
   variables: CreateFieldsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateFieldsDocument, variables, next)
+) => gqlFetch(CreateFieldsDocument.toString(), variables, next)
 
-const UpdateFields = (
+export const UpdateFields = (
   variables: UpdateFieldsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateFieldsDocument, variables, next)
+) => gqlFetch(UpdateFieldsDocument.toString(), variables, next)
 
-const DeleteFields = (
+export const DeleteFields = (
   variables: DeleteFieldsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteFieldsDocument, variables, next)
+) => gqlFetch(DeleteFieldsDocument.toString(), variables, next)
 
-const GetFields = (
+export const GetFields = (
   variables: GetFieldsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetFieldsDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateFields,
-  UpdateFields,
-  DeleteFields,
-  GetFields,
-})
+) => gqlFetch(GetFieldsDocument.toString(), variables, next)

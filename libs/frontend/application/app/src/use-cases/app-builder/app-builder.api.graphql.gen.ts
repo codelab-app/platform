@@ -58,11 +58,10 @@ export const GetAppBuilderDocument = graphql(`
     }
   }
 `)
+
 import { type GetAppBuilderQueryVariables } from '@codelab/frontend/infra/gql'
 
-const GetAppBuilder = (
+export const GetAppBuilder = (
   variables: GetAppBuilderQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetAppBuilderDocument, variables, next)
-
-export const getSdk = () => ({ GetAppBuilder })
+) => gqlFetch(GetAppBuilderDocument.toString(), variables, next)

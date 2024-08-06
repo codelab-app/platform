@@ -1,1 +1,1 @@
-export * from './fetch-with-auth'
+export { fetchWithAuth } from './fetch-with-auth'

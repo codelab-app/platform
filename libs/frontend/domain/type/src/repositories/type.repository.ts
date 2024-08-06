@@ -6,10 +6,14 @@ import type { GetBaseTypesOptions } from '@codelab/frontend/infra/gql'
 import type { IBaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
 import {
+  GetBaseTypes,
+  GetDescendants,
+  GetTypeOptions,
+} from './get-type.api.graphql.gen'
+import {
   createTypeApi,
   deleteTypeApi,
   getAllTypes,
-  getTypeApi,
   updateTypeApi,
 } from './type.api'
 
@@ -43,7 +47,7 @@ export const typeRepository: ITypeRepository = {
   findBaseTypes: async ({ limit, offset, where }: GetBaseTypesOptions) => {
     const {
       baseTypes: { items, totalCount },
-    } = await getTypeApi.GetBaseTypes({
+    } = await GetBaseTypes({
       options: {
         limit,
         offset,
@@ -58,8 +62,9 @@ export const typeRepository: ITypeRepository = {
   },
 
   findDescendants: async (parentIds: Array<string>) => {
-    const { arrayTypes, interfaceTypes, unionTypes } =
-      await getTypeApi.GetDescendants({ ids: parentIds })
+    const { arrayTypes, interfaceTypes, unionTypes } = await GetDescendants({
+      ids: parentIds,
+    })
 
     const allDescendantIdsWithoutParents = [
       ...arrayTypes,
@@ -89,7 +94,7 @@ export const typeRepository: ITypeRepository = {
   findOptions: async () => {
     const {
       baseTypes: { items },
-    } = await getTypeApi.GetTypeOptions({})
+    } = await GetTypeOptions({})
 
     return sortBy(items, 'name')
   },

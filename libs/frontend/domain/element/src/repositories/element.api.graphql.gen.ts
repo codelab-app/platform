@@ -45,6 +45,7 @@ export const ElementListDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateElementsMutationVariables,
   type DeleteElementsMutationVariables,
@@ -52,29 +53,22 @@ import {
   type ElementListQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateElements = (
+export const CreateElements = (
   variables: CreateElementsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateElementsDocument, variables, next)
+) => gqlFetch(CreateElementsDocument.toString(), variables, next)
 
-const DeleteElements = (
+export const DeleteElements = (
   variables: DeleteElementsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteElementsDocument, variables, next)
+) => gqlFetch(DeleteElementsDocument.toString(), variables, next)
 
-const UpdateElements = (
+export const UpdateElements = (
   variables: UpdateElementsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateElementsDocument, variables, next)
+) => gqlFetch(UpdateElementsDocument.toString(), variables, next)
 
-const ElementList = (
+export const ElementList = (
   variables: ElementListQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(ElementListDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateElements,
-  DeleteElements,
-  UpdateElements,
-  ElementList,
-})
+) => gqlFetch(ElementListDocument.toString(), variables, next)

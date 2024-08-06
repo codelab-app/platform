@@ -9,13 +9,18 @@ import type {
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { Store } from '../store/store.model'
-import { storeApi } from './store.api'
+import {
+  CreateStores,
+  DeleteStores,
+  GetStores,
+  UpdateStores,
+} from './store.api.graphql.gen'
 
 export const storeRepository: IStoreRepository = {
   add: async (store: IStoreModel) => {
     const {
       createStores: { stores },
-    } = await storeApi.CreateStores({
+    } = await CreateStores({
       input: [store.toCreateInput()],
     })
 
@@ -29,7 +34,7 @@ export const storeRepository: IStoreRepository = {
   delete: async (stores: Array<IStoreModel>) => {
     const {
       deleteStores: { nodesDeleted },
-    } = await storeApi.DeleteStores({
+    } = await DeleteStores({
       delete: Store.toDeleteInput(),
       where: { id_IN: stores.map((store) => store.id) },
     })
@@ -38,7 +43,7 @@ export const storeRepository: IStoreRepository = {
   },
 
   find: async (where?: StoreWhere, options?: StoreOptions) => {
-    return await storeApi.GetStores({ options, where })
+    return await GetStores({ options, where })
   },
 
   findOne: async (where: StoreUniqueWhere) => {
@@ -48,7 +53,7 @@ export const storeRepository: IStoreRepository = {
   update: async (store: IStoreModel) => {
     const {
       updateStores: { stores },
-    } = await storeApi.UpdateStores({
+    } = await UpdateStores({
       update: store.toUpdateInput(),
       where: { id: store.id },
     })

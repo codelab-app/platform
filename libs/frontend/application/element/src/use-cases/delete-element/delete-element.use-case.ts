@@ -3,10 +3,7 @@ import {
   type IElementDomainService,
   type IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  deleteElementRepository,
-  updateElementsRepository,
-} from '@codelab/frontend-domain-element/repositories'
+import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 
 export type AfterElementDelete = () => void
 
@@ -43,9 +40,7 @@ export const deleteElementUseCase = async (
   /**
    * delete props
    */
-  await deleteElementRepository({
-    where: { id_IN: elementsToDelete.map((element) => element.id) },
-  })
+  await elementRepository.delete(elementsToDelete)
 
   elementsToDelete.reverse().forEach((element) => {
     // this.removeClones(element.id)
@@ -61,10 +56,7 @@ export const syncModifiedElements = async (
   const elements = elementDomainService.modifiedElements
 
   const updates = elements.map((element) =>
-    updateElementsRepository({
-      update: element.toUpdateNodesInput(),
-      where: { id: element.id },
-    }),
+    elementRepository.update(element, { id: element.id }),
   )
 
   await Promise.all(updates)

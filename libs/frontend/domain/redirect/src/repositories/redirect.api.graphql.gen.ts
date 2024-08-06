@@ -48,6 +48,7 @@ export const GetRedirectsDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateRedirectsMutationVariables,
   type DeleteRedirectsMutationVariables,
@@ -55,29 +56,22 @@ import {
   type GetRedirectsQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateRedirects = (
+export const CreateRedirects = (
   variables: CreateRedirectsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateRedirectsDocument, variables, next)
+) => gqlFetch(CreateRedirectsDocument.toString(), variables, next)
 
-const DeleteRedirects = (
+export const DeleteRedirects = (
   variables: DeleteRedirectsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteRedirectsDocument, variables, next)
+) => gqlFetch(DeleteRedirectsDocument.toString(), variables, next)
 
-const UpdateRedirects = (
+export const UpdateRedirects = (
   variables: UpdateRedirectsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateRedirectsDocument, variables, next)
+) => gqlFetch(UpdateRedirectsDocument.toString(), variables, next)
 
-const GetRedirects = (
+export const GetRedirects = (
   variables: GetRedirectsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetRedirectsDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateRedirects,
-  DeleteRedirects,
-  UpdateRedirects,
-  GetRedirects,
-})
+) => gqlFetch(GetRedirectsDocument.toString(), variables, next)

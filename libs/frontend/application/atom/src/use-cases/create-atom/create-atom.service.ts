@@ -1,9 +1,6 @@
 import { type ICreateAtomData } from '@codelab/frontend/abstract/domain'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
-import {
-  atomListRepository,
-  createAtomRepository,
-} from '@codelab/frontend-domain-atom/repositories'
+import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
@@ -11,7 +8,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const useCreateAtomAction = async ({
+export const useCreateAtomService = async ({
   externalCssSource,
   externalJsSource,
   externalSourceType,
@@ -27,7 +24,7 @@ export const useCreateAtomAction = async ({
     pageSize: number,
     filter: { name: string },
   ) => {
-    const { aggregate, items } = await atomListRepository(
+    const { aggregate, items } = await atomRepository.find(
       { name_MATCHES: `(?i).*${filter.name}.*` },
       {
         limit: pageSize,
@@ -58,7 +55,7 @@ export const useCreateAtomAction = async ({
     type,
   })
 
-  await createAtomRepository(atom)
+  await atomRepository.add(atom)
 
   return atom
 }

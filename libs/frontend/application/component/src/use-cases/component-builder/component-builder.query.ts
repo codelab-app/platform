@@ -6,16 +6,14 @@ import type {
   AtomBuilderFragment,
   GetComponentBuilderQuery,
 } from '@codelab/frontend/infra/gql'
-import { componentBuilderApi } from '@codelab/frontend-domain-component/repositories'
+import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'
 
 export const componentBuilderQuery: IComponentBuilderQuery = async ({
   componentName,
 }: IComponentBuilderArgs) => {
-  const data: GetComponentBuilderQuery =
-    await componentBuilderApi.GetComponentBuilder({})
-
+  const data: GetComponentBuilderQuery = await GetComponentBuilder({})
   const components = data.components
 
   const currentComponent = components.find(
