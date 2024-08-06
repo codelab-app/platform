@@ -199,6 +199,9 @@
       "@codelab/frontend-application-admin/views": [
         "libs/frontend/application/admin/src/views/index.ts"
       ],
+      "@codelab/frontend-application-app/services": [
+        "libs/frontend/application/app/src/services/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/app-builder": [
         "libs/frontend/application/app/src/use-cases/app-builder/index.ts"
       ],

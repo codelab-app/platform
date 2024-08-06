@@ -39,10 +39,13 @@ export const Modal = ({
   return (
     <ModalFormContext.Provider value={{ isLoading, setIsLoading, submitRef }}>
       <AntdModal
+        // This is needed, because otherwise form values persist even after closing the modal
         cancelButtonProps={{
           ...cancelButtonProps,
           disabled: isLoading,
         }}
+        className={className}
+        destroyOnClose
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop
           ...okButtonProps,
@@ -53,9 +56,6 @@ export const Modal = ({
         onCancel={onCancel}
         onOk={handleSubmitRefModalOk(submitRef, onOk)}
         open={open}
-        className={className}
-        // This is needed, because otherwise form values persist even after closing the modal
-        destroyOnClose
       >
         {children}
       </AntdModal>

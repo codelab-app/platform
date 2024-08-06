@@ -8,6 +8,7 @@ resource "circleci_environment_variable" "env_vars" {
     NEXT_PUBLIC_WEB_HOST      = var.next_public_web_host
     NEXT_PUBLIC_API_HOSTNAME  = var.next_public_api_hostname
     NEXT_PUBLIC_API_PORT      = var.next_public_api_port
+    NEXT_PUBLIC_BASE_API_PATH = var.next_public_base_api_path
     AUTH0_CLIENT_ID           = var.auth0_web_client_id
     AUTH0_CLIENT_SECRET       = var.auth0_web_client_secret
     AUTH0_M2M_CLIENT_ID       = var.auth0_m2m_client_id

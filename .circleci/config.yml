@@ -168,6 +168,9 @@ executors:
   machine-ubuntu:
     machine:
       image: ubuntu-2004:2022.04.1
+  playwright:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.46.0-jammy
   terraform:
     docker:
       - image: hashicorp/terraform:1.7.0
@@ -248,6 +251,36 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
           name: Push Docker Image
   e2e:
+    executor: docker-node-neo4j
+    resource_class: medium
+    steps:
+      - restore-workspace
+      - run: pnpm npx playwright install-deps
+      - setup_remote_docker:
+          version: default
+      - run:
+          command: |
+            echo 'export SHARD="$((${CIRCLE_NODE_INDEX}+1))"' >> "$BASH_ENV"
+            source "$BASH_ENV"
+
+            echo $SHARD;
+            echo $CIRCLE_NODE_TOTAL;
+
+            pnpm nx e2e web-e2e -c ci
+          environment: null
+          name: Run E2E Tests
+      - store_artifacts:
+          destination: playwright/videos
+          path: ~/project/apps/web-e2e/src/videos
+      - store_artifacts:
+          destination: playwright/screenshots
+          path: ~/project/apps/web-e2e/src/screenshots
+      - store_artifacts:
+          destination: playwright/data
+          path: ~/project/apps/web-e2e/src/data
+      - store_test_results:
+          path: ./tmp/reports/e2e
+  e2e-cypress:
     executor: docker-node-neo4j
     parallelism: 4
     resource_class: large
@@ -569,12 +602,14 @@ workflows:
               ignore:
                 - master
                 - staging
+                - dev
       - lint:
           filters:
             branches:
               ignore:
                 - master
                 - staging
+                - dev
           requires:
             - setup-workspace
       - codegen:
@@ -583,6 +618,7 @@ workflows:
               ignore:
                 - master
                 - staging
+                - dev
           requires:
             - setup-workspace
       - unit:
@@ -591,6 +627,7 @@ workflows:
               ignore:
                 - master
                 - staging
+                - dev
           requires:
             - setup-workspace
       - integration:
@@ -599,6 +636,16 @@ workflows:
               ignore:
                 - master
                 - staging
+                - dev
+          requires:
+            - setup-workspace
+      - e2e:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+                - dev
           requires:
             - setup-workspace
       - notify-success:
@@ -607,11 +654,13 @@ workflows:
               ignore:
                 - master
                 - staging
+                - dev
           requires:
             - lint
             - codegen
             - unit
             - integration
+            - e2e
   infra-pr:
     jobs:
       - setup-workspace:

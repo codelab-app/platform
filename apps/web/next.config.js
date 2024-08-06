@@ -77,7 +77,7 @@ const nextConfig = {
     // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
   },
   nx: { svgr: true },
-  // disable to support uniforms.
+  // disable to support uniforms
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
   rewrites: async () => ({

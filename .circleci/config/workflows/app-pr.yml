@@ -12,6 +12,7 @@ jobs:
           ignore:
             - master
             - staging
+            - dev
   # - deploy-preview:
   #     # requires:
   #     #   - setup-workspace
@@ -24,6 +25,7 @@ jobs:
           ignore:
             - master
             - staging
+            - dev
       requires:
         - setup-workspace
   - codegen:
@@ -32,6 +34,7 @@ jobs:
           ignore:
             - master
             - staging
+            - dev
       requires:
         - setup-workspace
   - unit:
@@ -40,6 +43,7 @@ jobs:
           ignore:
             - master
             - staging
+            - dev
       requires:
         - setup-workspace
   - integration:
@@ -48,25 +52,28 @@ jobs:
           ignore:
             - master
             - staging
+            - dev
       requires:
         - setup-workspace
-  # - e2e:
-  #     filters:
-  #       branches:
-  #         ignore:
-  #           - master
-  #           - staging
-  #     requires:
-  #       - setup-workspace
+  - e2e:
+      filters:
+        branches:
+          ignore:
+            - master
+            - staging
+            - dev
+      requires:
+        - setup-workspace
   - notify-success:
       filters:
         branches:
           ignore:
             - master
             - staging
+            - dev
       requires:
         - lint
         - codegen
         - unit
         - integration
-        # - e2e
+        - e2e
