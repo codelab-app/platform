@@ -104,7 +104,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
             return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
-  gqlFetch(${o.documentVariableName}, variables, next)`;
+  gqlFetch(${o.documentVariableName}.toString(), variables, next)`;
         });
         return `
       ${imports.join('\n')}

@@ -64,6 +64,7 @@ export const InterfaceForm_GetPagesDocument = graphql(`
     }
   }
 `)
+
 import {
   type InterfaceForm_GetAppsQueryVariables,
   type InterfaceForm_GetAtomsQueryVariables,
@@ -73,41 +74,32 @@ import {
   type InterfaceForm_GetPagesQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const InterfaceForm_GetApps = (
+export const InterfaceForm_GetApps = (
   variables: InterfaceForm_GetAppsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(InterfaceForm_GetAppsDocument, variables, next)
+) => gqlFetch(InterfaceForm_GetAppsDocument.toString(), variables, next)
 
-const InterfaceForm_GetAtoms = (
+export const InterfaceForm_GetAtoms = (
   variables: InterfaceForm_GetAtomsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(InterfaceForm_GetAtomsDocument, variables, next)
+) => gqlFetch(InterfaceForm_GetAtomsDocument.toString(), variables, next)
 
-const InterfaceForm_GetActions = (
+export const InterfaceForm_GetActions = (
   variables: InterfaceForm_GetActionsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(InterfaceForm_GetActionsDocument, variables, next)
+) => gqlFetch(InterfaceForm_GetActionsDocument.toString(), variables, next)
 
-const InterfaceForm_GetStores = (
+export const InterfaceForm_GetStores = (
   variables: InterfaceForm_GetStoresQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(InterfaceForm_GetStoresDocument, variables, next)
+) => gqlFetch(InterfaceForm_GetStoresDocument.toString(), variables, next)
 
-const InterfaceForm_GetResource = (
+export const InterfaceForm_GetResource = (
   variables: InterfaceForm_GetResourceQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(InterfaceForm_GetResourceDocument, variables, next)
+) => gqlFetch(InterfaceForm_GetResourceDocument.toString(), variables, next)
 
-const InterfaceForm_GetPages = (
+export const InterfaceForm_GetPages = (
   variables: InterfaceForm_GetPagesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(InterfaceForm_GetPagesDocument, variables, next)
-
-export const getSdk = () => ({
-  InterfaceForm_GetApps,
-  InterfaceForm_GetAtoms,
-  InterfaceForm_GetActions,
-  InterfaceForm_GetStores,
-  InterfaceForm_GetResource,
-  InterfaceForm_GetPages,
-})
+) => gqlFetch(InterfaceForm_GetPagesDocument.toString(), variables, next)

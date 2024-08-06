@@ -17,11 +17,10 @@ export const GetSelectAtomOptionsDocument = graphql(`
     }
   }
 `)
+
 import { type GetSelectAtomOptionsQueryVariables } from '@codelab/frontend/infra/gql'
 
-const GetSelectAtomOptions = (
+export const GetSelectAtomOptions = (
   variables: GetSelectAtomOptionsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetSelectAtomOptionsDocument, variables, next)
-
-export const getSdk = () => ({ GetSelectAtomOptions })
+) => gqlFetch(GetSelectAtomOptionsDocument.toString(), variables, next)

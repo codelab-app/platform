@@ -53,6 +53,7 @@ export const GetRenderedPageDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreatePagesMutationVariables,
   type DeletePagesMutationVariables,
@@ -61,35 +62,27 @@ import {
   type GetRenderedPageQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreatePages = (
+export const CreatePages = (
   variables: CreatePagesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreatePagesDocument, variables, next)
+) => gqlFetch(CreatePagesDocument.toString(), variables, next)
 
-const DeletePages = (
+export const DeletePages = (
   variables: DeletePagesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeletePagesDocument, variables, next)
+) => gqlFetch(DeletePagesDocument.toString(), variables, next)
 
-const UpdatePages = (
+export const UpdatePages = (
   variables: UpdatePagesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdatePagesDocument, variables, next)
+) => gqlFetch(UpdatePagesDocument.toString(), variables, next)
 
-const PageList = (
+export const PageList = (
   variables: PageListQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(PageListDocument, variables, next)
+) => gqlFetch(PageListDocument.toString(), variables, next)
 
-const GetRenderedPage = (
+export const GetRenderedPage = (
   variables: GetRenderedPageQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetRenderedPageDocument, variables, next)
-
-export const getSdk = () => ({
-  CreatePages,
-  DeletePages,
-  UpdatePages,
-  PageList,
-  GetRenderedPage,
-})
+) => gqlFetch(GetRenderedPageDocument.toString(), variables, next)

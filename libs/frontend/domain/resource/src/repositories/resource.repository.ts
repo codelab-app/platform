@@ -8,13 +8,18 @@ import type {
   ResourceWhere,
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { resourceApi } from './resource.api'
+import {
+  CreateResources,
+  DeleteResources,
+  ResourceList,
+  UpdateResource,
+} from './resource.api.graphql.gen'
 
 export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceModel) => {
     const {
       createResources: { resources },
-    } = await resourceApi.CreateResources({ input: [resource.toCreateInput()] })
+    } = await CreateResources({ input: [resource.toCreateInput()] })
 
     const createdResource = resources[0]
 
@@ -26,7 +31,7 @@ export const resourceRepository: IResourceRepository = {
   delete: async (resources: Array<IResourceModel>) => {
     const {
       deleteResources: { nodesDeleted },
-    } = await resourceApi.DeleteResources({
+    } = await DeleteResources({
       delete: { config: { where: {} } },
       where: { id_IN: resources.map((resource) => resource.id) },
     })
@@ -35,7 +40,7 @@ export const resourceRepository: IResourceRepository = {
   },
 
   find: async (where?: ResourceWhere, options?: ResourceOptions) => {
-    return await resourceApi.ResourceList({ options, where })
+    return await ResourceList({ options, where })
   },
 
   findOne: async (where: ResourceUniqueWhere) => {
@@ -45,7 +50,7 @@ export const resourceRepository: IResourceRepository = {
   update: async (resource: IResourceModel) => {
     const {
       updateResources: { resources },
-    } = await resourceApi.UpdateResource({
+    } = await UpdateResource({
       update: resource.toUpdateInput(),
       where: { id: resource.id },
     })

@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useDeletePageModal } from './delete-page.state'
-import { useDeletePageUseCase } from './delete-page.use-case'
+import { useDeletePageService } from './delete-page.service'
 
 export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
   const deletePageModal = useDeletePageModal()
@@ -23,7 +23,7 @@ export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
     >
       <ModalForm.Form
         model={{}}
-        onSubmit={() => useDeletePageUseCase(page)}
+        onSubmit={() => useDeletePageService(page)}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting page',
         })}

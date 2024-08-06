@@ -1,6 +1,7 @@
-import type {
-  IComponentModel,
-  IComponentRepository,
+import {
+  CACHE_TAGS,
+  type IComponentModel,
+  type IComponentRepository,
 } from '@codelab/frontend/abstract/domain'
 import type {
   ComponentOptions,
@@ -8,13 +9,18 @@ import type {
   ComponentWhere,
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { componentApi } from './component.api'
+import {
+  ComponentList,
+  CreateComponents,
+  DeleteComponents,
+  UpdateComponents,
+} from './component.api.graphql.gen'
 
 export const componentRepository: IComponentRepository = {
   add: async (component: IComponentModel) => {
     const {
       createComponents: { components },
-    } = await componentApi.CreateComponents({
+    } = await CreateComponents({
       input: component.toCreateInput(),
     })
 
@@ -28,7 +34,7 @@ export const componentRepository: IComponentRepository = {
   delete: async (components: Array<IComponentModel>) => {
     const {
       deleteComponents: { nodesDeleted },
-    } = await componentApi.DeleteComponents({
+    } = await DeleteComponents({
       delete: {
         api: {},
         props: {},
@@ -41,7 +47,10 @@ export const componentRepository: IComponentRepository = {
   },
 
   find: async (where: ComponentWhere, options?: ComponentOptions) => {
-    return await componentApi.ComponentList({ options, where })
+    return await ComponentList(
+      { options, where },
+      { tags: [CACHE_TAGS.COMPONENTS_LIST] },
+    )
   },
 
   findOne: async (where: ComponentUniqueWhere) => {
@@ -53,7 +62,7 @@ export const componentRepository: IComponentRepository = {
 
     const {
       updateComponents: { components },
-    } = await componentApi.UpdateComponents({
+    } = await UpdateComponents({
       update: {
         name,
       },

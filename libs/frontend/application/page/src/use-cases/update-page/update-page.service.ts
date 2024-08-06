@@ -1,8 +1,8 @@
 import type { IAppDomainService } from '@codelab/frontend/abstract/domain'
-import { updatePageRepository } from '@codelab/frontend-domain-page/repositories'
+import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 
-export const updatePageUseCase = async (
+export const updatePageService = async (
   data: IUpdatePageData,
   appDomainService: IAppDomainService,
 ) => {
@@ -18,11 +18,8 @@ export const updatePageUseCase = async (
   })
 
   if (page) {
-    await updatePageRepository({
-      update: page.toUpdateInput(),
-      where: {
-        id: page.id,
-      },
+    await pageRepository.update(page, {
+      id: page.id,
     })
   }
 

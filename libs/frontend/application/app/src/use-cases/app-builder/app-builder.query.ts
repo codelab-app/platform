@@ -4,9 +4,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
 import { getNameFromSlug, slugify } from '@codelab/shared/utils'
 import uniqBy from 'lodash/uniqBy'
-import { getSdk } from './app-builder.api.graphql.gen'
-
-const appBuilderApi = getSdk()
+import { GetAppBuilder } from './app-builder.api.graphql.gen'
 
 export const appBuilderQuery: IAppBuilderQuery = async ({
   appSlug,
@@ -27,7 +25,7 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
     },
   )
 
-  const data = await appBuilderApi.GetAppBuilder({
+  const data = await GetAppBuilder({
     appCompositeKey,
     pageName,
   })

@@ -170,6 +170,7 @@ export const DeleteCodeMirrorTypesDocument = graphql(`
     }
   }
 `)
+
 import {
   type DeletePrimitiveTypesMutationVariables,
   type DeleteArrayTypesMutationVariables,
@@ -187,89 +188,72 @@ import {
   type DeleteCodeMirrorTypesMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const DeletePrimitiveTypes = (
+export const DeletePrimitiveTypes = (
   variables: DeletePrimitiveTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeletePrimitiveTypesDocument, variables, next)
+) => gqlFetch(DeletePrimitiveTypesDocument.toString(), variables, next)
 
-const DeleteArrayTypes = (
+export const DeleteArrayTypes = (
   variables: DeleteArrayTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteArrayTypesDocument, variables, next)
+) => gqlFetch(DeleteArrayTypesDocument.toString(), variables, next)
 
-const DeleteReactNodeTypes = (
+export const DeleteReactNodeTypes = (
   variables: DeleteReactNodeTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteReactNodeTypesDocument, variables, next)
+) => gqlFetch(DeleteReactNodeTypesDocument.toString(), variables, next)
 
-const DeleteUnionTypes = (
+export const DeleteUnionTypes = (
   variables: DeleteUnionTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteUnionTypesDocument, variables, next)
+) => gqlFetch(DeleteUnionTypesDocument.toString(), variables, next)
 
-const DeleteInterfaceTypes = (
+export const DeleteInterfaceTypes = (
   variables: DeleteInterfaceTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteInterfaceTypesDocument, variables, next)
+) => gqlFetch(DeleteInterfaceTypesDocument.toString(), variables, next)
 
-const DeleteElementTypes = (
+export const DeleteElementTypes = (
   variables: DeleteElementTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteElementTypesDocument, variables, next)
+) => gqlFetch(DeleteElementTypesDocument.toString(), variables, next)
 
-const DeleteRenderPropTypes = (
+export const DeleteRenderPropTypes = (
   variables: DeleteRenderPropTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteRenderPropTypesDocument, variables, next)
+) => gqlFetch(DeleteRenderPropTypesDocument.toString(), variables, next)
 
-const DeleteRichTextTypes = (
+export const DeleteRichTextTypes = (
   variables: DeleteRichTextTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteRichTextTypesDocument, variables, next)
+) => gqlFetch(DeleteRichTextTypesDocument.toString(), variables, next)
 
-const DeleteEnumTypes = (
+export const DeleteEnumTypes = (
   variables: DeleteEnumTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteEnumTypesDocument, variables, next)
+) => gqlFetch(DeleteEnumTypesDocument.toString(), variables, next)
 
-const DeleteLambdaTypes = (
+export const DeleteLambdaTypes = (
   variables: DeleteLambdaTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteLambdaTypesDocument, variables, next)
+) => gqlFetch(DeleteLambdaTypesDocument.toString(), variables, next)
 
-const DeletePageTypes = (
+export const DeletePageTypes = (
   variables: DeletePageTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeletePageTypesDocument, variables, next)
+) => gqlFetch(DeletePageTypesDocument.toString(), variables, next)
 
-const DeleteAppTypes = (
+export const DeleteAppTypes = (
   variables: DeleteAppTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteAppTypesDocument, variables, next)
+) => gqlFetch(DeleteAppTypesDocument.toString(), variables, next)
 
-const DeleteActionTypes = (
+export const DeleteActionTypes = (
   variables: DeleteActionTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteActionTypesDocument, variables, next)
+) => gqlFetch(DeleteActionTypesDocument.toString(), variables, next)
 
-const DeleteCodeMirrorTypes = (
+export const DeleteCodeMirrorTypes = (
   variables: DeleteCodeMirrorTypesMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteCodeMirrorTypesDocument, variables, next)
-
-export const getSdk = () => ({
-  DeletePrimitiveTypes,
-  DeleteArrayTypes,
-  DeleteReactNodeTypes,
-  DeleteUnionTypes,
-  DeleteInterfaceTypes,
-  DeleteElementTypes,
-  DeleteRenderPropTypes,
-  DeleteRichTextTypes,
-  DeleteEnumTypes,
-  DeleteLambdaTypes,
-  DeletePageTypes,
-  DeleteAppTypes,
-  DeleteActionTypes,
-  DeleteCodeMirrorTypes,
-})
+) => gqlFetch(DeleteCodeMirrorTypesDocument.toString(), variables, next)

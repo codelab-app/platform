@@ -1,12 +1,17 @@
 import type { ITagRepository } from '@codelab/frontend/abstract/domain'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { tagApi } from './tag.api'
+import {
+  CreateTags,
+  DeleteTags,
+  GetTags,
+  UpdateTags,
+} from './tag.api.graphql.gen'
 
 export const tagRepository: ITagRepository = {
   add: async (tag) => {
     const {
       createTags: { tags },
-    } = await tagApi.CreateTags({
+    } = await CreateTags({
       input: [tag.toCreateInput()],
     })
 
@@ -20,7 +25,7 @@ export const tagRepository: ITagRepository = {
   delete: async (tags) => {
     const {
       deleteTags: { nodesDeleted },
-    } = await tagApi.DeleteTags({
+    } = await DeleteTags({
       where: { id_IN: tags.map(({ id }) => id) },
     })
 
@@ -28,7 +33,7 @@ export const tagRepository: ITagRepository = {
   },
 
   find: async (where, options) => {
-    return await tagApi.GetTags({
+    return await GetTags({
       options,
       where: { ...where, parent: undefined },
     })
@@ -41,7 +46,7 @@ export const tagRepository: ITagRepository = {
   update: async (tag) => {
     const {
       updateTags: { tags },
-    } = await tagApi.UpdateTags({
+    } = await UpdateTags({
       update: tag.toUpdateInput(),
       where: { id: tag.id },
     })

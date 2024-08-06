@@ -1,2 +1,2 @@
-export * from './delete-page.use-case'
+export * from './delete-page.service'
 export * from './DeletePageModal'

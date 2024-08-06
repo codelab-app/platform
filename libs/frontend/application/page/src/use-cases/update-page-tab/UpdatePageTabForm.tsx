@@ -7,7 +7,7 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updatePageUseCase } from '../update-page/update-page.use-case'
+import { updatePageService } from '../update-page/update-page.service'
 import { schema } from './update-page-tab.schema'
 
 export const UpdatePageTabForm = observer(() => {
@@ -19,7 +19,7 @@ export const UpdatePageTabForm = observer(() => {
   }
 
   const onSubmit = (input: IUpdatePageData) =>
-    updatePageUseCase(input, appDomainService)
+    updatePageService(input, appDomainService)
 
   const { kind, pageContentContainer } = page
   const omitFields = ['appId']

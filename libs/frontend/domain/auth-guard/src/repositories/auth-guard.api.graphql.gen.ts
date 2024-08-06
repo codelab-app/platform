@@ -48,6 +48,7 @@ export const DeleteAuthGuardsDocument = graphql(`
     }
   }
 `)
+
 import {
   type GetAuthGuardsQueryVariables,
   type CreateAuthGuardsMutationVariables,
@@ -55,29 +56,22 @@ import {
   type DeleteAuthGuardsMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const GetAuthGuards = (
+export const GetAuthGuards = (
   variables: GetAuthGuardsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetAuthGuardsDocument, variables, next)
+) => gqlFetch(GetAuthGuardsDocument.toString(), variables, next)
 
-const CreateAuthGuards = (
+export const CreateAuthGuards = (
   variables: CreateAuthGuardsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateAuthGuardsDocument, variables, next)
+) => gqlFetch(CreateAuthGuardsDocument.toString(), variables, next)
 
-const UpdateAuthGuard = (
+export const UpdateAuthGuard = (
   variables: UpdateAuthGuardMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateAuthGuardDocument, variables, next)
+) => gqlFetch(UpdateAuthGuardDocument.toString(), variables, next)
 
-const DeleteAuthGuards = (
+export const DeleteAuthGuards = (
   variables: DeleteAuthGuardsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteAuthGuardsDocument, variables, next)
-
-export const getSdk = () => ({
-  GetAuthGuards,
-  CreateAuthGuards,
-  UpdateAuthGuard,
-  DeleteAuthGuards,
-})
+) => gqlFetch(DeleteAuthGuardsDocument.toString(), variables, next)

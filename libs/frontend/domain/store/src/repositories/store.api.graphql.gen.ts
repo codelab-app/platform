@@ -46,6 +46,7 @@ export const UpdateStoresDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateStoresMutationVariables,
   type DeleteStoresMutationVariables,
@@ -53,29 +54,22 @@ import {
   type UpdateStoresMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateStores = (
+export const CreateStores = (
   variables: CreateStoresMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateStoresDocument, variables, next)
+) => gqlFetch(CreateStoresDocument.toString(), variables, next)
 
-const DeleteStores = (
+export const DeleteStores = (
   variables: DeleteStoresMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteStoresDocument, variables, next)
+) => gqlFetch(DeleteStoresDocument.toString(), variables, next)
 
-const GetStores = (
+export const GetStores = (
   variables: GetStoresQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetStoresDocument, variables, next)
+) => gqlFetch(GetStoresDocument.toString(), variables, next)
 
-const UpdateStores = (
+export const UpdateStores = (
   variables: UpdateStoresMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateStoresDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateStores,
-  DeleteStores,
-  GetStores,
-  UpdateStores,
-})
+) => gqlFetch(UpdateStoresDocument.toString(), variables, next)

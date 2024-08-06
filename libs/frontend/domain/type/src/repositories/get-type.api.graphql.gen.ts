@@ -225,6 +225,7 @@ export const GetTypeOptionsDocument = graphql(`
     }
   }
 `)
+
 import {
   type GetBaseTypesQueryVariables,
   type GetTypesQueryVariables,
@@ -246,113 +247,92 @@ import {
   type GetTypeOptionsQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const GetBaseTypes = (
+export const GetBaseTypes = (
   variables: GetBaseTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetBaseTypesDocument, variables, next)
+) => gqlFetch(GetBaseTypesDocument.toString(), variables, next)
 
-const GetTypes = (
+export const GetTypes = (
   variables: GetTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetTypesDocument, variables, next)
+) => gqlFetch(GetTypesDocument.toString(), variables, next)
 
-const GetDescendants = (
+export const GetDescendants = (
   variables: GetDescendantsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetDescendantsDocument, variables, next)
+) => gqlFetch(GetDescendantsDocument.toString(), variables, next)
 
-const GetPrimitiveTypes = (
+export const GetPrimitiveTypes = (
   variables: GetPrimitiveTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetPrimitiveTypesDocument, variables, next)
+) => gqlFetch(GetPrimitiveTypesDocument.toString(), variables, next)
 
-const GetArrayTypes = (
+export const GetArrayTypes = (
   variables: GetArrayTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetArrayTypesDocument, variables, next)
+) => gqlFetch(GetArrayTypesDocument.toString(), variables, next)
 
-const GetUnionTypes = (
+export const GetUnionTypes = (
   variables: GetUnionTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetUnionTypesDocument, variables, next)
+) => gqlFetch(GetUnionTypesDocument.toString(), variables, next)
 
-const GetInterfaceTypes = (
+export const GetInterfaceTypes = (
   variables: GetInterfaceTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetInterfaceTypesDocument, variables, next)
+) => gqlFetch(GetInterfaceTypesDocument.toString(), variables, next)
 
-const GetElementTypes = (
+export const GetElementTypes = (
   variables: GetElementTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetElementTypesDocument, variables, next)
+) => gqlFetch(GetElementTypesDocument.toString(), variables, next)
 
-const GetRenderPropTypes = (
+export const GetRenderPropTypes = (
   variables: GetRenderPropTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetRenderPropTypesDocument, variables, next)
+) => gqlFetch(GetRenderPropTypesDocument.toString(), variables, next)
 
-const GetReactNodeTypes = (
+export const GetReactNodeTypes = (
   variables: GetReactNodeTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetReactNodeTypesDocument, variables, next)
+) => gqlFetch(GetReactNodeTypesDocument.toString(), variables, next)
 
-const GetRichTextTypes = (
+export const GetRichTextTypes = (
   variables: GetRichTextTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetRichTextTypesDocument, variables, next)
+) => gqlFetch(GetRichTextTypesDocument.toString(), variables, next)
 
-const GetEnumTypes = (
+export const GetEnumTypes = (
   variables: GetEnumTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetEnumTypesDocument, variables, next)
+) => gqlFetch(GetEnumTypesDocument.toString(), variables, next)
 
-const GetLambdaTypes = (
+export const GetLambdaTypes = (
   variables: GetLambdaTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetLambdaTypesDocument, variables, next)
+) => gqlFetch(GetLambdaTypesDocument.toString(), variables, next)
 
-const GetPageTypes = (
+export const GetPageTypes = (
   variables: GetPageTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetPageTypesDocument, variables, next)
+) => gqlFetch(GetPageTypesDocument.toString(), variables, next)
 
-const GetAppTypes = (
+export const GetAppTypes = (
   variables: GetAppTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetAppTypesDocument, variables, next)
+) => gqlFetch(GetAppTypesDocument.toString(), variables, next)
 
-const GetActionTypes = (
+export const GetActionTypes = (
   variables: GetActionTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetActionTypesDocument, variables, next)
+) => gqlFetch(GetActionTypesDocument.toString(), variables, next)
 
-const GetCodeMirrorTypes = (
+export const GetCodeMirrorTypes = (
   variables: GetCodeMirrorTypesQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetCodeMirrorTypesDocument, variables, next)
+) => gqlFetch(GetCodeMirrorTypesDocument.toString(), variables, next)
 
-const GetTypeOptions = (
+export const GetTypeOptions = (
   variables: GetTypeOptionsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetTypeOptionsDocument, variables, next)
-
-export const getSdk = () => ({
-  GetBaseTypes,
-  GetTypes,
-  GetDescendants,
-  GetPrimitiveTypes,
-  GetArrayTypes,
-  GetUnionTypes,
-  GetInterfaceTypes,
-  GetElementTypes,
-  GetRenderPropTypes,
-  GetReactNodeTypes,
-  GetRichTextTypes,
-  GetEnumTypes,
-  GetLambdaTypes,
-  GetPageTypes,
-  GetAppTypes,
-  GetActionTypes,
-  GetCodeMirrorTypes,
-  GetTypeOptions,
-})
+) => gqlFetch(GetTypeOptionsDocument.toString(), variables, next)

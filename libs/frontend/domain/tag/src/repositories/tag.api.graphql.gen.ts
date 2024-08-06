@@ -42,6 +42,7 @@ export const GetTagsDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateTagsMutationVariables,
   type UpdateTagsMutationVariables,
@@ -49,24 +50,22 @@ import {
   type GetTagsQueryVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateTags = (
+export const CreateTags = (
   variables: CreateTagsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateTagsDocument, variables, next)
+) => gqlFetch(CreateTagsDocument.toString(), variables, next)
 
-const UpdateTags = (
+export const UpdateTags = (
   variables: UpdateTagsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateTagsDocument, variables, next)
+) => gqlFetch(UpdateTagsDocument.toString(), variables, next)
 
-const DeleteTags = (
+export const DeleteTags = (
   variables: DeleteTagsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteTagsDocument, variables, next)
+) => gqlFetch(DeleteTagsDocument.toString(), variables, next)
 
-const GetTags = (
+export const GetTags = (
   variables: GetTagsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetTagsDocument, variables, next)
-
-export const getSdk = () => ({ CreateTags, UpdateTags, DeleteTags, GetTags })
+) => gqlFetch(GetTagsDocument.toString(), variables, next)

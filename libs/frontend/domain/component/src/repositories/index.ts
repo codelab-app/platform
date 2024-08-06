@@ -1,6 +1,2 @@
 export * from './component.repository'
-export * from './component-builder.api'
-export { componentListRepository } from './component-list.repository'
-export { createComponentRepository } from './create-component.repository'
-export { deleteComponentRepository } from './delete-component.repository'
 export * from './select-component-options'

@@ -59,31 +59,31 @@ const config: Types.Config = {
     /**
      * Instead of `gql` wrapping documents, which requires client side runtime conversion, we build the queries at build time
      */
-    // 'libs/frontend/infra/gql/src/gql/': {
-    //   documents: [
-    //     '**/*.fragment.graphql',
-    //     '**/*.api.graphql',
-    //     // 'libs/frontend/application/**/*.{repository,document}.ts',
-    //     // 'libs/frontend/domain/**/*.{repository,document}.ts',
-    //   ],
-    //   preset,
-    //   config: {
-    //     documentMode: 'string',
-    //     inlineFragmentTypes: 'combine',
-    //     // useTypeImports: true,
-    //     // enumsAsTypes: true,
-    //   },
-    //   presetConfig: {
-    //     importAllFragmentsFrom: '~@codelab/frontend/infra/gql',
-    //     fragmentMasking: false,
-    //   },
-    // },
+    'libs/frontend/infra/gql/src/gql/': {
+      documents: [
+        '**/*.fragment.graphql',
+        '**/*.api.graphql',
+        // 'libs/frontend/application/**/*.{repository,document}.ts',
+        // 'libs/frontend/domain/**/*.{repository,document}.ts',
+      ],
+      preset,
+      config: {
+        documentMode: 'string',
+        inlineFragmentTypes: 'combine',
+        // useTypeImports: true,
+        // enumsAsTypes: true,
+      },
+      presetConfig: {
+        importAllFragmentsFrom: '~@codelab/frontend/infra/gql',
+        fragmentMasking: false,
+      },
+    },
     /**
      * We create our own plugin as a layer on top of client preset, to wrap doucments with `graphql`
      */
     './': {
-      // documents: ['**/*.{app.api,fragment}.graphql'],
-      documents: ['**/app.api.graphql', '**/*.fragment.graphql'],
+      documents: ['**/*.{api,fragment}.graphql'],
+      // documents: ['**/app.api.graphql', '**/*.fragment.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         importAllFragmentsFrom: '~@codelab/frontend/infra/gql',

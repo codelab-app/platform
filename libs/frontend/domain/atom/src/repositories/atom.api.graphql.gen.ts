@@ -62,6 +62,7 @@ export const UpdateAtomsDocument = graphql(`
     }
   }
 `)
+
 import {
   type CreateAtomsMutationVariables,
   type DeleteAtomsMutationVariables,
@@ -70,35 +71,27 @@ import {
   type UpdateAtomsMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const CreateAtoms = (
+export const CreateAtoms = (
   variables: CreateAtomsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(CreateAtomsDocument, variables, next)
+) => gqlFetch(CreateAtomsDocument.toString(), variables, next)
 
-const DeleteAtoms = (
+export const DeleteAtoms = (
   variables: DeleteAtomsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteAtomsDocument, variables, next)
+) => gqlFetch(DeleteAtomsDocument.toString(), variables, next)
 
-const AtomList = (
+export const AtomList = (
   variables: AtomListQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(AtomListDocument, variables, next)
+) => gqlFetch(AtomListDocument.toString(), variables, next)
 
-const GetSelectAtomOptions = (
+export const GetSelectAtomOptions = (
   variables: GetSelectAtomOptionsQueryVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(GetSelectAtomOptionsDocument, variables, next)
+) => gqlFetch(GetSelectAtomOptionsDocument.toString(), variables, next)
 
-const UpdateAtoms = (
+export const UpdateAtoms = (
   variables: UpdateAtomsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateAtomsDocument, variables, next)
-
-export const getSdk = () => ({
-  CreateAtoms,
-  DeleteAtoms,
-  AtomList,
-  GetSelectAtomOptions,
-  UpdateAtoms,
-})
+) => gqlFetch(UpdateAtomsDocument.toString(), variables, next)

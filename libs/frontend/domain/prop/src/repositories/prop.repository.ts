@@ -8,13 +8,18 @@ import type {
   PropWhere,
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { propApi } from './prop.api'
+import {
+  CreateProps,
+  DeleteProps,
+  GetProps,
+  UpdateProps,
+} from './prop.api.graphql.gen'
 
 export const propRepository: IPropRepository = {
   add: async (prop: IPropModel) => {
     const {
       createProps: { props },
-    } = await propApi.CreateProps({
+    } = await CreateProps({
       input: [prop.toCreateInput()],
     })
 
@@ -28,7 +33,7 @@ export const propRepository: IPropRepository = {
   delete: async (props: Array<IPropModel>) => {
     const {
       deleteProps: { nodesDeleted },
-    } = await propApi.DeleteProps({
+    } = await DeleteProps({
       where: { id_IN: props.map((prop) => prop.id) },
     })
 
@@ -36,7 +41,7 @@ export const propRepository: IPropRepository = {
   },
 
   find: async (where?: PropWhere, options?: PropOptions) => {
-    return await propApi.GetProps({ options, where })
+    return await GetProps({ options, where })
   },
 
   findOne: async (where: PropUniqueWhere) => {
@@ -46,7 +51,7 @@ export const propRepository: IPropRepository = {
   update: async (prop: IPropModel) => {
     const {
       updateProps: { props },
-    } = await propApi.UpdateProps({
+    } = await UpdateProps({
       update: prop.toUpdateInput(),
       where: { id: prop.id },
     })

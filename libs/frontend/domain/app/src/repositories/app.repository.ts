@@ -18,8 +18,6 @@ import {
 
 export const appRepository: IAppRepository = {
   add: async (app: IAppModel) => {
-    console.log(app.toCreateInput())
-
     const {
       createApps: { apps },
     } = await CreateApps({

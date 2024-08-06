@@ -1,6 +1,6 @@
 import { type IPageApplicationService } from '@codelab/frontend/abstract/application'
 import {
-  pageApi,
+  GetRenderedPage,
   pageRepository,
 } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
@@ -10,7 +10,7 @@ import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { useMemo } from 'react'
 
-export const usePageApplicationService = (): IPageApplicationService => {
+export const usePageService = (): IPageApplicationService => {
   const { elementDomainService } = useDomainStore()
   const pageDomainService = useMemo(() => new PageDomainService({}), [])
 
@@ -27,7 +27,7 @@ export const usePageApplicationService = (): IPageApplicationService => {
   }
 
   const getRenderedPage = async (pageId: string) => {
-    return await pageApi.GetRenderedPage({ pageId })
+    return await GetRenderedPage({ pageId })
   }
 
   const getSelectPageOptions = async (appId?: string) => {

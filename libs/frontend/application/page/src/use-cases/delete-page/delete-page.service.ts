@@ -1,18 +1,15 @@
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import { deleteElementRepository } from '@codelab/frontend-domain-element/repositories'
-import {
-  deletePageRepository,
-  pageListRepository,
-} from '@codelab/frontend-domain-page/repositories'
+import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 
-export const useDeletePageUseCase = async (pageModel: IPageModel) => {
+export const useDeletePageService = async (pageModel: IPageModel) => {
   const { elementDomainService, pageDomainService } = useDomainStore()
   const { rendererService } = useApplicationStore()
-  const pages = await pageListRepository({ where: { id: pageModel.id } })
+  const { items: pages } = await pageRepository.find({ id: pageModel.id })
   const elements = pages.flatMap((page) => page.elements)
 
   elements.forEach((element) =>
@@ -25,11 +22,9 @@ export const useDeletePageUseCase = async (pageModel: IPageModel) => {
     pageDomainService.pages.delete(page.id)
   })
 
-  await deleteElementRepository({
-    where: { id_IN: elements.map((element) => element.id) },
-  })
+  await elementRepository.delete(elements)
 
-  await deletePageRepository({ id: pageModel.id })
+  await pageRepository.delete([pageModel])
 
   // TODO: refresh pages
 }

@@ -8,13 +8,18 @@ import type {
   AuthGuardWhere,
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { authGuardApi } from './auth-guard.api'
+import {
+  CreateAuthGuards,
+  DeleteAuthGuards,
+  GetAuthGuards,
+  UpdateAuthGuard,
+} from './auth-guard.api.graphql.gen'
 
 export const authGuardRepository: IAuthGuardRepository = {
   add: async (authGuard: IAuthGuardModel) => {
     const {
       createAuthGuards: { authGuards },
-    } = await authGuardApi.CreateAuthGuards({
+    } = await CreateAuthGuards({
       input: [authGuard.toCreateInput()],
     })
 
@@ -28,7 +33,7 @@ export const authGuardRepository: IAuthGuardRepository = {
   delete: async (authGuards: Array<IAuthGuardModel>) => {
     const {
       deleteAuthGuards: { nodesDeleted },
-    } = await authGuardApi.DeleteAuthGuards({
+    } = await DeleteAuthGuards({
       delete: { config: { where: {} } },
       where: { id_IN: authGuards.map((authGuard) => authGuard.id) },
     })
@@ -37,7 +42,7 @@ export const authGuardRepository: IAuthGuardRepository = {
   },
 
   find: async (where?: AuthGuardWhere, options?: AuthGuardOptions) => {
-    return await authGuardApi.GetAuthGuards({ options, where })
+    return await GetAuthGuards({ options, where })
   },
 
   findOne: async (where: AuthGuardUniqueWhere) => {
@@ -56,7 +61,7 @@ export const authGuardRepository: IAuthGuardRepository = {
   update: async (authGuard: IAuthGuardModel) => {
     const {
       updateAuthGuards: { authGuards },
-    } = await authGuardApi.UpdateAuthGuard({
+    } = await UpdateAuthGuard({
       update: authGuard.toUpdateInput(),
       where: { id: authGuard.id },
     })

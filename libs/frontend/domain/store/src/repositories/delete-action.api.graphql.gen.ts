@@ -26,19 +26,18 @@ export const DeleteApiActionsDocument = graphql(`
     }
   }
 `)
+
 import {
   type DeleteCodeActionsMutationVariables,
   type DeleteApiActionsMutationVariables,
 } from '@codelab/frontend/infra/gql'
 
-const DeleteCodeActions = (
+export const DeleteCodeActions = (
   variables: DeleteCodeActionsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteCodeActionsDocument, variables, next)
+) => gqlFetch(DeleteCodeActionsDocument.toString(), variables, next)
 
-const DeleteApiActions = (
+export const DeleteApiActions = (
   variables: DeleteApiActionsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(DeleteApiActionsDocument, variables, next)
-
-export const getSdk = () => ({ DeleteCodeActions, DeleteApiActions })
+) => gqlFetch(DeleteApiActionsDocument.toString(), variables, next)

@@ -8,13 +8,18 @@ import type {
   DomainWhere,
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { domainApi } from './domain.api'
+import {
+  CreateDomains,
+  DeleteDomains,
+  DomainList,
+  UpdateDomains,
+} from './domain.api.graphql.gen'
 
 export const domainRepository: IDomainRepository = {
   add: async (domain: IDomainModel) => {
     const {
       createDomains: { domains },
-    } = await domainApi.CreateDomains({
+    } = await CreateDomains({
       input: domain.toCreateInput(),
     })
 
@@ -28,7 +33,7 @@ export const domainRepository: IDomainRepository = {
   delete: async (domains: Array<IDomainModel>) => {
     const {
       deleteDomains: { nodesDeleted },
-    } = await domainApi.DeleteDomains({
+    } = await DeleteDomains({
       where: {
         id_IN: domains.map((domain) => domain.id),
       },
@@ -38,7 +43,7 @@ export const domainRepository: IDomainRepository = {
   },
 
   find: async (where: DomainWhere = {}, options?: DomainOptions) => {
-    return domainApi.DomainList({ options, where })
+    return DomainList({ options, where })
   },
 
   findOne: async (where: DomainUniqueWhere) => {
@@ -48,7 +53,7 @@ export const domainRepository: IDomainRepository = {
   update: async (domain: IDomainModel) => {
     const {
       updateDomains: { domains },
-    } = await domainApi.UpdateDomains({
+    } = await UpdateDomains({
       update: domain.toUpdateInput(),
       where: { id: domain.id },
     })

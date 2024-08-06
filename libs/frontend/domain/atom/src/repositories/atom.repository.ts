@@ -2,7 +2,10 @@ import type {
   IAtomModel,
   IAtomRepository,
 } from '@codelab/frontend/abstract/domain'
-import { filterNotHookType } from '@codelab/frontend/abstract/domain'
+import {
+  CACHE_TAGS,
+  filterNotHookType,
+} from '@codelab/frontend/abstract/domain'
 import type {
   AtomOptions,
   AtomUniqueWhere,
@@ -10,15 +13,19 @@ import type {
 } from '@codelab/frontend/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import sortBy from 'lodash/sortBy'
-import { atomApi } from './atom.api'
+import {
+  AtomList,
+  CreateAtoms,
+  DeleteAtoms,
+  GetSelectAtomOptions,
+  UpdateAtoms,
+} from './atom.api.graphql.gen'
 
 export const atomRepository: IAtomRepository = {
   add: async (atom: IAtomModel) => {
-    console.log(atom.toCreateInput())
-
     const {
       createAtoms: { atoms },
-    } = await atomApi.CreateAtoms({ input: [atom.toCreateInput()] })
+    } = await CreateAtoms({ input: [atom.toCreateInput()] })
 
     const createdAtom = atoms[0]
 
@@ -30,7 +37,7 @@ export const atomRepository: IAtomRepository = {
   delete: async (atoms: Array<IAtomModel>) => {
     const {
       deleteAtoms: { nodesDeleted },
-    } = await atomApi.DeleteAtoms({
+    } = await DeleteAtoms({
       where: { id_IN: atoms.map(({ id }) => id) },
     })
 
@@ -38,7 +45,7 @@ export const atomRepository: IAtomRepository = {
   },
 
   find: async (where?: AtomWhere, options?: AtomOptions) => {
-    return await atomApi.AtomList({ options, where })
+    return await AtomList({ options, where }, { tags: [CACHE_TAGS.ATOM_LIST] })
   },
 
   findOne: async (where: AtomUniqueWhere) => {
@@ -46,7 +53,7 @@ export const atomRepository: IAtomRepository = {
   },
 
   getSelectAtomOptions: async () => {
-    const { atoms } = await atomApi.GetSelectAtomOptions({})
+    const { atoms } = await GetSelectAtomOptions({})
 
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),
@@ -57,7 +64,7 @@ export const atomRepository: IAtomRepository = {
   update: async (atom: IAtomModel) => {
     const {
       updateAtoms: { atoms },
-    } = await atomApi.UpdateAtoms({
+    } = await UpdateAtoms({
       update: atom.toUpdateInput(),
       where: { id: atom.id },
     })
