@@ -56,9 +56,6 @@ export const Modal = ({
         onCancel={onCancel}
         onOk={handleSubmitRefModalOk(submitRef, onOk)}
         open={open}
-        className={className}
-        // This is needed, because otherwise form values persist even after closing the modal
-        destroyOnClose
       >
         {children}
       </AntdModal>
