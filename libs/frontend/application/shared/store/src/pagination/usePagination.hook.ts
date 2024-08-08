@@ -7,7 +7,6 @@ import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import sortBy from 'lodash/sortBy'
 import type { Ref } from 'mobx-keystone'
-import { useMemo } from 'react'
 
 interface PaginationState<
   T extends SupportedPaginationModel,
@@ -21,39 +20,38 @@ interface PaginationState<
   totalItems: number
 }
 
-const createPaginationAtomFamily = <
-  T extends SupportedPaginationModel,
-  U extends Filterables,
->() => {
-  return atomFamily((key: string) => {
-    const baseAtom = atom<PaginationState<T, U>>({
-      currentPage: 1,
-      dataRefs: new Map(),
-      filter: {} as U,
-      isLoading: true,
-      pageSize: 20,
-      totalItems: 0,
-    })
-
-    const derivedAtom = atom(
-      (get) => {
-        const state = get(baseAtom)
-
-        return {
-          ...state,
-          data: sortBy(Array.from(state.dataRefs.values()), (item) =>
-            item.current.name.toLowerCase(),
-          ).map((ref) => ref.current),
-        }
-      },
-      (get, set, update: Partial<PaginationState<T, U>>) => {
-        set(baseAtom, { ...get(baseAtom), ...update })
-      },
-    )
-
-    return derivedAtom
+const paginationAtomFamily = atomFamily((key: string) => {
+  const baseAtom = atom({
+    currentPage: 1,
+    dataRefs: new Map(),
+    filter: {},
+    isLoading: true,
+    pageSize: 20,
+    totalItems: 0,
   })
-}
+
+  const derivedAtom = atom(
+    (get) => {
+      const state = get(baseAtom)
+
+      return {
+        ...state,
+        data: sortBy(Array.from(state.dataRefs.values()), (item) =>
+          item.current.name.toLowerCase(),
+        ).map((ref) => ref.current),
+      }
+    },
+    (
+      get,
+      set,
+      update: Partial<PaginationState<SupportedPaginationModel, Filterables>>,
+    ) => {
+      set(baseAtom, { ...get(baseAtom), ...update })
+    },
+  )
+
+  return derivedAtom
+})
 
 export const usePaginationService = <
   T extends SupportedPaginationModel,
@@ -66,11 +64,6 @@ export const usePaginationService = <
     filter: U,
   ) => Promise<{ items: Array<T>; totalItems: number }>,
 ): IPaginationService<T, U> => {
-  const paginationAtomFamily = useMemo(
-    () => createPaginationAtomFamily<T, U>(),
-    [],
-  )
-
   const [state, setState] = useAtom(paginationAtomFamily(key))
   const setCurrentPage = (page: number) => setState({ currentPage: page })
   const setPageSize = (size: number) => setState({ pageSize: size })
@@ -82,7 +75,7 @@ export const usePaginationService = <
     const { items, totalItems } = await getDataFn(
       state.currentPage,
       state.pageSize,
-      state.filter,
+      state.filter as U,
     )
 
     setState({
@@ -112,5 +105,5 @@ export const usePaginationService = <
     setFilter,
     setPageSize,
     totalItems: state.totalItems,
-  }
+  } as IPaginationService<T, U>
 }
