@@ -4,7 +4,7 @@ import {
   CodeActionCreateInput,
   CodeActionDeleteInput,
   CodeActionUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { ICodeActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain'

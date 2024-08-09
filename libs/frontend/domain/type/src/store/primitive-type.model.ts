@@ -1,5 +1,5 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
-import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'

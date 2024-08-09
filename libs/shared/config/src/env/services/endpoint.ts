@@ -73,10 +73,6 @@ export interface IEndpointEnvVars {
    * component endpoints
    */
   component: IComponentEndpoints
-  /**
-   * This is the Next.js middleware that forwards to the backend graphql endpoint
-   */
-  graphqlApiUrl: string
   isLocal: boolean
 
   regenerate: string
@@ -85,6 +81,11 @@ export interface IEndpointEnvVars {
    * user endpoints
    */
   user: IUserEndpoints
+
+  /**
+   * This is the Next.js middleware that forwards to the backend graphql endpoint
+   */
+  webGraphqlUrl: string
   webHost: string
 }
 
@@ -159,17 +160,8 @@ export class EndpointEnvVars implements IEndpointEnvVars {
     }
   }
 
-  /**
-   * URL is protocol + origin
-   *
-   * This uses the Next.js proxy middleware
-   */
-  get graphqlApiUrl() {
-    return new URL(`${this.baseApiPath}/graphql`, this.webHost).toString()
-  }
-
   get isLocal() {
-    return this.graphqlApiUrl.includes('127.0.0.1')
+    return this.webGraphqlUrl.includes('127.0.0.1')
   }
 
   get regenerate(): string {
@@ -182,6 +174,15 @@ export class EndpointEnvVars implements IEndpointEnvVars {
     return {
       save: new URL(saveEndpoint, this.apiUrl).toString(),
     }
+  }
+
+  /**
+   * URL is protocol + origin
+   *
+   * This uses the Next.js proxy middleware
+   */
+  get webGraphqlUrl() {
+    return new URL(`${this.baseApiPath}/graphql`, this.webHost).toString()
   }
 
   /**

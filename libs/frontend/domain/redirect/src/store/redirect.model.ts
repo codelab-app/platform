@@ -7,7 +7,7 @@ import { authGuardRef, pageRef } from '@codelab/frontend/abstract/domain'
 import type {
   RedirectCreateInput,
   RedirectUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'

@@ -11,10 +11,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import {
-  AtomCreateInput,
-  AtomUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
 import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,

@@ -12,7 +12,7 @@ export const gqlFetch = async <TResult, TVariables>(
   variables: TVariables,
   next?: NextFetchRequestConfig,
 ) => {
-  const response = await fetchWithAuth(getEnv().endpoint.graphqlApiUrl, {
+  const response = await fetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
     body: JSON.stringify({
       query: document,
       variables,

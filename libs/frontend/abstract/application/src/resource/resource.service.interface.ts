@@ -1,9 +1,6 @@
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type {
-  ResourceOptions,
-  ResourceWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { ResourceOptions, ResourceWhere } from '@codelab/shared/infra/gql'
 import type {
   ICreateResourceData,
   IResourceDto,

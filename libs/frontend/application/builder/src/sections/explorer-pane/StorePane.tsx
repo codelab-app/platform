@@ -10,7 +10,7 @@ import { UpdateActionModal } from '@codelab/frontend-application-store/use-cases
 import { CreateFieldButton } from '@codelab/frontend-application-type/use-cases/create-field'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { SkeletonWrapper } from '@codelab/frontend-presentation-view/components/skeleton'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'

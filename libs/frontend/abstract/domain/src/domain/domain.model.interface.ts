@@ -3,7 +3,7 @@ import type {
   DomainCreateInput,
   DomainUpdateInput,
   ProductionDomainConfig,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IDomain, IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ICacheService } from '../shared'

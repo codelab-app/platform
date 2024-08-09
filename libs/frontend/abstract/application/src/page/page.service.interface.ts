@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { PageOptions, PageWhere } from '@codelab/shared/infra/gql'
-import type { GetRenderedPageQuery } from '@codelab/shared/abstract/codegen'
+import type { GetRenderedPageQuery } from '@codelab/shared/infra/gql'
 import type {
   ICreatePageData,
   IElementDto,

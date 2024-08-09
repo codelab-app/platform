@@ -1,7 +1,4 @@
-import type {
-  TagCreateInput,
-  TagUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import type { TagCreateInput, TagUpdateInput } from '@codelab/shared/infra/gql'
 import type { ITag, ITagDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService, ITreeNode } from '../shared'

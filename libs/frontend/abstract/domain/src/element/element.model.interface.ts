@@ -1,7 +1,7 @@
 import type {
   ElementCreateInput,
   ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IElement, IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'

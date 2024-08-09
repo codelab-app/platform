@@ -2,7 +2,7 @@ import {
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import {
   IElementTypeKind,

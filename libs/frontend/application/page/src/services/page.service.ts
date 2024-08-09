@@ -16,7 +16,7 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type { PageWhere } from '@codelab/shared/abstract/codegen'
+import type { PageWhere } from '@codelab/shared/infra/gql'
 import type {
   ICreatePageData,
   IElementDto,

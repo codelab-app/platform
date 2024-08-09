@@ -1,7 +1,7 @@
 import type {
   InterfaceTypeCreateInput,
   UpdateInterfaceTypesMutationVariables,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IInterfaceTypeDto,
   IPropData,

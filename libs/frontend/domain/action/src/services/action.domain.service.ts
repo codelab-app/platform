@@ -3,7 +3,7 @@ import type {
   IActionModel,
 } from '@codelab/frontend/abstract/domain'
 import { IStoreModel } from '@codelab/frontend/abstract/domain'
-import type { ActionFragment } from '@codelab/shared/abstract/codegen'
+import type { ActionFragment } from '@codelab/shared/infra/gql'
 import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
 import uniq from 'lodash/uniq'

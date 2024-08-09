@@ -4,7 +4,7 @@ import type { IRuntimeElementModel } from '@codelab/frontend/abstract/applicatio
 import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Col, Row } from 'antd'
 import debounce from 'lodash/debounce'
 import { observer } from 'mobx-react-lite'

@@ -2,7 +2,7 @@ import type {
   PageCreateInput,
   PageDeleteInput,
   PageUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IPage, IPageDto, IPageKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'

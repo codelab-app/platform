@@ -12,7 +12,7 @@ import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

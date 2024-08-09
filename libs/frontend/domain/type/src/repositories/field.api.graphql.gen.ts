@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import { FieldFragmentDoc } from '@codelab/shared/infra/gql'
 
@@ -48,7 +48,7 @@ import {
   type UpdateFieldsMutationVariables,
   type DeleteFieldsMutationVariables,
   type GetFieldsQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/frontend/infra/gql'
 
 export const CreateFields = (
   variables: CreateFieldsMutationVariables,

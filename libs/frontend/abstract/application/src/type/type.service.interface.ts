@@ -7,7 +7,7 @@ import type {
   IBaseType,
   IBaseTypeOptions,
   IBaseTypeWhere,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 

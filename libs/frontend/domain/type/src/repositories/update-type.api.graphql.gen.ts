@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 export const UpdatePrimitiveTypesDocument = graphql(`
@@ -354,7 +354,7 @@ import {
   type UpdateRichTextTypesMutationVariables,
   type UpdateActionTypesMutationVariables,
   type UpdateCodeMirrorTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/frontend/infra/gql'
 
 export const UpdatePrimitiveTypes = (
   variables: UpdatePrimitiveTypesMutationVariables,

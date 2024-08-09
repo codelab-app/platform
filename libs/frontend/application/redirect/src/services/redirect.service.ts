@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { RedirectWhere } from '@codelab/shared/abstract/codegen'
+import type { RedirectWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 
 export const useRedirectService = (): IRedirectService => {

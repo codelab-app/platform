@@ -2,7 +2,7 @@ import type {
   ApiActionCreateInput,
   ApiActionDeleteInput,
   ApiActionUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IActionKind,
   IApiAction,

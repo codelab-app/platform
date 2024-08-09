@@ -2,7 +2,7 @@ import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IStore, IStoreDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'

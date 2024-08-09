@@ -6,7 +6,7 @@ import {
   ActionFragment,
   ApiActionFragment,
   CodeActionFragment,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import {
   IActionDto,
   IActionKind,

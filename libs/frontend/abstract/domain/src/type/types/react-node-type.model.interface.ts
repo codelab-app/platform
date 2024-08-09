@@ -1,7 +1,7 @@
 import type {
   ReactNodeTypeCreateInput,
   UpdateReactNodeTypesMutationVariables,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IReactNodeTypeDto,
   ITypeKind,

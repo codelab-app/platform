@@ -1,7 +1,7 @@
 import type {
   ComponentCreateInput,
   ComponentUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IComponent,
   IComponentDto,

@@ -2,7 +2,7 @@ import type {
   IActionModel,
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import type { ApiActionOptions } from '@codelab/shared/abstract/codegen'
+import type { ApiActionOptions } from '@codelab/shared/infra/gql'
 import type {
   ICreateActionData,
   IUpdateActionData,

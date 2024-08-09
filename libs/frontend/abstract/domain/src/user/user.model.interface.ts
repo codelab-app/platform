@@ -2,7 +2,7 @@ import type {
   UserCreateInput,
   UserDeleteInput,
   UserUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IUser, IUserDto } from '@codelab/shared/abstract/core'
 import type { IModel } from '../shared'
 

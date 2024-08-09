@@ -7,7 +7,7 @@ import {
   IFieldModel,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
+import type { FieldUpdateInput } from '@codelab/shared/infra/gql'
 import type {
   IFieldDefaultValue,
   IValidationRules,

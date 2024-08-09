@@ -37,6 +37,7 @@ export const CreateAtomModal = observer(() => {
       okText="Create Atom"
       onCancel={closeModal}
       open={createAtomModal.isOpen}
+      uiKey={UiKey.CreateAtomModal}
     >
       <ModalForm.Form<ICreateAtomData>
         model={{
@@ -46,7 +47,6 @@ export const CreateAtomModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createAtomSchema}
-        uiKey={UiKey.CreateAtomModal}
       >
         <AutoFields
           omitFields={[

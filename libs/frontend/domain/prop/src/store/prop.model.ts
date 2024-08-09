@@ -6,7 +6,7 @@ import { typeRef } from '@codelab/frontend/abstract/domain'
 import type {
   PropCreateInput,
   PropUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'

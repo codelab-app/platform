@@ -1,4 +1,4 @@
-import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
+import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 import type {
   ICreateTypeDto,
   IPrimitiveTypeKind,

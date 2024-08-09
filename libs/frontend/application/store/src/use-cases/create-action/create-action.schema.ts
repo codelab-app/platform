@@ -8,7 +8,7 @@ import {
   refSchema,
   showFieldOnDev,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,

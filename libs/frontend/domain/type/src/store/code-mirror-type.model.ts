@@ -1,5 +1,5 @@
 import type { ICodeMirrorTypeModel } from '@codelab/frontend/abstract/domain'
-import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'

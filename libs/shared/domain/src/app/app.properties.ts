@@ -1,4 +1,4 @@
-import type { App } from '@codelab/shared/abstract/codegen'
+import type { App } from '@codelab/shared/infra/gql'
 import type { IApp, IUserDto } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'

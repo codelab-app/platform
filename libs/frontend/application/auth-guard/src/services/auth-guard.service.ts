@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { AuthGuardWhere } from '@codelab/shared/abstract/codegen'
+import type { AuthGuardWhere } from '@codelab/shared/infra/gql'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { v4 } from 'uuid'

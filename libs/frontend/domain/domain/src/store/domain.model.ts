@@ -3,7 +3,7 @@ import type { DeleteDomainsMutationVariables } from '@codelab/shared/infra/gql'
 import type {
   DomainDeleteInput,
   ProductionDomainConfig,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain'

@@ -2,7 +2,7 @@ import {
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import {
   GeneralValidationRules,

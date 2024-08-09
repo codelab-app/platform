@@ -1,7 +1,7 @@
 import type {
   PrimitiveTypeCreateInput,
   UpdatePrimitiveTypesMutationVariables,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IPrimitiveTypeDto,
   IPrimitiveTypeKind,

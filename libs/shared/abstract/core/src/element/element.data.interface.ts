@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/abstract/codegen'
+import { AtomType } from '@codelab/shared/infra/gql'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'

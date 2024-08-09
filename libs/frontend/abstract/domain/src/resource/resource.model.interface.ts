@@ -2,7 +2,7 @@ import type { DeleteResourcesMutationVariables } from '@codelab/shared/infra/gql
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IResource,
   IResourceClient,

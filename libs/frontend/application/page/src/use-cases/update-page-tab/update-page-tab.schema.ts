@@ -4,7 +4,7 @@ import {
   idSchema,
   pageUrlSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+import { ElementTypeKind } from '@codelab/shared/infra/gql'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'

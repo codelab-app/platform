@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 export const GetSelectAtomOptionsDocument = graphql(`
@@ -18,7 +18,7 @@ export const GetSelectAtomOptionsDocument = graphql(`
   }
 `)
 
-import { type GetSelectAtomOptionsQueryVariables } from '@codelab/shared/infra/gql'
+import { type GetSelectAtomOptionsQueryVariables } from '@codelab/frontend/infra/gql'
 
 export const GetSelectAtomOptions = (
   variables: GetSelectAtomOptionsQueryVariables,

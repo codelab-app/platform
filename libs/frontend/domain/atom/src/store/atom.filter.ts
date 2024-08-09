@@ -1,6 +1,6 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { AtomType } from '@codelab/shared/abstract/codegen'
+import type { AtomType } from '@codelab/shared/infra/gql'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 
 export const filterAtoms = (

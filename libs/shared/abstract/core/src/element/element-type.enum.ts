@@ -1,4 +1,4 @@
-import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+import { ElementTypeKind } from '@codelab/shared/infra/gql'
 
 /**
  * Used to import to schema, we create in ts context so we can get type checking

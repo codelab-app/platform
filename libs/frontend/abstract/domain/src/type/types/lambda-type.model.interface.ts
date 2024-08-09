@@ -1,7 +1,7 @@
 import type {
   LambdaTypeCreateInput,
   UpdateLambdaTypesMutationVariables,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { ILambdaTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
 

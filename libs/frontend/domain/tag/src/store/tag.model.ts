@@ -3,10 +3,7 @@ import {
   getUserDomainService,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  TagCreateInput,
-  TagUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import type { TagCreateInput, TagUpdateInput } from '@codelab/shared/infra/gql'
 import type { ITagDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,

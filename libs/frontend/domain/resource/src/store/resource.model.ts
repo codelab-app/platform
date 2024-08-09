@@ -8,7 +8,7 @@ import { Prop } from '@codelab/frontend-domain-prop/store'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IResourceConfigData,
   IResourceDto,

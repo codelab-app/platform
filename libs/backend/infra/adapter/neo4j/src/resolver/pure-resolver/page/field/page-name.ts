@@ -1,4 +1,4 @@
-import type { Page } from '@codelab/shared/abstract/codegen'
+import type { Page } from '@codelab/shared/infra/gql'
 import { PageProperties } from '@codelab/shared/domain'
 import type { IFieldResolver } from '@graphql-tools/utils'
 

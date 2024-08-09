@@ -8,7 +8,7 @@ import {
   DisplayIfField,
   ModalForm,
 } from '@codelab/frontend-presentation-components-form'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

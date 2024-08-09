@@ -26,7 +26,7 @@ import { Prop } from '@codelab/frontend-domain-prop/store'
 import {
   ElementCreateInput,
   ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Nullish } from '@codelab/shared/abstract/types'

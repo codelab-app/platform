@@ -2,7 +2,7 @@ import type {
   CodeActionCreateInput,
   CodeActionDeleteInput,
   CodeActionUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IActionKind,
   ICodeAction,

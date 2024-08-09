@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import { ResourceFragmentDoc } from '@codelab/shared/infra/gql'
 
@@ -51,7 +51,7 @@ import {
   type CreateResourcesMutationVariables,
   type UpdateResourceMutationVariables,
   type DeleteResourcesMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/frontend/infra/gql'
 
 export const ResourceList = (
   variables: ResourceListQueryVariables,

@@ -6,7 +6,7 @@ import type {
 import { PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
-import { TypeKind } from '@codelab/shared/abstract/codegen'
+import { TypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useTypeService } from '../../services'

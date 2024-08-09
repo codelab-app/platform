@@ -36,6 +36,7 @@ export const UpdateAppModal = observer(() => {
       okText="Update App"
       onCancel={closeModal}
       open={updateAppModal.isOpen}
+      uiKey={UiKey.UpdateAppModal}
     >
       <ModalForm.Form<IUpdateAppData>
         model={model}
@@ -45,7 +46,6 @@ export const UpdateAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateAppSchema}
-        uiKey={UiKey.UpdateAppModal}
       >
         <AutoFields />
       </ModalForm.Form>

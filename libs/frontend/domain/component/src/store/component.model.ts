@@ -19,8 +19,8 @@ import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type {
   ComponentDeleteInput,
   ComponentUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
+import { ComponentCreateInput } from '@codelab/shared/infra/gql'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'

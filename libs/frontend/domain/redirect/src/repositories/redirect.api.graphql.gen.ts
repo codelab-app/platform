@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/frontend/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import { RedirectFragmentDoc } from '@codelab/shared/infra/gql'
 
@@ -54,7 +54,7 @@ import {
   type DeleteRedirectsMutationVariables,
   type UpdateRedirectsMutationVariables,
   type GetRedirectsQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/frontend/infra/gql'
 
 export const CreateRedirects = (
   variables: CreateRedirectsMutationVariables,

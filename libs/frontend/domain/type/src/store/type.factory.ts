@@ -1,5 +1,5 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
-import { TypeKind } from '@codelab/shared/abstract/codegen'
+import { TypeKind } from '@codelab/shared/infra/gql'
 import type {
   IArrayTypeDto,
   ICreateTypeDto,

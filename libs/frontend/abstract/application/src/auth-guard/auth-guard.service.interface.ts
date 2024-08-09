@@ -7,7 +7,7 @@ import type {
 import type {
   AuthGuardOptions,
   AuthGuardWhere,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ICRUDService, IQueryService } from '../services'
 

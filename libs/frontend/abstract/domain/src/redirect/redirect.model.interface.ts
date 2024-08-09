@@ -2,7 +2,7 @@ import type {
   RedirectCreateInput,
   RedirectDeleteInput,
   RedirectUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type {
   IRedirect,
   IRedirectDto,

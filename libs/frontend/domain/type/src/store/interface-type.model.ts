@@ -3,7 +3,7 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef } from '@codelab/frontend/abstract/domain'
-import type { InterfaceTypeDeleteInput } from '@codelab/shared/abstract/codegen'
+import type { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
 import type { IRef } from '@codelab/shared/abstract/core'
 import {
   assertIsTypeKind,

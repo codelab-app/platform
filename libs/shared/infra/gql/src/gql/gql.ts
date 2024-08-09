@@ -12,6 +12,12 @@ import * as types from './graphql'
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  '\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n':
+    types.DomainCreatedDocument,
+  '\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n':
+    types.DomainUpdatedDocument,
+  '\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n':
+    types.DomainDeletedDocument,
   '\n  fragment BaseAction on BaseAction {\n    __typename\n    id\n    name\n    store {\n      id\n      name\n    }\n    type\n  }\n':
     types.BaseActionFragmentDoc,
   '\n  fragment Action on BaseAction {\n    ...BaseAction\n    ... on CodeAction {\n      ...CodeAction\n    }\n    ... on ApiAction {\n      ...ApiAction\n    }\n  }\n':
@@ -390,6 +396,24 @@ const documents = {
     types.UpdateUserDocument,
 }
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n',
+): (typeof documents)['\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n',
+): (typeof documents)['\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n',
+): (typeof documents)['\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

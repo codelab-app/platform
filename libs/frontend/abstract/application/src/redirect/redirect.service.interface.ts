@@ -4,10 +4,7 @@ import type {
   IRedirectRef,
   IUpdateRedirectData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  RedirectOptions,
-  RedirectWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ICRUDService, IQueryService } from '../services'
 

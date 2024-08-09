@@ -1,4 +1,4 @@
-import type { Element } from '@codelab/shared/abstract/codegen'
+import type { Element } from '@codelab/shared/infra/gql'
 import { ElementProperties } from '@codelab/shared/domain'
 import type { IFieldResolver } from '@graphql-tools/utils'
 

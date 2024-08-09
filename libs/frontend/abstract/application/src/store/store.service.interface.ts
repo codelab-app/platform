@@ -3,7 +3,7 @@ import type {
   StoreFragment,
   StoreOptions,
   StoreWhere,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IStoreDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ICRUDService, IQueryService } from '../services'

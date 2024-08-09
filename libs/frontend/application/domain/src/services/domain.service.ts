@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { DomainWhere } from '@codelab/shared/abstract/codegen'
+import type { DomainWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { invalidateDomainListQuery } from '../use-cases/domain-list'
 

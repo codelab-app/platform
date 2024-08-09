@@ -3,7 +3,7 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
+import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 import {
   ICreateTypeDto,
   ITypeDto,

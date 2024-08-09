@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/codegen'
+import { TypeKind } from '@codelab/shared/infra/gql'
 import { Type } from '@sinclair/typebox'
 
 export { TypeKind as ITypeKind }

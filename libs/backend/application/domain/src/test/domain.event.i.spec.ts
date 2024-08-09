@@ -11,7 +11,7 @@ import { initUserContext } from '@codelab/backend/test'
 import type {
   TestCreateDomainAppsMutationVariables,
   TestUpdateDomainsMutationVariables,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'

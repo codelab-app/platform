@@ -14,7 +14,7 @@ import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { AppProperties, connectOwner } from '@codelab/shared/domain'

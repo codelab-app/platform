@@ -11,7 +11,7 @@ import { Prop } from '@codelab/frontend-domain-prop/store'
 import type {
   AuthGuardCreateInput,
   AuthGuardUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain'
 import { computed } from 'mobx'
