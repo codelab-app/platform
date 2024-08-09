@@ -2,22 +2,7 @@ commands:
   build-repo:
     description: Build Repo
     steps:
-      - restore_cache:
-          keys:
-            - nx-cache
-          name: Restore NX Cache
-      - run:
-          command: ./scripts/nx/reset-cache.sh
-          name: Monitor NX Cache Size
       - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
-      - save_cache:
-          key: nx-cache
-          name: Save NX Cache
-          paths:
-            - ~/project/.nx/cache
-            - ~/project/dist/apps/web/.next/cache
-            - ~/project/dist/apps/sites/.next/cache
-            - ~/project/dist/apps/landing/.next/cache
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -139,10 +124,6 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
-      - restore_cache:
-          keys:
-            - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
-          name: Restore NX Cache
       - install-pnpm
       - setup-env
   setup-env:
@@ -488,7 +469,6 @@ jobs:
           paths:
             - project/dist/apps/cli
             - project/dist/apps/web
-            - project/.nx/cache/lockfile.hash
           root: ~/
   unit:
     executor: docker-node
