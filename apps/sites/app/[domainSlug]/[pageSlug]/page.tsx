@@ -1,4 +1,4 @@
-import { appProductionRepository } from '@codelab/frontend-application-app/use-cases/app-production'
+import { appProductionRepository } from '@codelab/frontend-domain-app/repositories'
 import React from 'react'
 import { ClientProductionPage } from './component'
 

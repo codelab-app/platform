@@ -1,6 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { ariaLabels } from '@codelab/frontend-application-shared-data'
 import { Button } from 'antd'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
@@ -12,7 +13,12 @@ export const CreateAppButton = ({ children }: PropsWithChildren) => {
   const onClick = () => createAppModal.open()
 
   return (
-    <Button icon={icon} onClick={onClick} type="primary">
+    <Button
+      aria-label={ariaLabels.createAppButton}
+      icon={icon}
+      onClick={onClick}
+      type="primary"
+    >
       {children ?? 'Create App'}
     </Button>
   )

@@ -10,12 +10,13 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDomainService } from '../../services'
 import { updateDomainSchema } from './update-domain.schema'
 import { useUpdateDomainModal } from './update-domain.state'
-import { updateDomainUseCase } from './update-domain.use-case'
 
 export const UpdateDomainModal = observer(() => {
   const updateDomainModal = useUpdateDomainModal()
+  const domainService = useDomainService()
   const domain = updateDomainModal.data
   const isOpen = updateDomainModal.isOpen
   const app = useCurrentApp()
@@ -25,7 +26,7 @@ export const UpdateDomainModal = observer(() => {
   }
 
   const onSubmit = (domainDto: IUpdateDomainData) => {
-    return updateDomainUseCase(domain.current, domainDto)
+    return domainService.update(domainDto)
   }
 
   const closeModal = () => updateDomainModal.close()

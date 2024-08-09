@@ -2,7 +2,7 @@ import {
   type IAppModel,
   type IDomainStore,
   type IInterfaceTypeModel,
-  type IPageFactory,
+  type IPageDomainFactory,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
@@ -19,7 +19,7 @@ import {
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { v4 } from 'uuid'
 
-export const pageFactory = (
+export const pageDomainFactory = (
   domainStore: Pick<
     IDomainStore,
     | 'elementDomainService'
@@ -28,7 +28,7 @@ export const pageFactory = (
     | 'typeDomainService'
     | 'userDomainService'
   >,
-): IPageFactory => {
+): IPageDomainFactory => {
   const {
     elementDomainService,
     pageDomainService,

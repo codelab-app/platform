@@ -1,4 +1,4 @@
-const { withNx } = require('@nx/next')
+const { composePlugins, withNx } = require('@nx/next')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE_BUNDLE === 'true',
@@ -23,11 +23,15 @@ const withRawCypherFiles = (nextConfig = {}) => {
   })
 }
 
-const plugins = [withBundleAnalyzer, withRawCypherFiles]
+const plugins = [withNx, withBundleAnalyzer, withRawCypherFiles]
 
 const nextConfig = {
   compiler: {
     styledComponents: true,
+  },
+  experimental: {
+    // https://nextjs.org/docs/messages/import-esm-externals
+    esmExternals: 'loose',
   },
   async headers() {
     return [
@@ -60,14 +64,13 @@ const nextConfig = {
     ]
   },
   nx: { svgr: true },
+  // disable to support uniforms
+  // https://github.com/vazco/uniforms/issues/1194
+  reactStrictMode: false,
 }
 
 /*
  * Next.js doesn't work well with LESS so we use CSS instead.
  *
  */
-module.exports = (phase, context) => {
-  const config = plugins.reduce((acc, fn) => fn(acc), nextConfig)
-
-  return withNx(config)(phase, context)
-}
+module.exports = composePlugins(...plugins)(nextConfig)
