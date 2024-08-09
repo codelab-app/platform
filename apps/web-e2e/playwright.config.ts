@@ -1,3 +1,4 @@
+/* eslint-disable canonical/sort-keys */
 import { workspaceRoot } from '@nx/devkit'
 import { nxE2EPreset } from '@nx/playwright/preset'
 import { defineConfig, devices } from '@playwright/test'
@@ -9,6 +10,7 @@ const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
 const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
 
+console.log(webUrl, apiUrl)
 export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
 export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
@@ -17,6 +19,8 @@ export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
+
+export const authFile = 'apps/web-e2e/.auth/user.json'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -32,7 +36,7 @@ export default defineConfig({
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'apps/web-e2e/.auth/user.json',
+        storageState: authFile,
       },
     },
     // {
@@ -72,21 +76,23 @@ export default defineConfig({
     baseURL: webUrl,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-
     video: { mode: 'on' },
   },
+
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: 'pnpm e2e:web',
+      command: 'nx serve web -c test',
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
+      stdout: 'pipe',
       url: webUrl,
     },
     {
-      command: 'pnpm e2e:api',
+      command: 'nx serve api -c test',
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
+      stdout: 'pipe',
       url: apiUrl,
     },
   ],
