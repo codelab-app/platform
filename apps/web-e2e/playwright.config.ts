@@ -9,8 +9,8 @@ const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
 const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
 
-export const auth0Username = env.get('AUTH0_USERNAME').required().asString()
-export const auth0Password = env.get('AUTH0_PASSWORD').required().asString()
+export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
+export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
 /**
  * Read environment variables from file.

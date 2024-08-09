@@ -3,8 +3,6 @@ steps:
   - restore_cache:
       name: 'Restore NX Cache'
       keys:
-        # - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
-        # `lockfile.hash` doesn't exist yet, we restore the latest `nx-cache`
         - nx-cache
   - run:
       name: 'Monitor NX Cache Size'
@@ -13,7 +11,9 @@ steps:
   - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
   - save_cache:
       name: 'Save NX Cache'
-      key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+      # nx doesn't use `lockfile.hash` anymore
+      # key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+      key: nx-cache
       paths:
         - ~/project/.nx/cache
         # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching

@@ -11,7 +11,7 @@ commands:
           name: Monitor NX Cache Size
       - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
       - save_cache:
-          key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+          key: nx-cache
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
