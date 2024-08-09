@@ -6,7 +6,7 @@ import type {
   PropOptions,
   PropUniqueWhere,
   PropWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import {
   CreateProps,

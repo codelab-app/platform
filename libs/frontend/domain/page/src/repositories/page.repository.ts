@@ -6,7 +6,7 @@ import type {
   PageOptions,
   PageUniqueWhere,
   PageWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IPage } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { Page } from '../store'

@@ -1,4 +1,4 @@
-import type { DeleteResourcesMutationVariables } from '@codelab/frontend/infra/gql'
+import type { DeleteResourcesMutationVariables } from '@codelab/shared/infra/gql'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,

@@ -5,7 +5,7 @@ import type {
 import type {
   AtomBuilderFragment,
   GetComponentBuilderQuery,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'

@@ -10,7 +10,7 @@ import type {
   AtomOptions,
   AtomUniqueWhere,
   AtomWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import sortBy from 'lodash/sortBy'
 import {

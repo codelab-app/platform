@@ -2,7 +2,7 @@ import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type {
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type {
   ICreateComponentData,
   IUpdateComponentData,

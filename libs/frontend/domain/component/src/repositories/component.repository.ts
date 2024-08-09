@@ -7,7 +7,7 @@ import type {
   ComponentOptions,
   ComponentUniqueWhere,
   ComponentWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import {
   ComponentList,

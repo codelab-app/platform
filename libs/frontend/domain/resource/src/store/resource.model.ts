@@ -3,7 +3,7 @@ import {
   type IPropModel,
   type IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import type { ResourceDeleteInput } from '@codelab/frontend/infra/gql'
+import type { ResourceDeleteInput } from '@codelab/shared/infra/gql'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import type {
   ResourceCreateInput,

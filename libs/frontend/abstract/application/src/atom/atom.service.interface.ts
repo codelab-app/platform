@@ -4,7 +4,7 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { AtomOptions, AtomWhere } from '@codelab/frontend/infra/gql'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 import type { GuaranteedProps } from 'uniforms'
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 

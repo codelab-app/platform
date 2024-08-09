@@ -4,7 +4,7 @@ import type {
   ICreateAppData,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
-import type { AppWhere } from '@codelab/frontend/infra/gql'
+import type { AppWhere } from '@codelab/shared/infra/gql'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import {
   appRepository,

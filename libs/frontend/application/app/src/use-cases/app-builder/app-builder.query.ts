@@ -1,5 +1,5 @@
 import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
-import type { AtomBuilderFragment } from '@codelab/frontend/infra/gql'
+import type { AtomBuilderFragment } from '@codelab/shared/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
 import { getNameFromSlug, slugify } from '@codelab/shared/utils'

@@ -5,7 +5,7 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { PageType } from '@codelab/frontend/abstract/types'
-import type { AtomFragment } from '@codelab/frontend/infra/gql'
+import type { AtomFragment } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { IAtomService } from '../atom'
 import type { IComponentService } from '../component'

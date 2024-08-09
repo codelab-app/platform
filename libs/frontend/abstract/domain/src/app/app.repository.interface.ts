@@ -2,7 +2,7 @@ import type {
   AppFragment,
   AppOptions,
   AppWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRepository } from '../shared'
 import type { IAppModel } from './app.model.interface'
 

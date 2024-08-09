@@ -1,5 +1,5 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
-import type { DeleteDomainsMutationVariables } from '@codelab/frontend/infra/gql'
+import type { DeleteDomainsMutationVariables } from '@codelab/shared/infra/gql'
 import type {
   DomainDeleteInput,
   ProductionDomainConfig,

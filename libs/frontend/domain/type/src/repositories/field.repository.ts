@@ -6,7 +6,7 @@ import type {
   FieldOptions,
   FieldUniqueWhere,
   FieldWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import {
   CreateFields,
   DeleteFields,

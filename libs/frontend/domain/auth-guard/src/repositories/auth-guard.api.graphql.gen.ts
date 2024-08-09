@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/infra/gql'
+import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import { AuthGuardFragmentDoc } from '@codelab/frontend/infra/gql'
+import { AuthGuardFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const GetAuthGuardsDocument = graphql(`
   query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {
@@ -54,7 +54,7 @@ import {
   type CreateAuthGuardsMutationVariables,
   type UpdateAuthGuardMutationVariables,
   type DeleteAuthGuardsMutationVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const GetAuthGuards = (
   variables: GetAuthGuardsQueryVariables,

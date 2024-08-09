@@ -2,7 +2,7 @@ import type {
   ComponentFragment,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRepository } from '../shared'
 import type { IComponentModel } from './component.model.interface'
 

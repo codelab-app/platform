@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/infra/gql'
+import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import { FieldFragmentDoc } from '@codelab/frontend/infra/gql'
+import { FieldFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const CreateFieldsDocument = graphql(`
   mutation CreateFields($input: [FieldCreateInput!]!) {
@@ -48,7 +48,7 @@ import {
   type UpdateFieldsMutationVariables,
   type DeleteFieldsMutationVariables,
   type GetFieldsQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreateFields = (
   variables: CreateFieldsMutationVariables,

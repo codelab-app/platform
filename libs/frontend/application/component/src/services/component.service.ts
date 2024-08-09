@@ -8,7 +8,7 @@ import { componentRef } from '@codelab/frontend/abstract/domain'
 import type {
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useStoreService } from '@codelab/frontend-application-store/services'

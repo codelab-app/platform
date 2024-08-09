@@ -2,7 +2,7 @@
 
 import isArray from 'lodash/isArray'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
-import type { TypedDocumentString } from '@codelab/frontend/infra/gql'
+import type { TypedDocumentString } from '@codelab/shared/infra/gql'
 import { getEnv } from '@codelab/shared/config'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 

@@ -74,7 +74,7 @@ const config: Types.Config = {
         // enumsAsTypes: true,
       },
       presetConfig: {
-        importAllFragmentsFrom: '~@codelab/frontend/infra/gql',
+        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
         fragmentMasking: false,
       },
     },
@@ -86,9 +86,9 @@ const config: Types.Config = {
       // documents: ['**/app.api.graphql', '**/*.fragment.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
-        importAllFragmentsFrom: '~@codelab/frontend/infra/gql',
+        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
         extension: '.graphql.gen.ts',
-        baseTypesPath: '~@codelab/frontend/infra/gql',
+        baseTypesPath: '~@codelab/shared/infra/gql',
       },
       plugins: [pathToTypescriptFetch],
       config: {

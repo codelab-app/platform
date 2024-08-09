@@ -25,10 +25,10 @@ export const DeleteAppModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      key={UiKey.DeleteAppModal}
       okText="Delete App"
       onCancel={closeModal}
       open={deleteAppModal.isOpen}
+      uiKey={UiKey.DeleteAppModal}
     >
       <ModalForm.Form
         model={{}}

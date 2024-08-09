@@ -1,5 +1,5 @@
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import type { TagOptions, TagWhere } from '@codelab/frontend/infra/gql'
+import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 import type {
   ICreateTagData,
   IUpdateTagData,

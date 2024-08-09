@@ -6,7 +6,7 @@ import type {
   StoreOptions,
   StoreUniqueWhere,
   StoreWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { Store } from '../store/store.model'
 import {

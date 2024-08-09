@@ -11,7 +11,7 @@ import type {
   ResourceFragment,
   StoreFragment,
   TypeFragment,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface IAppBuilderDto {

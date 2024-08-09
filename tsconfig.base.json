@@ -886,7 +886,6 @@
       "@codelab/frontend/infra/context": [
         "libs/frontend/infra/context/src/index.ts"
       ],
-      "@codelab/frontend/infra/gql": ["libs/frontend/infra/gql/src/index.ts"],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],
@@ -936,6 +935,7 @@
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain": ["libs/shared/domain/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
+      "@codelab/shared/infra/gql": ["libs/shared/infra/gql/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
