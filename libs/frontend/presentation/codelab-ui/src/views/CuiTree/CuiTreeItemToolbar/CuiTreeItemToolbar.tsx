@@ -9,7 +9,7 @@ export const CuiTreeItemToolbar = ({ items }: CuiTreeItemToolbarProps) => {
   return (
     <div
       className="cui-tree-item-toolbar flex w-full justify-end"
-      data-cy={Cui.cuiTreeItemToolbar().cyData}
+      data-cy={Cui.cuiTreeItemToolbar()}
     >
       <div className="flex flex-row items-start overflow-hidden">
         {items.map((item) => (

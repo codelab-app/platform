@@ -36,7 +36,7 @@ export const CuiTreeItem = ({
         'cui-tree-item h-full flex flex-row justify-between overflow-hidden',
         variantColors[variant ?? 'primary'],
       )}
-      data-cy={Cui.cuiTreeItem().cyData}
+      data-cy={Cui.cuiTreeItem()}
       onClick={onClick}
     >
       <div className="flex h-full flex-row justify-start overflow-hidden">
@@ -45,7 +45,7 @@ export const CuiTreeItem = ({
           <p className="m-0 truncate">
             <span
               className="font-semibold"
-              data-cy={Cui.cuiTreeItemPrimaryTitle(primaryTitle || '').cyData}
+              data-cy={Cui.cuiTreeItemPrimaryTitle(primaryTitle || '')}
             >
               <CuiHighlightedText
                 highlight={highlight?.primaryTitle}
@@ -54,9 +54,7 @@ export const CuiTreeItem = ({
             </span>
             <span
               className="pl-2 font-normal"
-              data-cy={
-                Cui.cuiTreeItemSecondaryTitle(secondaryTitle || '').cyData
-              }
+              data-cy={Cui.cuiTreeItemSecondaryTitle(secondaryTitle || '')}
             >
               <CuiHighlightedText
                 highlight={highlight?.secondaryTitle}

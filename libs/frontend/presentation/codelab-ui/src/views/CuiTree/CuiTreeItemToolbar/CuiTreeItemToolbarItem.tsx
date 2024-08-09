@@ -12,7 +12,7 @@ export const CuiTreeItemToolbarItem = ({
   title,
 }: CuiTreeItemToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={Cui.cuiToolbarItem(cuiKey).cyData}>
+    <div className="size-full" data-cy={Cui.cuiToolbarItem(cuiKey)}>
       <Tooltip title={title}>
         <div className="flex flex-col items-center p-1" onClick={onClick}>
           {icon}

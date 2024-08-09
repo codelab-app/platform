@@ -1,5 +1,3 @@
-import type { UiDataRecord } from './ui-data'
-
 export interface UiData {
   key: string
   label: string
@@ -41,11 +39,13 @@ export enum UiKey {
   DeleteAtomsToolbarItem = 'DeleteAtomsToolbarItem',
   AtomSidebar = 'AtomSidebar',
   // Element
+  CreateElementForm = 'CreateElementForm',
   CreateElementToolbarItem = 'CreateElementToolbarItem',
   CreateElementPopover = 'CreateElementPopover',
   CancelCreateElementToolbarItem = 'CancelCreateElementToolbarItem',
   MoveElementForm = 'MoveElementForm',
   UpdateElementForm = 'UpdateElementForm',
+  DeleteElementModal = 'DeleteElementModal',
   // Component
   CreateComponentToolbarItem = 'CreateComponentToolbarItem',
   CreateComponentPopover = 'CreateComponentPopover',
@@ -164,5 +164,3 @@ export enum UiKey {
   SearchPaginationToobarItem = 'SearchPaginationToobarItem',
   CancelCreateTagToolabarItem = 'CancelCreateTagToolabarItem',
 }
-
-export type UiKeys = (typeof UiDataRecord)[keyof typeof UiDataRecord]['key']

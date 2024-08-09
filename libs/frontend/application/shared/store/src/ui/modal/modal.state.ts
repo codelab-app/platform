@@ -1,8 +1,8 @@
-import { type ModelActionKey } from '@codelab/frontend/abstract/types'
+import type { UiKey } from '@codelab/frontend/abstract/types'
 import { defaultMapper, useToggleState } from '../family-toggle/toggle.state'
 
 export const useModalState = <TData = undefined, TOutput = TData>(
-  key: ModelActionKey,
+  key: UiKey,
   mapper: (state: TData) => TOutput = defaultMapper,
 ) => {
   /**

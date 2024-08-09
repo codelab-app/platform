@@ -17,7 +17,7 @@ export const CuiSidebarLayout = ({
   return (
     <div
       className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
-      data-cy={Cui.cuiSidebar(uiKey).cyData}
+      data-cy={Cui.cuiSidebar(uiKey)}
       ref={popoverAnchorRef}
     >
       {children}

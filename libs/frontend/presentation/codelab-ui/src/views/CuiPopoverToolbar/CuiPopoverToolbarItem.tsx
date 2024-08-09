@@ -21,7 +21,7 @@ export const CuiPopoverToolbarItem = ({
         size-full
         cursor-pointer
       "
-      data-cy={Cui.cuiToolbarItem(cuiKey).cyData}
+      data-cy={Cui.cuiToolbarItem(cuiKey)}
       onClick={onClick}
     >
       <Tooltip title={title}>

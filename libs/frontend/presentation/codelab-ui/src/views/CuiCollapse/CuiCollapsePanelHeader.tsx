@@ -42,7 +42,7 @@ export const CuiCollapsePanelHeader = ({
         border-gray-300
         px-3
       "
-      data-cy={Cui.cuiSidebarViewHeader(label).cyData}
+      data-cy={Cui.cuiSidebarViewHeader(label)}
       onClick={updateExpand}
     >
       <div

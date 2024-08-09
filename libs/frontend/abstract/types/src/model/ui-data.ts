@@ -198,6 +198,14 @@ export const UiDataRecord = {
   },
 
   // Element
+  [UiKey.CreateElementForm]: {
+    key: 'create-element-form',
+    label: 'Create Element Form',
+  },
+  [UiKey.DeleteElementModal]: {
+    key: 'delete-element-modal',
+    label: 'Delete Element Modal',
+  },
   [UiKey.CreateElementToolbarItem]: {
     key: 'create-element-toolbar-item',
     label: 'Create Element Toolbar Item',

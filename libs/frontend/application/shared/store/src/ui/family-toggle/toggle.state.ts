@@ -1,5 +1,5 @@
 import type { IToggleService } from '@codelab/frontend/abstract/application'
-import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+import type { UiKey } from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import isEqual from 'lodash/isEqual'
@@ -15,7 +15,7 @@ export const createToggleStateAtom = <TData = undefined>() =>
   })
 
 const toggleAtomFamily = atomFamily(
-  (key: ModelActionKey) =>
+  (key: UiKey) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     atom<IToggleState<any>>({
       data: undefined,
@@ -25,7 +25,7 @@ const toggleAtomFamily = atomFamily(
 )
 
 export const useToggleState = <TData = undefined, TOutput = TData>(
-  key: ModelActionKey,
+  key: UiKey,
   mapper: (state: TData) => TOutput = defaultMapper,
 ): IToggleService<TData, TOutput> => {
   const [toggleState, setToggleState] = useAtom(toggleAtomFamily(key))

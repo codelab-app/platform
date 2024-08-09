@@ -28,7 +28,7 @@ export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
         border-gray-300
         bg-neutral-100
       "
-      data-cy={Cui.cuiSidebarHeader().cyData}
+      data-cy={Cui.cuiSidebarHeader()}
     >
       <Typography className="pl-4">{label}</Typography>
       {toolbar ? (
