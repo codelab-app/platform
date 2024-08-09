@@ -5,10 +5,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
-import type {
-  ComponentOptions,
-  ComponentWhere,
-} from '@codelab/shared/infra/gql'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useStoreService } from '@codelab/frontend-application-store/services'
@@ -22,6 +18,10 @@ import type {
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
+import type {
+  ComponentOptions,
+  ComponentWhere,
+} from '@codelab/shared/infra/gql'
 import { revalidateComponentListOperation } from '../use-cases/component-list'
 
 export const useComponentService = (): IComponentService => {

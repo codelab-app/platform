@@ -150,6 +150,9 @@ export enum UiKey {
   OpenPreviewBuilderToolbarItem = 'OpenPreviewBuilderToolbarItem',
   // Domain
   CreateDomainToolbarItem = 'CreateDomainToolbarItem',
+  CreateDomainModal = 'CreateDomainModal',
+  DeleteDomainModal = 'DeleteDomainModal',
+  UpdateDomainModal = 'UpdateDomainModal',
   // Lambda
   CreateLambdaToolbarItem = 'CreateLambdaToolbarItem',
   // Pagination

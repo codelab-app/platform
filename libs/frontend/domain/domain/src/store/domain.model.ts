@@ -1,12 +1,12 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
-import type { DeleteDomainsMutationVariables } from '@codelab/shared/infra/gql'
-import type {
-  DomainDeleteInput,
-  ProductionDomainConfig,
-} from '@codelab/shared/infra/gql'
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain'
+import type {
+  DeleteDomainsMutationVariables,
+  DomainDeleteInput,
+  ProductionDomainConfig,
+} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

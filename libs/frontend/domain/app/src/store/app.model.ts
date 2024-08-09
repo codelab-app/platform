@@ -10,14 +10,14 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { Domain } from '@codelab/frontend-domain-domain/store'
 import { Page } from '@codelab/frontend-domain-page/store'
+import type { IAppDto } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared/abstract/core'
+import { AppProperties, connectOwner } from '@codelab/shared/domain'
 import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/infra/gql'
-import type { IAppDto } from '@codelab/shared/abstract/core'
-import { IPageKind } from '@codelab/shared/abstract/core'
-import { AppProperties, connectOwner } from '@codelab/shared/domain'
 import { slugify, throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

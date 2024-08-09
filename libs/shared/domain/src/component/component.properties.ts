@@ -1,5 +1,5 @@
-import type { Component } from '@codelab/shared/infra/gql'
 import type { IComponent, IUserDto } from '@codelab/shared/abstract/core'
+import type { Component } from '@codelab/shared/infra/gql'
 import { slugify } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 

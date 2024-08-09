@@ -2,13 +2,13 @@ import {
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import {
   GeneralValidationRules,
   NumberValidationRules,
   StringValidationRules,
 } from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 
 export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {

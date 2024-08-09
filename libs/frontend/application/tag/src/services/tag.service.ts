@@ -1,6 +1,5 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
@@ -9,6 +8,7 @@ import type {
   ICreateTagData,
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
+import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { atom, useAtom } from 'jotai'
 import type { Ref } from 'mobx-keystone'

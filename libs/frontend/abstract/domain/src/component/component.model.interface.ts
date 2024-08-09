@@ -1,14 +1,14 @@
 import type {
-  ComponentCreateInput,
-  ComponentUpdateInput,
-} from '@codelab/shared/infra/gql'
-import type {
   IComponent,
   IComponentDto,
   IElementRenderTypeKind,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type {
+  ComponentCreateInput,
+  ComponentUpdateInput,
+} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPropModel } from '../prop'

@@ -326,6 +326,18 @@ export const UiDataRecord = {
     key: 'create-domain-toolbar-item',
     label: 'Create Domain Toolbar Item',
   },
+  [UiKey.CreateDomainModal]: {
+    key: 'create-domain-modal',
+    label: 'Create Domain Modal',
+  },
+  [UiKey.DeleteDomainModal]: {
+    key: 'delete-domain-modal',
+    label: 'Delete Domain Modal',
+  },
+  [UiKey.UpdateDomainModal]: {
+    key: 'update-domain-modal',
+    label: 'Update Domain Modal',
+  },
 
   // Page
   [UiKey.DeletePageToolbarItem]: {

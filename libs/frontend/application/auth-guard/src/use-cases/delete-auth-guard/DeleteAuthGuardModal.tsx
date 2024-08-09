@@ -37,11 +37,11 @@ export const DeleteAuthGuardModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      key={UiKey.DeleteAuthGuardModal}
       okText="Delete Auth Guard"
       onCancel={closeModal}
       open={deleteAuthGuardModal.isOpen}
       title="Delete Confirmation"
+      uiKey={UiKey.DeleteAuthGuardModal}
     >
       <ModalForm.Form
         model={{}}

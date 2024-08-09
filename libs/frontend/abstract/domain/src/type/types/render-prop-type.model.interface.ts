@@ -1,11 +1,11 @@
 import type {
-  RenderPropTypeCreateInput,
-  UpdateRenderPropTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
-import type {
   IRenderPropTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type {
+  RenderPropTypeCreateInput,
+  UpdateRenderPropTypesMutationVariables,
+} from '@codelab/shared/infra/gql'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**

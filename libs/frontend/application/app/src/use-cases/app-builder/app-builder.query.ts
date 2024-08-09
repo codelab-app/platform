@@ -1,7 +1,7 @@
 import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
-import type { AtomBuilderFragment } from '@codelab/shared/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain'
+import type { AtomBuilderFragment } from '@codelab/shared/infra/gql'
 import { getNameFromSlug, slugify } from '@codelab/shared/utils'
 import uniqBy from 'lodash/uniqBy'
 import { GetAppBuilder } from './app-builder.api.graphql.gen'

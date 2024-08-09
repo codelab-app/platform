@@ -4,9 +4,9 @@ import {
   idSchema,
   pageUrlSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { ElementTypeKind } from '@codelab/shared/infra/gql'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { ElementTypeKind } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 
 // pageContentContainer is not required in interface, but is required for _app page

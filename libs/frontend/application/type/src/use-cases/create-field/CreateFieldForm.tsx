@@ -8,9 +8,9 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

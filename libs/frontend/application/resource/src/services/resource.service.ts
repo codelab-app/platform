@@ -2,13 +2,13 @@ import type { IResourceService } from '@codelab/frontend/abstract/application'
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { ResourceWhere } from '@codelab/shared/infra/gql'
 import type {
   ICreateResourceData,
   IPropDto,
   IResourceDto,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
+import type { ResourceWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 

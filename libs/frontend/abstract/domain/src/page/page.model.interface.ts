@@ -1,10 +1,10 @@
+import type { IPage, IPageDto, IPageKind } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type {
   PageCreateInput,
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/infra/gql'
-import type { IPage, IPageDto, IPageKind } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IAppModel } from '../app'
 import type { IElementModel, IElementTree } from '../element'

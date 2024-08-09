@@ -2,12 +2,12 @@ import type {
   IPageModel,
   IPageRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IPage } from '@codelab/shared/abstract/core'
 import type {
   PageOptions,
   PageUniqueWhere,
   PageWhere,
 } from '@codelab/shared/infra/gql'
-import type { IPage } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { Page } from '../store'
 import {

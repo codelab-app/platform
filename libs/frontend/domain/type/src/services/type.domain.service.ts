@@ -3,12 +3,12 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 import {
   ICreateTypeDto,
   ITypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { InterfaceType, TypeFactory } from '../store'

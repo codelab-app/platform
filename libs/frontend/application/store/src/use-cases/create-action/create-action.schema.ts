@@ -8,13 +8,13 @@ import {
   refSchema,
   showFieldOnDev,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
   IActionKind,
 } from '@codelab/shared/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 

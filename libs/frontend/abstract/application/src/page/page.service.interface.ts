@@ -3,13 +3,16 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { PageOptions, PageWhere } from '@codelab/shared/infra/gql'
-import type { GetRenderedPageQuery } from '@codelab/shared/infra/gql'
 import type {
   ICreatePageData,
   IElementDto,
   IUpdatePageData,
 } from '@codelab/shared/abstract/core'
+import type {
+  GetRenderedPageQuery,
+  PageOptions,
+  PageWhere,
+} from '@codelab/shared/infra/gql'
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface ICreatePageUseCase {

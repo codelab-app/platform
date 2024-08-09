@@ -1,3 +1,4 @@
+import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   AtomBuilderFragment,
   ComponentBuilderFragment,
@@ -8,7 +9,6 @@ import type {
   StoreFragment,
   TypeFragment,
 } from '@codelab/shared/infra/gql'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { IComponentModel } from './component.model.interface'
 
 export interface IComponentBuilderArgs {

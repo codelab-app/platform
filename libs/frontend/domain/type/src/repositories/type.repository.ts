@@ -2,8 +2,10 @@ import type {
   ITypeModel,
   ITypeRepository,
 } from '@codelab/frontend/abstract/domain'
-import type { GetBaseTypesOptions } from '@codelab/shared/infra/gql'
-import type { IBaseTypeWhere } from '@codelab/shared/infra/gql'
+import type {
+  GetBaseTypesOptions,
+  IBaseTypeWhere,
+} from '@codelab/shared/infra/gql'
 import sortBy from 'lodash/sortBy'
 import {
   GetBaseTypes,

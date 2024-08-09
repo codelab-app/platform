@@ -52,6 +52,7 @@ export const UpdateAtomModal = observer(() => {
       okText="Update Atom"
       onCancel={closeModal}
       open={updateAtomModal.isOpen}
+      uiKey={UiKey.UpdateAtomModal}
     >
       <ModalForm.Form<IUpdateAtomData>
         model={model}
@@ -59,7 +60,6 @@ export const UpdateAtomModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateAtomSchema}
-        uiKey={UiKey.UpdateAtomModal}
       >
         <AutoFields
           omitFields={[

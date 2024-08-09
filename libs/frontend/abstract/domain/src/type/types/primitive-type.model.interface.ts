@@ -1,12 +1,12 @@
 import type {
-  PrimitiveTypeCreateInput,
-  UpdatePrimitiveTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
-import type {
   IPrimitiveTypeDto,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type {
+  PrimitiveTypeCreateInput,
+  UpdatePrimitiveTypesMutationVariables,
+} from '@codelab/shared/infra/gql'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**

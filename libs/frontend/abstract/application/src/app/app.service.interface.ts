@@ -3,8 +3,8 @@ import type {
   ICreateAppData,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
-import type { AppOptions, AppWhere } from '@codelab/shared/infra/gql'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
+import type { AppOptions, AppWhere } from '@codelab/shared/infra/gql'
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface IAppService

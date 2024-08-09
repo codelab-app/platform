@@ -16,7 +16,6 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type { PageWhere } from '@codelab/shared/infra/gql'
 import type {
   ICreatePageData,
   IElementDto,
@@ -29,6 +28,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import type { PageWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { slugify } from 'voca'

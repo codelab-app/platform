@@ -3,17 +3,17 @@ import type {
   IActionModel,
 } from '@codelab/frontend/abstract/domain'
 import {
-  ActionFragment,
-  ApiActionFragment,
-  CodeActionFragment,
-} from '@codelab/shared/infra/gql'
-import {
   IActionDto,
   IActionKind,
   IApiActionDto,
   ICodeActionDto,
 } from '@codelab/shared/abstract/core'
 import { ActionMapper } from '@codelab/shared/domain'
+import {
+  ActionFragment,
+  ApiActionFragment,
+  CodeActionFragment,
+} from '@codelab/shared/infra/gql'
 import { Model, model, modelAction } from 'mobx-keystone'
 
 const writeCache = (

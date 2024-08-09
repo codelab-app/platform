@@ -1,3 +1,4 @@
+import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   AppBuilderFragment,
   AtomBuilderFragment,
@@ -12,7 +13,6 @@ import type {
   StoreFragment,
   TypeFragment,
 } from '@codelab/shared/infra/gql'
-import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface IAppBuilderDto {
   actions: StoreFragment['actions']

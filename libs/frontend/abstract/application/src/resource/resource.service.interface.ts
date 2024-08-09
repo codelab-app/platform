@@ -1,6 +1,5 @@
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { ResourceOptions, ResourceWhere } from '@codelab/shared/infra/gql'
 import type {
   ICreateResourceData,
   IResourceDto,
@@ -8,6 +7,7 @@ import type {
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ResourceOptions, ResourceWhere } from '@codelab/shared/infra/gql'
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface CreateResourceData {

@@ -1,11 +1,11 @@
 import type {
-  ReactNodeTypeCreateInput,
-  UpdateReactNodeTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
-import type {
   IReactNodeTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type {
+  ReactNodeTypeCreateInput,
+  UpdateReactNodeTypesMutationVariables,
+} from '@codelab/shared/infra/gql'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**

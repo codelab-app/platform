@@ -1,9 +1,9 @@
+import type { IApp, IAppDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/infra/gql'
-import type { IApp, IAppDto, IRef } from '@codelab/shared/abstract/core'
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
 import type { ICacheService } from '../shared'

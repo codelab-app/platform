@@ -32,6 +32,7 @@ export const CreateAuthGuardModal = observer(() => {
       okText="Create Auth Guard"
       onCancel={closeModal}
       open={createAuthGuardModal.isOpen}
+      uiKey={UiKey.CreateAuthGuardModal}
     >
       <ModalForm.Form<IUpdateAuthGuardData>
         model={model}
@@ -41,7 +42,6 @@ export const CreateAuthGuardModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createAuthGuardSchema}
-        uiKey={UiKey.CreateAuthGuardModal}
       >
         <AutoFields />
       </ModalForm.Form>

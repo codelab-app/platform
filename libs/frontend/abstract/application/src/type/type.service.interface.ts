@@ -3,12 +3,12 @@ import type {
   ITypeModel,
   IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import type {
   IBaseType,
   IBaseTypeOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 
 export interface ITypeService

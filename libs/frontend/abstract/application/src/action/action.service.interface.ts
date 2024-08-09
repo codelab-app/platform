@@ -2,11 +2,11 @@ import type {
   IActionModel,
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import type { ApiActionOptions } from '@codelab/shared/infra/gql'
 import type {
   ICreateActionData,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
+import type { ApiActionOptions } from '@codelab/shared/infra/gql'
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface IActionService

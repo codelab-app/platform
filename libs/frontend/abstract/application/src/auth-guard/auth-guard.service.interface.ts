@@ -4,11 +4,11 @@ import type {
   ICreateAuthGuardData,
   IUpdateAuthGuardData,
 } from '@codelab/frontend/abstract/domain'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type {
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface IAuthGuardService

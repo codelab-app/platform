@@ -4,10 +4,6 @@ import type {
   IRedirectModel,
 } from '@codelab/frontend/abstract/domain'
 import { authGuardRef, pageRef } from '@codelab/frontend/abstract/domain'
-import type {
-  RedirectCreateInput,
-  RedirectUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -16,6 +12,10 @@ import {
   disconnectAll,
   reconnectNodeId,
 } from '@codelab/shared/domain'
+import type {
+  RedirectCreateInput,
+  RedirectUpdateInput,
+} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

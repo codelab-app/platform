@@ -1,14 +1,14 @@
 import type {
-  RedirectCreateInput,
-  RedirectDeleteInput,
-  RedirectUpdateInput,
-} from '@codelab/shared/infra/gql'
-import type {
   IRedirect,
   IRedirectDto,
   IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import type {
+  RedirectCreateInput,
+  RedirectDeleteInput,
+  RedirectUpdateInput,
+} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { IAuthGuardModel } from '../auth-guard'
 import type { IPageModel } from '../page'

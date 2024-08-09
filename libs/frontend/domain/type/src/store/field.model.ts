@@ -7,7 +7,6 @@ import {
   IFieldModel,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import type { FieldUpdateInput } from '@codelab/shared/infra/gql'
 import type {
   IFieldDefaultValue,
   IValidationRules,
@@ -15,6 +14,7 @@ import type {
 import { IFieldDto } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'
+import type { FieldUpdateInput } from '@codelab/shared/infra/gql'
 import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
