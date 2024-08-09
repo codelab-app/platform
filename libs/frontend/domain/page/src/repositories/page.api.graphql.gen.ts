@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
   PageFragmentDoc,
@@ -60,7 +60,7 @@ import {
   type UpdatePagesMutationVariables,
   type PageListQueryVariables,
   type GetRenderedPageQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreatePages = (
   variables: CreatePagesMutationVariables,

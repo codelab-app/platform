@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 export const DeletePrimitiveTypesDocument = graphql(`
@@ -186,7 +186,7 @@ import {
   type DeleteAppTypesMutationVariables,
   type DeleteActionTypesMutationVariables,
   type DeleteCodeMirrorTypesMutationVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const DeletePrimitiveTypes = (
   variables: DeletePrimitiveTypesMutationVariables,

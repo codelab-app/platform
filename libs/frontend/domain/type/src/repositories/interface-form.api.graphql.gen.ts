@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 export const InterfaceForm_GetAppsDocument = graphql(`
@@ -72,7 +72,7 @@ import {
   type InterfaceForm_GetStoresQueryVariables,
   type InterfaceForm_GetResourceQueryVariables,
   type InterfaceForm_GetPagesQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const InterfaceForm_GetApps = (
   variables: InterfaceForm_GetAppsQueryVariables,

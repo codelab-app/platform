@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import { UserFragmentDoc } from '@codelab/shared/infra/gql'
 
@@ -37,7 +37,7 @@ import {
   type GetUsersQueryVariables,
   type CreateUserMutationVariables,
   type UpdateUserMutationVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const GetUsers = (
   variables: GetUsersQueryVariables,

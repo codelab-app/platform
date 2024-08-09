@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import { HookFragmentDoc } from '@codelab/shared/infra/gql'
 
@@ -25,7 +25,7 @@ export const DeleteHooksDocument = graphql(`
 import {
   type CreateHooksMutationVariables,
   type DeleteHooksMutationVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreateHooks = (
   variables: CreateHooksMutationVariables,

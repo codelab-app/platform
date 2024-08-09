@@ -24,7 +24,7 @@ export const CreateAtomPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={UiDataRecord.CreateAtomPopover.key}
+      id={UiKey.CreateAtomPopover}
       label={UiDataRecord.CreateAtomPopover.label}
       toolbar={{
         items: [

@@ -82,31 +82,29 @@ const config: Types.Config = {
     /**
      * We create our own plugin as a layer on top of client preset, to wrap doucments with `graphql`
      */
-    // './': {
-    //   documents: ['frontend/**/*.{api,fragment}.graphql'],
-    //   // documents: ['**/app.api.graphql', '**/*.fragment.graphql'],
-    //   preset: 'near-operation-file',
-    //   presetConfig: {
-    //     importAllFragmentsFrom: '~@codelab/shared/infra/gql',
-    //     extension: '.graphql.gen.ts',
-    //     baseTypesPath: '~@codelab/shared/infra/gql',
-    //   },
-    //   plugins: [pathToTypescriptFetch],
-    //   config: {
-    //     inlineFragmentTypes: 'combine',
-    //     importOperationTypesFrom: '',
-    //     importAllFragmentsFrom: '',
-    //     // Uncomment to set suffix for document variables
-    //     // documentVariableSuffix: 'Gql',
-    //     // gqlImport: 'graphql-tag#gql',
-    //     strictScalars: true,
-    //     defaultScalarType: 'unknown',
-    //     // dedupeFragments: true, // Uncomment to deduplicate fragments
-    //   },
-    // },
+    './': {
+      documents: ['libs/frontend/**/*.{api,fragment}.graphql'],
+      preset: 'near-operation-file',
+      presetConfig: {
+        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+        extension: '.graphql.gen.ts',
+        baseTypesPath: '~@codelab/shared/infra/gql',
+      },
+      plugins: [pathToTypescriptFetch],
+      config: {
+        inlineFragmentTypes: 'combine',
+        importOperationTypesFrom: '',
+        importAllFragmentsFrom: '',
+        // Uncomment to set suffix for document variables
+        // documentVariableSuffix: 'Gql',
+        // gqlImport: 'graphql-tag#gql',
+        strictScalars: true,
+        defaultScalarType: 'unknown',
+        // dedupeFragments: true, // Uncomment to deduplicate fragments
+      },
+    },
     '.': {
-      // This somehow generates for web-e2e as well, even if ./libs
-      documents: ['backend/**/*.{fragment,subscription}.graphql'],
+      documents: ['libs/backend/**/*.subscription.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',
@@ -114,7 +112,7 @@ const config: Types.Config = {
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
-      plugins: ['typescript-operations'],
+      plugins: ['typescript-operations', 'typescript-graphql-request'],
       config: {
         inlineFragmentTypes: 'combine',
         // Uncomment to set suffix for document variables

@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
   ActionTypeFragmentDoc,
@@ -59,7 +59,7 @@ export const GetAppBuilderDocument = graphql(`
   }
 `)
 
-import { type GetAppBuilderQueryVariables } from '@codelab/frontend/infra/gql'
+import { type GetAppBuilderQueryVariables } from '@codelab/shared/infra/gql'
 
 export const GetAppBuilder = (
   variables: GetAppBuilderQueryVariables,

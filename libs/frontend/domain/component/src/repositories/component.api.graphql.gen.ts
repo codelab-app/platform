@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import { ComponentFragmentDoc } from '@codelab/shared/infra/gql'
 
@@ -54,7 +54,7 @@ import {
   type DeleteComponentsMutationVariables,
   type UpdateComponentsMutationVariables,
   type ComponentListQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreateComponents = (
   variables: CreateComponentsMutationVariables,

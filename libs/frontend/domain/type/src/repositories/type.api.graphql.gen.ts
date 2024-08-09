@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 
 export const IsTypeDescendantOfDocument = graphql(`
@@ -24,7 +24,7 @@ export const GetTypeReferencesDocument = graphql(`
 import {
   type IsTypeDescendantOfQueryVariables,
   type GetTypeReferencesQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const IsTypeDescendantOf = (
   variables: IsTypeDescendantOfQueryVariables,

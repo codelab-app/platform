@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
 import {
   BaseTypeFragmentDoc,
@@ -245,7 +245,7 @@ import {
   type GetActionTypesQueryVariables,
   type GetCodeMirrorTypesQueryVariables,
   type GetTypeOptionsQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const GetBaseTypes = (
   variables: GetBaseTypesQueryVariables,
