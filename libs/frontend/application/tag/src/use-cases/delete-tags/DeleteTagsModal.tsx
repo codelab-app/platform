@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
@@ -31,6 +31,7 @@ export const DeleteTagsModal = observer(() => {
       onCancel={closeModal}
       open={deleteTagsModal.isOpen}
       title={<span className="font-semibold">Delete tags</span>}
+      uiKey={UiKey.DeleteTagModal}
     >
       <ModalForm.Form<DeleteTagsData>
         model={{}}
@@ -40,7 +41,6 @@ export const DeleteTagsModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={deleteTagsSchema}
-        uiKey={MODEL_ACTION.DeleteTag.key}
       >
         Are you sure you want to delete{' '}
         {tags?.map((tag) => tag.name).join(', ')}

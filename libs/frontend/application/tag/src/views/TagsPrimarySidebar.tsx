@@ -1,10 +1,6 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  MODEL_ACTION,
-  MODEL_UI,
-  PageType,
-} from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiSidebar,
@@ -36,16 +32,16 @@ export const TagsPrimarySidebar = observer(() => {
 
   const items: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.CreateTag.key,
+      cuiKey: UiKey.CreateTagToolbarItem,
       icon: <PlusOutlined />,
       onClick: () => {
         createTagForm.open()
-        popover.open(MODEL_ACTION.CreateTag.key)
+        popover.open(UiKey.CreateTagPopover)
       },
       title: 'Create Tag',
     },
     {
-      cuiKey: MODEL_ACTION.DeleteTag.key,
+      cuiKey: UiKey.DeleteTagToolbarItem,
       icon: <DeleteOutlined />,
       onClick: () => deleteTagsModal.open(tags.map((tag) => tag.current)),
       title: 'Delete Tag',
@@ -56,7 +52,7 @@ export const TagsPrimarySidebar = observer(() => {
     <CuiSidebar
       label="Tags"
       popover={<CreateTagPopover />}
-      uiKey={MODEL_UI.SidebarTag.key}
+      uiKey={UiKey.TagSidebar}
       views={[
         {
           content: <TagsTreeView showSearchBar={showSearchBar} />,

@@ -16,7 +16,6 @@ import {
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
-  type IRef,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'

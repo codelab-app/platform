@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
@@ -40,7 +40,7 @@ export const UpdateResourceForm = observer(() => {
         title: 'Error while updating resource',
       })}
       schema={updateResourceSchema}
-      uiKey={MODEL_ACTION.UpdateResource.key}
+      uiKey={UiKey.UpdateResourceForm}
     >
       <AutoFields />
       <FormController submitLabel="Update Resource" />

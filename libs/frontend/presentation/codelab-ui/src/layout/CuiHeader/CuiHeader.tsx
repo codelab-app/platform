@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import { Col, Row } from 'antd'
 import React from 'react'
 
@@ -16,7 +16,7 @@ export const CuiHeader = ({
   toolbar,
 }: CuiHeaderProps) => {
   return (
-    <div data-cy={CY_DATA.cuiHeader().cyData}>
+    <div data-cy={Cui.cuiHeader().cyData}>
       <div className="relative flex h-10 w-full flex-row overflow-hidden border-x-0 border-b-2 border-t-0 border-solid border-gray-300 bg-white">
         <div className="h-full w-10 shrink-0 cursor-pointer text-clip">
           {logo}

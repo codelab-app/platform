@@ -1,8 +1,5 @@
 import type { IUpdateRedirectData } from '@codelab/frontend/abstract/domain'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -61,7 +58,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
           })}
           schema={updateRedirectSchema}
           submitRef={submitRef}
-          uiKey={MODEL_ACTION.UpdateRedirect.key}
+          uiKey={UiKey.UpdateRedirectForm}
         >
           <AutoFields omitFields={['targetPage', 'targetUrl']} />
 

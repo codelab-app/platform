@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
@@ -39,6 +39,7 @@ export const CreateTypeModal = observer(() => {
       onCancel={closeModal}
       open={isOpen}
       title={<span className="font-semibold">Create type</span>}
+      uiKey={UiKey.CreateTypeModal}
     >
       <ModalForm.Form<ICreateTypeDto>
         model={{
@@ -50,7 +51,6 @@ export const CreateTypeModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}
-        uiKey={MODEL_ACTION.CreateType.key}
       >
         <AutoFields fields={['name', 'owner']} />
         <SelectField name="kind" showSearch />

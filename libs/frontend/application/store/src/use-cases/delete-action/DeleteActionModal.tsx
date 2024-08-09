@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -28,6 +28,7 @@ export const DeleteActionModal = observer(() => {
       onCancel={closeModal}
       open={deleteActionModal.isOpen}
       title="Delete Confirmation"
+      uiKey={UiKey.DeleteActionModal}
     >
       <ModalForm.Form
         model={{}}
@@ -37,7 +38,6 @@ export const DeleteActionModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteAction.key}
       >
         <h4>Are you sure you want to delete actions "{action?.name}"?</h4>
         <AutoFields />

@@ -5,8 +5,7 @@ import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlin
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
 import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
-import type { ModelActionKey } from '@codelab/frontend/abstract/types'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey, type UiKeys } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -32,7 +31,7 @@ const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
     const element = elementService.getElement(treeNode.element.id)
 
     const onClick = () => {
-      popover.open(MODEL_ACTION.CreateElement.key)
+      popover.open(UiKey.CreateElementPopover)
       createElementForm.open({
         elementOptions:
           element.closestContainerNode.elements.map(mapElementOption),
@@ -43,8 +42,7 @@ const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
 
     const items = [
       {
-        cuiKey:
-          `${MODEL_ACTION.CreateElement.key}-${element.id}` as ModelActionKey,
+        cuiKey: `${UiKey.CreateElementToolbarItem}-${element.id}` as UiKeys,
         icon: <PlusOutlined />,
         onClick,
         title: 'Add Child',

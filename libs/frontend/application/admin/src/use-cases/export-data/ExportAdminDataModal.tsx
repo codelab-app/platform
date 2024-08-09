@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   createFormErrorNotificationHandler,
   downloadJsonAsFile,
@@ -32,6 +32,7 @@ export const ExportAdminDataModal = () => {
       okText="Export Admin Data"
       onCancel={exportDataModal.close}
       open={exportDataModal.isOpen}
+      uiKey={UiKey.ExportAdminDataModal}
     >
       <ModalForm.Form<IExportDto>
         model={exportDtoDefault}
@@ -41,7 +42,6 @@ export const ExportAdminDataModal = () => {
         })}
         onSubmitSuccess={exportDataModal.close}
         schema={ExportDtoSchema}
-        uiKey={MODEL_ACTION.ExportDataAdmin.key}
       >
         <AutoFields />
       </ModalForm.Form>

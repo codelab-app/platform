@@ -1,7 +1,7 @@
 'use client'
 
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -46,7 +46,7 @@ export const CreateAtomModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createAtomSchema}
-        uiKey={MODEL_ACTION.CreateAtom.key}
+        uiKey={UiKey.CreateAtomModal}
       >
         <AutoFields
           omitFields={[

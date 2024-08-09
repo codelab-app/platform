@@ -1,11 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  MODEL_ACTION,
-  MODEL_UI,
-  PageType,
-} from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   useCui,
@@ -39,7 +35,7 @@ export const TypesPrimarySidebar = () => {
           <CreateFieldPopover />
         </>
       }
-      uiKey={MODEL_UI.SidebarType.key}
+      uiKey={UiKey.TypeSidebar}
       views={[
         {
           content: <TypesTreeView showSearchBar={showSearchBar} />,
@@ -49,10 +45,10 @@ export const TypesPrimarySidebar = () => {
             items: [
               ...toolbarItems,
               {
-                cuiKey: MODEL_ACTION.CreateType.key,
+                cuiKey: UiKey.CreateTypeToolbarItem,
                 icon: <PlusOutlined />,
                 onClick: () => {
-                  popover.open(MODEL_ACTION.CreateType.key)
+                  popover.open(UiKey.CreateTypePopover)
                   createTypeForm.open()
                 },
                 title: 'Create Type',

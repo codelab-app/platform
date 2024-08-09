@@ -1,19 +1,14 @@
 import type { IToggleService } from '@codelab/frontend/abstract/application'
-import {
-  CuiComponents,
-  type ModelActionKey,
-} from '@codelab/frontend/abstract/types'
+import { type ModelActionKey } from '@codelab/frontend/abstract/types'
 import { defaultMapper, useToggleState } from '../family-toggle/toggle.state'
 
 export const useFormState = <TData = undefined, TOutput = TData>(
-  modelActionKey: ModelActionKey,
+  key: ModelActionKey,
   mapper: (state: TData) => TOutput = defaultMapper,
 ): IToggleService<TData, TOutput> => {
   const toggleState = useToggleState<TData, TOutput>(
-    {
-      action: modelActionKey,
-      ui: CuiComponents.Form,
-    },
+    key,
+
     mapper,
   )
 

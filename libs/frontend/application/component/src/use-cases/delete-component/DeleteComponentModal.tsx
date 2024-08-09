@@ -1,5 +1,4 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -28,6 +27,7 @@ export const DeleteComponentModal = observer(() => {
       okText="Delete Component"
       onCancel={closeModal}
       open={deleteModal.isOpen}
+      uiKey={UiKey.DeleteComponentModal}
     >
       <ModalForm.Form
         model={{}}
@@ -37,7 +37,6 @@ export const DeleteComponentModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteComponent.key}
       >
         <h4>Are you sure you want to delete component "{component?.name}"?</h4>
         <AutoFields omitFields={['id']} />

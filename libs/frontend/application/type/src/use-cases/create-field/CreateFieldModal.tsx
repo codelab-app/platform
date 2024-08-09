@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -58,6 +58,7 @@ export const CreateFieldModal = observer(() => {
       onCancel={closeModal}
       open={createFieldModal.isOpen}
       title={<span className="font-semibold">Create field</span>}
+      uiKey={UiKey.CreateFieldModal}
     >
       <ModalForm.Form<ICreateFieldData>
         model={{
@@ -90,7 +91,6 @@ export const CreateFieldModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createFieldSchema}
-        uiKey={MODEL_ACTION.CreateField.key}
       >
         <AutoFields
           omitFields={[

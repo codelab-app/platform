@@ -2,13 +2,8 @@ import type {
   ICreateDomainData,
   IDomainModel,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  DomainFragment,
-  DomainOptions,
-  DomainWhere,
-} from '@codelab/frontend/infra/gql'
-import type { ObjectMap, Ref } from 'mobx-keystone'
-import type { ICRUDService, IModalService, IQueryService } from '../services'
+import type { DomainOptions, DomainWhere } from '@codelab/frontend/infra/gql'
+import type { ICRUDService, IQueryService } from '../services'
 
 export interface IDomainService
   extends ICRUDService<IDomainModel, ICreateDomainData, ICreateDomainData>,

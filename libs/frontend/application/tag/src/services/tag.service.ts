@@ -7,7 +7,6 @@ import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateTagData,
-  IRef,
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'

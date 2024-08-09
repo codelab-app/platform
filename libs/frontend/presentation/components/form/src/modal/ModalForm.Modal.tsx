@@ -1,7 +1,9 @@
 'use client'
 
-import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { ariaLabels } from '@codelab/frontend-application-shared-data'
+import {
+  type SubmitController,
+  type UiKey,
+} from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ModalProps as AntModalProps } from 'antd/lib/modal'
 import AntdModal from 'antd/lib/modal'
@@ -20,7 +22,7 @@ export type ModalProps = Pick<
   | 'onOk'
   | 'open'
   | 'title'
->
+> & { uiKey: UiKey }
 
 export const Modal = ({
   cancelButtonProps,
@@ -31,6 +33,7 @@ export const Modal = ({
   onCancel,
   onOk,
   open,
+  uiKey,
 }: PropsWithChildren<ModalProps>) => {
   const [isLoading, setIsLoading] = useState(false)
   // This is the controller that will do the form submission, create by the modal and passed down to the form
@@ -45,6 +48,7 @@ export const Modal = ({
           disabled: isLoading,
         }}
         className={className}
+        data-testid={uiKey}
         destroyOnClose
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop

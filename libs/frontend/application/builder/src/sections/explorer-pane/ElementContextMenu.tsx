@@ -11,7 +11,7 @@ import {
   elementTreeRef,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useComponentService } from '@codelab/frontend-application-component/services'
 import { useCloneElementService } from '@codelab/frontend-application-element/services'
@@ -71,7 +71,7 @@ export const ElementContextMenu = observer<
   const componentInstance = isComponent(element.renderType)
 
   const onAddChild = () => {
-    popover.open(MODEL_ACTION.CreateElement.key)
+    popover.open(UiKey.CreateElementPopover)
 
     createElementForm.open({
       elementOptions:

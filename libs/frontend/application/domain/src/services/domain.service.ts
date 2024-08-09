@@ -7,7 +7,6 @@ import type {
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
-import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { invalidateDomainListQuery } from '../use-cases/domain-list'
 

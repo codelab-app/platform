@@ -4,7 +4,7 @@ import {
   type IUpdateBaseElementData,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectActionField } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
@@ -113,7 +113,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             title: 'Error while updating element',
           })}
           schema={updateElementSchema}
-          uiKey={MODEL_ACTION.UpdateElement.key}
+          uiKey={UiKey.UpdateElementForm}
         >
           <AutoComputedElementNameField label="Name" name="name" />
           <AutoFields

@@ -1,7 +1,7 @@
 'use client'
 
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
@@ -41,7 +41,7 @@ export const CreateAuthGuardModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createAuthGuardSchema}
-        uiKey={MODEL_ACTION.CreateAuthGuard.key}
+        uiKey={UiKey.CreateAuthGuardModal}
       >
         <AutoFields />
       </ModalForm.Form>

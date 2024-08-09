@@ -1,8 +1,7 @@
 'use client'
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -12,7 +11,6 @@ import { useBuildAppModal } from './build-app.state'
 import { useBuildApp } from './useBuildApp.hook'
 
 export const BuildAppModal = observer(() => {
-  const store = useDomainStore()
   const buildAppModal = useBuildAppModal()
   const app = buildAppModal.data
   const { regenerate } = useBuildApp()
@@ -24,13 +22,13 @@ export const BuildAppModal = observer(() => {
       okText="Build App"
       onCancel={closeModal}
       open={buildAppModal.isOpen}
+      uiKey={UiKey.BuildAppModal}
     >
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.BuildApp.key}
       >
         <h4>Are you sure you want to build all pages for "{app?.name}"?</h4>
         <AutoFields />

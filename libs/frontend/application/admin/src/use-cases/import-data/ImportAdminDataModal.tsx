@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IImportDto } from '@codelab/shared/abstract/core'
@@ -21,6 +21,7 @@ export const ImportAdminDataModal = () => {
       okText="Import Admin Data"
       onCancel={importDataModal.close}
       open={importDataModal.isOpen}
+      uiKey={UiKey.ImportAdminDataModal}
     >
       <ModalForm.Form<IImportDto>
         model={importDtoDefault}
@@ -30,7 +31,6 @@ export const ImportAdminDataModal = () => {
         })}
         onSubmitSuccess={importDataModal.close}
         schema={ImportDtoSchema}
-        uiKey={MODEL_ACTION.ImportDataAdmin.key}
       >
         <AutoFields />
       </ModalForm.Form>

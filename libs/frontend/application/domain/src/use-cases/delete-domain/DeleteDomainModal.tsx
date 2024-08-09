@@ -1,8 +1,7 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -35,6 +34,7 @@ export const DeleteDomainModal = observer(() => {
       onCancel={closeModal}
       open={deleteDomainModal.isOpen}
       title={<span className="font-semibold">Delete domain</span>}
+      uiKey={UiKey.DeleteDomainModal}
     >
       <ModalForm.Form
         model={model}
@@ -44,7 +44,6 @@ export const DeleteDomainModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteDomain.key}
       >
         <h4>
           Are you sure you want to delete the domain "{domain?.current.name}"?

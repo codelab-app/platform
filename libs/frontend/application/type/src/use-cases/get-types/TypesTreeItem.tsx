@@ -5,7 +5,7 @@ import type {
   ITreeNode,
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -74,15 +74,15 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
     createFieldForm.open(interfaceType as IInterfaceTypeModel)
 
-    popover.open(MODEL_ACTION.CreateField.key)
+    popover.open(UiKey.CreateFieldPopover)
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
       cuiKey:
         data.extraData.type === 'type'
-          ? MODEL_ACTION.DeleteType.key
-          : MODEL_ACTION.DeleteField.key,
+          ? UiKey.DeleteTypeToolbarItem
+          : UiKey.DeleteFieldToolbarItem,
       icon: <DeleteOutlined />,
       onClick: onDelete,
       title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',
@@ -97,7 +97,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
       data.extraData.node.kind === ITypeKind.InterfaceType)
   ) {
     toolbarItems.push({
-      cuiKey: MODEL_ACTION.CreateField.key,
+      cuiKey: UiKey.CreateFieldToolbarItem,
       icon: <PlusOutlined />,
       onClick: onAddField,
       title: 'Add field',

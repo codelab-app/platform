@@ -1,7 +1,7 @@
 'use client'
 
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -83,6 +83,7 @@ export const UpdateTypeModal = observer(() => {
       onCancel={closeModal}
       open={updateTypeModal.isOpen}
       title={<span className="font-semibold">Update type</span>}
+      uiKey={UiKey.UpdateTypeModal}
     >
       <ModalForm.Form<IUpdateTypeDto>
         model={model}
@@ -92,7 +93,6 @@ export const UpdateTypeModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateTypeSchema}
-        uiKey={MODEL_ACTION.UpdateType.key}
       >
         <AutoFields fields={['name']} />
         {typeToUpdate?.kind === ITypeKind.UnionType && (

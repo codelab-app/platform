@@ -1,9 +1,5 @@
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -46,7 +42,7 @@ export const CreateComponentForm = observer(
         onSubmitSuccess={createForm.close}
         schema={createComponentSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateComponent.key}
+        uiKey={UiKey.CreateComponentForm}
       >
         <AutoFields omitFields={['api']} />
       </Form>

@@ -1,7 +1,4 @@
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectAction,
   SelectResource,
@@ -85,7 +82,7 @@ export const CreateActionForm = observer(
         onSubmitSuccess={closeForm}
         schema={actionSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateAction.key}
+        uiKey={UiKey.CreateActionForm}
       >
         <AutoFields
           omitFields={[

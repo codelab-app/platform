@@ -4,8 +4,8 @@ import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import {
   ExplorerPaneType,
-  MODEL_ACTION,
   PageType,
+  UiKey,
 } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -93,13 +93,13 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
     const toolbarItems: Array<ToolbarItem> = [
       isBuilder
         ? {
-            cuiKey: MODEL_ACTION.OpenPreviewBuilder.key,
+            cuiKey: UiKey.OpenPreviewBuilderToolbarItem,
             icon: <EyeOutlined />,
             onClick: togglePreviewMode,
             title: 'Preview',
           }
         : {
-            cuiKey: MODEL_ACTION.OpenBuilderBuilder.key,
+            cuiKey: UiKey.OpenBuilderBuilderToolbarItem,
             icon: <ToolOutlined />,
             onClick: togglePreviewMode,
             title: 'Builder',

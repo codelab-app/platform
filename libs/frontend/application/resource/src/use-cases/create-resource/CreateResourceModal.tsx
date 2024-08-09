@@ -1,9 +1,8 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useUserService } from '@codelab/frontend-application-user/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -41,6 +40,7 @@ export const CreateResourceModal = observer(() => {
       okText="Create Resource"
       onCancel={closeModal}
       open={createResourceModal.isOpen}
+      uiKey={UiKey.CreateResourceModal}
     >
       <ModalForm.Form
         model={model}
@@ -50,7 +50,6 @@ export const CreateResourceModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createResourceSchema}
-        uiKey={MODEL_ACTION.CreateResource.key}
       >
         <AutoFields />
       </ModalForm.Form>

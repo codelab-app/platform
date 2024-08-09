@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import { Typography } from 'antd'
 import React from 'react'
 import type { ToolbarProps } from '../../../abstract'
@@ -28,7 +28,7 @@ export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
         border-gray-300
         bg-neutral-100
       "
-      data-cy={CY_DATA.cuiSidebarHeader().cyData}
+      data-cy={Cui.cuiSidebarHeader().cyData}
     >
       <Typography className="pl-4">{label}</Typography>
       {toolbar ? (

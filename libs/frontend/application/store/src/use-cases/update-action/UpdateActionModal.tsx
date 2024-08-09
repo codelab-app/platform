@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectAction,
   SelectResource,
@@ -58,6 +58,7 @@ export const UpdateActionModal = observer(() => {
       okText="Update Action"
       onCancel={closeModal}
       open={updateActionModal.isOpen}
+      uiKey={UiKey.UpdateActionModal}
     >
       <ModalForm.Form<IUpdateActionData>
         model={model}
@@ -65,7 +66,6 @@ export const UpdateActionModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateActionSchema}
-        uiKey={MODEL_ACTION.UpdateAction.key}
       >
         <AutoFields fields={['name']} />
 

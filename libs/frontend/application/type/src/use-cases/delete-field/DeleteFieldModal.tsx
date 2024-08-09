@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
@@ -30,6 +30,7 @@ export const DeleteFieldModal = observer(() => {
       onCancel={closeModal}
       open={deleteFieldModal.isOpen}
       title={<span className="font-semibold">Delete field</span>}
+      uiKey={UiKey.DeleteFieldModal}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
@@ -41,7 +42,6 @@ export const DeleteFieldModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteField.key}
       >
         <h4>
           Are you sure you want to delete field "{field.name ?? field.key}"?
