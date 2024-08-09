@@ -8,21 +8,21 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDomainService } from '../../services'
 import { useDeleteDomainModal } from './delete-domain.state'
-import { deleteDomainUseCase } from './delete-domain.use-case'
 
 export const DeleteDomainModal = observer(() => {
   const deleteDomainModal = useDeleteDomainModal()
   const closeModal = () => deleteDomainModal.close()
+  const domainService = useDomainService()
   const domain = deleteDomainModal.data
-  const domainStore = useDomainStore()
 
   const onSubmit = () => {
     if (!domain) {
       return Promise.reject()
     }
 
-    return deleteDomainUseCase(domain.current, domainStore)
+    return domainService.remove(domain.current)
   }
 
   const model = {

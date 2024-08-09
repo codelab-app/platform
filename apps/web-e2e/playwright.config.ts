@@ -32,7 +32,7 @@ export default defineConfig({
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json',
+        storageState: 'apps/web-e2e/.auth/user.json',
       },
     },
     // {
@@ -86,6 +86,7 @@ export default defineConfig({
     {
       command: 'pnpm e2e:api',
       cwd: workspaceRoot,
+      reuseExistingServer: !process.env.CI,
       url: apiUrl,
     },
   ],

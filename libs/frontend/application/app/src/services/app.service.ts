@@ -13,7 +13,6 @@ import {
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
-import { pageFactory } from '@codelab/frontend-domain-page/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'

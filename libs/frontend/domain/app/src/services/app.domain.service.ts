@@ -8,7 +8,7 @@ import {
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
-import { pageFactory } from '@codelab/frontend-domain-page/services'
+import { pageDomainFactory } from '@codelab/frontend-domain-page/services'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -37,7 +37,7 @@ export class AppDomainService
     const app = this.hydrate(appDto)
     const renderType = this.atomDomainService.defaultRenderType
 
-    const pages = pageFactory({
+    const pages = pageDomainFactory({
       elementDomainService: this.elementDomainService,
       pageDomainService: this.pageDomainService,
       storeDomainService: this.storeDomainService,

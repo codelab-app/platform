@@ -1,9 +1,10 @@
 module "circleci" {
   source = "../../modules/circleci"
 
-  next_public_web_host     = var.NEXT_PUBLIC_WEB_HOST
-  next_public_api_hostname = var.NEXT_PUBLIC_API_HOSTNAME
-  next_public_api_port     = var.NEXT_PUBLIC_API_PORT
+  next_public_web_host      = var.NEXT_PUBLIC_WEB_HOST
+  next_public_api_hostname  = var.NEXT_PUBLIC_API_HOSTNAME
+  next_public_api_port      = var.NEXT_PUBLIC_API_PORT
+  next_public_base_api_path = var.NEXT_PUBLIC_BASE_API_PATH
 
   auth0_domain           = var.AUTH0_DOMAIN
   auth0_cypress_username = var.AUTH0_CYPRESS_USERNAME

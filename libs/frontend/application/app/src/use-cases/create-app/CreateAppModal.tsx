@@ -36,6 +36,7 @@ export const CreateAppModal = () => {
       okText="Create App"
       onCancel={closeModal}
       open={createAppModal.isOpen}
+      title="Some Title"
     >
       <ModalForm.Form<ICreateAppData>
         model={model}

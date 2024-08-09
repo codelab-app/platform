@@ -5,7 +5,7 @@
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
-    "lib": ["es2021"],
+    "lib": ["es2021", "DOM"],
     "types": [
       "node",
       "worker-loader",
@@ -36,7 +36,8 @@
     "index.d.ts",
     "**/*.js",
     "**/*.jsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../dist/apps/sites/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",

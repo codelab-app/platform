@@ -46,7 +46,12 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
   const menu = (
     <Menu>
       {overflowItems.map((item, index) => (
-        <Menu.Item icon={item.icon} key={index} title={item.title}>
+        <Menu.Item
+          aria-label={item.ariaLabel}
+          icon={item.icon}
+          key={index}
+          title={item.title}
+        >
           {item.title}
         </Menu.Item>
       ))}
