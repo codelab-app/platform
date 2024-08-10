@@ -3,7 +3,7 @@ import type {
   AtomOptions,
   AtomWhere,
   GetSelectAtomOptionsQuery,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRepository } from '../shared'
 import type { IAtomModel } from './atom.model.interface'
 

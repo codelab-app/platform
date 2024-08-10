@@ -1,10 +1,10 @@
 import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend-domain-shared'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   type IPrimitiveTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { v4 } from 'uuid'
 
 export const primitiveTypeFactory =

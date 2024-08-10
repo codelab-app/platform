@@ -1,7 +1,7 @@
 import { Type } from '@sinclair/typebox'
 import type { ModalProps } from 'antd'
 import { Button, Input, Modal } from 'antd'
-import React, { type ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 
 interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
   onOk(email: string): void

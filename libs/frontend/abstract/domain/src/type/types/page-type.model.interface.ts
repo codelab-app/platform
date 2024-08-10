@@ -1,8 +1,8 @@
+import type { IPageTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type {
   PageTypeCreateInput,
   UpdatePageTypesMutationVariables,
-} from '@codelab/shared/abstract/codegen'
-import type { IPageTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**

@@ -1,9 +1,9 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { IPropData, IValidationRules } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -103,7 +103,7 @@ export const SelectDefaultValue = () => {
         }}
         onSubmit={() => Promise.resolve()}
         schema={schema as JSONSchemaType<IPropData>}
-        uiKey={MODEL_ACTION.SelectDefaultValueField.key}
+        uiKey={UiKey.SelectDefaultValueFieldForm}
       >
         <AutoFields />
         {hasError && (

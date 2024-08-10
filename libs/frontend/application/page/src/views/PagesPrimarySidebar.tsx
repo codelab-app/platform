@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
@@ -37,7 +37,7 @@ export const PagesPrimarySidebar = observer(() => {
             <DeleteRedirectModal />
           </>
         }
-        uiKey={MODEL_UI.SidebarPage.key}
+        uiKey={UiKey.PageSidebar}
         views={[
           {
             content: <PageList app={app} />,
@@ -46,11 +46,11 @@ export const PagesPrimarySidebar = observer(() => {
             toolbar: {
               items: [
                 {
-                  cuiKey: MODEL_ACTION.CreatePage.key,
+                  cuiKey: UiKey.CreatePageToolbarItem,
                   icon: <PlusOutlined />,
                   onClick: () => {
                     createPageForm.open()
-                    popover.open(MODEL_ACTION.CreatePage.key)
+                    popover.open(UiKey.CreatePagePopover)
                   },
                   title: 'Create Page',
                 },

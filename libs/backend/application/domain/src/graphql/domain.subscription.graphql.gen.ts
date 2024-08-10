@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/abstract/codegen'
+import * as Types from '@codelab/shared/infra/gql'
 
 import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'

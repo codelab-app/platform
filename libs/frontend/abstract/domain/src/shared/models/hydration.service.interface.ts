@@ -1,3 +1,4 @@
+import type { IAppDto, IPageDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   AtomBuilderFragment,
   AuthGuardFragment,
@@ -9,8 +10,7 @@ import type {
   ResourceFragment,
   StoreFragment,
   TypeFragment,
-} from '@codelab/frontend/infra/gql'
-import type { IAppDto, IPageDto, IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 export interface IHydrateable<Dto, Model> {
   hydrate(dto: Dto): Model

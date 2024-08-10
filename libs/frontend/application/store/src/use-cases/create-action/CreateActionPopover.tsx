@@ -2,10 +2,7 @@
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
@@ -23,12 +20,12 @@ export const CreateActionPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={MODEL_ACTION.CreateAction.key}
+      id={UiKey.CreateActionPopover}
       label="Create Action"
       toolbar={{
         items: [
           {
-            cuiKey: MODEL_ACTION.CreateAction.key,
+            cuiKey: UiKey.CreateActionToolbarItem,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -37,7 +34,7 @@ export const CreateActionPopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: MODEL_ACTION.CancelCreateAction.key,
+            cuiKey: UiKey.CancelCreateActionToolbarItem,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

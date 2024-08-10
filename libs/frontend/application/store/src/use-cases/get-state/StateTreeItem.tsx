@@ -6,7 +6,7 @@ import type {
   IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -32,7 +32,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
 
   const onEdit = () => {
     updateFieldForm.open(data.extraData.node)
-    popover.open(MODEL_ACTION.UpdateField.key)
+    popover.open(UiKey.UpdateFieldPopover)
   }
 
   const onDelete = () => {
@@ -43,18 +43,18 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     createFieldForm.open(
       data.extraData.node.type.current as IInterfaceTypeModel,
     )
-    popover.open(MODEL_ACTION.CreateField.key)
+    popover.open(UiKey.CreateFieldPopover)
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.UpdateField.key,
+      cuiKey: UiKey.UpdateFieldToolbarItem,
       icon: <EditOutlined />,
       onClick: onEdit,
       title: 'Edit field',
     },
     {
-      cuiKey: MODEL_ACTION.DeleteField.key,
+      cuiKey: UiKey.DeleteFieldToolbarItem,
       icon: <DeleteOutlined />,
       onClick: onDelete,
       title: 'Delete field',
@@ -66,7 +66,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
       ?.kind === 'InterfaceType'
   ) {
     toolbarItems.push({
-      cuiKey: MODEL_ACTION.CreateField.key,
+      cuiKey: UiKey.CreateFieldToolbarItem,
       icon: <PlusOutlined />,
       onClick: onAddField,
       title: 'Add field',

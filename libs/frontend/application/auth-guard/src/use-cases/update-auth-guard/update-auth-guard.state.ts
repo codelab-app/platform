@@ -3,7 +3,7 @@ import type {
   IModalService,
 } from '@codelab/frontend/abstract/application'
 import type { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   useFormState,
   useModalState,
@@ -12,7 +12,7 @@ import type { Ref } from 'mobx-keystone'
 
 export const useUpdateAuthGuardModal = (): IModalService<
   Ref<IAuthGuardModel>
-> => useModalState<Ref<IAuthGuardModel>>(MODEL_ACTION.UpdateAuthGuard.key)
+> => useModalState<Ref<IAuthGuardModel>>(UiKey.UpdateAuthGuardModal)
 
 export const useUpdateAuthGuardForm = (): IFormService<Ref<IAuthGuardModel>> =>
-  useFormState<Ref<IAuthGuardModel>>(MODEL_ACTION.UpdateAuthGuard.key)
+  useFormState<Ref<IAuthGuardModel>>(UiKey.UpdateAuthGuardForm)

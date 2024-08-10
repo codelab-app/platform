@@ -2,7 +2,7 @@
 
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import {
@@ -53,6 +53,7 @@ export const CreateDomainModal = observer(() => {
       okText="Create Domain"
       onCancel={closeModal}
       open={createDomainModal.isOpen}
+      uiKey={UiKey.CreateDomainModal}
     >
       <ModalForm.Form<ICreateDomainData>
         model={model}
@@ -60,7 +61,6 @@ export const CreateDomainModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createDomainSchema}
-        uiKey={MODEL_ACTION.CreateDomain.key}
       >
         <AutoFields />
       </ModalForm.Form>

@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType, type UiKey } from '@codelab/frontend/abstract/types'
 import { ariaLabels } from '@codelab/frontend-application-shared-data'
 import type { Locator, Page } from '@playwright/test'
 import { expect } from '@playwright/test'
@@ -50,6 +50,13 @@ export class AppListPage extends BasePage {
 
   async openCreateAppModal() {
     await this.getButton({ label: ariaLabels.createAppButton }).click()
+    // check if the modal is visible
+    await expect(this.getModal()).toBeVisible()
+  }
+
+  async openModal(key: UiKey) {
+    await this.getButton({ label: ariaLabels.createAppButton }).click()
+
     // check if the modal is visible
     await expect(this.getModal()).toBeVisible()
   }

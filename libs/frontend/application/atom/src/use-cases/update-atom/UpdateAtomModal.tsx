@@ -1,5 +1,5 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -52,6 +52,7 @@ export const UpdateAtomModal = observer(() => {
       okText="Update Atom"
       onCancel={closeModal}
       open={updateAtomModal.isOpen}
+      uiKey={UiKey.UpdateAtomModal}
     >
       <ModalForm.Form<IUpdateAtomData>
         model={model}
@@ -59,7 +60,6 @@ export const UpdateAtomModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateAtomSchema}
-        uiKey={MODEL_ACTION.UpdateAtom.key}
       >
         <AutoFields
           omitFields={[

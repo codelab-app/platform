@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import React from 'react'
@@ -15,11 +15,11 @@ export const ResourcesPrimarySidebar = () => {
 
   const items: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.CreateResource.key,
+      cuiKey: UiKey.CreateResourceToolbarItem,
       icon: <PlusOutlined />,
       onClick: () => {
         createResourceForm.open()
-        popover.open(MODEL_ACTION.CreateResource.key)
+        popover.open(UiKey.CreateResourcePopover)
       },
       title: 'Add a Resource',
     },
@@ -29,7 +29,7 @@ export const ResourcesPrimarySidebar = () => {
     <CuiSidebar
       label="Resources"
       popover={<CreateResourcePopover />}
-      uiKey={MODEL_UI.SidebarResource.key}
+      uiKey={UiKey.ResourceSidebar}
       views={[
         {
           content: <ResourcesTreeView />,

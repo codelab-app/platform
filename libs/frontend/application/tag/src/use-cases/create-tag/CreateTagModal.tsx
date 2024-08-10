@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -31,7 +31,12 @@ export const CreateTagModal = observer(() => {
   const closeModal = () => createTagModal.close()
 
   return (
-    <ModalForm.Modal okText="Create Tag" onCancel={closeModal} open={isOpen}>
+    <ModalForm.Modal
+      okText="Create Tag"
+      onCancel={closeModal}
+      open={isOpen}
+      uiKey={UiKey.CreateTagModal}
+    >
       <ModalForm.Form
         model={{
           id: v4(),
@@ -43,7 +48,6 @@ export const CreateTagModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createTagSchema}
-        uiKey={MODEL_ACTION.CreateTag.key}
       >
         <AutoFields omitFields={['parent']} />
         <AutoField label="Parent Tag" name="parent.id" />

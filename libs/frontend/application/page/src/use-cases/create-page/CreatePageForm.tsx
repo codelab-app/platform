@@ -1,10 +1,7 @@
 'use client'
 
 import { useUser } from '@auth0/nextjs-auth0/client'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -70,7 +67,7 @@ export const CreatePageForm = observer(
         })}
         schema={createPageSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreatePage.key}
+        uiKey={UiKey.CreatePageForm}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

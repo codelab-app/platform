@@ -10,14 +10,12 @@ import {
   GetRenderedPage,
   pageRepository,
 } from '@codelab/frontend-domain-page/repositories'
-import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreatePageData,
   IElementDto,
@@ -30,8 +28,8 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import type { PageWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { useMemo } from 'react'
 import { v4 } from 'uuid'
 import { slugify } from 'voca'
 

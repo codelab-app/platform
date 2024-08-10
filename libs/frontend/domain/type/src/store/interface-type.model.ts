@@ -3,7 +3,6 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef } from '@codelab/frontend/abstract/domain'
-import type { InterfaceTypeDeleteInput } from '@codelab/shared/abstract/codegen'
 import type { IRef } from '@codelab/shared/abstract/core'
 import {
   assertIsTypeKind,
@@ -12,6 +11,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { createInterfaceTypeName } from '@codelab/shared/domain'
+import type { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

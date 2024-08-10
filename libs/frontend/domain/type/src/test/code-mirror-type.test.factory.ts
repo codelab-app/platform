@@ -1,9 +1,9 @@
 import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
-import { TypeKind } from '@codelab/shared/abstract/codegen'
 import {
   ICodeMirrorLanguage,
   type ICodeMirrorTypeDto,
 } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/infra/gql'
 import { v4 } from 'uuid'
 
 export const codeMirrorTypeFactory =

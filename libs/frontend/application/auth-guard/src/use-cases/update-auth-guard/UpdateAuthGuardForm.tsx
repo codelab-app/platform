@@ -1,7 +1,7 @@
 'use client'
 
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
@@ -60,7 +60,7 @@ export const UpdateAuthGuardForm = observer(() => {
         title: 'Error while updating auth guard',
       })}
       schema={updateAuthGuardSchema}
-      uiKey={MODEL_ACTION.UpdateAuthGuard.key}
+      uiKey={UiKey.UpdateAuthGuardForm}
     >
       <AutoFields omitFields={['config']} />
       <ResourceFetchConfigField />

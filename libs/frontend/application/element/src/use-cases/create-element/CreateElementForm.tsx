@@ -2,10 +2,7 @@
 
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import { isAtom } from '@codelab/frontend/abstract/domain'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectActionField,
   SelectAnyElement,
@@ -123,7 +120,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         onSubmitSuccess={closeForm}
         schema={createElementSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateElement.key}
+        uiKey={UiKey.CreateElementForm}
       >
         <AutoFields
           omitFields={[

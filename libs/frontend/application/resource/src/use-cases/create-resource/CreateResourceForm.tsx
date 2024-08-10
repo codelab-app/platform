@@ -1,9 +1,5 @@
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -60,7 +56,7 @@ export const CreateResourceForm = observer(
         onSubmitSuccess={closeForm}
         schema={createResourceSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateResource.key}
+        uiKey={UiKey.CreateResourceForm}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

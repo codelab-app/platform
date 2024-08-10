@@ -1,4 +1,4 @@
-import type { BaseAction } from '@codelab/shared/abstract/codegen'
+import type { BaseAction } from '@codelab/shared/infra/gql'
 import type { IResolvers } from '@graphql-tools/utils'
 
 export const actionResolver: IResolvers = {

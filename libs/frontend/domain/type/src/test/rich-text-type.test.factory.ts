@@ -1,6 +1,6 @@
 import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
-import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/infra/gql'
 import { v4 } from 'uuid'
 
 export const richTextTypeFactory =

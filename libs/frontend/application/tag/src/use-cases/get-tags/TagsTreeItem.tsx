@@ -1,6 +1,6 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type { ITagNodeData, ITreeNode } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -28,7 +28,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
         <CuiTreeItemToolbar
           items={[
             {
-              cuiKey: MODEL_ACTION.DeleteTag.key,
+              cuiKey: UiKey.DeleteTagToolbarItem,
               icon: <DeleteOutlined />,
               label: 'Delete',
               onClick: () => {

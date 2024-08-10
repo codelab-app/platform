@@ -1,3 +1,3 @@
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 
 export { PrimitiveTypeKind as IPrimitiveTypeKind }

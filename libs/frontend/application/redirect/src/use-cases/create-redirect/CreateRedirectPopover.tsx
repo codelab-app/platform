@@ -2,10 +2,7 @@
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
@@ -23,12 +20,12 @@ export const CreateRedirectPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={MODEL_ACTION.CreateRedirect.key}
+      id={UiKey.CreateRedirectPopover}
       label="Create Redirect"
       toolbar={{
         items: [
           {
-            cuiKey: MODEL_ACTION.CreateRedirect.key,
+            cuiKey: UiKey.CreateRedirectToolbarItem,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -37,7 +34,7 @@ export const CreateRedirectPopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: MODEL_ACTION.CancelCreateRedirect.key,
+            cuiKey: UiKey.CancelCreateRedirectToolbarItem,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

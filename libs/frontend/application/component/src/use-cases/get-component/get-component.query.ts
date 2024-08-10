@@ -1,4 +1,4 @@
-import { execute, graphql } from '@codelab/frontend/infra/gql'
+import { execute, graphql } from '@codelab/shared/infra/gql'
 import { slugify } from '@codelab/shared/utils'
 
 export const GetComponentQuery = graphql(`

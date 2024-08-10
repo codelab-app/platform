@@ -1,13 +1,9 @@
-import { CuiComponents, MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { act, renderHook } from '@testing-library/react'
 import { useToggleState } from './toggle.state'
 
 describe('useToggleState', () => {
-  const key = {
-    action: MODEL_ACTION.CreateApp.key,
-    ui: CuiComponents.Form,
-  }
-
+  const key = UiKey.CreateAppForm
   const useCreateAppForm = () => useToggleState<string>(key)
 
   it('should initialize with default values', () => {

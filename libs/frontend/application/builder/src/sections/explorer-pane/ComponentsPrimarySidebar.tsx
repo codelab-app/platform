@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -40,16 +40,16 @@ export const ComponentsPrimarySidebar = ({
       toolbar: {
         items: [
           {
-            cuiKey: MODEL_ACTION.CreateComponent.key,
+            cuiKey: UiKey.CreateComponentToolbarItem,
             icon: <PlusOutlined />,
             onClick: () => {
               createComponentForm.open()
-              popover.open(MODEL_ACTION.CreateComponent.key)
+              popover.open(UiKey.CreateComponentPopover)
             },
             title: 'Add Component',
           },
           {
-            cuiKey: MODEL_ACTION.ImportComponent.key,
+            cuiKey: UiKey.ImportComponentToolbarItem,
             icon: <ImportComponentDialog key={0} />,
             title: 'Import Component',
           },
@@ -75,7 +75,7 @@ export const ComponentsPrimarySidebar = ({
         defaultActiveViewKeys={['custom', 'pre-built']}
         label="Components"
         popover={<CreateComponentPopover />}
-        uiKey={MODEL_UI.SidebarComponent.key}
+        uiKey={UiKey.ComponentSidebar}
         views={sidebarViews}
       />
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -43,6 +43,7 @@ export const UpdateTagModal = observer(() => {
       okText="Update Tag"
       onCancel={closeModal}
       open={updateTagModal.isOpen}
+      uiKey={UiKey.UpdateTagModal}
     >
       <ModalForm.Form<IUpdateTagData>
         model={model}
@@ -52,7 +53,6 @@ export const UpdateTagModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateTagSchema}
-        uiKey={MODEL_ACTION.UpdateTag.key}
       >
         <AutoFields omitFields={['id', 'parent']} />
 

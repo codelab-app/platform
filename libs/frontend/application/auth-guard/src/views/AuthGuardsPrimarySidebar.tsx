@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import React from 'react'
@@ -15,11 +15,11 @@ export const AuthGuardsPrimarySidebar = () => {
 
   const items: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.CreateAuthGuard.key,
+      cuiKey: UiKey.CreateAuthGuardToolbarItem,
       icon: <PlusOutlined />,
       onClick: () => {
         createAuthGuardForm.open()
-        popover.open(MODEL_ACTION.CreateAuthGuard.key)
+        popover.open(UiKey.CreateAuthGuardPopover)
       },
       title: 'Add an Auth Guard',
     },
@@ -29,7 +29,7 @@ export const AuthGuardsPrimarySidebar = () => {
     <CuiSidebar
       label="Auth Guards"
       popover={<CreateAuthGuardPopover />}
-      uiKey={MODEL_UI.SidebarAuthGuard.key}
+      uiKey={UiKey.AuthGuardSidebar}
       views={[
         {
           content: <AuthGuardsTreeView />,

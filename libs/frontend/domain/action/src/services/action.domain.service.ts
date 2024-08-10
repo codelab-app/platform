@@ -3,9 +3,9 @@ import type {
   IActionModel,
 } from '@codelab/frontend/abstract/domain'
 import { IStoreModel } from '@codelab/frontend/abstract/domain'
-import type { ActionFragment } from '@codelab/shared/abstract/codegen'
 import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
+import type { ActionFragment } from '@codelab/shared/infra/gql'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'

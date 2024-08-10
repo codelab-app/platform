@@ -1,6 +1,6 @@
 'use client'
 
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
@@ -29,7 +29,7 @@ export interface CuiNavigationBarProps {
 export const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   disabled: navBarItem.disabled,
   icon: (
-    <div data-cy={CY_DATA.cuiNavigationBarItem(navBarItem.title).cyData}>
+    <div data-cy={Cui.cuiNavigationBarItem(navBarItem.title)}>
       {navBarItem.icon}
     </div>
   ),

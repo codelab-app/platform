@@ -1,10 +1,10 @@
-import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
 import type {
   ICreateTypeDto,
   IPrimitiveTypeKind,
   ITypeDto,
 } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IHydrateable } from '../shared'
 import type { IInterfaceTypeModel, ITypeModel } from './types'

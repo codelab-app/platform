@@ -1,4 +1,4 @@
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { BaseTypeDtoSchema } from './base-type.dto.interface'

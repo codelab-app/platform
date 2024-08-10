@@ -1,12 +1,12 @@
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   useFormState,
   useModalState,
 } from '@codelab/frontend-application-shared-store/ui'
 
 export const useCreateFieldForm = () =>
-  useFormState<IInterfaceTypeModel>(MODEL_ACTION.CreateField.key)
+  useFormState<IInterfaceTypeModel>(UiKey.CreateFieldForm)
 
 export const useCreateFieldModal = () =>
-  useModalState<IInterfaceTypeModel>(MODEL_ACTION.CreateField.key)
+  useModalState<IInterfaceTypeModel>(UiKey.CreateFieldModal)

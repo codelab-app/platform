@@ -3,7 +3,7 @@ import type {
   CreateElementProperties,
   IFormService,
 } from '@codelab/frontend/abstract/application'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useFormState } from '@codelab/frontend-application-shared-store/ui'
 
 export const useCreateElementForm = (): IFormService<
@@ -11,7 +11,7 @@ export const useCreateElementForm = (): IFormService<
   CreateElementData & CreateElementProperties
 > =>
   useFormState<CreateElementData, CreateElementData & CreateElementProperties>(
-    MODEL_ACTION.CreateElement.key,
+    UiKey.CreateElementForm,
     (data) => {
       return {
         ...data,

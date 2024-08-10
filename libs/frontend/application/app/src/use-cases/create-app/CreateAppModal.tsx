@@ -1,7 +1,7 @@
 'use client'
 
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import React from 'react'
@@ -37,6 +37,7 @@ export const CreateAppModal = () => {
       onCancel={closeModal}
       open={createAppModal.isOpen}
       title="Some Title"
+      uiKey={UiKey.CreateAppModal}
     >
       <ModalForm.Form<ICreateAppData>
         model={model}
@@ -46,7 +47,6 @@ export const CreateAppModal = () => {
         })}
         onSubmitSuccess={closeModal}
         schema={createAppSchema}
-        uiKey={MODEL_ACTION.CreateApp.key}
       >
         <AutoFields />
       </ModalForm.Form>

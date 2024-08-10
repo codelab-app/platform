@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
@@ -27,6 +27,7 @@ export const UpdateComponentModal = observer(() => {
       onCancel={closeModal}
       open={updateComponentModal.isOpen}
       title={<span className="font-semibold">Update component</span>}
+      uiKey={UiKey.UpdateComponentModal}
     >
       {/* <UpdateComponentForm component={component} /> */}
       <ModalForm.Form<IUpdateComponentData>
@@ -37,7 +38,6 @@ export const UpdateComponentModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateComponentSchema}
-        uiKey={MODEL_ACTION.UpdateComponent.key}
       >
         <AutoFields />
       </ModalForm.Form>

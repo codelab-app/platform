@@ -3,18 +3,18 @@ import {
   type IPropModel,
   type IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import type { ResourceDeleteInput } from '@codelab/frontend/infra/gql'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import type {
-  ResourceCreateInput,
-  ResourceUpdateInput,
-} from '@codelab/shared/abstract/codegen'
 import type {
   IResourceConfigData,
   IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import { connectOwner, getResourceClient } from '@codelab/shared/domain'
+import type {
+  ResourceCreateInput,
+  ResourceDeleteInput,
+  ResourceUpdateInput,
+} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

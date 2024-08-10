@@ -4,8 +4,8 @@ import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { ElementTypeKind } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {

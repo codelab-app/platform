@@ -886,7 +886,6 @@
       "@codelab/frontend/infra/context": [
         "libs/frontend/infra/context/src/index.ts"
       ],
-      "@codelab/frontend/infra/gql": ["libs/frontend/infra/gql/src/index.ts"],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],
@@ -912,30 +911,12 @@
       "@codelab/frontend/test/application": [
         "libs/frontend/test/application/src/index.ts"
       ],
-      "@codelab/frontend/test/cypress/antd": [
-        "libs/frontend/test/cypress/antd/src/index.ts"
-      ],
-      "@codelab/frontend/test/cypress/auth0": [
-        "libs/frontend/test/cypress/auth0/src/index.ts"
-      ],
-      "@codelab/frontend/test/cypress/cui": [
-        "libs/frontend/test/cypress/cui/src/index.ts"
-      ],
-      "@codelab/frontend/test/cypress/shared": [
-        "libs/frontend/test/cypress/shared/src/index.ts"
-      ],
-      "@codelab/frontend/test/cypress/utils": [
-        "libs/frontend/test/cypress/utils/src/index.ts"
-      ],
       "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
       "@codelab/shared-infra-auth0/client": [
         "libs/shared/infra/auth0/src/client/index.ts"
       ],
       "@codelab/shared-infra-auth0/server": [
         "libs/shared/infra/auth0/src/server/index.ts"
-      ],
-      "@codelab/shared/abstract/codegen": [
-        "libs/shared/abstract/codegen/src/index.ts"
       ],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
@@ -951,6 +932,7 @@
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain": ["libs/shared/domain/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
+      "@codelab/shared/infra/gql": ["libs/shared/infra/gql/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],

@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -47,6 +47,7 @@ export const DeleteRedirectModal = observer(() => {
       onCancel={onSubmitSuccess}
       open={deleteRedirectModal.isOpen}
       title="Delete Confirmation"
+      uiKey={UiKey.DeleteRedirectModal}
     >
       <ModalForm.Form
         model={{}}
@@ -54,7 +55,6 @@ export const DeleteRedirectModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteRedirect.key}
       >
         <h4>Are you sure you want to delete redirect"</h4>
         <AutoFields />

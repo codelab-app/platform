@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -45,7 +45,7 @@ export const UpdateTagForm = observer(() => {
         title: 'Error while updating tag',
       })}
       schema={updateTagSchema}
-      uiKey={MODEL_ACTION.UpdateTag.key}
+      uiKey={UiKey.UpdateTagForm}
     >
       <AutoFields omitFields={['id', 'parent']} />
 

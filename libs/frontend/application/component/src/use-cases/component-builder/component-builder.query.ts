@@ -2,12 +2,12 @@ import type {
   IComponentBuilderArgs,
   IComponentBuilderQuery,
 } from '@codelab/frontend/abstract/domain'
+import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type {
   AtomBuilderFragment,
   GetComponentBuilderQuery,
-} from '@codelab/frontend/infra/gql'
-import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 import uniqBy from 'lodash/uniqBy'
 
 export const componentBuilderQuery: IComponentBuilderQuery = async ({

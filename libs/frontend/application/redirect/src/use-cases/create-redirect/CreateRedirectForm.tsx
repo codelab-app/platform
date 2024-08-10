@@ -1,8 +1,5 @@
 import type { ICreateRedirectData } from '@codelab/frontend/abstract/domain'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -58,7 +55,7 @@ export const CreateRedirectForm = observer<CreateRedirectFormProps>(
         onSubmitSuccess={closeForm}
         schema={createRedirectSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateRedirect.key}
+        uiKey={UiKey.CreateRedirectForm}
       >
         <AutoFields omitFields={['targetPage', 'targetUrl']} />
 

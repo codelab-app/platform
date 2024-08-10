@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
@@ -10,7 +10,7 @@ import { CreateLambdaButton } from '../use-cases/create-lambda'
 export const LambdasViewHeader = () => {
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.CreateLambda.key,
+      cuiKey: UiKey.CreateLambdaToolbarItem,
       icon: <CreateLambdaButton key={0} />,
       title: 'Create Lambda',
     },

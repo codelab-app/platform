@@ -1,5 +1,5 @@
-import type { Element } from '@codelab/shared/abstract/codegen'
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { Element } from '@codelab/shared/infra/gql'
 import { uuidRegex } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 

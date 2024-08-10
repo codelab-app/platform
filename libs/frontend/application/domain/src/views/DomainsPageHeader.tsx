@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -36,7 +36,7 @@ export const DomainsPageHeader = observer(() => {
         <CuiHeaderToolbar
           items={[
             {
-              cuiKey: MODEL_ACTION.CreateDomain.key,
+              cuiKey: UiKey.CreateDomainToolbarItem,
               icon: <PlusOutlined />,
               onClick: () => createDomainModal.open(),
               title: 'Create Domain',

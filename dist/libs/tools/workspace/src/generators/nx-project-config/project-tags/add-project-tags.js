@@ -63,7 +63,7 @@ const addProjectTags = (tree, projectConfig) => {
         'libs/shared/abstract',
         'libs/frontend/abstract',
         'libs/backend/abstract',
-        'libs/frontend/infra/gql',
+        'libs/shared/infra/gql',
     ], 'type:abstract', projectConfig);
     if (!isAbstract) {
         appendTags('type:concrete', projectConfig);

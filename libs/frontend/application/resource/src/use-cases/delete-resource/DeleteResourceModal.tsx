@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { useResourceQuery } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -51,6 +51,7 @@ export const DeleteResourceModal = observer(() => {
       onCancel={onSubmitSuccess}
       open={deleteResourceModal.isOpen}
       title="Delete Confirmation"
+      uiKey={UiKey.DeleteResourceModal}
     >
       <ModalForm.Form
         model={{}}
@@ -58,7 +59,6 @@ export const DeleteResourceModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteResource.key}
       >
         <h4>Are you sure you want to delete resource {resource?.name}"</h4>
         <AutoFields />

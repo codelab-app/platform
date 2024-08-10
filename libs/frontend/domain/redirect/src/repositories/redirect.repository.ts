@@ -2,10 +2,7 @@ import type {
   IRedirectModel,
   IRedirectRepository,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  RedirectOptions,
-  RedirectWhere,
-} from '@codelab/frontend/infra/gql'
+import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import {
   CreateRedirects,

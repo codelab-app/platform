@@ -2,7 +2,7 @@ import type {
   PropFragment,
   PropOptions,
   PropWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRepository } from '../shared'
 import type { IPropModel } from './prop.model.interface'
 

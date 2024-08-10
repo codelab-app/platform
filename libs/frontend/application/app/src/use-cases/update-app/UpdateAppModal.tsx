@@ -1,7 +1,7 @@
 'use client'
 
 import type { IUpdateAppData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
@@ -36,6 +36,7 @@ export const UpdateAppModal = observer(() => {
       okText="Update App"
       onCancel={closeModal}
       open={updateAppModal.isOpen}
+      uiKey={UiKey.UpdateAppModal}
     >
       <ModalForm.Form<IUpdateAppData>
         model={model}
@@ -45,7 +46,6 @@ export const UpdateAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateAppSchema}
-        uiKey={MODEL_ACTION.UpdateApp.key}
       >
         <AutoFields />
       </ModalForm.Form>

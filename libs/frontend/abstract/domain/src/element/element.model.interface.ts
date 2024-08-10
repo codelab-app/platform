@@ -1,9 +1,9 @@
+import type { IElement, IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import type { IElement, IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
 import type { IComponentModel } from '../component'
