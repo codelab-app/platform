@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 const AtomsRoute = () => {
   return (
     <>
-      <CreateAtomModal />
-      <DeleteAtomsModal />
+      {/* <CreateAtomModal /> */}
+      {/* <DeleteAtomsModal />
       <CreateFieldModal />
-      <DeleteFieldModal />
+      <DeleteFieldModal /> */}
 
-      <AtomForm />
+      {/* <AtomForm /> */}
     </>
   )
 }
