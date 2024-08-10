@@ -1,11 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  MODEL_ACTION,
-  MODEL_UI,
-  PageType,
-} from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   useCui,
@@ -39,7 +35,7 @@ export const AtomsPrimarySidebar = () => {
           <CreateFieldPopover />
         </>
       }
-      uiKey={MODEL_UI.SidebarAtom.key}
+      uiKey={UiKey.AtomSidebar}
       views={[
         {
           content: <AtomsTreeView showSearchBar={showSearchBar} />,
@@ -49,11 +45,11 @@ export const AtomsPrimarySidebar = () => {
             items: [
               ...toolbarItems,
               {
-                cuiKey: MODEL_ACTION.CreateAtom.key,
+                cuiKey: UiKey.CreateAtomToolbarItem,
                 icon: <PlusOutlined />,
                 onClick: () => {
                   createAtomForm.open()
-                  popover.open(MODEL_ACTION.CreateAtom.key)
+                  popover.open(UiKey.CreateAtomPopover)
                 },
                 title: 'Create Atom',
               },

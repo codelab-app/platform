@@ -17,8 +17,8 @@ import type {
 import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
-  MODEL_ACTION,
   PageType,
+  UiKey,
 } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -64,7 +64,7 @@ export const PageTreeItem = observer(
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.OpenBuilderBuilder.key,
+        cuiKey: UiKey.OpenBuilderBuilderToolbarItem,
         icon: <BuildOutlined />,
         onClick: () => {
           const url = queryString.stringifyUrl({
@@ -85,39 +85,39 @@ export const PageTreeItem = observer(
 
     const regularPageToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.DeletePage.key,
+        cuiKey: UiKey.DeletePageToolbarItem,
         icon: <DeleteOutlined />,
         onClick: () => deletePageModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
         cuiKey: page.redirect
-          ? MODEL_ACTION.UpdateRedirect.key
-          : MODEL_ACTION.CreateRedirect.key,
+          ? UiKey.UpdateRedirectToolbarItem
+          : UiKey.CreateRedirectToolbarItem,
         icon: <SafetyOutlined />,
         onClick: () => {
           if (page.redirect) {
             updateRedirectForm.open(page.redirect.current)
-            popover.open(MODEL_ACTION.UpdateRedirect.key)
+            popover.open(UiKey.UpdateRedirectPopover)
           } else {
             createRedirectForm.open(page)
-            popover.open(MODEL_ACTION.CreateRedirect.key)
+            popover.open(UiKey.CreateRedirectPopover)
           }
         },
         title: 'Auth Guard',
       },
       {
-        cuiKey: MODEL_ACTION.BuildApp.key,
+        cuiKey: UiKey.BuildAppToolbarItem,
         icon: isRegenerating ? <LoadingOutlined /> : <ToolOutlined />,
         onClick: () => regenerate(app, [page.urlPattern]),
         title: 'Build',
       },
       {
-        cuiKey: MODEL_ACTION.UpdatePage.key,
+        cuiKey: UiKey.UpdatePageToolbarItem,
         icon: <EditOutlined />,
         onClick: () => {
           updatePageForm.open(pageRef(page))
-          popover.open(MODEL_ACTION.UpdatePage.key)
+          popover.open(UiKey.UpdatePagePopover)
         },
         title: 'Edit',
       },

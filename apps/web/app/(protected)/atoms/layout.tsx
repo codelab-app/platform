@@ -1,5 +1,3 @@
-'use client'
-
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   AtomsPrimarySidebar,

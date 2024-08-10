@@ -8,9 +8,9 @@ import { usePaginationService } from '@codelab/frontend-application-shared-store
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 
 export const useTypeService = (): ITypeService => {

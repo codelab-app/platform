@@ -9,7 +9,7 @@ import type {
   SupportedPaginationModel,
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import React, { useEffect, useState } from 'react'
 import type { ToolbarItem } from '../../abstract'
@@ -69,13 +69,13 @@ export const useToolbarPagination = <
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.PreviousPagePagination.key,
+      cuiKey: UiKey.PreviousPagePaginationToolbarItem,
       icon: <LeftOutlined />,
       onClick: goToPreviousPage,
       title: 'Previous',
     },
     {
-      cuiKey: MODEL_ACTION.CurrentPagePagination.key,
+      cuiKey: UiKey.CurrentPagePaginationToolbarItem,
       icon: (
         <div className="flex w-16 flex-row items-center justify-between">
           <CuiInput
@@ -95,13 +95,13 @@ export const useToolbarPagination = <
       title: `Current page: ${currentPage} / ${pageCount}`,
     },
     {
-      cuiKey: MODEL_ACTION.NextPagePagination.key,
+      cuiKey: UiKey.NextPagePaginationToolbarItem,
       icon: <RightOutlined />,
       onClick: goToNextPage,
       title: 'Next',
     },
     {
-      cuiKey: MODEL_ACTION.PageSizePagination.key,
+      cuiKey: UiKey.PageSizePaginationToolbarItem,
       icon: (
         <div className="flex w-16 flex-row items-center justify-between">
           <CuiInput
@@ -121,7 +121,7 @@ export const useToolbarPagination = <
       title: `${currentPageSize} items per page`,
     },
     {
-      cuiKey: MODEL_ACTION.SearchPagination.key,
+      cuiKey: UiKey.SearchPaginationToobarItem,
       icon: <SearchOutlined />,
       onClick: () => {
         setShowSearchBar(!showSearchBar)

@@ -1,7 +1,7 @@
 'use client'
 
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
@@ -45,7 +45,7 @@ export const UpdateComponentForm = observer<{
           title: 'Error while creating component',
         })}
         schema={updateComponentSchema}
-        uiKey={MODEL_ACTION.UpdateComponent.key}
+        uiKey={UiKey.UpdateComponentForm}
       >
         <AutoFields />
       </Form>

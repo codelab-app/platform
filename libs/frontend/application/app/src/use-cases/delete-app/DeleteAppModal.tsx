@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -28,6 +28,7 @@ export const DeleteAppModal = observer(() => {
       okText="Delete App"
       onCancel={closeModal}
       open={deleteAppModal.isOpen}
+      uiKey={UiKey.DeleteAppModal}
     >
       <ModalForm.Form
         model={{}}
@@ -37,7 +38,6 @@ export const DeleteAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteApp.key}
       >
         <h4>Are you sure you want to delete app "{app?.name}"?</h4>
       </ModalForm.Form>

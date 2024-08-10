@@ -1,5 +1,5 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   useFormState,
   useModalState,
@@ -7,7 +7,7 @@ import {
 import type { Ref } from 'mobx-keystone'
 
 export const useUpdateAtomModal = () =>
-  useModalState<Ref<IAtomModel>>(MODEL_ACTION.DeleteAtom.key)
+  useModalState<Ref<IAtomModel>>(UiKey.UpdateAtomModal)
 
 export const useUpdateAtomForm = () =>
-  useFormState<Ref<IAtomModel>>(MODEL_ACTION.DeleteAtom.key)
+  useFormState<Ref<IAtomModel>>(UiKey.UpdateAtomForm)

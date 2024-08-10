@@ -3,14 +3,14 @@ import type {
   ITypeWhere,
   IUpdateTypeVars,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
-} from '@codelab/shared/abstract/codegen'
-import type { IRef } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 import type { ArrayOrSingle } from 'ts-essentials'
 import {
   CreateActionTypes,

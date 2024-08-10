@@ -1,4 +1,4 @@
-import type { Element } from '@codelab/shared/abstract/codegen'
+import type { Element } from '@codelab/shared/infra/gql'
 
 export const renderType = (root: Element) => {
   console.log('renderType', root)

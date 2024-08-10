@@ -1,3 +1,5 @@
+'use client'
+
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -8,7 +10,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom.state'
 
-export const AtomsViewHeader = observer(() => {
+export const AtomsViewHeader = () => {
   const updateFieldForm = useUpdateFieldForm()
   const updateAtomForm = useUpdateAtomModal()
   const atomToUpdate = updateAtomForm.data?.current.name || ''
@@ -43,4 +45,4 @@ export const AtomsViewHeader = observer(() => {
       }
     />
   )
-})
+}

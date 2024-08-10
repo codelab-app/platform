@@ -8,12 +8,12 @@ import {
   GraphqlService,
 } from '@codelab/backend/infra/adapter/graphql'
 import { initUserContext } from '@codelab/backend/test'
+import { userDto } from '@codelab/shared/data/test'
+import { connectNodeId } from '@codelab/shared/domain'
 import type {
   TestCreateDomainAppsMutationVariables,
   TestUpdateDomainsMutationVariables,
-} from '@codelab/shared/abstract/codegen'
-import { userDto } from '@codelab/shared/data/test'
-import { connectNodeId } from '@codelab/shared/domain'
+} from '@codelab/shared/infra/gql'
 import type { INestApplication } from '@nestjs/common'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import * as env from 'env-var'

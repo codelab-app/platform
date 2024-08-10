@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/infra/gql'
+import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import { PropFragmentDoc } from '@codelab/frontend/infra/gql'
+import { PropFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const CreatePropsDocument = graphql(`
   mutation CreateProps($input: [PropCreateInput!]!) {
@@ -48,7 +48,7 @@ import {
   type UpdatePropsMutationVariables,
   type DeletePropsMutationVariables,
   type GetPropsQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreateProps = (
   variables: CreatePropsMutationVariables,

@@ -8,12 +8,12 @@ import {
   resourceRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
+import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain'
 import type {
   AuthGuardCreateInput,
   AuthGuardUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain'
+} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

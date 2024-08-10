@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/infra/gql'
+import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import { AtomFragmentDoc } from '@codelab/frontend/infra/gql'
+import { AtomFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const CreateAtomsDocument = graphql(`
   mutation CreateAtoms($input: [AtomCreateInput!]!) {
@@ -69,7 +69,7 @@ import {
   type AtomListQueryVariables,
   type GetSelectAtomOptionsQueryVariables,
   type UpdateAtomsMutationVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreateAtoms = (
   variables: CreateAtomsMutationVariables,

@@ -10,16 +10,16 @@
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/dist/.playwright/apps/web-e2e"],
       "options": {
-        "config": "apps/web-e2e/playwright.config.ts"
+        "config": "apps/web-e2e/playwright.config.ts",
+        "headed": true,
+        "ui": true
       },
       "configurations": {
-        "dev": {
-          "ui": true
-        },
-        "test": {
-          "ui": true
-        },
-        "ci": {}
+        "dev": {},
+        "test": {},
+        "ci": {
+          "ui": false
+        }
       }
     },
     "lint": {

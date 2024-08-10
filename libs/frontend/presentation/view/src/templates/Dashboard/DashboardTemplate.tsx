@@ -37,12 +37,17 @@ export const DashboardTemplate = ({
     [appSlug, pageSlug, componentSlug, userSlug],
   )
 
-  const activeSidebarKey =
-    (primarySidebarKey as React.Key) || PrimarySidebar?.default || null
+  const activeSidebarKey = useMemo(
+    () => (primarySidebarKey as React.Key) || PrimarySidebar?.default || null,
+    [primarySidebarKey, PrimarySidebar?.default],
+  )
 
-  const ActivePrimarySidebar = PrimarySidebar?.items.find(
-    (item) => item.key === activeSidebarKey,
-  )?.render
+  const ActivePrimarySidebar = useMemo(
+    () =>
+      PrimarySidebar?.items.find((item) => item.key === activeSidebarKey)
+        ?.render,
+    [PrimarySidebar?.items, activeSidebarKey],
+  )
 
   return (
     <Layout className="h-full">

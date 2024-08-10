@@ -1,7 +1,4 @@
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -11,9 +8,9 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -108,7 +105,7 @@ export const UpdateFieldForm = observer(
         onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.UpdateField.key}
+        uiKey={UiKey.UpdateFieldForm}
       >
         <AutoFields fields={['id', 'key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />

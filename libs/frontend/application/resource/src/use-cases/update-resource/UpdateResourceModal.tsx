@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
@@ -38,6 +38,7 @@ export const UpdateResourceModal = observer(() => {
       okText="Update Resource"
       onCancel={closeModal}
       open={updateResourceModal.isOpen}
+      uiKey={UiKey.UpdateResourceModal}
     >
       <ModalForm.Form<IUpdateResourceData>
         model={model}
@@ -47,7 +48,6 @@ export const UpdateResourceModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateResourceSchema}
-        uiKey={MODEL_ACTION.UpdateResource.key}
       >
         <AutoFields />
       </ModalForm.Form>

@@ -2,7 +2,7 @@ import type {
   RedirectFragment,
   RedirectOptions,
   RedirectWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRepository } from '../shared'
 import type { IRedirectModel } from './redirect.model.interface'
 

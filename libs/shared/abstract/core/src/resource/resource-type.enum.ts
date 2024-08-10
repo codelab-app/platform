@@ -1,3 +1,3 @@
-import { ResourceType } from '@codelab/shared/abstract/codegen'
+import { ResourceType } from '@codelab/shared/infra/gql'
 
 export { ResourceType as IResourceType }

@@ -33,7 +33,8 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
   onSubmitSuccess = [],
   schema,
 }: React.PropsWithChildren<
-  Omit<FormProps<TData, TResponse>, 'submitRef'>
+  // Only standalone form should have `uiKey`
+  Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
 >): ReactElement => {
   const { setIsLoading, submitRef } = useContext(ModalFormContext)
 

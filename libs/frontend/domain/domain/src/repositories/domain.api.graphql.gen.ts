@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/infra/gql'
+import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import { DomainFragmentDoc } from '@codelab/frontend/infra/gql'
+import { DomainFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const DomainListDocument = graphql(`
   query DomainList($options: DomainOptions, $where: DomainWhere) {
@@ -48,7 +48,7 @@ import {
   type CreateDomainsMutationVariables,
   type UpdateDomainsMutationVariables,
   type DeleteDomainsMutationVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const DomainList = (
   variables: DomainListQueryVariables,

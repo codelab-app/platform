@@ -1,5 +1,4 @@
-import type { ModelActionKey } from '@codelab/frontend/abstract/types'
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import type { UiKey } from '@codelab/frontend/abstract/types'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
@@ -8,7 +7,7 @@ import type { CuiSidebarToolbarProps } from '../../views'
 import { CuiSidebarPopoverHeader } from './CuiSidebarPopoverHeader'
 
 export interface CuiSidebarPopoverProps {
-  id: ModelActionKey
+  id: UiKey
   label: string
   toolbar?: CuiSidebarToolbarProps
 }
@@ -25,6 +24,7 @@ export const CuiSidebarPopover = observer(
 
     return isOpen ? (
       <div
+        aria-label={label}
         className="
           flex
           w-full
@@ -36,7 +36,8 @@ export const CuiSidebarPopover = observer(
           border-gray-300
           bg-white
         "
-        data-cy={CY_DATA.cuiPopover(id).cyData}
+        data-testid={id}
+        role="dialog"
       >
         <CuiSidebarPopoverHeader label={label} toolbar={toolbar} />
         <div

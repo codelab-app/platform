@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -8,8 +8,8 @@ import {
   DisplayIfField,
   ModalForm,
 } from '@codelab/frontend-presentation-components-form'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -57,6 +57,7 @@ export const UpdateFieldModal = observer(() => {
       onCancel={closeModal}
       open={updateFieldModal.isOpen}
       title={<span className="font-semibold">Update field</span>}
+      uiKey={UiKey.UpdateFieldModal}
     >
       <ModalForm.Form<IUpdateFieldData>
         model={{
@@ -95,7 +96,6 @@ export const UpdateFieldModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createFieldSchema}
-        uiKey={MODEL_ACTION.UpdateField.key}
       >
         <AutoFields fields={['key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />

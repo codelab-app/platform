@@ -9,8 +9,8 @@ import {
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 

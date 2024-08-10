@@ -1,8 +1,8 @@
-import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+import type { UiKey } from '@codelab/frontend/abstract/types'
 
 export interface IPopoverStore {
   close(): void
   isAnyPopoverOpen(): boolean
-  isOpen(id: ModelActionKey): boolean
-  open(id: ModelActionKey): void
+  isOpen(id: UiKey): boolean
+  open(id: UiKey): void
 }

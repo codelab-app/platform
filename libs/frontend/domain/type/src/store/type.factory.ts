@@ -1,5 +1,4 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
-import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
   IArrayTypeDto,
   ICreateTypeDto,
@@ -8,6 +7,7 @@ import type {
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/infra/gql'
 import { ActionType } from './action-type.model'
 import { AppType } from './app-type.model'
 import { ArrayType } from './array-type.model'

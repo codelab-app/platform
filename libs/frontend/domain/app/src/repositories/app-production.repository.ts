@@ -2,7 +2,7 @@ import type {
   IAppProductionArgs,
   IAppProductionDto,
 } from '@codelab/frontend/abstract/domain'
-import type { AtomProductionFragment } from '@codelab/frontend/infra/gql'
+import type { AtomProductionFragment } from '@codelab/shared/infra/gql'
 import uniqBy from 'lodash/uniqBy'
 import { GetAppProduction } from './app.api.graphql.gen'
 

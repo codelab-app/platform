@@ -1,6 +1,6 @@
 'use client'
 
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { GetTypeReferences } from '@codelab/frontend-domain-type/repositories'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -55,6 +55,7 @@ export const DeleteTypeModal = observer(() => {
       onCancel={closeModal}
       open={deleteTypeModal.isOpen}
       title={<span className="font-semibold">Delete type</span>}
+      uiKey={UiKey.DeleteTypeModal}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
@@ -64,7 +65,6 @@ export const DeleteTypeModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteType.key}
       >
         <h4>Are you sure you want to delete type "{typeToDelete?.name}"?</h4>
       </ModalForm.Form>

@@ -23,10 +23,6 @@ import {
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import {
-  ElementCreateInput,
-  ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -37,6 +33,10 @@ import {
   ElementProperties,
   reconnectNodeId,
 } from '@codelab/shared/domain'
+import {
+  ElementCreateInput,
+  ElementUpdateInput,
+} from '@codelab/shared/infra/gql'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {

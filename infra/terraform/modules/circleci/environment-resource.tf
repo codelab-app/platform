@@ -13,8 +13,8 @@ resource "circleci_environment_variable" "env_vars" {
     AUTH0_CLIENT_SECRET       = var.auth0_web_client_secret
     AUTH0_M2M_CLIENT_ID       = var.auth0_m2m_client_id
     AUTH0_M2M_CLIENT_SECRET   = var.auth0_m2m_client_secret
-    AUTH0_CYPRESS_USERNAME    = var.auth0_cypress_username
-    AUTH0_CYPRESS_PASSWORD    = var.auth0_cypress_password
+    AUTH0_E2E_USERNAME        = var.auth0_e2e_username
+    AUTH0_E2E_PASSWORD        = var.auth0_e2e_password
     AUTH0_DOMAIN              = var.auth0_domain
     AUTH0_SECRET              = var.auth0_secret
     CYPRESS_RECORD_KEY        = var.cypress_record_key

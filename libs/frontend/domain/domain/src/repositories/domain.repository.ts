@@ -6,7 +6,7 @@ import type {
   DomainOptions,
   DomainUniqueWhere,
   DomainWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import {
   CreateDomains,

@@ -2,7 +2,7 @@
 
 import type { ApolloError } from '@apollo/client'
 import type { IUpdateDomainData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
@@ -49,14 +49,18 @@ export const UpdateDomainModal = observer(() => {
   }
 
   return (
-    <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={isOpen}>
+    <ModalForm.Modal
+      okText="Update Domain"
+      onCancel={closeModal}
+      open={isOpen}
+      uiKey={UiKey.UpdateDomainModal}
+    >
       <ModalForm.Form<IUpdateDomainData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateDomainSchema}
-        uiKey={MODEL_ACTION.UpdateDomain.key}
       >
         <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>

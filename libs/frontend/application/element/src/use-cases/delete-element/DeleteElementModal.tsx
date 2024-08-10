@@ -1,6 +1,6 @@
 'use client'
 import type { IBuilderService } from '@codelab/frontend/abstract/application'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -47,6 +47,7 @@ export const DeleteElementModal = observer<{
       onCancel={closeModal}
       open={deleteElementModal.isOpen}
       title={<span className="font-semibold">Delete element</span>}
+      uiKey={UiKey.DeleteElementModal}
     >
       <ModalForm.Form<DeleteElementData>
         model={model}
@@ -56,7 +57,6 @@ export const DeleteElementModal = observer<{
         })}
         onSubmitSuccess={closeModal}
         schema={deleteElementSchema}
-        uiKey={MODEL_ACTION.DeleteElement.key}
       >
         <h4>
           Are you sure you want to delete{' '}

@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/infra/gql'
+import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import { TagFragmentDoc } from '@codelab/frontend/infra/gql'
+import { TagFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const CreateTagsDocument = graphql(`
   mutation CreateTags($input: [TagCreateInput!]!) {
@@ -48,7 +48,7 @@ import {
   type UpdateTagsMutationVariables,
   type DeleteTagsMutationVariables,
   type GetTagsQueryVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreateTags = (
   variables: CreateTagsMutationVariables,

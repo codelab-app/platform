@@ -16,15 +16,15 @@ import {
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
-import type {
-  ComponentDeleteInput,
-  ComponentUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain'
+import type {
+  ComponentDeleteInput,
+  ComponentUpdateInput,
+} from '@codelab/shared/infra/gql'
+import { ComponentCreateInput } from '@codelab/shared/infra/gql'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

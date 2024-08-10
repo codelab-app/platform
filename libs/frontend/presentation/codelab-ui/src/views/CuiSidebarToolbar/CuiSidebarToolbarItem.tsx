@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import { Tooltip } from 'antd'
 import React from 'react'
 import type { ToolbarItem } from '../../abstract'
@@ -12,7 +12,7 @@ export const CuiSidebarToolbarItem = ({
   title,
 }: CuiSidebarToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(cuiKey).cyData}>
+    <div className="size-full" data-cy={Cui.cuiToolbarItem(cuiKey)}>
       <Tooltip title={title}>
         <div
           className="

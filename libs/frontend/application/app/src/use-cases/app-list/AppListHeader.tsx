@@ -2,7 +2,7 @@
 
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
@@ -20,19 +20,19 @@ export const AppListHeader = () => {
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.ImportApp.key,
+      cuiKey: UiKey.ImportAppToolbarItem,
       icon: <ImportAppDialog key={0} />,
       title: 'Import an app',
     },
     {
       ariaLabel: ariaLabels.createAppButton,
-      cuiKey: MODEL_ACTION.CreateApp.key,
+      cuiKey: UiKey.CreateAppToolbarItem,
       icon: <PlusOutlined />,
       onClick: () => createAppModal.open(),
       title: 'Create an App',
     },
     {
-      cuiKey: MODEL_ACTION.SignOutUser.key,
+      cuiKey: UiKey.SignOutUserToolbarItem,
       icon: <LogoutOutlined />,
       onClick: () => {
         // redirect to /api/auth/logout

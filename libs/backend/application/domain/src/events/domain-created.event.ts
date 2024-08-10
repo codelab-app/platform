@@ -1,4 +1,4 @@
-import type { DomainCreatedSubscription } from '@codelab/shared/abstract/codegen'
+import type { DomainCreatedSubscription } from '@codelab/shared/infra/gql'
 
 export const DOMAIN_CREATED_EVENT = 'domain.created'
 

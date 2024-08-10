@@ -89,7 +89,7 @@ export const addProjectTags = (
       'libs/shared/abstract',
       'libs/frontend/abstract',
       'libs/backend/abstract',
-      'libs/frontend/infra/gql',
+      'libs/shared/infra/gql',
     ],
     'type:abstract',
     projectConfig,

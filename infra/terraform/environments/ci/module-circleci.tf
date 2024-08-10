@@ -6,10 +6,10 @@ module "circleci" {
   next_public_api_port      = var.NEXT_PUBLIC_API_PORT
   next_public_base_api_path = var.NEXT_PUBLIC_BASE_API_PATH
 
-  auth0_domain           = var.AUTH0_DOMAIN
-  auth0_cypress_username = var.AUTH0_CYPRESS_USERNAME
-  auth0_cypress_password = var.AUTH0_CYPRESS_PASSWORD
-  auth0_secret           = var.AUTH0_SECRET
+  auth0_domain       = var.AUTH0_DOMAIN
+  auth0_e2e_username = var.AUTH0_E2E_USERNAME
+  auth0_e2e_password = var.AUTH0_E2E_PASSWORD
+  auth0_secret       = var.AUTH0_SECRET
 
   auth0_web_client_id     = module.auth0.web_client.id
   auth0_web_client_secret = module.auth0.web_client.client_secret

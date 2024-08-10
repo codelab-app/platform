@@ -1,7 +1,4 @@
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -66,7 +63,7 @@ export const CreateTagForm = observer(
         onSubmitSuccess={closeForm}
         schema={createTagSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateTag.key}
+        uiKey={UiKey.CreateTagForm}
       >
         <AutoFields omitFields={['parent']} />
         <AutoField label="Parent Tag" name="parent.id" />

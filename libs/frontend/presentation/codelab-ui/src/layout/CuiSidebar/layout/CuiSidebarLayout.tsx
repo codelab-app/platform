@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import classNames from 'classnames'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
@@ -17,7 +17,7 @@ export const CuiSidebarLayout = ({
   return (
     <div
       className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
-      data-cy={CY_DATA.cuiSidebar(uiKey).cyData}
+      data-cy={Cui.cuiSidebar(uiKey)}
       ref={popoverAnchorRef}
     >
       {children}

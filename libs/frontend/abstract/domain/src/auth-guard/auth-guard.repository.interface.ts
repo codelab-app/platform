@@ -3,7 +3,7 @@ import type {
   AuthGuardFragment,
   AuthGuardOptions,
   AuthGuardWhere,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRepository } from '../shared'
 import type { IAuthGuardModel } from './auth-guard.model.interface'
 

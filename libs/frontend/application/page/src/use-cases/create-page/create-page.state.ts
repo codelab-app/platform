@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useFormState } from '@codelab/frontend-application-shared-store/ui'
 
-export const useCreatePageForm = () => useFormState(MODEL_ACTION.CreatePage.key)
+export const useCreatePageForm = () => useFormState(UiKey.CreatePageForm)

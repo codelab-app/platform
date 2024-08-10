@@ -4,7 +4,6 @@ import type {
   ICreateAppData,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
-import type { AppWhere } from '@codelab/frontend/infra/gql'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import {
   appRepository,
@@ -15,6 +14,7 @@ import { elementRepository } from '@codelab/frontend-domain-element/repositories
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
+import type { AppWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 
 export const useAppService = (): IAppService => {

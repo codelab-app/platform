@@ -5,7 +5,6 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
-import type { AtomOptions, AtomWhere } from '@codelab/frontend/infra/gql'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -16,9 +15,9 @@ import {
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
-  type IRef,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 import isEmpty from 'lodash/isEmpty'
 import { v4 } from 'uuid'

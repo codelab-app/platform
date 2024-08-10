@@ -1,6 +1,6 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useModalState } from '@codelab/frontend-application-shared-store/ui'
 
 export const useDeleteElementModal = () =>
-  useModalState<IElementModel>(MODEL_ACTION.DeleteElement.key)
+  useModalState<IElementModel>(UiKey.DeleteElementModal)

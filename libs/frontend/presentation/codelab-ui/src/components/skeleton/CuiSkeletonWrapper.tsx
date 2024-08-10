@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend-application-shared-data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import { Skeleton } from 'antd'
 import React from 'react'
 
@@ -14,7 +14,7 @@ export const CuiSkeletonWrapper = ({
   <div className="size-full">
     <div
       className={`size-full ${isLoading ? 'block' : 'hidden'}`}
-      data-cy={CY_DATA.cuiSkeleton().cyData}
+      data-testid={Cui.cuiSkeleton()}
     >
       <Skeleton active loading style={{ padding: 5 }} />
     </div>

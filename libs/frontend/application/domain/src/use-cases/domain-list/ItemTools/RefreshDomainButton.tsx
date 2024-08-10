@@ -1,6 +1,6 @@
 import SyncOutlined from '@ant-design/icons/SyncOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
-import {} from '@codelab/frontend/infra/gql'
+import {} from '@codelab/shared/infra/gql'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

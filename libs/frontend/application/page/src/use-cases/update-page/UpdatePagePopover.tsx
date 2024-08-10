@@ -2,10 +2,7 @@
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
@@ -23,12 +20,12 @@ export const UpdatePagePopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={MODEL_ACTION.UpdatePage.key}
+      id={UiKey.UpdatePagePopover}
       label="Update Page"
       toolbar={{
         items: [
           {
-            cuiKey: MODEL_ACTION.UpdatePage.key,
+            cuiKey: UiKey.UpdatePageToolbarItem,
             icon: <SaveOutlined />,
             label: 'Update',
             onClick: () => {
@@ -37,7 +34,7 @@ export const UpdatePagePopover = observer(() => {
             title: 'Update',
           },
           {
-            cuiKey: MODEL_ACTION.CancelUpdatePage.key,
+            cuiKey: UiKey.CancelUpdatePageToolbarItem,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

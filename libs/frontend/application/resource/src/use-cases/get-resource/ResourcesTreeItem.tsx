@@ -3,7 +3,7 @@ import type {
   IResourceNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -35,7 +35,7 @@ export const ResourcesTreeItem = observer(
 
     const toolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.DeleteResource.key,
+        cuiKey: UiKey.DeleteResourceToolbarItem,
         icon: <DeleteOutlined />,
         onClick: onDelete,
         title: 'Delete',

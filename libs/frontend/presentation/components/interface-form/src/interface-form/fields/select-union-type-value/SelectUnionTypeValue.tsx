@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   createValidator,
   Form,
@@ -97,7 +97,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             }}
             onSubmit={() => Promise.resolve()}
             schema={valueSchema as any}
-            uiKey={MODEL_ACTION.SelectUnionTypeValueField.key}
+            uiKey={UiKey.SelectUnionTypeValueFieldForm}
           >
             <AutoField data-testid={valueFieldName} name="value" />
           </Form>

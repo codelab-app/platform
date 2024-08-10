@@ -63,14 +63,14 @@ export class Auth0EnvVars implements IAuth0EnvVars {
 
   get cypressUsername(): string {
     return (this._cypressUsername ??= env
-      .get('AUTH0_CYPRESS_USERNAME')
+      .get('AUTH0_E2E_USERNAME')
       .required()
       .asString())
   }
 
   get cypressPassword(): string {
     return (this._cypressPassword ??= env
-      .get('AUTH0_CYPRESS_PASSWORD')
+      .get('AUTH0_E2E_PASSWORD')
       .required()
       .asString())
   }

@@ -4,7 +4,7 @@ import type {
   IBaseTypeOptions,
   IBaseTypeWhere,
   TypeFragment,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 import type { IRepository } from '../shared'
 import type { ITypeModel } from './types'
 

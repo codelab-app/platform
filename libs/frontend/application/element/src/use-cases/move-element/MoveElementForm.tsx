@@ -4,7 +4,7 @@ import type {
   IRuntimeElementModel,
   MoveData,
 } from '@codelab/frontend/abstract/application'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
@@ -97,7 +97,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
             title: 'Error while moving element',
           })}
           schema={moveElementSchema}
-          uiKey={MODEL_ACTION.MoveElement.key}
+          uiKey={UiKey.MoveElementForm}
         >
           <AutoFields omitFields={['parentElement', 'prevSibling']} />
           <AutoField

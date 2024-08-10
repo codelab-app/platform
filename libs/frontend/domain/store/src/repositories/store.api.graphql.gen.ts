@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/infra/gql'
+import * as Types from '@codelab/shared/infra/gql'
 
-import { graphql } from '@codelab/frontend/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/frontend/infra/graphql'
-import { StoreFragmentDoc } from '@codelab/frontend/infra/gql'
+import { StoreFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const CreateStoresDocument = graphql(`
   mutation CreateStores($input: [StoreCreateInput!]!) {
@@ -52,7 +52,7 @@ import {
   type DeleteStoresMutationVariables,
   type GetStoresQueryVariables,
   type UpdateStoresMutationVariables,
-} from '@codelab/frontend/infra/gql'
+} from '@codelab/shared/infra/gql'
 
 export const CreateStores = (
   variables: CreateStoresMutationVariables,

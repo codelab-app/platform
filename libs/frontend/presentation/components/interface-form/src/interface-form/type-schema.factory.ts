@@ -17,7 +17,7 @@ import type {
   IUnionTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldDescription } from '@codelab/frontend-presentation-components-form/schema'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
