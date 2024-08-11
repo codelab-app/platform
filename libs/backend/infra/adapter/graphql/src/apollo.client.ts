@@ -9,7 +9,7 @@ const httpLink = new HttpLink({
   uri: `http://127.0.0.1:${env
     .get('NEXT_PUBLIC_API_PORT')
     .required()
-    .asPortNumber()}/api/graphql`,
+    .asPortNumber()}/api/v1/graphql`,
 })
 
 export const wsLink = new GraphQLWsLink(
@@ -17,7 +17,7 @@ export const wsLink = new GraphQLWsLink(
     url: `ws://127.0.0.1:${env
       .get('NEXT_PUBLIC_API_PORT')
       .required()
-      .asPortNumber()}/api/graphql`,
+      .asPortNumber()}/api/v1/graphql`,
     webSocketImpl: WebSocket,
   }),
 )

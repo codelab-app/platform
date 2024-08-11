@@ -17,8 +17,8 @@ describe('Auth0 client', () => {
     })
 
     const response = await auth0Client.loginWithPassword(
-      env.auth0.cypressUsername,
-      env.auth0.cypressPassword,
+      env.auth0.auth0Username,
+      env.auth0.auth0Password,
     )
 
     // console.debug(response.data.access_token)

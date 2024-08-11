@@ -10,7 +10,7 @@ import { endpointConfig } from '@codelab/backend/infra/core'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 import { GraphqlService } from './graphql.service'
@@ -35,8 +35,11 @@ import { GraphqlService } from './graphql.service'
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [GraphQLSchemaModule],
-      inject: [GRAPHQL_SCHEMA_PROVIDER],
-      useFactory: async (graphqlSchema: GraphQLSchema) => {
+      inject: [GRAPHQL_SCHEMA_PROVIDER, endpointConfig.KEY],
+      useFactory: async (
+        graphqlSchema: GraphQLSchema,
+        endpoint: ConfigType<typeof endpointConfig>,
+      ) => {
         return {
           // bodyParserConfig: false,
           context: async ({ req, res }: GqlContext) => {
@@ -61,7 +64,7 @@ import { GraphqlService } from './graphql.service'
             return response
           },
           introspection: true,
-          path: 'api/v1/graphql',
+          path: `${endpoint.baseApiPath}/graphql`,
           playground: false,
           plugins: [
             ApolloServerPluginLandingPageLocalDefault(),

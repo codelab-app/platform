@@ -10,21 +10,22 @@ import {
 import { initUserContext } from '@codelab/backend/test'
 import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain'
-import type {
-  TestCreateDomainAppsMutationVariables,
-  TestUpdateDomainsMutationVariables,
-} from '@codelab/shared/infra/gql'
 import type { INestApplication } from '@nestjs/common'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import * as env from 'env-var'
 import { v4 } from 'uuid'
 import { DomainApplicationModule } from '../domain.application.module'
 import { DomainListener } from '../listeners/domain.listener'
+import { RegisterDomainListener } from '../listeners/register-domain.listener'
+import type {
+  TestCreateDomainAppsMutationVariables,
+  TestUpdateDomainsMutationVariables,
+} from './domain.spec.graphql.gen'
 import {
-  TestCreateDomainApps,
-  TestCreateDomains,
-  TestDeleteDomains,
-  TestUpdateDomains,
+  TestCreateDomainAppsDocument,
+  TestCreateDomainsDocument,
+  TestDeleteDomainsDocument,
+  TestUpdateDomainsDocument,
 } from './domain.spec.graphql.gen'
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
@@ -33,9 +34,13 @@ describe('Domain subscriptions', () => {
   let app: INestApplication
   let graphqlService: GraphqlService
   let domainListener: DomainListener
+  let registerDomainListener: RegisterDomainListener
   let domainCreatedSpy: jest.SpyInstance
   let domainUpdatedSpy: jest.SpyInstance
   let domainDeletedSpy: jest.SpyInstance
+  let registerCreatedSubscriptionsSpy: jest.SpyInstance
+  let registerDeletedSubscriptionsSpy: jest.SpyInstance
+  let registerUpdatedSubscriptionsSpy: jest.SpyInstance
 
   const context = initUserContext({
     imports: [
@@ -51,6 +56,7 @@ describe('Domain subscriptions', () => {
     const module = ctx.module
 
     domainListener = module.get(DomainListener)
+    registerDomainListener = module.get(RegisterDomainListener)
 
     app = ctx.nestApp
     app.enableShutdownHooks()
@@ -93,13 +99,13 @@ describe('Domain subscriptions', () => {
     ]
 
     await graphqlClient.request<TestCreateDomainAppsMutationVariables>(
-      TestCreateDomainApps,
+      TestCreateDomainAppsDocument,
       {
         input: appInput,
       },
     )
 
-    await graphqlClient.request(TestCreateDomains, {
+    await graphqlClient.request(TestCreateDomainsDocument, {
       input: domainInput,
     })
 
@@ -108,7 +114,7 @@ describe('Domain subscriptions', () => {
 
   it('should call the domain updated subscription handler', async () => {
     await graphqlClient.request<TestUpdateDomainsMutationVariables>(
-      TestUpdateDomains,
+      TestUpdateDomainsDocument,
       {
         update: {
           name: 'codelab.com',
@@ -123,7 +129,7 @@ describe('Domain subscriptions', () => {
   })
 
   it('should call the domain deleted subscription handler', async () => {
-    await graphqlClient.request(TestDeleteDomains, {
+    await graphqlClient.request(TestDeleteDomainsDocument, {
       where: {
         id: domainId,
       },
