@@ -1,3 +1,5 @@
+'use client'
+
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import {
   ApplicationStoreContext,

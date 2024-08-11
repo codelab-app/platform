@@ -1,4 +1,9 @@
-import type { IAppDto, IPageDto, IRef } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  IComponentDto,
+  IPageDto,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type {
   AtomBuilderFragment,
   AuthGuardFragment,
@@ -21,7 +26,7 @@ export interface IHydrateableData {
   apps?: Array<IAppDto>
   atoms?: Array<AtomBuilderFragment>
   authGuards?: Array<AuthGuardFragment>
-  components?: Array<ComponentBuilderFragment>
+  components?: Array<ComponentBuilderFragment | IComponentDto>
   elements?: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields?: Array<FieldFragment>
   // pages?: Array<PageDevelopmentFragment>

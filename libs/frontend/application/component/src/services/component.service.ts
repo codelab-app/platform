@@ -9,7 +9,6 @@ import { useElementService } from '@codelab/frontend-application-element/service
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
-import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   useApplicationStore,
   useDomainStore,
@@ -32,10 +31,6 @@ export const useComponentService = (): IComponentService => {
 
   const create = async ({ id, name, rootElement }: ICreateComponentData) => {
     const component = componentDomainService.add({ id, name, rootElement })
-
-    if (!rootElement) {
-      await elementRepository.add(component.rootElement.current)
-    }
 
     await componentRepository.add(component)
 
@@ -133,7 +128,7 @@ export const useComponentService = (): IComponentService => {
     filter: { name?: string },
   ) => {
     const items = await getAll(
-      { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+      { compositeKey_MATCHES: `(?i).*${filter.name ?? ''}.*` },
       {
         limit: pageSize,
         offset: (page - 1) * pageSize,

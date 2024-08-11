@@ -6896,7 +6896,6 @@ type ComponentAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
 }
 
 input ComponentApiAggregateInput {
@@ -7039,7 +7038,6 @@ input ComponentCreateInput {
   api: ComponentApiFieldInput
   compositeKey: String!
   id: ID!
-  name: String!
   owner: WithOwnerOwnerFieldInput
   props: ComponentPropsFieldInput
   rootElement: ComponentRootElementFieldInput
@@ -7113,7 +7111,6 @@ type ComponentInterfaceTypeApiNodeAggregateSelection {
 input ComponentOnCreateInput {
   compositeKey: String!
   id: ID!
-  name: String!
 }
 
 input ComponentOptions {
@@ -7564,7 +7561,6 @@ Fields to sort Components by. The order in which sorts are applied is not guaran
 input ComponentSort {
   compositeKey: SortDirection
   id: SortDirection
-  name: SortDirection
 }
 
 input ComponentStoreAggregateInput {
@@ -7728,7 +7724,6 @@ input ComponentUpdateInput {
   api: ComponentApiUpdateFieldInput
   compositeKey: String
   id: ID
-  name: String
   owner: WithOwnerOwnerUpdateFieldInput
   props: ComponentPropsUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput
@@ -7776,12 +7771,6 @@ input ComponentWhere {
   id_IN: [ID!]
   id_MATCHES: String
   id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_MATCHES: String
-  name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: ComponentOwnerAggregateInput
   ownerConnection: WithOwnerOwnerConnectionWhere
@@ -8624,21 +8613,6 @@ input ElementChildMapperComponentNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementChildMapperComponentRelationship {
@@ -8848,7 +8822,6 @@ type ElementComponentChildMapperComponentAggregationSelection {
 type ElementComponentChildMapperComponentNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
 }
 
 type ElementComponentParentComponentAggregationSelection {
@@ -8859,7 +8832,6 @@ type ElementComponentParentComponentAggregationSelection {
 type ElementComponentParentComponentNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
 }
 
 input ElementConnectInput {
@@ -9669,21 +9641,6 @@ input ElementParentComponentNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementParentComponentRelationship {
@@ -24264,7 +24221,6 @@ type UserComponentComponentsAggregationSelection {
 type UserComponentComponentsNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
 }
 
 input UserComponentsAggregateInput {
@@ -24358,21 +24314,6 @@ input UserComponentsNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserComponentsRelationship {
