@@ -96,7 +96,7 @@ export const usePaginationService = <
     currentPage: state.currentPage,
     data: state.data,
     dataRefs: state.dataRefs,
-    filter: state.filter,
+    filter: state.filter as U,
     getData,
     isLoading: state.isLoading,
     pageSize: state.pageSize,
@@ -105,5 +105,5 @@ export const usePaginationService = <
     setFilter,
     setPageSize,
     totalItems: state.totalItems,
-  } as IPaginationService<T, U>
+  }
 }
