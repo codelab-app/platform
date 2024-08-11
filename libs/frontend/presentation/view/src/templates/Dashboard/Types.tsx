@@ -1,4 +1,4 @@
-import type { JSXElementConstructor } from 'react'
+import type { ReactNode } from 'react'
 import type React from 'react'
 
 export interface PrimarySidebarItem {
@@ -15,7 +15,7 @@ export type DashboardTemplateProps<T = unknown> = T & {
   /**
    * The right panel used for configuration element settings
    */
-  ConfigPane?: JSXElementConstructor<unknown>
+  ConfigPane?: ReactNode
   /**
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */

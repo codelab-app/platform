@@ -1,40 +1,37 @@
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
+import { useAtomService } from '@codelab/frontend-application-atom/services'
 import {
   mapAtomOptions,
   mapComponentOptions,
-} from '@codelab/frontend/domain/atom'
+} from '@codelab/frontend-domain-atom/store'
+import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { useAsync } from '@react-hookz/web'
-import type { DefaultOptionType } from 'antd/lib/select'
 import React, { useCallback } from 'react'
+import { useAsyncFn } from 'react-use'
 
-const isComponentType = (id: string, components: Array<DefaultOptionType>) => {
+const isComponentType = (id: string, components: Array<SelectOption>) => {
   return Boolean(components.find((option) => option.value === id))
 }
 
 export const useLoadOptions = (parentAtom?: IAtomModel) => {
-  const { atomService, componentService } = useStore()
+  const atomService = useAtomService()
+  const { componentDomainService } = useDomainStore()
 
-  const [atoms, loadAtomOptions] = useAsync(() =>
+  const [atoms, loadAtomOptions] = useAsyncFn(() =>
     atomService.getSelectAtomOptions(parentAtom),
   )
 
-  const [components, loadComponentOptions] = useAsync(() =>
-    componentService.getSelectComponentOptions(),
+  const [components, loadComponentOptions] = useAsyncFn(() =>
+    getSelectComponentOptions(componentDomainService),
   )
 
   const loadOptionsIfNeeded = useCallback(() => {
-    if (
-      components.status === 'not-executed' ||
-      atoms.status === 'not-executed'
-    ) {
-      void Promise.all([
-        loadComponentOptions.execute(),
-        loadAtomOptions.execute(),
-      ])
+    if (!components.value || !atoms.value) {
+      void Promise.all([loadComponentOptions(), loadAtomOptions()])
     }
   }, [atoms, components, loadAtomOptions, loadComponentOptions])
 
@@ -42,12 +39,12 @@ export const useLoadOptions = (parentAtom?: IAtomModel) => {
 }
 
 export const useRenderTypeSelectOptions = (
-  components?: Array<DefaultOptionType>,
-  atoms?: Array<DefaultOptionType>,
+  components?: Array<SelectOption>,
+  atoms?: Array<SelectOption>,
 ) => {
-  const { atomService, componentService } = useStore()
-  const { componentList } = componentService.componentDomainService
-  const { atomsList } = atomService.atomDomainService
+  const { atomDomainService, componentDomainService } = useDomainStore()
+  const { componentList } = componentDomainService
+  const { atomsList } = atomDomainService
   const fallbackAtoms = atomsList.map(mapAtomOptions)
   const fallbackComponents = componentList.map(mapComponentOptions)
   const componentOptions = components ?? fallbackComponents

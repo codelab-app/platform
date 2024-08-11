@@ -1,3 +1,5 @@
+'use client'
+
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
@@ -32,6 +34,12 @@ const StyledButton = styled(Button)`
   padding: 4px 12px;
 `
 
+const StyledFormField = styled(Form.Item)`
+  .ant-form-item-control-input-content {
+    display: flex;
+  }
+`
+
 export const RenderTypeField = connectField((props: RenderTypeProps) => {
   const { error, id, label, onChange, parentAtom } = props
   const [menuOpened, setMenuOpened] = useState(false)
@@ -40,12 +48,12 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
   const [showAtoms, setShowAtoms] = useState(true)
   const { atoms, components, loadOptionsIfNeeded } = useLoadOptions(parentAtom)
   const errorMessage = error?.message || components.error || atoms.error
-  const componentsToShow = showComponents ? components.result : []
-  const atomsToShow = showAtoms ? atoms.result : []
+  const componentsToShow = showComponents ? components.value : []
+  const atomsToShow = showAtoms ? atoms.value : []
   const options = useRenderTypeSelectOptions(componentsToShow, atomsToShow)
 
   return (
-    <Form.Item
+    <StyledFormField
       help={errorMessage}
       htmlFor={id}
       label={label}
@@ -56,7 +64,7 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
         dropdownStyle={{ width: '100%' }}
         getPopupContainer={(triggerNode) => triggerNode.closest('form')}
         id={id}
-        loading={components.status === 'loading' || atoms.status === 'loading'}
+        loading={components.loading || atoms.loading}
         onChange={(newId) => {
           const option = options.find(({ value }) => value === newId)
           const __typename = option?.__typename
@@ -112,6 +120,6 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
       >
         <DeploymentUnitOutlined />
       </StyledButton>
-    </Form.Item>
+    </StyledFormField>
   )
 })
