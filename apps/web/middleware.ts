@@ -17,20 +17,21 @@ export default auth0ServerInstance.withMiddlewareAuthRequired({
     await auth0ServerInstance.touchSession(req, res)
 
     const session = await auth0ServerInstance.getSession()
+    const expired = checkExpiry(session)
 
-    console.log(session)
+    if (expired) {
+      const url = req.nextUrl.clone()
 
-    // const expired = checkExpiry(session)
+      url.pathname = '/api/auth/login'
 
-    // if (expired) {
-    //   const url = req.nextUrl.clone()
+      return NextResponse.redirect(url)
+    }
 
-    //   url.pathname = '/api/auth/login'
+    // Attach headers here
+    res.headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
-    //   return NextResponse.redirect(url)
-    // }
-
-    // process.env.AUTHORIZATION_TOKEN = session?.accessToken
+    // Used for request to backend APIs
+    process.env.AUTHORIZATION_TOKEN = session?.accessToken
 
     return res
   },
