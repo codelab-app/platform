@@ -13,6 +13,7 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
+import { ComponentCreateInput } from '@codelab/frontend/infra/gql'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
@@ -131,7 +132,6 @@ export class Component
       api: { create: { node: this.api.current.toCreateInput() } },
       compositeKey: `${this.userDomainService.user.auth0Id}-${this.name}`,
       id: this.id,
-      name: this.name,
       owner: connectOwner(this.userDomainService.user),
       props: { create: { node: this.props.toCreateInput() } },
       rootElement: {

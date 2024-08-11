@@ -8,21 +8,24 @@ interface ComponentData {
   owner: { id: never }
 }
 
+const SEPARATOR_SYMBOL = '-'
+
 const componentCompositeKey = (
-  app: Pick<IComponent, 'slug'>,
+  component: Pick<IComponent, 'slug'>,
   user: Pick<IUserDto, 'id'>,
-) => `${user.id}-${app.slug}`
+) => `${user.id}${SEPARATOR_SYMBOL}${component.slug}`
 
 const componentNameFromCompositeKey = (
-  app: DeepPick<Component, ComponentData>,
+  component: DeepPick<Component, ComponentData>,
 ) => {
-  return app.compositeKey.replace(`${app.owner.id}-`, '')
+  // return component.compositeKey.replace(`${component.owner.id}-`, '')
+  return component.compositeKey.split(SEPARATOR_SYMBOL).pop()
 }
 
 const componentSlugFromCompositeKey = (
-  app: DeepPick<Component, ComponentData>,
+  component: DeepPick<Component, ComponentData>,
 ) => {
-  return slugify(ComponentProperties.componentNameFromCompositeKey(app))
+  return slugify(ComponentProperties.componentNameFromCompositeKey(component))
 }
 
 export const ComponentProperties = {

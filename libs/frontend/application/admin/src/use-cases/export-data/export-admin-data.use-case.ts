@@ -11,7 +11,5 @@ export const exportAdminDataUseCase = async (dto: IExportDto) => {
     method: 'POST',
   })
 
-  const { data } = await response.json()
-
-  return data
+  return response.text()
 }

@@ -10,20 +10,11 @@ import {
 } from '@codelab/frontend-application-component/use-cases/create-component'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
-import type { IAtomDto, IComponentDto } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { CustomComponents } from './tab-contents/CustomComponents'
 import { PreBuiltComponents } from './tab-contents/PreBuiltComponents'
 
-interface ComponentsPrimarySidebarProps {
-  atoms: Array<IAtomDto>
-  components: Array<IComponentDto>
-}
-
-export const ComponentsPrimarySidebar = ({
-  atoms,
-  components,
-}: ComponentsPrimarySidebarProps) => {
+export const ComponentsPrimarySidebar = () => {
   const { popover } = useCui()
   const createComponentForm = useCreateComponentForm()
 
@@ -31,10 +22,9 @@ export const ComponentsPrimarySidebar = ({
     {
       content: (
         <div className="p-3">
-          <CustomComponents components={components} />
+          <CustomComponents />
         </div>
       ),
-      // isLoading,
       key: 'custom',
       label: 'Custom',
       toolbar: {
@@ -60,10 +50,9 @@ export const ComponentsPrimarySidebar = ({
     {
       content: (
         <div className="p-3">
-          <PreBuiltComponents atoms={atoms} />
+          <PreBuiltComponents />
         </div>
       ),
-      // isLoading,
       key: 'pre-built',
       label: 'Pre-built',
     },

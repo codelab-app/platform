@@ -43,7 +43,7 @@ export class ElementApplicationService {
       )
     } else if (element.component) {
       renderType = await this.componentRepository.findOneOrFail({
-        where: { name: element.component },
+        where: { compositeKey: element.component },
       })
     } else {
       renderType = await this.atomDomainService.defaultRenderType()
