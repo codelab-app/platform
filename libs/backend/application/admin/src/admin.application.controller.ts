@@ -60,10 +60,10 @@ export class AdminController {
   /**
    * For dev we don't clear any data
    */
-  @Post('setup-dev')
-  async setup() {
-    await this.seederApplicationService.setupDevBootstrapData()
-  }
+  // @Post('setup-dev')
+  // async setup() {
+  //   await this.seederApplicationService.setupDevBootstrapData()
+  // }
 
   /**
    * Runs once before all Cypress runs

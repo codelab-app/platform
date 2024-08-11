@@ -27,11 +27,18 @@ export const authFile = 'apps/web-e2e/.auth/user.json'
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
-
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    { name: 'auth setup', testMatch: /auth\.setup\.ts/ },
     {
-      dependencies: ['setup'],
+      name: 'database setup',
+      testMatch: /database\.setup\.ts/,
+      dependencies: ['auth setup'],
+      use: {
+        storageState: authFile,
+      },
+    },
+    {
+      dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
       testMatch: /.*\.spec\.ts/,
       use: {

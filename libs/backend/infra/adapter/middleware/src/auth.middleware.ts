@@ -11,6 +11,8 @@ export const authMiddleware = async (
      */
     const session = await auth0Instance.getSession(request, response)
 
+    console.log(session)
+
     if (session?.user) {
       Object.assign(request, { user: session.user })
     }

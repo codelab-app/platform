@@ -1,3 +1,4 @@
+import { getSession } from '@auth0/nextjs-auth0'
 import {
   auth0ServerInstance,
   checkExpiry,
@@ -16,22 +17,25 @@ export default auth0ServerInstance.withMiddlewareAuthRequired({
     await auth0ServerInstance.touchSession(req, res)
 
     const session = await auth0ServerInstance.getSession()
-    const expired = checkExpiry(session)
 
-    if (expired) {
-      const url = req.nextUrl.clone()
+    console.log(session)
 
-      url.pathname = '/api/auth/login'
+    // const expired = checkExpiry(session)
 
-      return NextResponse.redirect(url)
-    }
+    // if (expired) {
+    //   const url = req.nextUrl.clone()
 
-    process.env.AUTHORIZATION_TOKEN = session?.accessToken
+    //   url.pathname = '/api/auth/login'
+
+    //   return NextResponse.redirect(url)
+    // }
+
+    // process.env.AUTHORIZATION_TOKEN = session?.accessToken
 
     return res
   },
 })
 
 export const config = {
-  matcher: ['/apps(.*)'],
+  matcher: ['/apps/:path*', '/api/:path*', '/:path*'],
 }

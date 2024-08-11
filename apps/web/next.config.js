@@ -83,6 +83,10 @@ const nextConfig = {
   rewrites: async () => ({
     afterFiles: [
       {
+        destination: `${apiHost}/graphql`,
+        source: `${baseApiPath}/graphql`,
+      },
+      {
         destination: `${apiHost}/:path*`,
         source: `${baseApiPath}/:path*`,
       },
