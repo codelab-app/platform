@@ -33,7 +33,6 @@ export class JwtStrategy
        */
       // audience: config.audience,
       issuer: config.issuer_base_url,
-      // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       passReqToCallback: true,
       // ignoreExpiration: false,

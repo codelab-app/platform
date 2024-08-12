@@ -16,7 +16,7 @@ const BuilderLayout = ({ children }: { children: ReactNode }) => {
         items: [
           {
             key: ExplorerPaneType.Components,
-            render: <ComponentsPrimarySidebar atoms={[]} components={[]} />,
+            render: <ComponentsPrimarySidebar />,
           },
           // {
           //   key: ExplorerPaneType.Explorer,
