@@ -10,7 +10,8 @@ const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
 const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
 
-console.log(webUrl, apiUrl)
+export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
+
 export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
 export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
@@ -21,6 +22,8 @@ export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 // require('dotenv').config();
 
 export const authFile = 'apps/web-e2e/.auth/user.json'
+
+console.log(webBaseApiUrl)
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -35,6 +38,8 @@ export default defineConfig({
       dependencies: ['auth setup'],
       use: {
         storageState: authFile,
+        // Requires trailing `/`
+        baseURL: `${webBaseApiUrl}/`,
       },
     },
     {
