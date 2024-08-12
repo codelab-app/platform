@@ -18,7 +18,7 @@ export const gqlFetch = async <TResult, TVariables>(
       variables,
     }),
     headers: {
-      // Accept: 'application/graphql-response+json',
+      Accept: 'application/graphql-response+json',
       'Content-Type': 'application/json',
     },
     method: 'POST',

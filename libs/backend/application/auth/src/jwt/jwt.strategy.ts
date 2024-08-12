@@ -19,7 +19,7 @@ interface IPassportStrategy {
 export const JWT_STRATEGY = 'JWT_STRATEGY'
 
 @Injectable()
-export class Auth0Strategy
+export class JwtStrategy
   extends PassportStrategy(Strategy)
   implements IPassportStrategy
 {
@@ -33,6 +33,7 @@ export class Auth0Strategy
        */
       // audience: config.audience,
       issuer: config.issuer_base_url,
+      // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       passReqToCallback: true,
       // ignoreExpiration: false,

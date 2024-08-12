@@ -10,8 +10,8 @@ export const fetchWithAuth = async (
 
   const headers = {
     ...init.headers,
-    // Authorization: `Bearer ${session?.accessToken}`,
-    // 'X-ID-TOKEN': session?.idToken ?? '',
+    Authorization: `Bearer ${session?.accessToken}`,
+    'X-ID-TOKEN': session?.idToken ?? '',
   }
 
   console.log(headers)

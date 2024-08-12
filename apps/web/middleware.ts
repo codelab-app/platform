@@ -13,38 +13,34 @@ import { NextResponse } from 'next/server'
  */
 export default auth0ServerInstance.withMiddlewareAuthRequired({
   middleware: async (request) => {
-    console.log('middleware!')
-
     const response = NextResponse.next()
 
     await auth0ServerInstance.touchSession(request, response)
 
     const session = await auth0ServerInstance.getSession(request, response)
-    // const expired = checkExpiry(session)
+    const expired = checkExpiry(session)
 
-    // if (expired) {
-    //   const url = request.nextUrl.clone()
+    if (expired) {
+      const url = request.nextUrl.clone()
 
-    //   url.pathname = '/api/auth/login'
+      url.pathname = '/api/auth/login'
 
-    //   return NextResponse.redirect(url)
-    // }
+      return NextResponse.redirect(url)
+    }
 
-    assertIsDefined(session)
-    assertIsDefined(session.idToken)
+    // assertIsDefined(session)
+    // assertIsDefined(session.idToken)
 
     // Attach headers here
-    response.headers.set('Access-Control-Allow-Credentials', 'true')
-    response.headers.set('Access-Control-Allow-Origin', '*')
-    response.headers.set('Access-Control-Allow-Headers', '*')
-    response.headers.set('Access-Control-Allow-Methods', '*')
-    response.headers.set('Authorization', `Bearer ${session.accessToken}`)
-    response.headers.set('X-ID-TOKEN', session.idToken)
+    // response.headers.set('Access-Control-Allow-Credentials', 'true')
+    // response.headers.set('Access-Control-Allow-Origin', '*')
+    // response.headers.set('Access-Control-Allow-Headers', '*')
+    // response.headers.set('Access-Control-Allow-Methods', '*')
+    // response.headers.set('Authorization', `Bearer ${session.accessToken}`)
+    // response.headers.set('X-ID-TOKEN', session.idToken)
 
-    // Used for request to backend APIs
-    process.env.AUTHORIZATION_TOKEN = session.accessToken
-
-    console.log('after middleware')
+    // // Used for request to backend APIs
+    // process.env.AUTHORIZATION_TOKEN = session.accessToken
 
     return response
   },
@@ -53,7 +49,9 @@ export default auth0ServerInstance.withMiddlewareAuthRequired({
 export const config = {
   /**
    * Don't want to include `/api/auth/*`
+   *
+   * Don't guard `/api/v1/:path*`
    */
-  matcher: ['/apps/:path*', '/api/v1/:path*'],
+  matcher: ['/apps/:path*'],
   // matcher: [],
 }

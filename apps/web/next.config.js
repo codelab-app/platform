@@ -81,7 +81,7 @@ const nextConfig = {
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
   rewrites: async () => ({
-    fallback: [
+    afterFiles: [
       {
         destination: `${apiHost}/graphql`,
         source: `${baseApiPath}/graphql`,
