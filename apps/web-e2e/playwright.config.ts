@@ -38,7 +38,7 @@ export default defineConfig({
       },
     },
     {
-      dependencies: ['auth setup', 'database setup'],
+      // dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
       testMatch: /.*\.spec\.ts/,
       use: {
