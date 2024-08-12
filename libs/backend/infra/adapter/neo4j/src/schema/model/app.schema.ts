@@ -4,7 +4,7 @@ import { authOwnerOrAdmin } from './user.schema'
 export const appSchema = gql`
   type App implements WithOwner ${authOwnerOrAdmin} {
     id: ID! @unique
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     # userId-name format to make it unique across user
     compositeKey: String! @unique
     name: String! @customResolver(requires: "owner { id } compositeKey ")
