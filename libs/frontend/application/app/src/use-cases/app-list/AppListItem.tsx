@@ -22,7 +22,7 @@ export const AppListItem = ({ app }: AppListItemProps) => {
   const Dropdown = <AppListItemDropdown app={app} />
 
   return (
-    <Card aria-label={root(app.name)} extra={Dropdown} title={Title}>
+    <Card aria-label={app.slug} extra={Dropdown} title={Title}>
       <DomainList app={app} />
     </Card>
   )

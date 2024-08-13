@@ -96,7 +96,12 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
 
   return (
     <Dropdown menu={{ items: menuItems }} trigger={['click']}>
-      <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
+      <Button
+        aria-label="More options"
+        icon={<EllipsisOutlined />}
+        shape="circle"
+        type="text"
+      />
     </Dropdown>
   )
 }

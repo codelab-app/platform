@@ -33,8 +33,10 @@ test.describe('Apps CRUD', () => {
 
   test.describe('update', () => {
     test('should be able to update app name', async ({ page }) => {
+      appListPage = new AppListPage(page)
+
       // Click the options button on the card
-      await page.getByRole('button', { name: 'ellipsis' }).click()
+      await appListPage.getCard({ name: pageName }).click()
       await page.getByText('Edit').click()
 
       // Update the app name

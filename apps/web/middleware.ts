@@ -17,6 +17,8 @@ import {
 } from 'next/server'
 
 /**
+ * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
+ *
  * https://github.com/auth0/nextjs-auth0/issues/1247
  *
  * https://stackoverflow.com/questions/76813923/how-to-avoid-warning-message-when-getting-user-information-on-next-js-13-server/77015385#77015385
@@ -50,46 +52,17 @@ const middleware: NextMiddleware = async (
       response.headers.set('X-ID-TOKEN', session.idToken)
     }
 
-    // const apiUrl = getEnv().endpoint.apiUrl
-
-    return NextResponse.next()
+    return response
   }
 
-  return NextResponse.next()
+  return response
 }
 
 export default middleware
 
-const mid = auth0ServerInstance.withMiddlewareAuthRequired({
-  middleware: async (request) => {
-    const response = NextResponse.next()
-
-    await auth0ServerInstance.touchSession(request, response)
-
-    const session = await auth0ServerInstance.getSession(request, response)
-    const expired = checkExpiry(session)
-
-    if (expired) {
-      const url = request.nextUrl.clone()
-
-      url.pathname = '/api/auth/login'
-
-      return NextResponse.redirect(url)
-    }
-
-    // assertIsDefined(session)
-    // assertIsDefined(session.idToken)
-
-    return response
-  },
-})
-
 export const config = {
   /**
-   * Don't want to include `/api/auth/*`
-   *
-   * Don't guard `/api/v1/:path*`
+   * Use conditional matching instead https://nextjs.org/docs/app/building-your-application/routing/middleware#conditional-statements
    */
   // matcher: ['/apps/:path*'],
-  matcher: [],
 }
