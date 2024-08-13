@@ -12,6 +12,9 @@ jobs:
           ignore:
             - master
             - staging
+      context:
+        # Contains circleci api token for nx orb
+        - build
   # - deploy-preview:
   #     # requires:
   #     #   - setup-workspace

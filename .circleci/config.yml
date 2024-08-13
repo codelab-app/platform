@@ -2,7 +2,7 @@ commands:
   build-repo:
     description: Build Repo
     steps:
-      - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
+      - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail -- base=$NX_BASE --head=$NX_HEAD
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -461,6 +461,7 @@ jobs:
     steps:
       - checkout
       - setup-env
+      - nx/set-shas
       - install-nvm
       - install-pnpm
       - install-packages
@@ -577,6 +578,8 @@ workflows:
   app-pr:
     jobs:
       - setup-workspace:
+          context:
+            - build
           filters:
             branches:
               ignore:
