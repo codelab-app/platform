@@ -3,7 +3,7 @@ commands:
     description: Build Repo
     steps:
       - nx/set-shas
-      - echo $CIRCLE_API_TOKEN
+      - run: echo $CIRCLE_API_TOKEN
       - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail --verbose
   clear-jest-cache:
     description: Clear Jest Spec
