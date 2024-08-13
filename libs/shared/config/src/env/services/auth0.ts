@@ -8,8 +8,8 @@ export interface IAuth0EnvVars {
   baseUrl: string
   clientId: string
   clientSecret: string
-  cypressUsername: string
-  cypressPassword: string
+  auth0Username: string
+  auth0Password: string
   issuerBaseUrl: string
   secret: string
   sessionAutoSave: boolean
@@ -61,14 +61,14 @@ export class Auth0EnvVars implements IAuth0EnvVars {
       .asString())
   }
 
-  get cypressUsername(): string {
+  get auth0Username(): string {
     return (this._cypressUsername ??= env
       .get('AUTH0_E2E_USERNAME')
       .required()
       .asString())
   }
 
-  get cypressPassword(): string {
+  get auth0Password(): string {
     return (this._cypressPassword ??= env
       .get('AUTH0_E2E_PASSWORD')
       .required()

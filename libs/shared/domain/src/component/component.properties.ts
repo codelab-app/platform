@@ -1,6 +1,11 @@
 import type { IComponent, IUserDto } from '@codelab/shared/abstract/core'
 import type { Component } from '@codelab/shared/infra/gql'
-import { slugify } from '@codelab/shared/utils'
+import {
+  removeUuidAndDashPrefix,
+  slugCaseToTitleCase,
+  slugify,
+  uuidRegex,
+} from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 
 interface ComponentData {
@@ -18,14 +23,17 @@ const componentCompositeKey = (
 const componentNameFromCompositeKey = (
   component: DeepPick<Component, ComponentData>,
 ) => {
-  // return component.compositeKey.replace(`${component.owner.id}-`, '')
-  return component.compositeKey.split(SEPARATOR_SYMBOL).pop()
+  const slug = componentSlugFromCompositeKey(component)
+
+  return slugCaseToTitleCase(slug)
 }
 
 const componentSlugFromCompositeKey = (
   component: DeepPick<Component, ComponentData>,
 ) => {
-  return slugify(ComponentProperties.componentNameFromCompositeKey(component))
+  const slug = removeUuidAndDashPrefix(component.compositeKey)
+
+  return slug
 }
 
 export const ComponentProperties = {

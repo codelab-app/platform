@@ -8,10 +8,11 @@ import {
   getAtomDomainService,
   getElementDomainService,
   getStoreDomainService,
+  getTypeDomainService,
+  getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
-import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import {
@@ -46,6 +47,8 @@ export class ComponentDomainService
 
   @modelAction
   add({ id, name, rootElement }: ICreateComponentData) {
+    const owner = this.userDomainService.user
+
     const storeApi = this.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
@@ -106,6 +109,7 @@ export class ComponentDomainService
       api,
       id,
       name,
+      owner,
       props: componentProps,
       rootElement: rootElementModel,
       store,
@@ -173,5 +177,10 @@ export class ComponentDomainService
   @computed
   private get typeDomainService() {
     return getTypeDomainService(this)
+  }
+
+  @computed
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

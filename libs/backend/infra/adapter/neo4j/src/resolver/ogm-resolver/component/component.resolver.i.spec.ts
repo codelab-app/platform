@@ -1,5 +1,6 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
 import {
+  ComponentProperties,
   connectNodeId,
   connectOwner,
   ElementProperties,
@@ -11,7 +12,7 @@ import request from 'supertest'
 import { v4 } from 'uuid'
 import { OgmService } from '../../../infra'
 import { setupTestingContext } from '../../../test/setup'
-import { ComponentResolverComponents } from './component.spec.graphql.gen'
+import { ComponentResolverComponentsDocument } from './component.spec.graphql.gen'
 
 describe('PageResolvers', () => {
   let app: INestApplication
@@ -209,8 +210,13 @@ describe('PageResolvers', () => {
         input: [
           {
             api: connectNodeId(componentApi.id),
+            compositeKey: ComponentProperties.componentCompositeKey(
+              {
+                slug: 'cui-card',
+              },
+              { id: v4() },
+            ),
             id: v4(),
-            name: 'Component',
             owner: connectOwner(owner),
             props: connectNodeId(componentProps.id),
             rootElement: connectNodeId(rootElement.id),
@@ -225,7 +231,7 @@ describe('PageResolvers', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: print(ComponentResolverComponents),
+        query: print(ComponentResolverComponentsDocument),
       })
       .expect(200)
       .expect((res) => {
@@ -240,10 +246,11 @@ describe('PageResolvers', () => {
               },
             ],
             id: component.id,
-            name: component.name,
+            name: 'Cui Card',
             rootElement: {
               id: rootElement.id,
             },
+            slug: 'cui-card',
           },
         ])
       })

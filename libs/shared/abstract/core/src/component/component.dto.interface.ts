@@ -8,7 +8,7 @@ export const ComponentDtoSchema = Type.Object({
   api: Typebox.Ref,
   id: Type.String(),
   name: Type.String(),
-  owner: Typebox.Nullish(Typebox.Ref),
+  owner: Typebox.Ref,
   props: PropDtoSchema,
   rootElement: Typebox.Ref,
   store: Typebox.Ref,

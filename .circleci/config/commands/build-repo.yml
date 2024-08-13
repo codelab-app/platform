@@ -8,7 +8,9 @@ steps:
   #     name: 'Monitor NX Cache Size'
   #     command: ./scripts/nx/reset-cache.sh
   # Can't use `pnpm cli` doesn't exist yet
-  - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
+  - nx/set-shas
+  - run: echo $CIRCLE_API_TOKEN
+  - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail --verbose
   # - save_cache:
   #     name: 'Save NX Cache'
   #     # nx doesn't use `lockfile.hash` anymore

@@ -10,7 +10,9 @@ const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
 const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
 
-console.log(webUrl, apiUrl)
+export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
+export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
+
 export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
 export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
@@ -27,11 +29,20 @@ export const authFile = 'apps/web-e2e/.auth/user.json'
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
-
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    { name: 'auth setup', testMatch: /auth\.setup\.ts/ },
     {
-      dependencies: ['setup'],
+      name: 'database setup',
+      testMatch: /database\.setup\.ts/,
+      dependencies: ['auth setup'],
+      use: {
+        storageState: authFile,
+        // Requires trailing `/`
+        baseURL: `${webBaseApiUrl}/`,
+      },
+    },
+    {
+      // dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
       testMatch: /.*\.spec\.ts/,
       use: {

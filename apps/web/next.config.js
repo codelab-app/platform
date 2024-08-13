@@ -60,7 +60,7 @@ const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
 const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
-const apiHost = `${url}:${port}/${baseApiPath}`
+const apiHost = `${url}:${port}${baseApiPath}`
 
 /**
  * @type {WithNxOptions}
@@ -80,8 +80,16 @@ const nextConfig = {
   // disable to support uniforms
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
+  /**
+   * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
+   */
   rewrites: async () => ({
-    afterFiles: [
+    // We only need middleware to set the session
+    beforeFiles: [
+      {
+        destination: `${apiHost}/graphql`,
+        source: `${baseApiPath}/graphql`,
+      },
       {
         destination: `${apiHost}/:path*`,
         source: `${baseApiPath}/:path*`,

@@ -1,4 +1,8 @@
-import { compoundCaseToTitleCase, stripQuotes } from './strings'
+import {
+  compoundCaseToTitleCase,
+  slugCaseToTitleCase,
+  stripQuotes,
+} from './strings'
 
 describe('String transform', () => {
   it('can strip quotes', () => {
@@ -13,5 +17,12 @@ describe('String transform', () => {
     const expected = 'Space'
 
     expect(compoundCaseToTitleCase(actual)).toBe(expected)
+  })
+
+  it('can transform slug case to title case', () => {
+    const actual = 'my-awesome-slug'
+    const expected = 'My Awesome Slug'
+
+    expect(slugCaseToTitleCase(actual)).toBe(expected)
   })
 })

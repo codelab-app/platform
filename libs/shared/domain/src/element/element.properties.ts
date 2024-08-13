@@ -1,6 +1,9 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Element } from '@codelab/shared/infra/gql'
-import { uuidRegex } from '@codelab/shared/utils'
+import {
+  removeUuidAndDashPrefix,
+  slugCaseToTitleCase,
+} from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 
 interface ElementData {
@@ -17,17 +20,17 @@ const elementCompositeKey = (
 const elementNameFromCompositeKey = (
   element: DeepPick<Element, ElementData>,
 ) => {
-  const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
+  const slug = elementSlugFromCompositeKey(element)
 
-  return element.compositeKey.replace(reg, '')
+  return slugCaseToTitleCase(slug)
 }
 
 const elementSlugFromCompositeKey = (
   element: DeepPick<Element, ElementData>,
 ) => {
-  const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
+  const slug = removeUuidAndDashPrefix(element.compositeKey)
 
-  return element.compositeKey.replace(reg, '')
+  return slug
 }
 
 export const ElementProperties = {

@@ -2,6 +2,7 @@ import { ActionApplicationModule } from '@codelab/backend/application/action'
 import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { AppApplicationModule } from '@codelab/backend/application/app'
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { ComponentApplicationModule } from '@codelab/backend/application/component'
 import { DomainApplicationModule } from '@codelab/backend/application/domain'
 import { ElementApplicationModule } from '@codelab/backend/application/element'
 import { FieldApplicationModule } from '@codelab/backend/application/field'
@@ -31,6 +32,7 @@ import { Module } from '@nestjs/common'
     ResourceApplicationModule,
     TagApplicationModule,
     AppApplicationModule,
+    ComponentApplicationModule,
     // ConfigModule.forRoot({
     //   ignoreEnvVars: true,
     //   isGlobal: true,

@@ -15,7 +15,7 @@ import request from 'supertest'
 import { v4 } from 'uuid'
 import { OgmService } from '../../../infra'
 import { setupTestingContext } from '../../../test/setup'
-import { PageResolverPages } from './page.spec.graphql.gen'
+import { PageResolverPagesDocument } from './page.spec.graphql.gen'
 
 describe('ComponentResolvers', () => {
   let app: INestApplication
@@ -222,7 +222,7 @@ describe('ComponentResolvers', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: print(PageResolverPages),
+        query: print(PageResolverPagesDocument),
       })
       .expect(200)
       .expect((res) => {

@@ -56,6 +56,7 @@ export interface IEndpointEnvVars {
    */
   apiGraphqlUrl: string
   apiHost: string
+  apiUrl: string
   /**
    * app endpoints
    */

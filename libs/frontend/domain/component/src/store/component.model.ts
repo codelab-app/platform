@@ -4,6 +4,7 @@ import type {
   IInterfaceTypeModel,
   IPropModel,
   IStoreModel,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
@@ -12,15 +13,15 @@ import {
   isComponent,
   storeRef,
   typeRef,
+  userRef,
 } from '@codelab/frontend/abstract/domain'
-import { ComponentCreateInput } from '@codelab/frontend/infra/gql'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain'
+import { ComponentProperties, connectOwner } from '@codelab/shared/domain'
 import type {
   ComponentDeleteInput,
   ComponentUpdateInput,
@@ -35,6 +36,7 @@ const create = ({
   api,
   id,
   name,
+  owner,
   props,
   rootElement,
   store,
@@ -44,6 +46,7 @@ const create = ({
     id,
     instanceElement: null,
     name,
+    owner: userRef(owner.id),
     props: Prop.create(props),
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
@@ -57,6 +60,7 @@ export class Component
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     name: prop<string>().withSetter(),
+    owner: prop<Ref<IUserModel>>(),
     props: prop<IPropModel>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IRef>>(null).withSetter(),
@@ -119,6 +123,7 @@ export class Component
       api: this.api,
       id: this.id,
       name: this.name,
+      owner: this.owner,
       props: this.props.toJson,
       rootElement: this.rootElement,
       slug: this.slug,
@@ -166,7 +171,14 @@ export class Component
   }
 
   toUpdateInput(): ComponentUpdateInput {
-    return {}
+    return {
+      compositeKey: ComponentProperties.componentCompositeKey(
+        { slug: this.slug },
+        {
+          id: this.owner.id,
+        },
+      ),
+    }
   }
 
   @computed

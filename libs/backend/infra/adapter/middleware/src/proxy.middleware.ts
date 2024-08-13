@@ -13,4 +13,6 @@ export const proxyMiddleware = async (
 
   await corsMiddleware(request, response)
   await authMiddleware(request, response)
+
+  return response
 }

@@ -3,7 +3,7 @@ import { GraphQLClient } from 'graphql-request'
 import type { GraphQLClientResponse } from 'graphql-request/build/esm/types'
 
 const graphqlUrl = new URL(
-  'api/graphql',
+  'api/v1/graphql',
   `http://localhost:${env
     .get('NEXT_PUBLIC_API_PORT')
     .required()

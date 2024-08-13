@@ -39,7 +39,7 @@ export class ComponentRepository extends AbstractRepository<
         input: components.map(
           ({ api, id, name, owner, props, rootElement, store }) => ({
             api: connectNodeId(api.id),
-            compositeKey: `${owner?.id}-${name}`,
+            compositeKey: `${owner.id}-${name}`,
             id,
             owner: connectOwner(this.authService.currentUser),
             props: connectNodeId(props.id),

@@ -3,6 +3,7 @@ import {
   type IComponentModel,
   type IComponentRepository,
 } from '@codelab/frontend/abstract/domain'
+import { ComponentProperties } from '@codelab/shared/domain'
 import type {
   ComponentOptions,
   ComponentUniqueWhere,
@@ -58,14 +59,12 @@ export const componentRepository: IComponentRepository = {
   },
 
   update: async (component: IComponentModel) => {
-    const { id, name } = component
+    const { id } = component
 
     const {
       updateComponents: { components },
     } = await UpdateComponents({
-      update: {
-        name,
-      },
+      update: component.toUpdateInput(),
       where: { id },
     })
 

@@ -12,7 +12,7 @@ import request from 'supertest'
 import { v4 } from 'uuid'
 import { OgmService } from '../../../../infra'
 import { setupTestingContext } from '../../../../test/setup'
-import { ElementDependentTypes } from './element.spec.graphql.gen'
+import { ElementDependentTypesDocument } from './element.spec.graphql.gen'
 
 describe('ElementResolvers', () => {
   let app: INestApplication
@@ -184,7 +184,7 @@ describe('ElementResolvers', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: print(ElementDependentTypes),
+        query: print(ElementDependentTypesDocument),
       })
       .expect(200)
       .expect(async ({ body }) => {

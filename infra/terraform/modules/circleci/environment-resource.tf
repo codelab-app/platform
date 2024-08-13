@@ -31,6 +31,7 @@ resource "circleci_environment_variable" "env_vars" {
     DIGITALOCEAN_API_TOKEN    = var.digitalocean_api_token
     DIGITALOCEAN_DROPLET_NAME = var.digitalocean_droplet_name
     DOCKER_TAG_VERSION        = var.docker_tag_version
+
   }
 
   name         = each.key
@@ -38,3 +39,4 @@ resource "circleci_environment_variable" "env_vars" {
   project      = local.project_name
   organization = local.organization
 }
+
