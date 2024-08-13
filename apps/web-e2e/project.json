@@ -6,7 +6,21 @@
   "implicitDependencies": ["web"],
   "targets": {
     "e2e": {
-      "defaultConfiguration": "dev",
+      "defaultConfiguration": "test",
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/web-e2e"],
+      "options": {
+        "config": "apps/web-e2e/playwright.config.ts",
+        "headed": false,
+        "ui": false
+      },
+      "configurations": {
+        "test": {},
+        "ci": {}
+      }
+    },
+    "e2e-ui": {
+      "defaultConfiguration": "test",
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/dist/.playwright/apps/web-e2e"],
       "options": {
@@ -15,11 +29,7 @@
         "ui": true
       },
       "configurations": {
-        "dev": {},
-        "test": {},
-        "ci": {
-          "ui": false
-        }
+        "test": {}
       }
     },
     "lint": {

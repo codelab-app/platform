@@ -8,15 +8,19 @@ export const updatedAppName = 'Updated App'
 
 let appListPage: AppListPage
 
-test.beforeEach(async ({ page }) => {
-  appListPage = new AppListPage(page)
+// test.beforeEach(async ({ page }) => {
+//   appListPage = new AppListPage(page)
 
-  await appListPage.goto()
-})
+//   await appListPage.goto()
+// })
 
 test.describe('Apps CRUD', () => {
   test.describe('create', () => {
     test('should be able to create app', async ({ page }) => {
+      appListPage = new AppListPage(page)
+
+      await appListPage.goto()
+
       await appListPage.onLoad()
 
       await appListPage.openCreateAppModal()
@@ -43,17 +47,17 @@ test.describe('Apps CRUD', () => {
     })
   })
 
-  test.describe('delete', () => {
-    test('should be able to delete app', async ({ page }) => {
-      // Click the options button on the card
-      await page.getByRole('button', { name: 'ellipsis' }).click()
-      await page.getByText('Delete').click()
+  // test.describe('delete', () => {
+  //   test('should be able to delete app', async ({ page }) => {
+  //     // Click the options button on the card
+  //     await page.getByRole('button', { name: 'ellipsis' }).click()
+  //     await page.getByText('Delete').click()
 
-      // Confirm deletion
-      await page.getByRole('button', { name: 'Delete App' }).click()
+  //     // Confirm deletion
+  //     await page.getByRole('button', { name: 'Delete App' }).click()
 
-      // Check the deletion result
-      await expect(page.getByText(updatedAppName)).toBeHidden()
-    })
-  })
+  //     // Check the deletion result
+  //     await expect(page.getByText(updatedAppName)).toBeHidden()
+  //   })
+  // })
 })

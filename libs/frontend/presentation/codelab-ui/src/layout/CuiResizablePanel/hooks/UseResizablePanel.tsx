@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import React, { useRef, useState } from 'react'
 import { type ImperativePanelHandle, Panel } from 'react-resizable-panels'
-import { CollapseControl, CuiResizeHandler } from '../components'
+import { CollapseControl, CuiResizeHandle } from '../components'
 
 export type CuiResizablePanelProps = PropsWithChildren<{
   collapsible?: boolean
@@ -36,7 +36,7 @@ export const useResizeHandler = ({
         resizeDirection={resizeDirection}
       />
     ),
-    handler: <CuiResizeHandler />,
+    handler: <CuiResizeHandle />,
     panel: (
       <Panel
         collapsible={collapsible}

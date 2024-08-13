@@ -30,7 +30,13 @@ export const authFile = 'apps/web-e2e/.auth/user.json'
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
   projects: [
-    { name: 'auth setup', testMatch: /auth\.setup\.ts/ },
+    {
+      name: 'auth setup',
+      testMatch: /auth\.setup\.ts/,
+      use: {
+        headless: true,
+      },
+    },
     {
       name: 'database setup',
       testMatch: /database\.setup\.ts/,
@@ -39,6 +45,7 @@ export default defineConfig({
         storageState: authFile,
         // Requires trailing `/`
         baseURL: `${webBaseApiUrl}/`,
+        headless: true,
       },
     },
     {
@@ -93,14 +100,15 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: 'nx serve web -c test',
+      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'}`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
       url: webUrl,
+      timeout: 90 * 1000,
     },
     {
-      command: 'nx serve api -c test',
+      command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'}`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
