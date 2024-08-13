@@ -1,2 +1,2 @@
 export * from './CollapseControl'
-export * from './CuiResizeHandler'
+export * from './CuiResizeHandle'

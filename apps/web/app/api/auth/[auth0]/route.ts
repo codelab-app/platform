@@ -3,6 +3,7 @@ import type { Session } from '@auth0/nextjs-auth0'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import * as env from 'env-var'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export const maxDuration = 60
@@ -13,12 +14,12 @@ export const maxDuration = 60
 export const GET = auth0Instance.handleAuth({
   callback: auth0Instance.handleCallback({
     afterCallback: async (req: NextRequest, session: Session) => {
-      console.log('auth0.ts', process.env['NODE_ENV'])
+      console.log('[auth0]/route.ts', process.env['NODE_ENV'])
 
       /**
        * Only do this in development
        */
-      if (process.env['NODE_ENV'] === 'development') {
+      if (env.get('SETUP_DEV_AFTER_AUTH0_LOGIN').asBool()) {
         /**
          * Cannot call fetchWithAuth since session is not created yet
          */

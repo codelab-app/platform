@@ -30,7 +30,7 @@
         "buildTarget": "web:build",
         "turbo": false,
         "port": 3000,
-        "hostname": "0.0.0.0",
+        "hostname": "127.0.0.1",
         "maxWorkers": 4
       },
       "configurations": {

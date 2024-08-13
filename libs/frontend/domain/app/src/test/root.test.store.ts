@@ -5,6 +5,7 @@ import {
   pageDomainServiceContext,
   redirectDomainServiceContext,
   storeDomainServiceContext,
+  typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { userDto } from '@codelab/frontend/test/data'
@@ -14,10 +15,7 @@ import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
 import { createRootDomainStore } from '@codelab/frontend-domain-shared'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
-import {
-  TypeDomainService,
-  typeDomainServiceContext,
-} from '@codelab/frontend-domain-type/services'
+import { TypeDomainService } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
 import { AppDomainService } from '../services/app.domain.service'
 

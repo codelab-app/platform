@@ -1,6 +1,9 @@
 'use client'
 
-import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
+import {
+  CuiNavigationBar,
+  CuiResizablePanel,
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Layout } from 'antd'
 import React, { useMemo } from 'react'
@@ -66,17 +69,16 @@ export const DashboardTemplate = ({
         <Layout style={contentStyles}>
           <PanelGroup direction="horizontal">
             {ActivePrimarySidebar && (
-              <>
-                <Panel defaultSize={20} order={1}>
-                  <div
-                    className="size-full"
-                    data-cy="temp-primary-panel-wrapper"
-                  >
-                    {ActivePrimarySidebar}
-                  </div>
-                </Panel>
-                <ResizeHandle />
-              </>
+              <CuiResizablePanel
+                collapsible
+                order={1}
+                resizeDirection="right"
+                showCollapseButton={false}
+              >
+                <div className="size-full" data-cy="temp-primary-panel-wrapper">
+                  {ActivePrimarySidebar}
+                </div>
+              </CuiResizablePanel>
             )}
 
             <Panel defaultSize={60} order={2}>
@@ -86,12 +88,9 @@ export const DashboardTemplate = ({
             </Panel>
 
             {ConfigPane && (
-              <>
-                <ResizeHandle />
-                <Panel defaultSize={20} order={3}>
-                  <DashboardTemplateConfigPane ConfigPane={ConfigPane} />
-                </Panel>
-              </>
+              <CuiResizablePanel collapsible order={3} resizeDirection="left">
+                <DashboardTemplateConfigPane ConfigPane={ConfigPane} />
+              </CuiResizablePanel>
             )}
           </PanelGroup>
         </Layout>

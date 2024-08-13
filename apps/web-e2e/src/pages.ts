@@ -18,6 +18,10 @@ class BasePage {
     return this.page.getByText(text, { exact: true })
   }
 
+  getCard(options: { name: RegExp | string }) {
+    return this.page.getByRole('article', { name: options.name })
+  }
+
   getModal() {
     return this.page.getByRole('dialog')
   }
