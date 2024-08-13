@@ -4,7 +4,6 @@ resource_class: large
 steps:
   - checkout
   - setup-env
-  - nx/set-shas
   - install-nvm
   - install-pnpm
   - install-packages
