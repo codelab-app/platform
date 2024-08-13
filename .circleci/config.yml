@@ -582,14 +582,12 @@ workflows:
               ignore:
                 - master
                 - staging
-                - dev
       - lint:
           filters:
             branches:
               ignore:
                 - master
                 - staging
-                - dev
           requires:
             - setup-workspace
       - codegen:
@@ -598,7 +596,6 @@ workflows:
               ignore:
                 - master
                 - staging
-                - dev
           requires:
             - setup-workspace
       - unit:
@@ -607,7 +604,6 @@ workflows:
               ignore:
                 - master
                 - staging
-                - dev
           requires:
             - setup-workspace
       - integration:
@@ -616,7 +612,6 @@ workflows:
               ignore:
                 - master
                 - staging
-                - dev
           requires:
             - setup-workspace
       - e2e:
@@ -625,7 +620,6 @@ workflows:
               ignore:
                 - master
                 - staging
-                - dev
           requires:
             - setup-workspace
       - notify-success:
@@ -634,7 +628,6 @@ workflows:
               ignore:
                 - master
                 - staging
-                - dev
           requires:
             - lint
             - codegen
