@@ -28,6 +28,7 @@ import {
   resourceDomainServiceContext,
   storeDomainServiceContext,
   tagDomainServiceContext,
+  typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { ActionDomainService } from '@codelab/frontend-domain-action/services'
@@ -45,7 +46,6 @@ import { TagDomainService } from '@codelab/frontend-domain-tag/services'
 import {
   FieldDomainService,
   TypeDomainService,
-  typeDomainServiceContext,
 } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
 import type { IUserDto } from '@codelab/shared/abstract/core'

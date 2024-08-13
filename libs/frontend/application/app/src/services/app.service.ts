@@ -18,12 +18,8 @@ import type { AppWhere } from '@codelab/shared/infra/gql'
 import { assertIsDefined } from '@codelab/shared/utils'
 
 export const useAppService = (): IAppService => {
-  const {
-    appDomainService,
-    atomDomainService,
-    pageDomainService,
-    userDomainService,
-  } = useDomainStore()
+  const { appDomainService, pageDomainService, userDomainService } =
+    useDomainStore()
 
   const create = async ({ id, name }: ICreateAppData) => {
     const app = appDomainService.create({

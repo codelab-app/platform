@@ -10,8 +10,6 @@ export class JwtAuthMiddleware implements NestMiddleware {
   constructor(private readonly guard: JwtAuthGuard) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
-    console.log('Requested Path:', req.path)
-
     const context = new ExecutionContextHost([req, res, next])
 
     try {

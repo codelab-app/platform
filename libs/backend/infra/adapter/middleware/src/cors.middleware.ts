@@ -8,6 +8,4 @@ export const corsMiddleware = async (
   response.headers.set('Access-Control-Allow-Origin', '*')
   response.headers.set('Access-Control-Allow-Headers', '*')
   response.headers.set('Access-Control-Allow-Methods', '*')
-
-  return response
 }

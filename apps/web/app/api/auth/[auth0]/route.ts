@@ -13,7 +13,7 @@ export const maxDuration = 60
 export const GET = auth0Instance.handleAuth({
   callback: auth0Instance.handleCallback({
     afterCallback: async (req: NextRequest, session: Session) => {
-      console.log('...auth0.ts', process.env['NODE_ENV'])
+      console.log('auth0.ts', process.env['NODE_ENV'])
 
       /**
        * Only do this in development

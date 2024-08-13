@@ -12,7 +12,7 @@ test('create new database', async ({ context, page, request }) => {
 
     console.log('Response body:', responseBody)
 
-    expect(response.status()).toEqual(201)
+    await expect(response).toBeOK()
   } catch (error) {
     console.error('Fetch error:', error)
     throw error

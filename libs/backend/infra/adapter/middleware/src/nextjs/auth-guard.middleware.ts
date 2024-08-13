@@ -2,19 +2,24 @@ import {
   auth0ServerInstance,
   checkExpiry,
 } from '@codelab/shared-infra-auth0/server'
-import { type NextRequest, NextResponse } from 'next/server'
+import type { NextMiddlewareResult } from 'next/dist/server/web/types'
+import {
+  type NextFetchEvent,
+  type NextMiddleware,
+  type NextRequest,
+  NextResponse,
+} from 'next/server'
 
-export const authGuardMiddleware = (request: NextRequest) =>
-  auth0ServerInstance.withMiddlewareAuthRequired({
+export const authGuardMiddleware = (
+  request: NextRequest,
+  response: NextResponse,
+  event: NextFetchEvent,
+) => {
+  const middleware = auth0ServerInstance.withMiddlewareAuthRequired({
     middleware: async (req: NextRequest) => {
-      const res = NextResponse.next()
-
-      await auth0ServerInstance.touchSession(req, res)
+      await auth0ServerInstance.touchSession(req, response)
 
       const session = await auth0ServerInstance.getSession()
-
-      console.log(session)
-
       const expired = checkExpiry(session)
 
       if (expired) {
@@ -27,6 +32,9 @@ export const authGuardMiddleware = (request: NextRequest) =>
 
       process.env['AUTHORIZATION_TOKEN'] = session?.accessToken
 
-      return res
+      return
     },
   })
+
+  return middleware(request, event)
+}
