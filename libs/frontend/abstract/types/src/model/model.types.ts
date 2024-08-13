@@ -1,4 +1,4 @@
-export enum ModelName {
+export enum Model {
   App = 'App',
   AuthGuard = 'AuthGuard',
   Action = 'Action',

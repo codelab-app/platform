@@ -1,6 +1,6 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { type MouseEvent, useCallback } from 'react'
 
 /**
@@ -12,7 +12,7 @@ export const useSelectionHandlers = (
   runtimeElement: IRuntimeElementModel,
   rendererType: RendererType,
 ) => {
-  const { builderService } = useStore()
+  const builderService = useBuilderService()
 
   const handleClick = useCallback(
     (event: MouseEvent) => {

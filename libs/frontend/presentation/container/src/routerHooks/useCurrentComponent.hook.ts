@@ -1,14 +1,13 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { getNameFromSlug } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
 
 export const useCurrentComponent = () => {
-  const { componentService } = useStore()
-  const { query } = useRouter()
-  const componentSlug = query.componentSlug as string
+  const { componentDomainService } = useDomainStore()
+  const { componentSlug } = useUrl()
   const componentName = getNameFromSlug(componentSlug)
 
-  return componentService.componentDomainService.componentList.find(
+  return componentDomainService.componentList.find(
     ({ name }) => name === componentName,
   )
 }

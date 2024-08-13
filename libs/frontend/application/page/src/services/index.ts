@@ -1,5 +1,1 @@
-export * from './page.application.service'
-export * from './page.repo'
-export * from './page.service.context'
-export * from './page-form.service'
-export * from './page-modal.service'
+export * from './page.service'

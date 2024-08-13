@@ -1,27 +1,31 @@
-import type { Static, TLiteral } from '@sinclair/typebox'
+import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from './type-kind.enum'
 
-export const IBaseType = Type.Object({
+export const BaseTypeSchema = Type.Object({
   __typename: Type.Literal(`${ITypeKind}`),
   id: Type.String(),
   kind: Type.Enum(ITypeKind),
   name: Type.String(),
 })
 
-export type IBaseType = Static<typeof IBaseType>
+export type IBaseType = Static<typeof BaseTypeSchema>
 
-export type IBaseTypeDto<
-  T extends TLiteral<`${ITypeKind}`> = TLiteral<`${ITypeKind}`>,
-> = Static<ReturnType<typeof IBaseTypeDto<T>>>
+export type IBaseTypeDto<T extends `${ITypeKind}` = `${ITypeKind}`> = Static<
+  ReturnType<typeof BaseTypeDtoSchema<T>>
+>
 
-export const IBaseTypeDto = <T extends TLiteral<`${ITypeKind}`>>(schema: T) =>
+/**
+ * For GraphQL create, the api takes in an enum
+ */
+export const BaseTypeDtoSchema = <T extends `${ITypeKind}`>(kind: T) =>
   Type.Object({
     /**
      * Needs to be optional since our Neo4j OGM returns only optional
      */
-    __typename: schema,
+    __typename: Type.Literal<T>(kind),
     id: Type.String(),
+    // kind: ITypeKindTransform,
     kind: Type.Enum(ITypeKind),
     name: Type.String(),
   })

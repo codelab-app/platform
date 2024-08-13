@@ -5,42 +5,50 @@ import type {
   IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
+import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import React from 'react'
+import { useDeleteAtomsModal } from '../delete-atom/delete-atoms.state'
+import { useUpdateAtomModal } from '../update-atom/update-atom.state'
 
 interface AtomsTreeItemProps {
   data: ITreeNode<IAtomTreeNodeData>
 }
 
 export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
-  const { atomService, fieldService } = useStore()
+  const updateFieldForm = useUpdateFieldForm()
   const { popover } = useCui()
   const { node, type } = data.extraData
+  const deleteFieldModal = useDeleteFieldModal()
   const icon = type === 'atom' ? node.library.icon : null
+  const updateAtomForm = useUpdateAtomModal()
+  const deleteAtomsModal = useDeleteAtomsModal()
+  const createFieldForm = useCreateFieldForm()
 
   const onEdit = () => {
     if (type === 'atom') {
-      atomService.updateForm.open(atomRef(node))
-      fieldService.updateForm.close()
+      updateAtomForm.open(atomRef(node))
+      updateFieldForm.close()
     } else {
-      fieldService.updateForm.open(fieldRef(node))
-      atomService.updateForm.close()
+      updateFieldForm.open(node)
+      updateAtomForm.close()
     }
   }
 
   const onDelete = () => {
     if (type === 'atom') {
-      atomService.deleteManyModal.open([atomRef(node)])
+      deleteAtomsModal.open([atomRef(node)])
     } else {
-      fieldService.deleteModal.open(fieldRef(node))
+      deleteFieldModal.open(node)
     }
   }
 
@@ -52,14 +60,14 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
       : undefined
 
     if (interfaceRef) {
-      fieldService.createForm.open(interfaceRef)
-      popover.open(MODEL_ACTION.CreateField.key)
+      createFieldForm.open(interfaceRef.current)
+      popover.open(UiKey.CreateFieldPopover)
     }
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.DeleteAtom.key,
+      cuiKey: UiKey.DeleteAtomsToolbarItem,
       icon: <DeleteOutlined />,
       onClick: onDelete,
       title: 'Delete atom',
@@ -68,7 +76,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   if (type === 'atom') {
     toolbarItems.push({
-      cuiKey: MODEL_ACTION.CreateField.key,
+      cuiKey: UiKey.CreateFieldToolbarItem,
       icon: <PlusOutlined />,
       onClick: onAddField,
       title: 'Add field',

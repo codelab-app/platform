@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { hasExpression } from '@codelab/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'

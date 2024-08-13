@@ -2,6 +2,7 @@ import { ElementApplicationService } from '@codelab/backend/application/element'
 import { StoreApplicationService } from '@codelab/backend/application/store'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { PropDomainService } from '@codelab/backend/domain/prop'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store } from '@codelab/backend/domain/store'
 import { InterfaceType } from '@codelab/backend/domain/type'
 import type {
@@ -20,6 +21,7 @@ import { ExportComponentCommand } from '../use-case'
 @Injectable()
 export class ComponentApplicationService {
   constructor(
+    private authDomainService: AuthDomainService,
     private componentRepository: ComponentRepository,
     private commandBus: CommandBus,
     private storeApplicationService: StoreApplicationService,
@@ -54,6 +56,7 @@ export class ComponentApplicationService {
     const componentDto: IComponentDto = {
       ...createComponentData,
       api,
+      owner: this.authDomainService.currentUser,
       props,
       rootElement,
       store,

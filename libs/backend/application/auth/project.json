@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/application/auth/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-application-auth",
     "projectType:library",
     "type:concrete",
     "scope:backend",

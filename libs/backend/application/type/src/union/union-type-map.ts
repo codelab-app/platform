@@ -1,15 +1,18 @@
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNode } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain'
 import { logger } from '@codelab/shared/infra/logging'
 import {
   capitalizeFirstLetter,
   compoundCaseToTitleCase,
 } from '@codelab/shared/utils'
+import type { OGM } from '@neo4j/graphql-ogm'
 import { v4 } from 'uuid'
+import { AntDesignTypeMapper } from '../mapper'
 import {
   extractObjectFromString,
   type FieldTypeRef,
+  isInterfaceType,
+  isPrimitiveType,
   parseSeparators,
   unionContainsInterfaceType,
 } from '../parser'
@@ -54,147 +57,142 @@ import {
  * @param userId
  * @param values the is array of types for union (currently we filtered it to primitive types only)
  */
-export const upsertUnionFieldType: FieldTypeRef = async ({
-  atom,
-  field,
-  userId,
-}) => {
-  logger.info('Get Union Type', field.type)
+export const upsertUnionFieldType =
+  (ogm: OGM): FieldTypeRef =>
+  async ({ atom, field, userId }) => {
+    logger.info('Get Union Type', field.type)
 
-  const UnionType = await Repository.instance.UnionType
-  const values = parseSeparators(field)
+    const UnionType = await ogm.model('UnionType')
+    const values = parseSeparators(field)
 
-  /**
-   * If we have a nested interface type
-   */
-  if (unionContainsInterfaceType(field.type)) {
-    const [existingUnion] = await UnionType.find({
-      where: {
-        AND: [
-          {
-            name: `${atom.name} ${compoundCaseToTitleCase(
-              field.property,
-            )} Union API`,
-          },
-        ],
-      },
-    })
-
-    if (!existingUnion) {
-      const unionName = `${atom.name} ${compoundCaseToTitleCase(
-        field.property,
-      )} Union API`
-
-      const {
-        unionTypes: [unionType],
-      } = await UnionType.create({
-        input: [
-          {
-            id: v4(),
-            kind: ITypeKind.UnionType,
-            name: unionName,
-            owner: connectNode(userId),
-            typesOfUnionType: {
-              InterfaceType: {
-                create: values
-                  .filter((item: string) => item.match(isInterfaceTypeRegex))
-                  .map((interfaceType: string) => {
-                    // TODO: Need to add case for multiple keys
-                    const interfaceTypeName = Object.keys(
-                      extractObjectFromString(interfaceType),
-                    )[0]
-
-                    if (!interfaceTypeName) {
-                      throw new Error('Invalid interface type name')
-                    }
-
-                    return {
-                      node: {
-                        fields: {
-                          connect: values
-                            .filter((type: string) =>
-                              type.match(isInterfaceTypeRegex),
-                            )
-                            .map((item: string) => {
-                              const typeId = v4()
-
-                              const typeName = Object.keys(
-                                extractObjectFromString(interfaceType),
-                              )[0]
-
-                              if (!typeName) {
-                                throw new Error('missing type name')
-                              }
-
-                              const existingTypeName = mapPrimitiveType(
-                                Object.values(extractObjectFromString(item))[0],
-                              )
-
-                              if (!existingTypeName) {
-                                throw new Error('Field type not found')
-                              }
-
-                              return {
-                                edge: {
-                                  id: typeId,
-                                  key: typeName,
-                                  name: capitalizeFirstLetter(typeName),
-                                },
-                                where: {
-                                  node: {
-                                    // Connect to our primitive type by name
-                                    name: existingTypeName,
-                                  },
-                                },
-                              }
-                            }),
-                        },
-                        id: v4(),
-                        kind: ITypeKind.InterfaceType,
-                        name: `${atom.name} ${compoundCaseToTitleCase(
-                          field.property,
-                        )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
-                        owner: connectNode(userId),
-                      },
-                    }
-                  }),
-              },
-              PrimitiveType: {
-                connect: values
-                  .filter((type) => isPrimitiveType(type))
-                  .map((value: string) => ({
-                    where: {
-                      node: {
-                        name: mapPrimitiveType(value),
-                      },
-                    },
-                  })),
-              },
+    /**
+     * If we have a nested interface type
+     */
+    if (unionContainsInterfaceType(field.type)) {
+      const [existingUnion] = await UnionType.find({
+        where: {
+          AND: [
+            {
+              name: `${atom.name} ${compoundCaseToTitleCase(
+                field.property,
+              )} Union API`,
             },
-          },
-        ],
+          ],
+        },
       })
 
-      if (!unionType) {
-        throw new Error('Union type creation failed')
+      if (!existingUnion) {
+        const unionName = `${atom.name} ${compoundCaseToTitleCase(
+          field.property,
+        )} Union API`
+
+        const {
+          unionTypes: [unionType],
+        } = await UnionType.create({
+          input: [
+            {
+              id: v4(),
+              kind: ITypeKind.UnionType,
+              name: unionName,
+              owner: connectNodeId(userId),
+              typesOfUnionType: {
+                InterfaceType: {
+                  create: values
+                    .filter(isInterfaceType)
+                    .map((interfaceType: string) => {
+                      // TODO: Need to add case for multiple keys
+                      const interfaceTypeName = Object.keys(
+                        extractObjectFromString(interfaceType),
+                      )[0]
+
+                      if (!interfaceTypeName) {
+                        throw new Error('Invalid interface type name')
+                      }
+
+                      return {
+                        node: {
+                          fields: {
+                            connect: values
+                              .filter(isInterfaceType)
+                              .map((item: string) => {
+                                const typeId = v4()
+
+                                const typeName = Object.keys(
+                                  extractObjectFromString(interfaceType),
+                                )[0]
+
+                                if (!typeName) {
+                                  throw new Error('missing type name')
+                                }
+
+                                const existingTypeName =
+                                  AntDesignTypeMapper.mapPrimitiveType(
+                                    Object.values(
+                                      extractObjectFromString(item),
+                                    )[0],
+                                  )
+
+                                return {
+                                  edge: {
+                                    id: typeId,
+                                    key: typeName,
+                                    name: capitalizeFirstLetter(typeName),
+                                  },
+                                  where: {
+                                    node: {
+                                      // Connect to our primitive type by name
+                                      name: existingTypeName,
+                                    },
+                                  },
+                                }
+                              }),
+                          },
+                          id: v4(),
+                          kind: ITypeKind.InterfaceType,
+                          name: `${atom.name} ${compoundCaseToTitleCase(
+                            field.property,
+                          )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
+                          owner: connectNodeId(userId),
+                        },
+                      }
+                    }),
+                },
+                PrimitiveType: {
+                  connect: values
+                    .filter((type) => isPrimitiveType(type))
+                    .map((value: string) => ({
+                      where: {
+                        node: {
+                          name: AntDesignTypeMapper.mapPrimitiveType(value),
+                        },
+                      },
+                    })),
+                },
+              },
+            },
+          ],
+        })
+
+        if (!unionType) {
+          throw new Error('Union type creation failed')
+        }
+
+        return {
+          existingId: unionType.id,
+        }
       }
 
       return {
-        existingId: unionType.id,
+        existingId: existingUnion.id,
       }
     }
 
-    return {
-      existingId: existingUnion.id,
-    }
+    // Not needed here, we connect union type above
+    // if (isPrimitivePredicate(values)) {
+    //   return connectUnionType({ field: field, atom, userId, values })
+    // }
+
+    console.log(`Could not transform fields for Atom [${atom.type}]`, field)
+
+    return null
   }
-
-  // Not needed here, we connect union type above
-  // if (isPrimitivePredicate(values)) {
-  //   return connectUnionType({ field: field, atom, userId, values })
-  // }
-
-  console.log(`Could not transform fields for Atom [${atom.type}]`, field)
-
-  return null
-}

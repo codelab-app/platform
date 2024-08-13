@@ -1,117 +1,74 @@
-import type { IDomainService } from '@codelab/frontend/abstract/application'
+import { type IDomainService } from '@codelab/frontend/abstract/application'
 import type {
   ICreateDomainData,
   IDomainModel,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
-import { ModalService } from '@codelab/frontend/application/shared/store'
-import { Domain } from '@codelab/frontend/domain/domain'
-import type { DomainWhere } from '@codelab/shared/abstract/codegen'
-import type { IDomainDto } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  objectMap,
-  prop,
-  transaction,
-} from 'mobx-keystone'
-import { DomainModalService } from './domain-modal.service'
-import { DomainRepository } from './index'
+import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import type { DomainWhere } from '@codelab/shared/infra/gql'
+import { assertIsDefined } from '@codelab/shared/utils'
+import { invalidateDomainListQuery } from '../use-cases/domain-list'
 
-@model('@codelab/DomainService')
-export class DomainService
-  extends Model({
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new DomainModalService({})),
-    domainRepository: prop(() => new DomainRepository({})),
-    domains: prop(() => objectMap<Domain>()),
-    updateModal: prop(() => new DomainModalService({})),
-  })
-  implements IDomainService
-{
-  @computed
-  get domainsList() {
-    return [...this.domains.values()]
-  }
+export const useDomainService = (): IDomainService => {
+  const { domainDomainService } = useDomainStore()
 
-  @modelFlow
-  @transaction
-  create = _async(function* (
-    this: DomainService,
-    domainData: ICreateDomainData,
-  ) {
-    const domain = this.hydrate({
+  const create = async (domainData: ICreateDomainData) => {
+    const domain = domainDomainService.hydrate({
       ...domainData,
       domainConfig: undefined,
     })
 
-    yield* _await(this.domainRepository.add(domain))
+    await domainRepository.add(domain)
 
     // Fetching again to get the backend-generated domainConfig
-    return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
-  })
+    invalidateDomainListQuery()
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (
-    this: DomainService,
-    domains: Array<IDomainModel>,
-  ) {
+    return domain
+  }
+
+  const remove = async (domains: Array<IDomainModel>): Promise<number> => {
     const deleteDomain = async (domain: IDomainModel) => {
       const { id } = domain
 
-      this.domains.delete(id)
-
-      await this.domainRepository.delete([domain])
+      domainDomainService.domains.delete(id)
+      await domainRepository.delete([domain])
 
       return domain
     }
 
-    yield* _await(Promise.all(domains.map((domain) => deleteDomain(domain))))
+    const count = (
+      await Promise.all(domains.map((domain) => deleteDomain(domain)))
+    ).length
 
-    return
-  })
+    return count
+  }
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: DomainService, where?: DomainWhere) {
-    const { items: domains } = yield* _await(this.domainRepository.find(where))
+  const getAll = async (where?: DomainWhere) => {
+    const { items: domains } = await domainRepository.find(where)
 
-    return domains.map((domain) => this.hydrate(domain))
-  })
+    return domains.map((domain) => domainDomainService.hydrate(domain))
+  }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: DomainService,
-    { id, name }: IUpdateDomainData,
-  ) {
-    const domain = this.domains.get(id)!
-    const oldName = domain.name
+  const update = async ({ id, name }: IUpdateDomainData) => {
+    const domain = domainDomainService.domains.get(id)
+
+    assertIsDefined(domain)
 
     domain.writeCache({ name })
-
-    yield* _await(this.domainRepository.update(domain))
+    await domainRepository.update(domain)
 
     // Fetching again to get the backend-generated domainConfig
-    return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
-  })
 
-  @modelAction
-  hydrate = (domain: IDomainDto) => {
-    let domainModel = this.domains.get(domain.id)
+    const [updatedDomain] = await getAll({ id: domain.id })
 
-    domainModel = domainModel
-      ? domainModel.writeCache(domain)
-      : Domain.create(domain)
+    return updatedDomain || domain
+  }
 
-    this.domains.set(domain.id, domainModel)
-
-    return domainModel
+  return {
+    create,
+    getAll,
+    remove,
+    update,
   }
 }

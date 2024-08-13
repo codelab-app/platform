@@ -47,7 +47,7 @@ fragment Element on Element {
   renderType {
     ... on Atom {
       __typename
-      ...AtomDevelopment
+      ...AtomBuilder
     }
     ... on Component {
       __typename

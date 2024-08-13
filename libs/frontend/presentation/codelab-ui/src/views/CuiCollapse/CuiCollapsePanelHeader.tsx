@@ -1,6 +1,8 @@
+'use client'
+
 import DownOutlined from '@ant-design/icons/DownOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import { Typography } from 'antd'
 import React, { useState } from 'react'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
@@ -40,13 +42,13 @@ export const CuiCollapsePanelHeader = ({
         border-gray-300
         px-3
       "
-      data-cy={CY_DATA.cuiSidebarViewHeader(label).cyData}
+      data-cy={Cui.cuiSidebarViewHeader(label)}
       onClick={updateExpand}
     >
       <div
         className="
-          flex
           min-w-1/4
+          flex
           flex-row
           items-center
           justify-start
@@ -73,7 +75,7 @@ export const CuiCollapsePanelHeader = ({
       {toolbar && (
         <div
           className="max-w-lg"
-          onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          onClick={(event: React.MouseEvent<HTMLDivElement>) => {
             event.stopPropagation()
           }}
         >

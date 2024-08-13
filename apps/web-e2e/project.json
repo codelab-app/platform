@@ -1,0 +1,29 @@
+{
+  "name": "web-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/web-e2e/src",
+  "tags": ["projectName:web-e2e", "projectType:application", "type:concrete"],
+  "implicitDependencies": ["web"],
+  "targets": {
+    "e2e": {
+      "defaultConfiguration": "dev",
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/web-e2e"],
+      "options": {
+        "config": "apps/web-e2e/playwright.config.ts",
+        "headed": true,
+        "ui": true
+      },
+      "configurations": {
+        "dev": {},
+        "test": {},
+        "ci": {
+          "ui": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

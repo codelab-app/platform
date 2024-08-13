@@ -1,3 +1,5 @@
+import type React from 'react'
+
 export interface Hierarchy {
   [key: number | string]: {
     children?: Hierarchy

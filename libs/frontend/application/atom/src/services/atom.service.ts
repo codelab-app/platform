@@ -5,78 +5,66 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
+import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
+import { useTypeService } from '@codelab/frontend-application-type/services'
+import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
-  InlineFormService,
-  ModalService,
-  PaginationService,
-} from '@codelab/frontend/application/shared/store'
-import { getTypeService } from '@codelab/frontend/application/type'
-import {
-  AtomDomainService,
   filterAtoms,
   mapAtomOptions,
-} from '@codelab/frontend/domain/atom'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+} from '@codelab/frontend-domain-atom/store'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+import { assertIsDefined } from '@codelab/shared/utils'
 import isEmpty from 'lodash/isEmpty'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { AtomRepository } from './atom.repo'
-import { AtomFormService } from './atom-form.service'
-import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
-@model('@codelab/AtomService')
-export class AtomService
-  extends Model({
-    atomDomainService: prop(() => new AtomDomainService({})),
-    atomRepository: prop(() => new AtomRepository({})),
-    createForm: prop(() => new InlineFormService({})),
-    createModal: prop(() => new ModalService({})),
-    deleteManyModal: prop(() => new AtomsModalService({})),
-    paginationService: prop(
-      () => new PaginationService<IAtomModel, { name?: string }>({}),
-    ),
-    updateForm: prop(() => new AtomFormService({})),
-    updateModal: prop(() => new AtomModalService({})),
-  })
-  implements IAtomService
-{
-  /**
-   * @param interfaceId Optional interface ID for connecting to existing interface, instead of creating an interface
-   */
-  @modelFlow
-  @transaction
-  create = _async(function* (
-    this: AtomService,
-    {
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      id,
-      name,
-      tags = [],
-      type,
-    }: ICreateAtomData,
-  ) {
-    const api = this.typeService.typeDomainService.hydrateInterface({
+export const useAtomService = (): IAtomService => {
+  const { atomDomainService, typeDomainService } = useDomainStore()
+  const typeService = useTypeService()
+
+  const getDataFn = async (
+    page: number,
+    pageSize: number,
+    filter: { name?: string },
+  ) => {
+    const { aggregate, items } = await atomRepository.find(
+      { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+      {
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+      },
+    )
+
+    const atoms = items.map((atom) => atomDomainService.hydrate(atom))
+
+    return { items: atoms, totalItems: aggregate.count }
+  }
+
+  const paginationService = usePaginationService<IAtomModel, { name?: string }>(
+    'atom',
+    getDataFn,
+  )
+
+  const create = async ({
+    externalCssSource,
+    externalJsSource,
+    externalSourceType,
+    id,
+    name,
+    tags = [],
+    type,
+  }: ICreateAtomData) => {
+    const api = typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,
     })
 
-    const atom = this.atomDomainService.hydrate({
+    const atom = atomDomainService.hydrate({
       __typename: IElementRenderTypeKind.Atom,
       api,
       externalCssSource,
@@ -88,107 +76,89 @@ export class AtomService
       type,
     })
 
-    yield* _await(this.atomRepository.add(atom))
+    await atomRepository.add(atom)
 
-    this.paginationService.dataRefs.set(atom.id, atomRef(atom))
+    paginationService.dataRefs.set(atom.id, atomRef(atom))
 
     return atom
-  })
+  }
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: IAtomService, ids: Array<string>) {
+  const remove = async (items: Array<IAtomModel>) => {
     const atomsToDelete: Array<IAtomModel> = []
 
-    ids.forEach((id) => {
-      const atom = this.atomDomainService.atoms.get(id)
+    items.forEach(({ id }) => {
+      const atom = atomDomainService.atoms.get(id)
 
       if (atom) {
         atomsToDelete.push(atom)
-        this.atomDomainService.atoms.delete(id)
+        atomDomainService.atoms.delete(id)
       }
     })
 
-    const result = yield* _await(this.atomRepository.delete(atomsToDelete))
+    return await atomRepository.delete(atomsToDelete)
+  }
 
-    return result
-  })
-
-  @modelFlow
-  @transaction
-  getAll = _async(function* (
-    this: AtomService,
-    where?: AtomWhere,
-    options?: AtomOptions,
-  ) {
+  const getAll = async (where?: AtomWhere, options?: AtomOptions) => {
     const {
       aggregate: { count },
       items: atoms,
-    } = yield* _await(this.atomRepository.find(where, options))
+    } = await atomRepository.find(where, options)
 
-    this.paginationService.totalItems = count
+    paginationService.totalItems = count
 
     if (!isEmpty(where) || options?.limit) {
-      this.typeService.typeDomainService.hydrateTypes({
+      typeDomainService.hydrateTypes({
         interfaceTypes: atoms.map((atom) => atom.api),
       })
     }
 
-    return atoms.map((atom) => this.atomDomainService.hydrate(atom))
-  })
+    return atoms.map((atom) => atomDomainService.hydrate(atom))
+  }
 
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: AtomService, id: string) {
-    if (this.atomDomainService.atoms.has(id)) {
-      return this.atomDomainService.atoms.get(id)
+  const getOne = async (id: string) => {
+    if (atomDomainService.atoms.has(id)) {
+      return atomDomainService.atoms.get(id)
     }
 
-    const all = yield* _await(this.getAll({ id }))
+    const all = await getAll({ id })
 
     return all[0]
-  })
+  }
 
-  @modelFlow
-  getSelectAtomOptions = _async(function* (
-    this: AtomService,
+  const getSelectAtomOptions = async (
     fieldProps: { value?: string },
     parent?: IAtomModel,
-  ) {
-    const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())
+  ) => {
+    const atoms = await atomRepository.getSelectAtomOptions()
     const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
 
     return atomOptions.map(mapAtomOptions)
-  })
+  }
 
-  @modelFlow
-  loadApi = _async(function* (this: AtomService, id: string) {
-    const atom = this.atomDomainService.atoms.get(id)
+  const loadApi = async (id: string) => {
+    const atom = atomDomainService.atoms.get(id)
 
     if (atom?.api) {
-      yield* _await(this.typeService.getInterface(atom.api.id))
+      await typeService.getInterface(atom.api.id)
     }
-  })
+  }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: AtomService,
-    {
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      id,
-      name,
-      requiredParents = [],
-      suggestedChildren = [],
-      tags = [],
-      type,
-    }: IUpdateAtomData,
-  ) {
-    const atom = this.atomDomainService.atoms.get(id)
+  const update = async ({
+    externalCssSource,
+    externalJsSource,
+    externalSourceType,
+    id,
+    name,
+    requiredParents = [],
+    suggestedChildren = [],
+    tags = [],
+    type,
+  }: IUpdateAtomData) => {
+    const atom = atomDomainService.atoms.get(id)
 
-    atom?.writeCache({
+    assertIsDefined(atom)
+
+    atom.writeCache({
       externalCssSource,
       externalJsSource,
       externalSourceType,
@@ -199,27 +169,19 @@ export class AtomService
       type,
     })
 
-    yield* _await(this.atomRepository.update(atom!))
+    await atomRepository.update(atom)
 
-    return atom!
-  })
-
-  onAttachedToRootStore() {
-    this.paginationService.getDataFn = async (page, pageSize, filter) => {
-      const items = await this.getAll(
-        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
-        {
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        },
-      )
-
-      return { items, totalItems: this.paginationService.totalItems }
-    }
+    return atom
   }
 
-  @computed
-  private get typeService() {
-    return getTypeService(this)
+  return {
+    create,
+    getAll,
+    getOne,
+    getSelectAtomOptions,
+    loadApi,
+    paginationService,
+    remove,
+    update,
   }
 }

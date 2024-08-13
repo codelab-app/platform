@@ -1,8 +1,10 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
 import {
+  ComponentProperties,
   connectNodeId,
   connectOwner,
   ElementProperties,
+  refValidation,
 } from '@codelab/shared/domain'
 import type { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
@@ -10,7 +12,7 @@ import request from 'supertest'
 import { v4 } from 'uuid'
 import { OgmService } from '../../../infra'
 import { setupTestingContext } from '../../../test/setup'
-import { ComponentResolverComponents } from './component.spec.graphql.gen'
+import { ComponentResolverComponentsDocument } from './component.spec.graphql.gen'
 
 describe('PageResolvers', () => {
   let app: INestApplication
@@ -45,9 +47,11 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).users[0]!
+    ).users[0]
 
     const componentRef = { id: v4() }
+
+    refValidation.asserts(owner)
 
     const atomApi = (
       await ogmService.InterfaceType.create({
@@ -59,7 +63,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).interfaceTypes[0]!
+    ).interfaceTypes[0]
+
+    refValidation.asserts(atomApi)
 
     const atomReactFragment = (
       await ogmService.Atom.create({
@@ -73,7 +79,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).atoms[0]!
+    ).atoms[0]
+
+    refValidation.asserts(atomReactFragment)
 
     const props = (
       await ogmService.Prop.create({
@@ -84,7 +92,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).props[0]!
+    ).props[0]
+
+    refValidation.asserts(props)
 
     const rootElement = (
       await ogmService.Element.create({
@@ -102,7 +112,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).elements[0]!
+    ).elements[0]
+
+    refValidation.asserts(rootElement)
 
     const childElementProps = (
       await ogmService.Prop.create({
@@ -113,7 +125,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).props[0]!
+    ).props[0]
+
+    refValidation.asserts(childElementProps)
 
     const childElement = (
       await ogmService.Element.create({
@@ -132,7 +146,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).elements[0]!
+    ).elements[0]
+
+    refValidation.asserts(childElement)
 
     const storeApi = (
       await ogmService.InterfaceType.create({
@@ -144,7 +160,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).interfaceTypes[0]!
+    ).interfaceTypes[0]
+
+    refValidation.asserts(storeApi)
 
     const store = (
       await ogmService.Store.create({
@@ -156,7 +174,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).stores[0]!
+    ).stores[0]
+
+    refValidation.asserts(store)
 
     const componentApi = (
       await ogmService.InterfaceType.create({
@@ -168,7 +188,9 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).interfaceTypes[0]!
+    ).interfaceTypes[0]
+
+    refValidation.asserts(componentApi)
 
     const componentProps = (
       await ogmService.Prop.create({
@@ -179,15 +201,22 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).props[0]!
+    ).props[0]
+
+    refValidation.asserts(componentProps)
 
     const component = (
       await ogmService.Component.create({
         input: [
           {
             api: connectNodeId(componentApi.id),
+            compositeKey: ComponentProperties.componentCompositeKey(
+              {
+                slug: 'cui-card',
+              },
+              { id: v4() },
+            ),
             id: v4(),
-            name: 'Component',
             owner: connectOwner(owner),
             props: connectNodeId(componentProps.id),
             rootElement: connectNodeId(rootElement.id),
@@ -195,12 +224,14 @@ describe('PageResolvers', () => {
           },
         ],
       })
-    ).components[0]!
+    ).components[0]
+
+    refValidation.asserts(component)
 
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: print(ComponentResolverComponents),
+        query: print(ComponentResolverComponentsDocument),
       })
       .expect(200)
       .expect((res) => {
@@ -215,10 +246,11 @@ describe('PageResolvers', () => {
               },
             ],
             id: component.id,
-            name: component.name,
+            name: 'Cui Card',
             rootElement: {
               id: rootElement.id,
             },
+            slug: 'cui-card',
           },
         ])
       })

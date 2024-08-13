@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef } from 'react'
 import type { ToolbarProps } from '../../abstract'
 import { CuiPopoverToolbarItem } from './CuiPopoverToolbarItem'

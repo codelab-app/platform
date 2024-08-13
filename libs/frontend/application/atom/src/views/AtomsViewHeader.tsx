@@ -1,26 +1,28 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+'use client'
+
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom.state'
 
-export const AtomsViewHeader = observer(() => {
-  const { atomService, fieldService } = useStore()
-  const atomToUpdate = atomService.updateForm.atom?.name || ''
-  const fieldToUpdate = fieldService.updateForm.field?.key || ''
+export const AtomsViewHeader = () => {
+  const updateFieldForm = useUpdateFieldForm()
+  const updateAtomForm = useUpdateAtomModal()
+  const atomToUpdate = updateAtomForm.data?.current.name || ''
+  const fieldToUpdate = updateFieldForm.data?.key || ''
 
-  const atomOrField = atomService.updateForm.isOpen
+  const atomOrField = updateAtomForm.isOpen
     ? 'atom'
-    : fieldService.updateForm.isOpen
+    : updateFieldForm.isOpen
     ? 'field'
     : ''
 
-  const atomOrFieldName = atomService.updateForm.isOpen
-    ? atomToUpdate
-    : fieldToUpdate
+  const atomOrFieldName = updateAtomForm.isOpen ? atomToUpdate : fieldToUpdate
 
   return (
     <CuiHeader
@@ -43,4 +45,4 @@ export const AtomsViewHeader = observer(() => {
       }
     />
   )
-})
+}

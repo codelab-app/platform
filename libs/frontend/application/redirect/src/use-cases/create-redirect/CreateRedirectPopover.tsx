@@ -1,10 +1,8 @@
+'use client'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
@@ -12,21 +10,22 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateRedirectForm } from './create-redirect.state'
 import { CreateRedirectForm } from './CreateRedirectForm'
 
 export const CreateRedirectPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { redirectService } = useStore()
+  const createRedirectForm = useCreateRedirectForm()
   const { popover } = useCui()
 
   return (
     <CuiSidebarPopover
-      id={MODEL_ACTION.CreateRedirect.key}
+      id={UiKey.CreateRedirectPopover}
       label="Create Redirect"
       toolbar={{
         items: [
           {
-            cuiKey: MODEL_ACTION.CreateRedirect.key,
+            cuiKey: UiKey.CreateRedirectToolbarItem,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -35,12 +34,12 @@ export const CreateRedirectPopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: MODEL_ACTION.CancelCreateRedirect.key,
+            cuiKey: UiKey.CancelCreateRedirectToolbarItem,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              redirectService.createForm.close()
+              createRedirectForm.close()
             },
             title: 'Cancel',
           },

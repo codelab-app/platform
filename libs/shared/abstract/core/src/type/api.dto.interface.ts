@@ -12,14 +12,14 @@
 
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IField } from '../field/field.dto.interface'
-import { IType } from './type.dto.interface'
+import { FieldSchema } from '../field/field.dto.interface'
+import { TypeSchema } from './type.dto.interface'
 
-export const IApi = Type.Object({
-  fields: Type.Array(IField),
+export const ApiSchema = Type.Object({
+  fields: Type.Array(FieldSchema),
   // This refers to the root interface type
   id: Type.String(),
-  types: Type.Array(IType),
+  types: Type.Array(TypeSchema),
 })
 
-export type IApi = Static<typeof IApi>
+export type IApi = Static<typeof ApiSchema>

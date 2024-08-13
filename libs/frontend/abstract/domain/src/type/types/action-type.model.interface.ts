@@ -1,8 +1,8 @@
+import type { IActionTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type {
   ActionTypeCreateInput,
   UpdateActionTypesMutationVariables,
-} from '@codelab/shared/abstract/codegen'
-import type { IActionTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**

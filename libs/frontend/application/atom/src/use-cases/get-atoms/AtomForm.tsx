@@ -1,20 +1,25 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { UpdateFieldForm } from '@codelab/frontend/application/type'
+'use client'
+
+import {
+  UpdateFieldForm,
+  useUpdateFieldModal,
+} from '@codelab/frontend-application-type/use-cases/update-field'
 import { Empty, Typography } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { UpdateAtomForm } from '../update-atom'
+import { useUpdateAtomModal } from '../update-atom/update-atom.state'
 
-export const AtomForm = observer(() => {
-  const { atomService, fieldService } = useStore()
+export const AtomForm = () => {
+  const updateAtomForm = useUpdateAtomModal()
+  const updateFieldForm = useUpdateFieldModal()
 
-  const formLabel = atomService.updateForm.isOpen
+  const formLabel = updateAtomForm.isOpen
     ? 'Edit Atom'
-    : fieldService.updateForm.isOpen
+    : updateFieldForm.isOpen
     ? 'Edit Field'
     : null
 
-  const atomStory = atomService.updateForm.isOpen ? (
+  const atomStory = updateAtomForm.isOpen ? (
     <>
       <Typography className="text-2xl">Examples</Typography>
       <div className="flex grow flex-col justify-center">
@@ -28,8 +33,8 @@ export const AtomForm = observer(() => {
       {atomStory}
 
       <Typography className="text-2xl">{formLabel}</Typography>
-      {atomService.updateForm.isOpen && <UpdateAtomForm />}
-      {fieldService.updateForm.isOpen && <UpdateFieldForm />}
+      {updateAtomForm.isOpen && <UpdateAtomForm />}
+      {updateFieldForm.isOpen && <UpdateFieldForm />}
     </div>
   )
-})
+}

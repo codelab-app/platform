@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/application/user/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-application-user",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

@@ -1,10 +1,12 @@
+'use client'
+
 import type {
   IRuntimeComponentModel,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
-import { propSafeStringify } from '@codelab/frontend/domain/prop'
-import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
+import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -41,7 +43,9 @@ const PropsInspectorTab = observer<{
       <CodeMirrorEditor
         height="150px"
         language={ICodeMirrorLanguage.Json}
-        onChange={(value) => setEditedProp(value)}
+        onChange={(value) => {
+          setEditedProp(value)
+        }}
         onSave={(value) => save(value)}
         title={`${nodeLabel} props`}
         value={editedProp}

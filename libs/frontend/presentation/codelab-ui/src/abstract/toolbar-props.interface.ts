@@ -1,8 +1,9 @@
-import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+import type { UiKey } from '@codelab/frontend/abstract/types'
 import type React from 'react'
 
 export interface ToolbarItem {
-  cuiKey: ModelActionKey
+  ariaLabel?: string
+  cuiKey: UiKey
 
   icon: React.ReactNode
   label?: string

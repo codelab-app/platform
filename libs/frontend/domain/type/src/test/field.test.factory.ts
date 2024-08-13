@@ -1,10 +1,6 @@
 import type { IFieldDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend/domain/shared'
-import type {
-  IFieldDto,
-  IRef,
-  ITypeMaybeRef,
-} from '@codelab/shared/abstract/core'
+import { chance } from '@codelab/frontend-domain-shared'
+import type { IFieldDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
@@ -21,8 +17,8 @@ export const fieldFactory =
       id: dto.id ?? v4(),
       key: dto.key ?? chance.word(),
       name: dto.name ?? null,
-      nextSibling: (dto.nextSibling ?? null) as IRef | null,
-      prevSibling: (dto.prevSibling ?? null) as IRef | null,
+      nextSibling: dto.nextSibling ?? null,
+      prevSibling: dto.prevSibling ?? null,
       validationRules: dto.validationRules ?? null,
     }
 

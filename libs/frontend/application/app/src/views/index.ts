@@ -1,1 +1,1 @@
-export * from './AppsViewLayout'
+export * from '../use-cases/app-list/AppListHeader'

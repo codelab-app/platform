@@ -1,5 +1,9 @@
 {
-  "extends": ["plugin:@nx/react", "../../../../.eslintrc.json"],
+  "extends": [
+    "plugin:@nx/react",
+    "plugin:@codelab/recommended",
+    "../../../../.eslintrc.json"
+  ],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
@@ -10,15 +14,14 @@
       "rules": {}
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "files": ["src/components/*/*/*.{ts,tsx}"],
+      "rules": {
+        "barrel-files/avoid-barrel-files": "off",
+        "barrel-files/avoid-re-export-all": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.graphql"],
       "rules": {}
     }
   ]

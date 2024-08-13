@@ -1,4 +1,7 @@
-import type { BuilderWidth } from '@codelab/frontend/abstract/domain'
+import type {
+  BuilderWidth,
+  IBuilderService,
+} from '@codelab/frontend/abstract/application'
 import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
 import { useMotionValue } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
@@ -72,7 +75,7 @@ export const useBuilderResize = ({
 
     setSelectedBuilderWidth(selectedWidth)
 
-    return mWidth.set(selectedWidth.default)
+    mWidth.set(selectedWidth.default)
   }, [selectedWidth, mWidth, setSelectedBuilderWidth])
 
   const commonDragProps: Partial<DragHandleProps> = {
@@ -95,8 +98,12 @@ export const useBuilderResize = ({
     xDragHandleProps: {
       drag: 'x',
       onDrag: handleXDrag,
-      onDragEnd: () => setIsDragging(false),
-      onDragStart: () => setIsDragging(true),
+      onDragEnd: () => {
+        setIsDragging(false)
+      },
+      onDragStart: () => {
+        setIsDragging(true)
+      },
       style: {
         cursor: 'col-resize',
         translateX: '0px !important',

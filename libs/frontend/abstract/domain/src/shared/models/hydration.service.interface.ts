@@ -1,3 +1,39 @@
+import type {
+  IAppDto,
+  IComponentDto,
+  IPageDto,
+  IRef,
+} from '@codelab/shared/abstract/core'
+import type {
+  AtomBuilderFragment,
+  AuthGuardFragment,
+  ComponentBuilderFragment,
+  ElementFragment,
+  FieldFragment,
+  PropFragment,
+  RedirectFragment,
+  ResourceFragment,
+  StoreFragment,
+  TypeFragment,
+} from '@codelab/shared/infra/gql'
+
 export interface IHydrateable<Dto, Model> {
   hydrate(dto: Dto): Model
+}
+
+export interface IHydrateableData {
+  actions?: StoreFragment['actions']
+  apps?: Array<IAppDto>
+  atoms?: Array<AtomBuilderFragment>
+  authGuards?: Array<AuthGuardFragment>
+  components?: Array<ComponentBuilderFragment | IComponentDto>
+  elements?: Array<ElementFragment & { closestContainerNode: { id: string } }>
+  fields?: Array<FieldFragment>
+  // pages?: Array<PageDevelopmentFragment>
+  pages?: Array<IPageDto>
+  props?: Array<PropFragment>
+  redirects?: Array<RedirectFragment>
+  resources?: Array<ResourceFragment>
+  stores?: Array<StoreFragment & { component?: IRef; page?: IRef }>
+  types?: Array<TypeFragment>
 }

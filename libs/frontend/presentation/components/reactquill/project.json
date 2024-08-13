@@ -1,0 +1,18 @@
+{
+  "name": "frontend-presentation-components-reactquill",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/presentation/components/reactquill/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:frontend-presentation-components-reactquill",
+    "layer:presentation",
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

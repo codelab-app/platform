@@ -1,22 +1,24 @@
 description: 'Build Repo'
 steps:
-  - restore_cache:
-      name: 'Restore NX Cache'
-      keys:
-        # - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
-        # `lockfile.hash` doesn't exist yet, we restore the latest `nx-cache`
-        - nx-cache
-  - run:
-      name: 'Monitor NX Cache Size'
-      command: ./scripts/nx/reset-cache.sh
+  # - restore_cache:
+  #     name: 'Restore NX Cache'
+  #     keys:
+  #       - nx-cache
+  # - run:
+  #     name: 'Monitor NX Cache Size'
+  #     command: ./scripts/nx/reset-cache.sh
   # Can't use `pnpm cli` doesn't exist yet
-  - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
-  - save_cache:
-      name: 'Save NX Cache'
-      key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
-      paths:
-        - ~/project/.nx/cache
-        # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching
-        - ~/project/dist/apps/web/.next/cache
-        - ~/project/dist/apps/sites/.next/cache
-        - ~/project/dist/apps/landing/.next/cache
+  - nx/set-shas
+  - run: echo $CIRCLE_API_TOKEN
+  - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail --verbose
+  # - save_cache:
+  #     name: 'Save NX Cache'
+  #     # nx doesn't use `lockfile.hash` anymore
+  #     # key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+  #     key: nx-cache
+  #     paths:
+  #       - ~/project/.nx/cache
+  #       # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching
+  #       - ~/project/dist/apps/web/.next/cache
+  #       - ~/project/dist/apps/sites/.next/cache
+  #       - ~/project/dist/apps/landing/.next/cache

@@ -47,7 +47,9 @@ export class ErrorBoundary extends React.Component<
         <div>
           <h2>Oops, there is an error!</h2>
           <button
-            onClick={() => this.setState({ hasError: false })}
+            onClick={() => {
+              this.setState({ hasError: false })
+            }}
             type="button"
           >
             Try again?

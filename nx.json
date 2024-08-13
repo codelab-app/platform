@@ -1,8 +1,7 @@
 {
   "defaultBase": "master",
-  "nxCloudAccessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU=",
-  "parallel": 3,
   "useInferencePlugins": false,
+  "parallel": 3,
   "tasksRunnerOptions": {
     "default": {
       "options": {
@@ -12,32 +11,18 @@
     }
   },
   "defaultProject": "web",
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint",
+        "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
+      }
+    }
+  ],
   "generators": {
-    "@nrwl/nest": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/express": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/gatsby": {
-      "application": {
-        "style": "styled-components"
-      }
-    },
     "@nx/workspace": {
       "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nx/cypress": {
-      "cypress-project": {
         "linter": "eslint"
       }
     },
@@ -49,8 +34,7 @@
     "@nx/react": {
       "application": {
         "style": "css",
-        "linter": "eslint",
-        "babel": true
+        "linter": "eslint"
       },
       "library": {
         "style": "styled-components",
@@ -142,20 +126,19 @@
       "cache": true,
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx,graphql}"]
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"]
       },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/{projectName}.xml",
           "quiet": true
+        },
+        "codegen": {
+          "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],
+          "errorOnUnmatchedPattern": false
         }
       }
-    },
-    "@nx/next:build": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^default"]
     },
     "@nx/vite:test": {
       "cache": true,
@@ -201,7 +184,15 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
+      "!{projectRoot}/test-setup.[jt]s",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
     ]
+  },
+  "release": {
+    "version": {
+      "preVersionCommand": "pnpm dlx nx run-many -t build"
+    }
   }
 }

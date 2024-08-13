@@ -1,16 +1,20 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { ModalForm } from '@codelab/frontend/presentation/view'
+'use client'
+
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useResourceService } from '../../services'
 import { updateResourceSchema } from './update-resource.schema'
+import { useUpdateResourceModal } from './update-resource.state'
 
 export const UpdateResourceModal = observer(() => {
-  const { resourceService } = useStore()
-  const resource = resourceService.updateModal.resource
+  const resourceService = useResourceService()
+  const updateResourceModal = useUpdateResourceModal()
+  const resource = updateResourceModal.data
 
   const model = {
     config: resource?.config.values,
@@ -19,7 +23,7 @@ export const UpdateResourceModal = observer(() => {
     type: resource?.type,
   }
 
-  const closeModal = () => resourceService.updateModal.close()
+  const closeModal = () => updateResourceModal.close()
 
   const onSubmit = (resourceDTO: IUpdateResourceData) => {
     void resourceService.update(resourceDTO)
@@ -33,7 +37,8 @@ export const UpdateResourceModal = observer(() => {
     <ModalForm.Modal
       okText="Update Resource"
       onCancel={closeModal}
-      open={resourceService.updateModal.isOpen}
+      open={updateResourceModal.isOpen}
+      uiKey={UiKey.UpdateResourceModal}
     >
       <ModalForm.Form<IUpdateResourceData>
         model={model}
@@ -43,7 +48,6 @@ export const UpdateResourceModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateResourceSchema}
-        uiKey={MODEL_ACTION.UpdateResource.key}
       >
         <AutoFields />
       </ModalForm.Form>

@@ -3,16 +3,15 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import { IPageDto } from '@codelab/shared/abstract/core'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Page } from '../store'
-import { PageDomainFactory } from './page.domain.factory'
 
 @model('@codelab/PageDomainService')
 export class PageDomainService
   extends Model({
-    pageFactory: prop(() => new PageDomainFactory({})),
     pages: prop<ObjectMap<IPageModel>>(() => objectMap()),
   })
   implements IPageDomainService
@@ -35,5 +34,13 @@ export class PageDomainService
 
       return page
     }
+  }
+
+  findBySlug(slug: string) {
+    const found = this.pagesList.find((page) => page.slug === slug)
+
+    assertIsDefined(found)
+
+    return found
   }
 }

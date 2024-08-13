@@ -1,0 +1,183 @@
+{
+  "overrides": [
+    {
+      "plugins": [],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
+        "no-dupe-class-members": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        // "unused-imports/no-unused-imports": "error",
+        "sort-destructure-keys/sort-destructure-keys": [
+          "error",
+          { "caseSensitive": false }
+        ],
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "antd/lib/select",
+                "importNames": ["DefaultOptionType"],
+                "message": "Please use `SelectOption` from `@codelab/frontend/abstract/types` instead"
+              }
+            ]
+          }
+        ],
+        "canonical/destructuring-property-newline": "off",
+        "canonical/import-specifier-newline": "off",
+        "canonical/id-match": "off",
+        "id-length": [
+          "error",
+          {
+            "properties": "never",
+            "exceptions": ["_", "a", "b", "$", "z", "i"]
+          }
+        ],
+        "lodash/import-scope": ["error", "method"],
+        "react/no-unescaped-entities": "off",
+        "no-implicit-coercion": "error",
+        "react/react-in-jsx-scope": "error",
+        "react/jsx-sort-props": "error",
+        "react/no-unknown-property": [
+          "error",
+          {
+            "ignore": ["css"]
+          }
+        ],
+        /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
+        "@next/next/google-font-display": "off",
+        "@next/next/google-font-preconnect": "off",
+        "react/jsx-props-no-spreading": [
+          "error",
+          {
+            "html": "enforce",
+            "custom": "enforce",
+            "explicitSpread": "enforce",
+            "exceptions": []
+          }
+        ],
+        "react/jsx-curly-brace-presence": "error",
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
+          }
+        ],
+        "simple-import-sort/exports": "error",
+        //
+        // Custom import rules
+        //
+        "import/newline-after-import": "error",
+        "import/first": "error",
+        // SUPER SLOW!
+        "import/no-cycle": "off",
+        "import/no-duplicates": "error",
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
+        ],
+        "func-style": "error"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
+      "files": ["*.schema.ts", "*.schema.interface.ts"],
+      "rules": {
+        "canonical/sort-keys": "off"
+      }
+    },
+    {
+      "files": ["**/pages/**/*.tsx", "**/app/**/*.tsx"],
+      "rules": {
+        "unicorn/filename-case": "off"
+      }
+    },
+    {
+      // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
+      "plugins": ["jest", "jest-formatting"],
+      "extends": ["plugin:jest/recommended", "plugin:jest-formatting/strict"],
+      "files": ["*.spec.ts", "*.spec.tsx"],
+      "rules": {
+        "import/no-unresolved": "error",
+        "import/named": "error"
+      }
+    },
+    {
+      "files": ["*.tsx"],
+      "plugins": ["tailwindcss"],
+      "extends": ["plugin:tailwindcss/recommended"],
+      "rules": {
+        "react/prop-types": "off",
+        "tailwindcss/no-custom-classname": ["error", {}]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:import/typescript"],
+      "rules": {
+        "curly": ["error", "all"],
+        "prefer-arrow/prefer-arrow-functions": "error",
+        "@typescript-eslint/no-extraneous-class": [
+          "off",
+          { "allowWithDecorator": true }
+        ],
+        "@typescript-eslint/method-signature-style": ["error", "method"],
+        "@typescript-eslint/sort-type-constituents": "error",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/consistent-type-assertions": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-unnecessary-condition": "error",
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/array-type": [
+          "error",
+          {
+            "default": "generic"
+          }
+        ],
+        "@typescript-eslint/no-dynamic-delete": "error"
+      }
+    },
+    {
+      "files": ["*.stories.jsx", "*.stories.tsx"],
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
+      }
+    },
+    // {
+    //   "files": ["*.graphql"],
+    //   "parser": "@graphql-eslint/eslint-plugin",
+    //   "plugins": ["@graphql-eslint"],
+    //   "extends": ["plugin:@graphql-eslint/schema-all"],
+    //   "parserOptions": {
+    //     "skipGraphQLConfig": true,
+    //     "schema": "schema.graphql"
+    //   },
+    //   "rules": {
+    //     "@graphql-eslint/alphabetize": [
+    //       "error",
+    //       {
+    //         "fields": ["ObjectTypeDefinition"],
+    //         "selections": ["OperationDefinition", "FragmentDefinition"]
+    //       }
+    //     ]
+    //   }
+    // },
+    {
+      "files": ["*.config.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
+}

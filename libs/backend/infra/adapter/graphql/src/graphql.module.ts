@@ -10,7 +10,7 @@ import { endpointConfig } from '@codelab/backend/infra/core'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 import { GraphqlService } from './graphql.service'
@@ -35,11 +35,14 @@ import { GraphqlService } from './graphql.service'
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [GraphQLSchemaModule],
-      inject: [GRAPHQL_SCHEMA_PROVIDER],
-      useFactory: async (graphqlSchema: GraphQLSchema) => {
+      inject: [GRAPHQL_SCHEMA_PROVIDER, endpointConfig.KEY],
+      useFactory: async (
+        graphqlSchema: GraphQLSchema,
+        endpoint: ConfigType<typeof endpointConfig>,
+      ) => {
         return {
           // bodyParserConfig: false,
-          context: async ({ req, res, ...rest }: GqlContext) => {
+          context: async ({ req, res }: GqlContext) => {
             // starting from neo4j/graphql v5 - token is required in order to allow
             // @authentication/@authorization in neo4j schema files, see migration guide:
             // https://neo4j.com/docs/graphql/current/migration/4.0.0/authorization
@@ -61,7 +64,7 @@ import { GraphqlService } from './graphql.service'
             return response
           },
           introspection: true,
-          path: 'api/graphql',
+          path: `${endpoint.baseApiPath}/graphql`,
           playground: false,
           plugins: [
             ApolloServerPluginLandingPageLocalDefault(),

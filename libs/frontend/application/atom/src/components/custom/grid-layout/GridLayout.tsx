@@ -1,5 +1,5 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { usePropService } from '@codelab/frontend-application-prop/services'
 import { ObjectTyped } from 'object-typed'
 import React, { useMemo } from 'react'
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'
@@ -15,7 +15,8 @@ export interface RenderedComponentProps {
 export const GridLayout = React.memo(
   ({ children, ...restProps }: RenderedComponentProps & ResponsiveProps) => {
     const elementId = restProps[DATA_ELEMENT_ID]
-    const { elementService, propService } = useStore()
+    // const elementService = useElementService()
+    const propService = usePropService()
 
     const rglChildren = useMemo(() => {
       return React.Children.map(children, (child) => {
@@ -46,32 +47,42 @@ export const GridLayout = React.memo(
 
     // Make the RGL breakpoints
     const makeBreakpoints = () => {
-      const breakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
+      const defaultBreakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
+      const breakpoints = restProps.breakpoints
 
-      if (restProps.breakpoints) {
-        ObjectTyped.keys(breakpoints).forEach((key) => {
-          if (restProps.breakpoints && restProps.breakpoints[key]) {
-            breakpoints[key] = restProps.breakpoints[key]!
-          }
-        })
+      if (!breakpoints) {
+        return defaultBreakpoints
       }
 
-      return breakpoints
+      ObjectTyped.keys(defaultBreakpoints).forEach((key) => {
+        const breakpoint = breakpoints[key]
+
+        if (breakpoint) {
+          defaultBreakpoints[key] = breakpoint
+        }
+      })
+
+      return defaultBreakpoints
     }
 
     // Make the RGL cols
     const makeCols = () => {
-      const cols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }
+      const defaultCols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }
+      const cols = restProps.cols
 
-      if (restProps.cols) {
-        ObjectTyped.keys(cols).forEach((key) => {
-          if (restProps.cols && restProps.cols[key]) {
-            cols[key] = restProps.cols[key]!
-          }
-        })
+      if (!cols) {
+        return defaultCols
       }
 
-      return cols
+      ObjectTyped.keys(defaultCols).forEach((key) => {
+        const col = cols[key]
+
+        if (col) {
+          defaultCols[key] = col
+        }
+      })
+
+      return defaultCols
     }
 
     const onLayoutChange = (_layout: Array<Layout>, allLayouts: Layouts) => {
@@ -84,12 +95,12 @@ export const GridLayout = React.memo(
         layouts: allLayouts,
       }
 
-      const element = elementService.element(elementId)
+      // const element = elementService.getElement(elementId)
 
-      void propService.update(element.props, {
-        data: JSON.stringify(newProps),
-        id: element.props.id,
-      })
+      // void propService.update(element.props, {
+      //   data: JSON.stringify(newProps),
+      //   id: element.props.id,
+      // })
     }
 
     return (

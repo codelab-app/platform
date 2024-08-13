@@ -1,22 +1,24 @@
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+'use client'
+
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { ICreatePageData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { usePageService } from '../../services'
 import { createPageSchema } from './create-page.schema'
+import { useCreatePageForm } from './create-page.state'
 
 interface CreatePageFormProps {
   showFormControl?: boolean
@@ -30,22 +32,26 @@ export const CreatePageForm = observer(
     showFormControl = true,
     submitRef,
   }: CreatePageFormProps) => {
-    const { pageService, userService } = useStore()
+    const { user } = useUser()
     const app = useCurrentApp()
+    const pageService = usePageService()
+    const domainStore = useDomainStore()
+    const createPageForm = useCreatePageForm()
 
     const model = {
-      app: { id: app?.id },
+      app: { id: app.id },
       id: v4(),
       // required for store api
       owner: {
-        auth0Id: userService.user.auth0Id,
+        auth0Id: user?.sub,
       },
     }
 
-    const closeForm = () => pageService.createForm.close()
+    const closeForm = () => createPageForm.close()
 
     const onSubmit = async (data: ICreatePageData) => {
       await pageService.create(data)
+
       closeForm()
       onSubmitSuccess?.()
 
@@ -61,7 +67,7 @@ export const CreatePageForm = observer(
         })}
         schema={createPageSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreatePage.key}
+        uiKey={UiKey.CreatePageForm}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

@@ -9,16 +9,16 @@ import {
   resourceRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
-import type {
-  ApiActionCreateInput,
-  ApiActionDeleteInput,
-  ApiActionUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import type { IApiActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, disconnectAll } from '@codelab/shared/domain'
+import type {
+  ApiActionCreateInput,
+  ApiActionDeleteInput,
+  ApiActionUpdateInput,
+} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -66,7 +66,7 @@ export class ApiAction
   @computed
   get toJson() {
     return {
-      __typename: `${IActionKind.ApiAction}` as const,
+      __typename: IActionKind.ApiAction as const,
       config: this.config.toJson,
       errorAction: this.errorAction?.current,
       id: this.id,

@@ -12,8 +12,8 @@ export const compoundCaseToTitleCase = (input: string) =>
     .replace(/^./, (str) => str.toUpperCase())
     .trim()
 
-// export const toPascalCase = (value: string) =>
-//   v.chain(value).camelCase().capitalize().value()
+export const toPascalCase = (value: string) =>
+  voca.chain(value).camelCase().capitalize().value()
 
 // export const toCamelCase = (value: string) => v.chain(value).camelCase().value()
 
@@ -66,4 +66,17 @@ export const titleCase = (input: string): string => {
 
   // Then convert to title case.
   return voca.titleCase(withSpaces)
+}
+
+export const slugCaseToTitleCase = (input: string): string => {
+  // Split slug into words
+  const words = input.split('-')
+
+  // Capitalize first letter of each word
+  const capitalizedWords = words.map((word) => {
+    return capitalizeFirstLetter(word)
+  })
+
+  // Join words back into title cased string
+  return capitalizedWords.join(' ')
 }

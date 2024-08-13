@@ -1,10 +1,10 @@
+import type { IPage, IPageDto, IPageKind } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type {
   PageCreateInput,
   PageDeleteInput,
   PageUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import type { IPage, IPageDto, IPageKind } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { IAppModel } from '../app'
 import type { IElementModel, IElementTree } from '../element'
@@ -22,6 +22,11 @@ export interface IPageModel
    */
   builderUrlInstance: string
   elements: Array<IElementModel>
+  /**
+   * a pre-computed descendant elements ids
+   * mainly used for deletePageUseCase to avoid element hydrating
+   */
+  elementsIds: Array<string>
   kind: IPageKind
   name: string
   /**

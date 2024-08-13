@@ -1,27 +1,27 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import {
-  CreateRedirectPopover,
-  DeleteRedirectModal,
-  UpdateRedirectPopover,
-} from '@codelab/frontend/application/redirect'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
+import { DeleteRedirectModal } from '@codelab/frontend-application-redirect/use-cases/delete-redirect'
+import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import {
-  CreatePagePopover,
-  DeletePageModal,
-  PageList,
-  UpdatePagePopover,
-} from '../use-cases'
+import { CreatePagePopover } from '../use-cases/create-page'
+import { useCreatePageForm } from '../use-cases/create-page/create-page.state'
+import { DeletePageModal } from '../use-cases/delete-page'
+import { useDeletePageModal } from '../use-cases/delete-page/delete-page.state'
+import { PageList } from '../use-cases/get-pages'
+import { UpdatePagePopover } from '../use-cases/update-page'
 
 export const PagesPrimarySidebar = observer(() => {
-  const { pageService } = useStore()
   const app = useCurrentApp()
   const { popover } = useCui()
-  const page = pageService.deleteModal.page
+  const createPageForm = useCreatePageForm()
+  const deletePageModal = useDeletePageModal()
+  const page = deletePageModal.data?.current
 
   return (
     <>
@@ -37,20 +37,20 @@ export const PagesPrimarySidebar = observer(() => {
             <DeleteRedirectModal />
           </>
         }
-        uiKey={MODEL_UI.SidebarPage.key}
+        uiKey={UiKey.PageSidebar}
         views={[
           {
-            content: <>{app && <PageList app={app} />}</>,
+            content: <PageList app={app} />,
             key: 'pages',
             label: 'Pages',
             toolbar: {
               items: [
                 {
-                  cuiKey: MODEL_ACTION.CreatePage.key,
+                  cuiKey: UiKey.CreatePageToolbarItem,
                   icon: <PlusOutlined />,
                   onClick: () => {
-                    pageService.createForm.open()
-                    popover.open(MODEL_ACTION.CreatePage.key)
+                    createPageForm.open()
+                    popover.open(UiKey.CreatePagePopover)
                   },
                   title: 'Create Page',
                 },

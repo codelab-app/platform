@@ -1,32 +1,28 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateComponentForm } from './create-component.state'
 import { CreateComponentForm } from './CreateComponentForm'
 
-export const CreateComponentPopover = observer(() => {
+export const CreateComponentPopover = () => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { componentService } = useStore()
+  const createForm = useCreateComponentForm()
   const { popover } = useCui()
 
   return (
     <CuiSidebarPopover
-      id={MODEL_ACTION.CreateComponent.key}
+      id={UiKey.CreateComponentPopover}
       label="Create Component"
       toolbar={{
         items: [
           {
-            cuiKey: MODEL_ACTION.CreateComponent.key,
+            cuiKey: UiKey.CreateComponentToolbarItem,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -35,12 +31,12 @@ export const CreateComponentPopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: MODEL_ACTION.CancelCreateComponent.key,
+            cuiKey: UiKey.CancelCreateComponentToolbarItem,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              componentService.createForm.close()
+              createForm.close()
             },
             title: 'Cancel',
           },
@@ -50,9 +46,8 @@ export const CreateComponentPopover = observer(() => {
     >
       <CreateComponentForm
         onSubmitSuccess={() => popover.close()}
-        showFormControl={false}
         submitRef={submitRef}
       />
     </CuiSidebarPopover>
   )
-})
+}

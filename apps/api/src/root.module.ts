@@ -1,7 +1,11 @@
-import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
+import {
+  AuthModule,
+  JwtAuthGuard,
+  JwtAuthMiddleware,
+} from '@codelab/backend/application/auth'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { Module } from '@nestjs/common'
+import { type MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { ApiModule } from './api/api.module'
@@ -33,8 +37,8 @@ import { HealthcheckController } from './healthcheck.controller'
 export class RootModule {
   // configure(consumer: MiddlewareConsumer) {
   //   consumer
-  //     .apply(AuthMiddleware)
-  //     // This needs to be `/graphql` since `/api` is added as a `globalPrefix`
+  //     .apply(JwtAuthMiddleware)
+  //     // This needs to be `/graphql` since `/api/v1` is added as a `globalPrefix`
   //     .forRoutes({ method: RequestMethod.ALL, path: '/graphql' })
   // }
 }

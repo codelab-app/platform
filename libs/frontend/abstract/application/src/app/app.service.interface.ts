@@ -1,37 +1,15 @@
 import type {
-  IAppDevelopmentService,
-  IAppDomainService,
   IAppModel,
-  IAppProductionService,
   ICreateAppData,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
-import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
-import type { DefaultOptionType } from 'antd/lib/select'
-import type { Ref } from 'mobx-keystone'
-import type {
-  ICRUDModalService,
-  ICRUDService,
-  IEntityModalService,
-  IQueryService,
-} from '../services'
-import type { IAppRepository } from '.'
+import type { AppOptions, AppWhere } from '@codelab/shared/infra/gql'
+import type { ICRUDService, IQueryService } from '../services'
 
 export interface IAppService
   extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
-    IQueryService<IAppModel, AppWhere, AppOptions>,
-    ICRUDModalService<Ref<IAppModel>, { app?: IAppModel }> {
-  appDevelopmentService: IAppDevelopmentService
-  appDomainService: IAppDomainService
-  appProductionService: IAppProductionService
-  appRepository: IAppRepository
-  buildModal: IEntityModalService<Ref<IAppModel>, { app?: IAppModel }>
-
-  exportApp(app: IAppModel): Promise<unknown>
-  getSelectAppOptions(): Promise<Array<DefaultOptionType>>
-  importApp(appDataFile: File): Promise<Array<IAppModel>>
-  loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
+    IQueryService<IAppModel, AppWhere, AppOptions> {
   regeneratePages(app: IAppModel, pagesUrls?: Array<string>): Promise<void>
   updatePage(data: IUpdatePageData): Promise<void>
 }

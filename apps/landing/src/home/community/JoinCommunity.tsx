@@ -49,7 +49,9 @@ export const JoinCommunity = () => {
           <Button
             className="m-auto mb-6 flex items-center rounded-lg p-6 sm:mb-12 md:mb-24 lg:p-8 xl:p-10"
             ghost
-            onClick={() => setShowEmailModal(true)}
+            onClick={() => {
+              setShowEmailModal(true)
+            }}
           >
             <a className="text-base font-bold text-white lg:text-xl">
               Join The Community
@@ -57,7 +59,9 @@ export const JoinCommunity = () => {
           </Button>
         </div>
         <EmailModal
-          onCancel={() => setShowEmailModal(false)}
+          onCancel={() => {
+            setShowEmailModal(false)
+          }}
           onOk={handleOk}
           open={showEmailModal}
         />

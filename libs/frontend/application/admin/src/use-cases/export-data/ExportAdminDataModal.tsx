@@ -1,34 +1,50 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { ModalForm } from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ExportDto, exportDtoDefault } from '@codelab/shared/abstract/core'
-import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+'use client'
 
-export const ExportAdminDataModal = observer(() => {
-  const { adminService } = useStore()
-  const closeModal = () => adminService.exportDataModal.close()
+import { UiKey } from '@codelab/frontend/abstract/types'
+import {
+  createFormErrorNotificationHandler,
+  downloadJsonAsFile,
+} from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import {
+  exportDtoDefault,
+  ExportDtoSchema,
+  type IExportDto,
+} from '@codelab/shared/abstract/core'
+import React, { useCallback } from 'react'
+import { AutoFields } from 'uniforms-antd'
+import { useExportAdminDataModal } from './export-admin-data.state'
+import { exportAdminDataUseCase } from './export-admin-data.use-case'
+
+export const ExportAdminDataModal = () => {
+  const exportDataModal = useExportAdminDataModal()
+
+  const onSubmitHandler = useCallback(async (data: IExportDto) => {
+    const exportedData = await exportAdminDataUseCase(data)
+
+    if (exportedData) {
+      downloadJsonAsFile('export.json', exportedData)
+    }
+  }, [])
 
   return (
     <ModalForm.Modal
       okText="Export Admin Data"
-      onCancel={closeModal}
-      open={adminService.exportDataModal.isOpen}
+      onCancel={exportDataModal.close}
+      open={exportDataModal.isOpen}
+      uiKey={UiKey.ExportAdminDataModal}
     >
-      <ModalForm.Form<ExportDto>
+      <ModalForm.Form<IExportDto>
         model={exportDtoDefault}
-        onSubmit={(data) => adminService.exportData(data)}
+        onSubmit={onSubmitHandler}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while exporting data',
         })}
-        onSubmitSuccess={closeModal}
-        schema={ExportDto}
-        uiKey={MODEL_ACTION.ExportDataAdmin.key}
+        onSubmitSuccess={exportDataModal.close}
+        schema={ExportDtoSchema}
       >
         <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
   )
-})
+}

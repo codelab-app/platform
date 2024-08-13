@@ -1,9 +1,9 @@
+import type { IProp, IPropData, IPropDto } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type {
   PropCreateInput,
   PropUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import type { IProp, IPropData, IPropDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/shared/infra/gql'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { IElementModel } from '../element'
 import type { ICacheService } from '../shared'

@@ -14,8 +14,8 @@ import type {
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import {
-  IFieldDto,
-  IInterfaceTypeDto,
+  FieldDtoSchema,
+  InterfaceTypeDtoSchema,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -44,7 +44,7 @@ export class ExportApiHandler
      * (1) Get itself
      */
     const interfaceType = await this.interfaceTypeRepository.findOneOrFail({
-      schema: IInterfaceTypeDto,
+      schema: InterfaceTypeDtoSchema,
       where: {
         id: api.id,
       },
@@ -54,7 +54,7 @@ export class ExportApiHandler
       options: {
         sort: [{ key: SortDirection.Asc }],
       },
-      schema: IFieldDto,
+      schema: FieldDtoSchema,
       where: { id_IN: interfaceType.fields.map(({ id }) => id) },
     })
 
@@ -104,7 +104,7 @@ export class ExportApiHandler
       ) {
         const type = await this.typeFactory.findOne(dependentType)
 
-        if (type?.__typename === `${ITypeKind.InterfaceType}`) {
+        if (type?.__typename === ITypeKind.InterfaceType) {
           dependentTypes.push({
             ...omit(type, 'owner'),
             fields: (type as IInterfaceType).fields,
@@ -120,7 +120,7 @@ export class ExportApiHandler
 
   private sortEnumValuesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes
-      .filter((type) => type.__typename === `${ITypeKind.EnumType}`)
+      .filter((type) => type.__typename === ITypeKind.EnumType)
       .forEach((unionType) =>
         (unionType as IEnumTypeDto).allowedValues.sort((a, b) =>
           a.key.localeCompare(b.key),
@@ -137,10 +137,10 @@ export class ExportApiHandler
 
     dependentTypes.forEach((type) => {
       switch (type.__typename) {
-        case `${ITypeKind.InterfaceType}`:
+        case ITypeKind.InterfaceType:
           interfaces.push(type)
           break
-        case `${ITypeKind.UnionType}`:
+        case ITypeKind.UnionType:
           unions.push(type)
           break
         default:
@@ -153,7 +153,7 @@ export class ExportApiHandler
 
   private sortUnionTypesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes
-      .filter((type) => type.__typename === `${ITypeKind.UnionType}`)
+      .filter((type) => type.__typename === ITypeKind.UnionType)
       .forEach((unionType) =>
         (unionType as IUnionTypeDto).typesOfUnionType.sort((a, b) =>
           a.id.localeCompare(b.id),

@@ -1,20 +1,26 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { ModalForm } from '@codelab/frontend/presentation/view'
+'use client'
+
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useUserService } from '@codelab/frontend-application-user/services'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useResourceService } from '../../services'
 import { createResourceSchema } from './create-resource.schema'
+import { useCreateResourceModal } from './create-resource.state'
 
 export const CreateResourceModal = observer(() => {
-  const { resourceService, userService } = useStore()
-  const closeModal = () => resourceService.createModal.close()
+  const userService = useUserService()
+  const resourceService = useResourceService()
+  const createResourceModal = useCreateResourceModal()
+  const closeModal = () => createResourceModal.close()
 
-  const onSubmit = (resourceDTO: ICreateResourceData) => {
-    void resourceService.create(resourceDTO)
+  const onSubmit = (resourceDto: ICreateResourceData) => {
+    void resourceService.create(resourceDto)
 
     closeModal()
 
@@ -26,14 +32,15 @@ export const CreateResourceModal = observer(() => {
     owner: {
       auth0Id: userService.user.auth0Id,
     },
-    type: resourceService.createModal.metadata?.type,
+    type: createResourceModal.data?.type,
   }
 
   return (
     <ModalForm.Modal
       okText="Create Resource"
       onCancel={closeModal}
-      open={resourceService.createModal.isOpen}
+      open={createResourceModal.isOpen}
+      uiKey={UiKey.CreateResourceModal}
     >
       <ModalForm.Form
         model={model}
@@ -43,7 +50,6 @@ export const CreateResourceModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createResourceSchema}
-        uiKey={MODEL_ACTION.CreateResource.key}
       >
         <AutoFields />
       </ModalForm.Form>

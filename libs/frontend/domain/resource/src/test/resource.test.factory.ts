@@ -1,5 +1,5 @@
 import type { IResourceDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend/domain/shared'
+import { chance } from '@codelab/frontend-domain-shared'
 import { type IResourceDto, IResourceType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

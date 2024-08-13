@@ -1,15 +1,14 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateTagForm } from '../use-cases/update-tag'
 
-export const TagsViewHeader = observer(() => {
-  const { tagService } = useStore()
-  const tag = tagService.updateForm.tag
+export const TagsViewHeader = () => {
+  const updateTagForm = useUpdateTagForm()
+  const tag = updateTagForm.data
 
   return (
     <CuiHeader
@@ -28,4 +27,4 @@ export const TagsViewHeader = observer(() => {
       }
     />
   )
-})
+}

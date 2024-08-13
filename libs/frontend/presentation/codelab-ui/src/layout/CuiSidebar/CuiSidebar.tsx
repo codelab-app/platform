@@ -1,4 +1,6 @@
-import type { ModelUiKey } from '@codelab/frontend/abstract/types'
+'use client'
+
+import type { UiKey } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 import React, { useRef } from 'react'
 import type { CuiSidebarToolbarProps } from '../../views'
@@ -22,7 +24,7 @@ export interface CuiSidebarProps {
   popover?: ReactNode
 
   // tabs?: Array<CuiSidebarTab>
-  uiKey: ModelUiKey
+  uiKey: UiKey
   /**
    * If we only have 1 view, we make it a non-accordion style and make it the main header
    *

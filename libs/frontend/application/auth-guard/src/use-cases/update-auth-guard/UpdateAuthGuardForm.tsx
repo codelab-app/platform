@@ -1,31 +1,44 @@
+'use client'
+
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
-} from '@codelab/frontend/application/resource'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-application-resource/components'
+import { useResourceService } from '@codelab/frontend-application-resource/services'
+import {
+  Form,
+  FormController,
+} from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import { useAuthGuardService } from '../../services'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
+import { useUpdateAuthGuardModal } from './update-auth-guard.state'
 
 export const UpdateAuthGuardForm = observer(() => {
-  const { authGuardService, resourceService } = useStore()
-  const authGuard = authGuardService.updateForm.authGuard
+  const authGuardService = useAuthGuardService()
+  const resourceService = useResourceService()
+  const updateAuthGuardModal = useUpdateAuthGuardModal()
+  const authGuard = updateAuthGuardModal.data?.current
+
+  if (!authGuard) {
+    return null
+  }
 
   const model = {
     config: {
-      data: authGuard?.config.values,
-      id: authGuard?.config.id,
+      data: authGuard.config.values,
+      id: authGuard.config.id,
     },
-    id: authGuard?.id,
-    name: authGuard?.name,
-    resource: authGuard?.resource,
-    responseTransformer: authGuard?.responseTransformer,
+    id: authGuard.id,
+    name: authGuard.name,
+    resource: authGuard.resource,
+    responseTransformer: authGuard.responseTransformer,
   }
 
   const onSubmit = (authGuardDto: IUpdateAuthGuardData) => {
@@ -36,7 +49,7 @@ export const UpdateAuthGuardForm = observer(() => {
 
   const getResource = (context: Context<IUpdateAuthGuardData>) =>
     context.model.resource?.id
-      ? resourceService.resource(context.model.resource.id)
+      ? resourceService.getResource(context.model.resource.id)
       : null
 
   return (
@@ -47,7 +60,7 @@ export const UpdateAuthGuardForm = observer(() => {
         title: 'Error while updating auth guard',
       })}
       schema={updateAuthGuardSchema}
-      uiKey={MODEL_ACTION.UpdateAuthGuard.key}
+      uiKey={UiKey.UpdateAuthGuardForm}
     >
       <AutoFields omitFields={['config']} />
       <ResourceFetchConfigField />

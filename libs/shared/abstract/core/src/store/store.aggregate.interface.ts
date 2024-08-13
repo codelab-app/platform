@@ -1,10 +1,10 @@
 import { type Static, Type } from '@sinclair/typebox'
-import { IApi } from '../type'
-import { IStore } from './store.dto.interface'
+import { ApiSchema } from '../type'
+import { StoreSchema } from './store.dto.interface'
 
-export const IStoreAggregate = Type.Object({
-  api: IApi,
-  store: IStore,
+export const StoreAggregateSchema = Type.Object({
+  api: ApiSchema,
+  store: StoreSchema,
 })
 
-export type IStoreAggregate = Static<typeof IStoreAggregate>
+export type IStoreAggregate = Static<typeof StoreAggregateSchema>

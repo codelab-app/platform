@@ -1,21 +1,25 @@
 import EditOutlined from '@ant-design/icons/EditOutlined'
-import { redirectRef } from '@codelab/frontend/abstract/domain'
-import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { type IRedirectModel } from '@codelab/frontend/abstract/domain'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdateRedirectForm } from './update-redirect.state'
 
-export const UpdateRedirectButton = observer(
-  ({ disabled, id }: UpdateButtonProps) => {
-    const { redirectService } = useStore()
+interface UpdateRedirectProps {
+  disabled: boolean
+  redirect: IRedirectModel
+}
+
+export const UpdateRedirectButton = observer<UpdateRedirectProps>(
+  ({ disabled, redirect }) => {
+    const updateRedirectForm = useUpdateRedirectForm()
 
     return (
       <Button
         disabled={disabled}
         ghost
         icon={<EditOutlined />}
-        onClick={() => redirectService.updateForm.open(redirectRef(id))}
+        onClick={() => updateRedirectForm.open(redirect)}
         size="small"
         type="primary"
       />

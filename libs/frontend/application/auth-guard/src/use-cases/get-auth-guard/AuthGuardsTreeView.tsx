@@ -2,19 +2,18 @@ import type {
   IAuthGuardNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useAsync, useMountEffect } from '@react-hookz/web'
-import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAsyncFn } from 'react-use'
+import { useAuthGuardService } from '../../services'
 import { AuthGuardsTreeItem } from './AuthGuardsTreeItem'
 
-export const AuthGuardsTreeView = observer(() => {
-  const { authGuardService } = useStore()
-  const [{ status }, getAuthGuards] = useAsync(() => authGuardService.getAll())
+export const AuthGuardsTreeView = () => {
+  const authGuardService = useAuthGuardService()
+  const [state, getAuthGuards] = useAsyncFn(() => authGuardService.getAll())
 
   const authGuardList: Array<ITreeNode<IAuthGuardNodeData>> =
     authGuardService.authGuardList.map((authGuard) => ({
@@ -27,10 +26,12 @@ export const AuthGuardsTreeView = observer(() => {
       title: authGuard.name,
     }))
 
-  useMountEffect(getAuthGuards.execute)
+  useEffect(() => {
+    void getAuthGuards()
+  }, [])
 
   return (
-    <CuiSkeletonWrapper isLoading={status === 'loading'}>
+    <CuiSkeletonWrapper isLoading={state.loading}>
       <CuiTree
         titleRender={(node) => {
           return <AuthGuardsTreeItem data={node} />
@@ -39,4 +40,4 @@ export const AuthGuardsTreeView = observer(() => {
       />
     </CuiSkeletonWrapper>
   )
-})
+}

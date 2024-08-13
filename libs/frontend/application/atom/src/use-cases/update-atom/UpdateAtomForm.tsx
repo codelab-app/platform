@@ -1,25 +1,29 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { useAtomService } from '../../services'
 import { SelectAtom } from '../select-atom'
 import { updateAtomSchema } from './update-atom.schema'
+import { useUpdateAtomForm } from './update-atom.state'
 
 export const UpdateAtomForm = observer(() => {
-  const { atomService, tagService } = useStore()
-  const atom = atomService.updateForm.atom
+  const { tagDomainService } = useDomainStore()
+  const updateAtomForm = useUpdateAtomForm()
+  const atomService = useAtomService()
+  const atom = updateAtomForm.data?.current
 
-  const onSubmit = (atomDTO: IUpdateAtomData) => {
-    return atomService.update(atomDTO)
+  const onSubmit = (data: IUpdateAtomData) => {
+    return atomService.update(data)
   }
 
   const onSubmitError = createFormErrorNotificationHandler({
@@ -41,7 +45,7 @@ export const UpdateAtomForm = observer(() => {
     type: atom?.type,
   }
 
-  const tagListOption = tagService.tagDomainService.tagsSelectOptions
+  const tagListOption = tagDomainService.tagsSelectOptions
 
   return (
     <Form<IUpdateAtomData>
@@ -49,7 +53,7 @@ export const UpdateAtomForm = observer(() => {
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
       schema={updateAtomSchema}
-      uiKey={MODEL_ACTION.UpdateAtom.key}
+      uiKey={UiKey.UpdateAtomForm}
     >
       <AutoFields
         omitFields={[

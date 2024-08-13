@@ -8,10 +8,11 @@ export interface IAuth0EnvVars {
   baseUrl: string
   clientId: string
   clientSecret: string
-  cypressUsername: string
-  cypressPassword: string
+  auth0Username: string
+  auth0Password: string
   issuerBaseUrl: string
   secret: string
+  sessionAutoSave: boolean
 }
 
 /* *
@@ -33,6 +34,8 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   private _issuerBaseUrl?: string
 
   private _secret?: string
+
+  private _sessionAutoSave?: boolean
 
   constructor(private readonly endpoint: IEndpointEnvVars) {}
 
@@ -58,16 +61,16 @@ export class Auth0EnvVars implements IAuth0EnvVars {
       .asString())
   }
 
-  get cypressUsername(): string {
+  get auth0Username(): string {
     return (this._cypressUsername ??= env
-      .get('AUTH0_CYPRESS_USERNAME')
+      .get('AUTH0_E2E_USERNAME')
       .required()
       .asString())
   }
 
-  get cypressPassword(): string {
+  get auth0Password(): string {
     return (this._cypressPassword ??= env
-      .get('AUTH0_CYPRESS_PASSWORD')
+      .get('AUTH0_E2E_PASSWORD')
       .required()
       .asString())
   }
@@ -80,6 +83,13 @@ export class Auth0EnvVars implements IAuth0EnvVars {
 
   get secret(): string {
     return (this._secret ??= env.get('AUTH0_SECRET').required().asString())
+  }
+
+  get sessionAutoSave(): boolean {
+    return (this._sessionAutoSave ??= env
+      .get('AUTH0_SESSION_AUTO_SAVE')
+      .required()
+      .asBool())
   }
 
   get baseUrl() {

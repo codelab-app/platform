@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/presentation/codelab-ui/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-presentation-codelab-ui",
     "layer:presentation",
     "projectType:library",
     "type:concrete",
@@ -65,6 +66,50 @@
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/frontend/presentation/codelab-ui/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/frontend-presentation-codelab-ui",
+        "configDir": "libs/frontend/presentation/codelab-ui/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c libs/frontend/presentation/codelab-ui/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "frontend-presentation-codelab-ui:build-storybook",
+        "staticFilePath": "dist/storybook/frontend-presentation-codelab-ui",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "frontend-presentation-codelab-ui:build-storybook:ci"
+        }
+      }
     }
   }
 }

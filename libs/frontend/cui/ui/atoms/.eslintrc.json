@@ -1,0 +1,29 @@
+{
+  "extends": ["plugin:@nx/react", "../../../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["libs/frontend/cui/ui/atoms/tsconfig.*?.json"]
+      },
+      "rules": {
+        "react/jsx-props-no-spreading": "off",
+        "tailwindcss/no-custom-classname": [
+          "error",
+          {
+            "whitelist": ["animate-caret-blink", "toaster", "destructive"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ]
+}

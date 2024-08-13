@@ -1,3 +1,5 @@
+'use client'
+
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { Input } from 'antd'
 import classNames from 'classnames'
@@ -34,7 +36,9 @@ export const CuiSearchBar = ({
     >
       <Input
         className="border"
-        onChange={(event) => handleChange(event.target.value)}
+        onChange={(event) => {
+          handleChange(event.target.value)
+        }}
         placeholder="Search"
         prefix={<SearchOutlined />}
         size="small"

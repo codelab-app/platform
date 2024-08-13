@@ -1,12 +1,12 @@
+import { CodeMirrorField } from '@codelab/frontend-presentation-components-form'
 import {
-  CodeMirrorField,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/frontend/presentation/view'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+} from '@codelab/frontend-presentation-components-form/schema'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {

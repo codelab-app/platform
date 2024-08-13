@@ -5,6 +5,7 @@ fragment Component on Component {
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -19,7 +20,7 @@ fragment Component on Component {
   }
 }
 
-fragment ComponentDevelopment on Component {
+fragment ComponentBuilder on Component {
   __typename
   api {
     ...InterfaceType
@@ -29,6 +30,7 @@ fragment ComponentDevelopment on Component {
   }
   id
   name
+  compositeKey
   owner {
     ...Owner
   }
@@ -47,6 +49,7 @@ fragment ComponentDevelopment on Component {
 fragment ComponentProduction on Component {
   id
   name
+  compositeKey
   owner {
     ...Owner
   }

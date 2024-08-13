@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiCollapsePanelContent } from './CuiCollapsePanelContent'
@@ -45,7 +47,9 @@ export const CuiCollapsePanel = ({
             <CuiCollapsePanelHeader
               defaultExpand={activePanels[view.key]}
               label={view.label}
-              onExpand={(expanded) => updateActivePanel(view.key, expanded)}
+              onExpand={(expanded) => {
+                updateActivePanel(view.key, expanded)
+              }}
               toolbar={view.toolbar}
             />
             {activePanels[view.key] && (

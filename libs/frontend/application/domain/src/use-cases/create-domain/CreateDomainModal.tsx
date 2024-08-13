@@ -1,27 +1,33 @@
+'use client'
+
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,
-} from '@codelab/frontend/domain/domain'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
-import { ModalForm } from '@codelab/frontend/presentation/view'
-import { useErrorNotify } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-domain-domain/errors'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useDomainService } from '../../services'
 import { createDomainSchema } from './create-domain.schema'
+import { useCreateDomainModal } from './create-domain.state'
 
 export const CreateDomainModal = observer(() => {
-  const { domainService, userService } = useStore()
+  const { userDomainService } = useDomainStore()
+  const domainService = useDomainService()
   const app = useCurrentApp()
+  const createDomainModal = useCreateDomainModal()
 
   const model = {
-    app: { id: app?.id },
-    auth0Id: userService.user.auth0Id,
+    app: { id: app.id },
+    auth0Id: userDomainService.user.auth0Id,
     id: v4(),
   }
 
@@ -29,7 +35,7 @@ export const CreateDomainModal = observer(() => {
     return domainService.create(data)
   }
 
-  const closeModal = () => domainService.createModal.close()
+  const closeModal = () => createDomainModal.close()
 
   const onError = useErrorNotify({
     description: DOMAIN_EXISTS_ERROR,
@@ -46,15 +52,15 @@ export const CreateDomainModal = observer(() => {
     <ModalForm.Modal
       okText="Create Domain"
       onCancel={closeModal}
-      open={domainService.createModal.isOpen}
+      open={createDomainModal.isOpen}
+      uiKey={UiKey.CreateDomainModal}
     >
-      <ModalForm.Form
+      <ModalForm.Form<ICreateDomainData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createDomainSchema}
-        uiKey={MODEL_ACTION.CreateDomain.key}
       >
         <AutoFields />
       </ModalForm.Form>

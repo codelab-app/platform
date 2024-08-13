@@ -1,20 +1,21 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useUpdatePageForm } from '../update-page/update-page.state'
+import { useCreatePageForm } from './create-page.state'
 
-export const CreatePageButton = observer(() => {
-  const { pageService } = useStore()
-  const onClick = () => pageService.createForm.open()
+export const CreatePageButton = () => {
+  const createPageForm = useCreatePageForm()
+  const updatePageForm = useUpdatePageForm()
+  const onClick = () => createPageForm.open()
 
   const onClose = () => {
-    pageService.createForm.close()
-    pageService.updateForm.close()
+    createPageForm.close()
+    updatePageForm.close()
   }
 
-  return pageService.createForm.isOpen || pageService.updateForm.isOpen ? (
+  return createPageForm.isOpen || updatePageForm.isOpen ? (
     <Button
       icon={<CloseOutlined />}
       onClick={onClose}
@@ -30,4 +31,4 @@ export const CreatePageButton = observer(() => {
       type="primary"
     />
   )
-})
+}

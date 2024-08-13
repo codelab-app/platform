@@ -5,7 +5,7 @@
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
-    "lib": ["es2021"],
+    "lib": ["es2021", "DOM"],
     "types": ["node", "worker-loader", "@fancyapps/ui", "styled-components"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,

@@ -1,23 +1,21 @@
 import type { IUpdateRedirectData } from '@codelab/frontend/abstract/domain'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  DisplayIf,
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { useRedirectService } from '../../services'
 import { DeleteRedirectButton } from '../delete-redirect'
 import { updateRedirectSchema } from './update-redirect.schema'
+import { useUpdateRedirectForm } from './update-redirect.state'
 
 interface UpdateRedirectFormProps {
   showFormControl?: boolean
@@ -27,9 +25,10 @@ interface UpdateRedirectFormProps {
 
 export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { redirectService } = useStore()
-    const redirect = redirectService.updateForm.redirect
-    const closeForm = () => redirectService.updateForm.close()
+    const updateRedirectForm = useUpdateRedirectForm()
+    const redirectService = useRedirectService()
+    const redirect = updateRedirectForm.data
+    const closeForm = () => updateRedirectForm.close()
 
     const model = {
       authGuard: redirect?.authGuard,
@@ -59,7 +58,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
           })}
           schema={updateRedirectSchema}
           submitRef={submitRef}
-          uiKey={MODEL_ACTION.UpdateRedirect.key}
+          uiKey={UiKey.UpdateRedirectForm}
         >
           <AutoFields omitFields={['targetPage', 'targetUrl']} />
 
@@ -86,7 +85,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
             />
           </DisplayIf>
         </Form>
-        <DeleteRedirectButton ids={redirect ? [redirect.id] : []} />
+        <DeleteRedirectButton redirect={redirect} />
       </>
     )
   },

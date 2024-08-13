@@ -1,17 +1,17 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useCreateAtomModal } from './create-atom.state'
 
 export const CreateAtomButton = observer(() => {
-  const { atomService } = useStore()
+  const createAtomModal = useCreateAtomModal()
 
   return (
     <Button
       className="flex items-center justify-center"
       icon={<PlusOutlined />}
-      onClick={() => atomService.createModal.open()}
+      onClick={() => createAtomModal.open()}
       type="primary"
     >
       Create

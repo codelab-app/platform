@@ -1,3 +1,5 @@
+'use client'
+
 import { Tree } from 'antd'
 import type { DirectoryTreeProps } from 'antd/es/tree'
 import classNames from 'classnames'

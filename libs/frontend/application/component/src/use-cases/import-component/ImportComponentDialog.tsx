@@ -1,35 +1,25 @@
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import type { HttpException } from '@nestjs/common'
-import { useAsync } from '@react-hookz/web'
-import { Spin } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useAsyncFn } from 'react-use'
+import { importComponentDataUseCase } from './import-component-data.use-case'
 
-export const ImportComponentDialog = observer(() => {
-  const { componentService } = useStore()
-
-  const [{ status }, importComponent] = useAsync(
-    componentService.importComponent,
-  )
+export const ImportComponentDialog = () => {
+  const [{ loading }, importComponent] = useAsyncFn(importComponentDataUseCase)
+  const Icon = loading ? LoadingOutlined : ImportOutlined
 
   const onError = useErrorNotify({
-    description: (event: HttpException) => {
-      return event.message
-    },
+    description: (event: HttpException) => event.message,
     title: 'Failed to import component',
   })
 
   const onSuccess = useSuccessNotify({
-    description: (event: Maybe<IComponentModel>) => {
-      return `Component ${event?.name} imported successfully`
-    },
+    description: '',
     title: 'Component imported successfully',
   })
 
@@ -39,19 +29,18 @@ export const ImportComponentDialog = observer(() => {
   const onFileChange = async () => {
     const files = inputFile.current?.files
     const componentDataFile = files?.[0]
+    const formData = new FormData()
 
     if (componentDataFile) {
-      await importComponent
-        .execute(componentDataFile)
-        .then(onSuccess)
-        .catch(onError)
+      formData.append('file', componentDataFile)
+
+      await importComponent(formData).then(onSuccess).catch(onError)
     }
   }
 
   return (
     <>
-      {status === 'loading' && <Spin className="mr-2" />}
-      <ImportOutlined onClick={onClick} />
+      <Icon onClick={onClick} />
       <input
         accept=".json"
         onChange={onFileChange}
@@ -61,4 +50,4 @@ export const ImportComponentDialog = observer(() => {
       />
     </>
   )
-})
+}

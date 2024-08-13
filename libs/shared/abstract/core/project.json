@@ -3,10 +3,68 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/abstract/core/src",
   "projectType": "library",
-  "tags": ["projectType:library", "type:abstract", "scope:shared"],
+  "tags": [
+    "projectName:shared-abstract-core",
+    "projectType:library",
+    "type:abstract",
+    "scope:shared"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/abstract/core"],
+      "options": {
+        "jestConfig": "libs/shared/abstract/core/jest.config.ts",
+        "reporters": ["default"],
+        "runInBand": true
+      }
+    },
+    "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
+        "jestConfig": "libs/shared/abstract/core/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/abstract/core"]
+    },
+    "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/shared/abstract/core/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {}
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/abstract/core"]
     }
   }
 }

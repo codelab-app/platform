@@ -1,21 +1,19 @@
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useResourceService } from '../../services'
 import { createResourceSchema } from './create-resource.schema'
+import { useCreateResourceForm } from './create-resource.state'
 
 interface CreateResourceFormProps {
   showFormControl?: boolean
@@ -29,11 +27,13 @@ export const CreateResourceForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateResourceFormProps) => {
-    const { resourceService } = useStore()
-    const closeForm = () => resourceService.createModal.close()
+    const createResourceForm = useCreateResourceForm()
+    const resourceService = useResourceService()
+    const closeForm = () => createResourceForm.close()
+    const resource = createResourceForm.data
 
-    const onSubmit = (resourceDTO: ICreateResourceData) => {
-      void resourceService.create(resourceDTO)
+    const onSubmit = (data: ICreateResourceData) => {
+      void resourceService.create(data)
 
       closeForm()
       onSubmitSuccess?.()
@@ -43,7 +43,7 @@ export const CreateResourceForm = observer(
 
     const model = {
       id: v4(),
-      type: resourceService.createModal.metadata?.type,
+      type: resource?.type,
     }
 
     return (
@@ -56,7 +56,7 @@ export const CreateResourceForm = observer(
         onSubmitSuccess={closeForm}
         schema={createResourceSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateResource.key}
+        uiKey={UiKey.CreateResourceForm}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

@@ -1,18 +1,18 @@
-import { CY_DATA } from '@codelab/frontend/application/shared/data'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import { Typography } from 'antd'
 import React from 'react'
 import type { ToolbarProps } from '../../../abstract'
 import { CuiSidebarToolbar } from '../../../views'
 import type { CuiSidebarProps } from '../CuiSidebar'
 
-type CuiSidebarHeader = Pick<CuiSidebarProps, 'label'> & {
+type ICuiSidebarHeader = Pick<CuiSidebarProps, 'label'> & {
   toolbar?: ToolbarProps
 }
 
 /**
  * If we only have 1 view item, we use that data as the header. Otherwise
  */
-export const CuiSidebarHeader = ({ label, toolbar }: CuiSidebarHeader) => {
+export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
   return (
     <div
       className="
@@ -28,7 +28,7 @@ export const CuiSidebarHeader = ({ label, toolbar }: CuiSidebarHeader) => {
         border-gray-300
         bg-neutral-100
       "
-      data-cy={CY_DATA.cuiSidebarHeader().cyData}
+      data-cy={Cui.cuiSidebarHeader()}
     >
       <Typography className="pl-4">{label}</Typography>
       {toolbar ? (

@@ -1,24 +1,12 @@
 import type {
-  IElementDomainService,
   IElementModel,
   IElementTree,
   IMoveElementContext,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IElementDto,
-  IElementTypeKind,
-} from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type {
-  ICRUDModalService,
-  IEntityModalService,
-  IFormService,
-} from '../services'
-import type { ICloneElementService } from './clone-element.service.interface'
-import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
-import type { IElementRepository } from './element.repo.interface'
 
 /**
  * Used for modal input
@@ -44,39 +32,13 @@ export type UpdateElementProperties = {
   element?: IElementModel
 }
 
-export interface SelectElementOption {
-  childrenIds?: Array<string>
-  label: string
-  value: string
-}
-
-export interface SelectElementOptions {
-  allElementOptions?: Array<SelectElementOption>
-  elementTree?: IElementTree
-  kind: IElementTypeKind
-  targetElementId?: string
-}
-
-export interface IElementService
-  extends Omit<
-    ICRUDModalService<Ref<IElementModel>, { element?: IElementModel }>,
-    'createModal'
-  > {
-  cloneElementService: ICloneElementService
-  createForm: IFormService<CreateElementData, CreateElementProperties>
-  elementDomainService: IElementDomainService
-  elementRepository: IElementRepository
+export interface IElementService {
   // Moved from element model to decouple renderer
-  updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
-  updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
-  validationService: IElementApplicationValidationService
 
   createElement(data: IElementDto): Promise<IElementModel>
-  delete(subRoot: IElementModel): Promise<void>
-  element(id: string): IElementModel
-  getSelectElementOptions(
-    props: SelectElementOptions,
-  ): Array<SelectElementOption>
+  deleteElement(subRoot: IElementModel): Promise<void>
+  getElement(id: string): IElementModel
+
   // loadComponentTree(component: ComponentDevelopmentFragment): {
   //   hydratedElements: Array<IElementModel>
   //   rootElement: IElementModel
@@ -84,6 +46,7 @@ export interface IElementService
 
   loadDependantTypes(element: IElementModel): void
   move(context: IMoveElementContext): Promise<void>
+  propsHaveErrors(element?: IElementModel): boolean
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>
 }

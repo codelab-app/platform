@@ -1,10 +1,10 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { SelectComponent } from '@codelab/frontend/application/type'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+import { SelectComponent } from '@codelab/frontend/presentation/components/interface-form'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   AutoCompleteField,
   ToggleExpressionField,
-} from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend-presentation-components-form'
 import type { IRef } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { useField } from 'uniforms'

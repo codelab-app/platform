@@ -1,20 +1,18 @@
 import type {
   IInterfaceTypeModel,
-  IPageFactory,
+  IPageDomainFactory,
 } from '@codelab/frontend/abstract/domain'
 import {
   getElementDomainService,
   getPageDomainService,
   getStoreDomainService,
+  getTypeDomainService,
   getUserDomainService,
   IAppModel,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Store } from '@codelab/frontend/domain/store'
-import {
-  getTypeDomainService,
-  InterfaceType,
-} from '@codelab/frontend/domain/type'
+import { Store } from '@codelab/frontend-domain-store/store'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
   ICreatePageData,
   IElementRenderTypeDto,
@@ -28,7 +26,7 @@ import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
 @model('@codelab/PageFactory')
-export class PageDomainFactory extends Model({}) implements IPageFactory {
+export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
   @modelAction
   addSystemPages(app: IAppModel, renderType: IElementRenderTypeDto) {
     return [

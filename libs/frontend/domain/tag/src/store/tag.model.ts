@@ -3,16 +3,13 @@ import {
   getUserDomainService,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  TagCreateInput,
-  TagUpdateInput,
-} from '@codelab/shared/abstract/codegen'
 import type { ITagDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   connectOwner,
   reconnectNodeId,
 } from '@codelab/shared/domain'
+import type { TagCreateInput, TagUpdateInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {

@@ -4,7 +4,7 @@ import client from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const Email = Type.Object({
+const EmailSchema = Type.Object({
   email: Type.String().email(),
 })
 
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(req.body)
 
   try {
-    const { email } = Typebox.ValidateAndClean(Email, req.body)
+    const { email } = Typebox.ValidateAndClean(EmailSchema, req.body)
 
     client.setConfig({
       apiKey,
@@ -26,9 +26,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       status: 'subscribed',
     })
 
-    return res.status(200).json(response)
+    res.status(200).json(response)
+
+    return
   } catch (error) {
-    return res.status(500).json({ error: 'invalid or already added email' })
+    res.status(500).json({ error: 'invalid or already added email' })
+
+    return
   }
 }
 

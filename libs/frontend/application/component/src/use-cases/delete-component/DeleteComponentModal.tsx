@@ -1,29 +1,33 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useComponentService } from '../../services'
+import { useDeleteComponentModal } from './delete-component.state'
 
 export const DeleteComponentModal = observer(() => {
-  const { componentService } = useStore()
-  const closeModal = () => componentService.deleteModal.close()
-  const component = componentService.deleteModal.component
+  const deleteModal = useDeleteComponentModal()
+  const componentService = useComponentService()
+  const closeModal = () => deleteModal.close()
+  const component = deleteModal.data
 
   const onSubmit = () => {
     if (!component) {
       return Promise.reject()
     }
 
-    return componentService.delete([component])
+    return componentService.remove([component])
   }
 
   return (
     <ModalForm.Modal
       okText="Delete Component"
       onCancel={closeModal}
-      open={componentService.deleteModal.isOpen}
+      open={deleteModal.isOpen}
+      uiKey={UiKey.DeleteComponentModal}
     >
       <ModalForm.Form
         model={{}}
@@ -33,7 +37,6 @@ export const DeleteComponentModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteComponent.key}
       >
         <h4>Are you sure you want to delete component "{component?.name}"?</h4>
         <AutoFields omitFields={['id']} />

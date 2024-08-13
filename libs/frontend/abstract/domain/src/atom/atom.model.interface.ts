@@ -1,13 +1,13 @@
 import type {
-  AtomCreateInput,
-  AtomUpdateInput,
-} from '@codelab/shared/abstract/codegen'
-import type {
   IAtom,
   IAtomDto,
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
+import type {
+  AtomCreateInput,
+  AtomUpdateInput,
+} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ICacheService } from '../shared'

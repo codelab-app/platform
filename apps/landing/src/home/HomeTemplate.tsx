@@ -33,10 +33,6 @@ const Content = ({ children }: PropsWithChildren) => {
 const HomeTemplate = ({ children }: HomeTemplateProps) => {
   const isMobileOrTablet = useMobileOrTabletMediaQuery()
 
-  if (typeof window === 'undefined') {
-    return <></>
-  }
-
   return (
     <Layout>
       <Header>

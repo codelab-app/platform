@@ -1,30 +1,43 @@
-import { getEnv } from '@codelab/shared/config'
-import type { VercelKV } from '@vercel/kv'
-import { createClient } from '@vercel/kv'
-import { z } from 'zod'
-
 export enum CacheInstance {
   Backend = 'Backend',
   Frontend = 'Frontend',
 }
 
-const createStringToJSONSchema = <T>(): z.ZodTransformer<z.ZodString, T> => {
-  return z.string().transform((str, ctx) => {
-    try {
-      return JSON.parse(str) as T
-    } catch (error) {
-      ctx.addIssue({ code: 'custom', message: 'Invalid JSON' })
-
-      return z.NEVER
-    }
-  })
+interface DummyCache {
+  get(key: string): Promise<string | null>
+  set(
+    key: string,
+    value: string,
+    options: { ex: number; nx: boolean },
+  ): Promise<void>
+  // Add more methods as needed for your use case
 }
 
-/**
- * Adds a layer of caching before we fetch with repository. Item and List are cached separately. We use where to differentiate the cache
- *
- * When busting cache, we need to dynamically build up all possible keys to cache bust, since no pattern matching is available.
- */
+const createStringToJSONSchema = <T>(): DummyValidator<T> => {
+  return {
+    safeParse: (str: string | null): ParseResult<T> => {
+      if (str === null) {
+        return { data: null, success: false }
+      }
+
+      try {
+        return { data: JSON.parse(str) as T, success: true }
+      } catch {
+        return { data: null, success: false }
+      }
+    },
+  }
+}
+
+interface DummyValidator<T> {
+  safeParse(input: string | null): ParseResult<T>
+}
+
+interface ParseResult<T> {
+  data: T | null
+  success: boolean
+}
+
 export class CacheService {
   public static getInstance(name: CacheInstance): CacheService {
     const instance = CacheService.instances[name]
@@ -36,28 +49,12 @@ export class CacheService {
     return instance
   }
 
-  public async clearCache(model?: string, where?: object) {
-    // await withTracing('CacheService.clearCache()', async (span) => {
-    //   if (!model) {
-    //     // If model is not defined, clear all cache
-    //     return await this.cache.flushall()
-    //   }
-    //   const whereAttributes = flattenWithPrefix(where ?? {}, 'where')
-    //   span.setAttributes({ model })
-    //   span.setAttributes(whereAttributes)
-    // })()
-  }
-
   async getMany<T>(key: string, where: object = {}): Promise<Array<T> | null> {
     const compoundKey = this.compoundKey(key, where, 'many')
     const data = await this.cache.get(compoundKey)
     const parsed = createStringToJSONSchema<Array<T>>().safeParse(data)
 
-    if (!parsed.success) {
-      return null
-    }
-
-    return parsed.data
+    return parsed.success ? parsed.data : null
   }
 
   async getOne<T>(key: string, where: object = {}): Promise<T | null> {
@@ -65,17 +62,12 @@ export class CacheService {
     const data = await this.cache.get(compoundKey)
     const parsed = createStringToJSONSchema<T>().safeParse(data)
 
-    if (!parsed.success) {
-      return null
-    }
-
-    return parsed.data
+    return parsed.success ? parsed.data : null
   }
 
   setMany(key: string, where: object = {}, data: object) {
     const compoundKey = this.compoundKey(key, where, 'many')
 
-    // Expire in 1 day
     return this.cache.set(compoundKey, JSON.stringify(data), {
       ex: 86400,
       nx: true,
@@ -85,7 +77,6 @@ export class CacheService {
   setOne(key: string, where: object, data: object) {
     const compoundKey = this.compoundKey(key, where, 'one')
 
-    // Expire in 1 day
     return this.cache.set(compoundKey, JSON.stringify(data), {
       ex: 86400,
       nx: true,
@@ -97,13 +88,10 @@ export class CacheService {
     [CacheInstance.Frontend]: undefined,
   }
 
-  private readonly cache: VercelKV
+  private readonly cache: DummyCache
 
   private constructor() {
-    this.cache = createClient({
-      token: getEnv().vercelKV.restApiToken,
-      url: getEnv().vercelKV.restApiUrl,
-    })
+    this.cache = this.createDummyCache()
   }
 
   private compoundKey(model: string, where: object, oneOrMany: 'many' | 'one') {
@@ -114,5 +102,19 @@ export class CacheService {
     const sortedWhereString = JSON.stringify(sortedWhere)
 
     return `${model}:${sortedWhereString}`
+  }
+
+  private createDummyCache(): DummyCache {
+    // Replace this with your cache logic
+    return {
+      get: async (key: string) => null,
+      set: async (
+        key: string,
+        value: string,
+        options: { ex: number; nx: boolean },
+      ) => {
+        //
+      },
+    }
   }
 }

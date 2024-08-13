@@ -7,11 +7,11 @@ import type {
   PageProductionFragment,
   PropFragment,
   StoreFragment,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IAppModel } from './app.model.interface'
 
 export interface IAppProductionArgs {
-  domain: string
+  domainSlug: string
   pageUrlPattern: string
 }
 

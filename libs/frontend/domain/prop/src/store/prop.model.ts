@@ -3,13 +3,13 @@ import type {
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
-import type {
-  PropCreateInput,
-  PropUpdateInput,
-} from '@codelab/shared/abstract/codegen'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import type {
+  PropCreateInput,
+  PropUpdateInput,
+} from '@codelab/shared/infra/gql'
 import get from 'lodash/get'
 import isMatch from 'lodash/isMatch'
 import isNil from 'lodash/isNil'
@@ -30,7 +30,8 @@ import {
   prop,
 } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
-import { mergeProps, propSafeStringify } from '../index'
+import { mergeProps } from '../utils/merge-props'
+import { propSafeStringify } from '../utils/prop-safe-stringify'
 
 const create = ({ api, data = '{}', id }: IPropDto) => {
   return new Prop({

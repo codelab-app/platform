@@ -1,14 +1,16 @@
 import { type ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { SelectResource } from '@codelab/frontend/application/type'
+import { SelectResource } from '@codelab/frontend/presentation/components/interface-form'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
+} from '@codelab/frontend-presentation-components-form'
+import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/frontend/presentation/view'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+} from '@codelab/frontend-presentation-components-form/schema'
 import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 

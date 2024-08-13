@@ -2,7 +2,7 @@
   "overrides": [
     {
       "plugins": ["@nx"],
-      "files": ["*.ts", "*.tsx", "*.graphql"],
+      "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nx/typescript"],
       "rules": {
         "@typescript-eslint/no-unused-vars": "off",
@@ -134,17 +134,31 @@
               {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
+              },
+              // Domain lib specific constraints
+              {
+                "allSourceTags": [
+                  "projectName:frontend-application-element",
+                  "projectName:frontend-application-component"
+                ],
+                "notDependOnLibsWithTags": [
+                  "projectName:frontend-application-builder"
+                ]
               }
             ]
           }
-        ]
+        ],
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
       }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
       }
     }
   ]

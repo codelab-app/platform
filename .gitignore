@@ -17,6 +17,13 @@
 /dist/libs/tools/*
 !/dist/libs/tools/workspace/
 !/dist/libs/tools/eslint-plugin/
+
+!/dist/libs/external/
+/dist/libs/external/*
+!/dist/libs/external/codelab-codegen/
+/dist/libs/external/codelab-codegen/*
+!/dist/libs/external/codelab-codegen/typescript-fetch/
+
 tmp/
 out-tsc/
 

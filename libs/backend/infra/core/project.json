@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/core/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-core",
     "projectType:library",
     "type:concrete",
     "layer:infra",

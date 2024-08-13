@@ -19,7 +19,7 @@ interface IPassportStrategy {
 export const JWT_STRATEGY = 'JWT_STRATEGY'
 
 @Injectable()
-export class Auth0Strategy
+export class JwtStrategy
   extends PassportStrategy(Strategy)
   implements IPassportStrategy
 {

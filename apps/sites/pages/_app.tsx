@@ -8,47 +8,47 @@ import 'react-grid-layout/css/styles.css'
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
 import type { IAppProps } from '@codelab/frontend/abstract/application'
-import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createCoreStore } from '@codelab/frontend/infra/mobx'
-import { guestUser } from '@codelab/shared/data/test'
-import { registerRootStore } from 'mobx-keystone'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 const App = ({ Component, pageProps }: IAppProps) => {
-  const router = useRouter()
+  // const {
+  //   appSlug,
+  //   componentSlug,
+  //   pageSlug,
+  //   params,
+  //   primarySidebarKey,
+  //   query,
+  //   userSlug,
+  // } = useUrl()
 
-  const [store] = useState(() => {
-    const coreStore = createCoreStore(
-      {
-        path: router.asPath,
-        pathname: router.pathname,
-        query: router.query,
-      },
-      guestUser,
-    )
+  // const [store] = useState(() => {
+  //   const coreStore = createCoreStore(
+  //     {
+  //       params: params,
+  //       query,
+  //     },
+  //     guestUser,
+  //   )
 
-    registerRootStore(coreStore)
+  //   registerRootStore(coreStore)
 
-    return coreStore
-  })
+  //   return coreStore
+  // })
 
-  useEffect(() => {
-    store.routerService.update({
-      path: router.asPath,
-      pathname: router.pathname,
-      query: router.query,
-    })
-  }, [router])
-
+  // useEffect(() => {
+  //   store.routerService.update({
+  //     params: params,
+  //     query,
+  //   })
+  // }, [params, query])
   return (
-    <StoreProvider value={store}>
-      {/* <GlobalStyles /> */}
-      <Component
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...pageProps}
-      />
-    </StoreProvider>
+    // <StoreProvider value={store}>
+    // <GlobalStyles />
+    <Component
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...pageProps}
+    />
+    // </StoreProvider>
   )
 }
 

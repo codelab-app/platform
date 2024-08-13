@@ -1,18 +1,18 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ITypeMaybeRef } from './any-type.dto.interface'
-import { IBaseTypeDto } from './base-type.dto.interface'
+import { TypeMaybeRefSchema } from './any-type.dto.interface'
+import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IUnionTypeDto = Type.Composite([
-  IBaseTypeDto(Type.Literal(`${ITypeKind.UnionType}`)),
+export const UnionTypeDtoSchema = Type.Composite([
+  BaseTypeDtoSchema(`${ITypeKind.UnionType}`),
   Type.Object({
-    typesOfUnionType: Type.Array(ITypeMaybeRef),
+    typesOfUnionType: Type.Array(TypeMaybeRefSchema),
   }),
 ])
 
-export type IUnionTypeDto = Static<typeof IUnionTypeDto>
+export type IUnionTypeDto = Static<typeof UnionTypeDtoSchema>
 
-export const IUnionType = IUnionTypeDto
+export const UnionTypeSchema = UnionTypeDtoSchema
 
-export type IUnionType = Static<typeof IUnionType>
+export type IUnionType = Static<typeof UnionTypeSchema>

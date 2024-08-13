@@ -10,10 +10,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": [
-          "apps/web/tsconfig(.*)?.json",
-          "apps/web/tsconfig.storybook.json"
-        ]
+        "project": ["apps/web/tsconfig(.*)?.json"]
       },
       "rules": {
         "@next/next/no-html-link-for-pages": ["error", "apps/web/pages"],
@@ -39,10 +36,6 @@
     },
     {
       "files": ["*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.graphql"],
       "rules": {}
     }
   ],

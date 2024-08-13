@@ -1,1 +1,1 @@
-export * from './AdminViewLayout'
+export * from './AdminViewHeader'

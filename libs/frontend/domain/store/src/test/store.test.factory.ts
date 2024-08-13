@@ -1,5 +1,5 @@
 import type { IStoreDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend/domain/shared'
+import { chance } from '@codelab/frontend-domain-shared'
 import type { IStoreDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

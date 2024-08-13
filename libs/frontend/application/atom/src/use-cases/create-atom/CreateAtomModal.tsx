@@ -1,18 +1,27 @@
+'use client'
+
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  DisplayIfField,
+  ModalForm,
+} from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useAtomService } from '../../services'
 import { createAtomSchema } from './create-atom.schema'
+import { useCreateAtomModal } from './create-atom.state'
 
 export const CreateAtomModal = observer(() => {
-  const { atomService, tagService } = useStore()
-  const closeModal = () => atomService.createModal.close()
+  const atomService = useAtomService()
+  const { tagDomainService } = useDomainStore()
+  const createAtomModal = useCreateAtomModal()
+  const closeModal = () => createAtomModal.close()
 
   const onSubmit = async (data: ICreateAtomData) =>
     await atomService.create(data)
@@ -21,13 +30,14 @@ export const CreateAtomModal = observer(() => {
     title: 'Error while creating atom',
   })
 
-  const tagsSelectionOptions = tagService.tagDomainService.tagsSelectOptions
+  const tagsSelectionOptions = tagDomainService.tagsSelectOptions
 
   return (
     <ModalForm.Modal
       okText="Create Atom"
       onCancel={closeModal}
-      open={atomService.createModal.isOpen}
+      open={createAtomModal.isOpen}
+      uiKey={UiKey.CreateAtomModal}
     >
       <ModalForm.Form<ICreateAtomData>
         model={{
@@ -37,7 +47,6 @@ export const CreateAtomModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createAtomSchema}
-        uiKey={MODEL_ACTION.CreateAtom.key}
       >
         <AutoFields
           omitFields={[

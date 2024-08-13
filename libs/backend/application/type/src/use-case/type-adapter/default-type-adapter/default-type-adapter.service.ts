@@ -66,7 +66,10 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
   /**
    * This pattern ensures that it will match any string that starts with a { and ends with a }, even if there are multiple lines or nested objects within the interface type. The [\s\S]* part of the regex pattern matches any character, including whitespace and non-whitespace characters, zero or more times.
    */
-  interfaceTypeRegex = /^\{[\s\S]*}$/
+  interfaceTypeRegex =
+    /^(\w+\s*\|\s*\{\s*[^{}]*\s*\})|(\{\s*[^{}]*\s*\}\s*\|\s*\w+)$/
+
+  // interfaceTypeRegex = /^\{[\s\S]*}$/
 
   numberTypeRegex = /^number$/
 
@@ -347,7 +350,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     return this.integerTypeRegex.test(type)
   }
 
-  private isInterfaceType(type: string) {
+  isInterfaceType(type: string) {
     return this.interfaceTypeRegex.test(type)
   }
 

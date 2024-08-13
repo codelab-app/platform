@@ -1,23 +1,21 @@
 import type { ICreateRedirectData } from '@codelab/frontend/abstract/domain'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  DisplayIf,
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useRedirectService } from '../../services'
 import { createRedirectSchema } from './create-redirect.schema'
+import { useCreateRedirectForm } from './create-redirect.state'
 
 interface CreateRedirectFormProps {
   showFormControl?: boolean
@@ -27,8 +25,9 @@ interface CreateRedirectFormProps {
 
 export const CreateRedirectForm = observer<CreateRedirectFormProps>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { redirectService } = useStore()
-    const closeForm = () => redirectService.createForm.close()
+    const redirectService = useRedirectService()
+    const createRedirectForm = useCreateRedirectForm()
+    const closeForm = () => createRedirectForm.close()
 
     const onSubmit = async (redirectDTO: ICreateRedirectData) => {
       await redirectService.create(redirectDTO)
@@ -42,7 +41,7 @@ export const CreateRedirectForm = observer<CreateRedirectFormProps>(
     const model = {
       id: v4(),
       source: {
-        id: redirectService.createForm.metadata?.id,
+        id: createRedirectForm.data?.id,
       },
     }
 
@@ -56,7 +55,7 @@ export const CreateRedirectForm = observer<CreateRedirectFormProps>(
         onSubmitSuccess={closeForm}
         schema={createRedirectSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateRedirect.key}
+        uiKey={UiKey.CreateRedirectForm}
       >
         <AutoFields omitFields={['targetPage', 'targetUrl']} />
 

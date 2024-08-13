@@ -1,10 +1,8 @@
+'use client'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
@@ -12,21 +10,22 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useUpdatePageForm } from './update-page.state'
 import { UpdatePageForm } from './UpdatePageForm'
 
 export const UpdatePagePopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { pageService } = useStore()
+  const updatePageForm = useUpdatePageForm()
   const { popover } = useCui()
 
   return (
     <CuiSidebarPopover
-      id={MODEL_ACTION.UpdatePage.key}
+      id={UiKey.UpdatePagePopover}
       label="Update Page"
       toolbar={{
         items: [
           {
-            cuiKey: MODEL_ACTION.UpdatePage.key,
+            cuiKey: UiKey.UpdatePageToolbarItem,
             icon: <SaveOutlined />,
             label: 'Update',
             onClick: () => {
@@ -35,12 +34,12 @@ export const UpdatePagePopover = observer(() => {
             title: 'Update',
           },
           {
-            cuiKey: MODEL_ACTION.CancelUpdatePage.key,
+            cuiKey: UiKey.CancelUpdatePageToolbarItem,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              pageService.updateForm.close()
+              updatePageForm.close()
             },
             title: 'Cancel',
           },

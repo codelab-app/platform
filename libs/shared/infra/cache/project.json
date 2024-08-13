@@ -4,6 +4,7 @@
   "sourceRoot": "libs/shared/infra/cache/src",
   "projectType": "library",
   "tags": [
+    "projectName:shared-infra-cache",
     "projectType:library",
     "type:concrete",
     "layer:infra",

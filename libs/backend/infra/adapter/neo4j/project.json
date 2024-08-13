@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/neo4j/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-neo4j",
     "projectType:library",
     "type:concrete",
     "layer:infra",

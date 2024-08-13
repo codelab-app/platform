@@ -1,19 +1,17 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { getNameFromSlug } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useMemo } from 'react'
 
 export const useCurrentApp = () => {
-  const { appService } = useStore()
-  const { query } = useRouter()
-  const appSlug = query.appSlug as string
-  const appName = getNameFromSlug(appSlug)
+  const { appDomainService } = useDomainStore()
+  const { appSlug } = useUrl()
 
   return useMemo(() => {
-    const app = appService.appDomainService.appsList.find(
-      (item) => item.name === appName,
-    )
+    const app = appDomainService.appsList.find((item) => item.name === appSlug)
+
+    assertIsDefined(app)
 
     return app
-  }, [appName, appService.appDomainService.appsList])
+  }, [appDomainService.appsList])
 }

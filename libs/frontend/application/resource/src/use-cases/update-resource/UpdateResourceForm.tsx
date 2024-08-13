@@ -1,16 +1,23 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
+'use client'
+
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  Form,
+  FormController,
+} from '@codelab/frontend-presentation-components-form'
 import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useResourceService } from '../../services'
 import { updateResourceSchema } from './update-resource.schema'
+import { useUpdateResourceForm } from './update-resource.state'
 
 export const UpdateResourceForm = observer(() => {
-  const { resourceService } = useStore()
-  const resource = resourceService.updateForm.resource
+  const resourceService = useResourceService()
+  const updateResourceForm = useUpdateResourceForm()
+  const resource = updateResourceForm.data
 
   const model = {
     config: resource?.config.values,
@@ -33,7 +40,7 @@ export const UpdateResourceForm = observer(() => {
         title: 'Error while updating resource',
       })}
       schema={updateResourceSchema}
-      uiKey={MODEL_ACTION.UpdateResource.key}
+      uiKey={UiKey.UpdateResourceForm}
     >
       <AutoFields />
       <FormController submitLabel="Update Resource" />

@@ -1,15 +1,15 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IComponentAggregate } from '../component'
-import { IPageAggregate } from '../page'
-import { IResource } from '../resource/resource.dto.interface'
-import { IApp } from './app.dto.interface'
+import { ComponentAggregateSchema } from '../component'
+import { PageAggregateSchema } from '../page'
+import { ResourceSchema } from '../resource/resource.dto.interface'
+import { AppSchema } from './app.dto.interface'
 
-export const IAppAggregate = Type.Object({
-  app: IApp,
-  components: Type.Array(IComponentAggregate),
-  pages: Type.Array(IPageAggregate),
-  resources: Type.Array(IResource),
+export const AppAggregateSchema = Type.Object({
+  app: AppSchema,
+  components: Type.Array(ComponentAggregateSchema),
+  pages: Type.Array(PageAggregateSchema),
+  resources: Type.Array(ResourceSchema),
 })
 
-export type IAppAggregate = Static<typeof IAppAggregate>
+export type IAppAggregate = Static<typeof AppAggregateSchema>

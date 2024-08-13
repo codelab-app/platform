@@ -8,12 +8,13 @@ resource "circleci_environment_variable" "env_vars" {
     NEXT_PUBLIC_WEB_HOST      = var.next_public_web_host
     NEXT_PUBLIC_API_HOSTNAME  = var.next_public_api_hostname
     NEXT_PUBLIC_API_PORT      = var.next_public_api_port
+    NEXT_PUBLIC_BASE_API_PATH = var.next_public_base_api_path
     AUTH0_CLIENT_ID           = var.auth0_web_client_id
     AUTH0_CLIENT_SECRET       = var.auth0_web_client_secret
     AUTH0_M2M_CLIENT_ID       = var.auth0_m2m_client_id
     AUTH0_M2M_CLIENT_SECRET   = var.auth0_m2m_client_secret
-    AUTH0_CYPRESS_USERNAME    = var.auth0_cypress_username
-    AUTH0_CYPRESS_PASSWORD    = var.auth0_cypress_password
+    AUTH0_E2E_USERNAME        = var.auth0_e2e_username
+    AUTH0_E2E_PASSWORD        = var.auth0_e2e_password
     AUTH0_DOMAIN              = var.auth0_domain
     AUTH0_SECRET              = var.auth0_secret
     CYPRESS_RECORD_KEY        = var.cypress_record_key
@@ -30,6 +31,7 @@ resource "circleci_environment_variable" "env_vars" {
     DIGITALOCEAN_API_TOKEN    = var.digitalocean_api_token
     DIGITALOCEAN_DROPLET_NAME = var.digitalocean_droplet_name
     DOCKER_TAG_VERSION        = var.docker_tag_version
+
   }
 
   name         = each.key
@@ -37,3 +39,4 @@ resource "circleci_environment_variable" "env_vars" {
   project      = local.project_name
   organization = local.organization
 }
+

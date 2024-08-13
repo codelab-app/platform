@@ -12,14 +12,10 @@
     {
       "files": ["*.ts", "*.tsx"],
       "rules": {},
-      "extends": ["plugin:@nx/react"]
+      "extends": ["plugin:@nx/react", "plugin:@codelab/recommended"]
     },
     {
       "files": ["*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.graphql"],
       "rules": {}
     }
   ]

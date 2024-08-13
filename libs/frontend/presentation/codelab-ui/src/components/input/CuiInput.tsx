@@ -1,3 +1,5 @@
+'use client'
+
 import type { InputRef } from 'antd'
 import { Input } from 'antd'
 import type { InputProps } from 'antd/lib/input'

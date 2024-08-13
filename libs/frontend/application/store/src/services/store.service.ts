@@ -1,123 +1,82 @@
-import type { IStoreService } from '@codelab/frontend/abstract/application'
-import type { IStoreModel } from '@codelab/frontend/abstract/domain'
-import { ModalService } from '@codelab/frontend/application/shared/store'
-import { getTypeService } from '@codelab/frontend/application/type'
-import { StoreDomainService } from '@codelab/frontend/domain/store'
-import type {
-  StoreFragment,
-  StoreWhere,
-} from '@codelab/shared/abstract/codegen'
-import type { IStoreDto } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
-import { getActionService } from './action.service.context'
-import { StoreRepository } from './store.repo'
-import { StoreModalService } from './store-modal.service'
+import { type IStoreService } from '@codelab/frontend/abstract/application'
+import { type IStoreModel } from '@codelab/frontend/abstract/domain'
+import { storeRepository } from '@codelab/frontend-domain-store/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { type IStoreDto } from '@codelab/shared/abstract/core'
+import { type StoreFragment, type StoreWhere } from '@codelab/shared/infra/gql'
+import { assertIsDefined } from '@codelab/shared/utils'
 
-@model('@codelab/StoreService')
-export class StoreService
-  extends Model({
-    createModal: prop(() => new ModalService({})),
-    deleteModal: prop(() => new StoreModalService({})),
-    storeDomainService: prop(() => new StoreDomainService({})),
-    storeRepository: prop(() => new StoreRepository({})),
-    updateModal: prop(() => new StoreModalService({})),
-  })
-  implements IStoreService
-{
-  @modelFlow
-  @transaction
-  create = _async(function* (this: StoreService, data: IStoreDto) {
-    const store = this.storeDomainService.hydrate(data)
+export const useStoreService = (): IStoreService => {
+  const { actionDomainService, storeDomainService, typeDomainService } =
+    useDomainStore()
 
-    yield* _await(this.storeRepository.add(store))
+  const create = async (data: IStoreDto) => {
+    const store = storeDomainService.hydrate(data)
+
+    await storeRepository.add(store)
 
     return store
-  })
+  }
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: StoreService, stores: Array<IStoreModel>) {
+  const remove = async (stores: Array<IStoreModel>) => {
     stores.forEach((store) => {
-      this.storeDomainService.stores.delete(store.id)
+      storeDomainService.stores.delete(store.id)
     })
 
-    yield* _await(this.storeRepository.delete(stores))
+    return await storeRepository.delete(stores)
+  }
 
-    return
-  })
+  const getAll = async (where: StoreWhere) => {
+    const { items: stores } = await storeRepository.find(where)
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: StoreService, where: StoreWhere) {
-    const { items: stores } = yield* _await(this.storeRepository.find(where))
+    return load(stores)
+  }
 
-    return this.load(stores)
-  })
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: StoreService, id: string) {
-    if (this.storeDomainService.stores.has(id)) {
-      return this.storeDomainService.stores.get(id)
+  const getOne = async (id: string) => {
+    if (storeDomainService.stores.has(id)) {
+      return storeDomainService.stores.get(id)
     }
 
-    const all = yield* _await(this.getAll({ id }))
+    const all = await getAll({ id })
 
     return all[0]
-  })
+  }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (this: StoreService, data: IStoreDto) {
-    const store = this.storeDomainService.stores.get(data.id)!
+  const update = async (data: IStoreDto) => {
+    const store = storeDomainService.stores.get(data.id)
 
+    assertIsDefined(store)
     store.writeCache({ name: data.name })
-
-    yield* _await(this.storeRepository.update(store))
+    await storeRepository.update(store)
 
     return store
-  })
+  }
 
-  @modelAction
-  load = (stores: Array<StoreFragment>) => {
+  const load = (stores: Array<StoreFragment>) => {
     console.debug('StoreService.load()', stores)
-    this.actionService.actionDomainService.load(
-      stores.flatMap((store) => store.actions),
-    )
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (stores.some((store) => store?.api)) {
-      this.typeService.typeDomainService.hydrateTypes({
-        interfaceTypes: stores.map((store) => store.api),
-      })
-    }
+    actionDomainService.load(stores.flatMap((store) => store.actions))
+
+    typeDomainService.hydrateTypes({
+      interfaceTypes: stores.map((store) => store.api),
+    })
 
     return stores.map((store) =>
-      this.storeDomainService.hydrate({ ...store, source: null }),
+      storeDomainService.hydrate({ ...store, source: null }),
     )
   }
 
-  store(id: string) {
-    return this.storeDomainService.stores.get(id)
+  const store = (id: string) => {
+    return storeDomainService.stores.get(id)
   }
 
-  @computed
-  private get actionService() {
-    return getActionService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
+  return {
+    create,
+    getAll,
+    getOne,
+    load,
+    remove,
+    store,
+    update,
   }
 }

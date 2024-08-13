@@ -1,12 +1,11 @@
 import type { Static } from '@sinclair/typebox'
-import { Type } from '@sinclair/typebox'
-import { IBaseTypeDto } from './base-type.dto.interface'
+import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IAppTypeDto = IBaseTypeDto(Type.Literal(`${ITypeKind.AppType}`))
+export const AppTypeDtoSchema = BaseTypeDtoSchema(`${ITypeKind.AppType}`)
 
-export type IAppTypeDto = Static<typeof IAppTypeDto>
+export type IAppTypeDto = Static<typeof AppTypeDtoSchema>
 
-export const IAppType = IAppTypeDto
+export const AppTypeSchema = AppTypeDtoSchema
 
-export type IAppType = Static<typeof IAppType>
+export type IAppType = Static<typeof AppTypeSchema>

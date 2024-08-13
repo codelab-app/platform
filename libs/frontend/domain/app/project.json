@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/domain/app/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-domain-app",
     "projectType:library",
     "type:concrete",
     "scope:frontend",
@@ -11,7 +12,10 @@
   ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

@@ -1,22 +1,29 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  DisplayIfField,
+  ModalForm,
+} from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { useAtomService } from '../../services'
 import { SelectAtom } from '../select-atom'
 import { updateAtomSchema } from './update-atom.schema'
+import { useUpdateAtomModal } from './update-atom.state'
 
 export const UpdateAtomModal = observer(() => {
-  const { atomService, tagService } = useStore()
-  const atom = atomService.updateModal.atom
-  const closeModal = () => atomService.updateModal.close()
+  const { tagDomainService } = useDomainStore()
+  const updateAtomModal = useUpdateAtomModal()
+  const atomService = useAtomService()
+  const atom = updateAtomModal.data?.current
+  const closeModal = () => updateAtomModal.close()
 
-  const onSubmit = (atomDTO: IUpdateAtomData) => {
-    return atomService.update(atomDTO)
+  const onSubmit = (data: IUpdateAtomData) => {
+    return atomService.update(data)
   }
 
   const onSubmitError = createFormErrorNotificationHandler({
@@ -38,13 +45,14 @@ export const UpdateAtomModal = observer(() => {
     type: atom?.type,
   }
 
-  const tagListOption = tagService.tagDomainService.tagsSelectOptions
+  const tagListOption = tagDomainService.tagsSelectOptions
 
   return (
     <ModalForm.Modal
       okText="Update Atom"
       onCancel={closeModal}
-      open={atomService.updateModal.isOpen}
+      open={updateAtomModal.isOpen}
+      uiKey={UiKey.UpdateAtomModal}
     >
       <ModalForm.Form<IUpdateAtomData>
         model={model}
@@ -52,7 +60,6 @@ export const UpdateAtomModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateAtomSchema}
-        uiKey={MODEL_ACTION.UpdateAtom.key}
       >
         <AutoFields
           omitFields={[

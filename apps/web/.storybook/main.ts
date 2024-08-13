@@ -24,7 +24,7 @@ const storybookConfig: StorybookConfig = {
     },
   },
   stories: [
-    '../components/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../libs/frontend/application/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
 }

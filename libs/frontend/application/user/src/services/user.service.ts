@@ -1,139 +1,111 @@
 import type {
-  IUserPreference,
-  IUserService,
-} from '@codelab/frontend/abstract/application'
-import {
   BuilderWidth,
   BuilderWidthBreakPoint,
+  IUserPreference,
 } from '@codelab/frontend/abstract/application'
-import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
-import { restWebClient } from '@codelab/frontend/application/axios'
-import { User, UserDomainService } from '@codelab/frontend/domain/user'
-import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
+import { GetUsers } from '@codelab/frontend-domain-user/repositories'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
+import { atom, useAtom } from 'jotai'
 import set from 'lodash/set'
-import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
-import { userApi } from './user.api'
+import { useCallback } from 'react'
+import { useUser } from './user.hook'
 
 const CODELAB_STORAGE_KEY = 'codelab-preferences'
 const DEFAULT_PREFERENCES = { apps: {}, explorerExpandedNodes: {} }
+const preferencesAtom = atom<IUserPreference>(DEFAULT_PREFERENCES)
 
-const init = (data: Auth0IdToken) => {
-  const user = User.fromSession(data)
+export const useUserService = () => {
+  const user = useUser()
+  const [preferences, setPreferences] = useAtom(preferencesAtom)
 
-  return fromDto(user)
-}
+  const getOne = useCallback(async (where: UserWhere) => {
+    const { users } = await GetUsers({ where })
 
-const fromDto = (user: IUserDto) => {
-  return new UserService({
-    userDomainService: UserDomainService.fromDto(user),
-  })
-}
+    return users[0]
+  }, [])
 
-@model('@codelab/UserService')
-export class UserService
-  extends Model({
-    userDomainService: prop<IUserDomainService>(),
-  })
-  implements IUserService
-{
-  static fromDto = fromDto
+  const saveUser = useCallback(async (data: Auth0IdToken) => {
+    return Promise.resolve(undefined)
+    // return restWebClient.post('/user/save', data)
+  }, [])
 
-  static init = init
+  const setElementTreeExpandedKeys = useCallback(
+    (containerId: string, expandedKeys: Array<string>) => {
+      setPreferences((prev) => {
+        const newPreferences = { ...prev }
 
-  get preferences(): IUserPreference {
-    return this.user.preferences as IUserPreference
-  }
+        set(
+          newPreferences,
+          `explorerExpandedNodes.${containerId}`,
+          expandedKeys,
+        )
 
-  set preferences(value: IUserPreference) {
-    this.user.preferences = value
-  }
+        return newPreferences
+      })
+      savePreferences()
+    },
+    [setPreferences],
+  )
 
-  @computed
-  get user() {
-    return this.userDomainService.user
-  }
+  const setSelectedBuilderBreakpoint = useCallback(
+    (containerId: string, breakpoint: BuilderWidthBreakPoint) => {
+      setPreferences((prev) => {
+        const newPreferences = { ...prev }
 
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: UserService, where: UserWhere) {
-    const {
-      users: [user],
-    } = yield* _await(userApi.GetUsers({ where }))
+        set(
+          newPreferences,
+          `apps.${containerId}.selectedBuilderBreakpoint`,
+          breakpoint,
+        )
 
-    return user
-  })
+        return newPreferences
+      })
+      savePreferences()
+    },
+    [setPreferences],
+  )
 
-  @modelFlow
-  saveUser = _async(function* (this: UserService, data: Auth0IdToken) {
-    return yield* _await(restWebClient.post('/user/save', data))
-  })
+  const setSelectedBuilderWidth = useCallback(
+    (containerId: string, width: BuilderWidth) => {
+      setPreferences((prev) => {
+        const newPreferences = { ...prev }
 
-  @modelAction
-  setElementTreeExpandedKeys(
-    this: UserService,
-    containerId: string,
-    expandedKeys: Array<string>,
-  ) {
-    set(this.preferences, `explorerExpandedNodes.${containerId}`, expandedKeys)
+        set(newPreferences, `apps.${containerId}.selectedBuilderWidth`, width)
 
-    void this.savePreferences()
-  }
+        return newPreferences
+      })
+      savePreferences()
+    },
+    [setPreferences],
+  )
 
-  @modelAction
-  setSelectedBuilderBreakpoint(
-    this: UserService,
-    containerId: string,
-    breakpoint: BuilderWidthBreakPoint,
-  ) {
-    set(
-      this.preferences,
-      `apps.${containerId}.selectedBuilderBreakpoint`,
-      breakpoint,
-    )
-
-    void this.savePreferences()
-  }
-
-  @modelAction
-  setSelectedBuilderWidth(
-    this: UserService,
-    containerId: string,
-    width: BuilderWidth,
-  ) {
-    set(this.preferences, `apps.${containerId}.selectedBuilderWidth`, width)
-
-    void this.savePreferences()
-  }
-
-  fetchPreferences() {
+  const fetchPreferences = useCallback(() => {
     if (typeof window === 'undefined') {
       // SSR not supported for client preferences service
       return
     }
 
-    const preferences = localStorage.getItem(CODELAB_STORAGE_KEY)
+    const storedPreferences = localStorage.getItem(CODELAB_STORAGE_KEY)
 
-    this.preferences = preferences
-      ? JSON.parse(preferences)
-      : DEFAULT_PREFERENCES
-  }
+    setPreferences(
+      storedPreferences ? JSON.parse(storedPreferences) : DEFAULT_PREFERENCES,
+    )
+  }, [setPreferences])
 
-  onAttachedToRootStore() {
-    void this.fetchPreferences()
-  }
+  const savePreferences = useCallback(() => {
+    localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(preferences))
+  }, [preferences])
 
-  savePreferences() {
-    localStorage.setItem(CODELAB_STORAGE_KEY, JSON.stringify(this.preferences))
+  return {
+    fetchPreferences,
+    getOne,
+    preferences,
+    savePreferences,
+    saveUser,
+    setElementTreeExpandedKeys,
+    setSelectedBuilderBreakpoint,
+    setSelectedBuilderWidth,
+    user,
   }
 }

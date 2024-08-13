@@ -1,16 +1,20 @@
+'use client'
+
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { ModalForm } from '@codelab/frontend/presentation/view'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useAuthGuardService } from '../../services'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
+import { useUpdateAuthGuardModal } from './update-auth-guard.state'
 
 export const UpdateAuthGuardModal = observer(() => {
-  const { authGuardService } = useStore()
-  const authGuard = authGuardService.updateModal.authGuard
+  const authGuardService = useAuthGuardService()
+  const updateAuthGuardModal = useUpdateAuthGuardModal()
+  const authGuard = updateAuthGuardModal.data?.current
 
   const model = {
     id: authGuard?.id,
@@ -18,7 +22,7 @@ export const UpdateAuthGuardModal = observer(() => {
     resource: authGuard?.resource,
   }
 
-  const closeModal = () => authGuardService.updateModal.close()
+  const closeModal = () => updateAuthGuardModal.close()
 
   const onSubmit = (authGuardDTO: IUpdateAuthGuardData) => {
     void authGuardService.update(authGuardDTO)
@@ -32,7 +36,8 @@ export const UpdateAuthGuardModal = observer(() => {
     <ModalForm.Modal
       okText="Update Auth Guard"
       onCancel={closeModal}
-      open={authGuardService.updateModal.isOpen}
+      open={updateAuthGuardModal.isOpen}
+      uiKey={UiKey.UpdateAuthGuardModal}
     >
       <ModalForm.Form<IUpdateAuthGuardData>
         model={model}
@@ -42,7 +47,6 @@ export const UpdateAuthGuardModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateAuthGuardSchema}
-        uiKey={MODEL_ACTION.UpdateAuthGuard.key}
       >
         <AutoFields />
       </ModalForm.Form>

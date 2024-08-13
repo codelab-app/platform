@@ -1,1 +1,2 @@
-export * from './AuthGuardsViewLayout'
+export * from './AuthGuardsPrimarySidebar'
+export * from './AuthGuardsViewHeader'

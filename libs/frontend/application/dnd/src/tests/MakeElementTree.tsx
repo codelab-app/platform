@@ -1,8 +1,8 @@
 import type { ComponentType, PropsWithChildren, ReactNode, Ref } from 'react'
 import React, { forwardRef } from 'react'
-import { MakeChildrenDraggable } from '../MakeChildrenDraggable'
-import { MakeChildrenDroppable } from '../MakeChildrenDroppable'
-import { MakeComponentDroppable } from '../MakeComponentDroppable'
+import { MakeChildrenDraggable } from '../components/MakeChildrenDraggable'
+import { MakeChildrenDroppable } from '../components/MakeChildrenDroppable'
+import { MakeComponentDroppable } from '../components/MakeComponentDroppable'
 import type { Hierarchy } from './test-data'
 
 interface WrapIfProps<T> {

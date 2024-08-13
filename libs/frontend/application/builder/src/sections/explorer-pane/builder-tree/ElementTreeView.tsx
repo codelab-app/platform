@@ -1,15 +1,15 @@
 import {
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
-  RendererTab,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
+import { useBuilderService } from '../../../services'
 import {
   DISABLE_HOVER_CLASSNAME,
   TREE_NODE_WRAPPER_SELECTOR,
@@ -22,9 +22,10 @@ import { ElementTreeItemTitle } from './ElementTreeItemTitle'
 export const ElementTreeView = observer<{
   treeData?: IElementTreeViewDataNode
 }>(({ treeData }) => {
-  const { builderService, runtimeComponentService, runtimeElementService } =
-    useStore()
+  const { runtimeComponentService, runtimeElementService } =
+    useApplicationStore()
 
+  const builderService = useBuilderService()
   const selectedNode = builderService.selectedNode
   const { handleDrop, isMoving } = useElementTreeDrop()
 
@@ -40,10 +41,12 @@ export const ElementTreeView = observer<{
       disabled={isMoving}
       draggable={true}
       expandedKeys={builderService.expandedElementTreeNodeIds}
-      onClick={(event) => event.stopPropagation()}
+      onClick={(event) => {
+        event.stopPropagation()
+      }}
       onDrop={handleDrop}
       onExpand={(expandedKeys) => {
-        return builderService.setExpandedElementTreeNodeIds(
+        builderService.setExpandedElementTreeNodeIds(
           expandedKeys as Array<string>,
         )
       }}
@@ -61,11 +64,11 @@ export const ElementTreeView = observer<{
           builderService.setHoveredNode(runtimeElementRef(node.key))
         }
       }}
-      onMouseLeave={() => builderService.setHoveredNode(null)}
+      onMouseLeave={() => {
+        builderService.setHoveredNode(null)
+      }}
       onSelect={([id], { nativeEvent, node }) => {
         nativeEvent.stopPropagation()
-
-        builderService.setActiveTab(RendererTab.Page)
 
         if (!id) {
           return

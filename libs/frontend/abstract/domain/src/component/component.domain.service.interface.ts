@@ -14,4 +14,5 @@ export interface IComponentDomainService
 
   add(data: ICreateComponentData): IComponentModel
   component(id: string): IComponentModel
+  findBySlug(slug: string): IComponentModel
 }

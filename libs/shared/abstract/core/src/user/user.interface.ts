@@ -1,10 +1,10 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from '../model/node-type.interface'
 import { IRole } from './role.enum'
 
-export const IUserDto = Type.Object({
-  apps: Type.Optional(Type.Array(IRef)),
+export const UserDtoSchema = Type.Object({
+  apps: Type.Optional(Type.Array(Typebox.Ref)),
   auth0Id: Type.String(),
   email: Type.String(),
   id: Type.String(),
@@ -12,14 +12,14 @@ export const IUserDto = Type.Object({
   username: Type.String(),
 })
 
-export type IUserDto = Static<typeof IUserDto>
+export type IUserDto = Static<typeof UserDtoSchema>
 
-export const IUser = IUserDto
+export const UserSchema = UserDtoSchema
 
-export type IUser = Static<typeof IUser>
+export type IUser = Static<typeof UserSchema>
 
-export const IOwner = Type.Object({
-  owner: IRef,
+export const OwnerSchema = Type.Object({
+  owner: Typebox.Ref,
 })
 
-export type IOwner = Static<typeof IOwner>
+export type IOwner = Static<typeof OwnerSchema>

@@ -1,10 +1,11 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
-import { StoreProvider } from '@codelab/frontend/application/shared/store'
-import { createTestStore } from '@codelab/frontend/application/test'
+import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
+import {
+  createTestStore,
+  TestStoreProvider,
+} from '@codelab/frontend-infra-mobx/store'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render, screen } from '@testing-library/react'
-import { setGlobalConfig } from 'mobx-keystone'
 import React from 'react'
 
 describe('Runtime Element', () => {
@@ -47,8 +48,8 @@ describe('Runtime Element', () => {
 
     // render itself adds `body > div`
     render(
-      React.createElement(
-        StoreProvider,
+      createElement(
+        TestStoreProvider,
         { value: testStore.coreStore },
         renderer.render,
       ),
@@ -72,7 +73,7 @@ describe('Runtime Element', () => {
 
     const childCompositeKey = RuntimeElementModel.compositeKey(
       childElement,
-      runtimePage!,
+      runtimePage,
     )
 
     expect(runtimeChildElement?.compositeKey).toBe(childCompositeKey)

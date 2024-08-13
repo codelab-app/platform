@@ -48,6 +48,11 @@ export const addProjectTags = (
   // We want to re-construct the tags each time
   projectConfig.tags = []
 
+  // Add tag equivalent to the project name
+  const projectName = projectConfig.name || ''
+
+  appendTags(`projectName:${projectName}`, projectConfig)
+
   /**
    * Add `type:data`
    */
@@ -80,7 +85,12 @@ export const addProjectTags = (
    * Add `type:abstract`
    */
   const isAbstract = appendTagsToProjectConfig(
-    ['libs/shared/abstract', 'libs/frontend/abstract', 'libs/backend/abstract'],
+    [
+      'libs/shared/abstract',
+      'libs/frontend/abstract',
+      'libs/backend/abstract',
+      'libs/shared/infra/gql',
+    ],
     'type:abstract',
     projectConfig,
   )

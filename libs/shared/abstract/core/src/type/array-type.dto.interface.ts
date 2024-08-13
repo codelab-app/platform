@@ -1,18 +1,18 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from '../model/node-type.interface'
-import { IBaseTypeDto } from './base-type.dto.interface'
+import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IArrayTypeDto = Type.Composite([
-  IBaseTypeDto(Type.Literal(`${ITypeKind.ArrayType}`)),
+export const ArrayTypeDtoSchema = Type.Composite([
+  BaseTypeDtoSchema(`${ITypeKind.ArrayType}`),
   Type.Object({
-    itemType: Type.Optional(IRef),
+    itemType: Type.Optional(Typebox.Ref),
   }),
 ])
 
-export type IArrayTypeDto = Static<typeof IArrayTypeDto>
+export type IArrayTypeDto = Static<typeof ArrayTypeDtoSchema>
 
-export const IArrayType = IArrayTypeDto
+export const ArrayTypeSchema = ArrayTypeDtoSchema
 
-export type IArrayType = Static<typeof IArrayType>
+export type IArrayType = Static<typeof ArrayTypeSchema>

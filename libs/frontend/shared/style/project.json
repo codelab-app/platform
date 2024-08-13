@@ -4,6 +4,7 @@
   "sourceRoot": "libs/frontend/shared/style/src",
   "projectType": "library",
   "tags": [
+    "projectName:frontend-shared-style",
     "projectType:library",
     "type:concrete",
     "scope:frontend",

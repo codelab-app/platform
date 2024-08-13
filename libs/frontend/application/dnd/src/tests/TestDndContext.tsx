@@ -2,10 +2,10 @@ import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { DndContext } from '@dnd-kit/core'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import { AutoDragOverlay } from '../AutoDragOverlay'
 import { HierarchicalCollisionDetector } from '../collision-detection'
-import { DropIndicator } from '../DropIndicator'
-import { DropOverlay } from '../DropOverlay'
+import { AutoDragOverlay } from '../components/AutoDragOverlay'
+import { DropIndicator } from '../components/DropIndicator'
+import { DropOverlay } from '../components/DropOverlay'
 
 export const COLLISION_ALGORITHM_SPACING = 5
 

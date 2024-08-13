@@ -1,36 +1,34 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
+'use client'
+
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAppService } from '../../services'
+import { useDeleteAppModal } from './delete-app.state'
 
 export const DeleteAppModal = observer(() => {
-  const { appService, domainService } = useStore()
-  const app = appService.deleteModal.app
-  const closeModal = () => appService.deleteModal.close()
+  const deleteAppModal = useDeleteAppModal()
+  const appService = useAppService()
+  const closeModal = () => deleteAppModal.close()
+  const app = deleteAppModal.data
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!app) {
       return Promise.reject()
     }
 
-    // app.domains.forEach(async (domain) => {
-    //   const existingDomain = domainService.domains.get(domain.id)
-
-    //   if (existingDomain) {
-    //     await domainService.delete([existingDomain])
-    //   }
-    // })
-
-    return appService.delete([app])
+    return await appService.remove([app])
   }
 
   return (
     <ModalForm.Modal
       okText="Delete App"
       onCancel={closeModal}
-      open={appService.deleteModal.isOpen}
+      open={deleteAppModal.isOpen}
+      uiKey={UiKey.DeleteAppModal}
     >
       <ModalForm.Form
         model={{}}
@@ -40,7 +38,6 @@ export const DeleteAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteApp.key}
       >
         <h4>Are you sure you want to delete app "{app?.name}"?</h4>
       </ModalForm.Form>

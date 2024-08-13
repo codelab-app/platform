@@ -1,35 +1,39 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { ModalForm } from '@codelab/frontend/presentation/view'
+'use client'
+
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import type { ExportDto } from '@codelab/shared/abstract/core'
-import { ImportDto, importDtoDefault } from '@codelab/shared/abstract/core'
-import { observer } from 'mobx-react-lite'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import type { IImportDto } from '@codelab/shared/abstract/core'
+import {
+  importDtoDefault,
+  ImportDtoSchema,
+} from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useImportAdminDataModal } from './import-admin-data.state'
+import { importAdminDataUseCase } from './import-admin-data.use-case'
 
-export const ImportAdminDataModal = observer(() => {
-  const { adminService } = useStore()
-  const closeModal = () => adminService.importDataModal.close()
+export const ImportAdminDataModal = () => {
+  const importDataModal = useImportAdminDataModal()
 
   return (
     <ModalForm.Modal
       okText="Import Admin Data"
-      onCancel={closeModal}
-      open={adminService.importDataModal.isOpen}
+      onCancel={importDataModal.close}
+      open={importDataModal.isOpen}
+      uiKey={UiKey.ImportAdminDataModal}
     >
-      <ModalForm.Form<ExportDto>
+      <ModalForm.Form<IImportDto>
         model={importDtoDefault}
-        onSubmit={(data) => adminService.importData(data)}
+        onSubmit={importAdminDataUseCase}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while importing data',
         })}
-        onSubmitSuccess={closeModal}
-        schema={ImportDto}
-        uiKey={MODEL_ACTION.ImportDataAdmin.key}
+        onSubmitSuccess={importDataModal.close}
+        schema={ImportDtoSchema}
       >
         <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
   )
-})
+}

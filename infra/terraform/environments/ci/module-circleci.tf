@@ -1,14 +1,15 @@
 module "circleci" {
   source = "../../modules/circleci"
 
-  next_public_web_host     = var.NEXT_PUBLIC_WEB_HOST
-  next_public_api_hostname = var.NEXT_PUBLIC_API_HOSTNAME
-  next_public_api_port     = var.NEXT_PUBLIC_API_PORT
+  next_public_web_host      = var.NEXT_PUBLIC_WEB_HOST
+  next_public_api_hostname  = var.NEXT_PUBLIC_API_HOSTNAME
+  next_public_api_port      = var.NEXT_PUBLIC_API_PORT
+  next_public_base_api_path = var.NEXT_PUBLIC_BASE_API_PATH
 
-  auth0_domain           = var.AUTH0_DOMAIN
-  auth0_cypress_username = var.AUTH0_CYPRESS_USERNAME
-  auth0_cypress_password = var.AUTH0_CYPRESS_PASSWORD
-  auth0_secret           = var.AUTH0_SECRET
+  auth0_domain       = var.AUTH0_DOMAIN
+  auth0_e2e_username = var.AUTH0_E2E_USERNAME
+  auth0_e2e_password = var.AUTH0_E2E_PASSWORD
+  auth0_secret       = var.AUTH0_SECRET
 
   auth0_web_client_id     = module.auth0.web_client.id
   auth0_web_client_secret = module.auth0.web_client.client_secret
@@ -27,6 +28,7 @@ module "circleci" {
   next_public_supabase_key = var.NEXT_PUBLIC_SUPABASE_KEY
 
   nx_cloud_access_token = var.NX_CLOUD_ACCESS_TOKEN
+  circleci_api_token    = var.CIRCLECI_TOKEN
 
   dockerhub_username     = var.DOCKERHUB_USERNAME
   dockerhub_access_token = var.DOCKERHUB_ACCESS_TOKEN

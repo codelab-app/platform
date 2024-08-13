@@ -5,6 +5,7 @@ query componentResolverComponents {
     }
     id
     name
+    slug
     rootElement {
       id
     }

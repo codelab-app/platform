@@ -1,15 +1,15 @@
 import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import { type IComponentModel } from '@codelab/frontend/abstract/domain'
-import { CreateElementButton } from '@codelab/frontend/application/element'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { CreateElementButton } from '@codelab/frontend-application-element/use-cases/create-element'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useBuilderService } from '../../../services'
 
 export const BuilderTreeItemComponentTitle = observer<{
   component: IComponentModel
 }>(({ component }) => {
-  const { builderService, elementService } = useStore()
+  const builderService = useBuilderService()
   const selectedNode = builderService.selectedNode
 
   const element =
@@ -22,7 +22,6 @@ export const BuilderTreeItemComponentTitle = observer<{
       <Col className="px-2">{component.name}</Col>
       <Col className="px-2">
         <CreateElementButton
-          createElementForm={elementService.createForm}
           elementTree={component}
           key={0}
           selectedElementId={element?.id}

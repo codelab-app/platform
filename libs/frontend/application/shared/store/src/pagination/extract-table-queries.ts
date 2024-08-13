@@ -1,5 +1,10 @@
 import type { Filterables } from '@codelab/frontend/abstract/application'
-import type { NextRouter } from 'next/router'
+
+export interface TableQueryString {
+  [key: string]: string | null | undefined
+  page?: string | null
+  pageSize?: string | null
+}
 
 /**
  * Used with paginationService to extract page, pageSize, and filter properties from the url params
@@ -8,25 +13,28 @@ import type { NextRouter } from 'next/router'
  * @returns An object that contains the page, pageSize, and filter object
  */
 export const extractTableQueries = <T extends Filterables>(
-  router: NextRouter,
+  query: TableQueryString,
   filterTypes: Partial<
     Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>
   > = {},
 ) => {
-  const page = router.query.page
-    ? parseInt(router.query.page.toString())
-    : undefined
+  const page = query.page ? parseInt(query.page.toString()) : undefined
 
-  const pageSize = router.query.pageSize
-    ? parseInt(router.query.pageSize.toString())
+  const pageSize = query.pageSize
+    ? parseInt(query.pageSize.toString())
     : undefined
 
   // Url param values are transformed with the types provided in the filterTypes
   const filter = Object.entries(filterTypes).reduce<Partial<T>>(
     (acc, [key, type]) => {
-      if (router.query[key as string]) {
-        let value: Array<string> | boolean | number | string | undefined =
-          router.query[key as string]
+      if (query[key]) {
+        let value:
+          | Array<string>
+          | boolean
+          | number
+          | string
+          | null
+          | undefined = query[key]
 
         if (type === 'number') {
           value = Number(value)

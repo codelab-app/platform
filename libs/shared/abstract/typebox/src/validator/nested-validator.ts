@@ -6,11 +6,6 @@ import { StandardValidator } from 'typebox-validators'
  * The standard validator only checks the top level object properties
  */
 export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
-  /** @inheritdoc */
-  constructor(schema: S) {
-    super(schema)
-  }
-
   protected override cleanCopyOfValue<VS extends TSchema>(
     schema: Readonly<VS>,
     value: Readonly<unknown>,
@@ -39,7 +34,7 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
     } else if (schema['type'] === 'array' && Array.isArray(value)) {
       const itemSchema = schema['items'] as TSchema
 
-      return (value as Array<any>).map((item) =>
+      return value.map((item) =>
         this.cleanCopyOfValue(itemSchema, item),
       ) as Static<VS>
     }

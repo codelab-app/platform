@@ -8,11 +8,8 @@
     "simple-import-sort",
     "lodash",
     "prefer-arrow",
-    // https://github.com/gajus/eslint-plugin-canonical#no-unused-exports
     "canonical",
     "sort-destructure-keys",
-    // @typescript-eslint/member-ordering doesn't auto-fix
-    // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
     "typescript-sort-keys",
     "unicorn",
     "@stylistic/ts",
@@ -20,26 +17,31 @@
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
+    "browser": true,
+    "node": true,
     "jest/globals": true
   },
+  "globals": {
+    "JQuery": "readonly",
+    "JQueryStatic": "readonly"
+  },
   "extends": [
+    "plugin:prettier/recommended",
     "plugin:canonical/recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/strict",
+    "eslint:recommended",
+    "plugin:import/typescript",
+    "plugin:import/recommended",
     "./scripts/eslint/.nx.eslintrc.json",
     "./scripts/eslint/.globals.eslintrc.json",
-    "./scripts/eslint/.spacing.eslintrc.json",
+    "./scripts/eslint/.format.eslintrc.json",
     "./scripts/eslint/.naming.eslintrc.json",
-    "./scripts/eslint/.cypress.eslintrc.json",
     "./scripts/eslint/.codelab.eslintrc.json",
-    "plugin:prettier/recommended",
-    // "eslint:recommended",
-    "plugin:react/recommended"
-    // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
-    // "plugin:typescript-sort-keys/recommended"
-    // "plugin:import/recommended",
-    // "plugin:import/typescript"
-    // "plugin:lodash/recommended"
+    "./scripts/eslint/.sorting.eslintrc.json",
+    "./scripts/eslint/.codegen.eslintrc.json",
+    "./scripts/eslint/.base.eslintrc.json"
   ],
-  // Used for import plugin
   "settings": {
     "react": {
       "version": "detect"
@@ -57,207 +59,5 @@
       }
     }
   },
-  "overrides": [
-    {
-      "plugins": [],
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
-        // "unused-imports/no-unused-imports-ts": "error",
-        "@typescript-eslint/no-unused-vars": "off",
-        "sort-destructure-keys/sort-destructure-keys": [
-          "error",
-          { "caseSensitive": false }
-        ],
-        "canonical/destructuring-property-newline": "off",
-        "canonical/import-specifier-newline": "off",
-        "canonical/id-match": "off",
-        "id-length": [
-          "error",
-          {
-            "properties": "never",
-            "exceptions": ["_", "a", "b", "$", "z", "i"]
-          }
-        ],
-        "lodash/import-scope": ["error", "method"],
-        "react/no-unescaped-entities": "off",
-        "no-implicit-coercion": "error",
-        "react/react-in-jsx-scope": "error",
-        "react/jsx-sort-props": "error",
-        "react/no-unknown-property": [
-          "error",
-          {
-            "ignore": ["css"]
-          }
-        ],
-        /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
-        "@next/next/google-font-display": "off",
-        "@next/next/google-font-preconnect": "off",
-        "react/jsx-props-no-spreading": [
-          "error",
-          {
-            "html": "enforce",
-            "custom": "enforce",
-            "explicitSpread": "enforce",
-            "exceptions": []
-          }
-        ],
-        "react/jsx-curly-brace-presence": "error",
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
-          }
-        ],
-        "simple-import-sort/exports": "error",
-        //
-        // Custom import rules
-        //
-        "import/newline-after-import": "error",
-        "import/first": "error",
-        // SUPER SLOW!
-        "import/no-cycle": "off",
-        "import/no-duplicates": "error",
-        "prettier/prettier": [
-          "error",
-          {
-            "endOfLine": "auto"
-          }
-        ],
-        "func-style": "error"
-      }
-    },
-    {
-      "files": ["*.schema.ts", "*.schema.interface.ts"],
-      "rules": {
-        "canonical/sort-keys": "off"
-      }
-    },
-    {
-      "files": ["**/pages/**/*.tsx", "**/app/**/*.tsx"],
-      "rules": {
-        "unicorn/filename-case": "off"
-      }
-    },
-    {
-      // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
-      "plugins": ["jest", "jest-formatting"],
-      "extends": ["plugin:jest/recommended", "plugin:jest-formatting/strict"],
-      "files": ["*.spec.ts", "*.spec.tsx"],
-      "rules": {
-        "import/no-unresolved": "error",
-        "import/named": "error"
-      }
-    },
-    {
-      "files": ["*.tsx"],
-      "plugins": ["tailwindcss"],
-      "extends": ["plugin:tailwindcss/recommended"],
-      "rules": {
-        "react/prop-types": "off",
-        "tailwindcss/no-custom-classname": ["error", {}]
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:import/typescript"],
-      "rules": {
-        "curly": ["error", "all"],
-        "prefer-arrow/prefer-arrow-functions": "error",
-        "@typescript-eslint/member-ordering": [
-          "error",
-          {
-            "default": {
-              // "optionalityOrder": "required-first",
-              // "order": "alphabetically"
-            },
-            "interfaces": {
-              "memberTypes": ["signature", "constructor", "field", "method"],
-              // "optionalityOrder": "required-first",
-              "order": "alphabetically"
-            },
-            "classes": {
-              // More important up front
-              "memberTypes": [
-                ["public-static-field", "public-static-method"],
-                "get",
-                "public-field",
-                // These are generally _async arrow syntax methods
-                "public-decorated-field",
-                "public-decorated-method",
-                "public-method",
-                [
-                  "protected-field",
-                  "protected-get",
-                  "protected-set",
-                  "protected-method"
-                ],
-                "private-static-method",
-                "private-static-field",
-                ["private-field", "private-method"],
-                // Private static used for data mapping internally
-                "private-get",
-                "private-set"
-              ],
-              "order": "alphabetically"
-            }
-          }
-        ],
-        "@typescript-eslint/method-signature-style": ["error", "method"],
-        "@typescript-eslint/sort-type-constituents": "error",
-        "@typescript-eslint/no-floating-promises": "error",
-        "@typescript-eslint/consistent-type-definitions": "error",
-        "@typescript-eslint/consistent-type-assertions": "error",
-        "@typescript-eslint/consistent-type-imports": "error",
-        "@typescript-eslint/no-explicit-any": "error",
-        "@typescript-eslint/no-unnecessary-condition": "error",
-        "@typescript-eslint/no-shadow": ["error"],
-        "@typescript-eslint/array-type": [
-          "error",
-          {
-            "default": "generic"
-          }
-        ],
-        "@typescript-eslint/no-dynamic-delete": "error"
-      }
-    },
-    {
-      "files": ["*.stories.jsx", "*.stories.tsx"],
-      "rules": {
-        "react/jsx-props-no-spreading": "off"
-      }
-    },
-    {
-      "files": ["*.graphql"],
-      "parser": "@graphql-eslint/eslint-plugin",
-      "plugins": ["@graphql-eslint"],
-      "extends": ["plugin:@graphql-eslint/schema-all"],
-      "parserOptions": {
-        "skipGraphQLConfig": true,
-        "schema": "schema.graphql"
-      },
-      "rules": {
-        "@graphql-eslint/alphabetize": [
-          "error",
-          {
-            "fields": ["ObjectTypeDefinition"],
-            "selections": ["OperationDefinition", "FragmentDefinition"]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.cypress.ts"],
-      "rules": {
-        "@typescript-eslint/no-namespace": "off",
-        "@typescript-eslint/no-empty-interface": "off"
-      }
-    },
-    {
-      "files": ["*.config.ts"],
-      "rules": {
-        "@typescript-eslint/no-explicit-any": "off"
-      }
-    }
-  ]
+  "overrides": []
 }

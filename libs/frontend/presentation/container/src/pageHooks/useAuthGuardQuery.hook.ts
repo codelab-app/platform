@@ -1,8 +1,7 @@
-import isArray from 'lodash/isArray'
-import { useRouter } from 'next/router'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 
 export const useAuthGuardQuery = () => {
-  const { query } = useRouter()
+  const { authGuardId } = useUrl()
 
-  return isArray(query.authGuardId) ? query.authGuardId[0] : undefined
+  return authGuardId
 }

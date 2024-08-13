@@ -9,7 +9,7 @@ import type { IPageModel } from './page.model.interface'
 
 export type IPageAppFragment = Pick<IAppModel, 'id' | 'name'>
 
-export interface IPageFactory {
+export interface IPageDomainFactory {
   addSystemPages(
     app: IPageAppFragment,
     renderType: IElementRenderTypeDto,
@@ -17,7 +17,8 @@ export interface IPageFactory {
 }
 
 export interface IPageDomainService extends IHydrateable<IPageDto, IPageModel> {
-  pageFactory: IPageFactory
   pages: ObjectMap<IPageModel>
   pagesList: Array<IPageModel>
+
+  findBySlug(slug: string): IPageModel
 }

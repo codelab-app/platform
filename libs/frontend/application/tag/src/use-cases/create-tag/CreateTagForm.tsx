@@ -1,21 +1,20 @@
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  DisplayIf,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useTagService } from '../../services'
 import { createTagSchema } from './create.tag.schema'
+import { useCreateTagForm } from './create-tag.data'
 
 interface CreateTagFormProps {
   showFormControl?: boolean
@@ -29,7 +28,9 @@ export const CreateTagForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateTagFormProps) => {
-    const { tagService } = useStore()
+    const tagService = useTagService()
+    const { tagDomainService } = useDomainStore()
+    const createTagForm = useCreateTagForm()
 
     const onSubmit = (input: ICreateTagData) => {
       void tagService.create(input)
@@ -40,8 +41,8 @@ export const CreateTagForm = observer(
       return Promise.resolve()
     }
 
-    const selectedOption = tagService.tagDomainService.selectedOption
-    const closeForm = () => tagService.createForm.close()
+    const selectedOption = tagDomainService.selectedOption
+    const closeForm = () => createTagForm.close()
 
     const model = {
       id: v4(),
@@ -62,7 +63,7 @@ export const CreateTagForm = observer(
         onSubmitSuccess={closeForm}
         schema={createTagSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateTag.key}
+        uiKey={UiKey.CreateTagForm}
       >
         <AutoFields omitFields={['parent']} />
         <AutoField label="Parent Tag" name="parent.id" />

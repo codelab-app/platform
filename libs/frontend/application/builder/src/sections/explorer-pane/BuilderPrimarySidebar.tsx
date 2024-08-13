@@ -1,59 +1,63 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,
   isComponent,
-  storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { DeleteComponentModal } from '@codelab/frontend/application/component'
-import {
-  CreateElementPopover,
-  DeleteElementModal,
-} from '@codelab/frontend/application/element'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  ActionsTreeView,
-  CreateActionPopover,
-  DeleteActionModal,
-  StateTreeView,
-  UpdateActionPopover,
-} from '@codelab/frontend/application/store'
-import {
-  CreateFieldModal,
-  CreateFieldPopover,
-  DeleteFieldModal,
-  UpdateFieldModal,
-  UpdateFieldPopover,
-} from '@codelab/frontend/application/type'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useCurrentComponent,
   useCurrentPage,
 } from '@codelab/frontend/presentation/container'
-import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
+import {
+  CreateElementPopover,
+  useCreateElementForm,
+} from '@codelab/frontend-application-element/use-cases/create-element'
+import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import {
+  CreateActionPopover,
+  useCreateActionForm,
+} from '@codelab/frontend-application-store/use-cases/create-action'
+import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
+import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
+import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
+import { UpdateActionPopover } from '@codelab/frontend-application-store/use-cases/update-action'
+import {
+  CreateFieldModal,
+  CreateFieldPopover,
+  useCreateFieldForm,
+} from '@codelab/frontend-application-type/use-cases/create-field'
+import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import {
+  UpdateFieldModal,
+  UpdateFieldPopover,
+} from '@codelab/frontend-application-type/use-cases/update-field'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Collapse } from 'antd'
-import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ElementTreeView } from './builder-tree'
+import { useBuilderService } from '../../services'
+import { ElementTreeView } from './builder-tree/ElementTreeView'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
-    const {
-      actionService,
-      builderService,
-      elementService,
-      fieldService,
-      rendererService,
-    } = useStore()
-
+    const { rendererService } = useApplicationStore()
+    const createActionForm = useCreateActionForm()
+    const builderService = useBuilderService()
+    const createFieldForm = useCreateFieldForm()
+    const selectedNode = builderService.selectedNode?.current
+    const createElementForm = useCreateElementForm()
     const { popover } = useCui()
     const page = useCurrentPage()
     const component = useCurrentComponent()
@@ -74,7 +78,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
-              cuiKey: MODEL_ACTION.CreateElement.key,
+              cuiKey: UiKey.CreateElementToolbarItem,
               icon: <PlusOutlined />,
               onClick: () => {
                 if (!containerNode) {
@@ -87,12 +91,12 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   ? elementRef(selectedElementId)
                   : undefined
 
-                elementService.createForm.open({
+                createElementForm.open({
                   elementOptions: containerNode.elements.map(mapElementOption),
                   elementTree: elementTreeRef(containerNode.id),
                   selectedElement,
                 })
-                popover.open(MODEL_ACTION.CreateElement.key)
+                popover.open(UiKey.CreateElementPopover)
               },
               title: 'Add Element',
             },
@@ -108,7 +112,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
-              cuiKey: MODEL_ACTION.CreateField.key,
+              cuiKey: UiKey.CreateFieldToolbarItem,
               // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
               icon: <PlusOutlined disabled={!store} />,
               onClick: () => {
@@ -116,11 +120,11 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return null
                 }
 
-                const form = fieldService.createForm
-
                 if (store.api.id) {
-                  form.open(typeRef(store.api.id) as Ref<IInterfaceTypeModel>)
-                  popover.open(MODEL_ACTION.CreateField.key)
+                  createFieldForm.open(
+                    typeRef<IInterfaceTypeModel>(store.api.id).current,
+                  )
+                  popover.open(UiKey.CreateFieldPopover)
                 }
               },
               title: 'Add Field',
@@ -137,7 +141,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
-              cuiKey: MODEL_ACTION.CreateAction.key,
+              cuiKey: UiKey.CreateActionToolbarItem,
               // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
               icon: <PlusOutlined disabled={!store} />,
               onClick: () => {
@@ -145,8 +149,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                actionService.createForm.open(storeRef(store))
-                popover.open(MODEL_ACTION.CreateAction.key)
+                createActionForm.open(store)
+                popover.open(UiKey.CreateActionPopover)
               },
               title: 'Add Action',
             },
@@ -215,19 +219,23 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
             <>
               <UpdateFieldPopover />
               <CreateFieldPopover />
-              <CreateElementPopover />
+              <CreateElementPopover selectedNode={selectedNode} />
               <CreateActionPopover />
               <UpdateActionPopover />
             </>
           }
-          uiKey={MODEL_UI.SidebarBuilder.key}
+          uiKey={UiKey.BuilderSidebar}
           views={sidebarViews}
         />
         <CreateFieldModal />
         <UpdateFieldModal />
         <DeleteFieldModal />
         <DeleteComponentModal />
-        <DeleteElementModal />
+        <DeleteElementModal
+          selectPreviousElementOnDelete={
+            builderService.selectPreviousElementOnDelete
+          }
+        />
         <DeleteActionModal />
       </>
     )

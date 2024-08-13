@@ -1,10 +1,8 @@
+'use client'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
@@ -12,21 +10,22 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
+import { useCreateAuthGuardForm } from './create-auth-guard.state'
 import { CreateAuthGuardForm } from './CreateAuthGuardForm'
 
 export const CreateAuthGuardPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const { authGuardService } = useStore()
+  const createAuthGuardForm = useCreateAuthGuardForm()
   const { popover } = useCui()
 
   return (
     <CuiSidebarPopover
-      id={MODEL_ACTION.CreateAuthGuard.key}
+      id={UiKey.CreateAuthGuardPopover}
       label="Create Auth Guard"
       toolbar={{
         items: [
           {
-            cuiKey: MODEL_ACTION.CreateAuthGuard.key,
+            cuiKey: UiKey.CreateAuthGuardToolbarItem,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -35,12 +34,12 @@ export const CreateAuthGuardPopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: MODEL_ACTION.CancelCreateAuthGuard.key,
+            cuiKey: UiKey.CancelCreateAuthGuardToolbarItem,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
               popover.close()
-              authGuardService.createForm.close()
+              createAuthGuardForm.close()
             },
             title: 'Cancel',
           },

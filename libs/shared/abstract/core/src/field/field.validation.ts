@@ -1,5 +1,5 @@
-import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
+import type { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 
 export enum GeneralValidationRules {
   Nullable = 'nullable',

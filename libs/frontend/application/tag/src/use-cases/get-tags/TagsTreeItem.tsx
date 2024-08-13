@@ -1,37 +1,38 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type { ITagNodeData, ITreeNode } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { tagRef } from '@codelab/frontend/domain/tag'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useDeleteTagsModal } from '../delete-tags/delete-tags.state'
+import { useUpdateTagForm } from '../update-tag'
 
 interface TagsTreeItemProps {
   data: ITreeNode<ITagNodeData>
 }
 
 export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
-  const { tagService } = useStore()
+  const updateTagForm = useUpdateTagForm()
+  const deleteTagsModal = useDeleteTagsModal()
 
   return (
     <CuiTreeItem
       onClick={() => {
-        tagService.updateForm.open(tagRef(data.extraData.node))
+        updateTagForm.open(data.extraData.node)
       }}
       primaryTitle={data.primaryTitle}
       toolbar={
         <CuiTreeItemToolbar
           items={[
             {
-              cuiKey: MODEL_ACTION.DeleteTag.key,
+              cuiKey: UiKey.DeleteTagToolbarItem,
               icon: <DeleteOutlined />,
               label: 'Delete',
               onClick: () => {
-                tagService.deleteManyModal.open([tagRef(data.extraData.node)])
+                deleteTagsModal.open([data.extraData.node])
               },
               title: 'Delete',
             },

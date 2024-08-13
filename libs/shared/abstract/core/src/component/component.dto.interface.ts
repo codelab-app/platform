@@ -2,31 +2,31 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeKind } from '../element'
-import { IRef } from '../model/node-type.interface'
-import { IProp, IPropDto } from '../prop/prop.dto.interface'
+import { PropDtoSchema, PropSchema } from '../prop/prop.dto.interface'
 
-export const IComponentDto = Type.Object({
-  api: IRef,
+export const ComponentDtoSchema = Type.Object({
+  api: Typebox.Ref,
   id: Type.String(),
   name: Type.String(),
-  owner: Typebox.Nullish(IRef),
-  props: IPropDto,
-  rootElement: IRef,
-  store: IRef,
+  owner: Typebox.Ref,
+  props: PropDtoSchema,
+  rootElement: Typebox.Ref,
+  store: Typebox.Ref,
 })
 
-export type IComponentDto = Static<typeof IComponentDto>
+export type IComponentDto = Static<typeof ComponentDtoSchema>
 
-export const IComponent = Type.Composite([
+export const ComponentSchema = Type.Composite([
   Type.Object({
     __typename: Type.Literal(`${IElementRenderTypeKind.Component}`),
   }),
   Typebox.Overwrite(
-    IComponentDto,
+    ComponentDtoSchema,
     Type.Object({
-      props: IProp,
+      props: PropSchema,
+      slug: Type.String(),
     }),
   ),
 ])
 
-export type IComponent = Static<typeof IComponent>
+export type IComponent = Static<typeof ComponentSchema>

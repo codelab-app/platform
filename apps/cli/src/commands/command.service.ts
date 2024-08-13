@@ -1,6 +1,6 @@
 import {
-  ScrapeAntdService,
-  ScrapeHtmlService,
+  // ScrapeAntdService,
+  // ScrapeHtmlService,
   SeedService,
   TaskService,
   TerraformService,
@@ -12,11 +12,11 @@ import { hideBin } from 'yargs/helpers'
 @Injectable()
 export class CommandService {
   constructor(
+    // private readonly scrapeAntdService: ScrapeAntdService,
+    // private readonly scrapeHtmlService: ScrapeHtmlService,
     private readonly terraformService: TerraformService,
     private readonly taskService: TaskService,
     private readonly seedService: SeedService,
-    private readonly scrapeAntdService: ScrapeAntdService,
-    private readonly scrapeHtmlService: ScrapeHtmlService,
   ) {}
 
   exec() {

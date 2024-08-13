@@ -11,8 +11,7 @@ fragment AppPreview on App {
   owner {
     ...Owner
   }
-  # Links the app preview to the provider page
-  pages(where: { kind: Provider }) {
+  pages {
     ...PagePreview
   }
   slug
@@ -33,7 +32,7 @@ fragment App on App {
   slug
 }
 
-fragment AppDevelopment on App {
+fragment AppBuilder on App {
   id
   name
   owner {

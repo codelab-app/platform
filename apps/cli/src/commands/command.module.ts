@@ -1,6 +1,6 @@
 import {
-  ScrapeAntdService,
-  ScrapeHtmlService,
+  // ScrapeAntdService,
+  // ScrapeHtmlService,
   SeedService,
   TaskService,
   TerraformService,
@@ -12,19 +12,14 @@ import { CommandService } from './command.service'
 @Module({
   exports: [CommandService],
   imports: [
-    // ConfigModule.forRoot({
-    //   ignoreEnvVars: true,
-    //   isGlobal: true,
-    //   load: [neo4jConfig],
-    // }),
     // Lazy load this when needed for codegen instead, since it requires docker connection
     // OgmModule,
   ],
   providers: [
     CommandService,
     SeedService,
-    ScrapeAntdService,
-    ScrapeHtmlService,
+    // ScrapeAntdService,
+    // ScrapeHtmlService,
     TerraformService,
     TaskService,
   ],

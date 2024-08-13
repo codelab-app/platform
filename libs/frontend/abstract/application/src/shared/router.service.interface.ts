@@ -1,34 +1,33 @@
-import type { NextRouter } from 'next/router'
-import type { ParsedUrlQuery } from 'querystring'
+import type { Nullable } from '@codelab/shared/abstract/types'
 
 /**
  * Url param like :details
  */
-export interface IRouterParam {
+export interface UrlParams {
   appSlug?: string
+  authGuardId?: string
   componentSlug?: string
+  interfaceId?: string
   pageSlug?: string
+  resourceId?: string
   userSlug?: string
 }
 
 /**
- * Query string
+ * ?key=value
  */
-export interface IRouterQuery {
+export interface UrlQuery {
+  // [key: string]: string | undefined
   primarySidebarKey?: string
 }
 
 export interface IRouterProps {
-  path: NextRouter['asPath']
-  pathname: NextRouter['pathname']
-  query: NextRouter['query']
+  params: Nullable<UrlParams>
+  query: Nullable<UrlQuery>
 }
 
-export type IRouterService = IRouterParam &
-  Required<IRouterQuery> & {
-    param: IRouterParam
-    queryString: IRouterQuery
-    query: ParsedUrlQuery
-
+export type IRouterService = IRouterProps &
+  UrlParams &
+  UrlQuery & {
     update(router: Partial<IRouterProps>): void
   }

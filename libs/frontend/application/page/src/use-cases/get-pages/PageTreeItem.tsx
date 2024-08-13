@@ -1,3 +1,5 @@
+'use client'
+
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
@@ -12,24 +14,30 @@ import type {
   IPageNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { pageRef, redirectRef } from '@codelab/frontend/abstract/domain'
+import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
-  MODEL_ACTION,
   PageType,
+  UiKey,
 } from '@codelab/frontend/abstract/types'
-import { useRegeneratePages } from '@codelab/frontend/application/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useCreateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
+import { useUpdateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUserService } from '@codelab/frontend-application-user/services'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+import queryString from 'query-string'
 import React from 'react'
+import { useDeletePageModal } from '../delete-page/delete-page.state'
+import { useRegeneratePages } from '../generate-pages'
+import { useUpdatePageForm } from '../update-page/update-page.state'
 
 interface PageTreeItemProps {
   app: IAppModel
@@ -44,25 +52,32 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { appService, pageService, redirectService, userService } = useStore()
-    const { isRegenerating, regenerate } = useRegeneratePages(appService)
+    const updateRedirectForm = useUpdateRedirectForm()
+    const createRedirectForm = useCreateRedirectForm()
+    const userService = useUserService()
+    const { isRegenerating, regenerate } = useRegeneratePages()
+    const deletePageModal = useDeletePageModal()
+    const updatePageForm = useUpdatePageForm()
     const { popover } = useCui()
     const router = useRouter()
+    const { query } = useUrl()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.OpenBuilderBuilder.key,
+        cuiKey: UiKey.OpenBuilderBuilderToolbarItem,
         icon: <BuildOutlined />,
         onClick: () => {
-          void router.push({
-            pathname: PageType.PageBuilder,
+          const url = queryString.stringifyUrl({
             query: {
-              ...router.query,
+              ...queryString.parse(query.toString()),
               pageSlug: page.slug,
               primarySidebarKey: ExplorerPaneType.Explorer,
               userSlug: userService.user.username,
             },
+            url: PageType.PageBuilder,
           })
+
+          void router.push(url)
         },
         title: 'Open Builder',
       },
@@ -70,39 +85,39 @@ export const PageTreeItem = observer(
 
     const regularPageToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.DeletePage.key,
+        cuiKey: UiKey.DeletePageToolbarItem,
         icon: <DeleteOutlined />,
-        onClick: () => pageService.deleteModal.open(pageRef(page)),
+        onClick: () => deletePageModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
         cuiKey: page.redirect
-          ? MODEL_ACTION.UpdateRedirect.key
-          : MODEL_ACTION.CreateRedirect.key,
+          ? UiKey.UpdateRedirectToolbarItem
+          : UiKey.CreateRedirectToolbarItem,
         icon: <SafetyOutlined />,
         onClick: () => {
           if (page.redirect) {
-            redirectService.updateForm.open(redirectRef(page.redirect.id))
-            popover.open(MODEL_ACTION.UpdateRedirect.key)
+            updateRedirectForm.open(page.redirect.current)
+            popover.open(UiKey.UpdateRedirectPopover)
           } else {
-            redirectService.createForm.open(pageRef(page))
-            popover.open(MODEL_ACTION.CreateRedirect.key)
+            createRedirectForm.open(page)
+            popover.open(UiKey.CreateRedirectPopover)
           }
         },
         title: 'Auth Guard',
       },
       {
-        cuiKey: MODEL_ACTION.BuildApp.key,
+        cuiKey: UiKey.BuildAppToolbarItem,
         icon: isRegenerating ? <LoadingOutlined /> : <ToolOutlined />,
         onClick: () => regenerate(app, [page.urlPattern]),
         title: 'Build',
       },
       {
-        cuiKey: MODEL_ACTION.UpdatePage.key,
+        cuiKey: UiKey.UpdatePageToolbarItem,
         icon: <EditOutlined />,
         onClick: () => {
-          pageService.updateForm.open(pageRef(page))
-          popover.open(MODEL_ACTION.UpdatePage.key)
+          updatePageForm.open(pageRef(page))
+          popover.open(UiKey.UpdatePagePopover)
         },
         title: 'Edit',
       },

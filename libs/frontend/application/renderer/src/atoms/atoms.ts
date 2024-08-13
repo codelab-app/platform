@@ -21,15 +21,6 @@ export const allAtoms: IAtomRendererRecord = {
   ...reactAtoms,
 }
 
-export {
-  antdAtoms,
-  codelabAtoms,
-  htmlAtoms,
-  // muiAtoms,
-  nextAtoms,
-  reactAtoms,
-}
-
 /**
  * Add a customizers here if you want to modify or add props to a specific element type
  */

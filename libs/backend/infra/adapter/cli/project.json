@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/cli/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-cli",
     "projectType:library",
     "type:concrete",
     "layer:infra",

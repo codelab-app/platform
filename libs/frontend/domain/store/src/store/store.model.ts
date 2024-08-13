@@ -10,16 +10,16 @@ import {
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { InterfaceType } from '@codelab/frontend/domain/type'
-import type {
-  StoreCreateInput,
-  StoreDeleteInput,
-  StoreUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { IStoreDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { createStoreName } from '@codelab/shared/domain'
+import type {
+  StoreCreateInput,
+  StoreDeleteInput,
+  StoreUpdateInput,
+} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -92,7 +92,7 @@ export class Store
   get toJson() {
     return {
       actions: this.actions.map((action) => action.toJson),
-      api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
+      api: { ...this.api, __typename: ITypeKind.InterfaceType as const },
       component: this.component,
       id: this.id,
       name: this.name,

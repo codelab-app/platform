@@ -1,1 +1,1 @@
-export * from './UpdateAppModal'
+export { UpdateAppModal } from './UpdateAppModal'

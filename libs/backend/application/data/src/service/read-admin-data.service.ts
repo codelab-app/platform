@@ -1,6 +1,10 @@
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import type { IComponentAggregate } from '@codelab/shared/abstract/core'
-import { IAtomAggregate, ITag, IType } from '@codelab/shared/abstract/core'
+import {
+  AtomAggregateSchema,
+  TagSchema,
+  TypeSchema,
+} from '@codelab/shared/abstract/core'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
@@ -32,7 +36,10 @@ export class ReadAdminDataService {
 
       const atomExport = JSON.parse(content.toString())
 
-      return this.validationService.validateAndClean(IAtomAggregate, atomExport)
+      return this.validationService.validateAndClean(
+        AtomAggregateSchema,
+        atomExport,
+      )
     })
   }
 
@@ -64,7 +71,7 @@ export class ReadAdminDataService {
     )
 
     return types.map((type: unknown) =>
-      this.validationService.validateAndClean(IType, type),
+      this.validationService.validateAndClean(TypeSchema, type),
     )
   }
 
@@ -78,7 +85,7 @@ export class ReadAdminDataService {
     )
 
     return tags.map((tag: unknown) =>
-      this.validationService.validateAndClean(ITag, tag),
+      this.validationService.validateAndClean(TagSchema, tag),
     )
   }
 }

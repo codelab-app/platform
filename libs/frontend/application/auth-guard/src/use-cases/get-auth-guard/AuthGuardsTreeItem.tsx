@@ -4,8 +4,7 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -13,6 +12,8 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useDeleteAuthGuardModal } from '../delete-auth-guard/delete-auth-guard.state'
+import { useUpdateAuthGuardForm } from '../update-auth-guard'
 
 interface AuthGuardsTreeItemProps {
   data: ITreeNode<IAuthGuardNodeData>
@@ -20,20 +21,21 @@ interface AuthGuardsTreeItemProps {
 
 export const AuthGuardsTreeItem = observer(
   ({ data }: AuthGuardsTreeItemProps) => {
-    const { authGuardService } = useStore()
+    const updateAuthGuardForm = useUpdateAuthGuardForm()
+    const deleteAuthGuardModal = useDeleteAuthGuardModal()
     const authGuard = data.extraData.node
 
     const onEdit = () => {
-      authGuardService.updateForm.open(authGuardRef(authGuard.id))
+      updateAuthGuardForm.open(authGuardRef(authGuard.id))
     }
 
     const onDelete = () => {
-      authGuardService.deleteModal.open(authGuardRef(authGuard.id))
+      deleteAuthGuardModal.open(authGuardRef(authGuard.id))
     }
 
     const toolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.DeleteAuthGuard.key,
+        cuiKey: UiKey.DeleteAuthGuardToolbarItem,
         icon: <DeleteOutlined />,
         onClick: onDelete,
         title: 'Delete',

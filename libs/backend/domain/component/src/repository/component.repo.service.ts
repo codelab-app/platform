@@ -39,8 +39,8 @@ export class ComponentRepository extends AbstractRepository<
         input: components.map(
           ({ api, id, name, owner, props, rootElement, store }) => ({
             api: connectNodeId(api.id),
+            compositeKey: `${owner.id}-${name}`,
             id,
-            name,
             owner: connectOwner(this.authService.currentUser),
             props: connectNodeId(props.id),
             rootElement: connectNodeId(rootElement.id),
@@ -69,7 +69,7 @@ export class ComponentRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { api, id, name, props, rootElement, store }: IComponentDto,
+    { api, id, props, rootElement, store }: IComponentDto,
     where: ComponentWhere,
   ) {
     return (
@@ -79,7 +79,6 @@ export class ComponentRepository extends AbstractRepository<
         update: {
           api: connectNodeId(api.id),
           id,
-          name,
           props: connectNodeId(props.id),
           rootElement: connectNodeId(rootElement.id),
           store: connectNodeId(store.id),

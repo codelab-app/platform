@@ -2,9 +2,8 @@ import {
   IRuntimeNodeType,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { createTestStore } from '@codelab/frontend/application/test'
+import { createTestStore } from '@codelab/frontend-infra-mobx/store'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
-import { unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
 describe('TreeViewNode', () => {

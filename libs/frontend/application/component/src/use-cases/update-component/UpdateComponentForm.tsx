@@ -1,12 +1,14 @@
+'use client'
+
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { Form } from '@codelab/frontend/presentation/view'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { Form } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useComponentService } from '../../services/component.service'
 import { updateComponentSchema } from './update-component.schema'
 
 /**
@@ -15,7 +17,7 @@ import { updateComponentSchema } from './update-component.schema'
 export const UpdateComponentForm = observer<{
   runtimeComponent: IRuntimeComponentModel
 }>(({ runtimeComponent }) => {
-  const { componentService } = useStore()
+  const componentService = useComponentService()
   const [key, setKey] = useState('')
   const component = runtimeComponent.component.current
 
@@ -43,7 +45,7 @@ export const UpdateComponentForm = observer<{
           title: 'Error while creating component',
         })}
         schema={updateComponentSchema}
-        uiKey={MODEL_ACTION.UpdateComponent.key}
+        uiKey={UiKey.UpdateComponentForm}
       >
         <AutoFields />
       </Form>

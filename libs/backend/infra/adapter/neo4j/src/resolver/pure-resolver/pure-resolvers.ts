@@ -4,6 +4,7 @@ import type { FactoryProvider } from '@nestjs/common'
 import { actionResolver } from './action'
 import { appResolver } from './app'
 import { atomResolver } from './atom/atom.resolver'
+import { componentResolver } from './component'
 import { domainResolver } from './domain'
 import { elementResolver } from './element'
 import { pageResolver } from './page'
@@ -17,6 +18,7 @@ export const PureResolverProvider: FactoryProvider<Promise<IResolvers>> = {
   useFactory: async (typeResolver: IResolvers) => {
     const pureResolvers: IResolvers = mergeResolvers([
       appResolver,
+      componentResolver,
       atomResolver,
       actionResolver,
       domainResolver,

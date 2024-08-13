@@ -1,3 +1,5 @@
+'use client'
+
 import install from '@twind/with-next/app'
 import { useEffect } from 'react'
 
@@ -13,6 +15,8 @@ export const useTwindConfig = (config: any) => {
 
     install(config)
 
-    return () => window.removeEventListener('warning', suppressWarning)
+    return () => {
+      window.removeEventListener('warning', suppressWarning)
+    }
   }, [])
 }

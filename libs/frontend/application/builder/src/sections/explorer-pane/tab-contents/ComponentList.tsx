@@ -4,8 +4,8 @@ import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
-import { ErrorBoundary } from '@codelab/frontend/presentation/view'
+import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
+import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/errorBoundary'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'
 import debounce from 'lodash/debounce'
@@ -29,7 +29,9 @@ export const ComponentList = observer<{
   const [searchValue, setSearchValue] = useState('')
 
   const debouncedSearch = useRef(
-    debounce((nextValue: string) => setSearchValue(nextValue), 200),
+    debounce((nextValue: string) => {
+      setSearchValue(nextValue)
+    }, 200),
   ).current
 
   const filteredItems = filter(components, (component) =>

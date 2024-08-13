@@ -1,19 +1,19 @@
 import type { BuilderDragData } from '@codelab/frontend/abstract/application'
 import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
+import { HierarchicalCollisionDetector } from '@codelab/frontend-application-dnd/collision-detection'
 import {
   AutoDragOverlay,
   DropIndicator,
   DropOverlay,
-  HierarchicalCollisionDetector,
-} from '@codelab/frontend/application/dnd'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend-application-dnd/components'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 import { DndContext, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
-import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React, { useCallback, useMemo } from 'react'
+import { useBuilderService } from '../services'
 import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
@@ -21,8 +21,9 @@ const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
 /**
  * Provides the DnD context for the builder
  */
-const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
-  const { builderService, elementService } = useStore()
+const BuilderDndContext = ({ children }: PropsWithChildren) => {
+  const builderService = useBuilderService()
+  const elementService = useElementService()
   const { handleCreateElement, handleMoveElement } = useDndDropHandler()
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -79,7 +80,7 @@ const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
       <AutoDragOverlay />
     </DndContext>
   )
-})
+}
 
 BuilderDndContext.displayName = 'BuilderDndContext'
 export default BuilderDndContext

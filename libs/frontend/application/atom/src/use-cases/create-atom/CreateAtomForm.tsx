@@ -1,16 +1,13 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
-  MODEL_ACTION,
-  type SubmitController,
-} from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  DisplayIf,
   DisplayIfField,
   Form,
   FormController,
-} from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -18,6 +15,8 @@ import React from 'react'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAtomSchema } from './create-atom.schema'
+import { useCreateAtomService } from './create-atom.service'
+import { useCreateAtomModal } from './create-atom.state'
 
 interface CreateAtomFormProps {
   showFormControl?: boolean
@@ -32,11 +31,13 @@ export const CreateAtomForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateAtomFormProps) => {
-    const { atomService, tagService } = useStore()
-    const closeForm = () => atomService.createForm.close()
+    const { tagDomainService } = useDomainStore()
+    const createAtomAction = useCreateAtomService
+    const createAtomForm = useCreateAtomModal()
+    const closeForm = () => createAtomForm.close()
 
     const onSubmit = async (data: ICreateAtomData) => {
-      const res = await atomService.create(data)
+      const res = await createAtomAction(data)
 
       onSubmitSuccess?.()
 
@@ -47,7 +48,7 @@ export const CreateAtomForm = observer(
       title: 'Error while creating atom',
     })
 
-    const tagsSelectionOptions = tagService.tagDomainService.tagsSelectOptions
+    const tagsSelectionOptions = tagDomainService.tagsSelectOptions
 
     return (
       <Form<ICreateAtomData>
@@ -59,7 +60,7 @@ export const CreateAtomForm = observer(
         onSubmitSuccess={closeForm}
         schema={createAtomSchema}
         submitRef={submitRef}
-        uiKey={MODEL_ACTION.CreateAtom.key}
+        uiKey={UiKey.CreateAtomForm}
       >
         <AutoFields
           omitFields={[

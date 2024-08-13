@@ -2,7 +2,7 @@ import type {
   AnyType,
   IBaseType,
   QueryBaseTypesArgs,
-} from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'

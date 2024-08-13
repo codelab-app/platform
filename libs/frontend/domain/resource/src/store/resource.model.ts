@@ -3,17 +3,18 @@ import {
   type IPropModel,
   type IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
-import type {
-  ResourceCreateInput,
-  ResourceUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import type {
   IResourceConfigData,
   IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import { connectOwner, getResourceClient } from '@codelab/shared/domain'
+import type {
+  ResourceCreateInput,
+  ResourceDeleteInput,
+  ResourceUpdateInput,
+} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -36,6 +37,14 @@ export class Resource
   implements IResourceModel
 {
   static create = create
+
+  static toDeleteInput(): ResourceDeleteInput {
+    return {
+      config: {
+        where: {},
+      },
+    }
+  }
 
   @computed
   get client() {

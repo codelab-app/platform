@@ -1,0 +1,32 @@
+query GetComponentBuilder {
+  actionTypes {
+    ...ActionType
+  }
+  # Need to load all dependent types
+  atoms(where: { type: ReactFragment }) {
+    ...AtomBuilder
+  }
+  # Load system types
+  # workaround for lack of ability to recursively fetch field's types
+  codeMirrorTypes {
+    ...CodeMirrorType
+  }
+  components {
+    ...ComponentBuilder
+  }
+  primitiveTypes {
+    ...PrimitiveType
+  }
+  reactNodeTypes {
+    ...ReactNodeType
+  }
+  renderPropTypes {
+    ...RenderPropType
+  }
+  resources {
+    ...Resource
+  }
+  richTextTypes {
+    ...RichTextType
+  }
+}

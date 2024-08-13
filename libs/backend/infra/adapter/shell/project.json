@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/infra/adapter/shell/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-infra-adapter-shell",
     "projectType:library",
     "type:concrete",
     "layer:infra",

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/backend/domain/type/src",
   "projectType": "library",
   "tags": [
+    "projectName:backend-domain-type",
     "projectType:library",
     "type:concrete",
     "scope:backend",

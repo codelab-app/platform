@@ -1,27 +1,35 @@
+'use client'
+
 import type { ApolloError } from '@apollo/client'
 import type { IUpdateDomainData } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { checkDomainExists } from '@codelab/frontend/domain/domain'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
-import { ModalForm } from '@codelab/frontend/presentation/view'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
+import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDomainService } from '../../services'
 import { updateDomainSchema } from './update-domain.schema'
+import { useUpdateDomainModal } from './update-domain.state'
 
 export const UpdateDomainModal = observer(() => {
-  const { domainService } = useStore()
-  const domain = domainService.updateModal.domain
-  const isOpen = domainService.updateModal.isOpen
+  const updateDomainModal = useUpdateDomainModal()
+  const domainService = useDomainService()
+  const domain = updateDomainModal.data
+  const isOpen = updateDomainModal.isOpen
   const app = useCurrentApp()
 
-  const onSubmit = (domainDTO: IUpdateDomainData) => {
-    return domainService.update(domainDTO)
+  if (!domain) {
+    return null
   }
 
-  const closeModal = () => domainService.updateModal.close()
+  const onSubmit = (domainDto: IUpdateDomainData) => {
+    return domainService.update(domainDto)
+  }
+
+  const closeModal = () => updateDomainModal.close()
 
   const onError = useErrorNotify({
     description: '',
@@ -35,20 +43,24 @@ export const UpdateDomainModal = observer(() => {
   }
 
   const model = {
-    app: { id: app?.id },
-    id: domain?.id,
-    name: domain?.name,
+    app: { id: app.id },
+    id: domain.id,
+    name: domain.current.name,
   }
 
   return (
-    <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={isOpen}>
+    <ModalForm.Modal
+      okText="Update Domain"
+      onCancel={closeModal}
+      open={isOpen}
+      uiKey={UiKey.UpdateDomainModal}
+    >
       <ModalForm.Form<IUpdateDomainData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateDomainSchema}
-        uiKey={MODEL_ACTION.UpdateDomain.key}
       >
         <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>

@@ -1,4 +1,3 @@
-import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
 import {
   appDomainServiceContext,
   atomDomainServiceContext,
@@ -8,19 +7,19 @@ import {
   storeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { AtomDomainService } from '@codelab/frontend/domain/atom'
-import { ElementDomainService } from '@codelab/frontend/domain/element'
-import { PageDomainService } from '@codelab/frontend/domain/page'
-import { RedirectDomainService } from '@codelab/frontend/domain/redirect'
-import { createRootDomainStore } from '@codelab/frontend/domain/shared'
-import { StoreDomainService } from '@codelab/frontend/domain/store'
+import { userDto } from '@codelab/frontend/test/data'
+import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
+import { ElementDomainService } from '@codelab/frontend-domain-element/services'
+import { PageDomainService } from '@codelab/frontend-domain-page/services'
+import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
+import { createRootDomainStore } from '@codelab/frontend-domain-shared'
+import { StoreDomainService } from '@codelab/frontend-domain-store/services'
 import {
   TypeDomainService,
   typeDomainServiceContext,
-} from '@codelab/frontend/domain/type'
-import { UserDomainService } from '@codelab/frontend/domain/user'
-import { userDto } from '@codelab/frontend/test/data'
-import { AppDomainService } from '../app.domain.service'
+} from '@codelab/frontend-domain-type/services'
+import { UserDomainService } from '@codelab/frontend-domain-user/services'
+import { AppDomainService } from '../services/app.domain.service'
 
 export const rootDomainStore = createRootDomainStore({
   context: {
@@ -43,4 +42,4 @@ export const rootDomainStore = createRootDomainStore({
     typeDomainService: new TypeDomainService({}),
     userDomainService: UserDomainService.fromDto(userDto),
   },
-}) as IRootDomainStore
+})

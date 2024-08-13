@@ -11,16 +11,16 @@ export const MenuDesktop = () => {
   return (
     <nav>
       <menu className="m-0 h-[67px] w-full bg-white p-0">
-        <ul className="flex h-full flex-row items-center p-0 tablet:justify-between md:px-6 2xl:px-8">
+        <ul className="tablet:justify-between flex h-full flex-row items-center p-0 md:px-6 2xl:px-8">
           <li className="flex justify-start p-2">
             <Logo />
           </li>
           {/* Used to push other items to the end */}
-          <li className="hidden grow laptop:flex"></li>
+          <li className="laptop:flex hidden grow"></li>
           {menuItems.map((items, index) => (
-            <li className="mr-4  hidden p-2 text-base laptop:flex" key={index}>
+            <li className="laptop:flex  mr-4 hidden p-2 text-base" key={index}>
               <Link
-                className="flex items-center font-display font-normal text-black hover:text-primary"
+                className="font-display flex items-center font-normal text-black hover:text-primary"
                 href={items.href}
               >
                 {items.title}
@@ -30,7 +30,7 @@ export const MenuDesktop = () => {
           {/* eslint-disable-next-line
           @typescript-eslint/no-unnecessary-condition */}
           {user ? (
-            <li className="hidden p-2 laptop:flex">
+            <li className="laptop:flex hidden p-2">
               <Link
                 className="btn-primary flex items-center"
                 href="/api/auth/login"
@@ -40,11 +40,11 @@ export const MenuDesktop = () => {
             </li>
           ) : (
             <>
-              <li className="p-2 tablet:w-8 laptop:flex laptop:w-auto">
+              <li className="tablet:w-8 laptop:flex laptop:w-auto p-2">
                 {/* <Link href="/api/auth/login" legacyBehavior> */}
                 <Button className="mr-2 rounded-lg" ghost type="primary">
                   <Link
-                    className="hidden items-center text-base font-semibold laptop:flex"
+                    className="laptop:flex hidden items-center text-base font-semibold"
                     href="/api/auth/login"
                   >
                     Log in
@@ -52,11 +52,11 @@ export const MenuDesktop = () => {
                 </Button>
                 {/* </Link> */}
               </li>
-              <li className="hidden p-2 laptop:flex">
+              <li className="laptop:flex hidden p-2">
                 {/* <Link href="/api/auth/logout" legacyBehavior> */}
                 <Button className="rounded-lg" type="primary">
                   <Link
-                    className="hidden items-center text-base font-semibold laptop:flex"
+                    className="laptop:flex hidden items-center text-base font-semibold"
                     href="/api/auth/logout"
                   >
                     Sign up

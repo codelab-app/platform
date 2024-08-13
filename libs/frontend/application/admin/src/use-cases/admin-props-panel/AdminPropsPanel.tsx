@@ -2,33 +2,41 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { isAdmin } from '@codelab/frontend/abstract/domain'
+import { useCreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
+import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
+import { useUserService } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
   ({ interfaceType }) => {
-    const { fieldService, userService } = useStore()
+    const userService = useUserService()
+    const updateFieldModal = useUpdateFieldModal()
+    const createFieldModal = useCreateFieldModal()
+    const deleteFieldModal = useDeleteFieldModal()
 
     if (!isAdmin(userService.user)) {
       return null
     }
 
     const onEdit = (field: IFieldModel) => {
-      fieldService.updateModal.open(fieldRef(field))
+      updateFieldModal.open(field)
     }
 
     const onDelete = (field: IFieldModel) => {
-      fieldService.deleteModal.open(fieldRef(field))
+      deleteFieldModal.open(field)
     }
 
     const editMenuItems = interfaceType.fields.map((field) => {
       return {
         key: field.key,
         label: field.name ?? field.key,
-        onClick: () => onEdit(field),
+        onClick: () => {
+          onEdit(field)
+        },
       }
     })
 
@@ -36,7 +44,9 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
       return {
         key: field.key,
         label: field.name ?? field.key,
-        onClick: () => onDelete(field),
+        onClick: () => {
+          onDelete(field)
+        },
       }
     })
 
@@ -44,9 +54,9 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
       <Row gutter={[16, 16]} justify="center">
         <Col>
           <Button
-            onClick={() =>
-              fieldService.createModal.open(typeRef(interfaceType))
-            }
+            onClick={() => {
+              createFieldModal.open(interfaceType)
+            }}
           >
             Add
           </Button>

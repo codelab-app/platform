@@ -10,11 +10,7 @@ import {
   getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { tagRef } from '@codelab/frontend/domain/tag'
-import {
-  AtomCreateInput,
-  AtomUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { tagRef } from '@codelab/frontend-domain-tag/store'
 import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
@@ -30,6 +26,7 @@ import {
   reactAtoms,
   reconnectNodeIds,
 } from '@codelab/shared/domain'
+import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

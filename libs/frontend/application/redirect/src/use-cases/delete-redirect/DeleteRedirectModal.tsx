@@ -1,31 +1,36 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
-import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useRedirectService } from '../../services'
+import { useUpdateRedirectForm } from '../update-redirect'
+import { useDeleteRedirectModal } from './delete-redirect.state'
 
 export const DeleteRedirectModal = observer(() => {
-  const { redirectService } = useStore()
-  const redirect = redirectService.deleteModal.metadata?.current
+  const redirectService = useRedirectService()
+  const deleteRedirectModal = useDeleteRedirectModal()
+  const updateRedirectForm = useUpdateRedirectForm()
+  const redirect = deleteRedirectModal.data
   const { popover } = useCui()
 
   const onSubmitSuccess = () => {
-    redirectService.deleteModal.close()
+    deleteRedirectModal.close()
     popover.close()
-    redirectService.updateForm.close()
+    updateRedirectForm.close()
   }
 
-  const closeModal = () => redirectService.deleteModal.close()
+  const closeModal = () => deleteRedirectModal.close()
 
   const onSubmit = () => {
     if (!redirect) {
       return Promise.reject()
     }
 
-    void redirectService.delete([redirect])
+    void redirectService.remove([redirect])
 
     closeModal()
 
@@ -40,8 +45,9 @@ export const DeleteRedirectModal = observer(() => {
     <ModalForm.Modal
       okText="Delete Redirect"
       onCancel={onSubmitSuccess}
-      open={redirectService.deleteModal.isOpen}
+      open={deleteRedirectModal.isOpen}
       title="Delete Confirmation"
+      uiKey={UiKey.DeleteRedirectModal}
     >
       <ModalForm.Form
         model={{}}
@@ -49,7 +55,6 @@ export const DeleteRedirectModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
-        uiKey={MODEL_ACTION.DeleteRedirect.key}
       >
         <h4>Are you sure you want to delete redirect"</h4>
         <AutoFields />

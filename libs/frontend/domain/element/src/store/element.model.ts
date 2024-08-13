@@ -1,6 +1,5 @@
 import type {
   IActionModel,
-  IAtomModel,
   IComponentModel,
   IElementRenderTypeModel,
   IHook,
@@ -23,11 +22,7 @@ import {
   isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
-import {
-  ElementCreateInput,
-  ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { Prop } from '@codelab/frontend-domain-prop/store'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -38,6 +33,10 @@ import {
   ElementProperties,
   reconnectNodeId,
 } from '@codelab/shared/domain'
+import {
+  ElementCreateInput,
+  ElementUpdateInput,
+} from '@codelab/shared/infra/gql'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -297,7 +296,7 @@ export class Element
       this.name ||
       this.renderType.maybeCurrent?.name ||
       (isAtomRef(this.renderType)
-        ? compoundCaseToTitleCase((this.renderType.current as IAtomModel).type)
+        ? compoundCaseToTitleCase(this.renderType.current.type)
         : undefined) ||
       this.parentComponent?.maybeCurrent?.name ||
       ''
@@ -693,7 +692,9 @@ export class Element
       recording: true,
     })
 
-    return () => recorder.dispose()
+    return () => {
+      recorder.dispose()
+    }
   }
 
   @computed

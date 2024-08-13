@@ -1,3 +1,5 @@
+'use client'
+
 import type {
   IRuntimeComponentModel,
   IRuntimeElementModel,
@@ -11,10 +13,10 @@ import {
   type IPageNodeRef,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { schemaTransformer } from '@codelab/frontend/application/type'
-import { createValidator } from '@codelab/frontend/presentation/view'
+import { schemaTransformer } from '@codelab/frontend/presentation/components/interface-form'
 import { notify } from '@codelab/frontend/shared/utils'
+import { usePropService } from '@codelab/frontend-application-prop/services'
+import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateObject } from '@codelab/shared/utils'
@@ -67,7 +69,7 @@ const validateSchema = (node: IPageNodeRef) => {
 export const usePropsInspector = (
   runtimeNode: IRuntimeComponentModel | IRuntimeElementModel,
 ) => {
-  const { propService } = useStore()
+  const propService = usePropService()
   const [isLoading, setIsLoading] = useState(false)
 
   const node = isRuntimeComponent(runtimeNode)

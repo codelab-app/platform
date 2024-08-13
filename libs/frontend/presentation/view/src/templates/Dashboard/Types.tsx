@@ -1,8 +1,9 @@
-import type { ComponentType, JSXElementConstructor } from 'react'
+import type { JSXElementConstructor } from 'react'
+import type React from 'react'
 
 export interface PrimarySidebarItem {
   key: React.Key
-  render: ComponentType
+  render: React.ReactElement
 }
 
 export interface PrimarySidebar {
@@ -19,6 +20,10 @@ export type DashboardTemplateProps<T = unknown> = T & {
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */
   PrimarySidebar?: PrimarySidebar
-  Header?: JSXElementConstructor<unknown>
+  Header?: React.ReactElement
   contentStyles?: React.CSSProperties
+  appSlug?: string
+  componentSlug?: string
+  pageSlug?: string
+  userSlug?: string
 }

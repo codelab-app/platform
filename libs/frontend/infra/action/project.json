@@ -1,0 +1,15 @@
+{
+  "name": "frontend-infra-action",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/action/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:frontend-infra-action",
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:frontend"
+  ],
+  "// targets": "to see all targets run: nx show project frontend-infra-action --web",
+  "targets": {}
+}

@@ -1,11 +1,13 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { mapAtomOptions } from '@codelab/frontend/domain/atom'
+import { mapAtomOptions } from '@codelab/frontend-domain-atom/store'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import { useAsync } from '@react-hookz/web'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useAsyncFn } from 'react-use'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
+import { useAtomService } from '../../services'
 
 export type SelectAtomProps = Pick<
   UniformSelectFieldProps,
@@ -17,40 +19,42 @@ export type SelectAtomProps = Pick<
   parent?: IAtomModel
 }
 
-export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
-  const { atomService } = useStore()
-  const [fieldProps] = useField<{ value?: string }>(name, {})
+export const SelectAtom = observer<SelectAtomProps>(
+  ({ error, label, name, parent }) => {
+    const atomService = useAtomService()
+    const { atomDomainService } = useDomainStore()
+    const [fieldProps] = useField<{ value?: string }>(name, {})
+    const fallbackAtomOptions = atomDomainService.atomsList.map(mapAtomOptions)
 
-  const fallbackAtomOptions =
-    atomService.atomDomainService.atomsList.map(mapAtomOptions)
+    const [state, getSelectAtomOptions] = useAsyncFn(() =>
+      atomService.getSelectAtomOptions({ ...fieldProps, label }, parent),
+    )
 
-  const [{ error: queryError, result, status }, getSelectAtomOptions] =
-    useAsync(() => atomService.getSelectAtomOptions(fieldProps, parent))
-
-  return (
-    <SelectField
-      error={error || queryError}
-      getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      label={label}
-      loading={status === 'loading'}
-      name={name}
-      onDropdownVisibleChange={async (open) => {
-        if (open && status === 'not-executed') {
-          await getSelectAtomOptions.execute()
-        }
-      }}
-      onSelect={(value, option) => {
-        /**
-         * Api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation.
-         *
-         * Fetch here instead of createElement so we save some time
-         */
-        // return atomService.loadApi(value)
-      }}
-      optionFilterProp="label"
-      optionLabelProp="label"
-      options={result ?? fallbackAtomOptions}
-      showSearch
-    />
-  )
-}
+    return (
+      <SelectField
+        error={error || state.error}
+        getPopupContainer={(triggerNode) => triggerNode.parentElement}
+        label={label}
+        loading={state.loading}
+        name={name}
+        onDropdownVisibleChange={async (open) => {
+          if (open && !state.loading && !state.value) {
+            await getSelectAtomOptions()
+          }
+        }}
+        onSelect={(value, option) => {
+          /**
+           * Api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation.
+           *
+           * Fetch here instead of createElement so we save some time
+           */
+          // return atomService.loadApi(value)
+        }}
+        optionFilterProp="label"
+        optionLabelProp="label"
+        options={state.value ?? fallbackAtomOptions}
+        showSearch
+      />
+    )
+  },
+)

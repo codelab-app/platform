@@ -1,8 +1,8 @@
+import type { ITypeKind, IUnionTypeDto } from '@codelab/shared/abstract/core'
 import type {
   UnionTypeCreateInput,
   UpdateUnionTypesMutationVariables,
-} from '@codelab/shared/abstract/codegen'
-import type { ITypeKind, IUnionTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { IBaseTypeModel, ITypeModel } from './base-type.model.interface'
 

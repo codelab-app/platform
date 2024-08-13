@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/application/shared/store'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
@@ -10,8 +10,8 @@ export interface TagSelectProps {
 
 export const TagSelect: React.FunctionComponent<TagSelectProps> =
   observer<TagSelectProps>(({ label, name }) => {
-    const { tagService } = useStore()
-    const tagOptions = tagService.tagDomainService.tagsSelectOptions
+    const { tagDomainService } = useDomainStore()
+    const tagOptions = tagDomainService.tagsSelectOptions
 
     return (
       <SelectField

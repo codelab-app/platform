@@ -1,26 +1,33 @@
+'use client'
+
 import { useUser } from '@auth0/nextjs-auth0/client'
 import type {
   IElementTreeViewDataNode,
   IRuntimeComponentModel,
 } from '@codelab/frontend/abstract/application'
-import {
-  isRuntimeComponent,
-  RendererTab,
-} from '@codelab/frontend/abstract/application'
+import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
 import {
   elementRef,
   elementTreeRef,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { mapElementOption } from '@codelab/frontend/domain/element'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
-import { Key } from '@codelab/frontend/presentation/view'
+import { useComponentService } from '@codelab/frontend-application-component/services'
+import { useCloneElementService } from '@codelab/frontend-application-element/services'
+import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
+import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
+import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
+import { useBuilderService } from '../../services'
 
 export interface ContextMenuProps {
   onBlur?(): unknown
@@ -37,16 +44,25 @@ export type ElementContextMenuProps = ContextMenuProps & {
 export const ElementContextMenu = observer<
   React.PropsWithChildren<ElementContextMenuProps>
 >(({ children, treeNode }) => {
-  const { builderService, elementService, runtimeElementService } = useStore()
+  const { runtimeElementService } = useApplicationStore()
+  const { elementDomainService } = useDomainStore()
+  const builderService = useBuilderService()
+  const componentService = useComponentService()
+
+  const cloneElementService = useCloneElementService({
+    builderService,
+    componentService,
+  })
+
+  const createElementForm = useCreateElementForm()
+  const deleteElementModal = useDeleteElementModal()
   const { user } = useUser()
   const { popover } = useCui()
 
   const [contextMenuItemId, setContextMenuNodeId] =
     useState<Nullable<string>>(null)
 
-  const element = elementService.elementDomainService.maybeElement(
-    treeNode.element!.id,
-  )
+  const element = elementDomainService.maybeElement(treeNode.element?.id)
 
   if (!element) {
     return null
@@ -55,19 +71,20 @@ export const ElementContextMenu = observer<
   const componentInstance = isComponent(element.renderType)
 
   const onAddChild = () => {
-    popover.open(MODEL_ACTION.CreateElement.key)
+    popover.open(UiKey.CreateElementPopover)
 
-    elementService.createForm.open({
+    createElementForm.open({
       elementOptions:
         element.closestContainerNode.elements.map(mapElementOption),
       elementTree: elementTreeRef(element.closestContainerNode.id),
       selectedElement: elementRef(element.id),
     })
+
     setContextMenuNodeId(null)
   }
 
   const onDelete = () => {
-    return elementService.deleteModal.open(elementRef(element))
+    deleteElementModal.open(element)
   }
 
   const onDuplicate = async () => {
@@ -75,7 +92,7 @@ export const ElementContextMenu = observer<
       return
     }
 
-    return elementService.cloneElementService.cloneElement(
+    return cloneElementService.cloneElement(
       element,
       element.closestParentElement.current,
     )
@@ -88,17 +105,13 @@ export const ElementContextMenu = observer<
 
     const runtimeElement = runtimeElementService.runtimeElement(treeNode.key)
 
-    await elementService.cloneElementService.convertElementToComponent(
-      runtimeElement,
-    )
+    await cloneElementService.convertElementToComponent(runtimeElement)
   }
 
   const onEditComponent = () => {
     if (!isComponent(element.renderType)) {
       return
     }
-
-    builderService.setActiveTab(RendererTab.Component)
 
     const runtimeElement = runtimeElementService.runtimeElement(treeNode.key)
 

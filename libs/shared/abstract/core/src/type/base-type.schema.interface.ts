@@ -13,7 +13,7 @@ export const baseTypeSchema = (
   // title: type,
   properties: {
     __typename: {
-      const: type,
+      // const: type,
       type: 'string',
       default: type,
       'ui:widget': 'hidden',
@@ -24,7 +24,7 @@ export const baseTypeSchema = (
       'ui:widget': 'hidden',
     },
     kind: {
-      const: type,
+      // const: type,
       type: 'string',
       default: type,
       'ui:widget': 'hidden',

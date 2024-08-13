@@ -4,6 +4,7 @@ import type {
   IInterfaceTypeModel,
   IPropModel,
   IStoreModel,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
@@ -12,14 +13,21 @@ import {
   isComponent,
   storeRef,
   typeRef,
+  userRef,
 } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend/domain/prop'
-import type { ComponentUpdateInput } from '@codelab/shared/abstract/codegen'
-import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
+import { Prop } from '@codelab/frontend-domain-prop/store'
+import { Store } from '@codelab/frontend-domain-store/store'
+import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain'
+import { ComponentProperties, connectOwner } from '@codelab/shared/domain'
+import type {
+  ComponentDeleteInput,
+  ComponentUpdateInput,
+} from '@codelab/shared/infra/gql'
+import { ComponentCreateInput } from '@codelab/shared/infra/gql'
+import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -28,6 +36,7 @@ const create = ({
   api,
   id,
   name,
+  owner,
   props,
   rootElement,
   store,
@@ -37,6 +46,7 @@ const create = ({
     id,
     instanceElement: null,
     name,
+    owner: userRef(owner.id),
     props: Prop.create(props),
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
@@ -50,6 +60,7 @@ export class Component
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     name: prop<string>().withSetter(),
+    owner: prop<Ref<IUserModel>>(),
     props: prop<IPropModel>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IRef>>(null).withSetter(),
@@ -59,6 +70,15 @@ export class Component
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
+
+  static toDeleteInput(): ComponentDeleteInput {
+    return {
+      api: { delete: InterfaceType.toDeleteInput(), where: {} },
+      props: { where: {} },
+      rootElement: { where: {} },
+      store: { delete: Store.toDeleteInput(), where: {} },
+    }
+  }
 
   @computed
   get __typename() {
@@ -92,14 +112,21 @@ export class Component
   }
 
   @computed
+  get slug() {
+    return slugify(this.name)
+  }
+
+  @computed
   get toJson() {
     return {
       __typename: this.__typename,
       api: this.api,
       id: this.id,
       name: this.name,
+      owner: this.owner,
       props: this.props.toJson,
       rootElement: this.rootElement,
+      slug: this.slug,
       store: this.store,
     }
   }
@@ -108,11 +135,23 @@ export class Component
   toCreateInput(): ComponentCreateInput {
     return {
       api: { create: { node: this.api.current.toCreateInput() } },
+      compositeKey: `${this.userDomainService.user.auth0Id}-${this.name}`,
       id: this.id,
-      name: this.name,
       owner: connectOwner(this.userDomainService.user),
       props: { create: { node: this.props.toCreateInput() } },
-      rootElement: connectNodeId(this.rootElement.id),
+      rootElement: {
+        create: {
+          node: this.rootElement.current.toCreateInput(),
+        },
+        // connectOrCreate: {
+        //   onCreate: {
+        //     node: this.rootElement.current.toCreateInput(),
+        //   },
+        //   where: {
+        //     node: { id: this.rootElement.id },
+        //   },
+        // },
+      },
       store: { create: { node: this.store.current.toCreateInput() } },
     }
   }
@@ -132,7 +171,14 @@ export class Component
   }
 
   toUpdateInput(): ComponentUpdateInput {
-    return {}
+    return {
+      compositeKey: ComponentProperties.componentCompositeKey(
+        { slug: this.slug },
+        {
+          id: this.owner.id,
+        },
+      ),
+    }
   }
 
   @computed
