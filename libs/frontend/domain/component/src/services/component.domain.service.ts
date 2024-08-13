@@ -8,11 +8,11 @@ import {
   getAtomDomainService,
   getElementDomainService,
   getStoreDomainService,
+  getTypeDomainService,
   getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
-import { getTypeDomainService } from '@codelab/frontend-domain-type/services'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import {

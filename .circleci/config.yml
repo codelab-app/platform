@@ -3,7 +3,8 @@ commands:
     description: Build Repo
     steps:
       - nx/set-shas
-      - run: pnpm nx affected --target=build --parallel=3 -c ci --base=$NX_BASE --head=$NX_HEAD --nx-bail
+      - echo $CIRCLE_API_TOKEN
+      - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail --verbose
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
