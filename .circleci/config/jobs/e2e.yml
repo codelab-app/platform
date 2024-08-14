@@ -23,13 +23,13 @@ steps:
 
         pnpm nx e2e web-e2e -c ci
   - store_artifacts:
-      path: ~/project/apps/web-e2e/src/videos
+      path: ~/project/dist/.playwright/apps/web-e2e/src/videos
       destination: playwright/videos
   - store_artifacts:
-      path: ~/project/apps/web-e2e/src/screenshots
+      path: ~/project/dist/.playwright/apps/web-e2e/src/screenshots
       destination: playwright/screenshots
   - store_artifacts:
-      path: ~/project/apps/web-e2e/src/data
+      path: ~/project/dist/.playwright/apps/web-e2e/src/data
       destination: playwright/data
   - store_test_results:
       path: ./tmp/reports/e2e

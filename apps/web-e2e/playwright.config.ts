@@ -49,12 +49,20 @@ export default defineConfig({
       },
     },
     {
-      // dependencies: ['auth setup', 'database setup'],
+      dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
+      testIgnore: /home\.spec\.ts/,
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         storageState: authFile,
+      },
+    },
+    {
+      name: 'home',
+      testMatch: /home\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
       },
     },
     // {

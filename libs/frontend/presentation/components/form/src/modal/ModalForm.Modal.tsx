@@ -2,6 +2,7 @@
 
 import {
   type SubmitController,
+  UiDataRecord,
   type UiKey,
 } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -53,8 +54,10 @@ export const Modal = ({
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop
           ...okButtonProps,
+          'aria-label': UiDataRecord.ConfirmationButton.label,
           disabled: isLoading,
           loading: isLoading,
+          role: 'button',
         }}
         okText={okText}
         onCancel={onCancel}

@@ -163,4 +163,6 @@ export enum UiKey {
   CurrentPagePaginationToolbarItem = 'CurrentPagePaginationToolbarItem',
   SearchPaginationToobarItem = 'SearchPaginationToobarItem',
   CancelCreateTagToolabarItem = 'CancelCreateTagToolabarItem',
+  // Confirmation
+  ConfirmationButton = 'ConfirmationButton',
 }

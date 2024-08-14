@@ -254,13 +254,13 @@ jobs:
           name: Run E2E Tests
       - store_artifacts:
           destination: playwright/videos
-          path: ~/project/apps/web-e2e/src/videos
+          path: ~/project/dist/.playwright/apps/web-e2e/src/videos
       - store_artifacts:
           destination: playwright/screenshots
-          path: ~/project/apps/web-e2e/src/screenshots
+          path: ~/project/dist/.playwright/apps/web-e2e/src/screenshots
       - store_artifacts:
           destination: playwright/data
-          path: ~/project/apps/web-e2e/src/data
+          path: ~/project/dist/.playwright/apps/web-e2e/src/data
       - store_test_results:
           path: ./tmp/reports/e2e
   e2e-cypress:
