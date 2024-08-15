@@ -30,7 +30,7 @@
         "buildTarget": "web:build",
         "turbo": false,
         "port": 3000,
-        "hostname": "127.0.0.1",
+        "hostname": "0.0.0.0",
         "maxWorkers": 4
       },
       "configurations": {
@@ -39,10 +39,12 @@
         },
         "test": {
           "buildTarget": "web:build:test",
+          "hostname": "127.0.0.1",
           "port": 3001
         },
         "ci": {
           "buildTarget": "web:build:ci",
+          "hostname": "127.0.0.1",
           "dev": false
         },
         "prod": {
