@@ -16,11 +16,17 @@ export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
 export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
 export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
+console.log(webUrl, apiUrl)
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
+
+/**
+ * https://www.checklyhq.com/blog/why-page-goto-is-slowing-down-your-playwright-test/
+ */
 
 export const authFile = 'apps/web-e2e/.auth/user.json'
 
@@ -33,9 +39,7 @@ export default defineConfig({
     {
       name: 'auth setup',
       testMatch: /auth\.setup\.ts/,
-      use: {
-        headless: true,
-      },
+      use: {},
     },
     {
       name: 'database setup',
@@ -45,7 +49,6 @@ export default defineConfig({
         storageState: authFile,
         // Requires trailing `/`
         baseURL: `${webBaseApiUrl}/`,
-        headless: true,
       },
     },
     {
@@ -55,6 +58,7 @@ export default defineConfig({
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
+        // channel: 'chrome',
         storageState: authFile,
       },
     },
@@ -113,7 +117,7 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
       url: webUrl,
-      timeout: 90 * 1000,
+      // timeout: 90 * 1000,
     },
     {
       command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'}`,

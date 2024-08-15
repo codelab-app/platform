@@ -1,4 +1,4 @@
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import type { NextRequest, NextResponse } from 'next/server'
 
 export const authMiddleware = async (
@@ -9,7 +9,7 @@ export const authMiddleware = async (
     /**
      * Requires `headers.cookie` to be set by client
      */
-    const session = await auth0Instance.getSession(request, response)
+    const session = await auth0ServerInstance.getSession(request, response)
 
     if (session?.user) {
       Object.assign(request, { user: session.user })

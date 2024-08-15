@@ -2,6 +2,8 @@
 # https://discuss.circleci.com/t/whats-the-docker-hostname-for-the-second-container/20101
 docker:
   - image: cimg/node:18.18.0-browsers
+    # https://circleci.com/docs/configuration-reference/#docker
+    name: 127.0.0.1
   # https://circleci.com/docs/using-docker#using-multiple-docker-images
   # The `command` key is the command issued to the image
   - image: neo4j:5.11.0

@@ -22,6 +22,8 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
     stores,
     types,
   }) => {
+    console.log(apps)
+
     const {
       actionDomainService,
       appDomainService,
