@@ -2,9 +2,10 @@ commands:
   build-repo:
     description: Build Repo
     steps:
-      - nx/set-shas
+      - nx/set-shas:
+          main-branch-name: master
       - run: echo $CIRCLE_API_TOKEN
-      - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail --verbose
+      - run: pnpm nx affected --target=build --parallel=2 -c ci --nx-bail
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -235,7 +236,7 @@ jobs:
           name: Push Docker Image
   e2e:
     executor: docker-node-neo4j
-    resource_class: medium
+    resource_class: large
     steps:
       - restore-workspace
       - run: pnpm npx playwright install-deps
@@ -261,35 +262,6 @@ jobs:
       - store_artifacts:
           destination: playwright/data
           path: ~/project/dist/.playwright/apps/web-e2e/src/data
-      - store_test_results:
-          path: ./tmp/reports/e2e
-  e2e-cypress:
-    executor: docker-node-neo4j
-    parallelism: 4
-    resource_class: large
-    steps:
-      - restore-workspace
-      - setup_remote_docker:
-          version: default
-      - run: pnpm cypress install
-      - run: pnpm cypress verify
-      - run:
-          command: |
-            echo 'export CI_BUILD_ID="$(echo ${CIRCLE_SHA1:0:8})-${CIRCLE_BUILD_NUM}"' >> "$BASH_ENV"
-            source "$BASH_ENV"
-            echo "CI Build ID: $CI_BUILD_ID"
-            pnpm nx e2e e2e -c ci --ci-build-id=$CI_BUILD_ID
-          environment: null
-          name: Run E2E Tests
-      - store_artifacts:
-          destination: cypress/videos
-          path: ~/project/apps/e2e/src/videos
-      - store_artifacts:
-          destination: cypress/screenshots
-          path: ~/project/apps/e2e/src/screenshots
-      - store_artifacts:
-          destination: cypress/data
-          path: ~/project/apps/e2e/src/data
       - store_test_results:
           path: ./tmp/reports/e2e
   integration:
