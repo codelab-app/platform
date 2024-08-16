@@ -11,9 +11,9 @@ steps:
   # Also very expensive in terms of storage
   # docker_layer_caching: true
   - run:
-      name: 'Run E2E Tests'
-      environment:
-        NODE_OPTIONS: --max-old-space-size=4096
+      name:
+        'Run E2E Tests'
+
         # https://github.com/cypress-io/circleci-orb/issues/386
       command: pnpm nx e2e web-e2e -c ci --verbose
       # command: |

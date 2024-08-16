@@ -53,9 +53,6 @@ export const GET = auth0Instance.handleAuth({
     },
   }),
   login: auth0Instance.handleLogin({
-    authorizationParams: {
-      scope: 'openid profile email',
-    },
     returnTo: new URL(PageType.AppList, getEnv().auth0.baseUrl).toString(),
   }),
   logout: auth0Instance.handleLogout(() => {
