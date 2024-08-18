@@ -23,7 +23,7 @@ export const ExportAdminDataModal = () => {
     const exportedData = await exportAdminDataUseCase(data)
 
     if (exportedData) {
-      downloadJsonAsFile('export.json', exportedData)
+      downloadJsonAsFile('export.json', JSON.parse(exportedData))
     }
   }, [])
 
