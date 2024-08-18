@@ -18,11 +18,9 @@ export const useCreateElementForm = (): IFormService<
         elementOptions: data.elementOptions,
         parentElement:
           data.selectedElement &&
-          data.elementTree.current.elements.includes(
-            data.selectedElement.current,
-          )
-            ? data.selectedElement.current
-            : data.elementTree.current.rootElement.current,
+          data.elementTree.elements.includes(data.selectedElement)
+            ? data.selectedElement
+            : data.elementTree.rootElement.current,
       }
     },
   )

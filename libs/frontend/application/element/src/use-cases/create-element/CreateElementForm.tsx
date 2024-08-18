@@ -30,7 +30,7 @@ import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import { RenderTypeCompositeField } from '../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../components/SelectLinkElement'
-import { useElementService } from '../../services'
+import { useElementService } from '../../services/element.service'
 import { useRequiredParentValidator } from '../../validation/useRequiredParentValidator.hook'
 import type { ICreateElementDto } from './create-element.schema'
 import { createElementSchema } from './create-element.schema'
@@ -92,7 +92,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
       },
       props: {
         api: { id: v4() },
-        data: '',
+        data: '{}',
         id: v4(),
       },
       renderType: {

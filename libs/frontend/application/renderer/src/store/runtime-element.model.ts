@@ -9,7 +9,6 @@ import type {
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
 import {
-  getElementService,
   getRendererService,
   getRuntimeComponentService,
   getRuntimeElementService,
@@ -24,6 +23,7 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
+import { propsHaveErrors } from '@codelab/frontend-application-element/services'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
@@ -178,11 +178,6 @@ export class RuntimeElementModel
   }
 
   @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
   get parentElement() {
     return this.parentElementKey
       ? this.runtimeElementService.elements.get(this.parentElementKey)
@@ -310,7 +305,7 @@ export class RuntimeElementModel
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? 'Something went wrong in a parent element'
-      : this.elementService.propsHaveErrors(element)
+      : propsHaveErrors(element)
       ? 'Some props are not correctly set'
       : undefined
 

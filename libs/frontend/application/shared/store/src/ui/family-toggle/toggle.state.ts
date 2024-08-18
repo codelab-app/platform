@@ -40,7 +40,7 @@ export const useToggleState = <TData = undefined, TOutput = TData>(
 
   return {
     close,
-    data: mapper(toggleState.data),
+    data: toggleState.data && mapper(toggleState.data),
     isOpen: toggleState.isOpen,
     open,
   }

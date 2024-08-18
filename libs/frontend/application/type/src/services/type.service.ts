@@ -71,7 +71,9 @@ export const useTypeService = (): ITypeService => {
 
     const types = typeFragments.map((typeFragment) => {
       if (typeFragment.__typename === TypeKind.InterfaceType) {
-        typeFragment.fields.forEach(fieldDomainService.hydrate)
+        typeFragment.fields.forEach((field) =>
+          fieldDomainService.hydrate(field),
+        )
       }
 
       return typeDomainService.hydrate(typeFragment)

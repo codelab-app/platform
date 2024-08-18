@@ -135,7 +135,7 @@ export class Component
   toCreateInput(): ComponentCreateInput {
     return {
       api: { create: { node: this.api.current.toCreateInput() } },
-      compositeKey: `${this.userDomainService.user.auth0Id}-${this.name}`,
+      compositeKey: `${this.userDomainService.user.id}-${this.name}`,
       id: this.id,
       owner: connectOwner(this.userDomainService.user),
       props: { create: { node: this.props.toCreateInput() } },

@@ -1,3 +1,5 @@
+'use client'
+
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
@@ -66,7 +68,7 @@ export const ConfigPaneInspectorTabContainer = observer<ConfigPaneTabProps>(
     const elementService = useElementService()
     const builderService = useBuilderService()
     const elementTree = rendererService.activeElementTree
-    const selectedNode = builderService.selectedNode?.current
+    const selectedNode = builderService.selectedNode
     const activeRenderer = rendererService.activeRenderer?.maybeCurrent
 
     if (!selectedNode || isRuntimePage(selectedNode)) {

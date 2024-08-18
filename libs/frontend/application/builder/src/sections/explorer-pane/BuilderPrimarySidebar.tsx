@@ -2,12 +2,7 @@
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
-import {
-  elementRef,
-  elementTreeRef,
-  isComponent,
-  typeRef,
-} from '@codelab/frontend/abstract/domain'
+import { isComponent, typeRef } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -40,7 +35,10 @@ import {
   UpdateFieldPopover,
 } from '@codelab/frontend-application-type/use-cases/update-field'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
@@ -52,11 +50,12 @@ import { ElementTreeView } from './builder-tree/ElementTreeView'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
+    const { elementDomainService } = useDomainStore()
     const { rendererService } = useApplicationStore()
     const createActionForm = useCreateActionForm()
     const builderService = useBuilderService()
     const createFieldForm = useCreateFieldForm()
-    const selectedNode = builderService.selectedNode?.current
+    const selectedNode = builderService.selectedNode
     const createElementForm = useCreateElementForm()
     const { popover } = useCui()
     const page = useCurrentPage()
@@ -85,15 +84,15 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                const selectedElementId = builderService.selectedNode?.id
-
-                const selectedElement = selectedElementId
-                  ? elementRef(selectedElementId)
+                const selectedElement = selectedNode?.treeViewNode.element
+                  ? elementDomainService.elements.get(
+                      selectedNode.treeViewNode.element.id,
+                    )
                   : undefined
 
                 createElementForm.open({
                   elementOptions: containerNode.elements.map(mapElementOption),
-                  elementTree: elementTreeRef(containerNode.id),
+                  elementTree: containerNode,
                   selectedElement,
                 })
                 popover.open(UiKey.CreateElementPopover)

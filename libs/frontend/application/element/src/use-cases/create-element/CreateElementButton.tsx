@@ -5,7 +5,7 @@ import type {
   IElementModel,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
-import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
+import { elementRef } from '@codelab/frontend/abstract/domain'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
@@ -49,8 +49,8 @@ export const CreateElementButton = ({
 
         return createElementForm.open({
           elementOptions: elementTree.elements.map(mapElementOption),
-          elementTree: elementTreeRef(elementTree.id),
-          selectedElement,
+          elementTree,
+          selectedElement: selectedElement?.current,
         })
       }}
       size="small"

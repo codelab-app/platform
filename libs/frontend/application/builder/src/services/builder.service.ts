@@ -3,24 +3,19 @@ import type {
   IBuilderService,
   IRuntimeComponentModel,
   IRuntimeElementModel,
-  IRuntimeModelRef,
+  IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
   isRuntimeComponent,
-  isRuntimeComponentRef,
-  isRuntimeElementRef,
+  isRuntimeElement,
   isRuntimePage,
-  runtimeComponentRef,
-  runtimeElementRef,
-  runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
 import { isComponentRef } from '@codelab/frontend/abstract/domain'
-import { useComponentService } from '@codelab/frontend-application-component/services'
 import { useUserService } from '@codelab/frontend-application-user/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import { atom, useAtom } from 'jotai'
 import groupBy from 'lodash/groupBy'
@@ -28,8 +23,8 @@ import groupBy from 'lodash/groupBy'
 export const COMPONENT_TAG_NAME = 'Component'
 
 const builderContainerWidthAtom = atom(0)
-const hoveredNodeAtom = atom<Nullable<IRuntimeModelRef>>(null)
-const selectedNodeAtom = atom<Nullable<IRuntimeModelRef>>(null)
+const hoveredNodeAtom = atom<Nullable<IRuntimeModel>>(null)
+const selectedNodeAtom = atom<Nullable<IRuntimeModel>>(null)
 
 const activeComponentAtom = atom(
   (get) => {
@@ -39,13 +34,13 @@ const activeComponentAtom = atom(
       return null
     }
 
-    if (isRuntimeComponentRef(selectedNode)) {
+    if (isRuntimeComponent(selectedNode)) {
       return selectedNode
     }
 
-    if (isRuntimeElementRef(selectedNode)) {
-      return isRuntimeComponentRef(selectedNode.current.closestContainerNode)
-        ? selectedNode.current.closestContainerNode
+    if (isRuntimeElement(selectedNode)) {
+      return isRuntimeComponent(selectedNode.closestContainerNode)
+        ? selectedNode.closestContainerNode
         : null
     }
 
@@ -74,12 +69,12 @@ const activeElementTreeAtom = atom(
       return undefined
     }
 
-    if (isRuntimeComponentRef(selectedNode)) {
-      return selectedNode.current
+    if (isRuntimeComponent(selectedNode)) {
+      return selectedNode
     }
 
-    if (isRuntimeElementRef(selectedNode)) {
-      const elementTree = selectedNode.current.closestContainerNode.current
+    if (isRuntimeElement(selectedNode)) {
+      const elementTree = selectedNode.closestContainerNode.current
 
       return elementTree
     }
@@ -90,15 +85,11 @@ const activeElementTreeAtom = atom(
 )
 
 export const useBuilderService = (): IBuilderService => {
-  const componentService = useComponentService()
-
-  const { atomDomainService, componentDomainService, tagDomainService } =
-    useDomainStore()
-
   const [builderContainerWidth, setBuilderContainerWidth] = useAtom(
     builderContainerWidthAtom,
   )
 
+  const { atomDomainService, tagDomainService } = useDomainStore()
   const [hoveredNode, setHoveredNode] = useAtom(hoveredNodeAtom)
   const [selectedNode, setSelectedNode] = useAtom(selectedNodeAtom)
   const [activeComponent] = useAtom(activeComponentAtom)
@@ -185,7 +176,7 @@ export const useBuilderService = (): IBuilderService => {
       return
     }
 
-    setHoveredNode(runtimeElementRef(node))
+    setHoveredNode(node)
   }
 
   const selectComponentNode = (node: Nullish<IRuntimeComponentModel>) => {
@@ -193,7 +184,7 @@ export const useBuilderService = (): IBuilderService => {
       return
     }
 
-    setSelectedNode(runtimeComponentRef(node))
+    setSelectedNode(node)
     updateExpandedNodes()
   }
 
@@ -202,27 +193,27 @@ export const useBuilderService = (): IBuilderService => {
       return
     }
 
-    setSelectedNode(runtimeElementRef(node))
+    setSelectedNode(node)
     updateExpandedNodes()
   }
 
   const selectPreviousElementOnDelete = () => {
-    if (!selectedNode || !isRuntimeElementRef(selectedNode)) {
+    if (!selectedNode || !isRuntimeElement(selectedNode)) {
       setSelectedNode(null)
 
       return
     }
 
-    const parent = selectedNode.current.parentElement
+    const parent = selectedNode.parentElement
     const siblings = parent?.children || []
-    const index = siblings.indexOf(selectedNode.current)
+    const index = siblings.indexOf(selectedNode)
     const newSelectedNode = index > 0 ? siblings[index - 1] : parent
 
     if (!newSelectedNode) {
       throw new Error('Unable to find a new element to select')
     }
 
-    setSelectedNode(runtimeModelRef(newSelectedNode))
+    setSelectedNode(newSelectedNode)
   }
 
   const setExpandedElementTreeNodeIds = (expandedNodeIds: Array<string>) => {
@@ -288,7 +279,7 @@ export const useBuilderService = (): IBuilderService => {
   }
 
   const findNodesToExpand = (
-    node: IRuntimeModelRef,
+    node: IRuntimeModel,
     alreadyExpandedNodeIds: Array<string>,
   ): Array<string> => {
     const pathResult = getPathFromRoot(node)
@@ -297,14 +288,14 @@ export const useBuilderService = (): IBuilderService => {
     return pathResult.filter((el) => !expandedSet.has(el))
   }
 
-  const getPathFromRoot = (node: IRuntimeModelRef): Array<string> => {
+  const getPathFromRoot = (node: IRuntimeModel): Array<string> => {
     const path = []
 
-    if (!isRuntimeElementRef(node)) {
-      return [node.current.compositeKey]
+    if (!isRuntimeElement(node)) {
+      return [node.compositeKey]
     }
 
-    let currentElement = node.maybeCurrent
+    let currentElement: Maybe<IRuntimeElementModel> = node
 
     while (currentElement) {
       path.push(currentElement.compositeKey)

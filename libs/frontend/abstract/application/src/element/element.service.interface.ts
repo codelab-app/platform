@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
 
 /**
  * Used for modal input
@@ -17,8 +16,8 @@ export interface CreateElementData {
     label: string
     value: string
   }>
-  elementTree: Ref<IElementTree>
-  selectedElement?: Maybe<Ref<IElementModel>>
+  elementTree: IElementTree
+  selectedElement?: Maybe<IElementModel>
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions

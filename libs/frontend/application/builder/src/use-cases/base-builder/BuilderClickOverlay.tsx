@@ -5,7 +5,7 @@ import EditOutlined from '@ant-design/icons/EditOutlined'
 import type { BuilderDragData } from '@codelab/frontend/abstract/application'
 import {
   BuilderDndAction,
-  isRuntimeElementRef,
+  isRuntimeElement,
 } from '@codelab/frontend/abstract/application'
 import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
@@ -51,11 +51,11 @@ export const BuilderClickOverlay = observer<{
   const selectedNode = builderService.selectedNode
   const deleteElementModal = useDeleteElementModal()
 
-  if (isServer || !selectedNode || !isRuntimeElementRef(selectedNode)) {
+  if (isServer || !selectedNode || !isRuntimeElement(selectedNode)) {
     return null
   }
 
-  const element = selectedNode.current.element.current
+  const element = selectedNode.element.current
   const domElement = queryRenderedElementById(element.id)
 
   if (!domElement || !renderContainerRef.current) {
@@ -83,7 +83,7 @@ export const BuilderClickOverlay = observer<{
           data={{
             action: BuilderDndAction.MoveElement,
           }}
-          id={selectedNode.id}
+          id={selectedNode.element.id}
         >
           <div className="flex size-7 items-center justify-center align-middle">
             <div
@@ -122,10 +122,10 @@ export const BuilderClickOverlay = observer<{
     <ClickOverlay
       content={content}
       dependencies={[
-        selectedNode.current.style.guiCss(
+        selectedNode.style.guiCss(
           runtimeElementService.currentStylePseudoClass,
         ),
-        selectedNode.current.style.customCss,
+        selectedNode.style.customCss,
         element.tailwindClassNames,
         element.props.values,
         element.nextSibling?.id,

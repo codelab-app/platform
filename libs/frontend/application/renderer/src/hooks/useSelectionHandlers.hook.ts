@@ -46,8 +46,7 @@ export const useSelectionHandlers = (
 
       // To prevent continuous re-rendering when the mouse moves over the same element
       if (
-        builderService.hoveredNode?.current.compositeKey ===
-        runtimeElement.compositeKey
+        builderService.hoveredNode?.compositeKey === runtimeElement.compositeKey
       ) {
         return
       }
