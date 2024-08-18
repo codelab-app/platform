@@ -92,7 +92,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
       },
       props: {
         api: { id: v4() },
-        data: '',
+        data: '{}',
         id: v4(),
       },
       renderType: {
