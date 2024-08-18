@@ -6,11 +6,7 @@ import type {
   IRuntimeComponentModel,
 } from '@codelab/frontend/abstract/application'
 import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
-import {
-  elementRef,
-  elementTreeRef,
-  isComponent,
-} from '@codelab/frontend/abstract/domain'
+import { isComponent } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useComponentService } from '@codelab/frontend-application-component/services'
@@ -76,8 +72,8 @@ export const ElementContextMenu = observer<
     createElementForm.open({
       elementOptions:
         element.closestContainerNode.elements.map(mapElementOption),
-      elementTree: elementTreeRef(element.closestContainerNode.id),
-      selectedElement: elementRef(element.id),
+      elementTree: element.closestContainerNode,
+      selectedElement: element,
     })
 
     setContextMenuNodeId(null)

@@ -1,10 +1,9 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
 import type {
   IRuntimeComponentModel,
   IRuntimeElementModel,
-  IRuntimeModelRef,
+  IRuntimeModel,
 } from '../renderer'
 import type { BuilderWidth, BuilderWidthBreakPoint } from './builder.interface'
 
@@ -14,15 +13,15 @@ export interface IBuilderService {
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
-  activeComponent: Nullable<Ref<IRuntimeComponentModel>>
+  activeComponent: Nullable<IRuntimeComponentModel>
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
   expandedElementTreeNodeIds: Array<string>
-  hoveredNode: Nullable<IRuntimeModelRef>
+  hoveredNode: Nullable<IRuntimeModel>
   selectedBuilderBreakpoint: BuilderWidthBreakPoint
   selectedBuilderWidth: BuilderWidth
-  selectedNode: Nullable<IRuntimeModelRef>
+  selectedNode: Nullable<IRuntimeModel>
 
   hoverElementNode(node: Nullable<IRuntimeElementModel>): void
   selectComponentNode(node: Nullish<IRuntimeComponentModel>): void
@@ -30,8 +29,8 @@ export interface IBuilderService {
   selectPreviousElementOnDelete(): void
   setBuilderContainerWidth(width: number): void
   setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>): void
-  setHoveredNode(element: Nullable<IRuntimeModelRef>): void
+  setHoveredNode(element: Nullable<IRuntimeModel>): void
   setSelectedBuilderBreakpoint(width: Nullable<BuilderWidthBreakPoint>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
-  setSelectedNode(node: Nullable<IRuntimeModelRef>): void
+  setSelectedNode(node: Nullable<IRuntimeModel>): void
 }

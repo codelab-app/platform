@@ -1,4 +1,4 @@
-import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
+import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import {
   HoverOverlay,
   MarginPaddingOverlay,
@@ -17,23 +17,23 @@ export const BuilderHoverOverlay = observer<{
   const hoveredNode = builderService.hoveredNode
   const selectedNode = builderService.selectedNode
 
-  if (isServer || !hoveredNode || !isRuntimeElementRef(hoveredNode)) {
+  if (isServer || !hoveredNode || !isRuntimeElement(hoveredNode)) {
     return null
   }
 
-  const element = queryRenderedElementById(hoveredNode.current.element.id)
+  const element = queryRenderedElementById(hoveredNode.element.id)
 
   if (
     !element ||
     !renderContainerRef.current ||
-    hoveredNode.id === selectedNode?.id
+    hoveredNode.element.id === selectedNode?.treeViewNode.key
   ) {
     return null
   }
 
   return createPortal(
     <>
-      {hoveredNode.id !== selectedNode?.id && (
+      {hoveredNode.element.id !== selectedNode?.treeViewNode.key && (
         <HoverOverlay
           element={element}
           renderContainer={renderContainerRef.current}

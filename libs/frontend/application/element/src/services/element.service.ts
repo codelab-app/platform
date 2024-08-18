@@ -17,6 +17,19 @@ import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'
 
+export const propsHaveErrors = (element?: IElementModel) => {
+  if (!element) {
+    return false
+  }
+
+  const { props, renderType } = element
+  const schema = schemaTransformer.transform(renderType.current.api.current)
+  const validate = createValidator(schema)
+  const result = validate(props.values)
+
+  return result ? result.details.length > 0 : false
+}
+
 export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
@@ -104,19 +117,6 @@ export const useElementService = (): IElementService => {
 
   const getElement = (id: string) => {
     return elementDomainService.element(id)
-  }
-
-  const propsHaveErrors = (element?: IElementModel) => {
-    if (!element) {
-      return false
-    }
-
-    const { props, renderType } = element
-    const schema = schemaTransformer.transform(renderType.current.api.current)
-    const validate = createValidator(schema)
-    const result = validate(props.values)
-
-    return result ? result.details.length > 0 : false
   }
 
   return {

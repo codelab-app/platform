@@ -4,7 +4,6 @@ import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
-import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -35,8 +34,8 @@ const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
       createElementForm.open({
         elementOptions:
           element.closestContainerNode.elements.map(mapElementOption),
-        elementTree: elementTreeRef(element.closestContainerNode.id),
-        selectedElement: elementRef(element.id),
+        elementTree: element.closestContainerNode,
+        selectedElement: element,
       })
     }
 

@@ -3,10 +3,8 @@ import type {
   IRenderPipe,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
-import { getElementService } from '@codelab/frontend/abstract/application'
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { atomFactory } from '../atoms'
 import { RenderOutput } from './render-output'
@@ -66,10 +64,5 @@ export class AtomRenderPipe
       },
       runtimeElement,
     })
-  }
-
-  @computed
-  private get elementService() {
-    return getElementService(this)
   }
 }

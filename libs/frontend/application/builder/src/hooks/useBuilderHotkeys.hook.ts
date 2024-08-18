@@ -1,6 +1,6 @@
 import {
   type IBuilderService,
-  isRuntimeElementRef,
+  isRuntimeElement,
   type IToggleService,
 } from '@codelab/frontend/abstract/application'
 import { type IElementModel } from '@codelab/frontend/abstract/domain'
@@ -27,8 +27,8 @@ export const useBuilderHotkeys = ({
     'del,backspace',
     () => {
       if (selectedNode) {
-        const element = isRuntimeElementRef(selectedNode)
-          ? selectedNode.current.element.current
+        const element = isRuntimeElement(selectedNode)
+          ? selectedNode.element.current
           : undefined
 
         const isRootElement = element?.isRoot
