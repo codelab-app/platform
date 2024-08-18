@@ -4,7 +4,7 @@ import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
   ({
@@ -37,6 +37,8 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
       storeDomainService,
       typeDomainService,
     } = useDomainStore()
+
+    const [isHydrated, setIsHydrated] = useState(false)
 
     const hydrate = useCallback(() => {
       atoms?.forEach((atom) => atomDomainService.hydrate(atom))
@@ -86,12 +88,16 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
       resources,
       stores,
       types,
+      pages,
     ])
 
     useEffect(() => {
       hydrate()
+      setIsHydrated(true)
     }, [hydrate])
 
-    return <>{children}</>
+    // do not render children untill the store is hydrated with all the
+    // specified entities. Othervise `assertIsDefined` may break the application
+    return isHydrated ? <>{children}</> : null
   },
 )

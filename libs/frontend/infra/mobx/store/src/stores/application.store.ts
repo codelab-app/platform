@@ -12,6 +12,7 @@ import {
   runtimeElementServiceContext,
   runtimePageServiceContext,
 } from '@codelab/frontend/abstract/application'
+import { IDomainStore } from '@codelab/frontend/abstract/domain'
 import {
   RendererApplicationService,
   RuntimeComponentService,
@@ -21,10 +22,16 @@ import {
 import { RouterService } from '@codelab/frontend-application-shared-store/router'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createApplicationStore = (router: IRouterProps) => {
+export const createApplicationStore = (
+  router: IRouterProps,
+  domainStore: IDomainStore,
+) => {
   @model('@codelab/ApplicationIStore')
   class ApplicationStore
     extends Model({
+      // add reference to domain store, so that all the models in ApplicationStore
+      // can access refs from domain store (elements, components, apps, etc)
+      domainStore: prop<IDomainStore>(() => domainStore),
       rendererService: prop<IRendererService>(
         () => new RendererApplicationService({}),
       ),
