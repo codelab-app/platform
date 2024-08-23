@@ -24,7 +24,7 @@ const ComponentPreviewPage = async ({
 
   return (
     <StoreHydrator
-      actions={dto.actions}
+      actionsDto={dto.actions}
       atomsDto={dto.atoms}
       componentsDto={dto.components}
       elementsDto={dto.elements}

@@ -77,6 +77,8 @@ const nextConfig = {
     // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
   },
   nx: { svgr: true },
+  // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
+  productionBrowserSourceMaps: true,
   // disable to support uniforms
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,

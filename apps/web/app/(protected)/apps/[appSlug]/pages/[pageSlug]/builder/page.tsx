@@ -18,7 +18,7 @@ const PageBuilderPage = async ({
 
   return (
     <StoreHydrator
-      actions={dto.actions}
+      actionsDto={dto.actions}
       appsDto={[dto.app]}
       atomsDto={dto.atoms}
       authGuardsDto={dto.authGuards}

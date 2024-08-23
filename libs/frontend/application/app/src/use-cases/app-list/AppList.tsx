@@ -30,6 +30,9 @@ interface AppListProps {
 export const AppList = ({ appsDto, atomsDto }: AppListProps) => {
   const { apps } = useHydrateStore({ appsDto, atomsDto })
 
+  /**
+   * This prevents unstyled antd flash
+   */
   // if (typeof window === 'undefined') {
   //   throw Promise.resolve('Apps should only render on the client.')
   // }

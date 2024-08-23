@@ -56,6 +56,11 @@ const nunito = Nunito({
 
 const fontClasses = cn(inter.variable, montserrat.variable, nunito.variable)
 
+export const metadata = {
+  description: 'Codelab platform',
+  title: 'Codelab',
+}
+
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   // useTwindConfig(config)
 

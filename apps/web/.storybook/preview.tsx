@@ -20,6 +20,7 @@ const preview: Preview = {
       )
     },
   ],
+
   parameters: {
     backgrounds: {
       values: [
@@ -28,6 +29,8 @@ const preview: Preview = {
       ],
     },
   },
+
+  tags: ['autodocs']
 }
 
 export default preview
