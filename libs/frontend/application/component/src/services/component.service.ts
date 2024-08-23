@@ -12,6 +12,11 @@ import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
+  componentRepository,
+  GetComponentBuilder,
+} from '@codelab/frontend-domain-component/repositories'
+import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
