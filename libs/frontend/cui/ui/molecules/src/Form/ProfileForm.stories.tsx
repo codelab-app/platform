@@ -2,7 +2,7 @@ import { ProfileForm } from './ProfileForm'
 
 export default {
   component: ProfileForm,
-  title: 'Profile Form',
+  title: 'Molecules/Profile Form',
 }
 
 export const Default = {
