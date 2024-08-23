@@ -1,6 +1,6 @@
-import { PageType, UiDataRecord, UiKey } from '@codelab/frontend/abstract/types'
-import { expect, type Page, test as base } from '@playwright/test'
-import { BasePage, type CuiSelector } from '../locators/pages'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { expect, test as base } from '@playwright/test'
+import { BasePage } from '../locators/pages'
 
 export class AppListPage extends BasePage {
   // public constructor(page: Page) {

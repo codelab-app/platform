@@ -9,8 +9,10 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-themes',
     '@storybook/addon-interactions',
-    '@chromatic-com/storybook'
+    '@chromatic-com/storybook',
   ],
+
+  docs: {},
 
   framework: {
     name: '@storybook/react-vite',
@@ -18,6 +20,10 @@ const config: StorybookConfig = {
   },
 
   stories: ['../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+  },
 
   viteFinal: async (finalConfig) => {
     const tailwindConfig = path.resolve(__dirname, './tailwind.config.js')
@@ -37,12 +43,6 @@ const config: StorybookConfig = {
       plugins: [nxViteTsPaths()],
     })
   },
-
-  docs: {},
-
-  typescript: {
-    reactDocgen: 'react-docgen-typescript'
-  }
 }
 
 export default config

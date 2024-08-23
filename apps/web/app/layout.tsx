@@ -1,11 +1,7 @@
 import '../styles/global.css'
 import '../styles/shadcn.global.css'
 // import config from '../tailwind.config.js'
-import {
-  RootProviders,
-  StyledComponentsRegistry,
-  StyleProviders,
-} from '@codelab/frontend/infra/context'
+import { StyleProviders } from '@codelab/frontend/infra/context'
 import { getEnv } from '@codelab/shared/config'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'

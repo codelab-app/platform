@@ -1,4 +1,3 @@
-import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 

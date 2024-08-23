@@ -1,4 +1,4 @@
-import { expect, type Page, test as base } from '@playwright/test'
+import { expect, test as base } from '@playwright/test'
 import { BasePage } from '../locators/pages'
 
 export class HomePage extends BasePage {

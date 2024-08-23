@@ -3,7 +3,6 @@ import type { App } from '@codelab/shared/infra/gql'
 import {
   removeUuidAndDashPrefix,
   slugCaseToTitleCase,
-  slugify,
 } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 

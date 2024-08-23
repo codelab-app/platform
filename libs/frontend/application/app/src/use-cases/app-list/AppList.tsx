@@ -1,20 +1,13 @@
 'use client'
 
-import type {
-  IDomainStore,
-  IHydrateableData,
-} from '@codelab/frontend/abstract/domain'
-import { suspensify, useHydrateStore } from '@codelab/frontend/infra/context'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
+import { useHydrateStore } from '@codelab/frontend/infra/context'
 import {
   padding,
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
-import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
-import type { AppListQuery, AtomListQuery } from '@codelab/shared/infra/gql'
 import { Col, Empty, Row } from 'antd'
-import { observer } from 'mobx-react-lite'
-import React, { use } from 'react'
+import React from 'react'
 import { CreateAppButton } from '../create-app'
 import { AppListItem } from './AppListItem'
 
@@ -29,13 +22,6 @@ interface AppListProps {
 
 export const AppList = ({ appsDto, atomsDto }: AppListProps) => {
   const { apps } = useHydrateStore({ appsDto, atomsDto })
-
-  /**
-   * This prevents unstyled antd flash
-   */
-  // if (typeof window === 'undefined') {
-  //   throw Promise.resolve('Apps should only render on the client.')
-  // }
 
   if (!apps?.length) {
     return (

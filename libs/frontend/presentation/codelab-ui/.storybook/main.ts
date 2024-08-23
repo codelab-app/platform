@@ -6,8 +6,10 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@chromatic-com/storybook'
+    '@chromatic-com/storybook',
   ],
+
+  docs: {},
 
   framework: {
     name: '@storybook/react-vite',
@@ -16,16 +18,14 @@ const config: StorybookConfig = {
 
   stories: ['../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
 
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+  },
+
   viteFinal: async (conf) =>
     mergeConfig(conf, {
       plugins: [nxViteTsPaths()],
     }),
-
-  docs: {},
-
-  typescript: {
-    reactDocgen: 'react-docgen-typescript'
-  }
 }
 
 export default config

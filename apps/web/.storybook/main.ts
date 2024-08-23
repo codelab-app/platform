@@ -1,8 +1,12 @@
 import type { StorybookConfig } from '@storybook/nextjs'
 
 const storybookConfig: StorybookConfig = {
-  addons: ['@storybook/addon-essentials', // 'storybook-css-modules',
-  '@storybook/addon-interactions', '@chromatic-com/storybook'],
+  addons: [
+    // 'storybook-css-modules',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
+  ],
 
   babel: async (options) => ({
     ...options,
@@ -12,6 +16,8 @@ const storybookConfig: StorybookConfig = {
     ],
     presets: [...(options.presets || []), 'next/babel'],
   }),
+
+  docs: {},
 
   framework: {
     name: '@storybook/nextjs',
@@ -23,13 +29,14 @@ const storybookConfig: StorybookConfig = {
     },
   },
 
-  stories: ['../stories/**/*.@(mdx|stories.@(js|jsx|ts|tsx))', '../../../libs/frontend/application/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
-
-  docs: {},
+  stories: [
+    '../stories/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+    '../../../libs/frontend/application/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+  ],
 
   typescript: {
-    reactDocgen: 'react-docgen-typescript'
-  }
+    reactDocgen: 'react-docgen-typescript',
+  },
 }
 
 export default storybookConfig

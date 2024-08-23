@@ -1,9 +1,4 @@
-import {
-  PageType,
-  UiDataRecord,
-  type UiKey,
-} from '@codelab/frontend/abstract/types'
-import { assertContainsAtLeastOne } from '@codelab/shared/utils'
+import { UiDataRecord, type UiKey } from '@codelab/frontend/abstract/types'
 import type { Locator, Page } from '@playwright/test'
 import { expect } from '@playwright/test'
 

@@ -1,14 +1,8 @@
-import { getSession } from '@auth0/nextjs-auth0'
 import {
   authGuardMiddleware,
   corsMiddleware,
 } from '@codelab/backend/infra/adapter/middleware'
-import { getEnv } from '@codelab/shared/config'
-import { assertIsDefined } from '@codelab/shared/utils'
-import {
-  auth0ServerInstance,
-  checkExpiry,
-} from '@codelab/shared-infra-auth0/server'
+import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import {
   type NextFetchEvent,
   type NextMiddleware,

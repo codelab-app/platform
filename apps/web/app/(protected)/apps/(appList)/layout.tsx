@@ -1,7 +1,5 @@
-import { theme } from '@codelab/frontend/infra/context'
 import { AppListHeader } from '@codelab/frontend-application-app/views'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
-import { ConfigProvider } from 'antd'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 

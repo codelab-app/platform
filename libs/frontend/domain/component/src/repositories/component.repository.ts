@@ -3,7 +3,6 @@ import {
   type IComponentModel,
   type IComponentRepository,
 } from '@codelab/frontend/abstract/domain'
-import { ComponentProperties } from '@codelab/shared/domain'
 import type {
   ComponentOptions,
   ComponentUniqueWhere,
