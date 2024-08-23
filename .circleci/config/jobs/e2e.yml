@@ -15,7 +15,7 @@ steps:
         'Run E2E Tests'
 
         # https://github.com/cypress-io/circleci-orb/issues/386
-      command: pnpm nx e2e web-e2e -c ci --verbose
+      command: pnpm nx e2e web-e2e -c ci
       # command: |
       #   echo 'export SHARD="$((${CIRCLE_NODE_INDEX}+1))"' >> "$BASH_ENV"
       #   source "$BASH_ENV"

@@ -10,7 +10,6 @@ import ConfigProvider from 'antd/lib/config-provider'
 import { Provider } from 'jotai'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import { StyledComponentsRegistry } from './StyledComponentsRegistry'
 import { theme } from './theme'
 
 export const RootProviders = ({
@@ -18,20 +17,18 @@ export const RootProviders = ({
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
   return (
-    <StyledComponentsRegistry>
-      <UserProvider>
-        <CuiProvider>
-          <ConfigProvider theme={theme}>
-            <AntdRegistry>
-              <Provider>
-                <DomainStoreProvider user={user}>
-                  <App className="h-full">{children}</App>
-                </DomainStoreProvider>
-              </Provider>
-            </AntdRegistry>
-          </ConfigProvider>
-        </CuiProvider>
-      </UserProvider>
-    </StyledComponentsRegistry>
+    <UserProvider>
+      <CuiProvider>
+        <ConfigProvider theme={theme}>
+          <AntdRegistry>
+            <Provider>
+              <DomainStoreProvider user={user}>
+                <App className="h-full">{children}</App>
+              </DomainStoreProvider>
+            </Provider>
+          </AntdRegistry>
+        </ConfigProvider>
+      </CuiProvider>
+    </UserProvider>
   )
 }

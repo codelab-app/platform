@@ -16,8 +16,6 @@ export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
 export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
 export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
-console.log(webUrl, apiUrl)
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv

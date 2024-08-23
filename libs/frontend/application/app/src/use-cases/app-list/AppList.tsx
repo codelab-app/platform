@@ -1,13 +1,20 @@
 'use client'
 
+import type {
+  IDomainStore,
+  IHydrateableData,
+} from '@codelab/frontend/abstract/domain'
+import { suspensify, useHydrateStore } from '@codelab/frontend/infra/context'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   padding,
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
+import type { IAppDto, IAtomDto } from '@codelab/shared/abstract/core'
+import type { AppListQuery, AtomListQuery } from '@codelab/shared/infra/gql'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { use } from 'react'
 import { CreateAppButton } from '../create-app'
 import { AppListItem } from './AppListItem'
 
@@ -15,11 +22,15 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const AppList = observer(() => {
-  const { appDomainService } = useDomainStore()
-  const apps = appDomainService.appsList
+interface AppListProps {
+  appsDto: IHydrateableData['appsDto']
+  atomsDto: IHydrateableData['atomsDto']
+}
 
-  if (!apps.length) {
+export const AppList = ({ appsDto, atomsDto }: AppListProps) => {
+  const { apps } = useHydrateStore({ appsDto, atomsDto })
+
+  if (!apps?.length) {
     return (
       <Empty description="No apps found" imageStyle={emptyImageStyle}>
         <CreateAppButton>Create Now</CreateAppButton>
@@ -37,4 +48,4 @@ export const AppList = observer(() => {
       ))}
     </Row>
   )
-})
+}

@@ -4,9 +4,7 @@ import type { PropsWithChildren } from 'react'
 import React from 'react'
 
 const Layout = async ({ children }: PropsWithChildren) => {
-  const user = await getServerUser()
-
-  return <RootProviders user={user}>{children}</RootProviders>
+  return <>{children}</>
 }
 
 export default Layout

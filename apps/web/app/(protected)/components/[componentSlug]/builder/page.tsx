@@ -25,14 +25,14 @@ const ComponentBuilderPage = async ({
   return (
     <StoreHydrator
       actions={dto.actions}
-      atoms={dto.atoms}
-      components={dto.components}
-      elements={dto.elements}
-      fields={dto.fields}
-      props={dto.props}
-      resources={dto.resources}
-      stores={dto.stores}
-      types={dto.types}
+      atomsDto={dto.atoms}
+      componentsDto={dto.components}
+      elementsDto={dto.elements}
+      fieldsDto={dto.fields}
+      propsDto={dto.props}
+      resourcesDto={dto.resources}
+      storesDto={dto.stores}
+      typesDto={dto.types}
     >
       <ComponentBuilder
         RootRenderer={RootRenderer}

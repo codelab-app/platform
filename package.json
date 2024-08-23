@@ -137,6 +137,8 @@
     "@rjsf/core": "5.18.3",
     "@rjsf/utils": "5.18.3",
     "@rjsf/validator-ajv8": "5.18.3",
+    "@shopify/network": "^3.3.0",
+    "@shopify/react-performance": "^4.1.0",
     "@sinclair/typebox": "0.32.31",
     "@sotaproject/strikethrough": "1.0.1",
     "@supabase/supabase-js": "2.1.1",

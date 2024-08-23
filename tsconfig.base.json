@@ -893,6 +893,9 @@
         "libs/frontend/infra/graphql/src/client/index.ts"
       ],
       "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
+      "@codelab/frontend/infra/shared": [
+        "libs/frontend/infra/shared/src/index.ts"
+      ],
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
       ],

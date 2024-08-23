@@ -21,7 +21,7 @@ const DomainsPage = async ({
   const { apps } = await domainListQuery({ slug: appSlug })
 
   return (
-    <StoreHydrator apps={apps}>
+    <StoreHydrator appsDto={apps}>
       <CreateDomainModal />
       {/*
         <DeleteDomainModal />

@@ -1,9 +1,9 @@
 'use client'
 
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
@@ -32,7 +32,7 @@ export const CreatePageForm = observer(
     showFormControl = true,
     submitRef,
   }: CreatePageFormProps) => {
-    const { user } = useUser()
+    const user = useUser()
     const app = useCurrentApp()
     const pageService = usePageService()
     const domainStore = useDomainStore()
@@ -43,7 +43,7 @@ export const CreatePageForm = observer(
       id: v4(),
       // required for store api
       owner: {
-        auth0Id: user?.sub,
+        auth0Id: user.auth0Id,
       },
     }
 

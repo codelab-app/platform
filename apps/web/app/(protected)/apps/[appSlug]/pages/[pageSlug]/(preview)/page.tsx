@@ -19,18 +19,18 @@ const PagePreviewPage = async ({
   return (
     <StoreHydrator
       actions={dto.actions}
-      apps={[dto.app]}
-      atoms={dto.atoms}
-      authGuards={dto.authGuards}
-      components={dto.components}
-      elements={dto.elements}
-      fields={dto.fields}
-      pages={dto.pages}
-      props={dto.props}
-      redirects={dto.redirects}
-      resources={dto.resources}
-      stores={dto.stores}
-      types={dto.types}
+      appsDto={[dto.app]}
+      atomsDto={dto.atoms}
+      authGuardsDto={dto.authGuards}
+      componentsDto={dto.components}
+      elementsDto={dto.elements}
+      fieldsDto={dto.fields}
+      pagesDto={dto.pages}
+      propsDto={dto.props}
+      redirectsDto={dto.redirects}
+      resourcesDto={dto.resources}
+      storesDto={dto.stores}
+      typesDto={dto.types}
     >
       {/* Decouple renderer from builder */}
       <PageBuilderPreview RootRenderer={RootRenderer} pageSlug={pageSlug} />

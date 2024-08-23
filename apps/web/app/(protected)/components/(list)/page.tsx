@@ -19,7 +19,7 @@ const ComponentsRoute = async () => {
   ])
 
   return (
-    <StoreHydrator atoms={atoms} components={components}>
+    <StoreHydrator atomsDto={atoms} componentsDto={components}>
       <DashboardTemplate
         Header={<ComponentDetailHeader />}
         PrimarySidebar={{

@@ -1,5 +1,6 @@
 import '../styles/global.css'
 import '../styles/shadcn.global.css'
+import { StyledComponentsRegistry } from '@codelab/frontend/infra/context'
 import { getEnv } from '@codelab/shared/config'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
@@ -74,10 +75,10 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
               `,
           }}
           id="editorjs-script"
-        ></Script>
+        />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        {children}
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
   )

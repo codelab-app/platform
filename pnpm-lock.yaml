@@ -321,6 +321,12 @@ importers:
       '@rjsf/validator-ajv8':
         specifier: 5.18.3
         version: 5.18.3(@rjsf/utils@5.18.3(react@18.3.1))
+      '@shopify/network':
+        specifier: ^3.3.0
+        version: 3.3.0
+      '@shopify/react-performance':
+        specifier: ^4.1.0
+        version: 4.1.0(react@18.3.1)
       '@sinclair/typebox':
         specifier: 0.32.31
         version: 0.32.31
@@ -5896,6 +5902,20 @@ packages:
 
   '@rushstack/eslint-patch@1.10.3':
     resolution: {integrity: sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==}
+
+  '@shopify/network@3.3.0':
+    resolution: {integrity: sha512-Lln7vglzLK9KiYhl9ucQFVM7ArlpUM21xkDriBX8kVrqsoBsi+4vFIjf1wjhNPT0J/zHMjky7jiTnxVfdm+xXw==}
+    engines: {node: '>=18.12.0'}
+
+  '@shopify/performance@4.3.0':
+    resolution: {integrity: sha512-SVKKR/HvjqA7sEygDwnA+41uroX9CSB6wisqKG9QD+TE3/XKgaq+zmDIOrTsAuXZIvXRX9e8AKEUUYfDhiTdoQ==}
+    engines: {node: '>=18.12.0'}
+
+  '@shopify/react-performance@4.1.0':
+    resolution: {integrity: sha512-ZPQUqsl3t1UYtTz41wHqInsiGjYTxcZOWc/YXjgK6d0pGLXlI1dK0xfbkNQwTiqD8N7uNcLyej1bku4e75F9Ag==}
+    engines: {node: '>=18.12.0'}
+    peerDependencies:
+      react: '>=18.0.0 <19.0.0'
 
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
@@ -23760,6 +23780,17 @@ snapshots:
       rrweb-snapshot: 2.0.0-alpha.16
 
   '@rushstack/eslint-patch@1.10.3': {}
+
+  '@shopify/network@3.3.0': {}
+
+  '@shopify/performance@4.3.0':
+    dependencies:
+      web-vitals: 3.5.2
+
+  '@shopify/react-performance@4.1.0(react@18.3.1)':
+    dependencies:
+      '@shopify/performance': 4.3.0
+      react: 18.3.1
 
   '@sideway/address@4.1.5':
     dependencies:
