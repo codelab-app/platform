@@ -82,48 +82,49 @@
       },
       "outputs": ["{workspaceRoot}/coverage/apps/web"]
     },
-    "storybook": {
-      "executor": "@nx/storybook:storybook",
+    "test:integration": {
+      "defaultConfiguration": "dev",
       "options": {
-        "port": 4400,
-        "configDir": "apps/web/.storybook"
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
+        "jestConfig": "apps/web/jest.config.ts"
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
         "ci": {
-          "quiet": true
+          "parallel": 3
         }
-      }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/web"]
     },
-    "build-storybook": {
-      "executor": "@nx/storybook:build",
-      "outputs": ["{options.outputDir}"],
+    "test:unit": {
+      "defaultConfiguration": "dev",
       "options": {
-        "outputDir": "dist/storybook/web",
-        "configDir": "apps/web/.storybook"
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "apps/web/jest.config.ts"
       },
       "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "test-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "test-storybook -c apps/web/.storybook --url=http://localhost:4400"
-      }
-    },
-    "static-storybook": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "web:build-storybook",
-        "staticFilePath": "dist/storybook/web"
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {}
       },
-      "configurations": {
-        "ci": {
-          "buildTarget": "web:build-storybook:ci"
-        }
-      }
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/web"]
     }
   }
 }
