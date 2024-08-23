@@ -10,6 +10,12 @@ import {
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
+import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
+import {
+  componentRepository,
+  GetComponentBuilder,
+} from '@codelab/frontend-domain-component/repositories'
+import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   useApplicationStore,
   useDomainStore,
@@ -34,6 +40,7 @@ export const useComponentService = (): IComponentService => {
   } = useApplicationStore()
 
   const storeService = useStoreService()
+  const { rendererService } = useApplicationStore()
 
   const create = async ({ id, name, rootElement }: ICreateComponentData) => {
     const component = componentDomainService.add({ id, name, rootElement })
@@ -50,14 +57,23 @@ export const useComponentService = (): IComponentService => {
   const remove = async (components: Array<IComponentModel>) => {
     const deleteComponent = async (component: IComponentModel) => {
       const { id } = component
-      const store = component.store.current
-      const rootElement = component.rootElement.current
+      const rootElement = component.rootElement.maybeCurrent
 
-      await elementService.deleteElement(rootElement)
+      if (rootElement) {
+        // means root element and the descendants were already requested
+        // and hydrated to the store, so we can delete all of them right away
+        await elementService.deleteElement(rootElement)
+      } else {
+        // means we do not have root element and all the descendants on client side
+        // need to get all descendant element IDs and delete them
+        const data = await GetComponentBuilder({})
+        const elements = data.components[0]?.elements ?? []
+
+        await elementRepository.delete(elements)
+      }
 
       componentDomainService.components.delete(id)
 
-      await storeService.remove([store])
       await componentRepository.delete([component])
 
       return component

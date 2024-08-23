@@ -35,11 +35,7 @@ export const componentRepository: IComponentRepository = {
     const {
       deleteComponents: { nodesDeleted },
     } = await DeleteComponents({
-      delete: {
-        api: {},
-        props: {},
-        store: {},
-      },
+      delete: Component.toDeleteInput(),
       where: { id_IN: components.map((component) => component.id) },
     })
 

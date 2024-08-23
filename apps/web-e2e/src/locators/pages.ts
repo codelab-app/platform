@@ -55,7 +55,7 @@ export class BasePage {
   }
 
   getCard(options: { name: RegExp | string }) {
-    return this.page.getByRole('article', { name: options.name })
+    return this.page.locator('.ant-card', { hasText: options.name })
   }
 
   getDropdownItem(options: { label: RegExp | string }) {
