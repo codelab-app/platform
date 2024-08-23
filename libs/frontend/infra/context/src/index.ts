@@ -1,5 +1,6 @@
 export * from './RootProviders'
 export * from './StoreHydrator'
 export * from './StyledComponentsRegistry'
+export * from './StyleProviders'
 export * from './useStoreHydrator.hook'
 export * from './useSuspense.hook'

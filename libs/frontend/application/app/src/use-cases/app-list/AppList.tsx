@@ -30,6 +30,10 @@ interface AppListProps {
 export const AppList = ({ appsDto, atomsDto }: AppListProps) => {
   const { apps } = useHydrateStore({ appsDto, atomsDto })
 
+  // if (typeof window === 'undefined') {
+  //   throw Promise.resolve('Apps should only render on the client.')
+  // }
+
   if (!apps?.length) {
     return (
       <Empty description="No apps found" imageStyle={emptyImageStyle}>

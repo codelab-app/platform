@@ -7,11 +7,7 @@ import React from 'react'
 const ProtectedLayout = async ({ children }: { children: ReactNode }) => {
   const user = await getServerUser()
 
-  return (
-    <RootProviders user={user}>
-      <ApplicationStoreProvider>{children}</ApplicationStoreProvider>
-    </RootProviders>
-  )
+  return <RootProviders user={user}>{children}</RootProviders>
 }
 
 export default ProtectedLayout

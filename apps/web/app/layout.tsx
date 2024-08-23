@@ -1,13 +1,17 @@
 import '../styles/global.css'
 import '../styles/shadcn.global.css'
-import { StyledComponentsRegistry } from '@codelab/frontend/infra/context'
+// import config from '../tailwind.config.js'
+import {
+  RootProviders,
+  StyledComponentsRegistry,
+  StyleProviders,
+} from '@codelab/frontend/infra/context'
 import { getEnv } from '@codelab/shared/config'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
 import Script from 'next/script'
 import React from 'react'
-// import config from '../tailwind.config.js'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
@@ -78,7 +82,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
         />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <StyleProviders>{children}</StyleProviders>
       </body>
     </html>
   )

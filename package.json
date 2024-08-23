@@ -35,7 +35,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "5.4.0",
-    "@ant-design/nextjs-registry": "^1.0.0",
+    "@ant-design/nextjs-registry": "1.0.0",
     "@ant-design/pro-components": "2.7.10",
     "@apollo/client": "3.7.15",
     "@apollo/server": "4.7.2",

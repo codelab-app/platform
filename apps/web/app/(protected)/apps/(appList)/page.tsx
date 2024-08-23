@@ -31,9 +31,6 @@ const AppsRoute = async () => {
     defaultAtomQuery(),
   ])
 
-  // const { items: appsDto } = use(appListQuery())
-  // const { items: atomsDto } = use(defaultAtomQuery())
-
   return (
     <>
       <CreateAppModal />
@@ -41,9 +38,7 @@ const AppsRoute = async () => {
       <UpdateAppModal />
       <BuildAppModal />
       <ContentSection>
-        {/* <StoreHydrator appsDto={appsDto} atomsDto={atomsDto}> */}
         <AppList appsDto={appsDto} atomsDto={atomsDto} />
-        {/* </StoreHydrator> */}
       </ContentSection>
     </>
   )
