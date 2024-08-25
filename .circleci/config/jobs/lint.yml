@@ -1,8 +1,15 @@
+parameters:
+  resource_class:
+    type: string
+
 executor: docker-node-neo4j
-resource_class: large
+
+resource_class: << parameters.resource_class >>
+
 environment:
   CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
   CIRCLE_REVISION: << pipeline.git.revision >>
+
 steps:
   - restore-workspace
   - run:

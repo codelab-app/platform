@@ -23,6 +23,7 @@ jobs:
   #       branches:
   #         ignore: /master/
   - lint:
+      resource_class: large
       filters:
         branches:
           ignore:
@@ -31,6 +32,7 @@ jobs:
       requires:
         - setup-workspace
   - codegen:
+      resource_class: medium
       filters:
         branches:
           ignore:
@@ -39,6 +41,7 @@ jobs:
       requires:
         - setup-workspace
   - unit:
+      resource_class: large
       filters:
         branches:
           ignore:
@@ -47,6 +50,7 @@ jobs:
       requires:
         - setup-workspace
   - integration:
+      resource_class: large
       filters:
         branches:
           ignore:
@@ -55,6 +59,7 @@ jobs:
       requires:
         - setup-workspace
   - e2e:
+      resource_class: large
       filters:
         branches:
           ignore:
@@ -63,6 +68,7 @@ jobs:
       requires:
         - setup-workspace
   - notify-success:
+      resource_class: medium
       filters:
         branches:
           ignore:

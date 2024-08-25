@@ -177,7 +177,10 @@ jobs:
           name: Terraform Apply
   codegen:
     executor: docker-node-neo4j
-    resource_class: medium
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -240,12 +243,15 @@ jobs:
           name: Push Docker Image
   e2e:
     executor: docker-node-neo4j
-    resource_class: large
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run: pnpm npx playwright install-deps
       - run:
-          command: pnpm nx e2e web-e2e -c ci --verbose
+          command: pnpm nx e2e web-e2e -c ci
           name: Run E2E Tests
       - store_artifacts:
           destination: playwright-report
@@ -254,7 +260,10 @@ jobs:
           path: ~/project/dist/.playwright/apps/web-e2e/test-output
   integration:
     executor: docker-node-neo4j
-    resource_class: large
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -270,7 +279,10 @@ jobs:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
     executor: docker-node-neo4j
-    resource_class: large
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -293,6 +305,10 @@ jobs:
           template: basic_fail_1
   notify-success:
     executor: docker-node
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - slack/notify:
           channel: $SLACK_CHANNEL_UPDATE
@@ -421,7 +437,6 @@ jobs:
     executor: docker-node
     parameters:
       resource_class:
-        default: large
         type: string
     resource_class: << parameters.resource_class >>
     steps:
@@ -438,7 +453,10 @@ jobs:
           root: ~/
   unit:
     executor: docker-node
-    resource_class: large
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -559,6 +577,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: large
       - codegen:
           filters:
             branches:
@@ -567,6 +586,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: medium
       - unit:
           filters:
             branches:
@@ -575,6 +595,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: large
       - integration:
           filters:
             branches:
@@ -583,6 +604,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: large
       - e2e:
           filters:
             branches:
@@ -591,6 +613,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: large
       - notify-success:
           filters:
             branches:
@@ -603,6 +626,7 @@ workflows:
             - unit
             - integration
             - e2e
+          resource_class: medium
   infra-pr:
     jobs:
       - setup-workspace:
