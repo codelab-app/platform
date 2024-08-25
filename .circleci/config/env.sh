@@ -46,18 +46,6 @@ else
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_WEBBER}\>" >> $BASH_ENV
 fi
 
-#
-# Set node_options
-#
-
-# Get total memory in MB
-TOTAL_MEMORY_MB=$((CIRCLE_NODE_TOTAL_MEMORY / 1024 / 1024))
-
-# Set max-old-space-size to 3/4 of total memory
-MAX_OLD_SPACE_SIZE=$((TOTAL_MEMORY_MB * 3 / 4))
-
-echo "export NODE_OPTIONS=--max-old-space-size=$MAX_OLD_SPACE_SIZE" >> $BASH_ENV
-
 # Done
 source $BASH_ENV
 

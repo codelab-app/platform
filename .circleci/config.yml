@@ -564,6 +564,8 @@ workflows:
       - setup-workspace:
           context:
             - build
+          environment:
+            NODE_OPTIONS: --max-old-space-size=6144
           filters:
             branches:
               ignore:
@@ -571,6 +573,8 @@ workflows:
                 - staging
           resource_class: large
       - lint:
+          environment:
+            NODE_OPTIONS: --max-old-space-size=6144
           filters:
             branches:
               ignore:
