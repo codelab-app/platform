@@ -482,6 +482,7 @@ workflows:
             branches:
               only:
                 - master
+          resource_class: large
       - hold-deploy:
           filters:
             branches:
@@ -634,6 +635,7 @@ workflows:
             branches:
               only:
                 - staging
+          resource_class: large
       - setup-infra-workspace:
           filters:
             branches:

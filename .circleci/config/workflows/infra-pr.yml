@@ -1,6 +1,7 @@
 # This runs on staging only for testing
 jobs:
   - setup-workspace:
+      resource_class: large
       filters:
         branches:
           only:
