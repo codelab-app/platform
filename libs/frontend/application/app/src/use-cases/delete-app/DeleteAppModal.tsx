@@ -2,6 +2,7 @@
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -13,6 +14,7 @@ export const DeleteAppModal = observer(() => {
   const deleteAppModal = useDeleteAppModal()
   const appService = useAppService()
   const closeModal = () => deleteAppModal.close()
+  const { setLoading } = useLoading()
   const app = deleteAppModal.data
 
   const onSubmit = async () => {
@@ -20,7 +22,7 @@ export const DeleteAppModal = observer(() => {
       return Promise.reject()
     }
 
-    void appService.remove([app])
+    void appService.remove([app]).then(() => setLoading(false))
   }
 
   return (

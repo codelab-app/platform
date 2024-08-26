@@ -7,6 +7,7 @@ import {
   padding,
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
+import { isServer } from '@codelab/shared/utils'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -17,13 +18,9 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-interface AppListProps {
-  appsDto: IHydrateableData['appsDto']
-  atomsDto: IHydrateableData['atomsDto']
-}
-
-export const AppList = observer(({ appsDto, atomsDto }: AppListProps) => {
-  const { apps } = useHydrateStore({ appsDto, atomsDto })
+export const AppList = observer(() => {
+  const { appDomainService } = useDomainStore()
+  const apps = appDomainService.appsList
 
   if (!apps.length) {
     return (

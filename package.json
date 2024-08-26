@@ -76,6 +76,8 @@
     "@lexical/react": "0.15.0",
     "@lexical/utils": "0.15.0",
     "@mailchimp/mailchimp_marketing": "3.0.80",
+    "@mui/material": "^5.16.7",
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@neo4j/graphql": "4.4.5",
     "@neo4j/graphql-ogm": "4.4.5",
     "@nestjs/apollo": "12.2.0",
@@ -187,7 +189,7 @@
     "input-otp": "^1.2.4",
     "isolated-vm": "4.6.0",
     "jest-text-transformer": "1.0.4",
-    "jotai": "2.9.0",
+    "jotai": "2.9.3",
     "jquery": "3.6.4",
     "jsonwebtoken": "9.0.2",
     "jwks-rsa": "3.0.1",
@@ -438,7 +440,8 @@
   },
   "resolutions": {
     "@types/react": "18.3.0",
-    "@types/react-dom": "18.3.0"
+    "@types/react-dom": "18.3.0",
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
   },
   "nx": {
     "includedScripts": []

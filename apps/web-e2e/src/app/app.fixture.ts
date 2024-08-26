@@ -43,6 +43,10 @@ export class AppListPage extends BasePage {
     return this.getByExactText(this.appName)
   }
 
+  getGlobalProgressBar() {
+    return this.page.getByRole('progressbar', { name: 'Global Progress Bar' })
+  }
+
   getSpinner() {
     return this.page.getByRole('status')
   }

@@ -3,6 +3,7 @@
 import type { IUpdateAppData } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -15,6 +16,7 @@ export const UpdateAppModal = observer(() => {
   const appService = useAppService()
   const updateAppModal = useUpdateAppModal()
   const app = updateAppModal.data?.app
+  const { setLoading } = useLoading()
 
   if (!app) {
     return null
@@ -26,7 +28,7 @@ export const UpdateAppModal = observer(() => {
   }
 
   const onSubmit = async (data: IUpdateAppData) => {
-    void appService.update(data)
+    void appService.update(data).then(() => setLoading(false))
   }
 
   const closeModal = () => updateAppModal.close()

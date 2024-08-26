@@ -4,10 +4,12 @@ import {
   CuiNavigationBar,
   CuiResizablePanel,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Layout } from 'antd'
 import React, { useMemo } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
+import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplateConfigPane'
 import { defaultNavigationBarItems } from './NavigationBar'
@@ -27,6 +29,7 @@ export const DashboardTemplate = ({
   userSlug,
 }: React.PropsWithChildren<DashboardTemplateProps>) => {
   const { primarySidebarKey } = useUrl()
+  const { isLoading } = useLoading()
 
   const navigationBarItems = useMemo(
     () =>
@@ -82,6 +85,7 @@ export const DashboardTemplate = ({
             )}
 
             <Panel defaultSize={60} order={2}>
+              <ProgressBar isLoading={isLoading} />
               <main className="mt-3 size-full overflow-auto px-3 pb-6">
                 {children}
               </main>

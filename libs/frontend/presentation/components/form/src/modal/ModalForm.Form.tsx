@@ -1,6 +1,7 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'
@@ -36,7 +37,8 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
   // Only standalone form should have `uiKey`
   Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
 >): ReactElement => {
-  const { setIsLoading, submitRef } = useContext(ModalFormContext)
+  const { submitRef } = useContext(ModalFormContext)
+  const { setLoading } = useLoading()
 
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge<TData>(schema),
@@ -57,7 +59,7 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
       onSubmit={throttle(
         handleFormSubmit<TData, TResponse>(
           onSubmit,
-          setIsLoading,
+          (isLoading: boolean) => setLoading(isLoading),
           onSubmitSuccess,
           onSubmitError,
         ),

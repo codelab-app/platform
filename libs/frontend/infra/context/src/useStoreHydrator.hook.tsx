@@ -6,7 +6,8 @@ import type {
   IHydrateableData,
 } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { useCallback, useEffect } from 'react'
+import { isServer } from '@codelab/shared/utils'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 /**
  * A previous version of this called the hydrate synchronously without useEffect, but this causes delay and doesn't render immediately
@@ -40,6 +41,8 @@ export const useHydrateStore = ({
     storeDomainService,
     typeDomainService,
   } = useDomainStore()
+
+  const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {
     hydrate()
@@ -113,6 +116,8 @@ export const useHydrateStore = ({
     pagesDto?.forEach((page) => {
       pageDomainService.hydrate(page)
     })
+
+    setIsHydrated(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     actionsDto,

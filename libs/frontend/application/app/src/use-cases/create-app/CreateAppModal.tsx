@@ -3,6 +3,7 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -14,12 +15,15 @@ import { useCreateAppModal } from './create-app.state'
 export const CreateAppModal = () => {
   const createAppModal = useCreateAppModal()
   const appService = useAppService()
+  const { setLoading } = useLoading()
 
   const onSubmit = async (data: ICreateAppData) => {
-    void appService.create({
-      id: data.id,
-      name: data.name,
-    })
+    void appService
+      .create({
+        id: data.id,
+        name: data.name,
+      })
+      .then(() => setLoading(false))
   }
 
   const closeModal = () => createAppModal.close()

@@ -8,10 +8,24 @@ import {
   usePerformanceReport,
 } from '@shopify/react-performance'
 import { observer } from 'mobx-react-lite'
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 
-export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
+type StoreHydratorProps = IHydrateableData & {
+  children: ReactNode
+  fallback: ReactNode
+}
+
+/**
+ * Server side renders all UI down the tree, but does not run `useEffect` until client.
+ *
+ * If we don't have fallback, it will assume all has been hydrated and render empty apps, but in fact we are still hydrating.
+ *
+ * Use a loading state to show fallback while hydrating
+ *
+ * Client components with `useEffect` will still render on server! This can be confusing
+ */
+export const StoreHydrator = observer<StoreHydratorProps>(
   ({
     actionsDto,
     appsDto,
@@ -20,6 +34,7 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
     children,
     componentsDto,
     elementsDto,
+    fallback,
     fieldsDto,
     pagesDto,
     redirectsDto,
@@ -107,6 +122,6 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
 
     // do not render children untill the store is hydrated with all the
     // specified entities. Othervise `assertIsDefined` may break the application
-    return isHydrated ? <>{children}</> : null
+    return isHydrated ? <>{children}</> : <>{fallback}</>
   },
 )
