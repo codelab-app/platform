@@ -8,5 +8,5 @@ export default {
 
 export const Default = {
   args: {},
-  render: () => <Button>click me</Button>,
+  render: () => <Button variant="outline">click me</Button>,
 }
