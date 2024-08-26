@@ -165,4 +165,6 @@ export enum UiKey {
   CancelCreateTagToolabarItem = 'CancelCreateTagToolabarItem',
   // Confirmation
   ConfirmationButton = 'ConfirmationButton',
+  // Loader
+  GlobalProgressBar = 'GlobalProgressBar',
 }

@@ -6,7 +6,7 @@ commands:
           main-branch-name: master
       - run: echo $CIRCLE_API_TOKEN
       - run:
-          command: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
+          command: pnpm nx run-many --target=build --projects=cli,web,api --parallel=3 -c ci --nx-bail
   clear-jest-cache:
     description: Clear Jest Spec
     steps:

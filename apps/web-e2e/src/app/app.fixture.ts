@@ -1,4 +1,4 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiDataRecord, UiKey } from '@codelab/frontend/abstract/types'
 import { expect, test as base } from '@playwright/test'
 import { BasePage } from '../locators/pages'
 
@@ -47,7 +47,9 @@ export class AppListPage extends BasePage {
   }
 
   getGlobalProgressBar() {
-    return this.page.getByRole('progressbar', { name: 'Global Progress Bar' })
+    return this.page.getByRole('progressbar', {
+      name: UiDataRecord.GlobalProgressBar.label,
+    })
   }
 
   getSpinner() {
