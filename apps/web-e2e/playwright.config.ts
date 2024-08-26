@@ -99,6 +99,10 @@ export default defineConfig({
 
   timeout: 60000,
 
+  expect: {
+    timeout: process.env.CI ? 10000 : 5000,
+  },
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: webUrl,

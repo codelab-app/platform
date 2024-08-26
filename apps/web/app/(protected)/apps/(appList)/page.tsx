@@ -5,6 +5,7 @@ import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/dele
 import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
 import { appListQuery } from '@codelab/frontend-domain-app/repositories'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
 import React from 'react'

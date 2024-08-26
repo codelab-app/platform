@@ -43,6 +43,10 @@ export class AppListPage extends BasePage {
     return this.getByExactText(this.appName)
   }
 
+  getSpinner() {
+    return this.page.getByRole('status')
+  }
+
   getUpdatedAppName() {
     return this.getByExactText(this.updatedAppName)
   }

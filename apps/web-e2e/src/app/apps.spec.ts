@@ -5,6 +5,8 @@ test.describe.configure({ mode: 'serial' })
 
 test.beforeEach(async ({ appListPage: page }) => {
   await page.goto()
+
+  await expect(page.getSpinner()).toBeHidden()
 })
 
 test('should be able to create app', async ({ appListPage: page }) => {
