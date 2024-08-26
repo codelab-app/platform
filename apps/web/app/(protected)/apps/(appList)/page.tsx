@@ -5,7 +5,6 @@ import { CreateAppModal } from '@codelab/frontend-application-app/use-cases/crea
 import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/delete-app'
 import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
-import { withLoading } from '@codelab/frontend-application-shared-store/loading'
 import { appListQuery } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'

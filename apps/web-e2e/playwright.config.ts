@@ -17,12 +17,6 @@ export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
 export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
-
-/**
  * https://www.checklyhq.com/blog/why-page-goto-is-slowing-down-your-playwright-test/
  */
 

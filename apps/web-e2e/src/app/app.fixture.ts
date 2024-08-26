@@ -2,6 +2,9 @@ import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { expect, test as base } from '@playwright/test'
 import { BasePage } from '../locators/pages'
 
+/**
+ * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
+ */
 export class AppListPage extends BasePage {
   // public constructor(page: Page) {
   //   super(page)
