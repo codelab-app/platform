@@ -1,19 +1,20 @@
 import type {
-  BuilderWidth,
   IBuilderService,
   IRuntimeComponentModel,
   IRuntimeElementModel,
   IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import {
-  BuilderWidthBreakPoint,
-  defaultBuilderWidthBreakPoints,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
-import { isComponentRef } from '@codelab/frontend/abstract/domain'
-import { useUserService } from '@codelab/frontend-application-user/services'
+import type { BuilderWidth } from '@codelab/frontend/abstract/domain'
+import {
+  BuilderWidthBreakPoint,
+  defaultBuilderWidthBreakPoints,
+  isComponentRef,
+} from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
@@ -89,13 +90,16 @@ export const useBuilderService = (): IBuilderService => {
     builderContainerWidthAtom,
   )
 
+  const { userDomainService } = useDomainStore()
+  const user = userDomainService.user
+  const preferences = user.preferences
+  const builderPreferences = preferences.builder
   const { atomDomainService, tagDomainService } = useDomainStore()
   const [hoveredNode, setHoveredNode] = useAtom(hoveredNodeAtom)
   const [selectedNode, setSelectedNode] = useAtom(selectedNodeAtom)
   const [activeComponent] = useAtom(activeComponentAtom)
   const [activeContainer] = useAtom(activeContainerAtom)
   const [activeElementTree] = useAtom(activeElementTreeAtom)
-  const userService = useUserService()
 
   const componentTagNames = Array.from(tagDomainService.tags.values())
     .filter((tag) => tag.name === COMPONENT_TAG_NAME)
@@ -114,15 +118,14 @@ export const useBuilderService = (): IBuilderService => {
   )
 
   const expandedElementTreeNodeIds = (() => {
-    const preferences = userService.preferences
-    const containerId = activeContainer?.id
     const treeViewNode = activeElementTree?.treeViewNode
 
-    if (!treeViewNode || !containerId || !treeViewNode.children[0]) {
+    if (!treeViewNode || !activeContainer?.id || !treeViewNode.children[0]) {
       return []
     }
 
-    const expandedNodes = preferences.explorerExpandedNodes?.[containerId]
+    const containerPreferences = builderPreferences.get(activeContainer.id)
+    const expandedNodes = containerPreferences?.explorerExpandedNodes
 
     if (expandedNodes?.length) {
       return expandedNodes
@@ -142,10 +145,10 @@ export const useBuilderService = (): IBuilderService => {
       ? activeContainer.id
       : activeContainer.current.app.id
 
-    const appPreferences = userService.preferences.apps?.[containerId]
+    const containerPreferences = builderPreferences.get(containerId)
 
-    if (appPreferences?.selectedBuilderBreakpoint) {
-      return appPreferences.selectedBuilderBreakpoint
+    if (containerPreferences?.breakpoint) {
+      return containerPreferences.breakpoint
     }
 
     return BuilderWidthBreakPoint.MobilePortrait
@@ -160,10 +163,10 @@ export const useBuilderService = (): IBuilderService => {
       ? activeContainer.id
       : activeContainer.current.app.id
 
-    const appPreferences = userService.preferences.apps?.[containerId]
+    const containerPreferences = builderPreferences.get(containerId)
 
-    if (appPreferences?.selectedBuilderWidth) {
-      return appPreferences.selectedBuilderWidth
+    if (containerPreferences?.width) {
+      return containerPreferences.width
     }
 
     return defaultBuilderWidthBreakPoints['mobile-portrait']
@@ -221,7 +224,9 @@ export const useBuilderService = (): IBuilderService => {
       return
     }
 
-    userService.setElementTreeExpandedKeys(activeContainer.id, expandedNodeIds)
+    preferences.setBuilderPreference(activeContainer.id, {
+      explorerExpandedNodes: expandedNodeIds,
+    })
   }
 
   const setSelectedBuilderBreakpoint = (breakpoint: BuilderWidthBreakPoint) => {
@@ -233,7 +238,7 @@ export const useBuilderService = (): IBuilderService => {
       ? activeContainer.id
       : activeContainer.current.app.id
 
-    userService.setSelectedBuilderBreakpoint(containerId, breakpoint)
+    preferences.setBuilderPreference(containerId, { breakpoint })
   }
 
   const setSelectedBuilderWidth = (width: BuilderWidth) => {
@@ -255,7 +260,9 @@ export const useBuilderService = (): IBuilderService => {
       ? activeContainer.id
       : activeContainer.current.app.id
 
-    userService.setSelectedBuilderWidth(containerId, _selectedBuilderWidth)
+    preferences.setBuilderPreference(containerId, {
+      width: _selectedBuilderWidth,
+    })
   }
 
   const updateExpandedNodes = () => {
