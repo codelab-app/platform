@@ -1,5 +1,4 @@
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
@@ -13,7 +12,7 @@ export const RichTextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
   const { typeDomainService } = useDomainStore()
-  const propService = usePropService()
+  // const propService = usePropService()
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
 
@@ -77,7 +76,7 @@ export const CodeMirrorEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
   const { typeDomainService } = useDomainStore()
-  const propService = usePropService()
+  // const propService = usePropService()
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
 

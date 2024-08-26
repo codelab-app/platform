@@ -16,13 +16,14 @@ export const RootProviders = ({
   children,
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
+  const url = useUrl()
+  const rootStore = useMemo(() => createRootStore(user, url), [user, url])
+
   return (
     <UserProvider>
       <CuiProvider>
         <Provider>
-          <DomainStoreProvider user={user}>
-            <ApplicationStoreProvider>{children}</ApplicationStoreProvider>
-          </DomainStoreProvider>
+            <RootStoreProvider value={rootStore}>{children}</RootStoreProvider>
         </Provider>
       </CuiProvider>
     </UserProvider>

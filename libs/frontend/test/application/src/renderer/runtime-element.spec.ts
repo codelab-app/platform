@@ -2,7 +2,7 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
 import {
   createTestStore,
-  TestStoreProvider,
+  RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render, screen } from '@testing-library/react'
@@ -48,7 +48,7 @@ describe('Runtime Element', () => {
 
     // render itself adds `body > div`
     render(
-      createElement(TestStoreProvider, { value: testStore }, renderer.render),
+      createElement(RootStoreProvider, { value: testStore }, renderer.render),
     )
 
     expect(await screen.findByText('text')).toBeInTheDocument()
@@ -182,7 +182,7 @@ describe('Runtime Element', () => {
       }).render
 
       render(
-        createElement(TestStoreProvider, { value: testStore }, reactElement),
+        createElement(RootStoreProvider, { value: testStore }, reactElement),
       )
 
       expect(runtimeStore?.state[stateFieldKey]).toBe(expectedValue)

@@ -9,7 +9,7 @@ export const ApplicationStoreContext = createContext<IApplicationStore | null>(
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ApplicationStoreProviderProps {
-  //
+  value: IApplicationStore
 }
 
 export const useApplicationStore = () => {

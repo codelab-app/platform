@@ -1,13 +1,12 @@
 'use client'
 
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
-import type { IUserDto } from '@codelab/shared/abstract/core'
 import { createContext, useContext } from 'react'
 
 export const DomainStoreContext = createContext<IDomainStore | null>(null)
 
 export interface DomainStoreProviderProps {
-  user: IUserDto | null
+  value: IDomainStore
 }
 
 export const useDomainStore = () => {
