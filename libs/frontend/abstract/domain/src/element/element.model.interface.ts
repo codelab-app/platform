@@ -75,6 +75,7 @@ export interface IElementModel
   preRenderAction?: Nullable<Ref<IActionModel>>
   prevSibling?: Nullable<Ref<IElementModel>>
   props: IPropModel
+  propsHaveErrors: boolean
   // store attached to the provider page
   providerStore?: IStoreModel
   renderForEachPropKey: Nullable<string>

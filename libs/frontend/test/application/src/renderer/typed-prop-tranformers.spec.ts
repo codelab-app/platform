@@ -5,7 +5,7 @@ import {
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
-import React, { isValidElement } from 'react'
+import { createElement, isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
   let testStore: ReturnType<typeof createTestStore>
@@ -122,7 +122,7 @@ describe('TypedPropTransformers', () => {
     const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
 
     render(
-      React.createElement(
+      createElement(
         TestStoreProvider,
         { value: testStore },
         renderedProp(textPropValue),

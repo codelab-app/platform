@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend-infra-mobx/store'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { render, screen } from '@testing-library/react'
-import React from 'react'
+import { createElement } from 'react'
 
 describe('Runtime Element', () => {
   let testStore: ReturnType<typeof createTestStore>
@@ -48,11 +48,7 @@ describe('Runtime Element', () => {
 
     // render itself adds `body > div`
     render(
-      createElement(
-        TestStoreProvider,
-        { value: testStore.coreStore },
-        renderer.render,
-      ),
+      createElement(TestStoreProvider, { value: testStore }, renderer.render),
     )
 
     expect(await screen.findByText('text')).toBeInTheDocument()
@@ -71,21 +67,21 @@ describe('Runtime Element', () => {
 
     const runtimeChildElement = runtimeRootElement.children[0]
 
-    const childCompositeKey = RuntimeElementModel.compositeKey(
-      childElement,
-      runtimePage,
-    )
+    const childCompositeKey = runtimePage
+      ? RuntimeElementModel.compositeKey(childElement, runtimePage)
+      : undefined
 
     expect(runtimeChildElement?.compositeKey).toBe(childCompositeKey)
   })
 
   it('should detach runtime element when element is detached', async () => {
-    const { elementService, runtimeElementService } = testStore.coreStore
+    const { elementDomainService } = testStore.domainStore
+    const { runtimeElementService } = testStore.applicationStore
     const { page } = testStore.setupPage(undefined, IPageKind.Provider)
 
     expect(runtimeElementService.elementsList.length).toEqual(1)
 
-    elementService.elementDomainService.elements.delete(page.rootElement.id)
+    elementDomainService.elements.delete(page.rootElement.id)
 
     expect(runtimeElementService.elementsList.length).toEqual(0)
   })
@@ -186,11 +182,7 @@ describe('Runtime Element', () => {
       }).render
 
       render(
-        React.createElement(
-          StoreProvider,
-          { value: testStore.coreStore },
-          reactElement,
-        ),
+        createElement(TestStoreProvider, { value: testStore }, reactElement),
       )
 
       expect(runtimeStore?.state[stateFieldKey]).toBe(expectedValue)

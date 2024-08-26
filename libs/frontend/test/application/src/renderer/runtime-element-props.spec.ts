@@ -9,7 +9,7 @@ import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { act, render } from '@testing-library/react'
 import { configure } from 'mobx'
-import React from 'react'
+import { createElement } from 'react'
 
 let testStore: ReturnType<typeof createTestStore>
 
@@ -341,11 +341,7 @@ describe('Runtime Element props', () => {
 
         await act(async () => {
           render(
-            React.createElement(
-              TestStoreProvider,
-              { value: testStore },
-              rendered,
-            ),
+            createElement(TestStoreProvider, { value: testStore }, rendered),
           )
         })
 
@@ -372,7 +368,7 @@ describe('Runtime Element props', () => {
 
         await act(async () => {
           render(
-            React.createElement(
+            createElement(
               TestStoreProvider,
               { value: testStore },
               rendererService.activeRenderer?.current.render,

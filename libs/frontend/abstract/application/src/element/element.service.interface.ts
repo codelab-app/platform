@@ -45,7 +45,6 @@ export interface IElementService {
 
   loadDependantTypes(element: IElementModel): void
   move(context: IMoveElementContext): Promise<void>
-  propsHaveErrors(element?: IElementModel): boolean
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>
 }

@@ -77,8 +77,12 @@ export const createTestStore = () => {
     showDuplicateModelNameWarnings: false,
   })
 
-  const applicationStore = createApplicationStore()
   const domainStore = createDomainStore(userDto)
+
+  const applicationStore = createApplicationStore(
+    { params: {}, query: {} },
+    domainStore,
+  )
 
   @model('@codelab/TestStore')
   class TestStore
