@@ -3,6 +3,7 @@ import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app
 import { PageBuilderPreview } from '@codelab/frontend-application-builder/use-cases/page-builder-preview'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import React from 'react'
 
 const PagePreviewPage = async ({
@@ -24,6 +25,7 @@ const PagePreviewPage = async ({
       authGuardsDto={dto.authGuards}
       componentsDto={dto.components}
       elementsDto={dto.elements}
+      fallback={<Spinner center isLoading />}
       fieldsDto={dto.fields}
       pagesDto={dto.pages}
       propsDto={dto.props}

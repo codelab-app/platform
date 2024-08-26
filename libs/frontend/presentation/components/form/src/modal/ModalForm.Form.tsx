@@ -37,7 +37,7 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
   // Only standalone form should have `uiKey`
   Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
 >): ReactElement => {
-  const { submitRef } = useContext(ModalFormContext)
+  const { setIsLoading, submitRef } = useContext(ModalFormContext)
   const { setLoading } = useLoading()
 
   const [bridge, setBridge] = useState(
@@ -59,7 +59,10 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
       onSubmit={throttle(
         handleFormSubmit<TData, TResponse>(
           onSubmit,
-          (isLoading: boolean) => setLoading(isLoading),
+          (isLoading: boolean) => {
+            setIsLoading(isLoading)
+            setLoading(isLoading)
+          },
           onSubmitSuccess,
           onSubmitError,
         ),
