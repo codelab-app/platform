@@ -7,7 +7,24 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { IDomainStore } from '@codelab/frontend/abstract/domain'
+import {
+  actionDomainServiceContext,
+  appDomainServiceContext,
+  atomDomainServiceContext,
+  authGuardDomainServiceContext,
+  componentDomainServiceContext,
+  domainDomainServiceContext,
+  elementDomainServiceContext,
+  fieldDomainServiceContext,
+  IDomainStore,
+  pageDomainServiceContext,
+  redirectDomainServiceContext,
+  resourceDomainServiceContext,
+  storeDomainServiceContext,
+  tagDomainServiceContext,
+  typeDomainServiceContext,
+  userDomainServiceContext,
+} from '@codelab/frontend/abstract/domain'
 import { userDto } from '@codelab/frontend/test/data'
 import { rendererFactory } from '@codelab/frontend-application-renderer/test'
 import {
@@ -407,6 +424,39 @@ export const createTestStore = () => {
         name: IAtomType.HtmlSpan,
         type: IAtomType.HtmlSpan,
       })
+    }
+
+    protected onInit(): void {
+      actionDomainServiceContext.set(this, this.domainStore.actionDomainService)
+      appDomainServiceContext.set(this, this.domainStore.appDomainService)
+      atomDomainServiceContext.set(this, this.domainStore.atomDomainService)
+      authGuardDomainServiceContext.set(
+        this,
+        this.domainStore.authGuardDomainService,
+      )
+      componentDomainServiceContext.set(
+        this,
+        this.domainStore.componentDomainService,
+      )
+      domainDomainServiceContext.set(this, this.domainStore.domainDomainService)
+      elementDomainServiceContext.set(
+        this,
+        this.domainStore.elementDomainService,
+      )
+      fieldDomainServiceContext.set(this, this.domainStore.fieldDomainService)
+      pageDomainServiceContext.set(this, this.domainStore.pageDomainService)
+      redirectDomainServiceContext.set(
+        this,
+        this.domainStore.redirectDomainService,
+      )
+      resourceDomainServiceContext.set(
+        this,
+        this.domainStore.resourceDomainService,
+      )
+      storeDomainServiceContext.set(this, this.domainStore.storeDomainService)
+      tagDomainServiceContext.set(this, this.domainStore.tagDomainService)
+      typeDomainServiceContext.set(this, this.domainStore.typeDomainService)
+      userDomainServiceContext.set(this, this.domainStore.userDomainService)
     }
   }
 

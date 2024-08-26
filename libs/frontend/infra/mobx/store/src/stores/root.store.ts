@@ -3,7 +3,24 @@ import type {
   IRootStore,
   IRouterProps,
 } from '@codelab/frontend/abstract/application'
-import { IDomainStore } from '@codelab/frontend/abstract/domain'
+import {
+  actionDomainServiceContext,
+  appDomainServiceContext,
+  atomDomainServiceContext,
+  authGuardDomainServiceContext,
+  componentDomainServiceContext,
+  domainDomainServiceContext,
+  elementDomainServiceContext,
+  fieldDomainServiceContext,
+  IDomainStore,
+  pageDomainServiceContext,
+  redirectDomainServiceContext,
+  resourceDomainServiceContext,
+  storeDomainServiceContext,
+  tagDomainServiceContext,
+  typeDomainServiceContext,
+  userDomainServiceContext,
+} from '@codelab/frontend/abstract/domain'
 import { IUserDto } from '@codelab/shared/abstract/core'
 import {
   Model,
@@ -21,7 +38,7 @@ export const createRootStore = (user: IUserDto, routerProps: IRouterProps) => {
   })
 
   const domainStore = createDomainStore(user)
-  const applicationStore = createApplicationStore({ params: {}, query: {} })
+  const applicationStore = createApplicationStore(routerProps)
 
   @model('@codelab/RootStore')
   class RootStore
@@ -29,7 +46,42 @@ export const createRootStore = (user: IUserDto, routerProps: IRouterProps) => {
       applicationStore: prop<IApplicationStore>(() => applicationStore),
       domainStore: prop<IDomainStore>(() => domainStore),
     })
-    implements IRootStore {}
+    implements IRootStore
+  {
+    protected onInit(): void {
+      // provided here to be accessible by application store services
+      actionDomainServiceContext.set(this, this.domainStore.actionDomainService)
+      appDomainServiceContext.set(this, this.domainStore.appDomainService)
+      atomDomainServiceContext.set(this, this.domainStore.atomDomainService)
+      authGuardDomainServiceContext.set(
+        this,
+        this.domainStore.authGuardDomainService,
+      )
+      componentDomainServiceContext.set(
+        this,
+        this.domainStore.componentDomainService,
+      )
+      domainDomainServiceContext.set(this, this.domainStore.domainDomainService)
+      elementDomainServiceContext.set(
+        this,
+        this.domainStore.elementDomainService,
+      )
+      fieldDomainServiceContext.set(this, this.domainStore.fieldDomainService)
+      pageDomainServiceContext.set(this, this.domainStore.pageDomainService)
+      redirectDomainServiceContext.set(
+        this,
+        this.domainStore.redirectDomainService,
+      )
+      resourceDomainServiceContext.set(
+        this,
+        this.domainStore.resourceDomainService,
+      )
+      storeDomainServiceContext.set(this, this.domainStore.storeDomainService)
+      tagDomainServiceContext.set(this, this.domainStore.tagDomainService)
+      typeDomainServiceContext.set(this, this.domainStore.typeDomainService)
+      userDomainServiceContext.set(this, this.domainStore.userDomainService)
+    }
+  }
 
   const rootStore = new RootStore({})
 
