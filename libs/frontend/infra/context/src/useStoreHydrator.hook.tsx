@@ -24,7 +24,7 @@ export const useHydrateStore = ({
   resourcesDto,
   storesDto,
   typesDto,
-}: IHydrateableData): { apps: Array<IAppModel> } => {
+}: IHydrateableData) => {
   const {
     actionDomainService,
     appDomainService,

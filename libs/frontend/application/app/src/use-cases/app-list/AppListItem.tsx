@@ -1,5 +1,7 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { Card } from 'antd'
+import { observable } from 'mobx'
+import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
 import { AppListItemDropdown } from './AppListItemDropdown'
@@ -9,7 +11,7 @@ export interface AppListItemProps {
   app: IAppModel
 }
 
-export const AppListItem = ({ app }: AppListItemProps) => {
+export const AppListItem = observer(({ app }: AppListItemProps) => {
   const Title = (
     <Link aria-label={app.name} href="/apps">
       {app.name}
@@ -23,4 +25,4 @@ export const AppListItem = ({ app }: AppListItemProps) => {
       <DomainList app={app} />
     </Card>
   )
-}
+})

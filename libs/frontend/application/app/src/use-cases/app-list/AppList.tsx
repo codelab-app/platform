@@ -2,6 +2,7 @@
 
 import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
 import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   padding,
   threeGridCol,

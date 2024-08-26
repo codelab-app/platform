@@ -20,7 +20,7 @@ export const DeleteAppModal = observer(() => {
       return Promise.reject()
     }
 
-    return await appService.remove([app])
+    void appService.remove([app])
   }
 
   return (

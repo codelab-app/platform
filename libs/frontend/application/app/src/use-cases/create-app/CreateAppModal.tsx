@@ -16,7 +16,7 @@ export const CreateAppModal = () => {
   const appService = useAppService()
 
   const onSubmit = async (data: ICreateAppData) => {
-    return await appService.create({
+    void appService.create({
       id: data.id,
       name: data.name,
     })

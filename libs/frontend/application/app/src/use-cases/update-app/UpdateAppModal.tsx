@@ -26,7 +26,7 @@ export const UpdateAppModal = observer(() => {
   }
 
   const onSubmit = async (data: IUpdateAppData) => {
-    return await appService.update(data)
+    void appService.update(data)
   }
 
   const closeModal = () => updateAppModal.close()
