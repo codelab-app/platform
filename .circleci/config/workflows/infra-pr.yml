@@ -2,6 +2,7 @@
 jobs:
   - setup-workspace:
       resource_class: large
+      max_old_space_size: 6144
       filters:
         branches:
           only:

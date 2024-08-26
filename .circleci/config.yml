@@ -434,8 +434,12 @@ jobs:
             - .docker/config.json
           root: ~/
   setup-workspace:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node
     parameters:
+      max_old_space_size:
+        type: integer
       resource_class:
         type: string
     resource_class: << parameters.resource_class >>
@@ -482,6 +486,7 @@ workflows:
             branches:
               only:
                 - master
+          max_old_space_size: 6144
           resource_class: large
       - hold-deploy:
           filters:
@@ -564,17 +569,14 @@ workflows:
       - setup-workspace:
           context:
             - build
-          environment:
-            NODE_OPTIONS: --max-old-space-size=6144
           filters:
             branches:
               ignore:
                 - master
                 - staging
+          max_old_space_size: 6144
           resource_class: large
       - lint:
-          environment:
-            NODE_OPTIONS: --max-old-space-size=6144
           filters:
             branches:
               ignore:
@@ -639,6 +641,7 @@ workflows:
             branches:
               only:
                 - staging
+          max_old_space_size: 6144
           resource_class: large
       - setup-infra-workspace:
           filters:

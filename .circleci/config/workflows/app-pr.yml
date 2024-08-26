@@ -8,8 +8,7 @@
 jobs:
   - setup-workspace:
       resource_class: large
-      environment:
-        NODE_OPTIONS: --max-old-space-size=6144
+      max_old_space_size: 6144
       filters:
         branches:
           ignore:
@@ -26,8 +25,8 @@ jobs:
   #         ignore: /master/
   - lint:
       resource_class: large
-      environment:
-        NODE_OPTIONS: --max-old-space-size=6144
+      # environment:
+      #   NODE_OPTIONS: --max-old-space-size=6144
       filters:
         branches:
           ignore:

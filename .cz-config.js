@@ -87,6 +87,10 @@ module.exports = {
       value: 'tf',
       name: '14) tf:  terraform code',
     },
+    {
+      value: 'e2e',
+      name: '15) e2e:  E2e specs',
+    },
   ],
   scopes,
   allowTicketNumber: true,
