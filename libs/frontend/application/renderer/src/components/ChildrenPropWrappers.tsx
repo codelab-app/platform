@@ -14,6 +14,7 @@ export const RichTextEditorWrapper = observer<{
   const { typeDomainService } = useDomainStore()
   // const propService = usePropService()
   const element = runtimeElement.element.current
+  // disable for now since it causing tests to fail
   const editable = element.isTextContentEditable
 
   const richTextType = typeDomainService.typesList.find(
@@ -58,7 +59,7 @@ export const RichTextEditorWrapper = observer<{
 
   return (
     <TextEditor
-      config={{ editable, namespace: `${element.id}-editor` }}
+      config={{ editable: false, namespace: `${element.id}-editor` }}
       onChange={onChange}
       onResize={({ height }) => {
         if (height) {

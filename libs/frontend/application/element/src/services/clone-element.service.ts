@@ -140,11 +140,7 @@ export const useCloneElementService = ({
     )
 
     if (runtimeCreatedElement) {
-      const selectedNode = runtimeElementService.runtimeElement(
-        runtimeCreatedElement.compositeKey,
-      )
-
-      builderService.setSelectedNode(selectedNode)
+      builderService.setSelectedNode(runtimeCreatedElement)
     }
 
     return createdElement

@@ -1,11 +1,14 @@
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+import type {
+  BuilderWidth,
+  BuilderWidthBreakPoint,
+  IAtomModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type {
   IRuntimeComponentModel,
   IRuntimeElementModel,
   IRuntimeModel,
 } from '../renderer'
-import type { BuilderWidth, BuilderWidthBreakPoint } from './builder.interface'
 
 export type IBuilderComponent = IAtomModel
 

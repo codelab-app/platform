@@ -29,7 +29,7 @@ import {
 import { useCreateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
 import { useUpdateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { useUserService } from '@codelab/frontend-application-user/services'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -54,7 +54,7 @@ export const PageTreeItem = observer(
   }: PageTreeItemProps) => {
     const updateRedirectForm = useUpdateRedirectForm()
     const createRedirectForm = useCreateRedirectForm()
-    const userService = useUserService()
+    const user = useUser()
     const { isRegenerating, regenerate } = useRegeneratePages()
     const deletePageModal = useDeletePageModal()
     const updatePageForm = useUpdatePageForm()
@@ -72,7 +72,7 @@ export const PageTreeItem = observer(
               ...queryString.parse(query.toString()),
               pageSlug: page.slug,
               primarySidebarKey: ExplorerPaneType.Explorer,
-              userSlug: userService.user.username,
+              userSlug: user.username,
             },
             url: PageType.PageBuilder,
           })

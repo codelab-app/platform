@@ -1,9 +1,7 @@
 'use client'
 
-import type {
-  IRuntimeElementModel,
-  MoveData,
-} from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { MoveData } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'

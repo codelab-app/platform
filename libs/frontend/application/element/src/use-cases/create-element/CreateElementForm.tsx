@@ -8,7 +8,7 @@ import {
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useUserService } from '@codelab/frontend-application-user/services'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
@@ -47,7 +47,7 @@ interface CreateElementFormProps {
 export const CreateElementForm = observer<CreateElementFormProps>(
   ({ onSubmitSuccess, selectedNode, showFormControl = true, submitRef }) => {
     const { atomDomainService } = useDomainStore()
-    const userService = useUserService()
+    const user = useUser()
     const elementService = useElementService()
     const createElementForm = useCreateElementForm()
     const element = createElementForm.data
@@ -86,7 +86,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
 
     const model = {
       id: v4(),
-      owner: userService.user.auth0Id,
+      owner: user.auth0Id,
       parentElement: {
         id: parentElement.id,
       },
