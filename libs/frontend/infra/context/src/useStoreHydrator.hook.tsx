@@ -1,13 +1,50 @@
+'use client'
+
 import type {
+  IAppModel,
   IDomainStore,
   IHydrateableData,
 } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useCallback, useEffect } from 'react'
 
-export const useHydrateStore = (hydrateableData: IHydrateableData) => {
-  const domainStore = useDomainStore()
-
+/**
+ * A previous version of this called the hydrate synchronously without useEffect, but this causes delay and doesn't render immediately
+ */
+export const useHydrateStore = ({
+  actionsDto,
+  appsDto,
+  atomsDto,
+  authGuardsDto,
+  componentsDto,
+  elementsDto,
+  fieldsDto,
+  pagesDto,
+  redirectsDto,
+  resourcesDto,
+  storesDto,
+  typesDto,
+}: IHydrateableData): { apps: Array<IAppModel> } => {
   const {
+    actionDomainService,
+    appDomainService,
+    atomDomainService,
+    authGuardDomainService,
+    componentDomainService,
+    domainDomainService,
+    elementDomainService,
+    fieldDomainService,
+    pageDomainService,
+    redirectDomainService,
+    resourceDomainService,
+    storeDomainService,
+    typeDomainService,
+  } = useDomainStore()
+
+  useEffect(() => {
+    hydrate()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
     actionsDto,
     appsDto,
     atomsDto,
@@ -20,75 +57,79 @@ export const useHydrateStore = (hydrateableData: IHydrateableData) => {
     resourcesDto,
     storesDto,
     typesDto,
-  } = hydrateableData
+  ])
 
-  const atoms = atomsDto?.map((atom) =>
-    domainStore.atomDomainService.hydrate(atom),
-  )
+  const hydrate = useCallback(() => {
+    appsDto?.forEach((app) => {
+      appDomainService.hydrate(app)
+      app.pages?.forEach((page) => {
+        pageDomainService.hydrate(page)
+      })
+      app.domains?.forEach((domain) => {
+        domainDomainService.hydrate(domain)
+      })
+    })
 
-  const types = typesDto?.map((type) =>
-    domainStore.typeDomainService.hydrate(type),
-  )
+    atomsDto?.forEach((atom) => {
+      atomDomainService.hydrate(atom)
+    })
 
-  const fields = fieldsDto?.map((field) =>
-    domainStore.fieldDomainService.hydrate(field),
-  )
+    typesDto?.forEach((type) => {
+      typeDomainService.hydrate(type)
+    })
 
-  const elements = elementsDto?.map((element) =>
-    domainStore.elementDomainService.hydrate(element),
-  )
+    fieldsDto?.forEach((field) => {
+      fieldDomainService.hydrate(field)
+    })
 
-  const components = componentsDto?.map((component) =>
-    domainStore.componentDomainService.hydrate(component),
-  )
+    elementsDto?.forEach((element) => {
+      elementDomainService.hydrate(element)
+    })
 
-  const stores = storesDto?.map((store) =>
-    domainStore.storeDomainService.hydrate(store),
-  )
+    componentsDto?.forEach((component) => {
+      componentDomainService.hydrate(component)
+    })
 
-  const actions = actionsDto?.map((action) =>
-    domainStore.actionDomainService.hydrate(action),
-  )
+    storesDto?.forEach((store) => {
+      storeDomainService.hydrate(store)
+    })
 
-  const resources = resourcesDto?.map((resource) =>
-    domainStore.resourceDomainService.hydrate(resource),
-  )
+    actionsDto?.forEach((action) => {
+      actionDomainService.hydrate(action)
+    })
 
-  const authGuards = authGuardsDto?.map((authGuard) =>
-    domainStore.authGuardDomainService.hydrate(authGuard),
-  )
+    resourcesDto?.forEach((resource) => {
+      resourceDomainService.hydrate(resource)
+    })
 
-  const redirects = redirectsDto?.map((redirect) =>
-    domainStore.redirectDomainService.hydrate(redirect),
-  )
+    authGuardsDto?.forEach((authGuard) => {
+      authGuardDomainService.hydrate(authGuard)
+    })
 
-  const apps = appsDto?.map((app) => domainStore.appDomainService.hydrate(app))
+    redirectsDto?.forEach((redirect) => {
+      redirectDomainService.hydrate(redirect)
+    })
 
-  const pages = pagesDto?.map((page) =>
-    domainStore.pageDomainService.hydrate(page),
-  )
-
-  const appPages = appsDto
-    ?.flatMap((app) => app.pages ?? [])
-    .map((page) => domainStore.pageDomainService.hydrate(page))
-
-  const domains = appsDto
-    ?.flatMap((app) => app.domains ?? [])
-    .map((domain) => domainStore.domainDomainService.hydrate(domain))
+    pagesDto?.forEach((page) => {
+      pageDomainService.hydrate(page)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    actionsDto,
+    appsDto,
+    atomsDto,
+    authGuardsDto,
+    componentsDto,
+    elementsDto,
+    fieldsDto,
+    pagesDto,
+    redirectsDto,
+    resourcesDto,
+    storesDto,
+    typesDto,
+  ])
 
   return {
-    actions,
-    apps,
-    atoms,
-    authGuards,
-    components,
-    domains,
-    elements,
-    fields,
-    pages: [...(pages ?? []), ...(appPages ?? [])],
-    redirects,
-    resources,
-    stores,
-    types,
+    apps: appDomainService.appsList,
   }
 }

@@ -1,10 +1,15 @@
 parameters:
   resource_class:
     type: string
+  max_old_space_size:
+    type: integer
 
 executor: docker-node-neo4j
 
 resource_class: << parameters.resource_class >>
+
+environment:
+  NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
 
 # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
 # parallelism: 4

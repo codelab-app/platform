@@ -7,6 +7,7 @@ import {
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
 import { Col, Empty, Row } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateAppButton } from '../create-app'
 import { AppListItem } from './AppListItem'
@@ -20,10 +21,10 @@ interface AppListProps {
   atomsDto: IHydrateableData['atomsDto']
 }
 
-export const AppList = ({ appsDto, atomsDto }: AppListProps) => {
+export const AppList = observer(({ appsDto, atomsDto }: AppListProps) => {
   const { apps } = useHydrateStore({ appsDto, atomsDto })
 
-  if (!apps?.length) {
+  if (!apps.length) {
     return (
       <Empty description="No apps found" imageStyle={emptyImageStyle}>
         <CreateAppButton>Create Now</CreateAppButton>
@@ -41,4 +42,4 @@ export const AppList = ({ appsDto, atomsDto }: AppListProps) => {
       ))}
     </Row>
   )
-}
+})

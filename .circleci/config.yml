@@ -6,9 +6,7 @@ commands:
           main-branch-name: master
       - run: echo $CIRCLE_API_TOKEN
       - run:
-          command: pnpm nx affected --target=build --parallel=2 -c ci --nx-bail
-          environment:
-            NODE_OPTIONS: --max-old-space-size=4096
+          command: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -242,8 +240,12 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
           name: Push Docker Image
   e2e:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node-neo4j
     parameters:
+      max_old_space_size:
+        type: integer
       resource_class:
         type: string
     resource_class: << parameters.resource_class >>
@@ -618,6 +620,7 @@ workflows:
               ignore:
                 - master
                 - staging
+          max_old_space_size: 6144
           requires:
             - setup-workspace
           resource_class: large

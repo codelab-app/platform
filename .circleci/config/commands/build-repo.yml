@@ -14,10 +14,7 @@ steps:
   - run: echo $CIRCLE_API_TOKEN
   # parallel=2 causes
   - run:
-      # Total 8GB, 4GB per job
-      environment:
-        NODE_OPTIONS: --max-old-space-size=4096
-      command: pnpm nx affected --target=build --parallel=2 -c ci --nx-bail
+      command: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
   # - save_cache:
   #     name: 'Save NX Cache'
   #     # nx doesn't use `lockfile.hash` anymore
