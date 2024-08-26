@@ -17,9 +17,5 @@ export const Spinner = ({ center, children, isLoading }: SpinnerProps) => {
     style.transform = 'translate(-50%, -50%)'
   }
 
-  return isLoading ? (
-    <Spin aria-label="Loading" role="status" style={style} />
-  ) : (
-    children
-  )
+  return isLoading ? <Spin aria-label="Loading" style={style} /> : children
 }
