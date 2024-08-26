@@ -35,18 +35,18 @@ export const RichTextEditorWrapper = observer<{
           const props = element.props
           const renderType = element.renderType.current
 
-          void propService.updateWithDefaultValuesApplied(props, {
-            data: {
-              ...props.data.data,
-              children: {
-                kind: richTextType.kind,
-                type: richTextType.id,
-                value: htmlString,
-              },
-            },
-            defaultValues: renderType.api.current.defaultValues,
-            id: props.id,
-          })
+          // void propService.updateWithDefaultValuesApplied(props, {
+          //   data: {
+          //     ...props.data.data,
+          //     children: {
+          //       kind: richTextType.kind,
+          //       type: richTextType.id,
+          //       value: htmlString,
+          //     },
+          //   },
+          //   defaultValues: renderType.api.current.defaultValues,
+          //   id: props.id,
+          // })
         })
       }
     },
@@ -89,18 +89,18 @@ export const CodeMirrorEditorWrapper = observer<{
     const props = element.props
     const renderType = element.renderType.current
 
-    void propService.updateWithDefaultValuesApplied(props, {
-      data: {
-        ...props.data.data,
-        children: {
-          kind: codeMirrorType?.kind,
-          type: codeMirrorType?.id,
-          value,
-        },
-      },
-      defaultValues: renderType.api.current.defaultValues,
-      id: props.id,
-    })
+    // void propService.updateWithDefaultValuesApplied(props, {
+    //   data: {
+    //     ...props.data.data,
+    //     children: {
+    //       kind: codeMirrorType?.kind,
+    //       type: codeMirrorType?.id,
+    //       value,
+    //     },
+    //   },
+    //   defaultValues: renderType.api.current.defaultValues,
+    //   id: props.id,
+    // })
   }, [])
 
   const value = editable

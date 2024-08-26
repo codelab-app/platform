@@ -12,7 +12,12 @@ import type {
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService, IModel } from '../shared'
-import type { IInterfaceTypeModel, ITypeModel } from '../type'
+import type {
+  IInterfaceTypeModel,
+  ITypeModel,
+  JsonSchema,
+  TransformContext,
+} from '../type'
 
 export interface IFieldModel<T extends ITypeModel = ITypeModel>
   extends Omit<
@@ -38,5 +43,6 @@ export interface IFieldModel<T extends ITypeModel = ITypeModel>
   changePrev(sibling: IFieldModel): void
   connectPrevToNextSibling(): void
   detachPrevSibling(): void
+  toJsonSchema(context: TransformContext): JsonSchema
   toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'>
 }

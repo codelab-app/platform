@@ -1,7 +1,11 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
-import { callbackWithParams } from '@codelab/frontend/shared/utils'
+import {
+  callbackWithParams,
+  connectUniformSubmitRef,
+  createBridge,
+} from '@codelab/frontend/shared/utils'
 import { Cui } from '@codelab/frontend-application-shared-data'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
@@ -9,10 +13,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
-import {
-  connectUniformSubmitRef,
-  createBridge,
-} from '../hooks/uniformUtils.hook'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({

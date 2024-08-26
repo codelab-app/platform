@@ -1,10 +1,26 @@
-import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IPrimitiveTypeModel,
+  JsonSchema,
+  TransformContext,
+} from '@codelab/frontend/abstract/domain'
 import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import type { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import {
+  assertIsTypeKind,
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import isBoolean from 'lodash/isBoolean'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
+
+export const primitives = {
+  [PrimitiveTypeKind.String]: 'string' as const,
+  [PrimitiveTypeKind.Integer]: 'integer' as const,
+  [PrimitiveTypeKind.Number]: 'number' as const,
+  [PrimitiveTypeKind.Boolean]: 'boolean' as const,
+}
 
 const create = ({ id, kind, name, primitiveKind }: IPrimitiveTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.PrimitiveType)
@@ -39,6 +55,30 @@ export class PrimitiveType
     return {
       ...super.toCreateInput(),
       primitiveKind: this.primitiveKind,
+    }
+  }
+
+  toJsonSchema({
+    defaultValues,
+    validationRules,
+  }: TransformContext): JsonSchema {
+    const rulesSchema =
+      this.primitiveKind === IPrimitiveTypeKind.Boolean
+        ? {
+            ...validationRules?.general,
+            ...(isBoolean(defaultValues)
+              ? { default: Boolean(defaultValues) }
+              : { default: false }),
+          }
+        : {
+            ...validationRules?.[this.primitiveKind],
+            ...validationRules?.general,
+            ...(defaultValues ? { default: defaultValues } : {}),
+          }
+
+    return {
+      ...rulesSchema,
+      type: primitives[this.primitiveKind],
     }
   }
 

@@ -1,8 +1,12 @@
-import type { IUserModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IUserModel,
+  IUserPreferenceModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import { getSnapshot, idProp, Model, model, prop } from 'mobx-keystone'
+import { UserPreference } from './user-preferences.model'
 
 const fromSession = (user: Auth0IdToken): IUserDto => {
   return {
@@ -19,7 +23,7 @@ const create = (user: IUserDto) => {
     auth0Id: user.auth0Id,
     email: user.email,
     id: user.id,
-    preferences: {},
+    preferences: UserPreference.init(),
     roles: user.roles,
     username: user.username,
   })
@@ -36,7 +40,7 @@ export class User
     auth0Id: prop<string>(),
     email: prop<string>(),
     id: idProp.withSetter(),
-    preferences: prop<Record<string, unknown>>(),
+    preferences: prop<IUserPreferenceModel>(),
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),
   })
@@ -68,7 +72,7 @@ export class User
 
   toUpdateInput() {
     return {
-      preferences: JSON.stringify(this.preferences),
+      preferences: JSON.stringify(getSnapshot(this.preferences)),
     }
   }
 }

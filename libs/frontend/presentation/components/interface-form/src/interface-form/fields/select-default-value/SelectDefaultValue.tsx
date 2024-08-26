@@ -3,17 +3,16 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { IPropData, IValidationRules } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
 import isNil from 'lodash/isNil'
 import React, { useMemo } from 'react'
 import { useAsyncFn, useMount } from 'react-use'
 import { useField } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
-import { schemaTransformer } from '../../type-schema.factory'
 
 export const SelectDefaultValue = () => {
   const { typeDomainService } = useDomainStore()
@@ -48,9 +47,7 @@ export const SelectDefaultValue = () => {
   const schema = useMemo(
     () => ({
       label: '',
-      properties: type
-        ? { defaultValues: schemaTransformer.transform(type) }
-        : {},
+      properties: type ? { defaultValues: type.toJsonSchema({}) } : {},
       required: isRequired ? ['defaultValues'] : undefined,
       type: 'object',
     }),

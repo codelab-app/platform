@@ -122,7 +122,7 @@ export const ConfigPaneInspectorTabContainer = observer<ConfigPaneTabProps>(
               <SettingOutlined
                 style={
                   isRuntimeElement(selectedNode) &&
-                  elementService.propsHaveErrors(selectedNode.element.current)
+                  selectedNode.element.current.propsHaveErrors
                     ? { color: 'red' }
                     : {}
                 }

@@ -3,6 +3,8 @@ import {
   type IBaseTypeModel,
   type ICreateTypeInput,
   type IUpdateTypeVars,
+  JsonSchema,
+  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain'
@@ -44,6 +46,10 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
         name: this.name,
         owner: connectOwner(this.userDomainService.user),
       }
+    }
+
+    toJsonSchema(context: TransformContext): JsonSchema {
+      return {}
     }
 
     toUpdateInput() {
