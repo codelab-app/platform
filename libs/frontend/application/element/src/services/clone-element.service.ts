@@ -4,7 +4,10 @@ import type {
   IComponentService,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
-import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeElement,
+  runtimeElementRef,
+} from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
   IElementModel,
@@ -140,7 +143,9 @@ export const useCloneElementService = ({
     )
 
     if (runtimeCreatedElement) {
-      builderService.setSelectedNode(runtimeCreatedElement)
+      builderService.setSelectedNode(
+        runtimeElementRef(runtimeCreatedElement.compositeKey),
+      )
     }
 
     return createdElement

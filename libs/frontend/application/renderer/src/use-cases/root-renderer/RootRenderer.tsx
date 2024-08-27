@@ -6,8 +6,8 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { MakeChildrenDroppable } from '@codelab/frontend-application-dnd/components'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { WrapIf } from '@codelab/frontend-presentation-view/components/wrapIf'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
@@ -41,7 +41,7 @@ const RootRendererComponent = forwardRef<
   HTMLDivElement,
   { renderer: IRendererModel }
 >(({ renderer }, ref) => {
-  const builderService = useBuilderService()
+  const { builderService } = useApplicationStore()
   const { selectedBuilderWidth } = builderService
 
   const containerStyle = useMemo(

@@ -16,7 +16,6 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
-import { useBuilderService } from '../../services'
 import { queryRenderedElementById } from '../../utils/query-rendered-element-by-id'
 
 const StyledOverlayContainer = styled.div`
@@ -46,9 +45,8 @@ const StyledOverlayButtonGroup = styled.div`
 export const BuilderClickOverlay = observer<{
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ renderContainerRef }) => {
-  const { runtimeElementService } = useApplicationStore()
-  const builderService = useBuilderService()
-  const selectedNode = builderService.selectedNode
+  const { builderService, runtimeElementService } = useApplicationStore()
+  const selectedNode = builderService.selectedNode?.current
   const deleteElementModal = useDeleteElementModal()
 
   if (isServer || !selectedNode || !isRuntimeElement(selectedNode)) {

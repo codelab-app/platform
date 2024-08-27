@@ -1,16 +1,16 @@
 import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import { type IComponentModel } from '@codelab/frontend/abstract/domain'
 import { CreateElementButton } from '@codelab/frontend-application-element/use-cases/create-element'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useBuilderService } from '../../../services'
 
 export const BuilderTreeItemComponentTitle = observer<{
   component: IComponentModel
 }>(({ component }) => {
-  const builderService = useBuilderService()
-  const selectedNode = builderService.selectedNode
+  const { builderService } = useApplicationStore()
+  const selectedNode = builderService.selectedNode?.current
 
   const element =
     selectedNode && isRuntimeElement(selectedNode)

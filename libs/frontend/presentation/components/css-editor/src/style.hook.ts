@@ -1,13 +1,12 @@
 import { isRuntimeElement } from '@codelab/frontend/abstract/application'
-import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'
 
 export const useStyle = () => {
-  const builderService = useBuilderService()
-  const selectedNode = builderService.selectedNode
+  const { builderService } = useApplicationStore()
+  const selectedNode = builderService.selectedNode?.current
   const { runtimeElementService } = useApplicationStore()
 
   const [currentStyles, setCurrentStyles] = useState<{

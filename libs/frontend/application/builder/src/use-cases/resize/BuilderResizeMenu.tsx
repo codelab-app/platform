@@ -7,10 +7,10 @@ import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
 } from '@codelab/frontend/abstract/domain'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/interface'
 import React, { useCallback } from 'react'
-import { useBuilderService } from '../../services/builder.service'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean
@@ -35,7 +35,7 @@ const menuItemCommonStyle = {
 }
 
 export const BuilderResizeMenu = () => {
-  const builderService = useBuilderService()
+  const { builderService } = useApplicationStore()
   const selectedWidthBreakpoint = builderService.selectedBuilderBreakpoint
 
   const handleBreakpointSelected = useCallback(

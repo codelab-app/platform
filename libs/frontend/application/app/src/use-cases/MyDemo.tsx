@@ -1,11 +1,10 @@
 import { useAtomService } from '@codelab/frontend-application-atom/services'
-import { useBuilderService } from '@codelab/frontend-application-builder/services'
 import { useComponentService } from '@codelab/frontend-application-component/services'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 
 export const Demo = () => {
-  const builderService = useBuilderService()
+  const { builderService } = useApplicationStore()
   const atomService = useAtomService()
   const componentService = useComponentService()
   const elementService = useElementService()

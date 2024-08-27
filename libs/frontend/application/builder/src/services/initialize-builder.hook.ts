@@ -7,7 +7,6 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { useBuilderService } from './builder.service'
 
 export const useInitializeBuilder = ({
   containerNode,
@@ -16,8 +15,7 @@ export const useInitializeBuilder = ({
   rendererType: RendererType
   containerNode: IComponentModel | IPageModel
 }) => {
-  const builderService = useBuilderService()
-  const { rendererService } = useApplicationStore()
+  const { builderService, rendererService } = useApplicationStore()
 
   const renderer = rendererService.hydrate({
     containerNode: containerNode,

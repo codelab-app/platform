@@ -1,6 +1,9 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { RendererType } from '@codelab/frontend/abstract/application'
-import { useBuilderService } from '@codelab/frontend-application-builder/services'
+import {
+  RendererType,
+  runtimeElementRef,
+} from '@codelab/frontend/abstract/application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { type MouseEvent, useCallback } from 'react'
 
 /**
@@ -12,7 +15,7 @@ export const useSelectionHandlers = (
   runtimeElement: IRuntimeElementModel,
   rendererType: RendererType,
 ) => {
-  const builderService = useBuilderService()
+  const { builderService } = useApplicationStore()
 
   const handleClick = useCallback(
     (event: MouseEvent) => {
@@ -25,7 +28,7 @@ export const useSelectionHandlers = (
         lastEditedElement.element.current.setIsTextContentEditable(false)
       }
 
-      builderService.selectElementNode(runtimeElement)
+      builderService.selectElementNode(runtimeElementRef(runtimeElement))
     },
     [builderService, runtimeElement],
   )
@@ -44,14 +47,14 @@ export const useSelectionHandlers = (
     (event: MouseEvent) => {
       event.stopPropagation()
 
+      const hoveredNode = builderService.hoveredNode?.current
+
       // To prevent continuous re-rendering when the mouse moves over the same element
-      if (
-        builderService.hoveredNode?.compositeKey === runtimeElement.compositeKey
-      ) {
+      if (hoveredNode?.compositeKey === runtimeElement.compositeKey) {
         return
       }
 
-      builderService.hoverElementNode(runtimeElement)
+      builderService.setHoveredNode(runtimeElementRef(runtimeElement))
     },
     [builderService, runtimeElement],
   )
@@ -60,7 +63,7 @@ export const useSelectionHandlers = (
     (event: MouseEvent) => {
       event.stopPropagation()
 
-      builderService.hoverElementNode(null)
+      builderService.setHoveredNode(null)
     },
     [builderService],
   )
