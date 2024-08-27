@@ -22,8 +22,7 @@ steps:
         - ~/.pnpm-store
   - save_cache:
       name: 'Save node_modules Cache'
-      keys:
-        - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+      key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
       paths:
         - ~/project/node_modules
   # node_modules cache needs to be checked for cache reset before we can save, otherwise nx cache grows too much. This step happens after build

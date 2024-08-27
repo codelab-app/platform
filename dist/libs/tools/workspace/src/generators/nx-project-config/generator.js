@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.nxProjectConfigGenerator = void 0;
 const devkit_1 = require("@nx/devkit");
-const check_lint_config_1 = require("./eslint/check-lint-config");
 const remove_graphql_eslint_config_1 = require("./eslint/remove-graphql-eslint-config");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const project_json_1 = require("./test/project-json");
@@ -29,7 +28,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
         // addGraphqlEslintConfig(tree, projectConfig)
         // addGraphqlExtension(tree, projectConfig)
         (0, remove_graphql_eslint_config_1.removeGraphqlEslintConfig)(tree, projectConfig);
-        (0, check_lint_config_1.checkLintConfig)(tree, projectConfig);
+        // checkLintConfig(tree, projectConfig)
         (0, project_json_1.updateTestConfig)(tree, projectConfig);
         (0, add_project_tags_1.addProjectTags)(tree, projectConfig);
         (0, tsconfig_base_1.updateBaseTsconfig)(tree, projectConfig);
