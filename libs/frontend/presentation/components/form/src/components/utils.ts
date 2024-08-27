@@ -1,7 +1,5 @@
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
-import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
-import { getDefaultStore } from 'jotai'
 import type { MouseEvent } from 'react'
 import type { DeepPartial } from 'uniforms'
 

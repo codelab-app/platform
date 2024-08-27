@@ -1,6 +1,5 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { Card } from 'antd'
-import { observable } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'

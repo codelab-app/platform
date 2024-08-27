@@ -1,5 +1,4 @@
-import { atom, getDefaultStore, useAtom } from 'jotai'
-import React from 'react'
+import { atom, useAtom } from 'jotai'
 
 interface LoadingState {
   error: Error | null

@@ -1,13 +1,10 @@
 'use client'
 
-import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   padding,
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
-import { isServer } from '@codelab/shared/utils'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

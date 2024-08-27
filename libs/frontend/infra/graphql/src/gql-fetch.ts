@@ -1,12 +1,9 @@
 'use server'
 
-import { getDefaultStore } from 'jotai'
 import isArray from 'lodash/isArray'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
-import type { TypedDocumentString } from '@codelab/shared/infra/gql'
 import { getEnv } from '@codelab/shared/config'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
-import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 
 export const gqlFetch = async <TResult, TVariables>(
   // use `.toString()` version of `TypedDocumentString`
