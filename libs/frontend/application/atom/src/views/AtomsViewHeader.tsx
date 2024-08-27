@@ -6,7 +6,6 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Image } from 'antd'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom.state'
 

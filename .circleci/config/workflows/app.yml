@@ -1,10 +1,13 @@
 jobs:
   - setup-workspace:
+      resource_class: large
+      max_old_space_size: 6144
       filters:
         branches:
           only:
             - master
   - hold-deploy:
+      # resource_class: medium
       filters:
         branches:
           only:
@@ -13,6 +16,7 @@ jobs:
       requires:
         - setup-workspace
   - setup-infra-workspace:
+      # resource_class: large
       filters:
         branches:
           only:
@@ -20,6 +24,7 @@ jobs:
       requires:
         - hold-deploy
   - docker-web:
+      # resource_class: large
       filters:
         branches:
           only:
@@ -29,6 +34,7 @@ jobs:
       requires:
         - setup-infra-workspace
   - docker-api:
+      # resource_class: large
       filters:
         branches:
           only:
@@ -38,6 +44,7 @@ jobs:
       requires:
         - setup-infra-workspace
   - docker-sites:
+      # resource_class: large
       filters:
         branches:
           only:
@@ -47,6 +54,7 @@ jobs:
       requires:
         - setup-infra-workspace
   - docker-landing:
+      # resource_class: large
       filters:
         branches:
           only:

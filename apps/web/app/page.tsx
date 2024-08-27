@@ -8,6 +8,12 @@ const HomeView = async () => {
 
   return (
     <div>
+      <button role="button">Click</button>
+
+      <div role="dialog">
+        <button role="button">Submit</button>
+      </div>
+
       <Link
         data-testid="jaeger-link"
         href="http://127.0.0.1:16686"

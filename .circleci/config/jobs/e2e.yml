@@ -1,35 +1,48 @@
+parameters:
+  resource_class:
+    type: string
+  max_old_space_size:
+    type: integer
+
 executor: docker-node-neo4j
-resource_class: medium
+
+resource_class: << parameters.resource_class >>
+
+environment:
+  NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+
 # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
 # parallelism: 4
 steps:
   - restore-workspace
   - run: pnpm npx playwright install-deps
-  - setup_remote_docker:
-      version: default
-      # No need since we're not building anything
-      # Also very expensive in terms of storage
-      # docker_layer_caching: true
+  # - setup_remote_docker:
+  #     version: default
+  # No need since we're not building anything
+  # Also very expensive in terms of storage
+  # docker_layer_caching: true
   - run:
-      name: 'Run E2E Tests'
-      environment:
+      name:
+        'Run E2E Tests'
+
         # https://github.com/cypress-io/circleci-orb/issues/386
-      command: |
-        echo 'export SHARD="$((${CIRCLE_NODE_INDEX}+1))"' >> "$BASH_ENV"
-        source "$BASH_ENV"
+      command: pnpm nx e2e web-e2e -c ci
+      # command: |
+      #   echo 'export SHARD="$((${CIRCLE_NODE_INDEX}+1))"' >> "$BASH_ENV"
+      #   source "$BASH_ENV"
 
-        echo $SHARD;
-        echo $CIRCLE_NODE_TOTAL;
+      #   echo $SHARD;
+      #   echo $CIRCLE_NODE_TOTAL;
 
-        pnpm nx e2e web-e2e -c ci
+      #   pnpm nx e2e web-e2e -c ci
   - store_artifacts:
-      path: ~/project/apps/web-e2e/src/videos
-      destination: playwright/videos
-  - store_artifacts:
-      path: ~/project/apps/web-e2e/src/screenshots
-      destination: playwright/screenshots
-  - store_artifacts:
-      path: ~/project/apps/web-e2e/src/data
-      destination: playwright/data
+      path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
+      destination: playwright-report
+  #   - store_artifacts:
+  #       path: ~/project/dist/.playwright/apps/web-e2e/src/screenshots
+  #       destination: playwright/screenshots
+  #   - store_artifacts:
+  #       path: ~/project/dist/.playwright/apps/web-e2e/src/data
+  #       destination: playwright/data
   - store_test_results:
-      path: ./tmp/reports/e2e
+      path: ~/project/dist/.playwright/apps/web-e2e/test-output

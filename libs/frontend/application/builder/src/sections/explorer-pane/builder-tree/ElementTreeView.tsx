@@ -1,7 +1,6 @@
 import {
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
-  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
@@ -61,7 +60,9 @@ export const ElementTreeView = observer<{
         }
 
         if (node.type !== IRuntimeNodeType.Component) {
-          builderService.setHoveredNode(runtimeElementRef(node.key))
+          const runtimeElement = runtimeElementService.runtimeElement(node.key)
+
+          builderService.setHoveredNode(runtimeElement)
         }
       }}
       onMouseLeave={() => {
@@ -86,7 +87,7 @@ export const ElementTreeView = observer<{
           )
         }
       }}
-      selectedKeys={selectedNode ? [selectedNode.id] : []}
+      selectedKeys={selectedNode ? [selectedNode.$modelId] : []}
       titleRender={(data) => <ElementTreeItemTitle data={data} />}
       treeData={treeData ? [treeData] : []}
     />

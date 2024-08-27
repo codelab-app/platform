@@ -6,6 +6,7 @@ import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/dele
 import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
 import { appListQuery } from '@codelab/frontend-domain-app/repositories'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
 import React from 'react'
@@ -15,22 +16,30 @@ export const metadata: Metadata = {
   title: 'Apps | Codelab',
 }
 
+// export const dynamic = 'force-dynamic'
+
 const AppsRoute = async () => {
-  const [{ items: apps }, { items: atoms }] = await Promise.all([
+  const [{ items: appsDto }, { items: atomsDto }] = await Promise.all([
     appListQuery(),
     defaultAtomQuery(),
   ])
 
   return (
-    <StoreHydrator apps={apps} atoms={atoms}>
+    <>
       <CreateAppModal />
       <DeleteAppModal />
       <UpdateAppModal />
       <BuildAppModal />
       <ContentSection>
-        <AppList />
+        <StoreHydrator
+          appsDto={appsDto}
+          atomsDto={atomsDto}
+          fallback={<Spinner center isLoading />}
+        >
+          <AppList />
+        </StoreHydrator>
       </ContentSection>
-    </StoreHydrator>
+    </>
   )
 }
 

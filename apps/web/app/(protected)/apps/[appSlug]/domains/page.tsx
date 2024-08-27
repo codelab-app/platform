@@ -4,6 +4,7 @@ import {
   DomainList,
   domainListQuery,
 } from '@codelab/frontend-application-domain/use-cases/domain-list'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
 import React from 'react'
@@ -21,16 +22,17 @@ const DomainsPage = async ({
   const { apps } = await domainListQuery({ slug: appSlug })
 
   return (
-    <StoreHydrator apps={apps}>
+    <>
       <CreateDomainModal />
       {/*
         <DeleteDomainModal />
         <UpdateDomainModal /> */}
-
       <ContentSection>
-        <DomainList />
+        <StoreHydrator appsDto={apps} fallback={<Spinner center isLoading />}>
+          <DomainList />
+        </StoreHydrator>
       </ContentSection>
-    </StoreHydrator>
+    </>
   )
 }
 

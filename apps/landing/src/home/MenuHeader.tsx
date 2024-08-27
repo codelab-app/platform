@@ -22,7 +22,6 @@ export enum PageType {
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
  */
 export const HomeMenuHeader = () => {
-  // const { user } = useUser()
   const user = false
   const [collapsed, setCollapsed] = useState(true)
   const isMobileOrTablet = useMobileOrTabletMediaQuery()

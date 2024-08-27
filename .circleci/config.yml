@@ -2,9 +2,11 @@ commands:
   build-repo:
     description: Build Repo
     steps:
-      - nx/set-shas
+      - nx/set-shas:
+          main-branch-name: master
       - run: echo $CIRCLE_API_TOKEN
-      - run: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail --verbose
+      - run:
+          command: pnpm nx run-many --target=build --projects=cli,web,api --parallel=3 -c ci --nx-bail
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -141,6 +143,7 @@ executors:
   docker-node-neo4j:
     docker:
       - image: cimg/node:18.18.0-browsers
+        name: 127.0.0.1
       - command:
           - neo4j
           - start
@@ -172,7 +175,10 @@ jobs:
           name: Terraform Apply
   codegen:
     executor: docker-node-neo4j
-    resource_class: medium
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -234,67 +240,32 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
           name: Push Docker Image
   e2e:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node-neo4j
-    resource_class: medium
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run: pnpm npx playwright install-deps
-      - setup_remote_docker:
-          version: default
       - run:
-          command: |
-            echo 'export SHARD="$((${CIRCLE_NODE_INDEX}+1))"' >> "$BASH_ENV"
-            source "$BASH_ENV"
-
-            echo $SHARD;
-            echo $CIRCLE_NODE_TOTAL;
-
-            pnpm nx e2e web-e2e -c ci
-          environment: null
+          command: pnpm nx e2e web-e2e -c ci
           name: Run E2E Tests
       - store_artifacts:
-          destination: playwright/videos
-          path: ~/project/apps/web-e2e/src/videos
-      - store_artifacts:
-          destination: playwright/screenshots
-          path: ~/project/apps/web-e2e/src/screenshots
-      - store_artifacts:
-          destination: playwright/data
-          path: ~/project/apps/web-e2e/src/data
+          destination: playwright-report
+          path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
       - store_test_results:
-          path: ./tmp/reports/e2e
-  e2e-cypress:
-    executor: docker-node-neo4j
-    parallelism: 4
-    resource_class: large
-    steps:
-      - restore-workspace
-      - setup_remote_docker:
-          version: default
-      - run: pnpm cypress install
-      - run: pnpm cypress verify
-      - run:
-          command: |
-            echo 'export CI_BUILD_ID="$(echo ${CIRCLE_SHA1:0:8})-${CIRCLE_BUILD_NUM}"' >> "$BASH_ENV"
-            source "$BASH_ENV"
-            echo "CI Build ID: $CI_BUILD_ID"
-            pnpm nx e2e e2e -c ci --ci-build-id=$CI_BUILD_ID
-          environment: null
-          name: Run E2E Tests
-      - store_artifacts:
-          destination: cypress/videos
-          path: ~/project/apps/e2e/src/videos
-      - store_artifacts:
-          destination: cypress/screenshots
-          path: ~/project/apps/e2e/src/screenshots
-      - store_artifacts:
-          destination: cypress/data
-          path: ~/project/apps/e2e/src/data
-      - store_test_results:
-          path: ./tmp/reports/e2e
+          path: ~/project/dist/.playwright/apps/web-e2e/test-output
   integration:
     executor: docker-node-neo4j
-    resource_class: large
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -310,7 +281,10 @@ jobs:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
     executor: docker-node-neo4j
-    resource_class: large
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -333,6 +307,10 @@ jobs:
           template: basic_fail_1
   notify-success:
     executor: docker-node
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - slack/notify:
           channel: $SLACK_CHANNEL_UPDATE
@@ -458,8 +436,15 @@ jobs:
             - .docker/config.json
           root: ~/
   setup-workspace:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node
-    resource_class: large
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - checkout
       - setup-env
@@ -474,7 +459,10 @@ jobs:
           root: ~/
   unit:
     executor: docker-node
-    resource_class: large
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
       - run:
@@ -500,6 +488,8 @@ workflows:
             branches:
               only:
                 - master
+          max_old_space_size: 6144
+          resource_class: large
       - hold-deploy:
           filters:
             branches:
@@ -586,6 +576,8 @@ workflows:
               ignore:
                 - master
                 - staging
+          max_old_space_size: 6144
+          resource_class: large
       - lint:
           filters:
             branches:
@@ -594,6 +586,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: large
       - codegen:
           filters:
             branches:
@@ -602,6 +595,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: medium
       - unit:
           filters:
             branches:
@@ -610,6 +604,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: large
       - integration:
           filters:
             branches:
@@ -618,14 +613,17 @@ workflows:
                 - staging
           requires:
             - setup-workspace
+          resource_class: large
       - e2e:
           filters:
             branches:
               ignore:
                 - master
                 - staging
+          max_old_space_size: 4096
           requires:
             - setup-workspace
+          resource_class: large
       - notify-success:
           filters:
             branches:
@@ -638,6 +636,7 @@ workflows:
             - unit
             - integration
             - e2e
+          resource_class: medium
   infra-pr:
     jobs:
       - setup-workspace:
@@ -645,6 +644,8 @@ workflows:
             branches:
               only:
                 - staging
+          max_old_space_size: 6144
+          resource_class: large
       - setup-infra-workspace:
           filters:
             branches:

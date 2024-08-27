@@ -1,9 +1,14 @@
 
 #!/bin/bash
+
+#
 # Git settings
+#
 echo "export GIT_COMMIT_MSG=$(git log --format=format:\"%s\" -n 1 ${CIRCLE_SHA1})" >> $BASH_ENV
 
+#
 # Global environments
+#
 echo "export COLOR_FAILURE='#ffccc7'" >> $BASH_ENV
 echo "export COLOR_SUCCESS='#b7eb8f'" >> $BASH_ENV
 
@@ -25,7 +30,10 @@ echo "export NEO4J_PASSWORD=password" >> $BASH_ENV
 echo "export NEO4J_URI=bolt://127.0.0.1:7687" >> $BASH_ENV
 echo "export NEO4J_USER=neo4j" >> $BASH_ENV
 
+#
 # Slack settings
+#
+
 if [ "$CIRCLE_USERNAME" == "$GITHUB_VLADSLAV" ]; then
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_VLADSLAV}\>" >> $BASH_ENV
 elif [ "$CIRCLE_USERNAME" == "$GITHUB_ASSIM" ]; then
@@ -38,5 +46,6 @@ else
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_WEBBER}\>" >> $BASH_ENV
 fi
 
+# Done
 source $BASH_ENV
 

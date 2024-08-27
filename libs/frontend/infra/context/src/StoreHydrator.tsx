@@ -2,25 +2,45 @@
 
 import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  Stage,
+  usePerformanceMark,
+  usePerformanceReport,
+} from '@shopify/react-performance'
 import { observer } from 'mobx-react-lite'
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 
-export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
+type StoreHydratorProps = IHydrateableData & {
+  children: ReactNode
+  fallback: ReactNode
+}
+
+/**
+ * Server side renders all UI down the tree, but does not run `useEffect` until client.
+ *
+ * If we don't have fallback, it will assume all has been hydrated and render empty apps, but in fact we are still hydrating.
+ *
+ * Use a loading state to show fallback while hydrating
+ *
+ * Client components with `useEffect` will still render on server! This can be confusing
+ */
+export const StoreHydrator = observer<StoreHydratorProps>(
   ({
-    actions,
-    apps,
-    atoms,
-    authGuards,
+    actionsDto,
+    appsDto,
+    atomsDto,
+    authGuardsDto,
     children,
-    components,
-    elements,
-    fields,
-    pages,
-    redirects,
-    resources,
-    stores,
-    types,
+    componentsDto,
+    elementsDto,
+    fallback,
+    fieldsDto,
+    pagesDto,
+    redirectsDto,
+    resourcesDto,
+    storesDto,
+    typesDto,
   }) => {
     const {
       actionDomainService,
@@ -41,54 +61,58 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
     const [isHydrated, setIsHydrated] = useState(false)
 
     const hydrate = useCallback(() => {
-      atoms?.forEach((atom) => atomDomainService.hydrate(atom))
+      atomsDto?.forEach((atom) => atomDomainService.hydrate(atom))
 
-      types?.forEach((type) => typeDomainService.hydrate(type))
+      typesDto?.forEach((type) => typeDomainService.hydrate(type))
 
-      fields?.forEach((field) => fieldDomainService.hydrate(field))
+      fieldsDto?.forEach((field) => fieldDomainService.hydrate(field))
 
-      elements?.forEach((element) => elementDomainService.hydrate(element))
+      elementsDto?.forEach((element) => elementDomainService.hydrate(element))
 
-      components?.forEach((component) =>
+      componentsDto?.forEach((component) =>
         componentDomainService.hydrate(component),
       )
 
-      stores?.forEach((store) => storeDomainService.hydrate(store))
+      storesDto?.forEach((store) => storeDomainService.hydrate(store))
 
-      actions?.forEach((action) => actionDomainService.hydrate(action))
+      actionsDto?.forEach((action) => actionDomainService.hydrate(action))
 
-      resources?.forEach((resource) => resourceDomainService.hydrate(resource))
+      resourcesDto?.forEach((resource) =>
+        resourceDomainService.hydrate(resource),
+      )
 
-      authGuards?.forEach((authGuard) =>
+      authGuardsDto?.forEach((authGuard) =>
         authGuardDomainService.hydrate(authGuard),
       )
 
-      redirects?.forEach((redirect) => redirectDomainService.hydrate(redirect))
+      redirectsDto?.forEach((redirect) =>
+        redirectDomainService.hydrate(redirect),
+      )
 
-      apps?.forEach((app) => appDomainService.hydrate(app))
+      appsDto?.forEach((app) => appDomainService.hydrate(app))
 
-      pages?.forEach((page) => pageDomainService.hydrate(page))
+      pagesDto?.forEach((page) => pageDomainService.hydrate(page))
 
-      apps
+      appsDto
         ?.flatMap((app) => app.pages ?? [])
         .forEach((page) => pageDomainService.hydrate(page))
 
-      apps
+      appsDto
         ?.flatMap((app) => app.domains ?? [])
         .forEach((domain) => domainDomainService.hydrate(domain))
     }, [
-      actions,
-      apps,
-      atoms,
-      authGuards,
-      components,
-      elements,
-      fields,
-      redirects,
-      resources,
-      stores,
-      types,
-      pages,
+      actionsDto,
+      appsDto,
+      atomsDto,
+      authGuardsDto,
+      componentsDto,
+      elementsDto,
+      fieldsDto,
+      redirectsDto,
+      resourcesDto,
+      storesDto,
+      typesDto,
+      pagesDto,
     ])
 
     useEffect(() => {
@@ -98,6 +122,6 @@ export const StoreHydrator = observer<PropsWithChildren<IHydrateableData>>(
 
     // do not render children untill the store is hydrated with all the
     // specified entities. Othervise `assertIsDefined` may break the application
-    return isHydrated ? <>{children}</> : null
+    return isHydrated ? <>{children}</> : <>{fallback}</>
   },
 )

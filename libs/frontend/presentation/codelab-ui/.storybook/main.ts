@@ -3,12 +3,25 @@ import type { StorybookConfig } from '@storybook/react-vite'
 import { mergeConfig } from 'vite'
 
 const config: StorybookConfig = {
-  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
+  ],
+
+  docs: {},
+
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+
+  stories: ['../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+  },
+
   viteFinal: async (conf) =>
     mergeConfig(conf, {
       plugins: [nxViteTsPaths()],

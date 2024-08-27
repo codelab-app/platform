@@ -3,6 +3,7 @@ import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app
 import { PageBuilderPreview } from '@codelab/frontend-application-builder/use-cases/page-builder-preview'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import React from 'react'
 
 const PagePreviewPage = async ({
@@ -18,19 +19,20 @@ const PagePreviewPage = async ({
 
   return (
     <StoreHydrator
-      actions={dto.actions}
-      apps={[dto.app]}
-      atoms={dto.atoms}
-      authGuards={dto.authGuards}
-      components={dto.components}
-      elements={dto.elements}
-      fields={dto.fields}
-      pages={dto.pages}
-      props={dto.props}
-      redirects={dto.redirects}
-      resources={dto.resources}
-      stores={dto.stores}
-      types={dto.types}
+      actionsDto={dto.actions}
+      appsDto={[dto.app]}
+      atomsDto={dto.atoms}
+      authGuardsDto={dto.authGuards}
+      componentsDto={dto.components}
+      elementsDto={dto.elements}
+      fallback={<Spinner center isLoading />}
+      fieldsDto={dto.fields}
+      pagesDto={dto.pages}
+      propsDto={dto.props}
+      redirectsDto={dto.redirects}
+      resourcesDto={dto.resources}
+      storesDto={dto.stores}
+      typesDto={dto.types}
     >
       {/* Decouple renderer from builder */}
       <PageBuilderPreview RootRenderer={RootRenderer} pageSlug={pageSlug} />

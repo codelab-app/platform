@@ -1,6 +1,6 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import { ariaLabels } from '@codelab/frontend-application-shared-data'
 import { Card } from 'antd'
+import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
 import { AppListItemDropdown } from './AppListItemDropdown'
@@ -10,11 +10,9 @@ export interface AppListItemProps {
   app: IAppModel
 }
 
-export const AppListItem = ({ app }: AppListItemProps) => {
-  const { link, root } = ariaLabels.appListItem
-
+export const AppListItem = observer(({ app }: AppListItemProps) => {
   const Title = (
-    <Link aria-label={link(app.name)} href="/apps">
+    <Link aria-label={app.name} href="/apps">
       {app.name}
     </Link>
   )
@@ -22,8 +20,8 @@ export const AppListItem = ({ app }: AppListItemProps) => {
   const Dropdown = <AppListItemDropdown app={app} />
 
   return (
-    <Card aria-label={app.slug} extra={Dropdown} title={Title}>
+    <Card aria-label={app.name} extra={Dropdown} role="article" title={Title}>
       <DomainList app={app} />
     </Card>
   )
-}
+})

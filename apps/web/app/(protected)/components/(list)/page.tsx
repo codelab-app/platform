@@ -4,6 +4,7 @@ import { atomListQuery } from '@codelab/frontend-application-atom/use-cases/get-
 import { ComponentsPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 import { componentListQuery } from '@codelab/frontend-application-component/use-cases/component-list'
 import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 import React from 'react'
@@ -19,7 +20,11 @@ const ComponentsRoute = async () => {
   ])
 
   return (
-    <StoreHydrator atoms={atoms} components={components}>
+    <StoreHydrator
+      atomsDto={atoms}
+      componentsDto={components}
+      fallback={<Spinner center isLoading />}
+    >
       <DashboardTemplate
         Header={<ComponentDetailHeader />}
         PrimarySidebar={{

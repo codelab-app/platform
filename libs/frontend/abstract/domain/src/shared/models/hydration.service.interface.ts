@@ -22,18 +22,20 @@ export interface IHydrateable<Dto, Model> {
 }
 
 export interface IHydrateableData {
-  actions?: StoreFragment['actions']
-  apps?: Array<IAppDto>
-  atoms?: Array<AtomBuilderFragment>
-  authGuards?: Array<AuthGuardFragment>
-  components?: Array<ComponentBuilderFragment | IComponentDto>
-  elements?: Array<ElementFragment & { closestContainerNode: { id: string } }>
-  fields?: Array<FieldFragment>
+  actionsDto?: StoreFragment['actions']
+  appsDto?: Array<IAppDto>
+  atomsDto?: Array<AtomBuilderFragment>
+  authGuardsDto?: Array<AuthGuardFragment>
+  componentsDto?: Array<ComponentBuilderFragment | IComponentDto>
+  elementsDto?: Array<
+    ElementFragment & { closestContainerNode: { id: string } }
+  >
+  fieldsDto?: Array<FieldFragment>
   // pages?: Array<PageDevelopmentFragment>
-  pages?: Array<IPageDto>
-  props?: Array<PropFragment>
-  redirects?: Array<RedirectFragment>
-  resources?: Array<ResourceFragment>
-  stores?: Array<StoreFragment & { component?: IRef; page?: IRef }>
-  types?: Array<TypeFragment>
+  pagesDto?: Array<IPageDto>
+  propsDto?: Array<PropFragment>
+  redirectsDto?: Array<RedirectFragment>
+  resourcesDto?: Array<ResourceFragment>
+  storesDto?: Array<StoreFragment & { component?: IRef; page?: IRef }>
+  typesDto?: Array<TypeFragment>
 }

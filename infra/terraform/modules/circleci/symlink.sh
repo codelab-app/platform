@@ -10,7 +10,7 @@ ln -s ../codelab-api/shared/vars-api-port.tf ./vars-codelab-api-port.symlink.tf
 ln -s ../auth0/shared/vars-secret.tf ./vars-auth0-secret.symlink.tf
 ln -s ../auth0/shared/vars-web-client.tf ./vars-auth0-web-client.symlink.tf
 ln -s ../auth0/shared/vars-machine-client.tf ./vars-auth0-machine-client.symlink.tf
-ln -s ../auth0/vars-cypress-user.tf ./vars-auth0-cypress-user.symlink.tf
+ln -s ../auth0/vars-e2e-user.tf ./vars-auth0-e2e-user.symlink.tf
 ln -s ../slack/vars.tf ./vars-slack.symlink.tf
 ln -s ../nx/vars.tf ./vars-nx.symlink.tf
 ln -s ../cypress/vars.tf ./vars-cypress.symlink.tf

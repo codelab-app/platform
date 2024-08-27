@@ -593,6 +593,16 @@ export const UiDataRecord = {
     key: 'search-pagination-toolbar-item',
     label: 'Search Pagination Toolbar Item',
   },
+  // Confirmation
+  [UiKey.ConfirmationButton]: {
+    key: 'confirmation-button',
+    label: 'Confirmation Button',
+  },
+  // Loader
+  [UiKey.GlobalProgressBar]: {
+    key: 'global-progress-bar',
+    label: 'Global Progress Bar',
+  },
 } as const
 
 // For type checking purposes, need to let UiAction to infer type so `UiActionKeys` can be a literal

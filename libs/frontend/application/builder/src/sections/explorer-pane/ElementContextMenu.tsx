@@ -1,6 +1,5 @@
 'use client'
 
-import { useUser } from '@auth0/nextjs-auth0/client'
 import type {
   IElementTreeViewDataNode,
   IRuntimeComponentModel,
@@ -13,6 +12,7 @@ import { useComponentService } from '@codelab/frontend-application-component/ser
 import { useCloneElementService } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   useApplicationStore,
@@ -52,7 +52,7 @@ export const ElementContextMenu = observer<
 
   const createElementForm = useCreateElementForm()
   const deleteElementModal = useDeleteElementModal()
-  const { user } = useUser()
+  const user = useUser()
   const { popover } = useCui()
 
   const [contextMenuItemId, setContextMenuNodeId] =
@@ -84,7 +84,7 @@ export const ElementContextMenu = observer<
   }
 
   const onDuplicate = async () => {
-    if (!user?.sub || !element.closestParentElement) {
+    if (!user.auth0Id || !element.closestParentElement) {
       return
     }
 
@@ -95,7 +95,7 @@ export const ElementContextMenu = observer<
   }
 
   const onConvert = async () => {
-    if (!user?.sub) {
+    if (!user.auth0Id) {
       return
     }
 

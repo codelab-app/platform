@@ -91,9 +91,5 @@ export class SeederApplicationService {
         new ImportAtomCommand(atom),
       )
     }
-
-    // await this.commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
-    //   new ImportCypressAtomsCommand(),
-    // )
   }
 }

@@ -5,7 +5,6 @@ import { Logo } from '../logo/Logo'
 import { menuItems } from './MenuContainer'
 
 export const MenuDesktop = () => {
-  // const { user } = useUser()
   const user = false
 
   return (

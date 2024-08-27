@@ -1,7 +1,7 @@
 'use client'
 
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
-import { Button, Dropdown, Menu } from 'antd'
+import { Button, Dropdown } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ToolbarItem, ToolbarProps } from '../../abstract'
 import { CuiHeaderToolbarItem } from './CuiHeaderToolbarItem'
@@ -43,20 +43,13 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
     }
   }, [items])
 
-  const menu = (
-    <Menu>
-      {overflowItems.map((item, index) => (
-        <Menu.Item
-          aria-label={item.ariaLabel}
-          icon={item.icon}
-          key={index}
-          title={item.title}
-        >
-          {item.title}
-        </Menu.Item>
-      ))}
-    </Menu>
-  )
+  const menuItems = overflowItems.map((item, index) => ({
+    'aria-label': item.ariaLabel,
+    icon: item.icon,
+    key: index,
+    label: item.title,
+    title: item.title,
+  }))
 
   return (
     <div className="flex w-full justify-end" data-cy="cui-toolbar">
@@ -76,7 +69,7 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
         ))}
       </div>
       {showDropdown && (
-        <Dropdown overlay={menu} trigger={['click']}>
+        <Dropdown menu={{ items: menuItems }} trigger={['click']}>
           <Button className="px-2 py-1">
             <EllipsisOutlined />
           </Button>

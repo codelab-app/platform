@@ -15,7 +15,7 @@ export const useDomainStore = () => {
 
   if (!store) {
     throw new Error(
-      'useStore must be used within a StoreProvider with a non-null value',
+      'useDomainStore must be used within a StoreProvider with a non-null value',
     )
   }
 

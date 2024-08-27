@@ -1,2 +1,6 @@
 export * from './RootProviders'
 export * from './StoreHydrator'
+export * from './StyledComponentsRegistry'
+export * from './StyleProviders'
+export * from './theme'
+export * from './useStoreHydrator.hook'

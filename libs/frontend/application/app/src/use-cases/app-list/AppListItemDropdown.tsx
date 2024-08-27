@@ -99,6 +99,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
       <Button
         aria-label="More options"
         icon={<EllipsisOutlined />}
+        role="button"
         shape="circle"
         type="text"
       />

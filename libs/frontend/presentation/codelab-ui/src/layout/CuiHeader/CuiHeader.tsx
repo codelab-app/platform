@@ -23,13 +23,13 @@ export const CuiHeader = ({
         </div>
         <div className="relative h-full flex-1 p-1">
           <Row className="h-full" justify="space-between">
-            <Col className="h-full" span={4}>
+            <Col className="h-full" sm={6} span={12}>
               {direction}
             </Col>
-            <Col className="h-full" span={8}>
+            <Col className="h-full" sm={12} span={0}>
               {centralArea}
             </Col>
-            <Col className="h-full" span={4}>
+            <Col className="h-full" sm={6} span={12}>
               {toolbar}
             </Col>
           </Row>

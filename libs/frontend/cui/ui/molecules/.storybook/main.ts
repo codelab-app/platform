@@ -9,12 +9,22 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-themes',
     '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
   ],
+
+  docs: {},
+
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+
+  stories: ['../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+  },
+
   viteFinal: async (finalConfig) => {
     const tailwindConfig = path.resolve(__dirname, './tailwind.config.js')
 
