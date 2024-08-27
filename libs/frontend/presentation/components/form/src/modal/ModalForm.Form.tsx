@@ -1,11 +1,11 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import {
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'

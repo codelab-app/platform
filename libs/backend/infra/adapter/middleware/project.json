@@ -10,6 +10,9 @@
     "layer:infra",
     "scope:backend"
   ],
-  "// targets": "to see all targets run: nx show project backend-infra-adapter-middleware --web",
-  "targets": {}
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }

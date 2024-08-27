@@ -2,10 +2,8 @@ import {
   auth0ServerInstance,
   checkExpiry,
 } from '@codelab/shared-infra-auth0/server'
-import type { NextMiddlewareResult } from 'next/dist/server/web/types'
 import {
   type NextFetchEvent,
-  type NextMiddleware,
   type NextRequest,
   NextResponse,
 } from 'next/server'

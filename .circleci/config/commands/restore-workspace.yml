@@ -3,11 +3,12 @@ steps:
   - checkout
   - attach_workspace:
       at: ~/
-  - restore_cache:
-      name: 'Restore node_modules Cache'
-      keys:
-        - node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
-  - restore_cache:
+    - restore_cache:
+        name: 'Restore node_modules Cache'
+        keys:
+          - node-modules-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-
+          - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+          - node-modules-cache-
       name: 'Restore NVM Cache'
       keys:
         - nvm-cache-{{ checksum ".nvmrc" }}

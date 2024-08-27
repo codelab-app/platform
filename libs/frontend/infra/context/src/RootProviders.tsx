@@ -2,15 +2,15 @@
 
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
+import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import {
-  ApplicationStoreProvider,
-  DomainStoreProvider,
+  createRootStore,
+  RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
 import type { IUserDto } from '@codelab/shared/abstract/core'
 import { Provider } from 'jotai'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
-import { StyleProviders } from './StyleProviders'
+import React, { useMemo } from 'react'
 
 export const RootProviders = ({
   children,
@@ -23,7 +23,7 @@ export const RootProviders = ({
     <UserProvider>
       <CuiProvider>
         <Provider>
-            <RootStoreProvider value={rootStore}>{children}</RootStoreProvider>
+          <RootStoreProvider value={rootStore}>{children}</RootStoreProvider>
         </Provider>
       </CuiProvider>
     </UserProvider>
