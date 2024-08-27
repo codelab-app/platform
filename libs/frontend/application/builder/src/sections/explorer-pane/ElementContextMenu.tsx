@@ -4,7 +4,10 @@ import type {
   IElementTreeViewDataNode,
   IRuntimeComponentModel,
 } from '@codelab/frontend/abstract/application'
-import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeComponent,
+  runtimeComponentRef,
+} from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -115,7 +118,8 @@ export const ElementContextMenu = observer<
         child.component.id === element.renderType.id,
     )
 
-    runtimeComponent && builderService.selectComponentNode(runtimeComponent)
+    runtimeComponent &&
+      builderService.selectComponentNode(runtimeComponentRef(runtimeComponent))
   }
 
   const menuItems = [

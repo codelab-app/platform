@@ -1,6 +1,7 @@
 import {
   rendererRef,
   type RendererType,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -26,7 +27,7 @@ export const useInitializeBuilder = ({
   rendererService.setActiveRenderer(rendererRef(renderer.id))
 
   builderService.selectElementNode(
-    renderer.runtimeRootContainerNode.runtimeRootElement,
+    runtimeElementRef(renderer.runtimeRootContainerNode.runtimeRootElement),
   )
 
   void renderer.expressionTransformer.init()
