@@ -1,13 +1,8 @@
 'use client'
 
-import type {
-  IAppModel,
-  IDomainStore,
-  IHydrateableData,
-} from '@codelab/frontend/abstract/domain'
+import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { isServer } from '@codelab/shared/utils'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 /**
  * A previous version of this called the hydrate synchronously without useEffect, but this causes delay and doesn't render immediately

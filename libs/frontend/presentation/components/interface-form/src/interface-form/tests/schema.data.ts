@@ -3,11 +3,14 @@ import merge from 'lodash/merge'
 import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
   actionType,
+  appType,
+  codeMirrorType,
   elementType,
   enumFieldWithDefaultValue,
   enumType,
   intFieldWithRequiredValue,
   intType,
+  pageType,
   reactNodeType,
   renderPropType,
   richTextType,
@@ -17,28 +20,23 @@ import {
 
 export const stringTypeExpectedSchema = {
   type: 'string',
-  uniforms: expect.any(Object),
 }
 
 export const intTypeExpectedSchema = {
   type: 'integer',
-  uniforms: expect.any(Object),
 }
 
 export const booleanTypeExpectedSchema = {
   default: false,
   type: 'boolean',
-  uniforms: expect.any(Object),
 }
 
 export const appTypeExpectedSchema = {
-  type: 'string',
-  uniforms: expect.any(Object),
+  ...createTypedPropTypeExpectedSchema(appType.kind, appType.id),
 }
 
 export const pageTypeExpectedSchema = {
-  type: 'string',
-  uniforms: expect.any(Object),
+  ...createTypedPropTypeExpectedSchema(pageType.kind, pageType.id),
 }
 
 export const actionTypeExpectedSchema = {
@@ -58,8 +56,7 @@ export const richTextTypeExpectedSchema = {
 }
 
 export const codeMirrorTypeExpectedSchema = {
-  type: 'string',
-  uniforms: expect.any(Object),
+  ...createTypedPropTypeExpectedSchema(codeMirrorType.kind, codeMirrorType.id),
 }
 
 export const elementTypeExpectedSchema = {
@@ -69,13 +66,11 @@ export const elementTypeExpectedSchema = {
 export const enumTypeExpectedSchema = {
   enum: enumType.allowedValues.map(({ value }) => value),
   type: 'string',
-  uniforms: expect.any(Object),
 }
 
 export const arrayTypeExpectedSchema = {
   items: {},
   type: 'array',
-  uniforms: expect.any(Object),
 }
 
 export const unionTypeExpectedSchema = {
@@ -95,7 +90,6 @@ export const unionTypeExpectedSchema = {
       { properties: { value: intTypeExpectedSchema } },
     ),
   ],
-  uniforms: expect.any(Object),
 }
 
 export const interfaceWithUnionExpectedSchema = {
@@ -120,21 +114,18 @@ export const interfaceWithRequiredDefaultFieldValuesExpectedSchema = {
       default: enumFieldWithDefaultValue.defaultValues,
       label: 'Enum field',
       type: 'string',
-      uniforms: expect.any(Object),
     },
     intField: {
       ...intTypeExpectedSchema,
       label: 'Int field',
       nullable: false,
       type: 'integer',
-      uniforms: expect.any(Object),
     },
     stringField: {
       ...stringTypeExpectedSchema,
       default: stringFieldWithDefaultValue.defaultValues,
       label: 'String field',
       type: 'string',
-      uniforms: expect.any(Object),
     },
   },
   required: [intFieldWithRequiredValue.key],

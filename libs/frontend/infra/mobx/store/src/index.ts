@@ -1,4 +1,2 @@
-export * from './providers/ApplicationStoreProvider'
-export * from './providers/DomainStoreProvider'
-export * from './providers/TestStoreProvider'
-export * from './stores/test.store'
+export * from './providers'
+export * from './stores'

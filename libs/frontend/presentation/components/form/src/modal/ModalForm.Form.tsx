@@ -1,6 +1,10 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import {
+  connectUniformSubmitRef,
+  createBridge,
+} from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import throttle from 'lodash/throttle'
 import type { ReactElement } from 'react'
@@ -8,10 +12,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'
-import {
-  connectUniformSubmitRef,
-  createBridge,
-} from '../hooks/uniformUtils.hook'
 import { ModalFormContext } from './modal-form.context'
 
 /**

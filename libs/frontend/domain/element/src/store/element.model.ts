@@ -22,6 +22,7 @@ import {
   isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
+import { createValidator } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
@@ -301,6 +302,15 @@ export class Element
       this.parentComponent?.maybeCurrent?.name ||
       ''
     )
+  }
+
+  @computed
+  get propsHaveErrors() {
+    const schema = this.renderType.current.api.current.toJsonSchema({})
+    const validate = createValidator(schema)
+    const result = validate(this.props.values)
+
+    return result ? result.details.length > 0 : false
   }
 
   @computed

@@ -3,16 +3,18 @@ import type {
   IRuntimeElementStyleModel,
 } from '@codelab/frontend/abstract/application'
 import {
-  BuilderWidthBreakPoint,
   CssMap,
-  defaultBuilderWidthBreakPoints,
   ElementStylePseudoClass,
   getBuilderService,
   getRendererService,
   IElementStyle,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import {
+  BuilderWidthBreakPoint,
+  defaultBuilderWidthBreakPoints,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

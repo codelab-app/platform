@@ -1,4 +1,8 @@
-import type { IElementTypeModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IElementTypeModel,
+  JsonSchema,
+  TransformContext,
+} from '@codelab/frontend/abstract/domain'
 import type {
   IElementTypeDto,
   IElementTypeKind,
@@ -6,6 +10,7 @@ import type {
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
 const create = ({ elementKind, id, kind, name }: IElementTypeDto) => {
@@ -42,6 +47,10 @@ export class ElementType
       ...super.toCreateInput(),
       elementKind: this.elementKind,
     }
+  }
+
+  toJsonSchema(context: TransformContext): JsonSchema {
+    return typedPropSchema(this, context)
   }
 
   toUpdateInput() {

@@ -4,37 +4,18 @@ import {
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import { schemaTransformer } from '@codelab/frontend/presentation/components/interface-form'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
-import { createValidator } from '@codelab/frontend-presentation-components-form'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'
-
-export const propsHaveErrors = (element?: IElementModel) => {
-  if (!element) {
-    return false
-  }
-
-  const { props, renderType } = element
-  const schema = schemaTransformer.transform(renderType.current.api.current)
-  const validate = createValidator(schema)
-  const result = validate(props.values)
-
-  return result ? result.details.length > 0 : false
-}
 
 export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
-  const { rendererService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
 
   const createElement = async (data: IElementDto) => {
@@ -125,7 +106,6 @@ export const useElementService = (): IElementService => {
     getElement,
     loadDependantTypes,
     move,
-    propsHaveErrors,
     syncModifiedElements,
     update,
   }

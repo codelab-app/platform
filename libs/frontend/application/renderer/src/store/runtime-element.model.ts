@@ -23,7 +23,6 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { propsHaveErrors } from '@codelab/frontend-application-element/services'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
@@ -305,7 +304,7 @@ export class RuntimeElementModel
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? 'Something went wrong in a parent element'
-      : propsHaveErrors(element)
+      : element.propsHaveErrors
       ? 'Some props are not correctly set'
       : undefined
 

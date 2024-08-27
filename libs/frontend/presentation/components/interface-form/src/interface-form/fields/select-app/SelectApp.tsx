@@ -1,12 +1,12 @@
 'use client'
 
+import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import {
   AppListDocument,
   type AppListQuery,
   type AppListQueryVariables,
 } from '@codelab/shared/infra/gql'
-import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 

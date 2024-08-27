@@ -1,13 +1,31 @@
 import type {
   IApplicationStore,
   IRendererDto,
-  ITestStore,
+  IRootStore,
 } from '@codelab/frontend/abstract/application'
 import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { IDomainStore } from '@codelab/frontend/abstract/domain'
+import {
+  actionDomainServiceContext,
+  appDomainServiceContext,
+  atomDomainServiceContext,
+  authGuardDomainServiceContext,
+  componentDomainServiceContext,
+  domainDomainServiceContext,
+  elementDomainServiceContext,
+  fieldDomainServiceContext,
+  IDomainStore,
+  pageDomainServiceContext,
+  redirectDomainServiceContext,
+  resourceDomainServiceContext,
+  storeDomainServiceContext,
+  tagDomainServiceContext,
+  typeDomainServiceContext,
+  userDomainServiceContext,
+} from '@codelab/frontend/abstract/domain'
+import { userDto } from '@codelab/frontend/test/data'
 import { rendererFactory } from '@codelab/frontend-application-renderer/test'
 import {
   apiActionFactory,
@@ -57,7 +75,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { userDto } from '@codelab/shared/data/test'
 import { assertIsDefined, throwIfUndefined } from '@codelab/shared/utils'
 import {
   Model,
@@ -77,16 +94,16 @@ export const createTestStore = () => {
     showDuplicateModelNameWarnings: false,
   })
 
-  const applicationStore = createApplicationStore()
   const domainStore = createDomainStore(userDto)
+  const applicationStore = createApplicationStore({ params: {}, query: {} })
 
-  @model('@codelab/TestStore')
-  class TestStore
+  @model('@codelab/TestRootStore')
+  class TestRootStore
     extends Model({
       applicationStore: prop<IApplicationStore>(() => applicationStore),
       domainStore: prop<IDomainStore>(() => domainStore),
     })
-    implements ITestStore
+    implements IRootStore
   {
     @modelAction
     addApiAction(dto: Partial<IApiActionDto>) {
@@ -374,12 +391,12 @@ export const createTestStore = () => {
     }
 
     protected onAttachedToRootStore() {
-      const richTextType = testStore.addRichTextType({})
-      const api = testStore.addInterfaceType({})
+      const richTextType = testRootStore.addRichTextType({})
+      const api = testRootStore.addInterfaceType({})
 
       api.writeCache({
         fields: [
-          testStore.addField({
+          testRootStore.addField({
             api: { id: api.id },
             fieldType: { id: richTextType.id },
             key: 'children',
@@ -387,32 +404,65 @@ export const createTestStore = () => {
         ],
       })
 
-      testStore.addAtom({
+      testRootStore.addAtom({
         api: api,
         id: IAtomType.ReactFragment,
         name: IAtomType.ReactFragment,
         type: IAtomType.ReactFragment,
       })
 
-      testStore.addAtom({
+      testRootStore.addAtom({
         api: api,
         id: IAtomType.HtmlDiv,
         name: IAtomType.HtmlDiv,
         type: IAtomType.HtmlDiv,
       })
 
-      testStore.addAtom({
+      testRootStore.addAtom({
         api: api,
         id: IAtomType.HtmlSpan,
         name: IAtomType.HtmlSpan,
         type: IAtomType.HtmlSpan,
       })
     }
+
+    protected onInit(): void {
+      actionDomainServiceContext.set(this, this.domainStore.actionDomainService)
+      appDomainServiceContext.set(this, this.domainStore.appDomainService)
+      atomDomainServiceContext.set(this, this.domainStore.atomDomainService)
+      authGuardDomainServiceContext.set(
+        this,
+        this.domainStore.authGuardDomainService,
+      )
+      componentDomainServiceContext.set(
+        this,
+        this.domainStore.componentDomainService,
+      )
+      domainDomainServiceContext.set(this, this.domainStore.domainDomainService)
+      elementDomainServiceContext.set(
+        this,
+        this.domainStore.elementDomainService,
+      )
+      fieldDomainServiceContext.set(this, this.domainStore.fieldDomainService)
+      pageDomainServiceContext.set(this, this.domainStore.pageDomainService)
+      redirectDomainServiceContext.set(
+        this,
+        this.domainStore.redirectDomainService,
+      )
+      resourceDomainServiceContext.set(
+        this,
+        this.domainStore.resourceDomainService,
+      )
+      storeDomainServiceContext.set(this, this.domainStore.storeDomainService)
+      tagDomainServiceContext.set(this, this.domainStore.tagDomainService)
+      typeDomainServiceContext.set(this, this.domainStore.typeDomainService)
+      userDomainServiceContext.set(this, this.domainStore.userDomainService)
+    }
   }
 
-  const testStore = new TestStore({})
+  const testRootStore = new TestRootStore({})
 
-  registerRootStore(testStore)
+  registerRootStore(testRootStore)
 
-  return testStore
+  return testRootStore
 }

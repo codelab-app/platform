@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import {
-  createValidator,
-  Form,
-} from '@codelab/frontend-presentation-components-form'
+import { createValidator } from '@codelab/frontend/shared/utils'
+import { Form } from '@codelab/frontend-presentation-components-form'
 import type { JSONSchemaType } from 'ajv'
 import { Form as AntdForm } from 'antd'
 import React from 'react'

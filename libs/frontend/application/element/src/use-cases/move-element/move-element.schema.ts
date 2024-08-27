@@ -1,4 +1,4 @@
-import type { MoveData } from '@codelab/frontend/abstract/application'
+import type { MoveData } from '@codelab/frontend/abstract/domain'
 import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import type { JSONSchemaType } from 'ajv'
 

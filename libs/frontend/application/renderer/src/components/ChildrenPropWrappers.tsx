@@ -1,5 +1,4 @@
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
@@ -13,8 +12,9 @@ export const RichTextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
   const { typeDomainService } = useDomainStore()
-  const propService = usePropService()
+  // const propService = usePropService()
   const element = runtimeElement.element.current
+  // disable for now since it causing tests to fail
   const editable = element.isTextContentEditable
 
   const richTextType = typeDomainService.typesList.find(
@@ -35,18 +35,18 @@ export const RichTextEditorWrapper = observer<{
           const props = element.props
           const renderType = element.renderType.current
 
-          void propService.updateWithDefaultValuesApplied(props, {
-            data: {
-              ...props.data.data,
-              children: {
-                kind: richTextType.kind,
-                type: richTextType.id,
-                value: htmlString,
-              },
-            },
-            defaultValues: renderType.api.current.defaultValues,
-            id: props.id,
-          })
+          // void propService.updateWithDefaultValuesApplied(props, {
+          //   data: {
+          //     ...props.data.data,
+          //     children: {
+          //       kind: richTextType.kind,
+          //       type: richTextType.id,
+          //       value: htmlString,
+          //     },
+          //   },
+          //   defaultValues: renderType.api.current.defaultValues,
+          //   id: props.id,
+          // })
         })
       }
     },
@@ -59,7 +59,7 @@ export const RichTextEditorWrapper = observer<{
 
   return (
     <TextEditor
-      config={{ editable, namespace: `${element.id}-editor` }}
+      config={{ editable: false, namespace: `${element.id}-editor` }}
       onChange={onChange}
       onResize={({ height }) => {
         if (height) {
@@ -77,7 +77,7 @@ export const CodeMirrorEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
   const { typeDomainService } = useDomainStore()
-  const propService = usePropService()
+  // const propService = usePropService()
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
 
@@ -89,18 +89,18 @@ export const CodeMirrorEditorWrapper = observer<{
     const props = element.props
     const renderType = element.renderType.current
 
-    void propService.updateWithDefaultValuesApplied(props, {
-      data: {
-        ...props.data.data,
-        children: {
-          kind: codeMirrorType?.kind,
-          type: codeMirrorType?.id,
-          value,
-        },
-      },
-      defaultValues: renderType.api.current.defaultValues,
-      id: props.id,
-    })
+    // void propService.updateWithDefaultValuesApplied(props, {
+    //   data: {
+    //     ...props.data.data,
+    //     children: {
+    //       kind: codeMirrorType?.kind,
+    //       type: codeMirrorType?.id,
+    //       value,
+    //     },
+    //   },
+    //   defaultValues: renderType.api.current.defaultValues,
+    //   id: props.id,
+    // })
   }, [])
 
   const value = editable

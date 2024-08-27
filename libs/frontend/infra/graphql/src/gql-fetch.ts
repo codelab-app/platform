@@ -1,9 +1,9 @@
 'use server'
 
-import isArray from 'lodash/isArray'
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { getEnv } from '@codelab/shared/config'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
+import isArray from 'lodash/isArray'
 
 export const gqlFetch = async <TResult, TVariables>(
   // use `.toString()` version of `TypedDocumentString`

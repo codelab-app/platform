@@ -1,6 +1,4 @@
 import Ajv from 'ajv'
-import { TypeSchemaFactory } from '../type-schema.factory'
-import { getUiProperties } from '../ui-properties'
 import {
   actionTypeExpectedSchema,
   appTypeExpectedSchema,
@@ -41,12 +39,8 @@ import {
 const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
 
 describe('Type tree to json schema', () => {
-  const transformer = new TypeSchemaFactory({
-    extraProperties: getUiProperties,
-  })
-
   it('should transform AppType', () => {
-    const jsonSchema = transformer.transform(appType)
+    const jsonSchema = appType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(appTypeExpectedSchema)
 
@@ -54,7 +48,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform PageType', () => {
-    const jsonSchema = transformer.transform(pageType)
+    const jsonSchema = pageType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(pageTypeExpectedSchema)
 
@@ -62,7 +56,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform RenderPropType', () => {
-    const jsonSchema = transformer.transform(renderPropType)
+    const jsonSchema = renderPropType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(renderPropTypeExpectedSchema)
 
@@ -70,7 +64,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform RichTextType', () => {
-    const jsonSchema = transformer.transform(richTextType)
+    const jsonSchema = richTextType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(richTextTypeExpectedSchema)
 
@@ -78,7 +72,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform ActionType', () => {
-    const jsonSchema = transformer.transform(actionType)
+    const jsonSchema = actionType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(actionTypeExpectedSchema)
 
@@ -86,7 +80,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform UnionType', () => {
-    const jsonSchema = transformer.transform(unionType)
+    const jsonSchema = unionType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(unionTypeExpectedSchema)
 
@@ -94,7 +88,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform interface with nested types', () => {
-    const jsonSchema = transformer.transform(interfaceWithUnionField)
+    const jsonSchema = interfaceWithUnionField.toJsonSchema({})
 
     expect(jsonSchema).toEqual(interfaceWithUnionExpectedSchema)
 
@@ -102,7 +96,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform string type', () => {
-    const jsonSchema = transformer.transform(stringType)
+    const jsonSchema = stringType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(stringTypeExpectedSchema)
 
@@ -110,7 +104,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform int type', () => {
-    const jsonSchema = transformer.transform(intType)
+    const jsonSchema = intType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(intTypeExpectedSchema)
 
@@ -118,7 +112,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform boolean type', () => {
-    const jsonSchema = transformer.transform(booleanType)
+    const jsonSchema = booleanType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(booleanTypeExpectedSchema)
 
@@ -126,7 +120,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform ReactNodeType', () => {
-    const jsonSchema = transformer.transform(reactNodeType)
+    const jsonSchema = reactNodeType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(reactNodeTypeExpectedSchema)
 
@@ -134,7 +128,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform CodeMirrorType', () => {
-    const jsonSchema = transformer.transform(codeMirrorType)
+    const jsonSchema = codeMirrorType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(codeMirrorTypeExpectedSchema)
 
@@ -142,7 +136,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform ElementType', () => {
-    const jsonSchema = transformer.transform(elementType)
+    const jsonSchema = elementType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(elementTypeExpectedSchema)
 
@@ -150,7 +144,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform EnumType', () => {
-    const jsonSchema = transformer.transform(enumType)
+    const jsonSchema = enumType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(enumTypeExpectedSchema)
 
@@ -158,7 +152,7 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform ArrayType', () => {
-    const jsonSchema = transformer.transform(arrayType)
+    const jsonSchema = arrayType.toJsonSchema({})
 
     expect(jsonSchema).toEqual(arrayTypeExpectedSchema)
 
@@ -166,8 +160,8 @@ describe('Type tree to json schema', () => {
   })
 
   it('should transform InterfaceType with required and default field values', () => {
-    const jsonSchema = transformer.transform(
-      interfaceWithRequiredAndDefaultFieldValues,
+    const jsonSchema = interfaceWithRequiredAndDefaultFieldValues.toJsonSchema(
+      {},
     )
 
     expect(jsonSchema).toEqual(

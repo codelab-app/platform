@@ -1,7 +1,12 @@
-import type { IRichTextTypeModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IRichTextTypeModel,
+  JsonSchema,
+  TransformContext,
+} from '@codelab/frontend/abstract/domain'
 import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
+import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name }: IRichTextTypeDto) => {
@@ -20,4 +25,8 @@ export class RichTextType
   implements IRichTextTypeModel
 {
   public static create = create
+
+  toJsonSchema(context: TransformContext): JsonSchema {
+    return typedPropSchema(this, context)
+  }
 }

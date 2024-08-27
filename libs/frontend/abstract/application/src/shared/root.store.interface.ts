@@ -5,7 +5,7 @@ import type { IApplicationStore } from './application.store.interface'
  * Initial data to be injected into store
  */
 
-export interface ITestStore {
+export interface IRootStore {
   applicationStore: IApplicationStore
   domainStore: IDomainStore
 }

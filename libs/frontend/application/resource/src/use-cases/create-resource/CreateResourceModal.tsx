@@ -2,7 +2,7 @@
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useUserService } from '@codelab/frontend-application-user/services'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -14,7 +14,7 @@ import { createResourceSchema } from './create-resource.schema'
 import { useCreateResourceModal } from './create-resource.state'
 
 export const CreateResourceModal = observer(() => {
-  const userService = useUserService()
+  const user = useUser()
   const resourceService = useResourceService()
   const createResourceModal = useCreateResourceModal()
   const closeModal = () => createResourceModal.close()
@@ -30,7 +30,7 @@ export const CreateResourceModal = observer(() => {
   const model = {
     id: v4(),
     owner: {
-      auth0Id: userService.user.auth0Id,
+      auth0Id: user.auth0Id,
     },
     type: createResourceModal.data?.type,
   }

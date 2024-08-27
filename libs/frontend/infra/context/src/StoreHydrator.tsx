@@ -2,13 +2,8 @@
 
 import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import {
-  Stage,
-  usePerformanceMark,
-  usePerformanceReport,
-} from '@shopify/react-performance'
 import { observer } from 'mobx-react-lite'
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 
 type StoreHydratorProps = IHydrateableData & {

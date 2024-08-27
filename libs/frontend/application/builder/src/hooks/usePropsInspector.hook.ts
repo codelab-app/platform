@@ -13,10 +13,8 @@ import {
   type IPageNodeRef,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
-import { schemaTransformer } from '@codelab/frontend/presentation/components/interface-form'
-import { notify } from '@codelab/frontend/shared/utils'
+import { createValidator, notify } from '@codelab/frontend/shared/utils'
 import { usePropService } from '@codelab/frontend-application-prop/services'
-import { createValidator } from '@codelab/frontend-presentation-components-form'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateObject } from '@codelab/shared/utils'
@@ -41,7 +39,7 @@ const validateSchema = (node: IPageNodeRef) => {
     ? node.current.renderType.current.api.current
     : node.current.api.current
 
-  const nodeApiSchema = schemaTransformer.transform(interfaceType)
+  const nodeApiSchema = interfaceType.toJsonSchema({})
   const validator = createValidator(nodeApiSchema)
 
   return (data: IPropData) => {

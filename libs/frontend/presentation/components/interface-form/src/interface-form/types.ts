@@ -1,7 +1,4 @@
-import type {
-  IElementService,
-  IRuntimeContext,
-} from '@codelab/frontend/abstract/application'
+import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
 import type {
   IInterfaceTypeModel,
   ITypeModel,

@@ -4,9 +4,20 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
-      - run: echo $CIRCLE_API_TOKEN
+      - restore_cache:
+          keys:
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-*-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-
+          name: Restore NX Cache
       - run:
           command: pnpm nx run-many --target=build --projects=cli,web,api --parallel=3 -c ci --nx-bail
+      - save_cache:
+          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save NX Cache
+          paths:
+            - ~/project/.nx/cache
+            - ~/project/dist/apps/web/.next/cache
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -52,7 +63,7 @@ commands:
           paths:
             - ~/.pnpm-store
       - save_cache:
-          key: node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
+          key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
           name: Save node_modules Cache
           paths:
             - ~/project/node_modules
@@ -122,7 +133,8 @@ commands:
           at: ~/
       - restore_cache:
           keys:
-            - node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
+            - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+            - node-modules-cache-
           name: Restore node_modules Cache
       - restore_cache:
           keys:

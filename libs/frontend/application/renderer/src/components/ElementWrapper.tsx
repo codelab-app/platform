@@ -52,7 +52,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const selectionHandlers = useSelectionHandlers(
       runtimeElement,
       renderer.rendererType,
-      // (runtimeElement) => .
     )
 
     const propsOverrides = makeOverrideAtomProps(

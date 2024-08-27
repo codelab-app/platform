@@ -1,6 +1,8 @@
 import type {
   IArrayTypeModel,
   ITypeModel,
+  JsonSchema,
+  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
@@ -47,6 +49,20 @@ export class ArrayType
     return {
       ...super.toCreateInput(),
       itemType: connectNodeId(this.itemType?.id),
+    }
+  }
+
+  toJsonSchema({
+    defaultValues,
+    validationRules,
+  }: TransformContext): JsonSchema {
+    return {
+      items: this.itemType?.isValid
+        ? this.itemType.current.toJsonSchema({})
+        : {},
+      type: 'array',
+      ...validationRules?.general,
+      default: defaultValues,
     }
   }
 

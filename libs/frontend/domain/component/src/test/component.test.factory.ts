@@ -12,6 +12,9 @@ export const componentFactory =
       },
       id: dto.id ?? v4(),
       name: dto.name ?? chance.word({ capitalize: true }),
+      owner: {
+        id: dto.owner?.id ?? v4(),
+      },
       props: {
         // TODO: data here wont be used at all, we should fix the typings around the component props in the DTO
         data: '{}',

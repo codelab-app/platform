@@ -1,4 +1,4 @@
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 
 export enum GeneralValidationRules {
@@ -24,17 +24,17 @@ export interface IGeneralValidationRules {
 }
 
 export interface IStringValidationRules {
-  [StringValidationRules.MaxLength]?: Nullish<number>
-  [StringValidationRules.MinLength]?: Nullish<number>
-  [StringValidationRules.Pattern]?: Nullish<string>
+  [StringValidationRules.MaxLength]?: Maybe<number>
+  [StringValidationRules.MinLength]?: Maybe<number>
+  [StringValidationRules.Pattern]?: Maybe<string>
 }
 
 export interface INumberValidationRules {
-  [NumberValidationRules.ExclusiveMaximum]?: Nullish<number>
-  [NumberValidationRules.ExclusiveMinimum]?: Nullish<number>
-  [NumberValidationRules.Maximum]?: Nullish<number>
-  [NumberValidationRules.Minimum]?: Nullish<number>
-  [NumberValidationRules.MultipleOf]?: Nullish<number>
+  [NumberValidationRules.ExclusiveMaximum]?: Maybe<number>
+  [NumberValidationRules.ExclusiveMinimum]?: Maybe<number>
+  [NumberValidationRules.Maximum]?: Maybe<number>
+  [NumberValidationRules.Minimum]?: Maybe<number>
+  [NumberValidationRules.MultipleOf]?: Maybe<number>
 }
 
 export interface IValidationRules {

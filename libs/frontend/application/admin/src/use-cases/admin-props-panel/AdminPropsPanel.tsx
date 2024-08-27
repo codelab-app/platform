@@ -6,19 +6,19 @@ import { isAdmin } from '@codelab/frontend/abstract/domain'
 import { useCreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
-import { useUserService } from '@codelab/frontend-application-user/services'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
   ({ interfaceType }) => {
-    const userService = useUserService()
+    const user = useUser()
     const updateFieldModal = useUpdateFieldModal()
     const createFieldModal = useCreateFieldModal()
     const deleteFieldModal = useDeleteFieldModal()
 
-    if (!isAdmin(userService.user)) {
+    if (!isAdmin(user)) {
       return null
     }
 

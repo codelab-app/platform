@@ -6,7 +6,8 @@ steps:
   - restore_cache:
       name: 'Restore node_modules Cache'
       keys:
-        - node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
+        - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+        - node-modules-cache-
   - restore_cache:
       name: 'Restore NVM Cache'
       keys:

@@ -1,7 +1,8 @@
+import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
+import type { TransformContext } from '@codelab/frontend/abstract/domain'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
 import { SelectComponent } from '../fields'
-import type { UiPropertiesFn } from '../types'
 
 const ACTION_TEMPLATE = `{{
   function run() {
@@ -13,11 +14,11 @@ const ACTION_TEMPLATE = `{{
   }.bind(this)
 }}`
 
-export const selectComponentUiProperties: UiPropertiesFn = (type, context) => ({
+export const selectComponentUiProperties = (context: TransformContext) => ({
   uniforms: {
     component: ToggleExpressionField({
-      autocomplete: context?.autocomplete
-        ? createAutoCompleteOptions(context.autocomplete)
+      autocomplete: context.autocomplete
+        ? createAutoCompleteOptions(context.autocomplete as IRuntimeContext)
         : undefined,
       getBaseControl: (fieldProps) =>
         SelectComponent({ ...fieldProps, label: null, name: '' }),

@@ -34,7 +34,7 @@
   },
   "private": true,
   "dependencies": {
-    "@ant-design/cssinjs": "^1.21.1",
+    "@ant-design/cssinjs": "1.21.1",
     "@ant-design/icons": "5.4.0",
     "@ant-design/nextjs-registry": "1.0.1",
     "@ant-design/pro-components": "2.7.15",
@@ -270,7 +270,7 @@
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "1.12.12",
-    "@chromatic-com/storybook": "^1.7.0",
+    "@chromatic-com/storybook": "1.7.0",
     "@codelab-app/client-preset": "latest",
     "@commitlint/cli": "17.6.5",
     "@commitlint/config-conventional": "17.6.5",
@@ -444,7 +444,10 @@
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
   },
   "nx": {
-    "includedScripts": []
+    "includedScripts": [],
+    "tags": [
+      "projectName:codelab"
+    ]
   },
   "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
 }

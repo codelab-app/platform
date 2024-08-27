@@ -1,7 +1,12 @@
-import type { IActionTypeModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IActionTypeModel,
+  JsonSchema,
+  TransformContext,
+} from '@codelab/frontend/abstract/domain'
 import type { IActionTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
+import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name }: IActionTypeDto) => {
@@ -17,4 +22,8 @@ export class ActionType
   implements IActionTypeModel
 {
   static create = create
+
+  toJsonSchema(context: TransformContext): JsonSchema {
+    return typedPropSchema(this, context)
+  }
 }

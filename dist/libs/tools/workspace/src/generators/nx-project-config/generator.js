@@ -28,6 +28,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
         // addGraphqlEslintConfig(tree, projectConfig)
         // addGraphqlExtension(tree, projectConfig)
         (0, remove_graphql_eslint_config_1.removeGraphqlEslintConfig)(tree, projectConfig);
+        // checkLintConfig(tree, projectConfig)
         (0, project_json_1.updateTestConfig)(tree, projectConfig);
         (0, add_project_tags_1.addProjectTags)(tree, projectConfig);
         (0, tsconfig_base_1.updateBaseTsconfig)(tree, projectConfig);

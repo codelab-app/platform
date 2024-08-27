@@ -1,5 +1,5 @@
+import type { BuilderWidthBreakPoint } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { BuilderWidthBreakPoint } from '../../builder'
 
 export enum ElementStylePseudoClass {
   None = 'none',

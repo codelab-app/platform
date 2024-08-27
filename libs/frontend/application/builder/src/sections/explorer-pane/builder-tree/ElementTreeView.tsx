@@ -87,7 +87,7 @@ export const ElementTreeView = observer<{
           )
         }
       }}
-      selectedKeys={selectedNode ? [selectedNode.$modelId] : []}
+      selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       titleRender={(data) => <ElementTreeItemTitle data={data} />}
       treeData={treeData ? [treeData] : []}
     />

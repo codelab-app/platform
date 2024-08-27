@@ -1,6 +1,8 @@
 import type {
   IFieldModel,
   IInterfaceTypeModel,
+  JsonSchema,
+  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
@@ -11,7 +13,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { createInterfaceTypeName } from '@codelab/shared/domain'
-import type { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
+import { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -118,6 +120,23 @@ export class InterfaceType
   writeFieldCache(fields: Array<IRef> = []) {
     for (const field of fields) {
       this._fields.set(field.id, fieldRef(field.id))
+    }
+  }
+
+  toJsonSchema(context: TransformContext): JsonSchema {
+    return {
+      properties: this.fields.reduce(
+        (all, field) => ({ ...all, [field.key]: field.toJsonSchema(context) }),
+        {},
+      ),
+      required: this.fields
+        .map((field) =>
+          field.validationRules?.general?.nullable === false
+            ? field.key
+            : undefined,
+        )
+        .filter(Boolean) as Array<string>,
+      type: 'object',
     }
   }
 }

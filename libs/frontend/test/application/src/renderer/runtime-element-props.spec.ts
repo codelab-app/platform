@@ -3,13 +3,13 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import {
   createTestStore,
-  TestStoreProvider,
+  RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { act, render } from '@testing-library/react'
 import { configure } from 'mobx'
-import React from 'react'
+import { createElement } from 'react'
 
 let testStore: ReturnType<typeof createTestStore>
 
@@ -341,11 +341,7 @@ describe('Runtime Element props', () => {
 
         await act(async () => {
           render(
-            React.createElement(
-              TestStoreProvider,
-              { value: testStore },
-              rendered,
-            ),
+            createElement(RootStoreProvider, { value: testStore }, rendered),
           )
         })
 
@@ -372,8 +368,8 @@ describe('Runtime Element props', () => {
 
         await act(async () => {
           render(
-            React.createElement(
-              TestStoreProvider,
+            createElement(
+              RootStoreProvider,
               { value: testStore },
               rendererService.activeRenderer?.current.render,
             ),

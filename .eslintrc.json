@@ -34,6 +34,7 @@
     "plugin:import/typescript",
     "plugin:import/recommended",
     "./scripts/eslint/.nx.eslintrc.json",
+    "./scripts/eslint/.import.eslintrc.js",
     "./scripts/eslint/.globals.eslintrc.json",
     "./scripts/eslint/.format.eslintrc.json",
     "./scripts/eslint/.naming.eslintrc.json",

@@ -1,8 +1,13 @@
 import type {
   IBaseType,
   IBaseTypeDto,
+  IFieldDefaultValue,
+  IPropData,
   ITypeKind,
+  IValidationRules,
 } from '@codelab/shared/abstract/core'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import type { ICacheService } from '../../shared'
 import type { IModel } from '../../shared/models/model.interface'
 import type { IActionTypeModel } from './action-type.model.interface'
@@ -20,6 +25,28 @@ import type { IRenderPropTypeModel } from './render-prop-type.model.interface'
 import type { IRichTextTypeModel } from './rich-text-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
 
+export interface JsonSchema extends JSONSchema7 {
+  autocomplete?: IPropData
+  help?: Nullable<string>
+  isTypedProp?: boolean
+  label?: string
+  properties?:
+    | {
+        [key: string]: JSONSchema7Definition & {
+          label?: Nullable<string>
+          autocomplete?: IPropData
+        }
+      }
+    | undefined
+}
+
+export interface TransformContext {
+  autocomplete?: IPropData
+  defaultValues?: Nullish<IFieldDefaultValue>
+  fieldName?: string | null
+  ui?: Map<ITypeKind, unknown>
+  validationRules?: Nullish<IValidationRules>
+}
 export interface IBaseTypeModel<
   Dto extends IBaseTypeDto,
   CreateInput,
@@ -32,6 +59,7 @@ export interface IBaseTypeModel<
   __typename: `${ITypeKind}`
   kind: ITypeKind
   name: string
+  toJsonSchema(context: TransformContext): JsonSchema
 }
 
 export type ITypeModel =

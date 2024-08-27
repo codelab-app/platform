@@ -1,12 +1,4 @@
 import {
-  actionDomainServiceContext,
-  appDomainServiceContext,
-  atomDomainServiceContext,
-  authGuardDomainServiceContext,
-  componentDomainServiceContext,
-  domainDomainServiceContext,
-  elementDomainServiceContext,
-  fieldDomainServiceContext,
   type IActionDomainService,
   type IAppDomainService,
   type IAtomDomainService,
@@ -23,13 +15,6 @@ import {
   type ITagDomainService,
   type ITypeDomainService,
   type IUserDomainService,
-  pageDomainServiceContext,
-  redirectDomainServiceContext,
-  resourceDomainServiceContext,
-  storeDomainServiceContext,
-  tagDomainServiceContext,
-  typeDomainServiceContext,
-  userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { ActionDomainService } from '@codelab/frontend-domain-action/services'
 import { AppDomainService } from '@codelab/frontend-domain-app/services'
@@ -97,26 +82,7 @@ export const createDomainStore = (user: IUserDto) => {
         UserDomainService.fromDto(user),
       ),
     })
-    implements IDomainStore
-  {
-    protected onInit(): void {
-      actionDomainServiceContext.set(this, this.actionDomainService)
-      appDomainServiceContext.set(this, this.appDomainService)
-      atomDomainServiceContext.set(this, this.atomDomainService)
-      authGuardDomainServiceContext.set(this, this.authGuardDomainService)
-      componentDomainServiceContext.set(this, this.componentDomainService)
-      domainDomainServiceContext.set(this, this.domainDomainService)
-      elementDomainServiceContext.set(this, this.elementDomainService)
-      fieldDomainServiceContext.set(this, this.fieldDomainService)
-      pageDomainServiceContext.set(this, this.pageDomainService)
-      redirectDomainServiceContext.set(this, this.redirectDomainService)
-      resourceDomainServiceContext.set(this, this.resourceDomainService)
-      storeDomainServiceContext.set(this, this.storeDomainService)
-      tagDomainServiceContext.set(this, this.tagDomainService)
-      typeDomainServiceContext.set(this, this.typeDomainService)
-      userDomainServiceContext.set(this, this.userDomainService)
-    }
-  }
+    implements IDomainStore {}
 
   return new DomainStore({})
 }

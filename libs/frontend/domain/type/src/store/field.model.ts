@@ -1,6 +1,8 @@
 import type {
   IInterfaceTypeModel,
   ITypeModel,
+  JsonSchema,
+  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import {
   fieldRef,
@@ -14,7 +16,8 @@ import type {
 import { IFieldDto } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'
-import type { FieldUpdateInput } from '@codelab/shared/infra/gql'
+import { FieldUpdateInput } from '@codelab/shared/infra/gql'
+import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -194,6 +197,19 @@ export class Field
       key: this.key,
       name: this.name,
       validationRules: JSON.stringify(this.validationRules),
+    }
+  }
+
+  toJsonSchema(context: TransformContext): JsonSchema {
+    return {
+      ...this.type.current.toJsonSchema({
+        defaultValues: this.defaultValues,
+        fieldName: this.name || compoundCaseToTitleCase(this.key),
+        validationRules: this.validationRules,
+        ...context,
+      }),
+      ...(this.description ? { help: this.description } : {}),
+      label: this.name || compoundCaseToTitleCase(this.key),
     }
   }
 

@@ -40,6 +40,7 @@ export const nxProjectConfigGenerator = async (
     // addGraphqlEslintConfig(tree, projectConfig)
     // addGraphqlExtension(tree, projectConfig)
     removeGraphqlEslintConfig(tree, projectConfig)
+    // checkLintConfig(tree, projectConfig)
 
     updateTestConfig(tree, projectConfig)
     addProjectTags(tree, projectConfig)

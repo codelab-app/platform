@@ -1,11 +1,11 @@
 import {
   createTestStore,
-  TestStoreProvider,
+  RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
-import React, { isValidElement } from 'react'
+import { createElement, isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
   let testStore: ReturnType<typeof createTestStore>
@@ -122,8 +122,8 @@ describe('TypedPropTransformers', () => {
     const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
 
     render(
-      React.createElement(
-        TestStoreProvider,
+      createElement(
+        RootStoreProvider,
         { value: testStore },
         renderedProp(textPropValue),
       ),
