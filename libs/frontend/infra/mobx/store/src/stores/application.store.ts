@@ -1,5 +1,7 @@
 import {
+  builderServiceContext,
   type IApplicationStore,
+  IBuilderService,
   type IRendererService,
   type IRouterProps,
   type IRouterService,
@@ -12,6 +14,7 @@ import {
   runtimeElementServiceContext,
   runtimePageServiceContext,
 } from '@codelab/frontend/abstract/application'
+import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
   RendererApplicationService,
   RuntimeComponentService,
@@ -25,6 +28,9 @@ export const createApplicationStore = (router: IRouterProps) => {
   @model('@codelab/ApplicationIStore')
   class ApplicationStore
     extends Model({
+      builderService: prop<IBuilderService>(
+        () => new BuilderService({ hoveredNode: null, selectedNode: null }),
+      ),
       // add reference to domain store, so that all the models in ApplicationStore
       // can access refs from domain store (elements, components, apps, etc)
       rendererService: prop<IRendererService>(
@@ -49,6 +55,7 @@ export const createApplicationStore = (router: IRouterProps) => {
       runtimeComponentServiceContext.set(this, this.runtimeComponentService)
       runtimePageServiceContext.set(this, this.runtimePageService)
       routerServiceContext.set(this, this.routerService)
+      builderServiceContext.set(this, this.builderService)
     }
   }
 

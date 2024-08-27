@@ -14,7 +14,6 @@ import {
 import { isAtomRef } from '@codelab/frontend/abstract/domain'
 import { UpdateComponentForm } from '@codelab/frontend-application-component/use-cases/update-component'
 import { UpdateComponentPropsForm } from '@codelab/frontend-application-component/use-cases/update-component-props'
-import { useElementService } from '@codelab/frontend-application-element/services'
 import { DeleteElementButton } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { MoveElementForm } from '@codelab/frontend-application-element/use-cases/move-element'
 import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
@@ -28,7 +27,6 @@ import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
 import React from 'react'
-import { useBuilderService } from '../../../services'
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPaneInspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
@@ -64,11 +62,9 @@ interface ConfigPaneTabProps {
 
 export const ConfigPaneInspectorTabContainer = observer<ConfigPaneTabProps>(
   ({ ElementCssEditor }) => {
-    const { rendererService } = useApplicationStore()
-    const elementService = useElementService()
-    const builderService = useBuilderService()
+    const { builderService, rendererService } = useApplicationStore()
     const elementTree = rendererService.activeElementTree
-    const selectedNode = builderService.selectedNode
+    const selectedNode = builderService.selectedNode?.current
     const activeRenderer = rendererService.activeRenderer?.maybeCurrent
 
     if (!selectedNode || isRuntimePage(selectedNode)) {

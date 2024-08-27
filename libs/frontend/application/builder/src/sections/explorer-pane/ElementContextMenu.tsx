@@ -4,7 +4,10 @@ import type {
   IElementTreeViewDataNode,
   IRuntimeComponentModel,
 } from '@codelab/frontend/abstract/application'
-import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeComponent,
+  runtimeComponentRef,
+} from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -23,7 +26,6 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import { useBuilderService } from '../../services'
 
 export interface ContextMenuProps {
   onBlur?(): unknown
@@ -40,9 +42,8 @@ export type ElementContextMenuProps = ContextMenuProps & {
 export const ElementContextMenu = observer<
   React.PropsWithChildren<ElementContextMenuProps>
 >(({ children, treeNode }) => {
-  const { runtimeElementService } = useApplicationStore()
+  const { builderService, runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
-  const builderService = useBuilderService()
   const componentService = useComponentService()
 
   const cloneElementService = useCloneElementService({
@@ -117,7 +118,8 @@ export const ElementContextMenu = observer<
         child.component.id === element.renderType.id,
     )
 
-    runtimeComponent && builderService.selectComponentNode(runtimeComponent)
+    runtimeComponent &&
+      builderService.selectComponentNode(runtimeComponentRef(runtimeComponent))
   }
 
   const menuItems = [

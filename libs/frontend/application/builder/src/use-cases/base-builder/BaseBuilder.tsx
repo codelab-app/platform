@@ -14,7 +14,6 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
-import { useBuilderService } from '../../services'
 import { BuilderClickOverlay } from '../base-builder/BuilderClickOverlay'
 import { BuilderHoverOverlay } from '../base-builder/BuilderHoverOverlay'
 import { BuilderResizeHandle } from '../base-builder/BuilderResizeHandle'
@@ -29,8 +28,7 @@ interface IBuilderProps {
  */
 export const BaseBuilder = observer<IBuilderProps>(
   ({ renderer, RootRenderer }) => {
-    const { rendererService } = useApplicationStore()
-    const builderService = useBuilderService()
+    const { builderService, rendererService } = useApplicationStore()
     const deleteElementModal = useDeleteElementModal()
     const elementTree = rendererService.activeElementTree
     const { selectedNode } = builderService

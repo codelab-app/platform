@@ -1,6 +1,8 @@
 import {
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
+  runtimeComponentRef,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
@@ -8,7 +10,6 @@ import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
-import { useBuilderService } from '../../../services'
 import {
   DISABLE_HOVER_CLASSNAME,
   TREE_NODE_WRAPPER_SELECTOR,
@@ -21,11 +22,8 @@ import { ElementTreeItemTitle } from './ElementTreeItemTitle'
 export const ElementTreeView = observer<{
   treeData?: IElementTreeViewDataNode
 }>(({ treeData }) => {
-  const { runtimeComponentService, runtimeElementService } =
-    useApplicationStore()
-
-  const builderService = useBuilderService()
-  const selectedNode = builderService.selectedNode
+  const { builderService, runtimeElementService } = useApplicationStore()
+  const selectedNode = builderService.selectedNode?.current
   const { handleDrop, isMoving } = useElementTreeDrop()
 
   return (
@@ -62,7 +60,7 @@ export const ElementTreeView = observer<{
         if (node.type !== IRuntimeNodeType.Component) {
           const runtimeElement = runtimeElementService.runtimeElement(node.key)
 
-          builderService.setHoveredNode(runtimeElement)
+          builderService.setHoveredNode(runtimeElementRef(runtimeElement))
         }
       }}
       onMouseLeave={() => {
@@ -76,15 +74,11 @@ export const ElementTreeView = observer<{
         }
 
         if (node.type === IRuntimeNodeType.Component) {
-          builderService.selectComponentNode(
-            runtimeComponentService.maybeRuntimeComponent(node.key),
-          )
+          builderService.selectComponentNode(runtimeComponentRef(node.key))
         }
 
         if (node.type === IRuntimeNodeType.Element) {
-          builderService.selectElementNode(
-            runtimeElementService.maybeRuntimeElement(node.key),
-          )
+          builderService.selectElementNode(runtimeElementRef(node.key))
         }
       }}
       selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}

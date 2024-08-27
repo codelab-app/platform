@@ -8,12 +8,12 @@ import {
   DropOverlay,
 } from '@codelab/frontend-application-dnd/components'
 import { useElementService } from '@codelab/frontend-application-element/services'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 import { DndContext, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
 import type { PropsWithChildren } from 'react'
 import React, { useCallback, useMemo } from 'react'
-import { useBuilderService } from '../services'
 import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
@@ -22,7 +22,7 @@ const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
  * Provides the DnD context for the builder
  */
 const BuilderDndContext = ({ children }: PropsWithChildren) => {
-  const builderService = useBuilderService()
+  const { builderService } = useApplicationStore()
   const elementService = useElementService()
   const { handleCreateElement, handleMoveElement } = useDndDropHandler()
 

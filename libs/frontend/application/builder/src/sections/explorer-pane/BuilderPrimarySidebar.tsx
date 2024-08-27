@@ -45,17 +45,15 @@ import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useBuilderService } from '../../services'
 import { ElementTreeView } from './builder-tree/ElementTreeView'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
     const { elementDomainService } = useDomainStore()
-    const { rendererService } = useApplicationStore()
+    const { builderService, rendererService } = useApplicationStore()
     const createActionForm = useCreateActionForm()
-    const builderService = useBuilderService()
     const createFieldForm = useCreateFieldForm()
-    const selectedNode = builderService.selectedNode
+    const selectedNode = builderService.selectedNode?.current
     const createElementForm = useCreateElementForm()
     const { popover } = useCui()
     const page = useCurrentPage()
