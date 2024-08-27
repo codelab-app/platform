@@ -18,7 +18,7 @@ export enum PageType {
   AuthGuards = '/auth-guards',
   Components = '/components',
   Type = '/types',
-  PageBuilder = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]/builder',
+  PageBuilder = '/apps/[appSlug]/pages/[pageSlug]/builder',
   ComponentBuilder = '/components/[componentSlug]/builder',
   ComponentPreview = '/components/[componentSlug]',
   PageDetail = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]',
