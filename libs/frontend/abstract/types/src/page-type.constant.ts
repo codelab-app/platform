@@ -1,6 +1,6 @@
 export enum PageType {
   Admin = '/admin',
-  AppDetail = '/apps/[userSlug]/[appSlug]',
+  AppDetail = '/apps/[appId]',
   // Features = '/features',
   // Docs = '/docs',
   // Pricing = '/pricing',

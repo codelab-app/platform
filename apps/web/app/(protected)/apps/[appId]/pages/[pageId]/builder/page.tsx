@@ -34,8 +34,7 @@ const PageBuilderPage = async ({
       typesDto={dto.types}
     >
       {/* Decouple renderer from builder */}
-      <></>
-      {/* <PageBuilder RootRenderer={RootRenderer} pageId={pageId} /> */}
+      <PageBuilder RootRenderer={RootRenderer} pageId={pageId} />
     </StoreHydrator>
   )
 }

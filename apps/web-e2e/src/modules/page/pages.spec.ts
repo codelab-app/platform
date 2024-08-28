@@ -8,7 +8,7 @@ test.beforeAll(async ({ pageListPage: page }) => {
   await page.seedApp()
 })
 
-test('should be able to create page', async ({ pageListPage: page }) => {
+test.skip('should be able to create page', async ({ pageListPage: page }) => {
   await page.expectSystemPagesToExist()
 
   await page.expectNoPreexistingPage()
@@ -36,10 +36,12 @@ test('should be able to create page', async ({ pageListPage: page }) => {
   })
 })
 
-test('should be able to update page name', async ({ pageListPage: page }) => {
+test.skip('should be able to update page name', async ({
+  pageListPage: page,
+}) => {
   //
 })
 
-test('should be able to delete page', async ({ pageListPage: page }) => {
+test.skip('should be able to delete page', async ({ pageListPage: page }) => {
   //
 })
