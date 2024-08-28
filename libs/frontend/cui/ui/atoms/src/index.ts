@@ -1,4 +1,5 @@
 export * from './Accordion'
+export * from './Alert'
 export * from './Button'
 export * from './Form'
 export * from './Label'
