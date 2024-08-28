@@ -12,16 +12,20 @@ import { BaseBuilder } from '../base-builder'
 
 interface IPageBuilderProps {
   RootRenderer: IRootRenderer
-  pageSlug: string
+  pageId: string
 }
 
 /**
  * Generic builder used for both Component & Element
  */
 export const PageBuilder = observer<IPageBuilderProps>(
-  ({ pageSlug, RootRenderer }) => {
+  ({ pageId, RootRenderer }) => {
     const { pageDomainService } = useDomainStore()
-    const page = pageDomainService.findBySlug(pageSlug)
+    const page = pageDomainService.pages.get(pageId)
+
+    if (!page) {
+      throw new Error('Page not found!')
+    }
 
     const { renderer } = useInitializeBuilder({
       containerNode: page,

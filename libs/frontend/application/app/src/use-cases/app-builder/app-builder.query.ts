@@ -7,27 +7,12 @@ import uniqBy from 'lodash/uniqBy'
 import { GetAppBuilder } from './app-builder.api.graphql.gen'
 
 export const appBuilderQuery: IAppBuilderQuery = async ({
-  appSlug,
-  pageSlug,
-  userId,
+  appId,
 }: {
-  pageSlug: string
-  userId: string
-  appSlug: string
+  appId: string
 }) => {
-  const appName = getNameFromSlug(appSlug)
-  const pageName = getNameFromSlug(pageSlug)
-
-  const appCompositeKey = AppProperties.appCompositeKey(
-    { slug: slugify(appName) },
-    {
-      id: userId,
-    },
-  )
-
   const data = await GetAppBuilder({
-    appCompositeKey,
-    pageName,
+    appId,
   })
 
   const app = data.apps[0]

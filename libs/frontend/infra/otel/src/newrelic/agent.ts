@@ -1,4 +1,4 @@
-import { isBrowser } from '@codelab/shared/utils'
+import { isClient } from '@codelab/shared/utils'
 import type { BrowserAgent } from '@newrelic/browser-agent/loaders/browser-agent'
 
 export let browserAgentInstance: BrowserAgent | null = null
@@ -6,7 +6,7 @@ export let browserAgentInstance: BrowserAgent | null = null
 export const initializeRelicAgent = async () => {
   console.log('initializeRelicAgent')
 
-  if (!browserAgentInstance && isBrowser) {
+  if (!browserAgentInstance && isClient) {
     const { BrowserAgent: Agent } = await import(
       '@newrelic/browser-agent/loaders/browser-agent'
     )

@@ -4,6 +4,8 @@ import { type ImperativePanelHandle, Panel } from 'react-resizable-panels'
 import { CollapseControl, CuiResizeHandle } from '../components'
 
 export type CuiResizablePanelProps = PropsWithChildren<{
+  // Overrides the state
+  collapsed?: boolean
   collapsible?: boolean
   order: number
   // can add support for top, buttom later on

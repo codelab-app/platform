@@ -7,15 +7,14 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import React from 'react'
 
 const PageBuilderPage = async ({
-  params: { appSlug, pageSlug },
+  params: { appId, pageId },
 }: {
   params: {
-    pageSlug: string
-    appSlug: string
+    pageId: string
+    appId: string
   }
 }) => {
-  const user = await getServerUser()
-  const dto = await appBuilderQuery({ appSlug, pageSlug, userId: user.id })
+  const dto = await appBuilderQuery({ appId })
 
   return (
     <StoreHydrator
@@ -35,7 +34,7 @@ const PageBuilderPage = async ({
       typesDto={dto.types}
     >
       {/* Decouple renderer from builder */}
-      <PageBuilder RootRenderer={RootRenderer} pageSlug={pageSlug} />
+      <PageBuilder RootRenderer={RootRenderer} pageId={pageId} />
     </StoreHydrator>
   )
 }

@@ -1,4 +1,6 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { PageType } from '@codelab/frontend/abstract/types'
+import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -11,8 +13,19 @@ export interface AppListItemProps {
 }
 
 export const AppListItem = observer(({ app }: AppListItemProps) => {
+  const providerPage = app.pages.find(
+    (page) => page.kind === IPageKind.Provider,
+  )
+
+  if (!providerPage) {
+    throw new Error('Missing provider page')
+  }
+
   const Title = (
-    <Link aria-label={app.name} href="/apps">
+    <Link
+      aria-label={app.name}
+      href={`/apps/${app.id}/pages/${providerPage.id}/builder`}
+    >
       {app.name}
     </Link>
   )
