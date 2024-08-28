@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@cui/ui-atoms/Button'
+import { Button } from '@cui/ui-atoms'
 import { typeboxResolver } from '@hookform/resolvers/typebox'
 import { type Static, Type } from '@sinclair/typebox'
 import { useForm } from 'react-hook-form'
