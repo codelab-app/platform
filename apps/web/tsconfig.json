@@ -24,8 +24,7 @@
       "worker-loader",
       "@fancyapps/ui",
       "cypher",
-      "styled-components",
-      "data-cy"
+      "styled-components"
     ]
   },
   "include": [

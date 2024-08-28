@@ -15,7 +15,7 @@ export type DashboardTemplateProps<T = unknown> = T & {
   /**
    * The right panel used for configuration element settings
    */
-  ConfigPane?: JSXElementConstructor<unknown>
+  ConfigPane?: React.ReactElement
   /**
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */

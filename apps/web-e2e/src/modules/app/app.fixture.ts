@@ -1,6 +1,6 @@
 import { PageType, UiDataRecord, UiKey } from '@codelab/frontend/abstract/types'
 import { expect, test as base } from '@playwright/test'
-import { BasePage } from '../locators/pages'
+import { BasePage } from '../../locators/pages'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
@@ -18,7 +18,6 @@ export class AppListPage extends BasePage {
   }
 
   async expectNoPreexistingApp() {
-    // check that we don't have app with the same name
     await expect(this.getByExactText(this.appName)).toBeHidden()
   }
 
@@ -44,12 +43,6 @@ export class AppListPage extends BasePage {
 
   getAppName() {
     return this.getByExactText(this.appName)
-  }
-
-  getGlobalProgressBar() {
-    return this.page.getByRole('progressbar', {
-      name: UiDataRecord.GlobalProgressBar.label,
-    })
   }
 
   getSpinner() {
@@ -92,11 +85,7 @@ export class AppListPage extends BasePage {
 
   private readonly appName = 'New App'
 
-  private readonly pageName = 'New Page'
-
   private readonly updatedAppName = 'Updated App'
-
-  private readonly updatedPageName = 'Updated Page'
 }
 
 export const test = base.extend<{ appListPage: AppListPage }>({

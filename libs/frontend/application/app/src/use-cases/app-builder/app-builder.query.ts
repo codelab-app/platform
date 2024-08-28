@@ -15,11 +15,10 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
   userId: string
   appSlug: string
 }) => {
-  const appName = getNameFromSlug(appSlug)
   const pageName = getNameFromSlug(pageSlug)
 
   const appCompositeKey = AppProperties.appCompositeKey(
-    { slug: slugify(appName) },
+    { slug: appSlug },
     {
       id: userId,
     },

@@ -1,4 +1,5 @@
 import { UiDataRecord, type UiKey } from '@codelab/frontend/abstract/types'
+import { Cui } from '@codelab/frontend-application-shared-data'
 import type { Locator, Page } from '@playwright/test'
 import { expect } from '@playwright/test'
 
@@ -15,6 +16,11 @@ export interface CuiSelector {
 }
 
 export class BasePage {
+  /**
+   * Use this for chaining
+   */
+  locator: Locator | undefined
+
   readonly page: Page
 
   public constructor(page: Page) {
@@ -58,12 +64,48 @@ export class BasePage {
       .locator(this.page.getByLabel(options.label))
   }
 
+  getGlobalProgressBar() {
+    return this.page.getByRole('progressbar', {
+      name: UiDataRecord.GlobalProgressBar.label,
+    })
+  }
+
   getModal() {
     return this.page.getByRole('dialog')
   }
 
+  getModalForm(key: UiKey) {
+    const form = this.getModal().locator('form')
+
+    this.locator = form
+
+    return this
+  }
+
+  getSidebar(key: UiKey) {
+    const sidebar = this.page.getByTestId(Cui.cuiSidebar(key))
+
+    this.locator = sidebar
+
+    return this
+  }
+
   getTextBox(options: { label: RegExp | string }) {
     return this.page.getByRole('textbox', { name: options.label })
+  }
+
+  // getToolbarItem(key: UiKey) {
+  //   return this.page.getByTestId(Cui.cuiToolbarItem(key))
+  // }
+
+  getToolbarItem(key: UiKey) {
+    const page = this.locator ?? this.page
+
+    return page.getByTestId(Cui.cuiToolbarItem(key))
+  }
+
+  getTreeItem(label: string) {
+    return this.page.getByTestId(Cui.cuiTreeItemPrimaryTitle(label))
   }
 
   async openModal(options: CuiSelector) {

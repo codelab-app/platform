@@ -5,6 +5,7 @@ export const Cui = {
   cuiHeader: () => 'cui-header',
   cuiNavigationBarItem: (title: string) => `cui-navigation-bar-item-${title}`,
   cuiPopover: (key: UiKey) => `cui-sidebar-popover-${key}`,
+  cuiModal: (key: UiKey) => `cui-modal-${key}`,
   cuiSidebar: (key: UiKey) => `cui-${key}`,
   cuiSidebarHeader: () => 'cui-sidebar-header',
   cuiSidebarViewContent: (label: string) => `cui-sidebar-view-content-${label}`,
