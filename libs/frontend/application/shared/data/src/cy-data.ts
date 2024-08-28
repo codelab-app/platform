@@ -3,9 +3,9 @@ import type { UiKey } from '@codelab/frontend/abstract/types'
 export const Cui = {
   cuiForm: (key: UiKey) => `cui-form-${key}`,
   cuiHeader: () => 'cui-header',
+  cuiModal: (key: UiKey) => `cui-modal-${key}`,
   cuiNavigationBarItem: (title: string) => `cui-navigation-bar-item-${title}`,
   cuiPopover: (key: UiKey) => `cui-sidebar-popover-${key}`,
-  cuiModal: (key: UiKey) => `cui-modal-${key}`,
   cuiSidebar: (key: UiKey) => `cui-${key}`,
   cuiSidebarHeader: () => 'cui-sidebar-header',
   cuiSidebarViewContent: (label: string) => `cui-sidebar-view-content-${label}`,
