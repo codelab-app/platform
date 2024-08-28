@@ -41,7 +41,7 @@ fragment AppBuilder on App {
   pages(
     where: {
       OR: [
-        { compositeKey_ENDS_WITH: $pageName }
+        { id_IN: $pageIds }
         { kind: Provider }
         { kind: NotFound }
         { kind: InternalServerError }

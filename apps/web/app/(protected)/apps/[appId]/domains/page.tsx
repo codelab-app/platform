@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 }
 
 const DomainsPage = async ({
-  params: { appSlug },
+  params: { appId },
 }: {
-  params: { appSlug: string }
+  params: { appId: string }
 }) => {
-  const { apps } = await domainListQuery({ slug: appSlug })
+  const { apps } = await domainListQuery({ id: appId })
 
   return (
     <>

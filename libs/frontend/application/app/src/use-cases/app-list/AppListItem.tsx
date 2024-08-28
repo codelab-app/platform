@@ -12,10 +12,18 @@ export interface AppListItemProps {
 }
 
 export const AppListItem = observer(({ app }: AppListItemProps) => {
+  const providerPage = app.pages.find(
+    (page) => page.kind === IPageKind.Provider,
+  )
+
+  if (!providerPage) {
+    throw new Error('Missing provider page')
+  }
+
   const Title = (
     <Link
       aria-label={app.name}
-      href={`/apps/${app.slug}/pages/${IPageKindName.Provider}/builder`}
+      href={`/apps/${app.id}/pages/${providerPage.id}/builder`}
     >
       {app.name}
     </Link>

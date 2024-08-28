@@ -19,11 +19,11 @@ import {
 } from '@codelab/shared/infra/gql'
 
 export const GetAppBuilderDocument = graphql(`
-  query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {
+  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
     actionTypes {
       ...ActionType
     }
-    apps(where: { compositeKey: $appCompositeKey }) {
+    apps(where: { id: $appId }) {
       ...AppBuilder
     }
     atoms(where: { type: ReactFragment }) {
@@ -44,7 +44,7 @@ export const GetAppBuilderDocument = graphql(`
     reactNodeTypes {
       ...ReactNodeType
     }
-    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
+    redirects(where: { source: { app: { id: $appId } } }) {
       ...Redirect
     }
     renderPropTypes {

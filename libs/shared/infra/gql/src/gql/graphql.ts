@@ -27602,8 +27602,8 @@ export type UserFragment = {
 }
 
 export type GetAppBuilderQueryVariables = Exact<{
-  appCompositeKey: Scalars['String']['input']
-  pageName: Scalars['String']['input']
+  appId: Scalars['ID']['input']
+  pageIds?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>
 }>
 
 export type GetAppBuilderQuery = {
@@ -30978,7 +30978,7 @@ export const AppBuilderFragmentDoc = new TypedDocumentString(
     ...Owner
   }
   pages(
-    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
+    where: {OR: [{id_IN: $pageIds}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
   ) {
     ...PageDevelopment
   }
@@ -32966,11 +32966,11 @@ export const DomainDeletedDocument = new TypedDocumentString(`
   DomainDeletedSubscriptionVariables
 >
 export const GetAppBuilderDocument = new TypedDocumentString(`
-    query GetAppBuilder($appCompositeKey: String!, $pageName: String!) {
+    query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
   actionTypes {
     ...ActionType
   }
-  apps(where: {compositeKey: $appCompositeKey}) {
+  apps(where: {id: $appId}) {
     ...AppBuilder
   }
   atoms(where: {type: ReactFragment}) {
@@ -32991,7 +32991,7 @@ export const GetAppBuilderDocument = new TypedDocumentString(`
   reactNodeTypes {
     ...ReactNodeType
   }
-  redirects(where: {source: {app: {compositeKey: $appCompositeKey}}}) {
+  redirects(where: {source: {app: {id: $appId}}}) {
     ...Redirect
   }
   renderPropTypes {
@@ -33050,7 +33050,7 @@ fragment AppBuilder on App {
     ...Owner
   }
   pages(
-    where: {OR: [{compositeKey_ENDS_WITH: $pageName}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
+    where: {OR: [{id_IN: $pageIds}, {kind: Provider}, {kind: NotFound}, {kind: InternalServerError}, {kind: Regular}]}
   ) {
     ...PageDevelopment
   }

@@ -2,7 +2,7 @@ import type {
   IBuilderPreferences,
   IUserPreferenceModel,
 } from '@codelab/frontend/abstract/domain'
-import { isClient } from '@codelab/shared/utils'
+import { isClient, isServer } from '@codelab/shared/utils'
 import { reaction } from 'mobx'
 import {
   fromSnapshot,
@@ -18,17 +18,16 @@ import {
 const CODELAB_STORAGE_KEY = 'codelab-preferences'
 
 const init = () => {
-  if (isClient) {
-    const storedPreferences = localStorage.getItem(CODELAB_STORAGE_KEY)
-
-    const snapshot = storedPreferences
-      ? JSON.parse(storedPreferences)
-      : undefined
-
-    return snapshot
-      ? fromSnapshot<UserPreference>(snapshot)
-      : new UserPreference({})
+  if (isServer) {
+    return new UserPreference({})
   }
+
+  const storedPreferences = localStorage.getItem(CODELAB_STORAGE_KEY)
+  const snapshot = storedPreferences ? JSON.parse(storedPreferences) : undefined
+
+  return snapshot
+    ? fromSnapshot<UserPreference>(snapshot)
+    : new UserPreference({})
 }
 
 @model('@codelab/UserPreference')
