@@ -6,7 +6,7 @@ import { IModelKinds } from './model-type.interface'
 type Key<T extends Record<string, unknown>> = T[keyof T]
 
 /**
- * Schema kinds
+ * Schema kinds, these are first class citizens, allow us to do Value.Decode(customSchema)
  */
 export const SchemaKinds = {
   Ref: 'Ref',

@@ -74,7 +74,7 @@ export const PageTreeItem = observer(
               primarySidebarKey: ExplorerPaneType.Explorer,
               userSlug: user.username,
             },
-            url: PageType.PageBuilder,
+            url: PageType.PageBuilder(),
           })
 
           void router.push(url)

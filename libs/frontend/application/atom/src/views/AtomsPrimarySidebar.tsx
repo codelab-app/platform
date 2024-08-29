@@ -21,7 +21,7 @@ export const AtomsPrimarySidebar = () => {
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
     atomService,
-    PageType.Atoms,
+    PageType.Atoms(),
     { name: 'string' },
   )
 

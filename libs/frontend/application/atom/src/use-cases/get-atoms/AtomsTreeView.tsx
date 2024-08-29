@@ -23,7 +23,7 @@ export const AtomsTreeView = ({ showSearchBar }: AtomsTreeViewProps) => {
   >({
     filterTypes: { name: 'string' },
     paginationService: atomService.paginationService,
-    pathname: PageType.Atoms,
+    pathname: PageType.Atoms(),
   })
 
   const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({

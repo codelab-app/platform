@@ -1,9 +1,6 @@
-import type {
-  IRouterService,
-  UrlParams,
-  UrlQuery,
-} from '@codelab/frontend/abstract/application'
+import type { IRouterService } from '@codelab/frontend/abstract/application'
 import { IRouterProps } from '@codelab/frontend/abstract/application'
+import type { UrlParams, UrlQuery } from '@codelab/frontend/abstract/types'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
@@ -21,10 +18,9 @@ const init = (router: IRouterProps) => {
 export class RouterService
   extends Model({
     params: prop<UrlParams>(() => ({
-      appSlug: undefined,
-      componentSlug: undefined,
-      pageSlug: undefined,
-      userSlug: undefined,
+      appId: undefined,
+      componentId: undefined,
+      pageId: undefined,
     })).withSetter(),
     query: prop<UrlQuery>(() => ({
       primarySidebarKey: undefined,
@@ -35,28 +31,23 @@ export class RouterService
   static init = init
 
   @computed
-  get appSlug() {
-    return this.params.appSlug
+  get appId() {
+    return this.params.appId
   }
 
   @computed
-  get componentSlug() {
-    return this.params.componentSlug
+  get componentId() {
+    return this.params.componentId
   }
 
   @computed
-  get pageSlug() {
-    return this.params.pageSlug
+  get pageId() {
+    return this.params.pageId
   }
 
   @computed
   get primarySidebarKey() {
     return throwIfUndefined(this.query.primarySidebarKey)
-  }
-
-  @computed
-  get userSlug() {
-    return this.params.userSlug
   }
 
   @modelAction

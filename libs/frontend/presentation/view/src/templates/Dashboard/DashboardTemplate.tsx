@@ -18,15 +18,14 @@ import type { DashboardTemplateProps } from './Types'
 const { Sider } = Layout
 
 export const DashboardTemplate = ({
-  appSlug,
+  appId,
   children,
-  componentSlug,
+  componentId,
   ConfigPane,
   contentStyles,
   Header,
-  pageSlug,
+  pageId,
   PrimarySidebar,
-  userSlug,
 }: React.PropsWithChildren<DashboardTemplateProps>) => {
   const { primarySidebarKey } = useUrl()
   const { isLoading } = useLoading()
@@ -34,12 +33,11 @@ export const DashboardTemplate = ({
   const navigationBarItems = useMemo(
     () =>
       defaultNavigationBarItems({
-        appSlug,
-        componentSlug,
-        pageSlug,
-        userSlug,
+        appId,
+        componentId,
+        pageId,
       }),
-    [appSlug, pageSlug, componentSlug, userSlug],
+    [appId, pageId, componentId],
   )
 
   const activeSidebarKey = useMemo(

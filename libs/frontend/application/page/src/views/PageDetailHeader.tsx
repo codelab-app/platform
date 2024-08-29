@@ -17,7 +17,6 @@ import {
   useAppQuery,
   useCurrentComponent,
   usePageQuery,
-  useUserQuery,
 } from '@codelab/frontend/presentation/container'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { Image } from 'antd'
@@ -39,20 +38,22 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
     const currentPathname = usePathname()
     const component = useCurrentComponent()
     const isBuilder = currentPathname.endsWith('/builder')
-    const isPageBuilder = currentPathname === PageType.PageBuilder
-    const { componentSlug } = useUrl()
-    const { appName, appSlug } = useAppQuery()
-    const { pageName, pageSlug } = usePageQuery()
-    const { userSlug } = useUserQuery()
+    const { componentId } = useUrl()
+    const { appId, appName } = useAppQuery()
+    const { pageId } = usePageQuery()
+
+    const isPageBuilder =
+      currentPathname === PageType.PageBuilder({ appId, pageId })
+
     const componentName = component?.name || '?'
 
     const togglePreviewMode = () => {
       let path
 
-      if (componentSlug) {
+      if (componentId) {
         path = isBuilder ? PageType.ComponentPreview : PageType.ComponentBuilder
-        path = path.replace('[componentSlug]', componentSlug)
-      } else if (userSlug && appSlug && pageSlug) {
+        path = path.replace('[componentSlug]', componentId)
+      } else if (appSlug && pageSlug) {
         path = isBuilder ? PageType.PageDetail : PageType.PageBuilder
         path = path
           .replace('[userSlug]', userSlug)
@@ -73,21 +74,21 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
     }
 
     const navigatePagesPanel = useCallback(async () => {
-      const url = queryString.stringifyUrl({
-        query: {
-          appSlug,
-          pageSlug,
-          primarySidebarKey: ExplorerPaneType.PageList,
-          userSlug,
+      const url = PageType.PageBuilder(
+        {
+          appId,
+          pageId,
         },
-        url: PageType.PageBuilder,
-      })
+        {
+          primarySidebarKey: ExplorerPaneType.PageList,
+        },
+      )
 
       await router.push(url)
     }, [router])
 
     const navigateAppsPage = useCallback(async () => {
-      await router.push(PageType.AppList)
+      await router.push(PageType.AppList())
     }, [router])
 
     const toolbarItems: Array<ToolbarItem> = [

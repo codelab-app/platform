@@ -4,8 +4,8 @@ import { getNameFromSlug } from '@codelab/shared/utils'
 
 export const useCurrentComponent = () => {
   const { componentDomainService } = useDomainStore()
-  const { componentSlug } = useUrl()
-  const componentName = getNameFromSlug(componentSlug)
+  const { componentId } = useUrl()
+  const componentName = getNameFromSlug(componentId)
 
   return componentDomainService.componentList.find(
     ({ name }) => name === componentName,

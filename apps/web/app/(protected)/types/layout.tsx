@@ -12,10 +12,10 @@ const TypesRouteLayout = ({ children }: { children: ReactNode }) => {
     <DashboardTemplate
       Header={<TypesViewHeader />}
       PrimarySidebar={{
-        default: PageType.Type,
+        default: PageType.Type(),
         items: [
           {
-            key: PageType.Type,
+            key: PageType.Type(),
             render: <TypesPrimarySidebar />,
           },
         ],

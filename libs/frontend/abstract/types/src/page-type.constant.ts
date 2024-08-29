@@ -1,30 +1,47 @@
-export enum PageType {
-  Admin = '/admin',
-  AppDetail = '/apps/[appId]',
-  // Features = '/features',
-  // Docs = '/docs',
-  // Pricing = '/pricing',
-  // Tutorials = '/tutorials',
-  AppList = '/apps',
-  Atoms = '/atoms',
-  AtomList = '/apps/[userSlug]/[appSlug]/atoms',
-  AtomTypeList = '/atom-types',
-  ComponentExport = '/api/export/component',
-  Home = '/',
-  LambdaList = '/lambdas',
-  Page404 = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]/404',
-  Page500 = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]/500',
-  Resources = '/resources',
-  AuthGuards = '/auth-guards',
-  Components = '/components',
-  Type = '/types',
-  PageBuilder = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]/builder',
-  ComponentBuilder = '/components/[componentSlug]/builder',
-  ComponentPreview = '/components/[componentSlug]',
-  PageDetail = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]',
-  PropsInterface = '/apps/[userSlug]/[appSlug]/props',
-  Storybook = '/storybook',
-  Prop = '/library/[libraryId]/props',
-  Tags = '/tags',
-  PageList = '/apps/[userSlug]/[appSlug]/pages',
+import { ObjectTyped } from 'object-typed'
+import type { PageContextParams, UrlParams, UrlQuery } from './url'
+
+export const PageType = {
+  Admin: () => '/admin',
+  AppDetail: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}`,
+  AppList: () => '/apps',
+  AtomList: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}/atoms`,
+  Atoms: () => '/atoms' as const,
+  AtomTypeList: () => '/atom-types',
+  AuthGuards: () => '/auth-guards',
+  ComponentBuilder: (
+    { componentId }: Pick<UrlParams, 'componentId'>,
+    { primarySidebarKey }: Partial<UrlQuery> = {},
+  ) =>
+    `/components/${componentId}/builder${
+      primarySidebarKey ? `?primarySidebarKey=${primarySidebarKey}` : ''
+    }`,
+  ComponentExport: () => '/api/export/component',
+  ComponentPreview: ({ componentId }: Pick<UrlParams, 'componentId'>) =>
+    `/components/${componentId}`,
+  Components: () => '/components',
+  Home: () => '/',
+  LambdaList: () => '/lambdas',
+  Page404: ({ appId, pageId }: PageContextParams) =>
+    `/apps/${appId}/pages/${pageId}/404`,
+  Page500: ({ appId, pageId }: PageContextParams) =>
+    `/apps/${appId}/pages/${pageId}/500`,
+  PageBuilder: (
+    { appId, pageId }: PageContextParams,
+    { primarySidebarKey }: Partial<UrlQuery> = {},
+  ) =>
+    `/apps/${appId}/pages/${pageId}/builder${
+      primarySidebarKey ? `?primarySidebarKey=${primarySidebarKey}` : ''
+    }`,
+  PageDetail: ({ appId, pageId }: PageContextParams) =>
+    `/apps/${appId}/pages/${pageId}`,
+  PageList: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}/pages`,
+  Prop: ({ libraryId }: Pick<UrlParams, 'libraryId'>) =>
+    `/library/${libraryId}/props`,
+  PropsInterface: ({ appId }: Pick<UrlParams, 'appId'>) =>
+    `/apps/${appId}/props`,
+  Resources: () => '/resources',
+  Storybook: () => '/storybook',
+  Tags: () => '/tags',
+  Type: () => '/types',
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import type { UrlParams } from '@codelab/frontend/abstract/application'
+import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   type ReadonlyURLSearchParams,
@@ -22,15 +22,14 @@ export const useUrl = () => {
   const primarySidebarKey = searchParams?.get('primarySidebarKey')
 
   return {
-    appSlug: params?.appSlug,
+    appId: params?.appId,
     authGuardId: params?.authGuardId,
-    componentSlug: params?.componentSlug,
-    pageSlug: params?.pageSlug,
+    componentId: params?.componentId,
+    pageId: params?.pageId,
     params: params,
     pathname,
     primarySidebarKey,
     query: queryString.parse(searchParams?.toString() ?? ''),
     resourceId: params?.resourceId,
-    userSlug: params?.userSlug,
   }
 }

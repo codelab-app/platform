@@ -22,8 +22,7 @@ export type DashboardTemplateProps<T = unknown> = T & {
   PrimarySidebar?: PrimarySidebar
   Header?: React.ReactElement
   contentStyles?: React.CSSProperties
-  appSlug?: string
-  componentSlug?: string
-  pageSlug?: string
-  userSlug?: string
+  appId?: string
+  componentId?: string
+  pageId?: string
 }

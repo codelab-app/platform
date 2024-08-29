@@ -25,13 +25,10 @@ export const CustomComponents = observer(() => {
     downloadJsonAsFile(`${slugify(component.name)}.json`, result)
   })
 
-  const editComponent = async (id: string) => {
-    const { name } = componentDomainService.component(id)
-    const componentSlug = slugify(name)
-
+  const editComponent = async (componentId: string) => {
     const url = queryString.stringifyUrl({
       query: { primarySidebarKey: ExplorerPaneType.Explorer },
-      url: PageType.ComponentBuilder.replace('[componentSlug]', componentSlug),
+      url: PageType.ComponentBuilder({ componentId }),
     })
 
     await router.push(url)

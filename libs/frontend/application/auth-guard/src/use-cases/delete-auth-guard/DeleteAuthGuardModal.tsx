@@ -31,7 +31,7 @@ export const DeleteAuthGuardModal = observer(() => {
     closeModal()
 
     if (authGuardId === authGuard?.id) {
-      void router.push(PageType.AuthGuards)
+      void router.push(PageType.AuthGuards())
     }
   }
 

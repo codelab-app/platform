@@ -11,10 +11,10 @@ const AtomsRouteLayout = ({ children }: { children: ReactNode }) => {
     <DashboardTemplate
       Header={<AtomsViewHeader />}
       PrimarySidebar={{
-        default: PageType.Atoms,
+        default: PageType.Atoms(),
         items: [
           {
-            key: PageType.Atoms,
+            key: PageType.Atoms(),
             render: <AtomsPrimarySidebar />,
           },
         ],

@@ -8,6 +8,7 @@ overrides:
   '@types/react': 18.3.0
   '@types/react-dom': 18.3.0
   '@mui/styled-engine': npm:@mui/styled-engine-sc@latest
+  '@sinclair/typebox': 0.33.7
 
 importers:
 
@@ -338,8 +339,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(react@18.3.1)
       '@sinclair/typebox':
-        specifier: 0.32.31
-        version: 0.32.31
+        specifier: 0.33.7
+        version: 0.33.7
       '@sotaproject/strikethrough':
         specifier: 1.0.1
         version: 1.0.1
@@ -516,7 +517,7 @@ importers:
         version: 4.1.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(pino-http@9.0.0)
       nestjs-typebox:
         specifier: 3.0.0-next.8
-        version: 3.0.0-next.8(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/swagger@7.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13))(@sinclair/typebox@0.32.31)(rxjs@7.8.0)
+        version: 3.0.0-next.8(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/swagger@7.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13))(@sinclair/typebox@0.33.7)(rxjs@7.8.0)
       next:
         specifier: 14.2.5
         version: 14.2.5(@babel/core@7.24.9)(@opentelemetry/api@1.8.0)(@playwright/test@1.46.0)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)
@@ -669,7 +670,7 @@ importers:
         version: 4.12.0
       typebox-validators:
         specifier: 0.3.5
-        version: 0.3.5(@sinclair/typebox@0.32.31)
+        version: 0.3.5(@sinclair/typebox@0.33.7)
       uniforms:
         specifier: 3.10.2
         version: 3.10.2(react@18.3.1)
@@ -6077,11 +6078,8 @@ packages:
   '@sideway/pinpoint@2.0.0':
     resolution: {integrity: sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==}
 
-  '@sinclair/typebox@0.27.8':
-    resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
-
-  '@sinclair/typebox@0.32.31':
-    resolution: {integrity: sha512-rYB0tgGHawpom3ZwwsGidvI0NI+W/rRHu1dyyO1KlIoH8iMdg3esSnYQxQtyJ8eflhqxmzEV7Nu8zT4JY7CHKw==}
+  '@sinclair/typebox@0.33.7':
+    resolution: {integrity: sha512-et38XPs6GMoB6XugH+Spp/HRv5gHYffw7rXC3caen/dIKC7Q6sqs6eEH9Yd9UKziUkOQdrLr9OXUULAc+pRMng==}
 
   '@sindresorhus/is@4.6.0':
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
@@ -12876,7 +12874,7 @@ packages:
       '@nestjs/common': ^9.0.1 || ^10.0.3
       '@nestjs/core': ^9.0.1 || ^10.0.3
       '@nestjs/swagger': ^6.1.1 || ^7.0.11
-      '@sinclair/typebox': ^0.32.4
+      '@sinclair/typebox': 0.33.7
       rxjs: ^7.5.6
 
   netmask@2.0.2:
@@ -16175,7 +16173,7 @@ packages:
   typebox-validators@0.3.5:
     resolution: {integrity: sha512-FXrmSUAN6bSGxDANResNCZQ8VRRLr5bSyy73/HyqSXGdiVuogppGAoRocy7NTVZY4Wc2sWUofmWwwIXE6OxS6Q==}
     peerDependencies:
-      '@sinclair/typebox': ^0.30.4
+      '@sinclair/typebox': 0.33.7
 
   typed-array-buffer@1.0.2:
     resolution: {integrity: sha512-gEymJYKZtKXzzBzM4jqa9w6Q1Jjm7x2d+sh19AdsD4wqnMPDYyvwpsIc2Q/835kHuo3BEQ7CjelGhfTsoBb2MQ==}
@@ -20493,7 +20491,7 @@ snapshots:
 
   '@jest/schemas@29.6.3':
     dependencies:
-      '@sinclair/typebox': 0.27.8
+      '@sinclair/typebox': 0.33.7
 
   '@jest/source-map@29.6.3':
     dependencies:
@@ -24267,9 +24265,7 @@ snapshots:
 
   '@sideway/pinpoint@2.0.0': {}
 
-  '@sinclair/typebox@0.27.8': {}
-
-  '@sinclair/typebox@0.32.31': {}
+  '@sinclair/typebox@0.33.7': {}
 
   '@sindresorhus/is@4.6.0': {}
 
@@ -32967,12 +32963,12 @@ snapshots:
       '@nestjs/common': 10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
       pino-http: 9.0.0
 
-  nestjs-typebox@3.0.0-next.8(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/swagger@7.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13))(@sinclair/typebox@0.32.31)(rxjs@7.8.0):
+  nestjs-typebox@3.0.0-next.8(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/swagger@7.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13))(@sinclair/typebox@0.33.7)(rxjs@7.8.0):
     dependencies:
       '@nestjs/common': 10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
       '@nestjs/core': 10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
       '@nestjs/swagger': 7.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.0(@nestjs/common@10.4.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)
-      '@sinclair/typebox': 0.32.31
+      '@sinclair/typebox': 0.33.7
       rxjs: 7.8.0
 
   netmask@2.0.2: {}
@@ -36811,9 +36807,9 @@ snapshots:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
-  typebox-validators@0.3.5(@sinclair/typebox@0.32.31):
+  typebox-validators@0.3.5(@sinclair/typebox@0.33.7):
     dependencies:
-      '@sinclair/typebox': 0.32.31
+      '@sinclair/typebox': 0.33.7
 
   typed-array-buffer@1.0.2:
     dependencies:

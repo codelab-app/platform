@@ -54,7 +54,7 @@ export class AppListPage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(PageType.AppList)
+    await this.page.goto(PageType.AppList())
   }
 
   async openCreateAppModal() {

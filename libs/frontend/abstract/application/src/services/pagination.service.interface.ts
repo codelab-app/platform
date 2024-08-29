@@ -24,11 +24,10 @@ export type SupportedPaginationModel =
   | ITypeModel
 
 export type SupportedPaginationModelPage =
-  | PageType.Atoms
-  | PageType.Components
-  | PageType.Tags
-  | PageType.Type
-
+  | ReturnType<typeof PageType.Atoms>
+  | ReturnType<typeof PageType.Components>
+  | ReturnType<typeof PageType.Tags>
+  | ReturnType<typeof PageType.Type>
 export type SupportedPaginationModelService =
   | IAtomService
   | IComponentService

@@ -5,10 +5,10 @@ import { useMemo } from 'react'
 
 export const useCurrentApp = () => {
   const { appDomainService } = useDomainStore()
-  const { appSlug } = useUrl()
+  const { appId } = useUrl()
 
   return useMemo(() => {
-    const app = appDomainService.appsList.find((item) => item.name === appSlug)
+    const app = appDomainService.appsList.find((item) => item.name === appId)
 
     assertIsDefined(app)
 
