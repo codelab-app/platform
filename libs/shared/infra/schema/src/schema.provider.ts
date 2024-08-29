@@ -1,10 +1,12 @@
-import type { SchemaKinds } from '@codelab/shared/abstract/core'
-import { TypeRegistry } from '@sinclair/typebox'
-import type { Schema, ValidateFunction } from 'ajv'
+import { Kind, type TKind, type TSchema, TypeRegistry } from '@sinclair/typebox'
+import type { ValidateFunction } from 'ajv'
 import Ajv from 'ajv'
+import { AtLeastOneSchema, TAtLeastOne } from './schema/at-least-one.schema'
+
+const schemas = { [TAtLeastOne[Kind]]: AtLeastOneSchema }
 
 export interface ISchemaProvider {
-  register(kind: keyof typeof SchemaKinds, tSchema: Schema): void
+  register(kind: TKind, tSchema: TSchema): void
 }
 
 class SchemaProvider implements ISchemaProvider {
@@ -22,8 +24,8 @@ class SchemaProvider implements ISchemaProvider {
     this.ajv.addSchema(schema, key)
   }
 
-  assertHasRegistry(kind: keyof typeof SchemaKinds) {
-    const exists = TypeRegistry.Has(`@codelab/${kind}`)
+  assertHasRegistry(kind: TKind) {
+    const exists = TypeRegistry.Has(kind[Kind])
 
     if (!exists) {
       throw new Error(`Please register @codelab/${kind} to Typebox first`)
@@ -37,8 +39,8 @@ class SchemaProvider implements ISchemaProvider {
   /**
    * Register custom kinds first before we can assert
    */
-  register(kind: keyof typeof SchemaKinds, tSchema: Schema) {
-    TypeRegistry.Set(`@codelab/${kind}`, (schema, value) => {
+  register(kind: TKind, tSchema: TSchema) {
+    TypeRegistry.Set(kind[Kind], (schema, value) => {
       const validate = this.ajv.compile(tSchema)
 
       return validate(value)

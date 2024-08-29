@@ -1,0 +1,9 @@
+{
+  "name": "shared-abstract-infra",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/abstract/infra/src",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "// targets": "to see all targets run: nx show project shared-abstract-infra --web",
+  "targets": {}
+}

@@ -1,9 +1,26 @@
+import type { IRef } from '@codelab/shared/abstract/core'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Kind, type TSchema, TypeGuard, TypeRegistry } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
+import Ajv from 'ajv'
 import { v4 } from 'uuid'
-import { ajv, assertIsRef, isIRef } from './ref.utils'
 
+const ajv = new Ajv({})
+
+const isIRef = (value: unknown): value is IRef => {
+  const validate = ajv.compile(Typebox.Ref)
+
+  return validate(value)
+}
+
+type AssertIsRef = (value: unknown) => asserts value is IRef
+
+const assertIsRef: AssertIsRef = (val) =>
+  Value.Decode({ [Kind]: '@codelab/Ref' } as TSchema, val)
+
+/**
+ * These are used for testing only, to give examples on how the npm lib works
+ */
 describe('Ref', () => {
   it('should throw an error if not a ref type', () => {
     const validate = ajv.compile(Typebox.Ref)

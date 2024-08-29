@@ -1,4 +1,3 @@
-import { ObjectTyped } from 'object-typed'
 import type { PageContextParams, UrlParams, UrlQuery } from './url'
 
 export const PageType = {

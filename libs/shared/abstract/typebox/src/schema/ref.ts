@@ -1,4 +1,8 @@
-import { Type } from '@sinclair/typebox'
+import { Kind, type TKind, Type } from '@sinclair/typebox'
+
+export const TRef = {
+  [Kind]: '@codelab/Ref',
+} as TKind
 
 export const Ref = Type.Object({
   id: Type.String(),

@@ -1,7 +1,6 @@
 'use client'
 
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import {
   BuilderPrimarySidebar,
   ComponentsPrimarySidebar,
@@ -12,9 +11,7 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend-application-page/views'
-import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import { observer } from 'mobx-react-lite'

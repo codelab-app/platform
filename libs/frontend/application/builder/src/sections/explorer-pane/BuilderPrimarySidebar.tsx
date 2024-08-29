@@ -10,10 +10,6 @@ import { isComponent, isPage, typeRef } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  useCurrentComponent,
-  useCurrentPage,
-} from '@codelab/frontend/presentation/container'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import {
   CreateElementPopover,

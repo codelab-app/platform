@@ -9,7 +9,6 @@ import {
   resourceMenuItem,
 } from '../../../sections'
 import { pageBuilderMenuItem } from '../../../sections/Menu/BuilderMenuItem'
-import type { DashboardTemplateProps } from '../Types'
 
 /**
  * There are 3 cases here,

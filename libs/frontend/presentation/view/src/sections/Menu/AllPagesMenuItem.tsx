@@ -5,7 +5,6 @@ import {
   PageType,
 } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import React from 'react'
 
 export const allPagesMenuItem = ({
