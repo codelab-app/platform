@@ -8,6 +8,7 @@
       "plugins": ["react"],
       "files": ["*.tsx"],
       "rules": {
+        "react/display-name": "error",
         "unicorn/filename-case": [
           "error",
           {

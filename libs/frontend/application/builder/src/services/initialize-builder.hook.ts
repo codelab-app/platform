@@ -24,13 +24,13 @@ export const useInitializeBuilder = ({
     rendererType,
   })
 
-  rendererService.setActiveRenderer(rendererRef(renderer.id))
+  // rendererService.setActiveRenderer(rendererRef(renderer.id))
 
-  builderService.selectElementNode(
-    runtimeElementRef(renderer.runtimeRootContainerNode.runtimeRootElement),
-  )
+  // builderService.selectElementNode(
+  //   runtimeElementRef(renderer.runtimeRootContainerNode.runtimeRootElement),
+  // )
 
-  void renderer.expressionTransformer.init()
+  // void renderer.expressionTransformer.init()
 
   return {
     renderer,

@@ -14,11 +14,12 @@ export type DashboardTemplateProps<T = unknown> = T & {
   /**
    * The right panel used for configuration element settings
    */
-  ConfigPane?: React.ReactElement
+  ConfigPane?: React.ReactNode
   /**
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */
   PrimarySidebar?: PrimarySidebar
+  primarySidebarKey?: string
   Header?: React.ReactElement
   contentStyles?: React.CSSProperties
   appId?: string

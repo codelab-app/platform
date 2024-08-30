@@ -5,7 +5,7 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import React from 'react'
 
-const PageBuilderPage = async ({
+const Page = async ({
   params: { appId, pageId },
 }: {
   params: {
@@ -38,4 +38,4 @@ const PageBuilderPage = async ({
   )
 }
 
-export default PageBuilderPage
+export default Page

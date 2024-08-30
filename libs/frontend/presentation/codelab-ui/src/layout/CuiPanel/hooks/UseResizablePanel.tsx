@@ -42,7 +42,9 @@ export const useResizeHandler = ({
     panel: (
       <Panel
         collapsible={collapsible}
-        onCollapse={setCollapsed}
+        onCollapse={() => {
+          setCollapsed(!collapsed)
+        }}
         order={order}
         ref={panelHandler}
       >

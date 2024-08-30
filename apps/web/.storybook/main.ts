@@ -10,10 +10,7 @@ const storybookConfig: StorybookConfig = {
 
   babel: async (options) => ({
     ...options,
-    plugins: [
-      ['@babel/plugin-proposal-decorators', { legacy: true }],
-      ['@babel/plugin-proposal-class-properties', { loose: true }],
-    ],
+    plugins: [],
     presets: [...(options.presets || []), 'next/babel'],
   }),
 
@@ -23,7 +20,6 @@ const storybookConfig: StorybookConfig = {
     name: '@storybook/nextjs',
     options: {
       builder: {
-        // Experimental but not working, instead we add babel config above for decorator
         // useSWC: true,
       },
     },

@@ -4,5 +4,3 @@ declare module '*.svg' {
   export const ReactComponent: any
   export default content
 }
-
-declare module '@babel/plugin-transform-react-jsx'

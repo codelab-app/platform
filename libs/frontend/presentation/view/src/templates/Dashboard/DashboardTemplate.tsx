@@ -1,23 +1,26 @@
-'use client'
+'use server'
 
 import {
   CuiNavigationBar,
+  CuiPanel,
+  CuiPanelGroup,
   CuiResizablePanel,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { Layout } from 'antd'
-import React, { useMemo } from 'react'
-import { Panel, PanelGroup } from 'react-resizable-panels'
+import Layout from 'antd/es/layout'
+import Sider from 'antd/es/layout/Sider'
+import React from 'react'
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplateConfigPane'
 import { defaultNavigationBarItems } from './NavigationBar'
 import type { DashboardTemplateProps } from './Types'
 
-const { Sider } = Layout
-
-export const DashboardTemplate = ({
+/**
+ * When passing ReactNode as props, React treats it as a new prop on every render of the parent component, even if the content hasn't changed.
+ */
+export const DashboardTemplate = async ({
   appId,
   children,
   componentId,
@@ -26,31 +29,20 @@ export const DashboardTemplate = ({
   Header,
   pageId,
   PrimarySidebar,
+  primarySidebarKey,
 }: React.PropsWithChildren<DashboardTemplateProps>) => {
-  const { primarySidebarKey } = useUrl()
-  const { isLoading } = useLoading()
+  const navigationBarItems = defaultNavigationBarItems({
+    appId,
+    componentId,
+    pageId,
+  })
 
-  const navigationBarItems = useMemo(
-    () =>
-      defaultNavigationBarItems({
-        appId,
-        componentId,
-        pageId,
-      }),
-    [appId, pageId, componentId],
-  )
+  const activeSidebarKey =
+    (primarySidebarKey as React.Key) || PrimarySidebar?.default || null
 
-  const activeSidebarKey = useMemo(
-    () => (primarySidebarKey as React.Key) || PrimarySidebar?.default || null,
-    [primarySidebarKey, PrimarySidebar?.default],
-  )
-
-  const ActivePrimarySidebar = useMemo(
-    () =>
-      PrimarySidebar?.items.find((item) => item.key === activeSidebarKey)
-        ?.render,
-    [PrimarySidebar?.items, activeSidebarKey],
-  )
+  const ActivePrimarySidebar = PrimarySidebar?.items.find(
+    (item) => item.key === activeSidebarKey,
+  )?.render
 
   return (
     <Layout className="h-full">
@@ -68,33 +60,29 @@ export const DashboardTemplate = ({
         </Sider>
 
         <Layout style={contentStyles}>
-          <PanelGroup direction="horizontal">
-            {ActivePrimarySidebar && (
-              <CuiResizablePanel
-                collapsible
-                order={1}
-                resizeDirection="right"
-                showCollapseButton={false}
-              >
-                <div className="size-full" data-cy="temp-primary-panel-wrapper">
-                  {ActivePrimarySidebar}
-                </div>
-              </CuiResizablePanel>
-            )}
+          <CuiPanelGroup direction="horizontal">
+            <CuiResizablePanel
+              collapsible
+              order={1}
+              resizeDirection="right"
+              showCollapseButton={false}
+            >
+              <div className="size-full" data-cy="temp-primary-panel-wrapper">
+                {ActivePrimarySidebar}
+              </div>
+            </CuiResizablePanel>
 
-            <Panel defaultSize={60} order={2}>
-              <ProgressBar isLoading={isLoading} />
+            <CuiPanel defaultSize={60} order={2}>
+              <ProgressBar />
               <main className="mt-3 size-full overflow-auto px-3 pb-6">
                 {children}
               </main>
-            </Panel>
+            </CuiPanel>
 
-            {ConfigPane && (
-              <CuiResizablePanel collapsible order={3} resizeDirection="left">
-                <DashboardTemplateConfigPane ConfigPane={ConfigPane} />
-              </CuiResizablePanel>
-            )}
-          </PanelGroup>
+            <CuiResizablePanel collapsible order={3} resizeDirection="left">
+              <DashboardTemplateConfigPane ConfigPane={ConfigPane} />
+            </CuiResizablePanel>
+          </CuiPanelGroup>
         </Layout>
       </Layout>
     </Layout>
