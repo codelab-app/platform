@@ -32,6 +32,10 @@ export class ComponentListPage extends BasePage {
     return this.getByExactText(this.componentName)
   }
 
+  getSpinner() {
+    return this.page.getByRole('status')
+  }
+
   async goto() {
     await this.page.goto(PageType.Components)
   }

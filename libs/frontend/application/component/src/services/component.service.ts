@@ -11,10 +11,7 @@ import { useElementService } from '@codelab/frontend-application-element/service
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
-import {
-  componentRepository,
-  GetComponentBuilder,
-} from '@codelab/frontend-domain-component/repositories'
+import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   useApplicationStore,
@@ -25,9 +22,11 @@ import type {
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
 import type {
+  ComponentBuilderFragment,
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
+import { componentBuilderQuery } from '../use-cases/component-builder'
 import { revalidateComponentListOperation } from '../use-cases/component-list'
 
 export const useComponentService = (): IComponentService => {
@@ -56,7 +55,7 @@ export const useComponentService = (): IComponentService => {
 
   const remove = async (components: Array<IComponentModel>) => {
     const deleteComponent = async (component: IComponentModel) => {
-      const { id } = component
+      const { id, name } = component
       const rootElement = component.rootElement.maybeCurrent
 
       if (rootElement) {
@@ -66,8 +65,8 @@ export const useComponentService = (): IComponentService => {
       } else {
         // means we do not have root element and all the descendants on client side
         // need to get all descendant element IDs and delete them
-        const data = await GetComponentBuilder({})
-        const elements = data.components[0]?.elements ?? []
+        const data = await componentBuilderQuery({ componentName: name })
+        const elements = (data.component as ComponentBuilderFragment).elements
 
         await elementRepository.delete(elements)
       }
