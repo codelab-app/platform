@@ -31,32 +31,57 @@ class ValidationService implements IValidationService {
     data: unknown,
     options?: { message: string },
   ): asserts data is Static<T> {
-    const validator = this.createValidator(kind)
+    try {
+      const validator = this.createValidator(kind)
 
-    return validator.assert(data as Readonly<unknown>, options?.message)
+      return validator.assert(data as Readonly<unknown>, options?.message)
+    } catch (error: unknown) {
+      console.error('Assertion error:', error)
+      throw new Error((error as Error).message)
+    }
   }
 
   assertsDefined<T>(data: T): asserts data is NonNullable<T> {
-    this.asserts(TDefined, data)
+    try {
+      this.asserts(TDefined, data, { message: 'Data should be defined' })
+    } catch (error: unknown) {
+      console.error('Assertion error:', error)
+      throw new Error((error as Error).message)
+    }
   }
 
   /**
    * Parses a value or throws an `AssertError` if invalid
    */
   parseDefined<T>(data: T) {
-    return Value.Parse(DefinedSchema, data) as NonNullable<T>
+    try {
+      return Value.Parse(DefinedSchema, data) as NonNullable<T>
+    } catch (error: unknown) {
+      console.error('Parse error:', error)
+      throw new Error((error as Error).message)
+    }
   }
 
   validate(kind: TKind, data: Readonly<unknown>) {
-    const validator = this.createValidator(kind)
+    try {
+      const validator = this.createValidator(kind)
 
-    return validator.test(data)
+      return validator.test(data)
+    } catch (error: unknown) {
+      console.error('Validation error:', error)
+      throw new Error((error as Error).message)
+    }
   }
 
   private createValidator(kind: TKind) {
-    this.schema.assertHasRegistry(kind)
+    try {
+      this.schema.assertHasRegistry(kind)
 
-    return new StandardValidator(this.schema.tSchema(kind))
+      return new StandardValidator(this.schema.tSchema(kind))
+    } catch (error: unknown) {
+      console.error('Validator creation error:', error)
+      throw new Error((error as Error).message)
+    }
   }
 
   private schema

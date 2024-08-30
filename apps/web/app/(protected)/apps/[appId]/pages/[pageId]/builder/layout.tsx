@@ -6,11 +6,7 @@ import {
   ComponentsPrimarySidebar,
   ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend-application-builder/sections'
-import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
-import {
-  PageDetailHeader,
-  PagesPrimarySidebar,
-} from '@codelab/frontend-application-page/views'
+import { PagesPrimarySidebar } from '@codelab/frontend-application-page/views'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
@@ -36,13 +32,13 @@ const Layout = observer(
     return (
       <DashboardTemplate
         ConfigPane={<ConfigPaneInspectorTabContainer />}
-        Header={
-          <PageDetailHeader
-            BuilderResizeMenu={<BuilderResizeMenu />}
-            appId={appId}
-            pageId={pageId}
-          />
-        }
+        // Header={
+        //   <PageDetailHeader
+        //     BuilderResizeMenu={<BuilderResizeMenu />}
+        //     appId={appId}
+        //     pageId={pageId}
+        //   />
+        // }
         PrimarySidebar={{
           default: ExplorerPaneType.Explorer,
           items: [

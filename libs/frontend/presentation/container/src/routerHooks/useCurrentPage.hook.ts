@@ -1,6 +1,5 @@
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 import { useMemo } from 'react'
 
 /**
@@ -12,8 +11,6 @@ export const useCurrentPage = () => {
 
   return useMemo(() => {
     const page = pageDomainService.pagesList.find(({ id }) => id === pageId)
-
-    Validator.assertsDefined(page)
 
     return page
   }, [pageId, pageDomainService.pagesList])

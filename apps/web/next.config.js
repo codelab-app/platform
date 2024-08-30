@@ -19,8 +19,6 @@ const withWebpackConfig = (nextConfig = {}) =>
         type: 'asset/source',
       })
 
-      // config.experiments = { ...config.experiments, topLevelAwait: true }
-
       /**
        * Wdyr
        *

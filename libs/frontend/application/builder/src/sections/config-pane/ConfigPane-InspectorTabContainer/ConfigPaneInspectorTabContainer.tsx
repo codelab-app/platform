@@ -7,6 +7,8 @@ import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
 import NodeIndexOutlined from '@ant-design/icons/NodeIndexOutlined'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
+  type IRuntimeComponentModel,
+  type IRuntimeElementModel,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
@@ -52,6 +54,10 @@ export const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
       {icon}
     </Tooltip>
   )
+}
+
+interface ConfigPaneInspectorTabContainer {
+  selectedNode: IRuntimeComponentModel | IRuntimeElementModel
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {

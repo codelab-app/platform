@@ -7,6 +7,7 @@ import {
   useCurrentPage,
 } from '@codelab/frontend/presentation/container'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
+import { Skeleton } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { type ReactNode, useCallback } from 'react'
@@ -57,11 +58,14 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
       await router.push(PageType.AppList())
     }, [router])
 
-    const directionItems = [
-      { onClick: navigateAppsPage, title: app.name },
-      { title: 'Pages' },
-      { onClick: navigatePagesPanel, title: page.name },
-    ]
+    const directionItems =
+      app && page
+        ? [
+            { onClick: navigateAppsPage, title: app.name },
+            { title: 'Pages' },
+            { onClick: navigatePagesPanel, title: page.name },
+          ]
+        : [{ title: <Skeleton /> }]
 
     return (
       <DetailHeader
