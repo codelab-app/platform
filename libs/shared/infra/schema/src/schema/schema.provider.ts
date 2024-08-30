@@ -1,18 +1,12 @@
+import type { ISchemaProvider } from '@codelab/shared/abstract/infra'
 import { Kind, type TKind, type TSchema, TypeRegistry } from '@sinclair/typebox'
 import type { ValidateFunction } from 'ajv'
 import Ajv from 'ajv'
-import { AtLeastOneSchema, TAtLeastOne } from './schema/at-least-one.schema'
 
-const schemas = { [TAtLeastOne[Kind]]: AtLeastOneSchema }
-
-export interface ISchemaProvider {
-  register(kind: TKind, tSchema: TSchema): void
-}
-
-class SchemaProvider implements ISchemaProvider {
-  static getInstance(): SchemaProvider {
+export class SchemaProvider implements ISchemaProvider {
+  static getInstance(schemaKindMap: Array<[TKind, TSchema]>): SchemaProvider {
     if (!SchemaProvider.instance) {
-      SchemaProvider.instance = new SchemaProvider()
+      SchemaProvider.instance = new SchemaProvider(schemaKindMap)
     }
 
     return SchemaProvider.instance
@@ -47,11 +41,23 @@ class SchemaProvider implements ISchemaProvider {
     })
   }
 
+  tSchema(kind: TKind): TSchema {
+    const pair = this.schemaKindMap.find(([_kind]) => _kind === kind)
+
+    if (!pair) {
+      throw new Error('Not found')
+    }
+
+    return pair[1]
+  }
+
   private static instance?: SchemaProvider
 
-  private constructor() {
+  private constructor(private schemaKindMap: Array<[TKind, TSchema]>) {
     this.ajv = new Ajv()
+
+    for (const [kind, schema] of schemaKindMap) {
+      this.register(kind, schema)
+    }
   }
 }
-
-export const schemaProvider = SchemaProvider.getInstance()

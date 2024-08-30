@@ -7,7 +7,7 @@ import type {
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { RedirectWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 
 export const useRedirectService = (): IRedirectService => {
   const { redirectDomainService } = useDomainStore()
@@ -44,7 +44,7 @@ export const useRedirectService = (): IRedirectService => {
   const update = async (redirectDto: IUpdateRedirectData) => {
     const redirect = redirectDomainService.redirects.get(redirectDto.id)
 
-    assertIsDefined(redirect)
+    Validator.assertsDefined(redirect)
 
     redirect.writeCache(redirectDto)
 

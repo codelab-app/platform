@@ -8,7 +8,6 @@ overrides:
   '@types/react': 18.3.0
   '@types/react-dom': 18.3.0
   '@mui/styled-engine': npm:@mui/styled-engine-sc@latest
-  '@sinclair/typebox': 0.33.7
 
 importers:
 
@@ -1182,9 +1181,6 @@ importers:
       postcss:
         specifier: 8.4.38
         version: 8.4.38
-      process:
-        specifier: 0.11.10
-        version: 0.11.10
       tailwindcss:
         specifier: 3.4.4
         version: 3.4.4(ts-node@10.9.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@18.19.33)(typescript@5.5.4))
@@ -1200,9 +1196,6 @@ importers:
       ts-node:
         specifier: 10.9.1
         version: 10.9.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@18.19.33)(typescript@5.5.4)
-      ttab:
-        specifier: ^0.9.0
-        version: 0.9.0
       typescript:
         specifier: 5.5.4
         version: 5.5.4
@@ -6077,6 +6070,9 @@ packages:
 
   '@sideway/pinpoint@2.0.0':
     resolution: {integrity: sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==}
+
+  '@sinclair/typebox@0.27.8':
+    resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
   '@sinclair/typebox@0.33.7':
     resolution: {integrity: sha512-et38XPs6GMoB6XugH+Spp/HRv5gHYffw7rXC3caen/dIKC7Q6sqs6eEH9Yd9UKziUkOQdrLr9OXUULAc+pRMng==}
@@ -12874,7 +12870,7 @@ packages:
       '@nestjs/common': ^9.0.1 || ^10.0.3
       '@nestjs/core': ^9.0.1 || ^10.0.3
       '@nestjs/swagger': ^6.1.1 || ^7.0.11
-      '@sinclair/typebox': 0.33.7
+      '@sinclair/typebox': ^0.32.4
       rxjs: ^7.5.6
 
   netmask@2.0.2:
@@ -16097,11 +16093,6 @@ packages:
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
 
-  ttab@0.9.0:
-    resolution: {integrity: sha512-9JjR2OyEAcgqialIJ6GkIIssRenncGAOjWBLN5vDBMRJQbPxhkk4RriUmMaEMtGOWJsrgWeO7/mFO5xvcKIg5w==}
-    os: [darwin, linux]
-    hasBin: true
-
   tty-browserify@0.0.1:
     resolution: {integrity: sha512-C3TaO7K81YvjCgQH9Q1S3R3P3BtN3RIM8n+OvX4il1K1zgE8ZhI0op7kClgkxtutIE8hQrcrHBXvIheqKUUCxw==}
 
@@ -16173,7 +16164,7 @@ packages:
   typebox-validators@0.3.5:
     resolution: {integrity: sha512-FXrmSUAN6bSGxDANResNCZQ8VRRLr5bSyy73/HyqSXGdiVuogppGAoRocy7NTVZY4Wc2sWUofmWwwIXE6OxS6Q==}
     peerDependencies:
-      '@sinclair/typebox': 0.33.7
+      '@sinclair/typebox': ^0.30.4
 
   typed-array-buffer@1.0.2:
     resolution: {integrity: sha512-gEymJYKZtKXzzBzM4jqa9w6Q1Jjm7x2d+sh19AdsD4wqnMPDYyvwpsIc2Q/835kHuo3BEQ7CjelGhfTsoBb2MQ==}
@@ -20491,7 +20482,7 @@ snapshots:
 
   '@jest/schemas@29.6.3':
     dependencies:
-      '@sinclair/typebox': 0.33.7
+      '@sinclair/typebox': 0.27.8
 
   '@jest/source-map@29.6.3':
     dependencies:
@@ -24264,6 +24255,8 @@ snapshots:
   '@sideway/formula@3.0.1': {}
 
   '@sideway/pinpoint@2.0.0': {}
+
+  '@sinclair/typebox@0.27.8': {}
 
   '@sinclair/typebox@0.33.7': {}
 
@@ -36757,8 +36750,6 @@ snapshots:
     dependencies:
       tslib: 1.14.1
       typescript: 5.5.4
-
-  ttab@0.9.0: {}
 
   tty-browserify@0.0.1: {}
 

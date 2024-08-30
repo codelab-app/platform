@@ -29,11 +29,9 @@ import {
 import { useCreateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
 import { useUpdateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { useUser } from '@codelab/frontend-application-user/services'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import queryString from 'query-string'
 import React from 'react'
 import { useDeletePageModal } from '../delete-page/delete-page.state'
 import { useRegeneratePages } from '../generate-pages'
@@ -54,28 +52,27 @@ export const PageTreeItem = observer(
   }: PageTreeItemProps) => {
     const updateRedirectForm = useUpdateRedirectForm()
     const createRedirectForm = useCreateRedirectForm()
-    const user = useUser()
     const { isRegenerating, regenerate } = useRegeneratePages()
     const deletePageModal = useDeletePageModal()
     const updatePageForm = useUpdatePageForm()
     const { popover } = useCui()
     const router = useRouter()
-    const { query } = useUrl()
+    const { appId, pageId } = useUrl()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
         cuiKey: UiKey.OpenBuilderBuilderToolbarItem,
         icon: <BuildOutlined />,
         onClick: () => {
-          const url = queryString.stringifyUrl({
-            query: {
-              ...queryString.parse(query.toString()),
-              pageSlug: page.slug,
-              primarySidebarKey: ExplorerPaneType.Explorer,
-              userSlug: user.username,
+          const url = PageType.PageBuilder(
+            {
+              appId: appId!,
+              pageId: pageId!,
             },
-            url: PageType.PageBuilder(),
-          })
+            {
+              primarySidebarKey: ExplorerPaneType.Explorer,
+            },
+          )
 
           void router.push(url)
         },

@@ -9,7 +9,7 @@ import type {
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { atom, useAtom } from 'jotai'
 import type { Ref } from 'mobx-keystone'
 
@@ -110,7 +110,7 @@ export const useTagService = (): ITagService => {
   const update = async ({ id, name, parent }: IUpdateTagData) => {
     const tag = tagDomainService.tags.get(id)
 
-    assertIsDefined(tag)
+    Validator.assertsDefined(tag)
 
     tag.writeCache({ name, parent })
 

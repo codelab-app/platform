@@ -7,7 +7,7 @@ import type {
   AppUniqueWhere,
   AppWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { App } from '../store'
 import {
   AppList,
@@ -26,7 +26,7 @@ export const appRepository: IAppRepository = {
 
     const createdApp = apps[0]
 
-    assertIsDefined(createdApp)
+    Validator.assertsDefined(createdApp)
 
     return createdApp
   },
@@ -63,7 +63,7 @@ export const appRepository: IAppRepository = {
 
     const updatedApp = apps[0]
 
-    assertIsDefined(updatedApp)
+    Validator.assertsDefined(updatedApp)
 
     return updatedApp
   },

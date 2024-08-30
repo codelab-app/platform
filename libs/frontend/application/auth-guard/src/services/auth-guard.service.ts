@@ -8,7 +8,7 @@ import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/reposit
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import type { AuthGuardWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useAuthGuardService = (): IAuthGuardService => {
@@ -65,7 +65,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
   }: IUpdateAuthGuardData) => {
     const authGuard = authGuardDomainService.authGuards.get(id)
 
-    assertIsDefined(authGuard)
+    Validator.assertsDefined(authGuard)
 
     const config = authGuard.config
 

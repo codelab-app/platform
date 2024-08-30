@@ -5,7 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { computed, observable } from 'mobx'
 import {
   arraySet,
@@ -38,7 +38,7 @@ export class AtomDomainService
       (atom) => atom.type === IAtomType.ReactFragment,
     )?.toJson
 
-    return throwIfUndefined(renderType)
+    return Validator.parseDefined(renderType)
   }
 
   @observable
@@ -99,6 +99,7 @@ export class AtomDomainService
       script.type = 'module'
       script.innerText = `
         import ${externalSourceType} from '${externalJsSource}';
+import { Validator } from '@codelab/shared/infra/schema'
         window.${externalSourceType} = ${externalSourceType};
         if (window.onload${externalSourceType}) {
           window.onload${externalSourceType}(${externalSourceType});

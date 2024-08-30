@@ -17,7 +17,8 @@ import {
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { throwIfUndefined, uuidRegex } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
+import { uuidRegex } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import flatMap from 'lodash/flatMap'
@@ -88,7 +89,7 @@ export class ExportAppHandler
       ).map((element: Element) => ({
         ...element,
         renderType: {
-          __typename: throwIfUndefined(element.renderType.__typename),
+          __typename: Validator.parseDefined(element.renderType.__typename),
           id: element.renderType.id,
         },
       }))

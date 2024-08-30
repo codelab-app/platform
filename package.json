@@ -425,13 +425,11 @@
     "nx": "19.6.2",
     "pino-pretty": "10.3.1",
     "postcss": "8.4.38",
-    "process": "0.11.10",
     "tailwindcss": "3.4.4",
     "ts-essentials": "9.1.2",
     "ts-jest": "^29.1.0",
     "ts-morph": "19.0.0",
     "ts-node": "10.9.1",
-    "ttab": "^0.9.0",
     "typescript": "5.5.4",
     "utility-types": "3.10.0",
     "verdaccio": "^5.0.4",
@@ -441,8 +439,7 @@
   "resolutions": {
     "@types/react": "18.3.0",
     "@types/react-dom": "18.3.0",
-    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
-    "@sinclair/typebox": "0.33.7"
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
   },
   "nx": {
     "includedScripts": [],

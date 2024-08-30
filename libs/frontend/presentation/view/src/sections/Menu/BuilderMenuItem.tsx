@@ -6,11 +6,16 @@ import {
   PageType,
 } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { RequiredPartial } from '@codelab/shared/utils'
 import React from 'react'
 
-export const pageBuilderMenuItem = (
-  params?: ComponentContextParams | PageContextParams,
-): NavigationBarItem => {
+export const pageBuilderMenuItem = ({
+  appId,
+  componentId,
+  pageId,
+}: RequiredPartial<
+  ComponentContextParams & PageContextParams
+>): NavigationBarItem => {
   const disabledBuilderMenuItem = {
     disabled: true,
     icon: <BuildOutlined title="Builder" />,
@@ -19,30 +24,26 @@ export const pageBuilderMenuItem = (
     title: 'Builder',
   }
 
-  if (!params) {
-    return disabledBuilderMenuItem
-  }
-
-  if ('appId' in params) {
+  if (appId && pageId) {
     return {
       ...disabledBuilderMenuItem,
       disabled: false,
       link: {
         href: PageType.PageBuilder(
-          { appId: params.appId, pageId: params.pageId },
+          { appId, pageId },
           { primarySidebarKey: ExplorerPaneType.Explorer },
         ),
       },
     }
   }
 
-  if ('componentId' in params) {
+  if (componentId) {
     return {
       ...disabledBuilderMenuItem,
       disabled: false,
       link: {
         href: PageType.ComponentBuilder(
-          { componentId: params.componentId },
+          { componentId },
           {
             primarySidebarKey: ExplorerPaneType.Explorer,
           },

@@ -26,7 +26,7 @@ export const TypesTreeView = observer(
     >({
       filterTypes: { name: 'string' },
       paginationService: typeService.paginationService,
-      pathname: PageType.Type,
+      pathname: PageType.Type(),
     })
 
     const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({

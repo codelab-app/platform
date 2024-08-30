@@ -1,7 +1,6 @@
 import type { IRouterService } from '@codelab/frontend/abstract/application'
 import { IRouterProps } from '@codelab/frontend/abstract/application'
 import type { UrlParams, UrlQuery } from '@codelab/frontend/abstract/types'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -47,7 +46,7 @@ export class RouterService
 
   @computed
   get primarySidebarKey() {
-    return throwIfUndefined(this.query.primarySidebarKey)
+    return this.query.primarySidebarKey
   }
 
   @modelAction

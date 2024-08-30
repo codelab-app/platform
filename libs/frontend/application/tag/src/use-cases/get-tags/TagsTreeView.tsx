@@ -28,7 +28,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
   >({
     filterTypes: { name: 'string' },
     paginationService: tagService.paginationService,
-    pathname: PageType.Type,
+    pathname: PageType.Type(),
   })
 
   /**

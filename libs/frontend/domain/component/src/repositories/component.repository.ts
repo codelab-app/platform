@@ -8,7 +8,7 @@ import type {
   ComponentUniqueWhere,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   ComponentList,
   CreateComponents,
@@ -26,7 +26,7 @@ export const componentRepository: IComponentRepository = {
 
     const createdComponent = components[0]
 
-    assertIsDefined(createdComponent)
+    Validator.assertsDefined(createdComponent)
 
     return createdComponent
   },
@@ -69,7 +69,7 @@ export const componentRepository: IComponentRepository = {
 
     const updatedComponent = components[0]
 
-    assertIsDefined(updatedComponent)
+    Validator.assertsDefined(updatedComponent)
 
     return updatedComponent
   },

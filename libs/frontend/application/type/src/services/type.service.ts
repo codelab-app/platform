@@ -11,7 +11,7 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 
 export const useTypeService = (): ITypeService => {
   const { fieldDomainService, typeDomainService } = useDomainStore()
@@ -121,7 +121,7 @@ export const useTypeService = (): ITypeService => {
   const update = async (data: IUpdateTypeDto) => {
     const type = typeDomainService.types.get(data.id)
 
-    assertIsDefined(type)
+    Validator.assertsDefined(type)
 
     const typeDto = TypeFactory.mapDataToDTO(data)
 

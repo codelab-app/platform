@@ -10,7 +10,7 @@ import type {
   IFieldDto,
   IRef,
 } from '@codelab/shared/abstract/core'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
@@ -124,7 +124,7 @@ export const useFieldService = (): IFieldService => {
   const update = async (updateFieldData: ICreateFieldData) => {
     const field = fieldDomainService.getField(updateFieldData.id)
 
-    assertIsDefined(field)
+    Validator.assertsDefined(field)
 
     field.writeCache(fieldService.mapDataToDto(updateFieldData))
 

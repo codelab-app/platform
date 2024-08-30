@@ -18,7 +18,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import isEmpty from 'lodash/isEmpty'
 import { v4 } from 'uuid'
 
@@ -156,7 +156,7 @@ export const useAtomService = (): IAtomService => {
   }: IUpdateAtomData) => {
     const atom = atomDomainService.atoms.get(id)
 
-    assertIsDefined(atom)
+    Validator.assertsDefined(atom)
 
     atom.writeCache({
       externalCssSource,

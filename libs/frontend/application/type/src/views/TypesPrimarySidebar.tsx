@@ -21,7 +21,7 @@ export const TypesPrimarySidebar = () => {
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
     typeService,
-    PageType.Type,
+    PageType.Type(),
     { name: 'string' },
   )
 

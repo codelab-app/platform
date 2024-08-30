@@ -21,7 +21,7 @@ import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -154,7 +154,7 @@ export class ComponentDomainService
       (component) => component.slug === slug,
     )
 
-    assertIsDefined(found)
+    Validator.assertsDefined(found)
 
     return found
   }

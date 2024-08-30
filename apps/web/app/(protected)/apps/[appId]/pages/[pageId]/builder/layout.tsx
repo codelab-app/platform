@@ -36,7 +36,13 @@ const Layout = observer(
     return (
       <DashboardTemplate
         ConfigPane={<ConfigPaneInspectorTabContainer />}
-        Header={<PageDetailHeader BuilderResizeMenu={<BuilderResizeMenu />} />}
+        Header={
+          <PageDetailHeader
+            BuilderResizeMenu={<BuilderResizeMenu />}
+            appId={appId}
+            pageId={pageId}
+          />
+        }
         PrimarySidebar={{
           default: ExplorerPaneType.Explorer,
           items: [

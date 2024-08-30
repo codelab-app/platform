@@ -24,7 +24,7 @@ export const TagsPrimarySidebar = observer(() => {
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
     tagService,
-    PageType.Tags,
+    PageType.Tags(),
     { name: 'string' },
   )
 

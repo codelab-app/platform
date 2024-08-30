@@ -30,8 +30,8 @@ export const defaultNavigationBarItems = ({
   primaryItems: [
     appMenuItem,
     allPagesMenuItem({ appId, pageId }),
-    pageBuilderMenuItem({ appId, pageId }),
-    builderComponentsMenuItem({ appId, pageId }),
+    pageBuilderMenuItem({ appId, componentId, pageId }),
+    builderComponentsMenuItem({ appId, componentId, pageId }),
     resourceMenuItem,
     authGuardMenuItem,
   ],

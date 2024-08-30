@@ -12,7 +12,7 @@ import type {
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useActionService = (): IActionService => {
@@ -55,7 +55,7 @@ export const useActionService = (): IActionService => {
   const update = async (data: IUpdateActionData) => {
     const action = actionDomainService.actions.get(data.id)
 
-    assertIsDefined(action)
+    Validator.assertsDefined(action)
 
     const actionDto = ActionFactory.mapDataToDto(data)
 

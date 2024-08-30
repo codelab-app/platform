@@ -1,5 +1,5 @@
 import type { IMoveElementContext } from '@codelab/frontend/abstract/domain'
-import { assertContainsAtMostOne } from '@codelab/shared/utils'
+import { TAtMostOne, Validator } from '@codelab/shared/infra/schema'
 
 /**
  * We either change parentElement or prevSibling to move, but not both
@@ -7,5 +7,5 @@ import { assertContainsAtMostOne } from '@codelab/shared/utils'
 export const validateMoveElement = (context: IMoveElementContext) => {
   const { nextSibling, parentElement, prevSibling } = context
 
-  assertContainsAtMostOne([parentElement, nextSibling, prevSibling])
+  Validator.asserts(TAtMostOne, [parentElement, nextSibling, prevSibling])
 }

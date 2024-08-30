@@ -1,16 +1,27 @@
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { ComponentsPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
-import { PageDetailHeader } from '@codelab/frontend-application-page/views'
+import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { ReactNode } from 'react'
 import React from 'react'
 
-const BuilderLayout = ({ children }: { children: ReactNode }) => {
+const BuilderLayout = ({
+  children,
+  params: { componentId },
+}: {
+  children: ReactNode
+  params: { componentId: string }
+}) => {
   return (
     <DashboardTemplate
       // ConfigPane={() => <ConfigPaneInspectorTabContainer />}
-      Header={<PageDetailHeader BuilderResizeMenu={<BuilderResizeMenu />} />}
+      Header={
+        <ComponentDetailHeader
+          BuilderResizeMenu={<BuilderResizeMenu />}
+          componentId={componentId}
+        />
+      }
       PrimarySidebar={{
         default: ExplorerPaneType.Explorer,
         items: [

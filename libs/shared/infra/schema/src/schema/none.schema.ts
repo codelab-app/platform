@@ -1,3 +1,7 @@
-import { Type } from '@sinclair/typebox'
+import { Kind, type TKind, Type } from '@sinclair/typebox'
 
-export const NoneSchema = Type.Array(Type.Any(), { maxItems: 0 })
+export const TNone = {
+  [Kind]: '@codelab/None',
+} as TKind
+
+export const NoneSchema = Type.Array(Type.Undefined())

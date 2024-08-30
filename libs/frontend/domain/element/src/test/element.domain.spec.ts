@@ -6,7 +6,7 @@ import {
   pageDto,
 } from '@codelab/frontend/test/data'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { rootDomainStore } from './root.test.store'
@@ -25,7 +25,7 @@ describe('Element domain', () => {
 
   const rootElement = elementDomainService.elements.get(rootElementDto.id)
 
-  assertIsDefined(rootElement)
+  Validator.assertsDefined(rootElement)
 
   it('should add a render type to element', () => {
     const renderType = rootElement.renderType

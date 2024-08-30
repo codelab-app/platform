@@ -1,5 +1,5 @@
 import type { ITagRepository } from '@codelab/frontend/abstract/domain'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateTags,
   DeleteTags,
@@ -17,7 +17,7 @@ export const tagRepository: ITagRepository = {
 
     const createdTag = tags[0]
 
-    assertIsDefined(createdTag)
+    Validator.assertsDefined(createdTag)
 
     return createdTag
   },
@@ -53,7 +53,7 @@ export const tagRepository: ITagRepository = {
 
     const updatedTag = tags[0]
 
-    assertIsDefined(updatedTag)
+    Validator.assertsDefined(updatedTag)
 
     return updatedTag
   },

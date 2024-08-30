@@ -1,31 +1,17 @@
 'use client'
 
-import EyeOutlined from '@ant-design/icons/EyeOutlined'
-import ToolOutlined from '@ant-design/icons/ToolOutlined'
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import {
-  ExplorerPaneType,
-  PageType,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  CuiHeader,
-  CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
-import {
-  useAppQuery,
-  useCurrentComponent,
-  usePageQuery,
+  useCurrentApp,
+  useCurrentPage,
 } from '@codelab/frontend/presentation/container'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
-import { Image } from 'antd'
+import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
-import queryString from 'query-string'
 import React, { type ReactNode, useCallback } from 'react'
 
-interface IPageDetailHeaderProps {
+type IPageDetailHeaderProps = PageContextParams & {
   /**
    * Decouples `builder` from `page`
    */
@@ -33,42 +19,22 @@ interface IPageDetailHeaderProps {
 }
 
 export const PageDetailHeader = observer<IPageDetailHeaderProps>(
-  ({ BuilderResizeMenu }) => {
+  ({ appId, BuilderResizeMenu, pageId }) => {
     const router = useRouter()
     const currentPathname = usePathname()
-    const component = useCurrentComponent()
     const isBuilder = currentPathname.endsWith('/builder')
-    const { componentId } = useUrl()
-    const { appId, appName } = useAppQuery()
-    const { pageId } = usePageQuery()
-
-    const isPageBuilder =
-      currentPathname === PageType.PageBuilder({ appId, pageId })
-
-    const componentName = component?.name || '?'
+    const app = useCurrentApp()
+    const page = useCurrentPage()
 
     const togglePreviewMode = () => {
-      let path
-
-      if (componentId) {
-        path = isBuilder ? PageType.ComponentPreview : PageType.ComponentBuilder
-        path = path.replace('[componentSlug]', componentId)
-      } else if (appSlug && pageSlug) {
-        path = isBuilder ? PageType.PageDetail : PageType.PageBuilder
-        path = path
-          .replace('[userSlug]', userSlug)
-          .replace('[appSlug]', appSlug)
-          .replace('[pageSlug]', pageSlug)
-      }
-
-      if (!path) {
-        return
-      }
-
-      const url = queryString.stringifyUrl({
-        query: { primarySidebarKey: ExplorerPaneType.Explorer },
-        url: path,
-      })
+      const url = isBuilder
+        ? PageType.PageDetail({ appId, pageId })
+        : PageType.PageBuilder(
+            { appId, pageId },
+            {
+              primarySidebarKey: ExplorerPaneType.Explorer,
+            },
+          )
 
       return router.push(url)
     }
@@ -91,49 +57,18 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
       await router.push(PageType.AppList())
     }, [router])
 
-    const toolbarItems: Array<ToolbarItem> = [
-      isBuilder
-        ? {
-            cuiKey: UiKey.OpenPreviewBuilderToolbarItem,
-            icon: <EyeOutlined />,
-            onClick: togglePreviewMode,
-            title: 'Preview',
-          }
-        : {
-            cuiKey: UiKey.OpenBuilderBuilderToolbarItem,
-            icon: <ToolOutlined />,
-            onClick: togglePreviewMode,
-            title: 'Builder',
-          },
+    const directionItems = [
+      { onClick: navigateAppsPage, title: app.name },
+      { title: 'Pages' },
+      { onClick: navigatePagesPanel, title: page.name },
     ]
 
-    const directionItems = pageName
-      ? [
-          { onClick: navigateAppsPage, title: appName },
-          { title: 'Pages' },
-          { onClick: navigatePagesPanel, title: pageName },
-        ]
-      : [
-          { onClick: navigateAppsPage, title: appName },
-          { title: 'Components' },
-          { title: componentName },
-        ]
-
     return (
-      <CuiHeader
-        centralArea={isPageBuilder ? <>{BuilderResizeMenu}</> : null}
-        direction={<CuiHeaderBreadcrumb items={directionItems} />}
-        logo={
-          <Image
-            alt="codelab logo"
-            className="size-full"
-            preview={false}
-            src="/logo.png"
-          />
-        }
-        toolbar={
-          <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
-        }
+      <DetailHeader
+        BuilderResizeMenu={BuilderResizeMenu}
+        directionItems={directionItems}
+        isBuilder={isBuilder}
+        togglePreviewMode={togglePreviewMode}
       />
     )
   },

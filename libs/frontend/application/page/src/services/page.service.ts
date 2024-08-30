@@ -29,7 +29,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import type { PageWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 import { slugify } from 'voca'
 
@@ -100,7 +100,7 @@ export const usePageService = (): IPageService => {
 
     const appModel = appDomainService.apps.get(app.id)
 
-    assertIsDefined(appModel)
+    Validator.assertsDefined(appModel)
 
     const userName = userDomainService.user.username
 
@@ -163,7 +163,7 @@ export const usePageService = (): IPageService => {
     const page = app?.page(data.id)
     const { name, pageContentContainer, urlPattern } = data
 
-    assertIsDefined(page)
+    Validator.assertsDefined(page)
 
     page.writeCache({
       app,

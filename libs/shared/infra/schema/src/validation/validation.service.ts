@@ -1,56 +1,74 @@
 import type { IValidationService } from '@codelab/shared/abstract/infra'
 import { Typebox } from '@codelab/shared/abstract/typebox'
-import type { TKind, TSchema } from '@sinclair/typebox'
+import type { Static, TKind, TSchema } from '@sinclair/typebox'
+import { Value } from '@sinclair/typebox/value'
 import { StandardValidator } from 'typebox-validators'
-import { AtLeastOneSchema, TAtLeastOne } from '../schema'
-import { schemaProvider } from '../schema.provider'
+import {
+  AllOrNoneSchema,
+  AllSchema,
+  AtLeastOneSchema,
+  AtMostOneSchema,
+  DefinedSchema,
+  ExactlyOneSchema,
+  NoneSchema,
+  SchemaProvider,
+  TAll,
+  TAllOrNone,
+  TAtLeastOne,
+  TAtMostOne,
+  TDefined,
+  TExactlyOne,
+  TNone,
+} from '../schema'
 
 class ValidationService implements IValidationService {
-  constructor() {
-    for (const [kind, schema] of this.schemaKindMap) {
-      this.registerSchema(kind, schema)
-    }
+  constructor(schemaKindMap: Array<[TKind, TSchema]>) {
+    this.schema = SchemaProvider.getInstance(schemaKindMap)
   }
 
-  asserts(kind: TKind, data: Readonly<unknown>, options?: { message: string }) {
-    const validator = new StandardValidator(this.tSchema(kind))
+  asserts<T extends TSchema>(
+    kind: TKind,
+    data: unknown,
+    options?: { message: string },
+  ): asserts data is Static<T> {
+    const validator = this.createValidator(kind)
 
-    this.schema.assertHasRegistry(kind)
+    return validator.assert(data as Readonly<unknown>, options?.message)
+  }
 
-    return validator.assert(data, options?.message)
+  assertsDefined<T>(data: T): asserts data is NonNullable<T> {
+    this.asserts(TDefined, data)
+  }
+
+  /**
+   * Parses a value or throws an `AssertError` if invalid
+   */
+  parseDefined<T>(data: T) {
+    return Value.Parse(DefinedSchema, data) as NonNullable<T>
   }
 
   validate(kind: TKind, data: Readonly<unknown>) {
-    const validator = new StandardValidator(this.tSchema(kind))
-
-    this.schema.assertHasRegistry(kind)
+    const validator = this.createValidator(kind)
 
     return validator.test(data)
   }
 
-  private registerSchema(kind: TKind, tSchema: TSchema) {
-    /**
-     * Add our custom schema to provider
-     */
-    this.schema.register(kind, tSchema)
+  private createValidator(kind: TKind) {
+    this.schema.assertHasRegistry(kind)
+
+    return new StandardValidator(this.schema.tSchema(kind))
   }
 
-  private schema = schemaProvider
-
-  private schemaKindMap: Array<[TKind, TSchema]> = [
-    [TAtLeastOne, AtLeastOneSchema],
-    [Typebox.TRef, Typebox.Ref],
-  ]
-
-  private tSchema(kind: TKind): TSchema {
-    const pair = this.schemaKindMap.find(([_kind]) => _kind === kind)
-
-    if (!pair) {
-      throw new Error('Not found')
-    }
-
-    return pair[1]
-  }
+  private schema
 }
 
-export const Validator = new ValidationService()
+export const Validator: IValidationService = new ValidationService([
+  [TAtLeastOne, AtLeastOneSchema],
+  [Typebox.TRef, Typebox.Ref],
+  [TExactlyOne, ExactlyOneSchema],
+  [TAllOrNone, AllOrNoneSchema],
+  [TAtMostOne, AtMostOneSchema],
+  [TAll, AllSchema],
+  [TDefined, DefinedSchema],
+  [TNone, NoneSchema],
+])

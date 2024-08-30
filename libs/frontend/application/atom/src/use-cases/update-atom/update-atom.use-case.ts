@@ -1,13 +1,13 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
 import { updateAtomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 
 export const useUpdateAtomUseCase = async (data: IUpdateAtomData) => {
   const { atomDomainService } = useDomainStore()
   const atom = atomDomainService.atoms.get(data.id)
 
-  assertIsDefined(atom)
+  Validator.assertsDefined(atom)
 
   atom.writeCache({
     ...data,

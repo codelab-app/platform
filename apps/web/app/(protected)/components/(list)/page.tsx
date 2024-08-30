@@ -3,7 +3,7 @@ import { StoreHydrator } from '@codelab/frontend/infra/context'
 import { atomListQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
 import { ComponentsPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 import { componentListQuery } from '@codelab/frontend-application-component/use-cases/component-list'
-import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
+import { ComponentListHeader } from '@codelab/frontend-application-component/views'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
@@ -26,7 +26,7 @@ const ComponentsRoute = async () => {
       fallback={<Spinner center isLoading />}
     >
       <DashboardTemplate
-        Header={<ComponentDetailHeader />}
+        Header={<ComponentListHeader />}
         PrimarySidebar={{
           default: ExplorerPaneType.Components,
           items: [

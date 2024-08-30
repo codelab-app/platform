@@ -9,6 +9,7 @@ import {
   PageType,
 } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { RequiredPartial } from '@codelab/shared/utils'
 import React from 'react'
 
 export const appMenuItem: NavigationBarItem = {
@@ -38,9 +39,13 @@ export const authGuardMenuItem: NavigationBarItem = {
   title: 'Auth Guards',
 }
 
-export const builderComponentsMenuItem = (
-  params?: ComponentContextParams | PageContextParams,
-): NavigationBarItem => {
+export const builderComponentsMenuItem = ({
+  appId,
+  componentId,
+  pageId,
+}: RequiredPartial<
+  ComponentContextParams & PageContextParams
+>): NavigationBarItem => {
   const disabledBuilderComponentsMenuItem = {
     disabled: true,
     icon: <CodeSandboxOutlined title="Builder Components" />,
@@ -49,30 +54,26 @@ export const builderComponentsMenuItem = (
     title: 'Builder Components',
   }
 
-  if (!params) {
-    return disabledBuilderComponentsMenuItem
-  }
-
-  if ('appId' in params) {
+  if (appId && pageId) {
     return {
       ...disabledBuilderComponentsMenuItem,
       disabled: false,
       link: {
         href: PageType.PageBuilder(
-          { appId: params.appId, pageId: params.pageId },
+          { appId, pageId },
           { primarySidebarKey: ExplorerPaneType.Components },
         ),
       },
     }
   }
 
-  if ('componentId' in params) {
+  if (componentId) {
     return {
       ...disabledBuilderComponentsMenuItem,
       disabled: false,
       link: {
         href: PageType.ComponentBuilder(
-          { componentId: params.componentId },
+          { componentId },
           {
             primarySidebarKey: ExplorerPaneType.Components,
           },

@@ -23,7 +23,7 @@ export const DeleteResourceModal = observer(() => {
     deleteResourceModal.close()
 
     if (resourceId === resource?.id) {
-      void router.push(PageType.Resources)
+      void router.push(PageType.Resources())
     }
   }
 

@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
@@ -40,7 +40,7 @@ describe('InterfaceForm', () => {
 
     expect(enumSelectElement).toBeInTheDocument()
 
-    assertIsDefined(enumSelectElement)
+    Validator.assertsDefined(enumSelectElement)
 
     // Click on the selector
     await act(() => userEvent.click(enumSelectElement))
@@ -52,7 +52,7 @@ describe('InterfaceForm', () => {
 
     await waitFor(() => expect(dropdownOption).toBeVisible())
 
-    assertIsDefined(dropdownOption)
+    Validator.assertsDefined(dropdownOption)
 
     await act(() => userEvent.click(dropdownOption))
 
@@ -90,7 +90,7 @@ describe('InterfaceForm', () => {
 
     expect(selectUnionTypeElement).toBeInTheDocument()
 
-    assertIsDefined(selectUnionTypeElement)
+    Validator.assertsDefined(selectUnionTypeElement)
 
     // Click on the type selector
     await act(() => userEvent.click(selectUnionTypeElement))
@@ -103,7 +103,7 @@ describe('InterfaceForm', () => {
       `.ant-select-item.ant-select-item-option[title="${intType.name}"]`,
     )
 
-    assertIsDefined(intTypeOption)
+    Validator.assertsDefined(intTypeOption)
 
     expect(intTypeOption).toBeInTheDocument()
 
@@ -136,7 +136,7 @@ describe('InterfaceForm', () => {
       `.ant-select-item.ant-select-item-option[title="${stringType.name}"]`,
     )
 
-    assertIsDefined(stringTypeOption)
+    Validator.assertsDefined(stringTypeOption)
 
     expect(stringTypeOption).toBeInTheDocument()
 

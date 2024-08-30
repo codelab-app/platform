@@ -4,7 +4,7 @@ import type { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb'
 import React from 'react'
 import { BreadcrumbItemWrapper } from './BreadcrumbItemWrapper'
 
-interface HeaderBreadcrumbItem {
+export interface HeaderBreadcrumbItem {
   title: string
   onClick?(): void
 }

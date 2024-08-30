@@ -3,7 +3,7 @@ import type {
   IRedirectRepository,
 } from '@codelab/frontend/abstract/domain'
 import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateRedirects,
   DeleteRedirects,
@@ -19,7 +19,7 @@ export const redirectRepository: IRedirectRepository = {
 
     const createdRedirect = redirects[0]
 
-    assertIsDefined(createdRedirect)
+    Validator.assertsDefined(createdRedirect)
 
     return createdRedirect
   },
@@ -52,7 +52,7 @@ export const redirectRepository: IRedirectRepository = {
 
     const updatedRedirect = redirects[0]
 
-    assertIsDefined(updatedRedirect)
+    Validator.assertsDefined(updatedRedirect)
 
     return updatedRedirect
   },

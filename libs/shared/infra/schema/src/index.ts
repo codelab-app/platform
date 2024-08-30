@@ -1,2 +1,2 @@
-export * from './schema.provider'
-export * from './validation/validation.service'
+export * from './schema'
+export * from './validation'

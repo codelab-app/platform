@@ -1,6 +1,6 @@
 import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { useMemo } from 'react'
 
 export const useCurrentApp = () => {
@@ -8,10 +8,10 @@ export const useCurrentApp = () => {
   const { appId } = useUrl()
 
   return useMemo(() => {
-    const app = appDomainService.appsList.find((item) => item.name === appId)
+    const app = appDomainService.appsList.find(({ id }) => id === appId)
 
-    assertIsDefined(app)
+    Validator.assertsDefined(app)
 
     return app
-  }, [appDomainService.appsList])
+  }, [appId, appDomainService.appsList])
 }

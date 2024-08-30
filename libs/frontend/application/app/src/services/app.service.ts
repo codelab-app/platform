@@ -15,7 +15,7 @@ import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 
 export const useAppService = (): IAppService => {
   const { appDomainService, pageDomainService, userDomainService } =
@@ -122,7 +122,7 @@ export const useAppService = (): IAppService => {
   const update = async ({ id, name }: IUpdateAppData) => {
     const app = appDomainService.apps.get(id)
 
-    assertIsDefined(app)
+    Validator.assertsDefined(app)
 
     app.writeCache({ name })
 
