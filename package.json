@@ -41,6 +41,7 @@
     "@apollo/client": "3.7.15",
     "@apollo/server": "4.7.2",
     "@auth0/nextjs-auth0": "3.5.0",
+    "@awwong1/oauth4webapi": "^1.0.0",
     "@codelab-codegen/typescript-fetch": "file:dist/libs/external/codelab-codegen/typescript-fetch",
     "@codelab/eslint-plugin": "file:dist/libs/tools/eslint-plugin",
     "@codelab/tools-workspace": "file:dist/libs/tools/workspace",
@@ -435,6 +436,11 @@
     "verdaccio": "^5.0.4",
     "vite": "5.3.3",
     "wait-on": "6.0.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "oauth4webapi": "npm:@awwong1/oauth4webapi@latest"
+    }
   },
   "resolutions": {
     "@types/react": "18.3.0",

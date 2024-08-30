@@ -19,6 +19,7 @@ export const PageType = {
   ComponentPreview: ({ componentId }: Pick<UrlParams, 'componentId'>) =>
     `/components/${componentId}`,
   Components: () => '/components',
+  DomainList: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}/domains`,
   Home: () => '/',
   LambdaList: () => '/lambdas',
   Page404: ({ appId, pageId }: PageContextParams) =>
