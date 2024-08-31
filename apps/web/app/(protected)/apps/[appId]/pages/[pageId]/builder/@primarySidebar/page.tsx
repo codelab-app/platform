@@ -1,20 +1,14 @@
 'use client'
 
+import { BuilderPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { BuilderPrimarySidebar } from './BuilderPrimarySidebar'
 
-interface BuilderPrimarySidebarContainerProps {
-  pageId: string
-}
-export const BuilderPrimarySidebarContainer =
-  observer<BuilderPrimarySidebarContainerProps>(({ pageId }) => {
+const PrimarySidebar = observer(
+  ({ params: { pageId } }: { params: { pageId: string } }) => {
     const { pageDomainService } = useDomainStore()
-    /**
-     * Page may be not hydrated yet
-     */
     const page = pageDomainService.pages.get(pageId)
 
     if (!page) {
@@ -22,4 +16,7 @@ export const BuilderPrimarySidebarContainer =
     }
 
     return <BuilderPrimarySidebar containerNode={page} />
-  })
+  },
+)
+
+export default PrimarySidebar

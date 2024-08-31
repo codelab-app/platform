@@ -24,42 +24,36 @@ import React, { useMemo } from 'react'
 const Layout = ({
   children,
   configPane,
-  demo,
-  params: { appId, pageId },
+  header,
+  primarySidebar,
 }: {
   children: ReactNode
-  params: { appId: string; pageId: string }
   configPane: ReactNode
-  demo: string
+  header: ReactNode
+  primarySidebar: ReactNode
 }) => {
   return (
     <DashboardTemplate
       ConfigPane={configPane}
-      // ConfigPane={<ConfigPaneInspectorTabContainer />}
-      // Header={
-      //   <PageDetailHeader
-      //     BuilderResizeMenu={<BuilderResizeMenu />}
-      //     appId={appId}
-      //     pageId={pageId}
-      //   />
-      // }
-      PrimarySidebar={{
-        default: ExplorerPaneType.Explorer,
-        items: [
-          {
-            key: ExplorerPaneType.Components,
-            render: <ComponentsPrimarySidebar />,
-          },
-          {
-            key: ExplorerPaneType.Explorer,
-            render: <BuilderPrimarySidebarContainer pageId={pageId} />,
-          },
-          {
-            key: ExplorerPaneType.PageList,
-            render: <PagesPrimarySidebar />,
-          },
-        ],
-      }}
+      Header={header}
+      PrimarySidebar={primarySidebar}
+      // PrimarySidebar={{
+      //   default: ExplorerPaneType.Explorer,
+      //   items: [
+      //     {
+      //       key: ExplorerPaneType.Components,
+      //       render: <ComponentsPrimarySidebar />,
+      //     },
+      //     {
+      //       key: ExplorerPaneType.Explorer,
+      //       render: <BuilderPrimarySidebarContainer pageId={pageId} />,
+      //     },
+      //     {
+      //       key: ExplorerPaneType.PageList,
+      //       render: <PagesPrimarySidebar />,
+      //     },
+      //   ],
+      // }}
       contentStyles={{ paddingTop: '0rem' }}
     >
       {children}

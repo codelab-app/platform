@@ -21,8 +21,6 @@ const ConfigPane = observer(() => {
     return null
   }
 
-  return null
-
   return (
     <ConfigPaneInspectorTabContainer
       activeRenderer={activeRenderer}

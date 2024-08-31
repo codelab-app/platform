@@ -18,9 +18,10 @@ export type DashboardTemplateProps<T = unknown> = T & {
   /**
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */
-  PrimarySidebar?: PrimarySidebar
+  PrimarySidebar?: React.ReactNode
+  // PrimarySidebar?: PrimarySidebar
   primarySidebarKey?: string
-  Header?: React.ReactElement
+  Header?: React.ReactNode
   contentStyles?: React.CSSProperties
   appId?: string
   componentId?: string

@@ -37,12 +37,12 @@ export const DashboardTemplate = async ({
     pageId,
   })
 
-  const activeSidebarKey =
-    (primarySidebarKey as React.Key) || PrimarySidebar?.default || null
+  // const activeSidebarKey =
+  //   (primarySidebarKey as React.Key) || PrimarySidebar?.default || null
 
-  const ActivePrimarySidebar = PrimarySidebar?.items.find(
-    (item) => item.key === activeSidebarKey,
-  )?.render
+  // const ActivePrimarySidebar = PrimarySidebar?.items.find(
+  //   (item) => item.key === activeSidebarKey,
+  // )?.render
 
   return (
     <Layout className="h-full">
@@ -68,7 +68,7 @@ export const DashboardTemplate = async ({
               showCollapseButton={false}
             >
               <div className="size-full" data-cy="temp-primary-panel-wrapper">
-                {ActivePrimarySidebar}
+                {PrimarySidebar}
               </div>
             </CuiResizablePanel>
 
