@@ -11,6 +11,8 @@ commands:
             - nx-cache-
           name: Restore NX Cache
       - run:
+          command: (./scripts/nx/reset-cache.sh)
+      - run:
           command: pnpm nx run-many --target=build --projects=cli,web,api --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
