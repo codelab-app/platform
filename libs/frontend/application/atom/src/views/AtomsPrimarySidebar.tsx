@@ -8,13 +8,14 @@ import {
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAtomService } from '../services/atom.service'
 import { CreateAtomPopover } from '../use-cases/create-atom'
 import { useCreateAtomModal } from '../use-cases/create-atom/create-atom.state'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
-export const AtomsPrimarySidebar = () => {
+export const AtomsPrimarySidebar = observer(() => {
   const atomService = useAtomService()
   const { popover } = useCui()
   const createAtomForm = useCreateAtomModal()
@@ -60,4 +61,4 @@ export const AtomsPrimarySidebar = () => {
       ]}
     />
   )
-}
+})

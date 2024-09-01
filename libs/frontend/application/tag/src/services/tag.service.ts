@@ -57,7 +57,7 @@ export const useTagService = (): ITagService => {
 
     await tagRepository.add(tag)
 
-    paginationService.dataRefs.set(tag.id, tagRef(tag))
+    paginationService.data.set(tag.id, tagRef(tag))
 
     if (!tag.parent) {
       return tag

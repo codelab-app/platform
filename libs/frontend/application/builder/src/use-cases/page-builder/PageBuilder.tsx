@@ -4,10 +4,9 @@ import {
   type IRootRenderer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React, { use } from 'react'
+import React from 'react'
 import { useInitializeBuilder } from '../../services'
 import { BaseBuilder } from '../base-builder'
 
@@ -33,8 +32,7 @@ export const PageBuilder = observer<IPageBuilderProps>(
       rendererType: RendererType.PageBuilder,
     })
 
-    // return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
-    return null
+    return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
   },
 )
 

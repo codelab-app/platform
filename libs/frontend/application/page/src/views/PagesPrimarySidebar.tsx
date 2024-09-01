@@ -40,7 +40,7 @@ export const PagesPrimarySidebar = observer(() => {
         uiKey={UiKey.PageSidebar}
         views={[
           {
-            content: <PageList app={app} />,
+            content: app && <PageList app={app} />,
             key: 'pages',
             label: 'Pages',
             toolbar: {

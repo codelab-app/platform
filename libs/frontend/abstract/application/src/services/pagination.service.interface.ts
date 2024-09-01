@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { PageType } from '@codelab/frontend/abstract/types'
 import type { AtomFragment } from '@codelab/shared/infra/gql'
-import type { Ref } from 'mobx-keystone'
 import type { IAtomService } from '../atom'
 import type { IComponentService } from '../component'
 import type { ITagService } from '../tag'
@@ -40,12 +39,11 @@ export interface IPaginationService<
 > {
   currentPage: number
   data: Array<T>
-  dataRefs: Map<string, Ref<T>>
+  dataMap: Map<string, T>
   filter: U
   isLoading: boolean
   pageSize: number
   totalItems: number
-
   getData(): Promise<Array<T>>
   // getDataFn(
   //   page: number,
@@ -53,7 +51,7 @@ export interface IPaginationService<
   //   filter: U,
   // ): Promise<{ items: Array<T>; totalItems: number }>
   setCurrentPage(page: number): void
-  setDataRefs(ref: Ref<T>): void
+  setData(ref: T): void
   setFilter(filter: U): void
   setPageSize(size: number): void
 }

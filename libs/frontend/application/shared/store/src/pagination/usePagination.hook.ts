@@ -6,14 +6,14 @@ import type {
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import sortBy from 'lodash/sortBy'
-import type { Ref } from 'mobx-keystone'
 
 interface PaginationState<
   T extends SupportedPaginationModel,
   U extends Filterables,
 > {
   currentPage: number
-  dataRefs: Map<string, Ref<T>>
+  data: Map<string, T>
+  dataList: Array<T>
   filter: U
   isLoading: boolean
   pageSize: number
@@ -23,7 +23,7 @@ interface PaginationState<
 const paginationAtomFamily = atomFamily((key: string) => {
   const baseAtom = atom({
     currentPage: 1,
-    dataRefs: new Map(),
+    data: new Map(),
     filter: {},
     isLoading: true,
     pageSize: 20,
@@ -36,9 +36,9 @@ const paginationAtomFamily = atomFamily((key: string) => {
 
       return {
         ...state,
-        data: sortBy(Array.from(state.dataRefs.values()), (item) =>
+        dataList: sortBy(Array.from(state.data.values()), (item) =>
           item.current.name.toLowerCase(),
-        ).map((ref) => ref.current),
+        ),
       }
     },
     (
@@ -86,22 +86,22 @@ export const usePaginationService = <
     return items.map((item) => item)
   }
 
-  const setDataRefs = (ref: Ref<T>) => {
+  const setData = (item: T) => {
     setState({
-      dataRefs: new Map(state.dataRefs).set(ref.current.id, ref),
+      data: state.data.set(item.id, item),
     })
   }
 
   return {
     currentPage: state.currentPage,
-    data: state.data,
-    dataRefs: state.dataRefs,
+    data: state.dataList,
+    dataMap: state.data,
     filter: state.filter as U,
     getData,
     isLoading: state.isLoading,
     pageSize: state.pageSize,
     setCurrentPage,
-    setDataRefs,
+    setData,
     setFilter,
     setPageSize,
     totalItems: state.totalItems,

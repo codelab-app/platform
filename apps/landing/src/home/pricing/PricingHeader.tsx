@@ -1,5 +1,5 @@
 import { Switch } from 'antd'
-import * as React from 'react'
+import React from 'react'
 
 export const PricingHeader = () => {
   return (

@@ -21,7 +21,7 @@ export const DomainsPageHeader = observer(() => {
     <CuiHeader
       direction={
         <CuiHeaderBreadcrumb
-          items={[{ title: app.name || '?' }, { title: 'Domains' }]}
+          items={[{ title: app?.name || '?' }, { title: 'Domains' }]}
         />
       }
       logo={

@@ -44,7 +44,7 @@ export const useTypeService = (): ITypeService => {
 
     await typeRepository.add(type)
 
-    paginationService.dataRefs.set(type.id, typeRef(type))
+    paginationService.dataMap.set(type.id, typeRef(type))
 
     return type
   }

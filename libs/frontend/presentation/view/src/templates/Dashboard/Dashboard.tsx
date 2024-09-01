@@ -6,21 +6,18 @@ import {
   CuiPanelGroup,
   CuiResizablePanel,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import React from 'react'
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
-import { DashboardTemplateConfigPane } from './DashboardTemplateConfigPane'
 import { defaultNavigationBarItems } from './NavigationBar'
-import type { DashboardTemplateProps } from './Types'
+import type { DashboardProps } from './Types'
 
 /**
  * When passing ReactNode as props, React treats it as a new prop on every render of the parent component, even if the content hasn't changed.
  */
-export const DashboardTemplate = async ({
+export const Dashboard = async ({
   appId,
   children,
   componentId,
@@ -30,7 +27,7 @@ export const DashboardTemplate = async ({
   pageId,
   PrimarySidebar,
   primarySidebarKey,
-}: React.PropsWithChildren<DashboardTemplateProps>) => {
+}: React.PropsWithChildren<DashboardProps>) => {
   const navigationBarItems = defaultNavigationBarItems({
     appId,
     componentId,
@@ -61,16 +58,18 @@ export const DashboardTemplate = async ({
 
         <Layout style={contentStyles}>
           <CuiPanelGroup direction="horizontal">
-            <CuiResizablePanel
-              collapsible
-              order={1}
-              resizeDirection="right"
-              showCollapseButton={false}
-            >
-              <div className="size-full" data-cy="temp-primary-panel-wrapper">
-                {PrimarySidebar}
-              </div>
-            </CuiResizablePanel>
+            {PrimarySidebar && (
+              <CuiResizablePanel
+                collapsible
+                order={1}
+                resizeDirection="right"
+                showCollapseButton={false}
+              >
+                <div className="size-full" data-cy="temp-primary-panel-wrapper">
+                  {PrimarySidebar}
+                </div>
+              </CuiResizablePanel>
+            )}
 
             <CuiPanel defaultSize={60} order={2}>
               <ProgressBar />
@@ -79,14 +78,16 @@ export const DashboardTemplate = async ({
               </main>
             </CuiPanel>
 
-            <CuiResizablePanel collapsible order={3} resizeDirection="left">
-              <DashboardTemplateConfigPane ConfigPane={ConfigPane} />
-            </CuiResizablePanel>
+            {ConfigPane && (
+              <CuiResizablePanel collapsible order={3} resizeDirection="left">
+                <div className="size-full overflow-y-auto bg-white">
+                  {ConfigPane}
+                </div>
+              </CuiResizablePanel>
+            )}
           </CuiPanelGroup>
         </Layout>
       </Layout>
     </Layout>
   )
 }
-
-export default DashboardTemplate

@@ -1,6 +1,6 @@
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
 import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
-import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
+import { Dashboard } from '@codelab/frontend-presentation-view/templates'
 import type { ReactNode } from 'react'
 import React from 'react'
 
@@ -12,7 +12,7 @@ const ComponentPreviewLayout = ({
   params: { componentId: string }
 }) => {
   return (
-    <DashboardTemplate
+    <Dashboard
       Header={
         <ComponentDetailHeader
           BuilderResizeMenu={<BuilderResizeMenu />}
@@ -21,7 +21,7 @@ const ComponentPreviewLayout = ({
       }
     >
       {children}
-    </DashboardTemplate>
+    </Dashboard>
   )
 }
 

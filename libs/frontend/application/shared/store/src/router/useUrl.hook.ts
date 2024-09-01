@@ -8,7 +8,6 @@ import {
   usePathname,
   useSearchParams,
 } from 'next/navigation'
-import queryString from 'query-string'
 
 /**
  * Make the return data lazy, so we have type safety while allowing un-used values to not throw error
@@ -32,7 +31,7 @@ export const useUrl = () => {
     params: params,
     pathname,
     primarySidebarKey,
-    query: queryString.parse(searchParams?.toString() ?? ''),
+    query: searchParams,
     resourceId: params?.resourceId,
   }
 }

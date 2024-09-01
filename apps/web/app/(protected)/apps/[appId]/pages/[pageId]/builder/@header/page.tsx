@@ -1,6 +1,5 @@
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
 import { PageDetailHeader } from '@codelab/frontend-application-page/views'
-import { useParams } from 'next/navigation'
 import React from 'react'
 
 const Header = ({

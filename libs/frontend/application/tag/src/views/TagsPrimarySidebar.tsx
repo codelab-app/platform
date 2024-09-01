@@ -1,3 +1,5 @@
+'use client'
+
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'

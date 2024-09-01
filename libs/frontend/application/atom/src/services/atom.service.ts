@@ -4,7 +4,6 @@ import type {
   ICreateAtomData,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef } from '@codelab/frontend/abstract/domain'
 import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -12,7 +11,10 @@ import {
   filterAtoms,
   mapAtomOptions,
 } from '@codelab/frontend-domain-atom/store'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
   ITypeKind,
@@ -23,6 +25,8 @@ import isEmpty from 'lodash/isEmpty'
 import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
+  useApplicationStore()
+
   const { atomDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
@@ -78,7 +82,7 @@ export const useAtomService = (): IAtomService => {
 
     await atomRepository.add(atom)
 
-    paginationService.dataRefs.set(atom.id, atomRef(atom))
+    paginationService.setData(atom)
 
     return atom
   }

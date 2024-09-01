@@ -68,16 +68,9 @@ export const useTablePagination = <
         paginationService.setFilter(newFilter)
         void paginationService.getData()
 
-        const url = queryString.stringifyUrl({
-          query: {
-            ...paginationService.filter,
-            page: paginationService.currentPage,
-            pageSize: paginationService.pageSize,
-          },
-          url: pathname,
-        })
-
-        await router.push(url)
+        await router.push(
+          `${pathname}?page=${paginationService.currentPage}&pageSize=${paginationService.pageSize}`,
+        )
       },
       500,
     ),
@@ -100,7 +93,7 @@ export const useTablePagination = <
   }
 
   return {
-    data: paginationService.data as Array<T>,
+    data: paginationService.data,
     filter,
     handleChange,
     isLoading: paginationService.isLoading,

@@ -36,7 +36,7 @@ export const useComponentService = (): IComponentService => {
 
     await revalidateComponentListOperation()
 
-    paginationService.dataRefs.set(component.id, componentRef(component))
+    paginationService.dataMap.set(component.id, componentRef(component))
 
     return component
   }

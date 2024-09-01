@@ -2,7 +2,7 @@
 
 import { cn } from '@cui/utils'
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
-import * as React from 'react'
+import React from 'react'
 import { DayPicker } from 'react-day-picker'
 import { buttonVariants } from './Button'
 

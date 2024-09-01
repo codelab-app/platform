@@ -2,7 +2,7 @@ import { faCheck } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row } from 'antd'
 import classNames from 'classnames'
-import * as React from 'react'
+import React from 'react'
 
 const pricingItems = [
   {

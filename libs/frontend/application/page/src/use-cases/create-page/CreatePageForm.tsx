@@ -4,7 +4,6 @@ import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -35,11 +34,10 @@ export const CreatePageForm = observer(
     const user = useUser()
     const app = useCurrentApp()
     const pageService = usePageService()
-    const domainStore = useDomainStore()
     const createPageForm = useCreatePageForm()
 
     const model = {
-      app: { id: app.id },
+      app: { id: app?.id },
       id: v4(),
       // required for store api
       owner: {

@@ -2,7 +2,7 @@
 import { SeoHead } from 'apps/landing/src/home/SeoHead'
 import { supabase } from 'apps/landing/utils/supabase'
 import type { GetStaticProps } from 'next'
-import * as React from 'react'
+import React from 'react'
 import type { ITutorialsItem, TutorialsBodyProps } from '../../src/home'
 import { HomeTemplate, TutorialsBody, TutorialsHeader } from '../../src/home'
 

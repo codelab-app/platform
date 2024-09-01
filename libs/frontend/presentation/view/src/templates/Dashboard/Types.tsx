@@ -10,7 +10,7 @@ export interface PrimarySidebar {
   items: Array<PrimarySidebarItem>
 }
 
-export type DashboardTemplateProps<T = unknown> = T & {
+export type DashboardProps<T = unknown> = T & {
   /**
    * The right panel used for configuration element settings
    */

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Tags | Codelab',
 }
 
-const TagsRoute = () => {
+const Page = () => {
   return (
     <>
       <CreateTagModal />
@@ -27,4 +27,4 @@ const TagsRoute = () => {
   )
 }
 
-export default TagsRoute
+export default Page

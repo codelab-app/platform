@@ -26,7 +26,7 @@ export const CreateDomainModal = observer(() => {
   const createDomainModal = useCreateDomainModal()
 
   const model = {
-    app: { id: app.id },
+    app: { id: app?.id },
     auth0Id: userDomainService.user.auth0Id,
     id: v4(),
   }

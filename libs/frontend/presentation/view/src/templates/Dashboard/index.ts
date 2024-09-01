@@ -1,3 +1,4 @@
 export * from './constants'
-export * from './DashboardTemplate'
+export * from './Dashboard'
+export * from './DashboardLayout'
 export * from './Types'
