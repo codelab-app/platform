@@ -47,7 +47,7 @@ export const TypesTreeView = observer(
         <CuiTree<ITreeNode<ITypeTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {
-            void handleChange({ newFilter: { name: keyword || undefined } })
+            void handleChange({ newFilter: { name: keyword || '' } })
           }}
           searchKeyword={filter.name}
           searcheable={

@@ -29,8 +29,7 @@ export const AtomsTable = () => {
 
   const nameColumnSearchProps = useColumnSearchProps<IAtomModel>({
     dataIndex: 'name',
-    onSearch: (name) =>
-      handleChange({ newFilter: { name: name || undefined } }),
+    onSearch: (name) => handleChange({ newFilter: { name: name || '' } }),
     text: filter.name,
   })
 

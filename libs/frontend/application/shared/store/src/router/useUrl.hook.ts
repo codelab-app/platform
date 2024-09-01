@@ -22,6 +22,7 @@ export const useUrl = () => {
   const pathname = usePathname() as Nullable<string>
   const params = useParams() as Nullable<UrlParams>
   const primarySidebarKey = searchParams?.get('primarySidebarKey')
+  const query = Object.fromEntries(searchParams?.entries() ?? [])
 
   return {
     appId: params?.appId,
@@ -31,7 +32,7 @@ export const useUrl = () => {
     params: params,
     pathname,
     primarySidebarKey,
-    query: searchParams,
+    query,
     resourceId: params?.resourceId,
   }
 }

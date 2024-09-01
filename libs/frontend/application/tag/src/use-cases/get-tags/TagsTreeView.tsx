@@ -76,7 +76,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         )
       }}
       onSearchKeywordChange={(keyword) => {
-        void handleChange({ newFilter: { name: keyword || undefined } })
+        void handleChange({ newFilter: { name: keyword || '' } })
       }}
       onSelect={onSelect}
       searcheable={

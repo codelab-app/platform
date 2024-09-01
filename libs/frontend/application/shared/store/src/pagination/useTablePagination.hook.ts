@@ -19,9 +19,10 @@ import queryString from 'query-string'
 import React, { useEffect } from 'react'
 import { extractTableQueries } from './extract-table-queries'
 
-interface Props<T> {
-  filterTypes?: Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>
-  paginationService: IPaginationService<SupportedPaginationModel, Filterables>
+interface Props<T extends SupportedPaginationModel, U extends Filterables> {
+  filterTypes: Record<keyof U, 'boolean' | 'number' | 'string' | 'string[]'>
+
+  paginationService: IPaginationService<T, U>
   pathname: SupportedPaginationModelPage
 }
 
@@ -32,7 +33,7 @@ export const useTablePagination = <
   filterTypes,
   paginationService,
   pathname,
-}: Props<U>) => {
+}: Props<T, U>) => {
   const router = useRouter()
   const params = useSearchParams() as Nullable<ReadonlyURLSearchParams>
 
@@ -55,7 +56,7 @@ export const useTablePagination = <
         newPage = paginationService.currentPage,
         newPageSize = paginationService.pageSize,
       }: {
-        newFilter?: Filterables
+        newFilter?: U
         newPage?: number
         newPageSize?: number
       }) => {

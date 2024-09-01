@@ -21,15 +21,16 @@ import {
 @model('@codelab/PaginationService')
 export class PaginationService<
     T1 extends SupportedPaginationModel,
-    U1 extends Filterables | void = void,
+    U1 extends Filterables,
   >
   extends Model(<
     T2 extends SupportedPaginationModel,
-    U2 extends Filterables | void = void,
+    U2 extends Filterables,
   >() => ({
     currentPage: prop(1).withSetter(),
     dataRefs: prop(() => objectMap<Ref<T2>>()),
     filter: prop(() => ({} as U2)).withSetter(),
+    // getDataFn: prop(() => Promise.resolve({ items: [], totalItems: 0 })),
     // Make initial true so we know data is not there yet
     isLoading: prop(true),
     pageSize: prop(20).withSetter(),
@@ -38,7 +39,7 @@ export class PaginationService<
   implements IPaginationService<T1, U1>
 {
   @computed
-  get dataMap() {
+  get data() {
     return sortBy(Array.from(this.dataRefs.values()), (ref) =>
       ref.current.name.toLowerCase(),
     ).map((ref) => ref.current)

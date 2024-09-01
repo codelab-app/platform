@@ -1,10 +1,10 @@
 import type { IAtomService } from '@codelab/frontend/abstract/application'
-import type {
-  IAtomModel,
-  ICreateAtomData,
-  IUpdateAtomData,
+import {
+  atomRef,
+  type IAtomModel,
+  type ICreateAtomData,
+  type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
-import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
@@ -25,7 +25,9 @@ import isEmpty from 'lodash/isEmpty'
 import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
-  useApplicationStore()
+  const {
+    pagination: { atomPagination },
+  } = useApplicationStore()
 
   const { atomDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
@@ -43,15 +45,16 @@ export const useAtomService = (): IAtomService => {
       },
     )
 
-    const atoms = items.map((atom) => atomDomainService.hydrate(atom))
+    const atoms = items.map((atom) => {
+      typeDomainService.hydrateInterface(atom.api)
+
+      return atomDomainService.hydrate(atom)
+    })
 
     return { items: atoms, totalItems: aggregate.count }
   }
 
-  const paginationService = usePaginationService<IAtomModel, { name?: string }>(
-    'atom',
-    getDataFn,
-  )
+  atomPagination.getDataFn = getDataFn
 
   const create = async ({
     externalCssSource,
@@ -82,7 +85,7 @@ export const useAtomService = (): IAtomService => {
 
     await atomRepository.add(atom)
 
-    paginationService.setData(atom)
+    atomPagination.dataRefs.set(atom.id, atomRef(atom))
 
     return atom
   }
@@ -108,7 +111,7 @@ export const useAtomService = (): IAtomService => {
       items: atoms,
     } = await atomRepository.find(where, options)
 
-    paginationService.totalItems = count
+    atomPagination.totalItems = count
 
     if (!isEmpty(where) || options?.limit) {
       typeDomainService.hydrateTypes({
@@ -184,7 +187,7 @@ export const useAtomService = (): IAtomService => {
     getOne,
     getSelectAtomOptions,
     loadApi,
-    paginationService,
+    paginationService: atomPagination,
     remove,
     update,
   }

@@ -10,7 +10,7 @@ import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 export interface ITagService
   extends ICRUDService<ITagModel, ICreateTagData, IUpdateTagData>,
     Omit<IQueryService<ITagModel, TagWhere, TagOptions>, 'getOne'>,
-    IPaginateable<ITagModel, { name?: string }> {
+    IPaginateable<ITagModel, { name: string }> {
   checkedTags: Array<Ref<ITagModel>>
   deleteCheckedTags(): void
   setCheckedTags(tags: Array<Ref<ITagModel>>): void

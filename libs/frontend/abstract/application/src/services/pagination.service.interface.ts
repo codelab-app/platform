@@ -5,7 +5,7 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { PageType } from '@codelab/frontend/abstract/types'
-import type { AtomFragment } from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
 import type { IAtomService } from '../atom'
 import type { IComponentService } from '../component'
 import type { ITagService } from '../tag'
@@ -16,7 +16,6 @@ export interface Filterables {
 }
 
 export type SupportedPaginationModel =
-  | AtomFragment
   | IAtomModel
   | IComponentModel
   | ITagModel
@@ -33,32 +32,32 @@ export type SupportedPaginationModelService =
   | ITagService
   | ITypeService
 
+export interface IPaginateable<
+  T extends SupportedPaginationModel,
+  U extends Filterables,
+> {
+  paginationService: IPaginationService<T, U>
+}
+
 export interface IPaginationService<
   T extends SupportedPaginationModel,
-  U extends Filterables | undefined,
+  U extends Filterables,
 > {
   currentPage: number
   data: Array<T>
-  dataMap: Map<string, T>
+  dataRefs: Map<string, Ref<T>>
   filter: U
   isLoading: boolean
   pageSize: number
   totalItems: number
-  getData(): Promise<Array<T>>
-  // getDataFn(
-  //   page: number,
-  //   pageSize: number,
-  //   filter: U,
-  // ): Promise<{ items: Array<T>; totalItems: number }>
-  setCurrentPage(page: number): void
-  setData(ref: T): void
-  setFilter(filter: U): void
-  setPageSize(size: number): void
-}
 
-export interface IPaginateable<
-  T extends SupportedPaginationModel,
-  U extends Filterables | undefined,
-> {
-  paginationService: IPaginationService<T, U>
+  getData(): Promise<Array<T>>
+  getDataFn(
+    page: number,
+    pageSize: number,
+    filter: U,
+  ): Promise<{ items: Array<T>; totalItems: number }>
+  setCurrentPage(page: number): void
+  setFilter(filter: Partial<U>): void
+  setPageSize(size: number): void
 }

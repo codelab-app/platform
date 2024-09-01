@@ -14,9 +14,7 @@ export interface TableQueryString {
  */
 export const extractTableQueries = <T extends Filterables>(
   query: TableQueryString,
-  filterTypes: Partial<
-    Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>
-  > = {},
+  filterTypes: Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>,
 ) => {
   const page = query.page ? parseInt(query.page.toString()) : undefined
 

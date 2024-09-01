@@ -1,9 +1,11 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateTagData,
   IUpdateTagData,
@@ -16,6 +18,10 @@ import type { Ref } from 'mobx-keystone'
 const checkedTagsAtom = atom<Array<Ref<ITagModel>>>([])
 
 export const useTagService = (): ITagService => {
+  const {
+    pagination: { tagPagination },
+  } = useApplicationStore()
+
   const { tagDomainService } = useDomainStore()
   const [checkedTags, setCheckedTags] = useAtom(checkedTagsAtom)
 
@@ -47,17 +53,14 @@ export const useTagService = (): ITagService => {
     return { items: tags, totalItems }
   }
 
-  const paginationService = usePaginationService<ITagModel, { name?: string }>(
-    'tag',
-    getDataFn,
-  )
+  tagPagination.getDataFn = getDataFn
 
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
 
     await tagRepository.add(tag)
 
-    paginationService.data.set(tag.id, tagRef(tag))
+    tagPagination.dataRefs.set(tag.id, tagRef(tag))
 
     if (!tag.parent) {
       return tag
@@ -98,7 +101,7 @@ export const useTagService = (): ITagService => {
       items: tags,
     } = await tagRepository.find(where, options)
 
-    paginationService.totalItems = count
+    tagPagination.totalItems = count
 
     return tags.map((tag) => {
       tag.children.forEach((child) => tagDomainService.hydrate(child))
@@ -129,7 +132,7 @@ export const useTagService = (): ITagService => {
     create,
     deleteCheckedTags,
     getAll,
-    paginationService,
+    paginationService: tagPagination,
     remove,
     setCheckedTags,
     update,

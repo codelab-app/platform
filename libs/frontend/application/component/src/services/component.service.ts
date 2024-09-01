@@ -3,10 +3,11 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import { componentRef } from '@codelab/frontend/abstract/domain'
+import {
+  componentRef,
+  type IComponentModel,
+} from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import {
@@ -26,7 +27,12 @@ import { revalidateComponentListOperation } from '../use-cases/component-list'
 export const useComponentService = (): IComponentService => {
   const { componentDomainService } = useDomainStore()
   const elementService = useElementService()
-  const { rendererService } = useApplicationStore()
+
+  const {
+    pagination: { componentPagination },
+    rendererService,
+  } = useApplicationStore()
+
   const storeService = useStoreService()
 
   const create = async ({ id, name, rootElement }: ICreateComponentData) => {
@@ -36,7 +42,7 @@ export const useComponentService = (): IComponentService => {
 
     await revalidateComponentListOperation()
 
-    paginationService.dataMap.set(component.id, componentRef(component))
+    componentPagination.dataRefs.set(component.id, componentRef(component))
 
     return component
   }
@@ -135,20 +141,17 @@ export const useComponentService = (): IComponentService => {
       },
     )
 
-    return { items, totalItems: paginationService.totalItems }
+    return { items, totalItems: componentPagination.totalItems }
   }
 
-  const paginationService = usePaginationService<
-    IComponentModel,
-    { name?: string }
-  >('type', getDataFn)
+  componentPagination.getDataFn = getDataFn
 
   return {
     create,
     getAll,
     getOne,
     importComponent,
-    paginationService,
+    paginationService: componentPagination,
     previewComponent,
     remove,
     update,
