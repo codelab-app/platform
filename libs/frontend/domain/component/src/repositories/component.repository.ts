@@ -9,6 +9,7 @@ import type {
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { Component } from '../store'
 import {
   ComponentList,
   CreateComponents,

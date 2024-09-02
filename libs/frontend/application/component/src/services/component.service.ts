@@ -10,8 +10,6 @@ import {
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
-import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
-import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   useApplicationStore,
@@ -37,9 +35,6 @@ export const useComponentService = (): IComponentService => {
     pagination: { componentPagination },
     rendererService,
   } = useApplicationStore()
-
-  const storeService = useStoreService()
-  const { rendererService } = useApplicationStore()
 
   const create = async ({ id, name, rootElement }: ICreateComponentData) => {
     const component = componentDomainService.add({ id, name, rootElement })
