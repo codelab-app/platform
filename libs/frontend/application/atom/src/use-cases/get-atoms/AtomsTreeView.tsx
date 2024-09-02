@@ -28,8 +28,6 @@ export const AtomsTreeView = observer(
       pathname: PageType.Atoms(),
     })
 
-    console.log(data)
-
     const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({
       children: atom.api.current.fieldsTree,
       extraData: { node: atom, type: 'atom' },

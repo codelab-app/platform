@@ -1,8 +1,12 @@
 import type { TKind } from '@sinclair/typebox'
 import { Kind, Type } from '@sinclair/typebox'
+import { DefinedSchema } from './defined.schema'
 
-export const TAtLeastOne = {
+export const TAtLeastOne: TKind = {
   [Kind]: '@codelab/AtLeastOne',
-} as TKind
+}
 
-export const AtLeastOneSchema = Type.Array(Type.Any(), { minItems: 1 })
+export const AtLeastOneSchema = Type.Array(Type.Any(), {
+  contains: DefinedSchema,
+  minContains: 1,
+})

@@ -37,7 +37,7 @@ describe('TreeViewNode', () => {
 
     expect(renderer.runtimeContainerNode?.treeViewNode).toMatchObject({
       component: { id: component.id },
-      key: runtimeComponent.compositeKey,
+      key: runtimeComponent?.compositeKey,
     })
   })
 
@@ -48,7 +48,7 @@ describe('TreeViewNode', () => {
       renderer.runtimeContainerNode?.treeViewNode.children[0],
     ).toMatchObject({
       element: { id: component.rootElement.id },
-      key: runtimeComponent.runtimeRootElement.compositeKey,
+      key: runtimeComponent?.runtimeRootElement.compositeKey,
     })
   })
 

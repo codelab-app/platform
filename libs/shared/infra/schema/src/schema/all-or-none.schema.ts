@@ -1,11 +1,12 @@
 import type { TKind } from '@sinclair/typebox'
 import { Kind, Type } from '@sinclair/typebox'
+import { DefinedSchema } from './defined.schema'
 
-export const TAllOrNone = {
+export const TAllOrNone: TKind = {
   [Kind]: '@codelab/AllOrNone',
-} as TKind
+}
 
 export const AllOrNoneSchema = Type.Union([
-  Type.Array(Type.Undefined()),
-  Type.Array(Type.Not(Type.Undefined())),
+  Type.Array(DefinedSchema),
+  Type.Array(Type.Not(DefinedSchema)),
 ])

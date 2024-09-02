@@ -265,7 +265,7 @@ describe('Dnd', () => {
         expect(dragOverlay).toBeDefined()
         expect(customDragOverlay).toBeDefined()
 
-        expect(dragOverlay?.contains(customDragOverlay)).toBe(true)
+        expect(dragOverlay?.contains(customDragOverlay)).toBeTruthy()
       })
     })
 

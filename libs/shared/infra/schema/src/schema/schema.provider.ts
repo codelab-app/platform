@@ -2,6 +2,7 @@ import type { ISchemaProvider } from '@codelab/shared/abstract/infra'
 import { Kind, type TKind, type TSchema, TypeRegistry } from '@sinclair/typebox'
 import type { ValidateFunction } from 'ajv'
 import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
 
 export class SchemaProvider implements ISchemaProvider {
   static getInstance(schemaKindMap: Array<[TKind, TSchema]>): SchemaProvider {
@@ -54,7 +55,24 @@ export class SchemaProvider implements ISchemaProvider {
   private static instance?: SchemaProvider
 
   private constructor(private schemaKindMap: Array<[TKind, TSchema]>) {
-    this.ajv = new Ajv()
+    const ajv = addFormats(new Ajv({}), [
+      'date-time',
+      'time',
+      'date',
+      'email',
+      'hostname',
+      'ipv4',
+      'ipv6',
+      'uri',
+      'uri-reference',
+      'uuid',
+      'uri-template',
+      'json-pointer',
+      'relative-json-pointer',
+      'regex',
+    ])
+
+    this.ajv = ajv
 
     for (const [kind, schema] of schemaKindMap) {
       this.register(kind, schema)

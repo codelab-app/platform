@@ -1,9 +1,9 @@
 import type { TKind } from '@sinclair/typebox'
 import { Kind, Type } from '@sinclair/typebox'
 
-export const TOnly = {
+export const TOnly: TKind = {
   [Kind]: '@codelab/Only',
-} as TKind
+}
 
 export const OnlySchema = Type.Union([
   Type.Array(Type.Undefined()),

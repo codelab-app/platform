@@ -5,7 +5,7 @@ describe('useToggleState', () => {
   it('should initialize with closed state', () => {
     const { result } = renderHook(() => useToggleState())
 
-    expect(result.current.isOpen).toBe(false)
+    expect(result.current.isOpen).toBeFalsy()
     expect(result.current.data).toBeUndefined()
   })
 
@@ -16,7 +16,7 @@ describe('useToggleState', () => {
       result.current.open('test data')
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
     expect(result.current.data).toBe('test data')
   })
 
@@ -27,7 +27,7 @@ describe('useToggleState', () => {
       result.current.open()
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
     expect(result.current.data).toBeUndefined()
   })
 
@@ -42,7 +42,7 @@ describe('useToggleState', () => {
       result.current.close()
     })
 
-    expect(result.current.isOpen).toBe(false)
+    expect(result.current.isOpen).toBeFalsy()
     expect(result.current.data).toBeUndefined()
   })
 
@@ -57,7 +57,7 @@ describe('useToggleState', () => {
       result.current.open('updated data')
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
     expect(result.current.data).toBe('updated data')
   })
 
@@ -76,7 +76,7 @@ describe('useToggleState', () => {
       result.current.open('John Doe')
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
     expect(result.current.data).toEqual({ firstname: 'John', lastname: 'Doe' })
   })
 })

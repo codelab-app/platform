@@ -1,5 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { atomRef } from '@codelab/frontend/abstract/domain'
+import { atomRef, type IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   atomReactFragmentDto,
   elementDto,

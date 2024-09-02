@@ -1,28 +1,19 @@
 import type { IValidationService } from '@codelab/shared/abstract/infra'
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static, TKind, TSchema } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import { StandardValidator } from 'typebox-validators'
-import {
-  AllOrNoneSchema,
-  AllSchema,
-  AtLeastOneSchema,
-  AtMostOneSchema,
-  DefinedSchema,
-  ExactlyOneSchema,
-  NoneSchema,
-  SchemaProvider,
-  TAll,
-  TAllOrNone,
-  TAtLeastOne,
-  TAtMostOne,
-  TDefined,
-  TExactlyOne,
-  TNone,
-} from '../schema'
+import { DefinedSchema, SchemaProvider, TDefined } from '../schema'
 
-class ValidationService implements IValidationService {
-  constructor(schemaKindMap: Array<[TKind, TSchema]>) {
+export class ValidationService implements IValidationService {
+  static getInstance(schemaKindMap: Array<[TKind, TSchema]>) {
+    if (!ValidationService.instance) {
+      ValidationService.instance = new ValidationService(schemaKindMap)
+    }
+
+    return ValidationService.instance
+  }
+
+  private constructor(schemaKindMap: Array<[TKind, TSchema]>) {
     this.schema = SchemaProvider.getInstance(schemaKindMap)
   }
 
@@ -33,10 +24,16 @@ class ValidationService implements IValidationService {
   ): asserts data is Static<T> {
     try {
       const validator = this.createValidator(kind)
+      const schema = this.schema.tSchema(kind)
+      const validate = schema['validate']
+
+      if (validate && !validate(data)) {
+        throw new Error(options?.message)
+      }
 
       return validator.assert(data as Readonly<unknown>, options?.message)
     } catch (error: unknown) {
-      console.error('Assertion error:', error)
+      console.error(kind, options?.message, data)
       throw new Error((error as Error).message)
     }
   }
@@ -45,33 +42,50 @@ class ValidationService implements IValidationService {
     try {
       this.asserts(TDefined, data, { message: 'Data should be defined' })
     } catch (error: unknown) {
-      console.error('Assertion error:', error)
+      console.error('Assertion error:', JSON.stringify(error))
       throw new Error((error as Error).message)
     }
   }
 
   /**
    * Parses a value or throws an `AssertError` if invalid
+   *
+   * Using `Value.Parse` caused circular dep issue inside `@computed`
+   *
+   * https://github.com/sinclairzx81/typebox?tab=readme-ov-file#parse
    */
   parseDefined<T>(data: T) {
-    try {
-      return Value.Parse(DefinedSchema, data) as NonNullable<T>
-    } catch (error: unknown) {
-      console.error('Parse error:', error)
-      throw new Error((error as Error).message)
+    const validated = Value.Check(DefinedSchema, data)
+
+    if (!validated) {
+      throw new Error('Data should be defined')
     }
+
+    return data as NonNullable<T>
   }
 
+  /**
+   * Extends typebox `SchemaOptions` with custom `validate` key
+   */
   validate(kind: TKind, data: Readonly<unknown>) {
     try {
       const validator = this.createValidator(kind)
+      const truthy = validator.test(data)
+      const schema = this.schema.tSchema(kind)
+      const validate = schema['validate']
 
-      return validator.test(data)
+      if (validate) {
+        return truthy && schema['validate'](data)
+      }
+
+      return truthy
     } catch (error: unknown) {
-      console.error('Validation error:', error)
+      console.error('Validation error:', JSON.stringify(error))
       throw new Error((error as Error).message)
     }
   }
+
+  private static instance?: ValidationService
 
   private createValidator(kind: TKind) {
     try {
@@ -79,21 +93,10 @@ class ValidationService implements IValidationService {
 
       return new StandardValidator(this.schema.tSchema(kind))
     } catch (error: unknown) {
-      console.error('Validator creation error:', error)
+      console.error('Validator creation error:', JSON.stringify(error))
       throw new Error((error as Error).message)
     }
   }
 
   private schema
 }
-
-export const Validator: IValidationService = new ValidationService([
-  [TAtLeastOne, AtLeastOneSchema],
-  [Typebox.TRef, Typebox.Ref],
-  [TExactlyOne, ExactlyOneSchema],
-  [TAllOrNone, AllOrNoneSchema],
-  [TAtMostOne, AtMostOneSchema],
-  [TAll, AllSchema],
-  [TDefined, DefinedSchema],
-  [TNone, NoneSchema],
-])

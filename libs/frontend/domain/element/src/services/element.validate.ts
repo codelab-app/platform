@@ -33,7 +33,9 @@ export const validateElementDto = (element: IElementDto) => {
     })
 
     // These are mutually exclusive
-    Validator.asserts(TAtMostOne, [prevSibling, parentElement])
+    Validator.asserts(TAtMostOne, [prevSibling, parentElement], {
+      message: 'Can have at most one element connection',
+    })
   } else {
     Validator.asserts(TExactlyOne, [parentComponent, page], {
       message: 'Can only have 1 container',

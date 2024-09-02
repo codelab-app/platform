@@ -1,20 +1,21 @@
-import { Validator } from '../validation/validation.service'
+import { Validator } from '../validation/validator'
 import { TAtLeastOne } from './at-least-one.schema'
 
 describe('Validator.validate', () => {
   it('should return true if array contains at least one truthy value', () => {
     expect(
       Validator.validate(TAtLeastOne, [false, '', null, undefined, 'test']),
-    ).toBe(true)
-    expect(Validator.validate(TAtLeastOne, [{}, false, ''])).toBe(true)
-    expect(Validator.validate(TAtLeastOne, ['', true])).toBe(true)
+    ).toBeTruthy()
+    expect(Validator.validate(TAtLeastOne, [{}, false, ''])).toBeTruthy()
+    expect(Validator.validate(TAtLeastOne, ['', true])).toBeTruthy()
+    expect(Validator.validate(TAtLeastOne, [undefined, null])).toBeFalsy()
   })
 
   it('will read from any value, even false, null, or undefined', () => {
     expect(Validator.validate(TAtLeastOne, [false, '', null, undefined])).toBe(
       true,
     )
-    expect(Validator.validate(TAtLeastOne, [])).toBe(false)
+    expect(Validator.validate(TAtLeastOne, [])).toBeFalsy()
   })
 })
 

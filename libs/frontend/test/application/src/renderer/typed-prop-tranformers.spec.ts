@@ -53,7 +53,7 @@ describe('TypedPropTransformers', () => {
 
     const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
 
-    expect(isValidElement(renderedProp)).toBe(true)
+    expect(isValidElement(renderedProp)).toBeTruthy()
   })
 
   it('should render props when kind is RenderPropsType', () => {
@@ -74,7 +74,7 @@ describe('TypedPropTransformers', () => {
 
     const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
 
-    expect(isValidElement(renderedProp())).toBe(true)
+    expect(isValidElement(renderedProp())).toBeTruthy()
   })
 
   it('should pass props to render props component', async () => {

@@ -7,5 +7,7 @@ import { TAtMostOne, Validator } from '@codelab/shared/infra/schema'
 export const validateMoveElement = (context: IMoveElementContext) => {
   const { nextSibling, parentElement, prevSibling } = context
 
-  Validator.asserts(TAtMostOne, [parentElement, nextSibling, prevSibling])
+  Validator.asserts(TAtMostOne, [parentElement, nextSibling, prevSibling], {
+    message: 'Has at most one',
+  })
 }

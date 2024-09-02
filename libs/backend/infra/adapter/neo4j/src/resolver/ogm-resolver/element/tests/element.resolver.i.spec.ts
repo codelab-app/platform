@@ -3,9 +3,8 @@ import {
   connectNodeId,
   connectNodeIds,
   connectOwner,
-  enumTypeValidation,
-  refValidation,
 } from '@codelab/shared/domain'
+import { Validator } from '@codelab/shared/infra/schema'
 import type { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
@@ -49,7 +48,7 @@ describe('ElementResolvers', () => {
       })
     ).users[0]
 
-    refValidation.asserts(owner)
+    Validator.assertsDefined(owner)
 
     const enumTypes = (
       await ogmService.EnumType.create({
@@ -71,8 +70,8 @@ describe('ElementResolvers', () => {
     const enumType1 = enumTypes[0]
     const enumType2 = enumTypes[1]
 
-    enumTypeValidation.asserts(enumType1)
-    enumTypeValidation.asserts(enumType2)
+    Validator.assertsDefined(enumType1)
+    Validator.assertsDefined(enumType2)
 
     const unionType = (
       await ogmService.UnionType.create({
@@ -89,7 +88,7 @@ describe('ElementResolvers', () => {
       })
     ).unionTypes[0]
 
-    refValidation.asserts(unionType)
+    Validator.assertsDefined(unionType)
 
     const arrayType = (
       await ogmService.ArrayType.create({
@@ -104,7 +103,7 @@ describe('ElementResolvers', () => {
       })
     ).arrayTypes[0]
 
-    refValidation.asserts(arrayType)
+    Validator.assertsDefined(arrayType)
 
     const atomApi = (
       await ogmService.InterfaceType.create({
@@ -118,7 +117,7 @@ describe('ElementResolvers', () => {
       })
     ).interfaceTypes[0]
 
-    refValidation.asserts(atomApi)
+    Validator.assertsDefined(atomApi)
 
     await ogmService.Field.create({
       input: [
@@ -153,7 +152,7 @@ describe('ElementResolvers', () => {
       })
     ).atoms[0]
 
-    refValidation.asserts(atom)
+    Validator.assertsDefined(atom)
 
     const props = (
       await ogmService.Prop.create({
@@ -166,7 +165,7 @@ describe('ElementResolvers', () => {
       })
     ).props[0]
 
-    refValidation.asserts(props)
+    Validator.assertsDefined(props)
 
     await ogmService.Element.create({
       input: [

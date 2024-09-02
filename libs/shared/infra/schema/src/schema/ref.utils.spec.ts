@@ -42,7 +42,7 @@ describe('Ref', () => {
   it('should allow type guards', () => {
     const Guard = { [Kind]: 'String', type: 'string' }
 
-    expect(TypeGuard.IsString(Guard)).toBe(true)
+    expect(TypeGuard.IsString(Guard)).toBeTruthy()
   })
 
   it('can check a built-in object type', () => {

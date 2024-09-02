@@ -8,7 +8,7 @@ describe('useModalState', () => {
   it('should initialize with closed state', () => {
     const { result } = renderHook(() => useCreateAppModal())
 
-    expect(result.current.isOpen).toBe(false)
+    expect(result.current.isOpen).toBeFalsy()
     expect(result.current.data).toBeUndefined()
   })
 
@@ -19,7 +19,7 @@ describe('useModalState', () => {
       result.current.open()
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
   })
 
   it('should close modal', () => {
@@ -30,7 +30,7 @@ describe('useModalState', () => {
       result.current.close()
     })
 
-    expect(result.current.isOpen).toBe(false)
+    expect(result.current.isOpen).toBeFalsy()
   })
 
   it('should open modal with data', () => {
@@ -40,7 +40,7 @@ describe('useModalState', () => {
       result.current.open(0)
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
     expect(result.current.data).toBe(0)
   })
 
@@ -72,18 +72,18 @@ describe('useModalState', () => {
       result1.current.open(42)
     })
 
-    expect(result1.current.isOpen).toBe(true)
+    expect(result1.current.isOpen).toBeTruthy()
     expect(result1.current.data).toBe(42)
 
-    expect(result2.current.isOpen).toBe(true)
+    expect(result2.current.isOpen).toBeTruthy()
     expect(result2.current.data).toBe(42)
 
     act(() => {
       result2.current.close()
     })
 
-    expect(result1.current.isOpen).toBe(false)
-    expect(result2.current.isOpen).toBe(false)
+    expect(result1.current.isOpen).toBeFalsy()
+    expect(result2.current.isOpen).toBeFalsy()
   })
 
   it('should not share data between modals with different keys', () => {
@@ -99,28 +99,28 @@ describe('useModalState', () => {
       result1.current.open(42)
     })
 
-    expect(result1.current.isOpen).toBe(true)
+    expect(result1.current.isOpen).toBeTruthy()
     expect(result1.current.data).toBe(42)
 
-    expect(result2.current.isOpen).toBe(false)
+    expect(result2.current.isOpen).toBeFalsy()
     expect(result2.current.data).toBeUndefined()
 
     act(() => {
       result2.current.open(24)
     })
 
-    expect(result1.current.isOpen).toBe(true)
+    expect(result1.current.isOpen).toBeTruthy()
     expect(result1.current.data).toBe(42)
 
-    expect(result2.current.isOpen).toBe(true)
+    expect(result2.current.isOpen).toBeTruthy()
     expect(result2.current.data).toBe(24)
 
     act(() => {
       result1.current.close()
     })
 
-    expect(result1.current.isOpen).toBe(false)
-    expect(result2.current.isOpen).toBe(true)
+    expect(result1.current.isOpen).toBeFalsy()
+    expect(result2.current.isOpen).toBeTruthy()
     expect(result2.current.data).toBe(24)
   })
 })
