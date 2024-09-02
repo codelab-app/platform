@@ -4,14 +4,30 @@
 
 # nx cache seems to grow in size if we don't resize, goes to 20G sometimes
 # Go through each directory that has possibly large cache
-DIRS=(
-  ~/project/.nx/cache
+NX_CACHE_DIR=~/project/.nx/cache
+NEXT_DIRS=(
   ~/project/dist/apps/web/.next
   ~/project/dist/apps/landing/.next
   ~/project/dist/apps/sites/.next
 )
 
-for DIR in "${DIRS[@]}"
+#
+# Step 1: Handle .nx/cache
+#
+SIZE=$(du -s $NX_CACHE_DIR | cut -f1)
+SIZE_MB=$((SIZE / 1024))
+
+if ((SIZE > 1 * 1024 * 1024)); then
+  echo "Directory $NX_CACHE_DIR is ${SIZE_MB}MB, resetting cache."
+  npx nx reset
+else
+  echo "Directory $NX_CACHE_DIR is ${SIZE_MB}MB, keeping cache"
+fi
+
+#
+# Step 2: Handle Next.js cache directories
+#
+for DIR in "${NEXT_DIRS[@]}"
 do
   # Calculate size of directory
   SIZE=$(du -s $DIR | cut -f1)
@@ -20,10 +36,7 @@ do
   # Check if size is greater than 1GB
   if ((SIZE > 1 * 1024 * 1024)); then
     echo "Directory $DIR is ${SIZE_MB}MB, deleting cache."
-
-    # Delete all except lockfile.hash, since it is used for cache key
-    # find $DIR -maxdepth 1 -type f -not -name 'lockfile.hash' -delete
-    npx nx reset
+    rm -rf $DIR
   else
     echo "Directory $DIR is ${SIZE_MB}MB, keeping cache"
   fi

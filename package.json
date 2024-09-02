@@ -76,7 +76,7 @@
     "@lexical/react": "0.15.0",
     "@lexical/utils": "0.15.0",
     "@mailchimp/mailchimp_marketing": "3.0.80",
-    "@mui/material": "^5.16.7",
+    "@mui/material": "5.16.7",
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@neo4j/graphql": "4.4.5",
     "@neo4j/graphql-ogm": "4.4.5",
