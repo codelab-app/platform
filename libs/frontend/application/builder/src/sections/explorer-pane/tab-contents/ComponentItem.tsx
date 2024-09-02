@@ -69,6 +69,7 @@ export const ComponentItem = ({
               <Button
                 icon={<EditOutlined />}
                 onMouseDown={handleEditClick}
+                title="Edit in Builder"
                 type="text"
               />
             ) : (
@@ -80,6 +81,7 @@ export const ComponentItem = ({
                 hidden={!onDelete}
                 icon={<DeleteOutlined />}
                 onMouseDown={handleDeleteClick}
+                title="Delete"
                 type="text"
               />
             ) : (

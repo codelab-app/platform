@@ -10,6 +10,7 @@ import {
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useStoreService } from '@codelab/frontend-application-store/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
+import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   useApplicationStore,
   useDomainStore,
@@ -19,9 +20,11 @@ import type {
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
 import type {
+  ComponentBuilderFragment,
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
+import { componentBuilderQuery } from '../use-cases/component-builder'
 import { revalidateComponentListOperation } from '../use-cases/component-list'
 
 export const useComponentService = (): IComponentService => {
@@ -32,8 +35,6 @@ export const useComponentService = (): IComponentService => {
     pagination: { componentPagination },
     rendererService,
   } = useApplicationStore()
-
-  const storeService = useStoreService()
 
   const create = async ({ id, name, rootElement }: ICreateComponentData) => {
     const component = componentDomainService.add({ id, name, rootElement })
@@ -49,15 +50,24 @@ export const useComponentService = (): IComponentService => {
 
   const remove = async (components: Array<IComponentModel>) => {
     const deleteComponent = async (component: IComponentModel) => {
-      const { id } = component
-      const store = component.store.current
-      const rootElement = component.rootElement.current
+      const { id, name } = component
+      const rootElement = component.rootElement.maybeCurrent
 
-      await elementService.deleteElement(rootElement)
+      if (rootElement) {
+        // means root element and the descendants were already requested
+        // and hydrated to the store, so we can delete all of them right away
+        await elementService.deleteElement(rootElement)
+      } else {
+        // means we do not have root element and all the descendants on client side
+        // need to get all descendant element IDs and delete them
+        const data = await componentBuilderQuery({ componentName: name })
+        const elements = (data.component as ComponentBuilderFragment).elements
+
+        await elementRepository.delete(elements)
+      }
 
       componentDomainService.components.delete(id)
 
-      await storeService.remove([store])
       await componentRepository.delete([component])
 
       return component

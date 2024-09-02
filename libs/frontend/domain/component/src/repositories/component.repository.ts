@@ -9,6 +9,7 @@ import type {
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { Component } from '../store'
 import {
   ComponentList,
   CreateComponents,
@@ -35,11 +36,7 @@ export const componentRepository: IComponentRepository = {
     const {
       deleteComponents: { nodesDeleted },
     } = await DeleteComponents({
-      delete: {
-        api: {},
-        props: {},
-        store: {},
-      },
+      delete: Component.toDeleteInput(),
       where: { id_IN: components.map((component) => component.id) },
     })
 

@@ -16,7 +16,7 @@ export const CuiPopoverToolbarItem = ({
   title,
 }: CuiPopoverToolbarItemProps) => {
   return (
-    <div
+    <button
       className="
         size-full
         cursor-pointer
@@ -54,6 +54,6 @@ export const CuiPopoverToolbarItem = ({
           </div>
         </div>
       </Tooltip>
-    </div>
+    </button>
   )
 }

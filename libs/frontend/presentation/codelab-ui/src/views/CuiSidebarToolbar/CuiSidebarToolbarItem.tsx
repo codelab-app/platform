@@ -14,7 +14,8 @@ export const CuiSidebarToolbarItem = ({
   return (
     <div className="size-full" data-cy={Cui.cuiToolbarItem(cuiKey)}>
       <Tooltip title={title}>
-        <div
+        <button
+          aria-label={cuiKey}
           className="
             flex
             size-full
@@ -27,7 +28,7 @@ export const CuiSidebarToolbarItem = ({
           onClick={onClick}
         >
           {icon}
-        </div>
+        </button>
       </Tooltip>
     </div>
   )
