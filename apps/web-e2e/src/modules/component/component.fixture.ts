@@ -37,7 +37,7 @@ export class ComponentListPage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(PageType.Components)
+    await this.page.goto(PageType.Components())
   }
 
   async openCreateComponentPanel() {
