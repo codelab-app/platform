@@ -7,7 +7,7 @@ commands:
       - restore_cache:
           keys:
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-*-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-
           name: Restore NX Cache
       - run:

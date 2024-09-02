@@ -10,7 +10,7 @@ steps:
       name: 'Restore NX Cache'
       keys:
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nx-cache-*-{{ checksum "pnpm-lock.yaml" }}
+        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-
   - run:
       command: (./scripts/nx/reset-cache.sh)

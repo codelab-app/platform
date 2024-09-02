@@ -33,8 +33,8 @@ do
   SIZE=$(du -s $DIR | cut -f1)
   SIZE_MB=$((SIZE / 1024))
 
-  # Check if size is greater than 1GB
-  if ((SIZE > 1 * 1024 * 1024)); then
+  # Check if size is greater than 300MB
+  if ((SIZE > 300 * 1024)); then
     echo "Directory $DIR is ${SIZE_MB}MB, deleting cache."
     rm -rf $DIR
   else

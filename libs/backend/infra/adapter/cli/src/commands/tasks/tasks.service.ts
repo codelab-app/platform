@@ -77,7 +77,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test:integration --runInBand --ci -c ci --parallel=1',
+              'pnpm nx affected --target=test:integration --runInBand --ci -c ci --parallel=1 --verbose',
             )
           }
         }),
