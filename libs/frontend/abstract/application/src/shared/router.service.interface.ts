@@ -1,13 +1,13 @@
 import type { UrlParams, UrlQuery } from '@codelab/frontend/abstract/types'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { RequiredPartial } from '@codelab/shared/abstract/types'
 
 export interface IRouterProps {
-  params: Nullable<UrlParams>
-  query: Nullable<UrlQuery>
+  params: Partial<UrlParams>
+  query: Partial<UrlQuery>
 }
 
 export type IRouterService = IRouterProps &
-  UrlParams &
+  RequiredPartial<UrlParams> &
   UrlQuery & {
     update(router: Partial<IRouterProps>): void
   }

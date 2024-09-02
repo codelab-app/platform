@@ -2,23 +2,18 @@
  * Url param like :details
  */
 export interface UrlParams {
-  appId?: string
-  authGuardId?: string
-  componentId?: string
-  interfaceId?: string
-  libraryId?: string
-  pageId?: string
-  resourceId?: string
-}
-
-export interface PageContextParams {
   appId: string
+  authGuardId: string
+  componentId: string
+  interfaceId: string
+  // libraryId: string
   pageId: string
+  resourceId: string
 }
 
-export interface ComponentContextParams {
-  componentId: string
-}
+export type PageContextParams = Pick<UrlParams, 'appId' | 'pageId'>
+
+export type ComponentContextParams = Pick<UrlParams, 'componentId'>
 
 /**
  * ?key=value

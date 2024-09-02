@@ -1,3 +1,4 @@
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import { StoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { PageBuilder } from '@codelab/frontend-application-builder/use-cases/page-builder'
@@ -8,10 +9,7 @@ import React from 'react'
 const Page = async ({
   params: { appId, pageId },
 }: {
-  params: {
-    pageId: string
-    appId: string
-  }
+  params: PageContextParams
 }) => {
   const dto = await appBuilderQuery({ appId })
 

@@ -16,10 +16,13 @@ const init = (router: IRouterProps) => {
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    params: prop<UrlParams>(() => ({
+    params: prop<Partial<UrlParams>>(() => ({
       appId: undefined,
+      authGuardId: undefined,
       componentId: undefined,
+      interfaceId: undefined,
       pageId: undefined,
+      resourceId: undefined,
     })).withSetter(),
     query: prop<UrlQuery>(() => ({
       primarySidebarKey: undefined,
@@ -35,8 +38,18 @@ export class RouterService
   }
 
   @computed
+  get authGuardId() {
+    return this.params.authGuardId
+  }
+
+  @computed
   get componentId() {
     return this.params.componentId
+  }
+
+  @computed
+  get interfaceId() {
+    return this.params.interfaceId
   }
 
   @computed
@@ -49,14 +62,15 @@ export class RouterService
     return this.query.primarySidebarKey
   }
 
+  @computed
+  get resourceId() {
+    return this.params.resourceId
+  }
+
   @modelAction
   update({ params, query }: IRouterProps) {
-    if (params) {
-      this.setParams(params)
-    }
+    this.setParams(params)
 
-    if (query) {
-      this.setQuery(query)
-    }
+    this.setQuery(query)
   }
 }

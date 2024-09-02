@@ -1,3 +1,4 @@
+import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 import React from 'react'
 import { Dashboard } from './Dashboard'
@@ -17,17 +18,18 @@ import { Dashboard } from './Dashboard'
 //   primarySidebar: T extends 'primarySidebar' ? ReactNode : never
 // }
 
-interface OptionalProps {
+export interface DashboardSections {
   configPane: ReactNode
   header: ReactNode
   primarySidebar: ReactNode
 }
 
-type DashboardLayoutProps<T extends Partial<OptionalProps> = never> = {
-  [K in keyof OptionalProps]: K extends keyof T ? T[K] : never
-} & {
-  children: ReactNode
-}
+type DashboardLayoutProps<T extends Partial<DashboardSections> = never> =
+  Partial<UrlParams> & {
+    [K in keyof DashboardSections]: K extends keyof T ? T[K] : never
+  } & {
+    children: ReactNode
+  }
 
 /**
  * @deprecated Example only
@@ -39,10 +41,12 @@ type _OnlyHeader = DashboardLayoutProps<{ header: ReactNode }>
  */
 type _All = DashboardLayoutProps
 
-export const DashboardLayout = <T extends Partial<OptionalProps> = never>({
+export const DashboardLayout = <T extends Partial<DashboardSections> = never>({
+  appId,
   children,
   configPane,
   header,
+  pageId,
   primarySidebar,
 }: DashboardLayoutProps<T>) => {
   return (
@@ -50,24 +54,9 @@ export const DashboardLayout = <T extends Partial<OptionalProps> = never>({
       ConfigPane={configPane}
       Header={header}
       PrimarySidebar={primarySidebar}
-      // PrimarySidebar={{
-      //   default: ExplorerPaneType.Explorer,
-      //   items: [
-      //     {
-      //       key: ExplorerPaneType.Components,
-      //       render: <ComponentsPrimarySidebar />,
-      //     },
-      //     {
-      //       key: ExplorerPaneType.Explorer,
-      //       render: <BuilderPrimarySidebarContainer pageId={pageId} />,
-      //     },
-      //     {
-      //       key: ExplorerPaneType.PageList,
-      //       render: <PagesPrimarySidebar />,
-      //     },
-      //   ],
-      // }}
+      appId={appId}
       contentStyles={{ paddingTop: '0rem' }}
+      pageId={pageId}
     >
       {children}
     </Dashboard>

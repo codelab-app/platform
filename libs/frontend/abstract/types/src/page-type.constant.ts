@@ -36,8 +36,8 @@ export const PageType = {
   PageDetail: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}`,
   PageList: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}/pages`,
-  Prop: ({ libraryId }: Pick<UrlParams, 'libraryId'>) =>
-    `/library/${libraryId}/props`,
+  // Prop: ({ libraryId }: Pick<UrlParams, 'libraryId'>) =>
+  //   `/library/${libraryId}/props`,
   PropsInterface: ({ appId }: Pick<UrlParams, 'appId'>) =>
     `/apps/${appId}/props`,
   Resources: () => '/resources',

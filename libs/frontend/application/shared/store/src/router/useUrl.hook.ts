@@ -20,19 +20,19 @@ export const useUrl = () => {
    */
   const searchParams = useSearchParams() as Nullable<ReadonlyURLSearchParams>
   const pathname = usePathname() as Nullable<string>
-  const params = useParams() as Nullable<UrlParams>
+  const params = useParams() as Partial<UrlParams>
   const primarySidebarKey = searchParams?.get('primarySidebarKey')
   const query = Object.fromEntries(searchParams?.entries() ?? [])
 
   return {
-    appId: params?.appId,
-    authGuardId: params?.authGuardId,
-    componentId: params?.componentId,
-    pageId: params?.pageId,
+    appId: params.appId,
+    authGuardId: params.authGuardId,
+    componentId: params.componentId,
+    pageId: params.pageId,
     params: params,
     pathname,
     primarySidebarKey,
     query,
-    resourceId: params?.resourceId,
+    resourceId: params.resourceId,
   }
 }

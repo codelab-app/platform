@@ -6,16 +6,13 @@ import {
   PageType,
 } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
-import type { RequiredPartial } from '@codelab/shared/utils'
 import React from 'react'
 
 export const pageBuilderMenuItem = ({
   appId,
   componentId,
   pageId,
-}: RequiredPartial<
-  ComponentContextParams & PageContextParams
->): NavigationBarItem => {
+}: Partial<ComponentContextParams & PageContextParams>): NavigationBarItem => {
   const disabledBuilderMenuItem = {
     disabled: true,
     icon: <BuildOutlined title="Builder" />,

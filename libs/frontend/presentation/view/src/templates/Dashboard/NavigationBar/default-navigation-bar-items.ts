@@ -23,7 +23,7 @@ export const defaultNavigationBarItems = ({
   appId,
   componentId,
   pageId,
-}: UrlParams): {
+}: Partial<UrlParams>): {
   primaryItems: Array<NavigationBarItem>
   secondaryItems: Array<NavigationBarItem>
 } => ({

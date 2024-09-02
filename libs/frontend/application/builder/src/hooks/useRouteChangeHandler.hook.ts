@@ -45,7 +45,7 @@ export const useRouteChangeHandler = (
       const url = queryString.stringifyUrl({
         query: {
           ...query,
-          appId: params?.appId,
+          appId: params.appId,
           pageId: page.slug,
           primarySidebarKey: queryParams['primarySidebarKey'],
         },

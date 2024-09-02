@@ -5,13 +5,12 @@ import {
   PageType,
 } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
-import type { RequiredPartial } from '@codelab/shared/utils'
 import React from 'react'
 
 export const allPagesMenuItem = ({
   appId,
   pageId,
-}: RequiredPartial<PageContextParams>): NavigationBarItem => {
+}: Partial<PageContextParams>): NavigationBarItem => {
   const disabledPageListItem = {
     disabled: true,
     icon: <FileOutlined title="Pages" />,
