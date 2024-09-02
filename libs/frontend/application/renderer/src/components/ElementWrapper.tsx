@@ -23,7 +23,7 @@ import {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({
-    errorBoundary: { onError, onResetKeysChange },
+    errorBoundary: { onError, onReset },
     onRendered,
     renderer,
     renderOutput,
@@ -89,7 +89,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       <ErrorBoundary
         fallbackRender={() => null}
         onError={onError}
-        onResetKeysChange={onResetKeysChange}
+        onReset={onReset}
         resetKeys={[renderOutput]}
       >
         <DroppableStyledComponent

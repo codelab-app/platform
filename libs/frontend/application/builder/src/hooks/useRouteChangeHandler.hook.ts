@@ -17,7 +17,9 @@ import { extractPathParamsFromUrlInstance } from '../builder-router'
  */
 export const useRouteChangeHandler = (
   pages: Array<IBuilderPage> = [],
-  pathname: PageType.PageBuilder | PageType.PageDetail,
+  pathname:
+    | ReturnType<typeof PageType.PageBuilder>
+    | ReturnType<typeof PageType.PageDetail>,
 ) => {
   const router = useRouter()
   // Usage in page router causes first pass to be undefined
@@ -43,10 +45,9 @@ export const useRouteChangeHandler = (
       const url = queryString.stringifyUrl({
         query: {
           ...query,
-          appSlug: params?.appSlug,
-          pageSlug: page.slug,
+          appId: params?.appId,
+          pageId: page.slug,
           primarySidebarKey: queryParams['primarySidebarKey'],
-          userSlug: params?.userSlug,
         },
         url: pathname,
       })

@@ -1,29 +1,25 @@
-import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import {
-  AuthGuardsPrimarySidebar,
-  AuthGuardsViewHeader,
-} from '@codelab/frontend-application-auth-guard/views'
-import { DashboardTemplate } from '@codelab/frontend-presentation-view/templates'
+import { Dashboard } from '@codelab/frontend-presentation-view/templates'
 import type { ReactNode } from 'react'
 import React from 'react'
 
-const AuthGuardsRouteLayout = ({ children }: { children: ReactNode }) => {
+const Layout = ({
+  children,
+  header,
+  primarySidebar,
+}: {
+  children: ReactNode
+  header: ReactNode
+  primarySidebar: ReactNode
+}) => {
   return (
-    <DashboardTemplate
-      Header={<AuthGuardsViewHeader />}
-      PrimarySidebar={{
-        default: ExplorerPaneType.AuthGuards,
-        items: [
-          {
-            key: ExplorerPaneType.AuthGuards,
-            render: <AuthGuardsPrimarySidebar />,
-          },
-        ],
-      }}
+    <Dashboard
+      Header={header}
+      PrimarySidebar={primarySidebar}
+      contentStyles={{ paddingTop: '0rem' }}
     >
       {children}
-    </DashboardTemplate>
+    </Dashboard>
   )
 }
 
-export default AuthGuardsRouteLayout
+export default Layout

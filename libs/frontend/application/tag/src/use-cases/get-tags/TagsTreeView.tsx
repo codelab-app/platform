@@ -28,7 +28,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
   >({
     filterTypes: { name: 'string' },
     paginationService: tagService.paginationService,
-    pathname: PageType.Type,
+    pathname: PageType.Type(),
   })
 
   /**
@@ -76,7 +76,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         )
       }}
       onSearchKeywordChange={(keyword) => {
-        void handleChange({ newFilter: { name: keyword || undefined } })
+        void handleChange({ newFilter: { name: keyword || '' } })
       }}
       onSelect={onSelect}
       searcheable={

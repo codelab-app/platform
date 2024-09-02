@@ -7,11 +7,14 @@ import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
 import NodeIndexOutlined from '@ant-design/icons/NodeIndexOutlined'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
+  type IRendererModel,
+  type IRuntimeComponentModel,
+  type IRuntimeElementModel,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
-import { isAtomRef } from '@codelab/frontend/abstract/domain'
+import { type IElementTree, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { UpdateComponentForm } from '@codelab/frontend-application-component/use-cases/update-component'
 import { UpdateComponentPropsForm } from '@codelab/frontend-application-component/use-cases/update-component-props'
 import { DeleteElementButton } from '@codelab/frontend-application-element/use-cases/delete-element'
@@ -19,7 +22,6 @@ import { MoveElementForm } from '@codelab/frontend-application-element/use-cases
 import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
 import { UpdateElementPropsForm } from '@codelab/frontend-application-element/use-cases/update-element-props'
 import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'
@@ -54,16 +56,14 @@ export const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
   )
 }
 
-export const ConfigPaneInspectorTabContainer = observer(() => {
-  const { builderService, rendererService } = useApplicationStore()
-  const elementTree = rendererService.activeElementTree
-  const selectedNode = builderService.selectedNode?.current
-  const activeRenderer = rendererService.activeRenderer?.maybeCurrent
-
-  if (!selectedNode || isRuntimePage(selectedNode)) {
-    return null
-  }
-
+/**
+ * Issue with observer here, since `page` sets selectedNode, which will trigger update here. But we get `Cannot update a component (`MetaPaneTabContainer`) while rendering a different component (`Builder`)`
+ */
+export const ConfigPaneInspectorTabContainer = observer<{
+  selectedNode: IRuntimeComponentModel | IRuntimeElementModel
+  activeRenderer: IRendererModel
+  elementTree: IElementTree
+}>(({ activeRenderer, elementTree, selectedNode }) => {
   const tabItems = [
     {
       children: isRuntimeElement(selectedNode) ? (
@@ -149,7 +149,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
         <TooltipIcon icon={<CodeOutlined />} title={TAB_NAMES.PropsInspector} />
       ),
     },
-    ...(activeRenderer?.runtimePage
+    ...(activeRenderer.runtimePage
       ? [
           {
             children: <UpdatePageTabForm key={selectedNode.compositeKey} />,
@@ -160,7 +160,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
           },
         ]
       : []),
-    ...(activeRenderer?.runtimeComponent
+    ...(activeRenderer.runtimeComponent
       ? [
           {
             children: (

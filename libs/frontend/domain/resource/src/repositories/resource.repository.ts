@@ -7,7 +7,7 @@ import type {
   ResourceUniqueWhere,
   ResourceWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateResources,
   DeleteResources,
@@ -23,7 +23,7 @@ export const resourceRepository: IResourceRepository = {
 
     const createdResource = resources[0]
 
-    assertIsDefined(createdResource)
+    Validator.assertsDefined(createdResource)
 
     return createdResource
   },
@@ -57,7 +57,7 @@ export const resourceRepository: IResourceRepository = {
 
     const updatedResource = resources[0]
 
-    assertIsDefined(updatedResource)
+    Validator.assertsDefined(updatedResource)
 
     return updatedResource
   },

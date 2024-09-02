@@ -13,7 +13,7 @@ export const SelectPage = ({ error, label, name }: SelectPageProps) => {
   const [
     { error: queryError, loading, value: selectPageOptions = [] },
     executeGetSelectPageOptions,
-  ] = useAsyncFn(() => getSelectPageOptions(app.id))
+  ] = useAsyncFn(() => getSelectPageOptions(app?.id))
 
   return (
     <SelectField

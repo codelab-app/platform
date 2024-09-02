@@ -7,7 +7,7 @@ import type {
   AuthGuardUniqueWhere,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateAuthGuards,
   DeleteAuthGuards,
@@ -25,7 +25,7 @@ export const authGuardRepository: IAuthGuardRepository = {
 
     const createdAuthGuard = authGuards[0]
 
-    assertIsDefined(createdAuthGuard)
+    Validator.assertsDefined(createdAuthGuard)
 
     return createdAuthGuard
   },
@@ -68,7 +68,7 @@ export const authGuardRepository: IAuthGuardRepository = {
 
     const updatedAuthGuard = authGuards[0]
 
-    assertIsDefined(updatedAuthGuard)
+    Validator.assertsDefined(updatedAuthGuard)
 
     return updatedAuthGuard
   },

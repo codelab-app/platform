@@ -10,7 +10,7 @@ import type {
   IPageAggregate,
   IStoreAggregate,
 } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -54,7 +54,7 @@ export class ExportPageHandler
     ).map((element: Element) => ({
       ...element,
       renderType: {
-        __typename: throwIfUndefined(element.renderType.__typename),
+        __typename: Validator.parseDefined(element.renderType.__typename),
         id: element.renderType.id,
       },
     }))

@@ -7,7 +7,7 @@ import type {
   ElementUniqueWhere,
   ElementWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateElements,
   DeleteElements,
@@ -25,7 +25,7 @@ export const elementRepository: IElementRepository = {
 
     const createdElement = elements[0]
 
-    assertIsDefined(createdElement)
+    Validator.assertsDefined(createdElement)
 
     return createdElement
   },
@@ -65,7 +65,7 @@ export const elementRepository: IElementRepository = {
 
     const updatedElement = elements[0]
 
-    assertIsDefined(updatedElement)
+    Validator.assertsDefined(updatedElement)
 
     return updatedElement
   },
@@ -80,7 +80,7 @@ export const elementRepository: IElementRepository = {
 
     const updatedNode = elements[0]
 
-    assertIsDefined(updatedNode)
+    Validator.assertsDefined(updatedNode)
 
     return updatedNode
   },

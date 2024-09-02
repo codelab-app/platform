@@ -1,4 +1,3 @@
-import type { JSXElementConstructor } from 'react'
 import type React from 'react'
 
 export interface PrimarySidebarItem {
@@ -11,19 +10,20 @@ export interface PrimarySidebar {
   items: Array<PrimarySidebarItem>
 }
 
-export type DashboardTemplateProps<T = unknown> = T & {
+export type DashboardProps<T = unknown> = T & {
   /**
    * The right panel used for configuration element settings
    */
-  ConfigPane?: React.ReactElement
+  ConfigPane?: React.ReactNode
   /**
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */
-  PrimarySidebar?: PrimarySidebar
-  Header?: React.ReactElement
+  PrimarySidebar?: React.ReactNode
+  // PrimarySidebar?: PrimarySidebar
+  primarySidebarKey?: string
+  Header?: React.ReactNode
   contentStyles?: React.CSSProperties
-  appSlug?: string
-  componentSlug?: string
-  pageSlug?: string
-  userSlug?: string
+  appId?: string
+  componentId?: string
+  pageId?: string
 }

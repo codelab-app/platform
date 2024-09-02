@@ -1,6 +1,6 @@
 export * from './CuiHeader'
 export * from './CuiNavigationBar'
-export * from './CuiResizablePanel'
+export * from './CuiPanel'
 export * from './CuiSidebar'
 export * from './CuiSidebarPopover'
 export * from './CuiV2NavigationBar'

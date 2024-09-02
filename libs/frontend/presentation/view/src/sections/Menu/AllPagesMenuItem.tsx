@@ -1,0 +1,42 @@
+import FileOutlined from '@ant-design/icons/FileOutlined'
+import {
+  ExplorerPaneType,
+  type PageContextParams,
+  PageType,
+} from '@codelab/frontend/abstract/types'
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { RequiredPartial } from '@codelab/shared/utils'
+import React from 'react'
+
+export const allPagesMenuItem = ({
+  appId,
+  pageId,
+}: RequiredPartial<PageContextParams>): NavigationBarItem => {
+  const disabledPageListItem = {
+    disabled: true,
+    icon: <FileOutlined title="Pages" />,
+    key: ExplorerPaneType.PageList,
+    link: undefined,
+    title: 'Pages',
+  }
+
+  if (!appId || !pageId) {
+    return disabledPageListItem
+  }
+
+  return {
+    ...disabledPageListItem,
+    disabled: false,
+    link: {
+      href: PageType.PageBuilder(
+        {
+          appId,
+          pageId,
+        },
+        {
+          primarySidebarKey: ExplorerPaneType.PageList,
+        },
+      ),
+    },
+  }
+}

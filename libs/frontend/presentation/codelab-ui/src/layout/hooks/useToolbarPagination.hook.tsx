@@ -21,7 +21,7 @@ export const useToolbarPagination = <
 >(
   service: IPaginateable<T, U>,
   pathname: SupportedPaginationModelPage,
-  filterTypes?: Record<keyof U, 'boolean' | 'number' | 'string' | 'string[]'>,
+  filterTypes: Record<keyof U, 'boolean' | 'number' | 'string' | 'string[]'>,
 ) => {
   const paginationService = service.paginationService
 

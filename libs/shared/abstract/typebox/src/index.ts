@@ -1,5 +1,5 @@
 import { IsUnion } from './schema/is-union'
-import { DiscriminatedRef, Ref } from './schema/ref'
+import { DiscriminatedRef, Ref, TRef } from './schema/ref'
 import { Nullish } from './types/nullish'
 import { OmitOwner } from './types/omit-owner'
 import { Overwrite } from './types/overwrite'
@@ -16,6 +16,7 @@ const Typebox = {
   Overwrite,
   Ref,
   Serialized,
+  TRef,
   ValidateAndClean: validateAndClean,
   // Values: values,
 }

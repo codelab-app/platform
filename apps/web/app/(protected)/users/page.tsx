@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   title: 'Users | Codelab',
 }
 
-const UsersRoute = () => {
+const Page = () => {
   return <UsersTable />
 }
 
-export default UsersRoute
+export default Page

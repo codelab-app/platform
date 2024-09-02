@@ -1,11 +1,11 @@
 // import { Tooltip } from '@mui/material'
 import { Breadcrumb, Tooltip } from 'antd'
 import type { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb'
-import React from 'react'
+import React, { type ReactNode } from 'react'
 import { BreadcrumbItemWrapper } from './BreadcrumbItemWrapper'
 
-interface HeaderBreadcrumbItem {
-  title: string
+export interface HeaderBreadcrumbItem {
+  title: ReactNode
   onClick?(): void
 }
 

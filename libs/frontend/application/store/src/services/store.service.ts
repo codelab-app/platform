@@ -4,7 +4,7 @@ import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { type IStoreDto } from '@codelab/shared/abstract/core'
 import { type StoreFragment, type StoreWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 
 export const useStoreService = (): IStoreService => {
   const { actionDomainService, storeDomainService, typeDomainService } =
@@ -45,7 +45,7 @@ export const useStoreService = (): IStoreService => {
   const update = async (data: IStoreDto) => {
     const store = storeDomainService.stores.get(data.id)
 
-    assertIsDefined(store)
+    Validator.assertsDefined(store)
     store.writeCache({ name: data.name })
     await storeRepository.update(store)
 

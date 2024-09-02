@@ -1,8 +1,3 @@
-import type { PropsWithChildren } from 'react'
-import React from 'react'
+import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-const ComponentsRouteLayout = async ({ children }: PropsWithChildren) => {
-  return <>{children}</>
-}
-
-export default ComponentsRouteLayout
+export default DashboardLayout

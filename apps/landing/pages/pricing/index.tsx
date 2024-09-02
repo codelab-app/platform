@@ -1,6 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { SeoHead } from 'apps/landing/src/home/SeoHead'
-import * as React from 'react'
+import React from 'react'
 import { HomeTemplate, PricingBody, PricingHeader } from '../../src/home'
 
 const PricingPage = () => {

@@ -2,11 +2,10 @@ import { StoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { PageBuilder } from '@codelab/frontend-application-builder/use-cases/page-builder'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
-import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import React from 'react'
 
-const PageBuilderPage = async ({
+const Page = async ({
   params: { appId, pageId },
 }: {
   params: {
@@ -39,4 +38,4 @@ const PageBuilderPage = async ({
   )
 }
 
-export default PageBuilderPage
+export default Page

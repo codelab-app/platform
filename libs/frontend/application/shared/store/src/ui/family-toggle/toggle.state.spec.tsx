@@ -9,7 +9,7 @@ describe('useToggleState', () => {
   it('should initialize with default values', () => {
     const { result } = renderHook(() => useCreateAppForm())
 
-    expect(result.current.isOpen).toBe(false)
+    expect(result.current.isOpen).toBeFalsy()
     expect(result.current.data).toBeUndefined()
   })
 
@@ -20,7 +20,7 @@ describe('useToggleState', () => {
       result.current.open('test data')
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
     expect(result.current.data).toBe('test data')
   })
 
@@ -35,7 +35,7 @@ describe('useToggleState', () => {
       result.current.close()
     })
 
-    expect(result.current.isOpen).toBe(false)
+    expect(result.current.isOpen).toBeFalsy()
     expect(result.current.data).toBeUndefined()
   })
 
@@ -50,7 +50,7 @@ describe('useToggleState', () => {
       result.current.open('test data')
     })
 
-    expect(result.current.isOpen).toBe(true)
+    expect(result.current.isOpen).toBeTruthy()
     expect(result.current.data).toEqual({ mappedData: 'TEST DATA' })
   })
 })

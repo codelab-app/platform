@@ -24,13 +24,12 @@ export const AtomsTable = () => {
     useTablePagination<IAtomModel, { name: string }>({
       filterTypes: { name: 'string' },
       paginationService: atomService.paginationService,
-      pathname: PageType.Atoms,
+      pathname: PageType.Atoms(),
     })
 
   const nameColumnSearchProps = useColumnSearchProps<IAtomModel>({
     dataIndex: 'name',
-    onSearch: (name) =>
-      handleChange({ newFilter: { name: name || undefined } }),
+    onSearch: (name) => handleChange({ newFilter: { name: name || '' } }),
     text: filter.name,
   })
 

@@ -11,7 +11,7 @@ import type {
   AtomUniqueWhere,
   AtomWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import sortBy from 'lodash/sortBy'
 import {
   AtomList,
@@ -29,7 +29,7 @@ export const atomRepository: IAtomRepository = {
 
     const createdAtom = atoms[0]
 
-    assertIsDefined(createdAtom)
+    Validator.assertsDefined(createdAtom)
 
     return createdAtom
   },
@@ -71,7 +71,7 @@ export const atomRepository: IAtomRepository = {
 
     const updatedAtom = atoms[0]
 
-    assertIsDefined(updatedAtom)
+    Validator.assertsDefined(updatedAtom)
 
     return updatedAtom
   },

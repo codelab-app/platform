@@ -7,7 +7,7 @@ import {
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useAppQuery } from '@codelab/frontend/presentation/container'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -15,13 +15,13 @@ import { useCreateDomainModal } from '../use-cases/create-domain/create-domain.s
 
 export const DomainsPageHeader = observer(() => {
   const createDomainModal = useCreateDomainModal()
-  const { appName } = useAppQuery()
+  const app = useCurrentApp()
 
   return (
     <CuiHeader
       direction={
         <CuiHeaderBreadcrumb
-          items={[{ title: appName || '?' }, { title: 'Domains' }]}
+          items={[{ title: app?.name || '?' }, { title: 'Domains' }]}
         />
       }
       logo={

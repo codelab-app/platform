@@ -930,6 +930,9 @@
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
       ],
+      "@codelab/shared/abstract/infra": [
+        "libs/shared/abstract/infra/src/index.ts"
+      ],
       "@codelab/shared/abstract/typebox": [
         "libs/shared/abstract/typebox/src/index.ts"
       ],

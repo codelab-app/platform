@@ -1,4 +1,4 @@
-import { validateIpv4 } from '@codelab/shared/utils'
+import { Ipv4Schema, TIpv4, Validator } from '@codelab/shared/infra/schema'
 import { Test } from '@nestjs/testing'
 import { DnsService } from './dns.service'
 
@@ -17,7 +17,7 @@ describe('Dns lookup', () => {
   it('can resolve an A record', async () => {
     const domain = 'codelab.app'
     const results = await dnsService.lookupARecord(domain)
-    const validated = validateIpv4(results[0])
+    const validated = Validator.validate(TIpv4, results[0])
 
     expect(validated).toBeTruthy()
   })

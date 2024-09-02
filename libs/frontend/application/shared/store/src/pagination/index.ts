@@ -1,3 +1,3 @@
 export * from './extract-table-queries'
-export * from './usePagination.hook'
+export * from './pagination.service'
 export * from './useTablePagination.hook'

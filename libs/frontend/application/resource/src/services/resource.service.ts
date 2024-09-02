@@ -9,7 +9,7 @@ import type {
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
 import type { ResourceWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {
@@ -75,7 +75,7 @@ export const useResourceService = (): IResourceService => {
   }: IUpdateResourceData) => {
     const resource = resourceDomainService.resources.get(id)
 
-    assertIsDefined(resource)
+    Validator.assertsDefined(resource)
 
     const config = resource.config
 

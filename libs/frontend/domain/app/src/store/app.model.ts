@@ -18,7 +18,8 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/infra/gql'
-import { slugify, throwIfUndefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
+import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -118,7 +119,11 @@ export class App
 
   @modelAction
   pageByName(name: string) {
-    return throwIfUndefined(this.pages.find((page) => name === page.name))
+    const found = this.pages.find((page) => name === page.name)
+
+    Validator.assertsDefined(found)
+
+    return found
   }
 
   /**

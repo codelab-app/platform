@@ -75,7 +75,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { assertIsDefined, throwIfUndefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   Model,
   model,
@@ -358,7 +358,7 @@ export const createTestStore = () => {
 
       const runtimeRootElement = runtimePage?.runtimeRootElement
 
-      assertIsDefined(runtimeRootElement)
+      Validator.assertsDefined(runtimeRootElement)
 
       return {
         page,
@@ -375,7 +375,9 @@ export const createTestStore = () => {
         (atom) => atom.type === type,
       )
 
-      return throwIfUndefined(atomType)
+      Validator.assertsDefined(atomType)
+
+      return atomType
     }
 
     getStringType() {

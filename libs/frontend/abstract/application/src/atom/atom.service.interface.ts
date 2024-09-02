@@ -11,7 +11,7 @@ import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 export interface IAtomService
   extends ICRUDService<IAtomModel, ICreateAtomData, IUpdateAtomData>,
     IQueryService<IAtomModel, AtomWhere, AtomOptions>,
-    IPaginateable<IAtomModel, { name?: string }> {
+    IPaginateable<IAtomModel, { name: string }> {
   getSelectAtomOptions(
     fieldProps: GuaranteedProps<string | undefined>,
     parent: IAtomModel | undefined,

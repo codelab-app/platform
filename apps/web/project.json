@@ -8,6 +8,7 @@
   "generators": {},
   "targets": {
     "build": {
+      "defaultConfiguration": "dev",
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -28,8 +29,8 @@
       "executor": "@nx/next:server",
       "options": {
         "buildTarget": "web:build",
-        "turbo": false,
         "port": 3000,
+        "turbo": false,
         "hostname": "0.0.0.0",
         "maxWorkers": 4
       },

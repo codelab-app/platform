@@ -7,7 +7,7 @@ import type {
   StoreUniqueWhere,
   StoreWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { Store } from '../store/store.model'
 import {
   CreateStores,
@@ -26,7 +26,7 @@ export const storeRepository: IStoreRepository = {
 
     const createdStore = stores[0]
 
-    assertIsDefined(createdStore)
+    Validator.assertsDefined(createdStore)
 
     return createdStore
   },
@@ -60,7 +60,7 @@ export const storeRepository: IStoreRepository = {
 
     const updatedStore = stores[0]
 
-    assertIsDefined(updatedStore)
+    Validator.assertsDefined(updatedStore)
 
     return updatedStore
   },

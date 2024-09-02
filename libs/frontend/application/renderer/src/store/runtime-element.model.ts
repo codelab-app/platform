@@ -197,8 +197,10 @@ export class RuntimeElementModel
         onError: ({ message, stack }) => {
           this.element.current.setRenderingError({ message, stack })
         },
-        onResetKeysChange: () => {
-          this.element.current.setRenderingError(null)
+        onReset: ({ reason }) => {
+          if (reason === 'keys') {
+            this.element.current.setRenderingError(null)
+          }
         },
       },
       key: this.compositeKey,

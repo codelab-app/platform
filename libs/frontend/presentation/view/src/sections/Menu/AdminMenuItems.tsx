@@ -11,33 +11,33 @@ export const adminMenuItems: Array<NavigationBarItem> = [
     icon: (
       <DeploymentUnitOutlined data-testid="atom-tab-trigger" title="Atoms" />
     ),
-    key: PageType.Atoms,
+    key: PageType.Atoms(),
     link: {
-      href: PageType.Atoms,
+      href: PageType.Atoms(),
     },
     title: 'Atoms',
   },
   {
     icon: <ApiOutlined title="Types" />,
-    key: PageType.Type,
+    key: PageType.Type(),
     link: {
-      href: PageType.Type,
+      href: PageType.Type(),
     },
     title: 'Types',
   },
   {
     icon: <TagOutlined title="Tags" />,
-    key: PageType.Tags,
+    key: PageType.Tags(),
     link: {
-      href: PageType.Tags,
+      href: PageType.Tags(),
     },
     title: 'Tags',
   },
   {
     icon: <UserOutlined title="Admin" />,
-    key: PageType.Admin,
+    key: PageType.Admin(),
     link: {
-      href: PageType.Admin,
+      href: PageType.Admin(),
     },
     title: 'Admin',
   },

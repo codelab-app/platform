@@ -7,7 +7,7 @@ import type {
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { DomainWhere } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { invalidateDomainListQuery } from '../use-cases/domain-list'
 
 export const useDomainService = (): IDomainService => {
@@ -53,7 +53,7 @@ export const useDomainService = (): IDomainService => {
   const update = async ({ id, name }: IUpdateDomainData) => {
     const domain = domainDomainService.domains.get(id)
 
-    assertIsDefined(domain)
+    Validator.assertsDefined(domain)
 
     domain.writeCache({ name })
     await domainRepository.update(domain)

@@ -1,3 +1,5 @@
+'use client'
+
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
@@ -24,7 +26,7 @@ export const TagsPrimarySidebar = observer(() => {
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
     tagService,
-    PageType.Tags,
+    PageType.Tags(),
     { name: 'string' },
   )
 

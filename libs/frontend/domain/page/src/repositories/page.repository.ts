@@ -8,7 +8,7 @@ import type {
   PageUniqueWhere,
   PageWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { Page } from '../store'
 import {
   CreatePages,
@@ -25,7 +25,7 @@ export const pageRepository: IPageRepository = {
 
     const createdPage = pages[0]
 
-    assertIsDefined(createdPage)
+    Validator.assertsDefined(createdPage)
 
     return createdPage
   },
@@ -59,7 +59,7 @@ export const pageRepository: IPageRepository = {
 
     const updatedPage = pages[0]
 
-    assertIsDefined(updatedPage)
+    Validator.assertsDefined(updatedPage)
 
     return updatedPage
   },

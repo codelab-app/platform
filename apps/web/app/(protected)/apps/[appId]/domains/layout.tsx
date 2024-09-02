@@ -1,13 +1,9 @@
 import { DomainsPageHeader } from '@codelab/frontend-application-domain/views'
-import { DynamicDashboardTemplate } from '@codelab/frontend-presentation-view/templates'
+import { Dashboard } from '@codelab/frontend-presentation-view/templates'
 import React from 'react'
 
 const DomainsPageLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <DynamicDashboardTemplate Header={<DomainsPageHeader />}>
-      {children}
-    </DynamicDashboardTemplate>
-  )
+  return <Dashboard Header={<DomainsPageHeader />}>{children}</Dashboard>
 }
 
 export default DomainsPageLayout

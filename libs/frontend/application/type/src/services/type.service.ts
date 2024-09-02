@@ -1,19 +1,25 @@
 import type { ITypeService } from '@codelab/frontend/abstract/application'
-import type {
-  ITypeModel,
-  IUpdateTypeDto,
+import {
+  type ITypeModel,
+  type IUpdateTypeDto,
+  typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { typeRef } from '@codelab/frontend/abstract/domain'
-import { usePaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 
 export const useTypeService = (): ITypeService => {
+  const {
+    pagination: { typePagination },
+  } = useApplicationStore()
+
   const { fieldDomainService, typeDomainService } = useDomainStore()
 
   const getDataFn = async (
@@ -34,17 +40,12 @@ export const useTypeService = (): ITypeService => {
     return { items, totalItems }
   }
 
-  const paginationService = usePaginationService<ITypeModel, { name?: string }>(
-    'type',
-    getDataFn,
-  )
-
   const create = async (data: ICreateTypeDto) => {
     const type = typeDomainService.hydrate(TypeFactory.mapDataToDTO(data))
 
     await typeRepository.add(type)
 
-    paginationService.dataRefs.set(type.id, typeRef(type))
+    typePagination.dataRefs.set(type.id, typeRef(type))
 
     return type
   }
@@ -121,7 +122,7 @@ export const useTypeService = (): ITypeService => {
   const update = async (data: IUpdateTypeDto) => {
     const type = typeDomainService.types.get(data.id)
 
-    assertIsDefined(type)
+    Validator.assertsDefined(type)
 
     const typeDto = TypeFactory.mapDataToDTO(data)
 
@@ -179,7 +180,7 @@ export const useTypeService = (): ITypeService => {
     getInterface,
     getOne,
     getOptions,
-    paginationService,
+    paginationService: typePagination,
     remove: deleteType,
     update,
   }

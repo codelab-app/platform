@@ -7,9 +7,11 @@ commands:
       - restore_cache:
           keys:
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-*-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-
           name: Restore NX Cache
+      - run:
+          command: (./scripts/nx/reset-cache.sh)
       - run:
           command: pnpm nx run-many --target=build --projects=cli,web,api --parallel=3 -c ci --nx-bail
       - save_cache:
@@ -273,8 +275,12 @@ jobs:
       - store_test_results:
           path: ~/project/dist/.playwright/apps/web-e2e/test-output
   integration:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node-neo4j
     parameters:
+      max_old_space_size:
+        type: integer
       resource_class:
         type: string
     resource_class: << parameters.resource_class >>
@@ -285,7 +291,7 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
           name: Run Integration Tests
-          no_output_timeout: 20m
+          no_output_timeout: 10m
       - store_test_results:
           path: ./tmp/reports/test-integration
   lint:
@@ -623,6 +629,7 @@ workflows:
               ignore:
                 - master
                 - staging
+          max_old_space_size: 4096
           requires:
             - setup-workspace
           resource_class: large

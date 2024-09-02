@@ -1,6 +1,6 @@
 'use client'
 
-import type { UrlParams } from '@codelab/frontend/abstract/application'
+import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   type ReadonlyURLSearchParams,
@@ -8,8 +8,10 @@ import {
   usePathname,
   useSearchParams,
 } from 'next/navigation'
-import queryString from 'query-string'
 
+/**
+ * Make the return data lazy, so we have type safety while allowing un-used values to not throw error
+ */
 export const useUrl = () => {
   /**
    * params cannot be known during pre-rendering of a page that doesn't use getServerSideProps
@@ -20,17 +22,17 @@ export const useUrl = () => {
   const pathname = usePathname() as Nullable<string>
   const params = useParams() as Nullable<UrlParams>
   const primarySidebarKey = searchParams?.get('primarySidebarKey')
+  const query = Object.fromEntries(searchParams?.entries() ?? [])
 
   return {
-    appSlug: params?.appSlug,
+    appId: params?.appId,
     authGuardId: params?.authGuardId,
-    componentSlug: params?.componentSlug,
-    pageSlug: params?.pageSlug,
+    componentId: params?.componentId,
+    pageId: params?.pageId,
     params: params,
     pathname,
     primarySidebarKey,
-    query: queryString.parse(searchParams?.toString() ?? ''),
+    query,
     resourceId: params?.resourceId,
-    userSlug: params?.userSlug,
   }
 }

@@ -36,8 +36,7 @@
     "next-env.d.ts",
     "index.d.ts",
     ".next/types/**/*.ts",
-    "../../dist/apps/web/.next/types/**/*.ts",
-    "../../dist/apps/web-test/.next/types/**/*.ts"
+    "../../dist/apps/web/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",

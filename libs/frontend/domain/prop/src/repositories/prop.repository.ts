@@ -7,7 +7,7 @@ import type {
   PropUniqueWhere,
   PropWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateProps,
   DeleteProps,
@@ -25,7 +25,7 @@ export const propRepository: IPropRepository = {
 
     const createdProp = props[0]
 
-    assertIsDefined(createdProp)
+    Validator.assertsDefined(createdProp)
 
     return createdProp
   },

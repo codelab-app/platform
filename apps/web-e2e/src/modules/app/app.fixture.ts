@@ -1,4 +1,4 @@
-import { PageType, UiDataRecord, UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { expect, test as base } from '@playwright/test'
 import { BasePage } from '../../locators/pages'
 
@@ -54,7 +54,7 @@ export class AppListPage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(PageType.AppList)
+    await this.page.goto(PageType.AppList())
   }
 
   async openCreateAppModal() {

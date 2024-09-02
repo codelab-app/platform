@@ -1,4 +1,4 @@
-import type { UrlParams } from '@codelab/frontend/abstract/application'
+import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
@@ -6,24 +6,32 @@ import {
   appMenuItem,
   authGuardMenuItem,
   builderComponentsMenuItem,
-  pageBuilderMenuItem,
   resourceMenuItem,
 } from '../../../sections'
+import { pageBuilderMenuItem } from '../../../sections/Menu/BuilderMenuItem'
 
+/**
+ * There are 3 cases here,
+ *
+ * 1) `appId | pageId`
+ * 2) `componentId`
+ * 3) or none
+ *
+ * But these params don't affect the existence of menu items, only their status (disabled)
+ */
 export const defaultNavigationBarItems = ({
-  appSlug,
-  componentSlug,
-  pageSlug,
-  userSlug,
+  appId,
+  componentId,
+  pageId,
 }: UrlParams): {
   primaryItems: Array<NavigationBarItem>
   secondaryItems: Array<NavigationBarItem>
 } => ({
   primaryItems: [
     appMenuItem,
-    allPagesMenuItem(appSlug, pageSlug, userSlug),
-    pageBuilderMenuItem(appSlug, pageSlug, componentSlug, userSlug),
-    builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userSlug),
+    allPagesMenuItem({ appId, pageId }),
+    pageBuilderMenuItem({ appId, componentId, pageId }),
+    builderComponentsMenuItem({ appId, componentId, pageId }),
     resourceMenuItem,
     authGuardMenuItem,
   ],

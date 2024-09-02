@@ -7,7 +7,7 @@ import type {
   DomainUniqueWhere,
   DomainWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateDomains,
   DeleteDomains,
@@ -25,7 +25,7 @@ export const domainRepository: IDomainRepository = {
 
     const createdDomain = domains[0]
 
-    assertIsDefined(createdDomain)
+    Validator.assertsDefined(createdDomain)
 
     return createdDomain
   },
@@ -60,7 +60,7 @@ export const domainRepository: IDomainRepository = {
 
     const updatedDomain = domains[0]
 
-    assertIsDefined(updatedDomain)
+    Validator.assertsDefined(updatedDomain)
 
     return updatedDomain
   },

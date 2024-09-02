@@ -7,8 +7,8 @@ import {
   connectOwner,
   ElementProperties,
   PageProperties,
-  refValidation,
 } from '@codelab/shared/domain'
+import { Validator } from '@codelab/shared/infra/schema'
 import type { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
@@ -52,7 +52,7 @@ describe('ComponentResolvers', () => {
       })
     ).users[0]
 
-    refValidation.asserts(owner)
+    Validator.assertsDefined(owner)
 
     const testApp = (
       await ogmService.App.create({
@@ -69,7 +69,7 @@ describe('ComponentResolvers', () => {
       })
     ).apps[0]
 
-    refValidation.asserts(testApp)
+    Validator.assertsDefined(testApp)
 
     const testPageRef = { id: v4() }
 
@@ -85,7 +85,7 @@ describe('ComponentResolvers', () => {
       })
     ).interfaceTypes[0]
 
-    refValidation.asserts(atomApi)
+    Validator.assertsDefined(atomApi)
 
     const atomReactFragment = (
       await ogmService.Atom.create({
@@ -101,7 +101,7 @@ describe('ComponentResolvers', () => {
       })
     ).atoms[0]
 
-    refValidation.asserts(atomReactFragment)
+    Validator.assertsDefined(atomReactFragment)
 
     const props = (
       await ogmService.Prop.create({
@@ -114,7 +114,7 @@ describe('ComponentResolvers', () => {
       })
     ).props[0]
 
-    refValidation.asserts(props)
+    Validator.assertsDefined(props)
 
     const rootElement = (
       await ogmService.Element.create({
@@ -134,7 +134,7 @@ describe('ComponentResolvers', () => {
       })
     ).elements[0]
 
-    refValidation.asserts(rootElement)
+    Validator.assertsDefined(rootElement)
 
     const childElementProps = (
       await ogmService.Prop.create({
@@ -147,7 +147,7 @@ describe('ComponentResolvers', () => {
       })
     ).props[0]
 
-    refValidation.asserts(childElementProps)
+    Validator.assertsDefined(childElementProps)
 
     const childElement = (
       await ogmService.Element.create({
@@ -168,7 +168,7 @@ describe('ComponentResolvers', () => {
       })
     ).elements[0]
 
-    refValidation.asserts(childElement)
+    Validator.assertsDefined(childElement)
 
     const storeApi = (
       await ogmService.InterfaceType.create({
@@ -182,7 +182,7 @@ describe('ComponentResolvers', () => {
       })
     ).interfaceTypes[0]
 
-    refValidation.asserts(storeApi)
+    Validator.assertsDefined(storeApi)
 
     const store = (
       await ogmService.Store.create({
@@ -196,7 +196,7 @@ describe('ComponentResolvers', () => {
       })
     ).stores[0]
 
-    refValidation.asserts(store)
+    Validator.assertsDefined(store)
 
     const testPage = (
       await ogmService.Page.create({
@@ -217,7 +217,7 @@ describe('ComponentResolvers', () => {
       })
     ).pages[0]
 
-    refValidation.asserts(testPage)
+    Validator.assertsDefined(testPage)
 
     await request(app.getHttpServer())
       .post('/graphql')

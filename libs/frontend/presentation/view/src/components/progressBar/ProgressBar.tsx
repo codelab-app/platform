@@ -1,12 +1,13 @@
+'use client'
+
 import { UiDataRecord } from '@codelab/frontend/abstract/types'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import LinearProgress from '@mui/material/LinearProgress'
 import React from 'react'
 
-interface ProgressBarProps {
-  isLoading: boolean
-}
+export const ProgressBar = () => {
+  const { isLoading } = useLoading()
 
-export const ProgressBar = ({ isLoading }: ProgressBarProps) => {
   return (
     <div className="h-1">
       {isLoading ? (

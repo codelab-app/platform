@@ -8,6 +8,7 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useEffect } from 'react'
 
 export const useInitializeBuilder = ({
   containerNode,
@@ -24,13 +25,18 @@ export const useInitializeBuilder = ({
     rendererType,
   })
 
-  rendererService.setActiveRenderer(rendererRef(renderer.id))
+  /**
+   * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
+   */
+  useEffect(() => {
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
 
-  builderService.selectElementNode(
-    runtimeElementRef(renderer.runtimeRootContainerNode.runtimeRootElement),
-  )
+    builderService.selectElementNode(
+      runtimeElementRef(renderer.runtimeRootContainerNode.runtimeRootElement),
+    )
 
-  void renderer.expressionTransformer.init()
+    void renderer.expressionTransformer.init()
+  }, [renderer.id])
 
   return {
     renderer,

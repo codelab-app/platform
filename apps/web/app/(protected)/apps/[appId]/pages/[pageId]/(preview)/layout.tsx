@@ -1,8 +1,3 @@
-import type { ReactNode } from 'react'
-import React from 'react'
+import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-const PagePreviewLayout = ({ children }: { children: ReactNode }) => {
-  return <>{children}</>
-}
-
-export default PagePreviewLayout
+export default DashboardLayout

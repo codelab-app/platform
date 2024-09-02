@@ -14,7 +14,7 @@ import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 export interface ITypeService
   extends ICRUDService<ITypeModel, ICreateTypeDto, IUpdateTypeDto>,
     Omit<IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>, 'getAll'>,
-    IPaginateable<ITypeModel, { name?: string }> {
+    IPaginateable<ITypeModel, { name: string }> {
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
