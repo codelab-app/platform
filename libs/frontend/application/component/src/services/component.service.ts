@@ -9,8 +9,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useStoreService } from '@codelab/frontend-application-store/services'
-import { componentRepository } from '@codelab/frontend-domain-component/repositories'
-import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   componentRepository,
   GetComponentBuilder,

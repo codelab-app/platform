@@ -1,4 +1,3 @@
-    await expect(this.getCard({ name: this.componentName })).toBeHidden()
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { expect, test as base } from '@playwright/test'
 import { BasePage } from '../../locators/pages'
