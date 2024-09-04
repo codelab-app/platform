@@ -13,25 +13,6 @@ setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
 })
 
-/**
- * Need to paste here for it to work with mobx
- */
-if (getEnv().endpoint.isLocal && getEnv().node.enableWdyr) {
-  console.log('Enable WDYR...')
-
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const whyDidYouRender = require('@welldone-software/why-did-you-render')
-
-  whyDidYouRender(React, {
-    collapseGroups: true,
-    // Exclude Ant Design components
-    exclude: [/PopupContent/],
-    // onlyLogs: true,
-    titleColor: 'green',
-    trackAllPureComponents: true,
-  })
-}
-
 // normal: 400
 // bold: 700
 // black: 900

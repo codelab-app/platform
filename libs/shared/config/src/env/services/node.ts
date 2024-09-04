@@ -3,7 +3,6 @@ import * as env from 'env-var'
 export type NodeEnv = 'development' | 'production' | 'test'
 
 export interface INodeEnvVars {
-  enableWdyr: boolean
   isCi: boolean
   isDevelopment: boolean
   isProduction: boolean
@@ -12,10 +11,6 @@ export interface INodeEnvVars {
 }
 
 export class NodeEnvVars implements INodeEnvVars {
-  get enableWdyr() {
-    return env.get('NEXT_WEB_ENABLE_WDYR').default(0).asBool()
-  }
-
   get isCi() {
     return env.get('CI').default('false').asBool()
   }

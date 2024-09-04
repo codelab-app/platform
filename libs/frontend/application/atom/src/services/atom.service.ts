@@ -1,10 +1,15 @@
-import type { IAtomService } from '@codelab/frontend/abstract/application'
+import type {
+  GetDataFn,
+  IAtomService,
+  NameFilter,
+} from '@codelab/frontend/abstract/application'
 import {
   atomRef,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
+import { paginationContext } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
@@ -22,6 +27,8 @@ import {
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 import isEmpty from 'lodash/isEmpty'
+import { action } from 'mobx'
+import { useObserver } from 'mobx-react-lite'
 import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
@@ -35,7 +42,7 @@ export const useAtomService = (): IAtomService => {
   const getDataFn = async (
     page: number,
     pageSize: number,
-    filter: { name?: string },
+    filter: NameFilter,
   ) => {
     const { aggregate, items } = await atomRepository.find(
       { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
@@ -54,7 +61,9 @@ export const useAtomService = (): IAtomService => {
     return { items: atoms, totalItems: aggregate.count }
   }
 
-  atomPagination.getDataFn = getDataFn
+  paginationContext.setDefault({
+    getDataFn: getDataFn as GetDataFn,
+  })
 
   const create = async ({
     externalCssSource,

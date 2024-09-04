@@ -1,12 +1,17 @@
 'use client'
 
+import type { NameFilter } from '@codelab/frontend/abstract/application'
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import {
+  useSearchQuery,
+  useTablePagination,
+} from '@codelab/frontend-application-shared-store/pagination'
 import { useColumnSearchProps } from '@codelab/frontend-presentation-view/components/table'
 import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { useAtomService } from '../../services'
 import { ActionColumn } from './columns/ActionColumn'
@@ -18,19 +23,20 @@ import { TagsColumn } from './columns/TagsColumn'
 import { onLibraryFilter } from './dataSource/on-library-filter'
 
 export const AtomsTable = () => {
-  const atomService = useAtomService()
+  const { paginationService } = useAtomService()
+  const { filterables } = useSearchQuery<NameFilter>(useSearchParams())
 
-  const { data, filter, handleChange, isLoading, pagination } =
-    useTablePagination<IAtomModel, { name: string }>({
-      filterTypes: { name: 'string' },
-      paginationService: atomService.paginationService,
+  const { data, isLoading, onSearch, pagination, searchText } =
+    useTablePagination<IAtomModel, NameFilter>({
+      filterables,
+      paginationService,
       pathname: PageType.Atoms(),
     })
 
   const nameColumnSearchProps = useColumnSearchProps<IAtomModel>({
     dataIndex: 'name',
-    onSearch: (name) => handleChange({ newFilter: { name: name || '' } }),
-    text: filter.name,
+    onSearch,
+    text: filterables.name,
   })
 
   const columns: Array<ColumnType<IAtomModel>> = [

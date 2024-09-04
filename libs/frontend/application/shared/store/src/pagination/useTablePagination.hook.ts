@@ -16,12 +16,13 @@ import {
   useSearchParams,
 } from 'next/navigation'
 import queryString from 'query-string'
-import React, { useEffect } from 'react'
-import { extractTableQueries } from './extract-table-queries'
+import React, { useCallback, useEffect, useMemo } from 'react'
 
-interface Props<T extends SupportedPaginationModel, U extends Filterables> {
-  filterTypes: Record<keyof U, 'boolean' | 'number' | 'string' | 'string[]'>
-
+interface TablePaginationProps<
+  T extends SupportedPaginationModel,
+  U extends Filterables,
+> {
+  filterables: U
   paginationService: IPaginationService<T, U>
   pathname: SupportedPaginationModelPage
 }
@@ -30,63 +31,58 @@ export const useTablePagination = <
   T extends SupportedPaginationModel,
   U extends Filterables,
 >({
-  filterTypes,
+  filterables,
   paginationService,
   pathname,
-}: Props<T, U>) => {
+}: TablePaginationProps<T, U>) => {
   const router = useRouter()
-  const params = useSearchParams() as Nullable<ReadonlyURLSearchParams>
 
-  const query = {
-    ...queryString.parse(params?.toString() ?? ''),
-    page: params?.get('page'),
-    pageSize: params?.get('pageSize'),
+  const generateUrlSearchParams = ({
+    filter,
+    page,
+    pageSize,
+    searchQuery,
+  }: {
+    filter?: Array<string>
+    page: number
+    pageSize: number
+    searchQuery?: string
+  }) => {
+    const params: Record<string, string> = {
+      page: page.toString(),
+      pageSize: pageSize.toString(),
+    }
+
+    if (searchQuery !== undefined) {
+      params.searchQuery = searchQuery
+    }
+
+    if (filter !== undefined && filter.length > 0) {
+      params.filter = filter.join(',')
+    }
+
+    return new URLSearchParams(params)
   }
 
-  const {
-    filter,
-    page = 1,
-    pageSize = 20,
-  } = extractTableQueries<U>(query, filterTypes)
+  const onChange = (page: number, pageSize: number) => {
+    const queryParams = generateUrlSearchParams({ page, pageSize })
 
-  const handleChange = React.useRef(
-    debounce(
-      async ({
-        newFilter = paginationService.filter,
-        newPage = paginationService.currentPage,
-        newPageSize = paginationService.pageSize,
-      }: {
-        newFilter?: U
-        newPage?: number
-        newPageSize?: number
-      }) => {
-        const goBackToFirstPage =
-          newPageSize !== paginationService.pageSize ||
-          !isMatch(newFilter, paginationService.filter)
-
-        paginationService.setCurrentPage(goBackToFirstPage ? 1 : newPage)
-        paginationService.setPageSize(newPageSize)
-        paginationService.setFilter(newFilter)
-        void paginationService.getData()
-
-        await router.push(
-          `${pathname}?page=${paginationService.currentPage}&pageSize=${paginationService.pageSize}`,
-        )
-      },
-      500,
-    ),
-  ).current
+    router.push(`${pathname}?${queryParams.toString()}`)
+  }
 
   useEffect(() => {
-    paginationService.setCurrentPage(page)
-    paginationService.setPageSize(pageSize)
-    paginationService.setFilter(filter)
     void paginationService.getData()
-  }, [])
+  }, [paginationService])
 
   const pagination: TablePaginationConfig = {
     current: paginationService.currentPage,
-    onChange: (newPage, newPageSize) => handleChange({ newPage, newPageSize }),
+    onChange: debounce((newPage, newPageSize) => {
+      return
+      // return onChange({
+      //   newPage,
+      //   newPageSize,
+      // }),
+    }, 500),
     pageSize: paginationService.pageSize,
     position: ['bottomCenter'],
     showSizeChanger: true,
@@ -95,11 +91,10 @@ export const useTablePagination = <
 
   return {
     data: paginationService.data,
-    filter,
-    handleChange,
     isLoading: paginationService.isLoading,
-    page,
-    pageSize,
+    onSearch: (searchText: string) =>
+      paginationService.setSearchQuery(searchText),
     pagination,
+    searchText: paginationService.searchQuery,
   }
 }

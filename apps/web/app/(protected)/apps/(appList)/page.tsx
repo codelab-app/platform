@@ -1,4 +1,4 @@
-import { StoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { AppList } from '@codelab/frontend-application-app/use-cases/app-list'
 import { BuildAppModal } from '@codelab/frontend-application-app/use-cases/build-app'
 import { CreateAppModal } from '@codelab/frontend-application-app/use-cases/create-app'
@@ -31,13 +31,13 @@ const AppsRoute = async () => {
       <UpdateAppModal />
       <BuildAppModal />
       <ContentSection>
-        <StoreHydrator
+        <DomainStoreHydrator
           appsDto={appsDto}
           atomsDto={atomsDto}
-          fallback={<Spinner center isLoading />}
+          fallback={<Spinner />}
         >
           <AppList />
-        </StoreHydrator>
+        </DomainStoreHydrator>
       </ContentSection>
     </>
   )

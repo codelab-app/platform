@@ -1,12 +1,12 @@
 'use client'
 
-import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
+import type { IDomainData } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 
-type StoreHydratorProps = IHydrateableData & {
+type DomainStoreHydratorProps = IDomainData & {
   children: ReactNode
   fallback: ReactNode
 }
@@ -20,7 +20,7 @@ type StoreHydratorProps = IHydrateableData & {
  *
  * Client components with `useEffect` will still render on server! This can be confusing
  */
-export const StoreHydrator = observer<StoreHydratorProps>(
+export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
   ({
     actionsDto,
     appsDto,

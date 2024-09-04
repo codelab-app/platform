@@ -1,6 +1,6 @@
 'use client'
 
-import type { IHydrateableData } from '@codelab/frontend/abstract/domain'
+import type { IDomainData } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -20,7 +20,7 @@ export const useHydrateStore = ({
   resourcesDto,
   storesDto,
   typesDto,
-}: IHydrateableData) => {
+}: IDomainData) => {
   const {
     actionDomainService,
     appDomainService,

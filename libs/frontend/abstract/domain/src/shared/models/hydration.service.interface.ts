@@ -21,7 +21,7 @@ export interface IHydrateable<Dto, Model> {
   hydrate(dto: Dto): Model
 }
 
-export interface IHydrateableData {
+export interface IDomainData {
   actionsDto?: StoreFragment['actions']
   appsDto?: Array<IAppDto>
   atomsDto?: Array<AtomBuilderFragment>

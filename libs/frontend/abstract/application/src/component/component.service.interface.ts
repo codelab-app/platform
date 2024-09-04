@@ -8,7 +8,10 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
-import type { IPaginateable } from '../services/pagination.service.interface'
+import type {
+  IPaginateable,
+  NameFilter,
+} from '../services/pagination.service.interface'
 import type {
   ICRUDService,
   IQueryService,
@@ -21,7 +24,7 @@ export interface IComponentService
       IUpdateComponentData
     >,
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
-    IPaginateable<IComponentModel, { name?: string }> {
+    IPaginateable<IComponentModel, NameFilter> {
   // componentDevelopmentService: IComponentDevelopmentService
   // moved to builder
   // getSelectComponentOptions(): Promise<Array<DefaultOptionType>>

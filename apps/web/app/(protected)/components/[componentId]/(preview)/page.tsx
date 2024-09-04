@@ -1,4 +1,4 @@
-import { StoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { ComponentBuilderPreview } from '@codelab/frontend-application-builder/use-cases/component-builder-preview'
 import { componentBuilderQuery } from '@codelab/frontend-application-component/use-cases/component-builder'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
@@ -24,12 +24,12 @@ const ComponentPreviewPage = async ({
   const dto = await componentBuilderQuery({ componentName })
 
   return (
-    <StoreHydrator
+    <DomainStoreHydrator
       actionsDto={dto.actions}
       atomsDto={dto.atoms}
       componentsDto={dto.components}
       elementsDto={dto.elements}
-      fallback={<Spinner center isLoading />}
+      fallback={<Spinner />}
       fieldsDto={dto.fields}
       propsDto={dto.props}
       resourcesDto={dto.resources}
@@ -40,7 +40,7 @@ const ComponentPreviewPage = async ({
         RootRenderer={RootRenderer}
         componentSlug={componentSlug}
       />
-    </StoreHydrator>
+    </DomainStoreHydrator>
   )
 }
 

@@ -15,15 +15,12 @@ import { useCreateTypeForm } from '../use-cases/create-type/create-type.state'
 import { TypesTreeView } from '../use-cases/get-types'
 
 export const TypesPrimarySidebar = () => {
-  const typeService = useTypeService()
+  const { paginationService } = useTypeService()
   const createTypeForm = useCreateTypeForm()
   const { popover } = useCui()
 
-  const { showSearchBar, toolbarItems } = useToolbarPagination(
-    typeService,
-    PageType.Type(),
-    { name: 'string' },
-  )
+  const { showSearchBar, toolbarItems } =
+    useToolbarPagination(paginationService)
 
   return (
     <CuiSidebar

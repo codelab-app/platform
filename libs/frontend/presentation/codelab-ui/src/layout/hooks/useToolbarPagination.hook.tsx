@@ -3,68 +3,58 @@
 import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
-import type {
-  Filterables,
-  IPaginateable,
-  SupportedPaginationModel,
-  SupportedPaginationModelPage,
+import {
+  type Filterables,
+  type IPaginateable,
+  type IPaginationService,
+  routerServiceContext,
+  type SupportedPaginationModel,
+  type SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
-import React, { useEffect, useState } from 'react'
+import { useObserver } from 'mobx-react-lite'
+import { usePathname, useRouter } from 'next/navigation'
+import queryString from 'query-string'
+import React, { useCallback, useState } from 'react'
 import type { ToolbarItem } from '../../abstract'
 import { CuiInput } from '../../components'
 
+/**
+ *
+ * @param paginationService Must NOT destructure, or else lose reactivity
+ * @returns
+ */
 export const useToolbarPagination = <
   T extends SupportedPaginationModel,
   U extends Filterables,
 >(
-  service: IPaginateable<T, U>,
-  pathname: SupportedPaginationModelPage,
-  filterTypes: Record<keyof U, 'boolean' | 'number' | 'string' | 'string[]'>,
+  paginationService: IPaginationService<T, U>,
 ) => {
-  const paginationService = service.paginationService
-
-  const { handleChange, pagination } = useTablePagination<T, U>({
-    filterTypes,
-    paginationService,
-    pathname,
-  })
-
-  const { current, pageSize } = pagination
-  const [currentPage, setCurrentPage] = useState(current ?? 1)
-  const [currentPageSize, setCurrentPageSize] = useState(pageSize ?? 50)
+  const router = useRouter()
+  const pathname = usePathname()
   const [showSearchBar, setShowSearchBar] = useState(false)
-  const pageCount = Math.ceil(paginationService.totalItems / currentPageSize)
 
-  useEffect(() => {
-    if (current) {
-      setCurrentPage(current)
-    }
+  const goToNextPage = () => {
+    const url = queryString.stringifyUrl({
+      query: {
+        page: paginationService.currentPage + 1,
+      },
+      url: pathname,
+    })
 
-    if (pageSize) {
-      setCurrentPageSize(pageSize)
-    }
-  }, [current, pageSize])
-
-  const changePageSize = (newPageSize: number) => {
-    setCurrentPageSize(newPageSize)
-    void handleChange({ newPageSize })
-  }
-
-  const goToPage = (page: number) => {
-    if (page > 0 && page <= pageCount) {
-      setCurrentPage(page)
-      void handleChange({ newPage: page })
-    }
+    router.push(url)
   }
 
   const goToPreviousPage = () => {
-    goToPage(currentPage - 1)
-  }
+    const url = queryString.stringifyUrl({
+      query: {
+        page: Math.max(paginationService.currentPage - 1, 1),
+      },
+      url: pathname,
+    })
 
-  const goToNextPage = () => {
-    goToPage(currentPage + 1)
+    router.push(url)
   }
 
   const toolbarItems: Array<ToolbarItem> = [
@@ -81,18 +71,19 @@ export const useToolbarPagination = <
           <CuiInput
             onChange={(value) => {
               if (typeof value === 'number' && value > 0) {
-                goToPage(value)
+                console.log(value)
+                paginationService.setCurrentPage(value)
               }
             }}
             selectAllOnClick
             type="number"
-            value={currentPage}
+            value={paginationService.currentPage}
           />
           <span className="m-0 w-2 p-0 text-center text-sm">/</span>
-          <span className="m-0 w-6 p-0 text-center text-sm">{`${pageCount}`}</span>
+          <span className="m-0 w-6 p-0 text-center text-sm">{`${paginationService.totalPages}`}</span>
         </div>
       ),
-      title: `Current page: ${currentPage} / ${pageCount}`,
+      title: `Current page: ${paginationService.currentPage} / ${paginationService.totalPages}`,
     },
     {
       cuiKey: UiKey.NextPagePaginationToolbarItem,
@@ -103,22 +94,22 @@ export const useToolbarPagination = <
     {
       cuiKey: UiKey.PageSizePaginationToolbarItem,
       icon: (
-        <div className="flex w-16 flex-row items-center justify-between">
+        <div className="flex w-20 flex-row items-center justify-between">
           <CuiInput
             onChange={(value) => {
               if (typeof value === 'number' && value > 0) {
-                changePageSize(value)
+                paginationService.setPageSize(value)
               }
             }}
             selectAllOnClick
             type="number"
-            value={currentPageSize}
+            value={paginationService.pageSize}
           />
-          <span className="m-0 w-2 p-0 text-sm">/</span>
+          <span className="m-0 w-2 p-1 text-sm">/</span>
           <span className="m-0 p-0 text-sm">Page</span>
         </div>
       ),
-      title: `${currentPageSize} items per page`,
+      title: `${paginationService.pageSize} items per page`,
     },
     {
       cuiKey: UiKey.SearchPaginationToobarItem,

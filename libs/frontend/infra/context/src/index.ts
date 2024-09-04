@@ -1,5 +1,6 @@
+export * from './ApplicationStoreHydrator'
+export * from './DomainStoreHydrator'
 export * from './RootProviders'
-export * from './StoreHydrator'
 export * from './StyledComponentsRegistry'
 export * from './StyleProviders'
 export * from './theme'

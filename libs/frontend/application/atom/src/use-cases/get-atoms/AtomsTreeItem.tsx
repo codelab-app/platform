@@ -36,7 +36,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onEdit = () => {
     if (type === 'atom') {
-      updateAtomForm.open(atomRef(node))
+      updateAtomForm.open(node)
       updateFieldForm.close()
     } else {
       updateFieldForm.open(node)
@@ -46,7 +46,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onDelete = () => {
     if (type === 'atom') {
-      deleteAtomsModal.open([atomRef(node)])
+      deleteAtomsModal.open([node])
     } else {
       deleteFieldModal.open(node)
     }

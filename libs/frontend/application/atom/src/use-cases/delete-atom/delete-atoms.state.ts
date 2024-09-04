@@ -4,4 +4,4 @@ import { useModalState } from '@codelab/frontend-application-shared-store/ui'
 import type { Ref } from 'mobx-keystone'
 
 export const useDeleteAtomsModal = () =>
-  useModalState<Array<Ref<IAtomModel>>>(UiKey.DeleteAtomsModal)
+  useModalState<Array<IAtomModel>>(UiKey.DeleteAtomsModal)

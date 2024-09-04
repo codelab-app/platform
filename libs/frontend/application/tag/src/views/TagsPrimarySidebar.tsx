@@ -19,18 +19,15 @@ import { useDeleteTagsModal } from '../use-cases/delete-tags/delete-tags.state'
 import { TagsTreeView } from '../use-cases/get-tags'
 
 export const TagsPrimarySidebar = observer(() => {
-  const tagService = useTagService()
+  const { checkedTags, paginationService } = useTagService()
   const createTagForm = useCreateTagForm()
   const deleteTagsModal = useDeleteTagsModal()
   const { popover } = useCui()
 
-  const { showSearchBar, toolbarItems } = useToolbarPagination(
-    tagService,
-    PageType.Tags(),
-    { name: 'string' },
-  )
+  const { showSearchBar, toolbarItems } =
+    useToolbarPagination(paginationService)
 
-  const tags = tagService.checkedTags.map((tag) => tagRef(tag.current))
+  const tags = checkedTags.map((tag) => tagRef(tag.current))
 
   const items: Array<ToolbarItem> = [
     {

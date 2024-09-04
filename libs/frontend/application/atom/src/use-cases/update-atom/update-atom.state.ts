@@ -7,7 +7,7 @@ import {
 import type { Ref } from 'mobx-keystone'
 
 export const useUpdateAtomModal = () =>
-  useModalState<Ref<IAtomModel>>(UiKey.UpdateAtomModal)
+  useModalState<IAtomModel>(UiKey.UpdateAtomModal)
 
 export const useUpdateAtomForm = () =>
-  useFormState<Ref<IAtomModel>>(UiKey.UpdateAtomForm)
+  useFormState<IAtomModel>(UiKey.UpdateAtomForm)

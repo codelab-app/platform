@@ -95,7 +95,11 @@ export const createTestStore = () => {
   })
 
   const domainStore = createDomainStore(userDto)
-  const applicationStore = createApplicationStore({ params: {}, query: {} })
+
+  const applicationStore = createApplicationStore({
+    params: {},
+    searchParams: {},
+  })
 
   @model('@codelab/TestRootStore')
   class TestRootStore

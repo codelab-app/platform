@@ -2,6 +2,8 @@ const { composePlugins, withNx } = require('@nx/next')
 const path = require('path')
 const { get } = require('env-var')
 
+const injectWhyDidYouRender = require(path.resolve(__dirname, './scripts/wdyr'))
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
@@ -22,26 +24,17 @@ const withWebpackConfig = (nextConfig = {}) =>
       /**
        * Wdyr
        *
+       * For app router using this
+       *
+       * https://github.com/welldone-software/why-did-you-render/issues/266
+       *
+       * Previous
+       *
        * https://github.com/welldone-software/why-did-you-render/issues/84
        */
-      // if (process.env.NEXT_WEB_ENABLE_WDYR) {
-      //   const { dev, isServer } = options
-
-      //   if (dev && !isServer) {
-      //     const originalEntry = config.entry
-
-      //     config.entry = async () => {
-      //       const entries = await originalEntry()
-      //       const wdrPath = path.resolve(__dirname, './wdyr.js')
-
-      //       if (entries['main.js'] && !entries['main.js'].includes(wdrPath)) {
-      //         entries['main.js'].unshift(wdrPath)
-      //       }
-
-      //       return entries
-      //     }
-      //   }
-      // }
+      if (process.env.NEXT_WEB_ENABLE_WDYR) {
+        injectWhyDidYouRender(config, options)
+      }
 
       /**
        * Return

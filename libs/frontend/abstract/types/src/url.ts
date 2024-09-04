@@ -1,24 +1,45 @@
+import type { Assign } from 'utility-types'
+
 /**
- * Url param like :details
+ * Params are not required until we are in a specific context
  */
 export interface UrlParams {
-  appId: string
-  authGuardId: string
-  componentId: string
-  interfaceId: string
-  // libraryId: string
-  pageId: string
-  resourceId: string
+  appId?: string
+  authGuardId?: string
+  componentId?: string
+  interfaceId?: string
+  pageId?: string
+  resourceId?: string
 }
 
-export type PageContextParams = Pick<UrlParams, 'appId' | 'pageId'>
+export interface PaginationSearchParams {
+  page?: number
+  pageSize?: number
+}
 
-export type ComponentContextParams = Pick<UrlParams, 'componentId'>
+export type PageContextParams = Pick<Required<UrlParams>, 'appId' | 'pageId'>
+
+export type ComponentContextParams = Pick<Required<UrlParams>, 'componentId'>
 
 /**
+ * This is the actual string
+ *
  * ?key=value
  */
-export interface UrlQuery {
-  // [key: string]: string | undefined
-  primarySidebarKey?: string
+export interface SearchParamsString {
+  filter: Array<string>
+  page: string | null
+  pageSize: string | null
+  primarySidebarKey: string | null
+  search: string | null
 }
+/**
+ * This is the application value with their types
+ */
+export type SearchParams = Assign<
+  SearchParamsString,
+  {
+    page: number | null
+    pageSize: number | null
+  }
+>

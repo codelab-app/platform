@@ -1,3 +1,4 @@
+import type { NameFilter } from '@codelab/frontend/abstract/application'
 import type {
   ITagModel,
   ITagNodeData,
@@ -5,11 +6,16 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { type CheckedKeys, PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import {
+  useSearchQuery,
+  useTablePagination,
+} from '@codelab/frontend-application-shared-store/pagination'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { TreeProps } from 'antd'
+import filter from 'lodash/filter'
 import { observer } from 'mobx-react-lite'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { useTagService } from '../../services'
 import { TagsTreeItem } from './TagsTreeItem'
@@ -20,14 +26,13 @@ interface TagsTreeViewProps {
 
 export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
   const tagService = useTagService()
+  const { paginationService } = tagService
   const { tagDomainService } = useDomainStore()
+  const { filterables } = useSearchQuery<NameFilter>(useSearchParams())
 
-  const { data, filter, handleChange, isLoading } = useTablePagination<
-    ITagModel,
-    { name: string }
-  >({
-    filterTypes: { name: 'string' },
-    paginationService: tagService.paginationService,
+  const { data, isLoading } = useTablePagination<ITagModel, NameFilter>({
+    filterables,
+    paginationService,
     pathname: PageType.Type(),
   })
 
@@ -76,7 +81,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         )
       }}
       onSearchKeywordChange={(keyword) => {
-        void handleChange({ newFilter: { name: keyword || '' } })
+        paginationService.setFilter({ name: keyword })
       }}
       onSelect={onSelect}
       searcheable={

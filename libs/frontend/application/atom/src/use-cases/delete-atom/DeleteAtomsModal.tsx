@@ -14,7 +14,7 @@ export const DeleteAtomsModal = observer(() => {
   const deleteAtomsModal = useDeleteAtomsModal()
   const atomService = useAtomService()
   const atoms = deleteAtomsModal.data ?? []
-  const onSubmit = () => atomService.remove(atoms.map((atom) => atom.current))
+  const onSubmit = () => atomService.remove(atoms)
   const closeModal = () => deleteAtomsModal.close()
 
   return (
@@ -36,7 +36,7 @@ export const DeleteAtomsModal = observer(() => {
       >
         <h4>
           Are you sure you want to delete atoms "
-          {atoms.map((atom) => atom.current.name).join(', ')}"?
+          {atoms.map((atom) => atom.name).join(', ')}"?
         </h4>
         <AutoFields />
       </ModalForm.Form>

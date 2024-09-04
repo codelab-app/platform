@@ -11,8 +11,8 @@
         ]
       },
       "rules": {
-        "react/jsx-props-no-spreading": "off",
-        "tailwindcss/no-custom-classname": "off"
+        "react/jsx-props-no-spreading": "off"
+        // "tailwindcss/no-custom-classname": "off"
       }
     },
     {

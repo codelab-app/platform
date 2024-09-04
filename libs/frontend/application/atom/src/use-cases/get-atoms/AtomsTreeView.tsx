@@ -1,3 +1,4 @@
+import type { NameFilter } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IAtomTreeNodeData,
@@ -5,8 +6,12 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import {
+  useSearchQuery,
+  useTablePagination,
+} from '@codelab/frontend-application-shared-store/pagination'
 import { observer } from 'mobx-react-lite'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { useAtomService } from '../../services'
 import { AtomsTreeItem } from './AtomsTreeItem'
@@ -17,14 +22,12 @@ interface AtomsTreeViewProps {
 
 export const AtomsTreeView = observer(
   ({ showSearchBar }: AtomsTreeViewProps) => {
-    const atomService = useAtomService()
+    const { paginationService } = useAtomService()
+    const { filterables } = useSearchQuery<NameFilter>(useSearchParams())
 
-    const { data, filter, handleChange, isLoading } = useTablePagination<
-      IAtomModel,
-      { name: string }
-    >({
-      filterTypes: { name: 'string' },
-      paginationService: atomService.paginationService,
+    const { data, isLoading } = useTablePagination<IAtomModel, NameFilter>({
+      filterables,
+      paginationService,
       pathname: PageType.Atoms(),
     })
 
@@ -41,9 +44,9 @@ export const AtomsTreeView = observer(
         <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) =>
-            handleChange({ newFilter: { name: keyword } })
+            paginationService.setFilter({ name: keyword })
           }
-          searchKeyword={filter.name}
+          searchKeyword={filterables.name}
           searcheable={showSearchBar ? { primaryTitle: true } : false}
           titleRender={(node) => <AtomsTreeItem data={node} />}
           treeData={treeData}
@@ -52,3 +55,5 @@ export const AtomsTreeView = observer(
     )
   },
 )
+
+AtomsTreeView.displayName = 'AtomsTreeView'
