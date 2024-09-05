@@ -115,7 +115,7 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
       url: webUrl,
-      // timeout: 90 * 1000,
+      timeout: 90 * 1000,
     },
     {
       command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'}`,
@@ -123,6 +123,7 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
       url: apiUrl,
+      timeout: 90 * 1000,
     },
   ],
 })
