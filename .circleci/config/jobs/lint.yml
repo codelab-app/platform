@@ -2,7 +2,7 @@ parameters:
   resource_class:
     type: string
 
-executor: docker-node-neo4j
+executor: docker-node
 
 resource_class: << parameters.resource_class >>
 

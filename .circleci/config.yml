@@ -298,7 +298,7 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
-    executor: docker-node-neo4j
+    executor: docker-node
     parameters:
       resource_class:
         type: string
