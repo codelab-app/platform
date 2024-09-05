@@ -2,15 +2,12 @@
 
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  useSearchQuery,
-  useTablePagination,
-} from '@codelab/frontend-application-shared-store/pagination'
+import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useColumnSearchProps } from '@codelab/frontend-presentation-view/components/table'
 import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
-import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { useAtomService } from '../../services'
 import { ActionColumn } from './columns/ActionColumn'
@@ -23,7 +20,7 @@ import { onLibraryFilter } from './dataSource/on-library-filter'
 
 export const AtomsTable = () => {
   const { getDataFn, paginationService } = useAtomService()
-  const { filterables } = useSearchQuery(useSearchParams())
+  const { routerService } = useApplicationStore()
 
   const { data, isLoading, onSearch, pagination, searchText } =
     useTablePagination<IAtomModel>({
@@ -35,7 +32,7 @@ export const AtomsTable = () => {
   const nameColumnSearchProps = useColumnSearchProps<IAtomModel>({
     dataIndex: 'name',
     onSearch,
-    text: filterables.name,
+    text: routerService.search,
   })
 
   const columns: Array<ColumnType<IAtomModel>> = [

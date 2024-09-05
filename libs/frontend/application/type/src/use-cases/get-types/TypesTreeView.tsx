@@ -7,14 +7,10 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  useSearchQuery,
-  useTablePagination,
-} from '@codelab/frontend-application-shared-store/pagination'
+import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
-import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { useTypeService } from '../../services'
 import { TypesTreeItem } from './TypesTreeItem'
@@ -27,7 +23,6 @@ export const TypesTreeView = observer(
   ({ showSearchBar }: TypesTreeViewProps) => {
     const { routerService } = useApplicationStore()
     const { getDataFn, paginationService } = useTypeService()
-    const { filterables } = useSearchQuery(useSearchParams())
 
     const { data, isLoading } = useTablePagination<ITypeModel>({
       getDataFn,
@@ -55,7 +50,7 @@ export const TypesTreeView = observer(
           onSearchKeywordChange={(keyword) => {
             routerService.setQueryParams({ search: keyword })
           }}
-          searchKeyword={filterables.name}
+          searchKeyword={routerService.search}
           searcheable={
             showSearchBar
               ? {
