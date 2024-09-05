@@ -64,6 +64,7 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
     // esmExternals: 'loose',
     // forceSwcTransforms: true,
@@ -72,7 +73,7 @@ const nextConfig = {
   },
   nx: { svgr: true },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
-  productionBrowserSourceMaps: true,
+  // productionBrowserSourceMaps: true,
   // disable to support uniforms
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,

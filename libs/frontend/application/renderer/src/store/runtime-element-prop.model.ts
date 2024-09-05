@@ -271,7 +271,7 @@ export class RuntimeElementPropsModel
       return {}
     }
 
-    return this.routerService.queryParams ?? {}
+    return this.routerService.queryParams
   }
 
   @modelAction

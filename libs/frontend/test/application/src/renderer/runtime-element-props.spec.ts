@@ -1,6 +1,7 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
+import type { UrlQueryParams } from '@codelab/frontend/abstract/types'
 import {
   createTestStore,
   RootStoreProvider,
@@ -467,11 +468,9 @@ describe('Runtime Element props', () => {
       const urlKey = 'urlKey'
       const urlPropValue = 'urlPropValue'
 
-      testStore.applicationStore.routerService.update({
-        query: {
-          [urlKey]: urlPropValue,
-        },
-      })
+      testStore.applicationStore.routerService.setQueryParams({
+        [urlKey]: urlPropValue,
+      } as UrlQueryParams)
 
       const { page, renderer, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()
