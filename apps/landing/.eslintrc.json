@@ -13,7 +13,7 @@
         "project": ["apps/landing/tsconfig.json"]
       },
       "rules": {
-        // "tailwindcss/no-custom-classname": "off",
+        "tailwindcss/no-custom-classname": "off",
         "react/jsx-props-no-spreading": "off",
         "@next/next/no-html-link-for-pages": ["error", "apps/landing/pages"]
       }
