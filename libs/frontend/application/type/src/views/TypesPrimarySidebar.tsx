@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   useCui,

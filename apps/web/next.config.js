@@ -4,8 +4,10 @@ const { get } = require('env-var')
 
 const injectWhyDidYouRender = require(path.resolve(__dirname, './scripts/wdyr'))
 
+const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE_BUNDLE === 'true',
+  enabled: analyzeBundle,
 })
 
 /** Allows importing cypher files */

@@ -1,5 +1,4 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import {
   ComponentProperties,
   connectNodeId,

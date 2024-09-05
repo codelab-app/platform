@@ -1,22 +1,16 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  usePaginationQuery,
-  useTablePagination,
-} from '@codelab/frontend-application-shared-store/pagination'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useAtomService } from '../services/atom.service'
 import { CreateAtomPopover } from '../use-cases/create-atom'
 import { useCreateAtomModal } from '../use-cases/create-atom/create-atom.state'

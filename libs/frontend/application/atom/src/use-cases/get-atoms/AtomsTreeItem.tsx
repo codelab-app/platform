@@ -5,7 +5,7 @@ import type {
   IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {

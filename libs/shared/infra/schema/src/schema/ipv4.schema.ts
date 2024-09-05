@@ -1,4 +1,4 @@
-import { Kind, type TKind, type TSchema, Type } from '@sinclair/typebox'
+import { Kind, type TKind, Type } from '@sinclair/typebox'
 
 export const TIpv4: TKind = {
   [Kind]: '@codelab/Ipv4',

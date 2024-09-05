@@ -2,7 +2,7 @@
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiSidebar,

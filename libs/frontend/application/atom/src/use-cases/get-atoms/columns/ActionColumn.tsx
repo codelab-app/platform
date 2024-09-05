@@ -1,4 +1,3 @@
-import { atomRef } from '@codelab/frontend/abstract/domain'
 import {
   ListItemDeleteButton,
   ListItemEditButton,

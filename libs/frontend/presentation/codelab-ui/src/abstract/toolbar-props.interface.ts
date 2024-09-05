@@ -1,5 +1,4 @@
 import type { UiKey } from '@codelab/frontend/abstract/types'
-import type { Key } from 'react'
 import type React from 'react'
 
 export interface ToolbarItem {

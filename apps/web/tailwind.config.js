@@ -1,9 +1,7 @@
-const tailwindConfig = require('../../tailwind.config.js')
 const { join } = require('path')
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind')
 
 module.exports = {
-  ...tailwindConfig,
   content: [
     join(
       __dirname,
@@ -11,4 +9,5 @@ module.exports = {
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  presets: [require('../../tailwind.config.js')],
 }
