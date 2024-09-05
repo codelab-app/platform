@@ -12,15 +12,6 @@ export const compoundCaseToTitleCase = (input: string) =>
     .replace(/^./, (str) => str.toUpperCase())
     .trim()
 
-export const toPascalCase = (value: string) =>
-  voca.chain(value).camelCase().capitalize().value()
-
-// export const toCamelCase = (value: string) => v.chain(value).camelCase().value()
-
-// export const toTitleCase = (value: string) => v.titleCase(value)
-
-// export const toKebabCase = (value: string) => v.chain(value).kebabCase().value()
-
 export const stripQuotes = (value: string) => value.replace(/['"]/g, '')
 
 export const capitalizeFirstLetter = (value: string) =>

@@ -20,10 +20,10 @@ import type { IRouterService } from './router.service.interface'
 export interface IApplicationStore {
   builderService: IBuilderService
   pagination: {
-    atomPagination: IPaginationService<IAtomModel, { name: string }>
-    componentPagination: IPaginationService<IComponentModel, { name: string }>
-    tagPagination: IPaginationService<ITagModel, { name: string }>
-    typePagination: IPaginationService<ITypeModel, { name: string }>
+    atomPagination: IPaginationService<IAtomModel>
+    componentPagination: IPaginationService<IComponentModel>
+    tagPagination: IPaginationService<ITagModel>
+    typePagination: IPaginationService<ITypeModel>
   }
   rendererService: IRendererService
   routerService: IRouterService

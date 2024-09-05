@@ -1,11 +1,12 @@
 'use client'
 
 import { Cui } from '@codelab/frontend-application-shared-data'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUrlQueryParams } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import type { LinkProps } from 'next/link'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 import React from 'react'
 import styles from './CuiNavigationBar.module.css'
@@ -48,7 +49,8 @@ export const CuiNavigationBar = ({
   primaryItems,
   secondaryItems,
 }: CuiNavigationBarProps) => {
-  const { pathname, primarySidebarKey } = useUrl()
+  const { primarySidebarKey } = useUrlQueryParams()
+  const pathname = usePathname()
   const selectedKey = primarySidebarKey || pathname
 
   return (

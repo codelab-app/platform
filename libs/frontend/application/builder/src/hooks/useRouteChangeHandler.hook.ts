@@ -1,7 +1,10 @@
 'use client'
 
 import type { PageType } from '@codelab/frontend/abstract/types'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import {
+  useUrlPathParams,
+  useUrlQueryParams,
+} from '@codelab/frontend-application-shared-store/router'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { useEffect } from 'react'
@@ -23,7 +26,8 @@ export const useRouteChangeHandler = (
 ) => {
   const router = useRouter()
   // Usage in page router causes first pass to be undefined
-  const { params, query: queryParams } = useUrl()
+  const { appId } = useUrlPathParams()
+  const { primarySidebarKey } = useUrlQueryParams()
 
   // Define the route change handler inside useEffect or as a useMemo to avoid re-creation on each render
   useEffect(() => {
@@ -45,9 +49,9 @@ export const useRouteChangeHandler = (
       const url = queryString.stringifyUrl({
         query: {
           ...query,
-          appId: params.appId,
+          appId,
           pageId: page.slug,
-          primarySidebarKey: queryParams['primarySidebarKey'],
+          primarySidebarKey,
         },
         url: pathname,
       })

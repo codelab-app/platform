@@ -1,6 +1,5 @@
 'use client'
 
-import type { NameFilter } from '@codelab/frontend/abstract/application'
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
@@ -23,12 +22,12 @@ import { TagsColumn } from './columns/TagsColumn'
 import { onLibraryFilter } from './dataSource/on-library-filter'
 
 export const AtomsTable = () => {
-  const { paginationService } = useAtomService()
-  const { filterables } = useSearchQuery<NameFilter>(useSearchParams())
+  const { getDataFn, paginationService } = useAtomService()
+  const { filterables } = useSearchQuery(useSearchParams())
 
   const { data, isLoading, onSearch, pagination, searchText } =
-    useTablePagination<IAtomModel, NameFilter>({
-      filterables,
+    useTablePagination<IAtomModel>({
+      getDataFn,
       paginationService,
       pathname: PageType.Atoms(),
     })

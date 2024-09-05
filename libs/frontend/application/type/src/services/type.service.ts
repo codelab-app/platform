@@ -1,9 +1,13 @@
-import type { ITypeService } from '@codelab/frontend/abstract/application'
+import type {
+  GetDataFn,
+  ITypeService,
+} from '@codelab/frontend/abstract/application'
 import {
   type ITypeModel,
   type IUpdateTypeDto,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
+import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import {
@@ -22,16 +26,17 @@ export const useTypeService = (): ITypeService => {
 
   const { fieldDomainService, typeDomainService } = useDomainStore()
 
-  const getDataFn = async (
-    page: number,
-    pageSize: number,
-    filter: { name?: string },
+  const getDataFn: GetDataFn<ITypeModel> = async (
+    page,
+    pageSize,
+    filter,
+    search,
   ) => {
     const { items: baseTypes, totalCount: totalItems } =
       await typeRepository.findBaseTypes({
         limit: pageSize,
         offset: (page - 1) * pageSize,
-        where: filter,
+        where: graphqlFilterMatches(filter, search),
       })
 
     const typeIds = baseTypes.map(({ id }) => id)
@@ -177,6 +182,7 @@ export const useTypeService = (): ITypeService => {
   return {
     create,
     getAll,
+    getDataFn,
     getInterface,
     getOne,
     getOptions,

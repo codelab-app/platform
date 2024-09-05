@@ -1,6 +1,5 @@
 'use client'
 
-import type { NameFilter } from '@codelab/frontend/abstract/application'
 import type {
   ITreeNode,
   ITypeModel,
@@ -12,6 +11,7 @@ import {
   useSearchQuery,
   useTablePagination,
 } from '@codelab/frontend-application-shared-store/pagination'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import { useSearchParams } from 'next/navigation'
@@ -25,11 +25,12 @@ interface TypesTreeViewProps {
 
 export const TypesTreeView = observer(
   ({ showSearchBar }: TypesTreeViewProps) => {
-    const { paginationService } = useTypeService()
-    const { filterables } = useSearchQuery<NameFilter>(useSearchParams())
+    const { routerService } = useApplicationStore()
+    const { getDataFn, paginationService } = useTypeService()
+    const { filterables } = useSearchQuery(useSearchParams())
 
-    const { data, isLoading } = useTablePagination<ITypeModel, NameFilter>({
-      filterables,
+    const { data, isLoading } = useTablePagination<ITypeModel>({
+      getDataFn,
       paginationService,
       pathname: PageType.Type(),
     })
@@ -52,7 +53,7 @@ export const TypesTreeView = observer(
         <CuiTree<ITreeNode<ITypeTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {
-            paginationService.setFilter({ name: keyword })
+            routerService.setQueryParams({ search: keyword })
           }}
           searchKeyword={filterables.name}
           searcheable={

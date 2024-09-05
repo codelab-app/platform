@@ -1,4 +1,4 @@
-import type { UrlParams } from '@codelab/frontend/abstract/types'
+import type { UrlPathParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 import React from 'react'
 import { Dashboard } from './Dashboard'
@@ -25,7 +25,7 @@ export interface DashboardSections {
 }
 
 type DashboardLayoutProps<T extends Partial<DashboardSections> = never> =
-  Partial<UrlParams> & {
+  Partial<UrlPathParams> & {
     [K in keyof DashboardSections]: K extends keyof T ? T[K] : never
   } & {
     children: ReactNode

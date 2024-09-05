@@ -1,40 +1,30 @@
 'use client'
 
 import type {
-  Filterables,
+  GetDataFn,
   IPaginationService,
   SupportedPaginationModel,
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import type { TablePaginationConfig } from 'antd'
 import debounce from 'lodash/debounce'
-import isMatch from 'lodash/isMatch'
-import {
-  type ReadonlyURLSearchParams,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation'
-import queryString from 'query-string'
-import React, { useCallback, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { paginationContext } from './pagination.service'
 
-interface TablePaginationProps<
-  T extends SupportedPaginationModel,
-  U extends Filterables,
-> {
-  filterables: U
-  paginationService: IPaginationService<T, U>
+interface TablePaginationProps<T extends SupportedPaginationModel> {
+  getDataFn: GetDataFn<T>
+  paginationService: IPaginationService<T>
   pathname: SupportedPaginationModelPage
 }
 
-export const useTablePagination = <
-  T extends SupportedPaginationModel,
-  U extends Filterables,
->({
-  filterables,
+export const useTablePagination = <T extends SupportedPaginationModel>({
+  getDataFn,
   paginationService,
   pathname,
-}: TablePaginationProps<T, U>) => {
+}: TablePaginationProps<T>) => {
+  const { routerService } = useApplicationStore()
   const router = useRouter()
 
   const generateUrlSearchParams = ({
@@ -71,11 +61,14 @@ export const useTablePagination = <
   }
 
   useEffect(() => {
+    paginationContext.setDefault({
+      getDataFn,
+    })
     void paginationService.getData()
   }, [paginationService])
 
   const pagination: TablePaginationConfig = {
-    current: paginationService.currentPage,
+    current: routerService.page,
     onChange: debounce((newPage, newPageSize) => {
       return
       // return onChange({
@@ -83,7 +76,7 @@ export const useTablePagination = <
       //   newPageSize,
       // }),
     }, 500),
-    pageSize: paginationService.pageSize,
+    pageSize: routerService.pageSize,
     position: ['bottomCenter'],
     showSizeChanger: true,
     total: paginationService.totalItems,
@@ -93,8 +86,10 @@ export const useTablePagination = <
     data: paginationService.data,
     isLoading: paginationService.isLoading,
     onSearch: (searchText: string) =>
-      paginationService.setSearchQuery(searchText),
+      routerService.setQueryParams({
+        search: searchText,
+      }),
     pagination,
-    searchText: paginationService.searchQuery,
+    searchText: routerService.search,
   }
 }

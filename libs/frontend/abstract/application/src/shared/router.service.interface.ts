@@ -1,16 +1,22 @@
 import type {
-  SearchParams,
-  SearchParamsString,
-  UrlParams,
+  UrlPathParams,
+  UrlQueryParams,
+  UrlQueryParamsString,
 } from '@codelab/frontend/abstract/types'
-import type { RequiredPartial } from '@codelab/shared/abstract/types'
+import type { DeepNonNullable } from 'utility-types'
 
+/**
+ * Props use the string version
+ */
 export interface IRouterProps {
-  params: UrlParams
-  searchParams: SearchParams
+  pathParams: UrlPathParams
+  queryParams: UrlQueryParamsString
 }
 
-export type IRouterService = IRouterProps & {
-  setParams(query: UrlParams): void
-  setSearchParams(params: SearchParams): void
+export type IRouterService = DeepNonNullable<UrlPathParams & UrlQueryParams> & {
+  pathParams: UrlPathParams
+  queryParams: UrlQueryParams
+
+  setPathParams(params: UrlPathParams): void
+  setQueryParams(params: UrlQueryParams): void
 }

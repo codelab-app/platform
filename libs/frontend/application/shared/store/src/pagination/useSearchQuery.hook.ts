@@ -1,5 +1,4 @@
-import type { Filterables } from '@codelab/frontend/abstract/application'
-import { type ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
+import { type ReadonlyURLSearchParams } from 'next/navigation'
 
 /**
  * We want to transform the url query structure to our `Filterables`
@@ -7,18 +6,16 @@ import { type ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
  * Take `?search=foo&filter=field1,field2` and convert it to `{ field1: 'foo', field2: 'foo' }`
  *
  */
-export const useSearchQuery = <T extends Filterables>(
-  searchParams: ReadonlyURLSearchParams,
-) => {
+export const useSearchQuery = (searchParams: ReadonlyURLSearchParams) => {
   const search = searchParams.get('search')
   const filterQuery = searchParams.get('filter')
   const filter = filterQuery ? filterQuery.split(',') : []
 
-  const filterables = filter.reduce<T>((acc, field) => {
-    acc[field as keyof T] = (search || '') as T[keyof T]
+  const filterables = filter.reduce<Record<string, string>>((acc, field) => {
+    acc[field] = search || ''
 
     return acc
-  }, {} as T)
+  }, {})
 
   return {
     filter,

@@ -28,7 +28,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useCreateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
 import { useUpdateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -57,7 +57,7 @@ export const PageTreeItem = observer(
     const updatePageForm = useUpdatePageForm()
     const { popover } = useCui()
     const router = useRouter()
-    const { appId, pageId } = useUrl()
+    const { appId, pageId } = useUrlPathParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {

@@ -1,7 +1,8 @@
-import type {
-  Filterables,
-  IPaginationService,
-  SupportedPaginationModel,
+import {
+  type GetDataFn,
+  getRouterService,
+  type IPaginationService,
+  type SupportedPaginationModel,
 } from '@codelab/frontend/abstract/application'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
@@ -13,7 +14,6 @@ import {
   detach,
   Model,
   model,
-  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -21,28 +21,23 @@ import {
 } from 'mobx-keystone'
 
 export const paginationContext = createContext<{
-  getDataFn<T extends SupportedPaginationModel>(
+  getDataFn(
     page: number,
     pageSize: number,
-    filter: Filterables,
-  ): Promise<{ items: Array<T>; totalItems: number }>
+    filter: Array<string>,
+    search: string,
+  ): Promise<{ items: Array<SupportedPaginationModel>; totalItems: number }>
 }>()
 
 @model('@codelab/PaginationService')
-export class PaginationService<
-    T1 extends SupportedPaginationModel,
-    U1 extends Filterables,
-  >
-  extends Model(<
-    T2 extends SupportedPaginationModel,
-    U2 extends Filterables,
-  >() => ({
+export class PaginationService<T1 extends SupportedPaginationModel>
+  extends Model(<T2 extends SupportedPaginationModel>() => ({
     dataRefs: prop(() => objectMap<Ref<T2>>()),
     // Make initial true so we know data is not there yet
     isLoading: prop(true),
     totalItems: prop<number>(0),
-  }))<T1, U1>
-  implements IPaginationService<T1, U1>
+  }))<T1>
+  implements IPaginationService<T1>
 {
   @computed
   get data() {
@@ -53,13 +48,13 @@ export class PaginationService<
 
   @computed
   get totalPages() {
-    return Math.ceil(this.totalItems / this.pageSize)
+    const router = this.routerService
+
+    return Math.ceil(this.totalItems / this.routerService.pageSize)
   }
 
   @modelFlow
-  getData = _async(function* (this: PaginationService<T1, U1>) {
-    console.log(this.currentPage, this.pageSize)
-
+  getData = _async(function* (this: PaginationService<T1>) {
     this.isLoading = true
 
     const context = paginationContext.get(this)
@@ -68,8 +63,15 @@ export class PaginationService<
       throw new Error('getDataContext is not set')
     }
 
+    const getDataFn = context.getDataFn as GetDataFn<T1>
+
     const { items, totalItems } = yield* _await(
-      context.getDataFn<T1>(this.currentPage, this.pageSize, this.filter),
+      getDataFn(
+        this.routerService.page,
+        this.routerService.pageSize,
+        this.routerService.filter,
+        this.routerService.search,
+      ),
     )
 
     this.totalItems = totalItems
@@ -102,6 +104,11 @@ export class PaginationService<
   //     }),
   //   )
   // })
+
+  @computed
+  private get routerService() {
+    return getRouterService(this)
+  }
 }
 
 const paginationServiceRef = rootRef('@codelab/PaginationServiceRef', {

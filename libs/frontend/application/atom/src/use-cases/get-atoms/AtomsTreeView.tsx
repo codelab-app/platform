@@ -1,4 +1,3 @@
-import type { NameFilter } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IAtomTreeNodeData,
@@ -10,6 +9,7 @@ import {
   useSearchQuery,
   useTablePagination,
 } from '@codelab/frontend-application-shared-store/pagination'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
@@ -22,11 +22,12 @@ interface AtomsTreeViewProps {
 
 export const AtomsTreeView = observer(
   ({ showSearchBar }: AtomsTreeViewProps) => {
-    const { paginationService } = useAtomService()
-    const { filterables } = useSearchQuery<NameFilter>(useSearchParams())
+    const { getDataFn, paginationService } = useAtomService()
+    const { routerService } = useApplicationStore()
+    const { filterables } = useSearchQuery(useSearchParams())
 
-    const { data, isLoading } = useTablePagination<IAtomModel, NameFilter>({
-      filterables,
+    const { data, isLoading } = useTablePagination<IAtomModel>({
+      getDataFn,
       paginationService,
       pathname: PageType.Atoms(),
     })
@@ -44,7 +45,7 @@ export const AtomsTreeView = observer(
         <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) =>
-            paginationService.setFilter({ name: keyword })
+            routerService.setQueryParams({ search: keyword })
           }
           searchKeyword={filterables.name}
           searcheable={showSearchBar ? { primaryTitle: true } : false}

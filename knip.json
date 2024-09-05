@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema-jsonc.json",
+  "eslint": {
+    "config": ["**/.eslintrc.json"]
+  },
+  "cypress": {
+    "entry": ["apps/**/tsconfig.ts", "libs/**/tsconfig.lib.ts"]
+  },
+  "ignore": [
+    "dist",
+    "libs/shared/infra/gql/**",
+    "libs/backend/abstract/codegen/**",
+    "libs/shared/abstract/core/**"
+  ],
+  "include": ["exports", "types"]
+}

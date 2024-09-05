@@ -4,19 +4,14 @@ import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import {
-  type Filterables,
-  type IPaginateable,
   type IPaginationService,
-  routerServiceContext,
   type SupportedPaginationModel,
-  type SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
-import { useObserver } from 'mobx-react-lite'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { usePathname, useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import type { ToolbarItem } from '../../abstract'
 import { CuiInput } from '../../components'
 
@@ -25,12 +20,10 @@ import { CuiInput } from '../../components'
  * @param paginationService Must NOT destructure, or else lose reactivity
  * @returns
  */
-export const useToolbarPagination = <
-  T extends SupportedPaginationModel,
-  U extends Filterables,
->(
-  paginationService: IPaginationService<T, U>,
+export const useToolbarPagination = <T extends SupportedPaginationModel>(
+  paginationService: IPaginationService<T>,
 ) => {
+  const { routerService } = useApplicationStore()
   const router = useRouter()
   const pathname = usePathname()
   const [showSearchBar, setShowSearchBar] = useState(false)
@@ -38,7 +31,7 @@ export const useToolbarPagination = <
   const goToNextPage = () => {
     const url = queryString.stringifyUrl({
       query: {
-        page: paginationService.currentPage + 1,
+        page: routerService.page + 1,
       },
       url: pathname,
     })
@@ -49,7 +42,7 @@ export const useToolbarPagination = <
   const goToPreviousPage = () => {
     const url = queryString.stringifyUrl({
       query: {
-        page: Math.max(paginationService.currentPage - 1, 1),
+        page: Math.max(routerService.page - 1, 1),
       },
       url: pathname,
     })
@@ -71,19 +64,20 @@ export const useToolbarPagination = <
           <CuiInput
             onChange={(value) => {
               if (typeof value === 'number' && value > 0) {
-                console.log(value)
-                paginationService.setCurrentPage(value)
+                routerService.setQueryParams({
+                  page: value,
+                })
               }
             }}
             selectAllOnClick
             type="number"
-            value={paginationService.currentPage}
+            value={routerService.page}
           />
           <span className="m-0 w-2 p-0 text-center text-sm">/</span>
           <span className="m-0 w-6 p-0 text-center text-sm">{`${paginationService.totalPages}`}</span>
         </div>
       ),
-      title: `Current page: ${paginationService.currentPage} / ${paginationService.totalPages}`,
+      title: `Current page: ${routerService.page} / ${paginationService.totalPages}`,
     },
     {
       cuiKey: UiKey.NextPagePaginationToolbarItem,
@@ -98,18 +92,20 @@ export const useToolbarPagination = <
           <CuiInput
             onChange={(value) => {
               if (typeof value === 'number' && value > 0) {
-                paginationService.setPageSize(value)
+                routerService.setQueryParams({
+                  pageSize: value,
+                })
               }
             }}
             selectAllOnClick
             type="number"
-            value={paginationService.pageSize}
+            value={routerService.pageSize}
           />
           <span className="m-0 w-2 p-1 text-sm">/</span>
           <span className="m-0 p-0 text-sm">Page</span>
         </div>
       ),
-      title: `${paginationService.pageSize} items per page`,
+      title: `${routerService.pageSize} items per page`,
     },
     {
       cuiKey: UiKey.SearchPaginationToobarItem,

@@ -1,18 +1,22 @@
-import type { PageContextParams, SearchParamsString, UrlParams } from './url'
+import type {
+  PageContextParams,
+  UrlPathParams,
+  UrlQueryParams,
+} from './url-params'
 
 export const PageType = {
   Admin: () => '/admin',
-  AppDetail: ({ appId }: Pick<Required<UrlParams>, 'appId'>) =>
+  AppDetail: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
     `/apps/${appId}`,
   AppList: () => '/apps',
-  AtomList: ({ appId }: Pick<Required<UrlParams>, 'appId'>) =>
+  AtomList: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
     `/apps/${appId}/atoms`,
   Atoms: () => '/atoms' as const,
   AtomTypeList: () => '/atom-types',
   AuthGuards: () => '/auth-guards',
   ComponentBuilder: (
-    { componentId }: Pick<Required<UrlParams>, 'componentId'>,
-    { primarySidebarKey }: Partial<SearchParamsString> = {},
+    { componentId }: Pick<Required<UrlPathParams>, 'componentId'>,
+    { primarySidebarKey }: Partial<UrlQueryParams> = {},
   ) =>
     `/components/${componentId}/builder${
       primarySidebarKey ? `?primarySidebarKey=${primarySidebarKey}` : ''
@@ -20,9 +24,10 @@ export const PageType = {
   ComponentExport: () => '/api/export/component',
   ComponentPreview: ({
     componentId,
-  }: Pick<Required<UrlParams>, 'componentId'>) => `/components/${componentId}`,
+  }: Pick<Required<UrlPathParams>, 'componentId'>) =>
+    `/components/${componentId}`,
   Components: () => '/components' as const,
-  DomainList: ({ appId }: Pick<Required<UrlParams>, 'appId'>) =>
+  DomainList: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
     `/apps/${appId}/domains`,
   Home: () => '/',
   LambdaList: () => '/lambdas',
@@ -38,7 +43,7 @@ export const PageType = {
     `/apps/${appId}/pages/${pageId}/500`,
   PageBuilder: (
     { appId, pageId }: Pick<Required<PageContextParams>, 'appId' | 'pageId'>,
-    { primarySidebarKey }: Partial<SearchParamsString> = {},
+    { primarySidebarKey }: Partial<UrlQueryParams> = {},
   ) =>
     `/apps/${appId}/pages/${pageId}/builder${
       primarySidebarKey ? `?primarySidebarKey=${primarySidebarKey}` : ''
@@ -48,11 +53,11 @@ export const PageType = {
     pageId,
   }: Pick<Required<PageContextParams>, 'appId' | 'pageId'>) =>
     `/apps/${appId}/pages/${pageId}`,
-  PageList: ({ appId }: Pick<Required<UrlParams>, 'appId'>) =>
+  PageList: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
     `/apps/${appId}/pages`,
   // Prop: ({ libraryId }: Pick<UrlParams, 'libraryId'>) =>
   //   `/library/${libraryId}/props`,
-  PropsInterface: ({ appId }: Pick<Required<UrlParams>, 'appId'>) =>
+  PropsInterface: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
     `/apps/${appId}/props`,
   Resources: () => '/resources',
   Storybook: () => '/storybook',
