@@ -6,7 +6,7 @@
   "tailwind": {
     "config": "tailwind.config.js",
     "css": "apps/web/styles/shadcn.global.css",
-    "baseColor": "zinc",
+    "baseColor": "slate",
     "cssVariables": true,
     "prefix": ""
   },

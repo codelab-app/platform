@@ -8,6 +8,7 @@ const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: analyzeBundle,
+  // openAnalyzer: false,
 })
 
 /** Allows importing cypher files */
