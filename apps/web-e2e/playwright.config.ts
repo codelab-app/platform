@@ -110,7 +110,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'}`,
+      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
@@ -118,7 +118,7 @@ export default defineConfig({
       timeout: 90 * 1000,
     },
     {
-      command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'}`,
+      command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',

@@ -2,8 +2,6 @@ const { composePlugins, withNx } = require('@nx/next')
 const path = require('path')
 const { get } = require('env-var')
 
-const injectWhyDidYouRender = require(path.resolve(__dirname, './scripts/wdyr'))
-
 const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -36,6 +34,11 @@ const withWebpackConfig = (nextConfig = {}) =>
        * https://github.com/welldone-software/why-did-you-render/issues/84
        */
       if (process.env.NEXT_WEB_ENABLE_WDYR) {
+        const injectWhyDidYouRender = require(path.resolve(
+          __dirname,
+          './scripts/wdyr',
+        ))
+
         injectWhyDidYouRender(config, options)
       }
 

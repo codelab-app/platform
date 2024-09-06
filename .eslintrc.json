@@ -45,8 +45,6 @@
   ],
   "settings": {
     "tailwindcss": {
-      // "callees": ["classnames", "clsx", "ctl"],
-      // "config": "tailwind.config.js"
       "config": "./tailwind.config.js"
     },
     "react": {

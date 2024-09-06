@@ -23,6 +23,7 @@ steps:
   # docker_layer_caching: true
   - run:
       name: 'Run E2E Tests'
+      # https://github.com/cypress-io/circleci-orb/issues/386
       command: pnpm nx e2e web-e2e -c ci --verbose
       # command: |
       #   echo 'export SHARD="$((${CIRCLE_NODE_INDEX}+1))"' >> "$BASH_ENV"
