@@ -44,6 +44,9 @@
     "./scripts/eslint/.base.eslintrc.json"
   ],
   "settings": {
+    "tailwindcss": {
+      "config": "./tailwind.config.js"
+    },
     "react": {
       "version": "detect"
     },

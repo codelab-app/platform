@@ -24,7 +24,7 @@ export const PageBuilder = observer<IPageBuilderProps>(
     const page = pageDomainService.pages.get(pageId)
 
     if (!page) {
-      throw new Error('Page not found!')
+      return null
     }
 
     const { renderer } = useInitializeBuilder({

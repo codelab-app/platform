@@ -20,7 +20,7 @@ export const UpdateAtomForm = observer(() => {
   const { tagDomainService } = useDomainStore()
   const updateAtomForm = useUpdateAtomForm()
   const atomService = useAtomService()
-  const atom = updateAtomForm.data?.current
+  const atom = updateAtomForm.data
 
   const onSubmit = (data: IUpdateAtomData) => {
     return atomService.update(data)

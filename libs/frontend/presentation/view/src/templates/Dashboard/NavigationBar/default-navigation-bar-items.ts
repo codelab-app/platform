@@ -1,4 +1,4 @@
-import type { UrlParams } from '@codelab/frontend/abstract/types'
+import type { UrlPathParams } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
@@ -23,7 +23,7 @@ export const defaultNavigationBarItems = ({
   appId,
   componentId,
   pageId,
-}: UrlParams): {
+}: Partial<UrlPathParams>): {
   primaryItems: Array<NavigationBarItem>
   secondaryItems: Array<NavigationBarItem>
 } => ({

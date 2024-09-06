@@ -1,47 +1,66 @@
-import type { PageContextParams, UrlParams, UrlQuery } from './url'
+import type {
+  PageContextParams,
+  UrlPathParams,
+  UrlQueryParams,
+} from './url-params'
 
 export const PageType = {
   Admin: () => '/admin',
-  AppDetail: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}`,
+  AppDetail: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
+    `/apps/${appId}`,
   AppList: () => '/apps',
-  AtomList: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}/atoms`,
+  AtomList: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
+    `/apps/${appId}/atoms`,
   Atoms: () => '/atoms' as const,
   AtomTypeList: () => '/atom-types',
   AuthGuards: () => '/auth-guards',
   ComponentBuilder: (
-    { componentId }: Pick<UrlParams, 'componentId'>,
-    { primarySidebarKey }: Partial<UrlQuery> = {},
+    { componentId }: Pick<Required<UrlPathParams>, 'componentId'>,
+    { primarySidebarKey }: Partial<UrlQueryParams> = {},
   ) =>
     `/components/${componentId}/builder${
       primarySidebarKey ? `?primarySidebarKey=${primarySidebarKey}` : ''
     }`,
   ComponentExport: () => '/api/export/component',
-  ComponentPreview: ({ componentId }: Pick<UrlParams, 'componentId'>) =>
+  ComponentPreview: ({
+    componentId,
+  }: Pick<Required<UrlPathParams>, 'componentId'>) =>
     `/components/${componentId}`,
-  Components: () => '/components',
-  DomainList: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}/domains`,
+  Components: () => '/components' as const,
+  DomainList: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
+    `/apps/${appId}/domains`,
   Home: () => '/',
   LambdaList: () => '/lambdas',
-  Page404: ({ appId, pageId }: PageContextParams) =>
+  Page404: ({
+    appId,
+    pageId,
+  }: Pick<Required<PageContextParams>, 'appId' | 'pageId'>) =>
     `/apps/${appId}/pages/${pageId}/404`,
-  Page500: ({ appId, pageId }: PageContextParams) =>
+  Page500: ({
+    appId,
+    pageId,
+  }: Pick<Required<PageContextParams>, 'appId' | 'pageId'>) =>
     `/apps/${appId}/pages/${pageId}/500`,
   PageBuilder: (
-    { appId, pageId }: PageContextParams,
-    { primarySidebarKey }: Partial<UrlQuery> = {},
+    { appId, pageId }: Pick<Required<PageContextParams>, 'appId' | 'pageId'>,
+    { primarySidebarKey }: Partial<UrlQueryParams> = {},
   ) =>
     `/apps/${appId}/pages/${pageId}/builder${
       primarySidebarKey ? `?primarySidebarKey=${primarySidebarKey}` : ''
     }`,
-  PageDetail: ({ appId, pageId }: PageContextParams) =>
+  PageDetail: ({
+    appId,
+    pageId,
+  }: Pick<Required<PageContextParams>, 'appId' | 'pageId'>) =>
     `/apps/${appId}/pages/${pageId}`,
-  PageList: ({ appId }: Pick<UrlParams, 'appId'>) => `/apps/${appId}/pages`,
-  Prop: ({ libraryId }: Pick<UrlParams, 'libraryId'>) =>
-    `/library/${libraryId}/props`,
-  PropsInterface: ({ appId }: Pick<UrlParams, 'appId'>) =>
+  PageList: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
+    `/apps/${appId}/pages`,
+  // Prop: ({ libraryId }: Pick<UrlParams, 'libraryId'>) =>
+  //   `/library/${libraryId}/props`,
+  PropsInterface: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
     `/apps/${appId}/props`,
   Resources: () => '/resources',
   Storybook: () => '/storybook',
-  Tags: () => '/tags',
-  Type: () => '/types',
+  Tags: () => '/tags' as const,
+  Type: () => '/types' as const,
 }

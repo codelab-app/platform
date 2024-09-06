@@ -21,7 +21,7 @@ export interface IComponentService
       IUpdateComponentData
     >,
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
-    IPaginateable<IComponentModel, { name?: string }> {
+    IPaginateable<IComponentModel> {
   // componentDevelopmentService: IComponentDevelopmentService
   // moved to builder
   // getSelectComponentOptions(): Promise<Array<DefaultOptionType>>

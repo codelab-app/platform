@@ -19,7 +19,7 @@ export const UpdateAtomModal = observer(() => {
   const { tagDomainService } = useDomainStore()
   const updateAtomModal = useUpdateAtomModal()
   const atomService = useAtomService()
-  const atom = updateAtomModal.data?.current
+  const atom = updateAtomModal.data
   const closeModal = () => updateAtomModal.close()
 
   const onSubmit = (data: IUpdateAtomData) => {

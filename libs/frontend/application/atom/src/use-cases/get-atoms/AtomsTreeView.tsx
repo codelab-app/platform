@@ -6,6 +6,7 @@ import type {
 import { PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAtomService } from '../../services'
@@ -17,14 +18,12 @@ interface AtomsTreeViewProps {
 
 export const AtomsTreeView = observer(
   ({ showSearchBar }: AtomsTreeViewProps) => {
-    const atomService = useAtomService()
+    const { getDataFn, paginationService } = useAtomService()
+    const { routerService } = useApplicationStore()
 
-    const { data, filter, handleChange, isLoading } = useTablePagination<
-      IAtomModel,
-      { name: string }
-    >({
-      filterTypes: { name: 'string' },
-      paginationService: atomService.paginationService,
+    const { data, isLoading } = useTablePagination<IAtomModel>({
+      getDataFn,
+      paginationService,
       pathname: PageType.Atoms(),
     })
 
@@ -41,9 +40,9 @@ export const AtomsTreeView = observer(
         <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) =>
-            handleChange({ newFilter: { name: keyword } })
+            routerService.setQueryParams({ search: keyword })
           }
-          searchKeyword={filter.name}
+          searchKeyword={routerService.search}
           searcheable={showSearchBar ? { primaryTitle: true } : false}
           titleRender={(node) => <AtomsTreeItem data={node} />}
           treeData={treeData}
@@ -52,3 +51,5 @@ export const AtomsTreeView = observer(
     )
   },
 )
+
+AtomsTreeView.displayName = 'AtomsTreeView'

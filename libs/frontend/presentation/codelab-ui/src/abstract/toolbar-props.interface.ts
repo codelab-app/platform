@@ -4,7 +4,6 @@ import type React from 'react'
 export interface ToolbarItem {
   ariaLabel?: string
   cuiKey: UiKey
-
   icon: React.ReactNode
   label?: string
   title: string

@@ -1,4 +1,4 @@
-import { StoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { PageBuilderPreview } from '@codelab/frontend-application-builder/use-cases/page-builder-preview'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
@@ -16,14 +16,14 @@ const PagePreviewPage = async ({
   const dto = await appBuilderQuery({ appId })
 
   return (
-    <StoreHydrator
+    <DomainStoreHydrator
       actionsDto={dto.actions}
       appsDto={[dto.app]}
       atomsDto={dto.atoms}
       authGuardsDto={dto.authGuards}
       componentsDto={dto.components}
       elementsDto={dto.elements}
-      fallback={<Spinner center isLoading />}
+      fallback={<Spinner />}
       fieldsDto={dto.fields}
       pagesDto={dto.pages}
       propsDto={dto.props}
@@ -34,7 +34,7 @@ const PagePreviewPage = async ({
     >
       {/* Decouple renderer from builder */}
       <PageBuilderPreview RootRenderer={RootRenderer} pageSlug={pageId} />
-    </StoreHydrator>
+    </DomainStoreHydrator>
   )
 }
 

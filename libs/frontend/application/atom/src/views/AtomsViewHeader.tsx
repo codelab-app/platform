@@ -12,7 +12,7 @@ import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom.state'
 export const AtomsViewHeader = () => {
   const updateFieldForm = useUpdateFieldForm()
   const updateAtomForm = useUpdateAtomModal()
-  const atomToUpdate = updateAtomForm.data?.current.name || ''
+  const atomToUpdate = updateAtomForm.data?.name || ''
   const fieldToUpdate = updateFieldForm.data?.key || ''
 
   const atomOrField = updateAtomForm.isOpen

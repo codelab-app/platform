@@ -1,7 +1,7 @@
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 
 export const useAuthGuardQuery = () => {
-  const { authGuardId } = useUrl()
+  const { authGuardId } = useUrlPathParams()
 
   return authGuardId
 }

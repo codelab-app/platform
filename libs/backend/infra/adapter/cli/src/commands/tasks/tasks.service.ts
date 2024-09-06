@@ -60,7 +60,9 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand('pnpm nx affected --target=test:unit --ci -c ci')
+            execCommand(
+              'pnpm nx affected --target=test:unit --ci -c ci --verbose',
+            )
           }
         }),
       )
@@ -216,8 +218,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=lint --parallel=3 -c ci --rule "unused-imports/no-unused-imports: error"',
+              'pnpm nx affected --target=lint --parallel=3 -c ci --verbose',
             )
+
+            // Below breaks cache
+            // execCommand(
+            //   'pnpm nx affected --target=lint --parallel=3 -c ci --rule "unused-imports/no-unused-imports: error" --verbose',
+            // )
 
             // https://github.com/nrwl/nx/discussions/8769
             execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"')

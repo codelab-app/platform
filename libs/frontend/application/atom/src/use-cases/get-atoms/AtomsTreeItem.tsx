@@ -5,7 +5,7 @@ import type {
   IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -36,7 +36,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onEdit = () => {
     if (type === 'atom') {
-      updateAtomForm.open(atomRef(node))
+      updateAtomForm.open(node)
       updateFieldForm.close()
     } else {
       updateFieldForm.open(node)
@@ -46,7 +46,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onDelete = () => {
     if (type === 'atom') {
-      deleteAtomsModal.open([atomRef(node)])
+      deleteAtomsModal.open([node])
     } else {
       deleteFieldModal.open(node)
     }

@@ -1,3 +1,4 @@
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
 import { PageDetailHeader } from '@codelab/frontend-application-page/views'
 import React from 'react'
@@ -5,7 +6,7 @@ import React from 'react'
 const Header = ({
   params: { appId, pageId },
 }: {
-  params: { appId: string; pageId: string }
+  params: PageContextParams
 }) => {
   return (
     <PageDetailHeader

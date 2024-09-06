@@ -199,3 +199,5 @@ export const CuiTree = observer(
     )
   },
 )
+
+CuiTree.displayName = 'CuiTree'

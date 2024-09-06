@@ -1,10 +1,14 @@
-import type { IAtomService } from '@codelab/frontend/abstract/application'
+import type {
+  GetDataFn,
+  IAtomService,
+} from '@codelab/frontend/abstract/application'
 import {
   atomRef,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
+import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
@@ -32,13 +36,14 @@ export const useAtomService = (): IAtomService => {
   const { atomDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
-  const getDataFn = async (
-    page: number,
-    pageSize: number,
-    filter: { name?: string },
+  const getDataFn: GetDataFn<IAtomModel> = async (
+    page,
+    pageSize,
+    filter,
+    search,
   ) => {
     const { aggregate, items } = await atomRepository.find(
-      { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+      graphqlFilterMatches(filter, search),
       {
         limit: pageSize,
         offset: (page - 1) * pageSize,
@@ -53,8 +58,6 @@ export const useAtomService = (): IAtomService => {
 
     return { items: atoms, totalItems: aggregate.count }
   }
-
-  atomPagination.getDataFn = getDataFn
 
   const create = async ({
     externalCssSource,
@@ -184,6 +187,7 @@ export const useAtomService = (): IAtomService => {
   return {
     create,
     getAll,
+    getDataFn,
     getOne,
     getSelectAtomOptions,
     loadApi,

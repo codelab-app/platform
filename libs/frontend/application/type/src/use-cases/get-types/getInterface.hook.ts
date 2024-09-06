@@ -2,14 +2,13 @@
 
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
 export const useCurrentInterfaceId = () => {
-  const { params, query } = useUrl()
-  const interfaceId = params?.interfaceId
+  const { interfaceId } = useUrlPathParams()
 
   if (!interfaceId) {
     throw new Error(

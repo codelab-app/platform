@@ -2,8 +2,11 @@ const { composePlugins, withNx } = require('@nx/next')
 const path = require('path')
 const { get } = require('env-var')
 
+const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE_BUNDLE === 'true',
+  enabled: analyzeBundle,
+  // openAnalyzer: false,
 })
 
 /** Allows importing cypher files */
@@ -22,26 +25,22 @@ const withWebpackConfig = (nextConfig = {}) =>
       /**
        * Wdyr
        *
+       * For app router using this
+       *
+       * https://github.com/welldone-software/why-did-you-render/issues/266
+       *
+       * Previous
+       *
        * https://github.com/welldone-software/why-did-you-render/issues/84
        */
-      // if (process.env.NEXT_WEB_ENABLE_WDYR) {
-      //   const { dev, isServer } = options
+      if (process.env.NEXT_WEB_ENABLE_WDYR) {
+        const injectWhyDidYouRender = require(path.resolve(
+          __dirname,
+          './scripts/wdyr',
+        ))
 
-      //   if (dev && !isServer) {
-      //     const originalEntry = config.entry
-
-      //     config.entry = async () => {
-      //       const entries = await originalEntry()
-      //       const wdrPath = path.resolve(__dirname, './wdyr.js')
-
-      //       if (entries['main.js'] && !entries['main.js'].includes(wdrPath)) {
-      //         entries['main.js'].unshift(wdrPath)
-      //       }
-
-      //       return entries
-      //     }
-      //   }
-      // }
+        injectWhyDidYouRender(config, options)
+      }
 
       /**
        * Return
@@ -68,6 +67,7 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
     // esmExternals: 'loose',
     // forceSwcTransforms: true,
@@ -76,7 +76,7 @@ const nextConfig = {
   },
   nx: { svgr: true },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
-  productionBrowserSourceMaps: true,
+  // productionBrowserSourceMaps: true,
   // disable to support uniforms
   // https://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,

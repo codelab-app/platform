@@ -1,4 +1,5 @@
-import { StoreHydrator } from '@codelab/frontend/infra/context'
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { PageBuilder } from '@codelab/frontend-application-builder/use-cases/page-builder'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
@@ -8,22 +9,19 @@ import React from 'react'
 const Page = async ({
   params: { appId, pageId },
 }: {
-  params: {
-    pageId: string
-    appId: string
-  }
+  params: PageContextParams
 }) => {
   const dto = await appBuilderQuery({ appId })
 
   return (
-    <StoreHydrator
+    <DomainStoreHydrator
       actionsDto={dto.actions}
       appsDto={[dto.app]}
       atomsDto={dto.atoms}
       authGuardsDto={dto.authGuards}
       componentsDto={dto.components}
       elementsDto={dto.elements}
-      fallback={<Spinner center isLoading />}
+      fallback={<Spinner />}
       fieldsDto={dto.fields}
       pagesDto={dto.pages}
       propsDto={dto.props}
@@ -34,7 +32,7 @@ const Page = async ({
     >
       {/* Decouple renderer from builder */}
       <PageBuilder RootRenderer={RootRenderer} pageId={pageId} />
-    </StoreHydrator>
+    </DomainStoreHydrator>
   )
 }
 

@@ -1,5 +1,5 @@
 import { Validator } from '../validation/validator'
-import { Ipv4Schema, TIpv4 } from './ipv4.schema'
+import { TIpv4 } from './ipv4.schema'
 
 describe('Ipv4 Schema', () => {
   it('should validate a valid IPv4 address', () => {

@@ -29,5 +29,5 @@
  * }
  */
 export type RequiredPartial<T> = {
-  [K in keyof T]-?: T[K] | undefined
+  [K in keyof T]: T[K] | undefined
 }

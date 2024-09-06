@@ -7,7 +7,10 @@ import { type CheckedKeys, PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -20,14 +23,13 @@ interface TagsTreeViewProps {
 
 export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
   const tagService = useTagService()
+  const { routerService } = useApplicationStore()
+  const { getDataFn, paginationService } = tagService
   const { tagDomainService } = useDomainStore()
 
-  const { data, filter, handleChange, isLoading } = useTablePagination<
-    ITagModel,
-    { name: string }
-  >({
-    filterTypes: { name: 'string' },
-    paginationService: tagService.paginationService,
+  const { data, isLoading } = useTablePagination<ITagModel>({
+    getDataFn,
+    paginationService,
     pathname: PageType.Type(),
   })
 
@@ -76,7 +78,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         )
       }}
       onSearchKeywordChange={(keyword) => {
-        void handleChange({ newFilter: { name: keyword || '' } })
+        routerService.setQueryParams({ search: keyword })
       }}
       onSelect={onSelect}
       searcheable={

@@ -23,11 +23,11 @@ export const FeatureCard = (props: FeatureCardProps) => {
         <Card.Meta
           className="
             [&_.ant-card-meta-description]:sm-text-base
-            [&_.ant-card-meta-title]:font-display
             [&_.ant-card-meta-description]:mt-3
             [&_.ant-card-meta-description]:text-sm
             [&_.ant-card-meta-description]:text-black
             [&_.ant-card-meta-title]:w-full
+            [&_.ant-card-meta-title]:font-display
             [&_.ant-card-meta-title]:text-base
             [&_.ant-card-meta-title]:font-extrabold
             [&_.ant-card-meta-title]:sm:text-lg

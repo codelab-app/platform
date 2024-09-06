@@ -1,4 +1,4 @@
-import { StoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
 import {
   DomainList,
@@ -28,9 +28,9 @@ const DomainsPage = async ({
         <DeleteDomainModal />
         <UpdateDomainModal /> */}
       <ContentSection>
-        <StoreHydrator appsDto={apps} fallback={<Spinner center isLoading />}>
+        <DomainStoreHydrator appsDto={apps} fallback={<Spinner />}>
           <DomainList />
-        </StoreHydrator>
+        </DomainStoreHydrator>
       </ContentSection>
     </>
   )

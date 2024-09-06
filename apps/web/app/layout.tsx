@@ -2,7 +2,6 @@ import '../styles/global.css'
 import '../styles/shadcn.global.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
-import { getEnv } from '@codelab/shared/config'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
@@ -12,25 +11,6 @@ import React from 'react'
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
 })
-
-/**
- * Need to paste here for it to work with mobx
- */
-if (getEnv().endpoint.isLocal && getEnv().node.enableWdyr) {
-  console.log('Enable WDYR...')
-
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const whyDidYouRender = require('@welldone-software/why-did-you-render')
-
-  whyDidYouRender(React, {
-    collapseGroups: true,
-    // Exclude Ant Design components
-    exclude: [/PopupContent/],
-    // onlyLogs: true,
-    titleColor: 'green',
-    trackAllPureComponents: true,
-  })
-}
 
 // normal: 400
 // bold: 700
@@ -82,7 +62,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
           id="editorjs-script"
         />
       </head>
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="min-h-screen bg-background antialiased">
         <StyleProviders>{children}</StyleProviders>
       </body>
     </html>

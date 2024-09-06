@@ -1,2 +1,3 @@
 export * from './router.service'
-export * from './useUrl.hook'
+export * from './useUrlPathParams.hook'
+export * from './useUrlQueryParams.hook'

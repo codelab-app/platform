@@ -117,7 +117,7 @@
       "extends": ["plugin:tailwindcss/recommended"],
       "rules": {
         "react/prop-types": "off",
-        "tailwindcss/no-custom-classname": ["error", {}]
+        "tailwindcss/no-custom-classname": ["error"]
       }
     },
     {

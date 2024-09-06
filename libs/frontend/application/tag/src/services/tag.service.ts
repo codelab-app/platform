@@ -1,5 +1,9 @@
-import type { ITagService } from '@codelab/frontend/abstract/application'
+import type {
+  GetDataFn,
+  ITagService,
+} from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import {
@@ -25,17 +29,18 @@ export const useTagService = (): ITagService => {
   const { tagDomainService } = useDomainStore()
   const [checkedTags, setCheckedTags] = useAtom(checkedTagsAtom)
 
-  const getDataFn = async (
-    page: number,
-    pageSize: number,
-    filter: { name?: string },
+  const getDataFn: GetDataFn<ITagModel> = async (
+    page,
+    pageSize,
+    filter,
+    search,
   ) => {
     const {
       aggregate: { count: totalItems },
       items,
     } = await tagRepository.find(
       {
-        name_MATCHES: `(?i).*${filter.name ?? ''}.*`,
+        ...graphqlFilterMatches(filter, search),
         parentAggregate: { count: 0 },
       },
       {
@@ -52,8 +57,6 @@ export const useTagService = (): ITagService => {
 
     return { items: tags, totalItems }
   }
-
-  tagPagination.getDataFn = getDataFn
 
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
@@ -132,6 +135,7 @@ export const useTagService = (): ITagService => {
     create,
     deleteCheckedTags,
     getAll,
+    getDataFn,
     paginationService: tagPagination,
     remove,
     setCheckedTags,

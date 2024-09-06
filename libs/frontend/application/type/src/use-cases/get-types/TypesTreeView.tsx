@@ -1,3 +1,5 @@
+'use client'
+
 import type {
   ITreeNode,
   ITypeModel,
@@ -6,6 +8,7 @@ import type {
 import { PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -18,14 +21,12 @@ interface TypesTreeViewProps {
 
 export const TypesTreeView = observer(
   ({ showSearchBar }: TypesTreeViewProps) => {
-    const typeService = useTypeService()
+    const { routerService } = useApplicationStore()
+    const { getDataFn, paginationService } = useTypeService()
 
-    const { data, filter, handleChange, isLoading } = useTablePagination<
-      ITypeModel,
-      { name: string }
-    >({
-      filterTypes: { name: 'string' },
-      paginationService: typeService.paginationService,
+    const { data, isLoading } = useTablePagination<ITypeModel>({
+      getDataFn,
+      paginationService,
       pathname: PageType.Type(),
     })
 
@@ -47,9 +48,9 @@ export const TypesTreeView = observer(
         <CuiTree<ITreeNode<ITypeTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {
-            void handleChange({ newFilter: { name: keyword || '' } })
+            routerService.setQueryParams({ search: keyword })
           }}
-          searchKeyword={filter.name}
+          searchKeyword={routerService.search}
           searcheable={
             showSearchBar
               ? {

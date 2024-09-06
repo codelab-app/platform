@@ -4,10 +4,14 @@ import React from 'react'
 export interface SpinnerProps {
   center?: boolean
   children?: React.ReactNode
-  isLoading: boolean
+  isLoading?: boolean
 }
 
-export const Spinner = ({ center, children, isLoading }: SpinnerProps) => {
+export const Spinner = ({
+  center = true,
+  children,
+  isLoading = true,
+}: SpinnerProps) => {
   const style: React.CSSProperties = {}
 
   if (center) {

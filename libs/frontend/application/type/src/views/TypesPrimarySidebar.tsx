@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   useCui,
@@ -15,15 +15,12 @@ import { useCreateTypeForm } from '../use-cases/create-type/create-type.state'
 import { TypesTreeView } from '../use-cases/get-types'
 
 export const TypesPrimarySidebar = () => {
-  const typeService = useTypeService()
+  const { paginationService } = useTypeService()
   const createTypeForm = useCreateTypeForm()
   const { popover } = useCui()
 
-  const { showSearchBar, toolbarItems } = useToolbarPagination(
-    typeService,
-    PageType.Type(),
-    { name: 'string' },
-  )
+  const { showSearchBar, toolbarItems } =
+    useToolbarPagination(paginationService)
 
   return (
     <CuiSidebar

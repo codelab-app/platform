@@ -1,13 +1,22 @@
-import type { UrlParams, UrlQuery } from '@codelab/frontend/abstract/types'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type {
+  UrlPathParams,
+  UrlQueryParams,
+  UrlQueryParamsString,
+} from '@codelab/frontend/abstract/types'
+import type { DeepNonNullable } from 'utility-types'
 
+/**
+ * Props use the string version
+ */
 export interface IRouterProps {
-  params: Nullable<UrlParams>
-  query: Nullable<UrlQuery>
+  pathParams: UrlPathParams
+  queryParams: UrlQueryParamsString
 }
 
-export type IRouterService = IRouterProps &
-  UrlParams &
-  UrlQuery & {
-    update(router: Partial<IRouterProps>): void
-  }
+export type IRouterService = DeepNonNullable<UrlPathParams & UrlQueryParams> & {
+  pathParams: UrlPathParams
+  queryParams: UrlQueryParams
+
+  setPathParams(params: UrlPathParams): void
+  setQueryParams(params: UrlQueryParams): void
+}

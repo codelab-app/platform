@@ -1,4 +1,3 @@
-import { atomRef } from '@codelab/frontend/abstract/domain'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
@@ -15,10 +14,8 @@ export const ActionColumn = ({ atom }: ActionColumnProps) => {
 
   return (
     <Space size="middle">
-      <ListItemEditButton onClick={() => updateAtomModal.open(atomRef(atom))} />
-      <ListItemDeleteButton
-        onClick={() => deleteAtomsModal.open([atomRef(atom)])}
-      />
+      <ListItemEditButton onClick={() => updateAtomModal.open(atom)} />
+      <ListItemDeleteButton onClick={() => deleteAtomsModal.open([atom])} />
     </Space>
   )
 }

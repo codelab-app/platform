@@ -1,7 +1,7 @@
 import '../styles/global.css'
 import { RootProviders } from '@codelab/frontend/infra/context'
 import { userDto } from '@codelab/frontend/test/data'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import type { Preview } from '@storybook/react'
 import { ConfigProvider } from 'antd'
 import React from 'react'
@@ -9,7 +9,7 @@ import React from 'react'
 const preview: Preview = {
   decorators: [
     (Story) => {
-      const { params, query } = useUrl()
+      const { params, query } = useUrlPathParams()
 
       return (
         <RootProviders user={userDto}>

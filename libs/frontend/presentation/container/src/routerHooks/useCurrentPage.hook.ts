@@ -1,4 +1,4 @@
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useMemo } from 'react'
 
@@ -7,7 +7,7 @@ import { useMemo } from 'react'
  */
 export const useCurrentPage = () => {
   const { pageDomainService } = useDomainStore()
-  const { pageId } = useUrl()
+  const { pageId } = useUrlPathParams()
 
   return useMemo(() => {
     const page = pageDomainService.pagesList.find(({ id }) => id === pageId)

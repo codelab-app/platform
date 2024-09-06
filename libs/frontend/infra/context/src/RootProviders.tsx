@@ -2,7 +2,7 @@
 
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
-import { useUrl } from '@codelab/frontend-application-shared-store/router'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import {
   createRootStore,
   RootStoreProvider,
@@ -16,8 +16,19 @@ export const RootProviders = ({
   children,
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
-  const url = useUrl()
-  const rootStore = useMemo(() => createRootStore(user, url), [user, url])
+  const pathParams = useUrlPathParams()
+
+  const rootStore = useMemo(
+    () =>
+      createRootStore(user, {
+        pathParams,
+        // Layout do not receive searchParams
+        //
+        // https://nextjs.org/docs/app/api-reference/file-conventions/layout#layouts-do-not-receive-searchparams
+        queryParams: {},
+      }),
+    [user],
+  )
 
   return (
     <UserProvider>

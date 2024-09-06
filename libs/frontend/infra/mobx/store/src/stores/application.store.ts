@@ -39,13 +39,10 @@ export const createApplicationStore = (router: IRouterProps) => {
         () => new BuilderService({ hoveredNode: null, selectedNode: null }),
       ),
       pagination: prop(() => ({
-        atomPagination: new PaginationService<IAtomModel, { name: string }>({}),
-        componentPagination: new PaginationService<
-          IComponentModel,
-          { name: string }
-        >({}),
-        tagPagination: new PaginationService<ITagModel, { name: string }>({}),
-        typePagination: new PaginationService<ITypeModel, { name: string }>({}),
+        atomPagination: new PaginationService<IAtomModel>({}),
+        componentPagination: new PaginationService<IComponentModel>({}),
+        tagPagination: new PaginationService<ITagModel>({}),
+        typePagination: new PaginationService<ITypeModel>({}),
       })),
       // add reference to domain store, so that all the models in ApplicationStore
       // can access refs from domain store (elements, components, apps, etc)

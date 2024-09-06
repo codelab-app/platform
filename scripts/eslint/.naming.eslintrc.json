@@ -14,7 +14,7 @@
           {
             "case": "pascalCase",
             "ignore": [
-              ".*\\.hook\\.tsx?$",
+              ".*\\.hook(\\.spec)?\\.tsx?$",
               ".*\\.spec\\.tsx?$",
               "^preview\\.tsx",
               "^_app\\.tsx",
@@ -46,7 +46,7 @@
               "pascalCase": false,
               "kebabCase": true
             },
-            "ignore": [".*\\.hook\\.tsx?$"]
+            "ignore": [".*\\.hook(\\.spec)?\\.tsx?$"]
           }
         ],
         "@typescript-eslint/naming-convention": [
