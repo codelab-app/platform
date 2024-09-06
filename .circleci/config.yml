@@ -298,8 +298,11 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node
     parameters:
+      max_old_space_size:
+        type: integer
       resource_class:
         type: string
     resource_class: << parameters.resource_class >>
@@ -602,6 +605,7 @@ workflows:
               ignore:
                 - master
                 - staging
+          max_old_space_size: 6144
           requires:
             - setup-workspace
           resource_class: large
