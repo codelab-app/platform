@@ -62,7 +62,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
           id="editorjs-script"
         />
       </head>
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="min-h-screen bg-background antialiased">
         <StyleProviders>{children}</StyleProviders>
       </body>
     </html>
