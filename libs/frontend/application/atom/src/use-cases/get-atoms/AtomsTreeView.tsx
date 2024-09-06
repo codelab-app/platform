@@ -37,7 +37,7 @@ export const AtomsTreeView = observer(
 
     return (
       <div className="size-full">
-        <CuiTree<ITreeNode<IAtomTreeNodeData>>
+        {/* <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) =>
             routerService.setQueryParams({ search: keyword })
@@ -46,7 +46,7 @@ export const AtomsTreeView = observer(
           searcheable={showSearchBar ? { primaryTitle: true } : false}
           titleRender={(node) => <AtomsTreeItem data={node} />}
           treeData={treeData}
-        />
+        /> */}
       </div>
     )
   },

@@ -17,15 +17,9 @@ import { useCreateAtomModal } from '../use-cases/create-atom/create-atom.state'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
-  const { routerService } = useApplicationStore()
   const { paginationService } = useAtomService()
   const { popover } = useCui()
   const createAtomForm = useCreateAtomModal()
-
-  // const tablePagination = useTablePagination<IAtomModel, { name: string }>({
-  //   paginationService: atomPagination,
-  //   pathname: PageType.Atoms(),
-  // })
 
   const { showSearchBar, toolbarItems } =
     useToolbarPagination(paginationService)

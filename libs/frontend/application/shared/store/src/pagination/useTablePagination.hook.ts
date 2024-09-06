@@ -19,6 +19,33 @@ interface TablePaginationProps<T extends SupportedPaginationModel> {
   pathname: SupportedPaginationModelPage
 }
 
+const generateUrlSearchParams = ({
+  filter,
+  page,
+  pageSize,
+  searchQuery,
+}: {
+  filter?: Array<string>
+  page: number
+  pageSize: number
+  searchQuery?: string
+}) => {
+  const params: Record<string, string> = {
+    page: page.toString(),
+    pageSize: pageSize.toString(),
+  }
+
+  if (searchQuery !== undefined) {
+    params.searchQuery = searchQuery
+  }
+
+  if (filter !== undefined && filter.length > 0) {
+    params.filter = filter.join(',')
+  }
+
+  return new URLSearchParams(params)
+}
+
 export const useTablePagination = <T extends SupportedPaginationModel>({
   getDataFn,
   paginationService,
@@ -26,33 +53,6 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
 }: TablePaginationProps<T>) => {
   const { routerService } = useApplicationStore()
   const router = useRouter()
-
-  const generateUrlSearchParams = ({
-    filter,
-    page,
-    pageSize,
-    searchQuery,
-  }: {
-    filter?: Array<string>
-    page: number
-    pageSize: number
-    searchQuery?: string
-  }) => {
-    const params: Record<string, string> = {
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-    }
-
-    if (searchQuery !== undefined) {
-      params.searchQuery = searchQuery
-    }
-
-    if (filter !== undefined && filter.length > 0) {
-      params.filter = filter.join(',')
-    }
-
-    return new URLSearchParams(params)
-  }
 
   const onChange = (page: number, pageSize: number) => {
     const queryParams = generateUrlSearchParams({ page, pageSize })
@@ -65,7 +65,7 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
       getDataFn,
     })
     void paginationService.getData()
-  }, [paginationService])
+  }, [])
 
   const pagination: TablePaginationConfig = {
     current: routerService.page,

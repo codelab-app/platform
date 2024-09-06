@@ -7,16 +7,22 @@ import type { DeepNonNullable } from 'utility-types'
 
 /**
  * Props use the string version
+ *
+ * @param queryParams - layouts do not receive searchParams
+ *
+ * https://nextjs.org/docs/app/api-reference/file-conventions/layout#layouts-do-not-receive-searchparams
+ *
  */
 export interface IRouterProps {
   pathParams: UrlPathParams
-  queryParams: UrlQueryParamsString
+  queryParams?: UrlQueryParamsString
 }
 
-export type IRouterService = DeepNonNullable<UrlPathParams & UrlQueryParams> & {
-  pathParams: UrlPathParams
-  queryParams: UrlQueryParams
+export type IRouterService = UrlPathParams &
+  UrlQueryParams & {
+    pathParams: UrlPathParams
+    queryParams: UrlQueryParams
 
-  setPathParams(params: UrlPathParams): void
-  setQueryParams(params: UrlQueryParams): void
-}
+    setPathParams(params: UrlPathParams): void
+    setQueryParams(params: Partial<UrlQueryParams>): void
+  }

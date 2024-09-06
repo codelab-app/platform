@@ -33,7 +33,7 @@ export type GetDataFn<T extends SupportedPaginationModel> = (
   page: number,
   pageSize: number,
   filter: Array<string>,
-  search: string,
+  search?: string,
 ) => Promise<{ items: Array<T>; totalItems: number }>
 
 export interface IPaginationService<T extends SupportedPaginationModel> {

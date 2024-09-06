@@ -2,6 +2,7 @@ import {
   authGuardMiddleware,
   corsMiddleware,
 } from '@codelab/backend/infra/adapter/middleware'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import {
   type NextFetchEvent,
@@ -9,6 +10,7 @@ import {
   type NextRequest,
   NextResponse,
 } from 'next/server'
+import { isEqual } from 'radash'
 
 /**
  * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
@@ -24,8 +26,31 @@ const middleware: NextMiddleware = async (
 ) => {
   const response = NextResponse.next()
 
-  if (request.nextUrl.pathname.startsWith('/apps')) {
+  if (request.nextUrl.pathname.startsWith(PageType.AppList())) {
     return authGuardMiddleware(request, response, event)
+  }
+
+  if (request.nextUrl.pathname === PageType.Atoms()) {
+    const url = request.nextUrl.clone()
+    const currentPage = url.searchParams.get('page')
+    const currentPageSize = url.searchParams.get('pageSize')
+    const currentFilter = url.searchParams.getAll('filter')
+    const newPage = currentPage ?? '1'
+    const newPageSize = currentPageSize ?? '20'
+    const newFilter = currentFilter.length ? currentFilter : ['name']
+
+    url.searchParams.set('page', newPage)
+    url.searchParams.set('pageSize', newPageSize)
+    url.searchParams.set('filter', newFilter.join(','))
+
+    const hasChanged =
+      isEqual(newPage, currentPage) ||
+      isEqual(newPageSize, currentPageSize) ||
+      !isEqual(currentFilter, newFilter)
+
+    if (hasChanged) {
+      return NextResponse.redirect(url)
+    }
   }
 
   if (request.nextUrl.pathname.startsWith('/api/v1')) {

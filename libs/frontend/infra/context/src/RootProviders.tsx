@@ -25,10 +25,6 @@ export const RootProviders = ({
         preference,
         routerProps: {
           pathParams,
-          // Layout do not receive searchParams
-          //
-          // https://nextjs.org/docs/app/api-reference/file-conventions/layout#layouts-do-not-receive-searchparams
-          queryParams: {},
         },
         user,
       }),

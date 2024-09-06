@@ -48,8 +48,6 @@ export class PaginationService<T1 extends SupportedPaginationModel>
 
   @computed
   get totalPages() {
-    const router = this.routerService
-
     return Math.ceil(this.totalItems / this.routerService.pageSize)
   }
 
