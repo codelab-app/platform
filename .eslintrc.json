@@ -44,6 +44,11 @@
     "./scripts/eslint/.base.eslintrc.json"
   ],
   "settings": {
+    "tailwindcss": {
+      // "callees": ["classnames", "clsx", "ctl"],
+      // "config": "tailwind.config.js"
+      "config": "./tailwind.config.js"
+    },
     "react": {
       "version": "detect"
     },

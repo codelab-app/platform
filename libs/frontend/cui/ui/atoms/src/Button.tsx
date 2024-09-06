@@ -19,7 +19,7 @@ const buttonVariants = cva(
       },
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+          'text-primary-foreground bg-primary shadow hover:bg-primary/90',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         ghost: 'hover:bg-accent hover:text-accent-foreground',

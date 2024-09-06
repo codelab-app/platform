@@ -2,16 +2,16 @@ const colors = require('tailwindcss/colors')
 const path = require('path')
 // const { breakpoints } = require('./.codelab.js')
 
+const shadcnTailwindConfig = path.resolve(
+  __dirname,
+  'scripts/tailwind/shadcn.tailwind.config.js',
+)
+
 /**
  * This only works if `tailwind.config.js` & `postcss.config.js` are at the project root
  */
 module.exports = {
-  presets: [
-    require(path.resolve(
-      __dirname,
-      'scripts/tailwind/shadcn.tailwind.config.js',
-    )),
-  ],
+  presets: [require(shadcnTailwindConfig)],
   plugins: [],
   theme: {
     extend: {
@@ -31,12 +31,13 @@ module.exports = {
         '2/4': '50%',
         '3/4': '70%',
       },
-      colors: {
-        primary: colors.violet['700'],
-      },
-      // colors: ({ theme }) => ({
-      //   primary: theme('colors.violet')
-      // }),
+      colors: {},
+      // colors: ({ theme }) => {
+      //   console.log(theme.colors)
+      //   // return {
+      //   //   ...theme('colors'),
+      //   // }
+      // },
       screens: {
         laptop: '768px',
         tablet: '0px',
