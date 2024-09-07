@@ -42,14 +42,12 @@ const StyledFormField = styled(Form.Item)`
 
 export const RenderTypeField = connectField((props: RenderTypeProps) => {
   const { error, id, label, onChange, parentAtom } = props
-  const [menuOpened, setMenuOpened] = useState(false)
-  const [skipMenuClose, setSkipMenuClose] = useState(false)
-  const [showComponents, setShowComponents] = useState(true)
-  const [showAtoms, setShowAtoms] = useState(true)
+  const [menuState, setMenuState] = useState({ open: false, skipClose: false })
+  const [filters, setFilters] = useState({ atoms: true, components: true })
   const { atoms, components, loadOptionsIfNeeded } = useLoadOptions(parentAtom)
   const errorMessage = error?.message || components.error || atoms.error
-  const componentsToShow = showComponents ? components.value : []
-  const atomsToShow = showAtoms ? atoms.value : []
+  const componentsToShow = filters.components ? components.value : []
+  const atomsToShow = filters.atoms ? atoms.value : []
   const options = useRenderTypeSelectOptions(componentsToShow, atomsToShow)
 
   return (
@@ -72,10 +70,10 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
           onChange({ __typename, id: newId as string })
         }}
         onDropdownVisibleChange={(open) => {
-          !skipMenuClose && setMenuOpened(open)
+          !menuState.skipClose && setMenuState({ ...menuState, open })
           loadOptionsIfNeeded()
         }}
-        open={menuOpened}
+        open={menuState.open}
         optionFilterProp="text"
         optionRender={(option) => (
           // eslint-disable-next-line tailwindcss/no-custom-classname
@@ -92,31 +90,33 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
 
       <StyledButton
         onClick={() => {
-          showAtoms && setShowComponents(!showComponents)
-          setMenuOpened(true)
+          filters.atoms &&
+            setFilters({ ...filters, components: !filters.components })
+          setMenuState({ ...menuState, open: true })
           loadOptionsIfNeeded()
         }}
-        onMouseEnter={() => setSkipMenuClose(true)}
-        onMouseLeave={() => setSkipMenuClose(false)}
+        onMouseEnter={() => setMenuState({ ...menuState, skipClose: true })}
+        onMouseLeave={() => setMenuState({ ...menuState, skipClose: false })}
         style={{ borderRadius: 0 }}
-        type={showComponents ? 'primary' : 'default'}
+        type={filters.components ? 'primary' : 'default'}
       >
         <CodeSandboxOutlined />
       </StyledButton>
       <StyledButton
         onClick={() => {
-          showComponents && setShowAtoms(!showAtoms)
-          setMenuOpened(true)
+          filters.components &&
+            setFilters({ ...filters, atoms: !filters.atoms })
+          setMenuState({ ...menuState, open: true })
           loadOptionsIfNeeded()
         }}
-        onMouseEnter={() => setSkipMenuClose(true)}
-        onMouseLeave={() => setSkipMenuClose(false)}
+        onMouseEnter={() => setMenuState({ ...menuState, skipClose: true })}
+        onMouseLeave={() => setMenuState({ ...menuState, skipClose: false })}
         style={{
           borderBottomLeftRadius: 0,
           borderLeft: 0,
           borderTopLeftRadius: 0,
         }}
-        type={showAtoms ? 'primary' : 'default'}
+        type={filters.atoms ? 'primary' : 'default'}
       >
         <DeploymentUnitOutlined />
       </StyledButton>
