@@ -1,4 +1,6 @@
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { breakpoints } from '@codelab/frontend/shared/style'
+import { usePreferenceService } from '@codelab/frontend-application-preference/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef } from 'react'
 import type { Side } from '../../sections/content/builder-resize-controller'
@@ -6,7 +8,10 @@ import { builderResizeController } from '../../sections/content/builder-resize-c
 
 const useResizer = ({ side }: { side: Side }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const { builderService } = useApplicationStore()
+  const { preferenceDomainService } = useDomainStore()
+  const { update } = usePreferenceService()
+  const preference = preferenceDomainService.preference
+  const breakpoint = preference.builderBreakpoint
 
   useEffect(() => {
     if (ref.current === null) {
@@ -14,23 +19,16 @@ const useResizer = ({ side }: { side: Side }) => {
     }
 
     const disposeResizeController = builderResizeController(ref.current, {
-      getDefaultValue: () => builderService.selectedBuilderWidth.default,
+      getDefaultValue: () => breakpoint.default,
 
-      getMaxValue: () =>
-        Math.min(
-          builderService.builderContainerWidth,
-          builderService.selectedBuilderWidth.max,
-        ),
+      getMaxValue: () => breakpoint.max,
 
-      getMinValue: () => builderService.selectedBuilderWidth.min,
+      getMinValue: () => breakpoint.min,
 
       getSide: () => side,
 
-      onValueChanged: (value) => {
-        builderService.setSelectedBuilderWidth({
-          ...builderService.selectedBuilderWidth,
-          default: value,
-        })
+      onValueChanged: (builderWidth) => {
+        void update({ builderWidth, id: preference.id })
       },
     })
 

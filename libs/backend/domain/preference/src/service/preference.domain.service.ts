@@ -1,4 +1,4 @@
-import { IBreakpoint, IPreferenceDto } from '@codelab/shared/abstract/core'
+import { IBreakpointType, IPreferenceDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 import { PreferenceRepository } from '../repository'
@@ -9,8 +9,8 @@ export class PreferenceDomainService {
 
   async createInitialPreference({ owner }: Pick<IPreferenceDto, 'owner'>) {
     return this.preferenceRepository.add({
-      builderBreakpoint: IBreakpoint.Desktop,
-      builderWidth: 300,
+      builderBreakpointType: IBreakpointType.None,
+      builderWidth: -1,
       id: v4(),
       owner,
     })

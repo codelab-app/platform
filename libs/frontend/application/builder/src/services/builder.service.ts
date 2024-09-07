@@ -10,14 +10,10 @@ import {
   isRuntimePage,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import type { BuilderWidth } from '@codelab/frontend/abstract/domain'
 import {
-  BuilderWidthBreakPoint,
-  defaultBuilderWidthBreakPoints,
   getAtomDomainService,
+  getPreferenceDomainService,
   getTagDomainService,
-  getUserDomainService,
-  isComponentRef,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
@@ -30,7 +26,6 @@ export const COMPONENT_TAG_NAME = 'Component'
 @model('@codelab/BuilderService')
 export class BuilderService
   extends Model({
-    builderContainerWidth: prop<number>(() => 0).withSetter(),
     hoveredNode: prop<Nullable<Ref<IRuntimeModel>>>().withSetter(),
     selectedNode: prop<Nullable<Ref<IRuntimeModel>>>().withSetter(),
   })
@@ -120,84 +115,22 @@ export class BuilderService
 
   @computed
   get expandedElementTreeNodeIds() {
-    const treeViewNode = this.activeElementTree?.treeViewNode
+    return []
+  }
 
-    if (
-      !treeViewNode ||
-      !this.activeContainer?.id ||
-      !treeViewNode.children[0]
-    ) {
-      return []
-    }
-
-    const containerPreferences = this.preferences.builder.get(
-      this.activeContainer.id,
-    )
-
-    const expandedNodes = containerPreferences?.explorerExpandedNodes
-
-    if (expandedNodes?.length) {
-      return expandedNodes
-    }
-
-    return isRuntimeComponent(this.activeElementTree)
-      ? [treeViewNode.children[0]?.key]
-      : [treeViewNode.key]
+  @computed
+  get preferenceDomainService() {
+    return getPreferenceDomainService(this)
   }
 
   @computed
   get preferences() {
-    const user = this.userDomainService.user
-
-    return user.preferences
-  }
-
-  @computed
-  get selectedBuilderBreakpoint() {
-    if (!this.activeContainer) {
-      return BuilderWidthBreakPoint.None
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    const containerPreferences = this.preferences.builder.get(containerId)
-
-    if (containerPreferences?.breakpoint) {
-      return containerPreferences.breakpoint
-    }
-
-    return BuilderWidthBreakPoint.MobilePortrait
-  }
-
-  @computed
-  get selectedBuilderWidth() {
-    if (!this.activeContainer) {
-      return defaultBuilderWidthBreakPoints['mobile-portrait']
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    const containerPreferences = this.preferences.builder.get(containerId)
-
-    if (containerPreferences?.width) {
-      return containerPreferences.width
-    }
-
-    return defaultBuilderWidthBreakPoints['mobile-portrait']
+    return this.preferenceDomainService.preference
   }
 
   @computed
   get tagDomainService() {
     return getTagDomainService(this)
-  }
-
-  @computed
-  get userDomainService() {
-    return getUserDomainService(this)
   }
 
   @modelAction
@@ -244,53 +177,7 @@ export class BuilderService
 
   @modelAction
   setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>) {
-    if (!this.activeContainer) {
-      return
-    }
-
-    this.preferences.setBuilderPreference(this.activeContainer.id, {
-      explorerExpandedNodes: expandedNodeIds,
-    })
-  }
-
-  @modelAction
-  setSelectedBuilderBreakpoint(breakpoint: BuilderWidthBreakPoint) {
-    if (!this.activeContainer) {
-      return
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    this.preferences.setBuilderPreference(containerId, { breakpoint })
-  }
-
-  @modelAction
-  setSelectedBuilderWidth(width: BuilderWidth) {
-    const _selectedBuilderWidth = {
-      default:
-        width.default < 0
-          ? Math.max(width.min, this.builderContainerWidth)
-          : width.default,
-      max:
-        width.max < 0
-          ? Math.max(width.min, this.builderContainerWidth)
-          : width.max,
-      min: width.min,
-    }
-
-    if (!this.activeContainer) {
-      return
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    this.preferences.setBuilderPreference(containerId, {
-      width: _selectedBuilderWidth,
-    })
+    // some empty function
   }
 
   findNodesToExpand(

@@ -66,7 +66,7 @@ const documents = {
     types.PageDevelopmentFragmentDoc,
   '\n  fragment PageProduction on Page {\n    app {\n      id\n    }\n    elements {\n      ...ElementProduction\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    slug\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n':
     types.PageProductionFragmentDoc,
-  '\n  fragment Preference on Preference {\n    id\n    builderBreakpoint\n    builderWidth\n    owner {\n      id\n    }\n  }\n':
+  '\n  fragment Preference on Preference {\n    id\n    builderBreakpointType\n    builderWidth\n    owner {\n      id\n    }\n  }\n':
     types.PreferenceFragmentDoc,
   '\n  fragment Prop on Prop {\n    data\n    id\n  }\n': types.PropFragmentDoc,
   '\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n':
@@ -570,8 +570,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Preference on Preference {\n    id\n    builderBreakpoint\n    builderWidth\n    owner {\n      id\n    }\n  }\n',
-): (typeof documents)['\n  fragment Preference on Preference {\n    id\n    builderBreakpoint\n    builderWidth\n    owner {\n      id\n    }\n  }\n']
+  source: '\n  fragment Preference on Preference {\n    id\n    builderBreakpointType\n    builderWidth\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment Preference on Preference {\n    id\n    builderBreakpointType\n    builderWidth\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

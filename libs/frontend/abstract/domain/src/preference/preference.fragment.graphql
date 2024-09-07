@@ -1,6 +1,6 @@
 fragment Preference on Preference {
   id
-  builderBreakpoint
+  builderBreakpointType
   builderWidth
   owner {
     id

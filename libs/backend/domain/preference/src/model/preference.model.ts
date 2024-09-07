@@ -1,13 +1,13 @@
 import { IModel } from '@codelab/backend/abstract/types'
 import type {
-  IBreakpoint,
+  IBreakpointType,
   IPreference,
   IPreferenceDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 
 export class Preference extends IModel implements IPreference {
-  builderBreakpoint: IBreakpoint
+  builderBreakpointType: IBreakpointType
 
   builderWidth: number
 
@@ -15,10 +15,15 @@ export class Preference extends IModel implements IPreference {
 
   owner: IRef
 
-  constructor({ builderBreakpoint, builderWidth, id, owner }: IPreferenceDto) {
+  constructor({
+    builderBreakpointType,
+    builderWidth,
+    id,
+    owner,
+  }: IPreferenceDto) {
     super()
 
-    this.builderBreakpoint = builderBreakpoint
+    this.builderBreakpointType = builderBreakpointType
     this.builderWidth = builderWidth
     this.id = id
     this.owner = owner

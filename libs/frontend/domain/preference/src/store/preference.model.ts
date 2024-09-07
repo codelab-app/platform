@@ -3,7 +3,12 @@ import {
   IUserModel,
   userRef,
 } from '@codelab/frontend/abstract/domain'
-import { IBreakpoint, type IPreferenceDto } from '@codelab/shared/abstract/core'
+import { IBreakpoint } from '@codelab/frontend/abstract/types'
+import { breakpoints } from '@codelab/frontend/shared/style'
+import {
+  IBreakpointType,
+  type IPreferenceDto,
+} from '@codelab/shared/abstract/core'
 import type {
   PreferenceCreateInput,
   PreferenceDeleteInput,
@@ -13,13 +18,13 @@ import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 
 const create = ({
-  builderBreakpoint,
+  builderBreakpointType,
   builderWidth,
   id,
   owner,
 }: IPreferenceDto) => {
   return new Preference({
-    builderBreakpoint,
+    builderBreakpointType,
     builderWidth,
     id,
     owner: userRef(owner.id),
@@ -29,7 +34,7 @@ const create = ({
 @model('@codelab/Preference')
 export class Preference
   extends Model({
-    builderBreakpoint: prop<IBreakpoint>(),
+    builderBreakpointType: prop<IBreakpointType>(),
     builderWidth: prop<number>(),
     id: idProp,
     owner: prop<Ref<IUserModel>>(),
@@ -43,10 +48,15 @@ export class Preference
   }
 
   @computed
+  get builderBreakpoint(): IBreakpoint {
+    return breakpoints[this.builderBreakpointType]
+  }
+
+  @computed
   get toJson() {
     return {
       $modelType: 'serialized' as const,
-      builderBreakpoint: this.builderBreakpoint,
+      builderBreakpointType: this.builderBreakpointType,
       builderWidth: this.builderWidth,
       id: this.id,
       owner: this.owner.current.toJson,
@@ -54,16 +64,22 @@ export class Preference
   }
 
   @modelAction
-  writeCache({ builderBreakpoint, builderWidth }: Partial<IPreferenceDto>) {
-    this.builderBreakpoint = builderBreakpoint ?? this.builderBreakpoint
-    this.builderWidth = builderWidth ?? this.builderWidth
+  writeCache({ builderBreakpointType, builderWidth }: Partial<IPreferenceDto>) {
+    this.builderBreakpointType =
+      builderBreakpointType ?? this.builderBreakpointType
+
+    // when breakpoint changes set width to default
+    this.builderWidth =
+      !builderWidth && builderBreakpointType
+        ? this.builderBreakpoint.default
+        : builderWidth ?? this.builderWidth
 
     return this
   }
 
   toCreateInput(): PreferenceCreateInput {
     return {
-      builderBreakpoint: this.builderBreakpoint,
+      builderBreakpointType: this.builderBreakpointType,
       builderWidth: this.builderWidth,
       id: this.id,
     }
@@ -71,7 +87,7 @@ export class Preference
 
   toUpdateInput(): PreferenceUpdateInput {
     return {
-      builderBreakpoint: this.builderBreakpoint,
+      builderBreakpointType: this.builderBreakpointType,
       builderWidth: this.builderWidth,
     }
   }

@@ -5969,7 +5969,7 @@ input BaseTypesWhere {
   name: String
 }
 
-enum Breakpoint {
+enum BreakpointType {
   Desktop
   MobileLandscape
   MobilePortrait
@@ -17178,7 +17178,7 @@ type PagesConnection {
 }
 
 type Preference implements WithOwner {
-  builderBreakpoint: Breakpoint!
+  builderBreakpointType: BreakpointType!
   builderWidth: Float!
   id: ID!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
@@ -17222,7 +17222,7 @@ type PreferenceConnectedRelationships {
 }
 
 input PreferenceCreateInput {
-  builderBreakpoint: Breakpoint!
+  builderBreakpointType: BreakpointType!
   builderWidth: Float!
   id: ID!
   owner: WithOwnerOwnerFieldInput
@@ -17254,13 +17254,13 @@ type PreferenceEdge {
 }
 
 type PreferenceEventPayload {
-  builderBreakpoint: Breakpoint!
+  builderBreakpointType: BreakpointType!
   builderWidth: Float!
   id: ID!
 }
 
 input PreferenceOnCreateInput {
-  builderBreakpoint: Breakpoint!
+  builderBreakpointType: BreakpointType!
   builderWidth: Float!
   id: ID!
 }
@@ -17390,7 +17390,7 @@ input PreferenceRelationshipsSubscriptionWhere {
 Fields to sort Preferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one PreferenceSort object.
 """
 input PreferenceSort {
-  builderBreakpoint: SortDirection
+  builderBreakpointType: SortDirection
   builderWidth: SortDirection
   id: SortDirection
 }
@@ -17399,8 +17399,8 @@ input PreferenceSubscriptionWhere {
   AND: [PreferenceSubscriptionWhere!]
   NOT: PreferenceSubscriptionWhere
   OR: [PreferenceSubscriptionWhere!]
-  builderBreakpoint: Breakpoint
-  builderBreakpoint_IN: [Breakpoint]
+  builderBreakpointType: BreakpointType
+  builderBreakpointType_IN: [BreakpointType]
   builderWidth: Float
   builderWidth_GT: Float
   builderWidth_GTE: Float
@@ -17419,7 +17419,7 @@ input PreferenceUniqueWhere {
 }
 
 input PreferenceUpdateInput {
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Float
   builderWidth_ADD: Float
   builderWidth_DIVIDE: Float
@@ -17452,8 +17452,8 @@ input PreferenceWhere {
   AND: [PreferenceWhere!]
   NOT: PreferenceWhere
   OR: [PreferenceWhere!]
-  builderBreakpoint: Breakpoint
-  builderBreakpoint_IN: [Breakpoint!]
+  builderBreakpointType: BreakpointType
+  builderBreakpointType_IN: [BreakpointType!]
   builderWidth: Float
   builderWidth_GT: Float
   builderWidth_GTE: Float

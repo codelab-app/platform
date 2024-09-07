@@ -3,11 +3,9 @@
 import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import MobileOutlined from '@ant-design/icons/MobileOutlined'
 import TabletOutlined from '@ant-design/icons/TabletOutlined'
-import {
-  BuilderWidthBreakPoint,
-  defaultBuilderWidthBreakPoints,
-} from '@codelab/frontend/abstract/domain'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { usePreferenceService } from '@codelab/frontend-application-preference/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { IBreakpointType } from '@codelab/shared/abstract/core'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/interface'
 import React, { useCallback } from 'react'
@@ -35,30 +33,28 @@ const menuItemCommonStyle = {
 }
 
 export const BuilderResizeMenu = () => {
-  const { builderService } = useApplicationStore()
-  const selectedWidthBreakpoint = builderService.selectedBuilderBreakpoint
+  const { preferenceDomainService } = useDomainStore()
+  const preference = preferenceDomainService.preference
+  const breakpoint = preference.builderBreakpoint
+  const { update } = usePreferenceService()
 
   const handleBreakpointSelected = useCallback(
-    (breakpoint: BuilderWidthBreakPoint) => {
-      builderService.setSelectedBuilderBreakpoint(breakpoint)
-      builderService.setSelectedBuilderWidth(
-        defaultBuilderWidthBreakPoints[breakpoint],
-      )
+    (builderBreakpointType: IBreakpointType) => {
+      void update({ builderBreakpointType, id: preference.id })
     },
     [],
   )
 
   const menuItems: Array<MenuItemProps> = [
     {
-      key: BuilderWidthBreakPoint.MobilePortrait,
+      key: IBreakpointType.MobilePortrait,
       label: (
         <MenuIconContainer>
           <MobileOutlined className="h-full" />
         </MenuIconContainer>
       ),
 
-      onClick: () =>
-        handleBreakpointSelected(BuilderWidthBreakPoint.MobilePortrait),
+      onClick: () => handleBreakpointSelected(IBreakpointType.MobilePortrait),
       style: menuItemCommonStyle,
       title: 'Mobile portrait',
     },
@@ -68,9 +64,8 @@ export const BuilderResizeMenu = () => {
           <MobileOutlined rotate={-90} />
         </MenuIconContainer>
       ),
-      key: BuilderWidthBreakPoint.MobileLandscape,
-      onClick: () =>
-        handleBreakpointSelected(BuilderWidthBreakPoint.MobileLandscape),
+      key: IBreakpointType.MobileLandscape,
+      onClick: () => handleBreakpointSelected(IBreakpointType.MobileLandscape),
       style: menuItemCommonStyle,
       title: 'Mobile landscape',
     },
@@ -80,8 +75,8 @@ export const BuilderResizeMenu = () => {
           <TabletOutlined />
         </MenuIconContainer>
       ),
-      key: BuilderWidthBreakPoint.Tablet,
-      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoint.Tablet),
+      key: IBreakpointType.Tablet,
+      onClick: () => handleBreakpointSelected(IBreakpointType.Tablet),
       style: menuItemCommonStyle,
       title: 'tablet',
     },
@@ -91,9 +86,9 @@ export const BuilderResizeMenu = () => {
           <DesktopOutlined />
         </MenuIconContainer>
       ),
-      key: BuilderWidthBreakPoint.Desktop,
+      key: IBreakpointType.Desktop,
       label: false,
-      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoint.Desktop),
+      onClick: () => handleBreakpointSelected(IBreakpointType.Desktop),
       style: menuItemCommonStyle,
       title: 'desktop',
     },
@@ -111,7 +106,7 @@ export const BuilderResizeMenu = () => {
           }))}
         mode="horizontal"
         selectable={false}
-        selectedKeys={[selectedWidthBreakpoint]}
+        selectedKeys={[preference.builderBreakpointType]}
         style={{
           blockSize: '100%',
         }}
@@ -122,16 +117,16 @@ export const BuilderResizeMenu = () => {
       <Space direction="horizontal" size="small">
         <InputNumber
           controls={false}
-          max={builderService.selectedBuilderWidth.max}
-          min={builderService.selectedBuilderWidth.min}
+          max={breakpoint.max}
+          min={breakpoint.min}
           onChange={(value) =>
-            builderService.setSelectedBuilderWidth({
-              ...builderService.selectedBuilderWidth,
-              default: Number(value),
+            void update({
+              builderWidth: Number(value),
+              id: preference.id,
             })
           }
           size="small"
-          value={builderService.selectedBuilderWidth.default}
+          value={breakpoint.default}
         />
         <span>px</span>
       </Space>

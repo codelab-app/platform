@@ -1902,7 +1902,7 @@ export enum AtomType {
   NextLink = 'NextLink',
 }
 
-export enum Breakpoint {
+export enum BreakpointType {
   Desktop = 'Desktop',
   MobilePortrait = 'MobilePortrait',
   MobileLandscape = 'MobileLandscape',
@@ -6044,7 +6044,7 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
 export type Preference = WithOwner & {
   __typename: 'Preference'
   id: Scalars['ID']['output']
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['output']
   ownerAggregate?: Maybe<PreferenceUserOwnerAggregationSelection>
   owner: User
@@ -26315,7 +26315,7 @@ export type PreferenceConnectWhere = {
 
 export type PreferenceCreateInput = {
   id: Scalars['ID']['input']
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
 }
@@ -26330,7 +26330,7 @@ export type PreferenceDisconnectInput = {
 
 export type PreferenceOnCreateInput = {
   id: Scalars['ID']['input']
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['input']
 }
 
@@ -26533,7 +26533,7 @@ export type PreferenceRelationInput = {
 /** Fields to sort Preferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one PreferenceSort object. */
 export type PreferenceSort = {
   id?: InputMaybe<SortDirection>
-  builderBreakpoint?: InputMaybe<SortDirection>
+  builderBreakpointType?: InputMaybe<SortDirection>
   builderWidth?: InputMaybe<SortDirection>
 }
 
@@ -26543,7 +26543,7 @@ export type PreferenceUniqueWhere = {
 
 export type PreferenceUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
-  builderBreakpoint?: InputMaybe<Breakpoint>
+  builderBreakpointType?: InputMaybe<BreakpointType>
   builderWidth?: InputMaybe<Scalars['Float']['input']>
   builderWidth_ADD?: InputMaybe<Scalars['Float']['input']>
   builderWidth_SUBTRACT?: InputMaybe<Scalars['Float']['input']>
@@ -26569,12 +26569,12 @@ export type PreferenceWhere = {
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
-  builderBreakpoint?: InputMaybe<Breakpoint>
+  builderBreakpointType?: InputMaybe<BreakpointType>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  builderBreakpoint_NOT?: InputMaybe<Breakpoint>
-  builderBreakpoint_IN?: InputMaybe<Array<Breakpoint>>
+  builderBreakpointType_NOT?: InputMaybe<BreakpointType>
+  builderBreakpointType_IN?: InputMaybe<Array<BreakpointType>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  builderBreakpoint_NOT_IN?: InputMaybe<Array<Breakpoint>>
+  builderBreakpointType_NOT_IN?: InputMaybe<Array<BreakpointType>>
   builderWidth?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   builderWidth_NOT?: InputMaybe<Scalars['Float']['input']>

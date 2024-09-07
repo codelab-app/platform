@@ -38,8 +38,8 @@ export class PreferenceRepository extends AbstractRepository<
         await this.ogmService.Preference
       ).create({
         input: preferences.map(
-          ({ builderBreakpoint, builderWidth, id, owner }) => ({
-            builderBreakpoint,
+          ({ builderBreakpointType, builderWidth, id, owner }) => ({
+            builderBreakpointType,
             builderWidth,
             id,
             owner: connectOwner(owner),
@@ -67,7 +67,7 @@ export class PreferenceRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { builderBreakpoint, builderWidth }: IPreferenceDto,
+    { builderBreakpointType, builderWidth }: IPreferenceDto,
     where: PreferenceWhere,
   ) {
     return (
@@ -75,7 +75,7 @@ export class PreferenceRepository extends AbstractRepository<
         await this.ogmService.Preference
       ).update({
         update: {
-          builderBreakpoint,
+          builderBreakpointType,
           builderWidth,
         },
         where,

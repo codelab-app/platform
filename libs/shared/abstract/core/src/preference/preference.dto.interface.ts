@@ -1,7 +1,7 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { OwnerSchema } from '../user'
-import { IBreakpoint } from './breakpoint.enum'
+import { IBreakpointType } from './breakpoint-type.enum'
 
 export const PreferenceDtoSchema = Type.Composite([
   /**
@@ -9,7 +9,7 @@ export const PreferenceDtoSchema = Type.Composite([
    */
   OwnerSchema,
   Type.Object({
-    builderBreakpoint: Type.Enum(IBreakpoint),
+    builderBreakpointType: Type.Enum(IBreakpointType),
     builderWidth: Type.Number(),
     id: Type.String(),
   }),

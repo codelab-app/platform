@@ -1,5 +1,6 @@
+import type { IBreakpoint } from '@codelab/frontend/abstract/types'
 import type {
-  IBreakpoint,
+  IBreakpointType,
   IPreference,
   IPreferenceDto,
 } from '@codelab/shared/abstract/core'
@@ -21,6 +22,7 @@ export interface IPreferenceModel
     >,
     ICacheService<IPreferenceDto, IPreferenceModel> {
   builderBreakpoint: IBreakpoint
+  builderBreakpointType: IBreakpointType
   builderWidth: number
   id: string
   owner: Ref<IUserModel>

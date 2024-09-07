@@ -1,2 +1,2 @@
-export * from './breakpoint.enum'
+export * from './breakpoint-type.enum'
 export * from './preference.dto.interface'

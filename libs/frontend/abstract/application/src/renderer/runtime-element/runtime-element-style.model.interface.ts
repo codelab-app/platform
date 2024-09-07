@@ -1,4 +1,4 @@
-import type { BuilderWidthBreakPoint } from '@codelab/frontend/abstract/domain'
+import type { IBreakpointType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
 export enum ElementStylePseudoClass {
@@ -13,7 +13,7 @@ export interface IBreakpointStyle {
 }
 
 export type IElementStyle = Record<
-  BuilderWidthBreakPoint,
+  IBreakpointType,
   IBreakpointStyle | undefined
 >
 
@@ -26,7 +26,7 @@ export interface CssMap {
 }
 
 export interface IRuntimeElementStyleModel {
-  breakpointsByPrecedence: Array<BuilderWidthBreakPoint>
+  breakpointsByPrecedence: Array<IBreakpointType>
   /**
    * a style added by the builder behind the scenes
    * main use case set element min height for text editor to be visible on editing

@@ -3,6 +3,6 @@
  *
  * We don't set a role for regular users
  */
-import { Breakpoint } from '@codelab/shared/infra/gql'
+import { BreakpointType } from '@codelab/shared/infra/gql'
 
-export { Breakpoint as IBreakpoint }
+export { BreakpointType as IBreakpointType }

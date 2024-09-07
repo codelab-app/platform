@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 import { authOwnerOrAdmin } from './user.schema'
 
 export const preferenceSchema = gql`
-  enum Breakpoint {
+  enum BreakpointType {
     Desktop
     MobilePortrait
     MobileLandscape
@@ -13,7 +13,7 @@ export const preferenceSchema = gql`
 
   type Preference implements WithOwner ${authOwnerOrAdmin}{
     id: ID! @unique
-    builderBreakpoint: Breakpoint!
+    builderBreakpointType: BreakpointType!
     builderWidth: Float!
     owner: User!
   }

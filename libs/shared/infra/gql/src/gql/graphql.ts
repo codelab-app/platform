@@ -6024,7 +6024,7 @@ export type BaseTypesWhere = {
   name?: InputMaybe<Scalars['String']['input']>
 }
 
-export enum Breakpoint {
+export enum BreakpointType {
   Desktop = 'Desktop',
   MobileLandscape = 'MobileLandscape',
   MobilePortrait = 'MobilePortrait',
@@ -17772,7 +17772,7 @@ export type PagesConnection = {
 }
 
 export type Preference = WithOwner & {
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['output']
   id: Scalars['ID']['output']
   owner: User
@@ -17826,7 +17826,7 @@ export type PreferenceConnectedRelationships = {
 }
 
 export type PreferenceCreateInput = {
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['input']
   id: Scalars['ID']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
@@ -17858,13 +17858,13 @@ export type PreferenceEdge = {
 }
 
 export type PreferenceEventPayload = {
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['output']
   id: Scalars['ID']['output']
 }
 
 export type PreferenceOnCreateInput = {
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['input']
   id: Scalars['ID']['input']
 }
@@ -17989,7 +17989,7 @@ export type PreferenceRelationshipsSubscriptionWhere = {
 
 /** Fields to sort Preferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one PreferenceSort object. */
 export type PreferenceSort = {
-  builderBreakpoint?: InputMaybe<SortDirection>
+  builderBreakpointType?: InputMaybe<SortDirection>
   builderWidth?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
 }
@@ -17998,8 +17998,8 @@ export type PreferenceSubscriptionWhere = {
   AND?: InputMaybe<Array<PreferenceSubscriptionWhere>>
   NOT?: InputMaybe<PreferenceSubscriptionWhere>
   OR?: InputMaybe<Array<PreferenceSubscriptionWhere>>
-  builderBreakpoint?: InputMaybe<Breakpoint>
-  builderBreakpoint_IN?: InputMaybe<Array<InputMaybe<Breakpoint>>>
+  builderBreakpointType?: InputMaybe<BreakpointType>
+  builderBreakpointType_IN?: InputMaybe<Array<InputMaybe<BreakpointType>>>
   builderWidth?: InputMaybe<Scalars['Float']['input']>
   builderWidth_GT?: InputMaybe<Scalars['Float']['input']>
   builderWidth_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -18018,7 +18018,7 @@ export type PreferenceUniqueWhere = {
 }
 
 export type PreferenceUpdateInput = {
-  builderBreakpoint?: InputMaybe<Breakpoint>
+  builderBreakpointType?: InputMaybe<BreakpointType>
   builderWidth?: InputMaybe<Scalars['Float']['input']>
   builderWidth_ADD?: InputMaybe<Scalars['Float']['input']>
   builderWidth_DIVIDE?: InputMaybe<Scalars['Float']['input']>
@@ -18051,8 +18051,8 @@ export type PreferenceWhere = {
   AND?: InputMaybe<Array<PreferenceWhere>>
   NOT?: InputMaybe<PreferenceWhere>
   OR?: InputMaybe<Array<PreferenceWhere>>
-  builderBreakpoint?: InputMaybe<Breakpoint>
-  builderBreakpoint_IN?: InputMaybe<Array<Breakpoint>>
+  builderBreakpointType?: InputMaybe<BreakpointType>
+  builderBreakpointType_IN?: InputMaybe<Array<BreakpointType>>
   builderWidth?: InputMaybe<Scalars['Float']['input']>
   builderWidth_GT?: InputMaybe<Scalars['Float']['input']>
   builderWidth_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -27500,7 +27500,7 @@ export type PageProductionFragment = {
 
 export type PreferenceFragment = {
   id: string
-  builderBreakpoint: Breakpoint
+  builderBreakpointType: BreakpointType
   builderWidth: number
   owner: { id: string }
 }
@@ -33154,7 +33154,7 @@ export const PreferenceFragmentDoc = new TypedDocumentString(
   `
     fragment Preference on Preference {
   id
-  builderBreakpoint
+  builderBreakpointType
   builderWidth
   owner {
     id
@@ -33180,7 +33180,7 @@ export const UserFragmentDoc = new TypedDocumentString(
 }
     fragment Preference on Preference {
   id
-  builderBreakpoint
+  builderBreakpointType
   builderWidth
   owner {
     id
@@ -36173,7 +36173,7 @@ export const GetPreferencesDocument = new TypedDocumentString(`
 }
     fragment Preference on Preference {
   id
-  builderBreakpoint
+  builderBreakpointType
   builderWidth
   owner {
     id
@@ -39234,7 +39234,7 @@ export const GetUsersDocument = new TypedDocumentString(`
 }
     fragment Preference on Preference {
   id
-  builderBreakpoint
+  builderBreakpointType
   builderWidth
   owner {
     id
