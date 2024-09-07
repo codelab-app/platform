@@ -1,5 +1,5 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
-import { Tooltip } from 'antd'
+import { Button, Tooltip } from 'antd'
 import type { ReactNode } from 'react'
 import React from 'react'
 import type { ToolbarItem } from '../../abstract'
@@ -16,44 +16,15 @@ export const CuiPopoverToolbarItem = ({
   title,
 }: CuiPopoverToolbarItemProps) => {
   return (
-    <button
-      className="
-        size-full
-        cursor-pointer
-      "
-      data-cy={Cui.cuiToolbarItem(cuiKey)}
-      onClick={onClick}
-    >
-      <Tooltip title={title}>
-        <div
-          className="
-            flex
-            size-full
-            flex-col
-            items-center
-            justify-center
-            px-1
-          "
-        >
-          <div
-            className="
-              group
-              flex
-              h-5/6
-              flex-row
-              items-center
-              justify-center
-              rounded-md
-              bg-neutral-300
-              text-neutral-900
-              hover:bg-neutral-400
-            "
-          >
-            {icon && <div className="box-border p-2">{icon}</div>}
-            {label && <span className="box-border p-2">{label}</span>}
-          </div>
-        </div>
-      </Tooltip>
-    </button>
+    <Tooltip title={title}>
+      <Button
+        data-cy={Cui.cuiToolbarItem(cuiKey)}
+        icon={icon}
+        onClick={onClick}
+        type="text"
+      >
+        {label}
+      </Button>
+    </Tooltip>
   )
 }

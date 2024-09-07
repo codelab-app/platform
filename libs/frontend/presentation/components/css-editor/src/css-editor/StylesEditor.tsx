@@ -1,7 +1,13 @@
 import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
 import { ElementStylePseudoClass } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { Collapse, ConfigProvider, Select, Typography } from 'antd'
+import {
+  Collapse,
+  type CollapseProps,
+  ConfigProvider,
+  Select,
+  Typography,
+} from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { BackgroundEditor } from '../background'
@@ -13,7 +19,6 @@ import { SizeEditor } from '../size'
 import { SpacingEditor } from '../spacing'
 import { TypographyEditor } from '../typography'
 
-const { Panel } = Collapse
 const CONTROL_FONT_SIZE = 12
 
 const panelHeader = (title: string) => {
@@ -23,6 +28,57 @@ const panelHeader = (title: string) => {
 export const StylesEditor = observer(() => {
   const className = '[&>*:first-child]:bg-gray-100 [&>*:first-child]:!py-1.5'
   const { runtimeElementService } = useApplicationStore()
+
+  const items: CollapseProps['items'] = [
+    {
+      children: <DisplayEditor />,
+      className,
+      key: '1',
+      label: panelHeader('Layout'),
+    },
+    {
+      children: <SpacingEditor />,
+      className,
+      key: '2',
+      label: panelHeader('Spacing'),
+    },
+    {
+      children: <SizeEditor />,
+      className,
+      key: '3',
+      label: panelHeader('Size'),
+    },
+    {
+      children: <PositionEditor />,
+      className,
+      key: '4',
+      label: panelHeader('Position'),
+    },
+    {
+      children: <TypographyEditor />,
+      className,
+      key: '5',
+      label: panelHeader('Typography'),
+    },
+    {
+      children: <BackgroundEditor />,
+      className,
+      key: '6',
+      label: panelHeader('Backgrounds'),
+    },
+    {
+      children: <BorderEditor />,
+      className,
+      key: '7',
+      label: panelHeader('Borders'),
+    },
+    {
+      children: <EffectsEditor />,
+      className,
+      key: '8',
+      label: panelHeader('Effects'),
+    },
+  ]
 
   return (
     <ConfigProvider
@@ -63,37 +119,9 @@ export const StylesEditor = observer(() => {
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
+        items={items}
         size="small"
-      >
-        <Panel className={className} header={panelHeader('Layout')} key="1">
-          <DisplayEditor />
-        </Panel>
-        <Panel className={className} header={panelHeader('Spacing')} key="2">
-          <SpacingEditor />
-        </Panel>
-        <Panel className={className} header={panelHeader('Size')} key="3">
-          <SizeEditor />
-        </Panel>
-        <Panel className={className} header={panelHeader('Position')} key="4">
-          <PositionEditor />
-        </Panel>
-        <Panel className={className} header={panelHeader('Typography')} key="5">
-          <TypographyEditor />
-        </Panel>
-        <Panel
-          className={className}
-          header={panelHeader('Backgrounds')}
-          key="6"
-        >
-          <BackgroundEditor />
-        </Panel>
-        <Panel className={className} header={panelHeader('Borders')} key="7">
-          <BorderEditor />
-        </Panel>
-        <Panel className={className} header={panelHeader('Effects')} key="8">
-          <EffectsEditor />
-        </Panel>
-      </Collapse>
+      ></Collapse>
     </ConfigProvider>
   )
 })

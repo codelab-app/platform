@@ -13,15 +13,14 @@ export const metadata: Metadata = {
 }
 
 const ComponentBuilderPage = async ({
-  params: { componentSlug },
+  params: { componentId },
 }: {
   params: {
-    componentSlug: string
+    componentId: string
   }
 }) => {
   const user = await getServerUser()
-  const componentName = getNameFromSlug(componentSlug)
-  const dto = await componentBuilderQuery({ componentName })
+  const dto = await componentBuilderQuery({ componentId })
 
   return (
     <DomainStoreHydrator
@@ -36,10 +35,7 @@ const ComponentBuilderPage = async ({
       storesDto={dto.stores}
       typesDto={dto.types}
     >
-      <ComponentBuilder
-        RootRenderer={RootRenderer}
-        componentSlug={componentSlug}
-      />
+      <ComponentBuilder RootRenderer={RootRenderer} componentId={componentId} />
     </DomainStoreHydrator>
   )
 }

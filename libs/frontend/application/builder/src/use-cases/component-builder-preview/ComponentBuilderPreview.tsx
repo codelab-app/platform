@@ -11,15 +11,15 @@ import { BaseBuilder } from '../base-builder'
 
 interface IComponentBuilderPreviewProps {
   RootRenderer: IRootRenderer
-  componentSlug: string
+  componentId: string
 }
 
 export const ComponentBuilderPreview = ({
-  componentSlug,
+  componentId,
   RootRenderer,
 }: IComponentBuilderPreviewProps) => {
   const { componentDomainService } = useDomainStore()
-  const component = componentDomainService.findBySlug(componentSlug)
+  const component = componentDomainService.component(componentId)
 
   const { renderer } = useInitializeBuilder({
     containerNode: component,

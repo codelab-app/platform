@@ -12,16 +12,16 @@ import { BaseBuilder } from '../base-builder'
 
 interface IComponentBuilderProps {
   RootRenderer: IRootRenderer
-  componentSlug: string
+  componentId: string
 }
 
 /**
  * Generic builder used for both Component & Element
  */
 export const ComponentBuilder = observer<IComponentBuilderProps>(
-  ({ componentSlug, RootRenderer }) => {
+  ({ componentId, RootRenderer }) => {
     const { componentDomainService } = useDomainStore()
-    const component = componentDomainService.findBySlug(componentSlug)
+    const component = componentDomainService.component(componentId)
 
     const { renderer } = useInitializeBuilder({
       containerNode: component,

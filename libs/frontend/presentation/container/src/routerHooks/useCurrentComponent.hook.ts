@@ -1,6 +1,5 @@
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 import { useMemo } from 'react'
 
 export const useCurrentComponent = () => {
@@ -8,12 +7,6 @@ export const useCurrentComponent = () => {
   const { componentId } = useUrlPathParams()
 
   return useMemo(() => {
-    const component = componentDomainService.componentList.find(
-      ({ id }) => id === componentId,
-    )
-
-    Validator.assertsDefined(component)
-
-    return component
-  }, [componentId, componentDomainService.componentList])
+    return componentId ? componentDomainService.component(componentId) : null
+  }, [componentId, componentDomainService])
 }

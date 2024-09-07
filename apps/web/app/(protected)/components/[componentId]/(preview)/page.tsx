@@ -13,15 +13,14 @@ export const metadata: Metadata = {
 }
 
 const ComponentPreviewPage = async ({
-  params: { componentSlug },
+  params: { componentId },
 }: {
   params: {
-    componentSlug: string
+    componentId: string
   }
 }) => {
   const user = await getServerUser()
-  const componentName = getNameFromSlug(componentSlug)
-  const dto = await componentBuilderQuery({ componentName })
+  const dto = await componentBuilderQuery({ componentId })
 
   return (
     <DomainStoreHydrator
@@ -38,7 +37,7 @@ const ComponentPreviewPage = async ({
     >
       <ComponentBuilderPreview
         RootRenderer={RootRenderer}
-        componentSlug={componentSlug}
+        componentId={componentId}
       />
     </DomainStoreHydrator>
   )

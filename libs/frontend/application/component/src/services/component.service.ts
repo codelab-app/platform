@@ -51,7 +51,7 @@ export const useComponentService = (): IComponentService => {
 
   const remove = async (components: Array<IComponentModel>) => {
     const deleteComponent = async (component: IComponentModel) => {
-      const { id, name } = component
+      const { id } = component
       const rootElement = component.rootElement.maybeCurrent
 
       if (rootElement) {
@@ -61,7 +61,7 @@ export const useComponentService = (): IComponentService => {
       } else {
         // means we do not have root element and all the descendants on client side
         // need to get all descendant element IDs and delete them
-        const data = await componentBuilderQuery({ componentName: name })
+        const data = await componentBuilderQuery({ componentId: id })
         const elements = (data.component as ComponentBuilderFragment).elements
 
         await elementRepository.delete(elements)
