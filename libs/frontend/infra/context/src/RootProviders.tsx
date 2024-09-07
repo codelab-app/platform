@@ -7,20 +7,21 @@ import {
   createRootStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
-import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import { Provider } from 'jotai'
 import type { PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
 
 export const RootProviders = ({
   children,
+  preference,
   user,
-}: PropsWithChildren<{ user: IUserDto }>) => {
+}: PropsWithChildren<{ user: IUserDto; preference: IPreferenceDto }>) => {
   const pathParams = useUrlPathParams()
 
   const rootStore = useMemo(
     () =>
-      createRootStore(user, {
+      createRootStore(user, preference, {
         pathParams,
         // Layout do not receive searchParams
         //

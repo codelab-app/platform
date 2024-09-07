@@ -22,7 +22,7 @@ import {
   typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { IUserDto } from '@codelab/shared/abstract/core'
+import { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import {
   Model,
   model,
@@ -33,7 +33,11 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = (user: IUserDto, routerProps: IRouterProps) => {
+export const createRootStore = (
+  user: IUserDto,
+  preference: IPreferenceDto,
+  routerProps: IRouterProps,
+) => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })

@@ -27502,6 +27502,7 @@ export type PreferenceFragment = {
   id: string
   builderBreakpoint: Breakpoint
   builderWidth: number
+  owner: { id: string }
 }
 
 export type PropFragment = { data: string; id: string }
@@ -33155,6 +33156,9 @@ export const PreferenceFragmentDoc = new TypedDocumentString(
   id
   builderBreakpoint
   builderWidth
+  owner {
+    id
+  }
 }
     `,
   { fragmentName: 'Preference' },
@@ -33178,6 +33182,9 @@ export const UserFragmentDoc = new TypedDocumentString(
   id
   builderBreakpoint
   builderWidth
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
@@ -36168,6 +36175,9 @@ export const GetPreferencesDocument = new TypedDocumentString(`
   id
   builderBreakpoint
   builderWidth
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<
   GetPreferencesQuery,
   GetPreferencesQueryVariables
@@ -39226,6 +39236,9 @@ export const GetUsersDocument = new TypedDocumentString(`
   id
   builderBreakpoint
   builderWidth
+  owner {
+    id
+  }
 }
 fragment User on User {
   apps {

@@ -35,10 +35,13 @@ import {
   TypeDomainService,
 } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
-import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createDomainStore = (user: IUserDto) => {
+export const createDomainStore = (
+  user: IUserDto,
+  preference: IPreferenceDto,
+) => {
   @model('@codelab/DomainStore')
   class DomainStore
     extends Model({
@@ -67,8 +70,8 @@ export const createDomainStore = (user: IUserDto) => {
       pageDomainService: prop<IPageDomainService>(
         () => new PageDomainService({}),
       ),
-      preferenceDomainService: prop<IPreferenceDomainService>(
-        () => new PreferenceDomainService({}),
+      preferenceDomainService: prop<IPreferenceDomainService>(() =>
+        PreferenceDomainService.fromDto(preference),
       ),
       redirectDomainService: prop<IRedirectDomainService>(
         () => new RedirectDomainService({}),
