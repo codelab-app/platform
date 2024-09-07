@@ -62,7 +62,7 @@ export const ComponentDetailHeader = observer<IComponentDetailHeaderProps>(
     const directionItems = [
       { onClick: navigateAppsPage, title: app?.name },
       { title: 'Components' },
-      { onClick: navigateComponentsPanel, title: component.name },
+      { onClick: navigateComponentsPanel, title: component?.name },
     ]
 
     return (

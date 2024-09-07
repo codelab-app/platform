@@ -11,13 +11,13 @@ import type {
 import uniqBy from 'lodash/uniqBy'
 
 export const componentBuilderQuery: IComponentBuilderQuery = async ({
-  componentName,
+  componentId,
 }: IComponentBuilderArgs) => {
   const data: GetComponentBuilderQuery = await GetComponentBuilder({})
   const components = data.components
 
   const currentComponent = components.find(
-    (component) => component.name === componentName,
+    (component) => component.id === componentId,
   )
 
   if (!currentComponent) {

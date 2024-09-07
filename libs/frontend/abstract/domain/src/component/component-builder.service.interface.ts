@@ -12,7 +12,7 @@ import type {
 import type { IComponentModel } from './component.model.interface'
 
 export interface IComponentBuilderArgs {
-  componentName: string
+  componentId: string
 }
 
 export interface IComponentBuilderDto {
