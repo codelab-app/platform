@@ -44,7 +44,7 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
   const { error, id, label, onChange, parentAtom } = props
   const [menuState, setMenuState] = useState({ open: false, skipClose: false })
   const [filters, setFilters] = useState({ atoms: true, components: true })
-  const { atoms, components, loadOptionsIfNeeded } = useLoadOptions(parentAtom)
+  const { atoms, components } = useLoadOptions(parentAtom)
   const errorMessage = error?.message || components.error || atoms.error
   const componentsToShow = filters.components ? components.value : []
   const atomsToShow = filters.atoms ? atoms.value : []
@@ -71,7 +71,6 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
         }}
         onDropdownVisibleChange={(open) => {
           !menuState.skipClose && setMenuState({ ...menuState, open })
-          loadOptionsIfNeeded()
         }}
         open={menuState.open}
         optionFilterProp="text"
@@ -93,7 +92,6 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
           filters.atoms &&
             setFilters({ ...filters, components: !filters.components })
           setMenuState({ ...menuState, open: true })
-          loadOptionsIfNeeded()
         }}
         onMouseEnter={() => setMenuState({ ...menuState, skipClose: true })}
         onMouseLeave={() => setMenuState({ ...menuState, skipClose: false })}
@@ -107,7 +105,6 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
           filters.components &&
             setFilters({ ...filters, atoms: !filters.atoms })
           setMenuState({ ...menuState, open: true })
-          loadOptionsIfNeeded()
         }}
         onMouseEnter={() => setMenuState({ ...menuState, skipClose: true })}
         onMouseLeave={() => setMenuState({ ...menuState, skipClose: false })}

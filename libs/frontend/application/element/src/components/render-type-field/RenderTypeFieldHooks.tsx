@@ -10,7 +10,7 @@ import {
 import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
 const isComponentType = (id: string, components: Array<SelectOption>) => {
@@ -29,13 +29,11 @@ export const useLoadOptions = (parentAtom?: IAtomModel) => {
     getSelectComponentOptions(componentDomainService),
   )
 
-  const loadOptionsIfNeeded = useCallback(() => {
-    if (!components.value || !atoms.value) {
-      void Promise.all([loadComponentOptions(), loadAtomOptions()])
-    }
-  }, [atoms, components, loadAtomOptions, loadComponentOptions])
+  useEffect(() => {
+    void Promise.all([loadComponentOptions(), loadAtomOptions()])
+  }, [loadComponentOptions, loadAtomOptions])
 
-  return { atoms, components, loadOptionsIfNeeded }
+  return { atoms, components }
 }
 
 export const useRenderTypeSelectOptions = (
