@@ -5,6 +5,7 @@ import { CreateAppModal } from '@codelab/frontend-application-app/use-cases/crea
 import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/delete-app'
 import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
+import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { appListQuery } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
@@ -19,8 +20,10 @@ export const metadata: Metadata = {
 // export const dynamic = 'force-dynamic'
 
 const AppsRoute = async () => {
+  const user = await getServerUser()
+
   const [{ items: appsDto }, { items: atomsDto }] = await Promise.all([
-    appListQuery(),
+    appListQuery({ owner: user }),
     defaultAtomQuery(),
   ])
 
