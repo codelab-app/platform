@@ -1,0 +1,5 @@
+fragment Preference on Preference {
+  id
+  builderBreakpoint
+  builderWidth
+}

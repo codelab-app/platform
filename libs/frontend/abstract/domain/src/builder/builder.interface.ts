@@ -5,20 +5,6 @@ export interface MoveData {
   prevSibling: IRef
 }
 
-export interface BuilderWidth {
-  default: number
-  max: number
-  min: number
-}
-
-export const enum BuilderWidthBreakPoint {
-  Desktop = 'desktop',
-  MobilePortrait = 'mobile-portrait',
-  MobileLandscape = 'mobile-landscape',
-  Tablet = 'tablet',
-  None = 'none',
-}
-
 export const defaultBuilderWidthBreakPoints: Record<
   BuilderWidthBreakPoint,
   BuilderWidth

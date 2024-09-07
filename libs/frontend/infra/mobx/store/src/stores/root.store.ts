@@ -14,6 +14,7 @@ import {
   fieldDomainServiceContext,
   IDomainStore,
   pageDomainServiceContext,
+  preferenceDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
   storeDomainServiceContext,
@@ -80,6 +81,10 @@ export const createRootStore = (user: IUserDto, routerProps: IRouterProps) => {
       tagDomainServiceContext.set(this, this.domainStore.tagDomainService)
       typeDomainServiceContext.set(this, this.domainStore.typeDomainService)
       userDomainServiceContext.set(this, this.domainStore.userDomainService)
+      preferenceDomainServiceContext.set(
+        this,
+        this.domainStore.preferenceDomainService,
+      )
     }
   }
 

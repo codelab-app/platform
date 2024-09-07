@@ -9,6 +9,7 @@ import {
   type IElementDomainService,
   type IFieldDomainService,
   type IPageDomainService,
+  type IPreferenceDomainService,
   type IRedirectDomainService,
   type IResourceDomainService,
   type IStoreDomainService,
@@ -24,6 +25,7 @@ import { ComponentDomainService } from '@codelab/frontend-domain-component/servi
 import { DomainDomainService } from '@codelab/frontend-domain-domain/services'
 import { ElementDomainService } from '@codelab/frontend-domain-element/services'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
+import { PreferenceDomainService } from '@codelab/frontend-domain-preference/services'
 import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
 import { ResourceDomainService } from '@codelab/frontend-domain-resource/services'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
@@ -64,6 +66,9 @@ export const createDomainStore = (user: IUserDto) => {
       ),
       pageDomainService: prop<IPageDomainService>(
         () => new PageDomainService({}),
+      ),
+      preferenceDomainService: prop<IPreferenceDomainService>(
+        () => new PreferenceDomainService({}),
       ),
       redirectDomainService: prop<IRedirectDomainService>(
         () => new RedirectDomainService({}),

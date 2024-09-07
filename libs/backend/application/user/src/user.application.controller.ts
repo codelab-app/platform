@@ -1,11 +1,15 @@
 import { CurrentUser } from '@codelab/backend/application/auth'
+import { PreferenceDomainService } from '@codelab/backend/domain/preference'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { type IUserDto } from '@codelab/shared/abstract/core'
 import { Controller, Post } from '@nestjs/common'
 
 @Controller('user')
 export class UserApplicationController {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private readonly preferenceDomainService: PreferenceDomainService,
+  ) {}
 
   /**
    *
@@ -16,6 +20,10 @@ export class UserApplicationController {
   async save(@CurrentUser() userDto: IUserDto) {
     const user = await this.userRepository.save(userDto, {
       auth0Id: userDto.auth0Id,
+    })
+
+    await this.preferenceDomainService.createInitialPreference({
+      owner: user,
     })
 
     return user

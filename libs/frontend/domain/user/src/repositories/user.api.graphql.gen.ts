@@ -23,20 +23,9 @@ export const CreateUserDocument = graphql(`
   }
 `)
 
-export const UpdateUserDocument = graphql(`
-  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {
-    updateUsers(update: $update, where: $where) {
-      users {
-        preferences
-      }
-    }
-  }
-`)
-
 import {
   type GetUsersQueryVariables,
   type CreateUserMutationVariables,
-  type UpdateUserMutationVariables,
 } from '@codelab/shared/infra/gql'
 
 export const GetUsers = (
@@ -48,8 +37,3 @@ export const CreateUser = (
   variables: CreateUserMutationVariables,
   next?: NextFetchRequestConfig,
 ) => gqlFetch(CreateUserDocument.toString(), variables, next)
-
-export const UpdateUser = (
-  variables: UpdateUserMutationVariables,
-  next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateUserDocument.toString(), variables, next)
