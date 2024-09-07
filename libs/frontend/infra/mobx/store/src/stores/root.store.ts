@@ -42,7 +42,7 @@ export const createRootStore = (
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(user)
+  const domainStore = createDomainStore(user, preference)
   const applicationStore = createApplicationStore(routerProps)
 
   @model('@codelab/RootStore')
