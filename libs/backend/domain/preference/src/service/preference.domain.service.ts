@@ -8,11 +8,14 @@ export class PreferenceDomainService {
   constructor(private preferenceRepository: PreferenceRepository) {}
 
   async createInitialPreference({ owner }: Pick<IPreferenceDto, 'owner'>) {
-    return this.preferenceRepository.add({
-      builderBreakpointType: IBreakpointType.None,
-      builderWidth: -1,
-      id: v4(),
-      owner,
-    })
+    return this.preferenceRepository.save(
+      {
+        builderBreakpointType: IBreakpointType.None,
+        builderWidth: -1,
+        id: v4(),
+        owner,
+      },
+      { owner },
+    )
   }
 }
