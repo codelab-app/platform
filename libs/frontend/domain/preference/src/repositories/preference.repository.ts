@@ -7,7 +7,7 @@ import type {
   PreferenceUniqueWhere,
   PreferenceWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { Preference } from '../store/preference.model'
 import {
   CreatePreferences,
@@ -26,7 +26,7 @@ export const preferenceRepository: IPreferenceRepository = {
 
     const createdPreference = preferences[0]
 
-    assertIsDefined(createdPreference)
+    Validator.assertsDefined(createdPreference)
 
     return createdPreference
   },
@@ -60,7 +60,7 @@ export const preferenceRepository: IPreferenceRepository = {
 
     const updatedPreference = preferences[0]
 
-    assertIsDefined(updatedPreference)
+    Validator.assertsDefined(updatedPreference)
 
     return updatedPreference
   },

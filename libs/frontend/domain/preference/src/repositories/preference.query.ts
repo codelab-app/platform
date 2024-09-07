@@ -1,18 +1,19 @@
 'use server'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { type IPreferenceDto } from '@codelab/shared/abstract/core'
 import type {
   PreferenceOptions,
   PreferenceWhere,
 } from '@codelab/shared/infra/gql'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { Validator } from '@codelab/shared/infra/schema'
 import { revalidateTag } from 'next/cache'
 import { GetPreferences } from './preference.api.graphql.gen'
 
 export const preferenceQuery = async (
   where?: PreferenceWhere,
   options?: PreferenceOptions,
-) => {
+): Promise<IPreferenceDto> => {
   const {
     items: [preference],
   } = await GetPreferences(
@@ -23,7 +24,7 @@ export const preferenceQuery = async (
     { tags: [CACHE_TAGS.PREFERENCE] },
   )
 
-  assertIsDefined(preference)
+  Validator.assertsDefined(preference)
 
   return preference
 }

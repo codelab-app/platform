@@ -19,7 +19,9 @@ export class SeederApplicationService {
   async resetAndSeedUser() {
     await this.databaseService.resetDatabase()
 
-    await this.seederDomainService.seedUserFromRequest()
+    const user = await this.seederDomainService.seedUserFromRequest()
+
+    await this.seederDomainService.seedUserPreference(user)
   }
 
   /**
@@ -30,7 +32,9 @@ export class SeederApplicationService {
    * There are other seeder functions in this class, but we could have multiple for different reasons
    */
   async seedDataForElementDependentTypesResolver() {
-    await this.seederDomainService.seedUserFromRequest()
+    const user = await this.seederDomainService.seedUserFromRequest()
+
+    await this.seederDomainService.seedUserPreference(user)
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
@@ -51,8 +55,6 @@ export class SeederApplicationService {
    * The minimum required data
    */
   async setupDevBootstrapData() {
-    await this.seederDomainService.seedUserFromRequest()
-
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
@@ -76,7 +78,9 @@ export class SeederApplicationService {
   async setupE2eData() {
     await this.databaseService.resetDatabase()
 
-    await this.seederDomainService.seedUserFromRequest()
+    const user = await this.seederDomainService.seedUserFromRequest()
+
+    await this.seederDomainService.seedUserPreference(user)
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),

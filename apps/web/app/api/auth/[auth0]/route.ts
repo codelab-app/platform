@@ -17,6 +17,19 @@ export const GET = auth0Instance.handleAuth({
       console.log('[auth0]/route.ts', process.env['NODE_ENV'])
 
       /**
+       * Upsert user in our neo4j database
+       * We need to do that in both dev and production
+       */
+      await fetch(getEnv().endpoint.user.save, {
+        body: JSON.stringify({}),
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+          'X-ID-TOKEN': session.idToken ?? '',
+        },
+        method: 'POST',
+      })
+
+      /**
        * Only do this in development
        */
       if (env.get('SETUP_DEV_AFTER_AUTH0_LOGIN').asBool()) {
@@ -33,20 +46,6 @@ export const GET = auth0Instance.handleAuth({
         })
 
         return session
-      }
-
-      /**
-       * Create user in our neo4j database
-       */
-      if (process.env['NEXT_PUBLIC_WEB_HOST']?.includes('codelab.app')) {
-        await fetch(getEnv().endpoint.user.save, {
-          body: JSON.stringify({}),
-          headers: {
-            Authorization: `Bearer ${session.accessToken}`,
-            'X-ID-TOKEN': session.idToken ?? '',
-          },
-          method: 'POST',
-        })
       }
 
       return session
