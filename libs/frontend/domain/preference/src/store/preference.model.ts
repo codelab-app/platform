@@ -3,12 +3,12 @@ import {
   IUserModel,
   userRef,
 } from '@codelab/frontend/abstract/domain'
-import { IBreakpoint } from '@codelab/frontend/abstract/types'
-import { breakpoints } from '@codelab/frontend/shared/style'
 import {
+  IBreakpoint,
   IBreakpointType,
   type IPreferenceDto,
 } from '@codelab/shared/abstract/core'
+import { breakpoints } from '@codelab/shared/domain'
 import type {
   PreferenceCreateInput,
   PreferenceDeleteInput,

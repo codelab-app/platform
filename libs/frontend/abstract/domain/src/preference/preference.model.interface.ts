@@ -1,5 +1,5 @@
-import type { IBreakpoint } from '@codelab/frontend/abstract/types'
 import type {
+  IBreakpoint,
   IBreakpointType,
   IPreference,
   IPreferenceDto,

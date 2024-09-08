@@ -926,9 +926,6 @@
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
       ],
-      "@codelab/frontend/shared/style": [
-        "libs/frontend/shared/style/src/index.ts"
-      ],
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],

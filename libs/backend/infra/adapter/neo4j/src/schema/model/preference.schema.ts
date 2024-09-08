@@ -7,7 +7,6 @@ export const preferenceSchema = gql`
     MobilePortrait
     MobileLandscape
     Tablet
-    None
   }
 
 
