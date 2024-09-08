@@ -2,7 +2,7 @@ import { User } from '@codelab/backend/abstract/codegen'
 import { PreferenceRepository } from '@codelab/backend/domain/preference'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { IBreakpointType } from '@codelab/shared/abstract/core'
+import { DEFAULT_BUILDER_BREAKPOINT } from '@codelab/shared/config'
 import { breakpoints } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
@@ -32,8 +32,8 @@ export class SeederDomainService {
   async seedUserPreference(owner: User) {
     return await this.preferenceRepository.save(
       {
-        builderBreakpointType: IBreakpointType.Desktop,
-        builderWidth: breakpoints[IBreakpointType.Desktop].default,
+        builderBreakpointType: DEFAULT_BUILDER_BREAKPOINT,
+        builderWidth: breakpoints[DEFAULT_BUILDER_BREAKPOINT].default,
         id: v4(),
         owner,
       },
