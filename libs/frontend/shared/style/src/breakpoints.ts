@@ -1,3 +1,4 @@
+import type { IBreakpoint } from '@codelab/frontend/abstract/types'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
 
 export const breakpoints: Record<IBreakpointType, IBreakpoint> = {

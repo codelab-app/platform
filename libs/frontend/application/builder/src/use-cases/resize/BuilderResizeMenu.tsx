@@ -8,6 +8,7 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/interface'
+import { observer } from 'mobx-react-lite'
 import React, { useCallback } from 'react'
 
 export type MenuItemProps = ItemType & {
@@ -32,7 +33,7 @@ const menuItemCommonStyle = {
   justifyContent: 'center',
 }
 
-export const BuilderResizeMenu = () => {
+export const BuilderResizeMenu = observer(() => {
   const { preferenceDomainService } = useDomainStore()
   const preference = preferenceDomainService.preference
   const breakpoint = preference.builderBreakpoint
@@ -126,10 +127,10 @@ export const BuilderResizeMenu = () => {
             })
           }
           size="small"
-          value={breakpoint.default}
+          value={preference.builderWidth}
         />
         <span>px</span>
       </Space>
     </div>
   )
-}
+})
