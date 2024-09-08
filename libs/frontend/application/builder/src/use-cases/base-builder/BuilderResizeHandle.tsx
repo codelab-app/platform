@@ -19,7 +19,7 @@ const useResizer = ({ side }: { side: Side }) => {
       // only when drag is stopped update call api
       void preferenceRepository.update(preference)
     },
-    2000,
+    800,
     [preference.builderWidth],
   )
 

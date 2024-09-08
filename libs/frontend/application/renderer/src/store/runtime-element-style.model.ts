@@ -13,9 +13,9 @@ import {
   getPreferenceDomainService,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import { breakpoints } from '@codelab/frontend/shared/style'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import { breakpoints } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
