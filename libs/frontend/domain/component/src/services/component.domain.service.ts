@@ -1,3 +1,5 @@
+import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
+import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon'
 import type {
   IComponentDomainService,
   IComponentModel,
@@ -12,6 +14,8 @@ import {
   getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
+import { SelectOption } from '@codelab/frontend/abstract/types'
+import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import type { IPropDto } from '@codelab/shared/abstract/core'
@@ -157,6 +161,21 @@ export class ComponentDomainService
     Validator.assertsDefined(found)
 
     return found
+  }
+
+  getRenderTypeOptions(components?: Array<SelectOption>) {
+    const fallbackComponents = this.componentList.map(mapEntitySelectOptions)
+    const componentOptions = components ?? fallbackComponents
+
+    return componentOptions.map(({ label, value }) => {
+      return {
+        __typename: IElementRenderTypeKind.Component,
+        icon: CodeSandboxOutlined,
+        label,
+        text: label,
+        value,
+      }
+    })
   }
 
   @computed

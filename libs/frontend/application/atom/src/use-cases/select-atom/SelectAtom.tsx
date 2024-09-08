@@ -1,5 +1,5 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import { mapAtomOptions } from '@codelab/frontend-domain-atom/store'
+import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -22,7 +22,10 @@ export const SelectAtom = observer<SelectAtomProps>(
   ({ error, label, name, parent }) => {
     const atomService = useAtomService()
     const { atomDomainService } = useDomainStore()
-    const fallbackAtomOptions = atomDomainService.atomsList.map(mapAtomOptions)
+
+    const fallbackAtomOptions = atomDomainService.atomsList.map(
+      mapEntitySelectOptions,
+    )
 
     const [state, getSelectAtomOptions] = useAsyncFn(() =>
       atomService.getSelectAtomOptions(parent),

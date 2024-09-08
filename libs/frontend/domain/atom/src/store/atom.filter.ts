@@ -48,21 +48,12 @@ export const filterAtoms = (
   return atomsWithNoRequiredParents
 }
 
-export const mapAtomOptions = (
-  atom:
+export const mapEntitySelectOptions = (
+  entity:
     | IAtomDto
-    | {
-        id: string
-        name: string
-        requiredParents: Array<{ id: string; type: AtomType }>
-      },
-): SelectOption => ({ label: atom.name, value: atom.id })
-
-export const mapComponentOptions = (
-  component:
     | IComponentDto
     | {
         id: string
         name: string
       },
-): SelectOption => ({ label: component.name, value: component.id })
+): SelectOption => ({ label: entity.name, value: entity.id })
