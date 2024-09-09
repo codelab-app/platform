@@ -6,7 +6,7 @@ import type {
   GetBaseTypesOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
-import sortBy from 'lodash/sortBy'
+import { prop, sortBy } from 'remeda'
 import {
   GetBaseTypes,
   GetDescendants,
@@ -98,7 +98,7 @@ export const typeRepository: ITypeRepository = {
       baseTypes: { items },
     } = await GetTypeOptions({})
 
-    return sortBy(items, 'name')
+    return sortBy(items, prop('name'))
   },
 
   getAll: async (ids?: Array<string>) => {

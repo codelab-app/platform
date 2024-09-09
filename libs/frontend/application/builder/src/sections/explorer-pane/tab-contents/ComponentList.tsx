@@ -8,11 +8,9 @@ import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/compone
 import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/errorBoundary'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'
-import debounce from 'lodash/debounce'
-import filter from 'lodash/filter'
-import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
+import { debounce, filter, prop, sortBy } from 'remeda'
 import { ComponentDragOverlay } from './ComponentDragOverlay'
 import { ComponentItem } from './ComponentItem'
 
@@ -29,9 +27,12 @@ export const ComponentList = observer<{
   const [searchValue, setSearchValue] = useState('')
 
   const debouncedSearch = useRef(
-    debounce((nextValue: string) => {
-      setSearchValue(nextValue)
-    }, 200),
+    debounce(
+      (nextValue: string) => {
+        setSearchValue(nextValue)
+      },
+      { waitMs: 200 },
+    ),
   ).current
 
   const filteredItems = filter(components, (component) =>
@@ -43,13 +44,13 @@ export const ComponentList = observer<{
       <Search
         allowClear
         key={1}
-        onChange={(event) => debouncedSearch(event.target.value)}
+        onChange={(event) => debouncedSearch.call(event.target.value)}
         placeholder="Search component"
         style={{ marginBottom: 10 }}
       />
       <ErrorBoundary>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
-          {sortBy(filteredItems, 'name').map((component) => (
+          {sortBy(filteredItems, prop('name')).map((component) => (
             <MakeChildrenDraggable<BuilderDragData>
               customOverlay={<ComponentDragOverlay component={component} />}
               data={{

@@ -14,7 +14,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { createInterfaceTypeName } from '@codelab/shared/domain'
 import { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
-import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -24,6 +23,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import { merge } from 'remeda'
 import { sortFieldsArray } from '../shared'
 import { createBaseType } from './base-type.model'
 
@@ -74,7 +74,7 @@ export class InterfaceType
     // object keys length is used for cache busting in runtimeStore.state
     return this.fields
       .map((field) => ({ [field.key]: field.defaultValues ?? undefined }))
-      .reduce(merge, {})
+      .reduce<IPropData>(merge, {})
   }
 
   @computed

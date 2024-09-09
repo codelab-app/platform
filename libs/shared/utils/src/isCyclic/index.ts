@@ -1,6 +1,6 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import isObjectLike from 'lodash/isObjectLike'
 import { modelTypeKey } from 'mobx-keystone'
+import { isObjectType } from 'remeda'
 import { isServer } from '../env/is-server'
 
 const isReactNode = (obj?: IPropData) => Boolean(obj?.['$$typeof'])
@@ -10,4 +10,4 @@ const isHtmlNode = (obj: unknown) =>
   isServer ? false : obj instanceof HTMLElement
 
 export const isCyclic = (obj?: IPropData) =>
-  (isObjectLike(obj) && isReactNode(obj)) || isMobxModel(obj) || isHtmlNode(obj)
+  (isObjectType(obj) && isReactNode(obj)) || isMobxModel(obj) || isHtmlNode(obj)

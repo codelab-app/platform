@@ -1,8 +1,5 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import isArray from 'lodash/isArray'
-import isObjectLike from 'lodash/isObjectLike'
-import map from 'lodash/map'
-import toPairsIn from 'lodash/toPairsIn'
+import { entries, isArray, isObjectType } from 'remeda'
 import { isCyclic } from '../isCyclic'
 import type { IKeyMapper, IOutput, IValueMapper, ObjectKey } from './abstract'
 
@@ -12,27 +9,32 @@ export const mapDeep = (
   keyMapper: IKeyMapper = (value, key) => key,
   key: ObjectKey = '',
 ): IOutput => {
-  obj = valueMapper(obj, key) as IOutput
+  if (isCyclic(obj)) {
+    return obj
+  }
 
-  return isCyclic(obj)
-    ? obj
-    : isArray(obj)
-    ? map(obj, (innerObj, index) =>
-        mapDeep(innerObj, valueMapper, keyMapper, index),
-      )
-    : isObjectLike(obj)
-    ? toPairsIn(obj)
-        .map(([_key, _value]) => {
-          const mappedKey = keyMapper(_value, _key)
+  if (isArray(obj)) {
+    return valueMapper(obj, key) as IPropData
+  }
 
-          const mappedValue = isObjectLike(_value)
-            ? mapDeep(_value, valueMapper, keyMapper, mappedKey)
-            : valueMapper(_value, _key)
+  if (isObjectType(obj)) {
+    return entries(obj)
+      .map(([_key, _value]) => {
+        const mappedKey = keyMapper(_value, _key)
 
-          return {
-            [mappedKey.toString()]: mappedValue,
-          }
-        })
-        .reduce((acc, cur) => ({ ...acc, ...cur }), {})
-    : (valueMapper(obj, '') as IPropData)
+        const nestedMappedValue = mapDeep(
+          _value,
+          valueMapper,
+          keyMapper,
+          mappedKey,
+        )
+
+        return {
+          [mappedKey.toString()]: nestedMappedValue,
+        }
+      })
+      .reduce((acc, cur) => ({ ...acc, ...cur }), {})
+  }
+
+  return valueMapper(obj, key) as IPropData
 }

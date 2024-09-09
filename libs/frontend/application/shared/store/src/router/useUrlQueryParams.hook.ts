@@ -9,19 +9,24 @@ import { useSearchParams } from 'next/navigation'
 
 export const useUrlQueryParams = (): UrlQueryParams => {
   const searchParams = useSearchParams()
-  const filter = Validator.parseDefined(searchParams.getAll('filter'))
-  const page = Validator.parseDefined(searchParams.get('page'))
-  const pageSize = Validator.parseDefined(searchParams.get('pageSize'))
-  const primarySidebarKey = searchParams.get('primarySidebarKey') ?? undefined
-  const search = searchParams.get('search') ?? undefined
 
-  return parseUrlQueryParams({
-    filter,
-    page,
-    pageSize,
-    primarySidebarKey,
-    search,
-  })
+  return {
+    get filter() {
+      return Validator.parseDefined(searchParams.getAll('filter'))
+    },
+    get page() {
+      return parseInt(Validator.parseDefined(searchParams.get('page')), 10)
+    },
+    get pageSize() {
+      return parseInt(Validator.parseDefined(searchParams.get('pageSize')), 10)
+    },
+    get primarySidebarKey() {
+      return searchParams.get('primarySidebarKey') ?? undefined
+    },
+    get search() {
+      return searchParams.get('search') ?? undefined
+    },
+  }
 }
 
 export const parseUrlQueryParams = (params: UrlQueryParamsString) => {

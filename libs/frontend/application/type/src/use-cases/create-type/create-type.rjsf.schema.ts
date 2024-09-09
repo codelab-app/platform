@@ -4,7 +4,7 @@ import {
   primitiveTypeSelectionSchema,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
-import merge from 'lodash/merge'
+import { merge } from 'remeda'
 
 export const createRjsfTypeSchema: JSONSchemaType<{
   typeSelection: ITypeKind

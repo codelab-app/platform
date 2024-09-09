@@ -25,12 +25,11 @@ import {
   hasExpression,
   mapDeep,
 } from '@codelab/shared/utils'
-import get from 'lodash/get'
-import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import React, { ReactNode } from 'react'
+import { merge, pathOr } from 'remeda'
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
 const create = (dto: IRuntimeElementPropDTO) =>
@@ -77,9 +76,10 @@ export class RuntimeElementPropsModel
       return evaluatedExpression
     }
 
-    const evaluatedChildMapperProps = get(
+    const evaluatedChildMapperProps = pathOr(
       this.runtimeContext,
-      this.element.childMapperPropKey,
+      [this.element.childMapperPropKey as keyof IRuntimeContext],
+      {},
     )
 
     if (!Array.isArray(evaluatedChildMapperProps)) {
@@ -102,7 +102,7 @@ export class RuntimeElementPropsModel
       ? this.closestRuntimeContainerNode.runtimeProps.componentEvaluatedProps
       : {}
 
-    const context = {
+    const context: IRuntimeContext = {
       actions: {},
       args: [],
       componentProps,
@@ -285,15 +285,15 @@ export class RuntimeElementPropsModel
     )
   }
 
-  transformRuntimeActions(
+  private transformRuntimeActions(
     runtimeActions: Array<IRuntimeActionModel>,
     context: IRuntimeContext,
-  ) {
+  ): IPropData {
     return runtimeActions
       .map((runtimeAction) => ({
         [runtimeAction.action.current.name]: runtimeAction.runner.bind(context),
       }))
-      .reduce(merge, {})
+      .reduce(merge, {} as IPropData)
   }
 
   @computed

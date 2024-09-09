@@ -1,7 +1,7 @@
 import chalk from 'chalk'
-import omit from 'lodash/omit'
 import pino from 'pino'
 import pretty from 'pino-pretty'
+import { omit } from 'remeda'
 import { colorize, formatNestLikeDate } from './utils'
 
 const levelsLabels = pino.levels.labels

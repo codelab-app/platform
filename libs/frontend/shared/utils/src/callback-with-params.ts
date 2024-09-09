@@ -1,5 +1,5 @@
 import type { VoidCallback } from '@codelab/frontend/abstract/types'
-import isFunction from 'lodash/isFunction'
+import { isFunction } from 'remeda'
 import type { ArrayOrSingle } from 'ts-essentials'
 
 export const callbackWithParams = <

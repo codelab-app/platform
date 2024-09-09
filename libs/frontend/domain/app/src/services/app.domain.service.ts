@@ -10,9 +10,9 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import type { IAppDto } from '@codelab/shared/abstract/core'
-import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { merge } from 'remeda'
 import { App } from '../store/app.model'
 
 @model('@codelab/AppDomainService')

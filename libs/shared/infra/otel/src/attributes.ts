@@ -1,6 +1,4 @@
-import isObject from 'lodash/isObject'
-import mapKeys from 'lodash/mapKeys'
-import reduce from 'lodash/reduce'
+import { isObjectType, mapKeys, reduce } from 'remeda'
 
 interface PlainObject {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,12 +11,12 @@ export const flattenWithPrefix = (
 ): PlainObject => {
   // Flatten the object deeply
   const flattenObject = (obj: PlainObject, path = ''): PlainObject =>
-    !isObject(obj)
+    !isObjectType(obj)
       ? { [path.replace(/\.$/, '')]: obj }
       : reduce(
-          obj,
-          (cum, next, key) => ({
-            ...cum,
+          Object.entries(obj),
+          (acc, [key, next]) => ({
+            ...acc,
             ...flattenObject(next, `${path}${key}.`),
           }),
           {},

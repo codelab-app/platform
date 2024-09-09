@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import isFunction from 'lodash/isFunction'
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { isFunction } from 'remeda'
 import { stateAtomFamily } from './state-atom-family'
 import type { StateProps } from './StateProps'
 

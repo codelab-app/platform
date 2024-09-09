@@ -2,12 +2,9 @@ import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { isCyclic } from '@codelab/shared/utils'
+import { isCyclic, isDomElement } from '@codelab/shared/utils'
 import type { Completion } from '@codemirror/autocomplete'
-import capitalize from 'lodash/capitalize'
-import isArray from 'lodash/isArray'
-import isElement from 'lodash/isElement'
-import isObjectLike from 'lodash/isObjectLike'
+import { capitalize, isArray, isObjectType } from 'remeda'
 
 const getOptions = (
   ctx: IPropData = {},
@@ -31,13 +28,13 @@ const getOptions = (
 
     if (isArray(value)) {
       const children = value.flatMap((_value, index) =>
-        getOptions(_value, `${fullKey}.${index}`, sectionName),
+        getOptions(_value as IPropData, `${fullKey}.${index}`, sectionName),
       )
 
       return [option, ...children]
     }
 
-    if (isObjectLike(value) && !isElement(value)) {
+    if (isObjectType(value) && !isDomElement(value)) {
       return [option, ...getOptions(value, fullKey, sectionName)]
     }
 

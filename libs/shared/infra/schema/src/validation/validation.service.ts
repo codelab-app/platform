@@ -85,6 +85,17 @@ export class ValidationService implements IValidationService {
     }
   }
 
+  validateAndClean<T extends TSchema>(schema: T, data: unknown): Static<T> {
+    try {
+      const validator = new StandardValidator(schema)
+
+      return validator.validateAndCleanCopy(data as Readonly<unknown>)
+    } catch (error: unknown) {
+      console.error('Validation error:', JSON.stringify(error))
+      throw new Error((error as Error).message)
+    }
+  }
+
   private static instance?: ValidationService
 
   private createValidator(kind: TKind) {

@@ -3,7 +3,7 @@ import type {
   DroppableContainer,
   UniqueIdentifier,
 } from '@dnd-kit/core'
-import get from 'lodash/get'
+import { pathOr, stringToPath } from 'remeda'
 import { type Point, type Rect, Rectangle } from '../geometry'
 import type { WithInternalDropData } from '../hooks/internal-drop-data.interface'
 import { HierarchicalCollisionDetector } from './hierarchical-collision-detector'
@@ -82,13 +82,29 @@ const createActiveNode = (hierarchy: Hierarchy, path: string): Active => {
     .map((item, index) => (index > 0 ? `children.${item}` : item))
     .join('.')
 
+  const pathArray = stringToPath(formattedPath)
+
+  const item = pathOr(hierarchy, pathArray, {
+    /**
+     * Migrated from lodash `get`, but `pathOr` cannot support paths greater than 3 levels deep, adding default `rect` here for type safety, difficult to move it work without it, couldn't cast with any as well
+     */
+    rect: {
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      width: 0,
+    },
+  })
+
   return {
     data: { current: undefined },
     id: path.split('.').pop() || '',
     rect: {
       current: {
-        initial: get(hierarchy, formattedPath).rect,
-        translated: get(hierarchy, formattedPath).rect,
+        initial: item.rect,
+        translated: item.rect,
       },
     },
   }

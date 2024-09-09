@@ -12,7 +12,7 @@ import type {
   AtomWhere,
 } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
-import sortBy from 'lodash/sortBy'
+import { prop, sortBy } from 'remeda'
 import {
   AtomList,
   CreateAtoms,
@@ -57,7 +57,7 @@ export const atomRepository: IAtomRepository = {
 
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),
-      'name',
+      prop('name'),
     )
   },
 

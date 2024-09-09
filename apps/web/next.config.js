@@ -67,9 +67,8 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
+    // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
-    // esmExternals: 'loose',
     // forceSwcTransforms: true,
     // typedRoutes: true,
     // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),

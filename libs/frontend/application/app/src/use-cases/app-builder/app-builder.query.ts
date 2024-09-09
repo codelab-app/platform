@@ -1,7 +1,7 @@
 import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { AtomBuilderFragment } from '@codelab/shared/infra/gql'
-import uniqBy from 'lodash/uniqBy'
+import { uniqueBy } from 'remeda'
 import { GetAppBuilder } from './app-builder.api.graphql.gen'
 
 export const appBuilderQuery: IAppBuilderQuery = async ({
@@ -61,7 +61,7 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
   const stores = [...pageStores, ...componentStores]
   const actions = stores.flatMap((store) => store.actions)
 
-  const atoms = uniqBy(
+  const atoms = uniqueBy(
     [
       // Load all the atoms used by elements
       ...elements

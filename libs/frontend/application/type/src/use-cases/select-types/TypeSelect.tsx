@@ -1,9 +1,8 @@
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import compact from 'lodash/compact'
-import uniqBy from 'lodash/uniqBy'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAsyncFn } from 'react-use'
+import { filter, isTruthy, map, pipe, prop, uniqueBy } from 'remeda'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 import { useTypeService } from '../../services'
@@ -28,11 +27,14 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
     ? typeDomainService.types.get(fieldProps.value)
     : undefined
 
-  const typeOptions = uniqBy(compact([currentType, ...result]), 'id').map(
-    ({ id, name: optionLabel }) => ({
+  const typeOptions = pipe(
+    [currentType, ...result],
+    filter(isTruthy),
+    uniqueBy(prop('id')),
+    map(({ id, name: optionLabel }) => ({
       label: optionLabel,
       value: id,
-    }),
+    })),
   )
 
   return (

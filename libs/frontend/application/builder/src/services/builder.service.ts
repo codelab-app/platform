@@ -17,9 +17,9 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
-import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { groupBy } from 'remeda'
 
 export const COMPONENT_TAG_NAME = 'Component'
 

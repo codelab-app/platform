@@ -1,7 +1,7 @@
 import type { IToggleService } from '@codelab/frontend/abstract/application'
 import { atom, useAtom } from 'jotai'
-import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
+import { isDeepEqual } from 'remeda'
 import type { IToggleState } from '../family-toggle/toggle.state.interface'
 
 const defaultMapper = <TData, TOutput = TData>(state: TData): TOutput =>
@@ -32,7 +32,7 @@ export const useToggleState = <TData = undefined, TOutput = TData>(
         (get, set, newState: IToggleState<TData>) => {
           const currentState = get(toggleStateAtom)
 
-          if (!isEqual(currentState, newState)) {
+          if (!isDeepEqual(currentState, newState)) {
             set(toggleStateAtom, newState)
           }
         },

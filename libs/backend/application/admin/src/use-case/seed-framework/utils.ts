@@ -1,14 +1,8 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 import fs from 'fs'
-import intersection from 'lodash/intersection'
-import size from 'lodash/size'
 import path from 'path'
 
 export const productionDataPath = path.resolve('./data/export-v3')
-
-export const isSubset = (array: Array<string>, superset: Array<string>) => {
-  return size(intersection(array, superset)) === size(array)
-}
 
 export const getAtomsFromFiles = () => {
   const files = fs

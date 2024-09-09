@@ -1,10 +1,17 @@
 import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import type { IApi, IAtom, IAtomAggregate } from '@codelab/shared/abstract/core'
+import {
+  ApiSchema,
+  AtomSchema,
+  type IApi,
+  type IAtom,
+  type IAtomAggregate,
+} from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/schema'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import omit from 'lodash/omit'
+import { omit } from 'radash'
 
 export class ExportAtomCommand {
   constructor(readonly where: AtomWhere) {}
@@ -37,8 +44,8 @@ export class ExportAtomHandler
     // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
 
     return {
-      api: omit(api, 'owner'),
-      atom: omit(atom, 'owner'),
+      api: Validator.validateAndClean(ApiSchema, api),
+      atom: Validator.validateAndClean(AtomSchema, atom),
     }
   }
 }

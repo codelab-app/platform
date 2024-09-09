@@ -1,5 +1,5 @@
 import { type IFieldModel } from '@codelab/frontend/abstract/domain'
-import sortBy from 'lodash/sortBy'
+import { prop, sortBy } from 'remeda'
 
 export const sortFieldsArray = (fields: Array<IFieldModel>) => {
   const nodes = new Map(fields.map((field) => [field.id, field]))
@@ -15,5 +15,6 @@ export const sortFieldsArray = (fields: Array<IFieldModel>) => {
     return path.join()
   }
 
-  return sortBy(fields, [(field) => getPath(field), 'key'])
+  // return sortBy(fields, [(field) => getPath(field), 'key'])
+  return sortBy(fields, (field) => getPath(field), prop('key'))
 }

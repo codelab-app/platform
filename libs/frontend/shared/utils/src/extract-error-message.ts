@@ -1,7 +1,6 @@
 import type { ApolloError } from '@apollo/client'
-import isObjectLike from 'lodash/isObjectLike'
-import isString from 'lodash/isString'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
+import { hasAtLeast, isObjectType, isString } from 'remeda'
 
 export const extractErrorMessage = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,17 +20,16 @@ export const extractErrorMessage = (
     return error.map(extractErrorMessage).join('\n')
   }
 
-  if (isObjectLike(error)) {
-    if (error.error) {
+  if (isObjectType(error)) {
+    if ('error' in error) {
       return extractErrorMessage(error.error)
     }
 
-    if (error.errors) {
+    if ('errors' in error) {
       return extractErrorMessage(error.errors)
     }
 
-    //
-    if (error.response) {
+    if ('response' in error) {
       return extractErrorMessage(error.response)
     }
 
@@ -40,12 +38,13 @@ export const extractErrorMessage = (
     //   return extractErrorMessage(e.data)
     // }
     //
-    if (error.message) {
+    if ('message' in error) {
       return extractErrorMessage(error.message)
     }
 
-    if (error.extensions?.response) {
-      return `[${error.extensions.response.message}]: ${error.extensions.response.error}`
+    if ('extensions' in error) {
+      return extractErrorMessage(error)
+      // return `[${error.extensions.response.message}]: ${error.extensions.response.error}`
       // return e.graphQLErrors[0].extensions
       //   ? `[${e.message}]: ${
       //       (e.graphQLErrors[0].extensions.response as any)?.error

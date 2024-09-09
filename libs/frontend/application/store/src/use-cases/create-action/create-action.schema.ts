@@ -16,7 +16,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
-import keys from 'lodash/keys'
+import { keys } from 'remeda'
 
 export const createActionSchema: JSONSchemaType<ICreateActionData> = {
   properties: {

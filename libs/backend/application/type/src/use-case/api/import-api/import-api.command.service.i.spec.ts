@@ -6,7 +6,7 @@ import { InterfaceType, TypeDomainModule } from '@codelab/backend/domain/type'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { CommandBus } from '@nestjs/cqrs'
-import sortBy from 'lodash/sortBy'
+import { sortBy } from 'remeda'
 import { TypeApplicationService } from '../../../service'
 import { TypeApplicationModule } from '../../../type.application.module'
 import { ImportSystemTypesCommand } from '../../system-types'
@@ -61,7 +61,7 @@ describe('ImportApiCommand', () => {
 
     const sortedApi = {
       ...api,
-      fields: sortBy(api?.fields, (field) => field.key),
+      fields: sortBy(api?.fields ?? [], (field) => field.key),
     }
 
     expect(sortedApi).toEqual(

@@ -26,8 +26,6 @@ import {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
-import compact from 'lodash/compact'
-import difference from 'lodash/difference'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -40,6 +38,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { createElement, type ReactElement, type ReactNode } from 'react'
+import { difference, filter, isTruthy } from 'remeda'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
 import { ElementWrapper } from '../components'
 
@@ -227,7 +226,10 @@ export class RuntimeElementModel
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
-    const rendered = compact(this.children.map((child) => child.render))
+    const rendered = filter(
+      this.children.map((child) => child.render),
+      isTruthy,
+    )
 
     if (!rendered.length) {
       return undefined

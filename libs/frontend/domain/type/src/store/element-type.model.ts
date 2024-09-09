@@ -8,8 +8,8 @@ import type {
   IElementTypeKind,
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { merge } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
@@ -54,11 +54,14 @@ export class ElementType
   }
 
   toUpdateInput() {
-    return merge(super.toUpdateInput(), {
-      ...super.toUpdateInput(),
-      update: {
-        elementKind: this.elementKind,
+    return merge(
+      {
+        ...super.toUpdateInput(),
+        update: {
+          elementKind: this.elementKind,
+        },
       },
-    })
+      super.toUpdateInput(),
+    )
   }
 }

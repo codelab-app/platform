@@ -1,5 +1,5 @@
 /// <reference types='jest'/>
-import merge from 'lodash/merge'
+import { merge } from 'remeda'
 import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
   actionType,

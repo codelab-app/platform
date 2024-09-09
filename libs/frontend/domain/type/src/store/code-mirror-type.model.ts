@@ -6,8 +6,8 @@ import type {
 import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
-import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { merge } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
@@ -57,10 +57,13 @@ export class CodeMirrorType
   }
 
   toUpdateInput() {
-    return merge(super.toUpdateInput(), {
-      update: {
-        language: this.language,
+    return merge(
+      {
+        update: {
+          language: this.language,
+        },
       },
-    })
+      super.toUpdateInput(),
+    )
   }
 }

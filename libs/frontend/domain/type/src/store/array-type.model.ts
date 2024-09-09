@@ -9,9 +9,10 @@ import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain'
-import merge from 'lodash/merge'
+import type { UpdateArrayTypesMutationVariables } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { merge } from 'remeda'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, itemType, kind, name }: IArrayTypeDto): ArrayType => {
@@ -67,25 +68,28 @@ export class ArrayType
   }
 
   toUpdateInput() {
-    return merge(super.toUpdateInput(), {
-      disconnect: this.itemType?.id
-        ? {
-            itemType: {
-              where: {
-                NOT: {
-                  node: {
-                    id: this.itemType.id,
+    return merge(
+      {
+        disconnect: this.itemType?.id
+          ? {
+              itemType: {
+                where: {
+                  NOT: {
+                    node: {
+                      id: this.itemType.id,
+                    },
                   },
                 },
               },
-            },
-          }
-        : undefined,
-      update: this.itemType?.id
-        ? {
-            itemType: connectNodeId(this.itemType.id),
-          }
-        : undefined,
-    })
+            }
+          : undefined,
+        update: this.itemType?.id
+          ? {
+              itemType: connectNodeId(this.itemType.id),
+            }
+          : undefined,
+      },
+      super.toUpdateInput(),
+    )
   }
 }

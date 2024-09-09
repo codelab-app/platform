@@ -8,7 +8,8 @@ import path from 'path'
 import { AdminApplicationModule } from '../../admin.application.module'
 import { ExportAdminDataCommand } from '../export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
-import { getPartialAtomsFromFiles, isSubset, productionDataPath } from './utils'
+import { getPartialAtomsFromFiles, productionDataPath } from './utils'
+import { isSubset } from '@codelab/shared/utils'
 
 jest.setTimeout(90000)
 

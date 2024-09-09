@@ -8,9 +8,9 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
-import isNil from 'lodash/isNil'
 import React, { useMemo } from 'react'
 import { useAsyncFn, useMount } from 'react-use'
+import { isNullish } from 'remeda'
 import { useField } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 
@@ -59,7 +59,7 @@ export const SelectDefaultValue = () => {
   const currentFieldType = React.useRef(fieldType.value)
 
   if (
-    isNil(defaultValues) ||
+    isNullish(defaultValues) ||
     (fieldType.changed && currentFieldType.current !== fieldType.value)
   ) {
     currentFieldType.current = fieldType.value
@@ -81,7 +81,7 @@ export const SelectDefaultValue = () => {
   }
 
   const hasError =
-    context.submitted && isRequired && isNil(context.model.defaultValues)
+    context.submitted && isRequired && isNullish(context.model.defaultValues)
 
   // TODO: make code mirror input have an error state
   // Simple approach for now is to just display the error message for the `defaultValues` below it

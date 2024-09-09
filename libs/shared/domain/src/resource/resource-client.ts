@@ -10,8 +10,7 @@ import { tryParse } from '@codelab/shared/utils'
 import type { Axios, AxiosError, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { ClientError, GraphQLClient } from 'graphql-request'
-import isString from 'lodash/isString'
-import merge from 'lodash/merge'
+import { isString, merge } from 'remeda'
 
 export class ResourceGraphQlClient implements IResourceClient {
   constructor(resourceConfig: IResourceConfigData) {
@@ -24,8 +23,8 @@ export class ResourceGraphQlClient implements IResourceClient {
   }
 
   fetch(config: IGraphQLFetchConfigData): Promise<IResourceFetchResponse> {
-    const headers = merge(tryParse(config.headers))
-    const variables = merge(tryParse(config.variables))
+    const headers = tryParse(config.headers)
+    const variables = tryParse(config.variables)
 
     return this.client
       .request(config.query, variables, headers)
@@ -56,8 +55,8 @@ export class ResourceRestClient implements IResourceClient {
   }
 
   fetch(config: IRestFetchConfigData): Promise<IResourceFetchResponse> {
-    const data = merge(tryParse(config.body))
-    const headers = merge(tryParse(config.headers))
+    const data = tryParse(config.body)
+    const headers = tryParse(config.headers)
     const parsedParams = tryParse(config.queryParams)
 
     return this.client

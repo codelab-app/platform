@@ -1,3 +1,4 @@
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from './merge-props'
 
 describe('MergeProps', () => {
@@ -27,6 +28,6 @@ describe('MergeProps', () => {
       propB01: 'propB01',
     }
 
-    expect(mergeProps(propsA, propsB)).toEqual(merged)
+    expect(mergeProps<IPropData>(propsA, propsB)).toEqual(merged)
   })
 })

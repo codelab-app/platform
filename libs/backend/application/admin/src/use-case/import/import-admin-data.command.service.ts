@@ -6,7 +6,7 @@ import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
-import omit from 'lodash/omit'
+import { omit } from 'radash'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
   constructor(public baseDataPaths?: string) {}
@@ -53,10 +53,15 @@ export class ImportAdminDataHandler
     /**
      * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
      */
-    for (const atom of this.readAdminDataService.atoms) {
+    for (const { api, atom } of this.readAdminDataService.atoms) {
+      console.log(atom)
+
       const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
 
-      await this.importAtom(atomWithoutSuggestedChildren as IAtomAggregate)
+      await this.importAtom({
+        api,
+        atom: atomWithoutSuggestedChildren,
+      } as IAtomAggregate)
     }
 
     /**

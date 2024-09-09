@@ -24,11 +24,11 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
-import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import type { ReactElement } from 'react'
+import { isNonNullish } from 'remeda'
 import { RuntimeComponentPropModel } from './runtime-component-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 
@@ -110,7 +110,7 @@ export class RuntimeComponentModel
 
   @computed
   get isChildMapperComponentInstance() {
-    return !isNil(this.childMapperIndex)
+    return isNonNullish(this.childMapperIndex)
   }
 
   @computed

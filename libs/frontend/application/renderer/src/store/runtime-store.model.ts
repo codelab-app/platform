@@ -11,7 +11,6 @@ import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { IPropData, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
-import keys from 'lodash/keys'
 import { computed, observable, reaction, set } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -22,6 +21,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import { keys } from 'remeda'
 import { RuntimeActionModel } from './runtime-action.model'
 
 const create = (dto: IRuntimeStoreDTO) => new RuntimeStoreModel(dto)

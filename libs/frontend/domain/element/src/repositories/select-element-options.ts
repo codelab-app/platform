@@ -3,7 +3,7 @@ import type {
   SelectElementOptions,
 } from '@codelab/frontend/abstract/domain'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
-import difference from 'lodash/difference'
+import { difference } from 'remeda'
 import { mapElementOption } from '../use-cases/element-options'
 
 export const getSelectElementOptions = ({
@@ -50,7 +50,7 @@ export const getSelectElementOptions = ({
 
       case IElementTypeKind.ExcludeDescendantsElements: {
         selectOptions = difference(
-          allElementOptions,
+          allElementOptions ?? [],
           getDescendants(targetElement, elementMap),
         ).filter(({ value }) => value !== targetElement.value)
         break

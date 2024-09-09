@@ -1,6 +1,6 @@
 import type { Notification } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
-import isFunction from 'lodash/isFunction'
+import { isFunction } from 'remeda'
 
 export const notify = <TEvent>(
   options: Notification<TEvent>,

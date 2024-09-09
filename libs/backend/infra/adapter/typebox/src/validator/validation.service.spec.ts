@@ -9,7 +9,7 @@ import { Test } from '@nestjs/testing'
 import { Type } from '@sinclair/typebox'
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import affixJson from 'data/export-v3/admin/atoms/AntDesignAffix.json'
-import omit from 'lodash/omit'
+import { omit } from 'remeda'
 import { ValidationService } from './validation.service'
 
 describe('ValidationService', () => {
@@ -32,8 +32,8 @@ describe('ValidationService', () => {
       )
 
       expect(result).toEqual({
-        api: omit(affixJson.api, 'kind', 'name', '__typename'),
-        atom: omit(affixJson.atom, 'owner'),
+        api: omit(affixJson.api, ['kind', 'name', '__typename']),
+        atom: affixJson.atom,
       })
     })
 

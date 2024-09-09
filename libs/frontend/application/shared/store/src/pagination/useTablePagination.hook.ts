@@ -8,9 +8,9 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import type { TablePaginationConfig } from 'antd'
-import debounce from 'lodash/debounce'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { debounce } from 'remeda'
 import { paginationContext } from './pagination.service'
 
 interface TablePaginationProps<T extends SupportedPaginationModel> {
@@ -69,13 +69,14 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
 
   const pagination: TablePaginationConfig = {
     current: routerService.page,
-    onChange: debounce((newPage, newPageSize) => {
-      return
-      // return onChange({
-      //   newPage,
-      //   newPageSize,
-      // }),
-    }, 500),
+    onChange: (newPage: number, newPageSize: number) => {
+      debounce(
+        () => {
+          onChange(newPage, newPageSize)
+        },
+        { waitMs: 500 },
+      ).call()
+    },
     pageSize: routerService.pageSize,
     position: ['bottomCenter'],
     showSizeChanger: true,

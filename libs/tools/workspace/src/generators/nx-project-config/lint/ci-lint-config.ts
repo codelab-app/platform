@@ -1,6 +1,5 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
-import merge from 'lodash/merge'
-import unset from 'lodash/unset'
+import { merge } from 'remeda'
 
 /**
  * Output ESLint reporter to tmp library

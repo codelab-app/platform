@@ -6,7 +6,6 @@
     "unused-imports",
     "prettier",
     "simple-import-sort",
-    "lodash",
     "prefer-arrow",
     "canonical",
     "sort-destructure-keys",

@@ -6,7 +6,7 @@ import {
   createBridge,
 } from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
-import throttle from 'lodash/throttle'
+import { throttle } from 'radash'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
@@ -57,6 +57,7 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
       onChange={onChange}
       onChangeModel={onChangeModel}
       onSubmit={throttle(
+        { interval: 200 },
         handleFormSubmit<TData, TResponse>(
           onSubmit,
           (isLoading: boolean) => {
@@ -66,7 +67,6 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
           onSubmitSuccess,
           onSubmitError,
         ),
-        200,
       )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}

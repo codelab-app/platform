@@ -1,15 +1,15 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import mergeWith from 'lodash/mergeWith'
-
-type PropsArray = Array<IPropData | null | undefined>
-
-const propsCustomizer = (value: string, srcValue: string, key: string) => {
-  if (key === 'className') {
-    return `${value || ''} ${srcValue || ''}`
-  }
-
-  return undefined
-}
+import {
+  filter,
+  isTruthy,
+  map,
+  merge,
+  omit,
+  pick,
+  pipe,
+  prop,
+  reduce,
+} from 'remeda'
 
 /**
  *  Deep merges a list of props together, the latter props have priority over the prior ones in case of conflict
@@ -19,9 +19,27 @@ const propsCustomizer = (value: string, srcValue: string, key: string) => {
  */
 
 export const mergeProps = <TData extends IPropData = IPropData>(
-  ...propsArray: PropsArray
-): TData => {
-  return propsArray.reduce<TData>((mergedProps, nextProps) => {
-    return mergeWith(mergedProps, nextProps, propsCustomizer)
-  }, {} as TData)
+  ...propsArray: Array<TData | null | undefined>
+) => {
+  const props = filter(propsArray, isTruthy)
+
+  /**
+   * Combine all `className` into a single concatenated version
+   */
+  const classNameOverride = pipe(
+    props,
+    reduce(
+      (acc, { className }) => ({
+        className: `${acc.className} ${className}`,
+      }),
+      { className: '' },
+    ),
+  )
+
+  const restProps = reduce(props, (acc, curr) => merge(acc, curr), {})
+
+  /**
+   * Override the `className` prop with the concatenated version
+   */
+  return merge(restProps, classNameOverride)
 }

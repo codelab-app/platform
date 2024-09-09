@@ -4,7 +4,7 @@ import {
   primitiveTypeSchema,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
-import merge from 'lodash/merge'
+import { merge } from 'remeda'
 import { extractUiSchema } from './extract-ui-schema'
 
 interface DemoType {
@@ -81,12 +81,12 @@ describe('extractUiSchema', () => {
       dependencies: {
         typeSelection: {
           oneOf: [
-            merge({}, primitiveTypeSchema, {
+            merge(primitiveTypeSchema, {
               properties: {
                 typeSelection: { enum: [ITypeKind.PrimitiveType] },
               },
             }),
-            merge({}, interfaceTypeSchema, {
+            merge(interfaceTypeSchema, {
               properties: {
                 typeSelection: { enum: [ITypeKind.InterfaceType] },
               },

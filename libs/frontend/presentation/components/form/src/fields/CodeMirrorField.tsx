@@ -2,9 +2,9 @@ import {
   CodeMirrorEditor,
   type CodeMirrorEditorProps,
 } from '@codelab/frontend-presentation-components-codemirror'
-import isNil from 'lodash/isNil'
 import type { Ref } from 'react'
 import React from 'react'
+import { isNonNullish } from 'remeda'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
@@ -52,7 +52,7 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
          */
 
         // Will show blank if undefined instead of "undefined" string
-        const editorValue = !isNil(merged.value ?? merged.field?.default)
+        const editorValue = isNonNullish(merged.value ?? merged.field?.default)
           ? String(merged.value ?? merged.field?.default)
           : undefined
 

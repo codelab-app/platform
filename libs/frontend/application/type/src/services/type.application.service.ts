@@ -2,8 +2,7 @@ import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import compact from 'lodash/compact'
-import sortBy from 'lodash/sortBy'
+import { filter, isTruthy, sortBy } from 'remeda'
 
 export const useTypeService = () => {
   const { fieldDomainService, typeDomainService } = useDomainStore()
@@ -14,8 +13,9 @@ export const useTypeService = () => {
    * @returns only the types having their id in ids
    */
   const getAll = async (ids?: Array<string>) => {
-    const existingTypes = compact(
+    const existingTypes = filter(
       ids?.map((id) => typeDomainService.types.get(id)) ?? [],
+      isTruthy,
     )
 
     let newTypes: Array<ITypeModel> = []
@@ -38,7 +38,7 @@ export const useTypeService = () => {
       const newFragments = [...typeFragments, ...descendantTypeFragments]
 
       // don't include descendant types and return only requested types unless all is requested i.e. no `ids`
-      newTypes = compact(
+      newTypes = filter(
         newFragments.map((typeFragment) => {
           if (typeFragment.__typename === ITypeKind.InterfaceType) {
             typeFragment.fields.forEach((fieldFragment) => {
@@ -50,6 +50,7 @@ export const useTypeService = () => {
 
           return ids?.includes(typeFragment.id) || !ids ? newType : undefined
         }),
+        isTruthy,
       )
     }
 

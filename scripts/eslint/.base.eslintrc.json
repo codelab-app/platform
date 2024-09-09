@@ -35,7 +35,6 @@
             "exceptions": ["_", "a", "b", "$", "z", "i"]
           }
         ],
-        "lodash/import-scope": ["error", "method"],
         "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",

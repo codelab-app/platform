@@ -7,7 +7,6 @@ import {
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
@@ -56,7 +55,7 @@ export const ElementTreeView = observer<{
       }}
       onMouseEnter={({ event, node }) => {
         // Selectable by default, unless it's not
-        if (has(node, 'selectable') && !node.selectable) {
+        if ('selectable' in node && !node.selectable) {
           const target = event.target as Element
           // This is where the hover effect is set
           const treeNodeWrapper = target.closest(TREE_NODE_WRAPPER_SELECTOR)

@@ -21,8 +21,7 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { uuidRegex } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import flatMap from 'lodash/flatMap'
-import uniq from 'lodash/uniq'
+import { unique } from 'radash'
 
 export class ExportAppCommand {
   constructor(public where: AppWhere) {}
@@ -98,19 +97,21 @@ export class ExportAppHandler
 
       // get all components and nested components that are used in the page including their elements
       do {
-        const componentIds = uniq(
-          flatMap(elementsCurrentBatch, (element) => [
-            element.parentComponent?.id,
-            element.renderType.__typename === IElementRenderTypeKind.Component
-              ? element.renderType.id
-              : null,
-            element.childMapperComponent?.id,
-            ...((element.props.data as string).match(uuidRegex) || []),
-          ]).filter(
-            (id): id is string =>
-              Boolean(id) &&
-              !components.some(({ component }) => component.id === id),
-          ),
+        const componentIds = unique(
+          elementsCurrentBatch
+            .flatMap((element) => [
+              element.parentComponent?.id,
+              element.renderType.__typename === IElementRenderTypeKind.Component
+                ? element.renderType.id
+                : null,
+              element.childMapperComponent?.id,
+              ...((element.props.data as string).match(uuidRegex) || []),
+            ])
+            .filter(
+              (id): id is string =>
+                Boolean(id) &&
+                !components.some(({ component }) => component.id === id),
+            ),
         )
 
         const currentComponents = await this.componentRepository.find({
