@@ -1,6 +1,6 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAtomDto, IComponentDto } from '@codelab/shared/abstract/core'
 import type { AtomType } from '@codelab/shared/infra/gql'
 
 export const filterAtoms = (
@@ -48,12 +48,12 @@ export const filterAtoms = (
   return atomsWithNoRequiredParents
 }
 
-export const mapAtomOptions = (
-  atom:
+export const mapEntitySelectOptions = (
+  entity:
     | IAtomDto
+    | IComponentDto
     | {
         id: string
         name: string
-        requiredParents: Array<{ id: string; type: AtomType }>
       },
-): SelectOption => ({ label: atom.name, value: atom.id })
+): SelectOption => ({ label: entity.name, value: entity.id })

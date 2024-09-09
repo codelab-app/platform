@@ -13,7 +13,7 @@ import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
   filterAtoms,
-  mapAtomOptions,
+  mapEntitySelectOptions,
 } from '@codelab/frontend-domain-atom/store'
 import {
   useApplicationStore,
@@ -135,14 +135,11 @@ export const useAtomService = (): IAtomService => {
     return all[0]
   }
 
-  const getSelectAtomOptions = async (
-    fieldProps: { value?: string },
-    parent?: IAtomModel,
-  ) => {
+  const getSelectAtomOptions = async (parent?: IAtomModel) => {
     const atoms = await atomRepository.getSelectAtomOptions()
     const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
 
-    return atomOptions.map(mapAtomOptions)
+    return atomOptions.map(mapEntitySelectOptions)
   }
 
   const loadApi = async (id: string) => {

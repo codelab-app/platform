@@ -16,9 +16,9 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type {
-  ICreateComponentData,
-  IUpdateComponentData,
+import {
+  type ICreateComponentData,
+  type IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
 import type {
   ComponentBuilderFragment,

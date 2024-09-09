@@ -1,10 +1,17 @@
+import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon'
+import DeploymentUnitOutlined from '@ant-design/icons/lib/icons/DeploymentUnitOutlined'
 import type {
   IAtomDomainService,
   IAtomModel,
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
+import { SelectOption } from '@codelab/frontend/abstract/types'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
-import { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
+import {
+  IAtomDto,
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { computed, observable } from 'mobx'
 import {
@@ -16,7 +23,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import React from 'react'
-import { Atom } from '../store'
+import { Atom, mapEntitySelectOptions } from '../store'
 
 @model('@codelab/AtomDomainService')
 export class AtomDomainService
@@ -114,5 +121,22 @@ import { Validator } from '@codelab/shared/infra/schema'
     this.atoms.set(atom.id, atom)
 
     return atom
+  }
+
+  getRenderTypeOptions(atoms?: Array<SelectOption>) {
+    const fallbackAtoms = this.atomsList.map(mapEntitySelectOptions)
+    const atomOptions = atoms ?? fallbackAtoms
+
+    const optionsWithImage = atomOptions.map(({ label, value }) => {
+      return {
+        __typename: IElementRenderTypeKind.Component,
+        icon: DeploymentUnitOutlined,
+        label,
+        text: label,
+        value,
+      }
+    })
+
+    return optionsWithImage
   }
 }

@@ -19,7 +19,7 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import ChildMapperCompositeField from '../../components/ChildMapperCompositeField'
-import { RenderTypeCompositeField } from '../../components/RenderTypeCompositeField'
+import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
 
@@ -63,11 +63,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const runtimeProps = runtimeElement.runtimeProps
 
     const collapseItems = [
-      {
-        children: <RenderTypeCompositeField name="renderType" />,
-        key: 'renderer',
-        label: 'Renderer',
-      },
       {
         children: (
           <AutoField
@@ -116,6 +111,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           uiKey={UiKey.UpdateElementForm}
         >
           <AutoComputedElementNameField label="Name" name="name" />
+          <RenderTypeField name="renderType" />
           <AutoFields
             omitFields={[
               'childMapperComponent',
