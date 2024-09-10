@@ -1,6 +1,7 @@
-import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
+import { breakpoints } from '@codelab/shared/domain'
 import type { PropsWithChildren, ReactElement } from 'react'
 import React from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { useRecoilValue } from 'recoil'
 import { Footer } from '../footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
@@ -31,7 +32,7 @@ const Content = ({ children }: PropsWithChildren) => {
 }
 
 const HomeTemplate = ({ children }: HomeTemplateProps) => {
-  const isMobileOrTablet = useMobileOrTabletMediaQuery()
+  const isMobileOrTablet = useMediaQuery({ maxWidth: breakpoints.Tablet.max })
 
   return (
     <Layout>
