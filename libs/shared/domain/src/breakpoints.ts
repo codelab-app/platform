@@ -1,6 +1,8 @@
 import type { IBreakpoint } from '@codelab/shared/abstract/core'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
 
+export const DEFAULT_BUILDER_BREAKPOINT = IBreakpointType.Desktop
+
 export const breakpoints: Record<IBreakpointType, IBreakpoint> = {
   [IBreakpointType.MobilePortrait]: {
     default: 360,
