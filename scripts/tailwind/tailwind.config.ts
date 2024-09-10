@@ -64,10 +64,6 @@ const config: Config = {
       // => @media (min-width: 1600px) { ... }
     },
   },
-  corePlugins: {
-    // Reset adds `background:transparent`, which background-color can't override
-    preflight: false,
-  },
   variants: {},
 }
 
