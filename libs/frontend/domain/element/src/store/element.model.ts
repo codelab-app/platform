@@ -414,9 +414,9 @@ export class Element
     /**
      * Add new first child
      */
-    parentElement.firstChild = elementRef(this.id)
+    parentElement.setFirstChild(elementRef(this.id))
 
-    this.parentElement = elementRef(parentElement)
+    this.setParentElement(elementRef(parentElement))
   }
 
   /**
@@ -435,11 +435,11 @@ export class Element
     const oldNextSibling = prevSibling.nextSibling?.current
 
     if (oldNextSibling) {
-      oldNextSibling.prevSibling = elementRef(this)
+      oldNextSibling.setPrevSibling(elementRef(this))
       this.setNextSibling(elementRef(oldNextSibling))
     }
 
-    this.prevSibling = elementRef(prevSibling.id)
+    this.setPrevSibling(elementRef(prevSibling.id))
 
     prevSibling.nextSibling = elementRef(this.id)
   }
@@ -464,7 +464,7 @@ export class Element
 
     const oldPrevSibling = nextSibling.prevSibling?.current
 
-    nextSibling.prevSibling = elementRef(this)
+    nextSibling.setPrevSibling(elementRef(this))
 
     if (oldPrevSibling) {
       oldPrevSibling.nextSibling = elementRef(this)
@@ -472,7 +472,7 @@ export class Element
       this.prevSibling = elementRef(oldPrevSibling)
     }
 
-    this.nextSibling = elementRef(nextSibling)
+    this.setNextSibling(elementRef(nextSibling))
   }
 
   /**
