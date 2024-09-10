@@ -4,8 +4,8 @@ import { mergeConfig } from 'vite'
 
 const storybookConfig: StorybookConfig = {
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    // '@storybook/addon-essentials',
+    // '@storybook/addon-interactions',
     '@nx/react/plugins/storybook',
   ],
   framework: {
