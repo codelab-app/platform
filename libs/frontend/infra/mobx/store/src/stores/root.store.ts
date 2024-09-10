@@ -1,7 +1,7 @@
 import type {
   IApplicationStore,
   IRootStore,
-  IRouterProps,
+  IRootStoreInput,
 } from '@codelab/frontend/abstract/application'
 import {
   actionDomainServiceContext,
@@ -22,7 +22,6 @@ import {
   typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import {
   Model,
   model,
@@ -33,17 +32,22 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = (
-  user: IUserDto,
-  preference: IPreferenceDto,
-  routerProps: IRouterProps,
-) => {
+export const createRootStore = ({
+  preference,
+  renderSideEffects,
+  routerProps,
+  user,
+}: IRootStoreInput) => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
 
   const domainStore = createDomainStore(user, preference)
-  const applicationStore = createApplicationStore(routerProps)
+
+  const applicationStore = createApplicationStore(
+    routerProps,
+    renderSideEffects,
+  )
 
   @model('@codelab/RootStore')
   class RootStore

@@ -2,19 +2,21 @@ import type {
   IRendererDto,
   IRendererModel,
   IRendererService,
+  IRenderSideEffects,
 } from '@codelab/frontend/abstract/application'
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
 } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { Validator } from '@codelab/shared/infra/schema'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
+import type { Frozen, Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from '../store/renderer.model'
 
-@model('@codelab/RendererApplicationService')
-export class RendererApplicationService
+@model('@codelab/RendererService')
+export class RendererService
   extends Model({
     activeRenderer: prop<Nullable<Ref<IRendererModel>>>(
       () => null,
@@ -40,6 +42,14 @@ export class RendererApplicationService
     return getRuntimeElementService(this)
   }
 
+  get sideEffects(): IRenderSideEffects {
+    Validator.assertsDefined(this._sideEffects)
+
+    return this._sideEffects
+  }
+
+  _sideEffects: IRenderSideEffects | undefined
+
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     let renderer = this.renderers.get(rendererDto.id)
@@ -63,5 +73,9 @@ export class RendererApplicationService
     }
 
     return renderer
+  }
+
+  setSideEffects(sideEffects: IRenderSideEffects): void {
+    this._sideEffects = sideEffects
   }
 }

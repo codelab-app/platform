@@ -25,7 +25,7 @@ import {
   typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { userDto } from '@codelab/frontend/test/data'
+import { preferenceDto, userDto } from '@codelab/frontend/test/data'
 import { rendererFactory } from '@codelab/frontend-application-renderer/test'
 import {
   apiActionFactory,
@@ -94,12 +94,15 @@ export const createTestStore = () => {
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(userDto)
+  const domainStore = createDomainStore(userDto, preferenceDto)
 
-  const applicationStore = createApplicationStore({
-    pathParams: {},
-    queryParams: {},
-  })
+  const applicationStore = createApplicationStore(
+    {
+      pathParams: {},
+      queryParams: {},
+    },
+    { syncModifiedElements: async () => Promise.resolve() },
+  )
 
   @model('@codelab/TestRootStore')
   class TestRootStore

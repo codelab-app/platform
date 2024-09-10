@@ -3,6 +3,7 @@ import {
   type IApplicationStore,
   IBuilderService,
   type IRendererService,
+  IRenderSideEffects,
   type IRouterProps,
   type IRouterService,
   type IRuntimeComponentService,
@@ -22,16 +23,19 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
-  RendererApplicationService,
+  RendererService,
   RuntimeComponentService,
   RuntimeElementService,
   RuntimePageService,
 } from '@codelab/frontend-application-renderer/services'
 import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { RouterService } from '@codelab/frontend-application-shared-store/router'
-import { Model, model, prop } from 'mobx-keystone'
+import { frozen, Model, model, prop } from 'mobx-keystone'
 
-export const createApplicationStore = (router: IRouterProps) => {
+export const createApplicationStore = (
+  router: IRouterProps,
+  renderSideEffects: IRenderSideEffects,
+) => {
   @model('@codelab/ApplicationIStore')
   class ApplicationStore
     extends Model({
@@ -46,9 +50,7 @@ export const createApplicationStore = (router: IRouterProps) => {
       })),
       // add reference to domain store, so that all the models in ApplicationStore
       // can access refs from domain store (elements, components, apps, etc)
-      rendererService: prop<IRendererService>(
-        () => new RendererApplicationService({}),
-      ),
+      rendererService: prop<IRendererService>(() => new RendererService({})),
       routerService: prop<IRouterService>(() => RouterService.init(router)),
       runtimeComponentService: prop<IRuntimeComponentService>(
         () => new RuntimeComponentService({}),
@@ -69,6 +71,7 @@ export const createApplicationStore = (router: IRouterProps) => {
       runtimePageServiceContext.set(this, this.runtimePageService)
       routerServiceContext.set(this, this.routerService)
       builderServiceContext.set(this, this.builderService)
+      this.rendererService.setSideEffects(renderSideEffects)
     }
   }
 

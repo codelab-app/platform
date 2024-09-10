@@ -5,6 +5,7 @@ import type {
   IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import {
+  getRendererService,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
@@ -113,8 +114,27 @@ export class BuilderService
   }
 
   @computed
+  get renderService() {
+    return getRendererService(this)
+  }
+
+  @computed
   get tagDomainService() {
     return getTagDomainService(this)
+  }
+
+  @modelAction
+  selectElement(runtimeElement: IRuntimeElementModel) {
+    this.setSelectedNode(runtimeElementRef(runtimeElement.compositeKey))
+
+    // expand parent elements on tree
+    runtimeElement.pathFromRoot.forEach((parentRuntimeElement) =>
+      // elements will be marked with modified attribute
+      parentRuntimeElement.element.current.setExpended(true),
+    )
+
+    // persist expanded elements info
+    void this.renderService.sideEffects.syncModifiedElements()
   }
 
   @modelAction
