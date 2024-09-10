@@ -18,5 +18,4 @@ export const breakpoints: Record<IBreakpointType, IBreakpoint> = {
     min: 768,
   },
   [IBreakpointType.Desktop]: { default: 992, max: 1920, min: 992 },
-  [IBreakpointType.None]: { default: -1, max: -1, min: -1 },
 }

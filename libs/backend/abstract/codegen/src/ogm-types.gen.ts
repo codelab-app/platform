@@ -1907,7 +1907,6 @@ export enum BreakpointType {
   MobilePortrait = 'MobilePortrait',
   MobileLandscape = 'MobileLandscape',
   Tablet = 'Tablet',
-  None = 'None',
 }
 
 export enum CodeMirrorLanguage {

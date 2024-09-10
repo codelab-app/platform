@@ -6028,7 +6028,6 @@ export enum BreakpointType {
   Desktop = 'Desktop',
   MobileLandscape = 'MobileLandscape',
   MobilePortrait = 'MobilePortrait',
-  None = 'None',
   Tablet = 'Tablet',
 }
 
