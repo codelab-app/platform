@@ -11,7 +11,6 @@ import {
 import { Validator } from '@codelab/shared/infra/schema'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import { omit } from 'radash'
 
 export class ExportAtomCommand {
   constructor(readonly where: AtomWhere) {}

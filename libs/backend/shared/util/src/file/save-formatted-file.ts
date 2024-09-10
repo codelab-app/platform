@@ -18,7 +18,9 @@ export const saveFormattedFile = (outputFilePath: string, data: ObjectLike) => {
   fs.appendFileSync(exportPath, EOL, 'utf8')
 }
 
-export const formatToPrettifiedJson = (data: ObjectLike) => {
+export const formatToPrettifiedJson = (
+  data: Array<ObjectLike> | ObjectLike,
+) => {
   const jsonString = prettifyForConsole(data)
   const prettifiedJsonString = prettier.format(jsonString, { parser: 'json' })
 

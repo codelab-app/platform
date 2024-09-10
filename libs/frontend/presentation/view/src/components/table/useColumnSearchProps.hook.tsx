@@ -1,21 +1,22 @@
 'use client'
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
-import type { Maybe, ObjectLike } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InputRef } from 'antd'
 import { Button, Input, Space } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FilterDropdownProps } from 'antd/lib/table/interface'
+import type { AnyModel } from 'mobx-keystone'
 import React, { useEffect, useRef, useState } from 'react'
 
-interface ColumnSearchProps<RecordType extends ObjectLike>
+interface ColumnSearchProps<RecordType extends AnyModel>
   extends Omit<ColumnType<RecordType>, 'dataIndex'> {
   dataIndex: keyof RecordType
   text?: string
   onSearch?(searchText: string): void
 }
 
-export const useColumnSearchProps = <RecordType extends ObjectLike>({
+export const useColumnSearchProps = <RecordType extends AnyModel>({
   dataIndex,
   onSearch,
   text = '',

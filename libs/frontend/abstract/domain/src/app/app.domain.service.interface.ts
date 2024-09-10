@@ -1,4 +1,4 @@
-import type { IApp, IAppDto, IPropData } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IPageDomainFactory } from '../page'

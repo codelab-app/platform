@@ -4,7 +4,7 @@ import type {
   TargetConfiguration,
   Tree,
 } from '@nx/devkit'
-import { isEmpty, merge, mergeDeep, pathOr, set, setPath } from 'remeda'
+import { merge } from 'remeda'
 import { updateJestConfig } from './update-jest-config'
 
 export const updateTestConfig = (

@@ -4,10 +4,15 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "unused-imports/no-unused-imports": "error",
         "@typescript-eslint/ban-types": [
           "error",
           {
             "types": {
+              "Record<string, any>": {
+                "message": "use ObjectLike instead",
+                "fixWith": "ObjectLike"
+              },
               "Record<string, unknown>": {
                 "message": "use ObjectLike instead",
                 "fixWith": "ObjectLike"
@@ -29,7 +34,6 @@
         "no-dupe-class-members": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "off",
-        // "unused-imports/no-unused-imports": "error",
         "sort-destructure-keys/sort-destructure-keys": [
           "error",
           { "caseSensitive": false }

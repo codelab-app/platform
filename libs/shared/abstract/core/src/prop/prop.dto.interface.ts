@@ -10,7 +10,7 @@ export const PropDtoSchema = Type.Object({
 
 export type IPropDto = Static<typeof PropDtoSchema>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
 export type IPropData = Record<string, any>
 
 export const PropSchema = Type.Object({

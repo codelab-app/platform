@@ -10,7 +10,7 @@ import { tryParse } from '@codelab/shared/utils'
 import type { Axios, AxiosError, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { ClientError, GraphQLClient } from 'graphql-request'
-import { isString, merge } from 'remeda'
+import { isString } from 'remeda'
 
 export class ResourceGraphQlClient implements IResourceClient {
   constructor(resourceConfig: IResourceConfigData) {

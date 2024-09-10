@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import type { IPropData } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-import { isString, keys, prop } from 'remeda'
+import { isString, keys } from 'remeda'
 import { mapDeep } from '../mapDeep'
 import {
   EXP_PATH_TEMPLATE_END,
@@ -15,7 +15,7 @@ export const hasExpression = (str: unknown): boolean =>
   str.includes(EXP_PATH_TEMPLATE_START) &&
   str.includes(EXP_PATH_TEMPLATE_END)
 
-export const evaluateObject = <IContext extends ObjectLike>(
+export const evaluateObject = <IContext extends object>(
   props: IPropData,
   context: IContext,
 ) => {
@@ -42,7 +42,7 @@ export const stripExpression = (expression: string) => {
       )
 }
 
-const getByExpression = <IContext extends ObjectLike>(
+const getByExpression = <IContext extends object>(
   expressionValue: string,
   context: IContext,
 ) => {
@@ -64,7 +64,7 @@ const getByExpression = <IContext extends ObjectLike>(
   return data
 }
 
-export const evaluateExpression = <IContext extends ObjectLike>(
+export const evaluateExpression = <IContext extends object>(
   expression: string,
   context: IContext,
 ) => {

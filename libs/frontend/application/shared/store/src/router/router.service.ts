@@ -4,7 +4,6 @@ import type {
   UrlPathParams,
   UrlQueryParams,
 } from '@codelab/frontend/abstract/types'
-import { Validator } from '@codelab/shared/infra/schema'
 import { computed } from 'mobx'
 import { Model, model, prop } from 'mobx-keystone'
 import { parseUrlQueryParams } from './useUrlQueryParams.hook'

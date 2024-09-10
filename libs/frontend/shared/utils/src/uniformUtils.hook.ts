@@ -103,8 +103,7 @@ export const createValidator = (schema: Schema) => {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createBridge = <T extends Record<string, any>>(
+export const createBridge = <T extends ObjectLike>(
   schema: JSONSchemaType<T> | TSchema,
 ) => {
   return new JSONSchemaBridge(schema, createValidator(schema))

@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import queryString from 'query-string'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 /**
  * Takes in search params and set default, then sync the url with the query params

@@ -29,7 +29,6 @@ import {
   omit,
   omitBy,
   prop as rProp,
-  set,
   values,
 } from 'remeda'
 import { mergeProps } from '../utils/merge-props'

@@ -1,9 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addProjectTags = void 0;
-const tslib_1 = require("tslib");
-const set_1 = tslib_1.__importDefault(require("lodash/set"));
-const uniq_1 = tslib_1.__importDefault(require("lodash/uniq"));
+const remeda_1 = require("remeda");
 /**
  *
  * This process appends tags
@@ -23,8 +21,8 @@ const appendTagsToProjectConfig = (libPathsMatch, tag, projectConfig) => {
     return matches;
 };
 const appendTags = (tag, projectConfig) => {
-    const updatedTags = (0, uniq_1.default)([...(projectConfig.tags ?? []), tag]);
-    (0, set_1.default)(projectConfig, 'tags', updatedTags);
+    const updatedTags = (0, remeda_1.unique)([...(projectConfig.tags ?? []), tag]);
+    (0, remeda_1.set)(projectConfig, 'tags', updatedTags);
 };
 /**
  * Add tags based on project directory structure

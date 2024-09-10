@@ -1,4 +1,3 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { type AnyModel, createContext } from 'mobx-keystone'
 import type { IActionDomainService } from './action.domain.service.interface'
 

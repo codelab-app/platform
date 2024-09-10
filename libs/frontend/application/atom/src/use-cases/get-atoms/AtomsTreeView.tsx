@@ -4,13 +4,11 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useAtomService } from '../../services'
-import { AtomsTreeItem } from './AtomsTreeItem'
 
 interface AtomsTreeViewProps {
   showSearchBar: boolean

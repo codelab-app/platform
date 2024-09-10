@@ -8,7 +8,6 @@ import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { type ReactNode, useEffect, useState } from 'react'
-import { usePaginationQueryParams } from './usePaginationQueryParams.hook'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode

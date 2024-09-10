@@ -1,15 +1,5 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import {
-  filter,
-  isTruthy,
-  map,
-  merge,
-  omit,
-  pick,
-  pipe,
-  prop,
-  reduce,
-} from 'remeda'
+import { filter, isTruthy, merge, pipe, reduce } from 'remeda'
 
 /**
  *  Deep merges a list of props together, the latter props have priority over the prior ones in case of conflict

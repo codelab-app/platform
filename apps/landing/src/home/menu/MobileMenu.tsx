@@ -88,9 +88,9 @@ export const MenuMobile = () => {
           </div>
           <ul className="flex flex-col p-0 pt-4">
             {menuItems.map((items, index) => (
-              <li className="laptop:flex hidden pt-8 text-base" key={index}>
+              <li className="hidden pt-8 text-base laptop:flex" key={index}>
                 <Link
-                  className="font-display flex items-center font-normal  text-black hover:text-primary"
+                  className="flex items-center font-display font-normal  text-black hover:text-primary"
                   href={items.href}
                 >
                   <Image

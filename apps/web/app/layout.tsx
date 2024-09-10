@@ -5,7 +5,6 @@ import { StyleProviders } from '@codelab/frontend/infra/context'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
-import Script from 'next/script'
 import React from 'react'
 
 setGlobalConfig({

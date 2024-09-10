@@ -1,6 +1,6 @@
 import type { ApolloError } from '@apollo/client'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
-import { hasAtLeast, isObjectType, isString } from 'remeda'
+import { isObjectType, isString } from 'remeda'
 
 export const extractErrorMessage = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
