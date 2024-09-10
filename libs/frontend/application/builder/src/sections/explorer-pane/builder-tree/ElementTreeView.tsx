@@ -5,6 +5,7 @@ import {
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
@@ -23,6 +24,7 @@ export const ElementTreeView = observer<{
   treeData?: IElementTreeViewDataNode
 }>(({ treeData }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
+  const { syncModifiedElements } = useElementService()
   const selectedNode = builderService.selectedNode?.current
   const { handleDrop, isMoving } = useElementTreeDrop()
 
@@ -37,15 +39,20 @@ export const ElementTreeView = observer<{
       autoExpandParent={false}
       disabled={isMoving}
       draggable={true}
-      expandedKeys={builderService.expandedElementTreeNodeIds}
+      expandedKeys={runtimeElementService.expendedCompositeKeys}
       onClick={(event) => {
         event.stopPropagation()
       }}
       onDrop={handleDrop}
       onExpand={(expandedKeys) => {
-        builderService.setExpandedElementTreeNodeIds(
-          expandedKeys as Array<string>,
-        )
+        runtimeElementService.elementsList.forEach((runtimeElement) => {
+          // element will be marked modified automatically
+          runtimeElement.element.current.setExpended(
+            expandedKeys.includes(runtimeElement.compositeKey),
+          )
+        })
+
+        void syncModifiedElements()
       }}
       onMouseEnter={({ event, node }) => {
         // Selectable by default, unless it's not
@@ -73,13 +80,11 @@ export const ElementTreeView = observer<{
           return
         }
 
-        if (node.type === IRuntimeNodeType.Component) {
-          builderService.selectComponentNode(runtimeComponentRef(node.key))
-        }
-
-        if (node.type === IRuntimeNodeType.Element) {
-          builderService.selectElementNode(runtimeElementRef(node.key))
-        }
+        builderService.setSelectedNode(
+          node.type === IRuntimeNodeType.Component
+            ? runtimeComponentRef(node.key)
+            : runtimeElementRef(node.key),
+        )
       }}
       selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       titleRender={(data) => <ElementTreeItemTitle data={data} />}

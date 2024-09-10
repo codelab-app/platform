@@ -57,6 +57,7 @@ const create = (element: IElementDto): IElementModel => {
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
+    expended,
     firstChild,
     id,
     name,
@@ -83,6 +84,7 @@ const create = (element: IElementDto): IElementModel => {
       ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
+    expended,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
     isTextContentEditable: false,
@@ -112,13 +114,13 @@ const create = (element: IElementDto): IElementModel => {
 @model('@codelab/Element')
 export class Element
   extends Model({
-    // The patches don't record until attached to root, so initial creation won't be tracked
-    _modified: prop(true).withSetter(),
+    _modified: prop(false).withSetter(),
     childMapperComponent:
       prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
+    expended: prop<Nullish<boolean>>(false).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
@@ -535,6 +537,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
+      expended: this.expended,
       firstChild: connectNodeId(this.firstChild?.id),
       id: this.id,
       nextSibling: connectNodeId(this.nextSibling?.id),
@@ -593,6 +596,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
+      expended: this.expended,
       postRenderAction,
       preRenderAction,
       renderForEachPropKey: this.renderForEachPropKey,
@@ -610,6 +614,7 @@ export class Element
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     | 'compositeKey'
+    | 'expended'
     | 'firstChild'
     | 'nextSibling'
     | 'parentElement'
@@ -620,6 +625,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
+      expended: this.expended,
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
       parentElement: reconnectNodeId(this.parentElement?.id),
@@ -632,6 +638,7 @@ export class Element
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
+    expended,
     firstChild,
     name,
     nextSibling,
@@ -655,6 +662,7 @@ export class Element
     this.parentElement = parentElement?.id
       ? elementRef(parentElement.id)
       : this.parentElement
+    this.expended = expended ?? this.expended
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling
@@ -705,15 +713,5 @@ export class Element
     return () => {
       recorder.dispose()
     }
-  }
-
-  @computed
-  private get componentDomainService() {
-    return getComponentDomainService(this)
-  }
-
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
   }
 }

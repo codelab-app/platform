@@ -12,10 +12,9 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   getAtomDomainService,
-  getPreferenceDomainService,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
@@ -114,43 +113,8 @@ export class BuilderService
   }
 
   @computed
-  get expandedElementTreeNodeIds() {
-    return []
-  }
-
-  @computed
-  get preferenceDomainService() {
-    return getPreferenceDomainService(this)
-  }
-
-  @computed
-  get preferences() {
-    return this.preferenceDomainService.preference
-  }
-
-  @computed
   get tagDomainService() {
     return getTagDomainService(this)
-  }
-
-  @modelAction
-  selectComponentNode(node: Nullish<Ref<IRuntimeComponentModel>>) {
-    if (!node) {
-      return
-    }
-
-    this.setSelectedNode(node)
-    this.updateExpandedNodes()
-  }
-
-  @modelAction
-  selectElementNode(node: Nullish<Ref<IRuntimeElementModel>>) {
-    if (!node) {
-      return
-    }
-
-    this.setSelectedNode(node)
-    this.updateExpandedNodes()
   }
 
   @modelAction
@@ -173,59 +137,5 @@ export class BuilderService
     }
 
     this.setSelectedNode(runtimeElementRef(newSelectedNode.compositeKey))
-  }
-
-  @modelAction
-  setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>) {
-    // some empty function
-  }
-
-  findNodesToExpand(
-    node: IRuntimeModel,
-    alreadyExpandedNodeIds: Array<string>,
-  ): Array<string> {
-    const pathResult = this.getPathFromRoot(node)
-    const expandedSet = new Set(alreadyExpandedNodeIds)
-
-    return pathResult.filter((el) => !expandedSet.has(el))
-  }
-
-  getPathFromRoot(node: IRuntimeModel): Array<string> {
-    const path = []
-
-    if (!isRuntimeElement(node)) {
-      return [node.compositeKey]
-    }
-
-    let currentElement: Maybe<IRuntimeElementModel> = node
-
-    while (currentElement) {
-      path.push(currentElement.compositeKey)
-      currentElement = currentElement.parentElement
-    }
-
-    return path.reverse()
-  }
-
-  updateExpandedNodes = () => {
-    const selectedNode = this.selectedNode?.current
-
-    if (!selectedNode) {
-      return
-    }
-
-    const newNodesToExpand = this.findNodesToExpand(
-      selectedNode,
-      this.expandedElementTreeNodeIds,
-    )
-
-    if (newNodesToExpand.length === 0) {
-      return
-    }
-
-    this.setExpandedElementTreeNodeIds([
-      ...this.expandedElementTreeNodeIds,
-      ...newNodesToExpand,
-    ])
   }
 }

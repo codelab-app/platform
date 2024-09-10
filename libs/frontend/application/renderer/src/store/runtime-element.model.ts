@@ -184,6 +184,13 @@ export class RuntimeElementModel
   }
 
   @computed
+  get pathFromRoot(): Array<IRuntimeElementModel> {
+    return this.parentElement
+      ? [...this.parentElement.pathFromRoot, this]
+      : [this]
+  }
+
+  @computed
   get render(): Nullable<ReactElement> {
     if (this.shouldRender === false) {
       return null

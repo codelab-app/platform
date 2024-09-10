@@ -16,14 +16,10 @@ export interface IBuilderService {
   activeComponent: Nullable<IRuntimeComponentModel>
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  expandedElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<Ref<IRuntimeModel>>
   selectedNode: Nullable<Ref<IRuntimeModel>>
 
-  selectComponentNode(node: Nullish<Ref<IRuntimeComponentModel>>): void
-  selectElementNode(node: Nullish<Ref<IRuntimeElementModel>>): void
   selectPreviousElementOnDelete(): void
-  setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(node: Nullable<Ref<IRuntimeModel>>): void
   setSelectedNode(node: Nullable<Ref<IRuntimeModel>>): void
 }
