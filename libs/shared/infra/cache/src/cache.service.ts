@@ -1,3 +1,5 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 export enum CacheInstance {
   Backend = 'Backend',
   Frontend = 'Frontend',
@@ -49,7 +51,10 @@ export class CacheService {
     return instance
   }
 
-  async getMany<T>(key: string, where: object = {}): Promise<Array<T> | null> {
+  async getMany<T>(
+    key: string,
+    where: ObjectLike = {},
+  ): Promise<Array<T> | null> {
     const compoundKey = this.compoundKey(key, where, 'many')
     const data = await this.cache.get(compoundKey)
     const parsed = createStringToJSONSchema<Array<T>>().safeParse(data)
@@ -57,7 +62,7 @@ export class CacheService {
     return parsed.success ? parsed.data : null
   }
 
-  async getOne<T>(key: string, where: object = {}): Promise<T | null> {
+  async getOne<T>(key: string, where: ObjectLike = {}): Promise<T | null> {
     const compoundKey = this.compoundKey(key, where, 'one')
     const data = await this.cache.get(compoundKey)
     const parsed = createStringToJSONSchema<T>().safeParse(data)
@@ -65,7 +70,7 @@ export class CacheService {
     return parsed.success ? parsed.data : null
   }
 
-  setMany(key: string, where: object = {}, data: object) {
+  setMany(key: string, where: ObjectLike = {}, data: ObjectLike) {
     const compoundKey = this.compoundKey(key, where, 'many')
 
     return this.cache.set(compoundKey, JSON.stringify(data), {
@@ -74,7 +79,7 @@ export class CacheService {
     })
   }
 
-  setOne(key: string, where: object, data: object) {
+  setOne(key: string, where: ObjectLike, data: ObjectLike) {
     const compoundKey = this.compoundKey(key, where, 'one')
 
     return this.cache.set(compoundKey, JSON.stringify(data), {
@@ -94,7 +99,11 @@ export class CacheService {
     this.cache = this.createDummyCache()
   }
 
-  private compoundKey(model: string, where: object, oneOrMany: 'many' | 'one') {
+  private compoundKey(
+    model: string,
+    where: ObjectLike,
+    oneOrMany: 'many' | 'one',
+  ) {
     const sortedWhere = Object.fromEntries(
       Object.entries(where).sort(([keyA], [keyB]) => keyA.localeCompare(keyB)),
     )

@@ -4,25 +4,30 @@
  * @param data - The data to filter.
  * @returns The filtered data, with empty strings and empty objects/arrays removed.
  */
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { isArray, isObjectType, pickBy } from 'remeda'
 
-export const filterEmptyStrings = (data: unknown): unknown => {
+export const filterEmptyStrings = (
+  data: Array<IPropData> | IPropData,
+): unknown => {
   if (isArray(data)) {
-    return data.map(filterEmptyStrings).filter((item) => {
-      if (isArray(item)) {
-        return item.length > 0
-      }
+    return data
+      .map((val) => filterEmptyStrings(val))
+      .filter((item) => {
+        if (isArray(item)) {
+          return item.length > 0
+        }
 
-      if (isObjectType(item)) {
-        return Object.keys(item).length > 0
-      }
+        if (isObjectType(item)) {
+          return Object.keys(item).length > 0
+        }
 
-      return item !== undefined && item !== ''
-    })
+        return item !== undefined && item !== ''
+      })
   }
 
   if (isObjectType(data)) {
-    const filtered = pickBy(data as Record<string, unknown>, (value) => {
+    const filtered = pickBy(data, (value) => {
       const filteredValue = filterEmptyStrings(value)
 
       if (isArray(filteredValue)) {
@@ -34,7 +39,7 @@ export const filterEmptyStrings = (data: unknown): unknown => {
       }
 
       return filteredValue !== '' && filteredValue !== undefined
-    }) as Record<string, unknown>
+    })
 
     // Recursively apply filterEmptyStrings to nested objects
     for (const key in filtered) {

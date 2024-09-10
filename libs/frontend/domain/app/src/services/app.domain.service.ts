@@ -24,11 +24,6 @@ export class AppDomainService
   implements IAppDomainService
 {
   @computed
-  get appsJson() {
-    return this.appsList.map((app) => app.toJson).reduce(merge, {})
-  }
-
-  @computed
   get appsList() {
     return [...this.apps.values()]
   }

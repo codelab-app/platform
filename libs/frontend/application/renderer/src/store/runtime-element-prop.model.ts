@@ -28,7 +28,7 @@ import {
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import React, { ReactNode } from 'react'
+import React, { createElement, ReactNode } from 'react'
 import { merge, pathOr } from 'remeda'
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
@@ -143,7 +143,7 @@ export class RuntimeElementPropsModel
     const renderType = this.element.renderType.current
     // use "maybeCurrent" since in production websites api Interface might not be available
     const defaultProps = renderType.api.maybeCurrent?.defaultValues
-    const props = mergeProps(defaultProps, this.element.props.values)
+    const props = mergeProps(defaultProps ?? {}, this.element.props.values)
 
     return {
       ...props,

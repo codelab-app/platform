@@ -14,7 +14,7 @@ export const runtimeElementRef = rootRef<IRuntimeElementModel>(
 )
 
 export const isRuntimeElementRef = (
-  ref: Ref<object>,
+  ref: Ref<AnyModel>,
 ): ref is Ref<IRuntimeElementModel> => isRefOfType(ref, runtimeElementRef)
 
 export const isRuntimeElement = (

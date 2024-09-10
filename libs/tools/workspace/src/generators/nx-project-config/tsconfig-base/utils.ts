@@ -1,7 +1,9 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
 import { entries, filter, fromEntries, pipe } from 'remeda'
 
-export const sortKeys = (object: object): object =>
+export const sortKeys = (object: ObjectLike): ObjectLike =>
   Object.fromEntries(Object.entries(object).sort())
 
 /**

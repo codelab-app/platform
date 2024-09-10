@@ -4,11 +4,12 @@
     "outDir": "../../../../../dist/out-tsc",
     "types": [
       "node",
-
+      "@fancyapps/ui",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ]
   },
+  "files": [],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",

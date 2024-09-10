@@ -1,6 +1,6 @@
 const path = require('path')
 const glob = require('glob')
-const R = require('ramda')
+const R = require('remeda')
 
 const files = glob.sync('@(apps|libs)/**/tsconfig.json', {
   ignore: [

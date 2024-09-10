@@ -13,7 +13,9 @@ export const elementRef = rootRef<IElementModel>('@codelab/ElementRef', {
 /**
  * Used for determining which node type is in the page tree
  */
-export const isElementRef = (node: Ref<object>): node is Ref<IElementModel> => {
+export const isElementRef = (
+  node: Ref<AnyModel>,
+): node is Ref<IElementModel> => {
   return isRefOfType(node, elementRef)
 }
 

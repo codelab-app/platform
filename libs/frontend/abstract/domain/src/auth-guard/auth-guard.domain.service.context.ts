@@ -1,10 +1,10 @@
-import { createContext } from 'mobx-keystone'
+import { type AnyModel, createContext } from 'mobx-keystone'
 import type { IAuthGuardDomainService } from './auth-guard.domain.service.interface'
 
 export const authGuardDomainServiceContext =
   createContext<IAuthGuardDomainService>()
 
-export const getAuthGuardDomainService = (self: object) => {
+export const getAuthGuardDomainService = (self: AnyModel) => {
   const authGuardService = authGuardDomainServiceContext.get(self)
 
   if (!authGuardService) {

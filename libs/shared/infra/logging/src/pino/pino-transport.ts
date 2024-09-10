@@ -1,3 +1,4 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import chalk from 'chalk'
 import pino from 'pino'
 import pretty from 'pino-pretty'
@@ -8,7 +9,7 @@ const levelsLabels = pino.levels.labels
 
 export interface PinoMessage {
   context?: string
-  object: object
+  object: ObjectLike
 }
 
 export const pinoPrettyStream = pretty({

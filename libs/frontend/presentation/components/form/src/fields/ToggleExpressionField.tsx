@@ -8,6 +8,7 @@ import type { Completion } from '@codemirror/autocomplete'
 import type { AutoCompleteProps } from 'antd'
 import { Button, Space, Tooltip } from 'antd'
 import React, { useState } from 'react'
+import { isNullish } from 'remeda'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
@@ -74,7 +75,7 @@ const ToggleExpression = ({
   mainProps,
 }: ToggleExpressionFieldProps) => {
   // Will show blank if undefined instead of "undefined" string
-  const value = !isNil(fieldProps.value ?? fieldProps.field?.default)
+  const value = !isNullish(fieldProps.value ?? fieldProps.field?.default)
     ? String(fieldProps.value ?? fieldProps.field?.default)
     : undefined
 

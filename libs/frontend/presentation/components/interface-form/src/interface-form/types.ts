@@ -9,13 +9,14 @@ import type {
   IFieldDefaultValue,
   IValidationRules,
 } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { Assign } from 'utility-types'
 
 export type InterfaceFormProps<TData, TResponse> = Assign<
   Omit<FormProps<TData, TResponse>, 'schema' | 'uiKey'>,
   SubmitRef & {
     context?: UiPropertiesContext
-    initialSchema?: object
+    initialSchema?: ObjectLike
     interfaceType: IInterfaceTypeModel
     setIsLoading?: SetIsLoading
   }
@@ -24,7 +25,7 @@ export type InterfaceFormProps<TData, TResponse> = Assign<
 export type UiPropertiesFn<TType extends ITypeModel = ITypeModel> = (
   type: TType,
   context?: UiPropertiesContext,
-) => Record<string, unknown>
+) => ObjectLike
 
 /**
  * for custom parameters to typeSchema transformer

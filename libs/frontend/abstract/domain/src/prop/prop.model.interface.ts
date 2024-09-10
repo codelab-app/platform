@@ -1,5 +1,5 @@
 import type { IProp, IPropData, IPropDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type {
   PropCreateInput,
   PropUpdateInput,
@@ -21,7 +21,7 @@ export interface IPropModel
   clone(): IPropModel
   delete(key: string): void
   get(key: string): unknown
-  set(key: string, value: boolean | object | string): void
+  set(key: string, value: ObjectLike | boolean | string): void
   setMany(data: IPropData): void
 }
 

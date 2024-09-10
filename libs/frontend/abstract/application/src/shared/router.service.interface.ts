@@ -3,7 +3,6 @@ import type {
   UrlQueryParams,
   UrlQueryParamsString,
 } from '@codelab/frontend/abstract/types'
-import type { DeepNonNullable } from 'utility-types'
 
 /**
  * Props use the string version

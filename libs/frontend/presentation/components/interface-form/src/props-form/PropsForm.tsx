@@ -6,6 +6,7 @@ import {
   type SetIsLoading,
 } from '@codelab/frontend-presentation-components-form'
 import type { IPropData } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { DeepPartial } from 'utility-types'
@@ -20,7 +21,7 @@ export interface PropsFormProps
   autocomplete?: IRuntimeContext
   autosave?: boolean
   cssString?: string
-  initialSchema?: object
+  initialSchema?: ObjectLike
   interfaceType?: IInterfaceTypeModel
   model?: IPropData
   setIsLoading?: SetIsLoading

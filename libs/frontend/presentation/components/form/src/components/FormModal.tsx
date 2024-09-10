@@ -4,14 +4,12 @@ import type {
   FormModalProps,
   SubmitController,
 } from '@codelab/frontend/abstract/types'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, ObjectLike } from '@codelab/shared/abstract/types'
 import Modal from 'antd/lib/modal'
 import type { PropsWithChildren } from 'react'
 import React, { useRef } from 'react'
 
-export const FormModal = <
-  TData extends Record<string, unknown> = Record<string, unknown>,
->({
+export const FormModal = <TData extends ObjectLike>({
   children,
   okButtonProps,
   okText,

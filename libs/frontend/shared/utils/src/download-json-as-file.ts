@@ -1,6 +1,7 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { prettifyForConsole } from '@codelab/shared/utils'
 
-export const downloadJsonAsFile = (fileName: string, content: object) => {
+export const downloadJsonAsFile = (fileName: string, content: ObjectLike) => {
   const contentType = 'application/json;charset=utf-8;'
   const a = document.createElement('a')
 

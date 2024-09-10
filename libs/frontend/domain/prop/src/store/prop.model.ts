@@ -5,7 +5,7 @@ import type {
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import { IPropData } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type {
   PropCreateInput,
   PropUpdateInput,
@@ -102,7 +102,7 @@ export class Prop
   }
 
   @modelAction
-  set(key: string, value: boolean | object | string) {
+  set(key: string, value: ObjectLike | boolean | string) {
     const obj = { [key]: value }
 
     this.data = frozen(mergeDeep(this.data.data ?? {}, obj))
@@ -115,7 +115,7 @@ export class Prop
       isNullish(this.data.data) || !hasSubObject(this.data.data, data)
 
     if (shouldChangeProp) {
-      this.data = frozen(mergeProps(this.data.data, data))
+      this.data = frozen(mergeProps(this.data.data ?? {}, data))
     }
   }
 

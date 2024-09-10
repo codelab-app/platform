@@ -16,8 +16,9 @@ export const componentRef = rootRef<IComponentModel>('@codelab/ComponentRef', {
   },
 })
 
-export const isComponentRef = (ref: Ref<object>): ref is Ref<IComponentModel> =>
-  isRefOfType(ref, componentRef)
+export const isComponentRef = (
+  ref: Ref<AnyModel>,
+): ref is Ref<IComponentModel> => isRefOfType(ref, componentRef)
 
 export const isComponent = (
   instance: AnyModel,

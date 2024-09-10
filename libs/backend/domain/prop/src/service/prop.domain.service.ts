@@ -1,3 +1,4 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 import { PropRepository } from '../repository'
@@ -6,7 +7,7 @@ import { PropRepository } from '../repository'
 export class PropDomainService {
   constructor(private propRepository: PropRepository) {}
 
-  async createProp(propData: object = {}) {
+  async createProp(propData: ObjectLike = {}) {
     const data =
       propData instanceof Object ? JSON.stringify(propData) : propData
 

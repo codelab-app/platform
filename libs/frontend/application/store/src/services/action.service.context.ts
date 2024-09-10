@@ -1,9 +1,9 @@
 import type { IActionService } from '@codelab/frontend/abstract/application'
-import { createContext } from 'mobx-keystone'
+import { type AnyModel, createContext } from 'mobx-keystone'
 
 export const actionServiceContext = createContext<IActionService>()
 
-export const getActionService = (self: object) => {
+export const getActionService = (self: AnyModel) => {
   const actionStore = actionServiceContext.get(self)
 
   if (!actionStore) {

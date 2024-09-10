@@ -1,3 +1,5 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 export const jsonStringToCss = (json: string | null | undefined) => {
   const jsonObject = JSON.parse(json ?? '{}')
   let css = ''
@@ -90,11 +92,9 @@ const findEndOfBlockIndex = (cssString: string, startIndex: number): number => {
  * @param cssString user-defined css string
  * @returns parsed css object based on any given css string
  */
-export const parseCssStringIntoObject = (
-  cssString: string,
-): Record<string, unknown> => {
+export const parseCssStringIntoObject = (cssString: string): ObjectLike => {
   const normalizedCss = normalizeCssString(cssString)
-  const result: Record<string, unknown> = {}
+  const result: ObjectLike = {}
   let index = 0
 
   while (index < normalizedCss.length) {

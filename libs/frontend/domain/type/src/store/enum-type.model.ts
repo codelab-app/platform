@@ -74,34 +74,37 @@ export class EnumType
   }
 
   toUpdateInput() {
-    return merge(super.toUpdateInput(), {
-      // For some reason if the disconnect and delete are in the update section it throws an error
-      delete: {
-        allowedValues: [
-          {
-            where: {
-              node: {
-                NOT: {
-                  id_IN: this.allowedValues.map((av) => av.id),
+    return merge(
+      {
+        // For some reason if the disconnect and delete are in the update section it throws an error
+        delete: {
+          allowedValues: [
+            {
+              where: {
+                node: {
+                  NOT: {
+                    id_IN: this.allowedValues.map((av) => av.id),
+                  },
                 },
               },
             },
-          },
-        ],
+          ],
+        },
+        update: {
+          allowedValues: [
+            {
+              create: this.allowedValues.map((value) => ({
+                node: {
+                  id: value.id,
+                  key: value.key,
+                  value: value.value,
+                },
+              })),
+            },
+          ],
+        },
       },
-      update: {
-        allowedValues: [
-          {
-            create: this.allowedValues.map((value) => ({
-              node: {
-                id: value.id,
-                key: value.key,
-                value: value.value,
-              },
-            })),
-          },
-        ],
-      },
-    })
+      super.toUpdateInput(),
+    )
   }
 }

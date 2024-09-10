@@ -6,6 +6,7 @@ import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import type { IPropData } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { hasExpression } from '@codelab/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -28,7 +29,7 @@ import { BaseRenderPipe } from '../render-pipes'
 
 const matchPropsToFields = (
   fields: Array<IFieldModel> = [],
-  props: Array<object>,
+  props: Array<ObjectLike>,
 ): IPropData =>
   props.reduce(
     (acc, val, index) =>
@@ -71,7 +72,7 @@ export class RenderPropTypeTransformer
     }
 
     // spread is required to access all args not just the first one
-    return (...renderPropArgs: Array<object>) => {
+    return (...renderPropArgs: Array<ObjectLike>) => {
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
 

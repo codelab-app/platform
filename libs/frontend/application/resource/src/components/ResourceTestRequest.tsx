@@ -7,6 +7,7 @@ import {
   ICodeMirrorLanguage,
   type IResourceFetchConfig,
 } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
@@ -36,7 +37,7 @@ export const ResourceTestRequest = observer<ResourceTestRequestProps>(
       fetchConfigDataFieldName,
     )
 
-    const [response, setResponse] = useState<object>({})
+    const [response, setResponse] = useState<ObjectLike>({})
 
     return (
       <DisplayIf condition={!resource && !isEmpty(config)}>

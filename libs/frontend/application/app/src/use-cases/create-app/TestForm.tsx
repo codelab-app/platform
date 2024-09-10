@@ -1,5 +1,6 @@
 'use client'
 
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
 import Ajv from 'ajv'
 import React from 'react'
@@ -38,7 +39,7 @@ const ajv = new Ajv({
 const createValidator = <T,>(_schema: JSONSchemaType<T>) => {
   const validator = ajv.compile(_schema)
 
-  return (model: Record<string, unknown>) => {
+  return (model: ObjectLike) => {
     validator(model)
 
     return validator.errors?.length ? { details: validator.errors } : null

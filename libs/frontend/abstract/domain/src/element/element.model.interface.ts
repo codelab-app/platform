@@ -1,5 +1,10 @@
 import type { IElement, IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type {
+  Maybe,
+  Nullable,
+  Nullish,
+  ObjectLike,
+} from '@codelab/shared/abstract/types'
 import type {
   ElementCreateInput,
   ElementUpdateInput,
@@ -95,8 +100,8 @@ export interface IElementModel
   store: Ref<IStoreModel>
   style: Maybe<string>
   tailwindClassNames?: Nullable<Array<string>>
-  toId: object
-  toTreeNode: object
+  toId: ObjectLike
+  toTreeNode: ObjectLike
   treeTitle: {
     primary: string
     secondary: string | undefined

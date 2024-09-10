@@ -75,10 +75,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       [elementService],
     )
 
-    const debouncedUpdateElementStyles = debounce(
-      updateElementStyles,
-      CSS_AUTOSAVE_TIMEOUT,
-    )
+    const debouncedUpdateElementStyles = debounce(updateElementStyles, {
+      waitMs: CSS_AUTOSAVE_TIMEOUT,
+    }).call
 
     useEffect(
       /*

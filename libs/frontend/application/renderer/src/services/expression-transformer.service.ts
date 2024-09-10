@@ -1,5 +1,5 @@
 import type { IExpressionTransformer } from '@codelab/frontend/abstract/application'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import { stripExpression } from '@codelab/shared/utils'
 import {
   _async,
@@ -20,7 +20,7 @@ export class ExpressionTransformer
   })
   implements IExpressionTransformer
 {
-  context: Nullable<object> = null
+  context: Nullable<ObjectLike> = null
 
   transform: Nullable<IExpressionTransformer['transform']> = null
 

@@ -1,4 +1,5 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { isString, keys, prop } from 'remeda'
 import { mapDeep } from '../mapDeep'
 import {
@@ -14,7 +15,7 @@ export const hasExpression = (str: unknown): boolean =>
   str.includes(EXP_PATH_TEMPLATE_START) &&
   str.includes(EXP_PATH_TEMPLATE_END)
 
-export const evaluateObject = <IContext>(
+export const evaluateObject = <IContext extends ObjectLike>(
   props: IPropData,
   context: IContext,
 ) => {
@@ -41,7 +42,7 @@ export const stripExpression = (expression: string) => {
       )
 }
 
-const getByExpression = <IContext>(
+const getByExpression = <IContext extends ObjectLike>(
   expressionValue: string,
   context: IContext,
 ) => {
@@ -63,7 +64,7 @@ const getByExpression = <IContext>(
   return data
 }
 
-export const evaluateExpression = <IContext extends object>(
+export const evaluateExpression = <IContext extends ObjectLike>(
   expression: string,
   context: IContext,
 ) => {

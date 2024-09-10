@@ -56,8 +56,8 @@ export class RuntimeComponentPropModel
   get componentEvaluatedProps() {
     return mergeProps(
       this.evaluatedProps,
-      this.instanceElementProps,
-      this.childMapperProp,
+      this.instanceElementProps ?? {},
+      this.childMapperProp ?? {},
     )
   }
 
@@ -90,7 +90,7 @@ export class RuntimeComponentPropModel
     return mergeProps(
       this.component.api.current.defaultValues,
       this.component.props.values,
-      this.customProps?.values,
+      this.customProps?.values ?? {},
       {
         children,
         [DATA_COMPONENT_ID]: this.component.id,

@@ -4,6 +4,27 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "@typescript-eslint/ban-types": [
+          "error",
+          {
+            "types": {
+              "Record<string, unknown>": {
+                "message": "use ObjectLike instead",
+                "fixWith": "ObjectLike"
+              },
+              "Object": {
+                "message": "Use {} or ObjectLike instead",
+                "fixWith": "ObjectLike"
+              },
+              "object": {
+                "message": "Use {} or ObjectLike instead",
+                "fixWith": "ObjectLike"
+              }
+            },
+            "extendDefaults": true
+          }
+        ],
+        "import/no-named-as-default-member": "off",
         "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
         "no-dupe-class-members": "off",
         "no-unused-vars": "off",
