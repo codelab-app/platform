@@ -1,5 +1,6 @@
 /* eslint-disable */
 export default {
+  testEnvironment: 'jsdom',
   displayName: 'frontend-application-preference',
   preset: '../../../../jest.preset.js',
   transform: {

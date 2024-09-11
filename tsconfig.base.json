@@ -661,15 +661,6 @@
       "@codelab/frontend-domain-atom/test": [
         "libs/frontend/domain/atom/src/test/index.ts"
       ],
-      "@codelab/frontend-domain-preference/repositories": [
-        "libs/frontend/domain/preference/src/repositories/index.ts"
-      ],
-      "@codelab/frontend-domain-preference/services": [
-        "libs/frontend/domain/preference/src/services/index.ts"
-      ],
-      "@codelab/frontend-domain-preference/store": [
-        "libs/frontend/domain/preference/src/store/index.ts"
-      ],
       "@codelab/frontend-domain-auth-guard/repositories": [
         "libs/frontend/domain/auth-guard/src/repositories/index.ts"
       ],
@@ -735,6 +726,15 @@
       ],
       "@codelab/frontend-domain-page/test": [
         "libs/frontend/domain/page/src/test/index.ts"
+      ],
+      "@codelab/frontend-domain-preference/repositories": [
+        "libs/frontend/domain/preference/src/repositories/index.ts"
+      ],
+      "@codelab/frontend-domain-preference/services": [
+        "libs/frontend/domain/preference/src/services/index.ts"
+      ],
+      "@codelab/frontend-domain-preference/store": [
+        "libs/frontend/domain/preference/src/store/index.ts"
       ],
       "@codelab/frontend-domain-prop/repositories": [
         "libs/frontend/domain/prop/src/repositories/index.ts"
