@@ -6,7 +6,6 @@ import type { IRouterProps } from './router.service.interface'
 
 export interface IRootStoreInput {
   preference: IPreferenceDto
-  renderSideEffects: IRenderSideEffects
   routerProps: IRouterProps
   user: IUserDto
 }

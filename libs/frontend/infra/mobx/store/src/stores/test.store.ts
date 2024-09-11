@@ -96,13 +96,10 @@ export const createTestStore = () => {
 
   const domainStore = createDomainStore(userDto, preferenceDto)
 
-  const applicationStore = createApplicationStore(
-    {
-      pathParams: {},
-      queryParams: {},
-    },
-    { syncModifiedElements: async () => Promise.resolve() },
-  )
+  const applicationStore = createApplicationStore({
+    pathParams: {},
+    queryParams: {},
+  })
 
   @model('@codelab/TestRootStore')
   class TestRootStore

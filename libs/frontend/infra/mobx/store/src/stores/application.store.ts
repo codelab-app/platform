@@ -3,7 +3,6 @@ import {
   type IApplicationStore,
   IBuilderService,
   type IRendererService,
-  IRenderSideEffects,
   type IRouterProps,
   type IRouterService,
   type IRuntimeComponentService,
@@ -30,12 +29,9 @@ import {
 } from '@codelab/frontend-application-renderer/services'
 import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { RouterService } from '@codelab/frontend-application-shared-store/router'
-import { frozen, Model, model, prop } from 'mobx-keystone'
+import { Model, model, prop } from 'mobx-keystone'
 
-export const createApplicationStore = (
-  router: IRouterProps,
-  renderSideEffects: IRenderSideEffects,
-) => {
+export const createApplicationStore = (router: IRouterProps) => {
   @model('@codelab/ApplicationIStore')
   class ApplicationStore
     extends Model({
@@ -71,7 +67,6 @@ export const createApplicationStore = (
       runtimePageServiceContext.set(this, this.runtimePageService)
       routerServiceContext.set(this, this.routerService)
       builderServiceContext.set(this, this.builderService)
-      this.rendererService.setSideEffects(renderSideEffects)
     }
   }
 

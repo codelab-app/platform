@@ -19,7 +19,6 @@ export interface IBuilderService {
   hoveredNode: Nullable<Ref<IRuntimeModel>>
   selectedNode: Nullable<Ref<IRuntimeModel>>
 
-  selectElement(runtimeElement: IRuntimeElementModel): void
   selectPreviousElementOnDelete(): void
   setHoveredNode(node: Nullable<Ref<IRuntimeModel>>): void
   setSelectedNode(node: Nullable<Ref<IRuntimeModel>>): void

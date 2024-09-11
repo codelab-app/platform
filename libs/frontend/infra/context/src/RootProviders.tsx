@@ -2,7 +2,6 @@
 
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
-import { useElementService } from '@codelab/frontend-application-element/services'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import {
   createRootStore,
@@ -19,15 +18,11 @@ export const RootProviders = ({
   user,
 }: PropsWithChildren<{ user: IUserDto; preference: IPreferenceDto }>) => {
   const pathParams = useUrlPathParams()
-  const { syncModifiedElements } = useElementService()
 
   const rootStore = useMemo(
     () =>
       createRootStore({
         preference,
-        renderSideEffects: {
-          syncModifiedElements,
-        },
         routerProps: {
           pathParams,
           // Layout do not receive searchParams

@@ -42,14 +42,6 @@ export class RendererService
     return getRuntimeElementService(this)
   }
 
-  get sideEffects(): IRenderSideEffects {
-    Validator.assertsDefined(this._sideEffects)
-
-    return this._sideEffects
-  }
-
-  _sideEffects: IRenderSideEffects | undefined
-
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     let renderer = this.renderers.get(rendererDto.id)

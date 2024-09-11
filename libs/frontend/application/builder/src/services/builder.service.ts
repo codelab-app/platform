@@ -124,20 +124,6 @@ export class BuilderService
   }
 
   @modelAction
-  selectElement(runtimeElement: IRuntimeElementModel) {
-    this.setSelectedNode(runtimeElementRef(runtimeElement.compositeKey))
-
-    // expand parent elements on tree
-    runtimeElement.pathFromRoot.forEach((parentRuntimeElement) =>
-      // elements will be marked with modified attribute
-      parentRuntimeElement.element.current.setExpended(true),
-    )
-
-    // persist expanded elements info
-    void this.renderService.sideEffects.syncModifiedElements()
-  }
-
-  @modelAction
   selectPreviousElementOnDelete() {
     const selectedNode = this.selectedNode?.current
 

@@ -34,7 +34,6 @@ import { createDomainStore } from './domain.store'
 
 export const createRootStore = ({
   preference,
-  renderSideEffects,
   routerProps,
   user,
 }: IRootStoreInput) => {
@@ -43,11 +42,7 @@ export const createRootStore = ({
   })
 
   const domainStore = createDomainStore(user, preference)
-
-  const applicationStore = createApplicationStore(
-    routerProps,
-    renderSideEffects,
-  )
+  const applicationStore = createApplicationStore(routerProps)
 
   @model('@codelab/RootStore')
   class RootStore

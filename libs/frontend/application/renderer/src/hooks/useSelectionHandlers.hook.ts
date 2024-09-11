@@ -3,6 +3,7 @@ import {
   RendererType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { type MouseEvent, useCallback } from 'react'
 
@@ -15,6 +16,7 @@ export const useSelectionHandlers = (
   runtimeElement: IRuntimeElementModel,
   rendererType: RendererType,
 ) => {
+  const { syncModifiedElements } = useElementService()
   const { builderService } = useApplicationStore()
 
   const handleClick = useCallback(
@@ -28,7 +30,15 @@ export const useSelectionHandlers = (
         lastEditedElement.element.current.setIsTextContentEditable(false)
       }
 
-      builderService.selectElement(runtimeElement)
+      builderService.setSelectedNode(runtimeElementRef(runtimeElement))
+
+      // expand parent elements on tree
+      runtimeElement.pathFromRoot.forEach((parentRuntimeElement) =>
+        // elements will be marked with modified attribute
+        parentRuntimeElement.element.current.setExpended(true),
+      )
+
+      void syncModifiedElements()
     },
     [builderService, runtimeElement],
   )
