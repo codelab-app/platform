@@ -1,5 +1,5 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
-import { set, unique } from 'remeda'
+import { unique } from 'remeda'
 
 /**
  *
@@ -29,7 +29,9 @@ const appendTagsToProjectConfig = (
 const appendTags = (tag: string, projectConfig: ProjectConfiguration) => {
   const updatedTags = unique([...(projectConfig.tags ?? []), tag])
 
-  set(projectConfig, 'tags', updatedTags)
+  Object.assign(projectConfig, {
+    tags: updatedTags,
+  })
 }
 
 /**

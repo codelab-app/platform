@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeTsconfigPath = exports.appendTsconfigPath = exports.getModuleAlias = exports.sortKeys = void 0;
+const tslib_1 = require("tslib");
 const devkit_1 = require("@nx/devkit");
-const remeda_1 = require("remeda");
+const merge_1 = tslib_1.__importDefault(require("lodash/merge"));
+const unset_1 = tslib_1.__importDefault(require("lodash/unset"));
 const sortKeys = (object) => Object.fromEntries(Object.entries(object).sort());
 exports.sortKeys = sortKeys;
 /**
@@ -25,7 +27,7 @@ const appendTsconfigPath = (tree, project, moduleAlias, targetPath) => {
             [moduleAlias]: [targetPath],
         });
         const paths = json.compilerOptions.paths ?? {};
-        Object.assign(paths, {
+        (0, merge_1.default)(paths, {
             [moduleAlias]: [targetPath],
         });
         json.compilerOptions.paths = (0, exports.sortKeys)(paths);
@@ -36,8 +38,8 @@ exports.appendTsconfigPath = appendTsconfigPath;
 const removeTsconfigPath = (tree, moduleAlias) => {
     (0, devkit_1.updateJson)(tree, 'tsconfig.base.json', (json) => {
         const paths = json.compilerOptions.paths ?? {};
-        const updatedPaths = (0, remeda_1.pipe)(Object.entries(paths), (0, remeda_1.filter)(([key]) => key !== moduleAlias), remeda_1.fromEntries);
-        json.compilerOptions.paths = updatedPaths;
+        (0, unset_1.default)(json, `compilerOptions.paths.${moduleAlias}`);
+        json.compilerOptions.paths = paths;
         return json;
     });
 };

@@ -1,5 +1,6 @@
 import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
-import { filter, fromEntries, pipe } from 'remeda'
+import merge from 'lodash/merge'
+import unset from 'lodash/unset'
 
 export const sortKeys = (object: object): object =>
   Object.fromEntries(Object.entries(object).sort())
@@ -36,7 +37,7 @@ export const appendTsconfigPath = (
 
     const paths = json.compilerOptions.paths ?? {}
 
-    Object.assign(paths, {
+    merge(paths, {
       [moduleAlias]: [targetPath],
     })
 
@@ -50,13 +51,9 @@ export const removeTsconfigPath = (tree: Tree, moduleAlias: string) => {
   updateJson(tree, 'tsconfig.base.json', (json) => {
     const paths = json.compilerOptions.paths ?? {}
 
-    const updatedPaths = pipe(
-      Object.entries<[string, unknown]>(paths),
-      filter(([key]) => key !== moduleAlias),
-      fromEntries,
-    )
+    unset(json, `compilerOptions.paths.${moduleAlias}`)
 
-    json.compilerOptions.paths = updatedPaths
+    json.compilerOptions.paths = paths
 
     return json
   })

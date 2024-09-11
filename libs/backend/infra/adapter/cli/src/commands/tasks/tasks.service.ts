@@ -54,12 +54,12 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // execCommand(`nx build web -c test`)
-            execCommand('nx affected --target=test:unit -c test')
+            execCommand('nx affected --target=test -c test.unit')
           }
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test:unit --ci -c ci --verbose',
+              'pnpm nx affected --target=test -c test.unit --ci -c ci --verbose',
             )
           }
         }),
@@ -71,13 +71,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
             execCommand(
-              'nx affected --target=test:integration -c test --parallel=1',
+              'nx affected --target=test -c test.integration --parallel=1',
             )
           }
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test:integration --runInBand --ci -c ci --parallel=1 --verbose',
+              'pnpm nx affected --target=test -c test.integration --runInBand --ci -c ci --parallel=1 --verbose',
             )
           }
         }),

@@ -22,7 +22,9 @@ const appendTagsToProjectConfig = (libPathsMatch, tag, projectConfig) => {
 };
 const appendTags = (tag, projectConfig) => {
     const updatedTags = (0, remeda_1.unique)([...(projectConfig.tags ?? []), tag]);
-    (0, remeda_1.set)(projectConfig, 'tags', updatedTags);
+    Object.assign(projectConfig, {
+        tags: updatedTags,
+    });
 };
 /**
  * Add tags based on project directory structure

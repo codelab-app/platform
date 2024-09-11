@@ -115,9 +115,25 @@
         "passWithNoTests": true
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
         "ci": {
           "ci": true,
           "codeCoverage": true
+        },
+        "test.unit": {
+          "reporters": ["default"],
+          "color": true,
+          "parallel": 3,
+          "testPathIgnorePatterns": ["i.spec.ts"]
+        },
+        "test.integration": {
+          "memoryLimit": 4096,
+          "reporters": ["default"],
+          "color": true,
+          "testPathPattern": ["i.spec.ts"],
+          "runInBand": true
         }
       }
     },
@@ -145,12 +161,6 @@
       "inputs": ["default", "^default"]
     },
     "test": {
-      "cache": true
-    },
-    "test:integration": {
-      "cache": true
-    },
-    "test:unit": {
       "cache": true
     },
     "lint": {

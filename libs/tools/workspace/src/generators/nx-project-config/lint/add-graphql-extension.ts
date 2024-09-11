@@ -1,4 +1,5 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
+import set from 'lodash/set'
 import { join } from 'path'
 
 /**
@@ -14,17 +15,5 @@ export const addGraphqlExtension = (
     join(projectConfig.root, '/**/*.{ts,tsx,js,jsx,graphql}'),
   ]
 
-  if (!projectConfig.targets) {
-    projectConfig.targets = {}
-  }
-
-  if (!projectConfig.targets.lint) {
-    projectConfig.targets.lint = { options: {} }
-  }
-
-  if (!projectConfig.targets.lint.options) {
-    projectConfig.targets.lint.options = {}
-  }
-
-  projectConfig.targets.lint.options.lintFilePatterns = lintFilePatterns
+  set(projectConfig, 'targets.lint.options.lintFilePatterns', lintFilePatterns)
 }
