@@ -2,16 +2,14 @@ import type {
   IRendererDto,
   IRendererModel,
   IRendererService,
-  IRenderSideEffects,
 } from '@codelab/frontend/abstract/application'
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
 } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { Validator } from '@codelab/shared/infra/schema'
 import { computed } from 'mobx'
-import type { Frozen, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from '../store/renderer.model'
 
@@ -65,9 +63,5 @@ export class RendererService
     }
 
     return renderer
-  }
-
-  setSideEffects(sideEffects: IRenderSideEffects): void {
-    this._sideEffects = sideEffects
   }
 }
