@@ -17,13 +17,13 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/frontend/application/app',
+  coverageDirectory: '../../../../coverage/libs/frontend/application/preference',
   reporters: [
     'default',
     [
       'jest-junit',
       {
-        outputName: 'frontend-application-app.xml',
+        outputName: 'frontend-application-preference.xml',
         reportTestSuiteErrors: true,
         titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',
