@@ -18,7 +18,8 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/frontend/application/preference',
+  coverageDirectory:
+    '../../../../coverage/libs/frontend/application/preference',
   reporters: [
     'default',
     [
