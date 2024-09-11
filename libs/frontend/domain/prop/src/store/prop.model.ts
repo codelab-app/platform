@@ -74,10 +74,10 @@ export class Prop
 
       const apiPropsByKey = values(apiPropsMap)
         .map((propModel) => ({ [propModel.key]: propModel }))
-        .reduce<IPropData>(merge, {})
+        .reduce<IPropData>((acc, cur) => merge(acc, cur), {})
 
       return omitBy(this.data.data ?? {}, (_, key) => {
-        return !apiPropsByKey[key]
+        return !apiPropsByKey[key as keyof typeof apiPropsByKey]
       })
     }
 

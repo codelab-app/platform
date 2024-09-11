@@ -74,7 +74,7 @@ export class InterfaceType
     // object keys length is used for cache busting in runtimeStore.state
     return this.fields
       .map((field) => ({ [field.key]: field.defaultValues ?? undefined }))
-      .reduce<IPropData>(merge, {})
+      .reduce<IPropData>((acc, cur) => merge(acc, cur), {})
   }
 
   @computed

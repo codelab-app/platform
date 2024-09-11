@@ -1,4 +1,3 @@
-import type { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from './merge-props'
 
 describe('MergeProps', () => {
@@ -20,7 +19,7 @@ describe('MergeProps', () => {
     }
 
     const merged = {
-      className: ' classA classB',
+      className: 'classA classB',
       prop02: {
         nested: 'propB02',
       },
@@ -28,6 +27,6 @@ describe('MergeProps', () => {
       propB01: 'propB01',
     }
 
-    expect(mergeProps<IPropData>(propsA, propsB)).toEqual(merged)
+    expect(mergeProps(propsA, propsB)).toEqual(merged)
   })
 })

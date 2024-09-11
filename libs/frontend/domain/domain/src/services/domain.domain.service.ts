@@ -17,7 +17,9 @@ export class DomainDomainService
 {
   @computed
   get domainsJson() {
-    return this.domainsList.map((domain) => domain.toJson).reduce(merge, {})
+    return this.domainsList
+      .map((domain) => domain.toJson)
+      .reduce((acc, cur) => merge(acc, cur), {})
   }
 
   @computed

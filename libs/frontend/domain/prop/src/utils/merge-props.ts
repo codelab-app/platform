@@ -1,5 +1,5 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import { filter, isTruthy, merge, pipe, reduce } from 'remeda'
+import { filter, isTruthy, merge, omit } from 'remeda'
 
 /**
  *  Deep merges a list of props together, the latter props have priority over the prior ones in case of conflict
@@ -20,23 +20,19 @@ export const mergeProps = <T extends IPropData>(
   /**
    * Combine all `className` into a single concatenated version
    */
-  const classNameOverride = pipe(
-    props,
-    reduce(
-      (acc, { className }) => ({
-        className: 'className' in acc ? `${acc.className} ${className}` : '',
-      }),
-      {},
-    ),
-  )
+  return props.reduce((acc, cur) => {
+    /**
+     * Transform `className` if exists in current
+     */
+    if ('className' in cur) {
+      acc['className'] = acc['className']
+        ? `${acc['className']} ${cur['className']}`
+        : cur['className']
+    }
 
-  /**
-   * Deep merge all props together, later props override earlier ones
-   */
-  const allProps: IPropData = reduce(props, (acc, curr) => merge(acc, curr), {})
-
-  /**
-   * Override the `className` prop with the concatenated version
-   */
-  return merge(allProps, classNameOverride) as T
+    /**
+     * Merge all props except className, since we already set earlier
+     */
+    return merge(acc, omit(cur, ['className']))
+  }, {} as { className?: string })
 }

@@ -98,7 +98,6 @@ export const createTestStore = () => {
 
   const applicationStore = createApplicationStore({
     pathParams: {},
-    queryParams: {},
   })
 
   @model('@codelab/TestRootStore')

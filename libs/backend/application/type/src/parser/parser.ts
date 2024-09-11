@@ -28,7 +28,7 @@ export const extractObjectFromString = (object: string): ObjectLike => {
 
         return { [`${key}`]: value }
       })
-      .reduce(merge) ?? {}
+      .reduce((acc, curr) => merge(acc, curr), {}) ?? {}
   )
 }
 

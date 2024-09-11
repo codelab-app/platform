@@ -29,7 +29,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import React, { ReactNode } from 'react'
-import { merge, pathOr } from 'remeda'
+import { merge, pathOr, prop as rProp, stringToPath } from 'remeda'
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
 const create = (dto: IRuntimeElementPropDTO) =>
@@ -78,7 +78,7 @@ export class RuntimeElementPropsModel
 
     const evaluatedChildMapperProps = pathOr(
       this.runtimeContext,
-      [this.element.childMapperPropKey as keyof IRuntimeContext],
+      stringToPath(this.element.childMapperPropKey),
       {},
     )
 
@@ -293,7 +293,7 @@ export class RuntimeElementPropsModel
       .map((runtimeAction) => ({
         [runtimeAction.action.current.name]: runtimeAction.runner.bind(context),
       }))
-      .reduce(merge, {} as IPropData)
+      .reduce((acc, cur) => merge(acc, cur), {} as IPropData)
   }
 
   @computed
