@@ -1,2 +1,4 @@
-export * from './gql-fetch'
-export * from './graphql.client'
+// do not use `export *`, this may cause issues with server actions.
+// use named exports instead (https://github.com/vercel/next.js/issues/69756)
+export { gqlFetch } from './gql-fetch'
+export { graphqlClient } from './graphql.client'
