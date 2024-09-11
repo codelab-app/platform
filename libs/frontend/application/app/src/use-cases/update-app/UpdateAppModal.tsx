@@ -2,7 +2,10 @@
 
 import type { IUpdateAppData } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  createFormErrorNotificationHandler,
+  notify,
+} from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
@@ -27,7 +30,13 @@ export const UpdateAppModal = observer(() => {
   }
 
   const onSubmit = async (data: IUpdateAppData) => {
-    void appService.update(data).then(() => setLoading(false))
+    void appService
+      .update(data)
+      .then(() =>
+        notify({ title: 'App updated successfully', type: 'success' }),
+      )
+      .catch(() => notify({ title: 'Error while updating app', type: 'error' }))
+      .finally(() => setLoading(false))
   }
 
   const closeModal = () => updateAppModal.close()

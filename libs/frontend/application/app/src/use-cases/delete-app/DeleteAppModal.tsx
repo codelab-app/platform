@@ -1,7 +1,10 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  createFormErrorNotificationHandler,
+  notify,
+} from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -21,7 +24,13 @@ export const DeleteAppModal = observer(() => {
       return Promise.reject()
     }
 
-    void appService.remove([app]).then(() => setLoading(false))
+    void appService
+      .remove([app])
+      .then(() =>
+        notify({ title: 'App deleted successfully', type: 'success' }),
+      )
+      .catch(() => notify({ title: 'Error while deleting app', type: 'error' }))
+      .finally(() => setLoading(false))
   }
 
   return (

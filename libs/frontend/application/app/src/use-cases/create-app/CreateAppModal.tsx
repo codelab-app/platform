@@ -2,7 +2,10 @@
 
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  createFormErrorNotificationHandler,
+  notify,
+} from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { AutoFields } from 'uniforms-antd'
@@ -18,11 +21,12 @@ export const CreateAppModal = () => {
 
   const onSubmit = async (data: ICreateAppData) => {
     void appService
-      .create({
-        id: data.id,
-        name: data.name,
-      })
-      .then(() => setLoading(false))
+      .create({ id: data.id, name: data.name })
+      .then(() =>
+        notify({ title: 'App created successfully', type: 'success' }),
+      )
+      .catch(() => notify({ title: 'Error while creating app', type: 'error' }))
+      .finally(() => setLoading(false))
   }
 
   const closeModal = () => createAppModal.close()
