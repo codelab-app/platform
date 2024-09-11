@@ -34,5 +34,5 @@ export const mergeProps = <T extends IPropData>(
      * Merge all props except className, since we already set earlier
      */
     return merge(acc, omit(cur, ['className']))
-  }, {} as { className?: string })
+  }, {} as { className?: string }) as T
 }
