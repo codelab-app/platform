@@ -118,6 +118,12 @@
         "dev": {
           "reporters": ["default"]
         },
+        "test.unit": {
+          "reporters": ["default"],
+          "color": true,
+          "parallel": 3,
+          "testPathIgnorePatterns": ["i.spec.ts"]
+        },
         "ci.unit": {
           "ci": true,
           "codeCoverage": true,
@@ -125,22 +131,16 @@
           "parallel": 3,
           "testPathIgnorePatterns": ["i.spec.ts"]
         },
-        "ci.integration": {
-          "ci": true,
-          "codeCoverage": true,
+        "test.integration": {
+          "memoryLimit": 4096,
+          "reporters": ["default"],
           "color": true,
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         },
-        "test.unit": {
-          "reporters": ["default"],
-          "color": true,
-          "parallel": 3,
-          "testPathIgnorePatterns": ["i.spec.ts"]
-        },
-        "test.integration": {
-          "memoryLimit": 4096,
-          "reporters": ["default"],
+        "ci.integration": {
+          "ci": true,
+          "codeCoverage": true,
           "color": true,
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true

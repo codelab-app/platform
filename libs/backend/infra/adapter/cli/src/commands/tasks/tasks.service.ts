@@ -61,7 +61,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test -c test.unit --ci -c ci.unit --verbose',
+              'pnpm nx affected --target=test -c ci.unit --ci --verbose',
             )
           }
         }),
