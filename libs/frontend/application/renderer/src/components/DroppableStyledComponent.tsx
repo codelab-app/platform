@@ -1,6 +1,5 @@
 import { MakeComponentDroppable } from '@codelab/frontend-application-dnd/components'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 import { StyledComponent, type StyledComponentProps } from './StyledComponent'
 
 interface DroppableStyledComponentProps extends StyledComponentProps {

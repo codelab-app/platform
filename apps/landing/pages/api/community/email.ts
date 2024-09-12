@@ -1,6 +1,6 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { getEnv } from '@codelab/shared/config'
-import client from '@mailchimp/mailchimp_marketing'
+import { lists, setConfig } from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -16,12 +16,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { email } = Typebox.ValidateAndClean(EmailSchema, req.body)
 
-    client.setConfig({
+    setConfig({
       apiKey,
       server: serverPrefix,
     })
 
-    const response = await client.lists.addListMember(listId, {
+    const response = await lists.addListMember(listId, {
       email_address: email,
       status: 'subscribed',
     })

@@ -3,7 +3,7 @@ import EditOutlined from '@ant-design/icons/EditOutlined'
 import { domainRef, type IDomainModel } from '@codelab/frontend/abstract/domain'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import { Fragment } from 'react'
 import { useDeleteDomainModal } from '../../delete-domain/delete-domain.state'
 import { useUpdateDomainModal } from '../../update-domain/update-domain.state'
 import { RefreshDomainButton } from './RefreshDomainButton'
@@ -24,7 +24,7 @@ export const ItemTools = observer<ItemToolsProps>(
     const onDeleteClick = () => deleteDomainModal.open(domainRef(domain))
 
     return (
-      <React.Fragment>
+      <Fragment>
         <RefreshDomainButton domain={domain} />
         <Button
           icon={<EditOutlined />}
@@ -38,7 +38,7 @@ export const ItemTools = observer<ItemToolsProps>(
           shape="circle"
           type="text"
         />
-      </React.Fragment>
+      </Fragment>
     )
   },
 )

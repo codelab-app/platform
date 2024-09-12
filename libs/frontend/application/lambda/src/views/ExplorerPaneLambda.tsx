@@ -1,5 +1,4 @@
 import { ExplorerPaneTemplate } from '@codelab/frontend-presentation-view/templates'
-import React from 'react'
 import {
   CreateLambdaButton,
   CreateLambdaModal,

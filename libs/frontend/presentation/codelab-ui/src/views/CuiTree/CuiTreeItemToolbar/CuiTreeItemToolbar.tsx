@@ -1,5 +1,4 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
-import React from 'react'
 import type { ToolbarProps } from '../../../abstract'
 import { CuiTreeItemToolbarItem } from './CuiTreeItemToolbarItem'
 

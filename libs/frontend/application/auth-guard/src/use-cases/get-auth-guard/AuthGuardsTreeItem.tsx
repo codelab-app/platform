@@ -11,7 +11,6 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useDeleteAuthGuardModal } from '../delete-auth-guard/delete-auth-guard.state'
 import { useUpdateAuthGuardForm } from '../update-auth-guard'
 

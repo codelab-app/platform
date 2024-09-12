@@ -1,5 +1,4 @@
 import { cn } from '@cui/utils'
-import React from 'react'
 
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 

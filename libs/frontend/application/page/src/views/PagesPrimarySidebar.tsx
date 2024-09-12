@@ -8,7 +8,6 @@ import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/us
 import { DeleteRedirectModal } from '@codelab/frontend-application-redirect/use-cases/delete-redirect'
 import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { CreatePagePopover } from '../use-cases/create-page'
 import { useCreatePageForm } from '../use-cases/create-page/create-page.state'
 import { DeletePageModal } from '../use-cases/delete-page'

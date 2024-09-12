@@ -2,7 +2,6 @@ import EditOutlined from '@ant-design/icons/EditOutlined'
 import type { IRef } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import type { CSSProperties } from 'react'
-import React from 'react'
 
 const iconStyle: CSSProperties = {
   display: 'none',

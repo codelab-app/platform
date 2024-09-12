@@ -3,7 +3,7 @@ import type { UploadProps } from 'antd'
 import { Button, Upload } from 'antd'
 import type { RcFile } from 'antd/lib/upload'
 import type { UploadProgressEvent } from 'rc-upload/es/interface'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export interface ImportUploadProps {
   fetchFn(data: unknown): Promise<unknown>

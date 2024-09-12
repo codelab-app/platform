@@ -7,7 +7,7 @@ import { Button, Input, Space } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FilterDropdownProps } from 'antd/lib/table/interface'
 import type { AnyModel } from 'mobx-keystone'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface ColumnSearchProps<RecordType extends AnyModel>
   extends Omit<ColumnType<RecordType>, 'dataIndex'> {

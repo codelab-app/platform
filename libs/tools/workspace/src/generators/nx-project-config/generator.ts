@@ -8,7 +8,6 @@ import {
 import { removeGraphqlEslintConfig } from './eslint/remove-graphql-eslint-config'
 import { addProjectTags } from './project-tags/add-project-tags'
 import type { EslintGeneratorSchema } from './schema'
-import { updateTestConfig } from './test/project-json'
 import { migrateToConfigBasedTest } from './test/remove-test-targets'
 import { updateBaseTsconfig } from './tsconfig-base/tsconfig.base'
 import { updateLibraryTsconfig } from './tsconfig-lib/tsconfig.lib'

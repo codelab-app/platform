@@ -10,7 +10,7 @@ import {
 import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import { Provider } from 'jotai'
 import type { PropsWithChildren } from 'react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 export const RootProviders = ({
   children,

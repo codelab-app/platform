@@ -19,7 +19,7 @@ import { evaluateObject, mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 
 const create = (dto: IRuntimeComponentPropDTO) =>
   new RuntimeComponentPropModel(dto)

@@ -6,7 +6,7 @@ import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import type { EditorView, ViewUpdate } from '@codemirror/view'
 import type { ReactCodeMirrorProps } from '@uiw/react-codemirror'
 import { useCodeMirror } from '@uiw/react-codemirror'
-import React, { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { merge } from 'remeda'
 import type { CodeMirrorModalProps } from './CodeMirrorModal'
 import { CodeMirrorModal } from './CodeMirrorModal'
@@ -85,7 +85,7 @@ export const CodeMirrorInput = ({
 
       {/* The Expanded Editor */}
       {expandable && (
-        <React.Fragment>
+        <Fragment>
           <ExpandButton
             // eslint-disable-next-line tailwindcss/no-custom-classname
             className="CodeMirrorInput--btnExpand"
@@ -103,7 +103,7 @@ export const CodeMirrorInput = ({
             value={value}
             visible={isExpand}
           />
-        </React.Fragment>
+        </Fragment>
       )}
     </div>
   )

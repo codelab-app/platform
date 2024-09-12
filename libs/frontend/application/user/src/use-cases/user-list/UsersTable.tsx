@@ -4,7 +4,6 @@ import type { IUserModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
-import React from 'react'
 
 export const UsersTable = () => {
   // const { data } = useGetUsersQuery()

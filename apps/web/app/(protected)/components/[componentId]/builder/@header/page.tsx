@@ -1,6 +1,5 @@
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
 import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
-import React from 'react'
 
 const Page = ({
   params: { componentId },

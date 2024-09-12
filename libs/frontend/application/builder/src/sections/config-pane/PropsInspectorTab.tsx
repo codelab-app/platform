@@ -10,7 +10,7 @@ import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-code
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { usePropsInspector } from '../../hooks'
 
 const PropsInspectorTab = observer<{

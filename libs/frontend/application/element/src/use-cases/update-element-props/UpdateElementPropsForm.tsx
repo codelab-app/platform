@@ -14,7 +14,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useEffect, useRef } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import { useAsyncFn } from 'react-use'
 import { useElementService } from '../../services'
 

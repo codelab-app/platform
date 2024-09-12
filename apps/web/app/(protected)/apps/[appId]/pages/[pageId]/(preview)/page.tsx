@@ -3,7 +3,6 @@ import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app
 import { PageBuilderPreview } from '@codelab/frontend-application-builder/use-cases/page-builder-preview'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import React from 'react'
 
 const PagePreviewPage = async ({
   params: { appId, pageId },

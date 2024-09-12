@@ -1,4 +1,3 @@
-import React from 'react'
 import { TestimonialSection } from './TestimonialSection'
 
 export const Clients = () => {

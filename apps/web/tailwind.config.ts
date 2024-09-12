@@ -2,7 +2,7 @@ import { createGlobPatternsForDependencies } from '@nx/react/tailwind'
 import path from 'path'
 import type { Config } from 'tailwindcss'
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import rootTailwindConfig from './../../scripts/tailwind/tailwind.config'
+import rootTailwindConfig from '../../scripts/tailwind/tailwind.config'
 
 const resolveWorkspaceAbsolutePath = (pattern: string) =>
   path.resolve(__dirname, '../../', pattern)

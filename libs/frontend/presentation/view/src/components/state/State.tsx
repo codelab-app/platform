@@ -1,5 +1,4 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
-import React from 'react'
 import { useRecoilState } from 'recoil'
 import { isFunction } from 'remeda'
 import { stateAtomFamily } from './state-atom-family'

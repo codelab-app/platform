@@ -1,5 +1,5 @@
 import type { ComponentType, PropsWithChildren, ReactNode, Ref } from 'react'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { MakeChildrenDraggable } from '../components/MakeChildrenDraggable'
 import { MakeChildrenDroppable } from '../components/MakeChildrenDroppable'
 import { MakeComponentDroppable } from '../components/MakeComponentDroppable'

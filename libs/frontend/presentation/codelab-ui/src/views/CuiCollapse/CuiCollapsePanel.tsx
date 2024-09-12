@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import { Fragment, useState } from 'react'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiCollapsePanelContent } from './CuiCollapsePanelContent'
 import { CuiCollapsePanelHeader } from './CuiCollapsePanelHeader'
@@ -43,7 +43,7 @@ export const CuiCollapsePanel = ({
     <div className="flex size-full flex-col overflow-y-auto overflow-x-hidden">
       <div className="flex size-full flex-col py-1">
         {items.map((view) => (
-          <React.Fragment key={view.key}>
+          <Fragment key={view.key}>
             <CuiCollapsePanelHeader
               defaultExpand={activePanels[view.key]}
               label={view.label}
@@ -59,7 +59,7 @@ export const CuiCollapsePanel = ({
                 label={view.label}
               />
             )}
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
     </div>

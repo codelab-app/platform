@@ -3,7 +3,6 @@ import {
   type CodeMirrorEditorProps,
 } from '@codelab/frontend-presentation-components-codemirror'
 import type { Ref } from 'react'
-import React from 'react'
 import { isNonNullish } from 'remeda'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'

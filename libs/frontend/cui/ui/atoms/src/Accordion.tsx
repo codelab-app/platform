@@ -3,7 +3,6 @@
 import { cn } from '@cui/utils'
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
-import React from 'react'
 
 const Accordion = AccordionPrimitive.Root
 

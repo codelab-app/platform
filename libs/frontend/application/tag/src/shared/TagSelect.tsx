@@ -1,6 +1,5 @@
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
 export interface TagSelectProps {

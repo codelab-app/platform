@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import type { ISpacingValues, SpacingProps } from './shared'
 import { MIN_DISPLAYABLE_VALUE, Spacing, SpacingValue } from './shared'

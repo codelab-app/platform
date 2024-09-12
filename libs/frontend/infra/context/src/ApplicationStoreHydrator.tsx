@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/types'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { type ReactNode, useEffect, useState } from 'react'
 
 interface ApplicationStoreHydratorProps {

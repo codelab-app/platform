@@ -6,7 +6,6 @@ import type {
   Nullable,
   UniformSelectFieldProps,
 } from '@codelab/shared/abstract/types'
-import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectActionProps = Pick<

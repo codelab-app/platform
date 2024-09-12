@@ -1,5 +1,4 @@
 import { Row } from 'antd'
-import React from 'react'
 import {
   alignFullGridStyle,
   // cardStyle,

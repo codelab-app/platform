@@ -7,7 +7,6 @@ import {
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
-import React from 'react'
 
 export const metadata: Metadata = {
   // description: '...',

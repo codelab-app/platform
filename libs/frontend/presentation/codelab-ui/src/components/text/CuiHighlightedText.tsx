@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface CuiHighlightedTextProps {
   highlight?: string
   text?: string

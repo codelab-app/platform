@@ -5,7 +5,7 @@ import {
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { mergeDeep } from 'remeda'
 import type { InterfaceFormProps } from './types'
 import { uiPropertiesContainer } from './ui-properties'

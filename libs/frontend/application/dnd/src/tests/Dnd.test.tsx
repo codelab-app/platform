@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import React from 'react'
 import { DROP_INDICATOR_ID } from '../components/DropIndicator'
 import { DROP_OVERLAY_ID } from '../components/DropOverlay'
 import { DRAG_OVERLAY_ID } from '../components/MakeChildrenDraggable'

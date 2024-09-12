@@ -1,6 +1,6 @@
 import { useScroll, useScrollIntoView } from '@codelab/frontend/shared/utils'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDebounce } from 'react-use'
 import useResizeObserver from 'use-resize-observer/polyfilled'
 import type { OverlayProps } from './overlay.interface'

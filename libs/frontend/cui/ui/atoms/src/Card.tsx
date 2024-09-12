@@ -1,5 +1,4 @@
 import { cn } from '@cui/utils'
-import React from 'react'
 
 const Card = React.forwardRef<
   HTMLDivElement,

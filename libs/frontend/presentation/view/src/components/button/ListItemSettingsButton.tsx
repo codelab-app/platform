@@ -1,5 +1,4 @@
 import SettingOutlined from '@ant-design/icons/lib/icons/SettingOutlined'
-import React from 'react'
 import type { ListItemButtonProps } from './ListItemButton'
 import { ListItemButton } from './ListItemButton'
 

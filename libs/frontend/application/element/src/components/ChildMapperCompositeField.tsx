@@ -6,7 +6,6 @@ import {
   ToggleExpressionField,
 } from '@codelab/frontend-presentation-components-form'
 import type { IRef } from '@codelab/shared/abstract/core'
-import React from 'react'
 import { useField } from 'uniforms'
 import { SelectLinkElement } from './SelectLinkElement'
 

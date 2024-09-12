@@ -11,7 +11,7 @@ import {
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
 import { BuilderClickOverlay } from '../base-builder/BuilderClickOverlay'

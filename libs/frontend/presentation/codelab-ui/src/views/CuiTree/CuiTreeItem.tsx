@@ -1,7 +1,6 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
 import classNames from 'classnames'
 import type { ReactNode } from 'react'
-import React from 'react'
 import type { Variant } from '../../abstract'
 import { variantColors } from '../../abstract'
 import { CuiHighlightedText } from '../../components'

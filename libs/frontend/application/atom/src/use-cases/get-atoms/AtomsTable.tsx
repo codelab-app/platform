@@ -8,7 +8,6 @@ import { useColumnSearchProps } from '@codelab/frontend-presentation-view/compon
 import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
-import React from 'react'
 import { useAtomService } from '../../services'
 import { ActionColumn } from './columns/ActionColumn'
 import { LibraryColumn } from './columns/LibraryColumn'

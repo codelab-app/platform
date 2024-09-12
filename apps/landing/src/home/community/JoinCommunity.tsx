@@ -1,6 +1,6 @@
 import { Button, notification } from 'antd'
 import axios from 'axios'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { EmailModal } from './EmailModal'
 
 type NotificationType = 'error' | 'success'

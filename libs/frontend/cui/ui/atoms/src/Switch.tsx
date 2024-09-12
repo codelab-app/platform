@@ -2,7 +2,6 @@
 
 import { cn } from '@cui/utils'
 import * as SwitchPrimitives from '@radix-ui/react-switch'
-import React from 'react'
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,

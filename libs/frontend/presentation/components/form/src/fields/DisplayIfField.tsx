@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Context } from 'uniforms'
 import { useForm } from 'uniforms'
 

@@ -2,7 +2,6 @@
 
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import { Button } from 'antd'
-import React from 'react'
 import { useImportAdminDataModal } from './import-admin-data.state'
 
 export const ImportAdminDataButton = () => {

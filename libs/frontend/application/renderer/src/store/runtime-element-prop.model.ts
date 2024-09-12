@@ -28,7 +28,7 @@ import {
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { merge, pathOr, prop as rProp, stringToPath } from 'remeda'
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 

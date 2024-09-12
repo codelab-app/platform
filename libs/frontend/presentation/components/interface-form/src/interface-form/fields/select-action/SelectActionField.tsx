@@ -2,7 +2,6 @@
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import React from 'react'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { SelectAction } from './SelectAction'

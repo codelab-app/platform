@@ -6,7 +6,6 @@ import {
 } from '@codelab/frontend-presentation-view/components/overlay'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { createPortal } from 'react-dom'
 import { queryRenderedElementById } from '../../utils/query-rendered-element-by-id'
 

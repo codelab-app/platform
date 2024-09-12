@@ -15,7 +15,6 @@ import { useCreateElementForm } from '@codelab/frontend-application-element/use-
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 
 const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
   ({ treeNode }) => {

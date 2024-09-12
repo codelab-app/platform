@@ -6,7 +6,6 @@ import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useAppService } from '../../services'
 import { useDeleteAppModal } from './delete-app.state'
 

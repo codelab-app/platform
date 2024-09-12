@@ -4,7 +4,6 @@ import { getSelectElementOptions } from '@codelab/frontend-domain-element/reposi
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import React from 'react'
 import { SelectField } from 'uniforms-antd'
 import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 

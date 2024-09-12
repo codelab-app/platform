@@ -1,7 +1,6 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { LoaderComponent } from 'next/dynamic'
 import dynamic from 'next/dynamic'
-import React from 'react'
 
 interface ForwardedComponentProps extends ObjectLike {
   // Some of the AntD components (Menu, Sider) have prop with name "theme",

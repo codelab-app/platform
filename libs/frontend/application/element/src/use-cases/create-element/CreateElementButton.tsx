@@ -10,7 +10,6 @@ import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/ele
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
 import type { Ref } from 'mobx-keystone'
-import React from 'react'
 import { useCreateElementForm } from './create-element.state'
 
 export type CreateElementButtonProps = React.ComponentProps<typeof Button> & {

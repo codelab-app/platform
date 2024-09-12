@@ -9,7 +9,6 @@ import {
 } from '@codelab/frontend-presentation-view/style'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { CreateDomainButton } from '../create-domain'
 import { DomainListItem } from './DomainListItem/DomainListItem'
 

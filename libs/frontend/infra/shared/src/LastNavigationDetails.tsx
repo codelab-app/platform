@@ -2,7 +2,7 @@
 
 import type { Navigation } from '@shopify/react-performance'
 import { useNavigationListener } from '@shopify/react-performance'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 // A component which displays simple performance stats about the last navigation performed by the user
 export const LastNavigationDetails = () => {

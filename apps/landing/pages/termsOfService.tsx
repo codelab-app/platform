@@ -1,4 +1,3 @@
-import React from 'react'
 import { HomeTemplate } from '../src/home'
 import { SeoHead } from '../src/home/SeoHead'
 

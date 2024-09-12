@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { HoverOverlayProps } from './overlay.interface'
 
 export const HoverOverlay = ({

@@ -1,7 +1,6 @@
 import MoreOutlined from '@ant-design/icons/MoreOutlined'
 import { Tabs, Tooltip } from 'antd'
 import type { ReactNode } from 'react'
-import React from 'react'
 import type { CuiSidebarProps, CuiSidebarView } from '../CuiSidebar'
 
 type CuiSidebarTabsProps = Pick<

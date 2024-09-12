@@ -1,4 +1,3 @@
-import React from 'react'
 import type { LambdaDescriptionProps } from './types'
 
 export const QueryLambdaDescription = ({ config }: LambdaDescriptionProps) => {

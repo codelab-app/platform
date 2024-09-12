@@ -1,4 +1,3 @@
-import React from 'react'
 import type { RecoilStateDescriptionProps } from './types'
 
 export const RecoilStateDescription = ({

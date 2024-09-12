@@ -1,6 +1,6 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
-import set from 'lodash/set'
 import { join } from 'path'
+import { setPath } from 'remeda'
 
 /**
  * Add `.graphql` to lintFilePatterns
@@ -15,5 +15,10 @@ export const addGraphqlExtension = (
     join(projectConfig.root, '/**/*.{ts,tsx,js,jsx,graphql}'),
   ]
 
-  set(projectConfig, 'targets.lint.options.lintFilePatterns', lintFilePatterns)
+  setPath(
+    projectConfig,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ['targets', 'lint', 'options', 'lintFilePatterns'] as any,
+    lintFilePatterns,
+  )
 }

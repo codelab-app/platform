@@ -4,7 +4,6 @@ import TagOutlined from '@ant-design/icons/TagOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import { PageType } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
-import React from 'react'
 
 export const adminMenuItems: Array<NavigationBarItem> = [
   {

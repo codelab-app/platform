@@ -1,6 +1,5 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
 import { Typography } from 'antd'
-import React from 'react'
 import type { ToolbarProps } from '../../../abstract'
 import { CuiSidebarToolbar } from '../../../views'
 import type { CuiSidebarProps } from '../CuiSidebar'

@@ -1,6 +1,5 @@
 import type { IHook } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import React from 'react'
 import {
   GraphqlDescription,
   QueryConfigDescription,

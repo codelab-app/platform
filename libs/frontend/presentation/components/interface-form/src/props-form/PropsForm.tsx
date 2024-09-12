@@ -8,7 +8,6 @@ import {
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import type { DeepPartial } from 'utility-types'
 import { InterfaceForm } from '../interface-form'
 

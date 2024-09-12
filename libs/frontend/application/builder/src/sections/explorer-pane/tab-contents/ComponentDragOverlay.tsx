@@ -2,7 +2,6 @@ import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import React from 'react'
 import { ComponentIcon } from './ComponentIcon'
 
 interface ComponentDragOverlayProps {

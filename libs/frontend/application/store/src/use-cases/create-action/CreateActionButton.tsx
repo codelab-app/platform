@@ -2,7 +2,6 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useCreateActionForm } from './create-action.state'
 
 interface ICreateActionProps {

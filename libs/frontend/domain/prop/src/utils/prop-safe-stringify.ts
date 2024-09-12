@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { IPropData } from '@codelab/shared/abstract/core'
-import React from 'react'
+import { isValidElement } from 'react'
 import {
   isArray,
   isFunction,
@@ -15,7 +15,7 @@ export const propSafeStringify = (props: IPropData, maskFunctions = true) => {
 
   const replacer = (key: string, value: object) => {
     // handle ReactNodeType
-    if (React.isValidElement(value)) {
+    if (isValidElement(value)) {
       return 'React element'
     }
 

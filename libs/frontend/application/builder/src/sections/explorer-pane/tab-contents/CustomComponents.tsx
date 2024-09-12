@@ -10,7 +10,6 @@ import { slugify } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { ComponentList } from './ComponentList'
 

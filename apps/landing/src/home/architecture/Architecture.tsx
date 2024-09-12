@@ -1,6 +1,5 @@
 import { Button, Space } from 'antd'
 import Image from 'next/image'
-import React from 'react'
 
 export const Architecture = () => {
   return (

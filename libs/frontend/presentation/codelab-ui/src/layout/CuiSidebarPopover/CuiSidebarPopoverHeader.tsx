@@ -1,5 +1,4 @@
 import { Typography } from 'antd'
-import React from 'react'
 import type { CuiPopoverToolbarProps } from '../../views'
 import { CuiPopoverToolbar } from '../../views'
 

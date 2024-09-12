@@ -1,4 +1,3 @@
-import React from 'react'
 import type { QueryConfigDescriptionProps } from './types'
 
 export const QueryConfigDescription = ({

@@ -1,7 +1,6 @@
 'use client'
 
 import { cn } from '@cui/utils'
-import React from 'react'
 import { Drawer as DrawerPrimitive } from 'vaul'
 
 const Drawer = ({

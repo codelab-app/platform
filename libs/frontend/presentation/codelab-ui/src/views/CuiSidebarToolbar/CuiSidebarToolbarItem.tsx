@@ -1,6 +1,5 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
 import { Button, Tooltip } from 'antd'
-import React from 'react'
 import type { ToolbarItem } from '../../abstract'
 
 type CuiSidebarToolbarItemProps = Omit<ToolbarItem, 'label'>

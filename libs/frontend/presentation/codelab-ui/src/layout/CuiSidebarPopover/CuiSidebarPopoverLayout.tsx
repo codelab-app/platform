@@ -1,7 +1,6 @@
 'use client'
 
 import type { PropsWithChildren, RefObject } from 'react'
-import React from 'react'
 import { useCuiSidebarPopover } from './cui-sidebar-popover.hook'
 
 export interface CuiSidebarPopoverLayoutProps {

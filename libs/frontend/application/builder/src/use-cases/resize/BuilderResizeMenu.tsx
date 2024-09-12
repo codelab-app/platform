@@ -9,7 +9,7 @@ import { IBreakpointType } from '@codelab/shared/abstract/core'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/interface'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean

@@ -12,7 +12,6 @@ import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-case
 import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import type { AtomColumnProps } from './types'
 
 export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {

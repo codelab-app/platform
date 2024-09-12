@@ -10,7 +10,6 @@ import {
 } from '@codelab/frontend-application-component/use-cases/create-component'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
-import React from 'react'
 import { CustomComponents } from './tab-contents/CustomComponents'
 import { PreBuiltComponents } from './tab-contents/PreBuiltComponents'
 

@@ -3,7 +3,6 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import React from 'react'
 import { AppListItemDropdown } from './AppListItemDropdown'
 import { DomainList } from './DomainList'
 

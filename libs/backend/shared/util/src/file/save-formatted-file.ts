@@ -3,7 +3,7 @@ import { prettifyForConsole } from '@codelab/shared/utils'
 import fs from 'fs'
 import { EOL } from 'os'
 import * as path from 'path'
-import prettier from 'prettier'
+import { format } from 'prettier'
 
 export const saveFormattedFile = (outputFilePath: string, data: ObjectLike) => {
   if (!outputFilePath.endsWith('.json')) {
@@ -22,7 +22,7 @@ export const formatToPrettifiedJson = (
   data: Array<ObjectLike> | ObjectLike,
 ) => {
   const jsonString = prettifyForConsole(data)
-  const prettifiedJsonString = prettier.format(jsonString, { parser: 'json' })
+  const prettifiedJsonString = format(jsonString, { parser: 'json' })
 
   return prettifiedJsonString
 }

@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useRef } from 'react'
-import ReactDOM from 'react-dom'
+import { useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
 import styled from 'styled-components'
@@ -37,7 +37,7 @@ const Backdrop = ({ active }: BackdropProps) => {
     throw new Error('Missing body')
   }
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <div
       className={classNames(
         'fixed top-0',

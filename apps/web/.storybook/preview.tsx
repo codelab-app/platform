@@ -3,7 +3,6 @@ import { RootProviders } from '@codelab/frontend/infra/context'
 import { preferenceDto, userDto } from '@codelab/frontend/test/data'
 import type { Preview } from '@storybook/react'
 import { ConfigProvider } from 'antd'
-import React from 'react'
 
 const preview: Preview = {
   decorators: [

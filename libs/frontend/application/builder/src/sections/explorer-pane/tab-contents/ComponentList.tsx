@@ -9,7 +9,7 @@ import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/er
 import { Space } from 'antd'
 import Input from 'antd/lib/input'
 import { observer } from 'mobx-react-lite'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { debounce, filter, prop, sortBy } from 'remeda'
 import { ComponentDragOverlay } from './ComponentDragOverlay'
 import { ComponentItem } from './ComponentItem'

@@ -6,7 +6,7 @@ import {
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useCreateComponentForm } from './create-component.state'
 import { CreateComponentForm } from './CreateComponentForm'
 

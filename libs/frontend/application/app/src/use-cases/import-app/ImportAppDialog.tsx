@@ -6,7 +6,7 @@ import {
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import type { HttpException } from '@nestjs/common'
 import { Spin } from 'antd'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useImportApp } from './useImportApp.hook'
 
 export const ImportAppDialog = () => {

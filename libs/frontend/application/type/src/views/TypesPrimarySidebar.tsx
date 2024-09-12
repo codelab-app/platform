@@ -7,7 +7,6 @@ import {
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
-import React from 'react'
 import { useTypeService } from '../services'
 import { CreateFieldPopover } from '../use-cases/create-field'
 import { CreateTypePopover } from '../use-cases/create-type'

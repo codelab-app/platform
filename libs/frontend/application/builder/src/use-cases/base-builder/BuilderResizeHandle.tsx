@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import type { ResizeHandlerSide } from '../../hooks'
 import { useBuilderResizer } from '../../hooks'
 

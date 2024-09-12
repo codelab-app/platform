@@ -9,7 +9,6 @@ import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-case
 import { useUser } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 
 export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
   ({ interfaceType }) => {

@@ -3,7 +3,6 @@ import {
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
-import React from 'react'
 
 export const AdminViewHeader = () => (
   <CuiHeader

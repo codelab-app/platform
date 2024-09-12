@@ -15,7 +15,6 @@ import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
-import React from 'react'
 
 const StoreHeader = ({
   children,

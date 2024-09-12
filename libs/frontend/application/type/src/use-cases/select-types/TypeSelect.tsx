@@ -1,6 +1,5 @@
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { filter, isTruthy, map, pipe, prop, uniqueBy } from 'remeda'
 import { useField } from 'uniforms'

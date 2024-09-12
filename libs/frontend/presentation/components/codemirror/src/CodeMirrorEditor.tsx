@@ -1,7 +1,6 @@
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useAsyncFn, useMount } from 'react-use'
 import type { CodeMirrorInputProps } from './CodeMirrorInput'
 import { CodeMirrorInput } from './CodeMirrorInput'

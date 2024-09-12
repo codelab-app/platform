@@ -11,7 +11,7 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { WrapIf } from '@codelab/frontend-presentation-view/components/wrapIf'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
-import React, { forwardRef, useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
 
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.

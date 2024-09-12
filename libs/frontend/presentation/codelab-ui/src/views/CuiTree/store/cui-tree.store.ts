@@ -1,6 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx'
 import type { Key } from 'react'
-import React from 'react'
 import { filter, isTruthy } from 'remeda'
 import { traverseAndFlattenTrees, traverseTrees } from '../../../util'
 import type { CuiTreeBasicDataNode, WithChildren } from '../CuiTree'

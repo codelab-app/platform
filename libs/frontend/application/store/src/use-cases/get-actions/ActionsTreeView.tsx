@@ -1,7 +1,6 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { CuiEmpty, CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { ActionsTreeItem } from './ActionsTreeItem'
 
 export const ActionsTreeView = observer<{ store: IStoreModel }>(({ store }) => {

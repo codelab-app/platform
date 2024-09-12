@@ -30,7 +30,7 @@ import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import React from 'react'
+import { createElement } from 'react'
 import { v4 } from 'uuid'
 
 const create = ({
@@ -96,13 +96,13 @@ export class Atom
     return htmlAtoms.includes(atomType)
       ? {
           color: 'orange',
-          icon: React.createElement(Html5Outlined),
+          icon: createElement(Html5Outlined),
           name: 'HTML',
         }
       : antdAtoms.includes(atomType)
       ? {
           color: 'geekblue',
-          icon: React.createElement(AntDesignOutlined),
+          icon: createElement(AntDesignOutlined),
           name: 'Ant Design',
         }
       : codelabAtoms.includes(atomType)

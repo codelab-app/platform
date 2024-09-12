@@ -1,7 +1,6 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useTagService } from '../../services'
 import { useDeleteTagsModal } from './delete-tags.state'
 

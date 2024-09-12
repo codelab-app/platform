@@ -1,7 +1,6 @@
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { DndContext } from '@dnd-kit/core'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 import { HierarchicalCollisionDetector } from '../collision-detection'
 import { AutoDragOverlay } from '../components/AutoDragOverlay'
 import { DropIndicator } from '../components/DropIndicator'

@@ -1,6 +1,7 @@
-const { composePlugins, withNx } = require('@nx/next')
-const path = require('path')
-const { get } = require('env-var')
+import { composePlugins, withNx } from '@nx/next'
+import { get } from 'env-var'
+import type { NextConfig } from 'next'
+import path from 'path'
 
 const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
 
@@ -54,6 +55,7 @@ const withWebpackConfig = (nextConfig = {}) =>
   })
 
 const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
+// const plugins = [withNx]
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
 const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
@@ -62,16 +64,23 @@ const apiHost = `${url}:${port}${baseApiPath}`
 /**
  * @type {WithNxOptions}
  */
-const nextConfig = {
+const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
   experimental: {
-    /**
-     * Issue with `turbo` and a `monorepo`
-     *
-     * https://github.com/vercel/next.js/issues/56887#issuecomment-1826767117
-     */
+    turbo: {
+      rules: {
+        // '*.cypher': {
+        //   loader: '',
+        //   options: {},
+        // },
+        // '*.svg': {
+        //   as: '*.js',
+        //   loaders: ['@svgr/webpack'],
+        // },
+      },
+    },
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
@@ -89,6 +98,7 @@ const nextConfig = {
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
    */
   rewrites: async () => ({
+    afterFiles: [],
     // We only need middleware to set the session
     beforeFiles: [
       {
@@ -100,6 +110,7 @@ const nextConfig = {
         source: `${baseApiPath}/:path*`,
       },
     ],
+    fallback: [],
     // beforeFiles: [
     //   // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
     //   {

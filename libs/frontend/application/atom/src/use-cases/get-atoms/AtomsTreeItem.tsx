@@ -16,7 +16,6 @@ import {
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
-import React from 'react'
 import { useDeleteAtomsModal } from '../delete-atom/delete-atoms.state'
 import { useUpdateAtomModal } from '../update-atom/update-atom.state'
 

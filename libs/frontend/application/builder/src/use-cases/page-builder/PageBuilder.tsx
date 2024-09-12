@@ -6,7 +6,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useInitializeBuilder } from '../../services'
 import { BaseBuilder } from '../base-builder'
 

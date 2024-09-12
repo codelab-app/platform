@@ -3,7 +3,7 @@ import type { SelectOption } from '@codelab/frontend/abstract/types'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
 export const useLoadOptions = (parentAtom?: IAtomModel) => {

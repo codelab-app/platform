@@ -15,7 +15,6 @@ import {
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import ChildMapperCompositeField from '../../components/ChildMapperCompositeField'

@@ -9,7 +9,6 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { useAtomService } from '../../services'
 import { SelectAtom } from '../select-atom'

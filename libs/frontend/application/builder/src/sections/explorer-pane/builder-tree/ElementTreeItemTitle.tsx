@@ -5,7 +5,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { CuiTreeItem } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { ElementContextMenu } from '../ElementContextMenu'
 import { ElementTreeItemElementTitle } from './ElementTreeItemElementTitle'
 

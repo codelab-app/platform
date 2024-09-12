@@ -1,7 +1,6 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
 import { Button, Tooltip } from 'antd'
 import type { ReactNode } from 'react'
-import React from 'react'
 import type { ToolbarItem } from '../../abstract'
 
 type CuiPopoverToolbarItemProps = Omit<ToolbarItem, 'icon'> & {

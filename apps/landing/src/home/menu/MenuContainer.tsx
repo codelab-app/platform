@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import type { StatusCode } from 'react-stickynode'
 import Sticky from 'react-stickynode'
 

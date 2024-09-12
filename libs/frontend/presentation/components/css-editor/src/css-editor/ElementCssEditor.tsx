@@ -7,7 +7,7 @@ import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-code
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { debounce } from 'remeda'
 import styled from 'styled-components'
 import { InheritedStyles } from '../inherited-styles/InheritedStyles'

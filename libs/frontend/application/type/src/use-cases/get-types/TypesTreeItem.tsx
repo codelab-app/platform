@@ -14,7 +14,6 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import React from 'react'
 import { useCreateFieldForm } from '../create-field'
 import { useDeleteFieldModal } from '../delete-field'
 import { useDeleteTypeModal } from '../delete-type'

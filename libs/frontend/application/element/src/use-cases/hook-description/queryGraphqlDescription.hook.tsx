@@ -1,4 +1,3 @@
-import React from 'react'
 import type { GraphqlDescriptionProps } from './types'
 
 export const GraphqlDescription = ({ config }: GraphqlDescriptionProps) => {

@@ -8,7 +8,6 @@ import 'react-grid-layout/css/styles.css'
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
 import type { IAppProps } from '@codelab/frontend/abstract/application'
-import React from 'react'
 
 const App = ({ Component, pageProps }: IAppProps) => {
   // const {

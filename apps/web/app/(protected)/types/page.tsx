@@ -7,7 +7,6 @@ import { UpdateFieldModal } from '@codelab/frontend-application-type/use-cases/u
 import { UpdateTypeModal } from '@codelab/frontend-application-type/use-cases/update-type'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import type { Metadata } from 'next'
-import React from 'react'
 
 export const metadata: Metadata = {
   // description: '...',

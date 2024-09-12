@@ -5,7 +5,6 @@ import { StyleProviders } from '@codelab/frontend/infra/context'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
-import React from 'react'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',

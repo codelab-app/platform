@@ -5,7 +5,6 @@ import {
   useUpdateFieldModal,
 } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Empty, Typography } from 'antd'
-import React from 'react'
 import { UpdateAtomForm } from '../update-atom'
 import { useUpdateAtomModal } from '../update-atom/update-atom.state'
 

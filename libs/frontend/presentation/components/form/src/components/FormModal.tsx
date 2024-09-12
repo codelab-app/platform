@@ -7,7 +7,7 @@ import type {
 import type { Maybe, ObjectLike } from '@codelab/shared/abstract/types'
 import Modal from 'antd/lib/modal'
 import type { PropsWithChildren } from 'react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 export const FormModal = <TData extends ObjectLike>({
   children,

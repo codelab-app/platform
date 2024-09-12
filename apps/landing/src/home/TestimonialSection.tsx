@@ -1,7 +1,6 @@
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
-import React from 'react'
 import type { Settings } from 'react-slick'
 import Slider from 'react-slick'
 import voca from 'voca'

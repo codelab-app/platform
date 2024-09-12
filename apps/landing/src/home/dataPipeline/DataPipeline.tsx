@@ -2,7 +2,6 @@ import { faArrowTurnDownRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'antd'
 import Image from 'next/image'
-import React from 'react'
 import { Integrations } from './Integrations'
 
 const data = [

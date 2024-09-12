@@ -2,7 +2,6 @@ import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type { IRedirectModel } from '@codelab/frontend/abstract/domain'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useDeleteRedirectModal } from './delete-redirect.state'
 
 export const DeleteRedirectButton = observer<{

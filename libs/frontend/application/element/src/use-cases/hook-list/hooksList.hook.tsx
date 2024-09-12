@@ -1,6 +1,5 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { List } from 'antd'
-import React from 'react'
 import { HooksListItem } from './hooksListItem.hook'
 
 export interface HooksListProps {

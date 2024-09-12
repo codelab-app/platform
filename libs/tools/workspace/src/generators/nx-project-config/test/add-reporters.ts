@@ -1,6 +1,6 @@
 import type { ProjectConfiguration } from '@nx/devkit'
 import type { ObjectLiteralExpression } from 'ts-morph'
-import tsMorph from 'ts-morph'
+import { Node } from 'ts-morph'
 
 export const addReportersToJestConfig = (
   configObject: ObjectLiteralExpression,
@@ -29,7 +29,7 @@ export const addReportersToJestConfig = (
       initializer: newInitializer,
       name: 'reporters',
     })
-  } else if (tsMorph.Node.isPropertyAssignment(reportersProperty)) {
+  } else if (Node.isPropertyAssignment(reportersProperty)) {
     // if the reporters property exists and is a PropertyAssignment, update it
     reportersProperty.setInitializer(newInitializer)
   }

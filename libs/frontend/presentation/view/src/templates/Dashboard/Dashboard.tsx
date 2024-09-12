@@ -8,7 +8,6 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
-import React from 'react'
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
 import { defaultNavigationBarItems } from './NavigationBar'

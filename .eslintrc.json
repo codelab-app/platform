@@ -11,8 +11,8 @@
     "sort-destructure-keys",
     "typescript-sort-keys",
     "unicorn",
-    "@stylistic/ts",
-    "react"
+    "@stylistic/ts"
+    // "react"
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
@@ -27,7 +27,8 @@
   "extends": [
     "plugin:prettier/recommended",
     "plugin:canonical/recommended",
-    "plugin:react/recommended",
+    // "plugin:react/recommended",
+    // "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/strict",
     "eslint:recommended",
     "plugin:import/typescript",
@@ -40,11 +41,12 @@
     "./scripts/eslint/.codelab.eslintrc.json",
     "./scripts/eslint/.sorting.eslintrc.json",
     "./scripts/eslint/.codegen.eslintrc.json",
+    "./scripts/eslint/.react.eslintrc.json",
     "./scripts/eslint/.base.eslintrc.json"
   ],
   "settings": {
     "tailwindcss": {
-      "config": "./tailwind.config.js"
+      "config": "./scripts/tailwind/tailwind.config.ts"
     },
     "react": {
       "version": "detect"

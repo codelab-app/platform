@@ -13,7 +13,6 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { observer } from 'mobx-react-lite'
 import { useSearchParams } from 'next/navigation'
-import React from 'react'
 
 const PrimarySidebar = observer(
   ({ params: { appId, pageId } }: { params: PageContextParams }) => {

@@ -2,7 +2,6 @@ import type { SelectElementProps } from '@codelab/frontend/presentation/componen
 import { SelectChildElement } from '@codelab/frontend/presentation/components/interface-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useForm } from 'uniforms'
 import type { SelectFieldProps } from 'uniforms-antd'
 import { AutoField } from 'uniforms-antd'

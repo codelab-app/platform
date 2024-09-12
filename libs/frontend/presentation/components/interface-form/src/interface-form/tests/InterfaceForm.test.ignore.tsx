@@ -2,7 +2,6 @@
 import { Validator } from '@codelab/shared/infra/schema'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
 import { InterfaceForm } from '../InterfaceForm'
 import {
   interfaceWithEnumField,

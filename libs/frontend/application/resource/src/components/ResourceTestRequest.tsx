@@ -10,7 +10,7 @@ import {
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { isEmpty, prop } from 'remeda'
 import { useForm } from 'uniforms'
 import { useResourceService } from '../services'

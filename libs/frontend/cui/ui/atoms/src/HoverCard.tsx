@@ -2,7 +2,6 @@
 
 import { cn } from '@cui/utils'
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
-import React from 'react'
 
 const HoverCard = HoverCardPrimitive.Root
 const HoverCardTrigger = HoverCardPrimitive.Trigger

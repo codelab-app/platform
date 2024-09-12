@@ -3,7 +3,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared/utils'
 import type { PropsWithChildren } from 'react'
-import React, { forwardRef, useCallback } from 'react'
+import { forwardRef, useCallback } from 'react'
 import styled from 'styled-components'
 
 const ReusableStyledComponent = styled('placeholder')`

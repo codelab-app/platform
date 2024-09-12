@@ -1,4 +1,3 @@
-import React from 'react'
 import { CuiCollapsePanel, CuiCollapsePanelContent } from '../../../views'
 import type { CuiSidebarProps } from '../CuiSidebar'
 

@@ -1,5 +1,4 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
-import React from 'react'
 import { CuiSkeletonWrapper } from '../../components'
 
 export interface CuiCollapsePanelContentProps {

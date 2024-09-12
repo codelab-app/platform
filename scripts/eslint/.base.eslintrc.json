@@ -33,7 +33,7 @@
             "extendDefaults": true
           }
         ],
-        "import/no-named-as-default-member": "off",
+        // "import/no-named-as-default-member": "off",
         "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
         "no-dupe-class-members": "off",
         "no-unused-vars": "off",
@@ -64,29 +64,10 @@
             "exceptions": ["_", "a", "b", "$", "z", "i"]
           }
         ],
-        "react/no-unescaped-entities": "off",
         "no-implicit-coercion": "error",
-        "react/react-in-jsx-scope": "error",
-        "react/jsx-sort-props": "error",
-        "react/no-unknown-property": [
-          "error",
-          {
-            "ignore": ["css"]
-          }
-        ],
         /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
         "@next/next/google-font-display": "off",
         "@next/next/google-font-preconnect": "off",
-        "react/jsx-props-no-spreading": [
-          "error",
-          {
-            "html": "enforce",
-            "custom": "enforce",
-            "explicitSpread": "enforce",
-            "exceptions": []
-          }
-        ],
-        "react/jsx-curly-brace-presence": "error",
         "simple-import-sort/imports": [
           "error",
           {
@@ -140,15 +121,6 @@
       }
     },
     {
-      "files": ["*.tsx"],
-      "plugins": ["tailwindcss"],
-      "extends": ["plugin:tailwindcss/recommended"],
-      "rules": {
-        "react/prop-types": "off",
-        "tailwindcss/no-custom-classname": ["error"]
-      }
-    },
-    {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:import/typescript"],
       "rules": {
@@ -174,12 +146,6 @@
           }
         ],
         "@typescript-eslint/no-dynamic-delete": "error"
-      }
-    },
-    {
-      "files": ["*.stories.jsx", "*.stories.tsx"],
-      "rules": {
-        "react/jsx-props-no-spreading": "off"
       }
     },
     // {

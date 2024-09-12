@@ -1,6 +1,6 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import { Alert, Tabs } from 'antd'
-import React from 'react'
+import { Fragment } from 'react'
 import { ARecordTabContent } from './TabContent/ARecord'
 
 interface ConfigGuideTabProps {
@@ -18,7 +18,7 @@ export const ConfigGuide = ({ domain, type }: ConfigGuideTabProps) => {
   ]
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Tabs defaultActiveKey="2" items={items} />
       {/* <TabPane tab="or Nameservers" key="2">
           <NameServerTabContent
@@ -31,6 +31,6 @@ export const ConfigGuide = ({ domain, type }: ConfigGuideTabProps) => {
         message="Depending on your provider, it might take some time for the changes to apply. "
         type="info"
       />
-    </React.Fragment>
+    </Fragment>
   )
 }

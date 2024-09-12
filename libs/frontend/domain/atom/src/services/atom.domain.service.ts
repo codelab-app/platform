@@ -22,7 +22,6 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import React from 'react'
 import { Atom, mapEntitySelectOptions } from '../store'
 
 @model('@codelab/AtomDomainService')
