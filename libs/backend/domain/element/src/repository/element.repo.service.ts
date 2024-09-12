@@ -56,7 +56,7 @@ export class ElementRepository extends AbstractRepository<
             childMapperPropKey,
             closestContainerNode,
             compositeKey,
-            expended,
+            expanded,
             firstChild,
             id,
             name,
@@ -80,7 +80,7 @@ export class ElementRepository extends AbstractRepository<
             compositeKey:
               compositeKey ??
               ElementProperties.elementCompositeKey(name, closestContainerNode),
-            expended,
+            expanded,
             // We only need to do one way
             // firstChild: connectNodeId(firstChild?.id),
             id,

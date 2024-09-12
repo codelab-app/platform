@@ -56,7 +56,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 
 fragment ElementProduction on Element {

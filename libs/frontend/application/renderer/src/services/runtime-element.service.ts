@@ -39,9 +39,9 @@ export class RuntimeElementService
   }
 
   @computed
-  get expendedCompositeKeys() {
+  get expandedCompositeKeys() {
     return this.elementsList
-      .filter((runtimeElement) => runtimeElement.element.current.expended)
+      .filter((runtimeElement) => runtimeElement.element.current.expanded)
       .map((runtimeElement) => runtimeElement.compositeKey)
   }
 

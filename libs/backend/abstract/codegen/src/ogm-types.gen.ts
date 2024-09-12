@@ -4048,7 +4048,7 @@ export type Element = {
   descendantElements: Array<Element>
   closestContainerNode: ContainerNode
   dependantTypes: Array<AnyType>
-  expended?: Maybe<Scalars['Boolean']['output']>
+  expanded?: Maybe<Scalars['Boolean']['output']>
   nextSiblingAggregate?: Maybe<ElementElementNextSiblingAggregationSelection>
   nextSibling?: Maybe<Element>
   prevSiblingAggregate?: Maybe<ElementElementPrevSiblingAggregationSelection>
@@ -16800,7 +16800,7 @@ export type ElementCreateInput = {
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingFieldInput>
   firstChild?: InputMaybe<ElementFirstChildFieldInput>
@@ -17597,7 +17597,7 @@ export type ElementOnCreateInput = {
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ElementOptions = {
@@ -19099,7 +19099,7 @@ export type ElementSort = {
   childMapperPropKey?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
-  expended?: InputMaybe<SortDirection>
+  expanded?: InputMaybe<SortDirection>
 }
 
 export type ElementTypeConnectInput = {
@@ -19412,7 +19412,7 @@ export type ElementUpdateInput = {
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
@@ -19542,9 +19542,9 @@ export type ElementWhere = {
   renderIfExpression_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   renderIfExpression_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  expended_NOT?: InputMaybe<Scalars['Boolean']['input']>
+  expanded_NOT?: InputMaybe<Scalars['Boolean']['input']>
   OR?: InputMaybe<Array<ElementWhere>>
   AND?: InputMaybe<Array<ElementWhere>>
   NOT?: InputMaybe<ElementWhere>

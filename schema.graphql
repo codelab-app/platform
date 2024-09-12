@@ -8248,7 +8248,7 @@ type Element {
   compositeKey: String!
   dependantTypes: [AnyType!]!
   descendantElements: [Element!]!
-  expended: Boolean
+  expanded: Boolean
   firstChild(
     directed: Boolean = true
     options: ElementOptions
@@ -8775,7 +8775,7 @@ input ElementCreateInput {
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingFieldInput
   childMapperPropKey: String
   compositeKey: String!
-  expended: Boolean
+  expanded: Boolean
   firstChild: ElementFirstChildFieldInput
   id: ID!
   nextSibling: ElementNextSiblingFieldInput
@@ -8913,7 +8913,7 @@ type ElementElementPrevSiblingNodeAggregateSelection {
 type ElementEventPayload {
   childMapperPropKey: String
   compositeKey: String!
-  expended: Boolean
+  expanded: Boolean
   id: ID!
   name: String!
   renderForEachPropKey: String
@@ -9278,7 +9278,7 @@ input ElementNextSiblingUpdateFieldInput {
 input ElementOnCreateInput {
   childMapperPropKey: String
   compositeKey: String!
-  expended: Boolean
+  expanded: Boolean
   id: ID!
   renderForEachPropKey: String
   renderIfExpression: String
@@ -10417,7 +10417,7 @@ Fields to sort Elements by. The order in which sorts are applied is not guarante
 input ElementSort {
   childMapperPropKey: SortDirection
   compositeKey: SortDirection
-  expended: SortDirection
+  expanded: SortDirection
   id: SortDirection
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
@@ -10438,7 +10438,7 @@ input ElementSubscriptionWhere {
   compositeKey_ENDS_WITH: String
   compositeKey_IN: [String]
   compositeKey_STARTS_WITH: String
-  expended: Boolean
+  expanded: Boolean
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10799,7 +10799,7 @@ input ElementUpdateInput {
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingUpdateFieldInput
   childMapperPropKey: String
   compositeKey: String
-  expended: Boolean
+  expanded: Boolean
   firstChild: ElementFirstChildUpdateFieldInput
   id: ID
   nextSibling: ElementNextSiblingUpdateFieldInput
@@ -10852,7 +10852,7 @@ input ElementWhere {
   compositeKey_IN: [String!]
   compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
-  expended: Boolean
+  expanded: Boolean
   firstChild: ElementWhere
   firstChildAggregate: ElementFirstChildAggregateInput
   firstChildConnection: ElementFirstChildConnectionWhere

@@ -57,7 +57,7 @@ export interface IElementModel
   closestSubTreeRootElement: IElementModel
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElementModel>
-  expended?: Nullish<boolean>
+  expanded?: Nullish<boolean>
   firstChild?: Nullable<Ref<IElementModel>>
   hooks: Array<IHook>
   id: string
@@ -106,7 +106,7 @@ export interface IElementModel
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
   detachFromTree(): IElementModel
-  setExpended(expended: boolean): void
+  setexpanded(expanded: boolean): void
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void
   setName(name: string): void

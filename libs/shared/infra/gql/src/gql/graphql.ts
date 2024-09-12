@@ -8330,7 +8330,7 @@ export type Element = {
   compositeKey: Scalars['String']['output']
   dependantTypes: Array<AnyType>
   descendantElements: Array<Element>
-  expended?: Maybe<Scalars['Boolean']['output']>
+  expanded?: Maybe<Scalars['Boolean']['output']>
   firstChild?: Maybe<Element>
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>
   firstChildConnection: ElementFirstChildConnection
@@ -8970,7 +8970,7 @@ export type ElementCreateInput = {
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingFieldInput>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   compositeKey: Scalars['String']['input']
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementFirstChildFieldInput>
   id: Scalars['ID']['input']
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
@@ -9108,7 +9108,7 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
 export type ElementEventPayload = {
   childMapperPropKey?: Maybe<Scalars['String']['output']>
   compositeKey: Scalars['String']['output']
-  expended?: Maybe<Scalars['Boolean']['output']>
+  expanded?: Maybe<Scalars['Boolean']['output']>
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   renderForEachPropKey?: Maybe<Scalars['String']['output']>
@@ -9495,7 +9495,7 @@ export type ElementNextSiblingUpdateFieldInput = {
 export type ElementOnCreateInput = {
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   compositeKey: Scalars['String']['input']
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   id: Scalars['ID']['input']
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
@@ -10645,7 +10645,7 @@ export type ElementRenderTypeWhere = {
 export type ElementSort = {
   childMapperPropKey?: InputMaybe<SortDirection>
   compositeKey?: InputMaybe<SortDirection>
-  expended?: InputMaybe<SortDirection>
+  expanded?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
@@ -10668,7 +10668,7 @@ export type ElementSubscriptionWhere = {
   compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -11064,7 +11064,7 @@ export type ElementUpdateInput = {
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingUpdateFieldInput>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
@@ -11119,7 +11119,7 @@ export type ElementWhere = {
   compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
   compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
   compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-  expended?: InputMaybe<Scalars['Boolean']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementWhere>
   firstChildAggregate?: InputMaybe<ElementFirstChildAggregateInput>
   firstChildConnection?: InputMaybe<ElementFirstChildConnectionWhere>
@@ -27360,7 +27360,7 @@ export type ElementFragment = {
   renderIfExpression?: string | null
   style?: string | null
   tailwindClassNames?: Array<string> | null
-  expended?: boolean | null
+  expanded?: boolean | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
@@ -29854,7 +29854,7 @@ export const ElementFragmentDoc = new TypedDocumentString(
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
     fragment AtomBuilder on Atom {
   __typename
@@ -30419,7 +30419,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -30729,7 +30729,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Page on Page {
   app {
@@ -31063,7 +31063,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -31362,7 +31362,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment PageDevelopment on Page {
   app {
@@ -32757,7 +32757,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -33455,7 +33455,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment PageDevelopment on Page {
   app {
@@ -33905,7 +33905,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Page on Page {
   app {
@@ -34797,7 +34797,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -35309,7 +35309,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -35655,7 +35655,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment Page on Page {
   app {
@@ -35967,7 +35967,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  expended
+  expanded
 }
 fragment PageDevelopment on Page {
   app {

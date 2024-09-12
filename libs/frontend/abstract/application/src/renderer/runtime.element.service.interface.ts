@@ -12,7 +12,7 @@ export interface IRuntimeElementService {
   currentStylePseudoClass: ElementStylePseudoClass
   elements: ObjectMap<IRuntimeElementModel>
   elementsList: Array<IRuntimeElementModel>
-  expendedCompositeKeys: Array<string>
+  expandedCompositeKeys: Array<string>
   add(
     element: IElementModel,
     closestContainerNode: IRuntimeComponentModel | IRuntimePageModel,

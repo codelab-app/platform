@@ -57,7 +57,7 @@ const create = (element: IElementDto): IElementModel => {
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
-    expended,
+    expanded,
     firstChild,
     id,
     name,
@@ -84,7 +84,7 @@ const create = (element: IElementDto): IElementModel => {
       ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
-    expended,
+    expanded,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
     isTextContentEditable: false,
@@ -120,7 +120,7 @@ export class Element
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
-    expended: prop<Nullish<boolean>>(false).withSetter(),
+    expanded: prop<Nullish<boolean>>(false).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
@@ -537,7 +537,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
-      expended: this.expended,
+      expanded: this.expanded,
       firstChild: connectNodeId(this.firstChild?.id),
       id: this.id,
       nextSibling: connectNodeId(this.nextSibling?.id),
@@ -596,7 +596,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
-      expended: this.expended,
+      expanded: this.expanded,
       postRenderAction,
       preRenderAction,
       renderForEachPropKey: this.renderForEachPropKey,
@@ -614,7 +614,7 @@ export class Element
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     | 'compositeKey'
-    | 'expended'
+    | 'expanded'
     | 'firstChild'
     | 'nextSibling'
     | 'parentElement'
@@ -625,7 +625,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
-      expended: this.expended,
+      expanded: this.expanded,
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
       parentElement: reconnectNodeId(this.parentElement?.id),
@@ -638,7 +638,7 @@ export class Element
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
-    expended,
+    expanded,
     firstChild,
     name,
     nextSibling,
@@ -662,7 +662,7 @@ export class Element
     this.parentElement = parentElement?.id
       ? elementRef(parentElement.id)
       : this.parentElement
-    this.expended = expended ?? this.expended
+    this.expanded = expanded ?? this.expanded
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling
