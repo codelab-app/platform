@@ -61,8 +61,7 @@ commands:
           name: Save pnpm Cache
           paths:
             - ~/.pnpm-store
-      - save_cache: null
-      - run:
+      - save_cache:
           key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
           name: Save node_modules Cache
           paths:
