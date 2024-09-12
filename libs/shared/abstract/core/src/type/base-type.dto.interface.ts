@@ -9,6 +9,16 @@ export const BaseTypeSchema = Type.Object({
   name: Type.String(),
 })
 
+/**
+ * JSON export
+ */
+export const BaseTypeExportSchema = Type.Object({
+  __typename: Type.String(),
+  id: Type.String(),
+  kind: Type.String(),
+  name: Type.String(),
+})
+
 export type IBaseType = Static<typeof BaseTypeSchema>
 
 export type IBaseTypeDto<T extends `${ITypeKind}` = `${ITypeKind}`> = Static<

@@ -2,6 +2,7 @@ import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
+  ApiExportSchema,
   ApiSchema,
   AtomSchema,
   type IApi,
@@ -43,7 +44,7 @@ export class ExportAtomHandler
     // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
 
     return {
-      api: Validator.validateAndClean(ApiSchema, api),
+      api: Validator.validateAndClean(ApiExportSchema, api),
       atom: Validator.validateAndClean(AtomSchema, atom),
     }
   }
