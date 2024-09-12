@@ -9,7 +9,7 @@ describe('TextEditor', () => {
     await act(async () => {
       render(
         <TextEditor
-          config={{ editable: false }}
+          config={{ editable: true }}
           onChange={() => {
             //
           }}

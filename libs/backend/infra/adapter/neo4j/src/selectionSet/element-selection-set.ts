@@ -60,6 +60,7 @@ const baseElementSelectionSet = `
     id
     type
   }
+  expanded
 `
 
 export const elementSelectionSet = `

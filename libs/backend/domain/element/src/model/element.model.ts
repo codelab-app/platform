@@ -5,36 +5,38 @@ import type {
   IPropDto,
   IRef,
 } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 
 export class Element implements IElementDto {
-  childMapperComponent?: IRef | null | undefined
+  childMapperComponent?: Nullish<IRef>
 
-  childMapperPreviousSibling?: IRef | null | undefined
+  childMapperPreviousSibling?: Nullish<IRef>
 
   childMapperPropKey?: Nullable<string> | undefined
 
   closestContainerNode: IRef
 
-  firstChild?: IRef | null | undefined
+  expanded: Nullish<boolean>
+
+  firstChild?: Nullish<IRef>
 
   id: string
 
   name: string
 
-  nextSibling?: IRef | null | undefined
+  nextSibling?: Nullish<IRef>
 
-  page?: IRef | null | undefined
+  page?: Nullish<IRef>
 
-  parent?: IRef | null | undefined
+  parent?: Nullish<IRef>
 
-  parentComponent?: IRef | null | undefined
+  parentComponent?: Nullish<IRef>
 
-  postRenderAction?: IRef | null | undefined
+  postRenderAction?: Nullish<IRef>
 
-  preRenderAction?: IRef | null | undefined
+  preRenderAction?: Nullish<IRef>
 
-  prevSibling?: IRef | null | undefined
+  prevSibling?: Nullish<IRef>
 
   props: IPropDto
 
@@ -48,6 +50,7 @@ export class Element implements IElementDto {
 
   constructor({
     closestContainerNode,
+    expanded,
     id,
     name,
     props,
@@ -55,6 +58,7 @@ export class Element implements IElementDto {
   }: ICreateElementDto) {
     this.id = id
     this.props = props
+    this.expanded = expanded
     this.closestContainerNode = closestContainerNode
     this.name = name
     this.renderType = renderType

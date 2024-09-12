@@ -1,7 +1,7 @@
 import type {
   IApplicationStore,
   IRootStore,
-  IRouterProps,
+  IRootStoreInput,
 } from '@codelab/frontend/abstract/application'
 import {
   actionDomainServiceContext,
@@ -14,6 +14,7 @@ import {
   fieldDomainServiceContext,
   IDomainStore,
   pageDomainServiceContext,
+  preferenceDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
   storeDomainServiceContext,
@@ -21,7 +22,6 @@ import {
   typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { IUserDto } from '@codelab/shared/abstract/core'
 import {
   Model,
   model,
@@ -32,12 +32,16 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = (user: IUserDto, routerProps: IRouterProps) => {
+export const createRootStore = ({
+  preference,
+  routerProps,
+  user,
+}: IRootStoreInput) => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(user)
+  const domainStore = createDomainStore(user, preference)
   const applicationStore = createApplicationStore(routerProps)
 
   @model('@codelab/RootStore')
@@ -80,6 +84,10 @@ export const createRootStore = (user: IUserDto, routerProps: IRouterProps) => {
       tagDomainServiceContext.set(this, this.domainStore.tagDomainService)
       typeDomainServiceContext.set(this, this.domainStore.typeDomainService)
       userDomainServiceContext.set(this, this.domainStore.userDomainService)
+      preferenceDomainServiceContext.set(
+        this,
+        this.domainStore.preferenceDomainService,
+      )
     }
   }
 

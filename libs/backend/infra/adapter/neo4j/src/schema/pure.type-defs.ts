@@ -9,6 +9,7 @@ import { domainSchema } from './model/domain.schema'
 import { elementSchema } from './model/element.schema'
 import { hookSchema } from './model/hook.schema'
 import { pageSchema } from './model/page.schema'
+import { preferenceSchema } from './model/preference.schema'
 import { propSchema } from './model/prop.schema'
 import { redirectSchema } from './model/redirect.schema'
 import { resourceSchema } from './model/resource.schema'
@@ -28,6 +29,7 @@ export const pureTypeDefs = mergeTypeDefs([
   tagSchema,
   elementSchema,
   propSchema,
+  preferenceSchema,
   hookSchema,
   componentSchema,
   storeSchema,

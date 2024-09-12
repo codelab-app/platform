@@ -57,6 +57,7 @@ const create = (element: IElementDto): IElementModel => {
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
+    expanded,
     firstChild,
     id,
     name,
@@ -83,6 +84,7 @@ const create = (element: IElementDto): IElementModel => {
       ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
+    expanded,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
     isTextContentEditable: false,
@@ -112,13 +114,13 @@ const create = (element: IElementDto): IElementModel => {
 @model('@codelab/Element')
 export class Element
   extends Model({
-    // The patches don't record until attached to root, so initial creation won't be tracked
-    _modified: prop(true).withSetter(),
+    _modified: prop(false).withSetter(),
     childMapperComponent:
       prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
+    expanded: prop<Nullish<boolean>>(false).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
@@ -412,9 +414,9 @@ export class Element
     /**
      * Add new first child
      */
-    parentElement.firstChild = elementRef(this.id)
+    parentElement.setFirstChild(elementRef(this.id))
 
-    this.parentElement = elementRef(parentElement)
+    this.setParentElement(elementRef(parentElement))
   }
 
   /**
@@ -433,11 +435,11 @@ export class Element
     const oldNextSibling = prevSibling.nextSibling?.current
 
     if (oldNextSibling) {
-      oldNextSibling.prevSibling = elementRef(this)
+      oldNextSibling.setPrevSibling(elementRef(this))
       this.setNextSibling(elementRef(oldNextSibling))
     }
 
-    this.prevSibling = elementRef(prevSibling.id)
+    this.setPrevSibling(elementRef(prevSibling.id))
 
     prevSibling.nextSibling = elementRef(this.id)
   }
@@ -462,7 +464,7 @@ export class Element
 
     const oldPrevSibling = nextSibling.prevSibling?.current
 
-    nextSibling.prevSibling = elementRef(this)
+    nextSibling.setPrevSibling(elementRef(this))
 
     if (oldPrevSibling) {
       oldPrevSibling.nextSibling = elementRef(this)
@@ -470,7 +472,7 @@ export class Element
       this.prevSibling = elementRef(oldPrevSibling)
     }
 
-    this.nextSibling = elementRef(nextSibling)
+    this.setNextSibling(elementRef(nextSibling))
   }
 
   /**
@@ -535,6 +537,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
+      expanded: this.expanded,
       firstChild: connectNodeId(this.firstChild?.id),
       id: this.id,
       nextSibling: connectNodeId(this.nextSibling?.id),
@@ -593,6 +596,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
+      expanded: this.expanded,
       postRenderAction,
       preRenderAction,
       renderForEachPropKey: this.renderForEachPropKey,
@@ -610,6 +614,7 @@ export class Element
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     | 'compositeKey'
+    | 'expanded'
     | 'firstChild'
     | 'nextSibling'
     | 'parentElement'
@@ -620,6 +625,7 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
+      expanded: this.expanded,
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
       parentElement: reconnectNodeId(this.parentElement?.id),
@@ -632,6 +638,7 @@ export class Element
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
+    expanded,
     firstChild,
     name,
     nextSibling,
@@ -655,6 +662,7 @@ export class Element
     this.parentElement = parentElement?.id
       ? elementRef(parentElement.id)
       : this.parentElement
+    this.expanded = expanded ?? this.expanded
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling
@@ -705,15 +713,5 @@ export class Element
     return () => {
       recorder.dispose()
     }
-  }
-
-  @computed
-  private get componentDomainService() {
-    return getComponentDomainService(this)
-  }
-
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
   }
 }

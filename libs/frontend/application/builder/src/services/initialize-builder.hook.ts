@@ -31,7 +31,7 @@ export const useInitializeBuilder = ({
   useEffect(() => {
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 
-    builderService.selectElementNode(
+    builderService.setSelectedNode(
       runtimeElementRef(renderer.runtimeRootContainerNode.runtimeRootElement),
     )
 

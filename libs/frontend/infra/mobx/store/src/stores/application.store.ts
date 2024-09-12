@@ -22,7 +22,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
-  RendererApplicationService,
+  RendererService,
   RuntimeComponentService,
   RuntimeElementService,
   RuntimePageService,
@@ -46,9 +46,7 @@ export const createApplicationStore = (router: IRouterProps) => {
       })),
       // add reference to domain store, so that all the models in ApplicationStore
       // can access refs from domain store (elements, components, apps, etc)
-      rendererService: prop<IRendererService>(
-        () => new RendererApplicationService({}),
-      ),
+      rendererService: prop<IRendererService>(() => new RendererService({})),
       routerService: prop<IRouterService>(() => RouterService.init(router)),
       runtimeComponentService: prop<IRuntimeComponentService>(
         () => new RuntimeComponentService({}),

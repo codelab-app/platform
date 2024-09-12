@@ -38,6 +38,13 @@ export class RuntimeElementService
     return [...this.elements.values()]
   }
 
+  @computed
+  get expandedCompositeKeys() {
+    return this.elementsList
+      .filter((runtimeElement) => runtimeElement.element.current.expanded)
+      .map((runtimeElement) => runtimeElement.compositeKey)
+  }
+
   @modelAction
   add(
     element: IElementModel,

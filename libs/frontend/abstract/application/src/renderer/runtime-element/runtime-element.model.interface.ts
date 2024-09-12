@@ -32,6 +32,7 @@ export interface IRuntimeElementModel extends AnyModel {
 
   parentElement: Maybe<IRuntimeElementModel>
   parentElementKey: Nullable<string>
+  pathFromRoot: Array<IRuntimeElementModel>
   postRenderActionDone: boolean
   preRenderActionDone: boolean
   /**

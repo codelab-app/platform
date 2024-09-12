@@ -5,21 +5,17 @@ import type {
   IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import {
+  getRendererService,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import type { BuilderWidth } from '@codelab/frontend/abstract/domain'
 import {
-  BuilderWidthBreakPoint,
-  defaultBuilderWidthBreakPoints,
   getAtomDomainService,
   getTagDomainService,
-  getUserDomainService,
-  isComponentRef,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
@@ -30,7 +26,6 @@ export const COMPONENT_TAG_NAME = 'Component'
 @model('@codelab/BuilderService')
 export class BuilderService
   extends Model({
-    builderContainerWidth: prop<number>(() => 0).withSetter(),
     hoveredNode: prop<Nullable<Ref<IRuntimeModel>>>().withSetter(),
     selectedNode: prop<Nullable<Ref<IRuntimeModel>>>().withSetter(),
   })
@@ -119,105 +114,13 @@ export class BuilderService
   }
 
   @computed
-  get expandedElementTreeNodeIds() {
-    const treeViewNode = this.activeElementTree?.treeViewNode
-
-    if (
-      !treeViewNode ||
-      !this.activeContainer?.id ||
-      !treeViewNode.children[0]
-    ) {
-      return []
-    }
-
-    const containerPreferences = this.preferences.builder.get(
-      this.activeContainer.id,
-    )
-
-    const expandedNodes = containerPreferences?.explorerExpandedNodes
-
-    if (expandedNodes?.length) {
-      return expandedNodes
-    }
-
-    return isRuntimeComponent(this.activeElementTree)
-      ? [treeViewNode.children[0]?.key]
-      : [treeViewNode.key]
-  }
-
-  @computed
-  get preferences() {
-    const user = this.userDomainService.user
-
-    return user.preferences
-  }
-
-  @computed
-  get selectedBuilderBreakpoint() {
-    if (!this.activeContainer) {
-      return BuilderWidthBreakPoint.None
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    const containerPreferences = this.preferences.builder.get(containerId)
-
-    if (containerPreferences?.breakpoint) {
-      return containerPreferences.breakpoint
-    }
-
-    return BuilderWidthBreakPoint.MobilePortrait
-  }
-
-  @computed
-  get selectedBuilderWidth() {
-    if (!this.activeContainer) {
-      return defaultBuilderWidthBreakPoints['mobile-portrait']
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    const containerPreferences = this.preferences.builder.get(containerId)
-
-    if (containerPreferences?.width) {
-      return containerPreferences.width
-    }
-
-    return defaultBuilderWidthBreakPoints['mobile-portrait']
+  get renderService() {
+    return getRendererService(this)
   }
 
   @computed
   get tagDomainService() {
     return getTagDomainService(this)
-  }
-
-  @computed
-  get userDomainService() {
-    return getUserDomainService(this)
-  }
-
-  @modelAction
-  selectComponentNode(node: Nullish<Ref<IRuntimeComponentModel>>) {
-    if (!node) {
-      return
-    }
-
-    this.setSelectedNode(node)
-    this.updateExpandedNodes()
-  }
-
-  @modelAction
-  selectElementNode(node: Nullish<Ref<IRuntimeElementModel>>) {
-    if (!node) {
-      return
-    }
-
-    this.setSelectedNode(node)
-    this.updateExpandedNodes()
   }
 
   @modelAction
@@ -240,105 +143,5 @@ export class BuilderService
     }
 
     this.setSelectedNode(runtimeElementRef(newSelectedNode.compositeKey))
-  }
-
-  @modelAction
-  setExpandedElementTreeNodeIds(expandedNodeIds: Array<string>) {
-    if (!this.activeContainer) {
-      return
-    }
-
-    this.preferences.setBuilderPreference(this.activeContainer.id, {
-      explorerExpandedNodes: expandedNodeIds,
-    })
-  }
-
-  @modelAction
-  setSelectedBuilderBreakpoint(breakpoint: BuilderWidthBreakPoint) {
-    if (!this.activeContainer) {
-      return
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    this.preferences.setBuilderPreference(containerId, { breakpoint })
-  }
-
-  @modelAction
-  setSelectedBuilderWidth(width: BuilderWidth) {
-    const _selectedBuilderWidth = {
-      default:
-        width.default < 0
-          ? Math.max(width.min, this.builderContainerWidth)
-          : width.default,
-      max:
-        width.max < 0
-          ? Math.max(width.min, this.builderContainerWidth)
-          : width.max,
-      min: width.min,
-    }
-
-    if (!this.activeContainer) {
-      return
-    }
-
-    const containerId = isComponentRef(this.activeContainer)
-      ? this.activeContainer.id
-      : this.activeContainer.current.app.id
-
-    this.preferences.setBuilderPreference(containerId, {
-      width: _selectedBuilderWidth,
-    })
-  }
-
-  findNodesToExpand(
-    node: IRuntimeModel,
-    alreadyExpandedNodeIds: Array<string>,
-  ): Array<string> {
-    const pathResult = this.getPathFromRoot(node)
-    const expandedSet = new Set(alreadyExpandedNodeIds)
-
-    return pathResult.filter((el) => !expandedSet.has(el))
-  }
-
-  getPathFromRoot(node: IRuntimeModel): Array<string> {
-    const path = []
-
-    if (!isRuntimeElement(node)) {
-      return [node.compositeKey]
-    }
-
-    let currentElement: Maybe<IRuntimeElementModel> = node
-
-    while (currentElement) {
-      path.push(currentElement.compositeKey)
-      currentElement = currentElement.parentElement
-    }
-
-    return path.reverse()
-  }
-
-  updateExpandedNodes = () => {
-    const selectedNode = this.selectedNode?.current
-
-    if (!selectedNode) {
-      return
-    }
-
-    const newNodesToExpand = this.findNodesToExpand(
-      selectedNode,
-      this.expandedElementTreeNodeIds,
-    )
-
-    if (newNodesToExpand.length === 0) {
-      return
-    }
-
-    this.setExpandedElementTreeNodeIds([
-      ...this.expandedElementTreeNodeIds,
-      ...newNodesToExpand,
-    ])
   }
 }

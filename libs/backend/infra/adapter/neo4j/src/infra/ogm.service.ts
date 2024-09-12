@@ -20,6 +20,7 @@ import type {
   ModelMap,
   PageModel,
   PageTypeModel,
+  PreferenceModel,
   PrimitiveTypeModel,
   PropModel,
   ReactNodeTypeModel,
@@ -122,6 +123,10 @@ export class OgmService {
 
   get PageType() {
     return (this.pageType ??= this.ogm.model('PageType'))
+  }
+
+  get Preference() {
+    return (this.preference ??= this.ogm.model('Preference'))
   }
 
   get PrimitiveType() {
@@ -244,6 +249,8 @@ export class OgmService {
   private page: PageModel | undefined
 
   private pageType: PageTypeModel | undefined
+
+  private preference: PreferenceModel | undefined
 
   private primitiveType: PrimitiveTypeModel | undefined
 

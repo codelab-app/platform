@@ -1,29 +1,15 @@
-import type {
-  IUserModel,
-  IUserPreferenceModel,
-} from '@codelab/frontend/abstract/domain'
-import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
-import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { type IUserModel } from '@codelab/frontend/abstract/domain'
+import type { IUserDto } from '@codelab/shared/abstract/core'
+import { IRole } from '@codelab/shared/abstract/core'
+import { UserCreateInput, UserUpdateInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
-import { getSnapshot, idProp, Model, model, prop } from 'mobx-keystone'
-import { UserPreference } from './user-preferences.model'
-
-const fromSession = (user: Auth0IdToken): IUserDto => {
-  return {
-    auth0Id: user.sub,
-    email: user.email,
-    id: user[JWT_CLAIMS].neo4j_user_id,
-    roles: user[JWT_CLAIMS].roles.map((role) => IRole[role]),
-    username: user.nickname,
-  }
-}
+import { idProp, Model, model, prop } from 'mobx-keystone'
 
 const create = (user: IUserDto) => {
   return new User({
     auth0Id: user.auth0Id,
     email: user.email,
     id: user.id,
-    preferences: UserPreference.init(),
     roles: user.roles,
     username: user.username,
   })
@@ -40,15 +26,12 @@ export class User
     auth0Id: prop<string>(),
     email: prop<string>(),
     id: idProp.withSetter(),
-    preferences: prop<IUserPreferenceModel>(),
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),
   })
   implements IUserModel
 {
   static create = create
-
-  static fromSession = fromSession
 
   @computed
   get toJson() {
@@ -61,7 +44,7 @@ export class User
     }
   }
 
-  toCreateInput() {
+  toCreateInput(): UserCreateInput {
     return {
       auth0Id: this.auth0Id,
       email: this.email,
@@ -70,9 +53,7 @@ export class User
     }
   }
 
-  toUpdateInput() {
-    return {
-      preferences: JSON.stringify(getSnapshot(this.preferences)),
-    }
+  toUpdateInput(): UserUpdateInput {
+    return {}
   }
 }

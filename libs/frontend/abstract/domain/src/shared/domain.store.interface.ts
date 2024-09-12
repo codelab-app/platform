@@ -7,6 +7,7 @@ import type { IDomainDomainService } from '../domain'
 import type { IElementDomainService } from '../element'
 import type { IFieldDomainService } from '../field'
 import type { IPageDomainService } from '../page'
+import type { IPreferenceDomainService } from '../preference'
 import type { IRedirectDomainService } from '../redirect'
 import type { IResourceDomainService } from '../resource'
 import type { IStoreDomainService } from '../store'
@@ -24,6 +25,7 @@ export interface IDomainStore {
   elementDomainService: IElementDomainService
   fieldDomainService: IFieldDomainService
   pageDomainService: IPageDomainService
+  preferenceDomainService: IPreferenceDomainService
   redirectDomainService: IRedirectDomainService
   resourceDomainService: IResourceDomainService
   storeDomainService: IStoreDomainService

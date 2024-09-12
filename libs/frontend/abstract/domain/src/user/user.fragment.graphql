@@ -5,7 +5,9 @@ fragment User on User {
   auth0Id
   email
   id
-  preferences
+  preferences {
+    ...Preference
+  }
   roles
   username
 }

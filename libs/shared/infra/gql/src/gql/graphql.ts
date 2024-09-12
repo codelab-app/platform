@@ -197,21 +197,6 @@ export type ActionTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -324,7 +309,6 @@ export type ActionTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -1846,21 +1830,6 @@ export type AppOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -2248,21 +2217,6 @@ export type AppTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -2371,7 +2325,6 @@ export type AppTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -2435,7 +2388,6 @@ export type AppUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -2995,21 +2947,6 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -3124,7 +3061,6 @@ export type ArrayTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -3839,21 +3775,6 @@ export type AtomOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -4883,7 +4804,6 @@ export type AtomUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -5343,21 +5263,6 @@ export type AuthGuardOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -5615,7 +5520,6 @@ export type AuthGuardUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -6118,6 +6022,13 @@ export type BaseActionWhere = {
 
 export type BaseTypesWhere = {
   name?: InputMaybe<Scalars['String']['input']>
+}
+
+export enum BreakpointType {
+  Desktop = 'Desktop',
+  MobileLandscape = 'MobileLandscape',
+  MobilePortrait = 'MobilePortrait',
+  Tablet = 'Tablet',
 }
 
 export type CodeAction = BaseAction & {
@@ -6726,21 +6637,6 @@ export type CodeMirrorTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -6853,7 +6749,6 @@ export type CodeMirrorTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -7283,21 +7178,6 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -7860,7 +7740,6 @@ export type ComponentUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -8031,6 +7910,11 @@ export type CreatePageTypesMutationResponse = {
 export type CreatePagesMutationResponse = {
   info: CreateInfo
   pages: Array<Page>
+}
+
+export type CreatePreferencesMutationResponse = {
+  info: CreateInfo
+  preferences: Array<Preference>
 }
 
 export type CreatePrimitiveTypesMutationResponse = {
@@ -8446,6 +8330,7 @@ export type Element = {
   compositeKey: Scalars['String']['output']
   dependantTypes: Array<AnyType>
   descendantElements: Array<Element>
+  expanded?: Maybe<Scalars['Boolean']['output']>
   firstChild?: Maybe<Element>
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>
   firstChildConnection: ElementFirstChildConnection
@@ -9085,6 +8970,7 @@ export type ElementCreateInput = {
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingFieldInput>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   compositeKey: Scalars['String']['input']
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementFirstChildFieldInput>
   id: Scalars['ID']['input']
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
@@ -9222,6 +9108,7 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
 export type ElementEventPayload = {
   childMapperPropKey?: Maybe<Scalars['String']['output']>
   compositeKey: Scalars['String']['output']
+  expanded?: Maybe<Scalars['Boolean']['output']>
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   renderForEachPropKey?: Maybe<Scalars['String']['output']>
@@ -9608,6 +9495,7 @@ export type ElementNextSiblingUpdateFieldInput = {
 export type ElementOnCreateInput = {
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   compositeKey: Scalars['String']['input']
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   id: Scalars['ID']['input']
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
@@ -10757,6 +10645,7 @@ export type ElementRenderTypeWhere = {
 export type ElementSort = {
   childMapperPropKey?: InputMaybe<SortDirection>
   compositeKey?: InputMaybe<SortDirection>
+  expanded?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
@@ -10779,6 +10668,7 @@ export type ElementSubscriptionWhere = {
   compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   compositeKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -11016,21 +10906,6 @@ export type ElementTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -11143,7 +11018,6 @@ export type ElementTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -11190,6 +11064,7 @@ export type ElementUpdateInput = {
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingUpdateFieldInput>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
@@ -11244,6 +11119,7 @@ export type ElementWhere = {
   compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
   compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
   compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementWhere>
   firstChildAggregate?: InputMaybe<ElementFirstChildAggregateInput>
   firstChildConnection?: InputMaybe<ElementFirstChildConnectionWhere>
@@ -11894,21 +11770,6 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -12023,7 +11884,6 @@ export type EnumTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -13352,6 +13212,13 @@ export type FieldsConnection = {
   totalCount: Scalars['Int']['output']
 }
 
+export type FloatAggregateSelectionNonNullable = {
+  average: Scalars['Float']['output']
+  max: Scalars['Float']['output']
+  min: Scalars['Float']['output']
+  sum: Scalars['Float']['output']
+}
+
 export type GetBaseTypesOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -14261,21 +14128,6 @@ export type IBaseTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -15202,21 +15054,6 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -15334,7 +15171,6 @@ export type InterfaceTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -15571,21 +15407,6 @@ export type LambdaTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -15694,7 +15515,6 @@ export type LambdaTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -15752,6 +15572,7 @@ export type Mutation = {
   createLambdaTypes: CreateLambdaTypesMutationResponse
   createPageTypes: CreatePageTypesMutationResponse
   createPages: CreatePagesMutationResponse
+  createPreferences: CreatePreferencesMutationResponse
   createPrimitiveTypes: CreatePrimitiveTypesMutationResponse
   createProps: CreatePropsMutationResponse
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
@@ -15786,6 +15607,7 @@ export type Mutation = {
   deleteLambdaTypes: DeleteInfo
   deletePageTypes: DeleteInfo
   deletePages: DeleteInfo
+  deletePreferences: DeleteInfo
   deletePrimitiveTypes: DeleteInfo
   deleteProps: DeleteInfo
   deleteReactNodeTypes: DeleteInfo
@@ -15820,6 +15642,7 @@ export type Mutation = {
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
   updatePageTypes: UpdatePageTypesMutationResponse
   updatePages: UpdatePagesMutationResponse
+  updatePreferences: UpdatePreferencesMutationResponse
   updatePrimitiveTypes: UpdatePrimitiveTypesMutationResponse
   updateProps: UpdatePropsMutationResponse
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
@@ -15920,6 +15743,10 @@ export type MutationCreatePageTypesArgs = {
 
 export type MutationCreatePagesArgs = {
   input: Array<PageCreateInput>
+}
+
+export type MutationCreatePreferencesArgs = {
+  input: Array<PreferenceCreateInput>
 }
 
 export type MutationCreatePrimitiveTypesArgs = {
@@ -16077,6 +15904,11 @@ export type MutationDeletePageTypesArgs = {
 export type MutationDeletePagesArgs = {
   delete?: InputMaybe<PageDeleteInput>
   where?: InputMaybe<PageWhere>
+}
+
+export type MutationDeletePreferencesArgs = {
+  delete?: InputMaybe<PreferenceDeleteInput>
+  where?: InputMaybe<PreferenceWhere>
 }
 
 export type MutationDeletePrimitiveTypesArgs = {
@@ -16349,6 +16181,16 @@ export type MutationUpdatePagesArgs = {
   disconnect?: InputMaybe<PageDisconnectInput>
   update?: InputMaybe<PageUpdateInput>
   where?: InputMaybe<PageWhere>
+}
+
+export type MutationUpdatePreferencesArgs = {
+  connect?: InputMaybe<PreferenceConnectInput>
+  connectOrCreate?: InputMaybe<PreferenceConnectOrCreateInput>
+  create?: InputMaybe<PreferenceRelationInput>
+  delete?: InputMaybe<PreferenceDeleteInput>
+  disconnect?: InputMaybe<PreferenceDisconnectInput>
+  update?: InputMaybe<PreferenceUpdateInput>
+  where?: InputMaybe<PreferenceWhere>
 }
 
 export type MutationUpdatePrimitiveTypesArgs = {
@@ -17713,21 +17555,6 @@ export type PageTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -17836,7 +17663,6 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -17948,6 +17774,313 @@ export type PageWhere = {
 
 export type PagesConnection = {
   edges: Array<PageEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type Preference = WithOwner & {
+  builderBreakpointType: BreakpointType
+  builderWidth: Scalars['Float']['output']
+  id: Scalars['ID']['output']
+  owner: User
+  ownerAggregate?: Maybe<PreferenceUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
+}
+
+export type PreferenceOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type PreferenceOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type PreferenceOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
+}
+
+export type PreferenceAggregateSelection = {
+  builderWidth: FloatAggregateSelectionNonNullable
+  count: Scalars['Int']['output']
+  id: IdAggregateSelectionNonNullable
+}
+
+export type PreferenceConnectInput = {
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
+}
+
+export type PreferenceConnectOrCreateInput = {
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
+}
+
+export type PreferenceConnectOrCreateWhere = {
+  node: PreferenceUniqueWhere
+}
+
+export type PreferenceConnectWhere = {
+  node: PreferenceWhere
+}
+
+export type PreferenceConnectedRelationships = {
+  owner?: Maybe<PreferenceOwnerConnectedRelationship>
+}
+
+export type PreferenceCreateInput = {
+  builderBreakpointType: BreakpointType
+  builderWidth: Scalars['Float']['input']
+  id: Scalars['ID']['input']
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
+}
+
+export type PreferenceCreatedEvent = {
+  createdPreference: PreferenceEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
+export type PreferenceDeleteInput = {
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
+}
+
+export type PreferenceDeletedEvent = {
+  deletedPreference: PreferenceEventPayload
+  event: EventType
+  timestamp: Scalars['Float']['output']
+}
+
+export type PreferenceDisconnectInput = {
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
+}
+
+export type PreferenceEdge = {
+  cursor: Scalars['String']['output']
+  node: Preference
+}
+
+export type PreferenceEventPayload = {
+  builderBreakpointType: BreakpointType
+  builderWidth: Scalars['Float']['output']
+  id: Scalars['ID']['output']
+}
+
+export type PreferenceOnCreateInput = {
+  builderBreakpointType: BreakpointType
+  builderWidth: Scalars['Float']['input']
+  id: Scalars['ID']['input']
+}
+
+export type PreferenceOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more PreferenceSort objects to sort Preferences by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<PreferenceSort>>
+}
+
+export type PreferenceOwnerAggregateInput = {
+  AND?: InputMaybe<Array<PreferenceOwnerAggregateInput>>
+  NOT?: InputMaybe<PreferenceOwnerAggregateInput>
+  OR?: InputMaybe<Array<PreferenceOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<PreferenceOwnerNodeAggregationWhereInput>
+}
+
+export type PreferenceOwnerConnectedRelationship = {
+  node: UserEventPayload
+}
+
+export type PreferenceOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PreferenceOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<PreferenceOwnerNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<PreferenceOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type PreferenceOwnerRelationshipSubscriptionWhere = {
+  node?: InputMaybe<UserSubscriptionWhere>
+}
+
+export type PreferenceRelationInput = {
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
+}
+
+export type PreferenceRelationshipCreatedEvent = {
+  createdRelationship: PreferenceConnectedRelationships
+  event: EventType
+  preference: PreferenceEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PreferenceRelationshipCreatedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PreferenceRelationshipCreatedSubscriptionWhere>>
+  NOT?: InputMaybe<PreferenceRelationshipCreatedSubscriptionWhere>
+  OR?: InputMaybe<Array<PreferenceRelationshipCreatedSubscriptionWhere>>
+  createdRelationship?: InputMaybe<PreferenceRelationshipsSubscriptionWhere>
+  preference?: InputMaybe<PreferenceSubscriptionWhere>
+}
+
+export type PreferenceRelationshipDeletedEvent = {
+  deletedRelationship: PreferenceConnectedRelationships
+  event: EventType
+  preference: PreferenceEventPayload
+  relationshipFieldName: Scalars['String']['output']
+  timestamp: Scalars['Float']['output']
+}
+
+export type PreferenceRelationshipDeletedSubscriptionWhere = {
+  AND?: InputMaybe<Array<PreferenceRelationshipDeletedSubscriptionWhere>>
+  NOT?: InputMaybe<PreferenceRelationshipDeletedSubscriptionWhere>
+  OR?: InputMaybe<Array<PreferenceRelationshipDeletedSubscriptionWhere>>
+  deletedRelationship?: InputMaybe<PreferenceRelationshipsSubscriptionWhere>
+  preference?: InputMaybe<PreferenceSubscriptionWhere>
+}
+
+export type PreferenceRelationshipsSubscriptionWhere = {
+  owner?: InputMaybe<PreferenceOwnerRelationshipSubscriptionWhere>
+}
+
+/** Fields to sort Preferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one PreferenceSort object. */
+export type PreferenceSort = {
+  builderBreakpointType?: InputMaybe<SortDirection>
+  builderWidth?: InputMaybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+}
+
+export type PreferenceSubscriptionWhere = {
+  AND?: InputMaybe<Array<PreferenceSubscriptionWhere>>
+  NOT?: InputMaybe<PreferenceSubscriptionWhere>
+  OR?: InputMaybe<Array<PreferenceSubscriptionWhere>>
+  builderBreakpointType?: InputMaybe<BreakpointType>
+  builderBreakpointType_IN?: InputMaybe<Array<InputMaybe<BreakpointType>>>
+  builderWidth?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_GT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_GTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_IN?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>
+  builderWidth_LT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_LTE?: InputMaybe<Scalars['Float']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type PreferenceUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type PreferenceUpdateInput = {
+  builderBreakpointType?: InputMaybe<BreakpointType>
+  builderWidth?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_ADD?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_DIVIDE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MULTIPLY?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_SUBTRACT?: InputMaybe<Scalars['Float']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+}
+
+export type PreferenceUpdatedEvent = {
+  event: EventType
+  previousState: PreferenceEventPayload
+  timestamp: Scalars['Float']['output']
+  updatedPreference: PreferenceEventPayload
+}
+
+export type PreferenceUserOwnerAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<PreferenceUserOwnerNodeAggregateSelection>
+}
+
+export type PreferenceUserOwnerNodeAggregateSelection = {
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
+}
+
+export type PreferenceWhere = {
+  AND?: InputMaybe<Array<PreferenceWhere>>
+  NOT?: InputMaybe<PreferenceWhere>
+  OR?: InputMaybe<Array<PreferenceWhere>>
+  builderBreakpointType?: InputMaybe<BreakpointType>
+  builderBreakpointType_IN?: InputMaybe<Array<BreakpointType>>
+  builderWidth?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_GT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_GTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_IN?: InputMaybe<Array<Scalars['Float']['input']>>
+  builderWidth_LT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_LTE?: InputMaybe<Scalars['Float']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  id_MATCHES?: InputMaybe<Scalars['String']['input']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<PreferenceOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+}
+
+export type PreferencesConnection = {
+  edges: Array<PreferenceEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
 }
@@ -18124,21 +18257,6 @@ export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -18256,7 +18374,6 @@ export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -18522,6 +18639,9 @@ export type Query = {
   pages: Array<Page>
   pagesAggregate: PageAggregateSelection
   pagesConnection: PagesConnection
+  preferences: Array<Preference>
+  preferencesAggregate: PreferenceAggregateSelection
+  preferencesConnection: PreferencesConnection
   primitiveTypes: Array<PrimitiveType>
   primitiveTypesAggregate: PrimitiveTypeAggregateSelection
   primitiveTypesConnection: PrimitiveTypesConnection
@@ -18925,6 +19045,22 @@ export type QueryPagesConnectionArgs = {
   where?: InputMaybe<PageWhere>
 }
 
+export type QueryPreferencesArgs = {
+  options?: InputMaybe<PreferenceOptions>
+  where?: InputMaybe<PreferenceWhere>
+}
+
+export type QueryPreferencesAggregateArgs = {
+  where?: InputMaybe<PreferenceWhere>
+}
+
+export type QueryPreferencesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<InputMaybe<PreferenceSort>>>
+  where?: InputMaybe<PreferenceWhere>
+}
+
 export type QueryPrimitiveTypesArgs = {
   options?: InputMaybe<PrimitiveTypeOptions>
   where?: InputMaybe<PrimitiveTypeWhere>
@@ -19320,21 +19456,6 @@ export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -19447,7 +19568,6 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -20402,21 +20522,6 @@ export type RenderPropTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -20529,7 +20634,6 @@ export type RenderPropTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -20857,21 +20961,6 @@ export type ResourceOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -21003,7 +21092,6 @@ export type ResourceUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -21194,21 +21282,6 @@ export type RichTextTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -21317,7 +21390,6 @@ export type RichTextTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -21983,6 +22055,11 @@ export type Subscription = {
   pageTypeRelationshipDeleted: PageTypeRelationshipDeletedEvent
   pageTypeUpdated: PageTypeUpdatedEvent
   pageUpdated: PageUpdatedEvent
+  preferenceCreated: PreferenceCreatedEvent
+  preferenceDeleted: PreferenceDeletedEvent
+  preferenceRelationshipCreated: PreferenceRelationshipCreatedEvent
+  preferenceRelationshipDeleted: PreferenceRelationshipDeletedEvent
+  preferenceUpdated: PreferenceUpdatedEvent
   primitiveTypeCreated: PrimitiveTypeCreatedEvent
   primitiveTypeDeleted: PrimitiveTypeDeletedEvent
   primitiveTypeRelationshipCreated: PrimitiveTypeRelationshipCreatedEvent
@@ -22474,6 +22551,26 @@ export type SubscriptionPageTypeUpdatedArgs = {
 
 export type SubscriptionPageUpdatedArgs = {
   where?: InputMaybe<PageSubscriptionWhere>
+}
+
+export type SubscriptionPreferenceCreatedArgs = {
+  where?: InputMaybe<PreferenceSubscriptionWhere>
+}
+
+export type SubscriptionPreferenceDeletedArgs = {
+  where?: InputMaybe<PreferenceSubscriptionWhere>
+}
+
+export type SubscriptionPreferenceRelationshipCreatedArgs = {
+  where?: InputMaybe<PreferenceRelationshipCreatedSubscriptionWhere>
+}
+
+export type SubscriptionPreferenceRelationshipDeletedArgs = {
+  where?: InputMaybe<PreferenceRelationshipDeletedSubscriptionWhere>
+}
+
+export type SubscriptionPreferenceUpdatedArgs = {
+  where?: InputMaybe<PreferenceSubscriptionWhere>
 }
 
 export type SubscriptionPrimitiveTypeCreatedArgs = {
@@ -23303,21 +23400,6 @@ export type TagOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -23589,7 +23671,6 @@ export type TagUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -23972,21 +24053,6 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  preferences_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  preferences_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  preferences_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -25293,7 +25359,6 @@ export type UnionTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -25456,6 +25521,11 @@ export type UpdatePagesMutationResponse = {
   pages: Array<Page>
 }
 
+export type UpdatePreferencesMutationResponse = {
+  info: UpdateInfo
+  preferences: Array<Preference>
+}
+
 export type UpdatePrimitiveTypesMutationResponse = {
   info: UpdateInfo
   primitiveTypes: Array<PrimitiveType>
@@ -25532,7 +25602,9 @@ export type User = {
   elementsConnection: UserElementsConnection
   email: Scalars['String']['output']
   id: Scalars['ID']['output']
-  preferences?: Maybe<Scalars['String']['output']>
+  preferences?: Maybe<Preference>
+  preferencesAggregate?: Maybe<UserPreferencePreferencesAggregationSelection>
+  preferencesConnection: UserPreferencesConnection
   roles?: Maybe<Array<Role>>
   tags: Array<Tag>
   tagsAggregate?: Maybe<UserTagTagsAggregationSelection>
@@ -25618,6 +25690,25 @@ export type UserElementsConnectionArgs = {
   where?: InputMaybe<UserElementsConnectionWhere>
 }
 
+export type UserPreferencesArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<PreferenceOptions>
+  where?: InputMaybe<PreferenceWhere>
+}
+
+export type UserPreferencesAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<PreferenceWhere>
+}
+
+export type UserPreferencesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<UserPreferencesConnectionSort>>
+  where?: InputMaybe<UserPreferencesConnectionWhere>
+}
+
 export type UserTagsArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>
   options?: InputMaybe<TagOptions>
@@ -25656,7 +25747,6 @@ export type UserAggregateSelection = {
   count: Scalars['Int']['output']
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  preferences: StringAggregateSelectionNullable
   username: StringAggregateSelectionNonNullable
 }
 
@@ -26100,6 +26190,7 @@ export type UserConnectInput = {
   atoms?: InputMaybe<Array<UserAtomsConnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsConnectFieldInput>>
   elements?: InputMaybe<Array<UserElementsConnectFieldInput>>
+  preferences?: InputMaybe<UserPreferencesConnectFieldInput>
   tags?: InputMaybe<Array<UserTagsConnectFieldInput>>
   types?: InputMaybe<Array<UserTypesConnectFieldInput>>
 }
@@ -26109,6 +26200,7 @@ export type UserConnectOrCreateInput = {
   atoms?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
   components?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
   elements?: InputMaybe<Array<UserElementsConnectOrCreateFieldInput>>
+  preferences?: InputMaybe<UserPreferencesConnectOrCreateFieldInput>
   tags?: InputMaybe<Array<UserTagsConnectOrCreateFieldInput>>
 }
 
@@ -26125,6 +26217,7 @@ export type UserConnectedRelationships = {
   atoms?: Maybe<UserAtomsConnectedRelationship>
   components?: Maybe<UserComponentsConnectedRelationship>
   elements?: Maybe<UserElementsConnectedRelationship>
+  preferences?: Maybe<UserPreferencesConnectedRelationship>
   tags?: Maybe<UserTagsConnectedRelationship>
   types?: Maybe<UserTypesConnectedRelationship>
 }
@@ -26137,7 +26230,7 @@ export type UserCreateInput = {
   elements?: InputMaybe<UserElementsFieldInput>
   email: Scalars['String']['input']
   id: Scalars['ID']['input']
-  preferences?: InputMaybe<Scalars['String']['input']>
+  preferences?: InputMaybe<UserPreferencesFieldInput>
   roles?: InputMaybe<Array<Role>>
   tags?: InputMaybe<UserTagsFieldInput>
   types?: InputMaybe<UserTypesFieldInput>
@@ -26155,6 +26248,7 @@ export type UserDeleteInput = {
   atoms?: InputMaybe<Array<UserAtomsDeleteFieldInput>>
   components?: InputMaybe<Array<UserComponentsDeleteFieldInput>>
   elements?: InputMaybe<Array<UserElementsDeleteFieldInput>>
+  preferences?: InputMaybe<UserPreferencesDeleteFieldInput>
   tags?: InputMaybe<Array<UserTagsDeleteFieldInput>>
   types?: InputMaybe<Array<UserTypesDeleteFieldInput>>
 }
@@ -26170,6 +26264,7 @@ export type UserDisconnectInput = {
   atoms?: InputMaybe<Array<UserAtomsDisconnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>
   elements?: InputMaybe<Array<UserElementsDisconnectFieldInput>>
+  preferences?: InputMaybe<UserPreferencesDisconnectFieldInput>
   tags?: InputMaybe<Array<UserTagsDisconnectFieldInput>>
   types?: InputMaybe<Array<UserTypesDisconnectFieldInput>>
 }
@@ -26384,7 +26479,6 @@ export type UserEventPayload = {
   auth0Id: Scalars['String']['output']
   email: Scalars['String']['output']
   id: Scalars['ID']['output']
-  preferences?: Maybe<Scalars['String']['output']>
   roles?: Maybe<Array<Role>>
   username: Scalars['String']['output']
 }
@@ -26393,7 +26487,6 @@ export type UserOnCreateInput = {
   auth0Id: Scalars['String']['input']
   email: Scalars['String']['input']
   id: Scalars['ID']['input']
-  preferences?: InputMaybe<Scalars['String']['input']>
   roles?: InputMaybe<Array<Role>>
   username: Scalars['String']['input']
 }
@@ -26405,11 +26498,140 @@ export type UserOptions = {
   sort?: InputMaybe<Array<UserSort>>
 }
 
+export type UserPreferencePreferencesAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<UserPreferencePreferencesNodeAggregateSelection>
+}
+
+export type UserPreferencePreferencesNodeAggregateSelection = {
+  builderWidth: FloatAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+}
+
+export type UserPreferencesAggregateInput = {
+  AND?: InputMaybe<Array<UserPreferencesAggregateInput>>
+  NOT?: InputMaybe<UserPreferencesAggregateInput>
+  OR?: InputMaybe<Array<UserPreferencesAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<UserPreferencesNodeAggregationWhereInput>
+}
+
+export type UserPreferencesConnectFieldInput = {
+  connect?: InputMaybe<PreferenceConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<PreferenceConnectWhere>
+}
+
+export type UserPreferencesConnectOrCreateFieldInput = {
+  onCreate: UserPreferencesConnectOrCreateFieldInputOnCreate
+  where: PreferenceConnectOrCreateWhere
+}
+
+export type UserPreferencesConnectOrCreateFieldInputOnCreate = {
+  node: PreferenceOnCreateInput
+}
+
+export type UserPreferencesConnectedRelationship = {
+  node: PreferenceEventPayload
+}
+
+export type UserPreferencesConnection = {
+  edges: Array<UserPreferencesRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type UserPreferencesConnectionSort = {
+  node?: InputMaybe<PreferenceSort>
+}
+
+export type UserPreferencesConnectionWhere = {
+  AND?: InputMaybe<Array<UserPreferencesConnectionWhere>>
+  NOT?: InputMaybe<UserPreferencesConnectionWhere>
+  OR?: InputMaybe<Array<UserPreferencesConnectionWhere>>
+  node?: InputMaybe<PreferenceWhere>
+}
+
+export type UserPreferencesCreateFieldInput = {
+  node: PreferenceCreateInput
+}
+
+export type UserPreferencesDeleteFieldInput = {
+  delete?: InputMaybe<PreferenceDeleteInput>
+  where?: InputMaybe<UserPreferencesConnectionWhere>
+}
+
+export type UserPreferencesDisconnectFieldInput = {
+  disconnect?: InputMaybe<PreferenceDisconnectInput>
+  where?: InputMaybe<UserPreferencesConnectionWhere>
+}
+
+export type UserPreferencesFieldInput = {
+  connect?: InputMaybe<UserPreferencesConnectFieldInput>
+  connectOrCreate?: InputMaybe<UserPreferencesConnectOrCreateFieldInput>
+  create?: InputMaybe<UserPreferencesCreateFieldInput>
+}
+
+export type UserPreferencesNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UserPreferencesNodeAggregationWhereInput>>
+  NOT?: InputMaybe<UserPreferencesNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<UserPreferencesNodeAggregationWhereInput>>
+  builderWidth_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MAX_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MAX_GT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MAX_GTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MAX_LT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MAX_LTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MIN_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MIN_GT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MIN_GTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MIN_LT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_MIN_LTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_SUM_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_SUM_GT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_SUM_GTE?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_SUM_LT?: InputMaybe<Scalars['Float']['input']>
+  builderWidth_SUM_LTE?: InputMaybe<Scalars['Float']['input']>
+}
+
+export type UserPreferencesRelationship = {
+  cursor: Scalars['String']['output']
+  node: Preference
+}
+
+export type UserPreferencesRelationshipSubscriptionWhere = {
+  node?: InputMaybe<PreferenceSubscriptionWhere>
+}
+
+export type UserPreferencesUpdateConnectionInput = {
+  node?: InputMaybe<PreferenceUpdateInput>
+}
+
+export type UserPreferencesUpdateFieldInput = {
+  connect?: InputMaybe<UserPreferencesConnectFieldInput>
+  connectOrCreate?: InputMaybe<UserPreferencesConnectOrCreateFieldInput>
+  create?: InputMaybe<UserPreferencesCreateFieldInput>
+  delete?: InputMaybe<UserPreferencesDeleteFieldInput>
+  disconnect?: InputMaybe<UserPreferencesDisconnectFieldInput>
+  update?: InputMaybe<UserPreferencesUpdateConnectionInput>
+  where?: InputMaybe<UserPreferencesConnectionWhere>
+}
+
 export type UserRelationInput = {
   apps?: InputMaybe<Array<UserAppsCreateFieldInput>>
   atoms?: InputMaybe<Array<UserAtomsCreateFieldInput>>
   components?: InputMaybe<Array<UserComponentsCreateFieldInput>>
   elements?: InputMaybe<Array<UserElementsCreateFieldInput>>
+  preferences?: InputMaybe<UserPreferencesCreateFieldInput>
   tags?: InputMaybe<Array<UserTagsCreateFieldInput>>
   types?: InputMaybe<Array<UserTypesCreateFieldInput>>
 }
@@ -26451,6 +26673,7 @@ export type UserRelationshipsSubscriptionWhere = {
   atoms?: InputMaybe<UserAtomsRelationshipSubscriptionWhere>
   components?: InputMaybe<UserComponentsRelationshipSubscriptionWhere>
   elements?: InputMaybe<UserElementsRelationshipSubscriptionWhere>
+  preferences?: InputMaybe<UserPreferencesRelationshipSubscriptionWhere>
   tags?: InputMaybe<UserTagsRelationshipSubscriptionWhere>
   types?: InputMaybe<UserTypesRelationshipSubscriptionWhere>
 }
@@ -26460,7 +26683,6 @@ export type UserSort = {
   auth0Id?: InputMaybe<SortDirection>
   email?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
-  preferences?: InputMaybe<SortDirection>
   username?: InputMaybe<SortDirection>
 }
 
@@ -26483,11 +26705,6 @@ export type UserSubscriptionWhere = {
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
-  preferences?: InputMaybe<Scalars['String']['input']>
-  preferences_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  preferences_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  preferences_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
-  preferences_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   roles?: InputMaybe<Array<Role>>
   roles_INCLUDES?: InputMaybe<Role>
   username?: InputMaybe<Scalars['String']['input']>
@@ -26702,7 +26919,7 @@ export type UserUpdateInput = {
   elements?: InputMaybe<Array<UserElementsUpdateFieldInput>>
   email?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
-  preferences?: InputMaybe<Scalars['String']['input']>
+  preferences?: InputMaybe<UserPreferencesUpdateFieldInput>
   roles?: InputMaybe<Array<Role>>
   tags?: InputMaybe<Array<UserTagsUpdateFieldInput>>
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>
@@ -26806,12 +27023,11 @@ export type UserWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
   id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
-  preferences?: InputMaybe<Scalars['String']['input']>
-  preferences_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  preferences_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  preferences_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
-  preferences_MATCHES?: InputMaybe<Scalars['String']['input']>
-  preferences_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  preferences?: InputMaybe<PreferenceWhere>
+  preferencesAggregate?: InputMaybe<UserPreferencesAggregateInput>
+  preferencesConnection?: InputMaybe<UserPreferencesConnectionWhere>
+  preferencesConnection_NOT?: InputMaybe<UserPreferencesConnectionWhere>
+  preferences_NOT?: InputMaybe<PreferenceWhere>
   roles?: InputMaybe<Array<Role>>
   roles_INCLUDES?: InputMaybe<Role>
   tagsAggregate?: InputMaybe<UserTagsAggregateInput>
@@ -27144,6 +27360,7 @@ export type ElementFragment = {
   renderIfExpression?: string | null
   style?: string | null
   tailwindClassNames?: Array<string> | null
+  expanded?: boolean | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
@@ -27287,6 +27504,13 @@ export type PageProductionFragment = {
   redirect?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
+}
+
+export type PreferenceFragment = {
+  id: string
+  builderBreakpointType: BreakpointType
+  builderWidth: number
+  owner: { id: string }
 }
 
 export type PropFragment = { data: string; id: string }
@@ -27595,10 +27819,10 @@ export type UserFragment = {
   auth0Id: string
   email: string
   id: string
-  preferences?: string | null
   roles?: Array<Role> | null
   username: string
   apps: Array<{ id: string }>
+  preferences?: PreferenceFragment | null
 }
 
 export type GetAppBuilderQueryVariables = Exact<{
@@ -27931,6 +28155,45 @@ export type GetRenderedPageQueryVariables = Exact<{
 }>
 
 export type GetRenderedPageQuery = { pages: Array<PageDevelopmentFragment> }
+
+export type CreatePreferencesMutationVariables = Exact<{
+  input: Array<PreferenceCreateInput> | PreferenceCreateInput
+}>
+
+export type CreatePreferencesMutation = {
+  createPreferences: {
+    info: { nodesCreated: number; relationshipsCreated: number }
+    preferences: Array<{ id: string }>
+  }
+}
+
+export type DeletePreferencesMutationVariables = Exact<{
+  where?: InputMaybe<PreferenceWhere>
+  delete?: InputMaybe<PreferenceDeleteInput>
+}>
+
+export type DeletePreferencesMutation = {
+  deletePreferences: { nodesDeleted: number }
+}
+
+export type GetPreferencesQueryVariables = Exact<{
+  where?: InputMaybe<PreferenceWhere>
+  options?: InputMaybe<PreferenceOptions>
+}>
+
+export type GetPreferencesQuery = {
+  aggregate: { count: number }
+  items: Array<PreferenceFragment>
+}
+
+export type UpdatePreferencesMutationVariables = Exact<{
+  where?: InputMaybe<PreferenceWhere>
+  update?: InputMaybe<PreferenceUpdateInput>
+}>
+
+export type UpdatePreferencesMutation = {
+  updatePreferences: { preferences: Array<{ id: string }> }
+}
 
 export type CreatePropsMutationVariables = Exact<{
   input: Array<PropCreateInput> | PropCreateInput
@@ -28892,15 +29155,6 @@ export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
 }
 
-export type UpdateUserMutationVariables = Exact<{
-  where?: InputMaybe<UserWhere>
-  update: UserUpdateInput
-}>
-
-export type UpdateUserMutation = {
-  updateUsers: { users: Array<{ preferences?: string | null }> }
-}
-
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -29600,6 +29854,7 @@ export const ElementFragmentDoc = new TypedDocumentString(
   }
   style
   tailwindClassNames
+  expanded
 }
     fragment AtomBuilder on Atom {
   __typename
@@ -30164,6 +30419,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -30473,6 +30729,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Page on Page {
   app {
@@ -30806,6 +31063,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -31104,6 +31362,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment PageDevelopment on Page {
   app {
@@ -32498,6 +32757,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -32904,6 +33164,19 @@ export const TagPreviewFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'TagPreview' },
 ) as unknown as TypedDocumentString<TagPreviewFragment, unknown>
+export const PreferenceFragmentDoc = new TypedDocumentString(
+  `
+    fragment Preference on Preference {
+  id
+  builderBreakpointType
+  builderWidth
+  owner {
+    id
+  }
+}
+    `,
+  { fragmentName: 'Preference' },
+) as unknown as TypedDocumentString<PreferenceFragment, unknown>
 export const UserFragmentDoc = new TypedDocumentString(
   `
     fragment User on User {
@@ -32913,11 +33186,20 @@ export const UserFragmentDoc = new TypedDocumentString(
   auth0Id
   email
   id
-  preferences
+  preferences {
+    ...Preference
+  }
   roles
   username
 }
-    `,
+    fragment Preference on Preference {
+  id
+  builderBreakpointType
+  builderWidth
+  owner {
+    id
+  }
+}`,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
 export const DomainCreatedDocument = new TypedDocumentString(`
@@ -33173,6 +33455,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment PageDevelopment on Page {
   app {
@@ -33622,6 +33905,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Page on Page {
   app {
@@ -34513,6 +34797,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -35024,6 +35309,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Prop on Prop {
   data
@@ -35369,6 +35655,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment Page on Page {
   app {
@@ -35680,6 +35967,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
+  expanded
 }
 fragment PageDevelopment on Page {
   app {
@@ -35867,6 +36155,64 @@ fragment Owner on User {
 }`) as unknown as TypedDocumentString<
   GetRenderedPageQuery,
   GetRenderedPageQueryVariables
+>
+export const CreatePreferencesDocument = new TypedDocumentString(`
+    mutation CreatePreferences($input: [PreferenceCreateInput!]!) {
+  createPreferences(input: $input) {
+    info {
+      nodesCreated
+      relationshipsCreated
+    }
+    preferences {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreatePreferencesMutation,
+  CreatePreferencesMutationVariables
+>
+export const DeletePreferencesDocument = new TypedDocumentString(`
+    mutation DeletePreferences($where: PreferenceWhere, $delete: PreferenceDeleteInput) {
+  deletePreferences(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeletePreferencesMutation,
+  DeletePreferencesMutationVariables
+>
+export const GetPreferencesDocument = new TypedDocumentString(`
+    query GetPreferences($where: PreferenceWhere, $options: PreferenceOptions) {
+  aggregate: preferencesAggregate(where: $where) {
+    count
+  }
+  items: preferences(options: $options, where: $where) {
+    ...Preference
+  }
+}
+    fragment Preference on Preference {
+  id
+  builderBreakpointType
+  builderWidth
+  owner {
+    id
+  }
+}`) as unknown as TypedDocumentString<
+  GetPreferencesQuery,
+  GetPreferencesQueryVariables
+>
+export const UpdatePreferencesDocument = new TypedDocumentString(`
+    mutation UpdatePreferences($where: PreferenceWhere, $update: PreferenceUpdateInput) {
+  updatePreferences(update: $update, where: $where) {
+    preferences {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdatePreferencesMutation,
+  UpdatePreferencesMutationVariables
 >
 export const CreatePropsDocument = new TypedDocumentString(`
     mutation CreateProps($input: [PropCreateInput!]!) {
@@ -38906,14 +39252,24 @@ export const GetUsersDocument = new TypedDocumentString(`
     ...User
   }
 }
-    fragment User on User {
+    fragment Preference on Preference {
+  id
+  builderBreakpointType
+  builderWidth
+  owner {
+    id
+  }
+}
+fragment User on User {
   apps {
     id
   }
   auth0Id
   email
   id
-  preferences
+  preferences {
+    ...Preference
+  }
   roles
   username
 }`) as unknown as TypedDocumentString<GetUsersQuery, GetUsersQueryVariables>
@@ -38929,16 +39285,4 @@ export const CreateUserDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreateUserMutation,
   CreateUserMutationVariables
->
-export const UpdateUserDocument = new TypedDocumentString(`
-    mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {
-  updateUsers(update: $update, where: $where) {
-    users {
-      preferences
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateUserMutation,
-  UpdateUserMutationVariables
 >

@@ -60,7 +60,6 @@ export const appType = new AppType({
 })
 
 export const actionType = new ActionType({
-  __typename: 'ActionType',
   id: v4(),
   kind: ITypeKind.ActionType,
   name: 'Action type',

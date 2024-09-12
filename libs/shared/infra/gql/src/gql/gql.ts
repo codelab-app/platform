@@ -50,7 +50,7 @@ const documents = {
     types.ComponentProductionFragmentDoc,
   '\n  fragment Domain on Domain {\n    app {\n      id\n    }\n    domainConfig {\n      misconfigured\n    }\n    id\n    name\n  }\n':
     types.DomainFragmentDoc,
-  '\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n':
+  '\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n':
     types.ElementFragmentDoc,
   '\n  fragment ElementProduction on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomProduction\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n':
     types.ElementProductionFragmentDoc,
@@ -66,6 +66,8 @@ const documents = {
     types.PageDevelopmentFragmentDoc,
   '\n  fragment PageProduction on Page {\n    app {\n      id\n    }\n    elements {\n      ...ElementProduction\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    slug\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n':
     types.PageProductionFragmentDoc,
+  '\n  fragment Preference on Preference {\n    id\n    builderBreakpointType\n    builderWidth\n    owner {\n      id\n    }\n  }\n':
+    types.PreferenceFragmentDoc,
   '\n  fragment Prop on Prop {\n    data\n    id\n  }\n': types.PropFragmentDoc,
   '\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n':
     types.RedirectFragmentDoc,
@@ -116,7 +118,7 @@ const documents = {
   '\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n':
     types.UnionTypeFragmentDoc,
   '\n  fragment Owner on User {\n    id\n  }\n': types.OwnerFragmentDoc,
-  '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n':
+  '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences {\n      ...Preference\n    }\n    roles\n    username\n  }\n':
     types.UserFragmentDoc,
   '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
     types.GetAppBuilderDocument,
@@ -190,6 +192,14 @@ const documents = {
     types.PageListDocument,
   '\n  query GetRenderedPage($pageId: ID!) {\n    pages(where: { id: $pageId }) {\n      ...PageDevelopment\n    }\n  }\n':
     types.GetRenderedPageDocument,
+  '\n  mutation CreatePreferences($input: [PreferenceCreateInput!]!) {\n    createPreferences(input: $input) {\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n      preferences {\n        id\n      }\n    }\n  }\n':
+    types.CreatePreferencesDocument,
+  '\n  mutation DeletePreferences(\n    $where: PreferenceWhere\n    $delete: PreferenceDeleteInput\n  ) {\n    deletePreferences(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeletePreferencesDocument,
+  '\n  query GetPreferences($where: PreferenceWhere, $options: PreferenceOptions) {\n    aggregate: preferencesAggregate(where: $where) {\n      count\n    }\n    items: preferences(options: $options, where: $where) {\n      ...Preference\n    }\n  }\n':
+    types.GetPreferencesDocument,
+  '\n  mutation UpdatePreferences(\n    $where: PreferenceWhere\n    $update: PreferenceUpdateInput\n  ) {\n    updatePreferences(update: $update, where: $where) {\n      preferences {\n        id\n      }\n    }\n  }\n':
+    types.UpdatePreferencesDocument,
   '\n  mutation CreateProps($input: [PropCreateInput!]!) {\n    createProps(input: $input) {\n      props {\n        id\n      }\n    }\n  }\n':
     types.CreatePropsDocument,
   '\n  mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {\n    updateProps(update: $update, where: $where) {\n      props {\n        id\n      }\n    }\n  }\n':
@@ -392,8 +402,6 @@ const documents = {
     types.GetUsersDocument,
   '\n  mutation CreateUser($input: [UserCreateInput!]!) {\n    createUsers(input: $input) {\n      users {\n        email\n        id\n      }\n    }\n  }\n':
     types.CreateUserDocument,
-  '\n  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        preferences\n      }\n    }\n  }\n':
-    types.UpdateUserDocument,
 }
 
 /**
@@ -514,8 +522,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n',
-): (typeof documents)['\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n']
+  source: '\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n',
+): (typeof documents)['\n  fragment Element on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderAction {\n      id\n      type\n    }\n    preRenderAction {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -558,6 +566,12 @@ export function graphql(
 export function graphql(
   source: '\n  fragment PageProduction on Page {\n    app {\n      id\n    }\n    elements {\n      ...ElementProduction\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    slug\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n',
 ): (typeof documents)['\n  fragment PageProduction on Page {\n    app {\n      id\n    }\n    elements {\n      ...ElementProduction\n    }\n    id\n    kind\n    name\n    pageContentContainer {\n      id\n    }\n    redirect {\n      id\n    }\n    rootElement {\n      id\n    }\n    slug\n    store {\n      ...Store\n    }\n    urlPattern\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment Preference on Preference {\n    id\n    builderBreakpointType\n    builderWidth\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment Preference on Preference {\n    id\n    builderBreakpointType\n    builderWidth\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -718,8 +732,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n',
-): (typeof documents)['\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences\n    roles\n    username\n  }\n']
+  source: '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences {\n      ...Preference\n    }\n    roles\n    username\n  }\n',
+): (typeof documents)['\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences {\n      ...Preference\n    }\n    roles\n    username\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -936,6 +950,30 @@ export function graphql(
 export function graphql(
   source: '\n  query GetRenderedPage($pageId: ID!) {\n    pages(where: { id: $pageId }) {\n      ...PageDevelopment\n    }\n  }\n',
 ): (typeof documents)['\n  query GetRenderedPage($pageId: ID!) {\n    pages(where: { id: $pageId }) {\n      ...PageDevelopment\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreatePreferences($input: [PreferenceCreateInput!]!) {\n    createPreferences(input: $input) {\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n      preferences {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreatePreferences($input: [PreferenceCreateInput!]!) {\n    createPreferences(input: $input) {\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n      preferences {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeletePreferences(\n    $where: PreferenceWhere\n    $delete: PreferenceDeleteInput\n  ) {\n    deletePreferences(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeletePreferences(\n    $where: PreferenceWhere\n    $delete: PreferenceDeleteInput\n  ) {\n    deletePreferences(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetPreferences($where: PreferenceWhere, $options: PreferenceOptions) {\n    aggregate: preferencesAggregate(where: $where) {\n      count\n    }\n    items: preferences(options: $options, where: $where) {\n      ...Preference\n    }\n  }\n',
+): (typeof documents)['\n  query GetPreferences($where: PreferenceWhere, $options: PreferenceOptions) {\n    aggregate: preferencesAggregate(where: $where) {\n      count\n    }\n    items: preferences(options: $options, where: $where) {\n      ...Preference\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdatePreferences(\n    $where: PreferenceWhere\n    $update: PreferenceUpdateInput\n  ) {\n    updatePreferences(update: $update, where: $where) {\n      preferences {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdatePreferences(\n    $where: PreferenceWhere\n    $update: PreferenceUpdateInput\n  ) {\n    updatePreferences(update: $update, where: $where) {\n      preferences {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1542,12 +1580,6 @@ export function graphql(
 export function graphql(
   source: '\n  mutation CreateUser($input: [UserCreateInput!]!) {\n    createUsers(input: $input) {\n      users {\n        email\n        id\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  mutation CreateUser($input: [UserCreateInput!]!) {\n    createUsers(input: $input) {\n      users {\n        email\n        id\n      }\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        preferences\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateUser($where: UserWhere, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        preferences\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

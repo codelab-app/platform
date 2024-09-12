@@ -51,5 +51,6 @@ export const elementSchema = gql`
     descendantElements: [Element!]!
     closestContainerNode: ContainerNode!
     dependantTypes: [AnyType!]! @customResolver(requires: "id")
+    expanded: Boolean
   }
 `

@@ -17,6 +17,7 @@ export const ElementDtoSchema = Type.Object({
    */
   // closestContainerNode: IRef,
   compositeKey: Typebox.Nullish(Type.String()),
+  expanded: Typebox.Nullish(Type.Boolean()),
   firstChild: Typebox.Nullish(Typebox.Ref),
   id: Type.String(),
   name: Type.String(),

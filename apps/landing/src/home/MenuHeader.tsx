@@ -1,10 +1,11 @@
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined'
 import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
-import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
+import { breakpoints } from '@codelab/shared/domain'
 import { Button, Menu } from 'antd'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { disableMenuHoverEffects, removeHoverBorder } from '../../styles/style'
 import { LoginUserButton } from './auth/LoginUserButton'
 import { RegisterUserButton } from './auth/RegisterUserButton'
@@ -24,7 +25,7 @@ export enum PageType {
 export const HomeMenuHeader = () => {
   const user = false
   const [collapsed, setCollapsed] = useState(true)
-  const isMobileOrTablet = useMobileOrTabletMediaQuery()
+  const isMobileOrTablet = useMediaQuery({ maxWidth: breakpoints.Tablet.max })
 
   const authenticatedUserMenu = (
     <>

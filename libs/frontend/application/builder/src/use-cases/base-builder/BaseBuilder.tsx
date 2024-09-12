@@ -50,10 +50,6 @@ export const BaseBuilder = observer<IBuilderProps>(
         if (!containerRef.current) {
           return
         }
-
-        builderService.setBuilderContainerWidth(
-          containerRef.current.clientWidth,
-        )
       })
 
       resizeObserver.observe(containerRef.current)

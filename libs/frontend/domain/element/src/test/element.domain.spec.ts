@@ -62,8 +62,8 @@ describe('Element domain', () => {
 
       expect(rootElement.firstChild?.id).toBe(firstChild.id)
       expect(firstChild.parentElement?.id).toBe(rootElement.id)
-
-      expect(elementDomainService.modifiedElements).toHaveLength(2)
+      // only parent element should be modified
+      expect(elementDomainService.modifiedElements).toHaveLength(1)
     })
 
     // (rootElement)
@@ -109,7 +109,7 @@ describe('Element domain', () => {
       expect(anotherFirstChild.nextSibling?.id).toBe(firstChildDto.id)
       expect(nextSibling.prevSibling?.id).toBe(firstChildDto.id)
 
-      expect(elementDomainService.modifiedElements).toHaveLength(2)
+      expect(elementDomainService.modifiedElements).toHaveLength(1)
     })
 
     // (rootElement)
@@ -129,7 +129,7 @@ describe('Element domain', () => {
 
       expect(nextSibling.prevSibling?.id).toBe(anotherNextSibling.id)
 
-      expect(elementDomainService.modifiedElements).toHaveLength(3)
+      expect(elementDomainService.modifiedElements).toHaveLength(2)
     })
   })
 
@@ -159,7 +159,7 @@ describe('Element domain', () => {
 
       expect(nextSibling.prevSibling?.id).toBe(prevSibling.id)
 
-      expect(elementDomainService.modifiedElements).toHaveLength(3)
+      expect(elementDomainService.modifiedElements).toHaveLength(2)
     })
   })
 

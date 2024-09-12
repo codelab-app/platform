@@ -9,6 +9,7 @@ import {
   type IElementDomainService,
   type IFieldDomainService,
   type IPageDomainService,
+  type IPreferenceDomainService,
   type IRedirectDomainService,
   type IResourceDomainService,
   type IStoreDomainService,
@@ -24,6 +25,7 @@ import { ComponentDomainService } from '@codelab/frontend-domain-component/servi
 import { DomainDomainService } from '@codelab/frontend-domain-domain/services'
 import { ElementDomainService } from '@codelab/frontend-domain-element/services'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
+import { PreferenceDomainService } from '@codelab/frontend-domain-preference/services'
 import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
 import { ResourceDomainService } from '@codelab/frontend-domain-resource/services'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
@@ -33,10 +35,13 @@ import {
   TypeDomainService,
 } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
-import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createDomainStore = (user: IUserDto) => {
+export const createDomainStore = (
+  user: IUserDto,
+  preference: IPreferenceDto,
+) => {
   @model('@codelab/DomainStore')
   class DomainStore
     extends Model({
@@ -64,6 +69,9 @@ export const createDomainStore = (user: IUserDto) => {
       ),
       pageDomainService: prop<IPageDomainService>(
         () => new PageDomainService({}),
+      ),
+      preferenceDomainService: prop<IPreferenceDomainService>(() =>
+        PreferenceDomainService.fromDto(preference),
       ),
       redirectDomainService: prop<IRedirectDomainService>(
         () => new RedirectDomainService({}),

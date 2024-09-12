@@ -119,7 +119,7 @@ export const ElementContextMenu = observer<
     )
 
     runtimeComponent &&
-      builderService.selectComponentNode(runtimeComponentRef(runtimeComponent))
+      builderService.setSelectedNode(runtimeComponentRef(runtimeComponent))
   }
 
   const menuItems = [

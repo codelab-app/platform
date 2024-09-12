@@ -5,17 +5,17 @@ import type {
 import {
   CssMap,
   ElementStylePseudoClass,
-  getBuilderService,
   getRendererService,
   IElementStyle,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import {
-  BuilderWidthBreakPoint,
-  defaultBuilderWidthBreakPoints,
+  getPreferenceDomainService,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
+import { IBreakpointType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import { breakpoints } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
@@ -30,19 +30,17 @@ export class RuntimeElementStyle
   implements IRuntimeElementStyleModel
 {
   get breakpointsByPrecedence() {
-    const breakpoints = [
-      BuilderWidthBreakPoint.MobilePortrait,
-      BuilderWidthBreakPoint.MobileLandscape,
-      BuilderWidthBreakPoint.Tablet,
-      BuilderWidthBreakPoint.Desktop,
+    return [
+      IBreakpointType.MobilePortrait,
+      IBreakpointType.MobileLandscape,
+      IBreakpointType.Tablet,
+      IBreakpointType.Desktop,
     ]
-
-    return breakpoints
   }
 
   @computed
   get customCss() {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const breakpoint = this.preference.builderBreakpointType
     const { cssString } = this.styleParsed[breakpoint] ?? {}
 
     return cssString
@@ -51,11 +49,21 @@ export class RuntimeElementStyle
   @computed
   get guiCss() {
     return (pseudoClass: ElementStylePseudoClass) => {
-      const breakpoint = this.builderService.selectedBuilderBreakpoint
+      const breakpoint = this.preference.builderBreakpointType
       const { guiString } = this.styleParsed[breakpoint] ?? {}
 
       return guiString?.[pseudoClass] ?? '{}'
     }
+  }
+
+  @computed
+  get preference() {
+    return this.preferenceDomainService.preference
+  }
+
+  @computed
+  get preferenceDomainService() {
+    return getPreferenceDomainService(this)
   }
 
   @computed
@@ -91,12 +99,10 @@ export class RuntimeElementStyle
 
     for (const breakpoint of this.breakpointsByPrecedence) {
       const breakpointStyle = this.styleParsed[breakpoint]
-      const breakpointWidth = defaultBuilderWidthBreakPoints[breakpoint]
+      const breakpointWidth = breakpoints[breakpoint]
 
       const lowerBound =
-        breakpoint === BuilderWidthBreakPoint.MobilePortrait
-          ? 0
-          : breakpointWidth.min
+        breakpoint === IBreakpointType.MobilePortrait ? 0 : breakpointWidth.min
 
       if (breakpointStyle) {
         breakpointStyles.push(
@@ -133,7 +139,7 @@ export class RuntimeElementStyle
 
   @computed
   get stylesInheritedFromOtherBreakpoints() {
-    const currentBreakpoint = this.builderService.selectedBuilderBreakpoint
+    const currentBreakpoint = this.preference.builderBreakpointType
     const parsedStyle = this.styleParsed
     let inheritedStyles = {} as ElementCssRules
 
@@ -159,7 +165,7 @@ export class RuntimeElementStyle
 
   @modelAction
   appendToGuiCss(pseudoClass: ElementStylePseudoClass, css: CssMap) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const breakpoint = this.preference.builderBreakpointType
     const styleObject = this.styleParsed
     const curGuiCss = JSON.parse(this.guiCss(pseudoClass) || '{}')
     const newGuiCss = { ...curGuiCss, ...css }
@@ -180,7 +186,7 @@ export class RuntimeElementStyle
     pseudoClass: ElementStylePseudoClass,
     propNames: Array<string>,
   ) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const breakpoint = this.preference.builderBreakpointType
     const styleObject = this.styleParsed
     const curGuiCss = JSON.parse(this.guiCss(pseudoClass) || '{}')
 
@@ -205,7 +211,7 @@ export class RuntimeElementStyle
 
   @modelAction
   setCustomCss(cssString: string) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const breakpoint = this.preference.builderBreakpointType
     const styleObject = this.styleParsed
 
     styleObject[breakpoint] = { ...styleObject[breakpoint], cssString }
@@ -214,10 +220,5 @@ export class RuntimeElementStyle
 
   toString() {
     return this.element.current.style || ''
-  }
-
-  @computed
-  private get builderService() {
-    return getBuilderService(this)
   }
 }
