@@ -59,7 +59,7 @@
     "@codemirror/view": "6.24.1",
     "@dnd-kit/core": "6.0.5",
     "@dnd-kit/modifiers": "7.0.0",
-    "@fancyapps/ui": "4.0.16",
+    "@fancyapps/ui": "5.0.36",
     "@fortawesome/fontawesome-svg-core": "6.1.2",
     "@fortawesome/free-brands-svg-icons": "6.1.2",
     "@fortawesome/pro-light-svg-icons": "6.1.2",

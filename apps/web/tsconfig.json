@@ -18,13 +18,7 @@
         "name": "next"
       }
     ],
-    "types": [
-      "node",
-      "worker-loader",
-      "@fancyapps/ui",
-      "cypher",
-      "styled-components"
-    ]
+    "types": ["node", "worker-loader", "cypher", "styled-components"]
   },
   "include": [
     "**/*.ts",

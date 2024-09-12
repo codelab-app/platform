@@ -87,8 +87,8 @@ importers:
         specifier: 7.0.0
         version: 7.0.0(@dnd-kit/core@6.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@fancyapps/ui':
-        specifier: 4.0.16
-        version: 4.0.16
+        specifier: 5.0.36
+        version: 5.0.36
       '@fortawesome/fontawesome-svg-core':
         specifier: 6.1.2
         version: 6.1.2
@@ -2852,8 +2852,8 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@fancyapps/ui@4.0.16':
-    resolution: {integrity: sha512-IuAtKkQqyQyznN5c0eSynr5rFBpFJPRZrR11O1U6FATVdzmNsTGGH464oReE9iMa6lhgmZ9zc8qM5d3RfGgq5w==}
+  '@fancyapps/ui@5.0.36':
+    resolution: {integrity: sha512-GMygQzp1MBTFNTT6AzpbL6pXTD6bTxwjmmpI1fe8Ozmmiseu8/g82Sudl1YhcbZmS4bJgaBOF5THDFGpXQ1fDw==}
 
   '@floating-ui/core@1.6.4':
     resolution: {integrity: sha512-a4IowK4QkXl4SCWTGUR0INAfEOX3wtsYw3rKK5InQEHMGObkR8Xk44qYQD9P4r6HHw0iIfK6GUKECmY8sTkqRA==}
@@ -19171,7 +19171,7 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@fancyapps/ui@4.0.16': {}
+  '@fancyapps/ui@5.0.36': {}
 
   '@floating-ui/core@1.6.4':
     dependencies:
