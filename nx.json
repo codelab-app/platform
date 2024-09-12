@@ -157,8 +157,7 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/{projectName}.xml",
-          "quiet": true
+          "outputFile": "tmp/reports/lint/{projectName}.xml"
         },
         "codegen": {
           "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],
