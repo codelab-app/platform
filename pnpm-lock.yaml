@@ -33,7 +33,7 @@ importers:
         specifier: 3.5.0
         version: 3.5.0(next@14.2.10(@babel/core@7.24.9)(@opentelemetry/api@1.8.0)(@playwright/test@1.46.0)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8))
       '@awwong1/oauth4webapi':
-        specifier: ^1.0.0
+        specifier: 1.0.0
         version: 1.0.0
       '@codelab-codegen/typescript-fetch':
         specifier: file:dist/libs/external/codelab-codegen/typescript-fetch
