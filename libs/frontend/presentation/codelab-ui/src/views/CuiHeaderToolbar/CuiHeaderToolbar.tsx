@@ -59,6 +59,7 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
       >
         {items.map((item) => (
           <CuiHeaderToolbarItem
+            ariaLabel={item.ariaLabel}
             cuiKey={item.cuiKey}
             icon={item.icon}
             key={item.cuiKey}

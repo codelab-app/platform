@@ -5,6 +5,7 @@ import type { ToolbarItem } from '../../abstract'
 type CuiHeaderToolbarItemProps = ToolbarItem
 
 export const CuiHeaderToolbarItem = ({
+  ariaLabel,
   cuiKey,
   icon,
   label,
@@ -14,7 +15,11 @@ export const CuiHeaderToolbarItem = ({
   return (
     <div className="size-full" data-cy={Cui.cuiToolbarItem(cuiKey)}>
       <Tooltip title={title}>
-        <Button className="h-8 px-2 py-1" onClick={onClick}>
+        <Button
+          aria-label={ariaLabel}
+          className="h-8 px-2 py-1"
+          onClick={onClick}
+        >
           <Space>
             {icon}
             {label}

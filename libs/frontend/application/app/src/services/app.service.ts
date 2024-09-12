@@ -21,6 +21,13 @@ export const useAppService = (): IAppService => {
   const { appDomainService, pageDomainService, userDomainService } =
     useDomainStore()
 
+  const removeAppFromStore = (app: IAppModel) => {
+    app.pages.forEach((page) => {
+      pageDomainService.pages.delete(page.id)
+    })
+    appDomainService.apps.delete(app.id)
+  }
+
   const create = async ({ id, name }: ICreateAppData) => {
     const app = appDomainService.create({
       id,
@@ -29,7 +36,13 @@ export const useAppService = (): IAppService => {
       pages: [],
     })
 
-    await appRepository.add(app)
+    try {
+      await appRepository.add(app)
+    } catch (error) {
+      // if api request fail - need to undo the optimistic update
+      removeAppFromStore(app)
+      throw error
+    }
 
     await invalidateAppListQuery()
 
@@ -42,10 +55,7 @@ export const useAppService = (): IAppService => {
        * Optimistic update.
        * Detach pages before detaching app from root store to avoid script error.
        */
-      app.pages.forEach((page) => {
-        pageDomainService.pages.delete(page.id)
-      })
-      appDomainService.apps.delete(app.id)
+      removeAppFromStore(app)
 
       /**
        * Get all pages to delete

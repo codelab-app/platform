@@ -1,7 +1,6 @@
 'use client'
 
 import { Button, Result } from 'antd'
-import React from 'react'
 
 export interface ErrorProps {
   error: Error

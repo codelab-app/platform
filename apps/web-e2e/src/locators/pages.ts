@@ -89,6 +89,10 @@ export class BasePage {
     return this
   }
 
+  getNotification() {
+    return this.page.locator('.ant-notification')
+  }
+
   getSidebar(key: UiKey) {
     const sidebar = this.page.getByTestId(Cui.cuiSidebar(key))
 
