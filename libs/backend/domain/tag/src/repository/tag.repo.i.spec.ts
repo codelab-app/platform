@@ -1,4 +1,3 @@
-import { SeederDomainModule } from '@codelab/backend/domain/shared/seeder'
 import { UserDomainModule } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test'
 import { v4 } from 'uuid'
@@ -9,7 +8,7 @@ describe('Tag repository.', () => {
   let tagRepository: TagRepository
 
   const context = initUserContext({
-    imports: [UserDomainModule, SeederDomainModule],
+    imports: [UserDomainModule],
     providers: [TagRepository],
   })
 
