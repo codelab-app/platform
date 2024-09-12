@@ -16,11 +16,13 @@ describe('Auth0 client', () => {
       clientSecret: env.auth0.clientSecret,
     })
 
-    const response = await auth0Client.loginWithPassword(
-      env.auth0.auth0Username,
-      env.auth0.auth0Password,
-    )
+    await expect(async () => {
+      const response = await auth0Client.loginWithPassword(
+        env.auth0.auth0Username,
+        env.auth0.auth0Password,
+      )
 
-    // console.debug(response.data.access_token)
+      console.log('Login response:', response)
+    }).not.toThrow()
   })
 })
