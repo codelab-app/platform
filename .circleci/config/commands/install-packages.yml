@@ -11,10 +11,9 @@ steps:
   - run:
       name: 'Install NPM Packages'
       command: pnpm install --frozen-lockfile --verbose
-      environment:
-        # https://medium.com/@zahidbashirkhan/solved-puppeteer-is-not-able-to-install-error-failed-to-set-up-chromium-e3930129df85
-        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
-        PUPPETEER_SKIP_DOWNLOAD: true
+  - run:
+      name: 'Prune pnpm cache'
+      command: pnpm store prune
   - save_cache:
       name: 'Save pnpm Cache'
       key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}

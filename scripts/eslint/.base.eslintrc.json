@@ -9,6 +9,10 @@
           "error",
           {
             "types": {
+              "null | undefined": {
+                "message": "use Nullish instead",
+                "fixWith": "Nullish<>"
+              },
               "Record<string, any>": {
                 "message": "use ObjectLike instead",
                 "fixWith": "ObjectLike"
