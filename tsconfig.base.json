@@ -901,7 +901,6 @@
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
-      "@codelab/frontend/demo": ["libs/frontend/demo/src/index.ts"],
       "@codelab/frontend/infra/action": [
         "libs/frontend/infra/action/src/index.ts"
       ],
