@@ -2,7 +2,7 @@ import {
   CodeMirrorEditor,
   type CodeMirrorEditorProps,
 } from '@codelab/frontend-presentation-components-codemirror'
-import type { Ref } from 'react'
+import { memo, type Ref } from 'react'
 import { isNonNullish } from 'remeda'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
@@ -31,7 +31,7 @@ type CodeMirrorConnectFieldProps = FieldProps<
 >
 
 export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
-  const Component = React.memo(
+  const Component = memo(
     connectField<CodeMirrorConnectFieldProps>(
       (baseProps) => {
         const merged = { ...mainProps, ...baseProps }

@@ -1,6 +1,7 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { LoaderComponent } from 'next/dynamic'
 import dynamic from 'next/dynamic'
+import { createElement, forwardRef } from 'react'
 
 interface ForwardedComponentProps extends ObjectLike {
   // Some of the AntD components (Menu, Sider) have prop with name "theme",
@@ -31,7 +32,7 @@ export const dynamicLoader = (loadingFn: () => LoaderComponent<any>) => {
         forwarded,
         ...rest
       }: ForwardedComponentProps) =>
-        React.createElement(Component, {
+        createElement(Component, {
           ...rest,
           ref: forwarded,
           // need to rename prop back to original name, please see comment above
@@ -46,8 +47,8 @@ export const dynamicLoader = (loadingFn: () => LoaderComponent<any>) => {
   )
 
   // a workaround for: https://github.com/cookpete/react-player/issues/1455
-  const DynamicComponent = React.forwardRef((props: ObjectLike, forwarded) =>
-    React.createElement(LoadedComponent, { ...props, forwarded }),
+  const DynamicComponent = forwardRef((props: ObjectLike, forwarded) =>
+    createElement(LoadedComponent, { ...props, forwarded }),
   )
 
   DynamicComponent.displayName = 'DynamicComponent'

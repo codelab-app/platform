@@ -10,6 +10,7 @@ import {
   modelFlow,
   prop,
 } from 'mobx-keystone'
+import * as React from 'react'
 import { allAtoms } from '../atoms'
 
 @model('@codelab/ExpressionTransformer')

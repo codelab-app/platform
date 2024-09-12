@@ -13,7 +13,7 @@
 //     return null
 //   }
 
-//   return React.createElement(
+//   return createElement(
 //     MuiIcons[name as keyof typeof MuiIcons] as (
 //       props: IconProps,
 //     ) => ReactElement,

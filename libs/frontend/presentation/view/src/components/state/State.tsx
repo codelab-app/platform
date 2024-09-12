@@ -1,4 +1,5 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+import { Children, cloneElement, isValidElement } from 'react'
 import { useRecoilState } from 'recoil'
 import { isFunction } from 'remeda'
 import { stateAtomFamily } from './state-atom-family'
@@ -96,10 +97,8 @@ export const State = ({
 
   return (
     <>
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child, childProps)
-          : child,
+      {Children.map(children, (child) =>
+        isValidElement(child) ? cloneElement(child, childProps) : child,
       )}
     </>
   )

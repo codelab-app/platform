@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateJestConfig = void 0;
 const tslib_1 = require("tslib");
 const path_1 = tslib_1.__importDefault(require("path"));
-const ts_morph_1 = tslib_1.__importStar(require("ts-morph"));
+const ts_morph_1 = require("ts-morph");
 const add_reporters_1 = require("./add-reporters");
 const migrate_to_swc_1 = require("./migrate-to-swc");
 const updateJestConfig = (tree, projectConfig) => {
@@ -15,7 +15,7 @@ const updateJestConfig = (tree, projectConfig) => {
         throw new Error('Could not find default export in jest.config.ts');
     }
     const configObject = defaultExportAssignment.getExpression();
-    if (!ts_morph_1.default.Node.isObjectLiteralExpression(configObject)) {
+    if (!ts_morph_1.Node.isObjectLiteralExpression(configObject)) {
         throw new Error('Default export is not an object literal');
     }
     (0, add_reporters_1.addReportersToJestConfig)(configObject, projectConfig);

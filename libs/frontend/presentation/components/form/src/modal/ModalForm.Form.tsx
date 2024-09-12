@@ -6,6 +6,7 @@ import {
   createBridge,
 } from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { throttle } from 'radash'
 import type { ReactElement } from 'react'
 import { useContext, useEffect, useState } from 'react'

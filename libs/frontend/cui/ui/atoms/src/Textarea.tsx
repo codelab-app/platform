@@ -1,8 +1,9 @@
 import { cn } from '@cui/utils'
+import { forwardRef } from 'react'
 
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
     return (
       <textarea

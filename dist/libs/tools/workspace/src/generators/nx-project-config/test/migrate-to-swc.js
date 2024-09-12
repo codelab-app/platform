@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.migrateToSwc = void 0;
-const tslib_1 = require("tslib");
-const ts_morph_1 = tslib_1.__importDefault(require("ts-morph"));
+const ts_morph_1 = require("ts-morph");
 const migrateToSwc = (configObject, projectConfig) => {
     const transformProperty = configObject.getProperty('transform');
     const newInitializer = `
@@ -28,7 +27,7 @@ const migrateToSwc = (configObject, projectConfig) => {
             name: 'transform',
         });
     }
-    else if (ts_morph_1.default.Node.isPropertyAssignment(transformProperty)) {
+    else if (ts_morph_1.Node.isPropertyAssignment(transformProperty)) {
         // if the reporters property exists and is a PropertyAssignment, update it
         transformProperty.setInitializer(newInitializer);
     }

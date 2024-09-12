@@ -28,7 +28,7 @@ import {
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { ReactNode } from 'react'
+import { createElement, ReactNode } from 'react'
 import { merge, pathOr, prop as rProp, stringToPath } from 'remeda'
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
@@ -191,7 +191,7 @@ export class RuntimeElementPropsModel
       ? CodeMirrorEditorWrapper
       : RichTextEditorWrapper
 
-    return React.createElement(Wrapper, {
+    return createElement(Wrapper, {
       runtimeElement: this.runtimeElement.current,
     })
   }

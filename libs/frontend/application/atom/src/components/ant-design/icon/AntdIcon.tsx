@@ -1,6 +1,7 @@
 // eslint-disable-next-line @codelab/ant-design-icon-import
 import type AntdIcons from '@ant-design/icons'
 import type { IconProps } from '@ant-design/icons/lib/components/IconBase'
+import { createElement } from 'react'
 
 type _IconProps = IconProps & {
   /**
@@ -9,13 +10,13 @@ type _IconProps = IconProps & {
   name: keyof typeof AntdIcons | null
 }
 
-export const AntdIcon = ({ name, ...props }: _IconProps) => {
+export const AntdIcon: React.FC<_IconProps> = ({ name, ...props }) => {
   // const icon = name && AntdIcons[name]
 
   // if (!icon) {
   //   return null
   // }
 
-  // return React.createElement(icon as (props: IconProps) => ReactElement, props)
-  return React.createElement('ReactFragment', props)
+  // return createElement(icon as (props: IconProps) => ReactElement, props)
+  return createElement('ReactFragment', props)
 }

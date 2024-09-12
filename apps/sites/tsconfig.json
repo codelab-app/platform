@@ -37,7 +37,8 @@
     "**/*.js",
     "**/*.jsx",
     ".next/types/**/*.ts",
-    "../../dist/apps/sites/.next/types/**/*.ts"
+    "../../dist/apps/sites/.next/types/**/*.ts",
+    "postcss.config.cjs"
   ],
   "exclude": [
     "jest.config.ts",

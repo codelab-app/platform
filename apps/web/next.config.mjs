@@ -1,10 +1,10 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
-import type { NextPlugin } from '@nx/next/src/utils/config'
-import { get } from 'env-var'
-import type { NextConfig } from 'next'
-import path from 'path'
+// eslint-disable-next-line import/default
+import envVar from 'env-var'
+
+const { get } = envVar
 
 const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
 
@@ -14,53 +14,49 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 /** Allows importing cypher files */
-const withWebpackConfig = (nextConfig: any = {}) =>
-  Object.assign({}, nextConfig, {
-    webpack: (config: any, options: any) => {
-      /**
-       * Cypher import
-       */
-      config.module.rules = config.module.rules ?? []
-      config.module.rules.push({
-        test: /\.(cypher|cyp)$/,
-        type: 'asset/source',
-      })
+// const withWebpackConfig = (nextConfig = {}) =>
+//   Object.assign({}, nextConfig, {
+//     webpack: (config, options) => {
+//       /**
+//        * Cypher import
+//        */
+//       config.module.rules = config.module.rules ?? []
+//       config.module.rules.push({
+//         test: /\.(cypher|cyp)$/,
+//         type: 'asset/source',
+//       })
 
-      /**
-       * Wdyr
-       *
-       * For app router using this
-       *
-       * https://github.com/welldone-software/why-did-you-render/issues/266
-       *
-       * Previous
-       *
-       * https://github.com/welldone-software/why-did-you-render/issues/84
-       */
-      if (process.env.NEXT_WEB_ENABLE_WDYR) {
-        const injectWhyDidYouRender = import(
-          path.resolve(__dirname, './scripts/wdyr')
-        ).then((module) => module.default)
+//       /**
+//        * Wdyr
+//        *
+//        * For app router using this
+//        *
+//        * https://github.com/welldone-software/why-did-you-render/issues/266
+//        *
+//        * Previous
+//        *
+//        * https://github.com/welldone-software/why-did-you-render/issues/84
+//        */
+//       if (process.env.NEXT_WEB_ENABLE_WDYR) {
+//         const injectWhyDidYouRender = import(
+//           path.resolve(__dirname, './scripts/wdyr')
+//         ).then((module) => module.default)
 
-        void injectWhyDidYouRender.then((inject) => inject(config, options))
-      }
+//         void injectWhyDidYouRender.then((inject) => inject(config, options))
+//       }
 
-      /**
-       * Return
-       */
-      if (typeof nextConfig.webpack === 'function') {
-        return nextConfig.webpack(config, options)
-      }
+//       /**
+//        * Return
+//        */
+//       if (typeof nextConfig.webpack === 'function') {
+//         return nextConfig.webpack(config, options)
+//       }
 
-      return config
-    },
-  })
+//       return config
+//     },
+//   })
 
-const plugins: Array<NextPlugin> = [
-  withNx,
-  withWebpackConfig,
-  withBundleAnalyzer,
-]
+const plugins = [withNx, withBundleAnalyzer]
 
 // const plugins = [withNx]
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
@@ -69,9 +65,9 @@ const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiHost = `${url}:${port}${baseApiPath}`
 
 /**
- * @type {WithNxOptions}
- */
-const nextConfig: NextConfig = {
+ * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
+ **/
+const nextConfig = {
   compiler: {
     styledComponents: true,
   },
@@ -128,4 +124,4 @@ const nextConfig: NextConfig = {
   }),
 }
 
-module.exports = composePlugins(...plugins)(nextConfig)
+export default composePlugins(...plugins)(nextConfig)

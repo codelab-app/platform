@@ -3,6 +3,7 @@ import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animated, useSpring } from '@react-spring/web'
 import { Button, Col, Row, Space } from 'antd'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { BuilderDemo } from '../demo/BuilderDemo'
 import { CurveAccent } from './CurveAccent'
@@ -13,7 +14,7 @@ const words = ['Ant Design', 'Material UI', 'Semantic UI', 'HTML tags']
 const AnimatedDiv = styled(animated.div)<any>``
 
 export const BannerSection = () => {
-  const [index, setIndex] = React.useState(0)
+  const [index, setIndex] = useState(0)
 
   const props = useSpring({
     config: { duration: 3000 },

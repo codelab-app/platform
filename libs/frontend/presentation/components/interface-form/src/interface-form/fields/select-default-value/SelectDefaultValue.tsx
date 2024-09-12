@@ -1,3 +1,5 @@
+'use client'
+
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
@@ -8,7 +10,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { useAsyncFn, useMount } from 'react-use'
 import { isNullish } from 'remeda'
 import { useField } from 'uniforms'
@@ -56,7 +58,7 @@ export const SelectDefaultValue = () => {
   )
 
   let defaultValues = context.model.defaultValues
-  const currentFieldType = React.useRef(fieldType.value)
+  const currentFieldType = useRef(fieldType.value)
 
   if (
     isNullish(defaultValues) ||

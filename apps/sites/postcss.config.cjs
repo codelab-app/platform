@@ -3,9 +3,9 @@
  */
 module.exports = {
   plugins: {
+    tailwindcss: {},
     // autoprefixer: {},
     'tailwindcss/nesting': {},
-    tailwindcss: {},
     // tailwindcss: {
     //   config: join(__dirname, 'tailwind.config.js'),
     // },
@@ -13,5 +13,4 @@ module.exports = {
     // 'postcss-import': {},
     // // Required for scss like rules for .css files
   },
-  // plugins: [require('tailwindcss'), require('tailwindcss/nesting')],
 }

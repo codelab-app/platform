@@ -15,7 +15,9 @@
 // const rootPostCssConfig = require(rootPostCssConfigPath)
 
 // console.log(rootPostCssConfig)
-
+/**
+ * @type {import('postcss').Config}
+ */
 const config = {
   plugins: {
     tailwindcss: {},
