@@ -27,16 +27,17 @@ const allPathCombinations = (paths, file) => {
 }
 
 const scopes = R.pipe(
+  files,
   R.reduce(allPathCombinations, []),
   R.sort((a, b) => a.localeCompare(b)),
-  R.uniq,
-  R.addIndex(R.map)((name, index) => {
+  R.unique,
+  R.map((name, index) => {
     return {
       value: name,
       name: `${index + 1}) ${name}`,
     }
   }),
-)(files)
+)
 
 module.exports = {
   types: [

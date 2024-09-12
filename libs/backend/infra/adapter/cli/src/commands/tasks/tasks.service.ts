@@ -6,13 +6,15 @@ import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { LazyModuleLoader } from '@nestjs/core'
 import { spawn } from 'child_process'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import gitChangedFiles from 'git-changed-files'
 import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import type { Argv, CommandModule } from 'yargs'
 import { loadStageMiddleware } from '../../shared/middleware'
 import type { StageParam } from '../../shared/options'
 import { getStageOptions } from '../../shared/options'
-import { gitChangedFiles } from '../../shared/utils/git'
 import { Tasks } from '../../shared/utils/tasks'
 
 @Injectable()
@@ -59,7 +61,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test -c test.unit --ci -c ci --verbose',
+              'pnpm nx affected --target=test -c test.unit --ci -c ci.unit --verbose',
             )
           }
         }),
@@ -77,7 +79,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test -c test.integration --runInBand --ci -c ci --parallel=1 --verbose',
+              'pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1 --verbose',
             )
           }
         }),
