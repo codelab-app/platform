@@ -28,7 +28,8 @@ test.skip('should be able to create page', async ({ pageListPage: page }) => {
     .page.getByLabel('Name')
     .fill(page.pageName)
 
-  await expect(page.getGlobalProgressBar()).toBeHidden()
+  await page.expectGlobalProgressBarToBeHidden()
+
   await expect(page.getTreeItem(page.pageName)).toBeVisible()
 
   test('should have accessible page link on sidebar', async () => {
