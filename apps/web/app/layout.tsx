@@ -1,5 +1,4 @@
-import '../styles/global.css'
-import '../styles/shadcn.global.css'
+import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
 import { cn } from '@cui/utils'

@@ -1,5 +1,4 @@
-import './styles/global.css'
-import './styles/shadcn.global.css'
+import './styles/main.css'
 import type { Preview } from '@storybook/react'
 
 const preview: Preview = {
