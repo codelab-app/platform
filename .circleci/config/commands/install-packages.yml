@@ -4,22 +4,24 @@ steps:
   # The time to restore node_modules is longer than the time saving from installing node_modules again
   #
   - restore_cache:
-      name: 'Restore pnpm Cache'
+      name: 'Restore pnpm Package Cache'
       keys:
         - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
         - pnpm-cache
   - run:
       name: 'Install NPM Packages'
       command: pnpm install --frozen-lockfile --verbose
-  - run:
-      name: 'Prune pnpm cache'
-      command: pnpm store prune
+  # Has bug where it prunes everything
+  # - run:
+  #     name: 'Prune pnpm cache'
+  #     command: pnpm store prune
   - save_cache:
       name: 'Save pnpm Cache'
       key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
       paths:
         - ~/.pnpm-store
   - save_cache:
+  - run:
       name: 'Save node_modules Cache'
       key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
       paths:
