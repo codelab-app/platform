@@ -13,7 +13,6 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useTagService } from '../../services'
 import { TagsTreeItem } from './TagsTreeItem'
 

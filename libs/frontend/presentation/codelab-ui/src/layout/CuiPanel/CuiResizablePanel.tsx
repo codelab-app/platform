@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { type CuiResizablePanelProps, useResizeHandler } from './hooks'
 
 /**

@@ -1,7 +1,7 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { ObjectTyped } from 'object-typed'
-import React, { useMemo } from 'react'
+import { Children, isValidElement, memo, useMemo } from 'react'
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 
@@ -12,17 +12,17 @@ export interface RenderedComponentProps {
   ['static']: boolean
 }
 
-export const GridLayout = React.memo(
+export const GridLayout = memo(
   ({ children, ...restProps }: RenderedComponentProps & ResponsiveProps) => {
     const elementId = restProps[DATA_ELEMENT_ID]
     // const elementService = useElementService()
     const propService = usePropService()
 
     const rglChildren = useMemo(() => {
-      return React.Children.map(children, (child) => {
+      return Children.map(children, (child) => {
         // if not react element, then it's an primative value, and we don't have anything identify it
         // TODO: handle primative situation if neccessary
-        if (!child || !React.isValidElement(child)) {
+        if (!child || !isValidElement(child)) {
           return null
         }
 

@@ -3,7 +3,6 @@ import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/applicat
 import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type { Ref } from 'mobx-keystone'
-import React from 'react'
 import { useAsyncFn } from 'react-use'
 import type { SelectFieldProps } from 'uniforms-antd'
 import { SelectField } from 'uniforms-antd'

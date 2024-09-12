@@ -10,7 +10,6 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { ResourceIcon } from '../../views'
 import { useDeleteResourceModal } from '../delete-resource/delete-resource.state'
 import { useUpdateResourceForm } from '../update-resource'

@@ -7,7 +7,7 @@ import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { UserApplicationModule } from '@codelab/backend/application/user'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
-import { SeederDomainModule } from '@codelab/backend/domain/shared/seeder'
+import { UserDomainModule } from '@codelab/backend/domain/user'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { AdminController } from './admin.application.controller'
@@ -22,8 +22,8 @@ import { ImportAdminDataHandler } from './use-case/import/import-admin-data.comm
     /**
      * Domain
      */
-    SeederDomainModule,
     CqrsModule,
+    UserDomainModule,
     DataModule,
     SharedDomainModule,
     SharedApplicationModule,

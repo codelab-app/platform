@@ -1,4 +1,5 @@
 import type { ISchemaProvider } from '@codelab/shared/abstract/infra'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { Kind, type TKind, type TSchema, TypeRegistry } from '@sinclair/typebox'
 import type { ValidateFunction } from 'ajv'
 import Ajv from 'ajv'
@@ -15,7 +16,7 @@ export class SchemaProvider implements ISchemaProvider {
 
   ajv: Ajv
 
-  addSchema(schema: object, key?: string): void {
+  addSchema(schema: ObjectLike, key?: string): void {
     this.ajv.addSchema(schema, key)
   }
 

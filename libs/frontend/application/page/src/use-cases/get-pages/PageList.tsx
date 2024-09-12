@@ -5,7 +5,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { PageTreeItem } from './PageTreeItem'
 
 interface PageListProps {

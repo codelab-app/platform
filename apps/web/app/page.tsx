@@ -1,7 +1,6 @@
 import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
-import React from 'react'
 
 const HomeView = async () => {
   const maybeUser = await getMaybeServerUser()

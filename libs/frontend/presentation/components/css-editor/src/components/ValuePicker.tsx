@@ -1,9 +1,7 @@
 import { Col, InputNumber, Row, Select } from 'antd'
 import type { SizeType } from 'antd/lib/config-provider/SizeContext'
-import debounce from 'lodash/debounce'
-import isNumber from 'lodash/isNumber'
 import type { ReactNode } from 'react'
-import React from 'react'
+import { debounce, isNumber } from 'remeda'
 import { CssUnit, parseCssValue } from '../utils'
 import { ResetLabel } from './ResetLabel'
 
@@ -127,9 +125,14 @@ export const ValuePicker = ({
           controls={false}
           max={max}
           min={min}
-          onChange={debounce((val) => {
-            onChanged(fixedUnit ?? unit, val)
-          }, 300)}
+          onChange={
+            debounce(
+              (val) => {
+                onChanged(fixedUnit ?? unit, val)
+              },
+              { maxWaitMs: 300 },
+            ).call
+          }
           placeholder={isAuto ? 'Auto' : undefined}
           size={size}
           value={isAuto ? undefined : value}

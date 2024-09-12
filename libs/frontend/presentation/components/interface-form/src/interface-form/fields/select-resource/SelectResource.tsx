@@ -1,5 +1,4 @@
 import { useResourceService } from '@codelab/frontend-application-resource/services'
-import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 

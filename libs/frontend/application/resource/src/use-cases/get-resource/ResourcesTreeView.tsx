@@ -8,7 +8,6 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useAsyncFn, useMount } from 'react-use'
 import { useResourceService } from '../../services'
 import { ResourcesTreeItem } from './ResourcesTreeItem'

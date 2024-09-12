@@ -14,7 +14,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useEffect, useRef } from 'react'
+import { Fragment, useEffect, useMemo, useRef } from 'react'
 import { useAsyncFn } from 'react-use'
 import { useElementService } from '../../services'
 
@@ -68,7 +68,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     // but should prioritize the element props
     // Since the prop values are observable and changes after the update, we need to prevent
     // re-rendering the form so the focus is not lost, so the use of `useMemo` here
-    const propsModel = React.useMemo(
+    const propsModel = useMemo(
       () =>
         mergeProps(
           isComponent(currentElement.renderType.current)
@@ -81,7 +81,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const submitRef = useRef<Maybe<SubmitController>>()
 
-    React.useEffect(() => {
+    useEffect(() => {
       // to trigger validation when props tab opened
       submitRef.current?.validate?.()
     }, [submitRef.current])

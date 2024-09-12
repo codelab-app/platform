@@ -1,6 +1,5 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { Space, Tag } from 'antd'
-import React from 'react'
 
 export const SuggestedChildrenColumn = ({
   suggestedChildren,

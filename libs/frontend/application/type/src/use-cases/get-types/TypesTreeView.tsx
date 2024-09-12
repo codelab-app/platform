@@ -11,7 +11,6 @@ import { useTablePagination } from '@codelab/frontend-application-shared-store/p
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useTypeService } from '../../services'
 import { TypesTreeItem } from './TypesTreeItem'
 

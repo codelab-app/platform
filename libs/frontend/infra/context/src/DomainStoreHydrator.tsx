@@ -4,7 +4,7 @@ import type { IDomainData } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 type DomainStoreHydratorProps = IDomainData & {
   children: ReactNode

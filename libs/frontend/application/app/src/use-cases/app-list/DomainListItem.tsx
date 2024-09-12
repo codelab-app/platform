@@ -3,7 +3,6 @@ import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined'
 import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
 import Link from 'next/link'
-import React from 'react'
 
 export interface DomainListItemProps {
   domain: IDomainDto

@@ -7,7 +7,7 @@ export const execCommand = (command: string) => {
     // Only use shell on CI
     const shell = process.env['CI'] ? true : false
 
-    execa.commandSync(command, {
+    return execa.commandSync(command, {
       shell: true,
       stdio: 'inherit',
     })

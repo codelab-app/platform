@@ -5,7 +5,6 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useAtomService } from '../../services'
 import { useDeleteAtomsModal } from './delete-atoms.state'

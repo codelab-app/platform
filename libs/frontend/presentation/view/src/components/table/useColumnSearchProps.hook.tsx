@@ -6,16 +6,17 @@ import type { InputRef } from 'antd'
 import { Button, Input, Space } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FilterDropdownProps } from 'antd/lib/table/interface'
-import React, { useEffect, useRef, useState } from 'react'
+import type { AnyModel } from 'mobx-keystone'
+import { useEffect, useRef, useState } from 'react'
 
-interface ColumnSearchProps<RecordType extends object>
+interface ColumnSearchProps<RecordType extends AnyModel>
   extends Omit<ColumnType<RecordType>, 'dataIndex'> {
   dataIndex: keyof RecordType
   text?: string
   onSearch?(searchText: string): void
 }
 
-export const useColumnSearchProps = <RecordType extends object>({
+export const useColumnSearchProps = <RecordType extends AnyModel>({
   dataIndex,
   onSearch,
   text = '',

@@ -1,4 +1,4 @@
-import flatten from 'lodash/flatten'
+import { flat } from 'remeda'
 import type { WithMaybeChildren } from './with-maybe-chilred.interface'
 
 export const traverseAndFlattenTrees = <T, R>(
@@ -9,11 +9,11 @@ export const traverseAndFlattenTrees = <T, R>(
     const result = fn(item)
 
     if (item.children) {
-      return [result, ...flatten(item.children.map(loop))]
+      return [result, ...flat(item.children.map(loop))]
     }
 
     return [result]
   }
 
-  return flatten(trees.map(loop))
+  return flat(trees.map(loop))
 }

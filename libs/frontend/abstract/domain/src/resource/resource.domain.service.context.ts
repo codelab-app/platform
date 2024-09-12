@@ -1,10 +1,10 @@
-import { createContext } from 'mobx-keystone'
+import { type AnyModel, createContext } from 'mobx-keystone'
 import type { IResourceDomainService } from './resource.domain.service.interface'
 
 export const resourceDomainServiceContext =
   createContext<IResourceDomainService>()
 
-export const getResourceDomainService = (self: object) => {
+export const getResourceDomainService = (self: AnyModel) => {
   const resourceService = resourceDomainServiceContext.get(self)
 
   if (!resourceService) {

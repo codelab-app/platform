@@ -1,5 +1,4 @@
 import { Col, ColorPicker as AntdColorPicker, Row } from 'antd'
-import React from 'react'
 import { ResetLabel } from './ResetLabel'
 
 interface ColorPickerProps {

@@ -5,7 +5,6 @@ import BorderRightOutlined from '@ant-design/icons/BorderRightOutlined'
 import BorderTopOutlined from '@ant-design/icons/BorderTopOutlined'
 import { Radio } from 'antd'
 import clsx from 'clsx'
-import React from 'react'
 import { Side } from '../utils'
 import classes from './borderStyle.module.css'
 

@@ -3,7 +3,6 @@ import type {
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
 import { isComponent } from '@codelab/frontend/abstract/domain'
-import React from 'react'
 
 interface ComponentIconProps {
   component: IAtomModel | IComponentModel

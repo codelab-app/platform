@@ -115,9 +115,35 @@
         "passWithNoTests": true
       },
       "configurations": {
-        "ci": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test.unit": {
+          "reporters": ["default"],
+          "color": true,
+          "parallel": 3,
+          "testPathIgnorePatterns": ["i.spec.ts"]
+        },
+        "ci.unit": {
           "ci": true,
-          "codeCoverage": true
+          "codeCoverage": true,
+          "color": true,
+          "parallel": 3,
+          "testPathIgnorePatterns": ["i.spec.ts"]
+        },
+        "test.integration": {
+          "memoryLimit": 4096,
+          "reporters": ["default"],
+          "color": true,
+          "testPathPattern": ["i.spec.ts"],
+          "runInBand": true
+        },
+        "ci.integration": {
+          "ci": true,
+          "codeCoverage": true,
+          "color": true,
+          "testPathPattern": ["i.spec.ts"],
+          "runInBand": true
         }
       }
     },
@@ -131,8 +157,7 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/{projectName}.xml",
-          "quiet": true
+          "outputFile": "tmp/reports/lint/{projectName}.xml"
         },
         "codegen": {
           "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],
@@ -147,16 +172,15 @@
     "test": {
       "cache": true
     },
-    "test:integration": {
-      "cache": true
-    },
-    "test:unit": {
-      "cache": true
-    },
     "lint": {
       "cache": true
     },
     "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "@nx/next:build": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]

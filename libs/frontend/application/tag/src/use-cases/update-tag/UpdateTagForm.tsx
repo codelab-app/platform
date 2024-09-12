@@ -9,7 +9,6 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { useTagService } from '../../services'
 import { updateTagSchema } from './update-tag.schema'

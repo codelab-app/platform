@@ -25,7 +25,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
-import isEmpty from 'lodash/isEmpty'
+import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
@@ -116,7 +116,7 @@ export const useAtomService = (): IAtomService => {
 
     atomPagination.totalItems = count
 
-    if (!isEmpty(where) || options?.limit) {
+    if (!isEmpty(where ?? {}) || options?.limit) {
       typeDomainService.hydrateTypes({
         interfaceTypes: atoms.map((atom) => atom.api),
       })

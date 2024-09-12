@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/types'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { type ReactNode, useEffect, useState } from 'react'
 
 interface ApplicationStoreHydratorProps {
@@ -20,6 +19,8 @@ export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
   ({ children, fallback, pathParams, queryParams }) => {
     const { routerService } = useApplicationStore()
     const [isHydrated, setIsHydrated] = useState(false)
+
+    // usePaginationQueryParams(queryParams?.page, queryParams?.pageSize)
 
     useEffect(() => {
       if (queryParams) {

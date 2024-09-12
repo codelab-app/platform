@@ -1,7 +1,6 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Button } from 'antd'
-import React from 'react'
 import { useUpdatePageForm } from '../update-page/update-page.state'
 import { useCreatePageForm } from './create-page.state'
 

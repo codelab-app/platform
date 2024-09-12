@@ -10,7 +10,7 @@ import {
 import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import { Provider } from 'jotai'
 import type { PropsWithChildren } from 'react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 export const RootProviders = ({
   children,
@@ -25,10 +25,6 @@ export const RootProviders = ({
         preference,
         routerProps: {
           pathParams,
-          // Layout do not receive searchParams
-          //
-          // https://nextjs.org/docs/app/api-reference/file-conventions/layout#layouts-do-not-receive-searchparams
-          queryParams: {},
         },
         user,
       }),

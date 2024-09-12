@@ -1,7 +1,6 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
 import classNames from 'classnames'
 import type { ReactNode } from 'react'
-import React from 'react'
 import type { Variant } from '../../abstract'
 import { variantColors } from '../../abstract'
 import { CuiHighlightedText } from '../../components'
@@ -41,7 +40,7 @@ export const CuiTreeItem = ({
     >
       <div className="flex h-full flex-row justify-start overflow-hidden">
         <div className="shrink-0">{icon}</div>
-        <div className="min-w-1/3 flex h-full flex-row justify-start overflow-hidden pl-2">
+        <div className="flex h-full min-w-1/3 flex-row justify-start overflow-hidden pl-2">
           <p className="m-0 truncate">
             <span
               className="font-semibold"

@@ -7,7 +7,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { $getRoot, $insertNodes } from 'lexical'
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 interface OnInitPluginProps {
   config: InitialConfigType

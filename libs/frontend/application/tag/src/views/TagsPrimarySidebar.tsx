@@ -11,7 +11,6 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useTagService } from '../services'
 import { CreateTagPopover } from '../use-cases/create-tag'
 import { useCreateTagForm } from '../use-cases/create-tag/create-tag.data'

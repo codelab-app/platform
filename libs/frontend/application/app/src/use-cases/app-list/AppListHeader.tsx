@@ -10,7 +10,6 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
-import React from 'react'
 import { useCreateAppModal } from '../create-app/create-app.state'
 import { ImportAppDialog } from '../import-app'
 

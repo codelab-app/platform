@@ -12,7 +12,6 @@ import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useFieldService } from '../../services'
 import {

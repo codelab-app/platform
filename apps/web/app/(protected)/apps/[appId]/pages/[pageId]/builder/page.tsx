@@ -4,7 +4,6 @@ import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app
 import { PageBuilder } from '@codelab/frontend-application-builder/use-cases/page-builder'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import React from 'react'
 
 const Page = async ({
   params: { appId, pageId },

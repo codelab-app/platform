@@ -17,7 +17,6 @@ import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import React from 'react'
 
 interface StateTreeItemProps {
   data: ITreeNode<IFieldNodeData>

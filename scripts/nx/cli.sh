@@ -6,7 +6,9 @@
 args=${@#pnpm cli}
 
 # Run the nx serve command with the formatted arguments
-pnpm nx build cli && node dist/apps/cli/main.js $args
+# pnpm nx build cli && node dist/apps/cli/main.js $args
+# Move build to postinstall
+node dist/apps/cli/main.js $args
 
 # # Capture the exit code of the last command
 # exit_code=$?

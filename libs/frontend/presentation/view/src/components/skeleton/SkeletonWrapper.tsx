@@ -1,5 +1,4 @@
 import { Skeleton } from 'antd'
-import React from 'react'
 
 interface SkeletonWrapperProps {
   children?: React.ReactNode

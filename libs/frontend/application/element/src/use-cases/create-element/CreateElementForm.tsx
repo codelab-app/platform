@@ -24,7 +24,6 @@ import type {
 } from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'

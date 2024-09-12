@@ -8,7 +8,7 @@ import {
 import { removeGraphqlEslintConfig } from './eslint/remove-graphql-eslint-config'
 import { addProjectTags } from './project-tags/add-project-tags'
 import type { EslintGeneratorSchema } from './schema'
-import { updateTestConfig } from './test/project-json'
+import { migrateToConfigBasedTest } from './test/remove-test-targets'
 import { updateBaseTsconfig } from './tsconfig-base/tsconfig.base'
 import { updateLibraryTsconfig } from './tsconfig-lib/tsconfig.lib'
 
@@ -35,30 +35,28 @@ export const nxProjectConfigGenerator = async (
     // removeCiLintConfig(tree, projectConfig)
 
     /**
+     * Migrate use different configuration for `test` target, as opposed to creating separate targets, for better extensibility
+     *
+     * Downside is creating extra `*.env` files
+     */
+    // migrateToConfigBasedTest(tree, projectConfig)
+
+    /**
      * Add the lint pattern to nx.json instead
      */
     // addGraphqlEslintConfig(tree, projectConfig)
     // addGraphqlExtension(tree, projectConfig)
-    removeGraphqlEslintConfig(tree, projectConfig)
+    // removeGraphqlEslintConfig(tree, projectConfig)
     // checkLintConfig(tree, projectConfig)
 
-    updateTestConfig(tree, projectConfig)
+    // updateTestConfig(tree, projectConfig)
     addProjectTags(tree, projectConfig)
 
-    updateBaseTsconfig(tree, projectConfig)
-    updateLibraryTsconfig(tree, projectConfig)
+    // updateBaseTsconfig(tree, projectConfig)
+    // updateLibraryTsconfig(tree, projectConfig)
 
     updateProjectConfiguration(tree, projectName, projectConfig)
   }
-
-  // const projectRoot = `libs/${options.name}`
-  // addProjectConfiguration(tree, options.name, {
-  //   projectType: 'library',
-  //   root: projectRoot,
-  //   sourceRoot: `${projectRoot}/src`,
-  //   targets: {},
-  // })
-  // generateFiles(tree, path.join(__dirname, 'files'), projectRoot, options)
 
   await formatFiles(tree)
 }

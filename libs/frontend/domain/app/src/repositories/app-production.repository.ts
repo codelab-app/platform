@@ -3,7 +3,7 @@ import type {
   IAppProductionDto,
 } from '@codelab/frontend/abstract/domain'
 import type { AtomProductionFragment } from '@codelab/shared/infra/gql'
-import uniqBy from 'lodash/uniqBy'
+import { uniqueBy } from 'remeda'
 import { GetAppProduction } from './app.api.graphql.gen'
 
 //  In production we have domain and pageUrlPattern we filter app by domain and page by url
@@ -43,7 +43,7 @@ export const appProductionRepository = async ({
   const stores = pages.flatMap((page) => page.store)
   const actions = stores.flatMap((store) => store.actions)
 
-  const atoms = uniqBy(
+  const atoms = uniqueBy(
     [
       // Load all the atoms used by elements
       ...elements

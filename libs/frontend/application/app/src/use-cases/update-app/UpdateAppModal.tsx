@@ -6,7 +6,6 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useAppService } from '../../services'
 import { updateAppSchema } from './update-app.schema'

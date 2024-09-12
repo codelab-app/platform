@@ -6,9 +6,10 @@ import {
   createBridge,
 } from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
-import throttle from 'lodash/throttle'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import { throttle } from 'radash'
 import type { ReactElement } from 'react'
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'
@@ -22,7 +23,7 @@ import { ModalFormContext } from './modal-form.context'
  * But using without `DeepPartial` causes some casting down the line
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Form = <TData extends Record<string, any>, TResponse = unknown>({
+export const Form = <TData extends ObjectLike, TResponse = unknown>({
   autosave = false,
   children,
   model,
@@ -57,6 +58,7 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
       onChange={onChange}
       onChangeModel={onChangeModel}
       onSubmit={throttle(
+        { interval: 200 },
         handleFormSubmit<TData, TResponse>(
           onSubmit,
           (isLoading: boolean) => {
@@ -66,7 +68,6 @@ export const Form = <TData extends Record<string, any>, TResponse = unknown>({
           onSubmitSuccess,
           onSubmitError,
         ),
-        200,
       )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}

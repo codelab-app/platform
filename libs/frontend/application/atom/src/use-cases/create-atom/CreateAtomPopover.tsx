@@ -13,7 +13,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useCreateAtomModal } from './create-atom.state'
 import { CreateAtomForm } from './CreateAtomForm'
 

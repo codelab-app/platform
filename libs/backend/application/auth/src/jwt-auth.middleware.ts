@@ -12,7 +12,6 @@ export class JwtAuthMiddleware implements NestMiddleware {
     const context = new ExecutionContextHost([req, res, next])
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       /**
        * This is causing error `secret or public key must be provided`
        */

@@ -6,7 +6,6 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useDeleteTagsModal } from '../delete-tags/delete-tags.state'
 import { useUpdateTagForm } from '../update-tag'
 

@@ -6,7 +6,7 @@ import {
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 import { useAuthGuardService } from '../../services'
 import { AuthGuardsTreeItem } from './AuthGuardsTreeItem'

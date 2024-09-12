@@ -1,6 +1,5 @@
 import { Dashboard } from '@codelab/frontend-presentation-view/templates'
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 const meta: Meta<typeof Dashboard> = {
   component: Dashboard,

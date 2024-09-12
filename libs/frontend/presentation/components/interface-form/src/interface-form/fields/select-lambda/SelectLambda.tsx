@@ -1,5 +1,4 @@
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import React from 'react'
 import { SelectField } from 'uniforms-antd'
 // import { useGetLambdasForSelectQuery } from '../../../store/typeEndpoints'
 

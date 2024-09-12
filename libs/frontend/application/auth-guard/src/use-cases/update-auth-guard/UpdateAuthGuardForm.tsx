@@ -13,7 +13,6 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { useAuthGuardService } from '../../services'

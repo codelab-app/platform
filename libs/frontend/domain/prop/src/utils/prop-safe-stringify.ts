@@ -1,21 +1,25 @@
-import isArray from 'lodash/isArray'
-import isFunction from 'lodash/isFunction'
-import isObjectLike from 'lodash/isObjectLike'
-import isPlainObject from 'lodash/isPlainObject'
-import pickBy from 'lodash/pickBy'
-import React from 'react'
+/* eslint-disable @typescript-eslint/ban-types */
+import type { IPropData } from '@codelab/shared/abstract/core'
+import { isValidElement } from 'react'
+import {
+  isArray,
+  isFunction,
+  isObjectType,
+  isPlainObject,
+  pickBy,
+} from 'remeda'
 
-export const propSafeStringify = (props: object, maskFunctions = true) => {
+export const propSafeStringify = (props: IPropData, maskFunctions = true) => {
   const obj = pickBy(props, (value, key) => !key.startsWith('_'))
   const cache = new WeakMap<object, boolean>()
 
   const replacer = (key: string, value: object) => {
     // handle ReactNodeType
-    if (React.isValidElement(value)) {
+    if (isValidElement(value)) {
       return 'React element'
     }
 
-    if (isObjectLike(value)) {
+    if (isObjectType(value)) {
       if (!isArray(value) && !isPlainObject(value)) {
         return `${value.constructor.name} instance`
       }

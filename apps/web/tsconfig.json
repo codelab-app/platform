@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "@welldone-software/why-did-you-render",
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -19,13 +18,7 @@
         "name": "next"
       }
     ],
-    "types": [
-      "node",
-      "worker-loader",
-      "@fancyapps/ui",
-      "cypher",
-      "styled-components"
-    ]
+    "types": ["node", "worker-loader", "cypher", "styled-components"]
   },
   "include": [
     "**/*.ts",
@@ -37,7 +30,9 @@
     "index.d.ts",
     ".next/types/**/*.ts",
     "../../dist/apps/web/.next/types/**/*.ts",
-    "../../dist/apps/web-test/.next/types/**/*.ts"
+    "../../dist/apps/web-test/.next/types/**/*.ts",
+    "postcss.config.cjs",
+    "next.config.mjs"
   ],
   "exclude": [
     "jest.config.ts",

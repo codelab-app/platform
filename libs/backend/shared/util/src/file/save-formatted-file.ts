@@ -1,10 +1,11 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { prettifyForConsole } from '@codelab/shared/utils'
 import fs from 'fs'
 import { EOL } from 'os'
 import * as path from 'path'
-import prettier from 'prettier'
+import { format } from 'prettier'
 
-export const saveFormattedFile = (outputFilePath: string, data: object) => {
+export const saveFormattedFile = (outputFilePath: string, data: ObjectLike) => {
   if (!outputFilePath.endsWith('.json')) {
     throw new Error('Output path must end with .json')
   }
@@ -17,9 +18,11 @@ export const saveFormattedFile = (outputFilePath: string, data: object) => {
   fs.appendFileSync(exportPath, EOL, 'utf8')
 }
 
-export const formatToPrettifiedJson = (data: object) => {
+export const formatToPrettifiedJson = (
+  data: Array<ObjectLike> | ObjectLike,
+) => {
   const jsonString = prettifyForConsole(data)
-  const prettifiedJsonString = prettier.format(jsonString, { parser: 'json' })
+  const prettifiedJsonString = format(jsonString, { parser: 'json' })
 
   return prettifiedJsonString
 }

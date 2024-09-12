@@ -18,10 +18,10 @@ import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'
 import { FieldUpdateInput } from '@codelab/shared/infra/gql'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { isNonNullish } from 'remeda'
 
 const create = ({
   api,
@@ -39,7 +39,7 @@ const create = ({
 
   try {
     // `defaultValues` could be a falsy valid value e.g. `false`, 0
-    parsedDefaultValues = !isNil(parsedDefaultValues)
+    parsedDefaultValues = isNonNullish(parsedDefaultValues)
       ? JSON.parse(parsedDefaultValues)
       : null
   } catch (err) {

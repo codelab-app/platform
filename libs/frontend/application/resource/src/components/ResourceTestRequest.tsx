@@ -3,11 +3,15 @@
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import {
+  ICodeMirrorLanguage,
+  type IResourceFetchConfig,
+} from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
-import get from 'lodash/get'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { isEmpty, prop } from 'remeda'
 import { useForm } from 'uniforms'
 import { useResourceService } from '../services'
 
@@ -20,13 +24,23 @@ export const ResourceTestRequest = observer<ResourceTestRequestProps>(
   ({ fetchConfigDataFieldName, resourceIdFieldName }) => {
     const resourceService = useResourceService()
     const { model } = useForm()
-    const resourceId = get(model, resourceIdFieldName)
-    const resource = resourceId ? resourceService.getResource(resourceId) : null
-    const config = get(model, fetchConfigDataFieldName)
-    const [response, setResponse] = useState<object>({})
+
+    const resourceId = prop(
+      model as Record<string, string>,
+      resourceIdFieldName,
+    )
+
+    const resource = resourceService.getResource(resourceId) ?? null
+
+    const config = prop(
+      model as Record<string, IResourceFetchConfig>,
+      fetchConfigDataFieldName,
+    )
+
+    const [response, setResponse] = useState<ObjectLike>({})
 
     return (
-      <DisplayIf condition={resource && config}>
+      <DisplayIf condition={!resource && !isEmpty(config)}>
         <h3 className="text-gray-700">Response</h3>
         <CodeMirrorEditor
           height="150px"

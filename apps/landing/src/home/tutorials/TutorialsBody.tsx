@@ -2,7 +2,6 @@ import { faArrowRight, faTag } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row } from 'antd'
 import Image from 'next/image'
-import React from 'react'
 
 export interface ITutorialsItem {
   description: string

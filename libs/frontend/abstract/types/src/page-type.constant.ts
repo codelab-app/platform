@@ -9,8 +9,6 @@ export const PageType = {
   AppDetail: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
     `/apps/${appId}`,
   AppList: () => '/apps',
-  AtomList: ({ appId }: Pick<Required<UrlPathParams>, 'appId'>) =>
-    `/apps/${appId}/atoms`,
   Atoms: () => '/atoms' as const,
   AtomTypeList: () => '/atom-types',
   AuthGuards: () => '/auth-guards',

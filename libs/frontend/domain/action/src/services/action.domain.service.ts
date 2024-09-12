@@ -6,9 +6,9 @@ import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
 import type { ActionFragment } from '@codelab/shared/infra/gql'
-import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { unique } from 'remeda'
 import { ActionFactory } from '../store/action.factory'
 import { ApiAction } from '../store/api-action.model'
 import { CodeAction } from '../store/code-action.model'
@@ -106,7 +106,7 @@ export class ActionDomainService
         .map((parent) => parent.id)
         // get parents of parents
         .concat(
-          uniq(parents.flatMap((parent) => this.getParentActions(parent))),
+          unique(parents.flatMap((parent) => this.getParentActions(parent))),
         )
     )
   }

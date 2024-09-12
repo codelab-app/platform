@@ -5,8 +5,8 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'
-import isNil from 'lodash/isNil'
 import { Fragment } from 'react'
+import { isNullish } from 'remeda'
 import { getAtom } from '../atoms'
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
@@ -66,7 +66,7 @@ export const makeOverrideAtomProps = (
   const builderOverrideProps: IPropData = {}
 
   // Disables any in-app navigation in builder mode
-  if (inBuilderMode && !isNil(props['href'])) {
+  if (inBuilderMode && !isNullish(props['href'])) {
     builderOverrideProps['href'] = '#'
   }
 

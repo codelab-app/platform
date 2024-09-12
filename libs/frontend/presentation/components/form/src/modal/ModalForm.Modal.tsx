@@ -9,7 +9,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ModalProps as AntModalProps } from 'antd/lib/modal'
 import AntdModal from 'antd/lib/modal'
 import type { PropsWithChildren } from 'react'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { handleSubmitRefModalOk } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 

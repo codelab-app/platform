@@ -1,6 +1,6 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import path from 'path'
-import tsMorph, { Project } from 'ts-morph'
+import { Node, Project } from 'ts-morph'
 import { addReportersToJestConfig } from './add-reporters'
 import { migrateToSwc } from './migrate-to-swc'
 
@@ -22,7 +22,7 @@ export const updateJestConfig = (
 
   const configObject = defaultExportAssignment.getExpression()
 
-  if (!tsMorph.Node.isObjectLiteralExpression(configObject)) {
+  if (!Node.isObjectLiteralExpression(configObject)) {
     throw new Error('Default export is not an object literal')
   }
 

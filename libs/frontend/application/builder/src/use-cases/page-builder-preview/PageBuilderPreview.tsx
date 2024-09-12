@@ -5,7 +5,6 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import React from 'react'
 import { useInitializeBuilder } from '../../services'
 import { BaseBuilder } from '../base-builder'
 

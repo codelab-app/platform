@@ -14,7 +14,6 @@ import {
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import React from 'react'
 import { useDeleteActionModal } from '../delete-action'
 import { useUpdateActionForm } from '../update-action'
 

@@ -38,7 +38,7 @@ import { generate, OGM } from '@neo4j/graphql-ogm'
 import { Inject, Injectable } from '@nestjs/common'
 import * as fs from 'fs'
 import path from 'path'
-import prettier from 'prettier'
+import { format, resolveConfig } from 'prettier'
 import { OGM_PROVIDER } from './ogm.constant'
 
 @Injectable()
@@ -196,10 +196,10 @@ export class OgmService {
       )
 
     // Get prettier config
-    const options = await prettier.resolveConfig(outFile)
+    const options = await resolveConfig(outFile)
 
     // Format
-    const formatted = await prettier.format(`${output}`, {
+    const formatted = await format(`${output}`, {
       ...options,
       filepath: outFile,
     })

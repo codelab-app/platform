@@ -32,7 +32,6 @@ import { useUrlPathParams } from '@codelab/frontend-application-shared-store/rou
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { useDeletePageModal } from '../delete-page/delete-page.state'
 import { useRegeneratePages } from '../generate-pages'
 import { useUpdatePageForm } from '../update-page/update-page.state'

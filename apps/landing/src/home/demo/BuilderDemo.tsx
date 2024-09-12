@@ -1,5 +1,4 @@
 import { Col, Row, Tabs } from 'antd'
-import React from 'react'
 import { ButtonPropsForm } from './ButtonDemoProps'
 import { DemoShoppingCard } from './DemoShoppingCard'
 import { DOMTree } from './DomTree'

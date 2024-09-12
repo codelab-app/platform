@@ -21,7 +21,6 @@
 // import { ITypeKind } from '@codelab/shared/abstract/core'
 // import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 // import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
-// import merge from 'lodash/merge'
 // import type { UiPropertiesContext } from './types'
 // import { getUiProperties } from './ui-properties'
 

@@ -7,7 +7,6 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { useAuthGuardService } from '../../services'
 import { useDeleteAuthGuardModal } from './delete-auth-guard.state'
 

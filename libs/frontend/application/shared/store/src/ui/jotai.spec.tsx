@@ -1,7 +1,6 @@
 import { act, render } from '@testing-library/react'
 import { atom, Provider } from 'jotai'
 import { useAtom } from 'jotai/react'
-import React from 'react'
 
 const priceAtom = atom(10)
 const messageAtom = atom('hello')

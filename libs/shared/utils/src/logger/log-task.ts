@@ -1,6 +1,7 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import util from 'util'
 
-export const logTask = (task: string, label = '', data?: object) => {
+export const logTask = (task: string, label = '', data?: ObjectLike) => {
   if (data) {
     console.debug(`[${task}]:`, label, util.inspect(data, false, null, true))
 

@@ -1,4 +1,5 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { match } from 'path-to-regexp'
 
 export type IBuilderPage = Pick<
@@ -8,7 +9,7 @@ export type IBuilderPage = Pick<
 
 interface IPageQuery {
   page: IBuilderPage | null
-  query: object
+  query: ObjectLike
 }
 
 /**
@@ -19,7 +20,7 @@ export const extractPathParamsFromUrlInstance = (
   targetUrlInstance: string,
 ): IPageQuery => {
   for (const page of pages) {
-    const urlMatch = match(page.urlPattern, {
+    const urlMatch = match<ObjectLike>(page.urlPattern, {
       decode: decodeURIComponent,
     })
 

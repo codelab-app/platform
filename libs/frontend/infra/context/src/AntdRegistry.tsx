@@ -3,7 +3,7 @@
 import { extractStaticStyle, StyleProvider } from 'antd-style'
 import { useServerInsertedHTML } from 'next/navigation'
 import type { PropsWithChildren } from 'react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 /**
  * https://github.com/ant-design/ant-design/discussions/44984

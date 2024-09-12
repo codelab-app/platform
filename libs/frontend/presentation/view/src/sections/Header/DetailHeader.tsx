@@ -9,7 +9,7 @@ import {
   type ToolbarItem,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
-import React, { type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 
 interface DetailHeaderProps {
   BuilderResizeMenu: ReactNode

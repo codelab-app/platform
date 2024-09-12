@@ -19,6 +19,10 @@ applyFormats()
 
 const bootstrap = async () => {
   const app = await NestFactory.create(RootModule, {
+    /**
+     * Enables devtools https://docs.nestjs.com/devtools/overview
+     */
+    snapshot: true,
     // logger: false,
   })
 

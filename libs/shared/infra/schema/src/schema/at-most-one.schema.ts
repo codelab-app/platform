@@ -1,4 +1,4 @@
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish, ObjectLike } from '@codelab/shared/abstract/types'
 import type { TKind } from '@sinclair/typebox'
 import { Kind, Type } from '@sinclair/typebox'
 import { DefinedSchema } from './defined.schema'
@@ -10,7 +10,7 @@ export const TAtMostOne: TKind = {
 export const AtMostOneSchema = Type.Array(
   Type.Union([DefinedSchema, Type.Not(DefinedSchema)]),
   {
-    validate: (items: Array<Nullish<object> | boolean>) => {
+    validate: (items: Array<Nullish<ObjectLike> | boolean>) => {
       const truthyCount = items.filter((item) => Boolean(item)).length
 
       return truthyCount <= 1

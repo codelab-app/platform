@@ -1,7 +1,6 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useDeleteElementModal } from './delete-element.state'
 
 interface DeleteElementProps {

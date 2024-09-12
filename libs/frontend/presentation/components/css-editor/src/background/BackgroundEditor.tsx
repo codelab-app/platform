@@ -1,4 +1,3 @@
-import React from 'react'
 import { LabeledSelect } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
 import { CssProperty } from '../css'

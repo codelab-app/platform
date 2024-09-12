@@ -1,17 +1,16 @@
 const colors = require('tailwindcss/colors')
 const path = require('path')
+import type { Config } from 'tailwindcss'
 // const { breakpoints } = require('./.codelab.js')
 
-const shadcnTailwindConfig = path.resolve(
-  __dirname,
-  'scripts/tailwind/shadcn.tailwind.config.js',
-)
+import shadcnTailwindConfig from './shadcn.tailwind.config'
 
 /**
  * This only works if `tailwind.config.js` & `postcss.config.js` are at the project root
  */
-module.exports = {
-  presets: [require(shadcnTailwindConfig)],
+const config: Config = {
+  content: [],
+  presets: [shadcnTailwindConfig],
   plugins: [],
   theme: {
     extend: {
@@ -71,3 +70,5 @@ module.exports = {
   },
   variants: {},
 }
+
+export default config

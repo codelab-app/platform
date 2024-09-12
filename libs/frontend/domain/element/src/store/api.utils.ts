@@ -5,7 +5,7 @@ import type {
 import type { IFieldDefaultValue } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ElementUpdateInput } from '@codelab/shared/infra/gql'
-import { isNil } from 'ramda'
+import { isNullish } from 'remeda'
 
 //
 // Utilities for transforming the form inputs to api inputs
@@ -27,7 +27,7 @@ export const makeDefaultProps = (typeApi: Maybe<IInterfaceTypeModel>) => {
 
   const defaultProps = fields.reduce<Record<string, IFieldDefaultValue>>(
     (acc, field) => {
-      if (!isNil(field.defaultValues)) {
+      if (!isNullish(field.defaultValues)) {
         acc[field.key] = field.defaultValues
       }
 

@@ -1,6 +1,6 @@
 import { cn } from '@cui/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
-import React from 'react'
+import { forwardRef } from 'react'
 
 const alertVariants = cva(
   'relative w-full rounded-lg border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7',
@@ -18,7 +18,7 @@ const alertVariants = cva(
   },
 )
 
-const Alert = React.forwardRef<
+const Alert = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
 >(({ className, variant, ...props }, ref) => (
@@ -32,7 +32,7 @@ const Alert = React.forwardRef<
 
 Alert.displayName = 'Alert'
 
-const AlertTitle = React.forwardRef<
+const AlertTitle = forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -45,7 +45,7 @@ const AlertTitle = React.forwardRef<
 
 AlertTitle.displayName = 'AlertTitle'
 
-const AlertDescription = React.forwardRef<
+const AlertDescription = forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (

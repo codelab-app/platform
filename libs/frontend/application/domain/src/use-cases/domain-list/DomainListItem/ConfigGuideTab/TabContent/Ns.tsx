@@ -1,5 +1,5 @@
 import { Table, Typography } from 'antd'
-import React from 'react'
+import { Fragment } from 'react'
 
 interface NameServersProps {
   copyable?: boolean
@@ -7,13 +7,13 @@ interface NameServersProps {
 }
 
 export const NS = ({ copyable, nameServers = [] }: NameServersProps) => (
-  <React.Fragment>
+  <Fragment>
     {nameServers.map((ns) => (
       <Typography.Paragraph copyable={copyable} key={ns}>
         {ns}
       </Typography.Paragraph>
     ))}
-  </React.Fragment>
+  </Fragment>
 )
 
 const columns = [

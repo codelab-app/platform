@@ -13,7 +13,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import uniqBy from 'lodash/uniqBy'
+import { uniqueBy } from 'remeda'
 
 export const useElementService = (): IElementService => {
   const atomService = useAtomService()
@@ -93,7 +93,7 @@ export const useElementService = (): IElementService => {
 
   const updateElements = async (elements: Array<IElementModel>) => {
     await Promise.all(
-      uniqBy(elements, (element) => element.id).map((element) =>
+      uniqueBy(elements, (element) => element.id).map((element) =>
         elementRepository.updateNodes(element),
       ),
     )

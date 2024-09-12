@@ -1,5 +1,4 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import React from 'react'
 import { DomainListItem } from './DomainListItem'
 
 export interface DomainListProps {

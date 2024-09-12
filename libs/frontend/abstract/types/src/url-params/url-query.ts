@@ -2,11 +2,14 @@ import type { Assign } from 'utility-types'
 
 /**
  * This is used to type our pages with params
+ *
+ * @param {string} page - We pass default via middleware to the routes that require it
+ * @param {string} pageSize We pass default via middleware to the routes that require it
  */
 export interface UrlQueryParamsString {
-  filter?: Array<string>
-  page?: string
-  pageSize?: string
+  filter: Array<string>
+  page: string
+  pageSize: string
   primarySidebarKey?: string
   search?: string
 }
@@ -16,7 +19,7 @@ export interface UrlQueryParamsString {
 export type UrlQueryParams = Assign<
   UrlQueryParamsString,
   {
-    page?: number
-    pageSize?: number
+    page: number
+    pageSize: number
   }
 >

@@ -1,7 +1,6 @@
 import type { IExpressionTransformer } from '@codelab/frontend/abstract/application'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import { stripExpression } from '@codelab/shared/utils'
-import get from 'lodash/get'
 import {
   _async,
   _await,
@@ -11,7 +10,7 @@ import {
   modelFlow,
   prop,
 } from 'mobx-keystone'
-import React from 'react'
+import * as React from 'react'
 import { allAtoms } from '../atoms'
 
 @model('@codelab/ExpressionTransformer')
@@ -21,7 +20,7 @@ export class ExpressionTransformer
   })
   implements IExpressionTransformer
 {
-  context: Nullable<object> = null
+  context: Nullable<ObjectLike> = null
 
   transform: Nullable<IExpressionTransformer['transform']> = null
 
@@ -60,12 +59,13 @@ export class ExpressionTransformer
       // Do not log expected error when an expression with props or state
       // is used in a ReactNodeType value e.g. {{props.name}}
       if (
-        !get(error, 'message', '').match(
+        !(error instanceof Error) ||
+        !error.message.match(
           /(\bprops|componentProps|state)\s+is\s+not\s+defined\b/,
         )
       ) {
         console.log('expression', expression)
-        console.log(get(error, 'message', ''))
+        console.log(error instanceof Error ? error.message : String(error))
       }
 
       return expression

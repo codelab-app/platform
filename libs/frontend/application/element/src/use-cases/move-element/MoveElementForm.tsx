@@ -11,7 +11,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { SelectLinkElement } from '../../components/SelectLinkElement'
 import { useElementService } from '../../services'

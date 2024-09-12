@@ -1,6 +1,6 @@
 import type { ProjectConfiguration } from '@nx/devkit'
 import type { ObjectLiteralExpression } from 'ts-morph'
-import tsMorph from 'ts-morph'
+import { Node } from 'ts-morph'
 
 export const migrateToSwc = (
   configObject: ObjectLiteralExpression,
@@ -31,7 +31,7 @@ export const migrateToSwc = (
       initializer: newInitializer,
       name: 'transform',
     })
-  } else if (tsMorph.Node.isPropertyAssignment(transformProperty)) {
+  } else if (Node.isPropertyAssignment(transformProperty)) {
     // if the reporters property exists and is a PropertyAssignment, update it
     transformProperty.setInitializer(newInitializer)
   }

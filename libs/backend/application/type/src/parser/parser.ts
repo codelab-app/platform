@@ -1,6 +1,7 @@
 import type { IAntDesignField } from '@codelab/backend/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { stripQuotes } from '@codelab/shared/utils'
-import merge from 'lodash/merge'
+import { merge } from 'remeda'
 import { stripBracketsRegex } from './matchers'
 
 /**
@@ -9,7 +10,7 @@ import { stripBracketsRegex } from './matchers'
  * left: ReactNode, right: ReactNode
  * @param object
  */
-export const extractObjectFromString = (object: string): object => {
+export const extractObjectFromString = (object: string): ObjectLike => {
   const objectWithoutBraces = object.match(stripBracketsRegex)?.[1]
 
   return (
@@ -27,7 +28,7 @@ export const extractObjectFromString = (object: string): object => {
 
         return { [`${key}`]: value }
       })
-      .reduce(merge) ?? {}
+      .reduce((acc, curr) => merge(acc, curr), {}) ?? {}
   )
 }
 

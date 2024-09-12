@@ -1,6 +1,5 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
-import set from 'lodash/set'
-import uniq from 'lodash/uniq'
+import { unique } from 'remeda'
 
 /**
  *
@@ -28,9 +27,11 @@ const appendTagsToProjectConfig = (
 }
 
 const appendTags = (tag: string, projectConfig: ProjectConfiguration) => {
-  const updatedTags = uniq([...(projectConfig.tags ?? []), tag])
+  const updatedTags = unique([...(projectConfig.tags ?? []), tag])
 
-  set(projectConfig, 'tags', updatedTags)
+  Object.assign(projectConfig, {
+    tags: updatedTags,
+  })
 }
 
 /**

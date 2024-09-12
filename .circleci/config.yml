@@ -52,12 +52,9 @@ commands:
           keys:
             - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
             - pnpm-cache
-          name: Restore pnpm Cache
+          name: Restore pnpm Package Cache
       - run:
           command: pnpm install --frozen-lockfile --verbose
-          environment:
-            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
-            PUPPETEER_SKIP_DOWNLOAD: true
           name: Install NPM Packages
       - save_cache:
           key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}

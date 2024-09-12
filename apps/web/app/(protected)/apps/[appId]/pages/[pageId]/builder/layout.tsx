@@ -3,7 +3,7 @@ import {
   DashboardLayout,
   type DashboardSections,
 } from '@codelab/frontend-presentation-view/templates'
-import React, { type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 
 const Layout = ({
   children,

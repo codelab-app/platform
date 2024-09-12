@@ -1,5 +1,8 @@
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
-import type { IComponentAggregate } from '@codelab/shared/abstract/core'
+import type {
+  IAtomAggregate,
+  IComponentAggregate,
+} from '@codelab/shared/abstract/core'
 import {
   AtomAggregateSchema,
   TagSchema,
@@ -36,10 +39,12 @@ export class ReadAdminDataService {
 
       const atomExport = JSON.parse(content.toString())
 
-      return this.validationService.validateAndClean(
+      const data: IAtomAggregate = this.validationService.validateAndClean(
         AtomAggregateSchema,
         atomExport,
       )
+
+      return data
     })
   }
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { css } from 'styled-components'
 
 export const Key = ({ children }: React.PropsWithChildren) => {

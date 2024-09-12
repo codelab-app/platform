@@ -2,7 +2,7 @@ import type { IToggleService } from '@codelab/frontend/abstract/application'
 import type { UiKey } from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
-import isEqual from 'lodash/isEqual'
+import { isDeepEqual } from 'remeda'
 import type { IToggleState } from './toggle.state.interface'
 
 export const defaultMapper = <TData, TOutput = TData>(state?: TData): TOutput =>
@@ -21,7 +21,7 @@ const toggleAtomFamily = atomFamily(
       data: undefined,
       isOpen: false,
     }),
-  isEqual,
+  isDeepEqual,
 )
 
 export const useToggleState = <TData = undefined, TOutput = TData>(

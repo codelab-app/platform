@@ -5,19 +5,11 @@ import type {
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import { IPropData } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/infra/gql'
-import get from 'lodash/get'
-import isMatch from 'lodash/isMatch'
-import isNil from 'lodash/isNil'
-import merge from 'lodash/merge'
-import omit from 'lodash/omit'
-import omitBy from 'lodash/omitBy'
-import set from 'lodash/set'
-import values from 'lodash/values'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -29,7 +21,16 @@ import {
   modelAction,
   prop,
 } from 'mobx-keystone'
-import { mergeDeepRight } from 'ramda'
+import {
+  hasSubObject,
+  isNullish,
+  merge,
+  mergeDeep,
+  omit,
+  omitBy,
+  prop as rProp,
+  values,
+} from 'remeda'
 import { mergeProps } from '../utils/merge-props'
 import { propSafeStringify } from '../utils/prop-safe-stringify'
 
@@ -73,10 +74,10 @@ export class Prop
 
       const apiPropsByKey = values(apiPropsMap)
         .map((propModel) => ({ [propModel.key]: propModel }))
-        .reduce(merge, {})
+        .reduce<IPropData>((acc, cur) => merge(acc, cur), {})
 
-      return omitBy(this.data.data, (_, key) => {
-        return !apiPropsByKey[key]
+      return omitBy(this.data.data ?? {}, (_, key) => {
+        return !apiPropsByKey[key as keyof typeof apiPropsByKey]
       })
     }
 
@@ -96,24 +97,24 @@ export class Prop
   @modelAction
   delete(key: string) {
     // Need to cast since deleting key changes the interface
-    this.data = frozen(omit(this.data.data, key))
+    this.data = frozen(omit(this.data.data ?? {}, [key as keyof IPropData]))
   }
 
   @modelAction
-  set(key: string, value: boolean | object | string) {
-    const obj = set({}, key, value)
+  set(key: string, value: ObjectLike | boolean | string) {
+    const obj = { [key]: value }
 
-    this.data = frozen(mergeDeepRight(this.data.data ?? {}, obj))
+    this.data = frozen(mergeDeep(this.data.data ?? {}, obj))
   }
 
   @modelAction
   setMany(data: IPropData) {
     // This prevents re-renders caused by setting props with the same values
     const shouldChangeProp =
-      isNil(this.data.data) || !isMatch(this.data.data, data)
+      isNullish(this.data.data) || !hasSubObject(this.data.data, data)
 
     if (shouldChangeProp) {
-      this.data = frozen(mergeProps(this.data.data, data))
+      this.data = frozen(mergeProps(this.data.data ?? {}, data))
     }
   }
 
@@ -127,7 +128,7 @@ export class Prop
   }
 
   get(key: string) {
-    return get(this.values, key)
+    return rProp(this.values, key)
   }
 
   toCreateInput(): PropCreateInput {

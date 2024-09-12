@@ -11,7 +11,7 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { usePathname, useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import type { ToolbarItem } from '../../abstract'
 import { CuiInput } from '../../components'
 

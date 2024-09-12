@@ -1,11 +1,12 @@
-import './fancybox.module.css'
-import { Fancybox as NativeFancybox } from '@fancyapps/ui/dist/fancybox.umd.js'
-import React, { useEffect } from 'react'
+import '@fancyapps/ui/dist/fancybox/fancybox.css'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import { Fancybox as NativeFancybox } from '@fancyapps/ui'
+import { useEffect } from 'react'
 
 interface FancyboxProps {
   children: unknown
   delegate?: string
-  options?: Record<string, unknown>
+  options?: ObjectLike
 }
 
 export const Fancybox = ({

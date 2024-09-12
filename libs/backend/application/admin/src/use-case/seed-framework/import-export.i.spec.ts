@@ -1,14 +1,15 @@
 import { deleteFilesSync } from '@codelab/backend/shared/util'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { isSubset } from '@codelab/shared/utils'
 import { CommandBus } from '@nestjs/cqrs'
-import fs from 'fs-extra'
+import { copy, ensureDir, readdirSync, readFileSync, rmSync } from 'fs-extra'
 import * as glob from 'glob'
 import path from 'path'
 import { AdminApplicationModule } from '../../admin.application.module'
 import { ExportAdminDataCommand } from '../export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
-import { getPartialAtomsFromFiles, isSubset, productionDataPath } from './utils'
+import { getPartialAtomsFromFiles, productionDataPath } from './utils'
 
 jest.setTimeout(90000)
 
@@ -27,8 +28,8 @@ describe('Seed, import, & export data', () => {
     const ctx = await context
     const module = ctx.module
 
-    fs.rmSync(testExportDataPath, { force: true, recursive: true })
-    fs.rmSync(testDataPath, { force: true, recursive: true })
+    rmSync(testExportDataPath, { force: true, recursive: true })
+    rmSync(testDataPath, { force: true, recursive: true })
 
     await ctx.beforeAll()
 
@@ -37,10 +38,10 @@ describe('Seed, import, & export data', () => {
     /**
      * We copy actual data to new path
      */
-    await fs.ensureDir(testDataPath)
-    await fs.ensureDir(testExportDataPath)
+    await ensureDir(testDataPath)
+    await ensureDir(testExportDataPath)
 
-    await fs.copy(productionDataPath, testDataPath)
+    await copy(productionDataPath, testDataPath)
 
     const partialAtomType = getPartialAtomsFromFiles()
     const pattern = `**/{${partialAtomType.join(',')}}.json`
@@ -55,9 +56,9 @@ describe('Seed, import, & export data', () => {
   })
 
   it('should check the atom files is a subset of the enum', () => {
-    const files = fs
-      .readdirSync(path.resolve(productionDataPath, 'admin/atoms'))
-      .map((file) => path.parse(file).name)
+    const files = readdirSync(
+      path.resolve(productionDataPath, 'admin/atoms'),
+    ).map((file) => path.parse(file).name)
 
     const atoms = Object.values(IAtomType)
     const subset = isSubset(files, atoms)
@@ -79,8 +80,8 @@ describe('Seed, import, & export data', () => {
       }, new Map())
 
     for (const [sourceFile, exportedFile] of sourceToExpectedFilePath) {
-      const sourceContent = fs.readFileSync(sourceFile, 'utf8')
-      const exportedContent = fs.readFileSync(exportedFile, 'utf8')
+      const sourceContent = readFileSync(sourceFile, 'utf8')
+      const exportedContent = readFileSync(exportedFile, 'utf8')
 
       expect(exportedContent).toEqual(sourceContent)
     }

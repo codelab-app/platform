@@ -1,27 +1,38 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import mergeWith from 'lodash/mergeWith'
-
-type PropsArray = Array<IPropData | null | undefined>
-
-const propsCustomizer = (value: string, srcValue: string, key: string) => {
-  if (key === 'className') {
-    return `${value || ''} ${srcValue || ''}`
-  }
-
-  return undefined
-}
+import { filter, isTruthy, merge, omit } from 'remeda'
 
 /**
  *  Deep merges a list of props together, the latter props have priority over the prior ones in case of conflict
+ *
  * The following edge cases are handled:
  *
  * - Merging className strings together
+ *
+ * Remove nullish to make usage more clear, we can see which ones are nullable when we use `mergeProps(x, y ?? {})`
  */
 
-export const mergeProps = <TData extends IPropData = IPropData>(
-  ...propsArray: PropsArray
-): TData => {
-  return propsArray.reduce<TData>((mergedProps, nextProps) => {
-    return mergeWith(mergedProps, nextProps, propsCustomizer)
-  }, {} as TData)
+export const mergeProps = <T extends IPropData>(
+  propsItem: T,
+  ...propsList: Array<IPropData>
+) => {
+  const props = filter([propsItem, ...propsList], isTruthy)
+
+  /**
+   * Combine all `className` into a single concatenated version
+   */
+  return props.reduce((acc, cur) => {
+    /**
+     * Transform `className` if exists in current
+     */
+    if ('className' in cur) {
+      acc['className'] = acc['className']
+        ? `${acc['className']} ${cur['className']}`
+        : cur['className']
+    }
+
+    /**
+     * Merge all props except className, since we already set earlier
+     */
+    return merge(acc, omit(cur, ['className']))
+  }, {} as { className?: string }) as T
 }

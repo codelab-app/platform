@@ -1,7 +1,6 @@
-import compact from 'lodash/compact'
 import { action, computed, makeObservable, observable } from 'mobx'
 import type { Key } from 'react'
-import React from 'react'
+import { filter, isTruthy } from 'remeda'
 import { traverseAndFlattenTrees, traverseTrees } from '../../../util'
 import type { CuiTreeBasicDataNode, WithChildren } from '../CuiTree'
 
@@ -67,7 +66,7 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
       this.filterOptions_.secondaryTitleFilter &&
       new RegExp(this.filterOptions_.secondaryTitleFilter, 'i')
 
-    return compact(
+    return filter(
       traverseAndFlattenTrees<T, React.Key | undefined>(
         this.treeData_,
         (item) => {
@@ -87,6 +86,7 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
             : undefined
         },
       ),
+      isTruthy,
     )
   }
 

@@ -1,7 +1,6 @@
 import { notify } from '@codelab/frontend/shared/utils'
 import type { DraggerProps } from 'antd/lib/upload/Dragger'
 import Dragger from 'antd/lib/upload/Dragger'
-import React from 'react'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'

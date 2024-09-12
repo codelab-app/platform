@@ -9,7 +9,7 @@ export const RenderOutput = {
     input: Pick<IRenderOutput, 'props' | 'runtimeElement'>,
   ): IRenderOutput => input,
   overrideProps: (input: IRenderOutput, props: Nullish<IPropData>) => {
-    return { ...input, props: mergeProps(input.props, props) }
+    return { ...input, props: mergeProps(input.props, props ?? {}) }
   },
   withAtom: (
     input: Pick<IRenderOutput, 'atomType' | 'props' | 'runtimeElement'>,

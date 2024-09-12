@@ -30,7 +30,7 @@
       "options": {
         "buildTarget": "web:build",
         "port": 3000,
-        "turbo": false,
+        "turbo": true,
         "hostname": "0.0.0.0",
         "maxWorkers": 4
       },
@@ -80,50 +80,6 @@
           "runInBand": true
         }
       },
-      "outputs": ["{workspaceRoot}/coverage/apps/web"]
-    },
-    "test:integration": {
-      "defaultConfiguration": "dev",
-      "options": {
-        "memoryLimit": 8192,
-        "color": true,
-        "testPathPattern": ["i.spec.ts"],
-        "runInBand": true,
-        "jestConfig": "apps/web/jest.config.ts"
-      },
-      "configurations": {
-        "dev": {
-          "reporters": ["default"]
-        },
-        "test": {
-          "reporters": ["default"]
-        },
-        "ci": {
-          "parallel": 3
-        }
-      },
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/web"]
-    },
-    "test:unit": {
-      "defaultConfiguration": "dev",
-      "options": {
-        "color": true,
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "testPathIgnorePatterns": ["i.spec.ts"],
-        "jestConfig": "apps/web/jest.config.ts"
-      },
-      "configurations": {
-        "dev": {
-          "reporters": ["default"]
-        },
-        "test": {
-          "reporters": ["default"]
-        },
-        "ci": {}
-      },
-      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/web"]
     },
     "storybook": {

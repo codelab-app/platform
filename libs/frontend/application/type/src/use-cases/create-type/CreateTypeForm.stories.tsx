@@ -1,6 +1,5 @@
 import { CuiForm } from '@codelab/frontend/presentation/codelab-ui'
 import type { Meta } from '@storybook/react'
-import React from 'react'
 import { createRjsfTypeSchema } from './create-type.rjsf.schema'
 import { CreateTypeForm } from './CreateTypeForm'
 

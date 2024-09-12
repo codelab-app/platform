@@ -10,7 +10,6 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useAsyncFn, useMount } from 'react-use'
 import { StateTreeItem } from './StateTreeItem'
 

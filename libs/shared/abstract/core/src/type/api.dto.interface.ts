@@ -13,6 +13,7 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { FieldSchema } from '../field/field.dto.interface'
+import { BaseTypeExportSchema, BaseTypeSchema } from './base-type.dto.interface'
 import { TypeSchema } from './type.dto.interface'
 
 export const ApiSchema = Type.Object({
@@ -21,5 +22,7 @@ export const ApiSchema = Type.Object({
   id: Type.String(),
   types: Type.Array(TypeSchema),
 })
+
+export const ApiExportSchema = Type.Composite([BaseTypeExportSchema, ApiSchema])
 
 export type IApi = Static<typeof ApiSchema>

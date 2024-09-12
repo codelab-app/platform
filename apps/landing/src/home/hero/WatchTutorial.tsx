@@ -1,6 +1,5 @@
 import PlayCircleOutlined from '@ant-design/icons/PlayCircleOutlined'
 import { Image } from 'antd'
-import React from 'react'
 
 export const WatchTutorial = () => {
   return (

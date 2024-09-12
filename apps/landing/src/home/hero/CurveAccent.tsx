@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const CurveAccent = () => (
   <div className="relative top-2 lg:top-14">
     {/* Generated from https://getwaves.io/ */}

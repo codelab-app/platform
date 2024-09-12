@@ -44,7 +44,6 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { ElementTreeView } from './builder-tree/ElementTreeView'
 
 export const BuilderPrimarySidebar = observer<{

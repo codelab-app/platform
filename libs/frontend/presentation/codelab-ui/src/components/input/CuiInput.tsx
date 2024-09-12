@@ -3,7 +3,7 @@
 import type { InputRef } from 'antd'
 import { Input } from 'antd'
 import type { InputProps } from 'antd/lib/input'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { numberRegex } from '../../util'
 
 export interface CuiInputProps {

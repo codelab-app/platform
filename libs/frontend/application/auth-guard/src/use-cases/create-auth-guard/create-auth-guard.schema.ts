@@ -12,7 +12,7 @@ import {
 import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import type { JSONSchemaType } from 'ajv'
-import keys from 'lodash/keys'
+import { keys } from 'remeda'
 
 export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
   properties: {

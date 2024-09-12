@@ -5,7 +5,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import type { MenuProps } from 'antd'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItemComponentTitle'
 import type { ContextMenuProps } from './ElementContextMenu'
 

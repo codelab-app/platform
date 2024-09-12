@@ -1,5 +1,4 @@
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 
 interface BreadcrumbItemWrapperProps {
   onClick?(): void

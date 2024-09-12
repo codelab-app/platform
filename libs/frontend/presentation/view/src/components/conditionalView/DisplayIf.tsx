@@ -1,5 +1,3 @@
-import React from 'react'
-
 export interface DisplayIfProps {
   children: React.ReactNode
   condition: boolean

@@ -14,7 +14,7 @@ export const runtimePageRef = rootRef<IRuntimePageModel>(
 )
 
 export const isRuntimePageRef = (
-  ref: Ref<object>,
+  ref: Ref<AnyModel>,
 ): ref is Ref<IRuntimePageModel> => isRefOfType(ref, runtimePageRef)
 
 export const isRuntimePage = (

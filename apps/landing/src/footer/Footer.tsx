@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 
 export const Footer = ({ children }: PropsWithChildren) => {
   return (

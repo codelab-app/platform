@@ -3,7 +3,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared/utils'
 import type { PropsWithChildren } from 'react'
-import React, { forwardRef, useCallback } from 'react'
+import { forwardRef, Fragment, useCallback } from 'react'
 import styled from 'styled-components'
 
 const ReusableStyledComponent = styled('placeholder')`
@@ -37,7 +37,7 @@ export const StyledComponent = forwardRef(
     }, [])
 
     // do not wrap with styled() if it's React.Fragment
-    if (ReactComponent === React.Fragment) {
+    if (ReactComponent === Fragment) {
       return children
     }
 

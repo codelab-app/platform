@@ -4,7 +4,6 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiDataRecord } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 import { useCreateAppModal } from './create-app.state'
 
 export const CreateAppButton = ({ children }: PropsWithChildren) => {

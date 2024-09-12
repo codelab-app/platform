@@ -2,7 +2,6 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { type IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useCreateFieldForm, useCreateFieldModal } from './create-field.state'
 
 export const CreateFieldButton = observer<{

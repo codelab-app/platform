@@ -4,7 +4,6 @@ import { CreateElementButton } from '@codelab/frontend-application-element/use-c
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 
 export const BuilderTreeItemComponentTitle = observer<{
   component: IComponentModel

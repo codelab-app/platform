@@ -1,5 +1,4 @@
 import { Slider } from 'antd'
-import React from 'react'
 import { CssUnit } from '../utils'
 
 interface ValueSliderProps {

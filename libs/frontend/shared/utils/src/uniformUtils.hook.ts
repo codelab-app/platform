@@ -1,5 +1,5 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullish, ObjectLike } from '@codelab/shared/abstract/types'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
 import Ajv from 'ajv'
@@ -96,15 +96,14 @@ ajv.addKeyword({
 export const createValidator = (schema: Schema) => {
   const validator = ajv.compile(schema)
 
-  return (model: Record<string, unknown>) => {
+  return (model: ObjectLike) => {
     validator(model)
 
     return validator.errors?.length ? { details: validator.errors } : null
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createBridge = <T extends Record<string, any>>(
+export const createBridge = <T extends ObjectLike>(
   schema: JSONSchemaType<T> | TSchema,
 ) => {
   return new JSONSchemaBridge(schema, createValidator(schema))

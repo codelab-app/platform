@@ -1,4 +1,5 @@
 import type { ITracerService } from '@codelab/frontend/abstract/application'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { isServer } from '@codelab/shared/utils'
 import type { AttributeValue, Span } from '@opentelemetry/api'
@@ -11,7 +12,7 @@ import { WEB_TRACER_NAME } from './tracer'
  */
 @model('@codelab/TracerService')
 export class TracerService extends Model({}) implements ITracerService {
-  addAction(name: string, attributes?: object) {
+  addAction(name: string, attributes?: ObjectLike) {
     if (isServer) {
       return
     }
@@ -27,7 +28,7 @@ export class TracerService extends Model({}) implements ITracerService {
     span?.setAttribute(key, value)
   }
 
-  addAttributes(object: object) {
+  addAttributes(object: ObjectLike) {
     const span = this.getSpan()
 
     span?.setAttributes(flattenWithPrefix(object))
@@ -48,7 +49,7 @@ export class TracerService extends Model({}) implements ITracerService {
     span?.addEvent(name, stringifiedData)
   }
 
-  addJsonAttributes(key: string, object?: object) {
+  addJsonAttributes(key: string, object?: ObjectLike) {
     const span = this.getSpan()
 
     span?.setAttributes({

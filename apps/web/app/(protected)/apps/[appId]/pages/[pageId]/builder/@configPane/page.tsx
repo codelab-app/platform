@@ -4,7 +4,6 @@ import { isRuntimePage } from '@codelab/frontend/abstract/application'
 import { ConfigPaneInspectorTabContainer } from '@codelab/frontend-application-builder/sections'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 
 const ConfigPane = observer(() => {
   const { builderService, rendererService } = useApplicationStore()

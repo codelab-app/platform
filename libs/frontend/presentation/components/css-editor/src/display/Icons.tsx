@@ -1,4 +1,3 @@
-import React from 'react'
 import { Display, FlexAlignItems, FlexJustifyItems, GridAlign } from '../css'
 
 // TODO: revisit icon sizes

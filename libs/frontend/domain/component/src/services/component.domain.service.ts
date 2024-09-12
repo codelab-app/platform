@@ -26,9 +26,9 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
-import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { prop as rProp, sortBy } from 'remeda'
 import { v4 } from 'uuid'
 import { Component } from '../store'
 
@@ -46,7 +46,7 @@ export class ComponentDomainService
 
   @computed
   get sortedComponentsList() {
-    return sortBy(this.componentList, 'name')
+    return sortBy(this.componentList, rProp('name'))
   }
 
   @modelAction

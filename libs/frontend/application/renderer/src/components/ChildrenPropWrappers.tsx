@@ -6,7 +6,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 
 export const RichTextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel

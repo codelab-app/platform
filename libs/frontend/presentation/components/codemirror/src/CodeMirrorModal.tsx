@@ -2,7 +2,7 @@ import type { Nullish } from '@codelab/shared/abstract/types'
 import type { UseCodeMirror } from '@uiw/react-codemirror'
 import { useCodeMirror } from '@uiw/react-codemirror'
 import AntdModal from 'antd/lib/modal'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type ISetupFactory = (
   editorRef: React.MutableRefObject<HTMLDivElement | null>,

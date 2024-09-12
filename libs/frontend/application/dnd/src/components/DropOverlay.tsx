@@ -1,5 +1,4 @@
 import { useDndContext } from '@dnd-kit/core'
-import React from 'react'
 import { createPortal } from 'react-dom'
 import { Rectangle } from '../geometry'
 

@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { type ImperativePanelHandle, Panel } from 'react-resizable-panels'
 import { CollapseControl, CuiResizeHandle } from '../components'
 

@@ -26,10 +26,9 @@ import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-
 import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
-import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
-import React from 'react'
+import { isNullish } from 'remeda'
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPaneInspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
@@ -82,7 +81,7 @@ export const ConfigPaneInspectorTabContainer = observer<{
             runtimeElement={selectedNode}
           />
         </>
-      ) : isNil(selectedNode.childMapperIndex) ? (
+      ) : isNullish(selectedNode.childMapperIndex) ? (
         <UpdateComponentForm runtimeComponent={selectedNode} />
       ) : (
         'Child Mapper Component Props cannot be edited'

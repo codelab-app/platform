@@ -4,7 +4,7 @@ import DownOutlined from '@ant-design/icons/DownOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import { Cui } from '@codelab/frontend-application-shared-data'
 import { Typography } from 'antd'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiSidebarToolbar } from '../CuiSidebarToolbar'
 
@@ -47,8 +47,8 @@ export const CuiCollapsePanelHeader = ({
     >
       <div
         className="
-          min-w-1/4
           flex
+          min-w-1/4
           flex-row
           items-center
           justify-start

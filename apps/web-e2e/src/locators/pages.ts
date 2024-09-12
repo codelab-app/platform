@@ -28,6 +28,13 @@ export class BasePage {
   }
 
   /**
+   * Can take a while on CI, so add long timeout
+   */
+  async expectGlobalProgressBarToBeHidden() {
+    await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
+  }
+
+  /**
    * Locator chaining need to be passed in
    */
   getButton(options: CuiSelector, locator?: Locator) {

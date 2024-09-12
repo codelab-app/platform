@@ -12,7 +12,7 @@ import {
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
-import React, { type ReactNode, useCallback } from 'react'
+import { type ReactNode, useCallback } from 'react'
 
 type IComponentDetailHeaderProps = ComponentContextParams & {
   /**

@@ -2,7 +2,7 @@
 import { Validator } from '@codelab/shared/infra/schema'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
+import { Fragment } from 'react'
 import { InterfaceForm } from '../InterfaceForm'
 import {
   interfaceWithEnumField,
@@ -22,7 +22,7 @@ describe('InterfaceForm', () => {
         onChange={mockSubmit}
         onChangeModel={mockSubmit}
         onSubmit={mockSubmit}
-        submitField={React.Fragment}
+        submitField={Fragment}
       />,
     )
 
@@ -75,7 +75,7 @@ describe('InterfaceForm', () => {
         onChange={mockSubmit}
         onChangeModel={mockSubmit}
         onSubmit={mockSubmit}
-        submitField={React.Fragment}
+        submitField={Fragment}
       />,
     )
 

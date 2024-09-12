@@ -6,7 +6,7 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import { Form } from '@codelab/frontend-presentation-components-form'
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useComponentService } from '../../services/component.service'
 import { updateComponentSchema } from './update-component.schema'

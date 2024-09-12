@@ -11,9 +11,7 @@ import type {
   IRef,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
-import compact from 'lodash/compact'
-import isUndefined from 'lodash/isUndefined'
-import uniq from 'lodash/uniq'
+import { filter, isDefined, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
 import { useTypeService } from './type.service'
 
@@ -89,7 +87,7 @@ export const useFieldService = (): IFieldService => {
     })
 
     await Promise.all(
-      uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
+      unique([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
         fieldRepository.updateNodes(getField(id)),
       ),
     )
@@ -113,7 +111,7 @@ export const useFieldService = (): IFieldService => {
     })
 
     await Promise.all(
-      uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
+      unique([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
         fieldRepository.updateNodes(getField(id)),
       ),
     )
@@ -195,7 +193,7 @@ export const useFieldService = (): IFieldService => {
 
     field.connectPrevToNextSibling()
 
-    return compact(affectedNodeIds)
+    return filter(affectedNodeIds, isTruthy)
   }
 
   return {
@@ -213,7 +211,7 @@ export const fieldService = {
     return {
       ...fieldData,
       api: { id: fieldData.interfaceTypeId },
-      defaultValues: !isUndefined(fieldData.defaultValues)
+      defaultValues: isDefined(fieldData.defaultValues)
         ? JSON.stringify(fieldData.defaultValues)
         : null,
       fieldType: { id: fieldData.fieldType },

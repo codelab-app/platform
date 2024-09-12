@@ -19,7 +19,7 @@ describe('MergeProps', () => {
     }
 
     const merged = {
-      className: ' classA classB',
+      className: 'classA classB',
       prop02: {
         nested: 'propB02',
       },

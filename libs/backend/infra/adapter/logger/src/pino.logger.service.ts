@@ -1,3 +1,4 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { PinoMessage } from '@codelab/shared/infra/logging'
 import type { LoggerService } from '@nestjs/common'
 import { Inject, Injectable } from '@nestjs/common'
@@ -19,7 +20,7 @@ export class CodelabLoggerService extends Logger implements LoggerService {
    *
    * Watch out for `info()` method override
    */
-  override log(object: object | undefined = {}, context?: string): void {
+  override log(object: ObjectLike | undefined = {}, context?: string): void {
     /**
      * We can't use this, since cannot control how the object is colorized before printing
      *

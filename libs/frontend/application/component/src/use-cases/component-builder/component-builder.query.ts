@@ -8,7 +8,7 @@ import type {
   AtomBuilderFragment,
   GetComponentBuilderQuery,
 } from '@codelab/shared/infra/gql'
-import uniqBy from 'lodash/uniqBy'
+import { uniqueBy } from 'remeda'
 
 export const componentBuilderQuery: IComponentBuilderQuery = async ({
   componentId,
@@ -45,7 +45,7 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
 
   const actions = stores.flatMap((store) => store.actions)
 
-  const atoms = uniqBy(
+  const atoms = uniqueBy(
     [
       ...elements
         .flatMap((element) => element.renderType)

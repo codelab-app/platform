@@ -4,7 +4,6 @@ import {
   CuiHeader,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import React from 'react'
 import { CreateLambdaButton } from '../use-cases/create-lambda'
 
 export const LambdasViewHeader = () => {

@@ -2,6 +2,8 @@
  * https://frontend-devops.com/blog/pipe-serverside-props-in-nextjs
  */
 
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 type PipedGetServerSideProps = (arg?: unknown) => Promise<unknown> | unknown
 
 export const ssrPipe =
@@ -9,7 +11,7 @@ export const ssrPipe =
   async (
     input: unknown,
   ): Promise<{
-    props: Record<string, unknown>
+    props: ObjectLike
   }> => {
     const parsedObject = JSON.parse(JSON.stringify(input))
 

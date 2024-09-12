@@ -2,7 +2,7 @@ import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
 import type { IValidationRules } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import pick from 'lodash/pick'
+import { pick } from 'remeda'
 
 type FieldCondition = (
   typeDomainService: ITypeDomainService,
@@ -20,7 +20,7 @@ export const filterValidationRules = (
   const { general } = rules
 
   const rest = primitiveKind
-    ? pick(rules, primitiveKind as keyof typeof rules)
+    ? pick(rules, [primitiveKind as keyof IValidationRules])
     : {}
 
   return { general, ...rest }

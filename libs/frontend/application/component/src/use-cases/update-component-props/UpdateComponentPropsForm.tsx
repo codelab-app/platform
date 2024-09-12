@@ -11,7 +11,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
 export interface UpdateComponentPropsFormProps {

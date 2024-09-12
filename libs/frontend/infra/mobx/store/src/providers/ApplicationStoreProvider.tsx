@@ -4,7 +4,7 @@ import {
   ApplicationStoreContext,
   type ApplicationStoreProviderProps,
 } from '@codelab/frontend-infra-mobx/context'
-import React, { type PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 
 export const ApplicationStoreProvider: React.FC<
   PropsWithChildren<ApplicationStoreProviderProps>

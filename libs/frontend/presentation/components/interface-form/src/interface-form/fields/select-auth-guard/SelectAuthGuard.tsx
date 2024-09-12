@@ -1,6 +1,5 @@
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 

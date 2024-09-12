@@ -10,9 +10,8 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
-import isBoolean from 'lodash/isBoolean'
-import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { isBoolean, merge } from 'remeda'
 import { createBaseType } from './base-type.model'
 
 export const primitives = {
@@ -83,10 +82,13 @@ export class PrimitiveType
   }
 
   toUpdateInput() {
-    return merge(super.toUpdateInput(), {
-      update: {
-        primitiveKind: this.primitiveKind,
+    return merge(
+      {
+        update: {
+          primitiveKind: this.primitiveKind,
+        },
       },
-    })
+      super.toUpdateInput(),
+    )
   }
 }

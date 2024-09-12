@@ -1,10 +1,11 @@
 import type { IProp, IPropData, IPropDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/infra/gql'
 import type { Frozen, Ref } from 'mobx-keystone'
+import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 import type { IElementModel } from '../element'
 import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
@@ -21,7 +22,7 @@ export interface IPropModel
   clone(): IPropModel
   delete(key: string): void
   get(key: string): unknown
-  set(key: string, value: boolean | object | string): void
+  set(key: string, value: ArrayOrSingle<ObjectLike | boolean | string>): void
   setMany(data: IPropData): void
 }
 

@@ -3,9 +3,9 @@ import {
   type IDomainModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
-import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { merge } from 'remeda'
 import { Domain } from '../store'
 
 @model('@codelab/DomainDomainService')
@@ -17,7 +17,9 @@ export class DomainDomainService
 {
   @computed
   get domainsJson() {
-    return this.domainsList.map((domain) => domain.toJson).reduce(merge, {})
+    return this.domainsList
+      .map((domain) => domain.toJson)
+      .reduce((acc, cur) => merge(acc, cur), {})
   }
 
   @computed

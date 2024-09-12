@@ -9,7 +9,6 @@ import {
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
 import classNames from 'classnames'
-import React from 'react'
 import { ComponentIcon } from './ComponentIcon'
 
 interface ComponentItemProps {

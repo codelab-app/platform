@@ -14,7 +14,7 @@ export const runtimeComponentRef = rootRef<IRuntimeComponentModel>(
 )
 
 export const isRuntimeComponentRef = (
-  ref: Ref<object>,
+  ref: Ref<AnyModel>,
 ): ref is Ref<IRuntimeComponentModel> => isRefOfType(ref, runtimeComponentRef)
 
 export const isRuntimeComponent = (

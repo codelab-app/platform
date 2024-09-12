@@ -6,7 +6,6 @@ import { getServerUser } from '@codelab/frontend-application-user/use-cases/serv
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import type { Metadata } from 'next'
-import React from 'react'
 
 export const metadata: Metadata = {
   title: 'Component Builder | Codelab',

@@ -20,7 +20,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
-import omit from 'lodash/omit'
 
 export class ExportApiCommand {
   constructor(public api: IInterfaceTypeRef) {}
@@ -104,13 +103,19 @@ export class ExportApiHandler
       ) {
         const type = await this.typeFactory.findOne(dependentType)
 
-        if (type?.__typename === ITypeKind.InterfaceType) {
+        if (!type) {
+          continue
+        }
+
+        const { owner, ...rest } = type
+
+        if (type.__typename === ITypeKind.InterfaceType) {
           dependentTypes.push({
-            ...omit(type, 'owner'),
-            fields: (type as IInterfaceType).fields,
+            ...rest,
+            fields: type.fields,
           } as IType)
-        } else if (type) {
-          dependentTypes.push(omit(type, 'owner') as IType)
+        } else {
+          dependentTypes.push(rest)
         }
       }
     }

@@ -1,6 +1,5 @@
 import { Cui } from '@codelab/frontend-application-shared-data'
 import { Skeleton } from 'antd'
-import React from 'react'
 
 interface CuiSkeletonWrapperProps {
   children?: React.ReactNode

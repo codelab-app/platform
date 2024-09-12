@@ -13,7 +13,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 import { DndContext, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
 import type { PropsWithChildren } from 'react'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()

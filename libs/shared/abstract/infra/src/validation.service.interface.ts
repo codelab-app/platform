@@ -12,4 +12,5 @@ export interface IValidationService {
   assertsDefined<T>(data: T): asserts data is NonNullable<T>
   parseDefined<T>(data: T): NonNullable<T>
   validate(kind: TKind, data: unknown): boolean
+  validateAndClean<T extends TSchema>(schema: T, data: unknown): Static<T>
 }

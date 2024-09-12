@@ -10,7 +10,6 @@ import { DisplayIf } from '@codelab/frontend-presentation-view/components/condit
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useRedirectService } from '../../services'
 import { DeleteRedirectButton } from '../delete-redirect'

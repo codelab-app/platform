@@ -7,7 +7,6 @@ import {
   type AppListQuery,
   type AppListQueryVariables,
 } from '@codelab/shared/infra/gql'
-import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
 export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {

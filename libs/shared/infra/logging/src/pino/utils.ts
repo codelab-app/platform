@@ -1,3 +1,4 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { prettifyForConsole } from '@codelab/shared/utils'
 import colorizer from '@pinojs/json-colorizer'
 
@@ -21,7 +22,7 @@ export const formatNestLikeDate = (timestamp: unknown) => {
   return formattedDate
 }
 
-export const colorize = (object: object): string => {
+export const colorize = (object: ObjectLike): string => {
   // Assuming message is a JSON object. If it's a string, you may not need JSON.stringify
   // Adjust this based on the actual data structure of your messages
   const messageString =

@@ -25,7 +25,7 @@ import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export interface ContextMenuProps {
   onBlur?(): unknown

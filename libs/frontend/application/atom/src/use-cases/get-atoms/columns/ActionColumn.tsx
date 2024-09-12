@@ -3,7 +3,6 @@ import {
   ListItemEditButton,
 } from '@codelab/frontend-presentation-view/components/button'
 import { Space } from 'antd'
-import React from 'react'
 import { useDeleteAtomsModal } from '../../delete-atom/delete-atoms.state'
 import { useUpdateAtomModal } from '../../update-atom/update-atom.state'
 import type { ActionColumnProps } from './types'

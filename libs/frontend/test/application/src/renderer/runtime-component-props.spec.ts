@@ -18,9 +18,9 @@ describe('Runtime Component props', () => {
       const { component, renderer, runtimeComponent } =
         testStore.setupComponent()
 
-      const runtimeProps = runtimeComponent.runtimeProps
+      const runtimeProps = runtimeComponent?.runtimeProps
 
-      expect(runtimeProps.props).toMatchObject({
+      expect(runtimeProps?.props).toMatchObject({
         [DATA_COMPONENT_ID]: component.id,
         key: component.id,
       })
@@ -28,14 +28,14 @@ describe('Runtime Component props', () => {
 
     it('should contain component props', () => {
       const { component, runtimeComponent } = testStore.setupComponent()
-      const runtimeProps = runtimeComponent.runtimeProps
+      const runtimeProps = runtimeComponent?.runtimeProps
 
-      expect(runtimeProps.props).toMatchObject(component.props.values)
+      expect(runtimeProps?.props).toMatchObject(component.props.values)
     })
 
     it('should contain default props', () => {
       const { component, runtimeComponent } = testStore.setupComponent()
-      const runtimeProps = runtimeComponent.runtimeProps
+      const runtimeProps = runtimeComponent?.runtimeProps
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = '"field-value"'
 
@@ -48,7 +48,7 @@ describe('Runtime Component props', () => {
 
       component.api.current.writeCache({ fields: [field] })
 
-      expect(runtimeProps.props).toMatchObject({
+      expect(runtimeProps?.props).toMatchObject({
         [fieldKey]: JSON.parse(fieldDefaultValue),
       })
     })
@@ -62,24 +62,24 @@ describe('Runtime Component props', () => {
 
       component.props.set(fieldKey, '{{10 - 2}}')
 
-      const runtimeProps = runtimeComponent.runtimeProps
+      const runtimeProps = runtimeComponent?.runtimeProps
 
-      expect(runtimeProps.evaluatedProps).toMatchObject({ [fieldKey]: 8 })
+      expect(runtimeProps?.evaluatedProps).toMatchObject({ [fieldKey]: 8 })
     })
   })
 
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
       const { runtimeRootElement } = testStore.setupRuntimeComponent()
-      const runtimeProps = runtimeRootElement.runtimeProps
+      const runtimeProps = runtimeRootElement?.runtimeProps
 
       const runtimeComponent = runtimeRootElement
-        .children[0] as IRuntimeComponentModel
+        ?.children[0] as IRuntimeComponentModel
 
       const componentRuntimeProps = runtimeComponent.runtimeProps
 
       expect(componentRuntimeProps.instanceElementProps).toEqual(
-        runtimeProps.evaluatedProps,
+        runtimeProps?.evaluatedProps,
       )
     })
 

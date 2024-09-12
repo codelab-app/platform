@@ -6,6 +6,6 @@
 pnpm cli tasks build --stage test
 pnpm cli tasks unit --stage test
 pnpm cli tasks int --stage test
-pnpm nx e2e e2e -c test
+pnpm nx e2e web-e2e -c test
 
 # ./scripts/git/branch-name-check.sh

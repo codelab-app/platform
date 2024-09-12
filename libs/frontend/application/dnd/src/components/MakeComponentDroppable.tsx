@@ -1,7 +1,6 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { AnyData } from '@codelab/shared/abstract/types'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 import type { WithInternalDropData } from '../hooks/internal-drop-data.interface'
 import { useTypedDroppable } from '../hooks/use-typed-droppable'
 

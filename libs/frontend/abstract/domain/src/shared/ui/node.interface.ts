@@ -1,5 +1,4 @@
 import type { AnyModel } from 'mobx-keystone'
-import type React from 'react'
 
 /**
  * This is used to represent the data type for some node

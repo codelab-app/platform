@@ -14,7 +14,7 @@ export const runtimeStoreRef = rootRef<IRuntimeStoreModel>(
 )
 
 export const isRuntimeStoreRef = (
-  ref: Ref<object>,
+  ref: Ref<AnyModel>,
 ): ref is Ref<IRuntimeStoreModel> => isRefOfType(ref, runtimeStoreRef)
 
 export const isRuntimeStore = (

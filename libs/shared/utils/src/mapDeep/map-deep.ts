@@ -1,38 +1,45 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import isArray from 'lodash/isArray'
-import isObjectLike from 'lodash/isObjectLike'
-import map from 'lodash/map'
-import toPairsIn from 'lodash/toPairsIn'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import { entries, isArray, isPlainObject, map } from 'remeda'
 import { isCyclic } from '../isCyclic'
 import type { IKeyMapper, IOutput, IValueMapper, ObjectKey } from './abstract'
 
 export const mapDeep = (
-  obj: IPropData,
+  obj: Array<IPropData> | IPropData,
   valueMapper: IValueMapper,
   keyMapper: IKeyMapper = (value, key) => key,
   key: ObjectKey = '',
 ): IOutput => {
   obj = valueMapper(obj, key) as IOutput
 
-  return isCyclic(obj)
-    ? obj
-    : isArray(obj)
-    ? map(obj, (innerObj, index) =>
-        mapDeep(innerObj, valueMapper, keyMapper, index),
-      )
-    : isObjectLike(obj)
-    ? toPairsIn(obj)
-        .map(([_key, _value]) => {
-          const mappedKey = keyMapper(_value, _key)
+  if (isCyclic(obj)) {
+    return obj
+  }
 
-          const mappedValue = isObjectLike(_value)
-            ? mapDeep(_value, valueMapper, keyMapper, mappedKey)
-            : valueMapper(_value, _key)
+  if (isArray(obj)) {
+    return map((innerObj, index) =>
+      mapDeep(innerObj as IPropData, valueMapper, keyMapper, index),
+    )
+  }
 
-          return {
-            [mappedKey.toString()]: mappedValue,
-          }
-        })
-        .reduce((acc, cur) => ({ ...acc, ...cur }), {})
-    : (valueMapper(obj, '') as IPropData)
+  if (isPlainObject(obj)) {
+    return entries(obj)
+      .map(([_key, _value]) => {
+        const mappedKey = keyMapper(_value, _key)
+        let mappedValue
+
+        if (isPlainObject(_value)) {
+          mappedValue = mapDeep(_value, valueMapper, keyMapper, mappedKey)
+        } else {
+          mappedValue = valueMapper(_value, _key)
+        }
+
+        return {
+          [mappedKey.toString()]: mappedValue,
+        }
+      })
+      .reduce((acc, cur: ObjectLike) => ({ ...acc, ...cur }), {})
+  }
+
+  return valueMapper(obj, '') as IPropData
 }

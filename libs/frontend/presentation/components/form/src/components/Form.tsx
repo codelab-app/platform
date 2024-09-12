@@ -7,9 +7,9 @@ import {
   createBridge,
 } from '@codelab/frontend/shared/utils'
 import { Cui } from '@codelab/frontend-application-shared-data'
-import throttle from 'lodash/throttle'
+import { throttle } from 'radash'
 import type { ReactElement } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
@@ -56,7 +56,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           modelTransform={modelTransform}
           onChange={onChange}
           onChangeModel={onChangeModel}
-          onSubmit={throttle((formData) => {
+          onSubmit={throttle({ interval: 200 }, (formData) => {
             const submitResults = onSubmit(formData as TData)
 
             return submitResults
@@ -70,7 +70,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
 
                 callbackWithParams(onSubmitError, error)
               })
-          }, 200)}
+          })}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           showInlineError

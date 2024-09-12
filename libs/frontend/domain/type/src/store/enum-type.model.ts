@@ -6,8 +6,8 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IEnumTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { merge } from 'remeda'
 import { createBaseType } from './base-type.model'
 import { EnumTypeValue } from './enum-type-value.model'
 
@@ -74,34 +74,37 @@ export class EnumType
   }
 
   toUpdateInput() {
-    return merge(super.toUpdateInput(), {
-      // For some reason if the disconnect and delete are in the update section it throws an error
-      delete: {
-        allowedValues: [
-          {
-            where: {
-              node: {
-                NOT: {
-                  id_IN: this.allowedValues.map((av) => av.id),
+    return merge(
+      {
+        // For some reason if the disconnect and delete are in the update section it throws an error
+        delete: {
+          allowedValues: [
+            {
+              where: {
+                node: {
+                  NOT: {
+                    id_IN: this.allowedValues.map((av) => av.id),
+                  },
                 },
               },
             },
-          },
-        ],
+          ],
+        },
+        update: {
+          allowedValues: [
+            {
+              create: this.allowedValues.map((value) => ({
+                node: {
+                  id: value.id,
+                  key: value.key,
+                  value: value.value,
+                },
+              })),
+            },
+          ],
+        },
       },
-      update: {
-        allowedValues: [
-          {
-            create: this.allowedValues.map((value) => ({
-              node: {
-                id: value.id,
-                key: value.key,
-                value: value.value,
-              },
-            })),
-          },
-        ],
-      },
-    })
+      super.toUpdateInput(),
+    )
   }
 }

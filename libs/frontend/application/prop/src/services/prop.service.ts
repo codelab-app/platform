@@ -39,7 +39,11 @@ export const usePropService = (): IPropService => {
     { data, defaultValues, id }: IUpdatePropDataWithDefaultValues,
   ) => {
     const filteredData = filterEmptyStrings(data) as IPropData
-    const mergedWithDefaultValues = mergeProps(defaultValues, filteredData)
+
+    const mergedWithDefaultValues = mergeProps(
+      defaultValues ?? {},
+      filteredData,
+    )
 
     return await update(props, {
       data: JSON.stringify(mergedWithDefaultValues),

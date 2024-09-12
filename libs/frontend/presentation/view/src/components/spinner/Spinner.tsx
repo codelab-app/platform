@@ -1,5 +1,4 @@
 import { Spin } from 'antd'
-import React from 'react'
 
 export interface SpinnerProps {
   center?: boolean

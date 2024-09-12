@@ -1,7 +1,8 @@
+'use client'
+
 import type { UiKey } from '@codelab/frontend/abstract/types'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 import { useCui } from '../../core'
 import type { CuiSidebarToolbarProps } from '../../views'
 import { CuiSidebarPopoverHeader } from './CuiSidebarPopoverHeader'

@@ -4,7 +4,6 @@ import {
   type IPaginationService,
   type SupportedPaginationModel,
 } from '@codelab/frontend/abstract/application'
-import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -19,6 +18,7 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
+import { sortBy } from 'remeda'
 
 export const paginationContext = createContext<{
   getDataFn(
@@ -48,8 +48,6 @@ export class PaginationService<T1 extends SupportedPaginationModel>
 
   @computed
   get totalPages() {
-    const router = this.routerService
-
     return Math.ceil(this.totalItems / this.routerService.pageSize)
   }
 

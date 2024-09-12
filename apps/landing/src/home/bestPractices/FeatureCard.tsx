@@ -1,7 +1,6 @@
 import type { IconDefinition } from '@fortawesome/pro-light-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Card } from 'antd'
-import React from 'react'
 
 interface FeatureCardProps {
   description: string

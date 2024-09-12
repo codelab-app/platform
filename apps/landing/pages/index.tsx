@@ -1,4 +1,3 @@
-import React from 'react'
 import { BannerSection, Clients, HomeTemplate } from '../src/home'
 // import { Architecture } from '../home/architecture/Architecture'
 import { BestPractices } from '../src/home/bestPractices/BestPractices'

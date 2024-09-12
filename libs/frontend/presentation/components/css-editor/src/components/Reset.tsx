@@ -1,7 +1,6 @@
 import UndoOutlined from '@ant-design/icons/UndoOutlined'
 import { Button, Col, Popover } from 'antd'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 
 type ResetProps = PropsWithChildren & {
   onReset?(): unknown

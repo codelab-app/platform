@@ -2,10 +2,11 @@ import {
   Form,
   handleFormSubmit,
 } from '@codelab/frontend-presentation-components-form'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
-import { mergeDeepRight } from 'ramda'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
+import { mergeDeep } from 'remeda'
 import type { InterfaceFormProps } from './types'
 import { uiPropertiesContainer } from './ui-properties'
 
@@ -34,7 +35,7 @@ export const InterfaceForm = observer(
         ui: uiPropertiesContainer,
       })
 
-      return mergeDeepRight(initialSchema ?? {}, jsonSchema)
+      return mergeDeep(initialSchema ?? {}, jsonSchema as ObjectLike)
     }, [interfaceType, interfaceType.fields, initialSchema])
 
     return (

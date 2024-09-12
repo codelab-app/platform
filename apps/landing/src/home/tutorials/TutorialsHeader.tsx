@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const TutorialsHeader = () => {
   return (
     <section className="m-auto w-11/12 xl:container">

@@ -5,7 +5,6 @@ import { DeleteAtomsModal } from '@codelab/frontend-application-atom/use-cases/d
 import { AtomForm } from '@codelab/frontend-application-atom/use-cases/get-atoms'
 import { CreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
-import React from 'react'
 
 const Page = ({
   searchParams: { page, pageSize },

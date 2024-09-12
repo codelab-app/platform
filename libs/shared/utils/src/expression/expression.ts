@@ -1,7 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import type { IPropData } from '@codelab/shared/abstract/core'
-import get from 'lodash/get'
-import isString from 'lodash/isString'
-import keys from 'lodash/keys'
+import { isString, keys } from 'remeda'
 import { mapDeep } from '../mapDeep'
 import {
   EXP_PATH_TEMPLATE_END,
@@ -16,7 +15,7 @@ export const hasExpression = (str: unknown): boolean =>
   str.includes(EXP_PATH_TEMPLATE_START) &&
   str.includes(EXP_PATH_TEMPLATE_END)
 
-export const evaluateObject = <IContext>(
+export const evaluateObject = <IContext extends object>(
   props: IPropData,
   context: IContext,
 ) => {
@@ -43,7 +42,7 @@ export const stripExpression = (expression: string) => {
       )
 }
 
-const getByExpression = <IContext>(
+const getByExpression = <IContext extends object>(
   expressionValue: string,
   context: IContext,
 ) => {
@@ -65,17 +64,17 @@ const getByExpression = <IContext>(
   return data
 }
 
-export const evaluateExpression = <IContext>(
+export const evaluateExpression = <IContext extends object>(
   expression: string,
   context: IContext,
 ) => {
   try {
     const code = `return ${stripExpression(expression)}`
-    const contextKeys = keys(context).sort()
+    const contextKeys = (keys(context) as Array<string>).sort()
 
     // eslint-disable-next-line no-new-func
     return new Function(...contextKeys, code)(
-      ...contextKeys.map((key) => get(context, key)),
+      ...contextKeys.map((key) => context[key as keyof IContext]),
     )
   } catch (error) {
     console.log(error)

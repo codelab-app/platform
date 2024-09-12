@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { resetDatabaseUseCase } from './reset-data.use-case'
 
 export const ResetDataButtons = () => {

@@ -3,7 +3,6 @@
 import { UiDataRecord } from '@codelab/frontend/abstract/types'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import LinearProgress from '@mui/material/LinearProgress'
-import React from 'react'
 
 export const ProgressBar = () => {
   const { isLoading } = useLoading()

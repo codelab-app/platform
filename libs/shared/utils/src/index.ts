@@ -1,4 +1,5 @@
 export * from './array'
+export * from './dom'
 export * from './enum/enum-value'
 export * from './env'
 export * from './error'

@@ -3,8 +3,19 @@
 import type { UrlQueryParamsString } from '@codelab/frontend/abstract/types'
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { AtomsPrimarySidebar } from '@codelab/frontend-application-atom/views'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import React from 'react'
+import { useEffect } from 'react'
+
+const Demo = () => {
+  const { routerService } = useApplicationStore()
+
+  useEffect(() => {
+    console.log('Demo', routerService.page)
+  }, [])
+
+  return null
+}
 
 const Page = ({
   searchParams: { filter, page, pageSize, primarySidebarKey, search },
@@ -16,6 +27,7 @@ const Page = ({
       fallback={<Spinner />}
       queryParams={{ filter, page, pageSize, primarySidebarKey, search }}
     >
+      {/* <Demo /> */}
       <AtomsPrimarySidebar />
     </ApplicationStoreHydrator>
   )

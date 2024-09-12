@@ -1,8 +1,8 @@
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type { Options } from 'sucrase'
 
 export interface IExpressionTransformer {
-  context: Nullable<object>
+  context: Nullable<ObjectLike>
   initialized: boolean
   transform: Nullable<
     (code: string, options: Options) => { code: string | null }

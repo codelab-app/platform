@@ -8,7 +8,6 @@ import { DisplayIf } from '@codelab/frontend-presentation-view/components/condit
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { useResourceService } from '../../services'

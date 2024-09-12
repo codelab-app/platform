@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useCreateElementForm } from './create-element.state'
 import { CreateElementForm } from './CreateElementForm'
 

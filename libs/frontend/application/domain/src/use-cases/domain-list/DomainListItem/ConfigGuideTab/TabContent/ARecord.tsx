@@ -1,5 +1,4 @@
 import { Table, Typography } from 'antd'
-import React from 'react'
 
 const dataSource = [
   { value: 'ns1.digitalocean.com' },

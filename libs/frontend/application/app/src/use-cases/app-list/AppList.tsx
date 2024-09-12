@@ -7,7 +7,6 @@ import {
 } from '@codelab/frontend-presentation-view/style'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 import { CreateAppButton } from '../create-app'
 import { AppListItem } from './AppListItem'
 

@@ -1,7 +1,7 @@
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
+import { UserDomainService } from '@codelab/backend/domain/user'
 import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -11,7 +11,7 @@ import { CommandBus } from '@nestjs/cqrs'
 export class SeederApplicationService {
   constructor(
     private readonly commandBus: CommandBus,
-    private seederDomainService: SeederDomainService,
+    private userDomainService: UserDomainService,
     private readonly readAdminDataService: ReadAdminDataService,
     private readonly databaseService: DatabaseService,
   ) {}
@@ -19,9 +19,7 @@ export class SeederApplicationService {
   async resetAndSeedUser() {
     await this.databaseService.resetDatabase()
 
-    const user = await this.seederDomainService.seedUserFromRequest()
-
-    await this.seederDomainService.seedUserPreference(user)
+    return await this.userDomainService.seedUserFromRequest()
   }
 
   /**
@@ -32,9 +30,7 @@ export class SeederApplicationService {
    * There are other seeder functions in this class, but we could have multiple for different reasons
    */
   async seedDataForElementDependentTypesResolver() {
-    const user = await this.seederDomainService.seedUserFromRequest()
-
-    await this.seederDomainService.seedUserPreference(user)
+    await this.userDomainService.seedUserFromRequest()
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
@@ -55,6 +51,8 @@ export class SeederApplicationService {
    * The minimum required data
    */
   async setupDevBootstrapData() {
+    await this.userDomainService.seedUserFromRequest()
+
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
@@ -78,9 +76,7 @@ export class SeederApplicationService {
   async setupE2eData() {
     await this.databaseService.resetDatabase()
 
-    const user = await this.seederDomainService.seedUserFromRequest()
-
-    await this.seederDomainService.seedUserPreference(user)
+    await this.userDomainService.seedUserFromRequest()
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),

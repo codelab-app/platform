@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import isFunction from 'lodash/isFunction'
-import React from 'react'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import { Children, cloneElement, isValidElement } from 'react'
 import { useRecoilState } from 'recoil'
+import { isFunction } from 'remeda'
 import { stateAtomFamily } from './state-atom-family'
 import type { StateProps } from './StateProps'
 
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
-const eventSafeStringify = (event: any) => {
-  const obj: Record<string, unknown> = {}
+const eventSafeStringify = (event: ObjectLike) => {
+  const obj: ObjectLike = {}
 
   for (const key in event) {
     obj[key] = event[key]
@@ -40,11 +40,11 @@ export const State = ({
   propKey,
   setterLambda,
   ...props
-}: React.PropsWithChildren<StateProps> & Record<string, any>) => {
+}: ObjectLike & React.PropsWithChildren<StateProps>) => {
   const [state, setState] = useRecoilState(stateAtomFamily(identifier))
   const executeLambda = (args: unknown) => Promise.resolve()
 
-  const childProps: Record<string, unknown> = {
+  const childProps: ObjectLike = {
     // Pass all props down to the children, so that we can stack State elements
     ...props,
   }
@@ -97,8 +97,8 @@ export const State = ({
 
   return (
     <>
-      {React.Children.map(children, (child: any) =>
-        child ? React.cloneElement(child, childProps) : null,
+      {Children.map(children, (child) =>
+        isValidElement(child) ? cloneElement(child, childProps) : child,
       )}
     </>
   )

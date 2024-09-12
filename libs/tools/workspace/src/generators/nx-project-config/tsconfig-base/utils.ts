@@ -1,6 +1,5 @@
 import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
-import merge from 'lodash/merge'
-import unset from 'lodash/unset'
+import { merge } from 'remeda'
 
 export const sortKeys = (object: object): object =>
   Object.fromEntries(Object.entries(object).sort())
@@ -51,7 +50,8 @@ export const removeTsconfigPath = (tree: Tree, moduleAlias: string) => {
   updateJson(tree, 'tsconfig.base.json', (json) => {
     const paths = json.compilerOptions.paths ?? {}
 
-    unset(json, `compilerOptions.paths.${moduleAlias}`)
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete json.compilerOptions.paths[moduleAlias]
 
     json.compilerOptions.paths = paths
 

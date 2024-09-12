@@ -16,7 +16,8 @@ test('should be able to create app', async ({ appListPage: page }) => {
 
   await page.fillCreateAppForm()
 
-  await expect(page.getGlobalProgressBar()).toBeHidden()
+  await page.expectGlobalProgressBarToBeHidden()
+
   await expect(page.getAppName()).toBeVisible()
 })
 
@@ -25,7 +26,8 @@ test('should be able to update app name', async ({ appListPage: page }) => {
 
   await page.fillUpdateAppForm()
 
-  await expect(page.getGlobalProgressBar()).toBeHidden()
+  await page.expectGlobalProgressBarToBeHidden()
+
   await expect(page.getUpdatedAppName()).toBeVisible()
 })
 
@@ -34,6 +36,7 @@ test('should be able to delete app', async ({ appListPage: page }) => {
 
   await page.clickModalConfirmButton()
 
-  await expect(page.getGlobalProgressBar()).toBeHidden()
+  await page.expectGlobalProgressBarToBeHidden()
+
   await expect(page.getUpdatedAppName()).toBeHidden()
 })

@@ -1,4 +1,4 @@
-import isNumber from 'lodash/isNumber'
+import { isNumber } from 'remeda'
 import { CssProperty } from './css'
 
 export enum Side {

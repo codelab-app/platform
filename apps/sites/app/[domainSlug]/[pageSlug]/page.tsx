@@ -1,5 +1,4 @@
 import { appProductionRepository } from '@codelab/frontend-domain-app/repositories'
-import React from 'react'
 import { ClientProductionPage } from './component'
 
 const ProductionPage = async ({
