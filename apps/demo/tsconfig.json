@@ -3,19 +3,14 @@
   "compilerOptions": {
     "jsx": "preserve",
     "allowJs": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
-    "lib": ["es2021", "DOM"],
-    "types": ["node", "worker-loader", "@fancyapps/ui", "styled-components"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": false,
+    "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "module": "esnext",
-    "useDefineForClassFields": true,
-    "esModuleInterop": true,
     "plugins": [
       {
         "name": "next"
@@ -27,8 +22,15 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
+    "../../apps/demo/.next/types/**/*.ts",
+    "../../dist/apps/demo/.next/types/**/*.ts",
     "next-env.d.ts",
-    "tailwind.config.cjs"
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "jest.config.ts"]
+  "exclude": [
+    "node_modules",
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }

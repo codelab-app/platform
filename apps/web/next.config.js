@@ -67,6 +67,12 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    /**
+     * Issue with `turbo` and a `monorepo`
+     *
+     * https://github.com/vercel/next.js/issues/56887#issuecomment-1826767117
+     */
+    // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
     // forceSwcTransforms: true,

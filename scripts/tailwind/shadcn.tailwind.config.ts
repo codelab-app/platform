@@ -1,10 +1,12 @@
+import type { Config } from 'tailwindcss'
+
 /**
  * Used `npx shadcn-ui@0.8.0 init` to generate to `tailwind.config.js`, then copied here, so we can use `presets` to import as whole config
  *
  * https://github.com/shadcn-ui/ui/discussions/2930#discussioncomment-10437514
  */
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config: Config = {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -80,3 +82,5 @@ module.exports = {
   },
   plugins: [require('tailwindcss-animate')],
 }
+
+export default config
