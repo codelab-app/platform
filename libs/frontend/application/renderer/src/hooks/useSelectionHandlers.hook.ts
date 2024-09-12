@@ -35,7 +35,7 @@ export const useSelectionHandlers = (
       // expand parent elements on tree
       runtimeElement.pathFromRoot.forEach((parentRuntimeElement) =>
         // elements will be marked with modified attribute
-        parentRuntimeElement.element.current.setexpanded(true),
+        parentRuntimeElement.element.current.setExpanded(true),
       )
 
       void syncModifiedElements()

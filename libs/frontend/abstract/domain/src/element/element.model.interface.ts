@@ -106,7 +106,7 @@ export interface IElementModel
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
   detachFromTree(): IElementModel
-  setexpanded(expanded: boolean): void
+  setExpanded(expanded: boolean): void
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void
   setName(name: string): void
