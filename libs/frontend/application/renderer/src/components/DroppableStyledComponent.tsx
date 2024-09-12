@@ -1,5 +1,6 @@
 import { MakeComponentDroppable } from '@codelab/frontend-application-dnd/components'
 import type { PropsWithChildren } from 'react'
+import { Fragment } from 'react'
 import { StyledComponent, type StyledComponentProps } from './StyledComponent'
 
 interface DroppableStyledComponentProps extends StyledComponentProps {
@@ -26,7 +27,7 @@ export const DroppableStyledComponent = ({
       data={{}}
       id={id}
       parentDroppableContainerId={parentId}
-      wrapComponent={ReactComponent === React.Fragment}
+      wrapComponent={ReactComponent === Fragment}
     >
       {children}
     </MakeComponentDroppable>

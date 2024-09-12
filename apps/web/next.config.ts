@@ -1,19 +1,22 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
+import type { NextPlugin } from '@nx/next/src/utils/config'
 import { get } from 'env-var'
 import type { NextConfig } from 'next'
 import path from 'path'
 
 const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = bundleAnalyzer({
   enabled: analyzeBundle,
   // openAnalyzer: false,
 })
 
 /** Allows importing cypher files */
-const withWebpackConfig = (nextConfig = {}) =>
+const withWebpackConfig = (nextConfig: any = {}) =>
   Object.assign({}, nextConfig, {
-    webpack(config, options) {
+    webpack: (config: any, options: any) => {
       /**
        * Cypher import
        */
@@ -35,12 +38,11 @@ const withWebpackConfig = (nextConfig = {}) =>
        * https://github.com/welldone-software/why-did-you-render/issues/84
        */
       if (process.env.NEXT_WEB_ENABLE_WDYR) {
-        const injectWhyDidYouRender = require(path.resolve(
-          __dirname,
-          './scripts/wdyr',
-        ))
+        const injectWhyDidYouRender = import(
+          path.resolve(__dirname, './scripts/wdyr')
+        ).then((module) => module.default)
 
-        injectWhyDidYouRender(config, options)
+        void injectWhyDidYouRender.then((inject) => inject(config, options))
       }
 
       /**
@@ -54,7 +56,12 @@ const withWebpackConfig = (nextConfig = {}) =>
     },
   })
 
-const plugins = [withNx, withWebpackConfig, withBundleAnalyzer]
+const plugins: Array<NextPlugin> = [
+  withNx,
+  withWebpackConfig,
+  withBundleAnalyzer,
+]
+
 // const plugins = [withNx]
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()

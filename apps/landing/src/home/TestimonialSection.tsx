@@ -1,6 +1,7 @@
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
+import { Fragment } from 'react'
 import type { Settings } from 'react-slick'
 import Slider from 'react-slick'
 import voca from 'voca'
@@ -48,7 +49,7 @@ export const TestimonialItem = ({
             />,
           )
           .map((item, idx) => (
-            <React.Fragment key={idx}>{item}</React.Fragment>
+            <Fragment key={idx}>{item}</Fragment>
           ))}
         <div className="mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]">
           <Text
