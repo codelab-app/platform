@@ -32,7 +32,7 @@ describe('ValidationService', () => {
       )
 
       expect(result).toEqual({
-        api: omit(affixJson.api, ['kind', 'name', '__typename']),
+        api: affixJson.api,
         atom: affixJson.atom,
       })
     })
