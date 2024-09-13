@@ -1,5 +1,6 @@
 import type {
   IAppTypeModel,
+  ITypeTransformContext,
   JsonSchema,
   TransformContext,
 } from '@codelab/frontend/abstract/domain'
@@ -26,7 +27,7 @@ export class AppType
 {
   public static create = create
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }
 }

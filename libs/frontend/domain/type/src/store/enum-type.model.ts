@@ -1,8 +1,8 @@
 import type {
   IEnumType,
   IEnumTypeValue,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IEnumTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -64,7 +64,7 @@ export class EnumType
   toJsonSchema({
     defaultValues,
     validationRules,
-  }: TransformContext): JsonSchema {
+  }: ITypeTransformContext): JsonSchema {
     return {
       enum: this.allowedValues.map((allowedValue) => allowedValue.value),
       type: 'string',

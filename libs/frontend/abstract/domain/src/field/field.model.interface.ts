@@ -15,8 +15,8 @@ import type { ICacheService, IModel } from '../shared'
 import type {
   IInterfaceTypeModel,
   ITypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '../type'
 
 export interface IFieldModel<T extends ITypeModel = ITypeModel>
@@ -43,6 +43,6 @@ export interface IFieldModel<T extends ITypeModel = ITypeModel>
   changePrev(sibling: IFieldModel): void
   connectPrevToNextSibling(): void
   detachPrevSibling(): void
-  toJsonSchema(context: TransformContext): JsonSchema
+  toJsonSchema(context: ITypeTransformContext): JsonSchema
   toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'>
 }

@@ -1,8 +1,8 @@
 import type {
   IInterfaceTypeModel,
   ITypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import {
   fieldRef,
@@ -200,13 +200,13 @@ export class Field
     }
   }
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  // TODO: figure out how to use context
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       ...this.type.current.toJsonSchema({
         defaultValues: this.defaultValues,
         fieldName: this.name || compoundCaseToTitleCase(this.key),
         validationRules: this.validationRules,
-        ...context,
       }),
       ...(this.description ? { help: this.description } : {}),
       label: this.name || compoundCaseToTitleCase(this.key),

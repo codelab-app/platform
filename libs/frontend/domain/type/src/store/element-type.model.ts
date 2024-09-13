@@ -1,7 +1,7 @@
 import type {
   IElementTypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type {
   IElementTypeDto,
@@ -49,7 +49,7 @@ export class ElementType
     }
   }
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }
 

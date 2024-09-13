@@ -1,8 +1,8 @@
 import type {
   IArrayTypeModel,
   ITypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
@@ -55,7 +55,7 @@ export class ArrayType
   toJsonSchema({
     defaultValues,
     validationRules,
-  }: TransformContext): JsonSchema {
+  }: ITypeTransformContext): JsonSchema {
     return {
       items: this.itemType?.isValid
         ? this.itemType.current.toJsonSchema({})

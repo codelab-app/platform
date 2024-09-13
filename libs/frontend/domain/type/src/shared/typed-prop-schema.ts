@@ -1,20 +1,14 @@
 import type {
   ITypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 
 export const blankUniforms = { component: () => null }
 
 export const typedPropSchema = (
   { id, kind }: ITypeModel,
-  {
-    autocomplete,
-    defaultValues,
-    fieldName,
-    ui,
-    validationRules,
-  }: TransformContext,
+  { defaultValues, fieldName, validationRules }: ITypeTransformContext,
 ): JsonSchema => {
   return {
     isTypedProp: true,
@@ -30,11 +24,7 @@ export const typedPropSchema = (
         enum: [id],
         type: 'string',
       },
-      value: {
-        ...(autocomplete ? { autocomplete } : {}),
-        ...(ui?.get(kind) ?? {}),
-        label: fieldName ?? '',
-      },
+      value: { label: fieldName ?? '' },
     },
     ...validationRules?.general,
     ...(defaultValues ? { default: defaultValues } : {}),

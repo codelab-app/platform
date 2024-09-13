@@ -1,7 +1,7 @@
 import type {
   IPrimitiveTypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
 import {
@@ -60,7 +60,7 @@ export class PrimitiveType
   toJsonSchema({
     defaultValues,
     validationRules,
-  }: TransformContext): JsonSchema {
+  }: ITypeTransformContext): JsonSchema {
     const rulesSchema =
       this.primitiveKind === IPrimitiveTypeKind.Boolean
         ? {

@@ -1,8 +1,8 @@
 import type {
   IFieldModel,
   IInterfaceTypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
@@ -123,7 +123,7 @@ export class InterfaceType
     }
   }
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       properties: this.fields.reduce(
         (all, field) => ({ ...all, [field.key]: field.toJsonSchema(context) }),

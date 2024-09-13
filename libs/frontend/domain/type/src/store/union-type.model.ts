@@ -1,8 +1,8 @@
 import type {
   ITypeModel,
+  ITypeTransformContext,
   IUnionTypeModel,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
@@ -59,7 +59,7 @@ export class UnionType
     }
   }
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       oneOf: this.typesOfUnionType.map((innerType) => {
         const typeSchema = innerType.current.toJsonSchema({})

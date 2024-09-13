@@ -40,11 +40,9 @@ export interface JsonSchema extends JSONSchema7 {
     | undefined
 }
 
-export interface TransformContext {
-  autocomplete?: IPropData
+export interface ITypeTransformContext {
   defaultValues?: Nullish<IFieldDefaultValue>
   fieldName?: string | null
-  ui?: Map<ITypeKind, unknown>
   validationRules?: Nullish<IValidationRules>
 }
 export interface IBaseTypeModel<
@@ -59,7 +57,7 @@ export interface IBaseTypeModel<
   __typename: `${ITypeKind}`
   kind: ITypeKind
   name: string
-  toJsonSchema(context: TransformContext): JsonSchema
+  toJsonSchema(context: ITypeTransformContext): JsonSchema
 }
 
 export type ITypeModel =
