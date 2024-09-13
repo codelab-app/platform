@@ -680,6 +680,9 @@ importers:
       uniforms-bridge-json-schema:
         specifier: 3.10.2
         version: 3.10.2(react@18.3.1)
+      use-custom-compare:
+        specifier: ^1.4.0
+        version: 1.4.0(react@18.3.1)(typescript@5.5.4)
       use-resize-observer:
         specifier: 8.0.0
         version: 8.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -16384,6 +16387,12 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  use-custom-compare@1.4.0:
+    resolution: {integrity: sha512-3VyBy9aUZgOdHKMVvECAW+o5SXVF1Ly9plXIoXZNBKnkiBz395Z0unTg6Q3SdLWp2RZHyyoG9GEo3HP3obz5Cw==}
+    peerDependencies:
+      react: '>=16.8.0 <=18.x'
+      typescript: '>=4.0.2'
 
   use-merge-value@1.2.0:
     resolution: {integrity: sha512-DXgG0kkgJN45TcyoXL49vJnn55LehnrmoHc7MbKi+QDBvr8dsesqws8UlyIWGHMR+JXgxc1nvY+jDGMlycsUcw==}
@@ -37097,6 +37106,11 @@ snapshots:
       tslib: 2.3.1
     optionalDependencies:
       '@types/react': 18.3.0
+
+  use-custom-compare@1.4.0(react@18.3.1)(typescript@5.5.4):
+    dependencies:
+      react: 18.3.1
+      typescript: 5.5.4
 
   use-merge-value@1.2.0(react@18.3.1):
     dependencies:
