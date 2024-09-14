@@ -6,7 +6,12 @@ import type {
   ITypeKind,
   IValidationRules,
 } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type {
+  Nullable,
+  Nullish,
+  ObjectLike,
+} from '@codelab/shared/abstract/types'
+import type { Completion } from '@codemirror/autocomplete'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import type { ICacheService } from '../../shared'
 import type { IModel } from '../../shared/models/model.interface'
@@ -44,6 +49,7 @@ export interface ITypeTransformContext {
   defaultValues?: Nullish<IFieldDefaultValue>
   fieldName?: string | null
   validationRules?: Nullish<IValidationRules>
+  uniformSchema?(type: ITypeModel): ObjectLike
 }
 export interface IBaseTypeModel<
   Dto extends IBaseTypeDto,

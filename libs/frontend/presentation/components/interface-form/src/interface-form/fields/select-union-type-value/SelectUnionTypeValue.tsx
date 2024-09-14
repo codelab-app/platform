@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createValidator } from '@codelab/frontend/shared/utils'
@@ -24,7 +23,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   )
 
   const { type, value } = fieldProps.value ?? {}
-  const schemas = fieldProps.field.oneOf as Array<JSONSchemaType<any>>
+  const schemas = fieldProps.field.oneOf as Array<JSONSchemaType<unknown>>
 
   if (!schemas.length) {
     return null

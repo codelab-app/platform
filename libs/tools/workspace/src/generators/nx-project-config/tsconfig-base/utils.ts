@@ -1,5 +1,5 @@
 import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 
 export const sortKeys = (object: object): object =>
   Object.fromEntries(Object.entries(object).sort())
@@ -36,7 +36,7 @@ export const appendTsconfigPath = (
 
     const paths = json.compilerOptions.paths ?? {}
 
-    merge(paths, {
+    mergeDeep(paths, {
       [moduleAlias]: [targetPath],
     })
 

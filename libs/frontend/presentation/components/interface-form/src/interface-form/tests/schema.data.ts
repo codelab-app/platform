@@ -1,5 +1,5 @@
 /// <reference types='jest'/>
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
   actionType,
@@ -75,14 +75,14 @@ export const arrayTypeExpectedSchema = {
 
 export const unionTypeExpectedSchema = {
   oneOf: [
-    merge(
+    mergeDeep(
       {
         ...createTypedPropTypeExpectedSchema(stringType.kind, stringType.id),
         typeName: stringType.name,
       },
       { properties: { value: stringTypeExpectedSchema } },
     ),
-    merge(
+    mergeDeep(
       {
         ...createTypedPropTypeExpectedSchema(intType.kind, intType.id),
         typeName: intType.name,

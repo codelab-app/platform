@@ -11,7 +11,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, itemType, kind, name }: IArrayTypeDto): ArrayType => {
@@ -54,20 +54,28 @@ export class ArrayType
 
   toJsonSchema({
     defaultValues,
+    fieldName,
+    uniformSchema,
     validationRules,
   }: ITypeTransformContext): JsonSchema {
     return {
       items: this.itemType?.isValid
-        ? this.itemType.current.toJsonSchema({})
+        ? this.itemType.current.toJsonSchema({
+            defaultValues,
+            fieldName,
+            uniformSchema,
+            validationRules,
+          })
         : {},
       type: 'array',
+      ...(uniformSchema?.(this) ?? {}),
       ...validationRules?.general,
       default: defaultValues,
     }
   }
 
   toUpdateInput() {
-    return merge(
+    return mergeDeep(
       {
         disconnect: this.itemType?.id
           ? {

@@ -15,7 +15,7 @@ import { evaluateObject } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 
 const create = ({ action, runtimeStore }: IRuntimeActionDTO) =>
   new RuntimeActionModel({ action, runtimeStore })
@@ -48,7 +48,7 @@ export class RuntimeActionModel
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     return async function (...args: Array<unknown>) {
       const overrideConfig = args[1]
-      const config = merge(action.config.values, overrideConfig)
+      const config = mergeDeep(action.config.values, overrideConfig)
       // @ts-expect-error: due to not using arrow function
       const _this = this as IRuntimeContext
       const context = { ..._this, args }

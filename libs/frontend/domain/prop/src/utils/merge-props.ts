@@ -1,5 +1,5 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import { filter, isTruthy, merge, omit } from 'remeda'
+import { filter, isTruthy, mergeDeep, omit } from 'remeda'
 
 /**
  *  Deep merges a list of props together, the latter props have priority over the prior ones in case of conflict
@@ -33,6 +33,6 @@ export const mergeProps = <T extends IPropData>(
     /**
      * Merge all props except className, since we already set earlier
      */
-    return merge(acc, omit(cur, ['className']))
+    return mergeDeep(acc, omit(cur, ['className']))
   }, {} as { className?: string }) as T
 }

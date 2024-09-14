@@ -5,7 +5,7 @@ import {
 import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { Domain } from '../store'
 
 @model('@codelab/DomainDomainService')
@@ -19,7 +19,7 @@ export class DomainDomainService
   get domainsJson() {
     return this.domainsList
       .map((domain) => domain.toJson)
-      .reduce((acc, cur) => merge(acc, cur), {})
+      .reduce((acc, cur) => mergeDeep(acc, cur), {})
   }
 
   @computed

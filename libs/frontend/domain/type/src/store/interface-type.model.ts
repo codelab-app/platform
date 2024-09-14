@@ -23,7 +23,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { sortFieldsArray } from '../shared'
 import { createBaseType } from './base-type.model'
 
@@ -74,7 +74,7 @@ export class InterfaceType
     // object keys length is used for cache busting in runtimeStore.state
     return this.fields
       .map((field) => ({ [field.key]: field.defaultValues ?? undefined }))
-      .reduce<IPropData>((acc, cur) => merge(acc, cur), {})
+      .reduce<IPropData>((acc, cur) => mergeDeep(acc, cur), {})
   }
 
   @computed
@@ -126,7 +126,15 @@ export class InterfaceType
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       properties: this.fields.reduce(
-        (all, field) => ({ ...all, [field.key]: field.toJsonSchema(context) }),
+        (all, field) => ({
+          ...all,
+          [field.key]: field.toJsonSchema({
+            defaultValues: field.defaultValues,
+            fieldName: field.key,
+            uniformSchema: context.uniformSchema,
+            validationRules: field.validationRules,
+          }),
+        }),
         {},
       ),
       required: this.fields

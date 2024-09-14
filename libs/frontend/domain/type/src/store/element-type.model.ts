@@ -9,7 +9,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
@@ -54,7 +54,7 @@ export class ElementType
   }
 
   toUpdateInput() {
-    return merge(
+    return mergeDeep(
       {
         ...super.toUpdateInput(),
         update: {

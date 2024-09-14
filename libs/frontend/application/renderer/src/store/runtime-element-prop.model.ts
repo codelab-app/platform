@@ -29,7 +29,7 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement, ReactNode } from 'react'
-import { merge, pathOr, prop as rProp, stringToPath } from 'remeda'
+import { mergeDeep, pathOr, stringToPath } from 'remeda'
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
 const create = (dto: IRuntimeElementPropDTO) =>
@@ -293,7 +293,7 @@ export class RuntimeElementPropsModel
       .map((runtimeAction) => ({
         [runtimeAction.action.current.name]: runtimeAction.runner.bind(context),
       }))
-      .reduce((acc, cur) => merge(acc, cur), {} as IPropData)
+      .reduce((acc, cur) => mergeDeep(acc, cur), {} as IPropData)
   }
 
   @computed

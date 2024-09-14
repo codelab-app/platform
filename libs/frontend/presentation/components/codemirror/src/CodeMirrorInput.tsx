@@ -7,7 +7,7 @@ import type { EditorView, ViewUpdate } from '@codemirror/view'
 import type { ReactCodeMirrorProps } from '@uiw/react-codemirror'
 import { useCodeMirror } from '@uiw/react-codemirror'
 import { Fragment, useEffect, useRef, useState } from 'react'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import type { CodeMirrorModalProps } from './CodeMirrorModal'
 import { CodeMirrorModal } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
@@ -51,7 +51,7 @@ export const CodeMirrorInput = ({
     editorRef,
     overWriteOpts?,
   ) =>
-    merge(
+    mergeDeep(
       {
         ...props,
         basicSetup: false,

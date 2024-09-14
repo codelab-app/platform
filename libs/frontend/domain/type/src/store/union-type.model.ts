@@ -10,7 +10,7 @@ import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
@@ -62,26 +62,22 @@ export class UnionType
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       oneOf: this.typesOfUnionType.map((innerType) => {
-        const typeSchema = innerType.current.toJsonSchema({})
+        const typeSchema = innerType.current.toJsonSchema(context)
 
-        return typeSchema.isTypedProp
-          ? {
-              ...typeSchema,
-              typeName: innerType.current.name,
-            }
-          : merge(
-              {
-                ...typedPropSchema(innerType.current, {}),
-                typeName: innerType.current.name,
-              },
-              { properties: { value: typeSchema } },
-            )
+        return mergeDeep(
+          {
+            ...typedPropSchema(innerType.current, {}),
+            typeName: innerType.current.name,
+          },
+          { properties: { value: typeSchema } },
+        )
       }),
+      ...(context.uniformSchema?.(this) ?? {}),
     }
   }
 
   toUpdateInput() {
-    return merge(
+    return mergeDeep(
       {
         disconnect: {
           typesOfUnionType: makeAllTypes({
