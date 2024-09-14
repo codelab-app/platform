@@ -4,7 +4,7 @@ import type {
   IUnionTypeModel,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import { typeRef } from '@codelab/frontend/abstract/domain'
+import { isTypedProp, typeRef } from '@codelab/frontend/abstract/domain'
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain'
@@ -64,13 +64,18 @@ export class UnionType
       oneOf: this.typesOfUnionType.map((innerType) => {
         const typeSchema = innerType.current.toJsonSchema(context)
 
-        return mergeDeep(
-          {
-            ...typedPropSchema(innerType.current, {}),
-            typeName: innerType.current.name,
-          },
-          { properties: { value: typeSchema } },
-        )
+        return typeSchema.isTypedProp
+          ? {
+              ...typedPropSchema(innerType.current, context),
+              typeName: innerType.current.name,
+            }
+          : mergeDeep(
+              {
+                ...typedPropSchema(innerType.current, {}),
+                typeName: innerType.current.name,
+              },
+              { properties: { value: typeSchema } },
+            )
       }),
       ...(context.uniformSchema?.(this) ?? {}),
     }

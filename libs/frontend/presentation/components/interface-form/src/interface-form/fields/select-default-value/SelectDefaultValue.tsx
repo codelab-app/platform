@@ -73,10 +73,7 @@ export const SelectDefaultValue = () => {
     }
 
     if (type?.kind === ITypeKind.UnionType) {
-      defaultValues = {
-        kind: type.typesOfUnionType[0]?.current.kind,
-        type: type.typesOfUnionType[0]?.id,
-      }
+      defaultValues = ''
       // Sets initial value of `defaultValues` in the parent form model
       context.onChange('defaultValues', defaultValues)
     }

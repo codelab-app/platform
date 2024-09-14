@@ -23,11 +23,15 @@ export const typedPropSchema = (
         default: kind,
         enum: [kind],
         type: 'string',
+        uniforms: {
+          component: () => null,
+        },
       },
       type: {
         default: id,
         enum: [id],
         type: 'string',
+        uniforms: { component: () => null },
       },
       value: {
         label: fieldName ?? '',

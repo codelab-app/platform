@@ -40,6 +40,7 @@ export interface JsonSchema extends JSONSchema7 {
         [key: string]: JSONSchema7Definition & {
           label?: Nullable<string>
           autocomplete?: IPropData
+          uniforms?: ObjectLike
         }
       }
     | undefined
