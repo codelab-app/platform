@@ -49,7 +49,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       >
         <BaseAutoForm<TData>
           autosave={autosave}
-          autosaveDelay={250}
+          autosaveDelay={500}
           data-cy={Cui.cuiForm(uiKey)}
           errorsField={() => <ErrorsField />}
           model={autosave ? modelRef.current : model}

@@ -9,10 +9,10 @@ export const editorStyles = css`
 
 export const ExpandButton = styled(Button)`
   position: absolute !important;
-  bottom: 2px;
-  right: 2px;
-  width: 20px;
-  height: 20px;
+  bottom: 3px;
+  right: 3px;
+  width: 25px !important;
+  height: calc(100% - 6px);
   opacity: 0.5;
 `
 

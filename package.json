@@ -258,6 +258,7 @@
     "uniforms": "3.10.2",
     "uniforms-antd": "3.10.2",
     "uniforms-bridge-json-schema": "3.10.2",
+    "use-custom-compare": "^1.4.0",
     "use-resize-observer": "8.0.0",
     "uuid": "8.3.2",
     "vaul": "^0.9.1",

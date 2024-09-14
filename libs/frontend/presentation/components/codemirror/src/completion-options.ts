@@ -12,7 +12,9 @@ const getOptions = (
   sectionName: string,
 ): Array<Completion> =>
   Object.entries(ctx).flatMap(([key, value]) => {
-    const fullKey = `${parentKey}.${key}`
+    const fullKey = key.includes('-')
+      ? `${parentKey}['${key}']`
+      : `${parentKey}.${key}`
 
     const option: Completion = {
       detail: capitalize(typeof value),
