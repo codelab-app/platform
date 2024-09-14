@@ -128,7 +128,7 @@ import { Validator } from '@codelab/shared/infra/schema'
 
     const optionsWithImage = atomOptions.map(({ label, value }) => {
       return {
-        __typename: IElementRenderTypeKind.Component,
+        __typename: IElementRenderTypeKind.Atom,
         icon: DeploymentUnitOutlined,
         label,
         text: label,
