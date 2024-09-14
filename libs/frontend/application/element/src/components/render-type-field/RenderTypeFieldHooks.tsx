@@ -44,6 +44,7 @@ export const useRenderTypeSelectOptions = (
           <Icon className="pr-2" /> {text}
         </>
       ),
+      text,
     }
   })
 }
