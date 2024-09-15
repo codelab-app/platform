@@ -43,4 +43,5 @@ export interface IPaginationService<T extends SupportedPaginationModel> {
   totalItems: number
   totalPages: number
   getData(): Promise<Array<T>>
+  setTotalItems(totalPages: number): void
 }

@@ -114,7 +114,7 @@ export const useAtomService = (): IAtomService => {
       items: atoms,
     } = await atomRepository.find(where, options)
 
-    atomPagination.totalItems = count
+    atomPagination.setTotalItems(count)
 
     if (!isEmpty(where ?? {}) || options?.limit) {
       typeDomainService.hydrateTypes({
