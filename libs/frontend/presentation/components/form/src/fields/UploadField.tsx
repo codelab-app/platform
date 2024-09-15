@@ -1,3 +1,5 @@
+'use client'
+
 import { notify } from '@codelab/frontend/shared/utils'
 import type { DraggerProps } from 'antd/lib/upload/Dragger'
 import Dragger from 'antd/lib/upload/Dragger'

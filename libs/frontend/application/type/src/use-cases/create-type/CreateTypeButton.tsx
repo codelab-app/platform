@@ -1,3 +1,5 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

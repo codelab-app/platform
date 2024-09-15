@@ -1,3 +1,5 @@
+'use client'
+
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { observer } from 'mobx-react-lite'

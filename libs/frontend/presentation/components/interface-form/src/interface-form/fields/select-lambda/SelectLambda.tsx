@@ -1,3 +1,5 @@
+'use client'
+
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { SelectField } from 'uniforms-antd'
 // import { useGetLambdasForSelectQuery } from '../../../store/typeEndpoints'

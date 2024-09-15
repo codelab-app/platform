@@ -1,3 +1,5 @@
+'use client'
+
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { getSelectPageOptions } from '@codelab/frontend-domain-page/repositories'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'

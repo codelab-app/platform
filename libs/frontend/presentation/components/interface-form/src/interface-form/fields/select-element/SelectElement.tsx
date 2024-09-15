@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable react/jsx-props-no-spreading */
 import type { SelectElementOption } from '@codelab/frontend/abstract/domain'
 import { getSelectElementOptions } from '@codelab/frontend-domain-element/repositories'

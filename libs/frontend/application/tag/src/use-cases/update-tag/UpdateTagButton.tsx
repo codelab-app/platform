@@ -1,3 +1,5 @@
+'use client'
+
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import type { IRef } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'

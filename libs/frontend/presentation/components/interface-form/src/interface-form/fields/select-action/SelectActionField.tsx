@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'

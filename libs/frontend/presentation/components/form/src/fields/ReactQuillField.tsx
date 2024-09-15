@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactQuill } from '@codelab/frontend-presentation-components-reactquill'
 import type { RefSelectProps } from 'antd'
 import type { Ref } from 'react'

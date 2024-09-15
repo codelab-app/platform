@@ -1,3 +1,5 @@
+'use client'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { type IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { Button } from 'antd'

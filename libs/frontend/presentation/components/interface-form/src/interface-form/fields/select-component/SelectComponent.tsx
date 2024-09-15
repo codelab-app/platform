@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
