@@ -1,4 +1,4 @@
-import type { JsonSchema, TypedProp } from '@codelab/frontend/abstract/domain'
+import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createValidator } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend-presentation-components-form'
