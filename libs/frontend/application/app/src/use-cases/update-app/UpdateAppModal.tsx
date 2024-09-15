@@ -2,11 +2,6 @@
 
 import type { IUpdateAppData } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import {
-  createFormErrorNotificationHandler,
-  notify,
-} from '@codelab/frontend/shared/utils'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
@@ -18,7 +13,6 @@ export const UpdateAppModal = observer(() => {
   const appService = useAppService()
   const updateAppModal = useUpdateAppModal()
   const app = updateAppModal.data?.app
-  const { setLoading } = useLoading()
 
   if (!app) {
     return null
@@ -29,17 +23,8 @@ export const UpdateAppModal = observer(() => {
     name: app.name,
   }
 
-  const onSubmit = async (data: IUpdateAppData) => {
-    void appService
-      .update(data)
-      .then(() =>
-        notify({ title: 'App updated successfully', type: 'success' }),
-      )
-      .catch(() => notify({ title: 'Error while updating app', type: 'error' }))
-      .finally(() => setLoading(false))
-  }
-
-  const closeModal = () => updateAppModal.close()
+  const onSubmit = appService.update
+  const closeModal = updateAppModal.close
 
   return (
     <ModalForm.Modal
@@ -49,13 +34,12 @@ export const UpdateAppModal = observer(() => {
       uiKey={UiKey.UpdateAppModal}
     >
       <ModalForm.Form<IUpdateAppData>
+        errorMessage="Error while updating app"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while updating app',
-        })}
-        onSubmitSuccess={closeModal}
+        onSubmitOptimistic={closeModal}
         schema={updateAppSchema}
+        successMessage="App updated successfully"
       >
         <AutoFields />
       </ModalForm.Form>

@@ -39,6 +39,9 @@ export const notify = <TEvent>(
     description: resolvedDescription,
     message: resolvedTitle,
     placement: 'topRight',
+    // do not close error notification automatically.
+    // let users more time to read and analize error decription.
+    ...(type === 'error' ? { duration: null } : null),
   })
 
   /**

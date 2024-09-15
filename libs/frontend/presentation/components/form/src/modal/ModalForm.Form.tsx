@@ -1,6 +1,6 @@
 'use client'
 
-import type { FormProps } from '@codelab/frontend/abstract/types'
+import type { FormProps, VoidCallback } from '@codelab/frontend/abstract/types'
 import {
   connectUniformSubmitRef,
   createBridge,
@@ -10,36 +10,42 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { throttle } from 'radash'
 import type { ReactElement } from 'react'
 import { useContext, useEffect, useState } from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
-import { handleFormSubmit } from '../components/utils'
+import {
+  handleFormSubmit,
+  usePostSubmissionHandlers,
+} from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
-/**
- * @param onSubmit The fact Uniform types this as `DeepPartial` causes a lot of issue.
- *
- * We don't actually want to use `DeepPartial` because we want to specific the correct shape.
- *
- * But using without `DeepPartial` causes some casting down the line
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Form = <TData extends ObjectLike, TResponse = unknown>({
-  autosave = false,
-  children,
-  model,
-  modelTransform,
-  onChange,
-  onChangeModel,
-  onSubmit,
-  onSubmitError = [],
-  onSubmitSuccess = [],
-  schema,
-}: React.PropsWithChildren<
-  // Only standalone form should have `uiKey`
-  Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
->): ReactElement => {
+export interface OptimisticFormProps<TData, TResponse>
+  extends React.PropsWithChildren<
+    // Only standalone form should have `uiKey`
+    Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
+  > {
+  errorMessage?: string
+  onSubmitOptimistic?: ArrayOrSingle<VoidCallback<Promise<TResponse>>>
+  successMessage?: string
+}
+
+export const Form = <TData extends ObjectLike, TResponse = unknown>(
+  props: OptimisticFormProps<TData, TResponse>,
+): ReactElement => {
+  const {
+    autosave = false,
+    children,
+    model,
+    modelTransform,
+    onChange,
+    onChangeModel,
+    onSubmit,
+    schema,
+  } = props
+
   const { setIsLoading, submitRef } = useContext(ModalFormContext)
   const { setLoading } = useLoading()
+  const handlers = usePostSubmissionHandlers<TData, TResponse>(props)
 
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge<TData>(schema),
@@ -65,8 +71,9 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>({
             setIsLoading(isLoading)
             setLoading(isLoading)
           },
-          onSubmitSuccess,
-          onSubmitError,
+          handlers.onSubmitSuccess,
+          handlers.onSubmitError,
+          handlers.onSubmitOptimistic,
         ),
       )}
       ref={connectUniformSubmitRef(submitRef)}
