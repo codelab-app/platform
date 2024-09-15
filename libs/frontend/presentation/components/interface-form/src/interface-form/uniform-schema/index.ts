@@ -19,7 +19,7 @@ import { selectComponentUniformSchema } from './select-component-uniform.schema'
 import { unionTypeUniformSchema } from './union-type-uniform.schema'
 
 export type InterfaceFormContext = ITypeTransformContext & {
-  autocomplete: IRuntimeContext
+  autocomplete?: IRuntimeContext
 }
 
 // Handles all 'ui' json schema properties that should be added for specific types
