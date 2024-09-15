@@ -1,4 +1,4 @@
-import type { TypedProp } from '@codelab/frontend/abstract/domain'
+import type { JsonSchema, TypedProp } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createValidator } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend-presentation-components-form'
@@ -51,7 +51,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
     ? schemas.find((schema) => schema.properties.type.default === type)
     : schemas[0]
 
-  const valueSchema = {
+  const valueSchema: JSONSchemaType<{ value: unknown }> = {
     label: '',
     properties: {
       value: currentSchema?.properties.value,
@@ -92,7 +92,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
               }
             }}
             onSubmit={() => Promise.resolve()}
-            schema={valueSchema as any}
+            schema={valueSchema}
             uiKey={UiKey.SelectUnionTypeValueFieldForm}
           >
             <AutoField data-testid={valueFieldName} name="value" />
