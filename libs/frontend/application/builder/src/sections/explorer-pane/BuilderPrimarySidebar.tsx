@@ -226,8 +226,8 @@ export const BuilderPrimarySidebar = observer<{
       <DeleteFieldModal />
       <DeleteComponentModal />
       <DeleteElementModal
-        selectPreviousElementOnDelete={
-          builderService.selectPreviousElementOnDelete
+        selectPreviousElementOnDelete={() =>
+          builderService.selectPreviousElementOnDelete()
         }
       />
       <DeleteActionModal />
