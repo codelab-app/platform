@@ -1,13 +1,13 @@
 import type {
   IEnumType,
   IEnumTypeValue,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IEnumTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { createBaseType } from './base-type.model'
 import { EnumTypeValue } from './enum-type-value.model'
 
@@ -63,18 +63,20 @@ export class EnumType
 
   toJsonSchema({
     defaultValues,
+    uniformSchema,
     validationRules,
-  }: TransformContext): JsonSchema {
+  }: ITypeTransformContext): JsonSchema {
     return {
       enum: this.allowedValues.map((allowedValue) => allowedValue.value),
       type: 'string',
       ...validationRules?.general,
+      ...(uniformSchema?.(this) ?? {}),
       default: defaultValues,
     }
   }
 
   toUpdateInput() {
-    return merge(
+    return mergeDeep(
       {
         // For some reason if the disconnect and delete are in the update section it throws an error
         delete: {

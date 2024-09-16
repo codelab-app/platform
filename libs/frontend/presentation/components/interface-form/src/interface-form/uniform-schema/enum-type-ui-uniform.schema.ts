@@ -1,19 +1,15 @@
 import type { IEnumType } from '@codelab/frontend/abstract/domain'
-import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
+import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
-import type { UiPropertiesFn } from '../types'
 
-export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
-  type: IEnumType,
-  context,
-) => {
+export const enumTypeUniformSchema: ITypeModelUniformSchemaBuilder<
+  IEnumType
+> = (type, autocomplete) => {
   return {
     enum: type.allowedValues.map((allowedValue) => allowedValue.value),
     uniforms: {
       component: ToggleExpressionField({
-        autocomplete: context?.autocomplete
-          ? createAutoCompleteOptions(context.autocomplete)
-          : undefined,
+        autocomplete,
         onToggle: (showExpression, { field, onChange, value }, lastValue) => {
           if (showExpression) {
             onChange(lastValue ?? `{{'${value ?? field.default ?? ''}'}}`)

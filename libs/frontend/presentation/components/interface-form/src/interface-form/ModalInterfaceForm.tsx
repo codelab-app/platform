@@ -1,7 +1,6 @@
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { useContext } from 'react'
-import { InterfaceForm } from './InterfaceForm'
-import type { InterfaceFormProps } from './types'
+import { InterfaceForm, type InterfaceFormProps } from './InterfaceForm'
 
 type ModalInterfaceFormProps = React.PropsWithChildren<
   InterfaceFormProps<unknown, unknown>

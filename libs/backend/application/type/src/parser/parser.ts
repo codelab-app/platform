@@ -1,7 +1,7 @@
 import type { IAntDesignField } from '@codelab/backend/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { stripQuotes } from '@codelab/shared/utils'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { stripBracketsRegex } from './matchers'
 
 /**
@@ -28,7 +28,7 @@ export const extractObjectFromString = (object: string): ObjectLike => {
 
         return { [`${key}`]: value }
       })
-      .reduce((acc, curr) => merge(acc, curr), {}) ?? {}
+      .reduce((acc, curr) => mergeDeep(acc, curr), {}) ?? {}
   )
 }
 

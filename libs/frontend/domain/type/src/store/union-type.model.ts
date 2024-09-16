@@ -1,16 +1,16 @@
 import type {
   ITypeModel,
+  ITypeTransformContext,
   IUnionTypeModel,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
-import { typeRef } from '@codelab/frontend/abstract/domain'
+import { isTypedProp, typeRef } from '@codelab/frontend/abstract/domain'
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
@@ -59,17 +59,17 @@ export class UnionType
     }
   }
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       oneOf: this.typesOfUnionType.map((innerType) => {
-        const typeSchema = innerType.current.toJsonSchema({})
+        const typeSchema = innerType.current.toJsonSchema(context)
 
         return typeSchema.isTypedProp
           ? {
-              ...typeSchema,
+              ...typedPropSchema(innerType.current, context),
               typeName: innerType.current.name,
             }
-          : merge(
+          : mergeDeep(
               {
                 ...typedPropSchema(innerType.current, {}),
                 typeName: innerType.current.name,
@@ -77,11 +77,12 @@ export class UnionType
               { properties: { value: typeSchema } },
             )
       }),
+      ...(context.uniformSchema?.(this) ?? {}),
     }
   }
 
   toUpdateInput() {
-    return merge(
+    return mergeDeep(
       {
         disconnect: {
           typesOfUnionType: makeAllTypes({

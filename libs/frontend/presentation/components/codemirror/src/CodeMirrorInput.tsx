@@ -49,8 +49,9 @@ export const CodeMirrorInput = ({
 
   const setupFactory: CodeMirrorModalProps['setupFactory'] = (
     editorRef,
-    overWriteOpts?,
+    overWriteOpts = {},
   ) =>
+    // TODO: if we need to use mergeDeep then we need to change typing
     merge(
       {
         ...props,
@@ -62,7 +63,7 @@ export const CodeMirrorInput = ({
         onUpdate,
         value,
       },
-      overWriteOpts,
+      { ...overWriteOpts },
     )
 
   const { setContainer } = useCodeMirror(setupFactory(editor))

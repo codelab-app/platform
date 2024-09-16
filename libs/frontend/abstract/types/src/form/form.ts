@@ -1,4 +1,9 @@
-import type { Callback, Maybe } from '@codelab/shared/abstract/types'
+import type {
+  Callback,
+  Maybe,
+  ObjectLike,
+} from '@codelab/shared/abstract/types'
+import type { Completion } from '@codemirror/autocomplete'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'
 import type { ArrayOrSingle } from 'ts-essentials'
@@ -70,3 +75,8 @@ export interface SubmitController {
   submit(): void
   validate?(): void
 }
+
+export type ITypeModelUniformSchemaBuilder<IType> = (
+  type: IType,
+  autocomplete?: Array<Completion>,
+) => { uniforms: ObjectLike }

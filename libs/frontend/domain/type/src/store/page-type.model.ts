@@ -1,7 +1,7 @@
 import type {
   IPageTypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IPageTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -22,7 +22,7 @@ export class PageType
 {
   public static create = create
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }
 }

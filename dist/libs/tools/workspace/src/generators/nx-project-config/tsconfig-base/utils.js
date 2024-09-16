@@ -25,7 +25,7 @@ const appendTsconfigPath = (tree, project, moduleAlias, targetPath) => {
             [moduleAlias]: [targetPath],
         });
         const paths = json.compilerOptions.paths ?? {};
-        (0, remeda_1.merge)(paths, {
+        (0, remeda_1.mergeDeep)(paths, {
             [moduleAlias]: [targetPath],
         });
         json.compilerOptions.paths = (0, exports.sortKeys)(paths);

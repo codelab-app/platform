@@ -4,7 +4,7 @@ import {
   primitiveTypeSelectionSchema,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 
 export const createRjsfTypeSchema: JSONSchemaType<{
   typeSelection: ITypeKind
@@ -21,12 +21,12 @@ export const createRjsfTypeSchema: JSONSchemaType<{
   dependencies: {
     typeSelection: {
       oneOf: [
-        merge(primitiveTypeSelectionSchema, {
+        mergeDeep(primitiveTypeSelectionSchema, {
           properties: {
             typeSelection: { enum: [ITypeKind.PrimitiveType] },
           },
         }),
-        merge(interfaceTypeSchema, {
+        mergeDeep(interfaceTypeSchema, {
           properties: {
             typeSelection: { enum: [ITypeKind.InterfaceType] },
           },

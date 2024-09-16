@@ -1,7 +1,7 @@
 import type {
   IRichTextTypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -26,7 +26,7 @@ export class RichTextType
 {
   public static create = create
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }
 }

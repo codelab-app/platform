@@ -9,13 +9,16 @@ import type {
   IApiActionModel,
   ICodeActionModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
+import type {
+  IPropData,
+  IResourceFetchConfig,
+} from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { evaluateObject } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 
 const create = ({ action, runtimeStore }: IRuntimeActionDTO) =>
   new RuntimeActionModel({ action, runtimeStore })
@@ -46,9 +49,9 @@ export class RuntimeActionModel
     const resource = action.resource.current
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    return async function (...args: Array<unknown>) {
-      const overrideConfig = args[1]
-      const config = merge(action.config.values, overrideConfig)
+    return async function (...args: Array<IPropData>) {
+      const overrideConfig = args[1] ?? {}
+      const config = mergeDeep(action.config.values, overrideConfig)
       // @ts-expect-error: due to not using arrow function
       const _this = this as IRuntimeContext
       const context = { ..._this, args }

@@ -2,6 +2,7 @@
 import { Validator } from '@codelab/shared/infra/schema'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { debug } from 'console'
 import { Fragment } from 'react'
 import { InterfaceForm } from '../InterfaceForm'
 import {
@@ -79,6 +80,7 @@ describe('InterfaceForm', () => {
       />,
     )
 
+    debug()
     // Check unionField is rendered
     expect(
       container.querySelector('[name="unionField.type"]'),

@@ -1,18 +1,14 @@
 import type { IArrayTypeModel } from '@codelab/frontend/abstract/domain'
-import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
+import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
-import type { UiPropertiesFn } from '../types'
 
-export const arrayTypeUiProperties: UiPropertiesFn<IArrayTypeModel> = (
-  type,
-  context,
-) => {
+export const arrayTypeUniformSchema: ITypeModelUniformSchemaBuilder<
+  IArrayTypeModel
+> = (type, autocomplete) => {
   return {
     uniforms: {
       component: ToggleExpressionField({
-        autocomplete: context?.autocomplete
-          ? createAutoCompleteOptions(context.autocomplete)
-          : undefined,
+        autocomplete,
         onToggle: (showExpression, { onChange, value }, lastValue) => {
           if (showExpression) {
             onChange(lastValue ?? `{{${JSON.stringify(value ?? [])}}}`)

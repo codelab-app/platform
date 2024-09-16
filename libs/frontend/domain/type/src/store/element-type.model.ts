@@ -1,7 +1,7 @@
 import type {
   IElementTypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type {
   IElementTypeDto,
@@ -9,7 +9,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { merge } from 'remeda'
+import { mergeDeep } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
@@ -49,12 +49,12 @@ export class ElementType
     }
   }
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }
 
   toUpdateInput() {
-    return merge(
+    return mergeDeep(
       {
         ...super.toUpdateInput(),
         update: {

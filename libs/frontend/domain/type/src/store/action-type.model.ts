@@ -1,7 +1,7 @@
 import type {
   IActionTypeModel,
+  ITypeTransformContext,
   JsonSchema,
-  TransformContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IActionTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -23,7 +23,7 @@ export class ActionType
 {
   static create = create
 
-  toJsonSchema(context: TransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }
 }
