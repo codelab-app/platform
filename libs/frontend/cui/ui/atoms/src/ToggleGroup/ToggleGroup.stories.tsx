@@ -3,7 +3,6 @@ import {
   FontItalicIcon,
   UnderlineIcon,
 } from '@radix-ui/react-icons'
-import React from 'react'
 import { ToggleGroup, ToggleGroupItem } from './ToggleGroup'
 
 export default {

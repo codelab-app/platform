@@ -1,4 +1,3 @@
-import React from 'react'
 import { toast } from 'sonner'
 import { Button } from '../Button'
 import { Toaster } from './Sonner'

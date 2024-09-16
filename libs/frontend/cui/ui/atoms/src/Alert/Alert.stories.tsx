@@ -1,5 +1,4 @@
 import { RocketIcon } from '@radix-ui/react-icons'
-import React from 'react'
 import { Alert, AlertDescription, AlertTitle } from './Alert'
 
 export default {

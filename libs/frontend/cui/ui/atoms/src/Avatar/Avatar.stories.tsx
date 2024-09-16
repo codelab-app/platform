@@ -1,4 +1,3 @@
-import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './Avatar'
 
 export default {

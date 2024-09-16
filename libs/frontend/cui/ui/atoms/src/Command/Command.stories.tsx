@@ -6,7 +6,6 @@ import {
   PersonIcon,
   RocketIcon,
 } from '@radix-ui/react-icons'
-import React from 'react'
 import {
   Command,
   CommandEmpty,

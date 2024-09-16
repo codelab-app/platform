@@ -1,4 +1,3 @@
-import React from 'react'
 import { Separator } from '../Separator/Separator'
 import { ScrollArea } from './ScrollArea'
 

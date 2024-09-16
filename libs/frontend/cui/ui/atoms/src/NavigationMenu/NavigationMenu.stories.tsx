@@ -1,5 +1,5 @@
 import { cn } from '@cui/utils'
-import React from 'react'
+import { forwardRef } from 'react'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -118,7 +118,7 @@ export const NavigationMenuDemo = () => {
   )
 }
 
-const ListItem = React.forwardRef<
+const ListItem = forwardRef<
   React.ElementRef<'a'>,
   React.ComponentPropsWithoutRef<'a'>
 >(({ children, className, title, ...props }, ref) => {

@@ -1,5 +1,5 @@
 import { CaretSortIcon } from '@radix-ui/react-icons'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button } from '../Button'
 import {
   Collapsible,
@@ -32,14 +32,14 @@ const CollapsibleDemo = () => {
           </Button>
         </CollapsibleTrigger>
       </div>
-      <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+      <div className="font-mono rounded-md border px-4 py-2 text-sm shadow-sm">
         @radix-ui/primitives
       </div>
       <CollapsibleContent className="space-y-2">
-        <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+        <div className="font-mono rounded-md border px-4 py-2 text-sm shadow-sm">
           @radix-ui/colors
         </div>
-        <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+        <div className="font-mono rounded-md border px-4 py-2 text-sm shadow-sm">
           @stitches/react
         </div>
       </CollapsibleContent>

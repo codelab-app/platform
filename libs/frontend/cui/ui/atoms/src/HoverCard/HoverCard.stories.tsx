@@ -1,5 +1,4 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
-import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../Avatar'
 import { Button } from '../Button'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './HoverCard'
