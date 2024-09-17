@@ -313,7 +313,6 @@
     "@storybook/addon-interactions": "8.2.9",
     "@storybook/addon-themes": "^8.1.11",
     "@storybook/core-common": "8.1.11",
-
     "@storybook/core-server": "8.1.11",
     "@storybook/jest": "^0.2.3",
     "@storybook/nextjs": "8.1.11",
