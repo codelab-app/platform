@@ -3,7 +3,11 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/design-system/src",
   "projectType": "library",
-  "tags": ["scope:frontend"],
+  "tags": [
+    "projectName:design-system",
+    "projectType:application",
+    "type:concrete"
+  ],
   "targets": {
     "storybook": {
       "executor": "@nx/storybook:storybook",
