@@ -1,5 +1,4 @@
 import { Form } from '@cui/ui-atoms'
-import React from 'react'
 import {
   type FieldValues,
   type SubmitHandler,

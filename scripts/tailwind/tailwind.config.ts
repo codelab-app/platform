@@ -46,6 +46,7 @@ const config: Config = {
     fontFamily: {
       body: ['Nunito'],
       display: ['Montserrat'],
+      mono: ['ui-monospace', 'SFMono-Regular'],
     },
     container: {
       center: true,
