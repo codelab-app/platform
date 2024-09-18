@@ -1,5 +1,9 @@
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import { callbackWithParams, notify } from '@codelab/frontend/shared/utils'
+import {
+  callbackWithParams,
+  useErrorNotify,
+  useSuccessNotify,
+} from '@codelab/frontend/shared/utils'
 import type { MouseEvent } from 'react'
 import type { DeepPartial } from 'uniforms'
 import type { OptimisticFormProps } from '../modal/ModalForm.Form'
@@ -11,55 +15,19 @@ type OnSubmitOptimistic<TData, TResponse> = OptimisticFormProps<
   TResponse
 >['onSubmitOptimistic']
 
-type OnSubmitSuccess<TData, TResponse> = OptimisticFormProps<
-  TData,
-  TResponse
->['onSubmitSuccess']
-
-type OnSubmitError<TData, TResponse> = OptimisticFormProps<
-  TData,
-  TResponse
->['onSubmitError']
-
 export const handleFormSubmit = <TData, TResponse>(
   onSubmit: FormProps<TData, TResponse>['onSubmit'],
   setIsLoading?: SetIsLoading,
-  onSubmitSuccess?: OnSubmitSuccess<TData, TResponse>,
-  onSubmitError?: OnSubmitError<TData, TResponse>,
-  onSubmitOptimistic?: OnSubmitOptimistic<TData, TResponse>,
+  onSubmitOptimistic: OnSubmitOptimistic<TData, TResponse> = [],
 ) => {
   return async (formData: DeepPartial<TData>) => {
-    /**
-     * Set loading indicators. For optimistic updates, the promises are not awaited here, we set loading state in the callback of services called
-     */
     setIsLoading?.(true)
 
-    try {
-      const submitPromise = onSubmit(formData as TData)
+    const submitPromise = onSubmit(formData as TData) as Promise<TResponse>
 
-      if (onSubmitOptimistic) {
-        callbackWithParams(
-          onSubmitOptimistic,
-          submitPromise as Promise<TResponse>,
-        )
-      }
+    callbackWithParams(onSubmitOptimistic, submitPromise)
 
-      const result = await submitPromise
-
-      if (onSubmitSuccess) {
-        callbackWithParams(onSubmitSuccess, result as TResponse)
-      }
-    } catch (err: unknown) {
-      console.error(err)
-
-      if (onSubmitError) {
-        callbackWithParams(onSubmitError, err)
-      }
-    } finally {
-      setIsLoading?.(false)
-    }
-
-    return null
+    return submitPromise.finally(() => setIsLoading?.(false))
   }
 }
 
@@ -85,34 +53,19 @@ export const handleSubmitRefModalOk = (
 }
 
 export const usePostSubmissionHandlers = <TData, TResponse>({
-  errorMessage,
+  errorMessage = 'Error submitting form',
   onSubmitError = [],
-  onSubmitOptimistic = [],
   onSubmitSuccess = [],
-  successMessage,
+  successMessage = 'Form submitted successfully',
 }: OptimisticFormProps<TData, TResponse>) => {
-  const notifyError = (error: unknown) =>
-    notify({
-      description: (error as Error).message,
-      title: errorMessage ?? 'Error submitting form',
-      type: 'error',
-    })
-
-  const notifySuccess = () =>
-    notify({
-      title: successMessage ?? 'Form submitted successfully',
-      type: 'success',
-    })
+  const notifyError = useErrorNotify({ title: errorMessage })
+  const notifySuccess = useSuccessNotify({ title: successMessage })
+  const errorHandlers = [console.error, notifyError, onSubmitError].flat()
+  const successHandlers = [notifySuccess, onSubmitSuccess].flat()
 
   return {
-    onSubmitError: [
-      notifyError,
-      ...(Array.isArray(onSubmitError) ? onSubmitError : [onSubmitError]),
-    ],
-    onSubmitOptimistic,
-    onSubmitSuccess: [
-      notifySuccess,
-      ...(Array.isArray(onSubmitSuccess) ? onSubmitSuccess : [onSubmitSuccess]),
-    ],
+    onSubmitError: (error: unknown) => callbackWithParams(errorHandlers, error),
+    onSubmitSuccess: (result: TResponse) =>
+      callbackWithParams(successHandlers, result),
   }
 }

@@ -2,7 +2,7 @@ import type { Notification } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
 import { isFunction } from 'remeda'
 
-interface NotifyOptions<TEvent>
+export interface NotifyOptions<TEvent>
   extends Omit<Notification<TEvent>, 'description'> {
   // make description optional, so that we do not need to explicitly
   // pass { description: '' } if we do not need it

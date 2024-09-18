@@ -69,12 +69,7 @@ export const InterfaceForm = observer(
         autosave={autosave}
         model={model}
         onChange={onChange}
-        onSubmit={handleFormSubmit<TData, TResponse>(
-          onSubmit,
-          setIsLoading,
-          onSubmitSuccess,
-          onSubmitError,
-        )}
+        onSubmit={handleFormSubmit<TData, TResponse>(onSubmit, setIsLoading)}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={formSchema as JSONSchemaType<unknown>}

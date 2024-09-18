@@ -47,6 +47,15 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
   const { setLoading } = useLoading()
   const handlers = usePostSubmissionHandlers<TData, TResponse>(props)
 
+  const handleSubmit = handleFormSubmit<TData, TResponse>(
+    onSubmit,
+    (isLoading: boolean) => {
+      setIsLoading(isLoading)
+      setLoading(isLoading)
+    },
+    props.onSubmitOptimistic,
+  )
+
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge<TData>(schema),
   )
@@ -63,18 +72,10 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
       modelTransform={modelTransform}
       onChange={onChange}
       onChangeModel={onChangeModel}
-      onSubmit={throttle(
-        { interval: 200 },
-        handleFormSubmit<TData, TResponse>(
-          onSubmit,
-          (isLoading: boolean) => {
-            setIsLoading(isLoading)
-            setLoading(isLoading)
-          },
-          handlers.onSubmitSuccess,
-          handlers.onSubmitError,
-          handlers.onSubmitOptimistic,
-        ),
+      onSubmit={throttle({ interval: 200 }, (formData) =>
+        handleSubmit(formData)
+          .then(handlers.onSubmitSuccess)
+          .catch(handlers.onSubmitError),
       )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
