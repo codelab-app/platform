@@ -7,10 +7,10 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 describe('TreeViewNode', () => {
-  let testStore: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestStore()
+    testStore = createTestStore().rootStore
   })
 
   afterEach(() => {

@@ -12,7 +12,10 @@ import {
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useDomainStore,
+  useUndoManager,
+} from '@codelab/frontend-infra-mobx/context'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -21,12 +24,7 @@ export const useAppService = (): IAppService => {
   const { appDomainService, pageDomainService, userDomainService } =
     useDomainStore()
 
-  const removeAppFromStore = (app: IAppModel) => {
-    app.pages.forEach((page) => {
-      pageDomainService.pages.delete(page.id)
-    })
-    appDomainService.apps.delete(app.id)
-  }
+  const undoManager = useUndoManager()
 
   const create = async ({ id, name }: ICreateAppData) => {
     const app = appDomainService.create({
@@ -39,8 +37,8 @@ export const useAppService = (): IAppService => {
     try {
       await appRepository.add(app)
     } catch (error) {
-      // if api request fail - need to undo the optimistic update
-      removeAppFromStore(app)
+      undoManager.undo()
+
       throw error
     }
 
@@ -55,7 +53,10 @@ export const useAppService = (): IAppService => {
        * Optimistic update.
        * Detach pages before detaching app from root store to avoid script error.
        */
-      removeAppFromStore(app)
+      app.pages.forEach((page) => {
+        pageDomainService.pages.delete(page.id)
+      })
+      appDomainService.apps.delete(app.id)
 
       /**
        * Get all pages to delete

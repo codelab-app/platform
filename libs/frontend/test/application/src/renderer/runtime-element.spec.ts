@@ -9,10 +9,12 @@ import { render, screen } from '@testing-library/react'
 import { createElement } from 'react'
 
 describe('Runtime Element', () => {
-  let testStore: ReturnType<typeof createTestStore>
+  let storeContext: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestStore()
+    storeContext = createTestStore()
+    testStore = storeContext.rootStore
   })
 
   afterAll(() => {
@@ -48,7 +50,11 @@ describe('Runtime Element', () => {
 
     // render itself adds `body > div`
     render(
-      createElement(RootStoreProvider, { value: testStore }, renderer.render),
+      createElement(
+        RootStoreProvider,
+        { value: storeContext },
+        renderer.render,
+      ),
     )
 
     expect(await screen.findByText('text')).toBeInTheDocument()
@@ -182,7 +188,7 @@ describe('Runtime Element', () => {
       }).render
 
       render(
-        createElement(RootStoreProvider, { value: testStore }, reactElement),
+        createElement(RootStoreProvider, { value: storeContext }, reactElement),
       )
 
       expect(runtimeStore?.state[stateFieldKey]).toBe(expectedValue)

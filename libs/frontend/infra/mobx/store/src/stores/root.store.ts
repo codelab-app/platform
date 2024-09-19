@@ -28,6 +28,7 @@ import {
   prop,
   registerRootStore,
   setGlobalConfig,
+  undoMiddleware,
 } from 'mobx-keystone'
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
@@ -92,8 +93,9 @@ export const createRootStore = ({
   }
 
   const rootStore = new RootStore({})
+  const undoManager = undoMiddleware(rootStore, undefined, { maxUndoLevels: 1 })
 
   registerRootStore(rootStore)
 
-  return rootStore
+  return { rootStore, undoManager }
 }

@@ -3,10 +3,10 @@ import { createTestStore } from '@codelab/frontend-infra-mobx/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
 
 describe('Renderer', () => {
-  let testStore: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestStore()
+    testStore = createTestStore().rootStore
   })
 
   afterEach(() => {
