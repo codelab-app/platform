@@ -1,4 +1,4 @@
-import { Form } from '@cui/ui-atoms/Form'
+import { Form } from '@cui/ui-atoms'
 import {
   type FieldValues,
   type SubmitHandler,

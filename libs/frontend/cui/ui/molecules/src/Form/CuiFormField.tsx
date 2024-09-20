@@ -5,7 +5,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@cui/ui-atoms/Form'
+} from '@cui/ui-atoms'
 import { Input } from 'antd'
 import type { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form'
 import voca from 'voca'

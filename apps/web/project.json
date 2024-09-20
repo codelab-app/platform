@@ -81,49 +81,6 @@
         }
       },
       "outputs": ["{workspaceRoot}/coverage/apps/web"]
-    },
-    "storybook": {
-      "executor": "@nx/storybook:storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "apps/web/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@nx/storybook:build",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "outputDir": "dist/storybook/web",
-        "configDir": "apps/web/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "test-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "test-storybook -c apps/web/.storybook --url=http://localhost:4400"
-      }
-    },
-    "static-storybook": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "web:build-storybook",
-        "staticFilePath": "dist/storybook/web"
-      },
-      "configurations": {
-        "ci": {
-          "buildTarget": "web:build-storybook:ci"
-        }
-      }
     }
   }
 }

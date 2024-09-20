@@ -46,6 +46,7 @@ const config: Config = {
     fontFamily: {
       body: ['Nunito'],
       display: ['Montserrat'],
+      mono: ['ui-monospace', 'SFMono-Regular'],
     },
     container: {
       center: true,
@@ -63,10 +64,6 @@ const config: Config = {
       '2xl': '1600px',
       // => @media (min-width: 1600px) { ... }
     },
-  },
-  corePlugins: {
-    // Reset adds `background:transparent`, which background-color can't override
-    preflight: false,
   },
   variants: {},
 }
