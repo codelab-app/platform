@@ -1,7 +1,6 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import type { IImportDto } from '@codelab/shared/abstract/core'
 import {
@@ -23,11 +22,9 @@ export const ImportAdminDataModal = () => {
       uiKey={UiKey.ImportAdminDataModal}
     >
       <ModalForm.Form<IImportDto>
+        errorMessage="Error while importing data"
         model={importDtoDefault}
         onSubmit={importAdminDataUseCase}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while importing data',
-        })}
         onSubmitSuccess={importDataModal.close}
         schema={ImportDtoSchema}
       >
