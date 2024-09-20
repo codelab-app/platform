@@ -15,7 +15,7 @@ type OnSubmitOptimistic<TData, TResponse> = OptimisticFormProps<
   TResponse
 >['onSubmitOptimistic']
 
-export const handleFormSubmit = <TData, TResponse>(
+export const useSubmit = <TData, TResponse>(
   onSubmit: FormProps<TData, TResponse>['onSubmit'],
   setIsLoading?: SetIsLoading,
   onSubmitOptimistic: OnSubmitOptimistic<TData, TResponse> = [],
@@ -52,7 +52,7 @@ export const handleSubmitRefModalOk = (
   }
 }
 
-export const usePostSubmissionHandlers = <TData, TResponse>({
+export const usePostSubmit = <TData, TResponse>({
   errorMessage = 'Error submitting form',
   onSubmitError = [],
   onSubmitSuccess = [],

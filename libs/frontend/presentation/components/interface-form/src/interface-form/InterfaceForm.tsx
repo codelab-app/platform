@@ -4,10 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend-presentation-components-form'
-import {
-  Form,
-  handleFormSubmit,
-} from '@codelab/frontend-presentation-components-form'
+import { Form, useSubmit } from '@codelab/frontend-presentation-components-form'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
@@ -69,7 +66,7 @@ export const InterfaceForm = observer(
         autosave={autosave}
         model={model}
         onChange={onChange}
-        onSubmit={handleFormSubmit<TData, TResponse>(onSubmit, setIsLoading)}
+        onSubmit={useSubmit<TData, TResponse>(onSubmit, setIsLoading)}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={formSchema as JSONSchemaType<unknown>}

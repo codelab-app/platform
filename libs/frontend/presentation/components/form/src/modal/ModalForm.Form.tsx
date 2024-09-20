@@ -13,10 +13,7 @@ import { useContext, useEffect, useState } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
-import {
-  handleFormSubmit,
-  usePostSubmissionHandlers,
-} from '../components/utils'
+import { usePostSubmit, useSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
 export interface OptimisticFormProps<TData, TResponse>
@@ -45,9 +42,9 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
 
   const { setIsLoading, submitRef } = useContext(ModalFormContext)
   const { setLoading } = useLoading()
-  const handlers = usePostSubmissionHandlers<TData, TResponse>(props)
+  const postSubmit = usePostSubmit<TData, TResponse>(props)
 
-  const handleSubmit = handleFormSubmit<TData, TResponse>(
+  const submit = useSubmit<TData, TResponse>(
     onSubmit,
     (isLoading: boolean) => {
       setIsLoading(isLoading)
@@ -73,9 +70,9 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
       onChange={onChange}
       onChangeModel={onChangeModel}
       onSubmit={throttle({ interval: 200 }, (formData) =>
-        handleSubmit(formData)
-          .then(handlers.onSubmitSuccess)
-          .catch(handlers.onSubmitError),
+        submit(formData)
+          .then(postSubmit.onSubmitSuccess)
+          .catch(postSubmit.onSubmitError),
       )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
