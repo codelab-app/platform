@@ -71,7 +71,10 @@ export class EnumType
       type: 'string',
       ...validationRules?.general,
       ...(uniformSchema?.(this) ?? {}),
-      default: defaultValues,
+      // for the enum, the default value cannot be "null", in this case ajv
+      // will report error even if the filed has "nullable: true" in schema.
+      // instead, the default value should be "undefined" to allow optional enums
+      default: defaultValues ?? undefined,
     }
   }
 

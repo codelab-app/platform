@@ -75,7 +75,17 @@ export const useTypeService = (): ITypeService => {
     // Fetch type fragments
     const typeFragments = await typeRepository.getAll(ids)
 
-    const types = typeFragments.map((typeFragment) => {
+    // Fetch descendant types if ids are provided
+    const descendantTypeFragments = ids
+      ? await typeRepository.findDescendants(
+          typeFragments.map((fragment) => fragment.id),
+        )
+      : []
+
+    // Combine all fragments
+    const allFragments = [...typeFragments, ...descendantTypeFragments]
+
+    const types = allFragments.map((typeFragment) => {
       if (typeFragment.__typename === TypeKind.InterfaceType) {
         typeFragment.fields.forEach((field) =>
           fieldDomainService.hydrate(field),
@@ -85,7 +95,8 @@ export const useTypeService = (): ITypeService => {
       return typeDomainService.hydrate(typeFragment)
     })
 
-    return types
+    // Filter types if ids are provided, otherwise return all
+    return ids ? types.filter((type) => ids.includes(type.id)) : types
   }
 
   const getInterface = async (interfaceTypeId: string) => {
