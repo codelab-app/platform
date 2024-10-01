@@ -9,6 +9,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "409f602b-ad21-426b-a191-a46e579077b4"
+        },
+        "id": "489a1fa0-7ce7-40bd-98e1-6dbfa4946778",
+        "key": "antdTheme",
+        "name": "Theme",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48"
         },
         "id": "4a93ca4b-9fa6-4473-85f1-a75495ee9cc3",
@@ -238,22 +254,6 @@
         "id": "cf0bb624-dea0-4b5a-a7f1-3bd51b4fc571",
         "key": "subMenuOpenDelay",
         "name": "Sub Menu Open Delay",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "409f602b-ad21-426b-a191-a46e579077b4"
-        },
-        "id": "489a1fa0-7ce7-40bd-98e1-6dbfa4946778",
-        "key": "antdTheme",
-        "name": "Theme",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
