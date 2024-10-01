@@ -12,11 +12,13 @@ import { act, render } from '@testing-library/react'
 import { configure } from 'mobx'
 import { createElement } from 'react'
 
-let testStore: ReturnType<typeof createTestStore>
+let storeContext: ReturnType<typeof createTestStore>
+let testStore: ReturnType<typeof createTestStore>['rootStore']
 
 describe('Runtime Element props', () => {
   beforeEach(() => {
-    testStore = createTestStore()
+    storeContext = createTestStore()
+    testStore = storeContext.rootStore
   })
 
   afterAll(() => {
@@ -342,7 +344,7 @@ describe('Runtime Element props', () => {
 
         await act(async () => {
           render(
-            createElement(RootStoreProvider, { value: testStore }, rendered),
+            createElement(RootStoreProvider, { value: storeContext }, rendered),
           )
         })
 
@@ -371,7 +373,7 @@ describe('Runtime Element props', () => {
           render(
             createElement(
               RootStoreProvider,
-              { value: testStore },
+              { value: storeContext },
               rendererService.activeRenderer?.current.render,
             ),
           )

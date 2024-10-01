@@ -57,10 +57,14 @@ export class AppListPage extends BasePage {
     await this.page.goto(PageType.AppList())
   }
 
-  async openCreateAppModal() {
-    await this.getButton({ key: UiKey.CreateAppModal }).click()
+  async openCreateAppModal(key = UiKey.CreateAppModal) {
+    await this.getButton({ key }).click()
 
     await expect(this.getModal()).toBeVisible()
+  }
+
+  async openCreateAppModalFromHeader() {
+    await this.openCreateAppModal(UiKey.CreateAppToolbarItem)
   }
 
   async openDeleteAppModal() {

@@ -4,10 +4,10 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { configure } from 'mobx'
 
 describe('Runtime Element props', () => {
-  let testStore: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestStore()
+    testStore = createTestStore().rootStore
   })
 
   afterEach(() => {

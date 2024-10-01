@@ -1,6 +1,6 @@
 'use client'
 
-import { Tree } from 'antd'
+import { Empty, Tree } from 'antd'
 import type { DirectoryTreeProps } from 'antd/es/tree'
 import classNames from 'classnames'
 import { observer, useLocalObservable } from 'mobx-react-lite'
@@ -144,55 +144,59 @@ export const CuiTree = observer(
         )}
         <div className="overflow-auto">
           <CuiSkeletonWrapper isLoading={isLoading}>
-            <DirectoryTree<T>
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-              autoExpandParent={cuiTreeStore.autoExpandParent}
-              draggable={
-                draggable
-                  ? {
-                      icon: false,
-                    }
-                  : false
-              }
-              expandAction="doubleClick"
-              expandedKeys={cuiTreeStore.expandedKeys}
-              onExpand={handleExpand}
-              onMouseEnter={(info) => {
-                const target = info.event.target as Element
-                const treeNodeWrapper = target.closest('.ant-tree-treenode')
+            {treeData?.length === 0 ? (
+              <Empty style={{ marginTop: '10%' }} />
+            ) : (
+              <DirectoryTree<T>
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+                autoExpandParent={cuiTreeStore.autoExpandParent}
+                draggable={
+                  draggable
+                    ? {
+                        icon: false,
+                      }
+                    : false
+                }
+                expandAction="doubleClick"
+                expandedKeys={cuiTreeStore.expandedKeys}
+                onExpand={handleExpand}
+                onMouseEnter={(info) => {
+                  const target = info.event.target as Element
+                  const treeNodeWrapper = target.closest('.ant-tree-treenode')
 
-                treeNodeWrapper?.classList.add('ant-tree-treenode-hovered')
+                  treeNodeWrapper?.classList.add('ant-tree-treenode-hovered')
 
-                return onMouseEnter?.(info)
-              }}
-              onMouseLeave={(info) => {
-                const target = info.event.target as Element
-                const treeNodeWrapper = target.closest('.ant-tree-treenode')
+                  return onMouseEnter?.(info)
+                }}
+                onMouseLeave={(info) => {
+                  const target = info.event.target as Element
+                  const treeNodeWrapper = target.closest('.ant-tree-treenode')
 
-                treeNodeWrapper?.classList.remove('ant-tree-treenode-hovered')
+                  treeNodeWrapper?.classList.remove('ant-tree-treenode-hovered')
 
-                return onMouseLeave?.(info)
-              }}
-              showIcon={false}
-              showLine
-              titleRender={(node) => {
-                return titleRender ? (
-                  titleRender(node)
-                ) : (
-                  <CuiTreeItem
-                    highlight={node.highlight}
-                    icon={node.icon}
-                    primaryTitle={node.primaryTitle}
-                    secondaryTitle={node.secondaryTitle}
-                    tag={node.tags}
-                    toolbar={node.toolbar}
-                    variant={node.variant}
-                  />
-                )
-              }}
-              treeData={cuiTreeStore.filteredData}
-            />
+                  return onMouseLeave?.(info)
+                }}
+                showIcon={false}
+                showLine
+                titleRender={(node) => {
+                  return titleRender ? (
+                    titleRender(node)
+                  ) : (
+                    <CuiTreeItem
+                      highlight={node.highlight}
+                      icon={node.icon}
+                      primaryTitle={node.primaryTitle}
+                      secondaryTitle={node.secondaryTitle}
+                      tag={node.tags}
+                      toolbar={node.toolbar}
+                      variant={node.variant}
+                    />
+                  )
+                }}
+                treeData={cuiTreeStore.filteredData}
+              />
+            )}
           </CuiSkeletonWrapper>
         </div>
       </div>

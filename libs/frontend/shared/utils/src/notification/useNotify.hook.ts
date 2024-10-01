@@ -1,10 +1,9 @@
-import type { Notification } from '@codelab/shared/abstract/types'
-import { notify } from './notify'
+import { notify, type NotifyOptions } from './notify'
 
 export type UseNotifyReturnType<Event> = (event?: Event) => void
 
 export const useNotify = <Event>(
-  options: Notification<Event>,
+  options: NotifyOptions<Event>,
 ): UseNotifyReturnType<Event> => {
   return (event?: Event) => {
     notify(options, event)
@@ -12,7 +11,7 @@ export const useNotify = <Event>(
 }
 
 export const useErrorNotify = <Event>(
-  options: Omit<Notification<Event>, 'type'>,
+  options: Omit<NotifyOptions<Event>, 'type'>,
 ): UseNotifyReturnType<Event> => {
   return (event?: Event) => {
     notify({ ...options, type: 'error' }, event)
@@ -20,7 +19,7 @@ export const useErrorNotify = <Event>(
 }
 
 export const useSuccessNotify = <Event>(
-  options: Omit<Notification<Event>, 'type'>,
+  options: Omit<NotifyOptions<Event>, 'type'>,
 ): UseNotifyReturnType<Event> => {
   return (event?: Event) => {
     notify({ ...options, type: 'success' }, event)

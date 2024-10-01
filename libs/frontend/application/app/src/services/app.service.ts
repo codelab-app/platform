@@ -12,7 +12,10 @@ import {
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useDomainStore,
+  useUndoManager,
+} from '@codelab/frontend-infra-mobx/context'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -20,6 +23,8 @@ import { Validator } from '@codelab/shared/infra/schema'
 export const useAppService = (): IAppService => {
   const { appDomainService, pageDomainService, userDomainService } =
     useDomainStore()
+
+  const undoManager = useUndoManager()
 
   const create = async ({ id, name }: ICreateAppData) => {
     const app = appDomainService.create({
@@ -29,7 +34,13 @@ export const useAppService = (): IAppService => {
       pages: [],
     })
 
-    await appRepository.add(app)
+    try {
+      await appRepository.add(app)
+    } catch (error) {
+      undoManager.undo()
+
+      throw error
+    }
 
     await invalidateAppListQuery()
 

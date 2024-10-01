@@ -83,6 +83,7 @@ import {
   prop,
   registerRootStore,
   setGlobalConfig,
+  undoMiddleware,
   unregisterRootStore,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -466,8 +467,9 @@ export const createTestStore = () => {
   }
 
   const testRootStore = new TestRootStore({})
+  const undoManager = undoMiddleware(testRootStore)
 
   registerRootStore(testRootStore)
 
-  return testRootStore
+  return { rootStore: testRootStore, undoManager }
 }

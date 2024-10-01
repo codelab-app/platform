@@ -8,10 +8,12 @@ import { render } from '@testing-library/react'
 import { createElement, isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
-  let testStore: ReturnType<typeof createTestStore>
+  let storeContext: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestStore()
+    storeContext = createTestStore()
+    testStore = storeContext.rootStore
   })
 
   afterEach(() => {
@@ -124,7 +126,7 @@ describe('TypedPropTransformers', () => {
     render(
       createElement(
         RootStoreProvider,
-        { value: testStore },
+        { value: storeContext },
         renderedProp(textPropValue),
       ),
     )

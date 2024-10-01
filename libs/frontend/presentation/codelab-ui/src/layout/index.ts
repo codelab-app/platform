@@ -1,3 +1,4 @@
+export * from './CuiError'
 export * from './CuiHeader'
 export * from './CuiNavigationBar'
 export * from './CuiPanel'

@@ -2,11 +2,18 @@ import type { Notification } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
 import { isFunction } from 'remeda'
 
+export interface NotifyOptions<TEvent>
+  extends Omit<Notification<TEvent>, 'description'> {
+  // make description optional, so that we do not need to explicitly
+  // pass { description: '' } if we do not need it
+  description?: string | ((event: TEvent) => string)
+}
+
 export const notify = <TEvent>(
-  options: Notification<TEvent>,
+  options: NotifyOptions<TEvent>,
   event?: TEvent,
 ) => {
-  const { description, title, type = 'info' } = options
+  const { description = '', title, type = 'info' } = options
 
   const resolveValue = <T>(
     valueOrFunction: T | ((event: TEvent) => T),
@@ -32,6 +39,9 @@ export const notify = <TEvent>(
     description: resolvedDescription,
     message: resolvedTitle,
     placement: 'topRight',
+    // do not close error notification automatically.
+    // let users more time to read and analize error decription.
+    ...(type === 'error' ? { duration: null } : null),
   })
 
   /**
