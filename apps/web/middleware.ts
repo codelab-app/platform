@@ -20,6 +20,8 @@ import { isEqual } from 'radash'
  * https://stackoverflow.com/questions/76813923/how-to-avoid-warning-message-when-getting-user-information-on-next-js-13-server/77015385#77015385
  */
 
+const paginatedPages: Array<string> = [PageType.Atoms(), PageType.Tags()]
+
 const middleware: NextMiddleware = async (
   request: NextRequest,
   event: NextFetchEvent,
@@ -30,7 +32,7 @@ const middleware: NextMiddleware = async (
     return authGuardMiddleware(request, response, event)
   }
 
-  if (request.nextUrl.pathname === PageType.Atoms()) {
+  if (paginatedPages.includes(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone()
     const currentPage = url.searchParams.get('page')
     const currentPageSize = url.searchParams.get('pageSize')
@@ -44,8 +46,8 @@ const middleware: NextMiddleware = async (
     url.searchParams.set('filter', newFilter.join(','))
 
     const hasChanged =
-      isEqual(newPage, currentPage) ||
-      isEqual(newPageSize, currentPageSize) ||
+      !isEqual(newPage, currentPage) ||
+      !isEqual(newPageSize, currentPageSize) ||
       !isEqual(currentFilter, newFilter)
 
     if (hasChanged) {

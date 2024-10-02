@@ -33,7 +33,7 @@ export const parseUrlQueryParams = (params: UrlQueryParamsString) => {
   const { filter, page, pageSize, primarySidebarKey, search } = params
 
   return {
-    filter,
+    filter: filter ? filter.split(',') : [],
     page: parseInt(page, 10),
     pageSize: parseInt(pageSize, 10),
     primarySidebarKey: primarySidebarKey ?? undefined,

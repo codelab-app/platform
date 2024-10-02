@@ -11,15 +11,22 @@ export const CuiSidebarToolbarItem = ({
   title,
 }: CuiSidebarToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={Cui.cuiToolbarItem(cuiKey)}>
+    <div
+      className="size-full content-center"
+      data-cy={Cui.cuiToolbarItem(cuiKey)}
+    >
       <Tooltip title={title}>
-        <Button
-          aria-label={cuiKey}
-          icon={icon}
-          onClick={onClick}
-          size="small"
-          type="text"
-        />
+        {onClick ? (
+          <Button
+            aria-label={cuiKey}
+            icon={icon}
+            onClick={onClick}
+            size="small"
+            type="text"
+          />
+        ) : (
+          <div className="flex items-center">{icon}</div>
+        )}
       </Tooltip>
     </div>
   )

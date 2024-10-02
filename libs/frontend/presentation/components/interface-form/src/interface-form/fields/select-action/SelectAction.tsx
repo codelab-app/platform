@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'

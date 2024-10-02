@@ -1,3 +1,5 @@
+'use client'
+
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

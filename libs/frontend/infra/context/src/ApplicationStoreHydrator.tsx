@@ -26,6 +26,7 @@ export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
       if (queryParams) {
         routerService.setQueryParams({
           ...queryParams,
+          filter: queryParams.filter ? queryParams.filter.split(',') : [],
           page: queryParams.page ? parseInt(queryParams.page) : undefined,
           pageSize: queryParams.pageSize
             ? parseInt(queryParams.pageSize)

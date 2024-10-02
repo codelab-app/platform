@@ -1,3 +1,5 @@
+'use client'
+
 import type { IToggleService } from '@codelab/frontend/abstract/application'
 import type { UiKey } from '@codelab/frontend/abstract/types'
 import { atom, useAtom } from 'jotai'

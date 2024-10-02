@@ -1,3 +1,5 @@
+'use client'
+
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'

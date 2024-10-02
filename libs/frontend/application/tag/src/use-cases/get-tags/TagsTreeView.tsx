@@ -1,3 +1,5 @@
+'use client'
+
 import type {
   ITagModel,
   ITagNodeData,
@@ -29,6 +31,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
   const { data, isLoading } = useTablePagination<ITagModel>({
     getDataFn,
     paginationService,
+    // pathname: PageType.Tags(),
     pathname: PageType.Type(),
   })
 

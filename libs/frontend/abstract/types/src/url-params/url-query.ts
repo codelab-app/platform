@@ -7,7 +7,7 @@ import type { Assign } from 'utility-types'
  * @param {string} pageSize We pass default via middleware to the routes that require it
  */
 export interface UrlQueryParamsString {
-  filter: Array<string>
+  filter: string
   page: string
   pageSize: string
   primarySidebarKey?: string
@@ -21,5 +21,6 @@ export type UrlQueryParams = Assign<
   {
     page: number
     pageSize: number
+    filter: Array<string>
   }
 >
