@@ -5,6 +5,7 @@ import type {
   IAtomService,
 } from '@codelab/frontend/abstract/application'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
   atomRef,
@@ -30,7 +31,6 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
-import { useRouter } from 'next/navigation'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
@@ -39,7 +39,6 @@ export const useAtomService = (): IAtomService => {
     pagination: { atomPagination },
   } = useApplicationStore()
 
-  const router = useRouter()
   const { atomDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
@@ -200,28 +199,28 @@ export const useAtomService = (): IAtomService => {
     return atomDomainService.atomsList
   }
 
-  const goToAtomsPage = () => {
+  const goToAtomsPage = (router: AppRouterInstance) => {
     router.push(PageType.Atoms())
   }
 
-  const goToDeleteAtomPage = (ref: IRef) => {
+  const goToDeleteAtomPage = (ref: IRef, router: AppRouterInstance) => {
     router.push(PageType.AtomDelete(ref))
   }
 
   const atomPopoverUpdate = {
-    close: () => {
+    close: (router: AppRouterInstance) => {
       router.push(PageType.Atoms())
     },
-    open: () => {
+    open: (router: AppRouterInstance) => {
       router.push(PageType.AtomCreate())
     },
   }
 
   const atomPopoverCreate = {
-    close: () => {
+    close: (router: AppRouterInstance) => {
       router.push(PageType.Atoms())
     },
-    open: () => {
+    open: (router: AppRouterInstance) => {
       router.push(PageType.AtomCreate())
     },
   }

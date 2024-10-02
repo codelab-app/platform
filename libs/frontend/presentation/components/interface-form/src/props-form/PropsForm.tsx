@@ -7,10 +7,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { DeepPartial } from 'utility-types'
 
-import {
-  handleFormSubmit,
-  type SetIsLoading,
-} from '@codelab/frontend-presentation-components-form'
+import { type SetIsLoading } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 
 import { InterfaceForm } from '../interface-form'

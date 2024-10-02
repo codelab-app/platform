@@ -124,6 +124,11 @@ export enum UiKey {
   FieldToolbarItemDelete = 'FieldToolbarItemDelete',
   FieldToolbarItemUpdate = 'FieldToolbarItemUpdate',
   FieldToolbarItemUpdateCancel = 'FieldToolbarItemUpdateCancel',
+
+  /**
+   * Form
+   */
+  FormInterface = 'FormInterface',
   /**
    * Lambda
    */

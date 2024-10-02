@@ -1,4 +1,9 @@
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+
+/**
+ * Decouples router from services
+ */
 export interface IPopover {
-  close(): void
-  open(): void
+  close(router: AppRouterInstance): void
+  open(router: AppRouterInstance): void
 }

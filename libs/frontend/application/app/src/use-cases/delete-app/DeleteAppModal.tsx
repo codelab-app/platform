@@ -1,6 +1,7 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -11,6 +12,7 @@ import { useDeleteAppModal } from './delete-app.state'
 export const DeleteAppModal = observer(() => {
   const deleteAppModal = useDeleteAppModal()
   const appService = useAppService()
+  const { setLoading } = useLoading()
   const closeModal = () => deleteAppModal.close()
   const app = deleteAppModal.data
 
@@ -34,7 +36,7 @@ export const DeleteAppModal = observer(() => {
         model={{}}
         onSubmit={onSubmit}
         onSubmitOptimistic={closeModal}
-        onSubmitSuccess={setLoading(false)}
+        onSubmitSuccess={() => setLoading(false)}
         schema={emptyJsonSchema}
         successMessage="App deleted successfully"
       >

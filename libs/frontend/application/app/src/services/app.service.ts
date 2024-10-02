@@ -19,8 +19,6 @@ import {
   useDomainStore,
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
-import type { IUpdatePageData } from '@codelab/shared/abstract/core'
-import type { AppWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 
 export const useAppService = (): IAppService => {

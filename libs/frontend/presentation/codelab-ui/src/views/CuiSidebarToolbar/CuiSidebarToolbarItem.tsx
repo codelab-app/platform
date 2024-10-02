@@ -14,7 +14,7 @@ export const CuiSidebarToolbarItem = ({
   return (
     <div
       className="size-full content-center"
-      data-testid={Cui.cuiToolbarItem(cuiKey)}
+      data-testid={CuiTestId.cuiToolbarItem(cuiKey)}
     >
       <Tooltip title={title}>
         {onClick ? (

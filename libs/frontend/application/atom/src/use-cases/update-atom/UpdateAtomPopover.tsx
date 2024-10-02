@@ -8,6 +8,7 @@ import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useAtomService } from '../../services'
@@ -16,6 +17,7 @@ import { UpdateAtomForm } from './UpdateAtomForm'
 export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
   const submitRef = useRef<Maybe<SubmitController>>()
   const { atomPopoverUpdate } = useAtomService()
+  const router = useRouter()
 
   return (
     <CuiSidebarSecondary
@@ -36,7 +38,7 @@ export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
-              atomPopoverUpdate.close()
+              atomPopoverUpdate.close(router)
             },
             title: 'Cancel',
           },
@@ -46,7 +48,7 @@ export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
     >
       <UpdateAtomForm
         atom={atom}
-        onSubmitSuccess={() => atomPopoverUpdate.close()}
+        onSubmitSuccess={() => atomPopoverUpdate.close(router)}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>

@@ -6,6 +6,7 @@ import type {
 import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 
@@ -18,7 +19,13 @@ export interface IAtomService
   getSelectAtomOptions(
     parent: IAtomModel | undefined,
   ): Promise<Array<SelectOption>>
-  goToAtomsPage(): void
-  goToDeleteAtomPage(ref: IRef): void
+  /**
+   * Decouples router from services
+   */
+  goToAtomsPage(router: AppRouterInstance): void
+  /**
+   * Decouples router from services
+   */
+  goToDeleteAtomPage(ref: IRef, router: AppRouterInstance): void
   loadApi(atomId: string): Promise<void>
 }

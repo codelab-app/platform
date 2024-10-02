@@ -1,6 +1,7 @@
 'use client'
 
-import type { UrlQueryParamsString } from '@codelab/frontend/abstract/types'
+import type { UrlQueryParamsPageProps } from '@codelab/frontend/abstract/types'
+
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { TagsPrimarySidebar } from '@codelab/frontend-application-tag/views'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
@@ -8,7 +9,7 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 const TagsPrimarySidebarPage = ({
   searchParams: { filter, page, pageSize, search },
 }: {
-  searchParams: UrlQueryParamsString
+  searchParams: UrlQueryParamsPageProps
 }) => {
   return (
     <ApplicationStoreHydrator

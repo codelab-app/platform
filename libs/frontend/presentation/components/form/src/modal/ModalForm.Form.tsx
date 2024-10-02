@@ -1,8 +1,9 @@
 'use client'
 
-import type { FormProps } from '@codelab/frontend/abstract/types'
+import type { FormProps, VoidCallback } from '@codelab/frontend/abstract/types'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ReactElement } from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
 
 import {
   connectUniformSubmitRef,
@@ -11,9 +12,9 @@ import {
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { throttle } from 'radash'
 import { useContext, useEffect, useState } from 'react'
-import type { ArrayOrSingle } from 'ts-essentials'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
+
 import { usePostSubmit, useSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 

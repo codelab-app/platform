@@ -7,7 +7,7 @@ export interface NotifyOptions<TEvent>
   extends Omit<Notification<TEvent>, 'description'> {
   // make description optional, so that we do not need to explicitly
   // pass { description: '' } if we do not need it
-  description?: string | ((event: TEvent) => string)
+  description?: ((event: TEvent) => string) | string
 }
 
 export const notify = <TEvent>(

@@ -298,6 +298,9 @@ const UiDataRecord = {
   [UiKey.FieldToolbarItemUpdateCancel]: {
     label: 'Cancel Update Field Toolbar Item',
   },
+  [UiKey.FormInterface]: {
+    label: 'Interface Form',
+  },
   /**
    * Lambda
    */

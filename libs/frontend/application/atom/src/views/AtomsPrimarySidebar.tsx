@@ -7,12 +7,14 @@ import {
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
   const { atomPopoverCreate, paginationService } = useAtomService()
+  const router = useRouter()
 
   const { showSearchBar, toolbarItems } =
     useToolbarPagination(paginationService)
@@ -35,7 +37,7 @@ export const AtomsPrimarySidebar = observer(() => {
                 cuiKey: UiKey.AtomToolbarItemCreate,
                 icon: <PlusOutlined />,
                 onClick: () => {
-                  atomPopoverCreate.open()
+                  atomPopoverCreate.open(router)
                 },
                 title: 'Create Atom',
               },

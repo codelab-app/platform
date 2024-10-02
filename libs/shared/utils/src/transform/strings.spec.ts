@@ -87,10 +87,6 @@ describe('slugify function', () => {
     expect(slugify('My 1 App')).toBe('my-1-app')
   })
 
-  it('separates by pascal case', () => {
-    expect(slugify('ToolbarItem')).toBe('toolbar-item')
-  })
-
   it('preserves adjacent alphanumeric characters', () => {
     expect(slugify('My1app')).toBe('my1app')
   })
@@ -105,6 +101,11 @@ describe('slugify function', () => {
 
   it('handles uppercase characters', () => {
     expect(slugify('ALL CAPS')).toBe('all-caps')
+  })
+
+  it("doesn't separate by pascal case", () => {
+    // Otherwise `ALL CAPS` will be `A L L C A P S`
+    expect(slugify('ToolbarItem')).toBe('toolbaritem')
   })
 
   it('handles multiple adjacent spaces', () => {

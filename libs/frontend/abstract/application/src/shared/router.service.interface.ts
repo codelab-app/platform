@@ -18,7 +18,7 @@ import type { IPaginationService, SupportedPaginationModel } from '../services'
  *
  */
 export interface IRouterProps {
-  pathParams: UrlPathParams
+  pathParams: UrlPathParamsProps
   queryParams?: UrlQueryParamsPageProps
 }
 

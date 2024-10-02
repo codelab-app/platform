@@ -50,7 +50,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
     if (type === 'atom') {
       console.log('delete atom')
-      goToDeleteAtomPage(node)
+      goToDeleteAtomPage(node, router)
     } else {
       deleteFieldModal.open(node)
     }

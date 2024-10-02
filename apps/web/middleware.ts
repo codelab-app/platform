@@ -34,7 +34,7 @@ const middleware: NextMiddleware = async (
 
   const pathname = request.nextUrl.pathname
 
-  if (paginatedPages.some(page => page.startsWith(PageType.Atoms())) {
+  if (paginatedPages.some((page) => page.startsWith(pathname))) {
     const url = request.nextUrl.clone()
     const currentPage = url.searchParams.get('page')
     const currentPageSize = url.searchParams.get('pageSize')
