@@ -1,5 +1,7 @@
-import { Col, Row, Segmented } from 'antd'
 import type { SegmentedLabeledOption, SegmentedValue } from 'antd/lib/segmented'
+
+import { Col, Row, Segmented } from 'antd'
+
 import { ResetLabel } from './ResetLabel'
 
 interface SegmentedSelectProps {

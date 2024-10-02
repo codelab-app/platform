@@ -1,14 +1,17 @@
 'use client'
 
-import ExpandAltOutlined from '@ant-design/icons/ExpandAltOutlined'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import type { EditorView, ViewUpdate } from '@codemirror/view'
 import type { ReactCodeMirrorProps } from '@uiw/react-codemirror'
+
+import ExpandAltOutlined from '@ant-design/icons/ExpandAltOutlined'
+import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import { useCodeMirror } from '@uiw/react-codemirror'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { merge } from 'remeda'
+
 import type { CodeMirrorModalProps } from './CodeMirrorModal'
+
 import { CodeMirrorModal } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
 

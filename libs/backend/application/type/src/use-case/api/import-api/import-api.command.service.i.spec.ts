@@ -1,3 +1,5 @@
+import type { CommandBus } from '@nestjs/cqrs'
+
 import {
   DataModule,
   ReadAdminDataService,
@@ -5,8 +7,8 @@ import {
 import { InterfaceType, TypeDomainModule } from '@codelab/backend/domain/type'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { CommandBus } from '@nestjs/cqrs'
 import { sortBy } from 'remeda'
+
 import { TypeApplicationService } from '../../../service'
 import { TypeApplicationModule } from '../../../type.application.module'
 import { ImportSystemTypesCommand } from '../../system-types'

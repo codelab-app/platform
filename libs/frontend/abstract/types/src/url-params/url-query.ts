@@ -1,26 +1,40 @@
-import type { Assign } from 'utility-types'
-
+import type { Assign, Required } from 'utility-types'
 /**
- * This is used to type our pages with params
+ * These come in as page props, the array query params could be string if there are only 1 key
  *
  * @param {string} page - We pass default via middleware to the routes that require it
  * @param {string} pageSize We pass default via middleware to the routes that require it
  */
-export interface UrlQueryParamsString {
-  filter: string
-  page: string
-  pageSize: string
+export interface UrlQueryParamsPageProps {
+  /**
+   * @param filter - `?key=value` will become `string`, while `?key=value1&key=value2` will become `Array<string>`
+   */
+  filter?: string | Array<string>
+  page?: string
+  pageSize?: string
   primarySidebarKey?: string
   search?: string
 }
+
 /**
- * This is the application value with their types
+ * This is the application value with their types, at this point we have validated it yet. We will use a validated version for the hook with get accessor
  */
-export type UrlQueryParams = Assign<
-  UrlQueryParamsString,
+export type UrlQueryParamsProps = Assign<
+  UrlQueryParamsPageProps,
   {
-    page: number
-    pageSize: number
-    filter: Array<string>
+    /**
+     * @param filter = here we convert a maybe array type to string
+     */
+    filter?: Array<string>
+    page?: number
+    pageSize?: number
   }
+>
+
+/**
+ * These types are the final types after validation, they represent the needed types in the calling context
+ */
+export type UrlQueryParams = Required<
+  UrlQueryParamsProps,
+  'filter' | 'page' | 'pageSize'
 >

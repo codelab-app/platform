@@ -1,5 +1,7 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
+
 import { ITypeKind } from './type-kind.enum'
 
 export const BaseTypeSchema = Type.Object({

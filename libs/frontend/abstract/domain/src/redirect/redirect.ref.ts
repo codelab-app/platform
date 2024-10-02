@@ -1,4 +1,5 @@
 import { detach, rootRef } from 'mobx-keystone'
+
 import type { IRedirectModel } from './redirect.model.interface'
 
 export const redirectRef = rootRef<IRedirectModel>('@codelab/RedirectRef', {

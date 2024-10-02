@@ -1,17 +1,18 @@
 'use client'
 
+import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { InputProps } from 'antd'
+import type { FieldProps } from 'uniforms'
+
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import type { InputProps } from 'antd'
+import { titleCase } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
-import type { FieldProps } from 'uniforms'
 import { connectField, useField } from 'uniforms'
 import { TextField } from 'uniforms-antd'
 
@@ -65,7 +66,7 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
             rendererService.activeElementTree?.elements.map(
               (element) => element.name,
             ) || [],
-            compoundCaseToTitleCase(renderTypeName),
+            titleCase(renderTypeName),
           )
         : undefined
 

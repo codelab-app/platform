@@ -1,8 +1,16 @@
-import { apolloClient } from '@codelab/backend/infra/adapter/graphql'
 import type { BeforeApplicationShutdown } from '@nestjs/common'
+import type { Subscription } from 'zen-observable-ts'
+
+import { apolloClient } from '@codelab/backend/infra/adapter/graphql'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
-import type { Subscription } from 'zen-observable-ts'
+
+import type {
+  DomainCreatedSubscription,
+  DomainDeletedSubscription,
+  DomainUpdatedSubscription,
+} from '../graphql/domain.subscription.graphql.gen'
+
 import {
   DOMAIN_CREATED_EVENT,
   DomainCreatedEvent,
@@ -15,11 +23,6 @@ import {
   DOMAIN_UPDATED_EVENT,
   DomainUpdatedEvent,
 } from '../events/domain-updated.event'
-import type {
-  DomainCreatedSubscription,
-  DomainDeletedSubscription,
-  DomainUpdatedSubscription,
-} from '../graphql/domain.subscription.graphql.gen'
 import {
   DomainCreatedDocument,
   DomainDeletedDocument,

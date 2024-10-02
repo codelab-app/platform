@@ -1,7 +1,8 @@
 import type { ArgumentsHost } from '@nestjs/common'
+import type { Request } from 'express'
+
 import { Catch } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
-import type { Request } from 'express'
 import { TypeboxValidationException } from 'nestjs-typebox'
 
 @Catch()

@@ -1,10 +1,12 @@
+import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { CommandBus } from '@nestjs/cqrs'
+
 import { AppDomainModule, AppRepository } from '@codelab/backend/domain/app'
 import { PageDomainModule, PageRepository } from '@codelab/backend/domain/page'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test'
-import type { IUserDto } from '@codelab/shared/abstract/core'
-import type { CommandBus } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
+
 import { SeedAppCommand, SeedAppHandler } from './seed-app.command.service'
 
 describe('SeedAppCommand', () => {

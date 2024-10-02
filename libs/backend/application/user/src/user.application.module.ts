@@ -6,6 +6,7 @@ import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { UserDomainModule } from '@codelab/backend/domain/user'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { ExportUserDataHandler } from './use-case'
 import { UserApplicationController } from './user.application.controller'
 

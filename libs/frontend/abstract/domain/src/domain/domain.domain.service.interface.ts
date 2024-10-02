@@ -1,5 +1,6 @@
 import type { IDomainDto } from '@codelab/shared/abstract/core'
 import type { ObjectMap } from 'mobx-keystone'
+
 import type { IHydrateable } from '../shared'
 import type { IDomainModel } from './domain.model.interface'
 

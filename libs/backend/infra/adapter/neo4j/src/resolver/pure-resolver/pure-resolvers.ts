@@ -1,6 +1,8 @@
-import { mergeResolvers } from '@graphql-tools/merge'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
+
+import { mergeResolvers } from '@graphql-tools/merge'
+
 import { actionResolver } from './action'
 import { appResolver } from './app'
 import { atomResolver } from './atom/atom.resolver'

@@ -1,6 +1,7 @@
 import type { IComponentDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend-domain-shared'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
+
+import { chance } from '@codelab/frontend-domain-shared'
 import { v4 } from 'uuid'
 
 export const componentFactory =

@@ -1,6 +1,7 @@
-import { User } from '@codelab/backend/domain/user'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import type { ExecutionContext } from '@nestjs/common'
+
+import { User } from '@codelab/backend/domain/user'
 import { createParamDecorator } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 

@@ -2,7 +2,7 @@ import { type IStoreService } from '@codelab/frontend/abstract/application'
 import { type IStoreModel } from '@codelab/frontend/abstract/domain'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { type IStoreDto } from '@codelab/shared/abstract/core'
+import { type IRef, type IStoreDto } from '@codelab/shared/abstract/core'
 import { type StoreFragment, type StoreWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 
@@ -18,7 +18,7 @@ export const useStoreService = (): IStoreService => {
     return store
   }
 
-  const remove = async (stores: Array<IStoreModel>) => {
+  const removeMany = async (stores: Array<IStoreModel>) => {
     stores.forEach((store) => {
       storeDomainService.stores.delete(store.id)
     })
@@ -66,17 +66,22 @@ export const useStoreService = (): IStoreService => {
     )
   }
 
-  const store = (id: string) => {
-    return storeDomainService.stores.get(id)
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(storeDomainService.stores.get(ref.id))
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(storeDomainService.stores.values())
   }
 
   return {
     create,
     getAll,
+    getAllFromCache,
     getOne,
+    getOneFromCache,
     load,
-    remove,
-    store,
+    removeMany,
     update,
   }
 }

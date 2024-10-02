@@ -1,15 +1,17 @@
 'use client'
 
-import {
-  type SubmitController,
-  UiDataRecord,
-  type UiKey,
-} from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ModalProps as AntModalProps } from 'antd/lib/modal'
-import AntdModal from 'antd/lib/modal'
 import type { PropsWithChildren } from 'react'
+
+import {
+  getUiDataLabel,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
+import AntdModal from 'antd/lib/modal'
 import { useRef, useState } from 'react'
+
 import { handleSubmitRefModalOk } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
@@ -54,7 +56,7 @@ export const Modal = ({
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop
           ...okButtonProps,
-          'aria-label': UiDataRecord.ConfirmationButton.label,
+          'aria-label': getUiDataLabel(UiKey.ButtonConfirmation),
           disabled: isLoading,
           loading: isLoading,
           role: 'button',

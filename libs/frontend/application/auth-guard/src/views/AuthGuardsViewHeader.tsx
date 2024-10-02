@@ -5,6 +5,7 @@ import {
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
+
 import { useUpdateAuthGuardForm } from '../use-cases/update-auth-guard'
 
 export const AuthGuardsViewHeader = () => {

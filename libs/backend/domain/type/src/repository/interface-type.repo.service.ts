@@ -3,6 +3,12 @@ import type {
   InterfaceTypeOptions,
   InterfaceTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import type {
+  IInterfaceTypeDto,
+  ITypeMaybeRef,
+} from '@codelab/shared/abstract/core'
+import type { Static, TAnySchema } from '@sinclair/typebox'
+
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -13,13 +19,8 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type {
-  IInterfaceTypeDto,
-  ITypeMaybeRef,
-} from '@codelab/shared/abstract/core'
 import { connectNodeIds, connectOwner } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
-import type { Static, TAnySchema } from '@sinclair/typebox'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<

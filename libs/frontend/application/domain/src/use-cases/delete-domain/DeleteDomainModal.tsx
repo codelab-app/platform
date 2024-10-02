@@ -6,6 +6,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useDomainService } from '../../services'
 import { useDeleteDomainModal } from './delete-domain.state'
 
@@ -20,7 +21,7 @@ export const DeleteDomainModal = observer(() => {
       return Promise.reject()
     }
 
-    return domainService.remove(domain.current)
+    return domainService.removeMany([domain.current])
   }
 
   const model = {
@@ -33,7 +34,7 @@ export const DeleteDomainModal = observer(() => {
       onCancel={closeModal}
       open={deleteDomainModal.isOpen}
       title={<span className="font-semibold">Delete domain</span>}
-      uiKey={UiKey.DeleteDomainModal}
+      uiKey={UiKey.DomainModalDelete}
     >
       <ModalForm.Form
         model={model}

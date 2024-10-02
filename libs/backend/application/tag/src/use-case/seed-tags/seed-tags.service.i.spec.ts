@@ -1,13 +1,15 @@
+import type { ITagDto } from '@codelab/shared/abstract/core'
+
 import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { TagDomainModule } from '@codelab/backend/domain/tag'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import type { ITagDto } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms } from '@codelab/shared/domain'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
+
 import { SeedTagsService } from './seed-tags.service'
 import { TagTreeUtils } from './seed-tags.util'
 

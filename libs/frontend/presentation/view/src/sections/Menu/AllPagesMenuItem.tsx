@@ -1,10 +1,11 @@
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import FileOutlined from '@ant-design/icons/FileOutlined'
 import {
   ExplorerPaneType,
   type PageContextParams,
   PageType,
 } from '@codelab/frontend/abstract/types'
-import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 export const allPagesMenuItem = ({
   appId,
@@ -26,15 +27,10 @@ export const allPagesMenuItem = ({
     ...disabledPageListItem,
     disabled: false,
     link: {
-      href: PageType.PageBuilder(
-        {
-          appId,
-          pageId,
-        },
-        {
-          primarySidebarKey: ExplorerPaneType.PageList,
-        },
-      ),
+      href: PageType.PageList({
+        appId,
+        pageId,
+      }),
     },
   }
 }

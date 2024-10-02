@@ -1,5 +1,6 @@
-import { AtomDtoSchema } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
+
+import { AtomDtoSchema } from '@codelab/shared/abstract/core'
 import { Type } from '@sinclair/typebox'
 
 export const CreateAtomDataSchema = Type.Pick(AtomDtoSchema, [

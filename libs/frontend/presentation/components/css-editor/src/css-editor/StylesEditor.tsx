@@ -9,6 +9,7 @@ import {
   Typography,
 } from 'antd'
 import { observer } from 'mobx-react-lite'
+
 import { BackgroundEditor } from '../background'
 import { BorderEditor } from '../border'
 import { DisplayEditor } from '../display'

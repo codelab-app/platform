@@ -6,6 +6,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
+
 import { useUpdateResourceForm } from '../use-cases/update-resource'
 
 export const ResourcesViewHeader = observer(() => {

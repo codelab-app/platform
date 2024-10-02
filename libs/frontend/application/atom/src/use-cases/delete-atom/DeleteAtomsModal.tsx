@@ -1,28 +1,27 @@
 'use client'
 
+import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
-import { useAtomService } from '../../services'
-import { useDeleteAtomsModal } from './delete-atoms.state'
 
-export const DeleteAtomsModal = observer(() => {
-  const deleteAtomsModal = useDeleteAtomsModal()
-  const atomService = useAtomService()
-  const atoms = deleteAtomsModal.data ?? []
-  const onSubmit = () => atomService.remove(atoms)
-  const closeModal = () => deleteAtomsModal.close()
+import { useAtomService } from '../../services'
+
+export const DeleteAtomsModal = observer<{ atom: IAtomModel }>(({ atom }) => {
+  const { goToAtomsPage, removeMany } = useAtomService()
+  const onSubmit = () => removeMany([atom])
 
   return (
     <ModalForm.Modal
       okText="Delete Atom"
-      onCancel={closeModal}
-      open={deleteAtomsModal.isOpen}
+      onCancel={() => goToAtomsPage()}
+      open={true}
       title="Delete Confirmation"
-      uiKey={UiKey.DeleteAtomsModal}
+      uiKey={UiKey.AtomsModalDelete}
     >
       <ModalForm.Form
         model={{}}
@@ -30,13 +29,10 @@ export const DeleteAtomsModal = observer(() => {
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting atom',
         })}
-        onSubmitSuccess={closeModal}
+        onSubmitSuccess={() => goToAtomsPage()}
         schema={emptyJsonSchema}
       >
-        <h4>
-          Are you sure you want to delete atoms "
-          {atoms.map((atom) => atom.name).join(', ')}"?
-        </h4>
+        <h4>Are you sure you want to delete atom "{atom.name}"?</h4>
         <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>

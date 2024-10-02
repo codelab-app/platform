@@ -1,4 +1,5 @@
 import type { BrowserAgent } from '@newrelic/browser-agent/loaders/browser-agent'
+
 import { useEffect, useState } from 'react'
 
 export const useRelicAgent = () => {

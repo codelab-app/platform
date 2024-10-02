@@ -1,7 +1,12 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
+
 import type { ICodeMirrorLanguage } from '../code-mirror-language.enum'
 import type { IElementTypeKind } from '../element'
+import type { IPrimitiveTypeKind } from './primitive-type.enum'
+import type { ITypeKind } from './type-kind.enum'
+
 import {
   ActionTypeDtoSchema,
   ActionTypeSchema,
@@ -34,7 +39,6 @@ import {
   PrimitiveTypeDtoSchema,
   PrimitiveTypeSchema,
 } from './primitive-type.dto.interface'
-import type { IPrimitiveTypeKind } from './primitive-type.enum'
 import {
   ReactNodeTypeDtoSchema,
   ReactNodeTypeSchema,
@@ -47,7 +51,6 @@ import {
   RichTextTypeDtoSchema,
   RichTextTypeSchema,
 } from './rich-text-type.dto.interface'
-import type { ITypeKind } from './type-kind.enum'
 import { UnionTypeDtoSchema, UnionTypeSchema } from './union-type.dto.interface'
 
 export const TypeDtoSchema = Type.Union(

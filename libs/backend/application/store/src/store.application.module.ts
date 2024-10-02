@@ -6,6 +6,7 @@ import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { StoreApplicationService } from './store.application.service'
 import {
   ExportStoreCommand,

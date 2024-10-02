@@ -1,11 +1,13 @@
 'use client'
 
-import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+
+import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { css } from 'styled-components'
+
 import { ItemTools } from '../ItemTools/ItemTools'
 import { ConfigGuide } from './ConfigGuideTab/ConfigGuideTab'
 import { ConfigStatus } from './ConfigStatus'

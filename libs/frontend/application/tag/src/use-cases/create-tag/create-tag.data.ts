@@ -4,6 +4,6 @@ import {
   useModalState,
 } from '@codelab/frontend-application-shared-store/ui'
 
-export const useCreateTagModal = () => useModalState(UiKey.CreateTagModal)
+export const useCreateTagModal = () => useModalState(UiKey.TagModalCreate)
 
-export const useCreateTagForm = () => useFormState(UiKey.CreateTagForm)
+export const useCreateTagForm = () => useFormState(UiKey.TagFormCreate)

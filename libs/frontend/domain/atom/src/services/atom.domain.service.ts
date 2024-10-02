@@ -1,10 +1,10 @@
-import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon'
-import DeploymentUnitOutlined from '@ant-design/icons/lib/icons/DeploymentUnitOutlined'
 import type {
   IAtomDomainService,
   IAtomModel,
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
+
+import DeploymentUnitOutlined from '@ant-design/icons/lib/icons/DeploymentUnitOutlined'
 import { SelectOption } from '@codelab/frontend/abstract/types'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import {
@@ -22,6 +22,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+
 import { Atom, mapEntitySelectOptions } from '../store'
 
 @model('@codelab/AtomDomainService')

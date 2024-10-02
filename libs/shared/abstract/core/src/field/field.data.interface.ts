@@ -1,4 +1,5 @@
 import type { Nullish } from '@codelab/shared/abstract/types'
+
 import type { IFieldRef } from './field.dto.interface'
 import type { IValidationRules } from './field.validation'
 
@@ -18,8 +19,8 @@ export interface ICreateFieldData {
 export type IUpdateFieldData = ICreateFieldData
 
 export type IFieldDefaultValue =
-  | Array<IFieldDefaultValue>
   | boolean
   | number
   | string
+  | Array<IFieldDefaultValue>
   | { [x: string]: IFieldDefaultValue }

@@ -1,17 +1,19 @@
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import EditOutlined from '@ant-design/icons/EditOutlined'
-import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
   IFieldModel,
   IInterfaceTypeModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
+
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import { useCreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
+
 import type { AtomColumnProps } from './types'
 
 export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {

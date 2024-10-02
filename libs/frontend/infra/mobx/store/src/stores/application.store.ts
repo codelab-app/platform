@@ -1,3 +1,10 @@
+import type {
+  IAtomModel,
+  IComponentModel,
+  ITagModel,
+  ITypeModel,
+} from '@codelab/frontend/abstract/domain'
+
 import {
   builderServiceContext,
   type IApplicationStore,
@@ -14,12 +21,6 @@ import {
   runtimeElementServiceContext,
   runtimePageServiceContext,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IAtomModel,
-  IComponentModel,
-  ITagModel,
-  ITypeModel,
-} from '@codelab/frontend/abstract/domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
   RendererService,

@@ -1,4 +1,5 @@
 import { Table } from 'antd'
+
 import { useLambdaTable } from './useLambdasTable.hook'
 
 export const GetLambdasTable = () => {

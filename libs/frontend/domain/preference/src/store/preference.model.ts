@@ -1,3 +1,9 @@
+import type {
+  PreferenceCreateInput,
+  PreferenceDeleteInput,
+  PreferenceUpdateInput,
+} from '@codelab/shared/infra/gql'
+
 import {
   type IPreferenceModel,
   IUserModel,
@@ -9,11 +15,6 @@ import {
   type IPreferenceDto,
 } from '@codelab/shared/abstract/core'
 import { breakpoints } from '@codelab/shared/domain'
-import type {
-  PreferenceCreateInput,
-  PreferenceDeleteInput,
-  PreferenceUpdateInput,
-} from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 

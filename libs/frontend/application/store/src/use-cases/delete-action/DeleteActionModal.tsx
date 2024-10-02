@@ -4,6 +4,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useActionService } from '../../services'
 import { useDeleteActionModal } from './delete-action.state'
 
@@ -18,7 +19,7 @@ export const DeleteActionModal = observer(() => {
       return Promise.reject()
     }
 
-    return actionService.remove([action])
+    return actionService.removeMany([action])
   }
 
   return (
@@ -27,7 +28,7 @@ export const DeleteActionModal = observer(() => {
       onCancel={closeModal}
       open={deleteActionModal.isOpen}
       title="Delete Confirmation"
-      uiKey={UiKey.DeleteActionModal}
+      uiKey={UiKey.ActionModalDelete}
     >
       <ModalForm.Form
         model={{}}

@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
 import {
@@ -6,7 +8,8 @@ import {
 } from '@codelab/frontend-application-domain/use-cases/domain-list'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import type { Metadata } from 'next'
+
+import { DomainListContainer } from './page.container'
 
 export const metadata: Metadata = {
   // description: '...',
@@ -28,7 +31,7 @@ const DomainsPage = async ({
         <UpdateDomainModal /> */}
       <ContentSection>
         <DomainStoreHydrator appsDto={apps} fallback={<Spinner />}>
-          <DomainList />
+          <DomainListContainer />
         </DomainStoreHydrator>
       </ContentSection>
     </>

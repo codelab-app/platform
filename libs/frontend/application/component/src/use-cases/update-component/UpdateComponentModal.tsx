@@ -1,9 +1,11 @@
+import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
-import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useComponentService } from '../../services'
 import { updateComponentSchema } from './update-component.schema'
 import { useUpdateComponentModal } from './update-component.state'
@@ -26,7 +28,7 @@ export const UpdateComponentModal = observer(() => {
       onCancel={closeModal}
       open={updateComponentModal.isOpen}
       title={<span className="font-semibold">Update component</span>}
-      uiKey={UiKey.UpdateComponentModal}
+      uiKey={UiKey.ComponentModalUpdate}
     >
       {/* <UpdateComponentForm component={component} /> */}
       <ModalForm.Form<IUpdateComponentData>

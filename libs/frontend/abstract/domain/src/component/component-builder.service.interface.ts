@@ -9,6 +9,7 @@ import type {
   StoreFragment,
   TypeFragment,
 } from '@codelab/shared/infra/gql'
+
 import type { IComponentModel } from './component.model.interface'
 
 export interface IComponentBuilderArgs {

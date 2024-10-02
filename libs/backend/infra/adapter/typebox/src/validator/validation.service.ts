@@ -1,9 +1,10 @@
+import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'
+import type { ValidationException } from 'typebox-validators'
+
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
-import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'
-import type { ValidationException } from 'typebox-validators'
 import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
 
 @Injectable()

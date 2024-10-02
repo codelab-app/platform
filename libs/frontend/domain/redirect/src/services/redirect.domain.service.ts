@@ -2,8 +2,10 @@ import type {
   IRedirectDomainService,
   IRedirectModel,
 } from '@codelab/frontend/abstract/domain'
+
 import { IRedirectDto } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+
 import { RedirectModel } from '../store'
 
 @model('@codelab/RedirectDomainService')

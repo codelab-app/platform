@@ -5,8 +5,10 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields, ListField } from 'uniforms-antd'
-import { useTagService } from '../../services'
+
 import type { DeleteTagsData } from './delete-tags.schema'
+
+import { useTagService } from '../../services'
 import { deleteTagsSchema } from './delete-tags.schema'
 import { useDeleteTagsModal } from './delete-tags.state'
 
@@ -17,7 +19,7 @@ export const DeleteTagsModal = observer(() => {
   const closeModal = () => deleteTagsModal.close()
 
   const onSubmit = () => {
-    void tagService.remove(tags ?? [])
+    void tagService.removeMany(tags ?? [])
 
     closeModal()
 
@@ -30,7 +32,7 @@ export const DeleteTagsModal = observer(() => {
       onCancel={closeModal}
       open={deleteTagsModal.isOpen}
       title={<span className="font-semibold">Delete tags</span>}
-      uiKey={UiKey.DeleteTagModal}
+      uiKey={UiKey.TagModalDelete}
     >
       <ModalForm.Form<DeleteTagsData>
         model={{}}

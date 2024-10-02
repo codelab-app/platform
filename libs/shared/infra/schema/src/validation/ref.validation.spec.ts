@@ -1,5 +1,6 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { v4 } from 'uuid'
+
 import { Validator } from './validator'
 
 describe('Ref validation', () => {

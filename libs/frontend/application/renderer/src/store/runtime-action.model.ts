@@ -13,10 +13,11 @@ import type {
   IPropData,
   IResourceFetchConfig,
 } from '@codelab/shared/abstract/core'
-import { IActionKind } from '@codelab/shared/abstract/core'
-import { evaluateObject } from '@codelab/shared/utils'
-import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
+
+import { IActionKind } from '@codelab/shared/abstract/core'
+import { evaluateObject } from '@codelab/shared-infra-eval'
+import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 

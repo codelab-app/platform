@@ -6,6 +6,7 @@ import type {
 import type { IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
+
 import { idProp, Model, prop } from 'mobx-keystone'
 
 export const createBaseAction = <T extends IActionKind>(type: T) =>

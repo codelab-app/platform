@@ -7,6 +7,7 @@ import type {
   CodeMirrorTypeCreateInput,
   UpdateCodeMirrorTypesMutationVariables,
 } from '@codelab/shared/infra/gql'
+
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 export interface ICodeMirrorTypeModel

@@ -1,4 +1,4 @@
-'use server'
+'use client'
 
 import {
   CuiNavigationBar,
@@ -6,17 +6,20 @@ import {
   CuiPanelGroup,
   CuiResizablePanel,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { isHiddenSlot } from '@codelab/frontend/shared/utils'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
+
+import type { DashboardProps } from './Types'
+
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
 import { defaultNavigationBarItems } from './NavigationBar'
-import type { DashboardProps } from './Types'
 
 /**
  * When passing ReactNode as props, React treats it as a new prop on every render of the parent component, even if the content hasn't changed.
  */
-export const Dashboard = async ({
+export const Dashboard = ({
   appId,
   children,
   componentId,
@@ -26,19 +29,13 @@ export const Dashboard = async ({
   pageId,
   PrimarySidebar,
   primarySidebarKey,
+  SecondaryPopover,
 }: React.PropsWithChildren<DashboardProps>) => {
   const navigationBarItems = defaultNavigationBarItems({
     appId,
     componentId,
     pageId,
   })
-
-  // const activeSidebarKey =
-  //   (primarySidebarKey as React.Key) || PrimarySidebar?.default || null
-
-  // const ActivePrimarySidebar = PrimarySidebar?.items.find(
-  //   (item) => item.key === activeSidebarKey,
-  // )?.render
 
   return (
     <Layout className="h-full">
@@ -60,26 +57,38 @@ export const Dashboard = async ({
             {PrimarySidebar && (
               <CuiResizablePanel
                 collapsible
+                defaultSize={20}
                 order={1}
                 resizeDirection="right"
                 showCollapseButton={false}
               >
-                <div className="size-full" data-cy="temp-primary-panel-wrapper">
+                <div
+                  className="relative size-full"
+                  data-testid="temp-primary-panel-wrapper"
+                >
                   {PrimarySidebar}
                 </div>
               </CuiResizablePanel>
             )}
 
-            <CuiPanel defaultSize={60} order={2}>
-              <ProgressBar />
-              <main className="mt-3 size-full overflow-auto px-3 pb-6">
-                {children}
-              </main>
+            <CuiPanel className="relative" defaultSize={80} order={3}>
+              {/* <ProgressBar /> */}
+              {/* We want the popover to overlay on top of the main, so we put it inside here */}
+              {SecondaryPopover}
+              {/* <ProgressBar /> */}
+              {/* <main className="mt-3 size-full overflow-auto px-3 pb-6"> */}
+              <div className="w-full p-3">{children}</div>
+              {/* </main> */}
             </CuiPanel>
 
             {ConfigPane && (
-              <CuiResizablePanel collapsible order={3} resizeDirection="left">
-                <div className="size-full overflow-y-auto bg-white">
+              <CuiResizablePanel
+                collapsible
+                defaultSize={25}
+                order={4}
+                resizeDirection="left"
+              >
+                <div className="relative size-full overflow-y-auto bg-white">
                   {ConfigPane}
                 </div>
               </CuiResizablePanel>

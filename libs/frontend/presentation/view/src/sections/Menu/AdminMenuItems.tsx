@@ -1,9 +1,10 @@
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import ApiOutlined from '@ant-design/icons/ApiOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import TagOutlined from '@ant-design/icons/TagOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import { PageType } from '@codelab/frontend/abstract/types'
-import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 export const adminMenuItems: Array<NavigationBarItem> = [
   {

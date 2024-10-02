@@ -3,14 +3,16 @@ import type {
   IRendererModel,
   IRendererService,
 } from '@codelab/frontend/abstract/application'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
 } from '@codelab/frontend/abstract/application'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+
 import { Renderer } from '../store/renderer.model'
 
 @model('@codelab/RendererService')

@@ -1,9 +1,10 @@
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { act, renderHook } from '@testing-library/react'
+
 import { useModalState } from './modal.state'
 
 describe('useModalState', () => {
-  const useCreateAppModal = () => useModalState<number>(UiKey.CreateAppModal)
+  const useCreateAppModal = () => useModalState<number>(UiKey.AppModalCreate)
 
   it('should initialize with closed state', () => {
     const { result } = renderHook(() => useCreateAppModal())
@@ -48,7 +49,7 @@ describe('useModalState', () => {
     const mapper = (state: number) => ({ value: state * 2 })
 
     const useUpdateAppModal = () =>
-      useModalState<number, { value: number }>(UiKey.CreateAppModal, mapper)
+      useModalState<number, { value: number }>(UiKey.AppModalCreate, mapper)
 
     const { result } = renderHook(() => useUpdateAppModal())
 
@@ -61,11 +62,11 @@ describe('useModalState', () => {
 
   it('should share data between 2 usages of the same hook', () => {
     const { result: result1 } = renderHook(() =>
-      useModalState<number>(UiKey.CreateAppModal),
+      useModalState<number>(UiKey.AppModalCreate),
     )
 
     const { result: result2 } = renderHook(() =>
-      useModalState<number>(UiKey.CreateAppModal),
+      useModalState<number>(UiKey.AppModalCreate),
     )
 
     act(() => {
@@ -88,11 +89,11 @@ describe('useModalState', () => {
 
   it('should not share data between modals with different keys', () => {
     const { result: result1 } = renderHook(() =>
-      useModalState<number>(UiKey.CreateAppModal),
+      useModalState<number>(UiKey.AppModalCreate),
     )
 
     const { result: result2 } = renderHook(() =>
-      useModalState<number>(UiKey.UpdateAppModal),
+      useModalState<number>(UiKey.AppModalUpdate),
     )
 
     act(() => {

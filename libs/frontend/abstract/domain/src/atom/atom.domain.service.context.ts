@@ -1,4 +1,5 @@
 import { type AnyModel, createContext } from 'mobx-keystone'
+
 import type { IAtomDomainService } from './atom.domain.service.interface'
 
 export const atomDomainServiceContext = createContext<IAtomDomainService>()

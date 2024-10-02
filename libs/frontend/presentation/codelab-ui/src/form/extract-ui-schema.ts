@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { pipe, setPath, stringToPath } from 'remeda'
 
 export const extractUiSchema = (jsonSchema: any, path = ''): ObjectLike => {

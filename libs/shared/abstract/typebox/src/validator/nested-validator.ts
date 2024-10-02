@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { type Static, type TSchema } from '@sinclair/typebox'
 import { StandardValidator } from 'typebox-validators'
 

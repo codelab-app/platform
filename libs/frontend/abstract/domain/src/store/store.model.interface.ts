@@ -6,6 +6,7 @@ import type {
   StoreUpdateInput,
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
+
 import type { IActionModel } from '../action'
 import type { IActionNodeData } from '../action/action.node.interface'
 import type { IComponentModel } from '../component'

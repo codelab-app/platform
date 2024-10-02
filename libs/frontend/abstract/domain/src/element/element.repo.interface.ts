@@ -5,6 +5,7 @@ import type {
   ElementFragment,
   ElementWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { IRepository } from '../shared'
 import type { IElementModel } from './element.model.interface'
 import type { IElementTree } from './element-tree.interface.model'

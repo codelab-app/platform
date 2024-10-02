@@ -1,15 +1,17 @@
 'use client'
 
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
-  CuiSidebarPopover,
+  CuiSidebarSecondary,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
+
 import { useCreatePageForm } from './create-page.state'
 import { CreatePageForm } from './CreatePageForm'
 
@@ -19,13 +21,12 @@ export const CreatePagePopover = observer(() => {
   const { popover } = useCui()
 
   return (
-    <CuiSidebarPopover
-      id={UiKey.CreatePagePopover}
-      label="Create Page"
+    <CuiSidebarSecondary
+      id={UiKey.PagePopoverCreate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.CreatePageToolbarItem,
+            cuiKey: UiKey.PageToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -34,7 +35,7 @@ export const CreatePagePopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: UiKey.CancelCreatePageToolbarItem,
+            cuiKey: UiKey.PageToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
@@ -52,6 +53,6 @@ export const CreatePagePopover = observer(() => {
         showFormControl={false}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

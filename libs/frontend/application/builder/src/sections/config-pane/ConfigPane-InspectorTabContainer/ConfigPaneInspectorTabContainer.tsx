@@ -1,5 +1,7 @@
 'use client'
 
+import type { ReactNode } from 'react'
+
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
@@ -27,8 +29,8 @@ import { FormContextProvider } from '@codelab/frontend-presentation-components-f
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
-import type { ReactNode } from 'react'
 import { isNullish } from 'remeda'
+
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPaneInspectorTabContainerStyle'
 import { TAB_NAMES } from './data'

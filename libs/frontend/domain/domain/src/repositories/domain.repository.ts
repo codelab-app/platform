@@ -7,7 +7,9 @@ import type {
   DomainUniqueWhere,
   DomainWhere,
 } from '@codelab/shared/infra/gql'
+
 import { Validator } from '@codelab/shared/infra/schema'
+
 import {
   CreateDomains,
   DeleteDomains,

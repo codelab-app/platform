@@ -2,6 +2,7 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
+
 import { tagDescendants } from '../../../cypher'
 import { Neo4jService, OgmService } from '../../../infra'
 import { tagSelectionSet } from '../../../selectionSet'

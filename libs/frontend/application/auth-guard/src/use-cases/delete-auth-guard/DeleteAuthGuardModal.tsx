@@ -7,6 +7,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
+
 import { useAuthGuardService } from '../../services'
 import { useDeleteAuthGuardModal } from './delete-auth-guard.state'
 
@@ -23,7 +24,7 @@ export const DeleteAuthGuardModal = observer(() => {
       return Promise.reject()
     }
 
-    return await authGuardService.remove([authGuard])
+    return await authGuardService.removeMany([authGuard])
   }
 
   const onSubmitSuccess = () => {
@@ -40,7 +41,7 @@ export const DeleteAuthGuardModal = observer(() => {
       onCancel={closeModal}
       open={deleteAuthGuardModal.isOpen}
       title="Delete Confirmation"
-      uiKey={UiKey.DeleteAuthGuardModal}
+      uiKey={UiKey.AuthGuardModalDelete}
     >
       <ModalForm.Form
         model={{}}

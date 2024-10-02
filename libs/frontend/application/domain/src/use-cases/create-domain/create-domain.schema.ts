@@ -1,10 +1,11 @@
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
+import type { JSONSchemaType } from 'ajv'
+
 import {
   appSchema,
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
-import type { JSONSchemaType } from 'ajv'
 
 export const createDomainSchema: JSONSchemaType<ICreateDomainData> = {
   properties: {

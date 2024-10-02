@@ -2,7 +2,9 @@ import type {
   ICodeMirrorLanguage,
   ICodeMirrorTypeDto,
 } from '@codelab/shared/abstract/core'
+
 import { ITypeKind } from '@codelab/shared/abstract/core'
+
 import { BaseType } from './base-type.model'
 
 export class CodeMirrorType extends BaseType implements ICodeMirrorTypeDto {

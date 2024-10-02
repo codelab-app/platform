@@ -1,12 +1,13 @@
-import { AuthGuard } from '@codelab/backend/domain/auth-guard'
-import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
-import { Resource } from '@codelab/backend/domain/resource'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import type {
   IRef,
   IResourceConfigData,
   IRestFetchConfigData,
 } from '@codelab/shared/abstract/core'
+
+import { AuthGuard } from '@codelab/backend/domain/auth-guard'
+import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
+import { Resource } from '@codelab/backend/domain/resource'
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   HttpMethod,
   HttpResponseType,
@@ -16,6 +17,7 @@ import {
 import { ResourceRestClient } from '@codelab/shared/domain'
 import { Test, type TestingModule } from '@nestjs/testing'
 import { v4 } from 'uuid'
+
 import { RedirectApplicationModule } from './redirect.application.module'
 import { RedirectController } from './redirect.controller'
 

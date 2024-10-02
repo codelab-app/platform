@@ -1,5 +1,6 @@
 import type { ContainerNode } from '@codelab/shared/infra/gql'
 import type { IResolvers } from '@graphql-tools/utils'
+
 import { name } from './field/element-name'
 import { slug } from './field/element-slug'
 

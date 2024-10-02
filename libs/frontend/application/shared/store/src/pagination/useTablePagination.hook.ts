@@ -6,44 +6,21 @@ import type {
   SupportedPaginationModel,
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import type { TablePaginationConfig } from 'antd'
+
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
+import queryString from 'query-string'
 import { useEffect } from 'react'
+import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
 import { debounce } from 'remeda'
+
 import { paginationContext } from './pagination.service'
 
 interface TablePaginationProps<T extends SupportedPaginationModel> {
   getDataFn: GetDataFn<T>
   paginationService: IPaginationService<T>
   pathname: SupportedPaginationModelPage
-}
-
-const generateUrlSearchParams = ({
-  filter,
-  page,
-  pageSize,
-  searchQuery,
-}: {
-  filter?: Array<string>
-  page: number
-  pageSize: number
-  searchQuery?: string
-}) => {
-  const params: Record<string, string> = {
-    page: page.toString(),
-    pageSize: pageSize.toString(),
-  }
-
-  if (searchQuery !== undefined) {
-    params.searchQuery = searchQuery
-  }
-
-  if (filter !== undefined && filter.length > 0) {
-    params.filter = filter.join(',')
-  }
-
-  return new URLSearchParams(params)
 }
 
 export const useTablePagination = <T extends SupportedPaginationModel>({
@@ -55,17 +32,38 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
   const router = useRouter()
 
   const onChange = (page: number, pageSize: number) => {
-    const queryParams = generateUrlSearchParams({ page, pageSize })
+    const url = queryString.stringifyUrl({
+      query: {
+        page,
+        pageSize,
+      },
+      url: pathname,
+    })
 
-    router.push(`${pathname}?${queryParams.toString()}`)
+    router.push(url)
   }
 
   useEffect(() => {
     paginationContext.setDefault({
       getDataFn,
     })
-    void paginationService.getData()
   }, [])
+
+  useDeepCompareEffect(() => {
+    console.log(
+      'getData',
+      routerService.page,
+      routerService.pageSize,
+      routerService.search,
+      routerService.filter,
+    )
+    void paginationService.getData()
+  }, [
+    routerService.page,
+    routerService.pageSize,
+    routerService.search,
+    routerService.filter,
+  ])
 
   const pagination: TablePaginationConfig = {
     current: routerService.page,

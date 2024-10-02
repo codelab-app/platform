@@ -1,6 +1,7 @@
+import type { ICommandHandler } from '@nestjs/cqrs'
+
 import { Tag, TagRepository } from '@codelab/backend/domain/tag'
 import { createTagsData } from '@codelab/shared/data/test'
-import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class SeedCypressTagsCommand {}

@@ -1,6 +1,13 @@
 'use client'
 
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
+import type { IElementDto } from '@codelab/shared/abstract/core'
+import type {
+  Maybe,
+  Nullable,
+  UniformSelectFieldProps,
+} from '@codelab/shared/abstract/types'
+
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -15,23 +22,19 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import type {
-  Maybe,
-  Nullable,
-  UniformSelectFieldProps,
-} from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
+import type { ICreateElementDto } from './create-element.schema'
+
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import { RenderTypeField } from '../../components/render-type-field'
 import { SelectLinkElement } from '../../components/SelectLinkElement'
 import { useElementService } from '../../services/element.service'
 import { useRequiredParentValidator } from '../../validation/useRequiredParentValidator.hook'
-import type { ICreateElementDto } from './create-element.schema'
 import { createElementSchema } from './create-element.schema'
 import { useCreateElementForm } from './create-element.state'
 
@@ -120,7 +123,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         onSubmitSuccess={closeForm}
         schema={createElementSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateElementForm}
+        uiKey={UiKey.ElementFormCreate}
       >
         <AutoFields
           omitFields={[

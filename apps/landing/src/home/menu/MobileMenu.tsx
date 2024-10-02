@@ -15,6 +15,7 @@ import { createPortal } from 'react-dom'
 import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
 import styled from 'styled-components'
+
 import { Logo } from '../logo/Logo'
 import { menuState } from './menu-state'
 
@@ -90,7 +91,11 @@ export const MenuMobile = () => {
             {menuItems.map((items, index) => (
               <li className="hidden pt-8 text-base laptop:flex" key={index}>
                 <Link
-                  className="flex items-center font-display font-normal  text-black hover:text-primary"
+                  className={`
+                    flex items-center font-display
+                    font-normal text-black
+                    hover:text-primary
+                  `}
                   href={items.href}
                 >
                   <Image
@@ -108,16 +113,16 @@ export const MenuMobile = () => {
             <li className="list-none text-2xl">
               <FontAwesomeIcon icon={faTwitter} />
             </li>
-            <li className=" list-none text-2xl">
+            <li className="list-none text-2xl">
               <FontAwesomeIcon icon={faFacebook} />
             </li>
-            <li className=" list-none text-2xl">
+            <li className="list-none text-2xl">
               <FontAwesomeIcon icon={faGithub} />
             </li>
-            <li className=" list-none text-2xl">
+            <li className="list-none text-2xl">
               <FontAwesomeIcon icon={faYoutube} />
             </li>
-            <li className=" list-none text-2xl">
+            <li className="list-none text-2xl">
               <FontAwesomeIcon icon={faDiscord} />
             </li>
           </ul>

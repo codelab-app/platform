@@ -1,7 +1,9 @@
 import type { IToggleService } from '@codelab/frontend/abstract/application'
+
 import { atom, useAtom } from 'jotai'
 import { useMemo } from 'react'
 import { isDeepEqual } from 'remeda'
+
 import type { IToggleState } from '../family-toggle/toggle.state.interface'
 
 const defaultMapper = <TData, TOutput = TData>(state: TData): TOutput =>

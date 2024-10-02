@@ -1,4 +1,5 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
+
 import { mapDeep } from './map-deep'
 
 describe('mapDeep', () => {

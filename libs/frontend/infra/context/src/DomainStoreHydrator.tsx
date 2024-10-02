@@ -1,12 +1,13 @@
 'use client'
 
-import type { IDomainData } from '@codelab/frontend/abstract/domain'
+import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
+import type { ReactNode } from 'react'
+
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import type { ReactNode } from 'react'
 import { useCallback, useEffect, useState } from 'react'
 
-type DomainStoreHydratorProps = IDomainData & {
+type DomainStoreHydratorProps = IDomainStoreDto & {
   children: ReactNode
   fallback: ReactNode
 }

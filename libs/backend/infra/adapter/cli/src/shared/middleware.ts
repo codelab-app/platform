@@ -1,7 +1,8 @@
+import type { MiddlewareFunction } from 'yargs'
+
 import { Stage } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
 import dotenv from 'dotenv'
-import type { MiddlewareFunction } from 'yargs'
 
 /**
  * Used locally to load env for other stages

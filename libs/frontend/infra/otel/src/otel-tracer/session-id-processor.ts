@@ -4,6 +4,7 @@ import type {
   Span,
   SpanProcessor,
 } from '@opentelemetry/sdk-trace-web'
+
 import { AttributeNames } from './enums/attribute-names'
 import SessionGateway from './gateways/session.gateway'
 

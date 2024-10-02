@@ -1,6 +1,7 @@
 'use client'
 
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -9,6 +10,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useTypeService } from '../../services'
 import { DisplayIfKind } from '../create-type/DisplayIfKind'
 import { TypeSelect } from '../select-types/TypeSelect'
@@ -82,7 +84,7 @@ export const UpdateTypeModal = observer(() => {
       onCancel={closeModal}
       open={updateTypeModal.isOpen}
       title={<span className="font-semibold">Update type</span>}
-      uiKey={UiKey.UpdateTypeModal}
+      uiKey={UiKey.TypeModalUpdate}
     >
       <ModalForm.Form<IUpdateTypeDto>
         model={model}

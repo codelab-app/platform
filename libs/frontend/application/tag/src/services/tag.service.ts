@@ -3,6 +3,14 @@ import type {
   ITagService,
 } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import type {
+  ICreateTagData,
+  IRef,
+  IUpdateTagData,
+} from '@codelab/shared/abstract/core'
+import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
+
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
@@ -10,14 +18,8 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type {
-  ICreateTagData,
-  IUpdateTagData,
-} from '@codelab/shared/abstract/core'
-import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 import { atom, useAtom } from 'jotai'
-import type { Ref } from 'mobx-keystone'
 
 const checkedTagsAtom = atom<Array<Ref<ITagModel>>>([])
 
@@ -81,7 +83,7 @@ export const useTagService = (): ITagService => {
     return tag
   }
 
-  const remove = async (ids: Array<ITagModel>) => {
+  const removeMany = async (ids: Array<ITagModel>) => {
     const tags = await getAll({ id_IN: ids.map(({ id }) => id) })
     const tagsToRemove = []
 
@@ -126,8 +128,16 @@ export const useTagService = (): ITagService => {
   }
 
   const deleteCheckedTags = async () => {
-    await remove(checkedTags.map((tag) => tag.current))
+    await removeMany(checkedTags.map((tag) => tag.current))
     setCheckedTags([])
+  }
+
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(tagDomainService.tags.get(ref.id))
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(tagDomainService.tags.values())
   }
 
   return {
@@ -135,9 +145,11 @@ export const useTagService = (): ITagService => {
     create,
     deleteCheckedTags,
     getAll,
+    getAllFromCache,
     getDataFn,
+    getOneFromCache,
     paginationService: tagPagination,
-    remove,
+    removeMany,
     setCheckedTags,
     update,
   }

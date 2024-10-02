@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test'
+
 import { test } from './home.fixture'
 
 test('has Jaegers link', async ({ homePage: page }) => {

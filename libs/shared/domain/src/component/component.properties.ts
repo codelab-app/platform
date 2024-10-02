@@ -1,10 +1,8 @@
 import type { IComponent, IUserDto } from '@codelab/shared/abstract/core'
 import type { Component } from '@codelab/shared/infra/gql'
-import {
-  removeUuidAndDashPrefix,
-  slugCaseToTitleCase,
-} from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
+
+import { removeUuidAndDashPrefix, titleCase } from '@codelab/shared/utils'
 
 interface ComponentData {
   compositeKey: never
@@ -23,7 +21,7 @@ const componentNameFromCompositeKey = (
 ) => {
   const slug = componentSlugFromCompositeKey(component)
 
-  return slugCaseToTitleCase(slug)
+  return titleCase(slug)
 }
 
 const componentSlugFromCompositeKey = (

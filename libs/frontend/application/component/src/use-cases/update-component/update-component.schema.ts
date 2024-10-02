@@ -1,9 +1,10 @@
+import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
+import type { JSONSchemaType } from 'ajv'
+
 import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 
 export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
   properties: {

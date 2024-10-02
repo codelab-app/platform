@@ -1,8 +1,9 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import * as util from 'util'
 
 export const cLog = (
-  ...objects: Array<ObjectLike | boolean | number | string | null | undefined>
+  ...objects: Array<boolean | number | string | ObjectLike | null | undefined>
 ) => {
   objects.forEach((obj) => {
     console.log(

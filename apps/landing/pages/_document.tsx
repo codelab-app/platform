@@ -4,6 +4,7 @@ You have to include it into the page using either next/head or a custom _documen
 */
 
 import type { DocumentContext } from 'next/document'
+
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {

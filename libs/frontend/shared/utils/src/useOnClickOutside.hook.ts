@@ -1,6 +1,7 @@
 'use client'
 
 import type { DependencyList, RefObject } from 'react'
+
 import { useCallback, useEffect } from 'react'
 
 type OnClickHandler = (event: MouseEvent | TouchEvent) => void

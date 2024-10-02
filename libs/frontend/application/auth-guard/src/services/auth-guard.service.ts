@@ -4,10 +4,11 @@ import type {
   ICreateAuthGuardData,
   IUpdateAuthGuardData,
 } from '@codelab/frontend/abstract/domain'
+import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
+import type { AuthGuardWhere } from '@codelab/shared/infra/gql'
+
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { IPropDto } from '@codelab/shared/abstract/core'
-import type { AuthGuardWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
@@ -32,7 +33,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
     return authGuard
   }
 
-  const remove = async (authGuards: Array<IAuthGuardModel>) => {
+  const removeMany = async (authGuards: Array<IAuthGuardModel>) => {
     for (const authGuard of authGuards) {
       authGuardDomainService.authGuards.delete(authGuard.id)
     }
@@ -78,17 +79,21 @@ export const useAuthGuardService = (): IAuthGuardService => {
     return authGuard
   }
 
-  const authGuard = (id: string) => {
-    return authGuardDomainService.authGuards.get(id)
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(authGuardDomainService.authGuards.get(ref.id))
+  }
+
+  const getAllFromCache = () => {
+    return [...authGuardDomainService.authGuards.values()]
   }
 
   return {
-    authGuard,
-    authGuardList: [...authGuardDomainService.authGuards.values()],
     create,
     getAll,
+    getAllFromCache,
     getOne,
-    remove,
+    getOneFromCache,
+    removeMany,
     update,
   }
 }

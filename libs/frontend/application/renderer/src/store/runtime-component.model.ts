@@ -5,6 +5,14 @@ import type {
   IRuntimeModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
+import type {
+  IComponentModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { ReactElement } from 'react'
+
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
@@ -13,22 +21,16 @@ import {
   IRuntimeNodeType,
   runtimeComponentRef,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   isComponent,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import type { ReactElement } from 'react'
 import { isNonNullish } from 'remeda'
+
 import { RuntimeComponentPropModel } from './runtime-component-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 

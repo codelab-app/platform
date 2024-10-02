@@ -1,7 +1,8 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Page } from '@codelab/shared/infra/gql'
-import { slugify } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
+
+import { slugify } from '@codelab/shared/utils'
 
 interface PageData {
   app: { id: never }

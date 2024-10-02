@@ -1,9 +1,10 @@
-import { StoreDomainService } from '@codelab/backend/domain/store'
-import { TypeDomainService } from '@codelab/backend/domain/type'
 import type {
   ICreateInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
+
+import { StoreDomainService } from '@codelab/backend/domain/store'
+import { TypeDomainService } from '@codelab/backend/domain/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

@@ -1,4 +1,4 @@
-export const toError = (error: unknown): Error | string => {
+export const toError = (error: unknown): string | Error => {
   if (typeof error === 'string') {
     return error
   }

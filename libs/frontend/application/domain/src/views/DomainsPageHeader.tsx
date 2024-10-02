@@ -10,6 +10,7 @@ import {
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
+
 import { useCreateDomainModal } from '../use-cases/create-domain/create-domain.state'
 
 export const DomainsPageHeader = observer(() => {
@@ -35,7 +36,7 @@ export const DomainsPageHeader = observer(() => {
         <CuiHeaderToolbar
           items={[
             {
-              cuiKey: UiKey.CreateDomainToolbarItem,
+              cuiKey: UiKey.DomainToolbarItemCreate,
               icon: <PlusOutlined />,
               onClick: () => createDomainModal.open(),
               title: 'Create Domain',

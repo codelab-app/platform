@@ -6,14 +6,20 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend-presentation-components-form'
-import { Form, useSubmit } from '@codelab/frontend-presentation-components-form'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
-import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
+import type { Assign } from 'utility-types'
+
+import {
+  Form,
+  handleFormSubmit,
+} from '@codelab/frontend-presentation-components-form'
+import { Form, useSubmit } from '@codelab/frontend-presentation-components-form'
+import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
 import { mergeDeep } from 'remeda'
-import type { Assign } from 'utility-types'
+
 import {
   type InterfaceFormContext,
   uniformSchemaFactory,

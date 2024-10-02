@@ -1,8 +1,10 @@
+import type { ICommandHandler } from '@nestjs/cqrs'
+
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { type IAtomDto } from '@codelab/shared/abstract/core'
 import { atomTypes } from '@codelab/shared/data/test'
-import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
+
 import { ImportAtomCommand } from './import-atom'
 
 export class ImportCypressAtomsCommand {}

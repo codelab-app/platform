@@ -1,14 +1,15 @@
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
 import CloudServerOutlined from '@ant-design/icons/CloudServerOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import {
   type ComponentContextParams,
-  ExplorerPaneType,
   type PageContextParams,
   PageType,
+  PrimarySidebar,
 } from '@codelab/frontend/abstract/types'
-import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 export const appMenuItem: NavigationBarItem = {
   icon: <AppstoreOutlined title="Apps" />,
@@ -57,7 +58,7 @@ export const builderComponentsMenuItem = ({
       link: {
         href: PageType.PageBuilder(
           { appId, pageId },
-          { primarySidebarKey: ExplorerPaneType.Components },
+          PrimarySidebar.ComponentList,
         ),
       },
     }
@@ -68,12 +69,7 @@ export const builderComponentsMenuItem = ({
       ...disabledBuilderComponentsMenuItem,
       disabled: false,
       link: {
-        href: PageType.ComponentBuilder(
-          { componentId },
-          {
-            primarySidebarKey: ExplorerPaneType.Components,
-          },
-        ),
+        href: PageType.ComponentBuilder({ componentId }),
       },
     }
   }

@@ -3,6 +3,8 @@ import type {
   AppOptions,
   AppWhere,
 } from '@codelab/backend/abstract/codegen'
+import type { IAppDto } from '@codelab/shared/abstract/core'
+
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -11,15 +13,14 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   AppProperties,
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain'
+import { slugify } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
-import { slugify } from 'voca'
 
 @Injectable()
 export class AppRepository extends AbstractRepository<

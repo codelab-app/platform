@@ -1,8 +1,11 @@
-import { action, computed, makeObservable, observable } from 'mobx'
 import type { Key } from 'react'
+
+import { action, computed, makeObservable, observable } from 'mobx'
 import { filter, isTruthy } from 'remeda'
-import { traverseAndFlattenTrees, traverseTrees } from '../../../util'
+
 import type { CuiTreeBasicDataNode, WithChildren } from '../CuiTree'
+
+import { traverseAndFlattenTrees, traverseTrees } from '../../../util'
 
 interface FilterOptions {
   primaryTitleFilter?: string | undefined

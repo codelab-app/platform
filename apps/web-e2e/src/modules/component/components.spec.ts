@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test'
+
 import { test } from './component.fixture'
 
 test.describe.configure({ mode: 'serial' })

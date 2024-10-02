@@ -30,5 +30,9 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  // https://github.com/microsoft/playwright/issues/23924
+  "playwright.env": {
+    // "NODE_OPTIONS": "-r ../../.pnp.cjs"
   }
 }

@@ -1,5 +1,12 @@
 'use client'
 
+import type {
+  IAppModel,
+  IPageNodeData,
+  ITreeNode,
+} from '@codelab/frontend/abstract/domain'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
@@ -9,18 +16,12 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import type {
-  IAppModel,
-  IPageNodeData,
-  ITreeNode,
-} from '@codelab/frontend/abstract/domain'
 import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
-  ExplorerPaneType,
   PageType,
+  PrimarySidebar,
   UiKey,
 } from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -32,6 +33,7 @@ import { useUrlPathParams } from '@codelab/frontend-application-shared-store/rou
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
+
 import { useDeletePageModal } from '../delete-page/delete-page.state'
 import { useRegeneratePages } from '../generate-pages'
 import { useUpdatePageForm } from '../update-page/update-page.state'
@@ -60,17 +62,15 @@ export const PageTreeItem = observer(
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: UiKey.OpenBuilderBuilderToolbarItem,
+        cuiKey: UiKey.BuilderToolbarItemOpenBuilder,
         icon: <BuildOutlined />,
         onClick: () => {
           const url = PageType.PageBuilder(
             {
-              appId: appId!,
-              pageId: pageId!,
+              appId,
+              pageId,
             },
-            {
-              primarySidebarKey: ExplorerPaneType.Explorer,
-            },
+            PrimarySidebar.ElementTree,
           )
 
           void router.push(url)
@@ -81,39 +81,39 @@ export const PageTreeItem = observer(
 
     const regularPageToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: UiKey.DeletePageToolbarItem,
+        cuiKey: UiKey.PageToolbarItemDelete,
         icon: <DeleteOutlined />,
         onClick: () => deletePageModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
         cuiKey: page.redirect
-          ? UiKey.UpdateRedirectToolbarItem
-          : UiKey.CreateRedirectToolbarItem,
+          ? UiKey.RedirectToolbarItemUpdate
+          : UiKey.RedirectToolbarItemCreate,
         icon: <SafetyOutlined />,
         onClick: () => {
           if (page.redirect) {
             updateRedirectForm.open(page.redirect.current)
-            popover.open(UiKey.UpdateRedirectPopover)
+            popover.open(UiKey.RedirectPopoverUpdate)
           } else {
             createRedirectForm.open(page)
-            popover.open(UiKey.CreateRedirectPopover)
+            popover.open(UiKey.RedirectPopoverCreate)
           }
         },
         title: 'Auth Guard',
       },
       {
-        cuiKey: UiKey.BuildAppToolbarItem,
+        cuiKey: UiKey.AppToolbarItemBuild,
         icon: isRegenerating ? <LoadingOutlined /> : <ToolOutlined />,
         onClick: () => regenerate(app, [page.urlPattern]),
         title: 'Build',
       },
       {
-        cuiKey: UiKey.UpdatePageToolbarItem,
+        cuiKey: UiKey.PageToolbarItemUpdate,
         icon: <EditOutlined />,
         onClick: () => {
           updatePageForm.open(pageRef(page))
-          popover.open(UiKey.UpdatePagePopover)
+          popover.open(UiKey.PagePopoverUpdate)
         },
         title: 'Edit',
       },

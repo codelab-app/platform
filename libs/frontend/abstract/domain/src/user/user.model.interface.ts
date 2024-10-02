@@ -4,6 +4,7 @@ import type {
   UserDeleteInput,
   UserUpdateInput,
 } from '@codelab/shared/infra/gql'
+
 import type { IModel } from '../shared'
 
 export interface IUserModel

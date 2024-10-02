@@ -2,6 +2,9 @@ import type {
   ElementCssRules,
   IRuntimeElementStyleModel,
 } from '@codelab/frontend/abstract/application'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+
 import {
   CssMap,
   ElementStylePseudoClass,
@@ -14,11 +17,10 @@ import {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { breakpoints } from '@codelab/shared/domain'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
+
 import { jsonStringToCss, parseCssStringIntoObject } from './style.utils'
 
 @model('@codelab/RuntimeElementStyle')

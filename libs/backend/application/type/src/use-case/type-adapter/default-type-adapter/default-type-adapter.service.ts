@@ -6,6 +6,14 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/types'
+import type {
+  IAtomDto,
+  IEnumTypeDto,
+  IFieldDto,
+  IInterfaceTypeDto,
+  IUnionTypeDto,
+} from '@codelab/shared/abstract/core'
+
 import {
   ActionTypeRepository,
   CodeMirrorTypeRepository,
@@ -18,16 +26,10 @@ import {
   TypeFactory,
   UnionType,
 } from '@codelab/backend/domain/type'
-import type {
-  IAtomDto,
-  IEnumTypeDto,
-  IFieldDto,
-  IInterfaceTypeDto,
-  IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
+
 import {
   arrowFnReturnReactNode,
   es5FnReturnReactNode,

@@ -4,6 +4,8 @@ import type {
   IRuntimeElementPropDTO,
   IRuntimeElementPropModel,
 } from '@codelab/frontend/abstract/application'
+import type { Ref } from 'mobx-keystone'
+
 import {
   getRendererService,
   getRouterService,
@@ -19,17 +21,17 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { type IPropData, ITypeKind } from '@codelab/shared/abstract/core'
+import { mapDeep } from '@codelab/shared/utils'
 import {
   evaluateExpression,
   evaluateObject,
   hasExpression,
-  mapDeep,
-} from '@codelab/shared/utils'
+} from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement, ReactNode } from 'react'
 import { mergeDeep, pathOr, stringToPath } from 'remeda'
+
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
 const create = (dto: IRuntimeElementPropDTO) =>

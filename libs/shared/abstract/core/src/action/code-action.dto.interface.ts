@@ -1,5 +1,7 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
+
 import { IActionKind } from './action-kind.enum'
 import { BaseActionDtoSchema } from './base-action.dto.interface'
 

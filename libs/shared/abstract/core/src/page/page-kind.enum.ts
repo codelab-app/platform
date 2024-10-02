@@ -6,16 +6,16 @@ import { PageKind } from '@codelab/shared/infra/gql'
  *  @deprecated We have to use the copy from codegen, otherwise they don't match up
  */
 export enum __PageKind {
-  Provider = 'Provider',
   InternalServerError = 'InternalServerError',
   NotFound = 'NotFound',
+  Provider = 'Provider',
   Regular = 'Regular',
 }
 
 export { PageKind as IPageKind }
 
 export enum IPageKindName {
-  Provider = '_app',
   InternalServerError = '500',
   NotFound = '404',
+  Provider = '_app',
 }

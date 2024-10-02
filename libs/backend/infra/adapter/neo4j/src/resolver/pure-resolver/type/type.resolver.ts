@@ -6,7 +6,9 @@ import type {
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
+
 import { int } from 'neo4j-driver'
+
 import { getBaseTypes } from '../../../cypher'
 import { Neo4jService } from '../../../infra'
 

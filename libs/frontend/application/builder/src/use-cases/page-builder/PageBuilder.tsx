@@ -1,34 +1,34 @@
 'use client'
 
-import {
-  type IRootRenderer,
+import type {
+  IRootRenderer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
+
 import { observer } from 'mobx-react-lite'
+
 import { useInitializeBuilder } from '../../services'
 import { BaseBuilder } from '../base-builder'
 
-interface IPageBuilderProps {
+export interface IPageBuilderProps {
   RootRenderer: IRootRenderer
-  pageId: string
+  page?: IPageModel
+  rendererType: RendererType.PageBuilder | RendererType.Preview
 }
 
 /**
  * Generic builder used for both Component & Element
  */
 export const PageBuilder = observer<IPageBuilderProps>(
-  ({ pageId, RootRenderer }) => {
-    const { pageDomainService } = useDomainStore()
-    const page = pageDomainService.pages.get(pageId)
-
+  ({ page, rendererType, RootRenderer }) => {
     if (!page) {
-      return null
+      throw new Error('Missing page model')
     }
 
     const { renderer } = useInitializeBuilder({
       containerNode: page,
-      rendererType: RendererType.PageBuilder,
+      rendererType,
     })
 
     return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />

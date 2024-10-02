@@ -1,20 +1,22 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 'use client'
 
-import './styles.css'
-import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
+import type { EditorState, LexicalEditor } from 'lexical'
+
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
-import type { EditorState, LexicalEditor } from 'lexical'
 import { useRef } from 'react'
 import styled from 'styled-components'
 import useResizeObserver from 'use-resize-observer/polyfilled'
+
 import { OnInitPlugin, ToolbarPlugin } from './plugins'
+import './styles.css'
 import { defaultEditorTheme } from './theme'
 
 const defaultConfig: InitialConfigType = {

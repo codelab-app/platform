@@ -1,6 +1,8 @@
-import { Cui } from '@codelab/frontend-application-shared-data'
-import { Button, Tooltip } from 'antd'
 import type { ReactNode } from 'react'
+
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
+import { Button, Tooltip } from 'antd'
+
 import type { ToolbarItem } from '../../abstract'
 
 type CuiPopoverToolbarItemProps = Omit<ToolbarItem, 'icon'> & {
@@ -17,7 +19,7 @@ export const CuiPopoverToolbarItem = ({
   return (
     <Tooltip title={title}>
       <Button
-        data-cy={Cui.cuiToolbarItem(cuiKey)}
+        data-testid={CuiTestId.cuiToolbarItem(cuiKey)}
         icon={icon}
         onClick={onClick}
         type="text"

@@ -1,3 +1,6 @@
+import type { ApolloDriverConfig } from '@nestjs/apollo'
+import type { GraphQLSchema } from 'graphql'
+
 import { DataModule } from '@codelab/backend/application/data'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import {
@@ -14,10 +17,9 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { GraphQLModule } from '@nestjs/graphql'
-import type { GraphQLSchema } from 'graphql'
+
 import { AdminApplicationModule } from './admin.application.module'
 import { SeederApplicationService } from './use-case'
 

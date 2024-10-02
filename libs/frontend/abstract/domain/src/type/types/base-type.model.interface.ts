@@ -11,8 +11,8 @@ import type {
   Nullish,
   ObjectLike,
 } from '@codelab/shared/abstract/types'
-import type { Completion } from '@codemirror/autocomplete'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
+
 import type { ICacheService } from '../../shared'
 import type { IModel } from '../../shared/models/model.interface'
 import type { IActionTypeModel } from './action-type.model.interface'

@@ -1,16 +1,18 @@
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type {
   IAuthGuardNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+
 import { useDeleteAuthGuardModal } from '../delete-auth-guard/delete-auth-guard.state'
 import { useUpdateAuthGuardForm } from '../update-auth-guard'
 
@@ -34,7 +36,7 @@ export const AuthGuardsTreeItem = observer(
 
     const toolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: UiKey.DeleteAuthGuardToolbarItem,
+        cuiKey: UiKey.AuthGuardToolbarItemDelete,
         icon: <DeleteOutlined />,
         onClick: onDelete,
         title: 'Delete',

@@ -1,12 +1,13 @@
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
+import type { JSONSchemaType } from 'ajv'
+import type { HTMLFieldProps } from 'uniforms'
+import type { SelectFieldProps } from 'uniforms-antd'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createValidator } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import type { JSONSchemaType } from 'ajv'
 import { Form as AntdForm } from 'antd'
-import type { HTMLFieldProps } from 'uniforms'
 import { joinName, useField } from 'uniforms'
-import type { SelectFieldProps } from 'uniforms-antd'
 import { AutoField, SelectField } from 'uniforms-antd'
 
 export type SelectUnionTypeValueProps = HTMLFieldProps<
@@ -93,7 +94,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             }}
             onSubmit={() => Promise.resolve()}
             schema={valueSchema}
-            uiKey={UiKey.SelectUnionTypeValueFieldForm}
+            uiKey={UiKey.FieldFormSelectUnionTypeValue}
           >
             <AutoField data-testid={valueFieldName} name="value" />
           </Form>

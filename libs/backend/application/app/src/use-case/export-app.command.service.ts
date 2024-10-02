@@ -1,10 +1,4 @@
 import type { AppWhere, Element } from '@codelab/backend/abstract/codegen'
-import { ExportComponentCommand } from '@codelab/backend/application/component'
-import { ExportPageCommand } from '@codelab/backend/application/page'
-import { AppRepository } from '@codelab/backend/domain/app'
-import { ComponentRepository } from '@codelab/backend/domain/component'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { ResourceRepository } from '@codelab/backend/domain/resource'
 import type {
   IApiAction,
   IAppAggregate,
@@ -13,13 +7,20 @@ import type {
   IPageAggregate,
   IRef,
 } from '@codelab/shared/abstract/core'
+import type { ICommandHandler } from '@nestjs/cqrs'
+
+import { ExportComponentCommand } from '@codelab/backend/application/component'
+import { ExportPageCommand } from '@codelab/backend/application/page'
+import { AppRepository } from '@codelab/backend/domain/app'
+import { ComponentRepository } from '@codelab/backend/domain/component'
+import { ElementRepository } from '@codelab/backend/domain/element'
+import { ResourceRepository } from '@codelab/backend/domain/resource'
 import {
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { uuidRegex } from '@codelab/shared/utils'
-import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { unique } from 'radash'
 

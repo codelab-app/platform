@@ -1,4 +1,6 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
+import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
+
 import {
   type IElementModel,
   type IMoveElementContext,
@@ -8,11 +10,8 @@ import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { Validator } from '@codelab/shared/infra/schema'
 import { uniqueBy } from 'remeda'
 
 export const useElementService = (): IElementService => {
@@ -103,10 +102,20 @@ export const useElementService = (): IElementService => {
     return elementDomainService.element(id)
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(elementDomainService.elements.get(ref.id))
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(elementDomainService.elements.values())
+  }
+
   return {
     createElement,
     deleteElement,
+    // getAllFromCache,
     getElement,
+    // getOneFromCache,
     loadDependantTypes,
     move,
     syncModifiedElements,

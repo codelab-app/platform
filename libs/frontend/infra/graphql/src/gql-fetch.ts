@@ -1,8 +1,9 @@
 'use server'
 
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
+
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { getEnv } from '@codelab/shared/config'
-import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 export const gqlFetch = async <TResult, TVariables>(
   // use `.toString()` version of `TypedDocumentString`

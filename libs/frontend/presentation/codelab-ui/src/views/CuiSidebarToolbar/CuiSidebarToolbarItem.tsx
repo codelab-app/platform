@@ -1,5 +1,6 @@
-import { Cui } from '@codelab/frontend-application-shared-data'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { Button, Tooltip } from 'antd'
+
 import type { ToolbarItem } from '../../abstract'
 
 type CuiSidebarToolbarItemProps = Omit<ToolbarItem, 'label'>
@@ -13,7 +14,7 @@ export const CuiSidebarToolbarItem = ({
   return (
     <div
       className="size-full content-center"
-      data-cy={Cui.cuiToolbarItem(cuiKey)}
+      data-testid={Cui.cuiToolbarItem(cuiKey)}
     >
       <Tooltip title={title}>
         {onClick ? (

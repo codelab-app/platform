@@ -1,11 +1,13 @@
+import type { IDomainDto } from '@codelab/shared/abstract/core'
+
 import {
   type IDomainDomainService,
   type IDomainModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
+
 import { Domain } from '../store'
 
 @model('@codelab/DomainDomainService')

@@ -1,5 +1,6 @@
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
+
 import {
   MigrationDataService,
   ReadAdminDataService,

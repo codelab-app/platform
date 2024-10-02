@@ -1,16 +1,18 @@
 'use client'
 
+import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
+
 import { useCreateElementForm } from './create-element.state'
 import { CreateElementForm } from './CreateElementForm'
 
@@ -24,12 +26,11 @@ export const CreateElementPopover = observer<{
 
   return (
     <CuiSidebarPopover
-      id={UiKey.CreateElementPopover}
-      label="Create Element"
+      id={UiKey.ElementPopoverCreate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.CreateElementToolbarItem,
+            cuiKey: UiKey.ElementToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -38,7 +39,7 @@ export const CreateElementPopover = observer<{
             title: 'Create',
           },
           {
-            cuiKey: UiKey.CancelCreateElementToolbarItem,
+            cuiKey: UiKey.ElementToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

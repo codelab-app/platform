@@ -1,5 +1,11 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   ResourceFetchConfigField,
@@ -10,21 +16,15 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useAuthGuardService } from '../../services'
 import { createAuthGuardSchema } from './create-auth-guard.schema'
 import { useCreateAuthGuardForm } from './create-auth-guard.state'
 
-interface CreateAuthGuardFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
+export const CreateAuthGuardForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const authGuardService = useAuthGuardService()
     const createAuthGuardForm = useCreateAuthGuardForm()
@@ -49,7 +49,7 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
         onSubmitSuccess={closeForm}
         schema={createAuthGuardSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateAuthGuardForm}
+        uiKey={UiKey.AuthGuardFormCreate}
       >
         <AutoFields omitFields={['config']} />
         <ResourceFetchConfigField />

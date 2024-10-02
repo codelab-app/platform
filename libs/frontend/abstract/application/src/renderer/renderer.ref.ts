@@ -1,4 +1,5 @@
 import { detach, rootRef } from 'mobx-keystone'
+
 import type { IRendererModel } from './renderer.model.interface'
 
 export const rendererRef = rootRef<IRendererModel>('@codelab/RendererRef', {

@@ -1,5 +1,7 @@
 /// <reference types="jest" />
 
+import type { ModuleMetadata } from '@nestjs/common'
+
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import {
@@ -19,7 +21,6 @@ import {
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { userDto } from '@codelab/shared/data/test'
-import type { ModuleMetadata } from '@nestjs/common'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
 

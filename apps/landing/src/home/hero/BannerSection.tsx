@@ -5,6 +5,7 @@ import { animated, useSpring } from '@react-spring/web'
 import { Button, Col, Row, Space } from 'antd'
 import { useState } from 'react'
 import styled from 'styled-components'
+
 import { BuilderDemo } from '../demo/BuilderDemo'
 import { CurveAccent } from './CurveAccent'
 
@@ -32,7 +33,16 @@ export const BannerSection = () => {
         <div className="m-auto mt-0 w-11/12 py-6 md:container md:mt-12 md:py-10">
           <Row className="justify-center">
             <Col className="flex flex-col items-center">
-              <h1 className="mb-0 text-center text-xl font-bold leading-snug sm:text-3xl md:text-4xl lg:text-5xl xl:!text-6xl">
+              <h1
+                className={`
+                  mb-0 text-center text-xl
+                  font-bold leading-snug
+                  lg:text-5xl
+                  md:text-4xl
+                  sm:text-3xl
+                  xl:!text-6xl
+                `}
+              >
                 Build Using&nbsp;
                 <span className="inline-block text-yellow-400">
                   <AnimatedDiv style={props}>{words[index]}</AnimatedDiv>
@@ -42,7 +52,18 @@ export const BannerSection = () => {
                   Without Template Limitations
                 </p>
               </h1>
-              <p className="mb-3 mt-0 w-full px-2 text-center text-sm font-light leading-5 sm:px-12 sm:py-4  sm:text-base sm:leading-7 md:mt-4 md:text-lg lg:px-0 lg:text-xl xl:w-3/4 xl:text-2xl">
+              <p
+                className={`
+                  mb-3 mt-0 w-full
+                  px-2 text-center text-sm
+                  font-light leading-5
+                  lg:px-0 lg:text-xl
+                  md:mt-4 md:text-lg
+                  sm:px-12 sm:py-4 sm:text-base
+                  sm:leading-7
+                  xl:w-3/4 xl:text-2xl
+                `}
+              >
                 <span className="mb-0 md:mb-10">
                   Nest components to construct the DOM tree as you would in
                   code.&nbsp;
@@ -66,12 +87,17 @@ export const BannerSection = () => {
                   }}
                 >
                   <Button
-                    className="h-10 w-36 rounded-lg text-sm sm:h-12 sm:w-48 sm:text-lg md:h-14"
+                    className={`
+                      h-10 w-36 rounded-lg
+                      text-sm
+                      md:h-14
+                      sm:h-12 sm:w-48 sm:text-lg
+                    `}
                     data-fancybox="gallery"
                     data-src="https://www.youtube.com/watch?v=OrmhGmr0iTA"
                     icon={
                       <FontAwesomeIcon
-                        className="mr-2 text-sm sm:text-lg md:text-xl"
+                        className="mr-2 text-sm md:text-xl sm:text-lg"
                         icon={faArrowRight}
                       />
                     }
@@ -82,11 +108,16 @@ export const BannerSection = () => {
                   </Button>
                 </Fancybox>
                 <Button
-                  className="h-10 w-36 rounded-lg text-sm sm:h-12 sm:w-48 sm:text-lg md:h-14"
+                  className={`
+                    h-10 w-36 rounded-lg
+                    text-sm
+                    md:h-14
+                    sm:h-12 sm:w-48 sm:text-lg
+                  `}
                   ghost
                   icon={
                     <FontAwesomeIcon
-                      className="mr-2 text-sm sm:text-lg md:text-xl"
+                      className="mr-2 text-sm md:text-xl sm:text-lg"
                       icon={faArrowRight}
                     />
                   }

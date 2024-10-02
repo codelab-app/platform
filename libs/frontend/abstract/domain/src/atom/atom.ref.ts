@@ -1,5 +1,7 @@
 import type { AnyModel, Ref } from 'mobx-keystone'
+
 import { detach, isRefOfType, rootRef } from 'mobx-keystone'
+
 import type { IAtomModel } from './atom.model.interface'
 
 export const atomRef = rootRef<IAtomModel>('@codelab/AtomRef', {

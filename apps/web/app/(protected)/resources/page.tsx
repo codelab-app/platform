@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import { CreateResourceModal } from '@codelab/frontend-application-resource/use-cases/create-resource'
 import { DeleteResourceModal } from '@codelab/frontend-application-resource/use-cases/delete-resource'
 import {
@@ -5,7 +7,6 @@ import {
   UpdateResourceModal,
 } from '@codelab/frontend-application-resource/use-cases/update-resource'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   // description: '...',

@@ -1,7 +1,8 @@
 import type { ISchemaProvider } from '@codelab/shared/abstract/infra'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
-import { Kind, type TKind, type TSchema, TypeRegistry } from '@sinclair/typebox'
 import type { ValidateFunction } from 'ajv'
+
+import { Kind, type TKind, type TSchema, TypeRegistry } from '@sinclair/typebox'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 

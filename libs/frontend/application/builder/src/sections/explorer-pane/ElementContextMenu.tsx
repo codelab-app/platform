@@ -4,6 +4,8 @@ import type {
   IElementTreeViewDataNode,
   IRuntimeComponentModel,
 } from '@codelab/frontend/abstract/application'
+import type { Nullable } from '@codelab/shared/abstract/types'
+
 import {
   isRuntimeComponent,
   runtimeComponentRef,
@@ -22,7 +24,6 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { Key } from '@codelab/frontend-presentation-view/components/key'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
@@ -68,7 +69,7 @@ export const ElementContextMenu = observer<
   const componentInstance = isComponent(element.renderType)
 
   const onAddChild = () => {
-    popover.open(UiKey.CreateElementPopover)
+    popover.open(UiKey.ElementPopoverCreate)
 
     createElementForm.open({
       elementOptions:

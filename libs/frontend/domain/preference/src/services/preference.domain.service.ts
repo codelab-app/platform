@@ -4,6 +4,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { IPreferenceDto } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
+
 import { Preference } from '../store'
 
 const fromDto = (preference: IPreferenceDto) => {

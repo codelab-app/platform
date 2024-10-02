@@ -1,16 +1,18 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
+import type { ICommandHandler } from '@nestjs/cqrs'
+
 import {
   Field,
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import type { ICommandHandler } from '@nestjs/cqrs'
+import { titleCase } from '@codelab/shared/utils'
 import { CommandHandler } from '@nestjs/cqrs'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { v4 } from 'uuid'
+
 import { HtmlTypeAdapterService } from '../../type-adapter/html-type-adapter/html-type-adapter.service'
 
 export type HtmlData = Record<string, Array<HtmlField>>
@@ -89,7 +91,7 @@ export class ExtractHtmlFieldsHandler
       fieldType: type,
       id: v4(),
       key: field.key,
-      name: compoundCaseToTitleCase(field.key),
+      name: titleCase(field.key),
     })
   }
 

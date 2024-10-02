@@ -3,11 +3,13 @@ import type {
   DroppableContainer,
   UniqueIdentifier,
 } from '@dnd-kit/core'
+
 import type { Point, Rect } from '../geometry'
-import { findDistance, isAboveLine, Rectangle } from '../geometry'
 import type { WithInternalDropData } from '../hooks'
 import type { HierarchicalCollision } from './hierarchical-collision.interface'
 import type { HierarchicalDroppableContainer } from './hierarchical-droppable-container.interface'
+
+import { findDistance, isAboveLine, Rectangle } from '../geometry'
 
 interface HierarchicalCollisionDetectorOptions {
   /**

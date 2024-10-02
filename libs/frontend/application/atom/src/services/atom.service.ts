@@ -1,13 +1,18 @@
+'use client'
+
 import type {
   GetDataFn,
   IAtomService,
 } from '@codelab/frontend/abstract/application'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+
 import {
   atomRef,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -21,10 +26,11 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import {
   IElementRenderTypeKind,
+  type IRef,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { useRouter } from 'next/navigation'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
@@ -33,6 +39,7 @@ export const useAtomService = (): IAtomService => {
     pagination: { atomPagination },
   } = useApplicationStore()
 
+  const router = useRouter()
   const { atomDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
@@ -93,7 +100,7 @@ export const useAtomService = (): IAtomService => {
     return atom
   }
 
-  const remove = async (items: Array<IAtomModel>) => {
+  const removeMany = async (items: Array<IAtomModel>) => {
     const atomsToDelete: Array<IAtomModel> = []
 
     items.forEach(({ id }) => {
@@ -181,15 +188,59 @@ export const useAtomService = (): IAtomService => {
     return atom
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    const atom = atomDomainService.atoms.get(ref.id)
+
+    Validator.assertsDefined(atom)
+
+    return atom
+  }
+
+  const getAllFromCache = () => {
+    return atomDomainService.atomsList
+  }
+
+  const goToAtomsPage = () => {
+    router.push(PageType.Atoms())
+  }
+
+  const goToDeleteAtomPage = (ref: IRef) => {
+    router.push(PageType.AtomDelete(ref))
+  }
+
+  const atomPopoverUpdate = {
+    close: () => {
+      router.push(PageType.Atoms())
+    },
+    open: () => {
+      router.push(PageType.AtomCreate())
+    },
+  }
+
+  const atomPopoverCreate = {
+    close: () => {
+      router.push(PageType.Atoms())
+    },
+    open: () => {
+      router.push(PageType.AtomCreate())
+    },
+  }
+
   return {
+    atomPopoverCreate,
+    atomPopoverUpdate,
     create,
     getAll,
+    getAllFromCache,
     getDataFn,
     getOne,
+    getOneFromCache,
     getSelectAtomOptions,
+    goToAtomsPage,
+    goToDeleteAtomPage,
     loadApi,
     paginationService: atomPagination,
-    remove,
+    removeMany,
     update,
   }
 }

@@ -1,10 +1,11 @@
-import { IModel } from '@codelab/backend/abstract/types'
 import type {
   IBreakpointType,
   IPreference,
   IPreferenceDto,
   IRef,
 } from '@codelab/shared/abstract/core'
+
+import { IModel } from '@codelab/backend/abstract/types'
 
 export class Preference extends IModel implements IPreference {
   builderBreakpointType: IBreakpointType

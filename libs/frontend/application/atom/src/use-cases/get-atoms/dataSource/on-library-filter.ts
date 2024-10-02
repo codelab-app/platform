@@ -1,7 +1,7 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 
 export const onLibraryFilter = (
-  value: React.Key | boolean,
+  value: boolean | React.Key,
   atom: IAtomModel,
 ): boolean => {
   const list = [atom.name, atom.type].map((item) => item.toLowerCase())

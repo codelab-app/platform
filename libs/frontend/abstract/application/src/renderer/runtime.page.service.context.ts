@@ -1,4 +1,5 @@
 import { type AnyModel, createContext } from 'mobx-keystone'
+
 import type { IRuntimePageService } from './runtime.page.service.interface'
 
 export const runtimePageServiceContext = createContext<IRuntimePageService>()

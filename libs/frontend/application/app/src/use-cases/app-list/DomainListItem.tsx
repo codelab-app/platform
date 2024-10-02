@@ -1,7 +1,8 @@
+import type { IDomainDto } from '@codelab/shared/abstract/core'
+
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined'
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined'
 import LinkOutlined from '@ant-design/icons/LinkOutlined'
-import type { IDomainDto } from '@codelab/shared/abstract/core'
 import Link from 'next/link'
 
 export interface DomainListItemProps {

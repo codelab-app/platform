@@ -2,12 +2,13 @@ import type {
   IComponentBuilderArgs,
   IComponentBuilderQuery,
 } from '@codelab/frontend/abstract/domain'
-import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import type {
   AtomBuilderFragment,
   GetComponentBuilderQuery,
 } from '@codelab/shared/infra/gql'
+
+import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { uniqueBy } from 'remeda'
 
 export const componentBuilderQuery: IComponentBuilderQuery = async ({

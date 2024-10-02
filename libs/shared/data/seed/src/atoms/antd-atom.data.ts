@@ -1,4 +1,5 @@
 import type { IAntdAtomRecords } from '@codelab/backend/abstract/core'
+
 import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
@@ -29,6 +30,11 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Anchor--Link Props',
     icon: IAtomType.AntDesignAnchorLink,
     tag: IAtomType.AntDesignAnchorLink,
+  },
+  [IAtomType.AntDesignAutoComplete]: {
+    file: null,
+    icon: IAtomType.AntDesignAutoComplete,
+    tag: IAtomType.AntDesignAutoComplete,
   },
   [IAtomType.AntDesignAvatar]: {
     file: 'Avatar',
@@ -88,10 +94,10 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignCard,
     tag: IAtomType.AntDesignCardMeta,
   },
-  [IAtomType.AntDesignAutoComplete]: {
+  [IAtomType.AntDesignCarousel]: {
     file: null,
-    icon: IAtomType.AntDesignAutoComplete,
-    tag: IAtomType.AntDesignAutoComplete,
+    icon: IAtomType.AntDesignCarousel,
+    tag: IAtomType.AntDesignCarousel,
   },
   [IAtomType.AntDesignCascader]: {
     // file: Cascader--showSearch',
@@ -108,11 +114,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Checkbox--Props',
     icon: IAtomType.AntDesignCheckbox,
     tag: IAtomType.AntDesignCheckboxGroup,
-  },
-  [IAtomType.AntDesignCarousel]: {
-    file: null,
-    icon: IAtomType.AntDesignCarousel,
-    tag: IAtomType.AntDesignCarousel,
   },
   [IAtomType.AntDesignCollapse]: {
     file: 'Collapse',
@@ -165,11 +166,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignDrawer,
     tag: IAtomType.AntDesignDrawer,
   },
-  [IAtomType.AntDesignMessage]: {
-    file: null,
-    icon: IAtomType.AntDesignMessage,
-    tag: IAtomType.AntDesignMessage,
-  },
   [IAtomType.AntDesignDropdown]: {
     file: 'Dropdown',
     icon: IAtomType.AntDesignDropdown,
@@ -192,6 +188,11 @@ export const antdAtomData: IAntdAtomRecords = {
     suggestedChildren: [IAtomType.AntDesignFormItem],
     tag: IAtomType.AntDesignForm,
   },
+  [IAtomType.AntDesignFormErrorList]: {
+    file: null,
+    icon: IAtomType.AntDesignForm,
+    tag: IAtomType.AntDesignFormErrorList,
+  },
   [IAtomType.AntDesignFormItem]: {
     file: 'Form--Item',
     icon: IAtomType.AntDesignForm,
@@ -207,11 +208,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: null,
     icon: IAtomType.AntDesignForm,
     tag: IAtomType.AntDesignFormList,
-  },
-  [IAtomType.AntDesignFormErrorList]: {
-    file: null,
-    icon: IAtomType.AntDesignForm,
-    tag: IAtomType.AntDesignFormErrorList,
   },
   [IAtomType.AntDesignFormProvider]: {
     file: null,
@@ -234,12 +230,22 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignIcon,
     tag: IAtomType.AntDesignIcon,
   },
+  [IAtomType.AntDesignImage]: {
+    file: 'Image',
+    icon: IAtomType.AntDesignImage,
+    tag: IAtomType.AntDesignImage,
+  },
   // 'Icon--Custom Icon': IAtomType.AntDesignIcon,
   // Image: IAtomType.AntDesignImage,
   [IAtomType.AntDesignInput]: {
     file: 'Input',
     icon: IAtomType.AntDesignInput,
     tag: IAtomType.AntDesignInput,
+  },
+  [IAtomType.AntDesignInputNumber]: {
+    file: null,
+    icon: IAtomType.AntDesignInputNumber,
+    tag: IAtomType.AntDesignInputNumber,
   },
   [IAtomType.AntDesignInputSearch]: {
     file: null,
@@ -251,16 +257,16 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignInputTextArea,
     tag: IAtomType.AntDesignInputTextArea,
   },
-  [IAtomType.AntDesignInputNumber]: {
-    file: null,
-    icon: IAtomType.AntDesignInputNumber,
-    tag: IAtomType.AntDesignInputNumber,
-  },
   // 'Input--Input.TextArea': IAtomType.AntDesignInput,
   [IAtomType.AntDesignLayout]: {
     file: 'Layout',
     icon: IAtomType.AntDesignLayout,
     tag: IAtomType.AntDesignLayout,
+  },
+  [IAtomType.AntDesignLayoutContent]: {
+    file: null,
+    icon: IAtomType.AntDesignLayoutContent,
+    tag: IAtomType.AntDesignLayoutContent,
   },
   [IAtomType.AntDesignLayoutFooter]: {
     file: null,
@@ -271,11 +277,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: null,
     icon: IAtomType.AntDesignLayout,
     tag: IAtomType.AntDesignLayoutHeader,
-  },
-  [IAtomType.AntDesignLayoutContent]: {
-    file: null,
-    icon: IAtomType.AntDesignLayoutContent,
-    tag: IAtomType.AntDesignLayoutContent,
   },
   [IAtomType.AntDesignLayoutSider]: {
     file: 'Layout--Layout.Sider',
@@ -314,6 +315,21 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignMenu,
     tag: IAtomType.AntDesignMenu,
   },
+  [IAtomType.AntDesignMessage]: {
+    file: null,
+    icon: IAtomType.AntDesignMessage,
+    tag: IAtomType.AntDesignMessage,
+  },
+  [IAtomType.AntDesignModal]: {
+    file: 'Modal',
+    icon: IAtomType.AntDesignModal,
+    tag: IAtomType.AntDesignModal,
+  },
+  [IAtomType.AntDesignNotification]: {
+    file: null,
+    icon: IAtomType.AntDesignNotification,
+    tag: IAtomType.AntDesignNotification,
+  },
   [IAtomType.AntDesignPagination]: {
     file: 'Pagination',
     icon: IAtomType.AntDesignPagination,
@@ -328,16 +344,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Popover',
     icon: IAtomType.AntDesignPopover,
     tag: IAtomType.AntDesignPopover,
-  },
-  [IAtomType.AntDesignSegmented]: {
-    file: 'Popover',
-    icon: IAtomType.AntDesignSegmented,
-    tag: IAtomType.AntDesignSegmented,
-  },
-  [IAtomType.AntDesignStatistic]: {
-    file: null,
-    icon: IAtomType.AntDesignStatistic,
-    tag: IAtomType.AntDesignStatistic,
   },
   [IAtomType.AntDesignProgress]: {
     file: 'Progress--type=circle',
@@ -364,6 +370,11 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignResult,
     tag: IAtomType.AntDesignResult,
   },
+  [IAtomType.AntDesignSegmented]: {
+    file: 'Popover',
+    icon: IAtomType.AntDesignSegmented,
+    tag: IAtomType.AntDesignSegmented,
+  },
   // 'Select--OptGroup props': IAtomType.AntDesignSelect,
   [IAtomType.AntDesignSelect]: {
     file: 'Select--Select props',
@@ -385,21 +396,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignSlider,
     tag: IAtomType.AntDesignSlider,
   },
-  [IAtomType.AntDesignSwitch]: {
-    file: null,
-    icon: IAtomType.AntDesignSwitch,
-    tag: IAtomType.AntDesignSwitch,
-  },
-  [IAtomType.AntDesignTimePicker]: {
-    file: null,
-    icon: IAtomType.AntDesignTimePicker,
-    tag: IAtomType.AntDesignTimePicker,
-  },
-  [IAtomType.AntDesignTransfer]: {
-    file: null,
-    icon: IAtomType.AntDesignTransfer,
-    tag: IAtomType.AntDesignTransfer,
-  },
   [IAtomType.AntDesignSpace]: {
     file: 'Space',
     icon: IAtomType.AntDesignSpace,
@@ -410,6 +406,11 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignSpin,
     tag: IAtomType.AntDesignSpin,
   },
+  [IAtomType.AntDesignStatistic]: {
+    file: null,
+    icon: IAtomType.AntDesignStatistic,
+    tag: IAtomType.AntDesignStatistic,
+  },
   [IAtomType.AntDesignSteps]: {
     file: 'Steps',
     icon: IAtomType.AntDesignSteps,
@@ -419,6 +420,11 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Steps--Steps.Step',
     icon: IAtomType.AntDesignSteps,
     tag: IAtomType.AntDesignStepsStep,
+  },
+  [IAtomType.AntDesignSwitch]: {
+    file: null,
+    icon: IAtomType.AntDesignSwitch,
+    tag: IAtomType.AntDesignSwitch,
   },
   [IAtomType.AntDesignTable]: {
     file: 'Table',
@@ -458,11 +464,21 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignTimeline,
     tag: IAtomType.AntDesignTimelineItem,
   },
+  [IAtomType.AntDesignTimePicker]: {
+    file: null,
+    icon: IAtomType.AntDesignTimePicker,
+    tag: IAtomType.AntDesignTimePicker,
+  },
   // 'TimePicker--RangePicker': IAtomType.AntDesignTimePicker,
   [IAtomType.AntDesignTooltip]: {
     file: 'Tooltip--Common API',
     icon: IAtomType.AntDesignTooltip,
     tag: IAtomType.AntDesignTooltip,
+  },
+  [IAtomType.AntDesignTransfer]: {
+    file: null,
+    icon: IAtomType.AntDesignTransfer,
+    tag: IAtomType.AntDesignTransfer,
   },
   // 'Transfer--Render Props': IAtomType.AntDesignTransfer,
   // 'Tree--DirectoryTree props': IAtomType.AntDesignTree,
@@ -498,21 +514,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Upload--UploadFile',
     icon: IAtomType.AntDesignUpload,
     tag: IAtomType.AntDesignUpload,
-  },
-  [IAtomType.AntDesignImage]: {
-    file: 'Image',
-    icon: IAtomType.AntDesignImage,
-    tag: IAtomType.AntDesignImage,
-  },
-  [IAtomType.AntDesignModal]: {
-    file: 'Modal',
-    icon: IAtomType.AntDesignModal,
-    tag: IAtomType.AntDesignModal,
-  },
-  [IAtomType.AntDesignNotification]: {
-    file: null,
-    icon: IAtomType.AntDesignNotification,
-    tag: IAtomType.AntDesignNotification,
   },
 
   //

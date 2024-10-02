@@ -2,11 +2,13 @@ import type {
   IPageDomainService,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import type { ObjectMap } from 'mobx-keystone'
+
 import { IPageDto } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { computed } from 'mobx'
-import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+
 import { Page } from '../store'
 
 @model('@codelab/PageDomainService')

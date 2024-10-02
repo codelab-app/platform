@@ -1,3 +1,12 @@
+import type {
+  ICreatePageData,
+  IElementDto,
+  IPropDto,
+  IRef,
+  IUpdatePageData,
+} from '@codelab/shared/abstract/core'
+import type { PageWhere } from '@codelab/shared/infra/gql'
+
 import { type IPageService } from '@codelab/frontend/abstract/application'
 import {
   elementRef,
@@ -16,22 +25,15 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type {
-  ICreatePageData,
-  IElementDto,
-  IPropDto,
-  IUpdatePageData,
-} from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   IPageKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import type { PageWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { slugify } from 'voca'
 
 export const usePageService = (): IPageService => {
   const {
@@ -137,6 +139,14 @@ export const usePageService = (): IPageService => {
     // revalidateTag(CACHE_TAGS.PAGE_LIST)
   }
 
+  const removeMany = async (pageModels: Array<IPageModel>) => {
+    const deletedPages = await Promise.all(
+      pageModels.map((page) => remove(page)),
+    )
+
+    return deletedPages.length
+  }
+
   const remove = async (pageModel: IPageModel) => {
     const { items: pages } = await pageRepository.find({ id: pageModel.id })
     const elements = pages.flatMap((page) => page.elements)
@@ -179,15 +189,25 @@ export const usePageService = (): IPageService => {
     return page
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(pageDomainService.pages.get(ref.id))
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(pageDomainService.pages.values())
+  }
+
   return {
     create,
     getAll,
+    getAllFromCache,
     getOne,
+    getOneFromCache,
     getPagesByApp,
     getRenderedPage,
     getSelectPageOptions,
     loadElements,
-    remove,
+    removeMany,
     update,
   }
 }

@@ -1,12 +1,13 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
+import type { UrlQueryParams } from '@codelab/frontend/abstract/types'
+import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
+
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
-import type { UrlQueryParams } from '@codelab/frontend/abstract/types'
 import {
   createTestStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
-import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { act, render } from '@testing-library/react'
 import { configure } from 'mobx'

@@ -1,4 +1,5 @@
 'use client'
+import type { FieldProps } from 'uniforms'
 
 import {
   CodeMirrorEditor,
@@ -6,7 +7,6 @@ import {
 } from '@codelab/frontend-presentation-components-codemirror'
 import { memo, type Ref } from 'react'
 import { isNonNullish } from 'remeda'
-import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
 

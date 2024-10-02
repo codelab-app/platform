@@ -1,8 +1,9 @@
 import type { IComponentType } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared/utils'
 import type { PropsWithChildren } from 'react'
+
+import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared/utils'
 import { forwardRef, Fragment, useCallback } from 'react'
 import styled from 'styled-components'
 

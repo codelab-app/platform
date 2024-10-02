@@ -5,15 +5,16 @@ import BorderRightOutlined from '@ant-design/icons/BorderRightOutlined'
 import BorderTopOutlined from '@ant-design/icons/BorderTopOutlined'
 import { Radio } from 'antd'
 import clsx from 'clsx'
+
 import { Side } from '../utils'
 import classes from './borderStyle.module.css'
 
 const sideToIcon = {
   [Side.Bottom]: <BorderBottomOutlined />,
+  [Side.Center]: <BorderOuterOutlined />,
   [Side.Left]: <BorderLeftOutlined />,
   [Side.Right]: <BorderRightOutlined />,
   [Side.Top]: <BorderTopOutlined />,
-  [Side.Center]: <BorderOuterOutlined />,
 }
 
 const sides = [Side.Top, Side.Bottom, Side.Left, Side.Right, Side.Center]

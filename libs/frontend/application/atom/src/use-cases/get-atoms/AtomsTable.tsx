@@ -1,13 +1,15 @@
 'use client'
 
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+import type { ColumnType } from 'antd/lib/table'
+
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useColumnSearchProps } from '@codelab/frontend-presentation-view/components/table'
 import { headerCellProps } from '@codelab/frontend-presentation-view/style'
 import { Table } from 'antd'
-import type { ColumnType } from 'antd/lib/table'
+
 import { useAtomService } from '../../services'
 import { ActionColumn } from './columns/ActionColumn'
 import { LibraryColumn } from './columns/LibraryColumn'

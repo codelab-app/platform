@@ -1,10 +1,11 @@
 import type { ApolloError } from '@apollo/client'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
+
 import { isObjectType, isString } from 'remeda'
 
 export const extractErrorMessage = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error: ApolloError | AsyncState<unknown> | Error | any | string | undefined,
+  error: any | string | ApolloError | AsyncState<unknown> | Error | undefined,
 ): string => {
   if (!error) {
     return ''

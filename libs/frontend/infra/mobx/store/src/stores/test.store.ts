@@ -3,6 +3,25 @@ import type {
   IRendererDto,
   IRootStore,
 } from '@codelab/frontend/abstract/application'
+import type {
+  IApiActionDto,
+  IAppDto,
+  IAtomDto,
+  ICodeActionDto,
+  ICodeMirrorType,
+  IComponentDto,
+  ICreateElementDto,
+  IFieldDto,
+  IInterfaceTypeDto,
+  IPageDto,
+  IPrimitiveTypeDto,
+  IPropDto,
+  IReactNodeType,
+  IRenderPropTypeDto,
+  IRichTextType,
+  IStoreDto,
+} from '@codelab/shared/abstract/core'
+
 import {
   rendererRef,
   RendererType,
@@ -49,24 +68,6 @@ import {
   renderPropsTypeFactory,
   richTextTypeFactory,
 } from '@codelab/frontend-domain-type/test'
-import type {
-  IApiActionDto,
-  IAppDto,
-  IAtomDto,
-  ICodeActionDto,
-  ICodeMirrorType,
-  IComponentDto,
-  ICreateElementDto,
-  IFieldDto,
-  IInterfaceTypeDto,
-  IPageDto,
-  IPrimitiveTypeDto,
-  IPropDto,
-  IReactNodeType,
-  IRenderPropTypeDto,
-  IRichTextType,
-  IStoreDto,
-} from '@codelab/shared/abstract/core'
 import {
   IAtomType,
   IPageKind,
@@ -87,6 +88,7 @@ import {
   unregisterRootStore,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
+
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 

@@ -4,8 +4,9 @@ import type {
   ITagModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import type { Ref } from 'mobx-keystone'
+
+import { PageType } from '@codelab/frontend/abstract/types'
 
 export type SupportedPaginationModel =
   | IAtomModel

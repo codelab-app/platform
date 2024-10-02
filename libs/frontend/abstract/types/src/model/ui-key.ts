@@ -1,170 +1,214 @@
 export interface UiData {
-  key: string
   label: string
 }
 
+/**
+ * Use BEM style naming so we can sort it properly
+ */
 export enum UiKey {
-  // App
-  ImportAppToolbarItem = 'ImportAppToolbarItem',
-  CreateAppToolbarItem = 'CreateAppToolbarItem',
-  BuildAppModal = 'BuildAppModal',
-  CreateAppModal = 'CreateAppModal',
-  DeleteAppModal = 'DeleteAppModal',
-  UpdateAppModal = 'UpdateAppModal',
-  BuildAppToolbarItem = 'BuildAppToolbarItem',
-  CreateAppForm = 'CreateAppForm',
-
-  // Page
-  CreatePageForm = 'CreatePageForm',
-  CreatePagePopover = 'CreatePagePopover',
-  CreatePageToolbarItem = 'CreatePageToolbarItem',
-  CancelCreatePageToolbarItem = 'CancelCreatePageToolbarItem',
-  DeletePageModal = 'DeletePageModal',
-  DeletePageToolbarItem = 'DeletePageToolbarItem',
-  UpdatePageForm = 'UpdatePageForm',
-  UpdatePageToolbarItem = 'UpdatePageToolbarItem',
-  UpdatePagePopover = 'UpdatePagePopover',
-  CancelUpdatePageToolbarItem = 'CancelUpdatePageToolbarItem',
-  PageSidebar = 'PageSidebar',
-  // Atom
-  CreateAtomPopover = 'CreateAtomPopover',
-  CreateAtomToolbarItem = 'CreateAtomToolbarItem',
-  CancelCreateAtomToolbarItem = 'CancelCreateAtomToolbarItem',
-  CreateAtomModal = 'CreateAtomModal',
-  CreateAtomForm = 'CreateAtomForm',
-  DeleteAtomModal = 'DeleteAtomModal',
-  DeleteAtomsModal = 'DeleteAtomsModal',
-  UpdateAtomModal = 'UpdateAtomModal',
-  UpdateAtomForm = 'UpdateAtomForm',
-  DeleteAtomsToolbarItem = 'DeleteAtomsToolbarItem',
+  /**
+   * Action
+   */
+  ActionFormCreate = 'ActionFormCreate',
+  ActionFormUpdate = 'ActionFormUpdate',
+  ActionModalCreate = 'ActionModalCreate',
+  ActionModalDelete = 'ActionModalDelete',
+  ActionModalUpdate = 'ActionModalUpdate',
+  ActionPopoverCreate = 'ActionPopoverCreate',
+  ActionPopoverUpdate = 'ActionPopoverUpdate',
+  ActionToolbarItemCreate = 'ActionToolbarItemCreate',
+  ActionToolbarItemCreateCancel = 'ActionToolbarItemCreateCancel',
+  ActionToolbarItemDelete = 'ActionToolbarItemDelete',
+  ActionToolbarItemUpdate = 'ActionToolbarItemUpdate',
+  ActionToolbarItemUpdateCancel = 'ActionToolbarItemUpdateCancel',
+  /**
+   * Admin
+   */
+  AdminDataModalExport = 'AdminDataModalExport',
+  AdminDataModalImport = 'AdminDataModalImport',
+  /**
+   * App
+   */
+  AppButtonOpenCreateForm = 'AppButtonOpenCreateForm',
+  AppFormCreate = 'AppFormCreate',
+  AppModalBuild = 'AppModalBuild',
+  AppModalCreate = 'AppModalCreate',
+  AppModalDelete = 'AppModalDelete',
+  AppModalUpdate = 'AppModalUpdate',
+  AppToolbarItemBuild = 'AppToolbarItemBuild',
+  AppToolbarItemCreate = 'AppToolbarItemCreate',
+  AppToolbarItemImport = 'AppToolbarItemImport',
+  /**
+   * Atom
+   */
+  AtomFormCreate = 'AtomFormCreate',
+  AtomFormUpdate = 'AtomFormUpdate',
+  AtomModalCreate = 'AtomModalCreate',
+  AtomModalDelete = 'AtomModalDelete',
+  AtomModalUpdate = 'AtomModalUpdate',
+  AtomPopoverCreate = 'AtomPopoverCreate',
+  AtomPopoverUpdate = 'AtomPopoverUpdate',
   AtomSidebar = 'AtomSidebar',
-  // Element
-  CreateElementForm = 'CreateElementForm',
-  CreateElementToolbarItem = 'CreateElementToolbarItem',
-  CreateElementPopover = 'CreateElementPopover',
-  CancelCreateElementToolbarItem = 'CancelCreateElementToolbarItem',
-  MoveElementForm = 'MoveElementForm',
-  UpdateElementForm = 'UpdateElementForm',
-  DeleteElementModal = 'DeleteElementModal',
-  // Component
-  CreateComponentToolbarItem = 'CreateComponentToolbarItem',
-  CreateComponentPopover = 'CreateComponentPopover',
-  ComponentSidebar = 'ComponentSidebar',
-  ImportComponentToolbarItem = 'ImportComponentToolbarItem',
-  CreateComponentForm = 'CreateComponentForm',
-  CancelCreateComponentToolbarItem = 'CancelCreateComponentToolbarItem',
-  DeleteComponentModal = 'DeleteComponentModal',
-  UpdateComponentModal = 'UpdateComponentModal',
-  UpdateComponentForm = 'UpdateComponentForm',
-  // Action
-  CreateActionToolbarItem = 'CreateActionToolbarItem',
-  CreateActionPopover = 'CreateActionPopover',
-  CreateActionForm = 'CreateActionForm',
-  CreateActionModal = 'CreateActionModal',
-  CancelCreateActionToolbarItem = 'CancelCreateActionToolbarItem',
-  DeleteActionModal = 'DeleteActionModal',
-  UpdateActionPopover = 'UpdateActionPopover',
-  UpdateActionToolbarItem = 'UpdateActionToolbarItem',
-  DeleteActionToolbarItem = 'DeleteActionToolbarItem',
-  UpdateActionForm = 'UpdateActionForm',
-  UpdateActionModal = 'UpdateActionModal',
-  CancelUpdateActionToolbarItem = 'CancelUpdateActionToolbarItem',
-
-  // Field
-  CreateFieldPopover = 'CreateFieldPopover',
-  CreateFieldToolbarItem = 'CreateFieldToolbarItem',
-  CreateFieldForm = 'CreateFieldForm',
-  CreateFieldModal = 'CreateFieldModal',
-  CancelCreateFieldToolbarItem = 'CancelCreateFieldToolbarItem',
-  DeleteFieldModal = 'DeleteFieldModal',
-  UpdateFieldPopover = 'UpdateFieldPopover',
-  UpdateFieldToolbarItem = 'UpdateFieldToolbarItem',
-  DeleteFieldToolbarItem = 'DeleteFieldToolbarItem',
-  UpdateFieldModal = 'UpdateFieldModal',
-  UpdateFieldForm = 'UpdateFieldForm',
-  CancelUpdateFieldToolbarItem = 'CancelUpdateFieldToolbarItem',
-  SelectDefaultValueFieldForm = 'SelectDefaultValueFieldForm',
-  SelectUnionTypeValueFieldForm = 'SelectUnionTypeValueFieldForm',
-  // Type
-  CreateTypeModal = 'CreateTypeModal',
-  CreateTypeForm = 'CreateTypeForm',
-  CreateTypePopover = 'CreateTypePopover',
-  CreateTypeToolbarItem = 'CreateTypeToolbarItem',
-  CancelCreateTypeToolbarItem = 'CancelCreateTypeToolbarItem',
-  DeleteTypeModal = 'DeleteTypeModal',
-  DeleteTypeToolbarItem = 'DeleteTypeToolbarItem',
-  UpdateTypeForm = 'UpdateTypeForm',
-  UpdateTypeModal = 'UpdateTypeModal',
-  TypeSidebar = 'TypeSidebar',
-  // Resource
-  CreateResourceModal = 'CreateResourceModal',
-  CreateResourceForm = 'CreateResourceForm',
-  CreateResourcePopover = 'CreateResourcePopover',
-  CreateResourceToolbarItem = 'CreateResourceToolbarItem',
-  CancelCreateResourceToolbarItem = 'CancelCreateResourceToolbarItem',
-  DeleteResourceModal = 'DeleteResourceModal',
-  DeleteResourceToolbarItem = 'DeleteResourceToolbarItem',
-  UpdateResourceModal = 'UpdateResourceModal',
-  UpdateResourceForm = 'UpdateResourceForm',
-  ResourceSidebar = 'ResourceSidebar',
-  // Redirect
-  UpdateRedirectToolbarItem = 'UpdateRedirectToolbarItem',
-  CreateRedirectToolbarItem = 'CreateRedirectToolbarItem',
-  UpdateRedirectPopover = 'UpdateRedirectPopover',
-  CreateRedirectPopover = 'CreateRedirectPopover',
-  CreateRedirectForm = 'CreateRedirectForm',
-  CancelCreateRedirectToolbarItem = 'CancelCreateRedirectToolbarItem',
-  DeleteRedirectModal = 'DeleteRedirectModal',
-  UpdateRedirectForm = 'UpdateRedirectForm',
-  CancelUpdateRedirectToolbarItem = 'CancelUpdateRedirectToolbarItem',
-  // AuthGuard
-  CreateAuthGuardModal = 'CreateAuthGuardModal',
-  CreateAuthGuardForm = 'CreateAuthGuardForm',
-  CreateAuthGuardPopover = 'CreateAuthGuardPopover',
-  DeleteAuthGuardModal = 'DeleteAuthGuardModal',
-  CreateAuthGuardToolbarItem = 'CreateAuthGuardToolbarItem',
-  CancelCreateAuthGuardToolbarItem = 'CancelCreateAuthGuardToolbarItem',
-  DeleteAuthGuardToolbarItem = 'DeleteAuthGuardToolbarItem',
-  UpdateAuthGuardModal = 'UpdateAuthGuardModal',
-  UpdateAuthGuardForm = 'UpdateAuthGuardForm',
+  AtomsModalDelete = 'AtomsModalDelete',
+  AtomsToolbarItemDelete = 'AtomsToolbarItemDelete',
+  AtomToolbarItemCreate = 'AtomToolbarItemCreate',
+  AtomToolbarItemCreateCancel = 'AtomToolbarItemCreateCancel',
+  AtomToolbarItemUpdate = 'AtomToolbarItemUpdate',
+  AtomToolbarItemUpdateCancel = 'AtomToolbarItemUpdateCancel',
+  /**
+   * Auth Guard
+   */
+  AuthGuardFormCreate = 'AuthGuardFormCreate',
+  AuthGuardFormUpdate = 'AuthGuardFormUpdate',
+  AuthGuardModalCreate = 'AuthGuardModalCreate',
+  AuthGuardModalDelete = 'AuthGuardModalDelete',
+  AuthGuardModalUpdate = 'AuthGuardModalUpdate',
+  AuthGuardPopoverCreate = 'AuthGuardPopoverCreate',
   AuthGuardSidebar = 'AuthGuardSidebar',
-  // Tag
-  CreateTagModal = 'CreateTagModal',
-  CreateTagForm = 'CreateTagForm',
-  CreateTagPopover = 'CreateTagPopover',
-  CreateTagToolbarItem = 'CreateTagToolbarItem',
-  CancelCreateTagToolbarItem = 'CancelCreateTagToolbarItem',
-  DeleteTagModal = 'DeleteTagModal',
-  DeleteTagToolbarItem = 'DeleteTagToolbarItem',
-  UpdateTagForm = 'UpdateTagForm',
-  UpdateTagModal = 'UpdateTagModal',
-  TagSidebar = 'TagSidebar',
-  // Admin
-  ExportAdminDataModal = 'ExportAdminDataModal',
-  ImportAdminDataModal = 'ImportAdminDataModal',
-  // User
-  SignOutUserToolbarItem = 'SignOutUserToolbarItem',
-  // Builder
+  AuthGuardToolbarItemCreate = 'AuthGuardToolbarItemCreate',
+  AuthGuardToolbarItemCreateCancel = 'AuthGuardToolbarItemCreateCancel',
+  AuthGuardToolbarItemDelete = 'AuthGuardToolbarItemDelete',
+  /**
+   * Builder
+   */
   BuilderSidebar = 'BuilderSidebar',
-  OpenBuilderBuilderToolbarItem = 'OpenBuilderBuilderToolbarItem',
-  OpenPreviewBuilderToolbarItem = 'OpenPreviewBuilderToolbarItem',
-  // Domain
-  CreateDomainToolbarItem = 'CreateDomainToolbarItem',
-  CreateDomainModal = 'CreateDomainModal',
-  DeleteDomainModal = 'DeleteDomainModal',
-  UpdateDomainModal = 'UpdateDomainModal',
-  // Lambda
-  CreateLambdaToolbarItem = 'CreateLambdaToolbarItem',
-  // Pagination
-  PageSizePaginationToolbarItem = 'PageSizePaginationToolbarItem',
-  PreviousPagePaginationToolbarItem = 'PreviousPagePaginationToolbarItem',
-  NextPagePaginationToolbarItem = 'NextPagePaginationToolbarItem',
-  SearchPaginationToolbarItem = 'SearchPaginationToolbarItem',
-  CurrentPagePaginationToolbarItem = 'CurrentPagePaginationToolbarItem',
-  SearchPaginationToobarItem = 'SearchPaginationToobarItem',
-  CancelCreateTagToolabarItem = 'CancelCreateTagToolabarItem',
-  // Confirmation
-  ConfirmationButton = 'ConfirmationButton',
-  // Loader
-  GlobalProgressBar = 'GlobalProgressBar',
+  BuilderToolbarItemOpenBuilder = 'BuilderToolbarItemOpenBuilder',
+  BuilderToolbarItemOpenPreview = 'BuilderToolbarItemOpenPreview',
+  /**
+   * Button
+   */
+  ButtonConfirmation = 'ButtonConfirmation',
+  /**
+   * Component
+   */
+  ComponentFormCreate = 'ComponentFormCreate',
+  ComponentFormUpdate = 'ComponentFormUpdate',
+  ComponentModalDelete = 'ComponentModalDelete',
+  ComponentModalUpdate = 'ComponentModalUpdate',
+  ComponentPopoverCreate = 'ComponentPopoverCreate',
+  ComponentSidebar = 'ComponentSidebar',
+  ComponentToolbarItemCreate = 'ComponentToolbarItemCreate',
+  ComponentToolbarItemCreateCancel = 'ComponentToolbarItemCreateCancel',
+  ComponentToolbarItemImport = 'ComponentToolbarItemImport',
+  /**
+   * Domain
+   */
+  DomainModalCreate = 'DomainModalCreate',
+  DomainModalDelete = 'DomainModalDelete',
+  DomainModalUpdate = 'DomainModalUpdate',
+  DomainToolbarItemCreate = 'DomainToolbarItemCreate',
+  /**
+   * Element
+   */
+  ElementFormCreate = 'ElementFormCreate',
+  ElementFormMove = 'ElementFormMove',
+  ElementFormUpdate = 'ElementFormUpdate',
+  ElementModalDelete = 'ElementModalDelete',
+  ElementPopoverCreate = 'ElementPopoverCreate',
+  ElementToolbarItemCreate = 'ElementToolbarItemCreate',
+  ElementToolbarItemCreateCancel = 'ElementToolbarItemCreateCancel',
+  /**
+   * Field
+   */
+  FieldFormCreate = 'FieldFormCreate',
+  FieldFormSelectDefaultValue = 'FieldFormSelectDefaultValue',
+  FieldFormSelectUnionTypeValue = 'FieldFormSelectUnionTypeValue',
+  FieldFormUpdate = 'FieldFormUpdate',
+  FieldModalCreate = 'FieldModalCreate',
+  FieldModalDelete = 'FieldModalDelete',
+  FieldModalUpdate = 'FieldModalUpdate',
+  FieldPopoverCreate = 'FieldPopoverCreate',
+  FieldPopoverUpdate = 'FieldPopoverUpdate',
+  FieldToolbarItemCreate = 'FieldToolbarItemCreate',
+  FieldToolbarItemCreateCancel = 'FieldToolbarItemCreateCancel',
+  FieldToolbarItemDelete = 'FieldToolbarItemDelete',
+  FieldToolbarItemUpdate = 'FieldToolbarItemUpdate',
+  FieldToolbarItemUpdateCancel = 'FieldToolbarItemUpdateCancel',
+  /**
+   * Lambda
+   */
+  LambdaToolbarItemCreate = 'LambdaToolbarItemCreate',
+  /**
+   * Page
+   */
+  PageFormCreate = 'PageFormCreate',
+  PageFormUpdate = 'PageFormUpdate',
+  PageModalDelete = 'PageModalDelete',
+  PagePopoverCreate = 'PagePopoverCreate',
+  PagePopoverUpdate = 'PagePopoverUpdate',
+  PageSidebar = 'PageSidebar',
+  PageToolbarItemCreate = 'PageToolbarItemCreate',
+  PageToolbarItemCreateCancel = 'PageToolbarItemCreateCancel',
+  PageToolbarItemDelete = 'PageToolbarItemDelete',
+  PageToolbarItemUpdate = 'PageToolbarItemUpdate',
+  PageToolbarItemUpdateCancel = 'PageToolbarItemUpdateCancel',
+  /**
+   * Pagination
+   */
+  PaginationToobarItemSearch = 'PaginationToobarItemSearch',
+  PaginationToolbarItemCurrentPage = 'PaginationToolbarItemCurrentPage',
+  PaginationToolbarItemNextPage = 'PaginationToolbarItemNextPage',
+  PaginationToolbarItemPageSize = 'PaginationToolbarItemPageSize',
+  PaginationToolbarItemPreviousPage = 'PaginationToolbarItemPreviousPage',
+  PaginationToolbarItemSearch = 'PaginationToolbarItemSearch',
+  /**
+   * Progress Bar
+   */
+  ProgressBarGlobal = 'ProgressBarGlobal',
+  /**
+   * Redirect
+   */
+  RedirectFormCreate = 'RedirectFormCreate',
+  RedirectFormUpdate = 'RedirectFormUpdate',
+  RedirectModalDelete = 'RedirectModalDelete',
+  RedirectPopoverCreate = 'RedirectPopoverCreate',
+  RedirectPopoverUpdate = 'RedirectPopoverUpdate',
+  RedirectToolbarItemCreate = 'RedirectToolbarItemCreate',
+  RedirectToolbarItemCreateCancel = 'RedirectToolbarItemCreateCancel',
+  RedirectToolbarItemUpdate = 'RedirectToolbarItemUpdate',
+  RedirectToolbarItemUpdateCancel = 'RedirectToolbarItemUpdateCancel',
+  /**
+   * Resource
+   */
+  ResourceFormCreate = 'ResourceFormCreate',
+  ResourceFormUpdate = 'ResourceFormUpdate',
+  ResourceModalCreate = 'ResourceModalCreate',
+  ResourceModalDelete = 'ResourceModalDelete',
+  ResourceModalUpdate = 'ResourceModalUpdate',
+  ResourcePopoverCreate = 'ResourcePopoverCreate',
+  ResourceSidebar = 'ResourceSidebar',
+  ResourceToolbarItemCreate = 'ResourceToolbarItemCreate',
+  ResourceToolbarItemCreateCancel = 'ResourceToolbarItemCreateCancel',
+  ResourceToolbarItemDelete = 'ResourceToolbarItemDelete',
+  /**
+   * Tag
+   */
+  TagFormCreate = 'TagFormCreate',
+  TagFormUpdate = 'TagFormUpdate',
+  TagModalCreate = 'TagModalCreate',
+  TagModalDelete = 'TagModalDelete',
+  TagModalUpdate = 'TagModalUpdate',
+  TagPopoverCreate = 'TagPopoverCreate',
+  TagSidebar = 'TagSidebar',
+  TagToolabarItemCreateCancel = 'TagToolabarItemCreateCancel',
+  TagToolbarItemCreate = 'TagToolbarItemCreate',
+  TagToolbarItemCreateCancel = 'TagToolbarItemCreateCancel',
+  TagToolbarItemDelete = 'TagToolbarItemDelete',
+  /**
+   * Type
+   */
+  TypeFormCreate = 'TypeFormCreate',
+  TypeFormUpdate = 'TypeFormUpdate',
+  TypeModalCreate = 'TypeModalCreate',
+  TypeModalDelete = 'TypeModalDelete',
+  TypeModalUpdate = 'TypeModalUpdate',
+  TypePopoverCreate = 'TypePopoverCreate',
+  TypeSidebar = 'TypeSidebar',
+  TypeToolbarItemCreate = 'TypeToolbarItemCreate',
+  TypeToolbarItemCreateCancel = 'TypeToolbarItemCreateCancel',
+  TypeToolbarItemDelete = 'TypeToolbarItemDelete',
+  /**
+   * User
+   */
+  UserToolbarItemSignOut = 'UserToolbarItemSignOut',
 }

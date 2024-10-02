@@ -1,10 +1,11 @@
+import type { Linter } from 'eslint'
+
 import {
   offsetFromRoot,
   type ProjectConfiguration,
   type Tree,
   updateJson,
 } from '@nx/devkit'
-import type { Linter } from 'eslint'
 import { join } from 'path'
 
 /**

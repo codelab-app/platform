@@ -1,13 +1,15 @@
 'use client'
 
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type { ITagNodeData, ITreeNode } from '@codelab/frontend/abstract/domain'
+
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+
 import { useDeleteTagsModal } from '../delete-tags/delete-tags.state'
 import { useUpdateTagForm } from '../update-tag'
 
@@ -29,7 +31,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
         <CuiTreeItemToolbar
           items={[
             {
-              cuiKey: UiKey.DeleteTagToolbarItem,
+              cuiKey: UiKey.TagToolbarItemDelete,
               icon: <DeleteOutlined />,
               label: 'Delete',
               onClick: () => {

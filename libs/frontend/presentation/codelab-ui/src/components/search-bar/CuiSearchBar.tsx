@@ -4,6 +4,7 @@ import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { Input } from 'antd'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
+
 import Style from './CuiSearchBar.module.css'
 
 interface CuiSearchBarProps {

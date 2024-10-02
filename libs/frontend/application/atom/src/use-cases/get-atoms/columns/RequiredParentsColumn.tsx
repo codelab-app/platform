@@ -1,4 +1,5 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+
 import { Space, Tag } from 'antd'
 
 export const RequiredParentsColumn = ({

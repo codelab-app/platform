@@ -1,6 +1,13 @@
 'use client'
 
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { ICreateTagData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -8,27 +15,16 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { ICreateTagData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useTagService } from '../../services'
 import { createTagSchema } from './create.tag.schema'
 import { useCreateTagForm } from './create-tag.data'
 
-interface CreateTagFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const CreateTagForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreateTagFormProps) => {
+export const CreateTagForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const tagService = useTagService()
     const { tagDomainService } = useDomainStore()
     const createTagForm = useCreateTagForm()
@@ -64,7 +60,7 @@ export const CreateTagForm = observer(
         onSubmitSuccess={closeForm}
         schema={createTagSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateTagForm}
+        uiKey={UiKey.TagFormCreate}
       >
         <AutoFields omitFields={['parent']} />
         <AutoField label="Parent Tag" name="parent.id" />

@@ -1,27 +1,26 @@
 'use client'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
+
 import {
   padding,
   threeGridCol,
 } from '@codelab/frontend-presentation-view/style'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { CreateAppButton } from '../create-app'
+
+import { AppButtonOpenCreateForm } from '../create-app'
 import { AppListItem } from './AppListItem'
 
 const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const AppList = observer(() => {
-  const { appDomainService } = useDomainStore()
-  const apps = appDomainService.appsList
-
+export const AppList = observer(({ apps }: { apps: Array<IAppModel> }) => {
   if (!apps.length) {
     return (
       <Empty description="No apps found" imageStyle={emptyImageStyle}>
-        <CreateAppButton>Create Now</CreateAppButton>
+        <AppButtonOpenCreateForm>Create Now</AppButtonOpenCreateForm>
       </Empty>
     )
   }

@@ -1,5 +1,6 @@
-import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
 import type { IFieldDto, ITypeDto } from '@codelab/shared/abstract/core'
+
+import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

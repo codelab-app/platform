@@ -9,6 +9,7 @@ import type {
   IBaseTypeOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 
 export interface ITypeService

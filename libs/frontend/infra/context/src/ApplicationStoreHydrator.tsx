@@ -2,36 +2,38 @@
 
 import type {
   UrlPathParams,
-  UrlQueryParamsString,
+  UrlQueryParamsPageProps,
 } from '@codelab/frontend/abstract/types'
+
+import { parseQueryParamPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useEffect, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useState } from 'react'
+import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
+import { isDeepEqual } from 'remeda'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
   fallback: ReactNode
   pathParams?: UrlPathParams
-  queryParams?: UrlQueryParamsString
+  queryParams?: UrlQueryParamsPageProps
 }
 
-export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
-  ({ children, fallback, pathParams, queryParams }) => {
+export const ApplicationStoreHydrator = observer(
+  ({
+    children,
+    fallback,
+    pathParams,
+    queryParams,
+  }: ApplicationStoreHydratorProps) => {
     const { routerService } = useApplicationStore()
     const [isHydrated, setIsHydrated] = useState(false)
 
-    // usePaginationQueryParams(queryParams?.page, queryParams?.pageSize)
-
     useEffect(() => {
+      console.log(queryParams)
+
       if (queryParams) {
-        routerService.setQueryParams({
-          ...queryParams,
-          filter: queryParams.filter ? queryParams.filter.split(',') : [],
-          page: queryParams.page ? parseInt(queryParams.page) : undefined,
-          pageSize: queryParams.pageSize
-            ? parseInt(queryParams.pageSize)
-            : undefined,
-        })
+        routerService.setQueryParams(parseQueryParamPageProps(queryParams))
       }
 
       if (pathParams) {

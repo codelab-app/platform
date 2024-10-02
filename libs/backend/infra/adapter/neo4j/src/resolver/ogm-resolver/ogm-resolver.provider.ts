@@ -1,6 +1,8 @@
-import { mergeResolvers } from '@graphql-tools/merge'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
+
+import { mergeResolvers } from '@graphql-tools/merge'
+
 import { COMPONENT_RESOLVER_PROVIDER } from './component'
 import { ELEMENT_RESOLVER_PROVIDER } from './element'
 import { OGM_RESOLVER_PROVIDER } from './ogm-resolver.constant'

@@ -1,8 +1,13 @@
 import type {
   UrlPathParams,
+  UrlPathParamsProps,
   UrlQueryParams,
-  UrlQueryParamsString,
+  UrlQueryParamsPageProps,
+  UrlQueryParamsProps,
 } from '@codelab/frontend/abstract/types'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+
+import type { IPaginationService, SupportedPaginationModel } from '../services'
 
 /**
  * Props use the string version
@@ -14,14 +19,14 @@ import type {
  */
 export interface IRouterProps {
   pathParams: UrlPathParams
-  queryParams?: UrlQueryParamsString
+  queryParams?: UrlQueryParamsPageProps
 }
 
 export type IRouterService = UrlPathParams &
   UrlQueryParams & {
-    pathParams: UrlPathParams
-    queryParams: UrlQueryParams
+    pathParams: UrlPathParamsProps
+    queryParams: UrlQueryParamsProps
 
     setPathParams(params: UrlPathParams): void
-    setQueryParams(params: Partial<UrlQueryParams>): void
+    setQueryParams(params: Partial<UrlQueryParamsProps>): void
   }

@@ -1,4 +1,5 @@
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon'
+
 import Icon from '@ant-design/icons/lib/components/Icon'
 
 const AlignJustifyOutlineSvg = () => (

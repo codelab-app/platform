@@ -6,6 +6,7 @@ import type {
   ReactNodeTypeCreateInput,
   UpdateReactNodeTypesMutationVariables,
 } from '@codelab/shared/infra/gql'
+
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**

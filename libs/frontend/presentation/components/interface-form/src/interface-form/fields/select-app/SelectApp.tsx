@@ -1,7 +1,8 @@
 'use client'
 
-import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+
+import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
 import {
   AppListDocument,
   type AppListQuery,

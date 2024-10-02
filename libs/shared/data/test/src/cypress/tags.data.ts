@@ -1,4 +1,5 @@
 import type { ITagDto } from '@codelab/shared/abstract/core'
+
 import { v4 } from 'uuid'
 
 const delete_table_tag_0_id = v4()
@@ -12,9 +13,9 @@ const delete_tree_tag_1_0_id = v4()
 export enum CreateData {
   // Parent
   tag_0 = 'Tag-0',
-  tag_1 = 'Tag-1',
   // Child
   tag_0_0 = 'Tag-0-0',
+  tag_1 = 'Tag-1',
   tag_1_0 = 'Tag-1-0',
 }
 

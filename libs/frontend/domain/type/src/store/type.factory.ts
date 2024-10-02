@@ -6,8 +6,10 @@ import type {
   ITypeDto,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
+
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gql'
+
 import { ActionType } from './action-type.model'
 import { AppType } from './app-type.model'
 import { ArrayType } from './array-type.model'

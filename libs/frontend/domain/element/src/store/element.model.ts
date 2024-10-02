@@ -9,13 +9,14 @@ import type {
   RenderingError,
   RenderingMetadata,
 } from '@codelab/frontend/abstract/domain'
+import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+
 import {
   actionRef,
   componentRef,
   DATA_ELEMENT_ID,
   elementRef,
-  getComponentDomainService,
-  getElementDomainService,
   IElementModel,
   isAtom,
   isAtomRef,
@@ -24,8 +25,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { createValidator } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
@@ -38,7 +37,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/infra/gql'
-import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
+import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   idProp,
@@ -49,6 +48,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+
 import { validateElement } from '../services/element.validate'
 import { getRenderType } from './element-render-type.field'
 
@@ -299,7 +299,7 @@ export class Element
       this.name ||
       this.renderType.maybeCurrent?.name ||
       (isAtomRef(this.renderType)
-        ? compoundCaseToTitleCase(this.renderType.current.type)
+        ? titleCase(this.renderType.current.type)
         : undefined) ||
       this.parentComponent?.maybeCurrent?.name ||
       ''
@@ -378,7 +378,7 @@ export class Element
       secondary:
         this.renderType.maybeCurrent?.name ||
         (isAtom(this.renderType.current)
-          ? compoundCaseToTitleCase(this.renderType.current.type)
+          ? titleCase(this.renderType.current.type)
           : undefined),
     }
   }

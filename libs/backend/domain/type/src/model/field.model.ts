@@ -1,5 +1,6 @@
 import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+
+import { titleCase } from '@codelab/shared/utils'
 
 export class Field implements IFieldDto {
   /**
@@ -15,7 +16,7 @@ export class Field implements IFieldDto {
       fieldType,
       id,
       key,
-      name: compoundCaseToTitleCase(key),
+      name: titleCase(key),
     })
   }
 

@@ -8,6 +8,10 @@ import type {
   IRuntimeModel,
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+
 import {
   getRendererService,
   getRuntimeComponentService,
@@ -18,16 +22,13 @@ import {
   isRuntimeElement,
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
+import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
@@ -40,6 +41,7 @@ import {
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { difference, filter, isTruthy } from 'remeda'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
+
 import { ElementWrapper } from '../components'
 
 const compositeKey = (

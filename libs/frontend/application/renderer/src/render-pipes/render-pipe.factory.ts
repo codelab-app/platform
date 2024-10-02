@@ -1,7 +1,9 @@
 import type { IRenderPipe } from '@codelab/frontend/abstract/application'
+
+import type { PassThroughRenderPipe } from './pass-through-render-pipe'
+
 import { AtomRenderPipe } from './atom-render-pipe'
 import { NullRenderPipe } from './null-render-pipe'
-import type { PassThroughRenderPipe } from './pass-through-render-pipe'
 import { PreRenderPipe } from './pre-render-pipe'
 
 export type RenderPipeClass =

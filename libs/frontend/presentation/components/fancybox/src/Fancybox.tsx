@@ -1,6 +1,7 @@
-import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { Fancybox as NativeFancybox } from '@fancyapps/ui'
+import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import { useEffect } from 'react'
 
 interface FancyboxProps {

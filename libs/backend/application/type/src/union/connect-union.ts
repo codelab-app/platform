@@ -1,10 +1,12 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNode } from '@codelab/shared/domain'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { titleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { mapPrimitiveType } from '../mapper/ant-design-primitive-map'
+
 import type { FieldTypeRef } from '../parser'
+
+import { mapPrimitiveType } from '../mapper/ant-design-primitive-map'
 import { parseSeparators } from '../parser'
 
 /**
@@ -27,9 +29,7 @@ export const connectUnionType: FieldTypeRef = async ({
     where: {
       AND: [
         {
-          name: `${atom.name} ${compoundCaseToTitleCase(
-            field.property,
-          )} Union API`,
+          name: `${atom.name} ${titleCase(field.property)} Union API`,
         },
       ],
     },
@@ -37,9 +37,7 @@ export const connectUnionType: FieldTypeRef = async ({
 
   // If not exist
   if (!existingUnion) {
-    const unionName = `${atom.name} ${compoundCaseToTitleCase(
-      field.property,
-    )} Union API`
+    const unionName = `${atom.name} ${titleCase(field.property)} Union API`
 
     // create Union Type
     const {

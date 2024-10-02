@@ -1,10 +1,11 @@
+import type { ICreatePageData } from '@codelab/shared/abstract/core'
+
 import { ElementApplicationService } from '@codelab/backend/application/element'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreDomainService } from '@codelab/backend/domain/store'
 import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
-import type { ICreatePageData } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

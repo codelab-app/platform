@@ -1,12 +1,13 @@
 import type { IPropService } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
-import { propRepository } from '@codelab/frontend-domain-prop/repositories'
-import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import type {
   IPropData,
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/shared/abstract/core'
+
+import { propRepository } from '@codelab/frontend-domain-prop/repositories'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 
 export const usePropService = (): IPropService => {

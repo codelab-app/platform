@@ -1,6 +1,11 @@
-import { UiDataRecord, type UiKey } from '@codelab/frontend/abstract/types'
-import { Cui } from '@codelab/frontend-application-shared-data'
 import type { Locator, Page } from '@playwright/test'
+
+import {
+  getUiDataKey,
+  getUiDataLabel,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect } from '@playwright/test'
 
 export interface CuiSelector {
@@ -8,11 +13,11 @@ export interface CuiSelector {
   /**
    * Aria label
    */
-  label?: RegExp | string
+  label?: string | RegExp
   /**
    * Text node
    */
-  text?: RegExp | string
+  text?: string | RegExp
 }
 
 export class BasePage {
@@ -34,6 +39,27 @@ export class BasePage {
     await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
   }
 
+  async fillInputSelect(options: { label: string | RegExp }, value: string) {
+    const page = this.locator ?? this.page
+
+    // Fill
+    await page.getByLabel(options.label).fill(value)
+
+    // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
+    await this.page
+      .locator(
+        '.ant-select-dropdown.ant-slide-up-appear-active .ant-select-item',
+      )
+      .first()
+      .click()
+  }
+
+  fillInputText(options: { label: string | RegExp }, value: string) {
+    const page = this.locator ?? this.page
+
+    return page.getByRole('textbox', { name: options.label }).fill(value)
+  }
+
   /**
    * Locator chaining need to be passed in
    */
@@ -45,11 +71,12 @@ export class BasePage {
     }
 
     if (options.label) {
+      // Using getByRole with name option for aria-label
       return page.getByRole('button', { name: options.label })
     }
 
     if (options.key) {
-      const label = UiDataRecord[options.key].label
+      const label = getUiDataLabel(options.key)
 
       return page.getByRole('button', { name: label })
     }
@@ -57,23 +84,31 @@ export class BasePage {
     return page.getByRole('button')
   }
 
-  getByExactText(text: RegExp | string) {
+  getByExactText(text: string | RegExp) {
     return this.page.getByText(text, { exact: true })
   }
 
-  getCard(options: { name: RegExp | string }) {
+  getCard(options: { name: string | RegExp }) {
     return this.page.locator('.ant-card', { hasText: options.name })
   }
 
-  getDropdownItem(options: { label: RegExp | string }) {
+  getDropdownItem(options: { label: string | RegExp }) {
     return this.page
       .locator('.ant-dropdown')
       .locator(this.page.getByLabel(options.label))
   }
 
+  getForm(key: UiKey) {
+    const form = this.page.getByTestId(CuiTestId.cuiForm(key))
+
+    this.locator = form
+
+    return this
+  }
+
   getGlobalProgressBar() {
     return this.page.getByRole('progressbar', {
-      name: UiDataRecord.GlobalProgressBar.label,
+      name: getUiDataLabel(UiKey.ProgressBarGlobal),
     })
   }
 
@@ -93,30 +128,79 @@ export class BasePage {
     return this.page.locator('.ant-notification')
   }
 
+  getPopover(key: UiKey) {
+    const popover = this.page.getByTestId(CuiTestId.cuiSidebar(key))
+
+    this.locator = popover
+
+    return this
+  }
+
   getSidebar(key: UiKey) {
-    const sidebar = this.page.getByTestId(Cui.cuiSidebar(key))
+    const sidebar = this.page.getByTestId(CuiTestId.cuiSidebar(key))
 
     this.locator = sidebar
 
     return this
   }
 
-  getTextBox(options: { label: RegExp | string }) {
-    return this.page.getByRole('textbox', { name: options.label })
+  getSkeleton() {
+    return this.page.locator(`.${CuiTestId.cuiSkeleton()}:not(.hidden)`)
   }
 
-  // getToolbarItem(key: UiKey) {
-  //   return this.page.getByTestId(Cui.cuiToolbarItem(key))
-  // }
+  getSpinner() {
+    return this.page.getByRole('status')
+  }
 
   getToolbarItem(key: UiKey) {
     const page = this.locator ?? this.page
 
-    return page.getByTestId(Cui.cuiToolbarItem(key))
+    return page.getByTestId(CuiTestId.cuiToolbarItem(key))
   }
 
-  getTreeItem(label: string) {
-    return this.page.getByTestId(Cui.cuiTreeItemPrimaryTitle(label))
+  getTree() {
+    const tree = this.page.getByTestId(CuiTestId.cuiTree())
+
+    this.locator = tree
+
+    return this
+  }
+
+  /**
+   * Chain with `getTree` to get number of items
+   */
+  getTreeItem() {
+    const page = this.locator ?? this.page
+    const items = page.getByTestId(CuiTestId.cuiTreeItem())
+
+    return items
+  }
+
+  getTreeItemByPrimaryTitle(label: string) {
+    const page = this.locator ?? this.page
+
+    const treeItem = page.getByTestId(CuiTestId.cuiTreeItem()).filter({
+      has: page.getByTestId(CuiTestId.cuiTreeItemPrimaryTitle(label)),
+    })
+
+    this.locator = treeItem
+
+    return this
+  }
+
+  /**
+   * Return this, if need to access locator, can do `getTreeItemBySecondaryTitle().locator`
+   */
+  getTreeItemBySecondaryTitle(label: string) {
+    const page = this.page
+
+    const treeItem = page.getByTestId(CuiTestId.cuiTreeItem()).filter({
+      has: page.getByTestId(CuiTestId.cuiTreeItemSecondaryTitle(label)),
+    })
+
+    this.locator = treeItem
+
+    return this
   }
 
   async openModal(options: CuiSelector) {

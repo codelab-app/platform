@@ -1,3 +1,5 @@
+import type { JSONSchemaType } from 'ajv'
+
 import {
   appSchema,
   hideField,
@@ -7,7 +9,6 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { type ICreatePageData, IPageKind } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 
 export const createPageSchema: JSONSchemaType<ICreatePageData> = {
   properties: {

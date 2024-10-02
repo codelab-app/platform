@@ -1,12 +1,13 @@
-import { ImportStoreCommand } from '@codelab/backend/application/store'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { PageRepository } from '@codelab/backend/domain/page'
-import { PropRepository } from '@codelab/backend/domain/prop'
 import type {
   ICreateElementDto,
   IPageAggregate,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
+
+import { ImportStoreCommand } from '@codelab/backend/application/store'
+import { ElementRepository } from '@codelab/backend/domain/element'
+import { PageRepository } from '@codelab/backend/domain/page'
+import { PropRepository } from '@codelab/backend/domain/prop'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportPageCommand {

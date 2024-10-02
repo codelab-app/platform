@@ -1,11 +1,12 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { expect, test as base } from '@playwright/test'
+import { test as base, expect } from '@playwright/test'
+
 import { BasePage } from '../../locators/pages'
 
 export class ComponentListPage extends BasePage {
   clickModalConfirmButton() {
     const modal = this.getModal()
-    const button = this.getButton({ key: UiKey.ConfirmationButton })
+    const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
     return modal.locator(button).click()
   }
@@ -19,7 +20,7 @@ export class ComponentListPage extends BasePage {
   }
 
   async fillCreateComponentForm() {
-    await this.getTextBox({ label: 'Name' }).fill(this.componentName)
+    await this.fillInputText({ label: 'Name' }).fill(this.componentName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Create' }))
@@ -41,7 +42,7 @@ export class ComponentListPage extends BasePage {
   }
 
   async openCreateComponentPanel() {
-    await this.getButton({ label: UiKey.CreateComponentToolbarItem }).click()
+    await this.getButton({ label: UiKey.ComponentToolbarItemCreate }).click()
 
     await expect(this.getModal()).toBeVisible()
   }

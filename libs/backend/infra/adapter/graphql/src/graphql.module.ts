@@ -1,5 +1,8 @@
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import type { GqlContext } from '@codelab/backend/abstract/types'
+import type { ApolloDriverConfig } from '@nestjs/apollo'
+import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
+
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
@@ -7,12 +10,11 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { endpointConfig } from '@codelab/backend/infra/core'
-import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
-import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
+
 import { GraphqlService } from './graphql.service'
 
 /**

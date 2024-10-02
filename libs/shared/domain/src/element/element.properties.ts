@@ -1,10 +1,8 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Element } from '@codelab/shared/infra/gql'
-import {
-  removeUuidAndDashPrefix,
-  slugCaseToTitleCase,
-} from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
+
+import { removeUuidAndDashPrefix, titleCase } from '@codelab/shared/utils'
 
 interface ElementData {
   compositeKey: never
@@ -22,7 +20,7 @@ const elementNameFromCompositeKey = (
 ) => {
   const slug = elementSlugFromCompositeKey(element)
 
-  return slugCaseToTitleCase(slug)
+  return titleCase(slug)
 }
 
 const elementSlugFromCompositeKey = (

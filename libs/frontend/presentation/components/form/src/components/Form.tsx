@@ -1,14 +1,15 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import type { ReactElement } from 'react'
+
 import {
   callbackWithParams,
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
-import { Cui } from '@codelab/frontend-application-shared-data'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { throttle } from 'radash'
-import type { ReactElement } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
@@ -50,7 +51,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
         <BaseAutoForm<TData>
           autosave={autosave}
           autosaveDelay={500}
-          data-cy={Cui.cuiForm(uiKey)}
+          data-testid={CuiTestId.cuiForm(uiKey)}
           errorsField={() => <ErrorsField />}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}

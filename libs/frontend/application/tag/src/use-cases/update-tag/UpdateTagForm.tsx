@@ -1,5 +1,7 @@
 'use client'
 
+import type { IUpdateTagData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -7,9 +9,9 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields, SelectField } from 'uniforms-antd'
+
 import { useTagService } from '../../services'
 import { updateTagSchema } from './update-tag.schema'
 import { useUpdateTagForm } from './update-tag.state'
@@ -44,7 +46,7 @@ export const UpdateTagForm = observer(() => {
         title: 'Error while updating tag',
       })}
       schema={updateTagSchema}
-      uiKey={UiKey.UpdateTagForm}
+      uiKey={UiKey.TagFormUpdate}
     >
       <AutoFields omitFields={['id', 'parent']} />
 

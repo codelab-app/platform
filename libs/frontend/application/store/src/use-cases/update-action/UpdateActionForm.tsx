@@ -1,4 +1,11 @@
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { IUpdateActionData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import {
   SelectAction,
   SelectResource,
@@ -10,28 +17,17 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
+
 import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
 import { updateActionSchema } from './update-action.schema'
 import { useUpdateActionForm } from './update-action.state'
 
-interface UpdateActionFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const UpdateActionForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: UpdateActionFormProps) => {
+export const UpdateActionForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const actionService = useActionService()
     const updateActionForm = useUpdateActionForm()
     const actionSchema = useActionSchema(updateActionSchema)
@@ -82,7 +78,7 @@ export const UpdateActionForm = observer(
         onSubmitSuccess={closeForm}
         schema={actionSchema}
         submitRef={submitRef}
-        uiKey={UiKey.UpdateActionForm}
+        uiKey={UiKey.ActionFormUpdate}
       >
         <AutoFields fields={['name']} />
 

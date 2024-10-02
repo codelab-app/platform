@@ -1,12 +1,14 @@
 'use client'
 
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { usePageService } from '../../services'
 import { useDeletePageModal } from './delete-page.state'
 
@@ -20,11 +22,11 @@ export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
       okText="Delete Page"
       onCancel={closeModal}
       open={deletePageModal.isOpen}
-      uiKey={UiKey.DeletePageModal}
+      uiKey={UiKey.PageModalDelete}
     >
       <ModalForm.Form
         model={{}}
-        onSubmit={() => pageService.remove(page)}
+        onSubmit={() => pageService.removeMany([page])}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting page',
         })}

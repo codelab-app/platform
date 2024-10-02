@@ -5,8 +5,9 @@ import type {
   SubmitController,
 } from '@codelab/frontend/abstract/types'
 import type { Maybe, ObjectLike } from '@codelab/shared/abstract/types'
-import Modal from 'antd/lib/modal'
 import type { PropsWithChildren } from 'react'
+
+import Modal from 'antd/lib/modal'
 import { useRef } from 'react'
 
 export const FormModal = <TData extends ObjectLike>({

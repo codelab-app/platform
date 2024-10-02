@@ -1,5 +1,8 @@
 'use client'
 
+import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { PropsWithChildren } from 'react'
+
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
@@ -7,9 +10,7 @@ import {
   createRootStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
-import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import { Provider } from 'jotai'
-import type { PropsWithChildren } from 'react'
 import { useMemo } from 'react'
 
 export const RootProviders = ({
@@ -28,7 +29,7 @@ export const RootProviders = ({
         },
         user,
       }),
-    [user],
+    [user.id],
   )
 
   return (

@@ -1,5 +1,6 @@
-import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
 import type { Linter } from 'eslint'
+
+import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
 import { join } from 'path'
 
 export const removeGraphqlEslintConfig = (

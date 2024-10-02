@@ -1,17 +1,19 @@
-import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
-import Html5Outlined from '@ant-design/icons/Html5Outlined'
 import type {
   IAtomModel,
   IInterfaceTypeModel,
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
+
+import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
+import Html5Outlined from '@ant-design/icons/Html5Outlined'
 import {
   atomRef,
   getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
@@ -28,7 +30,6 @@ import {
 } from '@codelab/shared/domain'
 import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement } from 'react'
 import { v4 } from 'uuid'

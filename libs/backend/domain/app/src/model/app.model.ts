@@ -1,6 +1,3 @@
-import { IModel } from '@codelab/backend/abstract/types'
-import { Domain } from '@codelab/backend/domain/domain'
-import { Page } from '@codelab/backend/domain/page'
 import type {
   IApp,
   IAppDto,
@@ -8,6 +5,10 @@ import type {
   IPage,
   IRef,
 } from '@codelab/shared/abstract/core'
+
+import { IModel } from '@codelab/backend/abstract/types'
+import { Domain } from '@codelab/backend/domain/domain'
+import { Page } from '@codelab/backend/domain/page'
 import { slugify } from '@codelab/shared/utils'
 import { Expose } from 'class-transformer'
 

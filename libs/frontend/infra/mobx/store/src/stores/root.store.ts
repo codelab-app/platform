@@ -3,6 +3,7 @@ import type {
   IRootStore,
   IRootStoreInput,
 } from '@codelab/frontend/abstract/application'
+
 import {
   actionDomainServiceContext,
   appDomainServiceContext,
@@ -30,6 +31,7 @@ import {
   setGlobalConfig,
   undoMiddleware,
 } from 'mobx-keystone'
+
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
@@ -38,6 +40,8 @@ export const createRootStore = ({
   routerProps,
   user,
 }: IRootStoreInput) => {
+  console.log('create root store')
+
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })

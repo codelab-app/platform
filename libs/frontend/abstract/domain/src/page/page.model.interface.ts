@@ -6,6 +6,7 @@ import type {
   PageUpdateInput,
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
+
 import type { IAppModel } from '../app'
 import type { IElementModel, IElementTree } from '../element'
 import type { IRedirectModel } from '../redirect'

@@ -1,5 +1,6 @@
-import { authMiddleware } from '@codelab/backend/infra/adapter/middleware'
 import type { NextRequest } from 'next/server'
+
+import { authMiddleware } from '@codelab/backend/infra/adapter/middleware'
 import { NextResponse } from 'next/server'
 
 // endpoint to securely redirect request to a user domain

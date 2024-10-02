@@ -1,4 +1,11 @@
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { ICreateActionData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import {
   SelectAction,
   SelectResource,
@@ -11,12 +18,11 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
 import { createActionSchema } from './create-action.schema'
@@ -27,18 +33,8 @@ const CODE_ACTION = `function run() {
     // state.count += 2;
 }`
 
-interface CreateActionFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const CreateActionForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreateActionFormProps) => {
+export const CreateActionForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const actionService = useActionService()
     const createActionForm = useCreateActionForm()
     const actionSchema = useActionSchema(createActionSchema)
@@ -81,7 +77,7 @@ export const CreateActionForm = observer(
         onSubmitSuccess={closeForm}
         schema={actionSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateActionForm}
+        uiKey={UiKey.ActionFormCreate}
       >
         <AutoFields
           omitFields={[

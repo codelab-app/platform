@@ -1,10 +1,12 @@
+import type { Settings } from 'react-slick'
+
+import { initials } from '@codelab/shared/utils'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
 import { Fragment } from 'react'
-import type { Settings } from 'react-slick'
 import Slider from 'react-slick'
-import voca from 'voca'
+
 import styles from './customDots.module.css'
 
 const { Meta } = Card
@@ -21,11 +23,6 @@ export const TestimonialItem = ({
   role,
   stakeholder,
 }: TestimonialItemProps) => {
-  const initials = (words: string) =>
-    voca(words)
-      .words()
-      .reduce((acc, curr) => `${acc}${voca.first(curr)}`, '')
-
   return (
     <>
       <div className="h-8" />
@@ -51,7 +48,15 @@ export const TestimonialItem = ({
           .map((item, idx) => (
             <Fragment key={idx}>{item}</Fragment>
           ))}
-        <div className="mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]">
+        <div
+          className={`
+            mt-3 min-h-[120px]
+            2xl:min-h-[140px]
+            lg:min-h-[144px]
+            md:min-h-[200px]
+            xl:min-h-[170px]
+          `}
+        >
           <Text
             className="text-sm text-slate-300 sm:text-base"
             italic
@@ -60,7 +65,12 @@ export const TestimonialItem = ({
         <Divider className="bg-slate-600" />
         <Meta
           avatar={<Avatar size={48}>{initials(stakeholder)}</Avatar>}
-          className="text-slate-300 [&_.ant-card-meta-description]:text-slate-400 [&_.ant-card-meta-title]:!mb-0 [&_.ant-card-meta-title]:text-neutral-300"
+          className={`
+            text-slate-300
+            [&_.ant-card-meta-description]:text-slate-400
+            [&_.ant-card-meta-title]:!mb-0
+            [&_.ant-card-meta-title]:text-neutral-300
+          `}
           description={role}
           title={stakeholder}
         />
@@ -136,7 +146,14 @@ export const TestimonialSection = () => {
   return (
     <div className="px-8 py-12 sm:pb-20">
       <h1
-        className="mt-4 text-center text-xl !font-extrabold !text-white sm:mt-14 sm:text-3xl md:mt-28 lg:text-4xl xl:!text-5xl"
+        className={`
+          mt-4 text-center text-xl
+          !font-extrabold !text-white
+          lg:text-4xl
+          md:mt-28
+          sm:mt-14 sm:text-3xl
+          xl:!text-5xl
+        `}
         // level={2}
       >
         Loved by startups

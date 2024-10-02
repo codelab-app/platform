@@ -1,13 +1,16 @@
 import type { IToggleService } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import { Key } from '@codelab/frontend-presentation-view/components/key'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { MenuProps } from 'antd'
+
+import { Key } from '@codelab/frontend-presentation-view/components/key'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
-import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItemComponentTitle'
+
 import type { ContextMenuProps } from './ElementContextMenu'
+
+import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItemComponentTitle'
 
 export type ComponentContextMenuProps = ContextMenuProps & {
   component: IComponentModel

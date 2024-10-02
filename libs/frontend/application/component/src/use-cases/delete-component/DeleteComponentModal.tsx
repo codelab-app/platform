@@ -5,6 +5,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useComponentService } from '../../services'
 import { useDeleteComponentModal } from './delete-component.state'
 
@@ -20,7 +21,7 @@ export const DeleteComponentModal = observer(() => {
       return Promise.reject()
     }
 
-    await componentService.remove([component])
+    await componentService.removeMany([component])
     setLoading(false)
   }
 
@@ -29,7 +30,7 @@ export const DeleteComponentModal = observer(() => {
       okText="Delete Component"
       onCancel={closeModal}
       open={deleteModal.isOpen}
-      uiKey={UiKey.DeleteComponentModal}
+      uiKey={UiKey.ComponentModalDelete}
     >
       <ModalForm.Form
         model={{}}

@@ -1,3 +1,5 @@
+import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
+
 import {
   type IActionDomainService,
   type IAppDomainService,
@@ -35,7 +37,6 @@ import {
   TypeDomainService,
 } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
-import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createDomainStore = (

@@ -1,14 +1,16 @@
 'use client'
 
+import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useResourceService } from '../../services'
 import { updateResourceSchema } from './update-resource.schema'
 import { useUpdateResourceForm } from './update-resource.state'
@@ -39,7 +41,7 @@ export const UpdateResourceForm = observer(() => {
         title: 'Error while updating resource',
       })}
       schema={updateResourceSchema}
-      uiKey={UiKey.UpdateResourceForm}
+      uiKey={UiKey.ResourceFormUpdate}
     >
       <AutoFields />
       <FormController submitLabel="Update Resource" />

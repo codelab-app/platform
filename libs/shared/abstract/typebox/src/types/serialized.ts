@@ -1,4 +1,5 @@
 import type { Static, TObject } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
 
 export const SerializedSchema = Type.Object({

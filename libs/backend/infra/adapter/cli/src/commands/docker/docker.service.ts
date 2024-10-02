@@ -1,9 +1,12 @@
+import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
+
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
-import { loadStageMiddleware } from '../../shared/middleware'
+
 import type { StageParam } from '../../shared/options'
+
+import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
 
 @Injectable()

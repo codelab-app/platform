@@ -1,4 +1,6 @@
 import type { Completion, CompletionSource } from '@codemirror/autocomplete'
+import type { Extension } from '@codemirror/state'
+
 import {
   autocompletion,
   closeBrackets,
@@ -14,7 +16,6 @@ import {
   indentOnInput,
   syntaxHighlighting,
 } from '@codemirror/language'
-import type { Extension } from '@codemirror/state'
 import {
   crosshairCursor,
   drawSelection,
@@ -25,6 +26,7 @@ import {
   keymap,
   rectangularSelection,
 } from '@codemirror/view'
+
 import { completionSource } from './extensions'
 
 // customized version of the original default extension https://github.com/codemirror/basic-setup/blob/main/src/basic-setup.ts

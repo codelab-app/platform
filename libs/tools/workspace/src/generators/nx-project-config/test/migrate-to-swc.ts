@@ -1,5 +1,6 @@
 import type { ProjectConfiguration } from '@nx/devkit'
 import type { ObjectLiteralExpression } from 'ts-morph'
+
 import { Node } from 'ts-morph'
 
 export const migrateToSwc = (

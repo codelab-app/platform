@@ -2,8 +2,11 @@
 
 import type { UiKey } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
+
 import { useRef } from 'react'
+
 import type { CuiSidebarToolbarProps } from '../../views'
+
 import { CuiSidebarPopoverLayout } from '../CuiSidebarPopover'
 import { CuiSidebarLayout } from './layout/CuiSidebarLayout'
 import { CuiSidebarBody } from './views/CuiSidebarBody'
@@ -57,9 +60,6 @@ export const CuiSidebar = ({
         defaultActiveViewKeys={defaultActiveViewKeys}
         views={views}
       />
-      <CuiSidebarPopoverLayout popoverAnchorRef={popoverAnchorRef}>
-        {popover}
-      </CuiSidebarPopoverLayout>
     </CuiSidebarLayout>
   )
 }

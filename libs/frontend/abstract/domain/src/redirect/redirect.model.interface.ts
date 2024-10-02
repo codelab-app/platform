@@ -10,6 +10,7 @@ import type {
   RedirectUpdateInput,
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
+
 import type { IAuthGuardModel } from '../auth-guard'
 import type { IPageModel } from '../page'
 import type { ICacheService, IModel } from '../shared'

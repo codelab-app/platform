@@ -1,15 +1,17 @@
-import { ElementDomainService } from '@codelab/backend/domain/element'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { Store, StoreDomainService } from '@codelab/backend/domain/store'
-import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
 import type {
   IAppDto,
   ICreatePageData,
   IUserDto,
 } from '@codelab/shared/abstract/core'
+
+import { ElementDomainService } from '@codelab/backend/domain/element'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { Store, StoreDomainService } from '@codelab/backend/domain/store'
+import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
+
 import { PageRepository } from '../repository'
 
 type ICreatePageAppDto = Pick<IAppDto, 'id' | 'name'>

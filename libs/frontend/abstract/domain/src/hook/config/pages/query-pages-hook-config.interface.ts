@@ -4,6 +4,7 @@
 // }
 
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
 
 export const QueryPagesHookConfigSchema = Type.Object({

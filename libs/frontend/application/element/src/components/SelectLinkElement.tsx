@@ -1,9 +1,10 @@
 import type { SelectElementProps } from '@codelab/frontend/presentation/components/interface-form'
-import { SelectChildElement } from '@codelab/frontend/presentation/components/interface-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { SelectFieldProps } from 'uniforms-antd'
+
+import { SelectChildElement } from '@codelab/frontend/presentation/components/interface-form'
 import { observer } from 'mobx-react-lite'
 import { useForm } from 'uniforms'
-import type { SelectFieldProps } from 'uniforms-antd'
 import { AutoField } from 'uniforms-antd'
 
 type SelectLinkElementProps = Pick<

@@ -1,10 +1,11 @@
+import type { IBaseDataPaths } from '@codelab/backend/application/data'
+import type { IAtomAggregate } from '@codelab/shared/abstract/core'
+
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
-import type { IBaseDataPaths } from '@codelab/backend/application/data'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { omit } from 'radash'
 

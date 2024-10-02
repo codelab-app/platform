@@ -1,13 +1,14 @@
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import EditOutlined from '@ant-design/icons/EditOutlined'
-import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
   IFieldNodeData,
   IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -31,7 +32,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
 
   const onEdit = () => {
     updateFieldForm.open(data.extraData.node)
-    popover.open(UiKey.UpdateFieldPopover)
+    popover.open(UiKey.FieldPopoverUpdate)
   }
 
   const onDelete = () => {
@@ -42,18 +43,18 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     createFieldForm.open(
       data.extraData.node.type.current as IInterfaceTypeModel,
     )
-    popover.open(UiKey.CreateFieldPopover)
+    popover.open(UiKey.FieldPopoverUpdate)
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: UiKey.UpdateFieldToolbarItem,
+      cuiKey: UiKey.FieldToolbarItemUpdate,
       icon: <EditOutlined />,
       onClick: onEdit,
       title: 'Edit field',
     },
     {
-      cuiKey: UiKey.DeleteFieldToolbarItem,
+      cuiKey: UiKey.FieldToolbarItemDelete,
       icon: <DeleteOutlined />,
       onClick: onDelete,
       title: 'Delete field',
@@ -65,7 +66,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
       ?.kind === 'InterfaceType'
   ) {
     toolbarItems.push({
-      cuiKey: UiKey.CreateFieldToolbarItem,
+      cuiKey: UiKey.FieldToolbarItemCreate,
       icon: <PlusOutlined />,
       onClick: onAddField,
       title: 'Add field',

@@ -2,8 +2,10 @@ import type {
   IFieldDomainService,
   IFieldModel,
 } from '@codelab/frontend/abstract/domain'
+
 import { IFieldDto } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+
 import { Field } from '../store'
 
 @model('@codelab/FieldDomainService')

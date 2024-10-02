@@ -1,4 +1,5 @@
 import { mergeTypeDefs } from '@graphql-tools/merge'
+
 import { commonSchema } from './common.schema'
 import { actionSchema } from './model/action.schema'
 import { appSchema } from './model/app.schema'

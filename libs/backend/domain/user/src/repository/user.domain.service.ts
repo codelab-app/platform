@@ -1,7 +1,9 @@
+import type { IUserDto } from '@codelab/shared/abstract/core'
+
 import { PreferenceDomainService } from '@codelab/backend/domain/preference'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import type { IUserDto } from '@codelab/shared/abstract/core'
-import { forwardRef, Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
+
 import { UserRepository } from './user.repo.service'
 
 @Injectable()

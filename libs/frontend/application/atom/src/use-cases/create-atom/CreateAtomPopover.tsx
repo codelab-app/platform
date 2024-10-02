@@ -1,35 +1,28 @@
 'use client'
 
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import {
-  type SubmitController,
-  UiDataRecord,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
-import { useCreateAtomModal } from './create-atom.state'
+
+import { useAtomService } from '../../services'
 import { CreateAtomForm } from './CreateAtomForm'
 
 export const CreateAtomPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createAtomForm = useCreateAtomModal()
-  const { popover } = useCui()
+  const { atomPopoverCreate } = useAtomService()
 
   return (
-    <CuiSidebarPopover
-      id={UiKey.CreateAtomPopover}
-      label={UiDataRecord.CreateAtomPopover.label}
+    <CuiSidebarSecondary
+      id={UiKey.AtomPopoverCreate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.CreateAtomToolbarItem,
+            cuiKey: UiKey.AtomToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -38,12 +31,11 @@ export const CreateAtomPopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: UiKey.CancelCreateAtomToolbarItem,
+            cuiKey: UiKey.AtomToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
-              popover.close()
-              createAtomForm.close()
+              atomPopoverCreate.close()
             },
             title: 'Cancel',
           },
@@ -52,10 +44,9 @@ export const CreateAtomPopover = observer(() => {
       }}
     >
       <CreateAtomForm
-        onSubmitSuccess={() => popover.close()}
-        showFormControl={false}
+        onSubmitSuccess={() => atomPopoverCreate.close()}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

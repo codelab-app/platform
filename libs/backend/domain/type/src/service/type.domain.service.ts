@@ -3,6 +3,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+
 import { InterfaceTypeRepository } from '../repository'
 
 @Injectable()

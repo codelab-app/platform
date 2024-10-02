@@ -1,4 +1,5 @@
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
+
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
 export class User implements IUserDto {

@@ -1,3 +1,10 @@
+import type {
+  IActionDto,
+  ICreateActionData,
+  IRef,
+  IUpdateActionData,
+} from '@codelab/shared/abstract/core'
+
 import { type IActionService } from '@codelab/frontend/abstract/application'
 import {
   type IActionModel,
@@ -6,11 +13,6 @@ import {
 import { ActionFactory } from '@codelab/frontend-domain-action/store'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type {
-  IActionDto,
-  ICreateActionData,
-  IUpdateActionData,
-} from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
@@ -30,7 +32,7 @@ export const useActionService = (): IActionService => {
     return action
   }
 
-  const remove = async (actions: Array<IActionModel>) => {
+  const removeMany = async (actions: Array<IActionModel>) => {
     for (const action of actions) {
       const { id } = action
 
@@ -108,12 +110,22 @@ export const useActionService = (): IActionService => {
     return newAction
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(actionDomainService.actions.get(ref.id))
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(actionDomainService.actions.values())
+  }
+
   return {
     cloneAction,
     create,
     getAll,
+    getAllFromCache,
     getOne,
-    remove,
+    getOneFromCache,
+    removeMany,
     update,
   }
 }

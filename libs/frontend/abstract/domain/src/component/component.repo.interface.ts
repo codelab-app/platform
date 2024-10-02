@@ -3,6 +3,7 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { IRepository } from '../shared'
 import type { IComponentModel } from './component.model.interface'
 

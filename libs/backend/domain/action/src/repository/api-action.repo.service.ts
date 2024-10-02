@@ -3,6 +3,8 @@ import type {
   ApiActionOptions,
   ApiActionWhere,
 } from '@codelab/backend/abstract/codegen'
+import type { IActionRef, IApiActionDto } from '@codelab/shared/abstract/core'
+
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   apiActionSelectionSet,
@@ -10,7 +12,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IActionRef, IApiActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'

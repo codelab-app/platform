@@ -2,7 +2,9 @@ import type {
   IPrimitiveTypeDto,
   IPrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
+
 import { ITypeKind } from '@codelab/shared/abstract/core'
+
 import { BaseType } from './base-type.model'
 
 export class PrimitiveType extends BaseType implements IPrimitiveTypeDto {

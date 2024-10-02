@@ -1,8 +1,9 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { getEnv } from '@codelab/shared/config'
 import { lists, setConfig } from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
-import type { NextApiRequest, NextApiResponse } from 'next'
 
 const EmailSchema = Type.Object({
   email: Type.String().email(),

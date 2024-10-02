@@ -1,18 +1,20 @@
-import { type IFieldService } from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateFieldData,
   IFieldDto,
   IRef,
 } from '@codelab/shared/abstract/core'
+
+import { type IFieldService } from '@codelab/frontend/abstract/application'
+import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
 import { filter, isDefined, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
+
 import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
@@ -61,7 +63,7 @@ export const useFieldService = (): IFieldService => {
     return field
   }
 
-  const remove = async (fields: Array<IFieldModel>) => {
+  const removeMany = async (fields: Array<IFieldModel>) => {
     fields.forEach((field) => fieldDomainService.fields.delete(field.id))
 
     const nodesDeleted = fieldRepository.delete(fields)
@@ -201,7 +203,7 @@ export const useFieldService = (): IFieldService => {
     create,
     moveFieldAsNextSibling,
     moveFieldAsPrevSibling,
-    remove,
+    removeMany,
     update,
   }
 }

@@ -1,9 +1,12 @@
 import type { CSSProperties } from 'react'
+
 import { useEffect, useMemo, useState } from 'react'
+
 import type { MarginPaddingOverlayProps } from '../overlay.interface'
+import type { ISpacingValues } from './shared'
+
 import { Margins } from './Margins'
 import { Paddings } from './Paddings'
-import type { ISpacingValues } from './shared'
 
 export const MarginPaddingOverlay = ({
   element,

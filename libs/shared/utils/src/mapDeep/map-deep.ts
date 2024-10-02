@@ -1,8 +1,11 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { entries, isArray, isPlainObject, map } from 'remeda'
-import { isCyclic } from '../isCyclic'
+
 import type { IKeyMapper, IOutput, IValueMapper, ObjectKey } from './abstract'
+
+import { isCyclic } from '../isCyclic'
 
 export const mapDeep = (
   obj: Array<IPropData> | IPropData,

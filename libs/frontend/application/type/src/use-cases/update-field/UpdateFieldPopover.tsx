@@ -1,5 +1,7 @@
 'use client'
 
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
@@ -7,9 +9,9 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
+
 import { useUpdateFieldForm } from './update-field.state'
 import { UpdateFieldForm } from './UpdateFieldForm'
 
@@ -20,12 +22,11 @@ export const UpdateFieldPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={UiKey.UpdateFieldPopover}
-      label="Update Field"
+      id={UiKey.FieldPopoverUpdate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.UpdateFieldToolbarItem,
+            cuiKey: UiKey.FieldToolbarItemUpdate,
             icon: <SaveOutlined />,
             label: 'Update',
             onClick: () => {
@@ -34,7 +35,7 @@ export const UpdateFieldPopover = observer(() => {
             title: 'Update',
           },
           {
-            cuiKey: UiKey.CancelUpdateFieldToolbarItem,
+            cuiKey: UiKey.FieldToolbarItemUpdateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

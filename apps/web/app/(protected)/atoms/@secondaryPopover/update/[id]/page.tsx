@@ -1,0 +1,26 @@
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import {
+  atomListQuery,
+  atomRepository,
+} from '@codelab/frontend-domain-atom/repositories'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
+
+import UpdateAtomFormContainer from './page.container'
+
+const Page = async ({ params: { id } }: { params: { id: string } }) => {
+  const atomDto = await atomRepository.findOne({ id })
+
+  return (
+    <DashboardPopover>
+      <DomainStoreHydrator
+        atomsDto={atomDto ? [atomDto] : []}
+        fallback={<Spinner />}
+      >
+        <UpdateAtomFormContainer id={id} />
+      </DomainStoreHydrator>
+    </DashboardPopover>
+  )
+}
+
+export default Page

@@ -1,8 +1,9 @@
 'use client'
 
+import type { PropsWithChildren } from 'react'
+
 import { extractStaticStyle, StyleProvider } from 'antd-style'
 import { useServerInsertedHTML } from 'next/navigation'
-import type { PropsWithChildren } from 'react'
 import { useRef } from 'react'
 
 /**

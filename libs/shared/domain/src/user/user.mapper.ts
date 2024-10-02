@@ -1,4 +1,5 @@
 import type { Claims } from '@auth0/nextjs-auth0'
+
 import {
   type Auth0IdToken,
   IRole,

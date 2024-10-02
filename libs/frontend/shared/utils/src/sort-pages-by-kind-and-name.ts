@@ -1,5 +1,6 @@
-import { IPageKind } from '@codelab/shared/abstract/core'
 import type { PageDevelopmentFragment } from '@codelab/shared/infra/gql'
+
+import { IPageKind } from '@codelab/shared/abstract/core'
 
 /**
  * Sort pages by kind and name using the following rules:

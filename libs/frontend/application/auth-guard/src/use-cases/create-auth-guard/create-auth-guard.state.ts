@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend-application-shared-store/ui'
 
 export const useCreateAuthGuardModal = () =>
-  useModalState(UiKey.CreateAuthGuardModal)
+  useModalState(UiKey.AuthGuardModalCreate)
 
 export const useCreateAuthGuardForm = () =>
-  useFormState(UiKey.CreateAuthGuardForm)
+  useFormState(UiKey.AuthGuardFormCreate)

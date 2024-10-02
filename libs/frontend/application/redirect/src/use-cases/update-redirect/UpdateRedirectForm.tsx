@@ -1,5 +1,11 @@
 import type { IUpdateRedirectData } from '@codelab/frontend/abstract/domain'
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -8,21 +14,15 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
+
 import { useRedirectService } from '../../services'
 import { DeleteRedirectButton } from '../delete-redirect'
 import { updateRedirectSchema } from './update-redirect.schema'
 import { useUpdateRedirectForm } from './update-redirect.state'
 
-interface UpdateRedirectFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
+export const UpdateRedirectForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const updateRedirectForm = useUpdateRedirectForm()
     const redirectService = useRedirectService()
@@ -57,7 +57,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
           })}
           schema={updateRedirectSchema}
           submitRef={submitRef}
-          uiKey={UiKey.UpdateRedirectForm}
+          uiKey={UiKey.RedirectFormUpdate}
         >
           <AutoFields omitFields={['targetPage', 'targetUrl']} />
 

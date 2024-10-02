@@ -1,13 +1,16 @@
-import { type IDomainService } from '@codelab/frontend/abstract/application'
 import type {
   ICreateDomainData,
   IDomainModel,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { DomainWhere } from '@codelab/shared/infra/gql'
+
+import { type IDomainService } from '@codelab/frontend/abstract/application'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { DomainWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+
 import { invalidateDomainListQuery } from '../use-cases/domain-list'
 
 export const useDomainService = (): IDomainService => {
@@ -27,7 +30,7 @@ export const useDomainService = (): IDomainService => {
     return domain
   }
 
-  const remove = async (domains: Array<IDomainModel>): Promise<number> => {
+  const removeMany = async (domains: Array<IDomainModel>): Promise<number> => {
     const deleteDomain = async (domain: IDomainModel) => {
       const { id } = domain
 
@@ -65,10 +68,20 @@ export const useDomainService = (): IDomainService => {
     return updatedDomain || domain
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(domainDomainService.domains.get(ref.id))
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(domainDomainService.domains.values())
+  }
+
   return {
     create,
     getAll,
-    remove,
+    getAllFromCache,
+    getOneFromCache,
+    removeMany,
     update,
   }
 }

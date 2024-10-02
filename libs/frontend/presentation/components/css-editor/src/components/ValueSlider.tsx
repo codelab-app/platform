@@ -1,4 +1,5 @@
 import { Slider } from 'antd'
+
 import { CssUnit } from '../utils'
 
 interface ValueSliderProps {
@@ -9,23 +10,23 @@ interface ValueSliderProps {
 
 const getMinMax = (unit?: CssUnit) => {
   switch (unit) {
-    case CssUnit.PX:
-      return { max: 300, min: 0 }
-    case CssUnit.PERCENT:
-      return { max: 100, min: 0 }
-    case CssUnit.REM:
+    case CssUnit.CH:
       return { max: 10, min: 0 }
     case CssUnit.EM:
       return { max: 10, min: 0 }
-    case CssUnit.VW:
+    case CssUnit.PERCENT:
+      return { max: 100, min: 0 }
+    case CssUnit.PX:
+      return { max: 300, min: 0 }
+    case CssUnit.REM:
+      return { max: 10, min: 0 }
+    case CssUnit.SVH:
+      return { max: 100, min: 0 }
+    case CssUnit.SVW:
       return { max: 100, min: 0 }
     case CssUnit.VH:
       return { max: 100, min: 0 }
-    case CssUnit.CH:
-      return { max: 10, min: 0 }
-    case CssUnit.SVW:
-      return { max: 100, min: 0 }
-    case CssUnit.SVH:
+    case CssUnit.VW:
       return { max: 100, min: 0 }
     default:
       return { max: 100, min: 0 }

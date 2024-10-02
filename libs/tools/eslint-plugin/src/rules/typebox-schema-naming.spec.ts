@@ -1,4 +1,5 @@
 import { TSESLint } from '@typescript-eslint/utils'
+
 import { typeboxSchemaNaming } from './typebox-schema-naming'
 
 const ruleTester = new TSESLint.RuleTester({

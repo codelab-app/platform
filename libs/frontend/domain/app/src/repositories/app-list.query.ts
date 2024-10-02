@@ -3,6 +3,7 @@
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { type AppOptions, type AppWhere } from '@codelab/shared/infra/gql'
 import { revalidateTag } from 'next/cache'
+
 import { AppList } from './app.api.graphql.gen'
 
 export const appListQuery = async (where?: AppWhere, options?: AppOptions) => {

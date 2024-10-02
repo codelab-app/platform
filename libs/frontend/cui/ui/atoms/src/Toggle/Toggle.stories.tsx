@@ -1,4 +1,5 @@
 import { FontBoldIcon } from '@radix-ui/react-icons'
+
 import { Toggle } from './Toggle'
 
 export default {

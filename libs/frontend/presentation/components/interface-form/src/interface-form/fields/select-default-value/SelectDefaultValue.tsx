@@ -1,15 +1,16 @@
 'use client'
 
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
+import type { IPropData, IValidationRules } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { JSONSchemaType } from 'ajv'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import type { IPropData, IValidationRules } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
-import type { JSONSchemaType } from 'ajv'
 import { useMemo, useRef } from 'react'
 import { useAsyncFn, useMount } from 'react-use'
 import { isNullish } from 'remeda'
@@ -99,7 +100,7 @@ export const SelectDefaultValue = () => {
         }}
         onSubmit={() => Promise.resolve()}
         schema={schema as JSONSchemaType<IPropData>}
-        uiKey={UiKey.SelectDefaultValueFieldForm}
+        uiKey={UiKey.FieldFormSelectDefaultValue}
       >
         <AutoFields />
         {hasError && (

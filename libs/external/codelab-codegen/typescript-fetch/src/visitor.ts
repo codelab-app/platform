@@ -2,6 +2,8 @@ import type {
   ClientSideBasePluginConfig,
   LoadedFragment,
 } from '@graphql-codegen/visitor-plugin-common'
+import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
+
 import {
   ClientSideBaseVisitor,
   DocumentMode,
@@ -9,7 +11,7 @@ import {
 } from '@graphql-codegen/visitor-plugin-common'
 import autoBind from 'auto-bind'
 import { pascalCase } from 'change-case-all'
-import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
+
 import type { RawGraphQLRequestPluginConfig } from './config.js'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

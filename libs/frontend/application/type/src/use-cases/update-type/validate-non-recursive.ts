@@ -1,4 +1,5 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
+
 import { IsTypeDescendantOf } from '@codelab/frontend-domain-type/repositories'
 
 const getInnerTypeIds = (submitData: IUpdateTypeDto) => [

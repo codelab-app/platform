@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { IPropData } from '@codelab/shared/abstract/core'
+
 import { isValidElement } from 'react'
 import {
   isArray,

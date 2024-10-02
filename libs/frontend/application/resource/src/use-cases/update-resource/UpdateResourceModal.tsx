@@ -1,11 +1,13 @@
 'use client'
 
+import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
-import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useResourceService } from '../../services'
 import { updateResourceSchema } from './update-resource.schema'
 import { useUpdateResourceModal } from './update-resource.state'
@@ -37,7 +39,7 @@ export const UpdateResourceModal = observer(() => {
       okText="Update Resource"
       onCancel={closeModal}
       open={updateResourceModal.isOpen}
-      uiKey={UiKey.UpdateResourceModal}
+      uiKey={UiKey.ResourceModalUpdate}
     >
       <ModalForm.Form<IUpdateResourceData>
         model={model}

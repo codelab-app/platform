@@ -1,4 +1,5 @@
 import type { ILambdaModel } from '@codelab/frontend/abstract/domain'
+
 import { ActionColumn } from './colums/ActionColumn'
 
 export const useLambdaTable = () => {

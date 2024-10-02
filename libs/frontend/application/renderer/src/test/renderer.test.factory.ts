@@ -2,8 +2,9 @@ import type {
   IRendererDto,
   IRendererService,
 } from '@codelab/frontend/abstract/application'
-import { RendererType } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
+
+import { RendererType } from '@codelab/frontend/abstract/application'
 import { v4 } from 'uuid'
 
 export const rendererFactory =

@@ -1,0 +1,10 @@
+{
+  "overrides": [
+    {
+      "plugins": ["prettier"],
+      "extends": ["plugin:prettier/recommended"],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {}
+    }
+  ]
+}

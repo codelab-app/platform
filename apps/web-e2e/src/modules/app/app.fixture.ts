@@ -1,5 +1,6 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { expect, test as base } from '@playwright/test'
+import { test as base, expect } from '@playwright/test'
+
 import { BasePage } from '../../locators/pages'
 
 /**
@@ -12,7 +13,7 @@ export class AppListPage extends BasePage {
 
   clickModalConfirmButton() {
     const modal = this.getModal()
-    const button = this.getButton({ key: UiKey.ConfirmationButton })
+    const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
     return modal.locator(button).click()
   }
@@ -22,7 +23,7 @@ export class AppListPage extends BasePage {
   }
 
   async fillCreateAppForm() {
-    await this.getTextBox({ label: 'Name' }).fill(this.appName)
+    await this.fillInputText({ label: 'Name' }).fill(this.appName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Create App' }))
@@ -32,7 +33,7 @@ export class AppListPage extends BasePage {
   }
 
   async fillUpdateAppForm() {
-    await this.getTextBox({ label: 'Name' }).fill(this.updatedAppName)
+    await this.fillInputText({ label: 'Name' }).fill(this.updatedAppName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Update App' }))
@@ -45,10 +46,6 @@ export class AppListPage extends BasePage {
     return this.getByExactText(this.appName)
   }
 
-  getSpinner() {
-    return this.page.getByRole('status')
-  }
-
   getUpdatedAppName() {
     return this.getByExactText(this.updatedAppName)
   }
@@ -57,8 +54,8 @@ export class AppListPage extends BasePage {
     await this.page.goto(PageType.AppList())
   }
 
-  async openCreateAppModal(key = UiKey.CreateAppModal) {
-    await this.getButton({ key }).click()
+  async openCreateAppModal() {
+    await this.getButton({ key: UiKey.AppModalCreate }).click()
 
     await expect(this.getModal()).toBeVisible()
   }

@@ -1,9 +1,11 @@
 'use client'
 
 import type { InputRef } from 'antd'
-import { Input } from 'antd'
 import type { InputProps } from 'antd/lib/input'
+
+import { Input } from 'antd'
 import { useRef } from 'react'
+
 import { numberRegex } from '../../util'
 
 export interface CuiInputProps {
@@ -60,18 +62,10 @@ export const CuiInput = ({
   return (
     <Input
       className={`
-        m-0
-        box-border
-        h-5
-        w-6
-        rounded-none
-        border-0
-        border-b
-        border-dotted
-        border-black
-        bg-none
-        p-0
-        text-center
+        m-0 box-border h-5
+        w-6 rounded-none border-0
+        border-b border-dotted border-black
+        bg-none p-0 text-center
         text-sm
         focus:outline-none
       `}

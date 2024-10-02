@@ -1,11 +1,12 @@
-import {
-  rendererRef,
-  RendererType,
-} from '@codelab/frontend/abstract/application'
 import type {
   IAppProductionDto,
   IDomainStore,
 } from '@codelab/frontend/abstract/domain'
+
+import {
+  rendererRef,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import {
   useApplicationStore,
   useDomainStore,

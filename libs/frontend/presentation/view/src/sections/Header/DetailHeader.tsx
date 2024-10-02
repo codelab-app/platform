@@ -27,13 +27,13 @@ export const DetailHeader = ({
   const toolbarItems: Array<ToolbarItem> = [
     isBuilder
       ? {
-          cuiKey: UiKey.OpenPreviewBuilderToolbarItem,
+          cuiKey: UiKey.BuilderToolbarItemOpenPreview,
           icon: <EyeOutlined />,
           onClick: togglePreviewMode,
           title: 'Preview',
         }
       : {
-          cuiKey: UiKey.OpenBuilderBuilderToolbarItem,
+          cuiKey: UiKey.BuilderToolbarItemOpenBuilder,
           icon: <ToolOutlined />,
           onClick: togglePreviewMode,
           title: 'Builder',

@@ -1,20 +1,24 @@
+import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend-presentation-view/components/button'
 import { Space } from 'antd'
-import { useDeleteAtomsModal } from '../../delete-atom/delete-atoms.state'
-import { useUpdateAtomModal } from '../../update-atom/update-atom.state'
+import { useRouter } from 'next/navigation'
+
 import type { ActionColumnProps } from './types'
 
 export const ActionColumn = ({ atom }: ActionColumnProps) => {
-  const updateAtomModal = useUpdateAtomModal()
-  const deleteAtomsModal = useDeleteAtomsModal()
+  const router = useRouter()
 
   return (
     <Space size="middle">
-      <ListItemEditButton onClick={() => updateAtomModal.open(atom)} />
-      <ListItemDeleteButton onClick={() => deleteAtomsModal.open([atom])} />
+      <ListItemEditButton
+        onClick={() => router.push(PageType.AtomUpdate(atom))}
+      />
+      <ListItemDeleteButton
+        onClick={() => router.push(PageType.AtomDelete(atom))}
+      />
     </Space>
   )
 }

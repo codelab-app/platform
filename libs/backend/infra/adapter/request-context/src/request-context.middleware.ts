@@ -1,5 +1,7 @@
 import type { NestMiddleware } from '@nestjs/common'
+
 import { Injectable } from '@nestjs/common'
+
 import { RequestContext } from './request-context.model'
 
 @Injectable()

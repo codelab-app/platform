@@ -10,6 +10,7 @@ import type {
   PreferenceUpdateInput,
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
+
 import type { ICacheService, IModel } from '../shared'
 import type { IUserModel } from '../user'
 

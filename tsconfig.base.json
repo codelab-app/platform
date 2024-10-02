@@ -893,6 +893,9 @@
       "@codelab/frontend-presentation-view/templates": [
         "libs/frontend/presentation/view/src/templates/index.ts"
       ],
+      "@codelab/frontend-shared-constant": [
+        "libs/frontend/shared/constant/src/index.ts"
+      ],
       "@codelab/frontend/abstract/application": [
         "libs/frontend/abstract/application/src/index.ts"
       ],
@@ -940,6 +943,7 @@
       "@codelab/shared-infra-auth0/server": [
         "libs/shared/infra/auth0/src/server/index.ts"
       ],
+      "@codelab/shared-infra-eval": ["libs/shared/infra/eval/src/index.ts"],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
       ],

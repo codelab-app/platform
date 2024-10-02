@@ -1,5 +1,6 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
+
 import type { AtomCustomizer, AtomCustomizerFn } from '../types'
 
 const MuiDisablePortalFn: AtomCustomizerFn = ({ node, props }) => ({

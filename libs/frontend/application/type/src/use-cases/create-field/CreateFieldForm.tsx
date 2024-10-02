@@ -1,6 +1,13 @@
 'use client'
 
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { ICreateFieldData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -10,12 +17,11 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { ICreateFieldData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useFieldService, useTypeService } from '../../services'
 import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
@@ -31,18 +37,8 @@ import {
   isString,
 } from './field-utils'
 
-interface CreateFieldFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const CreateFieldForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreateFieldFormProps) => {
+export const CreateFieldForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
     const typeService = useTypeService()
@@ -102,7 +98,7 @@ export const CreateFieldForm = observer(
         onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateFieldForm}
+        uiKey={UiKey.FieldFormCreate}
       >
         <AutoFields
           omitFields={[

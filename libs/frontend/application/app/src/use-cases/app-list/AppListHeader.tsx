@@ -1,15 +1,17 @@
 'use client'
 
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiDataRecord, UiKey } from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
+
 import { useCreateAppModal } from '../create-app/create-app.state'
 import { ImportAppDialog } from '../import-app'
 
@@ -18,21 +20,19 @@ export const AppListHeader = () => {
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      ariaLabel: UiDataRecord.ImportAppToolbarItem.label,
-      cuiKey: UiKey.ImportAppToolbarItem,
+      cuiKey: UiKey.AppToolbarItemImport,
       icon: <ImportAppDialog key={0} />,
       title: 'Import an app',
     },
     {
-      ariaLabel: UiDataRecord.CreateAppToolbarItem.label,
-      cuiKey: UiKey.CreateAppToolbarItem,
+      ariaLabel: UiKey.AppToolbarItemCreate,
+      cuiKey: UiKey.AppToolbarItemCreate,
       icon: <PlusOutlined />,
       onClick: () => createAppModal.open(),
       title: 'Create an App',
     },
     {
-      ariaLabel: UiDataRecord.SignOutUserToolbarItem.label,
-      cuiKey: UiKey.SignOutUserToolbarItem,
+      cuiKey: UiKey.UserToolbarItemSignOut,
       icon: <LogoutOutlined />,
       onClick: () => {
         // redirect to /api/auth/logout

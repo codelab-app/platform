@@ -1,4 +1,5 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx'
+
 import type { IPopoverStore } from './cui-popover.store.interface'
 
 export class CuiPopoverStore implements IPopoverStore {

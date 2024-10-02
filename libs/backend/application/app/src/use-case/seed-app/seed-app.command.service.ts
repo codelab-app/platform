@@ -1,7 +1,8 @@
-import { AppDomainService } from '@codelab/backend/domain/app'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import type { IAppDto, ICreatePageDto } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
+
+import { AppDomainService } from '@codelab/backend/domain/app'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class SeedAppCommand {

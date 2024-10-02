@@ -11,14 +11,16 @@ import type {
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
+import type { ITypeDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
+
 import {
   getTypeDescendantsOGM,
   NEO4J_DRIVER_PROVIDER,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { ITypeDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { Driver } from 'neo4j-driver'
+
 import {
   ActionType,
   CodeMirrorType,

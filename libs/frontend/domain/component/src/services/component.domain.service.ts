@@ -1,11 +1,12 @@
-import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
-import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon'
 import type {
   IComponentDomainService,
   IComponentModel,
   IElementModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IPropDto } from '@codelab/shared/abstract/core'
+
+import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import {
   getAtomDomainService,
   getElementDomainService,
@@ -18,7 +19,6 @@ import { SelectOption } from '@codelab/frontend/abstract/types'
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
-import type { IPropDto } from '@codelab/shared/abstract/core'
 import {
   IComponentDto,
   ICreateComponentData,
@@ -30,6 +30,7 @@ import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { prop as rProp, sortBy } from 'remeda'
 import { v4 } from 'uuid'
+
 import { Component } from '../store'
 
 @model('@codelab/ComponentDomainService')

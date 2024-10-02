@@ -1,9 +1,10 @@
+import type { JSONSchemaType } from 'ajv'
+
 import {
   interfaceTypeSchema,
   ITypeKind,
   primitiveTypeSelectionSchema,
 } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 import { mergeDeep } from 'remeda'
 
 export const createRjsfTypeSchema: JSONSchemaType<{

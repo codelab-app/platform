@@ -1,3 +1,9 @@
+import type {
+  Completion,
+  CompletionContext,
+  CompletionSource,
+} from '@codemirror/autocomplete'
+
 import {
   LAST_WORD_AFTER_DOT_REGEX,
   WORD_BEFORE_DOT_REGEX,
@@ -5,12 +11,7 @@ import {
 import {
   EXP_PATH_TEMPLATE_START_OPEN_REGEX,
   EXP_PATH_TEMPLATE_START_REGEX,
-} from '@codelab/shared/utils'
-import type {
-  Completion,
-  CompletionContext,
-  CompletionSource,
-} from '@codemirror/autocomplete'
+} from '@codelab/shared-infra-eval'
 
 type CompletionExtension = (input: {
   customOptions?: Array<Completion>

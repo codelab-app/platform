@@ -1,6 +1,8 @@
-import { ElementTypeKind } from '@codelab/shared/infra/gql'
 import type { Static } from '@sinclair/typebox'
+
+import { ElementTypeKind } from '@codelab/shared/infra/gql'
 import { Type } from '@sinclair/typebox'
+
 import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 

@@ -7,9 +7,11 @@ import type {
   IElementTypeDto,
   IElementTypeKind,
 } from '@codelab/shared/abstract/core'
+
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
+
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 

@@ -3,6 +3,7 @@ import type {
   PreferenceOptions,
   PreferenceWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { IRepository } from '../shared'
 import type { IPreferenceModel } from './preference.model.interface'
 

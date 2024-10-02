@@ -1,9 +1,12 @@
-import { type IAppService } from '@codelab/frontend/abstract/application'
 import type {
   IAppModel,
   ICreateAppData,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef, IUpdatePageData } from '@codelab/shared/abstract/core'
+import type { AppWhere } from '@codelab/shared/infra/gql'
+
+import { type IAppService } from '@codelab/frontend/abstract/application'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import {
   appRepository,
@@ -47,38 +50,39 @@ export const useAppService = (): IAppService => {
     return app
   }
 
-  const remove = async (apps: Array<IAppModel>): Promise<number> => {
-    const deleteApp = async (app: IAppModel) => {
-      /**
-       * Optimistic update.
-       * Detach pages before detaching app from root store to avoid script error.
-       */
-      app.pages.forEach((page) => {
-        pageDomainService.pages.delete(page.id)
-      })
-      appDomainService.apps.delete(app.id)
-
-      /**
-       * Get all pages to delete
-       */
-      const { items: pages } = await pageRepository.find({
-        appConnection: { node: { id: app.id } },
-      })
-
-      // Need to load elements as well
-      const elements = pages.flatMap((page) => page.rootElement)
-
-      await elementRepository.delete(elements)
-      await appRepository.delete([app])
-
-      await invalidateAppListQuery()
-
-      return app
-    }
-
-    const deletedApps = await Promise.all(apps.map((app) => deleteApp(app)))
+  const removeMany = async (apps: Array<IAppModel>): Promise<number> => {
+    const deletedApps = await Promise.all(apps.map((app) => remove(app)))
 
     return deletedApps.length
+  }
+
+  const remove = async (app: IAppModel) => {
+    /**
+     * Optimistic update.
+     * Detach pages before detaching app from root store to avoid script error.
+     */
+    app.pages.forEach((page) => {
+      pageDomainService.pages.delete(page.id)
+    })
+    appDomainService.apps.delete(app.id)
+
+    /**
+     * Get all pages to delete
+     */
+    const { items: pages } = await pageRepository.find({
+      appConnection: { node: { id: app.id } },
+    })
+
+    // Need to load elements as well
+    const elements = pages.flatMap((page) => page.rootElement)
+
+    await elementRepository.delete(elements)
+
+    const results = await appRepository.delete([app])
+
+    await invalidateAppListQuery()
+
+    return results
   }
 
   const getAll = async (where: AppWhere) => {
@@ -178,12 +182,22 @@ export const useAppService = (): IAppService => {
     }
   }
 
+  const getAllFromCache = () => {
+    return appDomainService.appsList
+  }
+
+  const getOneFromCache = (ref: IRef) => {
+    return Validator.parseDefined(appDomainService.apps.get(ref.id))
+  }
+
   return {
     create,
     getAll,
+    getAllFromCache,
     getOne,
+    getOneFromCache,
     regeneratePages: regeneratePagesForApp,
-    remove,
+    removeMany,
     update,
     updatePage,
   }

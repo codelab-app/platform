@@ -7,6 +7,7 @@ import {
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
+
 import { useTypeService } from '../services'
 import { CreateFieldPopover } from '../use-cases/create-field'
 import { CreateTypePopover } from '../use-cases/create-type'
@@ -41,10 +42,10 @@ export const TypesPrimarySidebar = () => {
             items: [
               ...toolbarItems,
               {
-                cuiKey: UiKey.CreateTypeToolbarItem,
+                cuiKey: UiKey.TypeToolbarItemCreate,
                 icon: <PlusOutlined />,
                 onClick: () => {
-                  popover.open(UiKey.CreateTypePopover)
+                  popover.open(UiKey.TypePopoverCreate)
                   createTypeForm.open()
                 },
                 title: 'Create Type',

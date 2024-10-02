@@ -1,3 +1,6 @@
+import type { SegmentedOptions } from 'antd/lib/segmented'
+import type { ElementFormatType } from 'lexical'
+
 import AlignCenterOutlined from '@ant-design/icons/AlignCenterOutlined'
 import AlignLeftOutlined from '@ant-design/icons/AlignLeftOutlined'
 import AlignRightOutlined from '@ant-design/icons/AlignRightOutlined'
@@ -10,8 +13,6 @@ import UndoOutlined from '@ant-design/icons/UndoOutlined'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { mergeRegister } from '@lexical/utils'
 import { Button, Flex, Segmented } from 'antd'
-import type { SegmentedOptions } from 'antd/lib/segmented'
-import type { ElementFormatType } from 'lexical'
 import {
   $getSelection,
   $isRangeSelection,
@@ -24,6 +25,7 @@ import {
   UNDO_COMMAND,
 } from 'lexical'
 import { useCallback, useEffect, useRef, useState } from 'react'
+
 import { AlignJustifyOutline } from './Icons'
 
 const LowPriority = 1

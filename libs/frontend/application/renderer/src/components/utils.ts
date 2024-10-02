@@ -1,12 +1,14 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/application'
+import type { IPropData } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
+
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'
 import { Fragment } from 'react'
 import { isNullish } from 'remeda'
+
 import { getAtom } from '../atoms'
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
@@ -59,8 +61,8 @@ export const makeOverrideAtomProps = (
   atomType?: IAtomType,
 ): IPropData => {
   const inBuilderMode = [
-    RendererType.PageBuilder,
     RendererType.ComponentBuilder,
+    RendererType.PageBuilder,
   ].includes(rendererType)
 
   const builderOverrideProps: IPropData = {}

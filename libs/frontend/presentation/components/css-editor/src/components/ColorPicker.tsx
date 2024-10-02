@@ -1,4 +1,5 @@
-import { Col, ColorPicker as AntdColorPicker, Row } from 'antd'
+import { ColorPicker as AntdColorPicker, Col, Row } from 'antd'
+
 import { ResetLabel } from './ResetLabel'
 
 interface ColorPickerProps {

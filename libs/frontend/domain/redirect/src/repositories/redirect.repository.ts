@@ -3,7 +3,9 @@ import type {
   IRedirectRepository,
 } from '@codelab/frontend/abstract/domain'
 import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
+
 import { Validator } from '@codelab/shared/infra/schema'
+
 import {
   CreateRedirects,
   DeleteRedirects,

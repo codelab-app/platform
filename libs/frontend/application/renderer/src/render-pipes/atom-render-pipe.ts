@@ -3,9 +3,11 @@ import type {
   IRenderPipe,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
-import { isAtom } from '@codelab/frontend/abstract/domain'
 import type { IAtomType } from '@codelab/shared/abstract/core'
+
+import { isAtom } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
+
 import { atomFactory } from '../atoms'
 import { RenderOutput } from './render-output'
 import { BaseRenderPipe } from './render-pipe.base'

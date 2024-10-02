@@ -1,5 +1,7 @@
 'use client'
 
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
@@ -7,9 +9,9 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
+
 import { useCreateResourceForm } from './create-resource.state'
 import { CreateResourceForm } from './CreateResourceForm'
 
@@ -20,12 +22,11 @@ export const CreateResourcePopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={UiKey.CreateResourcePopover}
-      label="Create Resource"
+      id={UiKey.ResourcePopoverCreate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.CreateResourceToolbarItem,
+            cuiKey: UiKey.ResourceToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -34,7 +35,7 @@ export const CreateResourcePopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: UiKey.CancelCreateResourceToolbarItem,
+            cuiKey: UiKey.ResourceToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

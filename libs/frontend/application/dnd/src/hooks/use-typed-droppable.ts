@@ -1,4 +1,5 @@
 import type { AnyData, Maybe } from '@codelab/shared/abstract/types'
+
 import { useDroppable } from '@dnd-kit/core'
 
 export const useTypedDroppable = <T extends Maybe<AnyData>>({

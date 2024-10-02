@@ -13,16 +13,16 @@ interface JustifyIconProps {
 
 export const FlexJustifyIcon = ({ justify, vertical }: JustifyIconProps) => {
   switch (justify) {
-    case FlexJustifyItems.Start:
-      return JustifyStartIcon(vertical)
     case FlexJustifyItems.Center:
       return JustifyCenterIcon(vertical)
     case FlexJustifyItems.End:
       return JustifyEndIcon(vertical)
-    case FlexJustifyItems.SpaceBetween:
-      return JustifySpaceBetweenIcon(vertical)
     case FlexJustifyItems.SpaceAround:
       return JustifySpaceAroundIcon(vertical)
+    case FlexJustifyItems.SpaceBetween:
+      return JustifySpaceBetweenIcon(vertical)
+    case FlexJustifyItems.Start:
+      return JustifyStartIcon(vertical)
     default:
       return null
   }
@@ -30,16 +30,16 @@ export const FlexJustifyIcon = ({ justify, vertical }: JustifyIconProps) => {
 
 export const FlexAlignIcon = ({ align, vertical }: AlignIconProps) => {
   switch (align) {
-    case FlexAlignItems.Start:
-      return AlignStartIcon(vertical)
+    case FlexAlignItems.Baseline:
+      return AlignBaselineIcon(vertical)
     case FlexAlignItems.Center:
       return AlignCenterIcon(vertical)
     case FlexAlignItems.End:
       return AlignEndIcon(vertical)
+    case FlexAlignItems.Start:
+      return AlignStartIcon(vertical)
     case FlexAlignItems.Stretch:
       return AlignStretchIcon(vertical)
-    case FlexAlignItems.Baseline:
-      return AlignBaselineIcon(vertical)
     default:
       return null
   }
@@ -53,18 +53,18 @@ export const DistributeIcon = ({
   vertical?: boolean
 }) => {
   switch (align) {
-    case GridAlign.Start:
-      return DistributeStartIcon(vertical)
     case GridAlign.Center:
       return DistributeCenterIcon(vertical)
     case GridAlign.End:
       return DistributeEndIcon(vertical)
-    case GridAlign.Stretch:
-      return DistributeStretchIcon(vertical)
-    case GridAlign.SpaceBetween:
-      return DistributeSpaceBetweenIcon(vertical)
     case GridAlign.SpaceAround:
       return DistributeSpaceAroundIcon(vertical)
+    case GridAlign.SpaceBetween:
+      return DistributeSpaceBetweenIcon(vertical)
+    case GridAlign.Start:
+      return DistributeStartIcon(vertical)
+    case GridAlign.Stretch:
+      return DistributeStretchIcon(vertical)
     default:
       return null
   }
@@ -78,10 +78,10 @@ export const DisplayIcon = ({ display }: { display: Display }) => {
       return DisplayFlexIcon()
     case Display.Grid:
       return DisplayGridIcon()
-    case Display.InlineBlock:
-      return DisplayInlineBlockIcon()
     case Display.Inline:
       return DisplayInlineIcon()
+    case Display.InlineBlock:
+      return DisplayInlineBlockIcon()
     case Display.None:
       return DisplayNoneIcon()
     default:

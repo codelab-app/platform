@@ -1,5 +1,6 @@
-import { isClient } from '@codelab/shared/utils'
 import type { BrowserAgent } from '@newrelic/browser-agent/loaders/browser-agent'
+
+import { isClient } from '@codelab/shared/utils'
 
 export let browserAgentInstance: BrowserAgent | null = null
 

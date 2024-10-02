@@ -2,6 +2,7 @@
 
 import type { ApolloError } from '@apollo/client'
 import type { IUpdateDomainData } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
@@ -9,6 +10,7 @@ import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useDomainService } from '../../services'
 import { updateDomainSchema } from './update-domain.schema'
 import { useUpdateDomainModal } from './update-domain.state'
@@ -52,7 +54,7 @@ export const UpdateDomainModal = observer(() => {
       okText="Update Domain"
       onCancel={closeModal}
       open={isOpen}
-      uiKey={UiKey.UpdateDomainModal}
+      uiKey={UiKey.DomainModalUpdate}
     >
       <ModalForm.Form<IUpdateDomainData>
         model={model}

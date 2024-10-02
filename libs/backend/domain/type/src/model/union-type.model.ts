@@ -4,8 +4,10 @@ import type {
   ITypeMaybeRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
+
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { titleCase } from '@codelab/shared/utils'
+
 import { BaseType } from './base-type.model'
 
 export class UnionType extends BaseType implements IUnionTypeDto {
@@ -13,7 +15,7 @@ export class UnionType extends BaseType implements IUnionTypeDto {
     atom: Pick<IAtomDto, 'name'>,
     field: Pick<IFieldDto, 'key'>,
   ) {
-    return `${atom.name} ${compoundCaseToTitleCase(field.key)} Union API`
+    return `${atom.name} ${titleCase(field.key)} Union API`
   }
 
   declare __typename: `${ITypeKind.UnionType}`

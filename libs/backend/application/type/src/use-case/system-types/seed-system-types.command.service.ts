@@ -1,5 +1,7 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
+
 import { CommandHandler } from '@nestjs/cqrs'
+
 import { systemTypesData } from '../../data'
 import { TypeSeederService } from '../../service'
 

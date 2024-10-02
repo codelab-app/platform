@@ -3,6 +3,10 @@ import type {
   IRuntimePageModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { ReactElement } from 'react'
+
 import {
   getRuntimeElementService,
   getRuntimePageService,
@@ -10,12 +14,9 @@ import {
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import type { ReactElement } from 'react'
 
 /**
  * Create both provider page and regular page recursively

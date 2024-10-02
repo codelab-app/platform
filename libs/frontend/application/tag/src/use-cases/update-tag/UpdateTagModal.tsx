@@ -1,12 +1,14 @@
 'use client'
 
+import type { IUpdateTagData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
-import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields, SelectField } from 'uniforms-antd'
+
 import { useTagService } from '../../services'
 import { updateTagSchema } from './update-tag.schema'
 import { useUpdateTagModal } from './update-tag.state'
@@ -42,7 +44,7 @@ export const UpdateTagModal = observer(() => {
       okText="Update Tag"
       onCancel={closeModal}
       open={updateTagModal.isOpen}
-      uiKey={UiKey.UpdateTagModal}
+      uiKey={UiKey.TagModalUpdate}
     >
       <ModalForm.Form<IUpdateTagData>
         model={model}

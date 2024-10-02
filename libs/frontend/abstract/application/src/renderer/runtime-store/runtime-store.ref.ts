@@ -1,5 +1,7 @@
 import type { AnyModel, Ref } from 'mobx-keystone'
+
 import { detach, isRefOfType, rootRef } from 'mobx-keystone'
+
 import type { IRuntimeStoreModel } from './runtime-store.model.interface'
 
 export const runtimeStoreRef = rootRef<IRuntimeStoreModel>(

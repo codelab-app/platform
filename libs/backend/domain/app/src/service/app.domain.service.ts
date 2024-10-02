@@ -1,6 +1,8 @@
-import { PageDomainService } from '@codelab/backend/domain/page'
 import type { IAppDto } from '@codelab/shared/abstract/core'
+
+import { PageDomainService } from '@codelab/backend/domain/page'
 import { Injectable } from '@nestjs/common'
+
 import { AppRepository } from '../repository'
 
 @Injectable()

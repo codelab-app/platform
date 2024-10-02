@@ -1,5 +1,6 @@
 import { Popover } from 'antd'
 import clsx from 'clsx'
+
 import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
 import {
@@ -55,9 +56,10 @@ export const SpacingEditor = () => {
         trigger="click"
       >
         <div
-          className={`cursor-default whitespace-nowrap rounded-[2px] p-[2px] text-[11px] text-gray-500 ${
-            canReset(cssPropName) ? 'bg-sky-100 hover:bg-sky-200' : ''
-          }`}
+          className={`
+            cursor-default whitespace-nowrap rounded-[2px]
+            p-[2px] text-[11px] text-gray-500
+            ${canReset(cssPropName) ? 'bg-sky-100 hover:bg-sky-200' : ''}`}
         >
           {valueToShow()}
         </div>
@@ -73,7 +75,12 @@ export const SpacingEditor = () => {
           'grid w-full justify-center bg-gray-100 p-1',
         )}
       >
-        <div className="absolute left-1 top-1 text-[10px] font-semibold text-gray-500">
+        <div
+          className={`
+            absolute left-1 top-1
+            text-[10px] font-semibold text-gray-500
+          `}
+        >
           MARGIN
         </div>
         {sides.map((side) => {
@@ -91,7 +98,11 @@ export const SpacingEditor = () => {
       <div
         className={clsx(
           classes.paddingContainer,
-          'grid w-full justify-center self-center justify-self-center bg-gray-200 p-1',
+          `
+            grid w-full justify-center
+            self-center justify-self-center bg-gray-200
+            p-1
+          `,
         )}
       >
         <div className="text-[10px] font-semibold text-gray-500">PADDING</div>

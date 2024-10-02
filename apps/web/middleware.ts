@@ -32,7 +32,9 @@ const middleware: NextMiddleware = async (
     return authGuardMiddleware(request, response, event)
   }
 
-  if (paginatedPages.includes(request.nextUrl.pathname)) {
+  const pathname = request.nextUrl.pathname
+
+  if (paginatedPages.some(page => page.startsWith(PageType.Atoms())) {
     const url = request.nextUrl.clone()
     const currentPage = url.searchParams.get('page')
     const currentPageSize = url.searchParams.get('pageSize')
@@ -64,9 +66,6 @@ const middleware: NextMiddleware = async (
 
     if (session?.accessToken) {
       response.headers.set('Authorization', `Bearer ${session.accessToken}`)
-
-      // Used for request to backend APIs
-      process.env.AUTHORIZATION_TOKEN = session.accessToken
     }
 
     if (session?.idToken) {

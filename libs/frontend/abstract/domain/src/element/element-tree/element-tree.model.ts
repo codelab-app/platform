@@ -9,6 +9,7 @@ import {
   walkTree,
   WalkTreeMode,
 } from 'mobx-keystone'
+
 import type { IElementModel } from '../element.model.interface'
 import type { IElementTree } from '../element-tree.interface.model'
 

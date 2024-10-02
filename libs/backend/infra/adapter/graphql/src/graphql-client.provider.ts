@@ -1,8 +1,9 @@
-import { endpointConfig } from '@codelab/backend/infra/core'
 import type { FactoryProvider } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
-import { GraphQLClient } from 'graphql-request'
 import type { GraphQLClientResponse } from 'graphql-request/build/esm/types'
+
+import { endpointConfig } from '@codelab/backend/infra/core'
+import { GraphQLClient } from 'graphql-request'
 
 const GRAPHQL_CLIENT_PROVIDER = 'GRAPHQL_CLIENT_PROVIDER'
 

@@ -9,4 +9,6 @@ import { Panel, PanelGroup } from 'react-resizable-panels'
  */
 export const CuiPanel = Panel
 
+export type CuiPanelProps = React.ComponentProps<typeof CuiPanel>
+
 export const CuiPanelGroup = PanelGroup

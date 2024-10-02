@@ -1,1 +1,1 @@
-export { Cui } from './cy-data'
+export { CuiTestId } from './cui-testid'

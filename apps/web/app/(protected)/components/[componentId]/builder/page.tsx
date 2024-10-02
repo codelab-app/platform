@@ -1,3 +1,6 @@
+import type { Metadata } from 'next'
+
+import { RendererType } from '@codelab/frontend/abstract/application'
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { ComponentBuilder } from '@codelab/frontend-application-builder/use-cases/component-builder'
 import { componentBuilderQuery } from '@codelab/frontend-application-component/use-cases/component-builder'
@@ -5,7 +8,8 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { getNameFromSlug } from '@codelab/shared/utils'
-import type { Metadata } from 'next'
+
+import { ComponentBuilderContainer } from './page.container'
 
 export const metadata: Metadata = {
   title: 'Component Builder | Codelab',
@@ -18,7 +22,6 @@ const ComponentBuilderPage = async ({
     componentId: string
   }
 }) => {
-  const user = await getServerUser()
   const dto = await componentBuilderQuery({ componentId })
 
   return (
@@ -34,7 +37,7 @@ const ComponentBuilderPage = async ({
       storesDto={dto.stores}
       typesDto={dto.types}
     >
-      <ComponentBuilder RootRenderer={RootRenderer} componentId={componentId} />
+      <ComponentBuilderContainer componentId={componentId} />
     </DomainStoreHydrator>
   )
 }

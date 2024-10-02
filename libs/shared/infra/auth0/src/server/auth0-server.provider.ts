@@ -1,6 +1,6 @@
-import 'server-only'
 import { initAuth0 } from '@auth0/nextjs-auth0/edge'
 import { getEnv } from '@codelab/shared/config'
+import 'server-only'
 
 /**
  * This is a different instance which uses edge runtime

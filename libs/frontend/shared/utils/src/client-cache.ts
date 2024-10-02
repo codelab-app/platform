@@ -44,7 +44,7 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
  * @param segmentCacheKey The a single key or array of keys used as a cache segments.
  * All the records in the specified segments will be cleared.
  */
-export const clearCacheForKey = (segmentCacheKey: Array<string> | string) => {
+export const clearCacheForKey = (segmentCacheKey: string | Array<string>) => {
   return (
     target: unknown,
     propertyKey: string,

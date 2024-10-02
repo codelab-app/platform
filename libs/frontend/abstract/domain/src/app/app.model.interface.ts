@@ -4,6 +4,7 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/infra/gql'
+
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
 import type { ICacheService } from '../shared'

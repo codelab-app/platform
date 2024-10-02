@@ -1,4 +1,5 @@
 import type { TObject } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
 import { ObjectTyped } from 'object-typed'
 

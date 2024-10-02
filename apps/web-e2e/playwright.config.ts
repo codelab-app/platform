@@ -27,6 +27,10 @@ export const authFile = 'apps/web-e2e/.auth/user.json'
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
+  expect: {
+    timeout: process.env.CI ? 10000 : 5000,
+  },
+
   projects: [
     {
       name: 'auth setup',
@@ -34,13 +38,13 @@ export default defineConfig({
       use: {},
     },
     {
+      dependencies: ['auth setup'],
       name: 'database setup',
       testMatch: /database\.setup\.ts/,
-      dependencies: ['auth setup'],
       use: {
-        storageState: authFile,
         // Requires trailing `/`
         baseURL: `${webBaseApiUrl}/`,
+        storageState: authFile,
       },
     },
     {
@@ -91,13 +95,11 @@ export default defineConfig({
     } */
   ],
 
-  timeout: 60000,
+  // reporter: [['list'], ['html']],
 
   retries: process.env.CI ? 0 : 1,
 
-  expect: {
-    timeout: process.env.CI ? 10000 : 5000,
-  },
+  timeout: process.env.CI ? 60000 : 10000,
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -114,16 +116,16 @@ export default defineConfig({
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
-      url: webUrl,
       timeout: 90 * 1000,
+      url: webUrl,
     },
     {
       command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
-      url: apiUrl,
       timeout: 90 * 1000,
+      url: apiUrl,
     },
   ],
 })

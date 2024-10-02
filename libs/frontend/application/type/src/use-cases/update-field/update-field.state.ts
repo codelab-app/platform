@@ -1,4 +1,5 @@
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   useFormState,
@@ -6,7 +7,7 @@ import {
 } from '@codelab/frontend-application-shared-store/ui'
 
 export const useUpdateFieldModal = () =>
-  useModalState<IFieldModel>(UiKey.UpdateFieldModal)
+  useModalState<IFieldModel>(UiKey.FieldModalUpdate)
 
 export const useUpdateFieldForm = () =>
-  useFormState<IFieldModel>(UiKey.UpdateFieldForm)
+  useFormState<IFieldModel>(UiKey.FieldFormUpdate)

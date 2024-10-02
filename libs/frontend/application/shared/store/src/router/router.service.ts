@@ -1,19 +1,32 @@
-import type { IRouterService } from '@codelab/frontend/abstract/application'
-import { IRouterProps } from '@codelab/frontend/abstract/application'
 import type {
-  UrlPathParams,
-  UrlQueryParams,
+  IRouterService,
+  SupportedPaginationModel,
+} from '@codelab/frontend/abstract/application'
+import type {
+  UrlPathParamsProps,
+  UrlQueryParamsProps,
 } from '@codelab/frontend/abstract/types'
-import { computed } from 'mobx'
-import { Model, model, prop } from 'mobx-keystone'
-import { parseUrlQueryParams } from './useUrlQueryParams.hook'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+
+import {
+  IPaginationService,
+  IRouterProps,
+} from '@codelab/frontend/abstract/application'
+import { Validator } from '@codelab/shared/infra/schema'
+import { computed, set } from 'mobx'
+import { Model, model, modelAction, prop } from 'mobx-keystone'
+import queryString from 'query-string'
+
+import { parseQueryParamPageProps } from './query-params'
 
 const init = (router: IRouterProps) => {
   const { pathParams, queryParams } = router
 
   return new RouterService({
     pathParams,
-    queryParams: queryParams ? parseUrlQueryParams(queryParams) : undefined,
+    queryParams: queryParams
+      ? parseQueryParamPageProps(queryParams)
+      : undefined,
   })
 }
 
@@ -23,7 +36,7 @@ const init = (router: IRouterProps) => {
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    pathParams: prop<UrlPathParams>(() => ({
+    pathParams: prop<UrlPathParamsProps>(() => ({
       appId: undefined,
       authGuardId: undefined,
       componentId: undefined,
@@ -31,8 +44,8 @@ export class RouterService
       pageId: undefined,
       resourceId: undefined,
     })).withSetter(),
-    queryParams: prop<UrlQueryParams>(() => ({
-      filter: [] as Array<string>,
+    queryParams: prop<UrlQueryParamsProps>(() => ({
+      filter: [],
       /**
        * Placeholder value to satisfy interface, will be synced to url before useing
        */
@@ -48,42 +61,74 @@ export class RouterService
 
   @computed
   get appId() {
-    return this.pathParams.appId
+    const appId = this.pathParams.appId
+
+    Validator.assertsDefined(appId)
+
+    return appId
   }
 
   @computed
   get authGuardId() {
-    return this.pathParams.authGuardId
+    const authGuardId = this.pathParams.authGuardId
+
+    Validator.assertsDefined(authGuardId)
+
+    return authGuardId
   }
 
   @computed
   get componentId() {
-    return this.pathParams.componentId
+    const componentId = this.pathParams.componentId
+
+    Validator.assertsDefined(componentId)
+
+    return componentId
   }
 
   @computed
   get filter() {
-    return this.queryParams.filter
+    const filter = Array.from(this.queryParams.filter ?? [])
+
+    Validator.assertsDefined(filter)
+
+    return filter
   }
 
   @computed
   get interfaceId() {
-    return this.pathParams.interfaceId
+    const interfaceId = this.pathParams.interfaceId
+
+    Validator.assertsDefined(interfaceId)
+
+    return interfaceId
   }
 
   @computed
   get page() {
-    return this.queryParams.page
+    const page = this.queryParams.page
+
+    Validator.assertsDefined(page)
+
+    return page
   }
 
   @computed
   get pageId() {
-    return this.pathParams.pageId
+    const pageId = this.pathParams.pageId
+
+    Validator.assertsDefined(pageId)
+
+    return pageId
   }
 
   @computed
   get pageSize() {
-    return this.queryParams.pageSize
+    const pageSize = this.queryParams.pageSize
+
+    Validator.assertsDefined(pageSize)
+
+    return pageSize
   }
 
   @computed
@@ -93,7 +138,11 @@ export class RouterService
 
   @computed
   get resourceId() {
-    return this.pathParams.resourceId
+    const resourceId = this.pathParams.resourceId
+
+    Validator.assertsDefined(resourceId)
+
+    return resourceId
   }
 
   @computed

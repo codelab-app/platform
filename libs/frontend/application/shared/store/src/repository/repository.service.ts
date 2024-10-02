@@ -1,5 +1,6 @@
 import type { IRepository } from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
+
 import { Model, model } from 'mobx-keystone'
 
 /**

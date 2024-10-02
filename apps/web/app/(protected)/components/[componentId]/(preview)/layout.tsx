@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react'
+
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
 import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
 import { Dashboard } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
 const ComponentPreviewLayout = ({
   children,

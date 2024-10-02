@@ -2,9 +2,9 @@ import type { IBreakpointType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
 export enum ElementStylePseudoClass {
-  None = 'none',
-  Hover = 'hover',
   Focus = 'focus',
+  Hover = 'hover',
+  None = 'none',
 }
 
 export interface IBreakpointStyle {
@@ -18,7 +18,7 @@ export type IElementStyle = Record<
 >
 
 export interface ElementCssRules {
-  [key: string]: ElementCssRules | string
+  [key: string]: string | ElementCssRules
 }
 
 export interface CssMap {

@@ -4,9 +4,11 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { ITagDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
+
+import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+
 import { Tag } from '../store'
 
 @model('@codelab/TagDomainService')

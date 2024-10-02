@@ -4,6 +4,6 @@ import {
   useModalState,
 } from '@codelab/frontend-application-shared-store/ui'
 
-export const useCreateTypeModal = () => useModalState(UiKey.CreateTypeModal)
+export const useCreateTypeModal = () => useModalState(UiKey.TypeModalCreate)
 
-export const useCreateTypeForm = () => useFormState(UiKey.CreateTypeForm)
+export const useCreateTypeForm = () => useFormState(UiKey.TypeFormCreate)

@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { AppList } from '@codelab/frontend-application-app/use-cases/app-list'
 import { BuildAppModal } from '@codelab/frontend-application-app/use-cases/build-app'
@@ -9,7 +11,8 @@ import { getServerUser } from '@codelab/frontend-application-user/use-cases/serv
 import { appListQuery } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import type { Metadata } from 'next'
+
+import { AppListContainer } from './page.container'
 
 export const metadata: Metadata = {
   // description: '...',
@@ -38,7 +41,7 @@ const AppsRoute = async () => {
           atomsDto={atomsDto}
           fallback={<Spinner />}
         >
-          <AppList />
+          <AppListContainer />
         </DomainStoreHydrator>
       </ContentSection>
     </>

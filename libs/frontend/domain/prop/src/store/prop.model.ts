@@ -2,16 +2,17 @@ import type {
   IInterfaceTypeModel,
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
-import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IPropDto } from '@codelab/shared/abstract/core'
-import { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/infra/gql'
-import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
+
+import { typeRef } from '@codelab/frontend/abstract/domain'
+import { IPropData } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import {
   clone,
   frozen,
@@ -30,6 +31,7 @@ import {
   prop as rProp,
   values,
 } from 'remeda'
+
 import { mergeProps } from '../utils/merge-props'
 import { propSafeStringify } from '../utils/prop-safe-stringify'
 
@@ -100,7 +102,7 @@ export class Prop
   }
 
   @modelAction
-  set(key: string, value: ObjectLike | boolean | string) {
+  set(key: string, value: boolean | string | ObjectLike) {
     const obj = { [key]: value }
 
     this.data = frozen(mergeDeep(this.data.data ?? {}, obj))

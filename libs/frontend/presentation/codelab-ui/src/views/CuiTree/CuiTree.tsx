@@ -1,12 +1,16 @@
 'use client'
 
-import { Empty, Tree } from 'antd'
 import type { DirectoryTreeProps } from 'antd/es/tree'
+import type { ReactNode } from 'react'
+
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
+import { Tree } from 'antd'
 import classNames from 'classnames'
 import { observer, useLocalObservable } from 'mobx-react-lite'
-import type { ReactNode } from 'react'
 import { useCallback, useEffect } from 'react'
+
 import type { Variant } from '../../abstract'
+
 import { CuiSearchBar, CuiSkeletonWrapper } from '../../components'
 import styles from './CuiTree.module.css'
 import { CuiTreeItem } from './CuiTreeItem'
@@ -135,6 +139,7 @@ export const CuiTree = observer(
           styles.cuiTree,
           'h-full overflow-hidden flex flex-col',
         )}
+        data-testid={CuiTestId.cuiTree()}
       >
         {searcheable && (
           <CuiSearchBar

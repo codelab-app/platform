@@ -3,21 +3,23 @@ import type {
   IRuntimeComponentPropDTO,
   IRuntimeComponentPropModel,
 } from '@codelab/frontend/abstract/application'
+import type { IPropModel } from '@codelab/frontend/abstract/domain'
+import type { IPropData } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
+
 import {
   getRendererService,
   IRuntimeContext,
 } from '@codelab/frontend/abstract/application'
-import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import {
   DATA_COMPONENT_ID,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import type { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { evaluateObject, mapDeep } from '@codelab/shared/utils'
+import { mapDeep } from '@codelab/shared/utils'
+import { evaluateObject } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import { createElement, Fragment } from 'react'
 

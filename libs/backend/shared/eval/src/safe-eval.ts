@@ -1,4 +1,5 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { ExternalCopy, Isolate } from 'isolated-vm'
 
 /**

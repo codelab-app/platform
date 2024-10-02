@@ -6,6 +6,7 @@ import { Button, Menu } from 'antd'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
+
 import { disableMenuHoverEffects, removeHoverBorder } from '../../styles/style'
 import { LoginUserButton } from './auth/LoginUserButton'
 import { RegisterUserButton } from './auth/RegisterUserButton'

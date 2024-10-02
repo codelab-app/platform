@@ -7,10 +7,11 @@ import {
 import { Button } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+
 import { resetDatabaseUseCase } from './reset-data.use-case'
 
 export const ResetDataButtons = () => {
-  const router = useRouter()
+  const { push } = useRouter()
   const [loading, setLoading] = useState(false)
 
   const onError = useErrorNotify({
@@ -33,7 +34,7 @@ export const ResetDataButtons = () => {
           return resetDatabaseUseCase()
             .then(onSuccess)
             .catch(onError)
-            .then(() => router.push('/api/auth/logout'))
+            .then(() => push('/api/auth/logout'))
         }}
       >
         Reset Database

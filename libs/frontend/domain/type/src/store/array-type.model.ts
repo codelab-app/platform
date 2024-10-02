@@ -4,14 +4,16 @@ import type {
   ITypeTransformContext,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { connectNodeId } from '@codelab/shared/domain'
 import type { Ref } from 'mobx-keystone'
+
+import { typeRef } from '@codelab/frontend/abstract/domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { connectNodeId } from '@codelab/shared/domain'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
+
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, itemType, kind, name }: IArrayTypeDto): ArrayType => {

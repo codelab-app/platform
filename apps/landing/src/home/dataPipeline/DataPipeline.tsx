@@ -2,6 +2,7 @@ import { faArrowTurnDownRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'antd'
 import Image from 'next/image'
+
 import { Integrations } from './Integrations'
 
 const data = [
@@ -45,9 +46,26 @@ const isEvenNumber = (num: number) => {
 
 export const DataPipeline = () => {
   return (
-    <section className="m-auto px-0 lg:px-8 xl:px-12 2xl:w-11/12 2xl:px-0">
-      <div className="m-auto mb-12 w-11/12 bg-white p-0 lg:container md:mb-0 md:w-4/5 2xl:px-20">
-        <h2 className="mt-10 px-0 text-center text-lg font-semibold text-violet-600 sm:text-2xl md:mt-14 lg:px-8 lg:text-4xl  xl:px-0 xl:text-5xl">
+    <section className="m-auto px-0 2xl:w-11/12 2xl:px-0 lg:px-8 xl:px-12">
+      <div
+        className={`
+          m-auto mb-12 w-11/12
+          bg-white p-0
+          2xl:px-20
+          lg:container
+          md:mb-0 md:w-4/5
+        `}
+      >
+        <h2
+          className={`
+            mt-10 px-0 text-center
+            text-lg font-semibold text-violet-600
+            lg:px-8 lg:text-4xl
+            md:mt-14
+            sm:text-2xl
+            xl:px-0 xl:text-5xl
+          `}
+        >
           Control Your Data Pipeline
         </h2>
         {data.map((items, index) => (
@@ -56,7 +74,7 @@ export const DataPipeline = () => {
               isEvenNumber(items.id) === false
                 ? 'lg:flex-row'
                 : 'lg:flex-row-reverse'
-            } mt-7 flex flex-col justify-between sm:mt-14 lg:mt-28`}
+            } mt-7 flex flex-col justify-between lg:mt-28 sm:mt-14`}
             key={index}
           >
             <div
@@ -66,7 +84,16 @@ export const DataPipeline = () => {
                   : 'lg:items-end'
               } flex w-full flex-col items-center lg:w-2/5`}
             >
-              <h1 className="w-fit rounded-[20px] bg-yellow-500 p-2 text-lg font-semibold text-white sm:p-4 sm:text-3xl lg:p-5 lg:text-4xl xl:p-6 xl:text-5xl">
+              <h1
+                className={`
+                  w-fit rounded-[20px] bg-yellow-500
+                  p-2 text-lg font-semibold
+                  text-white
+                  lg:p-5 lg:text-4xl
+                  sm:p-4 sm:text-3xl
+                  xl:p-6 xl:text-5xl
+                `}
+              >
                 {items.id}
               </h1>
               <div className="mb-2 flex items-center md:mb-5">
@@ -85,12 +112,23 @@ export const DataPipeline = () => {
                   isEvenNumber(items.id) === false
                     ? 'lg:text-left'
                     : 'lg:text-right'
-                } m-0 mb-2 px-4 text-center text-sm sm:p-0 sm:text-base md:mb-5 xl:text-lg`}
+                }
+                  m-0 mb-2 px-4
+                  text-center text-sm
+                  md:mb-5
+                  sm:p-0 sm:text-base
+                  xl:text-lg
+                `}
               >
                 {items.description}
               </p>
               <Button
-                className="mb-2 flex items-center px-0 text-base text-violet-500 md:text-lg lg:mb-0"
+                className={`
+                  mb-2 flex items-center
+                  px-0 text-base text-violet-500
+                  lg:mb-0
+                  md:text-lg
+                `}
                 type="link"
               >
                 <FontAwesomeIcon className="mr-2" icon={faArrowTurnDownRight} />
@@ -98,7 +136,15 @@ export const DataPipeline = () => {
               </Button>
             </div>
 
-            <div className="m-auto w-80 sm:m-auto  sm:w-auto md:m-auto lg:m-0 lg:w-1/2 xl:m-0 xl:w-auto">
+            <div
+              className={`
+                m-auto w-80
+                lg:m-0 lg:w-1/2
+                md:m-auto
+                sm:m-auto sm:w-auto
+                xl:m-0 xl:w-auto
+              `}
+            >
               <Image alt="image" height={306} src={items.image} width={564} />
             </div>
           </div>

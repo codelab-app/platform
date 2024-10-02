@@ -3,6 +3,8 @@ import type {
   ElementOptions,
   ElementWhere,
 } from '@codelab/backend/abstract/codegen'
+import type { ICreateElementDto } from '@codelab/shared/abstract/core'
+
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   elementSelectionSet,
@@ -12,7 +14,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { ICreateElementDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   disconnectAll,

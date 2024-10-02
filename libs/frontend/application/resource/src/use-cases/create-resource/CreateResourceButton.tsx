@@ -1,8 +1,10 @@
+import type { ItemType } from 'antd/lib/menu/interface'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { Button, Dropdown } from 'antd'
-import type { ItemType } from 'antd/lib/menu/interface'
 import { observer } from 'mobx-react-lite'
+
 import { ResourceIcon } from '../../views'
 import { useCreateResourceModal } from './create-resource.state'
 

@@ -1,15 +1,17 @@
 import type { IAntDesignField } from '@codelab/backend/abstract/core'
+import type { ICommandHandler } from '@nestjs/cqrs'
+
 import {
   Field,
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import type { ICommandHandler } from '@nestjs/cqrs'
+import { titleCase } from '@codelab/shared/utils'
 import { CommandHandler } from '@nestjs/cqrs'
 import { find } from 'remeda'
 import { v4 } from 'uuid'
+
 import { AntdTypeAdapterService } from '../../type-adapter/antd-type-adapter/antd-type-adapter.service'
 import { readAntDesignApis } from './read-ant-design-apis'
 
@@ -98,7 +100,7 @@ export class ExtractAntDesignFieldsHandler
       fieldType: type,
       id: v4(),
       key: field.property,
-      name: compoundCaseToTitleCase(field.property),
+      name: titleCase(field.property),
     })
   }
 

@@ -1,15 +1,17 @@
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+import type { JSONSchemaType } from 'ajv'
+
 import {
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import {
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
-import type { JSONSchemaType } from 'ajv'
+
 import { TypeSelect } from '../select-types/TypeSelect'
 
 /**

@@ -1,6 +1,7 @@
 import type { IPage } from '@codelab/shared/abstract/core'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
+
 import { OgmService } from '../../../infra'
 import { Neo4jService } from '../../../infra/neo4j.service'
 import { getElementWithDescendants } from '../../utils'

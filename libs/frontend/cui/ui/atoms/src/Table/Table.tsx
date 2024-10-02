@@ -60,7 +60,11 @@ const TableRow = forwardRef<
 >(({ className, ...props }, ref) => (
   <tr
     className={cn(
-      'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
+      `
+        border-b transition-colors
+        data-[state=selected]:bg-muted
+        hover:bg-muted/50
+      `,
       className,
     )}
     ref={ref}
@@ -76,7 +80,12 @@ const TableHead = forwardRef<
 >(({ className, ...props }, ref) => (
   <th
     className={cn(
-      'h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+      `
+        h-10 px-2 text-left
+        align-middle font-medium text-muted-foreground
+        [&:has([role=checkbox])]:pr-0
+        [&>[role=checkbox]]:translate-y-[2px]
+      `,
       className,
     )}
     ref={ref}
@@ -92,7 +101,11 @@ const TableCell = forwardRef<
 >(({ className, ...props }, ref) => (
   <td
     className={cn(
-      'p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+      `
+        p-2 align-middle
+        [&:has([role=checkbox])]:pr-0
+        [&>[role=checkbox]]:translate-y-[2px]
+      `,
       className,
     )}
     ref={ref}

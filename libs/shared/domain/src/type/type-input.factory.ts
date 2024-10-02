@@ -1,6 +1,7 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
+
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { titleCase } from '@codelab/shared/utils'
 
 export const makeAllTypes = (input?: IPropData) =>
   Object.values(ITypeKind)
@@ -11,8 +12,7 @@ export const getApiName = (name: string) => {
   return `${name} API`
 }
 
-export const getInterfaceName = (type: string) =>
-  `${compoundCaseToTitleCase(type)} API`
+export const getInterfaceName = (type: string) => `${titleCase(type)} API`
 
 // export const makeFieldsCreateInput = (type: ICreateTypeDTO) => {
 //   return {

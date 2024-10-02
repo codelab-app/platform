@@ -1,4 +1,5 @@
 import { type Static, Type } from '@sinclair/typebox'
+
 import { ApiSchema } from '../type'
 import { StoreSchema } from './store.dto.interface'
 

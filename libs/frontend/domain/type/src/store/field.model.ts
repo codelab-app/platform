@@ -4,22 +4,23 @@ import type {
   ITypeTransformContext,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
+import type {
+  IFieldDefaultValue,
+  IValidationRules,
+} from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+
 import {
   fieldRef,
   IFieldModel,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IFieldDefaultValue,
-  IValidationRules,
-} from '@codelab/shared/abstract/core'
 import { IFieldDto } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'
 import { FieldUpdateInput } from '@codelab/shared/infra/gql'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { isNonNullish } from 'remeda'
 
@@ -205,12 +206,12 @@ export class Field
     return {
       ...this.type.current.toJsonSchema({
         defaultValues: this.defaultValues,
-        fieldName: this.name || compoundCaseToTitleCase(this.key),
+        fieldName: this.name || titleCase(this.key),
         uniformSchema: context.uniformSchema,
         validationRules: this.validationRules,
       }),
       ...(this.description ? { help: this.description } : {}),
-      label: this.name || compoundCaseToTitleCase(this.key),
+      label: this.name || titleCase(this.key),
     }
   }
 

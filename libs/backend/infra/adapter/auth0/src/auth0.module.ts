@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+
 import { auth0Config } from './auth0.config'
 import {
   AUTH0_MANAGEMENT_CLIENT_TOKEN,

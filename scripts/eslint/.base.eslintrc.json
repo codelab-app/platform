@@ -5,6 +5,13 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         // "unused-imports/no-unused-imports": "error",
+        "prefer-destructuring": [
+          "off",
+          {
+            "array": false,
+            "object": true
+          }
+        ],
         "@typescript-eslint/ban-types": [
           "error",
           {
@@ -42,18 +49,7 @@
           "error",
           { "caseSensitive": false }
         ],
-        "no-restricted-imports": [
-          "error",
-          {
-            "paths": [
-              {
-                "name": "antd/lib/select",
-                "importNames": ["DefaultOptionType"],
-                "message": "Please use `SelectOption` from `@codelab/frontend/abstract/types` instead"
-              }
-            ]
-          }
-        ],
+
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",
@@ -65,24 +61,6 @@
           }
         ],
         "no-implicit-coercion": "error",
-        /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
-        "@next/next/google-font-display": "off",
-        "@next/next/google-font-preconnect": "off",
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
-          }
-        ],
-        "simple-import-sort/exports": "error",
-        //
-        // Custom import rules
-        //
-        "import/newline-after-import": "error",
-        "import/first": "error",
-        // SUPER SLOW!
-        "import/no-cycle": "off",
-        "import/no-duplicates": "error",
         "prettier/prettier": [
           "error",
           {
@@ -111,16 +89,6 @@
       }
     },
     {
-      // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
-      "plugins": ["jest", "jest-formatting"],
-      "extends": ["plugin:jest/recommended", "plugin:jest-formatting/strict"],
-      "files": ["*.spec.ts", "*.spec.tsx"],
-      "rules": {
-        "import/no-unresolved": "error",
-        "import/named": "error"
-      }
-    },
-    {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:import/typescript"],
       "rules": {
@@ -131,7 +99,6 @@
           { "allowWithDecorator": true }
         ],
         "@typescript-eslint/method-signature-style": ["error", "method"],
-        "@typescript-eslint/sort-type-constituents": "error",
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/consistent-type-assertions": "error",

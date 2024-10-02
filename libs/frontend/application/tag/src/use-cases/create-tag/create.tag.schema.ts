@@ -1,9 +1,10 @@
+import type { ICreateTagData } from '@codelab/shared/abstract/core'
+import type { JSONSchemaType } from 'ajv'
+
 import {
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
-import type { ICreateTagData } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 
 export const createTagSchema: JSONSchemaType<ICreateTagData> = {
   properties: {

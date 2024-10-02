@@ -1,4 +1,5 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+
 import {
   useErrorNotify,
   useSuccessNotify,
