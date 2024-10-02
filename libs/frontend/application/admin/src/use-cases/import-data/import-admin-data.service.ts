@@ -3,14 +3,12 @@
 import { getEnv } from '@codelab/shared/config'
 import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 
-export const resetDatabaseUseCase = async () => {
-  const response = await fetchWithAuth(getEnv().endpoint.admin.resetDatabase, {
+export const importAdminDataService = async () => {
+  const result = await fetchWithAuth(getEnv().endpoint.admin.import, {
     body: JSON.stringify({}),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
   })
 
-  const { data } = await response.json()
-
-  return data
+  return await result.text()
 }

@@ -1,10 +1,7 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import {
-  createFormErrorNotificationHandler,
-  downloadJsonAsFile,
-} from '@codelab/frontend/shared/utils'
+import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   exportDtoDefault,
@@ -13,18 +10,17 @@ import {
 } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
 import { AutoFields } from 'uniforms-antd'
-
+import { exportAdminDataService } from './export-admin-data.service'
 import { useExportAdminDataModal } from './export-admin-data.state'
-import { exportAdminDataUseCase } from './export-admin-data.use-case'
 
 export const ExportAdminDataModal = () => {
   const exportDataModal = useExportAdminDataModal()
 
   const onSubmitHandler = useCallback(async (data: IExportDto) => {
-    const exportedData = await exportAdminDataUseCase(data)
+    const exportedData = await exportAdminDataService(data)
 
     if (exportedData) {
-      downloadJsonAsFile('export.json', JSON.parse(exportedData))
+      downloadJsonAsFile('export.json', exportedData)
     }
   }, [])
 
@@ -36,13 +32,12 @@ export const ExportAdminDataModal = () => {
       uiKey={UiKey.AdminDataModalExport}
     >
       <ModalForm.Form<IExportDto>
+        errorMessage="Error while exporting data"
         model={exportDtoDefault}
         onSubmit={onSubmitHandler}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while exporting data',
-        })}
         onSubmitSuccess={exportDataModal.close}
         schema={ExportDtoSchema}
+        successMessage="Data exported successfully"
       >
         <AutoFields />
       </ModalForm.Form>
