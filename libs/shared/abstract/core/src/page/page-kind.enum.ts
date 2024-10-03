@@ -17,5 +17,5 @@ export { PageKind as IPageKind }
 export enum IPageKindName {
   InternalServerError = '500',
   NotFound = '404',
-  Provider = '_app',
+  Provider = 'provider',
 }
