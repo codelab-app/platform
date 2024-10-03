@@ -1,7 +1,6 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -16,12 +15,11 @@ export const DeleteAppModal = observer(() => {
   const app = deleteAppModal.data
 
   const onSubmit = async () => {
-
     if (!app) {
       return Promise.reject()
     }
 
-    void appService.removeMany([app])
+    return appService.removeMany([app])
   }
 
   return (
@@ -35,8 +33,7 @@ export const DeleteAppModal = observer(() => {
         errorMessage="Error while deleting app"
         model={{}}
         onSubmit={onSubmit}
-        // onSubmitOptimistic={() => closeModal()}
-        // onSubmitSuccess={closeModal}
+        onSubmitOptimistic={() => closeModal()}
         schema={emptyJsonSchema}
         successMessage="App deleted successfully"
       >

@@ -19,6 +19,24 @@ import {
   type ITypeDomainService,
   type IUserDomainService,
 } from '@codelab/frontend/abstract/domain'
+import {
+  actionDomainServiceContext,
+  appDomainServiceContext,
+  atomDomainServiceContext,
+  authGuardDomainServiceContext,
+  componentDomainServiceContext,
+  domainDomainServiceContext,
+  elementDomainServiceContext,
+  fieldDomainServiceContext,
+  pageDomainServiceContext,
+  preferenceDomainServiceContext,
+  redirectDomainServiceContext,
+  resourceDomainServiceContext,
+  storeDomainServiceContext,
+  tagDomainServiceContext,
+  typeDomainServiceContext,
+  userDomainServiceContext,
+} from '@codelab/frontend/abstract/domain'
 import { ActionDomainService } from '@codelab/frontend-domain-action/services'
 import { AppDomainService } from '@codelab/frontend-domain-app/services'
 import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
@@ -91,7 +109,28 @@ export const createDomainStore = (
         UserDomainService.fromDto(user),
       ),
     })
-    implements IDomainStore {}
+    implements IDomainStore
+  {
+    protected onInit() {
+      // provided here to be accessible by application store services
+      actionDomainServiceContext.set(this, this.actionDomainService)
+      appDomainServiceContext.set(this, this.appDomainService)
+      atomDomainServiceContext.set(this, this.atomDomainService)
+      authGuardDomainServiceContext.set(this, this.authGuardDomainService)
+      componentDomainServiceContext.set(this, this.componentDomainService)
+      domainDomainServiceContext.set(this, this.domainDomainService)
+      elementDomainServiceContext.set(this, this.elementDomainService)
+      fieldDomainServiceContext.set(this, this.fieldDomainService)
+      pageDomainServiceContext.set(this, this.pageDomainService)
+      redirectDomainServiceContext.set(this, this.redirectDomainService)
+      resourceDomainServiceContext.set(this, this.resourceDomainService)
+      storeDomainServiceContext.set(this, this.storeDomainService)
+      tagDomainServiceContext.set(this, this.tagDomainService)
+      typeDomainServiceContext.set(this, this.typeDomainService)
+      userDomainServiceContext.set(this, this.userDomainService)
+      preferenceDomainServiceContext.set(this, this.preferenceDomainService)
+    }
+  }
 
   return new DomainStore({})
 }

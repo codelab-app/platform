@@ -11,6 +11,7 @@ import type { ICRUDService, IQueryService } from '../services'
 export interface IAppService
   extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
     IQueryService<IAppModel, AppWhere, AppOptions> {
+  appList: Array<IAppModel>
   regeneratePages(app: IAppModel, pagesUrls?: Array<string>): Promise<void>
   updatePage(data: IUpdatePageData): Promise<void>
 }
