@@ -6,9 +6,9 @@
 # Go through each directory that has possibly large cache
 NX_CACHE_DIR=~/project/.nx/cache
 NEXT_DIRS=(
-  ~/project/dist/apps/web/.next
-  ~/project/dist/apps/landing/.next
-  ~/project/dist/apps/sites/.next
+  ~/project/dist/apps/web/.next/cache
+  ~/project/dist/apps/landing/.next/cache
+  ~/project/dist/apps/sites/.next/cache
 )
 
 #
