@@ -23,7 +23,7 @@ export class AppListPage extends BasePage {
   }
 
   async fillCreateAppForm() {
-    await this.fillInputText({ label: 'Name' }).fill(this.appName)
+    await this.fillInputText({ label: 'Name' }, this.appName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Create App' }))
@@ -33,7 +33,7 @@ export class AppListPage extends BasePage {
   }
 
   async fillUpdateAppForm() {
-    await this.fillInputText({ label: 'Name' }).fill(this.updatedAppName)
+    await this.fillInputText({ label: 'Name' }, this.updatedAppName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Update App' }))
@@ -54,14 +54,14 @@ export class AppListPage extends BasePage {
     await this.page.goto(PageType.AppList())
   }
 
-  async openCreateAppModal() {
-    await this.getButton({ key: UiKey.AppModalCreate }).click()
+  async openCreateAppModal(key = UiKey.AppModalCreate) {
+    await this.getButton({ key }).click()
 
     await expect(this.getModal()).toBeVisible()
   }
 
   async openCreateAppModalFromHeader() {
-    await this.openCreateAppModal(UiKey.CreateAppToolbarItem)
+    await this.openCreateAppModal(UiKey.AppToolbarItemCreate)
   }
 
   async openDeleteAppModal() {

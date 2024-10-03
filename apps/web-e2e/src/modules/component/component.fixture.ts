@@ -20,7 +20,7 @@ export class ComponentListPage extends BasePage {
   }
 
   async fillCreateComponentForm() {
-    await this.fillInputText({ label: 'Name' }).fill(this.componentName)
+    await this.fillInputText({ label: 'Name' }, this.componentName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Create' }))
