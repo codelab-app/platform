@@ -254,6 +254,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node-neo4j
+    parallelism: 2
     parameters:
       max_old_space_size:
         type: integer
@@ -264,7 +265,13 @@ jobs:
       - restore-workspace
       - run: pnpm npx playwright install-deps
       - run:
-          command: pnpm nx e2e web-e2e -c ci --verbose
+          command: |
+            SHARD="$((${CIRCLE_NODE_INDEX}+1))"
+
+            echo $SHARD;
+            echo $CIRCLE_NODE_TOTAL;
+
+            pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
       - store_artifacts:
           destination: playwright-report

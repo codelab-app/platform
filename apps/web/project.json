@@ -44,7 +44,6 @@
         },
         "ci": {
           "buildTarget": "web:build:ci",
-          "hostname": "127.0.0.1",
           "dev": false
         },
         "prod": {

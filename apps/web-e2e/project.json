@@ -16,7 +16,10 @@
       },
       "configurations": {
         "test": {},
-        "ci": {}
+        "ci": {
+          "fullyParallel": false,
+          "workers": 1
+        }
       }
     },
     "e2e-ui": {

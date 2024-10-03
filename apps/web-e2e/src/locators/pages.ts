@@ -199,6 +199,14 @@ export class BasePage {
     return this
   }
 
+  getTreeItemByPrimaryTitle$(label: string) {
+    const page = this.locator ?? this.page
+
+    return page.getByTestId(CuiTestId.cuiTreeItem()).filter({
+      has: page.getByTestId(CuiTestId.cuiTreeItemPrimaryTitle(label)),
+    })
+  }
+
   /**
    * Return this, if need to access locator, can do `getTreeItemBySecondaryTitle().locator`
    */

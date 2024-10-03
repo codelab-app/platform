@@ -3,8 +3,6 @@ import { expect } from '@playwright/test'
 
 import { test } from './page.fixture'
 
-test.describe.configure({ mode: 'serial' })
-
 test.beforeAll(async ({ pageListPage: page }) => {
   await page.seedApp()
 })
@@ -31,7 +29,7 @@ test.skip('should be able to create page', async ({ pageListPage: page }) => {
 
   await page.expectGlobalProgressBarToBeHidden()
 
-  await expect(page.getTreeItemByPrimaryTitle(page.pageName)).toBeVisible()
+  await expect(page.getTreeItemByPrimaryTitle$(page.pageName)).toBeVisible()
 
   test('should have accessible page link on sidebar', async () => {
     await page.getTreeItemByPrimaryTitle(page.pageName).click()

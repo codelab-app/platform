@@ -1,10 +1,7 @@
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
-import { waitFor } from '@testing-library/react'
 
 import { test } from './atom.fixture'
-
-test.describe.configure({ mode: 'serial' })
 
 test.beforeEach(async ({ atomPage: page }) => {
   await page.goto()
