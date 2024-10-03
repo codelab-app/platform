@@ -1,4 +1,8 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import {
+  getUiDataLabel,
+  PageType,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { test as base, expect } from '@playwright/test'
 
 import { BasePage } from '../../locators/pages'
@@ -7,10 +11,6 @@ import { BasePage } from '../../locators/pages'
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
  */
 export class AppListPage extends BasePage {
-  // public constructor(page: Page) {
-  //   super(page)
-  // }
-
   clickModalConfirmButton() {
     const modal = this.getModal()
     const button = this.getButton({ key: UiKey.ButtonConfirmation })
@@ -54,7 +54,7 @@ export class AppListPage extends BasePage {
     await this.page.goto(PageType.AppList())
   }
 
-  async openCreateAppModal(key = UiKey.AppModalCreate) {
+  async openCreateAppModal(key = UiKey.AppButtonOpenCreateForm) {
     await this.getButton({ key }).click()
 
     await expect(this.getModal()).toBeVisible()

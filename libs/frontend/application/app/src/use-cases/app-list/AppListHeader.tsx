@@ -4,7 +4,7 @@ import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -20,18 +20,20 @@ export const AppListHeader = () => {
 
   const toolbarItems: Array<ToolbarItem> = [
     {
+      ariaLabel: getUiDataLabel(UiKey.AppToolbarItemImport),
       cuiKey: UiKey.AppToolbarItemImport,
       icon: <ImportAppDialog key={0} />,
       title: 'Import an app',
     },
     {
-      ariaLabel: UiKey.AppToolbarItemCreate,
+      ariaLabel: getUiDataLabel(UiKey.AppToolbarItemCreate),
       cuiKey: UiKey.AppToolbarItemCreate,
       icon: <PlusOutlined />,
       onClick: () => createAppModal.open(),
       title: 'Create an App',
     },
     {
+      ariaLabel: getUiDataLabel(UiKey.UserToolbarItemSignOut),
       cuiKey: UiKey.UserToolbarItemSignOut,
       icon: <LogoutOutlined />,
       onClick: () => {

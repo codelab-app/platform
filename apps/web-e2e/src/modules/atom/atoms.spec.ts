@@ -1,5 +1,6 @@
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
+import { waitFor } from '@testing-library/react'
 
 import { test } from './atom.fixture'
 
@@ -42,6 +43,8 @@ test('should be able to delete an atom', async ({ atomPage: page }) => {
     .getTreeItemBySecondaryTitle(page.updatedAtom.name)
     .getToolbarItem(UiKey.AtomsToolbarItemDelete)
     .click()
+
+  await page.page.waitForURL('/atoms/delete/**')
 
   await page.fillAndSubmitAtomFormDelete()
 

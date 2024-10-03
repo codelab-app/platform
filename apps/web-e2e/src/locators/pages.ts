@@ -9,6 +9,9 @@ import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect } from '@playwright/test'
 
 export interface CuiSelector {
+  /**
+   * Use this key to derive the label
+   */
   key?: UiKey
   /**
    * Aria label
@@ -63,22 +66,30 @@ export class BasePage {
   /**
    * Locator chaining need to be passed in
    */
-  getButton(options: CuiSelector, locator?: Locator) {
+  getButton({ key, label, text }: CuiSelector, locator?: Locator) {
     const page = locator ?? this.page
 
-    if (options.text) {
-      return page.getByRole('button').filter({ hasText: options.text })
+    const getByLabel = (_label: string | RegExp) => {
+      return page
+        .getByRole('button')
+        .and(page.getByLabel(_label, { exact: true }))
     }
 
-    if (options.label) {
-      // Using getByRole with name option for aria-label
-      return page.getByRole('button', { name: options.label })
+    if (text) {
+      return page.getByRole('button').filter({ hasText: text })
     }
 
-    if (options.key) {
-      const label = getUiDataLabel(options.key)
+    if (label) {
+      return getByLabel(label)
+    }
 
-      return page.getByRole('button', { name: label })
+    /**
+     * We want a `button` and match by `aria-label`
+     */
+    if (key) {
+      const _label = getUiDataLabel(key)
+
+      return getByLabel(_label)
     }
 
     return page.getByRole('button')

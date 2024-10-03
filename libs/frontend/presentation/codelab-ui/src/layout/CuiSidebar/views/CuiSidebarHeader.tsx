@@ -25,9 +25,9 @@ export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
       data-testid={CuiTestId.cuiSidebarHeader()}
     >
       <Typography className="pl-4">{label}</Typography>
-      {toolbar ? (
+      {toolbar && (
         <CuiSidebarToolbar items={toolbar.items} title={toolbar.title} />
-      ) : null}
+      )}
     </div>
   )
 }

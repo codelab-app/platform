@@ -1,6 +1,7 @@
 'use client'
 
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
+import { getUiDataLabel } from '@codelab/frontend/abstract/types'
 import { Button, Dropdown } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 
