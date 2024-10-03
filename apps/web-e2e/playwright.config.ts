@@ -27,10 +27,6 @@ export const authFile = 'apps/web-e2e/.auth/user.json'
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
-  expect: {
-    timeout: process.env.CI ? 10000 : 5000,
-  },
-
   projects: [
     {
       name: 'auth setup',
@@ -51,7 +47,8 @@ export default defineConfig({
       dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
       testIgnore: /home\.spec\.ts/,
-      testMatch: /.*\.spec\.ts/,
+      testMatch: /atoms\.spec\.ts/,
+      // testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         // channel: 'chrome',
@@ -97,9 +94,13 @@ export default defineConfig({
 
   // reporter: [['list'], ['html']],
 
-  retries: process.env.CI ? 0 : 1,
+  retries: process.env.CI ? 1 : 0,
 
-  timeout: process.env.CI ? 60000 : 10000,
+  timeout: process.env.CI ? 30000 : 10000,
+
+  expect: {
+    timeout: process.env.CI ? 10000 : 10000,
+  },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

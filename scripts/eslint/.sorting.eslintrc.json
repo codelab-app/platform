@@ -76,7 +76,7 @@
       }
     },
     {
-      "files": ["*.schema.ts"],
+      "files": ["*.schema.ts", "*.config.ts"],
       "rules": {
         "perfectionist/sort-objects": "off"
       }
