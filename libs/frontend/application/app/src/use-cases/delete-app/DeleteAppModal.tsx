@@ -12,11 +12,11 @@ import { useDeleteAppModal } from './delete-app.state'
 export const DeleteAppModal = observer(() => {
   const deleteAppModal = useDeleteAppModal()
   const appService = useAppService()
-  const { setLoading } = useLoading()
   const closeModal = () => deleteAppModal.close()
   const app = deleteAppModal.data
 
   const onSubmit = async () => {
+
     if (!app) {
       return Promise.reject()
     }
@@ -35,8 +35,8 @@ export const DeleteAppModal = observer(() => {
         errorMessage="Error while deleting app"
         model={{}}
         onSubmit={onSubmit}
-        onSubmitOptimistic={closeModal}
-        onSubmitSuccess={() => setLoading(false)}
+        // onSubmitOptimistic={() => closeModal()}
+        // onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
         successMessage="App deleted successfully"
       >

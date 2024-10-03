@@ -69,11 +69,6 @@ export class App
   // }
 
   @computed
-  get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
   get pages() {
     return this.pageDomainService.pagesList.filter(
       (page) => page.app.id === this.id,
@@ -165,6 +160,11 @@ export class App
         this.userDomainService.user,
       ),
     }
+  }
+
+  @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 
   @computed
