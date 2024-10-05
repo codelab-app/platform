@@ -9,11 +9,14 @@ import {
   createBridge,
 } from '@codelab/frontend/shared/utils'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { throttle } from 'radash'
 import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
+
+import { usePostSubmit, useSubmit } from './utils'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({
@@ -32,6 +35,8 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     submitRef,
     uiKey,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
+    const { setLoading } = useLoading()
+
     const [bridge, setBridge] = useState(
       schema instanceof Bridge ? schema : createBridge(schema),
     )
@@ -41,6 +46,18 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     }, [schema])
 
     const modelRef = useRef(model)
+
+    const postSubmit = usePostSubmit<TData, TResponse>({
+      onSubmitError,
+      onSubmitSuccess,
+    })
+
+    const submit = useSubmit<TData, TResponse>(
+      onSubmit,
+      (isLoading: boolean) => {
+        setLoading(isLoading)
+      },
+    )
 
     return (
       <div
@@ -57,21 +74,11 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           modelTransform={modelTransform}
           onChange={onChange}
           onChangeModel={onChangeModel}
-          onSubmit={throttle({ interval: 200 }, (formData) => {
-            const submitResults = onSubmit(formData as TData)
-
-            return submitResults
-              .then((result) => {
-                if (result) {
-                  callbackWithParams(onSubmitSuccess, result)
-                }
-              })
-              .catch((error) => {
-                console.error(error)
-
-                callbackWithParams(onSubmitError, error)
-              })
-          })}
+          onSubmit={throttle({ interval: 200 }, (formData) =>
+            submit(formData)
+              .then(postSubmit.onSubmitSuccess)
+              .catch(postSubmit.onSubmitError),
+          )}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           showInlineError

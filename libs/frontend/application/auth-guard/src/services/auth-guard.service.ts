@@ -80,7 +80,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(authGuardDomainService.authGuards.get(ref.id))
+    return authGuardDomainService.authGuards.get(ref.id)
   }
 
   const getAllFromCache = () => {

@@ -157,7 +157,7 @@ export const useComponentService = (): IComponentService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(componentDomainService.components.get(ref.id))
+    return componentDomainService.components.get(ref.id)
   }
 
   const getAllFromCache = () => {

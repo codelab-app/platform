@@ -27,5 +27,5 @@ export interface IQueryService<Entity, EntityWhere, EntityOptions> {
    * @deprecated Fetch from server side and hydrate separately
    */
   getOne(id: string): Promise<Maybe<Entity>>
-  getOneFromCache(ref: IRef): Entity
+  getOneFromCache(ref: IRef): Maybe<Entity>
 }

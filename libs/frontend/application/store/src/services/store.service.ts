@@ -67,7 +67,7 @@ export const useStoreService = (): IStoreService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(storeDomainService.stores.get(ref.id))
+    return storeDomainService.stores.get(ref.id)
   }
 
   const getAllFromCache = () => {

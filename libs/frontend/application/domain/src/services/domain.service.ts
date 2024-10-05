@@ -69,7 +69,7 @@ export const useDomainService = (): IDomainService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(domainDomainService.domains.get(ref.id))
+    return domainDomainService.domains.get(ref.id)
   }
 
   const getAllFromCache = () => {

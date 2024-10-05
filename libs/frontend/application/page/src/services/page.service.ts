@@ -190,7 +190,7 @@ export const usePageService = (): IPageService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(pageDomainService.pages.get(ref.id))
+    return pageDomainService.pages.get(ref.id)
   }
 
   const getAllFromCache = () => {

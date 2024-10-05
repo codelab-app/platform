@@ -71,11 +71,11 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
       modelTransform={modelTransform}
       onChange={onChange}
       onChangeModel={onChangeModel}
-      onSubmit={throttle({ interval: 200 }, (formData) =>
+      onSubmit={(formData) =>
         submit(formData)
           .then(postSubmit.onSubmitSuccess)
-          .catch(postSubmit.onSubmitError),
-      )}
+          .catch(postSubmit.onSubmitError)
+      }
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
       showInlineError

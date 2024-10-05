@@ -20,6 +20,8 @@ test('it should be able to create an atom', async ({ atomPage: page }) => {
 
   await page.fillAndSubmitAtomFormCreate()
 
+  await page.expectGlobalProgressBarToBeHidden()
+
   await expect(page.getAtomName()).toBeVisible()
 })
 

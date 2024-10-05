@@ -94,7 +94,7 @@ export const useResourceService = (): IResourceService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(resourceDomainService.resources.get(ref.id))
+    return resourceDomainService.resources.get(ref.id)
   }
 
   const getAllFromCache = () => {

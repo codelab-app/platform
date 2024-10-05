@@ -193,7 +193,7 @@ export const useAppService = (): IAppService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(appDomainService.apps.get(ref.id))
+    return appDomainService.apps.get(ref.id)
   }
 
   return {

@@ -14,9 +14,9 @@ export const callbackWithParams = <
 ) => {
   const callbacksArray = Array.isArray(callbacks) ? callbacks : [callbacks]
 
-  callbacksArray.forEach((cb) => {
-    if (isFunction(cb)) {
-      cb(param)
+  callbacksArray.forEach((callback) => {
+    if (isFunction(callback)) {
+      callback(param)
     }
   })
 }

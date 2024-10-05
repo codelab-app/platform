@@ -27,6 +27,8 @@ export const gqlFetch = async <TResult, TVariables>(
   const { data, errors } = await response.json()
 
   if (errors && errors.length) {
+    console.log(document, variables, errors)
+
     throw new Error(errors[0]?.message)
   }
 

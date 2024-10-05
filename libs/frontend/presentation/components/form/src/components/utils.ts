@@ -7,6 +7,8 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
+import { throttle } from 'radash'
+import { debounce } from 'remeda'
 
 import type { OptimisticFormProps } from '../modal/ModalForm.Form'
 
@@ -16,6 +18,10 @@ type OnSubmitOptimistic<TData, TResponse> = OptimisticFormProps<
   TData,
   TResponse
 >['onSubmitOptimistic']
+
+/**
+ * Handles loading state and optimistic submit
+ */
 
 export const useSubmit = <TData, TResponse>(
   onSubmit: FormProps<TData, TResponse>['onSubmit'],
@@ -54,12 +60,17 @@ export const handleSubmitRefModalOk = (
   }
 }
 
+type PostSubmitProps<TData, TResponse> = Pick<
+  OptimisticFormProps<TData, TResponse>,
+  'errorMessage' | 'onSubmitError' | 'onSubmitSuccess' | 'successMessage'
+>
+
 export const usePostSubmit = <TData, TResponse>({
   errorMessage = 'Error submitting form',
   onSubmitError = [],
   onSubmitSuccess = [],
   successMessage = 'Form submitted successfully',
-}: OptimisticFormProps<TData, TResponse>) => {
+}: PostSubmitProps<TData, TResponse>) => {
   const notifyError = useErrorNotify({ title: errorMessage })
   const notifySuccess = useSuccessNotify({ title: successMessage })
   const errorHandlers = [console.error, notifyError, onSubmitError].flat()

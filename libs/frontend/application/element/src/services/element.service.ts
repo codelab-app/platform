@@ -103,7 +103,7 @@ export const useElementService = (): IElementService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(elementDomainService.elements.get(ref.id))
+    return elementDomainService.elements.get(ref.id)
   }
 
   const getAllFromCache = () => {

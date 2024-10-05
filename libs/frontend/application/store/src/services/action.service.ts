@@ -111,7 +111,7 @@ export const useActionService = (): IActionService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(actionDomainService.actions.get(ref.id))
+    return actionDomainService.actions.get(ref.id)
   }
 
   const getAllFromCache = () => {

@@ -133,7 +133,7 @@ export const useTagService = (): ITagService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(tagDomainService.tags.get(ref.id))
+    return tagDomainService.tags.get(ref.id)
   }
 
   const getAllFromCache = () => {

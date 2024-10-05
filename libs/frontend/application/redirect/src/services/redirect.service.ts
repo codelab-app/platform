@@ -55,7 +55,7 @@ export const useRedirectService = (): IRedirectService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(redirectDomainService.redirects.get(ref.id))
+    return redirectDomainService.redirects.get(ref.id)
   }
 
   const getAllFromCache = () => {

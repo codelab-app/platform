@@ -188,11 +188,7 @@ export const useAtomService = (): IAtomService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    const atom = atomDomainService.atoms.get(ref.id)
-
-    Validator.assertsDefined(atom)
-
-    return atom
+    return atomDomainService.atoms.get(ref.id)
   }
 
   const getAllFromCache = () => {

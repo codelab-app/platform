@@ -192,7 +192,7 @@ export const useTypeService = (): ITypeService => {
   }
 
   const getOneFromCache = (ref: IRef) => {
-    return Validator.parseDefined(typeDomainService.types.get(ref.id))
+    return typeDomainService.types.get(ref.id)
   }
 
   const getAllFromCache = () => {
