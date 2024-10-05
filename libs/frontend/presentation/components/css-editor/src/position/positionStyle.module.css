@@ -5,7 +5,7 @@
   width: 85%;
   height: 80px;
   grid-template-areas:
-    ". top ."
-    "left center right"
-    ". bottom .";
+    '. top .'
+    'left center right'
+    '. bottom .';
 }

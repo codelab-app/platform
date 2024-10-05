@@ -59,12 +59,16 @@
     background: #000000;
   }
 
-  :global(.cuiSidebarAntdTabsWrapper) > :global(.ant-tabs) > :global(.ant-tabs-nav) {
+  :global(.cuiSidebarAntdTabsWrapper)
+    > :global(.ant-tabs)
+    > :global(.ant-tabs-nav) {
     margin: 0;
     height: 30px;
   }
 
-  :global(.cuiSidebarAntdTabsWrapper) > :global(.ant-tabs) > :global(.ant-tabs-content-holder) {
+  :global(.cuiSidebarAntdTabsWrapper)
+    > :global(.ant-tabs)
+    > :global(.ant-tabs-content-holder) {
     overflow: hidden;
     height: 100%;
   }

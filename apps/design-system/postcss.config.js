@@ -1,4 +1,4 @@
-const { join } = require('path');
+const { join } = require('path')
 
 module.exports = {
   plugins: {
@@ -7,4 +7,4 @@ module.exports = {
     },
     autoprefixer: {},
   },
-};
+}

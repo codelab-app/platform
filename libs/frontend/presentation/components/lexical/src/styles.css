@@ -52,7 +52,6 @@ h1 {
   text-align: right;
 }
 
-
 .editor-text-bold {
   font-weight: bold;
 }
@@ -281,5 +280,3 @@ pre::-webkit-scrollbar-thumb {
 .debug-timetravel-button:hover {
   text-decoration: underline;
 }
-
-

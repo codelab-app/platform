@@ -1,5 +1,5 @@
 import { createGlobPatternsForDependencies } from '@nx/react/tailwind'
-import { join } from 'path';
+import { join } from 'path'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,4 +8,4 @@ module.exports = {
     join(__dirname, '../../libs/**/*.{js,ts,jsx,tsx}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-};
+}
