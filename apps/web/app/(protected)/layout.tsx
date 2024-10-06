@@ -15,4 +15,6 @@ const ProtectedLayout = async ({ children }: { children: ReactNode }) => {
   )
 }
 
+ProtectedLayout.displayName = 'ProtectedLayout'
+
 export default ProtectedLayout
