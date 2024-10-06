@@ -15,7 +15,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const sentryConfig = (nextConfig) =>
   withSentryConfig(nextConfig, {
-    // autoInstrumentMiddleware: false,
+    autoInstrumentMiddleware: false,
 
     // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
     // See the following for more information:
