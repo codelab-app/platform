@@ -1,1 +1,4 @@
-export * from './domain.repository'
+export {
+  domainRepository,
+  invalidateDomainListQuery,
+} from './domain.repository'

@@ -1,3 +1,2 @@
-export * from './app.repository'
-export { appListQuery, invalidateAppListQuery } from './app-list.query'
+export { appRepository, invalidateAppListQuery } from './app.repository'
 export { appProductionRepository } from './app-production.repository'

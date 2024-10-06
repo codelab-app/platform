@@ -54,7 +54,9 @@ export const ResourceTestRequest = observer<ResourceTestRequestProps>(
         />
         <Button
           onClick={async () => {
-            setResponse(await resource.client.fetch(config))
+            if (resource) {
+              setResponse(await resource.client.fetch(config))
+            }
           }}
         >
           Test

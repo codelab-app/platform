@@ -1,9 +1,12 @@
 'use server'
 
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
+import type { SpanAttributeValue } from '@sentry/types'
 
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { getEnv } from '@codelab/shared/config'
+import { getActiveSpan } from '@sentry/nextjs'
+import { ObjectTyped } from 'object-typed'
 
 export const gqlFetch = async <TResult, TVariables>(
   // use `.toString()` version of `TypedDocumentString`
@@ -11,6 +14,14 @@ export const gqlFetch = async <TResult, TVariables>(
   variables: TVariables,
   next?: NextFetchRequestConfig,
 ) => {
+  const span = getActiveSpan()
+
+  if (span && variables) {
+    ObjectTyped.entries(variables).forEach(([key, value]) => {
+      span.setAttributes({ [key]: value as SpanAttributeValue })
+    })
+  }
+
   const response = await fetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
     body: JSON.stringify({
       query: document,

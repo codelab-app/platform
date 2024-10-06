@@ -21,6 +21,7 @@ import {
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
+import { withSpanFunc } from '@codelab/shared-infra-sentry'
 import { computed, type IComputedValueOptions } from 'mobx'
 import { type DependencyList, useMemo } from 'react'
 
@@ -198,13 +199,13 @@ export const useAppService = (): IAppService => {
 
   return {
     appList,
-    create,
+    create: withSpanFunc({ name: 'AppCreate' }, create),
     getAll,
     getAllFromCache,
     getOne,
     getOneFromCache,
     regeneratePages: regeneratePagesForApp,
-    removeMany,
+    removeMany: withSpanFunc({ name: 'AppRemoveMany' }, removeMany),
     update,
     updatePage,
   }

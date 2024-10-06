@@ -15,6 +15,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const sentryConfig = (nextConfig) =>
   withSentryConfig(nextConfig, {
+    // autoInstrumentMiddleware: false,
+
     // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
     // See the following for more information:
     // https://docs.sentry.io/product/crons/
@@ -46,7 +48,6 @@ const sentryConfig = (nextConfig) =>
     // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
     // side errors will fail.
     tunnelRoute: '/monitoring',
-
     // For all available options, see:
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
     // Upload a larger set of source maps for prettier stack traces (increases build time)

@@ -15,6 +15,7 @@ import {
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { withProfiler } from '@sentry/nextjs'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
@@ -23,8 +24,8 @@ import { v4 } from 'uuid'
 import { useAtomService } from '../../services'
 import { createAtomSchema } from './create-atom.schema'
 
-export const CreateAtomForm = observer<IFormController>(
-  ({ onSubmitSuccess, submitRef }) => {
+export const CreateAtomForm = withProfiler(
+  observer<IFormController>(({ onSubmitSuccess, submitRef }) => {
     const { tagDomainService } = useDomainStore()
     const { create } = useAtomService()
     const { back } = useRouter()
@@ -85,5 +86,5 @@ export const CreateAtomForm = observer<IFormController>(
         />
       </Form>
     )
-  },
+  }),
 )

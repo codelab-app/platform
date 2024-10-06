@@ -24,7 +24,7 @@ const bootstrap = async () => {
     /**
      * Enables devtools https://docs.nestjs.com/devtools/overview
      */
-    snapshot: true,
+    // snapshot: true,
     // logger: false,
   })
 
