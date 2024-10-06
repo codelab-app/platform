@@ -3,25 +3,38 @@ import type { StartSpanOptions } from '@sentry/types/build/types'
 
 import { startSpan } from '@sentry/nextjs'
 
-type AnyFunction<T extends Array<unknown> = Array<any>, R = any> = (
+type AnyAsyncFunction<T extends Array<unknown> = Array<any>, R = any> = (
   ...args: T
 ) => Promise<R>
 
-export const withSpanFunc = <T extends Array<unknown>, R>(
+type AnyFunction<T extends Array<unknown> = Array<any>, R = any> = (
+  ...args: T
+) => R
+
+export const withAsyncSpanFunc = <T extends Array<unknown>, R>(
   options: StartSpanOptions,
-  func: AnyFunction<T, R>,
-): AnyFunction<T, R> => {
+  func: AnyAsyncFunction<T, R>,
+): AnyAsyncFunction<T, R> => {
   return async (...args: T) => {
     return await startSpan(options, () => func(...args))
   }
 }
 
-type TracedFunction<T extends AnyFunction<any, any>> = (
+export const withSpanFunc = <T extends Array<unknown>, R>(
+  options: StartSpanOptions,
+  func: AnyFunction<T, R>,
+): AnyFunction<T, R> => {
+  return (...args: T) => {
+    return startSpan(options, () => func(...args))
+  }
+}
+
+type TracedFunction<T extends AnyAsyncFunction<any, any>> = (
   ...args: Parameters<T>
 ) => ReturnType<T>
 
 type TracedRepository<T> = {
-  [K in keyof T]: T[K] extends AnyFunction<any, any>
+  [K in keyof T]: T[K] extends AnyAsyncFunction<any, any>
     ? TracedFunction<T[K]>
     : T[K]
 }
@@ -32,11 +45,11 @@ type TracedRepository<T> = {
 export const withTracingMethods = <
   // Can't import from frontend shared
   Obj extends {
-    add: AnyFunction
-    delete: AnyFunction
-    find: AnyFunction
-    findOne: AnyFunction
-    update: AnyFunction
+    add: AnyAsyncFunction
+    delete: AnyAsyncFunction
+    find: AnyAsyncFunction
+    findOne: AnyAsyncFunction
+    update: AnyAsyncFunction
   },
 >(
   name: string,
@@ -45,9 +58,9 @@ export const withTracingMethods = <
   const enhancedRepository: Partial<TracedRepository<Obj>> = {}
 
   for (const key in repository) {
-    const func = repository[key] as AnyFunction<Array<unknown>, unknown>
+    const func = repository[key] as AnyAsyncFunction<Array<unknown>, unknown>
 
-    enhancedRepository[key] = withSpanFunc(
+    enhancedRepository[key] = withAsyncSpanFunc(
       { name: key, op: `codelab.repository.${name}` },
       func,
     ) as TracedRepository<Obj>[Extract<keyof Obj, string>]

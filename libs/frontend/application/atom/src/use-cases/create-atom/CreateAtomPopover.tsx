@@ -54,4 +54,7 @@ export const CreateAtomPopover = withProfiler(
       </CuiSidebarSecondary>
     )
   }),
+  {
+    name: 'CreateAtomPopover',
+  },
 )

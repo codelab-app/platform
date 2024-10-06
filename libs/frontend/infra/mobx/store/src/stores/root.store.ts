@@ -5,6 +5,8 @@ import type {
 } from '@codelab/frontend/abstract/application'
 
 import { IDomainStore } from '@codelab/frontend/abstract/domain'
+import { withAsyncSpanFunc, withSpanFunc } from '@codelab/shared-infra-sentry'
+import { getActiveSpan } from '@sentry/nextjs'
 import {
   Model,
   model,
@@ -17,32 +19,35 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = ({
-  preference,
-  routerProps,
-  user,
-}: IRootStoreInput) => {
-  console.log('create root store')
-
-  setGlobalConfig({
-    showDuplicateModelNameWarnings: false,
-  })
-
-  const domainStore = createDomainStore(user, preference)
-  const applicationStore = createApplicationStore(routerProps)
-
-  @model('@codelab/RootStore')
-  class RootStore
-    extends Model({
-      applicationStore: prop<IApplicationStore>(() => applicationStore),
-      domainStore: prop<IDomainStore>(() => domainStore),
+export const createRootStore = withSpanFunc(
+  {
+    name: 'createRootStore',
+    op: 'codelab.mobx',
+  },
+  ({ preference, routerProps, user }: IRootStoreInput) => {
+    setGlobalConfig({
+      showDuplicateModelNameWarnings: false,
     })
-    implements IRootStore {}
 
-  const rootStore = new RootStore({})
-  const undoManager = undoMiddleware(rootStore, undefined, { maxUndoLevels: 1 })
+    const domainStore = createDomainStore(user, preference)
+    const applicationStore = createApplicationStore(routerProps)
 
-  registerRootStore(rootStore)
+    @model('@codelab/RootStore')
+    class RootStore
+      extends Model({
+        applicationStore: prop<IApplicationStore>(() => applicationStore),
+        domainStore: prop<IDomainStore>(() => domainStore),
+      })
+      implements IRootStore {}
 
-  return { rootStore, undoManager }
-}
+    const rootStore = new RootStore({})
+
+    const undoManager = undoMiddleware(rootStore, undefined, {
+      maxUndoLevels: 1,
+    })
+
+    registerRootStore(rootStore)
+
+    return { rootStore, undoManager }
+  },
+)
