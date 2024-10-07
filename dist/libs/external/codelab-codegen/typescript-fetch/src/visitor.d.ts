@@ -7,7 +7,10 @@ export interface GraphQLRequestPluginConfig extends ClientSideBasePluginConfig {
 export declare class GraphQLRequestVisitor extends ClientSideBaseVisitor<RawGraphQLRequestPluginConfig, GraphQLRequestPluginConfig> {
     private _externalImportPrefix;
     private _operationsToInclude;
-    constructor(schema: GraphQLSchema, fragments: Array<LoadedFragment>, rawConfig: RawGraphQLRequestPluginConfig);
+    private _outputFile?;
+    constructor(schema: GraphQLSchema, fragments: Array<LoadedFragment>, rawConfig: RawGraphQLRequestPluginConfig, info?: {
+        outputFile?: string;
+    });
     /**
      * `export const GetAppsDocument = graphql(gql`
     query GetApps($options: AppOptions, $where: AppWhere) {

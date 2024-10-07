@@ -4,28 +4,14 @@ import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { HookFragmentDoc } from '@codelab/shared/infra/gql'
 
-export const CreateHooksDocument = graphql(`
-  mutation CreateHooks($input: [HookCreateInput!]!) {
-    createHooks(input: $input) {
-      hooks {
-        ...Hook
-      }
-    }
-  }
-`)
-
-export const DeleteHooksDocument = graphql(`
-  mutation DeleteHooks($where: HookWhere!) {
-    deleteHooks(where: $where) {
-      nodesDeleted
-    }
-  }
-`)
-
 import {
   type CreateHooksMutationVariables,
   type DeleteHooksMutationVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  CreateHooksDocument,
+  DeleteHooksDocument,
+} from './hook.api.documents.graphql.gen'
 
 export const CreateHooks = (
   variables: CreateHooksMutationVariables,

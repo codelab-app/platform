@@ -1,2 +1,2 @@
-export * from './fetch-with-auth'
-export * from './gql-fetch'
+export { fetchWithAuth } from './fetch-with-auth'
+export { gqlFetch } from './gql-fetch'

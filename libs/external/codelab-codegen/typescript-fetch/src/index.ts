@@ -21,6 +21,7 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
   schema: GraphQLSchema,
   documents: Array<Types.DocumentFile>,
   config: RawGraphQLRequestPluginConfig,
+  info,
 ) => {
   const allAst = concatAST(documents.map((v) => v.document!))
 
@@ -38,7 +39,7 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
     ...(config.externalFragments || []),
   ]
 
-  const visitor = new GraphQLRequestVisitor(schema, allFragments, config)
+  const visitor = new GraphQLRequestVisitor(schema, allFragments, config, info)
   const visitorResult = oldVisit(allAst, { leave: visitor })
 
   return {

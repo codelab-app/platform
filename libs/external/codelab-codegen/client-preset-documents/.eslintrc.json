@@ -1,0 +1,34 @@
+{
+  "extends": ["../../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": [
+          "libs/external/codelab-codegen/client-preset-documents/tsconfig.*?.json"
+        ]
+      },
+      "rules": {
+        "id-length": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/member-ordering": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.json"],
+      "parser": "jsonc-eslint-parser",
+      "rules": {
+        "@nx/dependency-checks": "error"
+      }
+    }
+  ]
+}

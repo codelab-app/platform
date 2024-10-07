@@ -4,61 +4,18 @@ import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { PreferenceFragmentDoc } from '@codelab/shared/infra/gql'
 
-export const CreatePreferencesDocument = graphql(`
-  mutation CreatePreferences($input: [PreferenceCreateInput!]!) {
-    createPreferences(input: $input) {
-      info {
-        nodesCreated
-        relationshipsCreated
-      }
-      preferences {
-        id
-      }
-    }
-  }
-`)
-
-export const DeletePreferencesDocument = graphql(`
-  mutation DeletePreferences(
-    $where: PreferenceWhere
-    $delete: PreferenceDeleteInput
-  ) {
-    deletePreferences(delete: $delete, where: $where) {
-      nodesDeleted
-    }
-  }
-`)
-
-export const GetPreferencesDocument = graphql(`
-  query GetPreferences($where: PreferenceWhere, $options: PreferenceOptions) {
-    aggregate: preferencesAggregate(where: $where) {
-      count
-    }
-    items: preferences(options: $options, where: $where) {
-      ...Preference
-    }
-  }
-`)
-
-export const UpdatePreferencesDocument = graphql(`
-  mutation UpdatePreferences(
-    $where: PreferenceWhere
-    $update: PreferenceUpdateInput
-  ) {
-    updatePreferences(update: $update, where: $where) {
-      preferences {
-        id
-      }
-    }
-  }
-`)
-
 import {
   type CreatePreferencesMutationVariables,
   type DeletePreferencesMutationVariables,
   type GetPreferencesQueryVariables,
   type UpdatePreferencesMutationVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  CreatePreferencesDocument,
+  DeletePreferencesDocument,
+  GetPreferencesDocument,
+  UpdatePreferencesDocument,
+} from './preference.api.documents.graphql.gen'
 
 export const CreatePreferences = (
   variables: CreatePreferencesMutationVariables,

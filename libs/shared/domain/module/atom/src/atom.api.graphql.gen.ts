@@ -4,65 +4,6 @@ import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { AtomFragmentDoc } from '@codelab/shared/infra/gql'
 
-export const CreateAtomsDocument = graphql(`
-  mutation CreateAtoms($input: [AtomCreateInput!]!) {
-    createAtoms(input: $input) {
-      atoms {
-        id
-      }
-      info {
-        nodesCreated
-        relationshipsCreated
-      }
-    }
-  }
-`)
-
-export const DeleteAtomsDocument = graphql(`
-  mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {
-    deleteAtoms(where: $where, delete: $delete) {
-      nodesDeleted
-      relationshipsDeleted
-    }
-  }
-`)
-
-export const AtomListDocument = graphql(`
-  query AtomList($where: AtomWhere, $options: AtomOptions) {
-    aggregate: atomsAggregate(where: $where) {
-      count
-    }
-    items: atoms(options: $options, where: $where) {
-      ...Atom
-    }
-  }
-`)
-
-export const GetSelectAtomOptionsDocument = graphql(`
-  query GetSelectAtomOptions {
-    atoms {
-      __typename
-      id
-      name
-      requiredParents {
-        id
-        type
-      }
-      type
-    }
-  }
-`)
-
-export const UpdateAtomsDocument = graphql(`
-  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
-    updateAtoms(update: $update, where: $where) {
-      atoms {
-        id
-      }
-    }
-  }
-`)
-
 import {
   type CreateAtomsMutationVariables,
   type DeleteAtomsMutationVariables,
@@ -70,6 +11,13 @@ import {
   type GetSelectAtomOptionsQueryVariables,
   type UpdateAtomsMutationVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  CreateAtomsDocument,
+  DeleteAtomsDocument,
+  AtomListDocument,
+  GetSelectAtomOptionsDocument,
+  UpdateAtomsDocument,
+} from './atom.api.documents.graphql.gen'
 
 export const CreateAtoms = (
   variables: CreateAtomsMutationVariables,

@@ -44,6 +44,7 @@
     "@auth0/nextjs-auth0": "3.5.0",
     "@awwong1/oauth4webapi": "1.0.0",
     "@codelab-codegen/typescript-fetch": "file:dist/libs/external/codelab-codegen/typescript-fetch",
+    "@codelab-codegen/client-preset-documents": "file:dist/libs/external/codelab-codegen/client-preset-documents",
     "@codelab/eslint-plugin": "file:dist/libs/tools/eslint-plugin",
     "@codelab/tools-workspace": "file:dist/libs/tools/workspace",
     "@codemirror/autocomplete": "6.12.0",

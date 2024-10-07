@@ -11,6 +11,7 @@ import {
 } from '@graphql-codegen/visitor-plugin-common'
 import autoBind from 'auto-bind'
 import { pascalCase } from 'change-case-all'
+import path from 'path'
 
 import type { RawGraphQLRequestPluginConfig } from './config.js'
 
@@ -33,10 +34,13 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     operationVariablesTypes: string
   }> = []
 
+  private _outputFile?: string
+
   constructor(
     schema: GraphQLSchema,
     fragments: Array<LoadedFragment>,
     rawConfig: RawGraphQLRequestPluginConfig,
+    info?: { outputFile?: string },
   ) {
     super(schema, fragments, rawConfig, {
       documentMode: getConfigValue(rawConfig.documentMode, DocumentMode.string),
@@ -48,6 +52,8 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       // From `graphql-request` to show how to add additional params
       // extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
     })
+
+    this._outputFile = path.basename(info?.outputFile || '')
 
     autoBind(this)
 
@@ -98,21 +104,6 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       suffix: operationTypeSuffix + 'Variables',
     })
 
-    let documentString = ''
-
-    if (documentVariableName !== '') {
-      // console.log(this._gql(node))
-
-      documentString = `
-      export const ${documentVariableName} = graphql(${this._gql(
-        node,
-      )})${this.getDocumentNodeSignature(
-        operationResultType,
-        operationVariablesTypes,
-        node,
-      )}`
-    }
-
     const hasRequiredVariables = this.checkVariablesRequirements(node)
 
     const additional = this.buildOperation(
@@ -124,7 +115,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       hasRequiredVariables,
     )
 
-    return [documentString, additional].filter((a) => a).join('\n')
+    return [additional].filter((a) => a).join('\n')
   }
 
   protected override buildOperation(
@@ -155,12 +146,16 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       .map((o) => `type ${o.operationVariablesTypes}`)
       .join(', ')
 
-    // const documentImports = this._operationsToInclude
-    //   .map((o) => o.documentVariableName)
-    //   .join(', ')
+    const documentImports = this._operationsToInclude
+      .map((o) => o.documentVariableName)
+      .join(', ')
 
     const imports = [
       `import { ${typeImports} } from '${this._externalImportPrefix}'`,
+      // Here we import the generated documents to use with our operations
+      `import { ${documentImports} } from './${this._outputFile
+        ?.replace('.api.', '.api.documents.')
+        .replace('.ts', '')}'`,
       // ...this._additionalImports,
     ]
 

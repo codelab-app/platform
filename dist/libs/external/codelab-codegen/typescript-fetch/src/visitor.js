@@ -5,8 +5,9 @@ const tslib_1 = require("tslib");
 const visitor_plugin_common_1 = require("@graphql-codegen/visitor-plugin-common");
 const auto_bind_1 = tslib_1.__importDefault(require("auto-bind"));
 const change_case_all_1 = require("change-case-all");
+const path_1 = tslib_1.__importDefault(require("path"));
 class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisitor {
-    constructor(schema, fragments, rawConfig) {
+    constructor(schema, fragments, rawConfig, info) {
         super(schema, fragments, rawConfig, {
             documentMode: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.documentMode, visitor_plugin_common_1.DocumentMode.string),
             importOperationTypesFrom: '',
@@ -26,6 +27,13 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             writable: true,
             value: []
         });
+        Object.defineProperty(this, "_outputFile", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        this._outputFile = path_1.default.basename(info?.outputFile || '');
         (0, auto_bind_1.default)(this);
         this._additionalImports = [
             "import { graphql } from '@codelab/shared/infra/gql'",
@@ -63,15 +71,9 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         const operationVariablesTypes = this.convertName(node, {
             suffix: operationTypeSuffix + 'Variables',
         });
-        let documentString = '';
-        if (documentVariableName !== '') {
-            // console.log(this._gql(node))
-            documentString = `
-      export const ${documentVariableName} = graphql(${this._gql(node)})${this.getDocumentNodeSignature(operationResultType, operationVariablesTypes, node)}`;
-        }
         const hasRequiredVariables = this.checkVariablesRequirements(node);
         const additional = this.buildOperation(node, documentVariableName, operationType, operationResultType, operationVariablesTypes, hasRequiredVariables);
-        return [documentString, additional].filter((a) => a).join('\n');
+        return [additional].filter((a) => a).join('\n');
     }
     buildOperation(node, documentVariableName, operationType, operationResultType, operationVariablesTypes, _hasRequiredVariables) {
         // operationResultType = this._externalImportPrefix + operationResultType
@@ -90,11 +92,15 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         const typeImports = this._operationsToInclude
             .map((o) => `type ${o.operationVariablesTypes}`)
             .join(', ');
-        // const documentImports = this._operationsToInclude
-        //   .map((o) => o.documentVariableName)
-        //   .join(', ')
+        const documentImports = this._operationsToInclude
+            .map((o) => o.documentVariableName)
+            .join(', ');
         const imports = [
             `import { ${typeImports} } from '${this._externalImportPrefix}'`,
+            // Here we import the generated documents to use with our operations
+            `import { ${documentImports} } from './${this._outputFile
+                ?.replace('.api.', '.api.documents.')
+                .replace('.ts', '')}'`,
             // ...this._additionalImports,
         ];
         const graphqlOperations = this._operationsToInclude.map((o) => {

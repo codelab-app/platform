@@ -15,39 +15,8 @@ import {
   ResourceFragmentDoc,
 } from '@codelab/shared/infra/gql'
 
-export const GetComponentBuilderDocument = graphql(`
-  query GetComponentBuilder {
-    actionTypes {
-      ...ActionType
-    }
-    atoms(where: { type: ReactFragment }) {
-      ...AtomBuilder
-    }
-    codeMirrorTypes {
-      ...CodeMirrorType
-    }
-    components {
-      ...ComponentBuilder
-    }
-    primitiveTypes {
-      ...PrimitiveType
-    }
-    reactNodeTypes {
-      ...ReactNodeType
-    }
-    renderPropTypes {
-      ...RenderPropType
-    }
-    resources {
-      ...Resource
-    }
-    richTextTypes {
-      ...RichTextType
-    }
-  }
-`)
-
 import { type GetComponentBuilderQueryVariables } from '@codelab/shared/infra/gql'
+import { GetComponentBuilderDocument } from './component-builder.api.documents.graphql.gen'
 
 export const GetComponentBuilder = (
   variables: GetComponentBuilderQueryVariables,

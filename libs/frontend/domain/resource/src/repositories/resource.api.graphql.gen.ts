@@ -4,54 +4,18 @@ import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { ResourceFragmentDoc } from '@codelab/shared/infra/gql'
 
-export const ResourceListDocument = graphql(`
-  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {
-    aggregate: resourcesAggregate(where: $where) {
-      count
-    }
-    items: resources(options: $options, where: $where) {
-      ...Resource
-    }
-  }
-`)
-
-export const CreateResourcesDocument = graphql(`
-  mutation CreateResources($input: [ResourceCreateInput!]!) {
-    createResources(input: $input) {
-      resources {
-        id
-      }
-    }
-  }
-`)
-
-export const UpdateResourceDocument = graphql(`
-  mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
-    updateResources(update: $update, where: $where) {
-      resources {
-        id
-      }
-    }
-  }
-`)
-
-export const DeleteResourcesDocument = graphql(`
-  mutation DeleteResources(
-    $where: ResourceWhere
-    $delete: ResourceDeleteInput
-  ) {
-    deleteResources(where: $where, delete: $delete) {
-      nodesDeleted
-    }
-  }
-`)
-
 import {
   type ResourceListQueryVariables,
   type CreateResourcesMutationVariables,
   type UpdateResourceMutationVariables,
   type DeleteResourcesMutationVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  ResourceListDocument,
+  CreateResourcesDocument,
+  UpdateResourceDocument,
+  DeleteResourcesDocument,
+} from './resource.api.documents.graphql.gen'
 
 export const ResourceList = (
   variables: ResourceListQueryVariables,
