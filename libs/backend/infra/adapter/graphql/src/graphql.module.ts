@@ -14,6 +14,7 @@ import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
+import { debug } from 'console'
 
 import { GraphqlService } from './graphql.service'
 
@@ -56,7 +57,7 @@ import { GraphqlService } from './graphql.service'
           cors: true,
           debug: true,
           formatError: (formattedError: GraphQLFormattedError) => {
-            // console.error(formattedError)
+            console.error(formattedError)
 
             return formattedError
           },

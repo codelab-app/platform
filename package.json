@@ -143,6 +143,7 @@
     "@rjsf/utils": "5.18.3",
     "@rjsf/validator-ajv8": "5.18.3",
     "@sentry/nextjs": "^8",
+    "@sentry/profiling-node": "^8.33.1",
     "@sentry/react": "^8.33.1",
     "@shopify/network": "^3.3.0",
     "@shopify/react-performance": "^4.1.0",

@@ -136,7 +136,7 @@ const documents = {
     types.GetAppProductionDocument,
   '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n':
     types.CreateAtomsDocument,
-  '\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
+  '\n  mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {\n    deleteAtoms(where: $where, delete: $delete) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
     types.DeleteAtomsDocument,
   '\n  query AtomList($where: AtomWhere, $options: AtomOptions) {\n    aggregate: atomsAggregate(where: $where) {\n      count\n    }\n    items: atoms(options: $options, where: $where) {\n      ...Atom\n    }\n  }\n':
     types.AtomListDocument,
@@ -786,8 +786,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
-): (typeof documents)['\n  mutation DeleteAtoms($where: AtomWhere!) {\n    deleteAtoms(where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
+  source: '\n  mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {\n    deleteAtoms(where: $where, delete: $delete) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {\n    deleteAtoms(where: $where, delete: $delete) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -5,7 +5,7 @@ import type { SpanAttributeValue } from '@sentry/types'
 
 import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { getEnv } from '@codelab/shared/config'
-import { getActiveSpan } from '@sentry/nextjs'
+import { getActiveSpan, withServerActionInstrumentation } from '@sentry/nextjs'
 import { ObjectTyped } from 'object-typed'
 
 export const gqlFetch = async <TResult, TVariables>(
@@ -22,18 +22,23 @@ export const gqlFetch = async <TResult, TVariables>(
     })
   }
 
-  const response = await fetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
-    body: JSON.stringify({
-      query: document,
-      variables,
-    }),
-    headers: {
-      Accept: 'application/graphql-response+json',
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    next,
-  })
+  const response = await withServerActionInstrumentation(
+    document.toString(),
+    {},
+    async () =>
+      await fetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
+        body: JSON.stringify({
+          query: document,
+          variables,
+        }),
+        headers: {
+          Accept: 'application/graphql-response+json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        next,
+      }),
+  )
 
   const { data, errors } = await response.json()
 

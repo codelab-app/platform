@@ -13,7 +13,9 @@ Sentry.init({
   // Add optional integrations for additional features
   integrations: [
     // Sentry.replayIntegration(),
-    Sentry.browserTracingIntegration(),
+    Sentry.browserTracingIntegration({
+      enableInp: true,
+    }),
   ],
 
   // Define how likely Replay events are sampled when an error occurs.

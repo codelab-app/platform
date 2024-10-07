@@ -7,6 +7,7 @@ import type {
 
 import { parseQueryParamPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { withProfiler } from '@sentry/react'
 import { observer } from 'mobx-react-lite'
 import { type ReactNode, useCallback, useEffect, useState } from 'react'
 import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
@@ -19,30 +20,35 @@ interface ApplicationStoreHydratorProps {
   queryParams?: UrlQueryParamsPageProps
 }
 
-export const ApplicationStoreHydrator = observer(
-  ({
-    children,
-    fallback,
-    pathParams,
-    queryParams,
-  }: ApplicationStoreHydratorProps) => {
-    const { routerService } = useApplicationStore()
-    const [isHydrated, setIsHydrated] = useState(false)
+export const ApplicationStoreHydrator = withProfiler(
+  observer(
+    ({
+      children,
+      fallback,
+      pathParams,
+      queryParams,
+    }: ApplicationStoreHydratorProps) => {
+      const { routerService } = useApplicationStore()
+      const [isHydrated, setIsHydrated] = useState(false)
 
-    useEffect(() => {
-      console.log(queryParams)
+      useEffect(() => {
+        console.log(queryParams)
 
-      if (queryParams) {
-        routerService.setQueryParams(parseQueryParamPageProps(queryParams))
-      }
+        if (queryParams) {
+          routerService.setQueryParams(parseQueryParamPageProps(queryParams))
+        }
 
-      if (pathParams) {
-        routerService.setPathParams(pathParams)
-      }
+        if (pathParams) {
+          routerService.setPathParams(pathParams)
+        }
 
-      setIsHydrated(true)
-    }, [])
+        setIsHydrated(true)
+      }, [])
 
-    return isHydrated ? <>{children}</> : <>{fallback}</>
+      return isHydrated ? <>{children}</> : <>{fallback}</>
+    },
+  ),
+  {
+    name: 'ApplicationStoreHydrator',
   },
 )

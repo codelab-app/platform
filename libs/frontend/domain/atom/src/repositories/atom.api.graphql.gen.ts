@@ -19,8 +19,8 @@ export const CreateAtomsDocument = graphql(`
 `)
 
 export const DeleteAtomsDocument = graphql(`
-  mutation DeleteAtoms($where: AtomWhere!) {
-    deleteAtoms(where: $where) {
+  mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {
+    deleteAtoms(where: $where, delete: $delete) {
       nodesDeleted
       relationshipsDeleted
     }

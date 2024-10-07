@@ -27877,6 +27877,7 @@ export type CreateAtomsMutation = {
 
 export type DeleteAtomsMutationVariables = Exact<{
   where: AtomWhere
+  delete?: InputMaybe<AtomDeleteInput>
 }>
 
 export type DeleteAtomsMutation = {
@@ -34386,8 +34387,8 @@ export const CreateAtomsDocument = new TypedDocumentString(`
   CreateAtomsMutationVariables
 >
 export const DeleteAtomsDocument = new TypedDocumentString(`
-    mutation DeleteAtoms($where: AtomWhere!) {
-  deleteAtoms(where: $where) {
+    mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {
+  deleteAtoms(where: $where, delete: $delete) {
     nodesDeleted
     relationshipsDeleted
   }

@@ -10,8 +10,8 @@ mutation CreateAtoms($input: [AtomCreateInput!]!) {
   }
 }
 
-mutation DeleteAtoms($where: AtomWhere!) {
-  deleteAtoms(where: $where) {
+mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {
+  deleteAtoms(where: $where, delete: $delete) {
     nodesDeleted
     relationshipsDeleted
   }
