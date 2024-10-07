@@ -20,7 +20,6 @@
     "**/*.spec.js",
     "**/*.test.jsx",
     "**/*.spec.jsx",
-    "**/*.d.ts",
-    "../infra/schema/src/schema/ref.utils.spec.ts"
+    "**/*.d.ts"
   ]
 }

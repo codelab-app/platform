@@ -5,6 +5,10 @@
     "declaration": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "../infra/schema/src/schema/ref.utils.spec.ts"],
+  "include": [
+    "src/**/*.ts",
+    "../domain/module/atom/src/atoms.ts",
+    "../domain/module/atom/src/index.ts"
+  ],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

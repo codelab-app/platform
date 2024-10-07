@@ -17,7 +17,7 @@ import {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
-import { breakpoints } from '@codelab/shared/domain'
+import { breakpoints } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 

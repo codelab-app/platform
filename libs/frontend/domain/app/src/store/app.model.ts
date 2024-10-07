@@ -19,7 +19,7 @@ import {
 import { Domain } from '@codelab/frontend-domain-domain/store'
 import { Page } from '@codelab/frontend-domain-page/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { AppProperties, connectOwner } from '@codelab/shared/domain'
+import { AppProperties, connectOwner } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'

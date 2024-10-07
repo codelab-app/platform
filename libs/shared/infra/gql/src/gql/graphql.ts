@@ -27864,36 +27864,6 @@ export type GetAppProductionQuery = {
   resources: Array<ResourceFragment>
 }
 
-export type CreateAtomsMutationVariables = Exact<{
-  input: Array<AtomCreateInput> | AtomCreateInput
-}>
-
-export type CreateAtomsMutation = {
-  createAtoms: {
-    atoms: Array<{ id: string }>
-    info: { nodesCreated: number; relationshipsCreated: number }
-  }
-}
-
-export type DeleteAtomsMutationVariables = Exact<{
-  where: AtomWhere
-  delete?: InputMaybe<AtomDeleteInput>
-}>
-
-export type DeleteAtomsMutation = {
-  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type AtomListQueryVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  options?: InputMaybe<AtomOptions>
-}>
-
-export type AtomListQuery = {
-  aggregate: { count: number }
-  items: Array<AtomFragment>
-}
-
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
@@ -27904,15 +27874,6 @@ export type GetSelectAtomOptionsQuery = {
     type: AtomType
     requiredParents: Array<{ id: string; type: AtomType }>
   }>
-}
-
-export type UpdateAtomsMutationVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  update?: InputMaybe<AtomUpdateInput>
-}>
-
-export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
 }
 
 export type GetAuthGuardsQueryVariables = Exact<{
@@ -29121,6 +29082,45 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
+}
+
+export type CreateAtomsMutationVariables = Exact<{
+  input: Array<AtomCreateInput> | AtomCreateInput
+}>
+
+export type CreateAtomsMutation = {
+  createAtoms: {
+    atoms: Array<{ id: string }>
+    info: { nodesCreated: number; relationshipsCreated: number }
+  }
+}
+
+export type DeleteAtomsMutationVariables = Exact<{
+  where: AtomWhere
+  delete?: InputMaybe<AtomDeleteInput>
+}>
+
+export type DeleteAtomsMutation = {
+  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
+}
+
+export type AtomListQueryVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
+}>
+
+export type AtomListQuery = {
+  aggregate: { count: number }
+  items: Array<AtomFragment>
+}
+
+export type UpdateAtomsMutationVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  update?: InputMaybe<AtomUpdateInput>
+}>
+
+export type UpdateAtomsMutation = {
+  updateAtoms: { atoms: Array<{ id: string }> }
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -34370,128 +34370,6 @@ fragment Owner on User {
   GetAppProductionQuery,
   GetAppProductionQueryVariables
 >
-export const CreateAtomsDocument = new TypedDocumentString(`
-    mutation CreateAtoms($input: [AtomCreateInput!]!) {
-  createAtoms(input: $input) {
-    atoms {
-      id
-    }
-    info {
-      nodesCreated
-      relationshipsCreated
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateAtomsMutation,
-  CreateAtomsMutationVariables
->
-export const DeleteAtomsDocument = new TypedDocumentString(`
-    mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {
-  deleteAtoms(where: $where, delete: $delete) {
-    nodesDeleted
-    relationshipsDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteAtomsMutation,
-  DeleteAtomsMutationVariables
->
-export const AtomListDocument = new TypedDocumentString(`
-    query AtomList($where: AtomWhere, $options: AtomOptions) {
-  aggregate: atomsAggregate(where: $where) {
-    count
-  }
-  items: atoms(options: $options, where: $where) {
-    ...Atom
-  }
-}
-    fragment Atom on Atom {
-  __typename
-  api {
-    ...InterfaceType
-  }
-  externalCssSource
-  externalJsSource
-  externalSourceType
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  tags {
-    ...Tag
-  }
-  type
-}
-fragment Tag on Tag {
-  children {
-    id
-    name
-  }
-  descendants {
-    id
-    name
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  parent {
-    id
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
 export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
     query GetSelectAtomOptions {
   atoms {
@@ -34508,18 +34386,6 @@ export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   GetSelectAtomOptionsQuery,
   GetSelectAtomOptionsQueryVariables
->
-export const UpdateAtomsDocument = new TypedDocumentString(`
-    mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
-  updateAtoms(update: $update, where: $where) {
-    atoms {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateAtomsMutation,
-  UpdateAtomsMutationVariables
 >
 export const GetAuthGuardsDocument = new TypedDocumentString(`
     query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {
@@ -39253,4 +39119,138 @@ export const CreateUserDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreateUserMutation,
   CreateUserMutationVariables
+>
+export const CreateAtomsDocument = new TypedDocumentString(`
+    mutation CreateAtoms($input: [AtomCreateInput!]!) {
+  createAtoms(input: $input) {
+    atoms {
+      id
+    }
+    info {
+      nodesCreated
+      relationshipsCreated
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateAtomsMutation,
+  CreateAtomsMutationVariables
+>
+export const DeleteAtomsDocument = new TypedDocumentString(`
+    mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {
+  deleteAtoms(where: $where, delete: $delete) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteAtomsMutation,
+  DeleteAtomsMutationVariables
+>
+export const AtomListDocument = new TypedDocumentString(`
+    query AtomList($where: AtomWhere, $options: AtomOptions) {
+  aggregate: atomsAggregate(where: $where) {
+    count
+  }
+  items: atoms(options: $options, where: $where) {
+    ...Atom
+  }
+}
+    fragment Atom on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
+export const UpdateAtomsDocument = new TypedDocumentString(`
+    mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
+  updateAtoms(update: $update, where: $where) {
+    atoms {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateAtomsMutation,
+  UpdateAtomsMutationVariables
 >

@@ -14,7 +14,7 @@ import {
   IBreakpointType,
   type IPreferenceDto,
 } from '@codelab/shared/abstract/core'
-import { breakpoints } from '@codelab/shared/domain'
+import { breakpoints } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 

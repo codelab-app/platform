@@ -29,7 +29,7 @@ import {
   connectNodeId,
   PageProperties,
   reconnectNodeId,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

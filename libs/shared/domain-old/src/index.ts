@@ -1,6 +1,5 @@
 export * from './action.mapper'
 export * from './app/app.properties'
-export * from './atom'
 export * from './breakpoints'
 export * from './component/component.properties'
 export * from './element/element.properties'

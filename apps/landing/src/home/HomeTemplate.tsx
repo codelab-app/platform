@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactElement } from 'react'
 
-import { breakpoints } from '@codelab/shared/domain'
+import { breakpoints } from '@codelab/shared/domain-old'
 import { useMediaQuery } from 'react-responsive'
 import { useRecoilValue } from 'recoil'
 

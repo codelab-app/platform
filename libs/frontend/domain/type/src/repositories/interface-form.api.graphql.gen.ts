@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 
 export const InterfaceForm_GetAppsDocument = graphql(`
   query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {

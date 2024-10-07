@@ -32,7 +32,7 @@ import {
   disconnectNodeId,
   ElementProperties,
   reconnectNodeId,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import {
   ElementCreateInput,
   ElementUpdateInput,

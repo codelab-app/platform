@@ -1,8 +1,5 @@
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import {
-  atomListQuery,
-  atomRepository,
-} from '@codelab/frontend-domain-atom/repositories'
+import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 

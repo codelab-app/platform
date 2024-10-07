@@ -17,7 +17,7 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/shared/domain',
+  coverageDirectory: '../../../coverage/libs/shared/domain-old',
   reporters: [
     'default',
     [

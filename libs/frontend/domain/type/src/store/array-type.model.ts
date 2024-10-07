@@ -10,7 +10,7 @@ import type { Ref } from 'mobx-keystone'
 
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain-old'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 

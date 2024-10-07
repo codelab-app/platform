@@ -1,7 +1,7 @@
 import type { OGM } from '@neo4j/graphql-ogm'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain-old'
 import { logger } from '@codelab/shared/infra/logging'
 import { capitalizeFirstLetter, titleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'

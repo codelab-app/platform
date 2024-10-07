@@ -83,7 +83,10 @@ const config: Types.Config = {
      * We create our own plugin as a layer on top of client preset, to wrap doucments with `graphql`
      */
     './': {
-      documents: ['libs/frontend/**/*.{api,fragment}.graphql'],
+      documents: [
+        'libs/frontend/**/*.{api,fragment}.graphql',
+        'libs/shared/domain/**/*.{api,fragment}.graphql',
+      ],
       preset: 'near-operation-file',
       presetConfig: {
         importAllFragmentsFrom: '~@codelab/shared/infra/gql',

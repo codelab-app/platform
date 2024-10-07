@@ -1,6 +1,6 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNode } from '@codelab/shared/domain'
+import { connectNode } from '@codelab/shared/domain-old'
 import { titleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 

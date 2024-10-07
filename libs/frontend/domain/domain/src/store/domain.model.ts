@@ -7,7 +7,7 @@ import type {
   ProductionDomainConfig,
 } from '@codelab/shared/infra/gql'
 
-import { connectNodeId } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

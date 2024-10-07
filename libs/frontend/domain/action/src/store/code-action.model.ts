@@ -3,7 +3,7 @@ import type { ICodeActionDto } from '@codelab/shared/abstract/core'
 
 import { storeRef } from '@codelab/frontend/abstract/domain'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain-old'
 import {
   CodeActionCreateInput,
   CodeActionDeleteInput,

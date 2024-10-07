@@ -17,7 +17,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { IFieldDto } from '@codelab/shared/abstract/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain-old'
 import { FieldUpdateInput } from '@codelab/shared/infra/gql'
 import { titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'

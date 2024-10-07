@@ -21,7 +21,7 @@ import {
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (

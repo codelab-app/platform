@@ -8,7 +8,7 @@ import {
   type IUpdateTypeVars,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import { connectOwner } from '@codelab/shared/domain'
+import { connectOwner } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

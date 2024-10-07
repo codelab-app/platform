@@ -21,7 +21,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { createStoreName } from '@codelab/shared/domain'
+import { createStoreName } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

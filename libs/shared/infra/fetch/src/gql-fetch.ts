@@ -3,10 +3,11 @@
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 import type { SpanAttributeValue } from '@sentry/types'
 
-import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { getEnv } from '@codelab/shared/config'
 import { getActiveSpan, withServerActionInstrumentation } from '@sentry/nextjs'
 import { ObjectTyped } from 'object-typed'
+
+import { fetchWithAuth } from './fetch-with-auth'
 
 export const gqlFetch = async <TResult, TVariables>(
   // use `.toString()` version of `TypedDocumentString`

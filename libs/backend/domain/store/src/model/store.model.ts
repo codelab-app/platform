@@ -8,7 +8,7 @@ import type {
 import { ActionModelFactory } from '@codelab/backend/domain/action'
 import { InterfaceType } from '@codelab/backend/domain/type'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { createStoreName } from '@codelab/shared/domain'
+import { createStoreName } from '@codelab/shared/domain-old'
 import { v4 } from 'uuid'
 
 export class Store implements IStore {

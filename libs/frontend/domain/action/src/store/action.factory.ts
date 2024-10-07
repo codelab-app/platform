@@ -9,7 +9,7 @@ import {
   IApiActionDto,
   ICodeActionDto,
 } from '@codelab/shared/abstract/core'
-import { ActionMapper } from '@codelab/shared/domain'
+import { ActionMapper } from '@codelab/shared/domain-old'
 import {
   ActionFragment,
   ApiActionFragment,

@@ -13,16 +13,15 @@ import {
   filterNotHookType,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
-import { withTracingMethods } from '@codelab/shared-infra-sentry'
-import { prop, sortBy } from 'remeda'
-
 import {
   AtomList,
   CreateAtoms,
   DeleteAtoms,
   GetSelectAtomOptions,
   UpdateAtoms,
-} from './atom.api.graphql.gen'
+} from '@codelab/shared-domain-module-atom/server'
+import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { prop, sortBy } from 'remeda'
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   add: async (atom: IAtomModel) => {

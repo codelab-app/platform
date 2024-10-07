@@ -13,7 +13,7 @@ import {
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

@@ -1,7 +1,7 @@
 import type { Element } from '@codelab/shared/infra/gql'
 import type { IFieldResolver } from '@graphql-tools/utils'
 
-import { ElementProperties } from '@codelab/shared/domain'
+import { ElementProperties } from '@codelab/shared/domain-old'
 
 /**
  * Takes the name and slugify it

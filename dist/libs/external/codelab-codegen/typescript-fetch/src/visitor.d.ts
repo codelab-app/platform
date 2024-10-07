@@ -1,6 +1,6 @@
 import type { ClientSideBasePluginConfig, LoadedFragment } from '@graphql-codegen/visitor-plugin-common';
-import { ClientSideBaseVisitor } from '@graphql-codegen/visitor-plugin-common';
 import type { GraphQLSchema, OperationDefinitionNode } from 'graphql';
+import { ClientSideBaseVisitor } from '@graphql-codegen/visitor-plugin-common';
 import type { RawGraphQLRequestPluginConfig } from './config.js';
 export interface GraphQLRequestPluginConfig extends ClientSideBasePluginConfig {
 }

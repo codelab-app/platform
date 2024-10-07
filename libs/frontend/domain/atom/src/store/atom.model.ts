@@ -19,16 +19,18 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import {
-  antdAtoms,
-  codelabAtoms,
   connectNodeId,
   connectNodeIds,
   connectOwner,
+  reconnectNodeIds,
+} from '@codelab/shared/domain-old'
+import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
+import {
+  antdAtoms,
+  codelabAtoms,
   htmlAtoms,
   reactAtoms,
-  reconnectNodeIds,
-} from '@codelab/shared/domain'
-import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
+} from '@codelab/shared-domain-module-atom'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement } from 'react'

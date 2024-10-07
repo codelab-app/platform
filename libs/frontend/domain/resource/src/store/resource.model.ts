@@ -15,7 +15,7 @@ import {
   type IResourceModel,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { connectOwner, getResourceClient } from '@codelab/shared/domain'
+import { connectOwner, getResourceClient } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

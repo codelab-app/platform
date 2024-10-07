@@ -1,7 +1,7 @@
 {
-  "name": "shared-domain",
+  "name": "shared-domain-old",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/domain/src",
+  "sourceRoot": "libs/shared/domain-old/src",
   "projectType": "library",
   "tags": [
     "projectName:shared-domain",
@@ -15,9 +15,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/shared/domain"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/domain-old"],
       "options": {
-        "jestConfig": "libs/shared/domain/jest.config.ts",
+        "jestConfig": "libs/shared/domain-old/jest.config.ts",
         "reporters": ["default"],
         "runInBand": true
       }

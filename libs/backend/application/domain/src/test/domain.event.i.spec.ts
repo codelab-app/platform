@@ -11,7 +11,7 @@ import {
 } from '@codelab/backend/infra/adapter/graphql'
 import { initUserContext } from '@codelab/backend/test'
 import { userDto } from '@codelab/shared/data/test'
-import { connectNodeId } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain-old'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import * as env from 'env-var'
 import { v4 } from 'uuid'

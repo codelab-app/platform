@@ -18,7 +18,7 @@ import {
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import { slugify } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 
