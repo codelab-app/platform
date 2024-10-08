@@ -13,6 +13,8 @@ const withBundleAnalyzer = bundleAnalyzer({
   // openAnalyzer: false,
 })
 
+const enableInstrumentation = Boolean(process.env.NEXT_WEB_ENABLE_OTEL)
+
 const sentryConfig = (nextConfig) =>
   withSentryConfig(nextConfig, {
     autoInstrumentMiddleware: false,
@@ -43,18 +45,23 @@ const sentryConfig = (nextConfig) =>
     // Only print logs for uploading source maps in CI
     silent: !process.env.CI,
 
+    telemetry: process.env.CI ? false : true,
+
     // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
     // This can increase your server load as well as your hosting bill.
     // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
     // side errors will fail.
     tunnelRoute: '/monitoring',
+
     // For all available options, see:
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
     // Upload a larger set of source maps for prettier stack traces (increases build time)
     widenClientFileUpload: true,
   })
 
-const plugins = [withNx, withBundleAnalyzer, sentryConfig]
+const plugins = enableInstrumentation
+  ? [withNx, withBundleAnalyzer, sentryConfig]
+  : [withNx, withBundleAnalyzer]
 
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
@@ -74,7 +81,7 @@ const nextConfig = {
     // https://nextjs.org/docs/messages/import-esm-externals
     // forceSwcTransforms: true,
     // typedRoutes: true,
-    // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
+    instrumentationHook: enableInstrumentation,
   },
   nx: { svgr: true },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
