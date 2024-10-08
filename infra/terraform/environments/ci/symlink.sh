@@ -16,6 +16,7 @@ ln -s ../shared/vars-do-access-token.tf ./vars-do-access-token.symlink.tf
 ln -s ../shared/vars-do-api-token.tf ./vars-do-api-token.symlink.tf
 ln -s ../shared/vars-do-droplet-name.tf ./vars-do-droplet-name.symlink.tf
 ln -s ../shared/vars-circleci-token.tf ./vars-circleci-token.symlink.tf
+ln -s ../shared/vars-sentry.tf ./vars-sentry.symlink.tf
 ln -s ../shared/vars-docker-tag-version.tf ./vars-docker-tag-version.symlink.tf
 
 

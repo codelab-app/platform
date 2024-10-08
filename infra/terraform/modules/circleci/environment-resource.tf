@@ -31,7 +31,7 @@ resource "circleci_environment_variable" "env_vars" {
     DIGITALOCEAN_API_TOKEN    = var.digitalocean_api_token
     DIGITALOCEAN_DROPLET_NAME = var.digitalocean_droplet_name
     DOCKER_TAG_VERSION        = var.docker_tag_version
-
+    SENTRY_AUTH_TOKEN         = var.sentry_auth_token
   }
 
   name         = each.key

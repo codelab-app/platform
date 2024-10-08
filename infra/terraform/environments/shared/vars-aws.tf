@@ -1,5 +1,3 @@
-
-
 variable "AWS_ACCESS_TOKEN" {
   type = string
 }
