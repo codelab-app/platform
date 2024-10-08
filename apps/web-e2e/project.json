@@ -32,7 +32,10 @@
         "ui": true
       },
       "configurations": {
-        "test": {}
+        "test": {
+          "fullyParallel": false,
+          "workers": 1
+        }
       }
     },
     "lint": {

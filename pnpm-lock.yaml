@@ -1167,6 +1167,9 @@ importers:
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@18.19.9)(babel-plugin-macros@3.1.0)(ts-node@10.9.1(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@18.19.9)(typescript@5.5.4))
+      jest-dev-server:
+        specifier: ^10.1.1
+        version: 10.1.1
       jest-environment-jsdom:
         specifier: 29.7.0
         version: 29.7.0
@@ -12285,6 +12288,10 @@ packages:
       ts-node:
         optional: true
 
+  jest-dev-server@10.1.1:
+    resolution: {integrity: sha512-Yk9gmW/io2udONlhdrsC69ZGYM2CISvGItyYk9zD5QK3tGq8ZAJP27NDHma4hI6ey/zcaiqbrDkIf7dmpHq86w==}
+    engines: {node: '>=16'}
+
   jest-diff@28.1.3:
     resolution: {integrity: sha512-8RqP1B/OXzjjTWkqMX67iqgwBVJRgCyKD3L9nq+6ZqJMdvjE8RgHktqZ6jNrkdMT+dJuYNI3rhQpxaz7drJHfw==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
@@ -15903,6 +15910,10 @@ packages:
   spawn-wrap@2.0.0:
     resolution: {integrity: sha512-EeajNjfN9zMnULLwhZZQU3GWBoFNkbngTUPfaawT4RkMiviTxcX0qfhVbGey39mfctfDHkWtuecgQ8NJcyQWHg==}
     engines: {node: '>=8'}
+
+  spawnd@10.1.1:
+    resolution: {integrity: sha512-kTim9sz8KuKX7ZcO8imlvEvbaJmFtFhT5tKS0WP5FRlmWLH5Pd9qj9u29nbMrvDcJPj8ltwOG+QAiZq928GKCw==}
+    engines: {node: '>=16'}
 
   spawnd@5.0.0:
     resolution: {integrity: sha512-28+AJr82moMVWolQvlAIv3JcYDkjkFTEmfDc503wxrF5l2rQ3dFz6DpbXp3kD4zmgGGldfM4xM4v1sFj/ZaIOA==}
@@ -33226,6 +33237,19 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
+  jest-dev-server@10.1.1:
+    dependencies:
+      chalk: 4.1.2
+      cwd: 0.10.0
+      find-process: 1.4.7
+      prompts: 2.4.2
+      spawnd: 10.1.1
+      tree-kill: 1.2.2
+      wait-on: 7.2.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
   jest-diff@28.1.3:
     dependencies:
       chalk: 4.1.2
@@ -37522,6 +37546,11 @@ snapshots:
       rimraf: 3.0.2
       signal-exit: 3.0.7
       which: 2.0.2
+
+  spawnd@10.1.1:
+    dependencies:
+      signal-exit: 4.1.0
+      tree-kill: 1.2.2
 
   spawnd@5.0.0:
     dependencies:
