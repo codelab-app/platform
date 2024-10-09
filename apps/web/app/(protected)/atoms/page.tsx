@@ -1,11 +1,5 @@
 const Page = () => {
-  return (
-    <>
-      {/* <DeleteAtomsModal />
-      <CreateFieldModal />
-      <DeleteFieldModal /> */}
-    </>
-  )
+  return null
 }
 
 export default Page

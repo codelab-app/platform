@@ -11,6 +11,7 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
@@ -24,7 +25,7 @@ interface UpdateAtomFormProps extends IFormController {
 }
 
 export const UpdateAtomForm = observer<UpdateAtomFormProps>(
-  ({ atom, onSubmitSuccess, submitRef }) => {
+  ({ atom, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const { tagDomainService } = useDomainStore()
     const atomService = useAtomService()
 
@@ -51,7 +52,7 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
       suggestedChildren: atom.suggestedChildren.map(
         (suggestedChild) => suggestedChild,
       ),
-      tags: atom.tags,
+      tags: atom.tags.map((tag) => tag.current),
       type: atom.type,
     }
 
@@ -96,7 +97,9 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
         <SelectAtom label="Suggested Children" name="suggestedChildren" />
         <SelectAtom label="Required Parents" name="requiredParents" />
 
-        <FormController submitLabel="Update Atom" />
+        <DisplayIf condition={showFormControl}>
+          <FormController submitLabel="Update Atom" />
+        </DisplayIf>
       </Form>
     )
   },

@@ -53,6 +53,7 @@ export const DomainStoreHydrator = withProfiler(
         redirectDomainService,
         resourceDomainService,
         storeDomainService,
+        tagDomainService,
         typeDomainService,
       } = useDomainStore()
 
@@ -60,6 +61,10 @@ export const DomainStoreHydrator = withProfiler(
 
       const hydrate = useCallback(() => {
         atomsDto?.forEach((atom) => atomDomainService.hydrate(atom))
+
+        const tagsDto = atomsDto?.flatMap((atom) => atom.tags)
+
+        tagsDto?.forEach((tag) => tagDomainService.hydrate(tag))
 
         typesDto?.forEach((type) => typeDomainService.hydrate(type))
 

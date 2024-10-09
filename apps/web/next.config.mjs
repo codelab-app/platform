@@ -13,7 +13,7 @@ const withBundleAnalyzer = bundleAnalyzer({
   // openAnalyzer: false,
 })
 
-const enableInstrumentation = Boolean(process.env.NEXT_WEB_ENABLE_OTEL)
+const enableInstrumentation = get('NEXT_WEB_ENABLE_OTEL').asBool()
 
 const sentryConfig = (nextConfig) =>
   withSentryConfig(nextConfig, {

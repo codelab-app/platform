@@ -2,7 +2,6 @@ import type { UrlQueryParamsPageProps } from '@codelab/frontend/abstract/types'
 
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { AtomsPrimarySidebar } from '@codelab/frontend-application-atom/views'
-import { useUrlQueryParams } from '@codelab/frontend-application-shared-store/router'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 const Page = ({
@@ -10,6 +9,8 @@ const Page = ({
 }: {
   searchParams: UrlQueryParamsPageProps
 }) => {
+  console.log({ filter, page, pageSize, primarySidebarKey, search })
+
   return (
     <ApplicationStoreHydrator
       fallback={<Spinner />}

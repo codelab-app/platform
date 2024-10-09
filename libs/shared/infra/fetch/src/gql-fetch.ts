@@ -17,11 +17,11 @@ export const gqlFetch = async <TResult, TVariables>(
 ) => {
   const span = getActiveSpan()
 
-  if (span && variables) {
-    ObjectTyped.entries(variables).forEach(([key, value]) => {
-      span.setAttributes({ [key]: value as SpanAttributeValue })
-    })
-  }
+  // if (span && variables) {
+  //   ObjectTyped.entries(variables).forEach(([key, value]) => {
+  //     span.setAttributes({ [key]: value as SpanAttributeValue })
+  //   })
+  // }
 
   const response = await withServerActionInstrumentation(
     document.toString(),

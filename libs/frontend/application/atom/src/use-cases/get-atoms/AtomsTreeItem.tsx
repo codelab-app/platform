@@ -35,8 +35,6 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   const router = useRouter()
 
   const onEdit = () => {
-    console.log('on edit')
-
     if (type === 'atom') {
       router.push(PageType.AtomUpdate(node))
     } else {

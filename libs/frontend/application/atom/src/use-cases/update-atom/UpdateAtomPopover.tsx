@@ -27,11 +27,11 @@ export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
           {
             cuiKey: UiKey.AtomToolbarItemCreate,
             icon: <SaveOutlined />,
-            label: 'Create',
+            label: 'Update',
             onClick: () => {
               submitRef.current?.submit()
             },
-            title: 'Create',
+            title: 'Update',
           },
           {
             cuiKey: UiKey.AtomToolbarItemCreateCancel,
@@ -49,6 +49,7 @@ export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
       <UpdateAtomForm
         atom={atom}
         onSubmitSuccess={() => atomPopoverUpdate.close(router)}
+        showFormControl={false}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>

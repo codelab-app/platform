@@ -19,7 +19,6 @@ import { useUpdatePageForm } from './update-page.state'
 
 export const UpdatePageForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { appDomainService } = useDomainStore()
     const pageService = usePageService()
     const updatePageForm = useUpdatePageForm()
     const pageToUpdate = updatePageForm.data?.current

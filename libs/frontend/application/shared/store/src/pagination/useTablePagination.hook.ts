@@ -9,6 +9,9 @@ import type {
 import type { TablePaginationConfig } from 'antd'
 
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
+import * as Sentry from '@sentry/react'
+import { addBreadcrumb } from '@sentry/react'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { useEffect } from 'react'
@@ -50,14 +53,30 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
   }, [])
 
   useDeepCompareEffect(() => {
-    console.log(
-      'getData',
-      routerService.page,
-      routerService.pageSize,
-      routerService.search,
-      routerService.filter,
-    )
-    void paginationService.getData()
+    // addBreadcrumb({
+    //   category: 'auth',
+    //   level: 'info',
+    //   message: 'Authenticated user ',
+    // })
+    console.log('getData', {
+      filter: routerService.filter,
+      page: routerService.page,
+      pageSize: routerService.pageSize,
+      search: routerService.search,
+    })
+    void withAsyncSpanFunc(
+      {
+        attributes: {
+          filter: routerService.filter,
+          page: routerService.page,
+          pageSize: routerService.pageSize,
+          search: routerService.search,
+        },
+        name: 'paginationService.getData()',
+        op: 'codelab.pagination',
+      },
+      () => paginationService.getData(),
+    )()
   }, [
     routerService.page,
     routerService.pageSize,
