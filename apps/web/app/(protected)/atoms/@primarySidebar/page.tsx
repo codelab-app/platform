@@ -9,8 +9,6 @@ const Page = ({
 }: {
   searchParams: UrlQueryParamsPageProps
 }) => {
-  console.log({ filter, page, pageSize, primarySidebarKey, search })
-
   return (
     <ApplicationStoreHydrator
       fallback={<Spinner />}

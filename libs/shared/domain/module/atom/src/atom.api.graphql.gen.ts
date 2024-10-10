@@ -42,4 +42,4 @@ export const GetSelectAtomOptions = (
 export const UpdateAtoms = (
   variables: UpdateAtomsMutationVariables,
   next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateAtomsDocument.toString(), variables, next)
+) => gqlFetch(UpdateAtomsDocument.toString(), variables, next, callback)

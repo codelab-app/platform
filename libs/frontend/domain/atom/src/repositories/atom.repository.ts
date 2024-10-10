@@ -21,6 +21,7 @@ import {
   UpdateAtoms,
 } from '@codelab/shared-domain-module-atom/server'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { revalidateTag } from 'next/cache'
 import { prop, sortBy } from 'remeda'
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
@@ -69,10 +70,15 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   update: async (atom: IAtomModel) => {
     const {
       updateAtoms: { atoms },
-    } = await UpdateAtoms({
-      update: atom.toUpdateInput(),
-      where: { id: atom.id },
-    })
+    } = await UpdateAtoms(
+      {
+        update: atom.toUpdateInput(),
+        where: { id: atom.id },
+      },
+      {
+        // revalidateTag,
+      },
+    )
 
     const updatedAtom = atoms[0]
 

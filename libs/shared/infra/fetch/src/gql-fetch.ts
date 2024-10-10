@@ -5,6 +5,7 @@ import type { SpanAttributeValue } from '@sentry/types'
 
 import { getEnv } from '@codelab/shared/config'
 import { getActiveSpan, withServerActionInstrumentation } from '@sentry/nextjs'
+import { revalidateTag } from 'next/cache'
 import { ObjectTyped } from 'object-typed'
 
 import { fetchWithAuth } from './fetch-with-auth'
@@ -14,6 +15,10 @@ export const gqlFetch = async <TResult, TVariables>(
   document: DocumentTypeDecoration<TResult, TVariables>,
   variables: TVariables,
   next?: NextFetchRequestConfig,
+  /**
+   * Place where we can call `revalidateTag` on the server side
+   */
+  options?: { revalidateTag?: string },
 ) => {
   const span = getActiveSpan()
 
@@ -38,6 +43,12 @@ export const gqlFetch = async <TResult, TVariables>(
         },
         method: 'POST',
         next,
+      }).then((res) => {
+        if (options?.revalidateTag) {
+          revalidateTag(options.revalidateTag)
+        }
+
+        return res
       }),
   )
 

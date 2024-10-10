@@ -171,16 +171,16 @@ export const useAtomService = (): IAtomService => {
 
     Validator.assertsDefined(atom)
 
-    atom.writeCache({
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      name,
-      requiredParents: requiredParents.map((child) => ({ id: child.id })),
-      suggestedChildren: suggestedChildren.map((child) => ({ id: child.id })),
-      tags,
-      type,
-    })
+    // atom.writeCache({
+    //   externalCssSource,
+    //   externalJsSource,
+    //   externalSourceType,
+    //   name,
+    //   requiredParents: requiredParents.map((child) => ({ id: child.id })),
+    //   suggestedChildren: suggestedChildren.map((child) => ({ id: child.id })),
+    //   tags,
+    //   type,
+    // })
 
     await atomRepository.update(atom)
 
@@ -205,7 +205,7 @@ export const useAtomService = (): IAtomService => {
 
   const atomPopoverUpdate = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Atoms())
+      router.push(`${PageType.Atoms()}${window.location.search}`)
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.AtomCreate())

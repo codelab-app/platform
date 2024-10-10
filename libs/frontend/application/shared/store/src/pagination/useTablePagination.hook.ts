@@ -52,37 +52,35 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     })
   }, [])
 
-  useDeepCompareEffect(() => {
-    // addBreadcrumb({
-    //   category: 'auth',
-    //   level: 'info',
-    //   message: 'Authenticated user ',
-    // })
-    console.log('getData', {
-      filter: routerService.filter,
-      page: routerService.page,
-      pageSize: routerService.pageSize,
-      search: routerService.search,
-    })
-    void withAsyncSpanFunc(
-      {
-        attributes: {
-          filter: routerService.filter,
-          page: routerService.page,
-          pageSize: routerService.pageSize,
-          search: routerService.search,
+  useEffect(
+    () => {
+      console.log({
+        filter: routerService.filter,
+        page: routerService.page,
+        pageSize: routerService.pageSize,
+        search: routerService.search,
+      })
+      void withAsyncSpanFunc(
+        {
+          attributes: {
+            filter: routerService.filter,
+            page: routerService.page,
+            pageSize: routerService.pageSize,
+            search: routerService.search,
+          },
+          name: 'paginationService.getData()',
+          op: 'codelab.pagination',
         },
-        name: 'paginationService.getData()',
-        op: 'codelab.pagination',
-      },
-      () => paginationService.getData(),
-    )()
-  }, [
-    routerService.page,
-    routerService.pageSize,
-    routerService.search,
-    routerService.filter,
-  ])
+        () => paginationService.getData(),
+      )()
+    },
+    [
+      // routerService.page,
+      // routerService.pageSize,
+      // routerService.search,
+      // routerService.filter,
+    ],
+  )
 
   const pagination: TablePaginationConfig = {
     current: routerService.page,
