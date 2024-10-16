@@ -56,6 +56,7 @@ export const BuilderClickOverlay = observer<{
 
   const element = selectedNode.element.current
   const domElement = queryRenderedElementById(element.id)
+  const supportsTextEditing = element.children.length === 0
 
   if (!domElement || !renderContainerRef.current) {
     return null
@@ -102,31 +103,39 @@ export const BuilderClickOverlay = observer<{
             </div>
           </div>
         </MakeChildrenDraggable>
-        <div
-          className={`
+        {supportsTextEditing && (
+          <div
+            className={`
             flex size-7 cursor-pointer
             items-center justify-center align-middle
           `}
-          onClick={(event) => {
-            event.stopPropagation()
-            element.setIsTextContentEditable(!element.isTextContentEditable)
-          }}
-        >
-          <div
-            aria-label="Toggle Content Editing"
-            className={`
+            onClick={(event) => {
+              event.stopPropagation()
+              element.setIsTextContentEditable(!element.isTextContentEditable)
+            }}
+          >
+            <div
+              aria-label="Toggle Content Editing"
+              className={`
               flex size-5 items-center
               justify-center rounded-full align-middle
             `}
-            style={{ backgroundColor: '#375583', color: 'white' }}
-          >
-            {element.isTextContentEditable ? (
-              <CheckOutlined />
-            ) : (
-              <EditOutlined />
-            )}
+              style={{ backgroundColor: '#375583', color: 'white' }}
+            >
+              <div
+                aria-label="Toggle Content Editing"
+                className="flex size-5 items-center justify-center rounded-full align-middle"
+                style={{ backgroundColor: '#375583', color: 'white' }}
+              >
+                {element.isTextContentEditable ? (
+                  <CheckOutlined />
+                ) : (
+                  <EditOutlined />
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </StyledOverlayButtonGroup>
       <StyledSpan>{element.name}</StyledSpan>
     </StyledOverlayContainer>

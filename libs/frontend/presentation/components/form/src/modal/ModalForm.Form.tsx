@@ -1,16 +1,13 @@
 'use client'
 
-import type { FormProps, VoidCallback } from '@codelab/frontend/abstract/types'
+import type { FormProps } from '@codelab/frontend/abstract/types'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ReactElement } from 'react'
-import type { ArrayOrSingle } from 'ts-essentials'
-
 import {
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
-import { throttle } from 'radash'
 import { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
@@ -18,15 +15,10 @@ import { AutoForm } from 'uniforms-antd'
 import { usePostSubmit, useSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
-export interface OptimisticFormProps<TData, TResponse>
-  extends React.PropsWithChildren<
-    // Only standalone form should have `uiKey`
-    Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
-  > {
-  errorMessage?: string
-  onSubmitOptimistic?: ArrayOrSingle<VoidCallback<Promise<TResponse>>>
-  successMessage?: string
-}
+export type OptimisticFormProps<TData, TResponse> = React.PropsWithChildren<
+  // Only standalone form should have `uiKey`
+  Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
+>
 
 export const Form = <TData extends ObjectLike, TResponse = unknown>(
   props: OptimisticFormProps<TData, TResponse>,

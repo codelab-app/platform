@@ -154,10 +154,8 @@ export class ComponentDomainService
     return this.components.get(id)
   }
 
-  findBySlug(slug: string) {
-    const found = this.componentList.find(
-      (component) => component.slug === slug,
-    )
+  findById(id: string) {
+    const found = this.components.get(id)
 
     Validator.assertsDefined(found)
 

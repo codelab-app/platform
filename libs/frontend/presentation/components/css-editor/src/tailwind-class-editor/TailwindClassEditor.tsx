@@ -73,7 +73,7 @@ export const TailwindClassEditor = ({
 
   return (
     <div className="mb-4">
-      <Styled.Label>Tailwind Classes :</Styled.Label>
+      <Styled.Label>Tailwind Classes:</Styled.Label>
       <Select
         allowClear
         defaultValue={element.tailwindClassNames ?? []}

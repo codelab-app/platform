@@ -19,7 +19,7 @@ export interface IComponentDomainService
 
   add(data: ICreateComponentData): IComponentModel
   component(id: string): IComponentModel
-  findBySlug(slug: string): IComponentModel
+  findById(id: string): IComponentModel
   getRenderTypeOptions(
     components?: Array<SelectOption>,
   ): Array<RenderTypeSelectOption>

@@ -4,6 +4,7 @@ import type { IRuntimeElementModel } from '@codelab/frontend/abstract/applicatio
 
 import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Col, Row } from 'antd'
@@ -33,6 +34,7 @@ export interface ElementCssEditorInternalProps {
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ runtimeElement }) => {
+    const { setLoading } = useLoading()
     const elementService = useElementService()
     const lastStateRef = useRef(runtimeElement.style.toString())
 
@@ -67,11 +69,15 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           lastStateRef.current = styleString
           lastTailwindClassNames.current = tailwindClassNames
 
-          void elementService.update({
-            ...element.current.toJson,
-            style: styleString,
-            tailwindClassNames,
-          })
+          setLoading(true)
+
+          void elementService
+            .update({
+              ...element.current.toJson,
+              style: styleString,
+              tailwindClassNames,
+            })
+            .finally(() => setLoading(false))
         }
       },
       [elementService],
@@ -98,11 +104,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     return (
       <Row style={{ marginBottom: '10%' }}>
         <Col span={24}>
-          <Label>Inherited css :</Label>
+          <Label>Inherited css:</Label>
           <InheritedStyles runtimeElement={runtimeElement} />
         </Col>
         <Col span={24}>
-          <Label>Current breakpoint css :</Label>
+          <Label>Current breakpoint css:</Label>
           <CodeMirrorEditor
             height="100%"
             language={CodeMirrorLanguage.Css}

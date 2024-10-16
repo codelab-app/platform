@@ -1,9 +1,8 @@
 'use client'
 
 import type { Nullish } from '@codelab/shared/abstract/types'
-import type { EditorView, ViewUpdate } from '@codemirror/view'
+import { EditorView, type ViewUpdate } from '@codemirror/view'
 import type { ReactCodeMirrorProps } from '@uiw/react-codemirror'
-
 import ExpandAltOutlined from '@ant-design/icons/ExpandAltOutlined'
 import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import { useCodeMirror } from '@uiw/react-codemirror'
@@ -60,6 +59,12 @@ export const CodeMirrorInput = ({
         ...props,
         basicSetup: false,
         container: editorRef.current,
+        extensions: [
+          EditorView.contentAttributes.of({
+            'aria-label': title ?? '',
+            id: props.id ?? '',
+          }),
+        ],
         onChange: (_value: string, view: ViewUpdate) => {
           onChange(_value)
         },

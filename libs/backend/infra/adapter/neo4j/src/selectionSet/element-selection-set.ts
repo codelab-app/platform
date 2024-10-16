@@ -50,6 +50,7 @@ const baseElementSelectionSet = `
   childMapperComponent {
     id
     name
+    compositeKey
   }
   renderIfExpression
   preRenderAction {

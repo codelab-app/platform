@@ -2,7 +2,6 @@
 import type { IBuilderService } from '@codelab/frontend/abstract/application'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
@@ -33,14 +32,11 @@ export const DeleteElementModal = observer<{
   const onSubmit = ({ element }: DeleteElementData) => {
     const targetElement = elementService.getElement(element.id)
 
-    // Don't wait so we don't block the UI
-    void deleteElementUseCase(
+    return deleteElementUseCase(
       targetElement,
       elementDomainService,
       selectPreviousElementOnDelete,
     )
-
-    return Promise.resolve()
   }
 
   return (
@@ -52,13 +48,12 @@ export const DeleteElementModal = observer<{
       uiKey={UiKey.ElementModalDelete}
     >
       <ModalForm.Form<DeleteElementData>
+        errorMessage="Error while deleting element"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting element',
-        })}
-        onSubmitSuccess={closeModal}
+        onSubmitOptimistic={closeModal}
         schema={deleteElementSchema}
+        successMessage="Element deleted"
       >
         <h4>
           Are you sure you want to delete{' '}

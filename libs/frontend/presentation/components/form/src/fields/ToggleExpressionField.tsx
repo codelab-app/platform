@@ -122,6 +122,7 @@ const ToggleExpression = ({
           `}
           customOptions={mainProps.autocomplete || []}
           language={ICodeMirrorLanguage.Javascript}
+          title={fieldProps.field.label}
           {...fieldProps}
           value={value}
         />

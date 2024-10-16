@@ -151,7 +151,7 @@ export const useAtomService = (): IAtomService => {
   }
 
   const loadApi = async (id: string) => {
-    const atom = atomDomainService.atoms.get(id)
+    const atom = atomDomainService.atoms.get(id) ?? (await getOne(id))
 
     if (atom?.api) {
       await typeService.getInterface(atom.api.id)

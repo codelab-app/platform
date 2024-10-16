@@ -43,5 +43,5 @@ export type ICreateElementData = Static<typeof CreateElementDataSchema>
  */
 export type ICreateCypressElementData = Overwrite<
   Omit<ICreateElementData, 'id'>,
-  { parentElement: string }
+  { parentElement: string; atom: string; propsData?: string }
 >

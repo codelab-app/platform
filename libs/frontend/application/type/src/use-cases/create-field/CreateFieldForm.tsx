@@ -9,7 +9,6 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
@@ -21,8 +20,7 @@ import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-
-import { useFieldService, useTypeService } from '../../services'
+import { useFieldService } from '../../services'
 import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
 import { createFieldSchema } from './create-field.schema'
@@ -41,7 +39,6 @@ export const CreateFieldForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
-    const typeService = useTypeService()
     const fieldSchema = useFieldSchema(createFieldSchema)
     const createFieldForm = useCreateFieldForm()
     const closeForm = () => createFieldForm.close()
@@ -57,16 +54,12 @@ export const CreateFieldForm = observer<IFormController>(
         typeDomainService.primitiveKind(input.fieldType),
       )
 
-      void fieldService.create({ ...input, validationRules })
-
-      onSubmitSuccess?.()
-      closeForm()
-
-      return Promise.resolve()
+      return fieldService.create({ ...input, validationRules })
     }
 
     return (
       <Form<ICreateFieldData>
+        errorMessage="Error while creating field"
         model={{
           id: v4(),
           interfaceTypeId,
@@ -92,12 +85,13 @@ export const CreateFieldForm = observer<IFormController>(
           return model
         }}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating field',
-        })}
-        onSubmitSuccess={closeForm}
+        onSubmitOptimistic={() => {
+          closeForm()
+          onSubmitSuccess?.()
+        }}
         schema={fieldSchema}
         submitRef={submitRef}
+        successMessage="Field created successfully"
         uiKey={UiKey.FieldFormCreate}
       >
         <AutoFields

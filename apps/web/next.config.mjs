@@ -76,6 +76,10 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    // increase timeout for long-running proxxy request,
+    // e.g. request from admin to seed the db; request to seed database in e2e
+    proxyTimeout: 120000,
+
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals

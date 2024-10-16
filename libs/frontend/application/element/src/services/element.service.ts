@@ -27,6 +27,12 @@ export const useElementService = (): IElementService => {
 
     const element = elementDomainService.addTreeNode(data)
 
+    // when new element is inserted into elements tree -
+    // auto-expand parent node, so that new one becomes visible
+    if (element.parentElement?.maybeCurrent?.expanded === false) {
+      element.parentElement.current.setExpanded(true)
+    }
+
     await elementRepository.add(element)
     await syncModifiedElements()
 

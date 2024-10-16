@@ -114,9 +114,7 @@ export const BuilderPrimarySidebar = observer<{
               }
 
               if (store.api.id) {
-                createFieldForm.open(
-                  typeRef<IInterfaceTypeModel>(store.api.id).current,
-                )
+                createFieldForm.open(store.api.current)
                 popover.open(UiKey.FieldPopoverCreate)
               }
             },

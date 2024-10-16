@@ -90,6 +90,12 @@ export const SelectDefaultValue = () => {
       // key is needed here to re-create this form with a
       // new model and schema when the field type is changed
       key={`${fieldType.value}-default-values`}
+      onKeyDown={(event: React.KeyboardEvent) => {
+        // prevent form submit when enter is pressed inside "defaultValues" field
+        if (event.key === 'Enter') {
+          event.preventDefault()
+        }
+      }}
     >
       <Form
         model={{ defaultValues }}

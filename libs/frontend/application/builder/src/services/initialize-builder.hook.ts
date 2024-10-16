@@ -9,6 +9,7 @@ import {
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 export const useInitializeBuilder = ({
@@ -18,7 +19,10 @@ export const useInitializeBuilder = ({
   rendererType: RendererType
   containerNode: IComponentModel | IPageModel
 }) => {
-  const { builderService, rendererService } = useApplicationStore()
+  const { builderService, rendererService, routerService } =
+    useApplicationStore()
+
+  const searchParams = useSearchParams()
 
   const renderer = rendererService.hydrate({
     containerNode: containerNode,
@@ -38,6 +42,15 @@ export const useInitializeBuilder = ({
 
     void renderer.expressionTransformer.init()
   }, [renderer.id])
+
+  /**
+   * Synchronize search params into router service for in-app routing
+   */
+  useEffect(() => {
+    const queryParams = Object.fromEntries(searchParams)
+
+    routerService.setQueryParams(queryParams)
+  }, [routerService, searchParams])
 
   return {
     renderer,

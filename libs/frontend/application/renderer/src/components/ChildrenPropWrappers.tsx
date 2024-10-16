@@ -1,6 +1,9 @@
-import type { EditorState, LexicalEditor } from 'lexical'
+'use client'
 
+import type { EditorState, LexicalEditor } from 'lexical'
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import { usePropService } from '@codelab/frontend-application-prop/services'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
@@ -8,14 +11,15 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import { observer } from 'mobx-react-lite'
 import { useCallback } from 'react'
+import { debounce } from 'remeda'
 
 export const RichTextEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
+  const { setLoading } = useLoading()
   const { typeDomainService } = useDomainStore()
-  // const propService = usePropService()
+  const propService = usePropService()
   const element = runtimeElement.element.current
-  // disable for now since it causing tests to fail
   const editable = element.isTextContentEditable
 
   const richTextType = typeDomainService.typesList.find(
@@ -23,7 +27,7 @@ export const RichTextEditorWrapper = observer<{
   )
 
   const onChange = useCallback(
-    (state: EditorState, lexicalEditor: LexicalEditor, tags: Set<string>) => {
+    (state: EditorState, lexicalEditor: LexicalEditor) => {
       // consider changes only in edit mode
       // because props evaluation triggers change too
       if (lexicalEditor.isEditable()) {
@@ -36,18 +40,22 @@ export const RichTextEditorWrapper = observer<{
           const props = element.props
           const renderType = element.renderType.current
 
-          // void propService.updateWithDefaultValuesApplied(props, {
-          //   data: {
-          //     ...props.data.data,
-          //     children: {
-          //       kind: richTextType.kind,
-          //       type: richTextType.id,
-          //       value: htmlString,
-          //     },
-          //   },
-          //   defaultValues: renderType.api.current.defaultValues,
-          //   id: props.id,
-          // })
+          setLoading(true)
+
+          void propService
+            .updateWithDefaultValuesApplied(props, {
+              data: {
+                ...props.data.data,
+                children: {
+                  kind: richTextType.kind,
+                  type: richTextType.id,
+                  value: htmlString,
+                },
+              },
+              defaultValues: renderType.api.current.defaultValues,
+              id: props.id,
+            })
+            .finally(() => setLoading(false))
         })
       }
     },
@@ -60,8 +68,8 @@ export const RichTextEditorWrapper = observer<{
 
   return (
     <TextEditor
-      config={{ editable: false, namespace: `${element.id}-editor` }}
-      onChange={onChange}
+      config={{ editable, namespace: `${element.id}-editor` }}
+      onChange={debounce(onChange, { waitMs: 500 }).call}
       onResize={({ height }) => {
         if (height) {
           runtimeElement.style.setBuilderStyle(
@@ -78,7 +86,7 @@ export const CodeMirrorEditorWrapper = observer<{
   runtimeElement: IRuntimeElementModel
 }>(({ runtimeElement }) => {
   const { typeDomainService } = useDomainStore()
-  // const propService = usePropService()
+  const propService = usePropService()
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
 
@@ -90,18 +98,18 @@ export const CodeMirrorEditorWrapper = observer<{
     const props = element.props
     const renderType = element.renderType.current
 
-    // void propService.updateWithDefaultValuesApplied(props, {
-    //   data: {
-    //     ...props.data.data,
-    //     children: {
-    //       kind: codeMirrorType?.kind,
-    //       type: codeMirrorType?.id,
-    //       value,
-    //     },
-    //   },
-    //   defaultValues: renderType.api.current.defaultValues,
-    //   id: props.id,
-    // })
+    void propService.updateWithDefaultValuesApplied(props, {
+      data: {
+        ...props.data.data,
+        children: {
+          kind: codeMirrorType?.kind,
+          type: codeMirrorType?.id,
+          value,
+        },
+      },
+      defaultValues: renderType.api.current.defaultValues,
+      id: props.id,
+    })
   }, [])
 
   const value = editable
@@ -116,6 +124,6 @@ export const CodeMirrorEditorWrapper = observer<{
       value={value}
     />
   ) : (
-    <>{value}</>
+    value
   )
 })

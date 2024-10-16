@@ -81,6 +81,7 @@ export class DatabaseService {
     const query = `
       MATCH (n)
       WHERE NOT (n:User
+        OR (n:Preference)
         OR (n:Atom)
         OR (n:PrimitiveType)
         OR (n:RenderPropType)

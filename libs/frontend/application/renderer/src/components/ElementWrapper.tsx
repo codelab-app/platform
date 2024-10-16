@@ -11,12 +11,9 @@ import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { useSelectionHandlers } from '../hooks'
+import { useOverrideAtomProps } from '../hooks/useOverrideAtomProps.hook'
 import { DroppableStyledComponent } from './DroppableStyledComponent'
-import {
-  generateTailwindClasses,
-  getReactComponent,
-  makeOverrideAtomProps,
-} from './utils'
+import { generateTailwindClasses, getReactComponent } from './utils'
 
 /**
  * An observer element wrapper - this makes sure that each element is self-contained and observes only the data it needs
@@ -56,19 +53,17 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType,
     )
 
-    const propsOverrides = makeOverrideAtomProps(
-      renderer.rendererType,
+    const propsOverrides = useOverrideAtomProps(
+      renderer,
       renderOutput.props,
       renderOutput.atomType,
     )
 
     // leave ElementWrapper pass-through so refs are attached to correct element
-    // selectionHandlers should be first so they will be overridden if
-    // a prop contains an action such as `onClick`, `onSelect`, etc.
     const mergedProps = mergeProps(
-      selectionHandlers,
       renderOutput.props,
       rest,
+      selectionHandlers,
       tailwindClassNames,
       propsOverrides,
     )

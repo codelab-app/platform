@@ -1,4 +1,4 @@
-import type { Locator, Page } from '@playwright/test'
+import { expect, type Locator, type Page } from '@playwright/test'
 
 export const getButton = (page: Page, options: { label: string | RegExp }) => {
   return page.getByRole('button', { name: options.label })
@@ -13,12 +13,17 @@ export const getModalAction = (modal: Locator, label: string | RegExp) => {
 }
 
 export const setFormFieldValue = async (
-  page: Page,
+  locator: Locator,
   options: { label: string; value: string },
 ) => {
-  const field = page.getByLabel(options.label)
+  const field = locator.getByLabel(options.label, { exact: true })
 
   await field.fill(options.value)
+
+  // wait for dynamic dropdowns to populate options
+  await expect(locator.getByLabel('loading')).toHaveCount(0)
+
+  await field.press('Enter')
 }
 
 export const getCard = (page: Page, options: { title: string }) => {
@@ -33,5 +38,5 @@ export const getCuiTreeItemByPrimaryTitle = async (
   page: Page,
   title: string,
 ) => {
-  return page.locator(`[data-testid="cui-tree-item-primary-title="${title}"]`)
+  return page.getByTestId(`cui-tree-item-primary-title-${title}`)
 }
