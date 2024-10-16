@@ -1,5 +1,7 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
+
 import { AtomAggregateSchema } from '../atom'
 import { ComponentAggregateSchema } from '../component'
 import { TagSchema } from '../tag/tag.dto.interface'

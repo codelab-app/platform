@@ -1,10 +1,3 @@
-import { ElementApplicationService } from '@codelab/backend/application/element'
-import { StoreApplicationService } from '@codelab/backend/application/store'
-import { ComponentRepository } from '@codelab/backend/domain/component'
-import { PropDomainService } from '@codelab/backend/domain/prop'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { Store } from '@codelab/backend/domain/store'
-import { InterfaceType } from '@codelab/backend/domain/type'
 import type {
   IComponentAggregate,
   IComponentDto,
@@ -12,10 +5,19 @@ import type {
   ICreateInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
+
+import { ElementApplicationService } from '@codelab/backend/application/element'
+import { StoreApplicationService } from '@codelab/backend/application/store'
+import { ComponentRepository } from '@codelab/backend/domain/component'
+import { PropDomainService } from '@codelab/backend/domain/prop'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { Store } from '@codelab/backend/domain/store'
+import { InterfaceType } from '@codelab/backend/domain/type'
 import { IRole } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
+
 import { ExportComponentCommand } from '../use-case'
 
 @Injectable()

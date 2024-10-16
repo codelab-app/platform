@@ -1,47 +1,8 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { PropFragmentDoc } from '@codelab/shared/infra/gql'
-
-export const CreatePropsDocument = graphql(`
-  mutation CreateProps($input: [PropCreateInput!]!) {
-    createProps(input: $input) {
-      props {
-        id
-      }
-    }
-  }
-`)
-
-export const UpdatePropsDocument = graphql(`
-  mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {
-    updateProps(update: $update, where: $where) {
-      props {
-        id
-      }
-    }
-  }
-`)
-
-export const DeletePropsDocument = graphql(`
-  mutation DeleteProps($where: PropWhere!) {
-    deleteProps(where: $where) {
-      nodesDeleted
-    }
-  }
-`)
-
-export const GetPropsDocument = graphql(`
-  query GetProps($options: PropOptions, $where: PropWhere) {
-    aggregate: propsAggregate(where: $where) {
-      count
-    }
-    items: props(options: $options, where: $where) {
-      ...Prop
-    }
-  }
-`)
 
 import {
   type CreatePropsMutationVariables,
@@ -49,23 +10,29 @@ import {
   type DeletePropsMutationVariables,
   type GetPropsQueryVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  CreatePropsDocument,
+  UpdatePropsDocument,
+  DeletePropsDocument,
+  GetPropsDocument,
+} from './prop.api.documents.graphql.gen'
 
 export const CreateProps = (
   variables: CreatePropsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreatePropsDocument.toString(), variables, next)
 
 export const UpdateProps = (
   variables: UpdatePropsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdatePropsDocument.toString(), variables, next)
 
 export const DeleteProps = (
   variables: DeletePropsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeletePropsDocument.toString(), variables, next)
 
 export const GetProps = (
   variables: GetPropsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetPropsDocument.toString(), variables, next)

@@ -23,6 +23,7 @@
 !/dist/libs/external/codelab-codegen/
 /dist/libs/external/codelab-codegen/*
 !/dist/libs/external/codelab-codegen/typescript-fetch/
+!/dist/libs/external/codelab-codegen/client-preset-documents/
 
 tmp/
 out-tsc/
@@ -58,3 +59,5 @@ Thumbs.db
 # Next.js
 .next
 out
+# Sentry Config File
+.env.sentry-build-plugin

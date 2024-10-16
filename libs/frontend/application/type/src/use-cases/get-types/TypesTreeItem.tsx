@@ -1,12 +1,13 @@
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
   IInterfaceTypeModel,
   ITreeNode,
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
-import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -14,6 +15,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+
 import { useCreateFieldForm } from '../create-field'
 import { useDeleteFieldModal } from '../delete-field'
 import { useDeleteTypeModal } from '../delete-type'
@@ -73,15 +75,15 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
     createFieldForm.open(interfaceType as IInterfaceTypeModel)
 
-    popover.open(UiKey.CreateFieldPopover)
+    popover.open(UiKey.FieldPopoverCreate)
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
       cuiKey:
         data.extraData.type === 'type'
-          ? UiKey.DeleteTypeToolbarItem
-          : UiKey.DeleteFieldToolbarItem,
+          ? UiKey.TypeToolbarItemDelete
+          : UiKey.FieldToolbarItemDelete,
       icon: <DeleteOutlined />,
       onClick: onDelete,
       title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',
@@ -96,7 +98,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
       data.extraData.node.kind === ITypeKind.InterfaceType)
   ) {
     toolbarItems.push({
-      cuiKey: UiKey.CreateFieldToolbarItem,
+      cuiKey: UiKey.FieldToolbarItemCreate,
       icon: <PlusOutlined />,
       onClick: onAddField,
       title: 'Add field',

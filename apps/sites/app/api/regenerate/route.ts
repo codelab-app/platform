@@ -1,6 +1,7 @@
+import type { NextRequest } from 'next/server'
+
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import { revalidatePath } from 'next/cache'
-import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 const regenerate = async (request: NextRequest, response: NextResponse) => {

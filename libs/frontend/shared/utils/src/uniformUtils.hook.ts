@@ -2,10 +2,11 @@ import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { Maybe, Nullish, ObjectLike } from '@codelab/shared/abstract/types'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
+import type { MutableRefObject } from 'react'
+
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 import addKeywords from 'ajv-keywords'
-import type { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 
 export const connectUniformSubmitRef =

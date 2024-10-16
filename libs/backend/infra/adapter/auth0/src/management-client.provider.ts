@@ -1,6 +1,8 @@
 import type { FactoryProvider } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
+
 import { ManagementClient } from 'auth0'
+
 import { auth0Config, auth0M2mConfig } from './auth0.config'
 
 export const AUTH0_MANAGEMENT_CLIENT_TOKEN = 'AUTH0_MANAGEMENT_CLIENT_TOKEN'

@@ -1,9 +1,10 @@
 'use server'
 
-import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import type { IRef } from '@codelab/shared/abstract/core'
-import { getEnv } from '@codelab/shared/config'
 import type { App } from '@codelab/shared/infra/gql'
+
+import { fetchWithAuth } from '@codelab/shared/infra/fetch'
+import { getEnv } from '@codelab/shared/config'
 
 export const exportAppService = async (app: IRef) => {
   const response = await fetchWithAuth(

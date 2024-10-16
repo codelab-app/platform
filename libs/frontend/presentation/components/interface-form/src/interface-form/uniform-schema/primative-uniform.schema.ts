@@ -1,5 +1,6 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
 import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
+
 import {
   CodeMirrorField,
   ToggleExpressionField,

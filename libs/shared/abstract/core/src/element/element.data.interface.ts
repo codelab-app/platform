@@ -1,8 +1,10 @@
+import type { Static } from '@sinclair/typebox'
+import type { Overwrite } from 'utility-types'
+
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { AtomType } from '@codelab/shared/infra/gql'
-import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import type { Overwrite } from 'utility-types'
+
 import type { IPropData } from '../prop/prop.dto.interface'
 
 /**

@@ -1,7 +1,8 @@
 'use client'
 
-import EditOutlined from '@ant-design/icons/EditOutlined'
 import type { IRef } from '@codelab/shared/abstract/core'
+
+import EditOutlined from '@ant-design/icons/EditOutlined'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 

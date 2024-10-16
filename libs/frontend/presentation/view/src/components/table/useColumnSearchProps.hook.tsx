@@ -1,28 +1,29 @@
 'use client'
 
-import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InputRef } from 'antd'
-import { Button, Input, Space } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FilterDropdownProps } from 'antd/lib/table/interface'
 import type { AnyModel } from 'mobx-keystone'
+
+import SearchOutlined from '@ant-design/icons/SearchOutlined'
+import { Button, Input, Space } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 
 interface ColumnSearchProps<RecordType extends AnyModel>
   extends Omit<ColumnType<RecordType>, 'dataIndex'> {
   dataIndex: keyof RecordType
-  text?: string
+  text?: string | null
   onSearch?(searchText: string): void
 }
 
 export const useColumnSearchProps = <RecordType extends AnyModel>({
   dataIndex,
   onSearch,
-  text = '',
+  text,
 }: ColumnSearchProps<RecordType>) => {
   const searchInputRef = useRef<InputRef | null>(null)
-  const [searchText, setSearchText] = useState(text)
+  const [searchText, setSearchText] = useState(text ?? '')
 
   const handleReset = (clearFilters: Maybe<() => void>) => {
     clearFilters?.()

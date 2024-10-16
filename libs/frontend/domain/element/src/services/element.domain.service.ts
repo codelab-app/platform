@@ -2,10 +2,12 @@ import type {
   IElementDomainService,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import { IMoveElementContext } from '@codelab/frontend/abstract/domain'
 import type { IElementDto } from '@codelab/shared/abstract/core'
+
+import { IMoveElementContext } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+
 import { Element } from '../store'
 import { validateElementDto } from './element.validate'
 import { validateMoveElement } from './move-element.validation'

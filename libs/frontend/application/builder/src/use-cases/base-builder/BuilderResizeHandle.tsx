@@ -1,7 +1,10 @@
-import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
+
+import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
+
 import type { ResizeHandlerSide } from '../../hooks'
+
 import { useBuilderResizer } from '../../hooks'
 
 type ResizeHandlerProps = PropsWithChildren<{
@@ -18,7 +21,7 @@ const ResizeHandler = observer<ResizeHandlerProps>(
     const defaultClassNames = 'h-full w-[3px] bg-gray-200'
 
     let className = hovered
-      ? `${defaultClassNames} bg-blue-400 cursor-col-resize`
+      ? `${defaultClassNames} cursor-col-resize bg-blue-400`
       : defaultClassNames
 
     className = side === 'after' ? `${className} relative` : className

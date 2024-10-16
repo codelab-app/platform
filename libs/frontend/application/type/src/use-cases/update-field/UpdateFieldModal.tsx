@@ -1,5 +1,7 @@
 'use client'
 
+import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -8,10 +10,10 @@ import {
   DisplayIfField,
   ModalForm,
 } from '@codelab/frontend-presentation-components-form'
-import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useFieldService } from '../../services'
 import {
   canSetDefaultValue,
@@ -56,7 +58,7 @@ export const UpdateFieldModal = observer(() => {
       onCancel={closeModal}
       open={updateFieldModal.isOpen}
       title={<span className="font-semibold">Update field</span>}
-      uiKey={UiKey.UpdateFieldModal}
+      uiKey={UiKey.FieldModalUpdate}
     >
       <ModalForm.Form<IUpdateFieldData>
         model={{

@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react'
-import { useState } from 'react'
 import type { StatusCode } from 'react-stickynode'
+
+import { useState } from 'react'
 import Sticky from 'react-stickynode'
 
 export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {

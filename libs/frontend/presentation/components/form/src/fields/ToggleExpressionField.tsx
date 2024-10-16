@@ -1,23 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
 'use client'
 
-import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
-import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
-import { hasExpression } from '@codelab/shared/utils'
 import type { Completion } from '@codemirror/autocomplete'
 import type { AutoCompleteProps } from 'antd'
+import type { FieldProps } from 'uniforms'
+import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
+
+import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
+import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { hasExpression } from '@codelab/shared-infra-eval'
 import { Button, Space, Tooltip } from 'antd'
 import { useState } from 'react'
 import { isNullish } from 'remeda'
-import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
-import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 import { BoolField, NumField, SelectField } from 'uniforms-antd'
+
 import { WrappedListField } from './WrappedListField'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
 
-type Value = Array<unknown> | boolean | number | string | undefined
+type Value = boolean | number | string | Array<unknown> | undefined
 
 interface CodeMirrorFieldProps {
   autocomplete?: Array<Completion>

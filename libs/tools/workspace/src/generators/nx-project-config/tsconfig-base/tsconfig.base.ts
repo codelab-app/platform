@@ -1,4 +1,5 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
+
 import {
   generateReferencePathsForLib,
   handleProjectNamePatterns,

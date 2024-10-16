@@ -1,13 +1,18 @@
 import type {
-  IAppModel,
-  IAppRepository,
-} from '@codelab/frontend/abstract/domain'
-import type {
   AppOptions,
   AppUniqueWhere,
   AppWhere,
 } from '@codelab/shared/infra/gql'
+
+import {
+  CACHE_TAGS,
+  type IAppModel,
+  type IAppRepository,
+} from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
+import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { revalidateTag } from 'next/cache'
+
 import { App } from '../store'
 import {
   AppList,
@@ -16,7 +21,7 @@ import {
   UpdateApps,
 } from './app.api.graphql.gen'
 
-export const appRepository: IAppRepository = {
+export const appRepository: IAppRepository = withTracingMethods('app', {
   add: async (app: IAppModel) => {
     const {
       createApps: { apps },
@@ -43,10 +48,13 @@ export const appRepository: IAppRepository = {
   },
 
   find: async (where?: AppWhere, options?: AppOptions) => {
-    return await AppList({
-      options,
-      where,
-    })
+    return await AppList(
+      {
+        options,
+        where,
+      },
+      { tags: [CACHE_TAGS.APP_LIST] },
+    )
   },
 
   findOne: async (where: AppUniqueWhere) => {
@@ -67,4 +75,6 @@ export const appRepository: IAppRepository = {
 
     return updatedApp
   },
-}
+})
+
+export const invalidateAppListQuery = () => revalidateTag(CACHE_TAGS.APP_LIST)

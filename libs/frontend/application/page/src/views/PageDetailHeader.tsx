@@ -1,7 +1,8 @@
 'use client'
 
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
-import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
+
+import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useCurrentApp,
   useCurrentPage,
@@ -30,26 +31,16 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
     const togglePreviewMode = () => {
       const url = isBuilder
         ? PageType.PageDetail({ appId, pageId })
-        : PageType.PageBuilder(
-            { appId, pageId },
-            {
-              primarySidebarKey: ExplorerPaneType.Explorer,
-            },
-          )
+        : PageType.PageList({ appId, pageId })
 
       return router.push(url)
     }
 
     const navigatePagesPanel = useCallback(async () => {
-      const url = PageType.PageBuilder(
-        {
-          appId,
-          pageId,
-        },
-        {
-          primarySidebarKey: ExplorerPaneType.PageList,
-        },
-      )
+      const url = PageType.PageList({
+        appId,
+        pageId,
+      })
 
       await router.push(url)
     }, [router])

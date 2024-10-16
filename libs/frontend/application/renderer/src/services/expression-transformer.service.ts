@@ -1,6 +1,7 @@
 import type { IExpressionTransformer } from '@codelab/frontend/abstract/application'
 import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
-import { stripExpression } from '@codelab/shared/utils'
+
+import { stripExpression } from '@codelab/shared-infra-eval'
 import {
   _async,
   _await,
@@ -11,6 +12,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import * as React from 'react'
+
 import { allAtoms } from '../atoms'
 
 @model('@codelab/ExpressionTransformer')

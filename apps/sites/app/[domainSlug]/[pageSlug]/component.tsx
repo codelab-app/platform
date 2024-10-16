@@ -1,6 +1,7 @@
 'use client'
 
 import type { IAppProductionDto } from '@codelab/frontend/abstract/domain'
+
 import { useAppProduction } from '@codelab/frontend-application-app/use-cases/app-production'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 

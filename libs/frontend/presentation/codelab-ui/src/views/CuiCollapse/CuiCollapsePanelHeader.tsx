@@ -2,10 +2,12 @@
 
 import DownOutlined from '@ant-design/icons/DownOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
-import { Cui } from '@codelab/frontend-application-shared-data'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { Typography } from 'antd'
 import { useState } from 'react'
+
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
+
 import { CuiSidebarToolbar } from '../CuiSidebarToolbar'
 
 export interface CuiCollapsePanelHeaderProps {
@@ -30,30 +32,20 @@ export const CuiCollapsePanelHeader = ({
 
   return (
     <div
-      className="
-        flex
-        max-h-20
-        cursor-pointer
-        items-center
-        justify-between
-        border-0
-        border-b
-        border-solid
-        border-gray-300
+      className={`
+        flex max-h-20 cursor-pointer
+        items-center justify-between border-0
+        border-b border-solid border-gray-300
         px-3
-      "
-      data-cy={Cui.cuiSidebarViewHeader(label)}
+      `}
+      data-testid={CuiTestId.cuiSidebarViewHeader(label)}
       onClick={updateExpand}
     >
       <div
-        className="
-          flex
-          min-w-1/4
-          flex-row
-          items-center
-          justify-start
-          overflow-hidden
-        "
+        className={`
+          flex min-w-1/4 flex-row
+          items-center justify-start overflow-hidden
+        `}
       >
         <div
           className="

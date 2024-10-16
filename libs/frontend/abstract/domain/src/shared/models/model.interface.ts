@@ -10,6 +10,5 @@ export interface IModel<CreateInput, UpdateInput, DeleteInput, ISerialized>
   toJson: ISerialized
 
   toCreateInput(): CreateInput
-  // toDeleteInput(): DeleteInput
   toUpdateInput(): UpdateInput
 }

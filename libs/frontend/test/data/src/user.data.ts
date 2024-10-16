@@ -1,4 +1,5 @@
 import type { IUserDto } from '@codelab/shared/abstract/core'
+
 import { v4 } from 'uuid'
 
 export const userDto: IUserDto = {

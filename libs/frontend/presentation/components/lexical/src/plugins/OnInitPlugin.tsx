@@ -1,11 +1,12 @@
+import type { InitialConfigType } from '@lexical/react/LexicalComposer'
+import type { EditorState, LexicalEditor } from 'lexical'
+
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html'
 import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin'
-import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
-import type { EditorState, LexicalEditor } from 'lexical'
 import { $getRoot, $insertNodes } from 'lexical'
 import { useCallback, useEffect } from 'react'
 

@@ -1,6 +1,7 @@
 'use client'
 
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
+
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
@@ -8,6 +9,7 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+
 import { useSelectionHandlers } from '../hooks'
 import { DroppableStyledComponent } from './DroppableStyledComponent'
 import {

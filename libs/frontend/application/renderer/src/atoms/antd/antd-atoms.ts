@@ -1,19 +1,35 @@
 import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
+
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
 export const antdAtoms: IAtomRendererRecord = {
-  [IAtomType.AntDesignGridRow]: dynamicLoader(
-    () => import('antd/lib/grid/row'),
+  [IAtomType.AntDesignAffix]: dynamicLoader(() => import('antd/lib/affix')),
+  [IAtomType.AntDesignAlert]: dynamicLoader(() => import('antd/lib/alert')),
+  [IAtomType.AntDesignAnchor]: dynamicLoader(() => import('antd/lib/anchor')),
+  [IAtomType.AntDesignAnchorLink]: dynamicLoader(
+    () => import('antd/lib/anchor/AnchorLink'),
   ),
-  [IAtomType.AntDesignIcon]: dynamicLoader(() =>
-    import(
-      '@codelab/frontend-application-atom/components/ant-design/icon'
-    ).then((mod) => mod.AntdIcon),
+  [IAtomType.AntDesignAutoComplete]: dynamicLoader(
+    () => import('antd/lib/auto-complete'),
   ),
-  [IAtomType.AntDesignMenu]: dynamicLoader(() => import('antd/lib/menu')),
-  [IAtomType.AntDesignGridCol]: dynamicLoader(
-    () => import('antd/lib/grid/col'),
+  [IAtomType.AntDesignAvatar]: dynamicLoader(() => import('antd/lib/avatar')),
+  [IAtomType.AntDesignBackTop]: dynamicLoader(
+    () => import('antd/lib/back-top'),
+  ),
+  // [IAtomType.AntDesignPageHeader]: dynamicLoader(() =>
+  //   import('@ant-design/pro-components/lib').then((mod) => mod.PageHeader),
+  // ),
+  [IAtomType.AntDesignBadge]: dynamicLoader(() => import('antd/lib/badge')),
+  [IAtomType.AntDesignBreadcrumb]: dynamicLoader(
+    () => import('antd/lib/breadcrumb'),
+  ),
+  [IAtomType.AntDesignBreadcrumbItem]: dynamicLoader(() =>
+    import('antd/lib/breadcrumb').then((mod) => mod.default.Item),
+  ),
+  [IAtomType.AntDesignButton]: dynamicLoader(() => import('antd/lib/button')),
+  [IAtomType.AntDesignCalendar]: dynamicLoader(
+    () => import('antd/lib/calendar'),
   ),
   [IAtomType.AntDesignCard]: dynamicLoader(() => import('antd/lib/card')),
   [IAtomType.AntDesignCardGrid]: dynamicLoader(
@@ -22,48 +38,11 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignCardMeta]: dynamicLoader(
     () => import('antd/lib/card/Meta'),
   ),
-  [IAtomType.AntDesignTypographyTitle]: dynamicLoader(
-    () => import('antd/lib/typography/Title'),
-  ),
-  [IAtomType.AntDesignTypographyText]: dynamicLoader(
-    () => import('antd/lib/typography/Text'),
-  ),
-  [IAtomType.AntDesignTypographyParagraph]: dynamicLoader(
-    () => import('antd/lib/typography/Paragraph'),
-  ),
-  [IAtomType.AntDesignAlert]: dynamicLoader(() => import('antd/lib/alert')),
-  [IAtomType.AntDesignAffix]: dynamicLoader(() => import('antd/lib/affix')),
-  [IAtomType.AntDesignAutoComplete]: dynamicLoader(
-    () => import('antd/lib/auto-complete'),
+  [IAtomType.AntDesignCarousel]: dynamicLoader(
+    () => import('antd/lib/carousel'),
   ),
   [IAtomType.AntDesignCascader]: dynamicLoader(
     () => import('antd/lib/cascader'),
-  ),
-  [IAtomType.AntDesignButton]: dynamicLoader(() => import('antd/lib/button')),
-  [IAtomType.AntDesignBreadcrumb]: dynamicLoader(
-    () => import('antd/lib/breadcrumb'),
-  ),
-  [IAtomType.AntDesignBreadcrumbItem]: dynamicLoader(() =>
-    import('antd/lib/breadcrumb').then((mod) => mod.default.Item),
-  ),
-  [IAtomType.AntDesignDropdown]: dynamicLoader(
-    () => import('antd/lib/dropdown'),
-  ),
-  [IAtomType.AntDesignDropdownButton]: dynamicLoader(
-    () => import('antd/lib/dropdown'),
-  ),
-  [IAtomType.AntDesignForm]: dynamicLoader(() => import('antd/lib/form')),
-  [IAtomType.AntDesignFormItem]: dynamicLoader(
-    () => import('antd/lib/form/FormItem'),
-  ),
-  [IAtomType.AntDesignFormList]: dynamicLoader(
-    () => import('antd/lib/form/FormList'),
-  ),
-  [IAtomType.AntDesignFormErrorList]: dynamicLoader(
-    () => import('antd/lib/form/ErrorList'),
-  ),
-  [IAtomType.AntDesignFormProvider]: dynamicLoader(
-    () => import('antd/lib/form/context') as never,
   ),
   [IAtomType.AntDesignCheckbox]: dynamicLoader(
     () => import('antd/lib/checkbox'),
@@ -71,6 +50,58 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignCheckboxGroup]: dynamicLoader(() =>
     import('antd/lib/checkbox').then((mod) => mod.default.Group),
   ),
+  [IAtomType.AntDesignCollapse]: dynamicLoader(
+    () => import('antd/lib/collapse'),
+  ),
+  [IAtomType.AntDesignCollapsePanel]: dynamicLoader(
+    () => import('antd/lib/collapse/CollapsePanel'),
+  ),
+  [IAtomType.AntDesignConfigProvider]: dynamicLoader(
+    () => import('antd/lib/config-provider'),
+  ),
+  [IAtomType.AntDesignDatePicker]: dynamicLoader(
+    () => import('antd/lib/date-picker'),
+  ),
+  [IAtomType.AntDesignDescriptions]: dynamicLoader(
+    () => import('antd/lib/descriptions'),
+  ),
+  [IAtomType.AntDesignDescriptionsItem]: dynamicLoader(
+    () => import('antd/lib/descriptions/Item'),
+  ),
+  [IAtomType.AntDesignDivider]: dynamicLoader(() => import('antd/lib/divider')),
+  [IAtomType.AntDesignDrawer]: dynamicLoader(() => import('antd/lib/drawer')),
+  [IAtomType.AntDesignDropdown]: dynamicLoader(
+    () => import('antd/lib/dropdown'),
+  ),
+  [IAtomType.AntDesignDropdownButton]: dynamicLoader(
+    () => import('antd/lib/dropdown'),
+  ),
+  [IAtomType.AntDesignEmpty]: dynamicLoader(() => import('antd/lib/empty')),
+  [IAtomType.AntDesignForm]: dynamicLoader(() => import('antd/lib/form')),
+  [IAtomType.AntDesignFormErrorList]: dynamicLoader(
+    () => import('antd/lib/form/ErrorList'),
+  ),
+  [IAtomType.AntDesignFormItem]: dynamicLoader(
+    () => import('antd/lib/form/FormItem'),
+  ),
+  [IAtomType.AntDesignFormList]: dynamicLoader(
+    () => import('antd/lib/form/FormList'),
+  ),
+  [IAtomType.AntDesignFormProvider]: dynamicLoader(
+    () => import('antd/lib/form/context') as never,
+  ),
+  [IAtomType.AntDesignGridCol]: dynamicLoader(
+    () => import('antd/lib/grid/col'),
+  ),
+  [IAtomType.AntDesignGridRow]: dynamicLoader(
+    () => import('antd/lib/grid/row'),
+  ),
+  [IAtomType.AntDesignIcon]: dynamicLoader(() =>
+    import(
+      '@codelab/frontend-application-atom/components/ant-design/icon'
+    ).then((mod) => mod.AntdIcon),
+  ),
+  [IAtomType.AntDesignImage]: dynamicLoader(() => import('antd/lib/image')),
   [IAtomType.AntDesignInput]: dynamicLoader(() => import('antd/lib/input')),
   [IAtomType.AntDesignInputNumber]: dynamicLoader(
     () => import('antd/lib/input-number'),
@@ -81,115 +112,18 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignInputTextArea]: dynamicLoader(() =>
     import('antd/lib/input').then((mod) => mod.default.TextArea),
   ),
-  [IAtomType.AntDesignSelect]: dynamicLoader(() => import('antd/lib/select')),
-  [IAtomType.AntDesignSelectOption]: dynamicLoader(() =>
-    import('antd/lib/select').then((mod) => mod.default.Option),
+  [IAtomType.AntDesignLayout]: dynamicLoader(() => import('antd/lib/layout')),
+  [IAtomType.AntDesignLayoutContent]: dynamicLoader(() =>
+    import('antd/lib/layout').then((mod) => mod.default.Content),
   ),
-  // [IAtomType.AntDesignRglContainer]: dynamicLoader(
-  //   () => import('react-grid-layout'),
-  // ),
-  // [IAtomType.AntDesignRglResponsiveContainer]: dynamicLoader(
-  //   () => import('react-grid-layout'),
-  // ),
-  [IAtomType.AntDesignModal]: dynamicLoader(() => import('antd/lib/modal')),
-  [IAtomType.AntDesignNotification]: dynamicLoader(
-    () => import('antd/lib/notification') as never,
+  [IAtomType.AntDesignLayoutFooter]: dynamicLoader(() =>
+    import('antd/lib/layout').then((mod) => mod.default.Footer),
   ),
-  [IAtomType.AntDesignRadioGroup]: dynamicLoader(
-    () => import('antd/lib/radio/group'),
+  [IAtomType.AntDesignLayoutHeader]: dynamicLoader(() =>
+    import('antd/lib/layout').then((mod) => mod.default.Header),
   ),
-  [IAtomType.AntDesignRadio]: dynamicLoader(() => import('antd/lib/radio')),
-  [IAtomType.AntDesignRate]: dynamicLoader(() => import('antd/lib/rate')),
-  [IAtomType.AntDesignSlider]: dynamicLoader(
-    () => import('antd/lib/slider') as never,
-  ),
-  [IAtomType.AntDesignSwitch]: dynamicLoader(() => import('antd/lib/switch')),
-  [IAtomType.AntDesignSpace]: dynamicLoader(() => import('antd/lib/space')),
-  [IAtomType.AntDesignDatePicker]: dynamicLoader(
-    () => import('antd/lib/date-picker'),
-  ),
-  [IAtomType.AntDesignDivider]: dynamicLoader(() => import('antd/lib/divider')),
-  [IAtomType.AntDesignPagination]: dynamicLoader(
-    () => import('antd/lib/pagination'),
-  ),
-  // [IAtomType.AntDesignPageHeader]: dynamicLoader(() =>
-  //   import('@ant-design/pro-components/lib').then((mod) => mod.PageHeader),
-  // ),
-  [IAtomType.AntDesignBadge]: dynamicLoader(() => import('antd/lib/badge')),
-  [IAtomType.AntDesignAvatar]: dynamicLoader(() => import('antd/lib/avatar')),
-  [IAtomType.AntDesignCalendar]: dynamicLoader(
-    () => import('antd/lib/calendar'),
-  ),
-  [IAtomType.AntDesignDescriptions]: dynamicLoader(
-    () => import('antd/lib/descriptions'),
-  ),
-  [IAtomType.AntDesignDescriptionsItem]: dynamicLoader(
-    () => import('antd/lib/descriptions/Item'),
-  ),
-  [IAtomType.AntDesignEmpty]: dynamicLoader(() => import('antd/lib/empty')),
-  [IAtomType.AntDesignTimeline]: dynamicLoader(
-    () => import('antd/lib/timeline'),
-  ),
-  [IAtomType.AntDesignTimelineItem]: dynamicLoader(
-    () => import('antd/lib/timeline/TimelineItem'),
-  ),
-  [IAtomType.AntDesignTabs]: dynamicLoader(() => import('antd/lib/tabs')),
-  [IAtomType.AntDesignTabsTabPane]: dynamicLoader(() =>
-    import('antd/lib/tabs').then((mod) => mod.default.TabPane),
-  ),
-  [IAtomType.AntDesignStatistic]: dynamicLoader(
-    () => import('antd/lib/statistic'),
-  ),
-  [IAtomType.AntDesignTooltip]: dynamicLoader(() => import('antd/lib/tooltip')),
-  [IAtomType.AntDesignTag]: dynamicLoader(() => import('antd/lib/tag')),
-  [IAtomType.AntDesignTree]: dynamicLoader(() => import('antd/lib/tree')),
-  [IAtomType.AntDesignDrawer]: dynamicLoader(() => import('antd/lib/drawer')),
-  [IAtomType.AntDesignMessage]: dynamicLoader(
-    () => import('antd/lib/message') as never,
-  ),
-  [IAtomType.AntDesignProgress]: dynamicLoader(
-    () => import('antd/lib/progress'),
-  ),
-  [IAtomType.AntDesignResult]: dynamicLoader(() => import('antd/lib/result')),
-  [IAtomType.AntDesignSpin]: dynamicLoader(() => import('antd/lib/spin')),
-  [IAtomType.AntDesignSkeleton]: dynamicLoader(
-    () => import('antd/lib/skeleton'),
-  ),
-  [IAtomType.AntDesignAnchor]: dynamicLoader(() => import('antd/lib/anchor')),
-  [IAtomType.AntDesignAnchorLink]: dynamicLoader(
-    () => import('antd/lib/anchor/AnchorLink'),
-  ),
-  [IAtomType.AntDesignBackTop]: dynamicLoader(
-    () => import('antd/lib/back-top'),
-  ),
-  [IAtomType.AntDesignConfigProvider]: dynamicLoader(
-    () => import('antd/lib/config-provider'),
-  ),
-  [IAtomType.AntDesignPopconfirm]: dynamicLoader(
-    () => import('antd/lib/popconfirm'),
-  ),
-  [IAtomType.AntDesignTreeSelect]: dynamicLoader(
-    () => import('antd/lib/tree-select'),
-  ),
-  [IAtomType.AntDesignTimePicker]: dynamicLoader(
-    () => import('antd/lib/time-picker'),
-  ),
-  [IAtomType.AntDesignTransfer]: dynamicLoader(
-    () => import('antd/lib/transfer') as never,
-  ),
-  [IAtomType.AntDesignUpload]: dynamicLoader(() => import('antd/lib/upload')),
-  [IAtomType.AntDesignSteps]: dynamicLoader(() => import('antd/lib/steps')),
-  [IAtomType.AntDesignStepsStep]: dynamicLoader(() =>
-    import('antd/lib/steps').then((mod) => mod.default.Step),
-  ),
-  [IAtomType.AntDesignCollapse]: dynamicLoader(
-    () => import('antd/lib/collapse'),
-  ),
-  [IAtomType.AntDesignCollapsePanel]: dynamicLoader(
-    () => import('antd/lib/collapse/CollapsePanel'),
-  ),
-  [IAtomType.AntDesignCarousel]: dynamicLoader(
-    () => import('antd/lib/carousel'),
+  [IAtomType.AntDesignLayoutSider]: dynamicLoader(
+    () => import('antd/lib/layout/Sider'),
   ),
   [IAtomType.AntDesignList]: dynamicLoader(() => import('antd/lib/list')),
   [IAtomType.AntDesignListItem]: dynamicLoader(
@@ -204,23 +138,90 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignMentionsOption]: dynamicLoader(() =>
     import('antd/lib/mentions').then((mod) => mod.Option),
   ),
-  [IAtomType.AntDesignLayout]: dynamicLoader(() => import('antd/lib/layout')),
-  [IAtomType.AntDesignLayoutHeader]: dynamicLoader(() =>
-    import('antd/lib/layout').then((mod) => mod.default.Header),
+  [IAtomType.AntDesignMenu]: dynamicLoader(() => import('antd/lib/menu')),
+  [IAtomType.AntDesignMessage]: dynamicLoader(
+    () => import('antd/lib/message') as never,
   ),
-  [IAtomType.AntDesignLayoutSider]: dynamicLoader(
-    () => import('antd/lib/layout/Sider'),
+  // [IAtomType.AntDesignRglContainer]: dynamicLoader(
+  //   () => import('react-grid-layout'),
+  // ),
+  // [IAtomType.AntDesignRglResponsiveContainer]: dynamicLoader(
+  //   () => import('react-grid-layout'),
+  // ),
+  [IAtomType.AntDesignModal]: dynamicLoader(() => import('antd/lib/modal')),
+  [IAtomType.AntDesignNotification]: dynamicLoader(
+    () => import('antd/lib/notification') as never,
   ),
-  [IAtomType.AntDesignLayoutContent]: dynamicLoader(() =>
-    import('antd/lib/layout').then((mod) => mod.default.Content),
+  [IAtomType.AntDesignPagination]: dynamicLoader(
+    () => import('antd/lib/pagination'),
   ),
-  [IAtomType.AntDesignLayoutFooter]: dynamicLoader(() =>
-    import('antd/lib/layout').then((mod) => mod.default.Footer),
+  [IAtomType.AntDesignPopconfirm]: dynamicLoader(
+    () => import('antd/lib/popconfirm'),
   ),
   [IAtomType.AntDesignPopover]: dynamicLoader(() => import('antd/lib/popover')),
+  [IAtomType.AntDesignProgress]: dynamicLoader(
+    () => import('antd/lib/progress'),
+  ),
+  [IAtomType.AntDesignRadio]: dynamicLoader(() => import('antd/lib/radio')),
+  [IAtomType.AntDesignRadioGroup]: dynamicLoader(
+    () => import('antd/lib/radio/group'),
+  ),
+  [IAtomType.AntDesignRate]: dynamicLoader(() => import('antd/lib/rate')),
+  [IAtomType.AntDesignResult]: dynamicLoader(() => import('antd/lib/result')),
   [IAtomType.AntDesignSegmented]: dynamicLoader(
     () => import('antd/lib/segmented'),
   ),
+  [IAtomType.AntDesignSelect]: dynamicLoader(() => import('antd/lib/select')),
+  [IAtomType.AntDesignSelectOption]: dynamicLoader(() =>
+    import('antd/lib/select').then((mod) => mod.default.Option),
+  ),
+  [IAtomType.AntDesignSkeleton]: dynamicLoader(
+    () => import('antd/lib/skeleton'),
+  ),
+  [IAtomType.AntDesignSlider]: dynamicLoader(
+    () => import('antd/lib/slider') as never,
+  ),
+  [IAtomType.AntDesignSpace]: dynamicLoader(() => import('antd/lib/space')),
+  [IAtomType.AntDesignSpin]: dynamicLoader(() => import('antd/lib/spin')),
+  [IAtomType.AntDesignStatistic]: dynamicLoader(
+    () => import('antd/lib/statistic'),
+  ),
+  [IAtomType.AntDesignSteps]: dynamicLoader(() => import('antd/lib/steps')),
+  [IAtomType.AntDesignStepsStep]: dynamicLoader(() =>
+    import('antd/lib/steps').then((mod) => mod.default.Step),
+  ),
+  [IAtomType.AntDesignSwitch]: dynamicLoader(() => import('antd/lib/switch')),
   [IAtomType.AntDesignTable]: dynamicLoader(() => import('antd/lib/table')),
-  [IAtomType.AntDesignImage]: dynamicLoader(() => import('antd/lib/image')),
+  [IAtomType.AntDesignTabs]: dynamicLoader(() => import('antd/lib/tabs')),
+  [IAtomType.AntDesignTabsTabPane]: dynamicLoader(() =>
+    import('antd/lib/tabs').then((mod) => mod.default.TabPane),
+  ),
+  [IAtomType.AntDesignTag]: dynamicLoader(() => import('antd/lib/tag')),
+  [IAtomType.AntDesignTimeline]: dynamicLoader(
+    () => import('antd/lib/timeline'),
+  ),
+  [IAtomType.AntDesignTimelineItem]: dynamicLoader(
+    () => import('antd/lib/timeline/TimelineItem'),
+  ),
+  [IAtomType.AntDesignTimePicker]: dynamicLoader(
+    () => import('antd/lib/time-picker'),
+  ),
+  [IAtomType.AntDesignTooltip]: dynamicLoader(() => import('antd/lib/tooltip')),
+  [IAtomType.AntDesignTransfer]: dynamicLoader(
+    () => import('antd/lib/transfer') as never,
+  ),
+  [IAtomType.AntDesignTree]: dynamicLoader(() => import('antd/lib/tree')),
+  [IAtomType.AntDesignTreeSelect]: dynamicLoader(
+    () => import('antd/lib/tree-select'),
+  ),
+  [IAtomType.AntDesignTypographyParagraph]: dynamicLoader(
+    () => import('antd/lib/typography/Paragraph'),
+  ),
+  [IAtomType.AntDesignTypographyText]: dynamicLoader(
+    () => import('antd/lib/typography/Text'),
+  ),
+  [IAtomType.AntDesignTypographyTitle]: dynamicLoader(
+    () => import('antd/lib/typography/Title'),
+  ),
+  [IAtomType.AntDesignUpload]: dynamicLoader(() => import('antd/lib/upload')),
 }

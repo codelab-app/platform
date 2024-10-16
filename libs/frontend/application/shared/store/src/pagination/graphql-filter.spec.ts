@@ -33,8 +33,8 @@ describe('graphqlFilter', () => {
     const result = graphqlFilterMatches(['field1', 'field2'], '')
 
     expect(result).toEqual({
-      field1_MATCHES: '(?i).*.*',
-      field2_MATCHES: '(?i).*.*',
+      field1_MATCHES: '.*',
+      field2_MATCHES: '.*',
     })
   })
 })

@@ -1,4 +1,5 @@
 'use client'
+import type { Context, FieldProps } from 'uniforms'
 
 import {
   CodeMirrorEditor,
@@ -13,8 +14,8 @@ import { lineNumbers } from '@codemirror/view'
 import { Form, Spin } from 'antd'
 import { memo, type Ref } from 'react'
 import { useAsyncFn, useMount } from 'react-use'
-import type { Context, FieldProps } from 'uniforms'
 import { connectField, useForm } from 'uniforms'
+
 import type { MainPropsOnChange, Value } from './CodeMirrorField'
 
 export interface ICodeMirrorGraphqlProps<T> {

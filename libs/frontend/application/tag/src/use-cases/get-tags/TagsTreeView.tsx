@@ -5,6 +5,8 @@ import type {
   ITagNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
+import type { TreeProps } from 'antd'
+
 import { type CheckedKeys, PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
@@ -13,8 +15,8 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
+
 import { useTagService } from '../../services'
 import { TagsTreeItem } from './TagsTreeItem'
 

@@ -1,4 +1,5 @@
-import { Cui } from '@codelab/frontend-application-shared-data'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
+
 import { CuiSkeletonWrapper } from '../../components'
 
 export interface CuiCollapsePanelContentProps {
@@ -14,10 +15,10 @@ export const CuiCollapsePanelContent = ({
 }: CuiCollapsePanelContentProps) => {
   return (
     <div
-      className="flex size-full min-h-1/3 flex-col overflow-auto bg-white"
-      data-cy={Cui.cuiSidebarViewContent(label)}
+      className="flex grow min-h-1/3 flex-col overflow-auto bg-white"
+      data-testid={CuiTestId.cuiSidebarViewContent(label)}
     >
-      <div className="w-full flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto">
         <CuiSkeletonWrapper isLoading={isLoading}>{content}</CuiSkeletonWrapper>
       </div>
     </div>

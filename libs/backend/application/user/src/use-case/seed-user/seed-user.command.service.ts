@@ -1,6 +1,7 @@
-import { UserRepository } from '@codelab/backend/domain/user'
 import type { IUserDto } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
+
+import { UserRepository } from '@codelab/backend/domain/user'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class SeedUserCommand {

@@ -1,6 +1,7 @@
 'use client'
 
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+
 import {
   isAtom,
   type IUpdateBaseElementData,
@@ -20,6 +21,7 @@ import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useCustomCompareMemo } from 'use-custom-compare'
+
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import ChildMapperCompositeField from '../../components/ChildMapperCompositeField'
 import { RenderTypeField } from '../../components/render-type-field'
@@ -115,7 +117,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             title: 'Error while updating element',
           })}
           schema={updateElementSchema}
-          uiKey={UiKey.UpdateElementForm}
+          uiKey={UiKey.ElementFormUpdate}
         >
           <AutoComputedElementNameField label="Name" name="name" />
           <RenderTypeField name="renderType" />

@@ -1,3 +1,5 @@
+import type { IAppAggregate } from '@codelab/shared/abstract/core'
+
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
@@ -5,7 +7,6 @@ import { DomainRepository } from '@codelab/backend/domain/domain'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
 import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {

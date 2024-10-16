@@ -1,6 +1,5 @@
 import { CurrentUser } from '@codelab/backend/application/auth'
-import { PreferenceDomainService } from '@codelab/backend/domain/preference'
-import { UserDomainService, UserRepository } from '@codelab/backend/domain/user'
+import { UserDomainService } from '@codelab/backend/domain/user'
 import { type IUserDto } from '@codelab/shared/abstract/core'
 import { Controller, Post } from '@nestjs/common'
 

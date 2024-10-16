@@ -1,58 +1,11 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 import {
   PageFragmentDoc,
   PageDevelopmentFragmentDoc,
 } from '@codelab/shared/infra/gql'
-
-export const CreatePagesDocument = graphql(`
-  mutation CreatePages($input: [PageCreateInput!]!) {
-    createPages(input: $input) {
-      pages {
-        id
-      }
-    }
-  }
-`)
-
-export const DeletePagesDocument = graphql(`
-  mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
-    deletePages(delete: $delete, where: $where) {
-      nodesDeleted
-    }
-  }
-`)
-
-export const UpdatePagesDocument = graphql(`
-  mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
-    updatePages(update: $update, where: $where) {
-      pages {
-        id
-      }
-    }
-  }
-`)
-
-export const PageListDocument = graphql(`
-  query PageList($options: PageOptions, $where: PageWhere) {
-    aggregate: pagesAggregate(where: $where) {
-      count
-    }
-    items: pages(options: $options, where: $where) {
-      ...Page
-    }
-  }
-`)
-
-export const GetRenderedPageDocument = graphql(`
-  query GetRenderedPage($pageId: ID!) {
-    pages(where: { id: $pageId }) {
-      ...PageDevelopment
-    }
-  }
-`)
 
 import {
   type CreatePagesMutationVariables,
@@ -61,28 +14,35 @@ import {
   type PageListQueryVariables,
   type GetRenderedPageQueryVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  CreatePagesDocument,
+  DeletePagesDocument,
+  UpdatePagesDocument,
+  PageListDocument,
+  GetRenderedPageDocument,
+} from './page.api.documents.graphql.gen'
 
 export const CreatePages = (
   variables: CreatePagesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreatePagesDocument.toString(), variables, next)
 
 export const DeletePages = (
   variables: DeletePagesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeletePagesDocument.toString(), variables, next)
 
 export const UpdatePages = (
   variables: UpdatePagesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdatePagesDocument.toString(), variables, next)
 
 export const PageList = (
   variables: PageListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(PageListDocument.toString(), variables, next)
 
 export const GetRenderedPage = (
   variables: GetRenderedPageQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetRenderedPageDocument.toString(), variables, next)

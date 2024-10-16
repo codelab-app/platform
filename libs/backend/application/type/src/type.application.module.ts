@@ -3,6 +3,7 @@ import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { TypeApplicationService, TypeSeederService } from './service'
 import { TypeApplicationController } from './type.application.controller'
 import { SeedCypressTypesHandler, SeedSystemTypesHandler } from './use-case'

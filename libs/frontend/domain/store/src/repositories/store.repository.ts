@@ -7,7 +7,9 @@ import type {
   StoreUniqueWhere,
   StoreWhere,
 } from '@codelab/shared/infra/gql'
+
 import { Validator } from '@codelab/shared/infra/schema'
+
 import { Store } from '../store/store.model'
 import {
   CreateStores,

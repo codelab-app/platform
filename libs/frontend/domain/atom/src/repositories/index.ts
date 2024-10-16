@@ -1,2 +1,2 @@
-export { AtomList } from './atom.api.graphql.gen'
-export * from './atom.repository'
+export * from './atom.mapper'
+export { atomRepository } from './atom.repository'

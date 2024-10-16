@@ -1,6 +1,7 @@
 'use client'
 
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+
 import { createContext, useContext } from 'react'
 
 export const DomainStoreContext = createContext<IDomainStore | null>(null)

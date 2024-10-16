@@ -1,7 +1,7 @@
 'use server'
 
-import { fetchWithAuth } from '@codelab/frontend-infra-fetch'
 import { getEnv } from '@codelab/shared/config'
+import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 
 export const exportComponentService = async (id: string) => {
   const response = await fetchWithAuth(

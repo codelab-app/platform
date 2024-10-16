@@ -1,14 +1,16 @@
 import type { IResourceService } from '@codelab/frontend/abstract/application'
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
-import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import type {
   ICreateResourceData,
   IPropDto,
+  IRef,
   IResourceDto,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
 import type { ResourceWhere } from '@codelab/shared/infra/gql'
+
+import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
@@ -38,7 +40,7 @@ export const useResourceService = (): IResourceService => {
     return resource
   }
 
-  const remove = async (resources: Array<IResourceModel>) => {
+  const removeMany = async (resources: Array<IResourceModel>) => {
     resources.forEach((resource) => {
       resourceDomainService.resources.delete(resource.id)
     })
@@ -91,18 +93,23 @@ export const useResourceService = (): IResourceService => {
     resources.forEach((resource) => resourceDomainService.hydrate(resource))
   }
 
-  const getResource = (id: string) => {
-    return resourceDomainService.resources.get(id)
+  const getOneFromCache = (ref: IRef) => {
+    return resourceDomainService.resources.get(ref.id)
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(resourceDomainService.resources.values())
   }
 
   return {
     create,
     getAll,
+    getAllFromCache,
     getOne,
-    getResource,
+    getOneFromCache,
     getSelectResourceOptions,
     load,
-    remove,
+    removeMany,
     update,
   }
 }

@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common'
 import type { Argv, CommandModule } from 'yargs'
+
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class SeedService implements CommandModule<unknown> {

@@ -8,6 +8,7 @@ import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
+
 import { useResourceService } from '../../services'
 import { useDeleteResourceModal } from './delete-resource.state'
 
@@ -33,7 +34,7 @@ export const DeleteResourceModal = observer(() => {
       return Promise.reject()
     }
 
-    await resourceService.remove([resource])
+    await resourceService.removeMany([resource])
 
     closeModal()
 
@@ -50,7 +51,7 @@ export const DeleteResourceModal = observer(() => {
       onCancel={onSubmitSuccess}
       open={deleteResourceModal.isOpen}
       title="Delete Confirmation"
-      uiKey={UiKey.DeleteResourceModal}
+      uiKey={UiKey.ResourceModalDelete}
     >
       <ModalForm.Form
         model={{}}

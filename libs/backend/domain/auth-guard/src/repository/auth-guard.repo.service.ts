@@ -1,3 +1,5 @@
+import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
+
 import {
   type AuthGuard,
   type AuthGuardOptions,
@@ -11,12 +13,11 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   connectOwner,
   reconnectNodeId,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

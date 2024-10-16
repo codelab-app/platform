@@ -3,6 +3,7 @@ import type {
   IStoreModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
+
 import {
   CuiEmpty,
   CuiSkeletonWrapper,
@@ -11,6 +12,7 @@ import {
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn, useMount } from 'react-use'
+
 import { StateTreeItem } from './StateTreeItem'
 
 export const StateTreeView = observer<{ store: IStoreModel }>(({ store }) => {

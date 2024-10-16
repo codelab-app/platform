@@ -1,6 +1,13 @@
 'use client'
 
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { ICreatePageData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
@@ -9,27 +16,16 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { ICreatePageData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { usePageService } from '../../services'
 import { createPageSchema } from './create-page.schema'
 import { useCreatePageForm } from './create-page.state'
 
-interface CreatePageFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const CreatePageForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreatePageFormProps) => {
+export const CreatePageForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const user = useUser()
     const app = useCurrentApp()
     const pageService = usePageService()
@@ -64,7 +60,7 @@ export const CreatePageForm = observer(
         })}
         schema={createPageSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreatePageForm}
+        uiKey={UiKey.PageFormCreate}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

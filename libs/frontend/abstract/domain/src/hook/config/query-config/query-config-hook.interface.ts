@@ -1,6 +1,8 @@
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
+
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
+
 import { QueryMethod } from './query-method.enum'
 
 // export interface IQueryHookConfig {

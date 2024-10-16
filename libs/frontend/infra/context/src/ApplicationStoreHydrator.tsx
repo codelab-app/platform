@@ -2,45 +2,51 @@
 
 import type {
   UrlPathParams,
-  UrlQueryParamsString,
+  UrlQueryParamsPageProps,
 } from '@codelab/frontend/abstract/types'
+
+import { parseQueryParamPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { withProfiler } from '@sentry/react'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useEffect, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useState } from 'react'
+import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
+import { isDeepEqual } from 'remeda'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
   fallback: ReactNode
   pathParams?: UrlPathParams
-  queryParams?: UrlQueryParamsString
+  queryParams?: UrlQueryParamsPageProps
 }
 
-export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
-  ({ children, fallback, pathParams, queryParams }) => {
-    const { routerService } = useApplicationStore()
-    const [isHydrated, setIsHydrated] = useState(false)
+export const ApplicationStoreHydrator = withProfiler(
+  observer(
+    ({
+      children,
+      fallback,
+      pathParams,
+      queryParams,
+    }: ApplicationStoreHydratorProps) => {
+      const { routerService } = useApplicationStore()
+      const [isHydrated, setIsHydrated] = useState(false)
 
-    // usePaginationQueryParams(queryParams?.page, queryParams?.pageSize)
+      useEffect(() => {
+        if (queryParams) {
+          routerService.setQueryParams(parseQueryParamPageProps(queryParams))
+        }
 
-    useEffect(() => {
-      if (queryParams) {
-        routerService.setQueryParams({
-          ...queryParams,
-          filter: queryParams.filter ? queryParams.filter.split(',') : [],
-          page: queryParams.page ? parseInt(queryParams.page) : undefined,
-          pageSize: queryParams.pageSize
-            ? parseInt(queryParams.pageSize)
-            : undefined,
-        })
-      }
+        if (pathParams) {
+          routerService.setPathParams(pathParams)
+        }
 
-      if (pathParams) {
-        routerService.setPathParams(pathParams)
-      }
+        setIsHydrated(true)
+      }, [])
 
-      setIsHydrated(true)
-    }, [])
-
-    return isHydrated ? <>{children}</> : <>{fallback}</>
+      return isHydrated ? <>{children}</> : <>{fallback}</>
+    },
+  ),
+  {
+    name: 'ApplicationStoreHydrator',
   },
 )

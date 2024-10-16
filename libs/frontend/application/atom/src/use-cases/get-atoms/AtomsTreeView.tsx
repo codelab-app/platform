@@ -3,11 +3,15 @@ import type {
   IAtomTreeNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
+
 import { PageType } from '@codelab/frontend/abstract/types'
+import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
+
 import { useAtomService } from '../../services'
+import { AtomsTreeItem } from './AtomsTreeItem'
 
 interface AtomsTreeViewProps {
   showSearchBar: boolean
@@ -34,7 +38,7 @@ export const AtomsTreeView = observer(
 
     return (
       <div className="size-full">
-        {/* <CuiTree<ITreeNode<IAtomTreeNodeData>>
+        <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) =>
             routerService.setQueryParams({ search: keyword })
@@ -43,7 +47,7 @@ export const AtomsTreeView = observer(
           searcheable={showSearchBar ? { primaryTitle: true } : false}
           titleRender={(node) => <AtomsTreeItem data={node} />}
           treeData={treeData}
-        /> */}
+        />
       </div>
     )
   },

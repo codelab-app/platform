@@ -1,6 +1,7 @@
 import type { IPageDomainService } from '@codelab/frontend/abstract/domain'
-import { chance } from '@codelab/frontend-domain-shared'
 import type { IPageDto } from '@codelab/shared/abstract/core'
+
+import { chance } from '@codelab/frontend-domain-shared'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

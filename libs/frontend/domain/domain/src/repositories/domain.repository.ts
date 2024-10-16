@@ -1,13 +1,17 @@
 import type {
-  IDomainModel,
-  IDomainRepository,
-} from '@codelab/frontend/abstract/domain'
-import type {
   DomainOptions,
   DomainUniqueWhere,
   DomainWhere,
 } from '@codelab/shared/infra/gql'
+
+import {
+  CACHE_TAGS,
+  type IDomainModel,
+  type IDomainRepository,
+} from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
+import { revalidateTag } from 'next/cache'
+
 import {
   CreateDomains,
   DeleteDomains,
@@ -65,3 +69,6 @@ export const domainRepository: IDomainRepository = {
     return updatedDomain
   },
 }
+
+export const invalidateDomainListQuery = () =>
+  revalidateTag(CACHE_TAGS.DOMAIN_LIST)

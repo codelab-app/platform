@@ -1,4 +1,5 @@
 import Ajv from 'ajv'
+
 import {
   actionTypeExpectedSchema,
   appTypeExpectedSchema,

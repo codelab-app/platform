@@ -1,7 +1,8 @@
 import type { TypedDocumentString } from '@codelab/shared/infra/gql'
+
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { useCallback, useState } from 'react'
 import useSWR, { type SWRResponse } from 'swr'
-import { gqlFetch } from '../gql-fetch'
 
 export const useLazySwr = <TResult, TVariables>(
   document: TypedDocumentString<TResult, TVariables>,

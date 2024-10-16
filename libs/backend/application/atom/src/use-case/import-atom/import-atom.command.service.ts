@@ -1,7 +1,8 @@
-import { ImportApiCommand } from '@codelab/backend/application/type'
-import { AtomRepository } from '@codelab/backend/domain/atom'
 import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
+
+import { ImportApiCommand } from '@codelab/backend/application/type'
+import { AtomRepository } from '@codelab/backend/domain/atom'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportAtomCommand {

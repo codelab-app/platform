@@ -1,5 +1,7 @@
 import { Typography } from 'antd'
+
 import type { CuiPopoverToolbarProps } from '../../views'
+
 import { CuiPopoverToolbar } from '../../views'
 
 interface CuiSidebarPopoverHeaderProps {
@@ -13,19 +15,12 @@ export const CuiSidebarPopoverHeader = ({
 }: CuiSidebarPopoverHeaderProps) => {
   return (
     <div
-      className="
-      flex
-      h-10
-      w-full
-      flex-row
-      items-center
-      justify-between
-      border-0
-      border-b-2
-      border-solid
-      border-gray-300
-      bg-neutral-100
-    "
+      className={`
+        flex h-10 w-full
+        flex-row items-center justify-between
+        border-0 border-b-2 border-solid
+        border-gray-300 bg-neutral-100
+      `}
     >
       <Typography className="pl-4">{label}</Typography>
       {toolbar && (

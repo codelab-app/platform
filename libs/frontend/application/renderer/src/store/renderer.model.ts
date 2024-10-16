@@ -5,6 +5,12 @@ import type {
   IRenderPipe,
   ITypedPropTransformer,
 } from '@codelab/frontend/abstract/application'
+import type {
+  IComponentModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+
 import {
   getRuntimeComponentService,
   getRuntimePageService,
@@ -12,18 +18,14 @@ import {
   isRuntimePage,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   isPage,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
+
 import { defaultPipes, renderPipeFactory } from '../render-pipes'
 import { ExpressionTransformer } from '../services'
 import { typedPropTransformersFactory } from '../typed-prop-transformers'

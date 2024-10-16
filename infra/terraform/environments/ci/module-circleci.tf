@@ -37,4 +37,6 @@ module "circleci" {
   digitalocean_api_token    = var.DIGITALOCEAN_API_TOKEN
   digitalocean_droplet_name = var.DIGITALOCEAN_DROPLET_NAME
   docker_tag_version        = var.DOCKER_TAG_VERSION
+
+  sentry_auth_token = var.SENTRY_AUTH_TOKEN
 }

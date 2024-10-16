@@ -1,22 +1,23 @@
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { Form } from '@codelab/frontend-presentation-components-form'
 import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { Form } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useComponentService } from '../../services'
 import { createComponentSchema } from './create-component.schema'
 import { useCreateComponentForm } from './create-component.state'
 
-interface CreateComponentFormProps {
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
 export const CreateComponentForm = observer(
-  ({ onSubmitSuccess, submitRef }: CreateComponentFormProps) => {
+  ({ onSubmitSuccess, submitRef }: IFormController) => {
     const createForm = useCreateComponentForm()
     const componentService = useComponentService()
 
@@ -41,7 +42,7 @@ export const CreateComponentForm = observer(
         onSubmitSuccess={createForm.close}
         schema={createComponentSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateComponentForm}
+        uiKey={UiKey.ComponentFormCreate}
       >
         <AutoFields omitFields={['api']} />
       </Form>

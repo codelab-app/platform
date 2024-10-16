@@ -1,18 +1,20 @@
 'use client'
 
 import type { FormProps, VoidCallback } from '@codelab/frontend/abstract/types'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ReactElement } from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
+
 import {
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { throttle } from 'radash'
-import type { ReactElement } from 'react'
 import { useContext, useEffect, useState } from 'react'
-import type { ArrayOrSingle } from 'ts-essentials'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
+
 import { usePostSubmit, useSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
@@ -69,11 +71,11 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
       modelTransform={modelTransform}
       onChange={onChange}
       onChangeModel={onChangeModel}
-      onSubmit={throttle({ interval: 200 }, (formData) =>
+      onSubmit={(formData) =>
         submit(formData)
           .then(postSubmit.onSubmitSuccess)
-          .catch(postSubmit.onSubmitError),
-      )}
+          .catch(postSubmit.onSubmitError)
+      }
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
       showInlineError

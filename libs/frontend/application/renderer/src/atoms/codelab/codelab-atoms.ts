@@ -1,4 +1,5 @@
 import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
+
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -11,15 +12,15 @@ export const codelabAtoms: IAtomRendererRecord = {
       '@codelab/frontend-application-atom/components/custom/grid-layout'
     ).then((mod) => mod.GridLayout),
   ),
-  [IAtomType.TextList]: dynamicLoader(() =>
-    import(
-      '@codelab/frontend-application-atom/components/custom/text-list'
-    ).then((mod) => mod.TextList),
-  ),
-  [IAtomType.Text]: TextEditor,
   [IAtomType.Script]: dynamicLoader(() =>
     import(
       '@codelab/frontend-application-atom/components/custom/codelab-script'
     ).then((mod) => mod.CodelabScript),
+  ),
+  [IAtomType.Text]: TextEditor,
+  [IAtomType.TextList]: dynamicLoader(() =>
+    import(
+      '@codelab/frontend-application-atom/components/custom/text-list'
+    ).then((mod) => mod.TextList),
   ),
 }

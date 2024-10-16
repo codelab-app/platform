@@ -1,6 +1,8 @@
-import { toError } from '@codelab/shared/utils'
 import type { Context, Span } from '@opentelemetry/api'
+
+import { toError } from '@codelab/shared/utils'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
+
 import { initializeWebTraceProvider } from './otel-browser.provider'
 
 type Callback<Return> = (span: Span) => Return

@@ -1,10 +1,12 @@
+import type { JSONSchemaType } from 'ajv'
+
 import {
   interfaceTypeSchema,
   ITypeKind,
   primitiveTypeSchema,
 } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 import { mergeDeep } from 'remeda'
+
 import { extractUiSchema } from './extract-ui-schema'
 
 interface DemoType {

@@ -1,6 +1,7 @@
 import type { MoveData } from '@codelab/frontend/abstract/domain'
-import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import type { JSONSchemaType } from 'ajv'
+
+import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 
 export const moveElementSchema: JSONSchemaType<MoveData> = {
   properties: {

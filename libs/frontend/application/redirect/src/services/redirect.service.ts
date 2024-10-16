@@ -4,14 +4,15 @@ import type {
   IRedirectModel,
   IUpdateRedirectData,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { RedirectWhere } from '@codelab/shared/infra/gql'
+
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { RedirectWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 
 export const useRedirectService = (): IRedirectService => {
   const { redirectDomainService } = useDomainStore()
-  const redirectList = [...redirectDomainService.redirects.values()]
 
   const create = async (redirectDto: ICreateRedirectData) => {
     const redirect = redirectDomainService.hydrate(redirectDto)
@@ -21,7 +22,7 @@ export const useRedirectService = (): IRedirectService => {
     return redirect
   }
 
-  const remove = async (redirectsModel: Array<IRedirectModel>) => {
+  const removeMany = async (redirectsModel: Array<IRedirectModel>) => {
     redirectsModel.forEach((redirect) =>
       redirectDomainService.redirects.delete(redirect.id),
     )
@@ -53,17 +54,21 @@ export const useRedirectService = (): IRedirectService => {
     return redirect
   }
 
-  const redirect = (id: string) => {
-    return redirectDomainService.redirects.get(id)
+  const getOneFromCache = (ref: IRef) => {
+    return redirectDomainService.redirects.get(ref.id)
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(redirectDomainService.redirects.values())
   }
 
   return {
     create,
     getAll,
+    getAllFromCache,
     getOne,
-    redirect,
-    redirectList,
-    remove,
+    getOneFromCache,
+    removeMany,
     update,
   }
 }

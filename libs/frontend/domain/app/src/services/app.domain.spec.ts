@@ -1,6 +1,7 @@
 import { appDto, atomReactFragmentDto } from '@codelab/frontend/test/data'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
+
 import { rootDomainStore } from '../test/root.test.store'
 
 describe('App domain', () => {

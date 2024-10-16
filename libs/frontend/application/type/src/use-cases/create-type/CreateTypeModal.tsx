@@ -1,13 +1,15 @@
 'use client'
 
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useTypeService } from '../../services'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
@@ -38,7 +40,7 @@ export const CreateTypeModal = observer(() => {
       onCancel={closeModal}
       open={isOpen}
       title={<span className="font-semibold">Create type</span>}
-      uiKey={UiKey.CreateTypeModal}
+      uiKey={UiKey.TypeModalCreate}
     >
       <ModalForm.Form<ICreateTypeDto>
         model={{

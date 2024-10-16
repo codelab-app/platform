@@ -1,47 +1,8 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { TagFragmentDoc } from '@codelab/shared/infra/gql'
-
-export const CreateTagsDocument = graphql(`
-  mutation CreateTags($input: [TagCreateInput!]!) {
-    createTags(input: $input) {
-      tags {
-        id
-      }
-    }
-  }
-`)
-
-export const UpdateTagsDocument = graphql(`
-  mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
-    updateTags(update: $update, where: $where) {
-      tags {
-        id
-      }
-    }
-  }
-`)
-
-export const DeleteTagsDocument = graphql(`
-  mutation DeleteTags($where: TagWhere!) {
-    deleteTags(where: $where) {
-      nodesDeleted
-    }
-  }
-`)
-
-export const GetTagsDocument = graphql(`
-  query GetTags($options: TagOptions, $where: TagWhere) {
-    aggregate: tagsAggregate(where: $where) {
-      count
-    }
-    items: tags(options: $options, where: $where) {
-      ...Tag
-    }
-  }
-`)
 
 import {
   type CreateTagsMutationVariables,
@@ -49,23 +10,29 @@ import {
   type DeleteTagsMutationVariables,
   type GetTagsQueryVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  CreateTagsDocument,
+  UpdateTagsDocument,
+  DeleteTagsDocument,
+  GetTagsDocument,
+} from './tag.api.documents.graphql.gen'
 
 export const CreateTags = (
   variables: CreateTagsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateTagsDocument.toString(), variables, next)
 
 export const UpdateTags = (
   variables: UpdateTagsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateTagsDocument.toString(), variables, next)
 
 export const DeleteTags = (
   variables: DeleteTagsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteTagsDocument.toString(), variables, next)
 
 export const GetTags = (
   variables: GetTagsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetTagsDocument.toString(), variables, next)

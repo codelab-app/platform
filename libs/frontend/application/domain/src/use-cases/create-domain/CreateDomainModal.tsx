@@ -2,6 +2,7 @@
 
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
@@ -14,6 +15,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useDomainService } from '../../services'
 import { createDomainSchema } from './create-domain.schema'
 import { useCreateDomainModal } from './create-domain.state'
@@ -52,7 +54,7 @@ export const CreateDomainModal = observer(() => {
       okText="Create Domain"
       onCancel={closeModal}
       open={createDomainModal.isOpen}
-      uiKey={UiKey.CreateDomainModal}
+      uiKey={UiKey.DomainModalCreate}
     >
       <ModalForm.Form<ICreateDomainData>
         model={model}

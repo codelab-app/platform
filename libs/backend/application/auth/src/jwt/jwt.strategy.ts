@@ -1,3 +1,6 @@
+import type * as express from 'express'
+import type { VerifiedCallback, VerifyCallbackWithRequest } from 'passport-jwt'
+
 import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
 import {
   type Auth0IdToken,
@@ -6,10 +9,8 @@ import {
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
-import type * as express from 'express'
 import * as jwt from 'jsonwebtoken'
 import { passportJwtSecret } from 'jwks-rsa'
-import type { VerifiedCallback, VerifyCallbackWithRequest } from 'passport-jwt'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 
 interface IPassportStrategy {

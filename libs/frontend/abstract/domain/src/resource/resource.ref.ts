@@ -1,4 +1,5 @@
 import { detach, rootRef } from 'mobx-keystone'
+
 import type { IResourceModel } from './resource.model.interface'
 
 export const resourceRef = rootRef<IResourceModel>('@codelab/ResourceRef', {

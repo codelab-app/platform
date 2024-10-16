@@ -1,9 +1,10 @@
+import type { DataNode } from 'antd/lib/tree'
+
 import DownOutlined from '@ant-design/icons/DownOutlined'
 import { faHtml5 } from '@fortawesome/free-brands-svg-icons'
 import { faAtom } from '@fortawesome/pro-light-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Tree } from 'antd'
-import type { DataNode } from 'antd/lib/tree'
 
 const treeData: Array<DataNode> = [
   {

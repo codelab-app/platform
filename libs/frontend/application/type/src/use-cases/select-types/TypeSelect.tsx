@@ -4,6 +4,7 @@ import { useAsyncFn } from 'react-use'
 import { filter, isTruthy, map, pipe, prop, uniqueBy } from 'remeda'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
+
 import { useTypeService } from '../../services'
 
 export interface TypeSelectProps {

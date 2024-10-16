@@ -1,3 +1,5 @@
+import type React from 'react'
+
 export interface PrimarySidebarItem {
   key: React.Key
   render: React.ReactElement
@@ -20,7 +22,9 @@ export type DashboardProps<T = unknown> = T & {
   // PrimarySidebar?: PrimarySidebar
   primarySidebarKey?: string
   Header?: React.ReactNode
+  Main?: React.ReactNode
   contentStyles?: React.CSSProperties
+  SecondaryPopover?: React.ReactNode
   appId?: string
   componentId?: string
   pageId?: string

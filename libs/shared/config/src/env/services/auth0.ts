@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import * as env from 'env-var'
+
 import type { IEndpointEnvVars } from './endpoint'
 
 export interface IAuth0EnvVars {

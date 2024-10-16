@@ -320,7 +320,6 @@ export type ActionTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -1466,7 +1465,6 @@ export type ApiActionWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -2336,7 +2334,6 @@ export type AppTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -2422,7 +2419,6 @@ export type AppWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AppOwnerAggregateInput>
@@ -3089,7 +3085,6 @@ export type ArrayTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
   itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
@@ -4867,7 +4862,6 @@ export type AtomWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -5536,7 +5530,6 @@ export type AuthGuardWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -6451,7 +6444,6 @@ export type CodeActionWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -6760,7 +6752,6 @@ export type CodeMirrorTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -7762,7 +7753,6 @@ export type ComponentWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ComponentOwnerAggregateInput>
@@ -8302,7 +8292,6 @@ export type DomainWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -11031,7 +11020,6 @@ export type ElementTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -11129,7 +11117,6 @@ export type ElementWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   nextSibling?: InputMaybe<ElementWhere>
   nextSiblingAggregate?: InputMaybe<ElementNextSiblingAggregateInput>
@@ -12186,7 +12173,6 @@ export type EnumTypeValueWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   key?: InputMaybe<Scalars['String']['input']>
   key_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -12250,7 +12236,6 @@ export type EnumTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -13174,7 +13159,6 @@ export type FieldWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   key?: InputMaybe<Scalars['String']['input']>
   key_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -13844,7 +13828,6 @@ export type HookWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<AtomType>
   type_IN?: InputMaybe<Array<AtomType>>
@@ -15233,7 +15216,6 @@ export type InterfaceTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -15526,7 +15508,6 @@ export type LambdaTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -17674,7 +17655,6 @@ export type PageTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -17740,7 +17720,6 @@ export type PageWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<PageKind>
   kind_IN?: InputMaybe<Array<PageKind>>
@@ -18070,7 +18049,6 @@ export type PreferenceWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<PreferenceOwnerAggregateInput>
@@ -18385,7 +18363,6 @@ export type PrimitiveTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -18554,7 +18531,6 @@ export type PropWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -19579,7 +19555,6 @@ export type ReactNodeTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -20293,7 +20268,6 @@ export type RedirectWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   source?: InputMaybe<PageWhere>
   sourceAggregate?: InputMaybe<RedirectSourceAggregateInput>
@@ -20645,7 +20619,6 @@ export type RenderPropTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -21108,7 +21081,6 @@ export type ResourceWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -21401,7 +21373,6 @@ export type RichTextTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -21920,7 +21891,6 @@ export type StoreWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -23716,7 +23686,6 @@ export type TagWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
@@ -25370,7 +25339,6 @@ export type UnionTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -27021,7 +26989,6 @@ export type UserWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   preferences?: InputMaybe<PreferenceWhere>
   preferencesAggregate?: InputMaybe<UserPreferencesAggregateInput>
@@ -27897,35 +27864,6 @@ export type GetAppProductionQuery = {
   resources: Array<ResourceFragment>
 }
 
-export type CreateAtomsMutationVariables = Exact<{
-  input: Array<AtomCreateInput> | AtomCreateInput
-}>
-
-export type CreateAtomsMutation = {
-  createAtoms: {
-    atoms: Array<{ id: string }>
-    info: { nodesCreated: number; relationshipsCreated: number }
-  }
-}
-
-export type DeleteAtomsMutationVariables = Exact<{
-  where: AtomWhere
-}>
-
-export type DeleteAtomsMutation = {
-  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
-}
-
-export type AtomListQueryVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  options?: InputMaybe<AtomOptions>
-}>
-
-export type AtomListQuery = {
-  aggregate: { count: number }
-  items: Array<AtomFragment>
-}
-
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
@@ -27936,15 +27874,6 @@ export type GetSelectAtomOptionsQuery = {
     type: AtomType
     requiredParents: Array<{ id: string; type: AtomType }>
   }>
-}
-
-export type UpdateAtomsMutationVariables = Exact<{
-  where?: InputMaybe<AtomWhere>
-  update?: InputMaybe<AtomUpdateInput>
-}>
-
-export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
 }
 
 export type GetAuthGuardsQueryVariables = Exact<{
@@ -29153,6 +29082,45 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
+}
+
+export type CreateAtomsMutationVariables = Exact<{
+  input: Array<AtomCreateInput> | AtomCreateInput
+}>
+
+export type CreateAtomsMutation = {
+  createAtoms: {
+    atoms: Array<{ id: string }>
+    info: { nodesCreated: number; relationshipsCreated: number }
+  }
+}
+
+export type DeleteAtomsMutationVariables = Exact<{
+  where: AtomWhere
+  delete?: InputMaybe<AtomDeleteInput>
+}>
+
+export type DeleteAtomsMutation = {
+  deleteAtoms: { nodesDeleted: number; relationshipsDeleted: number }
+}
+
+export type AtomListQueryVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
+}>
+
+export type AtomListQuery = {
+  aggregate: { count: number }
+  items: Array<AtomFragment>
+}
+
+export type UpdateAtomsMutationVariables = Exact<{
+  where?: InputMaybe<AtomWhere>
+  update?: InputMaybe<AtomUpdateInput>
+}>
+
+export type UpdateAtomsMutation = {
+  updateAtoms: { atoms: Array<{ id: string }> }
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -34402,128 +34370,6 @@ fragment Owner on User {
   GetAppProductionQuery,
   GetAppProductionQueryVariables
 >
-export const CreateAtomsDocument = new TypedDocumentString(`
-    mutation CreateAtoms($input: [AtomCreateInput!]!) {
-  createAtoms(input: $input) {
-    atoms {
-      id
-    }
-    info {
-      nodesCreated
-      relationshipsCreated
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateAtomsMutation,
-  CreateAtomsMutationVariables
->
-export const DeleteAtomsDocument = new TypedDocumentString(`
-    mutation DeleteAtoms($where: AtomWhere!) {
-  deleteAtoms(where: $where) {
-    nodesDeleted
-    relationshipsDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteAtomsMutation,
-  DeleteAtomsMutationVariables
->
-export const AtomListDocument = new TypedDocumentString(`
-    query AtomList($where: AtomWhere, $options: AtomOptions) {
-  aggregate: atomsAggregate(where: $where) {
-    count
-  }
-  items: atoms(options: $options, where: $where) {
-    ...Atom
-  }
-}
-    fragment Atom on Atom {
-  __typename
-  api {
-    ...InterfaceType
-  }
-  externalCssSource
-  externalJsSource
-  externalSourceType
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  tags {
-    ...Tag
-  }
-  type
-}
-fragment Tag on Tag {
-  children {
-    id
-    name
-  }
-  descendants {
-    id
-    name
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  parent {
-    id
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
 export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
     query GetSelectAtomOptions {
   atoms {
@@ -34540,18 +34386,6 @@ export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   GetSelectAtomOptionsQuery,
   GetSelectAtomOptionsQueryVariables
->
-export const UpdateAtomsDocument = new TypedDocumentString(`
-    mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
-  updateAtoms(update: $update, where: $where) {
-    atoms {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateAtomsMutation,
-  UpdateAtomsMutationVariables
 >
 export const GetAuthGuardsDocument = new TypedDocumentString(`
     query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {
@@ -39285,4 +39119,138 @@ export const CreateUserDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreateUserMutation,
   CreateUserMutationVariables
+>
+export const CreateAtomsDocument = new TypedDocumentString(`
+    mutation CreateAtoms($input: [AtomCreateInput!]!) {
+  createAtoms(input: $input) {
+    atoms {
+      id
+    }
+    info {
+      nodesCreated
+      relationshipsCreated
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateAtomsMutation,
+  CreateAtomsMutationVariables
+>
+export const DeleteAtomsDocument = new TypedDocumentString(`
+    mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {
+  deleteAtoms(where: $where, delete: $delete) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteAtomsMutation,
+  DeleteAtomsMutationVariables
+>
+export const AtomListDocument = new TypedDocumentString(`
+    query AtomList($where: AtomWhere, $options: AtomOptions) {
+  aggregate: atomsAggregate(where: $where) {
+    count
+  }
+  items: atoms(options: $options, where: $where) {
+    ...Atom
+  }
+}
+    fragment Atom on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
+export const UpdateAtomsDocument = new TypedDocumentString(`
+    mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
+  updateAtoms(update: $update, where: $where) {
+    atoms {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateAtomsMutation,
+  UpdateAtomsMutationVariables
 >

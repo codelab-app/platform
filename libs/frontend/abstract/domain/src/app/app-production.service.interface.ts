@@ -8,6 +8,7 @@ import type {
   PropFragment,
   StoreFragment,
 } from '@codelab/shared/infra/gql'
+
 import type { IAppModel } from './app.model.interface'
 
 export interface IAppProductionArgs {

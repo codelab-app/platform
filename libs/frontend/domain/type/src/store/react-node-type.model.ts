@@ -4,8 +4,10 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
+
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
+
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 

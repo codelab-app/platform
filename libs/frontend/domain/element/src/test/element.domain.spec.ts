@@ -1,13 +1,15 @@
+import type { IElementDto } from '@codelab/shared/abstract/core'
+
 import { atomRef, type IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   atomReactFragmentDto,
   elementDto,
   pageDto,
 } from '@codelab/frontend/test/data'
-import type { IElementDto } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
+
 import { rootDomainStore } from './root.test.store'
 
 describe('Element domain', () => {

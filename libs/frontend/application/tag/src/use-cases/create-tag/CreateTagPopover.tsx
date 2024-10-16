@@ -1,5 +1,7 @@
 'use client'
 
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
@@ -7,9 +9,9 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
+
 import { useCreateTagForm } from './create-tag.data'
 import { CreateTagForm } from './CreateTagForm'
 
@@ -20,12 +22,11 @@ export const CreateTagPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={UiKey.CreateTagPopover}
-      label="Create Tag"
+      id={UiKey.TagPopoverCreate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.CreateTagToolbarItem,
+            cuiKey: UiKey.TagToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -34,7 +35,7 @@ export const CreateTagPopover = observer(() => {
             title: 'Create',
           },
           {
-            cuiKey: UiKey.CancelCreateTagToolabarItem,
+            cuiKey: UiKey.TagToolabarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

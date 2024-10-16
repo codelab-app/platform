@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+
 import { CuiSidebarPopoverLayout } from '../../CuiSidebarPopover'
 
 interface CuiSidebarPopoverProps {

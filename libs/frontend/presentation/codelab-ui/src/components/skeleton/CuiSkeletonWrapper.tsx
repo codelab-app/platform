@@ -1,5 +1,6 @@
-import { Cui } from '@codelab/frontend-application-shared-data'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { Skeleton } from 'antd'
+import { clsx } from 'clsx'
 
 interface CuiSkeletonWrapperProps {
   children?: React.ReactNode
@@ -12,8 +13,12 @@ export const CuiSkeletonWrapper = ({
 }: CuiSkeletonWrapperProps) => (
   <div className="size-full">
     <div
-      className={`size-full ${isLoading ? 'block' : 'hidden'}`}
-      data-testid={Cui.cuiSkeleton()}
+      className={clsx(
+        'size-full',
+        isLoading ? 'block' : 'hidden',
+        CuiTestId.cuiSkeleton(),
+      )}
+      data-testid={CuiTestId.cuiSkeleton()}
     >
       <Skeleton active loading style={{ padding: 5 }} />
     </div>

@@ -1,25 +1,26 @@
 import { isNumber } from 'remeda'
+
 import { CssProperty } from './css'
 
 export enum Side {
-  Top = 'top',
-  Right = 'right',
   Bottom = 'bottom',
-  Left = 'left',
   Center = 'center',
+  Left = 'left',
+  Right = 'right',
+  Top = 'top',
 }
 
 export enum CssUnit {
-  PX = 'px',
-  PERCENT = '%',
-  REM = 'rem',
-  EM = 'em',
-  VW = 'vw',
-  VH = 'vh',
-  CH = 'ch',
-  SVW = 'svw',
-  SVH = 'svh',
   Auto = 'auto',
+  CH = 'ch',
+  EM = 'em',
+  PERCENT = '%',
+  PX = 'px',
+  REM = 'rem',
+  SVH = 'svh',
+  SVW = 'svw',
+  VH = 'vh',
+  VW = 'vw',
 }
 
 export interface CssValue {
@@ -69,12 +70,12 @@ export const parseCssValue = (value?: number | string): CssValue => {
 
 export const getCursorForSide = (side: CssProperty) => {
   switch (side) {
-    case CssProperty.Top:
-      return 'n-resize'
-    case CssProperty.Right:
-      return 'e-resize'
     case CssProperty.Bottom:
       return 's-resize'
+    case CssProperty.Right:
+      return 'e-resize'
+    case CssProperty.Top:
+      return 'n-resize'
   }
 
   return 'w-resize'
@@ -82,12 +83,12 @@ export const getCursorForSide = (side: CssProperty) => {
 
 export const getCursorForSideReversed = (side: CssProperty) => {
   switch (side) {
-    case CssProperty.Top:
-      return 's-resize'
-    case CssProperty.Right:
-      return 'w-resize'
     case CssProperty.Bottom:
       return 'n-resize'
+    case CssProperty.Right:
+      return 'w-resize'
+    case CssProperty.Top:
+      return 's-resize'
   }
 
   return 'e-resize'

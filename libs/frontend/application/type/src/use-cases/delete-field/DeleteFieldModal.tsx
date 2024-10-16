@@ -9,6 +9,7 @@ import {
 } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useFieldService } from '../../services'
 import { useDeleteFieldModal } from './delete-field.state'
 
@@ -29,12 +30,12 @@ export const DeleteFieldModal = observer(() => {
       onCancel={closeModal}
       open={deleteFieldModal.isOpen}
       title={<span className="font-semibold">Delete field</span>}
-      uiKey={UiKey.DeleteFieldModal}
+      uiKey={UiKey.FieldModalDelete}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
         onSubmit={(input) => {
-          return fieldService.remove([field])
+          return fieldService.removeMany([field])
         }}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting field',

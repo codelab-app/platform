@@ -1,4 +1,5 @@
 import type { IResolvers } from '@graphql-tools/utils'
+
 import { pageName } from './field/page-name'
 import { pageSlug } from './field/page-slug'
 

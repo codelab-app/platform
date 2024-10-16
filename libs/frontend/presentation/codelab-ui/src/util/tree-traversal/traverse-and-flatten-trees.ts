@@ -1,4 +1,5 @@
 import { flat } from 'remeda'
+
 import type { WithMaybeChildren } from './with-maybe-chilred.interface'
 
 export const traverseAndFlattenTrees = <T, R>(

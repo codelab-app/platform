@@ -3,9 +3,12 @@ import type {
   DroppableContainer,
   UniqueIdentifier,
 } from '@dnd-kit/core'
+
 import { pathOr, stringToPath } from 'remeda'
-import { type Point, type Rect, Rectangle } from '../geometry'
+
 import type { WithInternalDropData } from '../hooks/internal-drop-data.interface'
+
+import { type Point, type Rect, Rectangle } from '../geometry'
 import { HierarchicalCollisionDetector } from './hierarchical-collision-detector'
 
 interface BaseHierarchyItem {

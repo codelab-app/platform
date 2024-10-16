@@ -1,10 +1,11 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
+import type { JSONSchemaType } from 'ajv'
+
 import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import type { JSONSchemaType } from 'ajv'
 
 export const createAppSchema: JSONSchemaType<ICreateAppData> = {
   properties: {

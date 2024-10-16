@@ -7,6 +7,7 @@ import type {
   InterfaceTypeCreateInput,
   UpdateInterfaceTypesMutationVariables,
 } from '@codelab/shared/infra/gql'
+
 import type { IFieldModel, IFieldNodeData } from '../../field'
 import type { ITreeNode } from '../../shared'
 import type { IBaseTypeModel } from './base-type.model.interface'

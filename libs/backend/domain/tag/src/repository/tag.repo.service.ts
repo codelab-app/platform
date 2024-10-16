@@ -3,6 +3,7 @@ import type {
   TagOptions,
   TagWhere,
 } from '@codelab/backend/abstract/codegen'
+
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -16,7 +17,7 @@ import {
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

@@ -1,8 +1,39 @@
 {
   "overrides": [
     {
+      "plugins": ["perfectionist"],
+      "extends": ["plugin:perfectionist/recommended-natural-legacy"],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "perfectionist/sort-interfaces": "off",
+        "perfectionist/sort-intersection-types": "off",
+        "perfectionist/sort-object-types": "off",
+        "perfectionist/sort-classes": "off",
+        "perfectionist/sort-jsx-props": "off",
+        "perfectionist/sort-union-types": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc",
+            "ignoreCase": true,
+            "partitionByNewLine": false,
+            "partitionByComment": false,
+            "groups": [
+              "conditional",
+              "function",
+              "import",
+              "intersection",
+              "keyword",
+              "literal",
+              "named",
+              "object",
+              "operator",
+              "tuple",
+              "union",
+              "nullish"
+            ]
+          }
+        ],
         "@typescript-eslint/member-ordering": [
           "error",
           {
@@ -42,6 +73,12 @@
             }
           }
         ]
+      }
+    },
+    {
+      "files": ["*.schema.ts", "*.config.ts"],
+      "rules": {
+        "perfectionist/sort-objects": "off"
       }
     }
   ]

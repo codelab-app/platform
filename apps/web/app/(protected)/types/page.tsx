@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import { CreateFieldModal } from '@codelab/frontend-application-type/use-cases/create-field'
 import { CreateTypeModal } from '@codelab/frontend-application-type/use-cases/create-type'
 import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
@@ -6,7 +8,6 @@ import { TypeEditor } from '@codelab/frontend-application-type/use-cases/get-typ
 import { UpdateFieldModal } from '@codelab/frontend-application-type/use-cases/update-field'
 import { UpdateTypeModal } from '@codelab/frontend-application-type/use-cases/update-type'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   // description: '...',

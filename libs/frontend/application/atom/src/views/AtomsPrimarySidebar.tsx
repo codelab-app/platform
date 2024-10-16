@@ -4,20 +4,17 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
-  useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
+
 import { useAtomService } from '../services/atom.service'
-import { CreateAtomPopover } from '../use-cases/create-atom'
-import { useCreateAtomModal } from '../use-cases/create-atom/create-atom.state'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
-  const { paginationService } = useAtomService()
-  const { popover } = useCui()
-  const createAtomForm = useCreateAtomModal()
+  const { atomPopoverCreate, paginationService } = useAtomService()
+  const router = useRouter()
 
   const { showSearchBar, toolbarItems } =
     useToolbarPagination(paginationService)
@@ -26,12 +23,7 @@ export const AtomsPrimarySidebar = observer(() => {
     <CuiSidebar
       defaultActiveViewKeys={['atoms-view']}
       label="Atoms"
-      popover={
-        <>
-          <CreateAtomPopover />
-          <CreateFieldPopover />
-        </>
-      }
+      // popover={<CreateFieldPopover />}
       uiKey={UiKey.AtomSidebar}
       views={[
         {
@@ -42,11 +34,10 @@ export const AtomsPrimarySidebar = observer(() => {
             items: [
               ...toolbarItems,
               {
-                cuiKey: UiKey.CreateAtomToolbarItem,
+                cuiKey: UiKey.AtomToolbarItemCreate,
                 icon: <PlusOutlined />,
                 onClick: () => {
-                  createAtomForm.open()
-                  popover.open(UiKey.CreateAtomPopover)
+                  atomPopoverCreate.open(router)
                 },
                 title: 'Create Atom',
               },

@@ -3,6 +3,8 @@ import type {
   PreferenceOptions,
   PreferenceWhere,
 } from '@codelab/backend/abstract/codegen'
+import type { IPreferenceDto } from '@codelab/shared/abstract/core'
+
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   OgmService,
@@ -10,8 +12,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IPreferenceDto } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain'
+import { connectOwner } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

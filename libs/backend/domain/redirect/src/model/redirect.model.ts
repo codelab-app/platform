@@ -1,4 +1,3 @@
-import { IModel } from '@codelab/backend/abstract/types'
 import type {
   IRedirect,
   IRedirectDto,
@@ -6,6 +5,8 @@ import type {
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+
+import { IModel } from '@codelab/backend/abstract/types'
 
 export class Redirect extends IModel implements IRedirect {
   authGuard: IRef

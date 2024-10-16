@@ -8,6 +8,7 @@ import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { ComponentApplicationController } from './component.application.controller'
 import { ComponentApplicationService } from './service/component.application.service'
 import { ExportComponentHandler, ImportComponentsHandler } from './use-case'

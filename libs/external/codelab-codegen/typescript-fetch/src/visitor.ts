@@ -2,6 +2,8 @@ import type {
   ClientSideBasePluginConfig,
   LoadedFragment,
 } from '@graphql-codegen/visitor-plugin-common'
+import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
+
 import {
   ClientSideBaseVisitor,
   DocumentMode,
@@ -9,7 +11,8 @@ import {
 } from '@graphql-codegen/visitor-plugin-common'
 import autoBind from 'auto-bind'
 import { pascalCase } from 'change-case-all'
-import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
+import path from 'path'
+
 import type { RawGraphQLRequestPluginConfig } from './config.js'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -31,10 +34,13 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     operationVariablesTypes: string
   }> = []
 
+  private _outputFile?: string
+
   constructor(
     schema: GraphQLSchema,
     fragments: Array<LoadedFragment>,
     rawConfig: RawGraphQLRequestPluginConfig,
+    info?: { outputFile?: string },
   ) {
     super(schema, fragments, rawConfig, {
       documentMode: getConfigValue(rawConfig.documentMode, DocumentMode.string),
@@ -47,11 +53,13 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       // extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
     })
 
+    this._outputFile = path.basename(info?.outputFile || '')
+
     autoBind(this)
 
     this._additionalImports = [
       "import { graphql } from '@codelab/shared/infra/gql'",
-      "import { gqlFetch } from '@codelab/frontend/infra/graphql'",
+      "import { gqlFetch } from '@codelab/shared/infra/fetch'",
     ]
 
     this._externalImportPrefix = this.config.importOperationTypesFrom
@@ -96,21 +104,6 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       suffix: operationTypeSuffix + 'Variables',
     })
 
-    let documentString = ''
-
-    if (documentVariableName !== '') {
-      // console.log(this._gql(node))
-
-      documentString = `
-      export const ${documentVariableName} = graphql(${this._gql(
-        node,
-      )})${this.getDocumentNodeSignature(
-        operationResultType,
-        operationVariablesTypes,
-        node,
-      )}`
-    }
-
     const hasRequiredVariables = this.checkVariablesRequirements(node)
 
     const additional = this.buildOperation(
@@ -122,7 +115,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       hasRequiredVariables,
     )
 
-    return [documentString, additional].filter((a) => a).join('\n')
+    return [additional].filter((a) => a).join('\n')
   }
 
   protected override buildOperation(
@@ -153,12 +146,16 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       .map((o) => `type ${o.operationVariablesTypes}`)
       .join(', ')
 
-    // const documentImports = this._operationsToInclude
-    //   .map((o) => o.documentVariableName)
-    //   .join(', ')
+    const documentImports = this._operationsToInclude
+      .map((o) => o.documentVariableName)
+      .join(', ')
 
     const imports = [
       `import { ${typeImports} } from '${this._externalImportPrefix}'`,
+      // Here we import the generated documents to use with our operations
+      `import { ${documentImports} } from './${this._outputFile
+        ?.replace('.api.', '.api.documents.')
+        .replace('.ts', '')}'`,
       // ...this._additionalImports,
     ]
 
@@ -173,7 +170,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
         operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
       // server actions must be exported individually
-      return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
+      return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig & { revalidateTag?: string }) =>
   gqlFetch(${o.documentVariableName}.toString(), variables, next)`
     })
 

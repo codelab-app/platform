@@ -1,6 +1,10 @@
 import { type IPreferenceDto } from '@codelab/shared/abstract/core'
-import { breakpoints, DEFAULT_BUILDER_BREAKPOINT } from '@codelab/shared/domain'
+import {
+  breakpoints,
+  DEFAULT_BUILDER_BREAKPOINT,
+} from '@codelab/shared/domain-old'
 import { v4 } from 'uuid'
+
 import { userDto } from './user.data'
 
 export const preferenceDto: IPreferenceDto = {

@@ -10,27 +10,27 @@ const updateLibraryTsconfig = (tree, project) => {
     if (projectName?.startsWith('backend')) {
         (0, devkit_1.updateJson)(tree, `${project.root}/tsconfig.json`, (json) => {
             json.compilerOptions = {
-                module: 'commonjs',
                 forceConsistentCasingInFileNames: true,
-                strict: true,
-                noImplicitOverride: true,
-                noPropertyAccessFromIndexSignature: true,
-                noImplicitReturns: true,
+                module: 'commonjs',
                 noFallthroughCasesInSwitch: true,
+                noImplicitOverride: true,
+                noImplicitReturns: true,
+                noPropertyAccessFromIndexSignature: true,
+                strict: true,
             };
             return json;
         });
         (0, devkit_1.updateJson)(tree, `${project.root}/tsconfig.lib.json`, (json) => {
             json.compilerOptions = {
-                outDir: json.compilerOptions.outDir,
                 declaration: true,
-                types: ['node'],
-                target: 'es2021',
-                strictNullChecks: true,
-                noImplicitAny: true,
-                strictBindCallApply: true,
                 forceConsistentCasingInFileNames: true,
                 noFallthroughCasesInSwitch: true,
+                noImplicitAny: true,
+                outDir: json.compilerOptions.outDir,
+                strictBindCallApply: true,
+                strictNullChecks: true,
+                target: 'es2021',
+                types: ['node'],
             };
             return json;
         });

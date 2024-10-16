@@ -1,3 +1,5 @@
+import type { CommandBus } from '@nestjs/cqrs'
+
 import { DataModule } from '@codelab/backend/application/data'
 import {
   ImportApiHandler,
@@ -14,7 +16,7 @@ import {
 } from '@codelab/backend/domain/type'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { CommandBus } from '@nestjs/cqrs'
+
 import { ImportAtomHandler } from './import-atom.command.service'
 import {
   ImportAtomsCommand,

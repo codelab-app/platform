@@ -1,6 +1,7 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { isPlainObject, isString } from 'remeda'
 
 /**
@@ -16,7 +17,7 @@ export interface TypedProp {
   kind: ITypeKind
   type: string
   // required for nested types
-  value?: TypedProp | string
+  value?: string | TypedProp
 }
 
 /**

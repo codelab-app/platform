@@ -1,6 +1,7 @@
 'use client'
 
 import type { PageType } from '@codelab/frontend/abstract/types'
+
 import {
   useUrlPathParams,
   useUrlQueryParams,
@@ -8,7 +9,9 @@ import {
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { useEffect } from 'react'
+
 import type { IBuilderPage } from '../builder-router'
+
 import { extractPathParamsFromUrlInstance } from '../builder-router'
 
 /**
@@ -21,8 +24,8 @@ import { extractPathParamsFromUrlInstance } from '../builder-router'
 export const useRouteChangeHandler = (
   pages: Array<IBuilderPage> = [],
   pathname:
-    | ReturnType<typeof PageType.PageBuilder>
-    | ReturnType<typeof PageType.PageDetail>,
+    | ReturnType<typeof PageType.PageDetail>
+    | ReturnType<typeof PageType.PageList>,
 ) => {
   const router = useRouter()
   // Usage in page router causes first pass to be undefined

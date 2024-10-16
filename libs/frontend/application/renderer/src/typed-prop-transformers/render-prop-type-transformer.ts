@@ -3,13 +3,15 @@ import type {
   ITypedPropTransformer,
 } from '@codelab/frontend/abstract/application'
 import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
-import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
-import { Prop } from '@codelab/frontend-domain-prop/store'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
-import { hasExpression } from '@codelab/shared/utils'
+
+import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
+import { Prop } from '@codelab/frontend-domain-prop/store'
+import { hasExpression } from '@codelab/shared-infra-eval'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { v4 } from 'uuid'
+
 import { BaseRenderPipe } from '../render-pipes'
 
 /**

@@ -1,5 +1,6 @@
 import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
+
 import type { IApplicationStore } from './application.store.interface'
 import type { IRouterProps } from './router.service.interface'
 

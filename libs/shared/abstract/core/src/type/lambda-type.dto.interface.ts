@@ -1,4 +1,5 @@
 import { type Static, Type } from '@sinclair/typebox'
+
 import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 

@@ -1,9 +1,11 @@
+import type { IAtomAggregate } from '@codelab/shared/abstract/core'
+
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import { EntitySchema } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
+
 import { ExportAtomCommand } from '../use-case'
 
 @Injectable()

@@ -1,10 +1,13 @@
 'use client'
 
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useAppService } from '../../services'
 import { createAppSchema } from './create-app.schema'
 import { useCreateAppModal } from './create-app.state'
@@ -20,7 +23,8 @@ export const CreateAppModal = () => {
       okText="Create App"
       onCancel={closeModal}
       open={createAppModal.isOpen}
-      uiKey={UiKey.CreateAppModal}
+      title="Some Title"
+      uiKey={UiKey.AppModalCreate}
     >
       <ModalForm.Form<ICreateAppData>
         errorMessage="Error while creating app"

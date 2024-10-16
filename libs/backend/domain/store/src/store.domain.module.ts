@@ -1,5 +1,6 @@
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { Module } from '@nestjs/common'
+
 import { StoreRepository } from './repository'
 import { StoreDomainService } from './service'
 

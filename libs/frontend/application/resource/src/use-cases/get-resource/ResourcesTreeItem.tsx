@@ -1,15 +1,17 @@
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type {
   IResourceNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
-import { UiKey } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+
 import { ResourceIcon } from '../../views'
 import { useDeleteResourceModal } from '../delete-resource/delete-resource.state'
 import { useUpdateResourceForm } from '../update-resource'
@@ -34,7 +36,7 @@ export const ResourcesTreeItem = observer(
 
     const toolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: UiKey.DeleteResourceToolbarItem,
+        cuiKey: UiKey.ResourceToolbarItemDelete,
         icon: <DeleteOutlined />,
         onClick: onDelete,
         title: 'Delete',

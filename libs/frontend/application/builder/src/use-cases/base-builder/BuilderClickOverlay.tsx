@@ -1,8 +1,9 @@
+import type { BuilderDragData } from '@codelab/frontend/abstract/application'
+
 import CheckOutlined from '@ant-design/icons/CheckOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import DragOutlined from '@ant-design/icons/DragOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
-import type { BuilderDragData } from '@codelab/frontend/abstract/application'
 import {
   BuilderDndAction,
   isRuntimeElement,
@@ -15,6 +16,7 @@ import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
+
 import { queryRenderedElementById } from '../../utils/query-rendered-element-by-id'
 
 const StyledOverlayContainer = styled.div`
@@ -63,14 +65,20 @@ export const BuilderClickOverlay = observer<{
     <StyledOverlayContainer>
       <StyledOverlayButtonGroup>
         <div
-          className="flex size-7 cursor-pointer items-center justify-center align-middle"
+          className={`
+            flex size-7 cursor-pointer
+            items-center justify-center align-middle
+          `}
           onClick={(event) => {
             event.stopPropagation()
             deleteElementModal.open(element)
           }}
         >
           <div
-            className="flex size-5 items-center justify-center rounded-full align-middle"
+            className={`
+              flex size-5 items-center
+              justify-center rounded-full align-middle
+            `}
             style={{ backgroundColor: '#375583', color: 'red' }}
           >
             <DeleteOutlined />
@@ -84,7 +92,10 @@ export const BuilderClickOverlay = observer<{
         >
           <div className="flex size-7 items-center justify-center align-middle">
             <div
-              className="flex size-5 items-center justify-center rounded-full align-middle"
+              className={`
+                flex size-5 items-center
+                justify-center rounded-full align-middle
+              `}
               style={{ backgroundColor: '#375583', color: 'white' }}
             >
               <DragOutlined color="white" />
@@ -92,7 +103,10 @@ export const BuilderClickOverlay = observer<{
           </div>
         </MakeChildrenDraggable>
         <div
-          className="flex size-7 cursor-pointer items-center justify-center align-middle"
+          className={`
+            flex size-7 cursor-pointer
+            items-center justify-center align-middle
+          `}
           onClick={(event) => {
             event.stopPropagation()
             element.setIsTextContentEditable(!element.isTextContentEditable)
@@ -100,7 +114,10 @@ export const BuilderClickOverlay = observer<{
         >
           <div
             aria-label="Toggle Content Editing"
-            className="flex size-5 items-center justify-center rounded-full align-middle"
+            className={`
+              flex size-5 items-center
+              justify-center rounded-full align-middle
+            `}
             style={{ backgroundColor: '#375583', color: 'white' }}
           >
             {element.isTextContentEditable ? (

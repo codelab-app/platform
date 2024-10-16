@@ -1,15 +1,16 @@
+import type { TestingModule } from '@nestjs/testing'
+
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   ActionTypeSchema,
   AtomAggregateSchema,
   PrimitiveTypeSchema,
 } from '@codelab/shared/abstract/core'
-import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { Type } from '@sinclair/typebox'
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import affixJson from 'data/export-v3/admin/atoms/AntDesignAffix.json'
-import { omit } from 'remeda'
+
 import { ValidationService } from './validation.service'
 
 describe('ValidationService', () => {

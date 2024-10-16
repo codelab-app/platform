@@ -1,7 +1,9 @@
 import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { AtomBuilderFragment } from '@codelab/shared/infra/gql'
+
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { uniqueBy } from 'remeda'
+
 import { GetAppBuilder } from './app-builder.api.graphql.gen'
 
 export const appBuilderQuery: IAppBuilderQuery = async ({

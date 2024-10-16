@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client'
+
 import { authOwnerOrAdmin } from './user.schema'
 
 export const preferenceSchema = gql`

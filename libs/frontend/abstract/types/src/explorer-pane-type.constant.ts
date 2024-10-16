@@ -1,8 +1,8 @@
 export enum ExplorerPaneType {
-  Components = 'components',
-  PageList = 'pageList',
-  Explorer = 'explorer',
-  Tag = 'tag',
-  ResourceList = 'resourceList',
   AuthGuards = 'authGuardsList',
+  Components = 'components',
+  Explorer = 'explorer',
+  PageList = 'pageList',
+  ResourceList = 'resourceList',
+  Tag = 'tag',
 }

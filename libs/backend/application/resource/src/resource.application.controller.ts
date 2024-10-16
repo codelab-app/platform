@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
 import { HttpEndpoint } from 'nestjs-typebox'
+
 import { ResourceApplicationService } from './resource.application.service'
 
 @Controller('resource')

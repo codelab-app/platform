@@ -1,12 +1,13 @@
+import type {
+  IComponentModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
+
 import {
   rendererRef,
   type RendererType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useEffect } from 'react'
 

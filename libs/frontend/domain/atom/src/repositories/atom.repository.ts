@@ -2,30 +2,36 @@ import type {
   IAtomModel,
   IAtomRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type {
+  AtomCreateInput,
+  AtomOptions,
+  AtomUniqueWhere,
+  AtomUpdateInput,
+  AtomWhere,
+} from '@codelab/shared/infra/gql'
+
 import {
   CACHE_TAGS,
   filterNotHookType,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  AtomOptions,
-  AtomUniqueWhere,
-  AtomWhere,
-} from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
-import { prop, sortBy } from 'remeda'
 import {
   AtomList,
   CreateAtoms,
   DeleteAtoms,
   GetSelectAtomOptions,
   UpdateAtoms,
-} from './atom.api.graphql.gen'
+} from '@codelab/shared-domain-module-atom/server'
+import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { revalidateTag } from 'next/cache'
+import { prop, sortBy } from 'remeda'
 
-export const atomRepository: IAtomRepository = {
-  add: async (atom: IAtomModel) => {
+export const atomRepository: IAtomRepository = withTracingMethods('atom', {
+  add: async (input: AtomCreateInput) => {
     const {
       createAtoms: { atoms },
-    } = await CreateAtoms({ input: [atom.toCreateInput()] })
+    } = await CreateAtoms({ input })
 
     const createdAtom = atoms[0]
 
@@ -38,6 +44,9 @@ export const atomRepository: IAtomRepository = {
     const {
       deleteAtoms: { nodesDeleted },
     } = await DeleteAtoms({
+      delete: {
+        api: {},
+      },
       where: { id_IN: atoms.map(({ id }) => id) },
     })
 
@@ -61,13 +70,24 @@ export const atomRepository: IAtomRepository = {
     )
   },
 
-  update: async (atom: IAtomModel) => {
+  update: async ({
+    update,
+    where,
+  }: {
+    where: AtomWhere
+    update: AtomUpdateInput
+  }) => {
     const {
       updateAtoms: { atoms },
-    } = await UpdateAtoms({
-      update: atom.toUpdateInput(),
-      where: { id: atom.id },
-    })
+    } = await UpdateAtoms(
+      {
+        update,
+        where,
+      },
+      {
+        revalidateTag: CACHE_TAGS.ATOM_LIST,
+      },
+    )
 
     const updatedAtom = atoms[0]
 
@@ -75,4 +95,4 @@ export const atomRepository: IAtomRepository = {
 
     return updatedAtom
   },
-}
+})

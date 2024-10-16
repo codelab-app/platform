@@ -9,6 +9,7 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/infra/gql'
+
 import type { IPropModel } from '../prop'
 import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'

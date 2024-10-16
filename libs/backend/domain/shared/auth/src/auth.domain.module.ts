@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+
 import { AuthDomainService } from './auth.domain.service'
 
 @Module({

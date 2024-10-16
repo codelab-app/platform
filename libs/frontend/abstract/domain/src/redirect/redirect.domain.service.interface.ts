@@ -1,5 +1,6 @@
 import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import type { ObjectMap } from 'mobx-keystone'
+
 import type { IHydrateable } from '../shared'
 import type { IRedirectModel } from './redirect.model.interface'
 

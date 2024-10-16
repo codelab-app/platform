@@ -1,16 +1,15 @@
 import type { Tree } from '@nx/devkit'
+
 import {
   formatFiles,
   getProjects,
   readProjectConfiguration,
   updateProjectConfiguration,
 } from '@nx/devkit'
-import { removeGraphqlEslintConfig } from './eslint/remove-graphql-eslint-config'
-import { addProjectTags } from './project-tags/add-project-tags'
+
 import type { EslintGeneratorSchema } from './schema'
-import { migrateToConfigBasedTest } from './test/remove-test-targets'
-import { updateBaseTsconfig } from './tsconfig-base/tsconfig.base'
-import { updateLibraryTsconfig } from './tsconfig-lib/tsconfig.lib'
+
+import { addProjectTags } from './project-tags/add-project-tags'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`

@@ -1,6 +1,7 @@
-import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
+
+import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 
 export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
   properties: {

@@ -1,6 +1,7 @@
 const { composePlugins, withNx } = require('@nx/webpack')
 
 const withRawCypherFiles = (config, ctx) => {
+  config.module = config.module ?? {}
   config.module.rules = config.module.rules ?? []
   config.module.rules.push({
     test: /\.(cypher|cyp)$/,

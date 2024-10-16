@@ -4,6 +4,7 @@ import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { debug } from 'console'
 import { Fragment } from 'react'
+
 import { InterfaceForm } from '../InterfaceForm'
 import {
   interfaceWithEnumField,

@@ -3,19 +3,20 @@ import type {
   IPropModel,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
+import type {
+  AuthGuardCreateInput,
+  AuthGuardUpdateInput,
+} from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
+
 import {
   getUserDomainService,
   resourceRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain'
-import type {
-  AuthGuardCreateInput,
-  AuthGuardUpdateInput,
-} from '@codelab/shared/infra/gql'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({

@@ -1,6 +1,8 @@
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
+
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
+
 import { IElementRenderTypeKind } from '../element'
 import { IAtomType } from './atom-type.enum'
 

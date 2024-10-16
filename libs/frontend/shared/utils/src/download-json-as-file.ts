@@ -1,4 +1,5 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { prettifyForConsole } from '@codelab/shared/utils'
 
 export const downloadJsonAsFile = (fileName: string, content: ObjectLike) => {

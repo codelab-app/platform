@@ -9,6 +9,7 @@ import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { PageApplicationController } from './page.application.controller'
 import { PageApplicationService } from './page.application.service'
 import { ExportPageHandler, ImportPageHandler } from './use-case'

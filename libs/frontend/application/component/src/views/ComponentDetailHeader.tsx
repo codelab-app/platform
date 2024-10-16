@@ -2,7 +2,6 @@
 
 import {
   type ComponentContextParams,
-  ExplorerPaneType,
   PageType,
 } from '@codelab/frontend/abstract/types'
 import {
@@ -32,25 +31,15 @@ export const ComponentDetailHeader = observer<IComponentDetailHeaderProps>(
     const togglePreviewMode = () => {
       const url = isBuilder
         ? PageType.ComponentPreview({ componentId })
-        : PageType.ComponentBuilder(
-            { componentId },
-            {
-              primarySidebarKey: ExplorerPaneType.Explorer,
-            },
-          )
+        : PageType.ComponentBuilder({ componentId })
 
       return router.push(url)
     }
 
     const navigateComponentsPanel = useCallback(async () => {
-      const url = PageType.ComponentBuilder(
-        {
-          componentId,
-        },
-        {
-          primarySidebarKey: ExplorerPaneType.Components,
-        },
-      )
+      const url = PageType.ComponentBuilder({
+        componentId,
+      })
 
       await router.push(url)
     }, [router, componentId])

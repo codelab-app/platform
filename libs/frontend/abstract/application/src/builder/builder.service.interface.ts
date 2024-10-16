@@ -1,11 +1,8 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type {
-  IRuntimeComponentModel,
-  IRuntimeElementModel,
-  IRuntimeModel,
-} from '../renderer'
+
+import type { IRuntimeComponentModel, IRuntimeModel } from '../renderer'
 
 export type IBuilderComponent = IAtomModel
 

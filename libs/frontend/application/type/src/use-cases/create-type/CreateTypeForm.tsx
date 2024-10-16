@@ -1,36 +1,31 @@
 'use client'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useTypeService } from '../../services'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
 import { useCreateTypeForm } from './create-type.state'
 import { DisplayIfKind } from './DisplayIfKind'
 
-interface CreateTypeFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const CreateTypeForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreateTypeFormProps) => {
+export const CreateTypeForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const typeService = useTypeService()
     const createTypeForm = useCreateTypeForm()
     const closeForm = () => createTypeForm.close()
@@ -63,7 +58,7 @@ export const CreateTypeForm = observer(
         onSubmitSuccess={closeForm}
         schema={createTypeSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateTypeForm}
+        uiKey={UiKey.TypeFormCreate}
       >
         <AutoFields fields={['name']} />
         <SelectField name="kind" showSearch />

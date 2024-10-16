@@ -4,6 +4,7 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
+
 import {
   assertIsTypeKind,
   IPrimitiveTypeKind,
@@ -12,13 +13,14 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { isBoolean, mergeDeep } from 'remeda'
+
 import { createBaseType } from './base-type.model'
 
 export const primitives = {
-  [PrimitiveTypeKind.String]: 'string' as const,
+  [PrimitiveTypeKind.Boolean]: 'boolean' as const,
   [PrimitiveTypeKind.Integer]: 'integer' as const,
   [PrimitiveTypeKind.Number]: 'number' as const,
-  [PrimitiveTypeKind.Boolean]: 'boolean' as const,
+  [PrimitiveTypeKind.String]: 'string' as const,
 }
 
 const create = ({ id, kind, name, primitiveKind }: IPrimitiveTypeDto) => {

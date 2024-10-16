@@ -1,5 +1,5 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { titleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
 export const createEnumTypeInputForAtomType = (
@@ -9,11 +9,11 @@ export const createEnumTypeInputForAtomType = (
 ) => ({
   enumType: {
     allowedValues: allowValues.map((value) => ({
-      name: compoundCaseToTitleCase(value),
+      name: titleCase(value),
       value,
     })),
   },
   id: v4(),
   kind: ITypeKind.EnumType,
-  name: `${atomName} ${compoundCaseToTitleCase(property)} Enum`,
+  name: `${atomName} ${titleCase(property)} Enum`,
 })

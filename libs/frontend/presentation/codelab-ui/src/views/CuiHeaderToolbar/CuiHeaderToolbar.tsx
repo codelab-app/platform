@@ -1,9 +1,12 @@
 'use client'
 
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
+import { getUiDataLabel } from '@codelab/frontend/abstract/types'
 import { Button, Dropdown } from 'antd'
 import { useEffect, useRef, useState } from 'react'
+
 import type { ToolbarItem, ToolbarProps } from '../../abstract'
+
 import { CuiHeaderToolbarItem } from './CuiHeaderToolbarItem'
 
 type CuiHeaderToolbarProps = ToolbarProps
@@ -52,7 +55,7 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
   }))
 
   return (
-    <div className="flex w-full justify-end" data-cy="cui-toolbar">
+    <div className="flex w-full justify-end" data-testid="cui-toolbar">
       <div
         className="flex flex-row items-start gap-2 overflow-hidden"
         ref={listRef}

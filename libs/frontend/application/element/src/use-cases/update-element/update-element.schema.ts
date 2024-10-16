@@ -1,4 +1,6 @@
 import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/domain'
+import type { JSONSchemaType } from 'ajv'
+
 import { getSelectElementComponent } from '@codelab/frontend/presentation/components/interface-form'
 import {
   idSchema,
@@ -6,7 +8,6 @@ import {
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { ElementTypeKind } from '@codelab/shared/infra/gql'
-import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {

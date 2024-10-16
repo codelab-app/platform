@@ -4,10 +4,12 @@ import type {
   IInterfaceTypeDto,
   IRef,
 } from '@codelab/shared/abstract/core'
+
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain'
+import { createInterfaceTypeName } from '@codelab/shared/domain-old'
+import { capitalCase } from 'change-case-all'
 import { v4 } from 'uuid'
-import capitalize from 'voca/capitalize'
+
 import { BaseType } from './base-type.model'
 
 export class InterfaceType extends BaseType implements IInterfaceTypeDto {
@@ -30,7 +32,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDto {
     { name }: Pick<IAtomDto, 'name'>,
     field?: Pick<IFieldDto, 'key'>,
   ) {
-    return field?.key ? `${name} ${capitalize(field.key)} API` : `${name} API`
+    return field?.key ? `${name} ${capitalCase(field.key)} API` : `${name} API`
   }
 
   __typename = ITypeKind.InterfaceType as const

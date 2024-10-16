@@ -1,5 +1,7 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
+
 import path from 'path'
+
 import { aliasMap } from './alias-map'
 import { appendTsconfigPath, getModuleAlias, removeTsconfigPath } from './utils'
 

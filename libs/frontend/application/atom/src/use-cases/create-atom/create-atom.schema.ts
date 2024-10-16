@@ -1,4 +1,6 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
+import type { JSONSchemaType } from 'ajv'
+
 import { filterNotHookType } from '@codelab/frontend/abstract/domain'
 import {
   cdnEsmValidation,
@@ -6,7 +8,6 @@ import {
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   properties: {

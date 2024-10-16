@@ -2,6 +2,7 @@ import type {
   ElementCssRules,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
+
 import { Card, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'

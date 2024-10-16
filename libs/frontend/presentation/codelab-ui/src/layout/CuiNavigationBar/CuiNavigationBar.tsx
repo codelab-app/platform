@@ -1,13 +1,15 @@
 'use client'
 
-import { Cui } from '@codelab/frontend-application-shared-data'
+import type { LinkProps } from 'next/link'
+import type { ReactNode } from 'react'
+
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { useUrlQueryParams } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
-import type { LinkProps } from 'next/link'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import type { ReactNode } from 'react'
+
 import styles from './CuiNavigationBar.module.css'
 
 export interface NavigationBarItem {
@@ -29,14 +31,14 @@ export interface CuiNavigationBarProps {
 export const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   disabled: navBarItem.disabled,
   icon: (
-    <div data-cy={Cui.cuiNavigationBarItem(navBarItem.title)}>
+    <div data-testid={CuiTestId.cuiNavigationBarItem(navBarItem.title)}>
       {navBarItem.icon}
     </div>
   ),
   key: navBarItem.key,
   label: navBarItem.link && !navBarItem.disabled && (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <Link {...navBarItem.link} />
+    <Link {...navBarItem.link} prefetch={false} />
   ),
   onClick: () => {
     navBarItem.onClick?.()

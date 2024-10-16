@@ -1,10 +1,12 @@
+import type { IElementDto } from '@codelab/shared/abstract/core'
+
 import {
   atomReactFragmentDto,
   elementDto,
   pageDto,
 } from '@codelab/frontend/test/data'
-import type { IElementDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+
 import { rootDomainStore } from './root.test.store'
 
 describe('Create element', () => {

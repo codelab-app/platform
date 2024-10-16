@@ -3,7 +3,11 @@ import { css } from 'styled-components'
 export const Key = ({ children }: React.PropsWithChildren) => {
   return (
     <kbd
-      className="rounded border border-gray-200 px-1 py-0.5 text-xs text-gray-600"
+      className={`
+        rounded border border-gray-200
+        px-1 py-0.5 text-xs
+        text-gray-600
+      `}
       css={[
         css`
           background: white;

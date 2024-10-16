@@ -1,16 +1,19 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useCreateAtomModal } from './create-atom.state'
+import { useRouter } from 'next/navigation'
+
+import { useAtomService } from '../../services'
 
 export const CreateAtomButton = observer(() => {
-  const createAtomModal = useCreateAtomModal()
+  const { atomPopoverCreate } = useAtomService()
+  const router = useRouter()
 
   return (
     <Button
       className="flex items-center justify-center"
       icon={<PlusOutlined />}
-      onClick={() => createAtomModal.open()}
+      onClick={() => atomPopoverCreate.open(router)}
       type="primary"
     >
       Create

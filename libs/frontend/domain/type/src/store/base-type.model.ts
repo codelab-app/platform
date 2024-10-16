@@ -1,3 +1,5 @@
+import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+
 import {
   getUserDomainService,
   type IBaseTypeModel,
@@ -6,8 +8,7 @@ import {
   type IUpdateTypeVars,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain'
+import { connectOwner } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

@@ -1,4 +1,6 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
+import type { ICreateActionData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectAction,
@@ -10,11 +12,11 @@ import {
   DisplayIfField,
   ModalForm,
 } from '@codelab/frontend-presentation-components-form'
-import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useActionService } from '../../services'
 import { createActionSchema } from './create-action.schema'
 import { useCreateActionModal } from './create-action.state'
@@ -58,7 +60,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
         okText="Create Action"
         onCancel={closeModal}
         open={createActionModal.isOpen}
-        uiKey={UiKey.CreateActionModal}
+        uiKey={UiKey.ActionModalCreate}
       >
         <ModalForm.Form<ICreateActionData>
           model={model}

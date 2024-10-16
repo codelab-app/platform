@@ -5,6 +5,7 @@ import {
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
+
 import { useUpdateFieldForm } from '../use-cases/update-field'
 import { useUpdateTypeForm } from '../use-cases/update-type'
 

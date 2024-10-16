@@ -2,6 +2,7 @@ import type {
   IInterfaceTypeModel,
   IPageDomainFactory,
 } from '@codelab/frontend/abstract/domain'
+
 import {
   getElementDomainService,
   getPageDomainService,

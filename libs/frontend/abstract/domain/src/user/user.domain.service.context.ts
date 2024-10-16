@@ -1,4 +1,5 @@
 import { type AnyModel, createContext } from 'mobx-keystone'
+
 import type { IUserDomainService } from './user.domain.service.interface'
 
 export const userDomainServiceContext = createContext<IUserDomainService>()

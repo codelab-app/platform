@@ -1,3 +1,7 @@
+import type { IStoreModel } from '@codelab/frontend/abstract/domain'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+
 import {
   getRendererService,
   type IRuntimeActionModel,
@@ -5,14 +9,11 @@ import {
   type IRuntimeStoreModel,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
-import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { actionRef, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { IPropData, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed, observable, reaction, set } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
   idProp,
   Model,
@@ -22,6 +23,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { keys } from 'remeda'
+
 import { RuntimeActionModel } from './runtime-action.model'
 
 const create = (dto: IRuntimeStoreDTO) => new RuntimeStoreModel(dto)

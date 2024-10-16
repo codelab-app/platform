@@ -3,21 +3,25 @@ import type {
   PluginValidateFn,
   Types,
 } from '@graphql-codegen/plugin-helpers'
-import { oldVisit } from '@graphql-codegen/plugin-helpers'
 import type {
   LoadedFragment,
   RawClientSideBasePluginConfig,
 } from '@graphql-codegen/visitor-plugin-common'
 import type { FragmentDefinitionNode, GraphQLSchema } from 'graphql'
+
+import { oldVisit } from '@graphql-codegen/plugin-helpers'
 import { concatAST, Kind } from 'graphql'
 import { extname } from 'path'
+
 import type { RawGraphQLRequestPluginConfig } from './config.js'
+
 import { GraphQLRequestVisitor } from './visitor.js'
 
 export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
   schema: GraphQLSchema,
   documents: Array<Types.DocumentFile>,
   config: RawGraphQLRequestPluginConfig,
+  info,
 ) => {
   const allAst = concatAST(documents.map((v) => v.document!))
 
@@ -35,7 +39,7 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
     ...(config.externalFragments || []),
   ]
 
-  const visitor = new GraphQLRequestVisitor(schema, allFragments, config)
+  const visitor = new GraphQLRequestVisitor(schema, allFragments, config, info)
   const visitorResult = oldVisit(allAst, { leave: visitor })
 
   return {

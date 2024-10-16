@@ -3,6 +3,14 @@ import type {
   IDomainModel,
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IAppDto } from '@codelab/shared/abstract/core'
+import type {
+  AppCreateInput,
+  AppDeleteInput,
+  AppUpdateInput,
+} from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
+
 import {
   getPageDomainService,
   getUserDomainService,
@@ -10,18 +18,11 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { Domain } from '@codelab/frontend-domain-domain/store'
 import { Page } from '@codelab/frontend-domain-page/store'
-import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { AppProperties, connectOwner } from '@codelab/shared/domain'
-import type {
-  AppCreateInput,
-  AppDeleteInput,
-  AppUpdateInput,
-} from '@codelab/shared/infra/gql'
+import { AppProperties, connectOwner } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({ domains = [], id, name, owner }: IAppDto) => {
@@ -66,11 +67,6 @@ export class App
   // get pageRootElements() {
   //   return this.pages.map((page) => page.rootElement)
   // }
-
-  @computed
-  get pageDomainService() {
-    return getPageDomainService(this)
-  }
 
   @computed
   get pages() {
@@ -164,6 +160,11 @@ export class App
         this.userDomainService.user,
       ),
     }
+  }
+
+  @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 
   @computed

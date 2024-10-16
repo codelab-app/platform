@@ -1,10 +1,12 @@
 'use client'
+import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
-import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn, useMount } from 'react-use'
+
 import type { CodeMirrorInputProps } from './CodeMirrorInput'
+
 import { CodeMirrorInput } from './CodeMirrorInput'
 import { getDefaultExtensions } from './setup'
 
@@ -22,6 +24,9 @@ const getLanguageExtension = async (language?: ICodeMirrorLanguage) => {
     case ICodeMirrorLanguage.CssInJs:
       return import('@codemirror/lang-css').then(({ css }) => [css()])
 
+    // once https://github.com/graphql/graphiql/pull/2620 is merged will add full support for graphql
+    case ICodeMirrorLanguage.Graphql:
+      return import('cm6-graphql').then(({ graphql }) => [graphql()])
     case ICodeMirrorLanguage.Javascript:
     case ICodeMirrorLanguage.Typescript:
       return Promise.all([
@@ -37,10 +42,6 @@ const getLanguageExtension = async (language?: ICodeMirrorLanguage) => {
 
     case ICodeMirrorLanguage.Json:
       return import('@codemirror/lang-json').then(({ json }) => [json()])
-
-    // once https://github.com/graphql/graphiql/pull/2620 is merged will add full support for graphql
-    case ICodeMirrorLanguage.Graphql:
-      return import('cm6-graphql').then(({ graphql }) => [graphql()])
 
     default:
       return []

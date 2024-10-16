@@ -1,4 +1,5 @@
 import type { NextRequest, NextResponse } from 'next/server'
+
 import { authMiddleware } from './auth.middleware'
 import { corsMiddleware } from './cors.middleware'
 

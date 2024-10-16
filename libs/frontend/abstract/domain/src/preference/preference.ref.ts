@@ -1,4 +1,5 @@
 import { detach, rootRef } from 'mobx-keystone'
+
 import type { IPreferenceModel } from './preference.model.interface'
 
 export const preferenceRef = rootRef<IPreferenceModel>(

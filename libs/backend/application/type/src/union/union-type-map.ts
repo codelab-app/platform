@@ -1,12 +1,11 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain'
-import { logger } from '@codelab/shared/infra/logging'
-import {
-  capitalizeFirstLetter,
-  compoundCaseToTitleCase,
-} from '@codelab/shared/utils'
 import type { OGM } from '@neo4j/graphql-ogm'
+
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import { connectNodeId } from '@codelab/shared/domain-old'
+import { logger } from '@codelab/shared/infra/logging'
+import { capitalizeFirstLetter, titleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
+
 import { AntDesignTypeMapper } from '../mapper'
 import {
   extractObjectFromString,
@@ -73,18 +72,14 @@ export const upsertUnionFieldType =
         where: {
           AND: [
             {
-              name: `${atom.name} ${compoundCaseToTitleCase(
-                field.property,
-              )} Union API`,
+              name: `${atom.name} ${titleCase(field.property)} Union API`,
             },
           ],
         },
       })
 
       if (!existingUnion) {
-        const unionName = `${atom.name} ${compoundCaseToTitleCase(
-          field.property,
-        )} Union API`
+        const unionName = `${atom.name} ${titleCase(field.property)} Union API`
 
         const {
           unionTypes: [unionType],
@@ -149,7 +144,7 @@ export const upsertUnionFieldType =
                           },
                           id: v4(),
                           kind: ITypeKind.InterfaceType,
-                          name: `${atom.name} ${compoundCaseToTitleCase(
+                          name: `${atom.name} ${titleCase(
                             field.property,
                           )} ${capitalizeFirstLetter(interfaceTypeName)} API`,
                           owner: connectNodeId(userId),

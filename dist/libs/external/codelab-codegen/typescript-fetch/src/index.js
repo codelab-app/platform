@@ -6,7 +6,7 @@ const graphql_1 = require("graphql");
 const path_1 = require("path");
 const visitor_js_1 = require("./visitor.js");
 Object.defineProperty(exports, "GraphQLRequestVisitor", { enumerable: true, get: function () { return visitor_js_1.GraphQLRequestVisitor; } });
-const plugin = (schema, documents, config) => {
+const plugin = (schema, documents, config, info) => {
     const allAst = (0, graphql_1.concatAST)(documents.map((v) => v.document));
     const allFragments = [
         ...allAst.definitions.filter((d) => d.kind === graphql_1.Kind.FRAGMENT_DEFINITION).map((fragmentDef) => ({
@@ -17,7 +17,7 @@ const plugin = (schema, documents, config) => {
         })),
         ...(config.externalFragments || []),
     ];
-    const visitor = new visitor_js_1.GraphQLRequestVisitor(schema, allFragments, config);
+    const visitor = new visitor_js_1.GraphQLRequestVisitor(schema, allFragments, config, info);
     const visitorResult = (0, plugin_helpers_1.oldVisit)(allAst, { leave: visitor });
     return {
         content: [

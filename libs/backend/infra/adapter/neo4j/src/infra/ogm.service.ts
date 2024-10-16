@@ -33,12 +33,14 @@ import type {
   UnionTypeModel,
   UserModel,
 } from '@codelab/backend/abstract/codegen'
+
 import { prettifyForConsole } from '@codelab/shared/utils'
 import { generate, OGM } from '@neo4j/graphql-ogm'
 import { Inject, Injectable } from '@nestjs/common'
 import * as fs from 'fs'
 import path from 'path'
 import { format, resolveConfig } from 'prettier'
+
 import { OGM_PROVIDER } from './ogm.constant'
 
 @Injectable()

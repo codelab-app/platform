@@ -1,4 +1,5 @@
 import type { Span } from '@opentelemetry/api'
+
 import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web'
 import {
   CompositePropagator,
@@ -12,6 +13,7 @@ import { detectResourcesSync } from '@opentelemetry/resources/build/src/detect-r
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base'
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web'
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
+
 import { SessionIdProcessor } from './session-id-processor'
 
 const {

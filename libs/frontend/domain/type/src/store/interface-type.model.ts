@@ -4,18 +4,19 @@ import type {
   ITypeTransformContext,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRef } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
+
+import { fieldRef } from '@codelab/frontend/abstract/domain'
 import {
   assertIsTypeKind,
   IInterfaceTypeDto,
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain'
+import { createInterfaceTypeName } from '@codelab/shared/domain-old'
 import { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   ExtendedModel,
   model,
@@ -24,6 +25,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
+
 import { sortFieldsArray } from '../shared'
 import { createBaseType } from './base-type.model'
 

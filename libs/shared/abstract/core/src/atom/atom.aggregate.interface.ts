@@ -1,6 +1,8 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
-import { ApiExportSchema, ApiSchema } from '../type'
+
+import { ApiExportSchema } from '../type'
 import { AtomSchema } from './atom.dto.interface'
 
 /**

@@ -1,5 +1,7 @@
 'use client'
 
+import type { ItemType } from 'antd/lib/menu/interface'
+
 import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import MobileOutlined from '@ant-design/icons/MobileOutlined'
 import TabletOutlined from '@ant-design/icons/TabletOutlined'
@@ -7,7 +9,6 @@ import { usePreferenceService } from '@codelab/frontend-application-preference/s
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
 import { Divider, InputNumber, Menu, Space } from 'antd'
-import type { ItemType } from 'antd/lib/menu/interface'
 import { observer } from 'mobx-react-lite'
 import { useCallback } from 'react'
 

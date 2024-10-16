@@ -4,23 +4,19 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { Image } from 'antd'
-import { useUpdateAtomModal } from '../use-cases/update-atom/update-atom.state'
 
 export const AtomsViewHeader = () => {
-  const updateFieldForm = useUpdateFieldForm()
-  const updateAtomForm = useUpdateAtomModal()
-  const atomToUpdate = updateAtomForm.data?.name || ''
-  const fieldToUpdate = updateFieldForm.data?.key || ''
+  // const atomToUpdate = updateAtomForm.data?.name || ''
+  // const fieldToUpdate = updateFieldForm.data?.key || ''
 
-  const atomOrField = updateAtomForm.isOpen
-    ? 'atom'
-    : updateFieldForm.isOpen
-    ? 'field'
-    : ''
+  // const atomOrField = updateAtomForm.isOpen
+  //   ? 'atom'
+  //   : updateFieldForm.isOpen
+  //   ? 'field'
+  //   : ''
 
-  const atomOrFieldName = updateAtomForm.isOpen ? atomToUpdate : fieldToUpdate
+  // const atomOrFieldName = updateAtomForm.isOpen ? atomToUpdate : fieldToUpdate
 
   return (
     <CuiHeader
@@ -28,8 +24,8 @@ export const AtomsViewHeader = () => {
         <CuiHeaderBreadcrumb
           items={[
             { title: 'Atoms' },
-            { title: atomOrField },
-            { title: atomOrFieldName },
+            // { title: atomOrField },
+            // { title: atomOrFieldName },
           ]}
         />
       }

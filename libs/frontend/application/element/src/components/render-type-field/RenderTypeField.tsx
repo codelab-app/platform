@@ -1,14 +1,16 @@
 'use client'
 
-import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
-import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { GuaranteedProps } from 'uniforms'
+
+import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
+import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import { Button, Form, Select } from 'antd'
 import { useState } from 'react'
 import styled from 'styled-components'
-import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
+
 import {
   useLoadOptions,
   useRenderTypeSelectOptions,

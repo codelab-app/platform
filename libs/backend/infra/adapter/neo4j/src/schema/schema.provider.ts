@@ -1,10 +1,12 @@
-import { getEnv } from '@codelab/shared/config'
-import { mergeResolvers } from '@graphql-tools/merge'
 import type { IResolvers } from '@graphql-tools/utils'
-import { Neo4jGraphQL } from '@neo4j/graphql'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLSchema } from 'graphql'
 import type { Driver } from 'neo4j-driver'
+
+import { getEnv } from '@codelab/shared/config'
+import { mergeResolvers } from '@graphql-tools/merge'
+import { Neo4jGraphQL } from '@neo4j/graphql'
+
 import { NEO4J_DRIVER_PROVIDER } from '../infra/neo4j.constant'
 import { PURE_RESOLVER_PROVIDER } from '../resolver'
 import { OGM_RESOLVER_PROVIDER } from '../resolver/ogm-resolver/ogm-resolver.constant'
@@ -56,9 +58,6 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
             },
           },
           filters: {
-            ID: {
-              MATCHES: true,
-            },
             String: {
               MATCHES: true,
             },

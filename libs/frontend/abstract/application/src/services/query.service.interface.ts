@@ -12,14 +12,20 @@ export interface ICRUDService<
    *
    * Renamed from `delete` to `remove` since a function name cannot be `delete`
    */
-  // remove(items: Array<Entity>): Promise<number>
   // remove(item: Entity): Promise<number>
-  remove(itemOrItems: Array<Entity> | Entity): Promise<number>
-
+  removeMany(items: Array<Entity>): Promise<number>
   update(data: UpdateData): Promise<Entity>
 }
 
 export interface IQueryService<Entity, EntityWhere, EntityOptions> {
+  /**
+   * @deprecated Fetch from server side and hydrate separately
+   */
   getAll(where?: EntityWhere, options?: EntityOptions): Promise<Array<Entity>>
+  getAllFromCache(): Array<Entity>
+  /**
+   * @deprecated Fetch from server side and hydrate separately
+   */
   getOne(id: string): Promise<Maybe<Entity>>
+  getOneFromCache(ref: IRef): Maybe<Entity>
 }

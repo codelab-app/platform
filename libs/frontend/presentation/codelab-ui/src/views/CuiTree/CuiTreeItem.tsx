@@ -1,7 +1,10 @@
-import { Cui } from '@codelab/frontend-application-shared-data'
-import classNames from 'classnames'
 import type { ReactNode } from 'react'
+
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
+import classNames from 'classnames'
+
 import type { Variant } from '../../abstract'
+
 import { variantColors } from '../../abstract'
 import { CuiHighlightedText } from '../../components'
 
@@ -32,19 +35,28 @@ export const CuiTreeItem = ({
   return (
     <div
       className={classNames(
-        'cui-tree-item h-full flex flex-row justify-between overflow-hidden',
+        'h-full flex flex-row justify-between overflow-hidden',
+        CuiTestId.cuiTreeItem(),
         variantColors[variant ?? 'primary'],
       )}
-      data-cy={Cui.cuiTreeItem()}
+      data-testid={CuiTestId.cuiTreeItem()}
       onClick={onClick}
     >
       <div className="flex h-full flex-row justify-start overflow-hidden">
         <div className="shrink-0">{icon}</div>
-        <div className="flex h-full min-w-1/3 flex-row justify-start overflow-hidden pl-2">
+        <div
+          className={`
+            flex h-full min-w-1/3
+            flex-row justify-start overflow-hidden
+            pl-2
+          `}
+        >
           <p className="m-0 truncate">
             <span
               className="font-semibold"
-              data-cy={Cui.cuiTreeItemPrimaryTitle(primaryTitle || '')}
+              data-testid={CuiTestId.cuiTreeItemPrimaryTitle(
+                primaryTitle || '',
+              )}
             >
               <CuiHighlightedText
                 highlight={highlight?.primaryTitle}
@@ -53,7 +65,9 @@ export const CuiTreeItem = ({
             </span>
             <span
               className="pl-2 font-normal"
-              data-cy={Cui.cuiTreeItemSecondaryTitle(secondaryTitle || '')}
+              data-testid={CuiTestId.cuiTreeItemSecondaryTitle(
+                secondaryTitle || '',
+              )}
             >
               <CuiHighlightedText
                 highlight={highlight?.secondaryTitle}

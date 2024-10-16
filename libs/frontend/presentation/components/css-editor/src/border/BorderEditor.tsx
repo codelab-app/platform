@@ -4,9 +4,11 @@ import MinusOutlined from '@ant-design/icons/MinusOutlined'
 import SmallDashOutlined from '@ant-design/icons/SmallDashOutlined'
 import { Col, Divider, Row } from 'antd'
 import { useState } from 'react'
+
+import type { CssProperty } from '../css'
+
 import { SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
-import type { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
 import { Side } from '../utils'
 import { BorderRadiusEditor } from './BorderRadiusEditor'

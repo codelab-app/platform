@@ -1,8 +1,9 @@
 import type { ICodeActionModel } from '@codelab/frontend/abstract/domain'
-import { storeRef } from '@codelab/frontend/abstract/domain'
 import type { ICodeActionDto } from '@codelab/shared/abstract/core'
+
+import { storeRef } from '@codelab/frontend/abstract/domain'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain'
+import { connectNodeId } from '@codelab/shared/domain-old'
 import {
   CodeActionCreateInput,
   CodeActionDeleteInput,
@@ -10,6 +11,7 @@ import {
 } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+
 import { createBaseAction } from './base-action.model'
 
 const create = ({ code, id, name, store }: ICodeActionDto) =>

@@ -1,0 +1,53 @@
+{
+  "overrides": [
+    {
+      "settings": {
+        "import/parsers": {
+          "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": {
+          "typescript": {
+            "alwaysTryTypes": true,
+            "project": ["tsconfig.base.json", "(apps|libs)/*/tsconfig.lib.json"]
+          },
+          "node": {
+            "project": ["tsconfig.base.json", "(apps|libs)/*/tsconfig.lib.json"]
+          }
+        }
+      },
+      "plugins": ["import", "unused-imports"],
+      "extends": ["plugin:import/typescript", "plugin:import/recommended"],
+      "files": ["*.ts", "*.tsx", "*.ts", "*.jsx"],
+      "rules": {
+        //
+        // Custom import rules
+        //
+        "import/newline-after-import": "error",
+        "import/first": "error",
+        // SUPER SLOW!
+        "import/no-cycle": "off",
+        "import/no-duplicates": "error",
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "antd/lib/select",
+                "importNames": ["DefaultOptionType"],
+                "message": "Please use `SelectOption` from `@codelab/frontend/abstract/types` instead"
+              },
+              // {
+              //   "name": "change-case-all",
+              //   "message": "Use string transformation from `@codelab/shared/utils`"
+              // },
+              {
+                "name": "slugify",
+                "message": "Use string transformation from `@codelab/shared/utils`"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

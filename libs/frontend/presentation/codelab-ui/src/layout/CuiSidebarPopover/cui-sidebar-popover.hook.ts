@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useCui } from '../../core'
+
 import type { CuiSidebarPopoverLayoutProps } from './CuiSidebarPopoverLayout'
+
+import { useCui } from '../../core'
 
 export const useCuiSidebarPopover = ({
   popoverAnchorRef,

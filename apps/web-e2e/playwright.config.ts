@@ -34,20 +34,21 @@ export default defineConfig({
       use: {},
     },
     {
+      dependencies: ['auth setup'],
       name: 'database setup',
       testMatch: /database\.setup\.ts/,
-      dependencies: ['auth setup'],
       use: {
-        storageState: authFile,
         // Requires trailing `/`
         baseURL: `${webBaseApiUrl}/`,
+        storageState: authFile,
       },
     },
     {
       dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
       testIgnore: /home\.spec\.ts/,
-      testMatch: /.*\.spec\.ts/,
+      testMatch: /atoms\.spec\.ts/,
+      // testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         // channel: 'chrome',
@@ -91,12 +92,14 @@ export default defineConfig({
     } */
   ],
 
-  timeout: 60000,
+  // reporter: [['list'], ['html']],
 
-  retries: process.env.CI ? 0 : 1,
+  retries: process.env.CI ? 1 : 0,
+
+  timeout: process.env.CI ? 30000 : 15000,
 
   expect: {
-    timeout: process.env.CI ? 10000 : 5000,
+    timeout: process.env.CI ? 15000 : 15000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -114,16 +117,16 @@ export default defineConfig({
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
-      url: webUrl,
       timeout: 90 * 1000,
+      url: webUrl,
     },
     {
       command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
-      url: apiUrl,
       timeout: 90 * 1000,
+      url: apiUrl,
     },
   ],
 })

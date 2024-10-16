@@ -1,10 +1,11 @@
 'use client'
 
 import type { AutoCompleteProps } from 'antd/lib/auto-complete'
-import AutoComplete from 'antd/lib/auto-complete'
 import type { RefSelectProps } from 'antd/lib/select'
 import type { Ref } from 'react'
 import type { FieldProps } from 'uniforms'
+
+import AutoComplete from 'antd/lib/auto-complete'
 import { connectField, filterDOMProps } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
 

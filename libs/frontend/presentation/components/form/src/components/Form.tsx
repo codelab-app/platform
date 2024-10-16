@@ -1,18 +1,22 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import type { ReactElement } from 'react'
+
 import {
   callbackWithParams,
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
-import { Cui } from '@codelab/frontend-application-shared-data'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { throttle } from 'radash'
-import type { ReactElement } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
+
+import { usePostSubmit, useSubmit } from './utils'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({
@@ -31,6 +35,8 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     submitRef,
     uiKey,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
+    const { setLoading } = useLoading()
+
     const [bridge, setBridge] = useState(
       schema instanceof Bridge ? schema : createBridge(schema),
     )
@@ -41,6 +47,18 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
 
     const modelRef = useRef(model)
 
+    const postSubmit = usePostSubmit<TData, TResponse>({
+      onSubmitError,
+      onSubmitSuccess,
+    })
+
+    const submit = useSubmit<TData, TResponse>(
+      onSubmit,
+      (isLoading: boolean) => {
+        setLoading(isLoading)
+      },
+    )
+
     return (
       <div
         css={css`
@@ -50,27 +68,17 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
         <BaseAutoForm<TData>
           autosave={autosave}
           autosaveDelay={500}
-          data-cy={Cui.cuiForm(uiKey)}
+          data-testid={CuiTestId.cuiForm(uiKey)}
           errorsField={() => <ErrorsField />}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}
           onChange={onChange}
           onChangeModel={onChangeModel}
-          onSubmit={throttle({ interval: 200 }, (formData) => {
-            const submitResults = onSubmit(formData as TData)
-
-            return submitResults
-              .then((result) => {
-                if (result) {
-                  callbackWithParams(onSubmitSuccess, result)
-                }
-              })
-              .catch((error) => {
-                console.error(error)
-
-                callbackWithParams(onSubmitError, error)
-              })
-          })}
+          onSubmit={throttle({ interval: 200 }, (formData) =>
+            submit(formData)
+              .then(postSubmit.onSubmitSuccess)
+              .catch(postSubmit.onSubmitError),
+          )}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           showInlineError

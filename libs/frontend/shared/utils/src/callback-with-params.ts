@@ -1,6 +1,7 @@
 import type { VoidCallback } from '@codelab/frontend/abstract/types'
-import { isFunction } from 'remeda'
 import type { ArrayOrSingle } from 'ts-essentials'
+
+import { isFunction } from 'remeda'
 
 export const callbackWithParams = <
   TIn,
@@ -13,9 +14,9 @@ export const callbackWithParams = <
 ) => {
   const callbacksArray = Array.isArray(callbacks) ? callbacks : [callbacks]
 
-  callbacksArray.forEach((cb) => {
-    if (isFunction(cb)) {
-      cb(param)
+  callbacksArray.forEach((callback) => {
+    if (isFunction(callback)) {
+      callback(param)
     }
   })
 }

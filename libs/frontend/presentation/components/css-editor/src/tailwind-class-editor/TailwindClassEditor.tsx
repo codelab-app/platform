@@ -1,8 +1,10 @@
-import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { Select, Space } from 'antd'
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect'
+
+import CloseOutlined from '@ant-design/icons/CloseOutlined'
+import { Select, Space } from 'antd'
 import { useState } from 'react'
+
 import * as Styled from './styles'
 import {
   extractVariant,

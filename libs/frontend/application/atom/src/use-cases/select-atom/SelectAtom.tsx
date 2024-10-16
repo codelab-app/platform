@@ -1,10 +1,12 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
+
 import { useAtomService } from '../../services'
 
 export type SelectAtomProps = Pick<

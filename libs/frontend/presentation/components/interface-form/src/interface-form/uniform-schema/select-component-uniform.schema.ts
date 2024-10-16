@@ -3,7 +3,9 @@ import type {
   IRenderPropTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
+
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
+
 import { SelectComponent } from '../fields'
 
 const COMPONENT_TEMPLATE = `{{

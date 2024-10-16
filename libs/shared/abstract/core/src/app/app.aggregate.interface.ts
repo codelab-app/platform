@@ -1,5 +1,7 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
+
 import { ComponentAggregateSchema } from '../component'
 import { PageAggregateSchema } from '../page'
 import { ResourceSchema } from '../resource/resource.dto.interface'

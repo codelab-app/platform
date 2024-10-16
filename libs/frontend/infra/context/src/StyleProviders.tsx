@@ -1,7 +1,9 @@
 'use client'
 
-import { App, ConfigProvider } from 'antd'
 import type { ReactNode } from 'react'
+
+import { App, ConfigProvider } from 'antd'
+
 import { AntdRegistry } from './AntdRegistry'
 import { StyledComponentsRegistry } from './StyledComponentsRegistry'
 import { theme } from './theme'

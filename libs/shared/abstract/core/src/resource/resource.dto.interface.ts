@@ -1,5 +1,7 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
+
 import { PropDtoSchema, PropSchema } from '../prop/prop.dto.interface'
 import { IResourceType } from './resource-type.enum'
 

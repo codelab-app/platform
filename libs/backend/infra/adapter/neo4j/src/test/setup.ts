@@ -1,11 +1,13 @@
 import type { GqlContext } from '@codelab/backend/abstract/types'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
-import { ApolloDriver } from '@nestjs/apollo'
 import type { ModuleMetadata } from '@nestjs/common'
+import type { GraphQLSchema } from 'graphql'
+
+import { ApolloDriver } from '@nestjs/apollo'
 import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
-import type { GraphQLSchema } from 'graphql'
+
 import { GraphQLSchemaModule } from '../graphql-schema.module'
 import { DatabaseService, Neo4jModule, OgmModule, OgmService } from '../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../schema'

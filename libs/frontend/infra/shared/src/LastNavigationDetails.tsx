@@ -1,6 +1,7 @@
 'use client'
 
 import type { Navigation } from '@shopify/react-performance'
+
 import { useNavigationListener } from '@shopify/react-performance'
 import { useState } from 'react'
 

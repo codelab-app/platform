@@ -2,6 +2,8 @@ import type {
   GetDataFn,
   ITypeService,
 } from '@codelab/frontend/abstract/application'
+import type { ICreateTypeDto, IRef } from '@codelab/shared/abstract/core'
+
 import {
   type ITypeModel,
   type IUpdateTypeDto,
@@ -14,7 +16,6 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -190,15 +191,25 @@ export const useTypeService = (): ITypeService => {
     return false
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    return typeDomainService.types.get(ref.id)
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(typeDomainService.types.values())
+  }
+
   return {
     create,
     getAll,
+    getAllFromCache,
     getDataFn,
     getInterface,
     getOne,
+    getOneFromCache,
     getOptions,
     paginationService: typePagination,
-    remove: deleteType,
+    removeMany: deleteType,
     update,
   }
 }

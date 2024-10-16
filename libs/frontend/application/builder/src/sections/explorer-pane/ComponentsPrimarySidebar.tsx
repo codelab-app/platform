@@ -1,21 +1,19 @@
 'use client'
 
-import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
-import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  CreateComponentPopover,
-  useCreateComponentForm,
-} from '@codelab/frontend-application-component/use-cases/create-component'
+
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
+import { useRouter } from 'next/navigation'
+
 import { CustomComponents } from './tab-contents/CustomComponents'
 import { PreBuiltComponents } from './tab-contents/PreBuiltComponents'
 
 export const ComponentsPrimarySidebar = () => {
-  const { popover } = useCui()
-  const createComponentForm = useCreateComponentForm()
+  const router = useRouter()
 
   const sidebarViews: Array<CuiSidebarView> = [
     {
@@ -29,16 +27,15 @@ export const ComponentsPrimarySidebar = () => {
       toolbar: {
         items: [
           {
-            cuiKey: UiKey.CreateComponentToolbarItem,
+            cuiKey: UiKey.ComponentToolbarItemCreate,
             icon: <PlusOutlined />,
             onClick: () => {
-              createComponentForm.open()
-              popover.open(UiKey.CreateComponentPopover)
+              router.push(PageType.ComponentCreate())
             },
             title: 'Add Component',
           },
           {
-            cuiKey: UiKey.ImportComponentToolbarItem,
+            cuiKey: UiKey.ComponentToolbarItemImport,
             icon: <ImportComponentDialog key={0} />,
             title: 'Import Component',
           },
@@ -62,7 +59,6 @@ export const ComponentsPrimarySidebar = () => {
       <CuiSidebar
         defaultActiveViewKeys={['custom', 'pre-built']}
         label="Components"
-        popover={<CreateComponentPopover />}
         uiKey={UiKey.ComponentSidebar}
         views={sidebarViews}
       />

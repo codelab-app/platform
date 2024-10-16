@@ -1,4 +1,5 @@
 import { type AnyModel, createContext } from 'mobx-keystone'
+
 import type { IPageDomainService } from './page.domain.service.interface'
 
 export const pageDomainServiceContext = createContext<IPageDomainService>()

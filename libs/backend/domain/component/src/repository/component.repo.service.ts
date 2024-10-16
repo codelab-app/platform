@@ -3,6 +3,8 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/backend/abstract/codegen'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
+
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -11,8 +13,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IComponentDto } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

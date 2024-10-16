@@ -1,12 +1,14 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
+import type { JSONSchemaType } from 'ajv'
+
 import { filterNotHookType } from '@codelab/frontend/abstract/domain'
 import {
   cdnEsmValidation,
   idSchema,
   nonEmptyString,
+  refSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
 
 export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
   properties: {
@@ -25,6 +27,7 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
+    ...refSchema('api', { disabled: true }),
     tags: {
       items: {
         properties: {

@@ -1,5 +1,6 @@
 import { DigitaloceanModule } from '@codelab/backend/infra/adapter/digitalocean'
 import { Module } from '@nestjs/common'
+
 import { Neo4jModule } from './infra/neo4j.module'
 import { OgmModule } from './infra/ogm.module'
 import { PureResolverProvider } from './resolver'

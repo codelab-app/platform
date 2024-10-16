@@ -4,7 +4,7 @@ export interface IValidationService {
   asserts<T extends TSchema>(
     kind: TKind,
     value: unknown,
-    { message }?: { message?: string },
+    options?: { message: string },
   ): asserts value is Static<T>
   /**
    * Add commonly used methods as convenience

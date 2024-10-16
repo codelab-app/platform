@@ -1,7 +1,9 @@
-import { breakpoints } from '@codelab/shared/domain'
 import type { PropsWithChildren, ReactElement } from 'react'
+
+import { breakpoints } from '@codelab/shared/domain-old'
 import { useMediaQuery } from 'react-responsive'
 import { useRecoilValue } from 'recoil'
+
 import { Footer } from '../footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
 import { menuState } from './menu/menu-state'

@@ -1,5 +1,6 @@
-import { CuiCollapsePanel, CuiCollapsePanelContent } from '../../../views'
 import type { CuiSidebarProps } from '../CuiSidebar'
+
+import { CuiCollapsePanel, CuiCollapsePanelContent } from '../../../views'
 
 export const CuiSidebarBody = ({
   defaultActiveViewKeys,

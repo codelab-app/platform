@@ -1,5 +1,6 @@
 import { ActionDomainModule } from '@codelab/backend/domain/action'
 import { Module } from '@nestjs/common'
+
 import { ActionApplicationController } from './action.application.controller'
 import { ActionApplicationService } from './action.application.service'
 

@@ -1,5 +1,6 @@
-import { type IUserModel } from '@codelab/frontend/abstract/domain'
 import type { IUserDto } from '@codelab/shared/abstract/core'
+
+import { type IUserModel } from '@codelab/frontend/abstract/domain'
 import { IRole } from '@codelab/shared/abstract/core'
 import { UserCreateInput, UserUpdateInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'

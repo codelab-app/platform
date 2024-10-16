@@ -1,10 +1,11 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { Static, TAnySchema } from '@sinclair/typebox'
+
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
-import type { IRef } from '@codelab/shared/abstract/core'
-import { NotFoundError } from '@codelab/shared/domain'
+import { NotFoundError } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
-import type { Static, TAnySchema } from '@sinclair/typebox'
 
 @Injectable()
 export abstract class AbstractRepository<

@@ -1,6 +1,7 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { PinoMessage } from '@codelab/shared/infra/logging'
 import type { LoggerService } from '@nestjs/common'
+
 import { Inject, Injectable } from '@nestjs/common'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 

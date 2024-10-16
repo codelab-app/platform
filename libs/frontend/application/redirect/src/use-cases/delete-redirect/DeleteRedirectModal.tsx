@@ -5,6 +5,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useRedirectService } from '../../services'
 import { useUpdateRedirectForm } from '../update-redirect'
 import { useDeleteRedirectModal } from './delete-redirect.state'
@@ -29,7 +30,7 @@ export const DeleteRedirectModal = observer(() => {
       return Promise.reject()
     }
 
-    void redirectService.remove([redirect])
+    void redirectService.removeMany([redirect])
 
     closeModal()
 
@@ -46,7 +47,7 @@ export const DeleteRedirectModal = observer(() => {
       onCancel={onSubmitSuccess}
       open={deleteRedirectModal.isOpen}
       title="Delete Confirmation"
-      uiKey={UiKey.DeleteRedirectModal}
+      uiKey={UiKey.RedirectModalDelete}
     >
       <ModalForm.Form
         model={{}}

@@ -1,18 +1,19 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { expect, test as base } from '@playwright/test'
+import {
+  getUiDataLabel,
+  PageType,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
+import { test as base, expect } from '@playwright/test'
+
 import { BasePage } from '../../locators/pages'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
  */
 export class AppListPage extends BasePage {
-  // public constructor(page: Page) {
-  //   super(page)
-  // }
-
   clickModalConfirmButton() {
     const modal = this.getModal()
-    const button = this.getButton({ key: UiKey.ConfirmationButton })
+    const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
     return modal.locator(button).click()
   }
@@ -22,7 +23,7 @@ export class AppListPage extends BasePage {
   }
 
   async fillCreateAppForm() {
-    await this.getTextBox({ label: 'Name' }).fill(this.appName)
+    await this.fillInputText({ label: 'Name' }, this.appName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Create App' }))
@@ -32,7 +33,7 @@ export class AppListPage extends BasePage {
   }
 
   async fillUpdateAppForm() {
-    await this.getTextBox({ label: 'Name' }).fill(this.updatedAppName)
+    await this.fillInputText({ label: 'Name' }, this.updatedAppName)
 
     await this.getModal()
       .locator(this.getButton({ text: 'Update App' }))
@@ -45,10 +46,6 @@ export class AppListPage extends BasePage {
     return this.getByExactText(this.appName)
   }
 
-  getSpinner() {
-    return this.page.getByRole('status')
-  }
-
   getUpdatedAppName() {
     return this.getByExactText(this.updatedAppName)
   }
@@ -57,14 +54,14 @@ export class AppListPage extends BasePage {
     await this.page.goto(PageType.AppList())
   }
 
-  async openCreateAppModal(key = UiKey.CreateAppModal) {
+  async openCreateAppModal(key = UiKey.AppButtonOpenCreateForm) {
     await this.getButton({ key }).click()
 
     await expect(this.getModal()).toBeVisible()
   }
 
   async openCreateAppModalFromHeader() {
-    await this.openCreateAppModal(UiKey.CreateAppToolbarItem)
+    await this.openCreateAppModal(UiKey.AppToolbarItemCreate)
   }
 
   async openDeleteAppModal() {

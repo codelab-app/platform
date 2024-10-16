@@ -1,4 +1,6 @@
 import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
+import type { JSONSchemaType } from 'ajv'
+
 import {
   hideField,
   idSchema,
@@ -10,7 +12,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { JSONSchemaType } from 'ajv'
+
 import { TypeSelect } from '../select-types/TypeSelect'
 
 export const updateTypeSchema: JSONSchemaType<

@@ -1,8 +1,10 @@
-import { AtomDomainService } from '@codelab/backend/domain/atom'
 import type { ICreateElementDto } from '@codelab/shared/abstract/core'
+
+import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
+
 import { ElementRepository } from '../repository'
 
 @Injectable()

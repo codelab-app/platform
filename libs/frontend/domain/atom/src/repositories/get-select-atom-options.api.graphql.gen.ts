@@ -1,26 +1,12 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-export const GetSelectAtomOptionsDocument = graphql(`
-  query GetSelectAtomOptions {
-    atoms {
-      __typename
-      id
-      name
-      requiredParents {
-        id
-        type
-      }
-      type
-    }
-  }
-`)
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 
 import { type GetSelectAtomOptionsQueryVariables } from '@codelab/shared/infra/gql'
+import { GetSelectAtomOptionsDocument } from './get-select-atom-options.api.documents.graphql.gen'
 
 export const GetSelectAtomOptions = (
   variables: GetSelectAtomOptionsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetSelectAtomOptionsDocument.toString(), variables, next)

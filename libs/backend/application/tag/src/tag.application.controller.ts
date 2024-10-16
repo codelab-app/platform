@@ -5,6 +5,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
+
 import { SeedCypressTagsCommand } from './use-case'
 
 @Controller('tag')

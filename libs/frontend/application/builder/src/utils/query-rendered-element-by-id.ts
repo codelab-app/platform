@@ -1,5 +1,6 @@
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
+
+import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 
 export const queryRenderedElementById = (
   nodeId: string,

@@ -2,6 +2,7 @@ import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
 import { cn } from '@cui/utils'
+import { getActiveSpan, withActiveSpan, withProfiler } from '@sentry/react'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
 
@@ -34,7 +35,10 @@ export const metadata = {
   title: 'Codelab',
 }
 
-const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
+  const span = getActiveSpan()
+
+  span?.addEvent('RootLayout')
   // useTwindConfig(config)
 
   return (
@@ -46,5 +50,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     </html>
   )
 }
+
+RootLayout.displayName = 'RootLayout'
 
 export default RootLayout

@@ -7,7 +7,7 @@
  */
 export const graphqlFilterMatches = (filter: Array<string>, search = '') => {
   return filter.reduce<Record<string, string>>((acc, field) => {
-    acc[`${field}_MATCHES`] = `(?i).*${search}.*`
+    acc[`${field}_MATCHES`] = search ? `(?i).*${search}.*` : '.*'
 
     return acc
   }, {})

@@ -19,6 +19,7 @@ import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Neo4jModule } from '@codelab/backend/infra/adapter/neo4j'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { AppApplicationController } from './app.application.controller'
 import {
   ExportAppHandler,

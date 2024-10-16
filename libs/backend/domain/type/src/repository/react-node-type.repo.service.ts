@@ -3,6 +3,8 @@ import type {
   ReactNodeTypeOptions,
   ReactNodeTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
+
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -11,8 +13,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain'
+import { connectOwner } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

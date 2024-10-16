@@ -28,8 +28,6 @@ export const authGuardMiddleware = (
         return NextResponse.redirect(url)
       }
 
-      process.env['AUTHORIZATION_TOKEN'] = session?.accessToken
-
       return
     },
   })

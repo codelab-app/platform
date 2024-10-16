@@ -1,6 +1,7 @@
 import type { Domain } from '@codelab/backend/abstract/codegen'
-import { lookupARecord } from '@codelab/backend/infra/adapter/dns'
 import type { IFieldResolver } from '@graphql-tools/utils'
+
+import { lookupARecord } from '@codelab/backend/infra/adapter/dns'
 
 export const domainConfig: IFieldResolver<Domain, unknown, unknown> = async ({
   name,

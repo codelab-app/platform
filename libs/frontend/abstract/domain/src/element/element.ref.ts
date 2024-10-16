@@ -1,5 +1,7 @@
 import type { AnyModel, Ref } from 'mobx-keystone'
+
 import { detach, isRefOfType, rootRef } from 'mobx-keystone'
+
 import type { IElementModel } from './element.model.interface'
 
 export const elementRef = rootRef<IElementModel>('@codelab/ElementRef', {

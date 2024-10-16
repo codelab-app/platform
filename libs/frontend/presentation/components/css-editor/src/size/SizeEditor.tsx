@@ -2,6 +2,7 @@ import BarcodeOutlined from '@ant-design/icons/BarcodeOutlined'
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import { Col, Divider, Row } from 'antd'
+
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'

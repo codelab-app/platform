@@ -1,4 +1,5 @@
 import { type AnyModel, createContext } from 'mobx-keystone'
+
 import type { IPreferenceDomainService } from './preference.domain.service.interface'
 
 export const preferenceDomainServiceContext =

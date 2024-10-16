@@ -3,6 +3,7 @@ import {
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
+
 import type { AtomCustomizer, AtomCustomizerFn } from '../types'
 
 const antDesignRglItemFn: AtomCustomizerFn = ({ node, props }) => ({
@@ -35,9 +36,9 @@ const antDesignModalFn: AtomCustomizerFn = ({ props }) => ({
 })
 
 export const antdPropsCustomizer: AtomCustomizer = {
+  [IAtomType.AntDesignDrawer]: antDesignModalFn,
   // [IAtomType.AntDesignRglItem]: antDesignRglItemFn,
   // [IAtomType.AntDesignRglResponsiveContainer]:
   //   antDesignRglResponsiveContainerFn,
   [IAtomType.AntDesignModal]: antDesignModalFn,
-  [IAtomType.AntDesignDrawer]: antDesignModalFn,
 }

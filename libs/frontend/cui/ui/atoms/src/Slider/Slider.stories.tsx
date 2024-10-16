@@ -1,4 +1,5 @@
 import { cn } from '@cui/utils'
+
 import { Slider } from './Slider'
 
 export default {

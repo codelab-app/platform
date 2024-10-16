@@ -7,7 +7,9 @@ import type {
   PreferenceUniqueWhere,
   PreferenceWhere,
 } from '@codelab/shared/infra/gql'
+
 import { Validator } from '@codelab/shared/infra/schema'
+
 import { Preference } from '../store/preference.model'
 import {
   CreatePreferences,

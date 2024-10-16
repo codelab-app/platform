@@ -1,7 +1,8 @@
 import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
 import type { IValidationRules } from '@codelab/shared/abstract/core'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
+
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { pick } from 'remeda'
 
 type FieldCondition = (

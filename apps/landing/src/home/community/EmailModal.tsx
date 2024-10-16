@@ -1,5 +1,6 @@
-import { Type } from '@sinclair/typebox'
 import type { ModalProps } from 'antd'
+
+import { Type } from '@sinclair/typebox'
 import { Button, Input, Modal } from 'antd'
 import { useState } from 'react'
 

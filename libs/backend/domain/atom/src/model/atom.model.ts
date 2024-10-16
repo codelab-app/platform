@@ -4,8 +4,9 @@ import type {
   IAtomType,
   IRef,
 } from '@codelab/shared/abstract/core'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { ValidationError } from 'class-validator'
+
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { validateSync } from 'class-validator'
 
 export class Atom implements IAtom {

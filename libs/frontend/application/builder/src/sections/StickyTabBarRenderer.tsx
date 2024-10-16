@@ -1,4 +1,5 @@
 import type { TabsProps } from 'antd'
+
 import StickyBox from 'react-sticky-box'
 
 export const renderStickyTabBar: TabsProps['renderTabBar'] = (

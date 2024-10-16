@@ -1,4 +1,5 @@
 import type { Notification } from '@codelab/shared/abstract/types'
+
 import { notification } from 'antd'
 import { isFunction } from 'remeda'
 
@@ -6,7 +7,7 @@ export interface NotifyOptions<TEvent>
   extends Omit<Notification<TEvent>, 'description'> {
   // make description optional, so that we do not need to explicitly
   // pass { description: '' } if we do not need it
-  description?: string | ((event: TEvent) => string)
+  description?: ((event: TEvent) => string) | string
 }
 
 export const notify = <TEvent>(
@@ -16,7 +17,7 @@ export const notify = <TEvent>(
   const { description = '', title, type = 'info' } = options
 
   const resolveValue = <T>(
-    valueOrFunction: T | ((event: TEvent) => T),
+    valueOrFunction: ((event: TEvent) => T) | T,
     _event: TEvent | undefined,
   ): T => {
     if (isFunction(valueOrFunction)) {

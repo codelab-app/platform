@@ -1,9 +1,12 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { Children, cloneElement, isValidElement } from 'react'
 import { useRecoilState } from 'recoil'
 import { isFunction } from 'remeda'
-import { stateAtomFamily } from './state-atom-family'
+
 import type { StateProps } from './StateProps'
+
+import { stateAtomFamily } from './state-atom-family'
 
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
 const eventSafeStringify = (event: ObjectLike) => {

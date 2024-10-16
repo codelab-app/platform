@@ -1,5 +1,7 @@
 'use client'
 
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
@@ -7,9 +9,9 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
+
 import { useUpdateActionForm } from './update-action.state'
 import { UpdateActionForm } from './UpdateActionForm'
 
@@ -20,12 +22,11 @@ export const UpdateActionPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={UiKey.UpdateActionPopover}
-      label="Update Action"
+      id={UiKey.ActionPopoverUpdate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.UpdateActionToolbarItem,
+            cuiKey: UiKey.ActionToolbarItemUpdate,
             icon: <SaveOutlined />,
             label: 'Update',
             onClick: () => {
@@ -34,7 +35,7 @@ export const UpdateActionPopover = observer(() => {
             title: 'Update',
           },
           {
-            cuiKey: UiKey.CancelUpdateActionToolbarItem,
+            cuiKey: UiKey.ActionToolbarItemUpdateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

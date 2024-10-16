@@ -10,6 +10,7 @@ import type {
   ApiActionUpdateInput,
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
+
 import type { IPropModel } from '../../prop'
 import type { IResourceModel } from '../../resource'
 import type { ICacheService, IModel } from '../../shared'

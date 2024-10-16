@@ -3,6 +3,11 @@ import type {
   UnionTypeOptions,
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import type {
+  ITypeMaybeRef,
+  IUnionTypeDto,
+} from '@codelab/shared/abstract/core'
+
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -11,16 +16,12 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type {
-  ITypeMaybeRef,
-  IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (

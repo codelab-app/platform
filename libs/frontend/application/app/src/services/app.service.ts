@@ -1,9 +1,13 @@
-import { type IAppService } from '@codelab/frontend/abstract/application'
 import type {
   IAppModel,
   ICreateAppData,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef, IUpdatePageData } from '@codelab/shared/abstract/core'
+import type { AppWhere } from '@codelab/shared/infra/gql'
+
+import { type IAppService } from '@codelab/frontend/abstract/application'
+import { usePageService } from '@codelab/frontend-application-page/services'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import {
   appRepository,
@@ -16,14 +20,16 @@ import {
   useDomainStore,
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
-import type { IUpdatePageData } from '@codelab/shared/abstract/core'
-import type { AppWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
+import { computed, type IComputedValueOptions } from 'mobx'
+import { type DependencyList, useMemo } from 'react'
 
 export const useAppService = (): IAppService => {
   const { appDomainService, pageDomainService, userDomainService } =
     useDomainStore()
 
+  const pageService = usePageService()
   const undoManager = useUndoManager()
 
   const create = async ({ id, name }: ICreateAppData) => {
@@ -47,7 +53,7 @@ export const useAppService = (): IAppService => {
     return app
   }
 
-  const remove = async (apps: Array<IAppModel>): Promise<number> => {
+  const removeMany = async (apps: Array<IAppModel>): Promise<number> => {
     const deleteApp = async (app: IAppModel) => {
       /**
        * Optimistic update.
@@ -56,19 +62,22 @@ export const useAppService = (): IAppService => {
       app.pages.forEach((page) => {
         pageDomainService.pages.delete(page.id)
       })
+
       appDomainService.apps.delete(app.id)
 
       /**
        * Get all pages to delete
        */
-      const { items: pages } = await pageRepository.find({
+      const { items: pagesDto } = await pageRepository.find({
         appConnection: { node: { id: app.id } },
       })
 
-      // Need to load elements as well
-      const elements = pages.flatMap((page) => page.rootElement)
+      const pages = pagesDto.map((pageDto) =>
+        pageDomainService.hydrate(pageDto),
+      )
 
-      await elementRepository.delete(elements)
+      await pageService.removeMany(pages)
+
       await appRepository.delete([app])
 
       await invalidateAppListQuery()
@@ -178,13 +187,35 @@ export const useAppService = (): IAppService => {
     }
   }
 
+  const appList = useComputed(() => appDomainService.appsList)
+
+  const getAllFromCache = () => {
+    return appDomainService.appsList
+  }
+
+  const getOneFromCache = (ref: IRef) => {
+    return appDomainService.apps.get(ref.id)
+  }
+
   return {
-    create,
+    appList,
+    create: withAsyncSpanFunc({ name: 'AppCreate' }, create),
     getAll,
+    getAllFromCache,
     getOne,
+    getOneFromCache,
     regeneratePages: regeneratePagesForApp,
-    remove,
+    removeMany: withAsyncSpanFunc({ name: 'AppRemoveMany' }, removeMany),
     update,
     updatePage,
   }
+}
+
+// changes to "options" argument are ignored
+export const useComputed = <T>(
+  func: () => T,
+  options?: IComputedValueOptions<T>,
+  deps?: DependencyList,
+) => {
+  return useMemo(() => computed(func, options), deps ?? []).get()
 }

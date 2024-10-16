@@ -17,6 +17,7 @@ import { createRootDomainStore } from '@codelab/frontend-domain-shared'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
 import { TypeDomainService } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
+
 import { AppDomainService } from '../services/app.domain.service'
 
 export const rootDomainStore = createRootDomainStore({

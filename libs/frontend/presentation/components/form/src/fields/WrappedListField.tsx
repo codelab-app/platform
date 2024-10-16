@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import { connectField } from 'uniforms'
 import type { ListFieldProps } from 'uniforms-antd'
+
+import { connectField } from 'uniforms'
 import { ListField, wrapField } from 'uniforms-antd'
 
 // `label` here needs to be null so that if the array's items has nested fields (e.g. interface type)

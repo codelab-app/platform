@@ -4,7 +4,7 @@
 
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
-type PipedGetServerSideProps = (arg?: unknown) => Promise<unknown> | unknown
+type PipedGetServerSideProps = (arg?: unknown) => unknown | Promise<unknown>
 
 export const ssrPipe =
   (...functions: Array<PipedGetServerSideProps>) =>

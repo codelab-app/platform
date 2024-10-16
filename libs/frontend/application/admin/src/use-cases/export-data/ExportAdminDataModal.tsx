@@ -13,6 +13,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
 import { AutoFields } from 'uniforms-antd'
+
 import { useExportAdminDataModal } from './export-admin-data.state'
 import { exportAdminDataUseCase } from './export-admin-data.use-case'
 
@@ -32,7 +33,7 @@ export const ExportAdminDataModal = () => {
       okText="Export Admin Data"
       onCancel={exportDataModal.close}
       open={exportDataModal.isOpen}
-      uiKey={UiKey.ExportAdminDataModal}
+      uiKey={UiKey.AdminDataModalExport}
     >
       <ModalForm.Form<IExportDto>
         model={exportDtoDefault}

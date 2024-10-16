@@ -1,6 +1,4 @@
-import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
-import { join } from 'path'
-import { omit } from 'remeda'
+import { type ProjectConfiguration, type Tree } from '@nx/devkit'
 
 export const migrateToConfigBasedTest = (
   tree: Tree,

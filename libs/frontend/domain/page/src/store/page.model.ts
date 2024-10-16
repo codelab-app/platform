@@ -5,6 +5,15 @@ import type {
   IRedirectModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IPageDto } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type {
+  PageCreateInput,
+  PageDeleteInput,
+  PageUpdateInput,
+} from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
+
 import {
   appRef,
   elementRef,
@@ -15,22 +24,14 @@ import {
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
-import type { IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   PageProperties,
   reconnectNodeId,
-} from '@codelab/shared/domain'
-import type {
-  PageCreateInput,
-  PageDeleteInput,
-  PageUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/domain-old'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({

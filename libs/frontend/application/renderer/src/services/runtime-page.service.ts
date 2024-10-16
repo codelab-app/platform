@@ -1,4 +1,6 @@
 import type { IRuntimePageService } from '@codelab/frontend/abstract/application'
+import type { ObjectMap } from 'mobx-keystone'
+
 import {
   IRuntimePageModel,
   runtimePageRef,
@@ -10,9 +12,9 @@ import {
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
-import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
+
 import { RuntimePageModel, RuntimeStoreModel } from '../store'
 
 /**

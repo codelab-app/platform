@@ -1,5 +1,7 @@
 import type { IStoreDto } from '@codelab/shared/abstract/core'
+
 import { Injectable } from '@nestjs/common'
+
 import { StoreRepository } from '../repository'
 
 @Injectable()

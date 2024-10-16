@@ -2,6 +2,7 @@
 
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type { MoveData } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -13,6 +14,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+
 import { SelectLinkElement } from '../../components/SelectLinkElement'
 import { useElementService } from '../../services'
 import { moveElementSchema } from './move-element.schema'
@@ -95,7 +97,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
             title: 'Error while moving element',
           })}
           schema={moveElementSchema}
-          uiKey={UiKey.MoveElementForm}
+          uiKey={UiKey.ElementFormMove}
         >
           <AutoFields omitFields={['parentElement', 'prevSibling']} />
           <AutoField

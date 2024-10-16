@@ -1,9 +1,11 @@
 'use client'
 
 import type { IPropData } from '@codelab/shared/abstract/core'
+
 import { modelTypeKey } from 'mobx-keystone'
 import { Component } from 'react'
 import { isPlainObject } from 'remeda'
+
 import { isServer } from '../env/is-server'
 
 const isReactComponent = (value: unknown) => value instanceof Component

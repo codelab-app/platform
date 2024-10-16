@@ -1,8 +1,9 @@
-import 'jquery'
 import type { IAntDesignApi } from '@codelab/backend/abstract/core'
-import { saveFormattedFile } from '@codelab/backend/shared/util'
-import path from 'path'
 import type { Browser } from 'puppeteer'
+
+import { saveFormattedFile } from '@codelab/backend/shared/util'
+import 'jquery'
+import path from 'path'
 import puppeteer from 'puppeteer'
 
 declare const $: JQueryStatic

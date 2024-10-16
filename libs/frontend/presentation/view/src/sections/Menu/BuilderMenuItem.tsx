@@ -1,11 +1,13 @@
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import {
   type ComponentContextParams,
   ExplorerPaneType,
   type PageContextParams,
   PageType,
+  PrimarySidebar,
 } from '@codelab/frontend/abstract/types'
-import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 export const pageBuilderMenuItem = ({
   appId,
@@ -27,7 +29,7 @@ export const pageBuilderMenuItem = ({
       link: {
         href: PageType.PageBuilder(
           { appId, pageId },
-          { primarySidebarKey: ExplorerPaneType.Explorer },
+          PrimarySidebar.ElementTree,
         ),
       },
     }
@@ -38,12 +40,7 @@ export const pageBuilderMenuItem = ({
       ...disabledBuilderMenuItem,
       disabled: false,
       link: {
-        href: PageType.ComponentBuilder(
-          { componentId },
-          {
-            primarySidebarKey: ExplorerPaneType.Explorer,
-          },
-        ),
+        href: PageType.ComponentBuilder({ componentId }),
       },
     }
   }

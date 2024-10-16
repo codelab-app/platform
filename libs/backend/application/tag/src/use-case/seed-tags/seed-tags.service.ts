@@ -1,10 +1,12 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
-import { TagRepository } from '@codelab/backend/domain/tag'
 import type { ITagDto } from '@codelab/shared/abstract/core'
+
+import { TagRepository } from '@codelab/backend/domain/tag'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { uniqueBy } from 'remeda'
 import { v4 } from 'uuid'
+
 import { ImportTagsCommand } from '../import-tags.command.service'
 import { TagTreeUtils } from './seed-tags.util'
 

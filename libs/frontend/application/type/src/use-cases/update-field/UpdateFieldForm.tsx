@@ -1,6 +1,12 @@
 'use client'
+import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -10,11 +16,10 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useFieldService } from '../../services'
 import {
   canSetDefaultValue,
@@ -30,18 +35,8 @@ import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
 import { useUpdateFieldForm } from './update-field.state'
 
-interface UpdateFieldFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const UpdateFieldForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: UpdateFieldFormProps) => {
+export const UpdateFieldForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const fieldSchema = useFieldSchema(createFieldSchema)
     const updateFieldForm = useUpdateFieldForm()
     const fieldService = useFieldService()
@@ -106,7 +101,7 @@ export const UpdateFieldForm = observer(
         onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
-        uiKey={UiKey.UpdateFieldForm}
+        uiKey={UiKey.FieldFormUpdate}
       >
         <AutoFields fields={['id', 'key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />

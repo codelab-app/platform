@@ -4,6 +4,7 @@ import type {
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { IRepository } from '../shared'
 import type { IAuthGuardModel } from './auth-guard.model.interface'
 

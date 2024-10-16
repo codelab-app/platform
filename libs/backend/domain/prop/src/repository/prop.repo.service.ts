@@ -3,6 +3,8 @@ import type {
   PropOptions,
   PropWhere,
 } from '@codelab/backend/abstract/codegen'
+import type { IPropDto } from '@codelab/shared/abstract/core'
+
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   OgmService,
@@ -10,7 +12,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IPropDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

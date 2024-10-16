@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from 'react'
+
 import {
   faDiscord,
   faFacebook,
@@ -8,12 +10,21 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
-import type { PropsWithChildren } from 'react'
 
 export const Footer = ({ children }: PropsWithChildren) => {
   return (
     <footer className="bg-slate-700">
-      <Row className="m-auto w-4/5 px-0 py-12 pt-14 xl:container sm:w-3/4 md:pt-28 lg:w-11/12 lg:px-1 xl:px-12 2xl:w-11/12 2xl:px-0">
+      <Row
+        className={`
+          m-auto w-4/5 px-0
+          py-12 pt-14
+          2xl:w-11/12 2xl:px-0
+          lg:w-11/12 lg:px-1
+          md:pt-28
+          sm:w-3/4
+          xl:container xl:px-12
+        `}
+      >
         <Col className="mb-4 text-lg text-slate-400 lg:mb-0" lg={7} xs={16}>
           <Image
             alt="Codelab Logo"

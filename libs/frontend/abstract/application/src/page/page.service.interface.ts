@@ -13,6 +13,7 @@ import type {
   PageOptions,
   PageWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { ICRUDService, IQueryService } from '../services'
 
 export interface ICreatePageUseCase {

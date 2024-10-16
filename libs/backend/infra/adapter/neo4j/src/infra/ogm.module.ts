@@ -1,5 +1,6 @@
 import { DigitaloceanModule } from '@codelab/backend/infra/adapter/digitalocean'
 import { Module } from '@nestjs/common'
+
 import { PureResolverProvider } from '../resolver'
 import { TypeResolverProvider } from '../resolver/pure-resolver/type'
 import { Neo4jModule } from './neo4j.module'

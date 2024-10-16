@@ -1,7 +1,9 @@
+import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
+
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
-import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
+
 import { useDeleteAuthGuardModal } from './delete-auth-guard.state'
 
 export type IDeleteAuthGuardButton = DeleteButtonProps

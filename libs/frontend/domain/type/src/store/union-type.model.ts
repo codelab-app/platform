@@ -4,13 +4,15 @@ import type {
   IUnionTypeModel,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import { isTypedProp, typeRef } from '@codelab/frontend/abstract/domain'
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { makeAllTypes } from '@codelab/shared/domain'
 import type { Ref } from 'mobx-keystone'
+
+import { typeRef } from '@codelab/frontend/abstract/domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { makeAllTypes } from '@codelab/shared/domain-old'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
+
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 

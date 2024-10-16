@@ -6,7 +6,9 @@ import type {
   GetBaseTypesOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
+
 import { prop, sortBy } from 'remeda'
+
 import {
   GetBaseTypes,
   GetDescendants,

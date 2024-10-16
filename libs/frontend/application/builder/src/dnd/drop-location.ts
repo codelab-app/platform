@@ -1,5 +1,5 @@
 export enum DropLocation {
-  Before = 'before',
   After = 'after',
+  Before = 'before',
   Inside = 'inside',
 }

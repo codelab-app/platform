@@ -1,10 +1,12 @@
+import type { IUpdatePageData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { usePageService } from '../../services'
 import { schema } from './update-page-tab.schema'
 
@@ -44,7 +46,7 @@ export const UpdatePageTabForm = observer(() => {
       model={model}
       onSubmit={onSubmit}
       schema={schema(kind)}
-      uiKey={UiKey.UpdatePageForm}
+      uiKey={UiKey.PageFormUpdate}
     >
       <AutoFields omitFields={omitFields} />
     </Form>

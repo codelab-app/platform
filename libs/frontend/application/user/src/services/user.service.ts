@@ -1,6 +1,7 @@
-import { GetUsers } from '@codelab/frontend-domain-user/repositories'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
+
+import { GetUsers } from '@codelab/frontend-domain-user/repositories'
 import { useCallback } from 'react'
 
 export const useUserService = () => {

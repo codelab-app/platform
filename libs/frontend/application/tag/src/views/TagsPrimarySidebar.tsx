@@ -1,9 +1,10 @@
 'use client'
 
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiSidebar,
   useCui,
@@ -11,6 +12,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { observer } from 'mobx-react-lite'
+
 import { useTagService } from '../services'
 import { CreateTagPopover } from '../use-cases/create-tag'
 import { useCreateTagForm } from '../use-cases/create-tag/create-tag.data'
@@ -30,16 +32,16 @@ export const TagsPrimarySidebar = observer(() => {
 
   const items: Array<ToolbarItem> = [
     {
-      cuiKey: UiKey.CreateTagToolbarItem,
+      cuiKey: UiKey.TagToolbarItemCreate,
       icon: <PlusOutlined />,
       onClick: () => {
         createTagForm.open()
-        popover.open(UiKey.CreateTagPopover)
+        popover.open(UiKey.TagPopoverCreate)
       },
       title: 'Create Tag',
     },
     {
-      cuiKey: UiKey.DeleteTagToolbarItem,
+      cuiKey: UiKey.TagToolbarItemDelete,
       icon: <DeleteOutlined />,
       onClick: () => deleteTagsModal.open(tags.map((tag) => tag.current)),
       title: 'Delete Tag',

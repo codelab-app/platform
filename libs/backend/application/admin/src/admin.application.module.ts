@@ -10,6 +10,7 @@ import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { UserDomainModule } from '@codelab/backend/domain/user'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { AdminController } from './admin.application.controller'
 import { SeederApplicationService } from './use-case'
 import { ExportAdminDataHandler } from './use-case/export/export-admin-data.command.service'

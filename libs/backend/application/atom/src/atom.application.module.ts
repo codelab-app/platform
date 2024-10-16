@@ -5,6 +5,7 @@ import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+
 import { AtomApplicationController } from './atom.application.controller'
 import { AtomApplicationService } from './services/atom.application.service'
 import {

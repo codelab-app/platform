@@ -4,14 +4,16 @@ import type {
   IComponentService,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
-import {
-  isRuntimeElement,
-  runtimeElementRef,
-} from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
+import type { ICreateElementDto, IPropDto } from '@codelab/shared/abstract/core'
+
+import {
+  isRuntimeElement,
+  runtimeElementRef,
+} from '@codelab/frontend/abstract/application'
 import { componentRef } from '@codelab/frontend/abstract/domain'
 import {
   useActionService,
@@ -25,13 +27,13 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import type { ICreateElementDto, IPropDto } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
+
 import { useElementService } from './element.service'
 
 interface ICloneElementProps {

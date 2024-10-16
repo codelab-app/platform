@@ -3,6 +3,7 @@ import type {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { IRepository } from '../shared'
 import type { IResourceModel } from './resource.model.interface'
 

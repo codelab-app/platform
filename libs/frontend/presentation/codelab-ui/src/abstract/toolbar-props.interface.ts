@@ -1,4 +1,5 @@
 import type { UiKey } from '@codelab/frontend/abstract/types'
+import type { SyntheticEvent } from 'react'
 
 export interface ToolbarItem {
   ariaLabel?: string
@@ -6,7 +7,7 @@ export interface ToolbarItem {
   icon: React.ReactNode
   label?: string
   title: string
-  onClick?(): void
+  onClick?(event: SyntheticEvent): void
 }
 
 export interface ToolbarProps {

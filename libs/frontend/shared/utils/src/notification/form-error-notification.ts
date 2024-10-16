@@ -1,4 +1,5 @@
 import type { Maybe, Notification } from '@codelab/shared/abstract/types'
+
 import { notify } from './notify'
 
 type FromErrorNotification<TEvent> = Partial<

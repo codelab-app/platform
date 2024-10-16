@@ -1,14 +1,26 @@
 {
   "overrides": [
     {
-      "plugins": ["react", "tailwindcss"],
+      "plugins": ["react", "tailwindcss", "readable-tailwind"],
       "extends": [
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
-        "plugin:tailwindcss/recommended"
+        "plugin:tailwindcss/recommended",
+        "plugin:readable-tailwind/error"
       ],
       "files": ["*.tsx", "*.jsx"],
       "rules": {
+        // https://github.com/schoero/eslint-plugin-readable-tailwind/blob/HEAD/docs/rules/sort-classes.md
+        "tailwindcss/classnames-order": "off",
+        "readable-tailwind/multiline": [
+          "error",
+          {
+            // "printWidth": 80,
+            "group": "newLine",
+            "preferSingleLine": true,
+            "classesPerLine": 3
+          }
+        ],
         "react/prop-types": "off",
         "react/no-unescaped-entities": "off",
         // "react/react-in-jsx-scope": "error",

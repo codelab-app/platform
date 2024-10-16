@@ -1,5 +1,7 @@
 import type { Static } from '@sinclair/typebox'
+
 import { Type } from '@sinclair/typebox'
+
 import { ElementSchema } from '../element'
 import { StoreAggregateSchema } from '../store'
 import { PageSchema } from './page.dto.interface'

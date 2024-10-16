@@ -13,6 +13,7 @@ import type {
   ITypeDomainService,
   IUserDomainService,
 } from '@codelab/frontend/abstract/domain'
+
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
 export const createRootDomainStore = ({

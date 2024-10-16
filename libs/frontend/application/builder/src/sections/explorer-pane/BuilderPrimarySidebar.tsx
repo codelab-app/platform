@@ -1,14 +1,15 @@
 'use client'
 
-import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
   IComponentModel,
   IInterfaceTypeModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
+
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { isComponent, isPage, typeRef } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import {
@@ -44,6 +45,7 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
+
 import { ElementTreeView } from './builder-tree/ElementTreeView'
 
 export const BuilderPrimarySidebar = observer<{
@@ -73,7 +75,7 @@ export const BuilderPrimarySidebar = observer<{
       toolbar: {
         items: [
           {
-            cuiKey: UiKey.CreateElementToolbarItem,
+            cuiKey: UiKey.ElementToolbarItemCreate,
             icon: <PlusOutlined />,
             onClick: () => {
               const selectedElement = selectedNode?.treeViewNode.element
@@ -87,7 +89,7 @@ export const BuilderPrimarySidebar = observer<{
                 elementTree: containerNode,
                 selectedElement,
               })
-              popover.open(UiKey.CreateElementPopover)
+              popover.open(UiKey.ElementPopoverCreate)
             },
             title: 'Add Element',
           },
@@ -103,7 +105,7 @@ export const BuilderPrimarySidebar = observer<{
       toolbar: {
         items: [
           {
-            cuiKey: UiKey.CreateFieldToolbarItem,
+            cuiKey: UiKey.FieldToolbarItemCreate,
             // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
             icon: <PlusOutlined disabled={!store} />,
             onClick: () => {
@@ -115,7 +117,7 @@ export const BuilderPrimarySidebar = observer<{
                 createFieldForm.open(
                   typeRef<IInterfaceTypeModel>(store.api.id).current,
                 )
-                popover.open(UiKey.CreateFieldPopover)
+                popover.open(UiKey.FieldPopoverCreate)
               }
             },
             title: 'Add Field',
@@ -132,7 +134,7 @@ export const BuilderPrimarySidebar = observer<{
       toolbar: {
         items: [
           {
-            cuiKey: UiKey.CreateActionToolbarItem,
+            cuiKey: UiKey.ActionToolbarItemCreate,
             // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
             icon: <PlusOutlined disabled={!store} />,
             onClick: () => {
@@ -141,7 +143,7 @@ export const BuilderPrimarySidebar = observer<{
               }
 
               createActionForm.open(store)
-              popover.open(UiKey.CreateActionPopover)
+              popover.open(UiKey.ActionPopoverCreate)
             },
             title: 'Add Action',
           },

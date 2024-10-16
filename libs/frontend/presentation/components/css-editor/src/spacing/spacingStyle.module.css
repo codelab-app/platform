@@ -4,16 +4,15 @@
   border: 1px solid #d9d9d9;
 }
 
-
 .marginContainer {
   height: 160px;
   grid-area: 1 / 1 / -1 / -1;
   grid-template-columns: 36px 1fr 36px;
   grid-template-rows: 24px minmax(16px, 1fr) 24px;
   grid-template-areas:
-    ". top ."
-    "left . right"
-    ". bottom .";
+    '. top .'
+    'left . right'
+    '. bottom .';
 }
 
 .paddingContainer {
@@ -23,7 +22,7 @@
   width: 85%;
   height: 80px;
   grid-template-areas:
-    ". top ."
-    "left center right"
-    ". bottom .";
+    '. top .'
+    'left center right'
+    '. bottom .';
 }

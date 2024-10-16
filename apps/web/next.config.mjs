@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
+import { withSentryConfig } from '@sentry/nextjs'
 // eslint-disable-next-line import/default
 import envVar from 'env-var'
 
@@ -13,52 +13,56 @@ const withBundleAnalyzer = bundleAnalyzer({
   // openAnalyzer: false,
 })
 
-/** Allows importing cypher files */
-// const withWebpackConfig = (nextConfig = {}) =>
-//   Object.assign({}, nextConfig, {
-//     webpack: (config, options) => {
-//       /**
-//        * Cypher import
-//        */
-//       config.module.rules = config.module.rules ?? []
-//       config.module.rules.push({
-//         test: /\.(cypher|cyp)$/,
-//         type: 'asset/source',
-//       })
+const enableInstrumentation = get('NEXT_WEB_ENABLE_OTEL').asBool()
 
-//       /**
-//        * Wdyr
-//        *
-//        * For app router using this
-//        *
-//        * https://github.com/welldone-software/why-did-you-render/issues/266
-//        *
-//        * Previous
-//        *
-//        * https://github.com/welldone-software/why-did-you-render/issues/84
-//        */
-//       if (process.env.NEXT_WEB_ENABLE_WDYR) {
-//         const injectWhyDidYouRender = import(
-//           path.resolve(__dirname, './scripts/wdyr')
-//         ).then((module) => module.default)
+const sentryConfig = (nextConfig) =>
+  withSentryConfig(nextConfig, {
+    autoInstrumentMiddleware: false,
 
-//         void injectWhyDidYouRender.then((inject) => inject(config, options))
-//       }
+    // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
+    // See the following for more information:
+    // https://docs.sentry.io/product/crons/
+    // https://vercel.com/docs/cron-jobs
+    automaticVercelMonitors: true,
 
-//       /**
-//        * Return
-//        */
-//       if (typeof nextConfig.webpack === 'function') {
-//         return nextConfig.webpack(config, options)
-//       }
+    // Automatically tree-shake Sentry logger statements to reduce bundle size
+    disableLogger: false,
 
-//       return config
-//     },
-//   })
+    // Hides source maps from generated client bundles
+    hideSourceMaps: true,
 
-const plugins = [withNx, withBundleAnalyzer]
+    // For all available options, see:
+    // https://github.com/getsentry/sentry-webpack-plugin#options
+    org: 'codelab-ozc',
 
-// const plugins = [withNx]
+    project: 'javascript-nextjs',
+
+    // Automatically annotate React components to show their full name in breadcrumbs and session replay
+    reactComponentAnnotation: {
+      enabled: true,
+    },
+
+    // Only print logs for uploading source maps in CI
+    silent: !process.env.CI,
+
+    telemetry: process.env.CI ? false : true,
+
+    // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
+    // This can increase your server load as well as your hosting bill.
+    // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
+    // side errors will fail.
+    tunnelRoute: '/monitoring',
+
+    // For all available options, see:
+    // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+    // Upload a larger set of source maps for prettier stack traces (increases build time)
+    widenClientFileUpload: true,
+  })
+
+const plugins = enableInstrumentation
+  ? [withNx, withBundleAnalyzer, sentryConfig]
+  : [withNx, withBundleAnalyzer]
+
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
 const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
@@ -72,24 +76,12 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    turbo: {
-      rules: {
-        // '*.cypher': {
-        //   loader: '',
-        //   options: {},
-        // },
-        // '*.svg': {
-        //   as: '*.js',
-        //   loaders: ['@svgr/webpack'],
-        // },
-      },
-    },
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
     // forceSwcTransforms: true,
     // typedRoutes: true,
-    // instrumentationHook: Boolean(process.env.NEXT_WEB_ENABLE_OTEL),
+    instrumentationHook: enableInstrumentation,
   },
   nx: { svgr: true },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js

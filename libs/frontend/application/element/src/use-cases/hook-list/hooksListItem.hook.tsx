@@ -1,6 +1,8 @@
 import type { IHook } from '@codelab/frontend/abstract/domain'
-import { List } from 'antd'
 import type { ReactNode } from 'react'
+
+import { List } from 'antd'
+
 import { RemoveHookFromElementButton } from '../remove-hook-from-element'
 import { HooksListItemDescription } from './hooksListItemDescription.hook'
 

@@ -1,4 +1,5 @@
 import type { IActionModel } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   useFormState,
@@ -6,7 +7,7 @@ import {
 } from '@codelab/frontend-application-shared-store/ui'
 
 export const useUpdateActionForm = () =>
-  useFormState<IActionModel>(UiKey.UpdateActionForm)
+  useFormState<IActionModel>(UiKey.ActionFormUpdate)
 
 export const useUpdateActionModal = () =>
-  useModalState<IActionModel>(UiKey.UpdateActionModal)
+  useModalState<IActionModel>(UiKey.ActionModalUpdate)

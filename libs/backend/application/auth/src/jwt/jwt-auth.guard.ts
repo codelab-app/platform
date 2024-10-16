@@ -1,9 +1,10 @@
-import { endpointConfig } from '@codelab/backend/infra/core'
 import type { ExecutionContext } from '@nestjs/common'
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
-import { AuthGuard } from '@nestjs/passport'
 import type { Request } from 'express'
+
+import { endpointConfig } from '@codelab/backend/infra/core'
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {

@@ -1,5 +1,6 @@
-import { Stage } from '@codelab/shared/abstract/core'
 import type { Options } from 'yargs'
+
+import { Stage } from '@codelab/shared/abstract/core'
 
 type GetStageOptions = (stages: Array<Stage>) => {
   stage: Options

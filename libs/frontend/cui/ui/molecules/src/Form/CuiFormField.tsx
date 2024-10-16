@@ -1,3 +1,5 @@
+import type { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form'
+
 import {
   FormControl,
   FormDescription,
@@ -7,8 +9,6 @@ import {
   FormMessage,
 } from '@cui/ui-atoms'
 import { Input } from 'antd'
-import type { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form'
-import voca from 'voca'
 
 interface CuiFormFieldProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -33,7 +33,7 @@ export const CuiFormField = <TFieldvalues extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{title ?? voca.capitalize(name)}</FormLabel>
+          <FormLabel>{title ?? name.charAt(0).toUpperCase()}</FormLabel>
           <FormControl>
             <Input placeholder="shadcn" {...field} />
           </FormControl>

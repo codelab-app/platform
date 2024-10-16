@@ -3,6 +3,7 @@ import type {
   CreateElementProperties,
   IFormService,
 } from '@codelab/frontend/abstract/application'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useFormState } from '@codelab/frontend-application-shared-store/ui'
 
@@ -11,7 +12,7 @@ export const useCreateElementForm = (): IFormService<
   CreateElementData & CreateElementProperties
 > =>
   useFormState<CreateElementData, CreateElementData & CreateElementProperties>(
-    UiKey.CreateElementForm,
+    UiKey.ElementFormCreate,
     (data) => {
       return {
         ...data,

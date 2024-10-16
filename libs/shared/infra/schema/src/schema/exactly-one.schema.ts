@@ -1,4 +1,5 @@
 import { Kind, type TKind, Type } from '@sinclair/typebox'
+
 import { DefinedSchema } from './defined.schema'
 
 export const TExactlyOne: TKind = {

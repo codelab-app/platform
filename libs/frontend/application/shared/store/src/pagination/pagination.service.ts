@@ -1,11 +1,11 @@
+import type { Ref } from 'mobx-keystone'
+
 import {
-  type GetDataFn,
   getRouterService,
   type IPaginationService,
   type SupportedPaginationModel,
 } from '@codelab/frontend/abstract/application'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -25,7 +25,7 @@ export const paginationContext = createContext<{
     page: number,
     pageSize: number,
     filter: Array<string>,
-    search: string,
+    search?: string,
   ): Promise<{ items: Array<SupportedPaginationModel>; totalItems: number }>
 }>()
 
@@ -52,7 +52,9 @@ export class PaginationService<T1 extends SupportedPaginationModel>
   }
 
   @modelFlow
-  getData = _async(function* (this: PaginationService<T1>) {
+  getData = _async(function* (
+    this: PaginationService<T1>,
+  ): Generator<unknown, Array<T1>, unknown> {
     this.isLoading = true
 
     const context = paginationContext.get(this)
@@ -61,7 +63,7 @@ export class PaginationService<T1 extends SupportedPaginationModel>
       throw new Error('getDataContext is not set')
     }
 
-    const getDataFn = context.getDataFn as GetDataFn<T1>
+    const getDataFn = context.getDataFn
 
     const { items, totalItems } = yield* _await(
       getDataFn(
@@ -82,7 +84,7 @@ export class PaginationService<T1 extends SupportedPaginationModel>
 
     this.isLoading = false
 
-    return items
+    return items as Array<T1>
   })
 
   /**

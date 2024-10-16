@@ -1,14 +1,16 @@
-import {
-  CACHE_TAGS,
-  type IComponentModel,
-  type IComponentRepository,
-} from '@codelab/frontend/abstract/domain'
 import type {
   ComponentOptions,
   ComponentUniqueWhere,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
+
+import {
+  CACHE_TAGS,
+  type IComponentModel,
+  type IComponentRepository,
+} from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
+
 import { Component } from '../store'
 import {
   ComponentList,

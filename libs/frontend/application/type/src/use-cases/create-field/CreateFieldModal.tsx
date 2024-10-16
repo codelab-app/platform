@@ -1,5 +1,7 @@
 'use client'
 
+import type { ICreateFieldData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -8,11 +10,11 @@ import {
   DisplayIfField,
   ModalForm,
 } from '@codelab/frontend-presentation-components-form'
-import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useFieldService } from '../../services'
 import { TypeSelect } from '../select-types'
 import { createFieldSchema } from './create-field.schema'
@@ -57,7 +59,7 @@ export const CreateFieldModal = observer(() => {
       onCancel={closeModal}
       open={createFieldModal.isOpen}
       title={<span className="font-semibold">Create field</span>}
-      uiKey={UiKey.CreateFieldModal}
+      uiKey={UiKey.FieldModalCreate}
     >
       <ModalForm.Form<ICreateFieldData>
         model={{

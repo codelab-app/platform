@@ -4,6 +4,9 @@ import type {
   IRuntimeComponentModel,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
+import type { IPropData } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
+
 import {
   isRuntimeComponent,
   isRuntimeElement,
@@ -15,9 +18,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, notify } from '@codelab/frontend/shared/utils'
 import { usePropService } from '@codelab/frontend-application-prop/services'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import { evaluateObject } from '@codelab/shared/utils'
+import { evaluateObject } from '@codelab/shared-infra-eval'
 import { useState } from 'react'
 
 const validateJson = (value: string): Nullable<IPropData> => {

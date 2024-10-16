@@ -1,5 +1,6 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { LoaderComponent } from 'next/dynamic'
+
 import dynamic from 'next/dynamic'
 import { createElement, forwardRef } from 'react'
 

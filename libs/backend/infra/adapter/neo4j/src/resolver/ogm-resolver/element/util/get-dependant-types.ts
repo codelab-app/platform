@@ -1,6 +1,8 @@
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
-import { getElementDependantTypes } from '../../../../cypher'
+
 import type { Neo4jService, OgmService } from '../../../../infra'
+
+import { getElementDependantTypes } from '../../../../cypher'
 import {
   elementSelectionSet,
   exportActionTypeSelectionSet,
@@ -160,11 +162,11 @@ const getFieldTypesToFetch = async (
     .filter(
       (field) =>
         ![
-          ITypeKind.ReactNodeType,
-          ITypeKind.RichTextType,
-          ITypeKind.RenderPropType,
-          ITypeKind.PrimitiveType,
           ITypeKind.ActionType,
+          ITypeKind.PrimitiveType,
+          ITypeKind.ReactNodeType,
+          ITypeKind.RenderPropType,
+          ITypeKind.RichTextType,
         ].includes(field.fieldType.kind),
     )
     .map((field) => ({

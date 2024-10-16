@@ -8,6 +8,7 @@ import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
+
 import { useElementTreeDrop } from '../../../hooks'
 import {
   DISABLE_HOVER_CLASSNAME,

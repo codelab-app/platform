@@ -1,5 +1,7 @@
 'use client'
 
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
@@ -7,9 +9,9 @@ import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
+
 import { useUpdateRedirectForm } from './update-redirect.state'
 import { UpdateRedirectForm } from './UpdateRedirectForm'
 
@@ -20,12 +22,11 @@ export const UpdateRedirectPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={UiKey.UpdateRedirectPopover}
-      label="Update Redirect"
+      id={UiKey.RedirectPopoverUpdate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.UpdateRedirectToolbarItem,
+            cuiKey: UiKey.RedirectToolbarItemUpdate,
             icon: <SaveOutlined />,
             label: 'Update',
             onClick: () => {
@@ -34,7 +35,7 @@ export const UpdateRedirectPopover = observer(() => {
             title: 'Update',
           },
           {
-            cuiKey: UiKey.CancelUpdateRedirectToolbarItem,
+            cuiKey: UiKey.RedirectToolbarItemUpdateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {

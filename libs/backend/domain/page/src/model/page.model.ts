@@ -1,8 +1,9 @@
-import { IModel } from '@codelab/backend/abstract/types'
 import type { IPage, IPageDto, IRef } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { PageKind } from '@codelab/shared/infra/gql'
-import { slugify } from 'voca'
+
+import { IModel } from '@codelab/backend/abstract/types'
+import { slugify } from '@codelab/shared/utils'
 
 export class Page extends IModel implements IPage {
   get slug() {

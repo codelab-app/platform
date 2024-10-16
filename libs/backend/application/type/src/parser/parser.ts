@@ -1,7 +1,9 @@
 import type { IAntDesignField } from '@codelab/backend/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { stripQuotes } from '@codelab/shared/utils'
 import { mergeDeep } from 'remeda'
+
 import { stripBracketsRegex } from './matchers'
 
 /**

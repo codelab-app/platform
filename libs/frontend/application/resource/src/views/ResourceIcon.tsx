@@ -1,6 +1,8 @@
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon'
-import Icon from '@ant-design/icons/lib/components/Icon'
 import type { IResourceType } from '@codelab/shared/abstract/core'
+
+import Icon from '@ant-design/icons/lib/components/Icon'
+
 import { icons } from './icons'
 
 interface ResourceIconProps extends Partial<CustomIconComponentProps> {

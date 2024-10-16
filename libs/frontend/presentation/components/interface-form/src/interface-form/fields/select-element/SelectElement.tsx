@@ -2,12 +2,13 @@
 
 /* eslint-disable react/jsx-props-no-spreading */
 import type { SelectElementOption } from '@codelab/frontend/abstract/domain'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
+
 import { getSelectElementOptions } from '@codelab/frontend-domain-element/repositories'
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { SelectField } from 'uniforms-antd'
-import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 export type SelectElementProps = UniformSelectFieldProps & {
   allElementOptions?: Array<SelectElementOption>
@@ -78,10 +79,10 @@ export const getSelectElementComponent = (kind: IElementTypeKind) => {
   switch (kind) {
     case IElementTypeKind.AllElements:
       return SelectAnyElement
-    case IElementTypeKind.DescendantsOnly:
-      return SelectDescendantElement
     case IElementTypeKind.ChildrenOnly:
       return SelectChildElement
+    case IElementTypeKind.DescendantsOnly:
+      return SelectDescendantElement
     case IElementTypeKind.ExcludeDescendantsElements:
       return SelectExcludeDescendantsElements
     default:

@@ -1,31 +1,27 @@
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import type { ICreateResourceData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+
+import {
+  type IFormController,
+  type SubmitController,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import type { ICreateResourceData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useResourceService } from '../../services'
 import { createResourceSchema } from './create-resource.schema'
 import { useCreateResourceForm } from './create-resource.state'
 
-interface CreateResourceFormProps {
-  showFormControl?: boolean
-  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
-}
-
-export const CreateResourceForm = observer(
-  ({
-    onSubmitSuccess,
-    showFormControl = true,
-    submitRef,
-  }: CreateResourceFormProps) => {
+export const CreateResourceForm = observer<IFormController>(
+  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const createResourceForm = useCreateResourceForm()
     const resourceService = useResourceService()
     const closeForm = () => createResourceForm.close()
@@ -55,7 +51,7 @@ export const CreateResourceForm = observer(
         onSubmitSuccess={closeForm}
         schema={createResourceSchema}
         submitRef={submitRef}
-        uiKey={UiKey.CreateResourceForm}
+        uiKey={UiKey.ResourceFormCreate}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

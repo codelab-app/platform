@@ -2,6 +2,7 @@
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Button } from 'antd'
+
 import { useCreateTagModal } from './create-tag.data'
 
 export const CreateTagButton = () => {

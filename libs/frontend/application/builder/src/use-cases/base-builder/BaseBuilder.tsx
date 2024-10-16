@@ -13,6 +13,7 @@ import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
+
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
 import { BuilderClickOverlay } from '../base-builder/BuilderClickOverlay'
 import { BuilderHoverOverlay } from '../base-builder/BuilderHoverOverlay'

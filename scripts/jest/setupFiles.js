@@ -45,5 +45,4 @@ if (typeof window !== 'undefined') {
   // mock gqlFetch because it is a server action which isn't supported by jest
   jest.mock('@codelab/frontend/infra/graphql', () => null)
   jest.mock('@codelab/frontend/infra/graphql/client', () => null)
-
 }

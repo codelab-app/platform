@@ -1,5 +1,6 @@
 /* eslint-disable canonical/sort-keys */
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
+
 import { updateJson } from '@nx/devkit'
 
 export const updateLibraryTsconfig = (
@@ -15,13 +16,13 @@ export const updateLibraryTsconfig = (
   if (projectName?.startsWith('backend')) {
     updateJson(tree, `${project.root}/tsconfig.json`, (json) => {
       json.compilerOptions = {
-        module: 'commonjs',
         forceConsistentCasingInFileNames: true,
-        strict: true,
-        noImplicitOverride: true,
-        noPropertyAccessFromIndexSignature: true,
-        noImplicitReturns: true,
+        module: 'commonjs',
         noFallthroughCasesInSwitch: true,
+        noImplicitOverride: true,
+        noImplicitReturns: true,
+        noPropertyAccessFromIndexSignature: true,
+        strict: true,
       }
 
       return json
@@ -29,15 +30,15 @@ export const updateLibraryTsconfig = (
 
     updateJson(tree, `${project.root}/tsconfig.lib.json`, (json) => {
       json.compilerOptions = {
-        outDir: json.compilerOptions.outDir,
         declaration: true,
-        types: ['node'],
-        target: 'es2021',
-        strictNullChecks: true,
-        noImplicitAny: true,
-        strictBindCallApply: true,
         forceConsistentCasingInFileNames: true,
         noFallthroughCasesInSwitch: true,
+        noImplicitAny: true,
+        outDir: json.compilerOptions.outDir,
+        strictBindCallApply: true,
+        strictNullChecks: true,
+        target: 'es2021',
+        types: ['node'],
       }
 
       return json

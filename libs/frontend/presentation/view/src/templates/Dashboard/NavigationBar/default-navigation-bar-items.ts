@@ -1,5 +1,6 @@
 import type { UrlPathParams } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+
 import {
   adminMenuItems,
   allPagesMenuItem,

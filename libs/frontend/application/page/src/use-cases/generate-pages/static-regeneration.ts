@@ -1,9 +1,10 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { domainListQuery } from '@codelab/frontend-application-domain/use-cases/domain-list'
+import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { getEnv } from '@codelab/shared/config'
 import { useState } from 'react'
 
@@ -44,7 +45,9 @@ export const useRegeneratePages = () => {
     try {
       setIsRegenerating(true)
 
-      const { domains } = await domainListQuery(app)
+      const { items: domains } = await domainRepository.find({
+        app: { id: app.id },
+      })
 
       for (const domain of domains) {
         const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)

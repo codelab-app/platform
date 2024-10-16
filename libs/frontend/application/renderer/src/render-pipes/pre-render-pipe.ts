@@ -3,7 +3,9 @@ import type {
   IRenderPipe,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
+
 import { ExtendedModel, model, prop } from 'mobx-keystone'
+
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/PreRenderPipe')

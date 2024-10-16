@@ -6,6 +6,7 @@ import FontColorsOutlined from '@ant-design/icons/FontColorsOutlined'
 import StrikethroughOutlined from '@ant-design/icons/StrikethroughOutlined'
 import UnderlineOutlined from '@ant-design/icons/UnderlineOutlined'
 import { Col } from 'antd'
+
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
 import { CssProperty } from '../css'

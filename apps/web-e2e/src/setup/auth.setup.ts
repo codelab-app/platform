@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+
 import { auth0Password, auth0Username, authFile } from '../../playwright.config'
 
 test('authenticate', async ({ page }) => {
@@ -10,7 +11,7 @@ test('authenticate', async ({ page }) => {
   await page.getByLabel('Password').fill(auth0Password)
   await page.getByRole('button', { exact: true, name: 'Continue' }).click()
 
-  // after login user will be redirected to /apps
+  // after login user will be redirected to /
   await page.waitForURL('/')
 
   await expect(

@@ -4,6 +4,7 @@ import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { EventEmitterModule } from '@nestjs/event-emitter'
+
 import { ApiModule } from './api/api.module'
 import { HealthcheckController } from './healthcheck.controller'
 

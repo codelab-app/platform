@@ -1,5 +1,7 @@
 import type { IPropDto } from '@codelab/shared/abstract/core'
+
 import { v4 } from 'uuid'
+
 import { Prop } from '../store'
 
 export const propFactory = (dto?: Partial<IPropDto>) => {

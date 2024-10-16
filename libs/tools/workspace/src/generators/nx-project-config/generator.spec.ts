@@ -1,10 +1,13 @@
 import type { Tree } from '@nx/devkit'
+
 import { readProjectConfiguration } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
 import { Linter } from '@nx/eslint'
 import { libraryGenerator } from '@nx/react'
-import { nxProjectConfigGenerator } from './generator'
+
 import type { EslintGeneratorSchema } from './schema'
+
+import { nxProjectConfigGenerator } from './generator'
 
 describe('project.json lint settings', () => {
   let tree: Tree

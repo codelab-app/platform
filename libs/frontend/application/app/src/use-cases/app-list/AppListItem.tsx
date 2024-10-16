@@ -1,8 +1,10 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
+
 import { AppListItemDropdown } from './AppListItemDropdown'
 import { DomainList } from './DomainList'
 
@@ -22,7 +24,7 @@ export const AppListItem = observer(({ app }: AppListItemProps) => {
   const Title = (
     <Link
       aria-label={app.name}
-      href={`/apps/${app.id}/pages/${providerPage.id}/builder`}
+      href={`/apps/${app.id}/pages/${providerPage.id}/builder/page`}
     >
       {app.name}
     </Link>

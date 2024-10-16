@@ -2,6 +2,7 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import type { IComponentDomainService } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
+
 import { componentRepository } from './component.repository'
 
 export const getSelectComponentOptions = async (

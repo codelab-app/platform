@@ -20,19 +20,27 @@ import { isEqual } from 'radash'
  * https://stackoverflow.com/questions/76813923/how-to-avoid-warning-message-when-getting-user-information-on-next-js-13-server/77015385#77015385
  */
 
-const paginatedPages: Array<string> = [PageType.Atoms(), PageType.Tags()]
+const paginatedRoutes = [PageType.Atoms(), PageType.Tags()]
+const authenticatedRoutes = [PageType.AppList()]
 
 const middleware: NextMiddleware = async (
   request: NextRequest,
   event: NextFetchEvent,
 ) => {
   const response = NextResponse.next()
+  const pathname = request.nextUrl.pathname
 
-  if (request.nextUrl.pathname.startsWith(PageType.AppList())) {
+  /**
+   * Guard routes here
+   */
+  if (authenticatedRoutes.some((route) => pathname.startsWith(route))) {
     return authGuardMiddleware(request, response, event)
   }
 
-  if (paginatedPages.includes(request.nextUrl.pathname)) {
+  /**
+   * Pagination uses query params as source of truth, we set default ones here.
+   */
+  if (paginatedRoutes.some((route) => pathname.startsWith(route))) {
     const url = request.nextUrl.clone()
     const currentPage = url.searchParams.get('page')
     const currentPageSize = url.searchParams.get('pageSize')
@@ -55,6 +63,9 @@ const middleware: NextMiddleware = async (
     }
   }
 
+  /**
+   * For querying the backend, we want to attach tokens from Auth0 session
+   */
   if (request.nextUrl.pathname.startsWith('/api/v1')) {
     await auth0ServerInstance.touchSession(request, response)
 
@@ -64,9 +75,6 @@ const middleware: NextMiddleware = async (
 
     if (session?.accessToken) {
       response.headers.set('Authorization', `Bearer ${session.accessToken}`)
-
-      // Used for request to backend APIs
-      process.env.AUTHORIZATION_TOKEN = session.accessToken
     }
 
     if (session?.idToken) {

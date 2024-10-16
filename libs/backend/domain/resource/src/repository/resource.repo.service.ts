@@ -1,3 +1,5 @@
+import type { IResourceDto } from '@codelab/shared/abstract/core'
+
 import {
   type Resource,
   type ResourceOptions,
@@ -11,8 +13,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IResourceDto } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

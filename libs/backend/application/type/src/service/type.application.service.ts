@@ -1,8 +1,9 @@
+import type { IAtomType } from '@codelab/shared/abstract/core'
+
 import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

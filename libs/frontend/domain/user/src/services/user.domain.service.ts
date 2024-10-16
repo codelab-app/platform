@@ -3,8 +3,10 @@ import type {
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IUserDto } from '@codelab/shared/abstract/core'
+
 import { computed } from 'mobx'
 import { Model, model, objectMap, prop } from 'mobx-keystone'
+
 import { User } from '../store'
 
 const fromDto = (user: IUserDto) => {

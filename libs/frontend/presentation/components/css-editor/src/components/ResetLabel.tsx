@@ -17,7 +17,13 @@ export const ResetLabel = ({ canReset, label, onReset }: ResetLabelProps) => {
 
   return (
     <Reset onReset={onReset}>
-      <span className="whitespace-nowrap rounded-[2px] bg-sky-100 p-[2px] text-[11px] hover:bg-sky-200">
+      <span
+        className={`
+          whitespace-nowrap rounded-[2px] bg-sky-100
+          p-[2px] text-[11px]
+          hover:bg-sky-200
+        `}
+      >
         {label}
       </span>
     </Reset>

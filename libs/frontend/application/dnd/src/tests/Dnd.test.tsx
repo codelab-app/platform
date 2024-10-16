@@ -1,10 +1,12 @@
 /* eslint-disable unicorn/filename-case */
 
 import { fireEvent, render, waitFor } from '@testing-library/react'
+
+import type { Point } from '../geometry'
+
 import { DROP_INDICATOR_ID } from '../components/DropIndicator'
 import { DROP_OVERLAY_ID } from '../components/DropOverlay'
 import { DRAG_OVERLAY_ID } from '../components/MakeChildrenDraggable'
-import type { Point } from '../geometry'
 import { MakeElementTree } from './MakeElementTree'
 import {
   horizontalSimpleTree,

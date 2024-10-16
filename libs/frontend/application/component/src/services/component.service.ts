@@ -1,3 +1,9 @@
+import type {
+  ComponentBuilderFragment,
+  ComponentOptions,
+  ComponentWhere,
+} from '@codelab/shared/infra/gql'
+
 import {
   type GetDataFn,
   type IComponentService,
@@ -18,13 +24,11 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import {
   type ICreateComponentData,
+  type IRef,
   type IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import type {
-  ComponentBuilderFragment,
-  ComponentOptions,
-  ComponentWhere,
-} from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/schema'
+
 import { componentBuilderQuery } from '../use-cases/component-builder'
 import { revalidateComponentListOperation } from '../use-cases/component-list'
 
@@ -49,7 +53,7 @@ export const useComponentService = (): IComponentService => {
     return component
   }
 
-  const remove = async (components: Array<IComponentModel>) => {
+  const removeMany = async (components: Array<IComponentModel>) => {
     const deleteComponent = async (component: IComponentModel) => {
       const { id } = component
       const rootElement = component.rootElement.maybeCurrent
@@ -152,15 +156,25 @@ export const useComponentService = (): IComponentService => {
     return { items, totalItems: componentPagination.totalItems }
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    return componentDomainService.components.get(ref.id)
+  }
+
+  const getAllFromCache = () => {
+    return Array.from(componentDomainService.components.values())
+  }
+
   return {
     create,
     getAll,
+    getAllFromCache,
     getDataFn,
     getOne,
+    getOneFromCache,
     importComponent,
     paginationService: componentPagination,
     previewComponent,
-    remove,
+    removeMany,
     update,
   }
 }

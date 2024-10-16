@@ -1,5 +1,7 @@
 import type { AnyModel, Ref } from 'mobx-keystone'
+
 import { detach, isRefOfType, rootRef } from 'mobx-keystone'
+
 import type { IRuntimePageModel } from './runtime-page.model.interface'
 
 export const runtimePageRef = rootRef<IRuntimePageModel>(

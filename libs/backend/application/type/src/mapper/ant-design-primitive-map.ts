@@ -1,7 +1,9 @@
 import type { IAntDesignField } from '@codelab/backend/abstract/core'
 import type { ITypeDto } from '@codelab/shared/abstract/core'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { DistributivePick } from '@codelab/shared/abstract/types'
+
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+
 import {
   isActionType,
   isEnumType,
@@ -17,12 +19,12 @@ export class AntDesignTypeMapper {
     switch (value) {
       case 'boolean':
         return IPrimitiveTypeKind.Boolean
-      case 'string':
-        return IPrimitiveTypeKind.String
-      case 'number':
-        return IPrimitiveTypeKind.Number
       case 'integer':
         return IPrimitiveTypeKind.Integer
+      case 'number':
+        return IPrimitiveTypeKind.Number
+      case 'string':
+        return IPrimitiveTypeKind.String
       default:
         throw new Error('Invalid value')
     }

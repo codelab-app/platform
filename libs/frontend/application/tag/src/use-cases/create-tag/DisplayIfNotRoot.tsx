@@ -1,5 +1,6 @@
-import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
+
+import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 
 export const DisplayIfNotRoot = ({
   children,

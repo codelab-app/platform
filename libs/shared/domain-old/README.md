@@ -1,0 +1,3 @@
+# shared-domain-old
+
+This library was generated with [Nx](https://nx.dev).

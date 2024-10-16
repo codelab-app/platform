@@ -1,33 +1,19 @@
-'use client'
+import type { UrlQueryParamsPageProps } from '@codelab/frontend/abstract/types'
 
-import type { UrlQueryParamsString } from '@codelab/frontend/abstract/types'
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { AtomsPrimarySidebar } from '@codelab/frontend-application-atom/views'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import { useEffect } from 'react'
-
-const Demo = () => {
-  const { routerService } = useApplicationStore()
-
-  useEffect(() => {
-    console.log('Demo', routerService.page)
-  }, [])
-
-  return null
-}
 
 const Page = ({
   searchParams: { filter, page, pageSize, primarySidebarKey, search },
 }: {
-  searchParams: UrlQueryParamsString
+  searchParams: UrlQueryParamsPageProps
 }) => {
   return (
     <ApplicationStoreHydrator
       fallback={<Spinner />}
       queryParams={{ filter, page, pageSize, primarySidebarKey, search }}
     >
-      {/* <Demo /> */}
       <AtomsPrimarySidebar />
     </ApplicationStoreHydrator>
   )

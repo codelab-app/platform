@@ -1,53 +1,8 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { AuthGuardFragmentDoc } from '@codelab/shared/infra/gql'
-
-export const GetAuthGuardsDocument = graphql(`
-  query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {
-    aggregate: authGuardsAggregate(where: $where) {
-      count
-    }
-    items: authGuards(options: $options, where: $where) {
-      ...AuthGuard
-    }
-  }
-`)
-
-export const CreateAuthGuardsDocument = graphql(`
-  mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {
-    createAuthGuards(input: $input) {
-      authGuards {
-        id
-      }
-    }
-  }
-`)
-
-export const UpdateAuthGuardDocument = graphql(`
-  mutation UpdateAuthGuard(
-    $where: AuthGuardWhere
-    $update: AuthGuardUpdateInput
-  ) {
-    updateAuthGuards(update: $update, where: $where) {
-      authGuards {
-        id
-      }
-    }
-  }
-`)
-
-export const DeleteAuthGuardsDocument = graphql(`
-  mutation DeleteAuthGuards(
-    $where: AuthGuardWhere
-    $delete: AuthGuardDeleteInput
-  ) {
-    deleteAuthGuards(where: $where, delete: $delete) {
-      nodesDeleted
-    }
-  }
-`)
 
 import {
   type GetAuthGuardsQueryVariables,
@@ -55,23 +10,29 @@ import {
   type UpdateAuthGuardMutationVariables,
   type DeleteAuthGuardsMutationVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  GetAuthGuardsDocument,
+  CreateAuthGuardsDocument,
+  UpdateAuthGuardDocument,
+  DeleteAuthGuardsDocument,
+} from './auth-guard.api.documents.graphql.gen'
 
 export const GetAuthGuards = (
   variables: GetAuthGuardsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetAuthGuardsDocument.toString(), variables, next)
 
 export const CreateAuthGuards = (
   variables: CreateAuthGuardsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateAuthGuardsDocument.toString(), variables, next)
 
 export const UpdateAuthGuard = (
   variables: UpdateAuthGuardMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateAuthGuardDocument.toString(), variables, next)
 
 export const DeleteAuthGuards = (
   variables: DeleteAuthGuardsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteAuthGuardsDocument.toString(), variables, next)

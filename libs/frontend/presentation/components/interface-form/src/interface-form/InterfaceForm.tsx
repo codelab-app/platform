@@ -4,16 +4,22 @@ import type {
   IInterfaceTypeModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend-presentation-components-form'
-import { Form, useSubmit } from '@codelab/frontend-presentation-components-form'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
-import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
+import type { Assign } from 'utility-types'
+
+import {
+  type FormProps,
+  type SubmitRef,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
+import { Form, useSubmit } from '@codelab/frontend-presentation-components-form'
+import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
 import { mergeDeep } from 'remeda'
-import type { Assign } from 'utility-types'
+
 import {
   type InterfaceFormContext,
   uniformSchemaFactory,
@@ -74,9 +80,7 @@ export const InterfaceForm = observer(
         schema={formSchema as JSONSchemaType<unknown>}
         submitField={submitField}
         submitRef={submitRef}
-        // TODO: Need to find a way to have a domain key in this case
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        uiKey={'interface-form' as any}
+        uiKey={UiKey.FormInterface}
       >
         {children}
       </Form>

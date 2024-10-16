@@ -3,6 +3,7 @@ import type {
   AppOptions,
   AppWhere,
 } from '@codelab/shared/infra/gql'
+
 import type { IRepository } from '../shared'
 import type { IAppModel } from './app.model.interface'
 

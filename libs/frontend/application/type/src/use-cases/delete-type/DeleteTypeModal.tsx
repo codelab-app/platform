@@ -9,6 +9,7 @@ import {
   type EmptyJsonSchemaType,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+
 import { useTypeService } from '../../services'
 import { useDeleteTypeModal } from './delete-type.state'
 
@@ -38,7 +39,7 @@ export const DeleteTypeModal = observer(() => {
       throw new Error(`Can't delete typed since it's referenced in ${label}`)
     }
 
-    await typeService.remove([typeToDelete])
+    await typeService.removeMany([typeToDelete])
 
     /**
      * typeService.delete writes into cache
@@ -54,7 +55,7 @@ export const DeleteTypeModal = observer(() => {
       onCancel={closeModal}
       open={deleteTypeModal.isOpen}
       title={<span className="font-semibold">Delete type</span>}
-      uiKey={UiKey.DeleteTypeModal}
+      uiKey={UiKey.TypeModalDelete}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}

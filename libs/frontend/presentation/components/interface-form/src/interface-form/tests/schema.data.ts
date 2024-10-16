@@ -1,5 +1,6 @@
 /// <reference types='jest'/>
 import { mergeDeep } from 'remeda'
+
 import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
   actionType,

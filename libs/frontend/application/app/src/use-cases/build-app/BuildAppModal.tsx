@@ -1,11 +1,13 @@
 'use client'
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
+
 import { useBuildAppModal } from './build-app.state'
 import { useBuildApp } from './useBuildApp.hook'
 
@@ -21,7 +23,7 @@ export const BuildAppModal = observer(() => {
       okText="Build App"
       onCancel={closeModal}
       open={buildAppModal.isOpen}
-      uiKey={UiKey.BuildAppModal}
+      uiKey={UiKey.AppModalBuild}
     >
       <ModalForm.Form
         model={{}}

@@ -1,4 +1,5 @@
 import type { IRedirectDomainService } from '@codelab/frontend/abstract/domain'
+
 import {
   type IRedirectDto,
   IRedirectTargetType,

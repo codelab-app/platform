@@ -1,35 +1,45 @@
-import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
-import Html5Outlined from '@ant-design/icons/Html5Outlined'
 import type {
   IAtomModel,
   IInterfaceTypeModel,
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
+
+import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
+import Html5Outlined from '@ant-design/icons/Html5Outlined'
 import {
   atomRef,
   getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import {
-  antdAtoms,
-  codelabAtoms,
   connectNodeId,
   connectNodeIds,
   connectOwner,
+  reconnectNodeIds,
+} from '@codelab/shared/domain-old'
+import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
+import {
+  antdAtoms,
+  codelabAtoms,
   htmlAtoms,
   reactAtoms,
-  reconnectNodeIds,
-} from '@codelab/shared/domain'
-import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
-import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+} from '@codelab/shared-domain-module-atom'
+import { action, computed, runInAction, untracked } from 'mobx'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+  runUnprotected,
+} from 'mobx-keystone'
 import { createElement } from 'react'
 import { v4 } from 'uuid'
 
@@ -133,30 +143,6 @@ export class Atom
   }
 
   @modelAction
-  toCreateInput(): AtomCreateInput {
-    return {
-      api: {
-        create: {
-          node: {
-            id: v4(),
-            kind: ITypeKind.InterfaceType,
-            name: `${this.name} API`,
-            owner: connectOwner(this.userDomainService.user),
-          },
-        },
-      },
-      externalCssSource: this.externalCssSource,
-      externalJsSource: this.externalJsSource,
-      externalSourceType: this.externalSourceType,
-      id: this.id,
-      name: this.name,
-      owner: connectOwner(this.userDomainService.user),
-      tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
-      type: this.type,
-    }
-  }
-
-  @modelAction
   toUpdateInput(): AtomUpdateInput {
     return {
       api: this.api.id ? connectNodeId(this.api.id) : undefined,
@@ -177,19 +163,22 @@ export class Atom
   }
 
   @modelAction
-  writeCache({
-    api,
-    externalCssSource,
-    externalJsSource,
-    externalSourceType,
-    icon,
-    id,
-    name,
-    requiredParents = [],
-    suggestedChildren = [],
-    tags = [],
-    type,
-  }: Partial<IAtomDto>) {
+  writeCache(
+    {
+      api,
+      externalCssSource,
+      externalJsSource,
+      externalSourceType,
+      icon,
+      id,
+      name,
+      requiredParents = [],
+      suggestedChildren = [],
+      tags = [],
+      type,
+    }: Partial<IAtomDto>,
+    tracked = true,
+  ) {
     this.externalCssSource = externalCssSource ?? this.externalCssSource
     this.externalJsSource = externalJsSource ?? this.externalJsSource
     this.externalSourceType = externalSourceType ?? this.externalSourceType

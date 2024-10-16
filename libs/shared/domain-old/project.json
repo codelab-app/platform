@@ -1,0 +1,26 @@
+{
+  "name": "shared-domain-old",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain-old/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:shared-domain",
+    "projectType:library",
+    "type:concrete",
+    "scope:shared"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/domain-old"],
+      "options": {
+        "jestConfig": "libs/shared/domain-old/jest.config.ts",
+        "reporters": ["default"],
+        "runInBand": true
+      }
+    }
+  }
+}

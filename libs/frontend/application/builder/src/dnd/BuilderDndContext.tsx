@@ -1,4 +1,8 @@
 import type { BuilderDragData } from '@codelab/frontend/abstract/application'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { DragEndEvent } from '@dnd-kit/core'
+import type { PropsWithChildren } from 'react'
+
 import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { HierarchicalCollisionDetector } from '@codelab/frontend-application-dnd/collision-detection'
@@ -9,11 +13,9 @@ import {
 } from '@codelab/frontend-application-dnd/components'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import type { Maybe } from '@codelab/shared/abstract/types'
-import type { DragEndEvent } from '@dnd-kit/core'
 import { DndContext, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
-import type { PropsWithChildren } from 'react'
 import { useCallback, useMemo } from 'react'
+
 import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()

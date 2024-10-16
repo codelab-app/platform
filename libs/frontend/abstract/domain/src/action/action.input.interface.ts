@@ -1,21 +1,21 @@
 import type * as cg from '@codelab/shared/infra/gql'
 
-export type ICreateActionInput =
+export type IActionCreateInput =
   | cg.ApiActionCreateInput
   | cg.CodeActionCreateInput
 
-export type IUpdateActionInput =
+export type IActionUpdateInput =
   | cg.ApiActionUpdateInput
   | cg.CodeActionUpdateInput
 
-export type IConnectActionInput =
+export type IActionConnectInput =
   | cg.ApiActionConnectInput
   | cg.CodeActionConnectInput
 
-export type IDisconnectActionInput =
+export type IActionDisconnectInput =
   | cg.ApiActionDisconnectInput
   | cg.CodeActionDisconnectInput
 
-export type IDeleteActionInput =
+export type IActionDeleteInput =
   | cg.ApiActionDeleteInput
   | cg.CodeActionDeleteInput

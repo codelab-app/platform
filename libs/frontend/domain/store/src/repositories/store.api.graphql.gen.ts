@@ -1,51 +1,8 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 import { StoreFragmentDoc } from '@codelab/shared/infra/gql'
-
-export const CreateStoresDocument = graphql(`
-  mutation CreateStores($input: [StoreCreateInput!]!) {
-    createStores(input: $input) {
-      info {
-        nodesCreated
-        relationshipsCreated
-      }
-      stores {
-        id
-      }
-    }
-  }
-`)
-
-export const DeleteStoresDocument = graphql(`
-  mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
-    deleteStores(delete: $delete, where: $where) {
-      nodesDeleted
-    }
-  }
-`)
-
-export const GetStoresDocument = graphql(`
-  query GetStores($where: StoreWhere, $options: StoreOptions) {
-    aggregate: storesAggregate(where: $where) {
-      count
-    }
-    items: stores(options: $options, where: $where) {
-      ...Store
-    }
-  }
-`)
-
-export const UpdateStoresDocument = graphql(`
-  mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
-    updateStores(update: $update, where: $where) {
-      stores {
-        id
-      }
-    }
-  }
-`)
 
 import {
   type CreateStoresMutationVariables,
@@ -53,23 +10,29 @@ import {
   type GetStoresQueryVariables,
   type UpdateStoresMutationVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  CreateStoresDocument,
+  DeleteStoresDocument,
+  GetStoresDocument,
+  UpdateStoresDocument,
+} from './store.api.documents.graphql.gen'
 
 export const CreateStores = (
   variables: CreateStoresMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateStoresDocument.toString(), variables, next)
 
 export const DeleteStores = (
   variables: DeleteStoresMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteStoresDocument.toString(), variables, next)
 
 export const GetStores = (
   variables: GetStoresQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetStoresDocument.toString(), variables, next)
 
 export const UpdateStores = (
   variables: UpdateStoresMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateStoresDocument.toString(), variables, next)

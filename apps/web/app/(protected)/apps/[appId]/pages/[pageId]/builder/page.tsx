@@ -1,9 +1,13 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
+
+import { RendererType } from '@codelab/frontend/abstract/application'
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { PageBuilder } from '@codelab/frontend-application-builder/use-cases/page-builder'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+
+import { PageBuilderContainer } from './page.container'
 
 const Page = async ({
   params: { appId, pageId },
@@ -29,8 +33,7 @@ const Page = async ({
       storesDto={dto.stores}
       typesDto={dto.types}
     >
-      {/* Decouple renderer from builder */}
-      <PageBuilder RootRenderer={RootRenderer} pageId={pageId} />
+      <PageBuilderContainer pageId={pageId} />
     </DomainStoreHydrator>
   )
 }

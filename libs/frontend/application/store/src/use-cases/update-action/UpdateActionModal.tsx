@@ -1,3 +1,5 @@
+import type { IUpdateActionData } from '@codelab/shared/abstract/core'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectAction,
@@ -6,10 +8,10 @@ import {
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
-import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
+
 import { useActionService } from '../../services'
 import { updateActionSchema } from './update-action.schema'
 import { useUpdateActionModal } from './update-action.state'
@@ -57,7 +59,7 @@ export const UpdateActionModal = observer(() => {
       okText="Update Action"
       onCancel={closeModal}
       open={updateActionModal.isOpen}
-      uiKey={UiKey.UpdateActionModal}
+      uiKey={UiKey.ActionModalUpdate}
     >
       <ModalForm.Form<IUpdateActionData>
         model={model}

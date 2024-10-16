@@ -1,5 +1,6 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { match } from 'path-to-regexp'
 
 export type IBuilderPage = Pick<

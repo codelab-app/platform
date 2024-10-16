@@ -3,6 +3,7 @@ import type {
   PageTypeCreateInput,
   UpdatePageTypesMutationVariables,
 } from '@codelab/shared/infra/gql'
+
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**

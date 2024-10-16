@@ -1,9 +1,11 @@
+import type { ConfigType } from '@nestjs/config'
+
 import { pinoPrettyStream } from '@codelab/shared/infra/logging'
 import { Global, Module } from '@nestjs/common'
-import type { ConfigType } from '@nestjs/config'
 import { ConfigModule } from '@nestjs/config'
 import { LoggerModule } from 'nestjs-pino'
 import { omit } from 'remeda'
+
 import { loggerConfig } from './logger.config'
 import { NestjsLoggerService } from './nestjs.logger.service'
 import { CodelabLoggerService } from './pino.logger.service'

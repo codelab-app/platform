@@ -1,10 +1,11 @@
+import type { GraphQLClientResponse } from 'graphql-request/build/esm/types'
+
 import * as env from 'env-var'
 import { GraphQLClient } from 'graphql-request'
-import type { GraphQLClientResponse } from 'graphql-request/build/esm/types'
 
 const graphqlUrl = new URL(
   'api/v1/graphql',
-  `http://localhost:${env
+  `http://127.0.0.1:${env
     .get('NEXT_PUBLIC_API_PORT')
     .required()
     .asPortNumber()}`,

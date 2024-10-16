@@ -1,9 +1,10 @@
-import SyncOutlined from '@ant-design/icons/SyncOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+
+import SyncOutlined from '@ant-design/icons/SyncOutlined'
+import { invalidateDomainListQuery } from '@codelab/frontend-domain-domain/repositories'
 import {} from '@codelab/shared/infra/gql'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { invalidateDomainListQuery } from '../domain-list.query'
 
 interface RefreshDomainButtonProps {
   domain: IDomainModel

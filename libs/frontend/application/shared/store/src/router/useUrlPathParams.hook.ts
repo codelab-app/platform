@@ -1,6 +1,7 @@
 'use client'
 
 import type { UrlPathParams } from '@codelab/frontend/abstract/types'
+
 import { useParams } from 'next/navigation'
 
 /**

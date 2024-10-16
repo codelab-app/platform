@@ -12,7 +12,9 @@ import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { usePathname, useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { useState } from 'react'
+
 import type { ToolbarItem } from '../../abstract'
+
 import { CuiInput } from '../../components'
 
 /**
@@ -29,9 +31,11 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   const [showSearchBar, setShowSearchBar] = useState(false)
 
   const goToNextPage = () => {
+    const totalPages = paginationService.totalPages
+
     const url = queryString.stringifyUrl({
       query: {
-        page: routerService.page + 1,
+        page: Math.min(routerService.page + 1, totalPages),
       },
       url: pathname,
     })
@@ -52,43 +56,49 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: UiKey.PreviousPagePaginationToolbarItem,
+      cuiKey: UiKey.PaginationToolbarItemPreviousPage,
       icon: <LeftOutlined />,
       onClick: goToPreviousPage,
       title: 'Previous',
     },
     {
-      cuiKey: UiKey.CurrentPagePaginationToolbarItem,
+      cuiKey: UiKey.PaginationToolbarItemCurrentPage,
       icon: (
-        <div className="flex w-16 flex-row items-center justify-between">
-          <CuiInput
-            onChange={(value) => {
-              if (typeof value === 'number' && value > 0) {
-                routerService.setQueryParams({
-                  page: value,
-                })
-              }
-            }}
-            selectAllOnClick
-            type="number"
-            value={routerService.page}
-          />
-          <span className="m-0 w-2 p-0 text-center text-sm">/</span>
-          <span className="m-0 w-6 p-0 text-center text-sm">{`${paginationService.totalPages}`}</span>
+        <div className="flex flex-row grow">
+          <div className="w-10">
+            <CuiInput
+              onChange={(value) => {
+                if (typeof value === 'number' && value > 0) {
+                  routerService.setQueryParams({
+                    page: value,
+                  })
+                }
+              }}
+              selectAllOnClick
+              type="number"
+              value={routerService.page}
+            />
+          </div>
+          <span className="text-center text-sm">/</span>
+          <span className="text-center text-sm">{`${paginationService.totalPages}`}</span>
         </div>
       ),
       title: `Current page: ${routerService.page} / ${paginationService.totalPages}`,
     },
     {
-      cuiKey: UiKey.NextPagePaginationToolbarItem,
-      icon: <RightOutlined />,
+      cuiKey: UiKey.PaginationToolbarItemNextPage,
+      icon: (
+        <div className="flex">
+          <RightOutlined />
+        </div>
+      ),
       onClick: goToNextPage,
       title: 'Next',
     },
     {
-      cuiKey: UiKey.PageSizePaginationToolbarItem,
+      cuiKey: UiKey.PaginationToolbarItemPageSize,
       icon: (
-        <div className="flex w-20 flex-row items-center justify-between">
+        <div className="flex flex-row items-center justify-between">
           <CuiInput
             onChange={(value) => {
               if (typeof value === 'number' && value > 0) {
@@ -101,14 +111,14 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
             type="number"
             value={routerService.pageSize}
           />
-          <span className="m-0 w-2 p-1 text-sm">/</span>
-          <span className="m-0 p-0 text-sm">Page</span>
+          <span className="text-sm">/</span>
+          <span className="text-sm">Page</span>
         </div>
       ),
       title: `${routerService.pageSize} items per page`,
     },
     {
-      cuiKey: UiKey.SearchPaginationToobarItem,
+      cuiKey: UiKey.PaginationToobarItemSearch,
       icon: <SearchOutlined />,
       onClick: () => {
         setShowSearchBar(!showSearchBar)

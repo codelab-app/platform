@@ -1,4 +1,5 @@
 import { type AnyModel, createContext } from 'mobx-keystone'
+
 import type { ITypeDomainService } from './type.domain.service.interface'
 
 export const typeDomainServiceContext = createContext<ITypeDomainService>()

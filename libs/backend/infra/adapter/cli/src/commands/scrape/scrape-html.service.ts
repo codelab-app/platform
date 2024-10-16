@@ -1,5 +1,6 @@
-import { scrapeAntDesignData } from '@codelab/backend/application/admin'
 import type { CommandModule } from 'yargs'
+
+import { scrapeAntDesignData } from '@codelab/backend/application/admin'
 
 export class ScrapeHtmlService implements CommandModule<unknown, unknown> {
   command = 'html'

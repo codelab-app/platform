@@ -1,4 +1,5 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'

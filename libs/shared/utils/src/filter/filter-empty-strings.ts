@@ -5,6 +5,7 @@
  * @returns The filtered data, with empty strings and empty objects/arrays removed.
  */
 import type { IPropData } from '@codelab/shared/abstract/core'
+
 import { isArray, isObjectType, pickBy } from 'remeda'
 
 export const filterEmptyStrings = (

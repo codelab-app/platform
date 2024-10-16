@@ -1,9 +1,9 @@
 import type {
   IBuilderService,
-  IRuntimeComponentModel,
-  IRuntimeElementModel,
   IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
+import type { Nullable } from '@codelab/shared/abstract/types'
+
 import {
   getRendererService,
   isRuntimeComponent,
@@ -15,7 +15,6 @@ import {
   getAtomDomainService,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop, Ref } from 'mobx-keystone'

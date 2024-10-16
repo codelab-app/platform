@@ -1,26 +1,13 @@
 import type { UrlPathParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
-import { Dashboard } from './Dashboard'
 
-/**
- * Need to make un-used types `never` not optional, or else `next.js` build time validation will throw error
- *
- * T will be inferred based on the props
- */
-// type DashboardLayoutProps<
-//   T extends 'configPane' | 'header' | 'primarySidebar',
-// > = {
-//   children: ReactNode
-// } & {
-//   configPane: T extends 'configPane' ? ReactNode : never
-//   header: T extends 'header' ? ReactNode : never
-//   primarySidebar: T extends 'primarySidebar' ? ReactNode : never
-// }
+import { Dashboard } from './Dashboard'
 
 export interface DashboardSections {
   configPane: ReactNode
   header: ReactNode
   primarySidebar: ReactNode
+  secondaryPopover: ReactNode
 }
 
 type DashboardLayoutProps<T extends Partial<DashboardSections> = never> =
@@ -47,12 +34,14 @@ export const DashboardLayout = <T extends Partial<DashboardSections> = never>({
   header,
   pageId,
   primarySidebar,
+  secondaryPopover,
 }: DashboardLayoutProps<T>) => {
   return (
     <Dashboard
       ConfigPane={configPane}
       Header={header}
       PrimarySidebar={primarySidebar}
+      SecondaryPopover={secondaryPopover}
       appId={appId}
       contentStyles={{ paddingTop: '0rem' }}
       pageId={pageId}

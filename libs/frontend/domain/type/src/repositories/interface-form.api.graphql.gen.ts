@@ -1,69 +1,7 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
-
-export const InterfaceForm_GetAppsDocument = graphql(`
-  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {
-    apps(options: $options, where: $where) {
-      id
-      name
-    }
-  }
-`)
-
-export const InterfaceForm_GetAtomsDocument = graphql(`
-  query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {
-    atoms(options: $options, where: $where) {
-      id
-      name
-      type
-    }
-  }
-`)
-
-export const InterfaceForm_GetActionsDocument = graphql(`
-  query InterfaceForm_GetActions($appId: ID) {
-    apiActions {
-      id
-      name
-    }
-    codeActions {
-      id
-      name
-    }
-  }
-`)
-
-export const InterfaceForm_GetStoresDocument = graphql(`
-  query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
-    stores(options: $options, where: $where) {
-      id
-      name
-    }
-  }
-`)
-
-export const InterfaceForm_GetResourceDocument = graphql(`
-  query InterfaceForm_GetResource(
-    $options: ResourceOptions
-    $where: ResourceWhere
-  ) {
-    resources(options: $options, where: $where) {
-      id
-      name
-    }
-  }
-`)
-
-export const InterfaceForm_GetPagesDocument = graphql(`
-  query InterfaceForm_GetPages($options: PageOptions, $where: PageWhere) {
-    pages(options: $options, where: $where) {
-      id
-      name
-    }
-  }
-`)
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 
 import {
   type InterfaceForm_GetAppsQueryVariables,
@@ -73,33 +11,41 @@ import {
   type InterfaceForm_GetResourceQueryVariables,
   type InterfaceForm_GetPagesQueryVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  InterfaceForm_GetAppsDocument,
+  InterfaceForm_GetAtomsDocument,
+  InterfaceForm_GetActionsDocument,
+  InterfaceForm_GetStoresDocument,
+  InterfaceForm_GetResourceDocument,
+  InterfaceForm_GetPagesDocument,
+} from './interface-form.api.documents.graphql.gen'
 
 export const InterfaceForm_GetApps = (
   variables: InterfaceForm_GetAppsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetAppsDocument.toString(), variables, next)
 
 export const InterfaceForm_GetAtoms = (
   variables: InterfaceForm_GetAtomsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetAtomsDocument.toString(), variables, next)
 
 export const InterfaceForm_GetActions = (
   variables: InterfaceForm_GetActionsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetActionsDocument.toString(), variables, next)
 
 export const InterfaceForm_GetStores = (
   variables: InterfaceForm_GetStoresQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetStoresDocument.toString(), variables, next)
 
 export const InterfaceForm_GetResource = (
   variables: InterfaceForm_GetResourceQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetResourceDocument.toString(), variables, next)
 
 export const InterfaceForm_GetPages = (
   variables: InterfaceForm_GetPagesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetPagesDocument.toString(), variables, next)

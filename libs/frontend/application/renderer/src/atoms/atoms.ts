@@ -3,13 +3,16 @@ import type {
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
 import type { IAtomType } from '@codelab/shared/abstract/core'
+
+import type { AtomCustomizer } from './types'
+
 import { antdAtoms, antdPropsCustomizer } from './antd'
 import { codelabAtoms } from './codelab'
 import { htmlAtoms } from './html'
+
 // import { muiAtoms, muiPropsCustomizer } from './mui'
 import { nextAtoms } from './next'
 import { reactAtoms, reactPropsCustomizer } from './react'
-import type { AtomCustomizer } from './types'
 
 // Add new atom records here
 export const allAtoms: IAtomRendererRecord = {

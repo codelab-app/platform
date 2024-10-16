@@ -1,114 +1,114 @@
 export enum CssProperty {
+  AlignContent = 'align-content',
+  AlignItems = 'align-items',
   // Background,
   BackgroundClip = 'background-clip',
   BackgroundColor = 'background-color',
-  // Border,
-  BorderWidth = 'border-width',
+  BorderBottomColor = 'border-bottom-color',
   BorderBottomLeftRadius = 'border-bottom-left-radius',
+  BorderBottomRightRadius = 'border-bottom-right-radius',
+  BorderBottomStyle = 'border-bottom-style',
+  BorderBottomWidth = 'border-bottom-width',
+  BorderColor = 'border-color',
+  BorderLeftColor = 'border-left-color',
   BorderLeftStyle = 'border-left-style',
-  BorderTopWidth = 'border-top-width',
   BorderLeftWidth = 'border-left-width',
-  BorderTopColor = 'border-top-color',
   BorderRadius = 'border-radius',
+  BorderRightColor = 'border-right-color',
   BorderRightStyle = 'border-right-style',
+  BorderRightWidth = 'border-right-width',
+  BorderStyle = 'border-style',
+  BorderTopColor = 'border-top-color',
   BorderTopLeftRadius = 'border-top-left-radius',
   BorderTopRightRadius = 'border-top-right-radius',
-  BorderColor = 'border-color',
-  BorderRightColor = 'border-right-color',
-  BorderBottomStyle = 'border-bottom-style',
-  BorderRightWidth = 'border-right-width',
-  BorderBottomColor = 'border-bottom-color',
-  BorderStyle = 'border-style',
-  BorderBottomWidth = 'border-bottom-width',
   BorderTopStyle = 'border-top-style',
-  BorderLeftColor = 'border-left-color',
-  BorderBottomRightRadius = 'border-bottom-right-radius',
 
-  // Padding & Margin,
-  Padding = 'padding',
-  Margin = 'margin',
-  PaddingTop = 'padding-top',
-  PaddingRight = 'padding-right',
-  PaddingBottom = 'padding-bottom',
-  PaddingLeft = 'padding-left',
-  MarginTop = 'margin-top',
-  MarginRight = 'margin-right',
-  MarginBottom = 'margin-bottom',
-  MarginLeft = 'margin-left',
-
+  BorderTopWidth = 'border-top-width',
+  // Border,
+  BorderWidth = 'border-width',
+  Bottom = 'bottom',
+  Color = 'color',
+  ColumnGap = 'column-gap',
   // Display
   Display = 'display',
+  Fit = 'object-fit',
   FlexDirection = 'flex-direction',
   FlexWrap = 'flex-wrap',
-  RowGap = 'row-gap',
-  ColumnGap = 'column-gap',
-  AlignItems = 'align-items',
-  AlignContent = 'align-content',
-  JustifyItems = 'justify-items',
+  // Typography,
+  FontFamily = 'font-family',
+
+  FontSize = 'font-size',
+  FontWeight = 'font-weight',
+  Height = 'height',
   JustifyContent = 'justify-content',
+  JustifyItems = 'justify-items',
+  Left = 'left',
+  LineHeight = 'line-height',
+  Margin = 'margin',
+  MarginBottom = 'margin-bottom',
+
+  MarginLeft = 'margin-left',
+  MarginRight = 'margin-right',
+
+  MarginTop = 'margin-top',
+  MaxHeight = 'max-height',
+  MaxWidth = 'max-width',
+  MinHeight = 'min-height',
+  MinWidth = 'min-width',
 
   // Effects
   MixBlendMode = 'mix-blend-mode',
   Opacity = 'opacity',
+  Overflow = 'overflow',
+  // Padding & Margin,
+  Padding = 'padding',
+  PaddingBottom = 'padding-bottom',
+  PaddingLeft = 'padding-left',
+  PaddingRight = 'padding-right',
+  PaddingTop = 'padding-top',
 
   // Position,
   Position = 'position',
-  Top = 'top',
   Right = 'right',
-  Bottom = 'bottom',
-  Left = 'left',
-
-  // Size,
-  Width = 'width',
-  Height = 'height',
-  MinWidth = 'min-width',
-  MinHeight = 'min-height',
-  MaxWidth = 'max-width',
-  MaxHeight = 'max-height',
-  Overflow = 'overflow',
-  Fit = 'object-fit',
-
-  // Typography,
-  FontFamily = 'font-family',
-  FontSize = 'font-size',
-  FontWeight = 'font-weight',
-  LineHeight = 'line-height',
+  RowGap = 'row-gap',
   TextAlign = 'text-align',
   TextDecoration = 'text-decoration',
-  Color = 'color',
+  Top = 'top',
+  // Size,
+  Width = 'width',
 }
 
 export enum FlexAlignItems {
-  Start = 'flex-start',
+  Baseline = 'baseline',
   Center = 'center',
   End = 'flex-end',
+  Start = 'flex-start',
   Stretch = 'stretch',
-  Baseline = 'baseline',
 }
 
 export enum FlexJustifyItems {
-  Start = 'flex-start',
   Center = 'center',
   End = 'flex-end',
-  SpaceBetween = 'space-between',
   SpaceAround = 'space-around',
+  SpaceBetween = 'space-between',
+  Start = 'flex-start',
 }
 
 export enum GridAlign {
-  Start = 'start',
   Center = 'center',
   End = 'end',
-  Stretch = 'stretch',
-  SpaceBetween = 'space-between',
   SpaceAround = 'space-around',
+  SpaceBetween = 'space-between',
+  Start = 'start',
+  Stretch = 'stretch',
 }
 
 export enum Display {
   Block = 'block',
   Flex = 'flex',
   Grid = 'grid',
-  InlineBlock = 'inline-block',
   Inline = 'inline',
+  InlineBlock = 'inline-block',
   None = 'None',
 }
 
@@ -116,13 +116,25 @@ export const DefaultCssProperties: Record<
   CssProperty,
   { defaultValue: string; key: CssProperty }
 > = {
-  [CssProperty.BackgroundColor]: {
-    defaultValue: 'transparent',
-    key: CssProperty.BackgroundColor,
+  [CssProperty.AlignContent]: {
+    defaultValue: 'stretch',
+    key: CssProperty.AlignContent,
+  },
+  [CssProperty.AlignItems]: {
+    defaultValue: 'stretch',
+    key: CssProperty.AlignItems,
   },
   [CssProperty.BackgroundClip]: {
     defaultValue: 'border-box',
     key: CssProperty.BackgroundClip,
+  },
+  [CssProperty.BackgroundColor]: {
+    defaultValue: 'transparent',
+    key: CssProperty.BackgroundColor,
+  },
+  [CssProperty.BorderBottomColor]: {
+    defaultValue: 'transparent',
+    key: CssProperty.BorderBottomColor,
   },
   [CssProperty.BorderBottomLeftRadius]: {
     defaultValue: '0px',
@@ -172,10 +184,6 @@ export const DefaultCssProperties: Record<
     defaultValue: '0px',
     key: CssProperty.BorderRightWidth,
   },
-  [CssProperty.BorderBottomColor]: {
-    defaultValue: 'transparent',
-    key: CssProperty.BorderBottomColor,
-  },
   [CssProperty.BorderStyle]: {
     defaultValue: 'none',
     key: CssProperty.BorderStyle,
@@ -204,6 +212,10 @@ export const DefaultCssProperties: Record<
     defaultValue: '0px',
     key: CssProperty.BorderWidth,
   },
+  [CssProperty.Bottom]: {
+    defaultValue: 'auto',
+    key: CssProperty.Bottom,
+  },
   [CssProperty.Color]: {
     defaultValue: 'inherit',
     key: CssProperty.Color,
@@ -216,25 +228,9 @@ export const DefaultCssProperties: Record<
     defaultValue: 'block',
     key: CssProperty.Display,
   },
-  [CssProperty.RowGap]: {
-    defaultValue: '0px',
-    key: CssProperty.RowGap,
-  },
   [CssProperty.Fit]: {
     defaultValue: 'cover',
     key: CssProperty.Fit,
-  },
-  [CssProperty.AlignItems]: {
-    defaultValue: 'stretch',
-    key: CssProperty.AlignItems,
-  },
-  [CssProperty.AlignContent]: {
-    defaultValue: 'stretch',
-    key: CssProperty.AlignContent,
-  },
-  [CssProperty.JustifyItems]: {
-    defaultValue: 'stretch',
-    key: CssProperty.JustifyItems,
   },
   [CssProperty.FlexDirection]: {
     defaultValue: 'row',
@@ -256,25 +252,45 @@ export const DefaultCssProperties: Record<
     defaultValue: '400',
     key: CssProperty.FontWeight,
   },
-  [CssProperty.LineHeight]: {
-    defaultValue: '1.2',
-    key: CssProperty.LineHeight,
-  },
   [CssProperty.Height]: {
     defaultValue: 'auto',
     key: CssProperty.Height,
-  },
-  [CssProperty.Width]: {
-    defaultValue: 'auto',
-    key: CssProperty.Width,
   },
   [CssProperty.JustifyContent]: {
     defaultValue: 'flex-start',
     key: CssProperty.JustifyContent,
   },
+  [CssProperty.JustifyItems]: {
+    defaultValue: 'stretch',
+    key: CssProperty.JustifyItems,
+  },
   [CssProperty.Left]: {
     defaultValue: 'auto',
     key: CssProperty.Left,
+  },
+  [CssProperty.LineHeight]: {
+    defaultValue: '1.2',
+    key: CssProperty.LineHeight,
+  },
+  [CssProperty.Margin]: {
+    defaultValue: '0px',
+    key: CssProperty.Margin,
+  },
+  [CssProperty.MarginBottom]: {
+    defaultValue: '0px',
+    key: CssProperty.MarginBottom,
+  },
+  [CssProperty.MarginLeft]: {
+    defaultValue: '0px',
+    key: CssProperty.MarginLeft,
+  },
+  [CssProperty.MarginRight]: {
+    defaultValue: '0px',
+    key: CssProperty.MarginRight,
+  },
+  [CssProperty.MarginTop]: {
+    defaultValue: '0px',
+    key: CssProperty.MarginTop,
   },
   [CssProperty.MaxHeight]: {
     defaultValue: 'auto',
@@ -300,6 +316,7 @@ export const DefaultCssProperties: Record<
     defaultValue: '100%',
     key: CssProperty.Opacity,
   },
+
   [CssProperty.Overflow]: {
     defaultValue: 'visible',
     key: CssProperty.Overflow,
@@ -316,7 +333,6 @@ export const DefaultCssProperties: Record<
     defaultValue: '0px',
     key: CssProperty.PaddingLeft,
   },
-
   [CssProperty.PaddingRight]: {
     defaultValue: '0px',
     key: CssProperty.PaddingRight,
@@ -325,27 +341,6 @@ export const DefaultCssProperties: Record<
     defaultValue: '0px',
     key: CssProperty.PaddingTop,
   },
-  [CssProperty.Margin]: {
-    defaultValue: '0px',
-    key: CssProperty.Margin,
-  },
-  [CssProperty.MarginBottom]: {
-    defaultValue: '0px',
-    key: CssProperty.MarginBottom,
-  },
-  [CssProperty.MarginLeft]: {
-    defaultValue: '0px',
-    key: CssProperty.MarginLeft,
-  },
-  [CssProperty.MarginRight]: {
-    defaultValue: '0px',
-    key: CssProperty.MarginRight,
-  },
-  [CssProperty.MarginTop]: {
-    defaultValue: '0px',
-    key: CssProperty.MarginTop,
-  },
-
   [CssProperty.Position]: {
     defaultValue: 'static',
     key: CssProperty.Position,
@@ -354,6 +349,11 @@ export const DefaultCssProperties: Record<
   [CssProperty.Right]: {
     defaultValue: 'auto',
     key: CssProperty.Right,
+  },
+
+  [CssProperty.RowGap]: {
+    defaultValue: '0px',
+    key: CssProperty.RowGap,
   },
 
   [CssProperty.TextAlign]: {
@@ -370,8 +370,8 @@ export const DefaultCssProperties: Record<
     key: CssProperty.Top,
   },
 
-  [CssProperty.Bottom]: {
+  [CssProperty.Width]: {
     defaultValue: 'auto',
-    key: CssProperty.Bottom,
+    key: CssProperty.Width,
   },
 }

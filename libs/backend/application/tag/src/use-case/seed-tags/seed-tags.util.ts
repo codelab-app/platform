@@ -1,4 +1,5 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
+
 import { ObjectTyped } from 'object-typed'
 
 export class TagTreeUtils {

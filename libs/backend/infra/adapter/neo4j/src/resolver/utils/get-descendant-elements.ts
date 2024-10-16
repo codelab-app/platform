@@ -1,7 +1,9 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Node } from 'neo4j-driver'
-import { getDescendantsCypher } from '../../cypher'
+
 import type { Neo4jService, OgmService } from '../../infra'
+
+import { getDescendantsCypher } from '../../cypher'
 import { elementSelectionSet } from '../../selectionSet'
 
 export const getElementWithDescendants = async (

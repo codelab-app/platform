@@ -1,230 +1,13 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { gqlFetch } from '@codelab/frontend/infra/graphql'
+import { gqlFetch } from '@codelab/shared/infra/fetch'
 import {
   BaseTypeFragmentDoc,
   TypeFragmentDoc,
   ReactNodeTypeFragmentDoc,
   RichTextTypeFragmentDoc,
 } from '@codelab/shared/infra/gql'
-
-export const GetBaseTypesDocument = graphql(`
-  query GetBaseTypes($options: GetBaseTypesOptions) {
-    baseTypes(options: $options) {
-      items {
-        ...BaseType
-      }
-      totalCount
-    }
-  }
-`)
-
-export const GetTypesDocument = graphql(`
-  query GetTypes($ids: [ID!]) {
-    actionTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    appTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    arrayTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    codeMirrorTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    elementTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    enumTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    interfaceTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    lambdaTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    pageTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    primitiveTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    reactNodeTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    renderPropTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    richTextTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    unionTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-  }
-`)
-
-export const GetDescendantsDocument = graphql(`
-  query GetDescendants($ids: [ID!]) {
-    arrayTypes(where: { id_IN: $ids }) {
-      descendantTypesIds
-    }
-    interfaceTypes(where: { id_IN: $ids }) {
-      descendantTypesIds
-    }
-    unionTypes(where: { id_IN: $ids }) {
-      descendantTypesIds
-    }
-  }
-`)
-
-export const GetPrimitiveTypesDocument = graphql(`
-  query GetPrimitiveTypes(
-    $options: PrimitiveTypeOptions
-    $where: PrimitiveTypeWhere
-  ) {
-    types: primitiveTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetArrayTypesDocument = graphql(`
-  query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {
-    types: arrayTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetUnionTypesDocument = graphql(`
-  query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
-    types: unionTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetInterfaceTypesDocument = graphql(`
-  query GetInterfaceTypes(
-    $options: InterfaceTypeOptions
-    $where: InterfaceTypeWhere
-  ) {
-    types: interfaceTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetElementTypesDocument = graphql(`
-  query GetElementTypes(
-    $options: ElementTypeOptions
-    $where: ElementTypeWhere
-  ) {
-    types: elementTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetRenderPropTypesDocument = graphql(`
-  query GetRenderPropTypes(
-    $options: RenderPropTypeOptions
-    $where: RenderPropTypeWhere
-  ) {
-    types: renderPropTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetReactNodeTypesDocument = graphql(`
-  query GetReactNodeTypes(
-    $options: ReactNodeTypeOptions
-    $where: ReactNodeTypeWhere
-  ) {
-    types: reactNodeTypes(options: $options, where: $where) {
-      ...ReactNodeType
-    }
-  }
-`)
-
-export const GetRichTextTypesDocument = graphql(`
-  query GetRichTextTypes(
-    $options: RichTextTypeOptions
-    $where: RichTextTypeWhere
-  ) {
-    types: richTextTypes(options: $options, where: $where) {
-      ...RichTextType
-    }
-  }
-`)
-
-export const GetEnumTypesDocument = graphql(`
-  query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
-    types: enumTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetLambdaTypesDocument = graphql(`
-  query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {
-    types: lambdaTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetPageTypesDocument = graphql(`
-  query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
-    types: pageTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetAppTypesDocument = graphql(`
-  query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
-    types: appTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetActionTypesDocument = graphql(`
-  query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {
-    types: actionTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetCodeMirrorTypesDocument = graphql(`
-  query GetCodeMirrorTypes(
-    $options: CodeMirrorTypeOptions
-    $where: CodeMirrorTypeWhere
-  ) {
-    types: codeMirrorTypes(options: $options, where: $where) {
-      ...Type
-    }
-  }
-`)
-
-export const GetTypeOptionsDocument = graphql(`
-  query GetTypeOptions {
-    baseTypes {
-      items {
-        id
-        kind
-        name
-      }
-    }
-  }
-`)
 
 import {
   type GetBaseTypesQueryVariables,
@@ -246,93 +29,113 @@ import {
   type GetCodeMirrorTypesQueryVariables,
   type GetTypeOptionsQueryVariables,
 } from '@codelab/shared/infra/gql'
+import {
+  GetBaseTypesDocument,
+  GetTypesDocument,
+  GetDescendantsDocument,
+  GetPrimitiveTypesDocument,
+  GetArrayTypesDocument,
+  GetUnionTypesDocument,
+  GetInterfaceTypesDocument,
+  GetElementTypesDocument,
+  GetRenderPropTypesDocument,
+  GetReactNodeTypesDocument,
+  GetRichTextTypesDocument,
+  GetEnumTypesDocument,
+  GetLambdaTypesDocument,
+  GetPageTypesDocument,
+  GetAppTypesDocument,
+  GetActionTypesDocument,
+  GetCodeMirrorTypesDocument,
+  GetTypeOptionsDocument,
+} from './get-type.api.documents.graphql.gen'
 
 export const GetBaseTypes = (
   variables: GetBaseTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetBaseTypesDocument.toString(), variables, next)
 
 export const GetTypes = (
   variables: GetTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetTypesDocument.toString(), variables, next)
 
 export const GetDescendants = (
   variables: GetDescendantsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetDescendantsDocument.toString(), variables, next)
 
 export const GetPrimitiveTypes = (
   variables: GetPrimitiveTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetPrimitiveTypesDocument.toString(), variables, next)
 
 export const GetArrayTypes = (
   variables: GetArrayTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetArrayTypesDocument.toString(), variables, next)
 
 export const GetUnionTypes = (
   variables: GetUnionTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetUnionTypesDocument.toString(), variables, next)
 
 export const GetInterfaceTypes = (
   variables: GetInterfaceTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetInterfaceTypesDocument.toString(), variables, next)
 
 export const GetElementTypes = (
   variables: GetElementTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetElementTypesDocument.toString(), variables, next)
 
 export const GetRenderPropTypes = (
   variables: GetRenderPropTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetRenderPropTypesDocument.toString(), variables, next)
 
 export const GetReactNodeTypes = (
   variables: GetReactNodeTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetReactNodeTypesDocument.toString(), variables, next)
 
 export const GetRichTextTypes = (
   variables: GetRichTextTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetRichTextTypesDocument.toString(), variables, next)
 
 export const GetEnumTypes = (
   variables: GetEnumTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetEnumTypesDocument.toString(), variables, next)
 
 export const GetLambdaTypes = (
   variables: GetLambdaTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetLambdaTypesDocument.toString(), variables, next)
 
 export const GetPageTypes = (
   variables: GetPageTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetPageTypesDocument.toString(), variables, next)
 
 export const GetAppTypes = (
   variables: GetAppTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetAppTypesDocument.toString(), variables, next)
 
 export const GetActionTypes = (
   variables: GetActionTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetActionTypesDocument.toString(), variables, next)
 
 export const GetCodeMirrorTypes = (
   variables: GetCodeMirrorTypesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetCodeMirrorTypesDocument.toString(), variables, next)
 
 export const GetTypeOptions = (
   variables: GetTypeOptionsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetTypeOptionsDocument.toString(), variables, next)

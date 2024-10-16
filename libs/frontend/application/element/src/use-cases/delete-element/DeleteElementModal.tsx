@@ -1,13 +1,16 @@
 'use client'
 import type { IBuilderService } from '@codelab/frontend/abstract/application'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
-import { useElementService } from '../../services'
+
 import type { DeleteElementData } from './delete-element.schema'
+
+import { useElementService } from '../../services'
 import { deleteElementSchema } from './delete-element.schema'
 import { useDeleteElementModal } from './delete-element.state'
 import { deleteElementUseCase } from './delete-element.use-case'
@@ -46,7 +49,7 @@ export const DeleteElementModal = observer<{
       onCancel={closeModal}
       open={deleteElementModal.isOpen}
       title={<span className="font-semibold">Delete element</span>}
-      uiKey={UiKey.DeleteElementModal}
+      uiKey={UiKey.ElementModalDelete}
     >
       <ModalForm.Form<DeleteElementData>
         model={model}

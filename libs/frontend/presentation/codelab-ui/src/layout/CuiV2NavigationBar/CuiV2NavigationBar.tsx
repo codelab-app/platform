@@ -3,6 +3,7 @@
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import { usePathname, useSearchParams } from 'next/navigation'
+
 import {
   type CuiNavigationBarProps,
   mapNavBarItemToMenuItem,

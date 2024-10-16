@@ -1,28 +1,28 @@
+'use client'
+
+import type { Maybe } from '@codelab/shared/abstract/types'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
-import { useCreateComponentForm } from './create-component.state'
+
 import { CreateComponentForm } from './CreateComponentForm'
 
 export const CreateComponentPopover = () => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createForm = useCreateComponentForm()
-  const { popover } = useCui()
+  const router = useRouter()
+  const goBack = () => router.back()
 
   return (
-    <CuiSidebarPopover
-      id={UiKey.CreateComponentPopover}
-      label="Create Component"
+    <CuiSidebarSecondary
+      id={UiKey.ComponentPopoverCreate}
       toolbar={{
         items: [
           {
-            cuiKey: UiKey.CreateComponentToolbarItem,
+            cuiKey: UiKey.ComponentToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
@@ -31,23 +31,22 @@ export const CreateComponentPopover = () => {
             title: 'Create',
           },
           {
-            cuiKey: UiKey.CancelCreateComponentToolbarItem,
+            cuiKey: UiKey.ComponentToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
-              popover.close()
-              createForm.close()
+              goBack()
             },
             title: 'Cancel',
           },
         ],
-        title: 'Create Component toolbar',
+        title: 'Toolbar',
       }}
     >
       <CreateComponentForm
-        onSubmitSuccess={() => popover.close()}
+        onSubmitSuccess={() => goBack()}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 }

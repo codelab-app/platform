@@ -1,4 +1,5 @@
 import type { UiKey } from '@codelab/frontend/abstract/types'
+
 import { defaultMapper, useToggleState } from '../family-toggle/toggle.state'
 
 export const useModalState = <TData = undefined, TOutput = TData>(

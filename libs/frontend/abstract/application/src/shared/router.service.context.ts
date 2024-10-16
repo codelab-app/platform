@@ -1,4 +1,5 @@
 import { type AnyModel, createContext } from 'mobx-keystone'
+
 import type { IRouterService } from './router.service.interface'
 
 export const routerServiceContext = createContext<IRouterService>()

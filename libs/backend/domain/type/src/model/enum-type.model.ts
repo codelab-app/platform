@@ -4,8 +4,10 @@ import type {
   IEnumTypeValueDto,
   IFieldDto,
 } from '@codelab/shared/abstract/core'
+
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { titleCase } from '@codelab/shared/utils'
+
 import { BaseType } from './base-type.model'
 
 export class EnumType extends BaseType implements IEnumTypeDto {
@@ -13,7 +15,7 @@ export class EnumType extends BaseType implements IEnumTypeDto {
     atom: Pick<IAtomDto, 'name'>,
     field: Pick<IFieldDto, 'key'>,
   ) {
-    return `${atom.name} ${compoundCaseToTitleCase(field.key)} Enum`
+    return `${atom.name} ${titleCase(field.key)} Enum`
   }
 
   declare __typename: `${ITypeKind.EnumType}`

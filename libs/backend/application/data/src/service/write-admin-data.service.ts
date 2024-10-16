@@ -1,11 +1,13 @@
+import type { IAdminAggregate } from '@codelab/shared/abstract/core'
+
 import {
   formatToPrettifiedJson,
   writeFileSyncWithDirs,
 } from '@codelab/backend/shared/util'
-import type { IAdminAggregate } from '@codelab/shared/abstract/core'
 import { deepSortKeys } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import path from 'path'
+
 import { MigrationDataService } from './migration-data.service'
 
 @Injectable()

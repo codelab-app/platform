@@ -1,7 +1,9 @@
 import type { FactoryProvider } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import type { Driver } from 'neo4j-driver'
+
 import neo4j from 'neo4j-driver'
+
 import { neo4jConfig } from '../neo4j.config'
 import { NEO4J_DRIVER_PROVIDER } from './neo4j.constant'
 

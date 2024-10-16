@@ -18,7 +18,7 @@ import {
   connectNodeId,
   disconnectAll,
   reconnectNodeId,
-} from '@codelab/shared/domain'
+} from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
