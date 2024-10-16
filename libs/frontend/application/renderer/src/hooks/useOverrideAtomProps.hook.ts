@@ -1,10 +1,11 @@
 import type { IRendererModel } from '@codelab/frontend/abstract/application'
-import { RendererType } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+
+import { RendererType } from '@codelab/frontend/abstract/application'
+import { PageType } from '@codelab/frontend/abstract/types'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { match } from 'path-to-regexp'
 import { isNullish } from 'remeda'
 
@@ -16,8 +17,8 @@ export const useOverrideAtomProps = (
   const isPreviewMode = RendererType.Preview === renderer.rendererType
 
   const inBuilderMode = [
-    RendererType.PageBuilder,
     RendererType.ComponentBuilder,
+    RendererType.PageBuilder,
   ].includes(renderer.rendererType)
 
   const builderOverrideProps: IPropData = {}

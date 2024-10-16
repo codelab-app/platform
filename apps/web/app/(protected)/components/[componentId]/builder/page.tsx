@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
+
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { componentBuilderQuery } from '@codelab/frontend-application-component/use-cases/component-builder'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+
 import { ComponentBuilderContainer } from './page.container'
 
 export const metadata: Metadata = {

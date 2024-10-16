@@ -46,9 +46,9 @@ export default defineConfig({
     {
       dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
-      testIgnore: /home\.spec\.ts/,
-      testMatch: /atoms\.spec\.ts/,
-      // testMatch: /.*\.spec\.ts/,
+      // testIgnore: /home\.spec\.ts/,
+      // testMatch: /atoms\.spec\.ts/,
+      testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         // channel: 'chrome',

@@ -1,6 +1,7 @@
 'use client'
 
 import type { EditorState, LexicalEditor } from 'lexical'
+
 import { type IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'

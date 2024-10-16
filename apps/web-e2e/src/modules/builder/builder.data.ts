@@ -1,7 +1,8 @@
 import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
+import type { APIRequestContext } from '@playwright/test'
+
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import type { APIRequestContext } from '@playwright/test'
 
 export const elementRow: ICreateCypressElementData = {
   atom: IAtomType.AntDesignGridRow,

@@ -1,4 +1,5 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
+
 import {
   DashboardLayout,
   type DashboardSections,

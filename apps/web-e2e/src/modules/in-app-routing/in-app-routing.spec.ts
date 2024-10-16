@@ -1,5 +1,6 @@
 import { type IApp } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
+
 import { seedTestData } from './in-app-routing.data'
 import { test } from './in-app-routing.fixture'
 

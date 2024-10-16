@@ -1,9 +1,15 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { Cui } from '@codelab/frontend-application-shared-data'
 import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import type { Locator } from '@playwright/test'
-import { expect, test as base } from '@playwright/test'
+
+import {
+  PageType,
+  PrimarySidebar,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { test as base, expect } from '@playwright/test'
+
 import { setFormFieldValue } from '../../commands'
 import { BasePage } from '../../locators/pages'
 
@@ -35,7 +41,7 @@ export class BuilderPage extends BasePage {
   }
 
   async checkPageHeaderTitle(items: Array<string>) {
-    const pageHeaderTestId = Cui.cuiHeader()
+    const pageHeaderTestId = CuiTestId.cuiHeader()
     const pageHeader = this.page.getByTestId(pageHeaderTestId)
     const titleBreadcrumb = pageHeader.locator('.ant-breadcrumb')
 
@@ -55,7 +61,7 @@ export class BuilderPage extends BasePage {
 
   async clickModalConfirmButton() {
     const modal = this.getModal()
-    const button = this.getButton({ key: UiKey.ConfirmationButton })
+    const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
     await expect(this.getModal()).toBeVisible()
 
@@ -64,14 +70,14 @@ export class BuilderPage extends BasePage {
 
   async createElementTree(elements: Array<ICreateCypressElementData>) {
     const explorerTree = this.getElementsTree()
-    const itemToolbarKey = Cui.cuiTreeItemToolbar()
+    const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()
 
     for (const element of elements) {
       const { atom, name, propsData } = element
       const parentElement = explorerTree.getByTitle(element.parentElement)
       const parentElementToolbar = parentElement.getByTestId(itemToolbarKey)
       const submitButton = this.getButton({ text: 'Create' })
-      const modal = this.getModalForm(UiKey.CreateElementPopover)
+      const modal = this.getModalForm(UiKey.ElementPopoverCreate)
 
       await parentElement.click()
       await parentElementToolbar.getByLabel('plus').click()
@@ -132,7 +138,7 @@ export class BuilderPage extends BasePage {
   }
 
   getElementsTree() {
-    const explorerTreeTestId = Cui.cuiSidebarViewContent('Elements Tree')
+    const explorerTreeTestId = CuiTestId.cuiSidebarViewContent('Elements Tree')
 
     return this.page.getByTestId(explorerTreeTestId)
   }
@@ -173,7 +179,9 @@ export class BuilderPage extends BasePage {
   }
 
   async goto(appId: string, pageId: string) {
-    await this.page.goto(PageType.PageBuilder({ appId, pageId }))
+    await this.page.goto(
+      PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree),
+    )
   }
 
   async openBuilder() {

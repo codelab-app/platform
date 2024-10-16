@@ -1,13 +1,8 @@
 'use client'
 
 import type { ICreateFieldData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -20,6 +15,7 @@ import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+
 import { useFieldService } from '../../services'
 import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'

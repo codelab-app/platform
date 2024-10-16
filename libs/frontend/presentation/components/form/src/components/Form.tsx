@@ -2,6 +2,7 @@
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import type { ReactElement } from 'react'
+
 import {
   connectUniformSubmitRef,
   createBridge,
@@ -13,8 +14,8 @@ import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
+
 import { usePostSubmit, useSubmit } from './utils'
-import { debounce } from 'remeda'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>(

@@ -106,9 +106,9 @@ export const BuilderClickOverlay = observer<{
         {supportsTextEditing && (
           <div
             className={`
-            flex size-7 cursor-pointer
-            items-center justify-center align-middle
-          `}
+              flex size-7 cursor-pointer
+              items-center justify-center align-middle
+            `}
             onClick={(event) => {
               event.stopPropagation()
               element.setIsTextContentEditable(!element.isTextContentEditable)
@@ -117,14 +117,17 @@ export const BuilderClickOverlay = observer<{
             <div
               aria-label="Toggle Content Editing"
               className={`
-              flex size-5 items-center
-              justify-center rounded-full align-middle
-            `}
+                flex size-5 items-center
+                justify-center rounded-full align-middle
+              `}
               style={{ backgroundColor: '#375583', color: 'white' }}
             >
               <div
                 aria-label="Toggle Content Editing"
-                className="flex size-5 items-center justify-center rounded-full align-middle"
+                className={`
+                  flex size-5 items-center
+                  justify-center rounded-full align-middle
+                `}
                 style={{ backgroundColor: '#375583', color: 'white' }}
               >
                 {element.isTextContentEditable ? (

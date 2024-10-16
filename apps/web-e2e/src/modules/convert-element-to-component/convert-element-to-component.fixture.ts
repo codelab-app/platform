@@ -1,5 +1,6 @@
 import { PageType } from '@codelab/frontend/abstract/types'
-import { expect, test as base } from '@playwright/test'
+import { test as base, expect } from '@playwright/test'
+
 import { BuilderPage } from '../builder/builder.fixture'
 import {
   componentName,

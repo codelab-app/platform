@@ -5,9 +5,10 @@ import type {
   ICreatePageData,
   IRef,
 } from '@codelab/shared/abstract/core'
+import type { APIRequestContext } from '@playwright/test'
+
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import type { APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
 export const componentName = 'Component Name'

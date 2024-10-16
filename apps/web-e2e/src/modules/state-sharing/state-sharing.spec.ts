@@ -1,5 +1,6 @@
 import { type IApp } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
+
 import { builderElements, pageId, seedTestData } from './state-sharing.data'
 import { test } from './state-sharing.fixture'
 

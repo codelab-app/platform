@@ -1,7 +1,7 @@
 'use server'
 
-import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 import { getEnv } from '@codelab/shared/config'
+import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 
 // makes a call to the api backend where request
 // will be redirected to appropriate user domain
