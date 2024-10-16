@@ -42,6 +42,7 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
     })
 
     const model = {
+      api: atom.api,
       externalCssSource: atom.externalCssSource,
       // `null` bypass the required condition if the field is originally nullable
       externalJsSource: atom.externalJsSource ?? undefined,

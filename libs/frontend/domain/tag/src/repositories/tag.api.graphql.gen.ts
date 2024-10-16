@@ -19,20 +19,20 @@ import {
 
 export const CreateTags = (
   variables: CreateTagsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateTagsDocument.toString(), variables, next)
 
 export const UpdateTags = (
   variables: UpdateTagsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateTagsDocument.toString(), variables, next)
 
 export const DeleteTags = (
   variables: DeleteTagsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteTagsDocument.toString(), variables, next)
 
 export const GetTags = (
   variables: GetTagsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetTagsDocument.toString(), variables, next)

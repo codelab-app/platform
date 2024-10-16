@@ -110,7 +110,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
             // server actions must be exported individually
-            return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig) =>
+            return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig & { revalidateTag?: string }) =>
   gqlFetch(${o.documentVariableName}.toString(), variables, next)`;
         });
         return `

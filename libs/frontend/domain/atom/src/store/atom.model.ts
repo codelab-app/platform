@@ -31,8 +31,15 @@ import {
   htmlAtoms,
   reactAtoms,
 } from '@codelab/shared-domain-module-atom'
-import { computed } from 'mobx'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { action, computed, runInAction, untracked } from 'mobx'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+  runUnprotected,
+} from 'mobx-keystone'
 import { createElement } from 'react'
 import { v4 } from 'uuid'
 
@@ -136,30 +143,6 @@ export class Atom
   }
 
   @modelAction
-  toCreateInput(): AtomCreateInput {
-    return {
-      api: {
-        create: {
-          node: {
-            id: v4(),
-            kind: ITypeKind.InterfaceType,
-            name: `${this.name} API`,
-            owner: connectOwner(this.userDomainService.user),
-          },
-        },
-      },
-      externalCssSource: this.externalCssSource,
-      externalJsSource: this.externalJsSource,
-      externalSourceType: this.externalSourceType,
-      id: this.id,
-      name: this.name,
-      owner: connectOwner(this.userDomainService.user),
-      tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
-      type: this.type,
-    }
-  }
-
-  @modelAction
   toUpdateInput(): AtomUpdateInput {
     return {
       api: this.api.id ? connectNodeId(this.api.id) : undefined,
@@ -180,19 +163,22 @@ export class Atom
   }
 
   @modelAction
-  writeCache({
-    api,
-    externalCssSource,
-    externalJsSource,
-    externalSourceType,
-    icon,
-    id,
-    name,
-    requiredParents = [],
-    suggestedChildren = [],
-    tags = [],
-    type,
-  }: Partial<IAtomDto>) {
+  writeCache(
+    {
+      api,
+      externalCssSource,
+      externalJsSource,
+      externalSourceType,
+      icon,
+      id,
+      name,
+      requiredParents = [],
+      suggestedChildren = [],
+      tags = [],
+      type,
+    }: Partial<IAtomDto>,
+    tracked = true,
+  ) {
     this.externalCssSource = externalCssSource ?? this.externalCssSource
     this.externalJsSource = externalJsSource ?? this.externalJsSource
     this.externalSourceType = externalSourceType ?? this.externalSourceType

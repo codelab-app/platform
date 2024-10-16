@@ -9,5 +9,5 @@ import { GetActionsDocument } from './get-action.api.documents.graphql.gen'
 
 export const GetActions = (
   variables: GetActionsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetActionsDocument.toString(), variables, next)

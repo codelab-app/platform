@@ -38,70 +38,70 @@ import {
 
 export const DeletePrimitiveTypes = (
   variables: DeletePrimitiveTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeletePrimitiveTypesDocument.toString(), variables, next)
 
 export const DeleteArrayTypes = (
   variables: DeleteArrayTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteArrayTypesDocument.toString(), variables, next)
 
 export const DeleteReactNodeTypes = (
   variables: DeleteReactNodeTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteReactNodeTypesDocument.toString(), variables, next)
 
 export const DeleteUnionTypes = (
   variables: DeleteUnionTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteUnionTypesDocument.toString(), variables, next)
 
 export const DeleteInterfaceTypes = (
   variables: DeleteInterfaceTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteInterfaceTypesDocument.toString(), variables, next)
 
 export const DeleteElementTypes = (
   variables: DeleteElementTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteElementTypesDocument.toString(), variables, next)
 
 export const DeleteRenderPropTypes = (
   variables: DeleteRenderPropTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteRenderPropTypesDocument.toString(), variables, next)
 
 export const DeleteRichTextTypes = (
   variables: DeleteRichTextTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteRichTextTypesDocument.toString(), variables, next)
 
 export const DeleteEnumTypes = (
   variables: DeleteEnumTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteEnumTypesDocument.toString(), variables, next)
 
 export const DeleteLambdaTypes = (
   variables: DeleteLambdaTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteLambdaTypesDocument.toString(), variables, next)
 
 export const DeletePageTypes = (
   variables: DeletePageTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeletePageTypesDocument.toString(), variables, next)
 
 export const DeleteAppTypes = (
   variables: DeleteAppTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteAppTypesDocument.toString(), variables, next)
 
 export const DeleteActionTypes = (
   variables: DeleteActionTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteActionTypesDocument.toString(), variables, next)
 
 export const DeleteCodeMirrorTypes = (
   variables: DeleteCodeMirrorTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteCodeMirrorTypesDocument.toString(), variables, next)

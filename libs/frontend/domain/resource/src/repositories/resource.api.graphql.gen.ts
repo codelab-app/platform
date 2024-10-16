@@ -19,20 +19,20 @@ import {
 
 export const ResourceList = (
   variables: ResourceListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(ResourceListDocument.toString(), variables, next)
 
 export const CreateResources = (
   variables: CreateResourcesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateResourcesDocument.toString(), variables, next)
 
 export const UpdateResource = (
   variables: UpdateResourceMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateResourceDocument.toString(), variables, next)
 
 export const DeleteResources = (
   variables: DeleteResourcesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteResourcesDocument.toString(), variables, next)

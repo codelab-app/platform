@@ -8,5 +8,5 @@ import { GetSelectAtomOptionsDocument } from './get-select-atom-options.api.docu
 
 export const GetSelectAtomOptions = (
   variables: GetSelectAtomOptionsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetSelectAtomOptionsDocument.toString(), variables, next)

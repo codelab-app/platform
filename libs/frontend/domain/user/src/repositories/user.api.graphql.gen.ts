@@ -15,10 +15,10 @@ import {
 
 export const GetUsers = (
   variables: GetUsersQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetUsersDocument.toString(), variables, next)
 
 export const CreateUser = (
   variables: CreateUserMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateUserDocument.toString(), variables, next)

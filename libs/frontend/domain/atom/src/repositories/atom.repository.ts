@@ -2,9 +2,12 @@ import type {
   IAtomModel,
   IAtomRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 import type {
+  AtomCreateInput,
   AtomOptions,
   AtomUniqueWhere,
+  AtomUpdateInput,
   AtomWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -25,10 +28,10 @@ import { revalidateTag } from 'next/cache'
 import { prop, sortBy } from 'remeda'
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
-  add: async (atom: IAtomModel) => {
+  add: async (input: AtomCreateInput) => {
     const {
       createAtoms: { atoms },
-    } = await CreateAtoms({ input: [atom.toCreateInput()] })
+    } = await CreateAtoms({ input })
 
     const createdAtom = atoms[0]
 
@@ -67,16 +70,22 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     )
   },
 
-  update: async (atom: IAtomModel) => {
+  update: async ({
+    update,
+    where,
+  }: {
+    where: AtomWhere
+    update: AtomUpdateInput
+  }) => {
     const {
       updateAtoms: { atoms },
     } = await UpdateAtoms(
       {
-        update: atom.toUpdateInput(),
-        where: { id: atom.id },
+        update,
+        where,
       },
       {
-        // revalidateTag,
+        revalidateTag: CACHE_TAGS.ATOM_LIST,
       },
     )
 

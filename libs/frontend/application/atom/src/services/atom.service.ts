@@ -16,7 +16,10 @@ import {
 import { PageType } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
-import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
+import {
+  AtomMapper,
+  atomRepository,
+} from '@codelab/frontend-domain-atom/repositories'
 import {
   filterAtoms,
   mapEntitySelectOptions,
@@ -31,6 +34,9 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
+import { untracked } from 'mobx'
+import { untrackedStart } from 'mobx/dist/internal'
+import { runUnprotected } from 'mobx-keystone'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
@@ -39,8 +45,11 @@ export const useAtomService = (): IAtomService => {
     pagination: { atomPagination },
   } = useApplicationStore()
 
-  const { atomDomainService, typeDomainService } = useDomainStore()
+  const { atomDomainService, typeDomainService, userDomainService } =
+    useDomainStore()
+
   const typeService = useTypeService()
+  const atomMapper = new AtomMapper(userDomainService.user)
 
   const getDataFn: GetDataFn<IAtomModel> = async (
     page,
@@ -65,38 +74,31 @@ export const useAtomService = (): IAtomService => {
     return { items: atoms, totalItems: aggregate.count }
   }
 
-  const create = async ({
-    externalCssSource,
-    externalJsSource,
-    externalSourceType,
-    id,
-    name,
-    tags = [],
-    type,
-  }: ICreateAtomData) => {
-    const api = typeDomainService.hydrateInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: `${name} API`,
-    })
+  const create = async (data: ICreateAtomData) => {
+    const input = atomMapper.toCreateInput(data)
+    // const api = typeDomainService.hydrateInterface({
+    //   id: v4(),
+    //   kind: ITypeKind.InterfaceType,
+    //   name: `${name} API`,
+    // })
+    // const atom = atomDomainService.hydrate({
+    //   __typename: IElementRenderTypeKind.Atom,
+    //   api,
+    //   externalCssSource,
+    //   externalJsSource,
+    //   externalSourceType,
+    //   id,
+    //   name,
+    //   tags,
+    //   type,
+    // })
+    const atom = await atomRepository.add(input)
 
-    const atom = atomDomainService.hydrate({
-      __typename: IElementRenderTypeKind.Atom,
-      api,
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      id,
-      name,
-      tags,
-      type,
-    })
-
-    await atomRepository.add(atom)
-
-    atomPagination.dataRefs.set(atom.id, atomRef(atom))
+    Validator.assertsDefined(atom)
 
     return atom
+
+    // atomPagination.dataRefs.set(atom.id, atomRef(atom))
   }
 
   const removeMany = async (items: Array<IAtomModel>) => {
@@ -156,33 +158,17 @@ export const useAtomService = (): IAtomService => {
     }
   }
 
-  const update = async ({
-    externalCssSource,
-    externalJsSource,
-    externalSourceType,
-    id,
-    name,
-    requiredParents = [],
-    suggestedChildren = [],
-    tags = [],
-    type,
-  }: IUpdateAtomData) => {
-    const atom = atomDomainService.atoms.get(id)
+  const update = async (data: IUpdateAtomData) => {
+    // const atom = atomDomainService.atoms.get(id)
+
+    // Validator.assertsDefined(atom)
+
+    const atom = await atomRepository.update({
+      update: atomMapper.toUpdateInput(data),
+      where: { id: data.id },
+    })
 
     Validator.assertsDefined(atom)
-
-    // atom.writeCache({
-    //   externalCssSource,
-    //   externalJsSource,
-    //   externalSourceType,
-    //   name,
-    //   requiredParents: requiredParents.map((child) => ({ id: child.id })),
-    //   suggestedChildren: suggestedChildren.map((child) => ({ id: child.id })),
-    //   tags,
-    //   type,
-    // })
-
-    await atomRepository.update(atom)
 
     return atom
   }

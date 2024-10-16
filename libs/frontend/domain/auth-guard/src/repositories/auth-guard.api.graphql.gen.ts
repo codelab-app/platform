@@ -19,20 +19,20 @@ import {
 
 export const GetAuthGuards = (
   variables: GetAuthGuardsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetAuthGuardsDocument.toString(), variables, next)
 
 export const CreateAuthGuards = (
   variables: CreateAuthGuardsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateAuthGuardsDocument.toString(), variables, next)
 
 export const UpdateAuthGuard = (
   variables: UpdateAuthGuardMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateAuthGuardDocument.toString(), variables, next)
 
 export const DeleteAuthGuards = (
   variables: DeleteAuthGuardsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteAuthGuardsDocument.toString(), variables, next)

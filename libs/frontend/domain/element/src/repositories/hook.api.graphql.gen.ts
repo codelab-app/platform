@@ -15,10 +15,10 @@ import {
 
 export const CreateHooks = (
   variables: CreateHooksMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateHooksDocument.toString(), variables, next)
 
 export const DeleteHooks = (
   variables: DeleteHooksMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteHooksDocument.toString(), variables, next)

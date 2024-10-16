@@ -6,6 +6,7 @@ import {
   cdnEsmValidation,
   idSchema,
   nonEmptyString,
+  refSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
@@ -26,6 +27,7 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
+    ...refSchema('api', { disabled: true }),
     tags: {
       items: {
         properties: {

@@ -19,20 +19,20 @@ import {
 
 export const DomainList = (
   variables: DomainListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DomainListDocument.toString(), variables, next)
 
 export const CreateDomains = (
   variables: CreateDomainsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateDomainsDocument.toString(), variables, next)
 
 export const UpdateDomains = (
   variables: UpdateDomainsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateDomainsDocument.toString(), variables, next)
 
 export const DeleteDomains = (
   variables: DeleteDomainsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteDomainsDocument.toString(), variables, next)

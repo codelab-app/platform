@@ -19,20 +19,20 @@ import {
 
 export const CreateFields = (
   variables: CreateFieldsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateFieldsDocument.toString(), variables, next)
 
 export const UpdateFields = (
   variables: UpdateFieldsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateFieldsDocument.toString(), variables, next)
 
 export const DeleteFields = (
   variables: DeleteFieldsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteFieldsDocument.toString(), variables, next)
 
 export const GetFields = (
   variables: GetFieldsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetFieldsDocument.toString(), variables, next)

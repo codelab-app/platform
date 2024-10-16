@@ -14,10 +14,10 @@ import {
 
 export const IsTypeDescendantOf = (
   variables: IsTypeDescendantOfQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(IsTypeDescendantOfDocument.toString(), variables, next)
 
 export const GetTypeReferences = (
   variables: GetTypeReferencesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetTypeReferencesDocument.toString(), variables, next)

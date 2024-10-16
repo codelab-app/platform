@@ -24,25 +24,25 @@ import {
 
 export const CreatePages = (
   variables: CreatePagesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreatePagesDocument.toString(), variables, next)
 
 export const DeletePages = (
   variables: DeletePagesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeletePagesDocument.toString(), variables, next)
 
 export const UpdatePages = (
   variables: UpdatePagesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdatePagesDocument.toString(), variables, next)
 
 export const PageList = (
   variables: PageListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(PageListDocument.toString(), variables, next)
 
 export const GetRenderedPage = (
   variables: GetRenderedPageQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetRenderedPageDocument.toString(), variables, next)

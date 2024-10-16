@@ -20,7 +20,7 @@ export interface IAtomModel
   extends ICacheService<IAtomDto, IAtomModel>,
     Omit<
       IModel<AtomCreateInput, AtomUpdateInput, void, IAtom>,
-      'toDeleteInput'
+      'toCreateInput' | 'toUpdateInput'
     >,
     IAtomDto {
   __typename: IElementRenderTypeKind.Atom

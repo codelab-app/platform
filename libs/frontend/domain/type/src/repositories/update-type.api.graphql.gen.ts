@@ -38,70 +38,70 @@ import {
 
 export const UpdatePrimitiveTypes = (
   variables: UpdatePrimitiveTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdatePrimitiveTypesDocument.toString(), variables, next)
 
 export const UpdateArrayTypes = (
   variables: UpdateArrayTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateArrayTypesDocument.toString(), variables, next)
 
 export const UpdateUnionTypes = (
   variables: UpdateUnionTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateUnionTypesDocument.toString(), variables, next)
 
 export const UpdateInterfaceTypes = (
   variables: UpdateInterfaceTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateInterfaceTypesDocument.toString(), variables, next)
 
 export const UpdateReactNodeTypes = (
   variables: UpdateReactNodeTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateReactNodeTypesDocument.toString(), variables, next)
 
 export const UpdateElementTypes = (
   variables: UpdateElementTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateElementTypesDocument.toString(), variables, next)
 
 export const UpdateRenderPropTypes = (
   variables: UpdateRenderPropTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateRenderPropTypesDocument.toString(), variables, next)
 
 export const UpdateEnumTypes = (
   variables: UpdateEnumTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateEnumTypesDocument.toString(), variables, next)
 
 export const UpdateLambdaTypes = (
   variables: UpdateLambdaTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateLambdaTypesDocument.toString(), variables, next)
 
 export const UpdatePageTypes = (
   variables: UpdatePageTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdatePageTypesDocument.toString(), variables, next)
 
 export const UpdateAppTypes = (
   variables: UpdateAppTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateAppTypesDocument.toString(), variables, next)
 
 export const UpdateRichTextTypes = (
   variables: UpdateRichTextTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateRichTextTypesDocument.toString(), variables, next)
 
 export const UpdateActionTypes = (
   variables: UpdateActionTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateActionTypesDocument.toString(), variables, next)
 
 export const UpdateCodeMirrorTypes = (
   variables: UpdateCodeMirrorTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateCodeMirrorTypesDocument.toString(), variables, next)

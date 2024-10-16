@@ -22,20 +22,20 @@ import {
 
 export const CreateElements = (
   variables: CreateElementsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateElementsDocument.toString(), variables, next)
 
 export const DeleteElements = (
   variables: DeleteElementsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteElementsDocument.toString(), variables, next)
 
 export const UpdateElements = (
   variables: UpdateElementsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateElementsDocument.toString(), variables, next)
 
 export const ElementList = (
   variables: ElementListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(ElementListDocument.toString(), variables, next)

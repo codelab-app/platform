@@ -1,15 +1,19 @@
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 import type {
+  AtomCreateInput,
   AtomFragment,
   AtomOptions,
+  AtomUpdateInput,
   AtomWhere,
   GetSelectAtomOptionsQuery,
 } from '@codelab/shared/infra/gql'
 
-import type { IRepository } from '../shared'
+import type { IRepository, IRepositoryDto } from '../shared'
 import type { IAtomModel } from './atom.model.interface'
 
-export type IAtomRepository = IRepository<
-  IAtomModel,
+export type IAtomRepository = IRepositoryDto<
+  AtomCreateInput,
+  AtomUpdateInput,
   AtomFragment,
   AtomWhere,
   AtomOptions

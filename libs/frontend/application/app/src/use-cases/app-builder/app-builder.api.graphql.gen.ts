@@ -23,5 +23,5 @@ import { GetAppBuilderDocument } from './app-builder.api.documents.graphql.gen'
 
 export const GetAppBuilder = (
   variables: GetAppBuilderQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetAppBuilderDocument.toString(), variables, next)

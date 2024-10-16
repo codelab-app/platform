@@ -19,20 +19,20 @@ import {
 
 export const CreateStores = (
   variables: CreateStoresMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateStoresDocument.toString(), variables, next)
 
 export const DeleteStores = (
   variables: DeleteStoresMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteStoresDocument.toString(), variables, next)
 
 export const GetStores = (
   variables: GetStoresQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetStoresDocument.toString(), variables, next)
 
 export const UpdateStores = (
   variables: UpdateStoresMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateStoresDocument.toString(), variables, next)

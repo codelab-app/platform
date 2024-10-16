@@ -21,25 +21,25 @@ import {
 
 export const CreateAtoms = (
   variables: CreateAtomsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateAtomsDocument.toString(), variables, next)
 
 export const DeleteAtoms = (
   variables: DeleteAtomsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteAtomsDocument.toString(), variables, next)
 
 export const AtomList = (
   variables: AtomListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(AtomListDocument.toString(), variables, next)
 
 export const GetSelectAtomOptions = (
   variables: GetSelectAtomOptionsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetSelectAtomOptionsDocument.toString(), variables, next)
 
 export const UpdateAtoms = (
   variables: UpdateAtomsMutationVariables,
-  next?: NextFetchRequestConfig,
-) => gqlFetch(UpdateAtomsDocument.toString(), variables, next, callback)
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
+) => gqlFetch(UpdateAtomsDocument.toString(), variables, next)

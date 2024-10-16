@@ -60,7 +60,10 @@ export const DomainStoreHydrator = withProfiler(
       const [isHydrated, setIsHydrated] = useState(false)
 
       const hydrate = useCallback(() => {
-        atomsDto?.forEach((atom) => atomDomainService.hydrate(atom))
+        atomsDto?.forEach((atom) => {
+          typeDomainService.hydrateInterface(atom.api)
+          atomDomainService.hydrate(atom)
+        })
 
         const tagsDto = atomsDto?.flatMap((atom) => atom.tags)
 

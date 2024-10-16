@@ -20,5 +20,5 @@ import { GetComponentBuilderDocument } from './component-builder.api.documents.g
 
 export const GetComponentBuilder = (
   variables: GetComponentBuilderQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetComponentBuilderDocument.toString(), variables, next)

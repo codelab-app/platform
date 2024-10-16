@@ -14,11 +14,10 @@ export const gqlFetch = async <TResult, TVariables>(
   // use `.toString()` version of `TypedDocumentString`
   document: DocumentTypeDecoration<TResult, TVariables>,
   variables: TVariables,
-  next?: NextFetchRequestConfig,
   /**
    * Place where we can call `revalidateTag` on the server side
    */
-  options?: { revalidateTag?: string },
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => {
   const span = getActiveSpan()
 
@@ -44,8 +43,8 @@ export const gqlFetch = async <TResult, TVariables>(
         method: 'POST',
         next,
       }).then((res) => {
-        if (options?.revalidateTag) {
-          revalidateTag(options.revalidateTag)
+        if (next?.revalidateTag) {
+          revalidateTag(next.revalidateTag)
         }
 
         return res

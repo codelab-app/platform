@@ -14,10 +14,10 @@ import {
 
 export const CreateCodeActions = (
   variables: CreateCodeActionsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateCodeActionsDocument.toString(), variables, next)
 
 export const CreateApiActions = (
   variables: CreateApiActionsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateApiActionsDocument.toString(), variables, next)

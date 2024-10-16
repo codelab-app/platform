@@ -38,70 +38,70 @@ import {
 
 export const CreatePrimitiveTypes = (
   variables: CreatePrimitiveTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreatePrimitiveTypesDocument.toString(), variables, next)
 
 export const CreateArrayTypes = (
   variables: CreateArrayTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateArrayTypesDocument.toString(), variables, next)
 
 export const CreateUnionTypes = (
   variables: CreateUnionTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateUnionTypesDocument.toString(), variables, next)
 
 export const CreateInterfaceTypes = (
   variables: CreateInterfaceTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateInterfaceTypesDocument.toString(), variables, next)
 
 export const CreateElementTypes = (
   variables: CreateElementTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateElementTypesDocument.toString(), variables, next)
 
 export const CreateRenderPropTypes = (
   variables: CreateRenderPropTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateRenderPropTypesDocument.toString(), variables, next)
 
 export const CreateReactNodeTypes = (
   variables: CreateReactNodeTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateReactNodeTypesDocument.toString(), variables, next)
 
 export const CreateEnumTypes = (
   variables: CreateEnumTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateEnumTypesDocument.toString(), variables, next)
 
 export const CreateLambdaTypes = (
   variables: CreateLambdaTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateLambdaTypesDocument.toString(), variables, next)
 
 export const CreatePageTypes = (
   variables: CreatePageTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreatePageTypesDocument.toString(), variables, next)
 
 export const CreateAppTypes = (
   variables: CreateAppTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateAppTypesDocument.toString(), variables, next)
 
 export const CreateRichTextTypes = (
   variables: CreateRichTextTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateRichTextTypesDocument.toString(), variables, next)
 
 export const CreateActionTypes = (
   variables: CreateActionTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateActionTypesDocument.toString(), variables, next)
 
 export const CreateCodeMirrorTypes = (
   variables: CreateCodeMirrorTypesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateCodeMirrorTypesDocument.toString(), variables, next)

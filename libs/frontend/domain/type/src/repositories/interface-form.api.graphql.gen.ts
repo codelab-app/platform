@@ -22,30 +22,30 @@ import {
 
 export const InterfaceForm_GetApps = (
   variables: InterfaceForm_GetAppsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetAppsDocument.toString(), variables, next)
 
 export const InterfaceForm_GetAtoms = (
   variables: InterfaceForm_GetAtomsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetAtomsDocument.toString(), variables, next)
 
 export const InterfaceForm_GetActions = (
   variables: InterfaceForm_GetActionsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetActionsDocument.toString(), variables, next)
 
 export const InterfaceForm_GetStores = (
   variables: InterfaceForm_GetStoresQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetStoresDocument.toString(), variables, next)
 
 export const InterfaceForm_GetResource = (
   variables: InterfaceForm_GetResourceQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetResourceDocument.toString(), variables, next)
 
 export const InterfaceForm_GetPages = (
   variables: InterfaceForm_GetPagesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(InterfaceForm_GetPagesDocument.toString(), variables, next)

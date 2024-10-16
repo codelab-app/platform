@@ -19,20 +19,20 @@ import {
 
 export const CreatePreferences = (
   variables: CreatePreferencesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreatePreferencesDocument.toString(), variables, next)
 
 export const DeletePreferences = (
   variables: DeletePreferencesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeletePreferencesDocument.toString(), variables, next)
 
 export const GetPreferences = (
   variables: GetPreferencesQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetPreferencesDocument.toString(), variables, next)
 
 export const UpdatePreferences = (
   variables: UpdatePreferencesMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdatePreferencesDocument.toString(), variables, next)

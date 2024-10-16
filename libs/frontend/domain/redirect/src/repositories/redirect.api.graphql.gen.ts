@@ -19,20 +19,20 @@ import {
 
 export const CreateRedirects = (
   variables: CreateRedirectsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateRedirectsDocument.toString(), variables, next)
 
 export const DeleteRedirects = (
   variables: DeleteRedirectsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteRedirectsDocument.toString(), variables, next)
 
 export const UpdateRedirects = (
   variables: UpdateRedirectsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateRedirectsDocument.toString(), variables, next)
 
 export const GetRedirects = (
   variables: GetRedirectsQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetRedirectsDocument.toString(), variables, next)

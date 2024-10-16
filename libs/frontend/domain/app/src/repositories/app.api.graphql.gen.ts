@@ -30,30 +30,30 @@ import {
 
 export const CreateApps = (
   variables: CreateAppsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateAppsDocument.toString(), variables, next)
 
 export const UpdateApps = (
   variables: UpdateAppsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateAppsDocument.toString(), variables, next)
 
 export const DeleteApps = (
   variables: DeleteAppsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteAppsDocument.toString(), variables, next)
 
 export const AppListPreview = (
   variables: AppListPreviewQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(AppListPreviewDocument.toString(), variables, next)
 
 export const AppList = (
   variables: AppListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(AppListDocument.toString(), variables, next)
 
 export const GetAppProduction = (
   variables: GetAppProductionQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetAppProductionDocument.toString(), variables, next)

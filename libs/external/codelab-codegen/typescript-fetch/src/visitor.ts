@@ -170,7 +170,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
         operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
       // server actions must be exported individually
-      return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig, options?: { revalidateTag?: string }) =>
+      return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig & { revalidateTag?: string }) =>
   gqlFetch(${o.documentVariableName}.toString(), variables, next)`
     })
 

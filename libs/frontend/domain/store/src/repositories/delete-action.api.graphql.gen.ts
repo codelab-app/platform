@@ -14,10 +14,10 @@ import {
 
 export const DeleteCodeActions = (
   variables: DeleteCodeActionsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteCodeActionsDocument.toString(), variables, next)
 
 export const DeleteApiActions = (
   variables: DeleteApiActionsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteApiActionsDocument.toString(), variables, next)

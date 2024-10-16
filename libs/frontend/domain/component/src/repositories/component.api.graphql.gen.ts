@@ -19,20 +19,20 @@ import {
 
 export const CreateComponents = (
   variables: CreateComponentsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(CreateComponentsDocument.toString(), variables, next)
 
 export const DeleteComponents = (
   variables: DeleteComponentsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(DeleteComponentsDocument.toString(), variables, next)
 
 export const UpdateComponents = (
   variables: UpdateComponentsMutationVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(UpdateComponentsDocument.toString(), variables, next)
 
 export const ComponentList = (
   variables: ComponentListQueryVariables,
-  next?: NextFetchRequestConfig,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(ComponentListDocument.toString(), variables, next)
