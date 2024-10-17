@@ -3,6 +3,8 @@ import { expect } from '@playwright/test'
 
 import { test } from './atom.fixture'
 
+test.describe.configure({ mode: 'serial' })
+
 test.beforeEach(async ({ atomPage: page }) => {
   await page.goto()
 
@@ -36,7 +38,7 @@ test('it should be able to update an atom name', async ({ atomPage: page }) => {
 
   await expect(page.getAtomName()).toBeHidden()
 
-  await expect(page.getUpdatedAtomName()).toBeHidden()
+  await expect(page.getUpdatedAtomName()).toBeVisible()
 })
 
 test('should be able to delete an atom', async ({ atomPage: page }) => {

@@ -13,9 +13,7 @@ export class AtomPage extends BasePage {
   }
 
   async expectOnlyReactFragmentAtom() {
-    const treeItemCount = await this.getTree().getTreeItem().count()
-
-    await expect(treeItemCount).toEqual(1)
+    await expect(this.getTree().getTreeItem()).toHaveCount(1)
   }
 
   async fillAndSubmitAtomFormCreate() {
@@ -40,7 +38,7 @@ export class AtomPage extends BasePage {
     const form = await this.getForm(UiKey.AtomFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, this.updatedAtom.name)
-    await form.getButton({ text: 'Create' }).click()
+    await form.getButton({ text: 'Update' }).click()
 
     await this.expectGlobalProgressBarToBeHidden()
   }

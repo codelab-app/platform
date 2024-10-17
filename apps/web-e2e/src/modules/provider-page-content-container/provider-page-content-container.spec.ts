@@ -23,7 +23,7 @@ test('should set card element as a container for child pages in the provider pag
   builderPage: page,
 }) => {
   await page.goto(app.id, app.pages![0]!.id)
-  await page.checkPageHeaderTitle(['Codelab App', 'Pages', '_app'])
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
 

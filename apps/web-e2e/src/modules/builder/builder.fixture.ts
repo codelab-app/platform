@@ -41,9 +41,11 @@ export class BuilderPage extends BasePage {
   }
 
   async checkPageHeaderTitle(items: Array<string>) {
-    const pageHeaderTestId = CuiTestId.cuiHeader()
-    const pageHeader = this.page.getByTestId(pageHeaderTestId)
-    const titleBreadcrumb = pageHeader.locator('.ant-breadcrumb')
+    const pageHeaderClass = CuiTestId.cuiHeader()
+
+    const titleBreadcrumb = this.page.locator(
+      `.${pageHeaderClass} .ant-breadcrumb`,
+    )
 
     for (const label of items) {
       await expect(titleBreadcrumb.getByText(label)).toBeVisible()

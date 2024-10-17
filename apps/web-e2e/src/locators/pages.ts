@@ -21,6 +21,10 @@ export interface CuiSelector {
    * Text node
    */
   text?: string | RegExp
+  /**
+   * Title node
+   */
+  title?: string | RegExp
 }
 
 export class BasePage {
@@ -66,13 +70,19 @@ export class BasePage {
   /**
    * Locator chaining need to be passed in
    */
-  getButton({ key, label, text }: CuiSelector, locator?: Locator) {
+  getButton({ key, label, text, title }: CuiSelector, locator?: Locator) {
     const page = locator ?? this.page
 
     const getByLabel = (_label: string | RegExp) => {
       return page
         .getByRole('button')
         .and(page.getByLabel(_label, { exact: true }))
+    }
+
+    if (title) {
+      return page
+        .getByRole('button')
+        .and(page.getByTitle(title, { exact: true }))
     }
 
     if (text) {

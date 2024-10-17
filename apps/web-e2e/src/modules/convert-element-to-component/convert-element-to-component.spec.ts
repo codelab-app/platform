@@ -19,7 +19,7 @@ test('should convert the element into a component and create an instance of it',
   builderPage: page,
 }) => {
   await page.goto(app.id, app.pages![0]!.id)
-  await page.checkPageHeaderTitle(['Codelab App', 'Pages', '_app'])
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
 

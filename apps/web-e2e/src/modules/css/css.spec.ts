@@ -24,7 +24,7 @@ test.beforeAll(async ({ request }, testInfo) => {
 
 test.beforeEach(async ({ builderPage: page }) => {
   await page.goto(app.id, app.pages![0]!.id)
-  await page.checkPageHeaderTitle(['Codelab App', 'Pages', '_app'])
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
 })
