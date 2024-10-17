@@ -4,7 +4,7 @@
   "sourceRoot": "libs/shared/domain-old/src",
   "projectType": "library",
   "tags": [
-    "projectName:shared-domain",
+    "projectName:shared-domain-old",
     "projectType:library",
     "type:concrete",
     "scope:shared"
