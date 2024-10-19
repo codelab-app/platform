@@ -8,7 +8,7 @@ import type {
   IComponentModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import type { ICreateElementDto, IPropDto } from '@codelab/shared/abstract/core'
+import type { IElementCreateDto, IPropDto } from '@codelab/shared/abstract/core'
 
 import {
   isRuntimeElement,
@@ -231,7 +231,7 @@ export const useCloneElementService = ({
 
     const lastChild = parentElement.children[parentElement.children.length - 1]
 
-    const cloneElementDto: ICreateElementDto = {
+    const cloneElementDto: IElementCreateDto = {
       childMapperComponent: element.childMapperComponent
         ? { id: element.childMapperComponent.id }
         : null,

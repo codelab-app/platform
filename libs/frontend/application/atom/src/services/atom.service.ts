@@ -81,29 +81,11 @@ export const useAtomService = (): IAtomService => {
 
   const create = async (data: ICreateAtomData) => {
     const input = atomMapper.toCreateInput(data)
-    // const api = typeDomainService.hydrateInterface({
-    //   id: v4(),
-    //   kind: ITypeKind.InterfaceType,
-    //   name: `${name} API`,
-    // })
-    // const atom = atomDomainService.hydrate({
-    //   __typename: IElementRenderTypeKind.Atom,
-    //   api,
-    //   externalCssSource,
-    //   externalJsSource,
-    //   externalSourceType,
-    //   id,
-    //   name,
-    //   tags,
-    //   type,
-    // })
     const atom = await atomRepository.add(input)
 
     Validator.assertsDefined(atom)
 
     return atom
-
-    // atomPagination.dataRefs.set(atom.id, atomRef(atom))
   }
 
   const removeMany = async (items: Array<IAtomModel>) => {
@@ -118,7 +100,9 @@ export const useAtomService = (): IAtomService => {
       }
     })
 
-    return await atomRepository.delete(atomsToDelete)
+    const input = atomMapper.toDeleteInput()
+
+    return await atomRepository.delete(atomsToDelete, input)
   }
 
   const getAll = async (where?: AtomWhere, options?: AtomOptions) => {
@@ -164,10 +148,6 @@ export const useAtomService = (): IAtomService => {
   }
 
   const update = async (data: IUpdateAtomData) => {
-    // const atom = atomDomainService.atoms.get(id)
-
-    // Validator.assertsDefined(atom)
-
     const atom = await atomRepository.update({
       update: atomMapper.toUpdateInput(data),
       where: { id: data.id },

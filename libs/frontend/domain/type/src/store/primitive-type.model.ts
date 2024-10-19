@@ -52,13 +52,6 @@ export class PrimitiveType
     return this
   }
 
-  toCreateInput() {
-    return {
-      ...super.toCreateInput(),
-      primitiveKind: this.primitiveKind,
-    }
-  }
-
   toJsonSchema({
     defaultValues,
     uniformSchema,

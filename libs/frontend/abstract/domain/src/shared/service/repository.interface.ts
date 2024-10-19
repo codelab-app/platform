@@ -10,17 +10,25 @@ import type { IRef } from '@codelab/shared/abstract/core'
  * @template Where where clause, at least need to implement ID
  */
 export interface IRepository<
-  Model extends IRef,
+  CreateInput,
+  UpdateInput,
+  DeleteInput,
   ModelFragment,
   Where extends { id?: number | string | null },
   Option extends { limit?: number | null; offset?: number | null },
 > {
-  add(model: Model): Promise<IRef | undefined>
-  delete(models: Array<IRef>): Promise<number>
+  add(model: CreateInput): Promise<IRef | undefined>
+  delete(models: Array<IRef>, input: DeleteInput): Promise<number>
   find(
     where?: Where,
     options?: Option,
   ): Promise<{ items: Array<ModelFragment>; aggregate: { count: number } }>
   findOne(where: Where): Promise<ModelFragment | undefined>
-  update(model: Model, where?: Where): Promise<IRef | undefined>
+  update({
+    update,
+    where,
+  }: {
+    where: Where
+    update: UpdateInput
+  }): Promise<IRef | undefined>
 }

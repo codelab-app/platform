@@ -3,7 +3,7 @@ import type { Static } from '@sinclair/typebox'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
-import { PropDtoSchema, PropSchema } from '../prop/prop.dto.interface'
+import { PropDtoSchema, PropSchema } from '../prop'
 import { ElementRenderTypeDtoSchema } from './element-render-type'
 
 export const ElementDtoSchema = Type.Object({
@@ -50,7 +50,7 @@ export const ElementSchema = Typebox.Overwrite(
 
 export type IElement = Static<typeof ElementSchema>
 
-export const CreateElementDtoSchema = Type.Composite([
+export const ElementCreateDtoSchema = Type.Composite([
   ElementDtoSchema,
   Type.Object({
     /**
@@ -60,4 +60,4 @@ export const CreateElementDtoSchema = Type.Composite([
   }),
 ])
 
-export type ICreateElementDto = Static<typeof CreateElementDtoSchema>
+export type IElementCreateDto = Static<typeof ElementCreateDtoSchema>

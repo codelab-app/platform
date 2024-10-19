@@ -22,7 +22,7 @@ export interface IComponentModel
   extends ICacheService<IComponentDto, IComponentModel>,
     IElementTree,
     Omit<IComponentDto, 'props' | 'rootElement'>,
-    IModel<ComponentCreateInput, ComponentUpdateInput, void, IComponent> {
+    IModel<IComponent> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceTypeModel>
   descendantComponents: Array<IComponentModel>

@@ -1,6 +1,6 @@
 'use client'
 
-import type { IUpdateAppData } from '@codelab/frontend/abstract/domain'
+import type { IAppUpdateFormData } from '@codelab/frontend/abstract/domain'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -35,7 +35,7 @@ export const UpdateAppModal = observer(() => {
       open={updateAppModal.isOpen}
       uiKey={UiKey.AppModalUpdate}
     >
-      <ModalForm.Form<IUpdateAppData>
+      <ModalForm.Form<IAppUpdateFormData>
         errorMessage="Error while updating app"
         model={model}
         onSubmit={onSubmit}

@@ -77,7 +77,8 @@ export const typeSchema = gql`
 
   interface IBaseType {
     id: ID!
-    kind: TypeKind! @settable(onUpdate: false)
+    # Disable @settable so we get a discriminated union
+    kind: TypeKind!
     name: String!
     # fields: [Field!]! @relationship(type: "FIELD_TYPE", direction: OUT)
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect

@@ -16,15 +16,7 @@ import type { IPageModel } from '../page'
 import type { ICacheService, IModel } from '../shared'
 
 export interface IRedirectModel
-  extends Omit<
-      IModel<
-        RedirectCreateInput,
-        RedirectUpdateInput,
-        RedirectDeleteInput,
-        IRedirect
-      >,
-      'toDeleteInput'
-    >,
+  extends Omit<IModel<IRedirect>, 'toDeleteInput'>,
     ICacheService<IRedirectDto, IRedirectModel> {
   authGuard: Ref<IAuthGuardModel>
   id: string

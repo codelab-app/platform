@@ -2,9 +2,12 @@ import type {
   IStoreModel,
   IStoreRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type {
+  StoreCreateInput,
   StoreOptions,
   StoreUniqueWhere,
+  StoreUpdateInput,
   StoreWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -19,11 +22,11 @@ import {
 } from './store.api.graphql.gen'
 
 export const storeRepository: IStoreRepository = {
-  add: async (store: IStoreModel) => {
+  add: async (input: StoreCreateInput) => {
     const {
       createStores: { stores },
     } = await CreateStores({
-      input: [store.toCreateInput()],
+      input,
     })
 
     const createdStore = stores[0]
@@ -33,7 +36,7 @@ export const storeRepository: IStoreRepository = {
     return createdStore
   },
 
-  delete: async (stores: Array<IStoreModel>) => {
+  delete: async (stores: Array<IRef>) => {
     const {
       deleteStores: { nodesDeleted },
     } = await DeleteStores({
@@ -52,12 +55,18 @@ export const storeRepository: IStoreRepository = {
     return (await storeRepository.find(where)).items[0]
   },
 
-  update: async (store: IStoreModel) => {
+  update: async ({
+    update,
+    where,
+  }: {
+    update: StoreUpdateInput
+    where: StoreWhere
+  }) => {
     const {
       updateStores: { stores },
     } = await UpdateStores({
-      update: store.toUpdateInput(),
-      where: { id: store.id },
+      update,
+      where,
     })
 
     const updatedStore = stores[0]

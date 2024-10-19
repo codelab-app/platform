@@ -5,6 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type {
   AtomCreateInput,
+  AtomDeleteInput,
   AtomFragment,
   AtomUpdateInput,
 } from '@codelab/shared/infra/gql'
@@ -24,27 +25,10 @@ import {
 import { v4 } from 'uuid'
 
 export class AtomMapper
-  implements IMapper<IAtomDto, AtomCreateInput, AtomUpdateInput>
+  implements
+    IMapper<IAtomDto, AtomCreateInput, AtomUpdateInput, AtomDeleteInput>
 {
-  constructor(public owner: IUserDto) {}
-
-  // toDtoFromData(data: ICreateAtomData) {
-  //   return {
-  //     __typename: IElementRenderTypeKind.Atom,
-  //     api: {
-  //       id: v4(),
-  //       kind: ITypeKind.InterfaceType,
-  //       name: `${data.name} API`,
-  //     },
-  //     externalCssSource: data.externalCssSource,
-  //     externalJsSource: data.externalJsSource,
-  //     externalSourceType: data.externalSourceType,
-  //     id: data.id,
-  //     name: data.name,
-  //     tags: data.tags,
-  //     type: data.type,
-  //   }
-  // }
+  constructor(private owner: IUserDto) {}
 
   toCreateInput(data: ICreateAtomData) {
     return {
@@ -66,6 +50,12 @@ export class AtomMapper
       owner: connectOwner(this.owner),
       tags: connectNodeIds(data.tags?.map((tag) => tag.id)),
       type: data.type,
+    }
+  }
+
+  toDeleteInput(): AtomDeleteInput {
+    return {
+      api: {},
     }
   }
 

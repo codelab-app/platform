@@ -1,7 +1,7 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import type {
   IArrayTypeDto,
-  ICreateTypeDto,
+  ITypeCreateFormData,
   IInterfaceTypeDto,
   ITypeDto,
   IUnionTypeDto,
@@ -75,7 +75,7 @@ export class TypeFactory {
     }
   }
 
-  static mapDataToDTO(data: ICreateTypeDto): ITypeDto {
+  static mapDataToDTO(data: ITypeCreateFormData): ITypeDto {
     switch (data.kind) {
       case ITypeKind.InterfaceType:
         return {
@@ -89,7 +89,7 @@ export class TypeFactory {
           ...data,
           __typename: data.kind,
           itemType: {
-            id: data.arrayTypeId as string,
+            id: data.arrayItemTypeId as string,
           },
         } as IArrayTypeDto
 

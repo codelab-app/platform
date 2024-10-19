@@ -18,10 +18,7 @@ import type { IInterfaceTypeModel } from '../type'
 
 export interface IAtomModel
   extends ICacheService<IAtomDto, IAtomModel>,
-    Omit<
-      IModel<AtomCreateInput, AtomUpdateInput, void, IAtom>,
-      'toCreateInput' | 'toUpdateInput'
-    >,
+    Omit<IModel<IAtom>, 'toCreateInput' | 'toUpdateInput'>,
     IAtomDto {
   __typename: IElementRenderTypeKind.Atom
   api: Ref<IInterfaceTypeModel>

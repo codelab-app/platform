@@ -67,32 +67,6 @@ export class AuthGuardModel
     return this
   }
 
-  toCreateInput(): AuthGuardCreateInput {
-    return {
-      config: {
-        create: {
-          node: this.config.toCreateInput(),
-        },
-      },
-      id: this.id,
-      name: this.name,
-      owner: connectOwner(this.userDomainService.user),
-      resource: connectNodeId(this.resource.id),
-      responseTransformer: this.responseTransformer,
-    }
-  }
-
-  toUpdateInput(): AuthGuardUpdateInput {
-    return {
-      config: {
-        update: { node: this.config.toUpdateInput() },
-      },
-      name: this.name,
-      resource: connectNodeId(this.resource.id),
-      responseTransformer: this.responseTransformer,
-    }
-  }
-
   @computed
   private get userDomainService() {
     return getUserDomainService(this)

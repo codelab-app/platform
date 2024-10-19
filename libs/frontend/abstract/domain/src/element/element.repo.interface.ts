@@ -2,7 +2,10 @@ import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { IElementTypeKind, IRef } from '@codelab/shared/abstract/core'
 import type {
   DomainOptions,
+  ElementCreateInput,
+  ElementDeleteInput,
   ElementFragment,
+  ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -12,7 +15,9 @@ import type { IElementTree } from './element-tree.interface.model'
 
 export interface IElementRepository
   extends IRepository<
-    IElementModel,
+    ElementCreateInput,
+    ElementUpdateInput,
+    ElementDeleteInput,
     ElementFragment,
     ElementWhere,
     DomainOptions

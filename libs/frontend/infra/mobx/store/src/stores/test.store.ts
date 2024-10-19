@@ -10,7 +10,7 @@ import type {
   ICodeActionDto,
   ICodeMirrorType,
   IComponentDto,
-  ICreateElementDto,
+  IElementCreateDto,
   IFieldDto,
   IInterfaceTypeDto,
   IPageDto,
@@ -159,7 +159,7 @@ export const createTestStore = () => {
     }
 
     @modelAction
-    addElement(dto: Partial<ICreateElementDto>) {
+    addElement(dto: Partial<IElementCreateDto>) {
       return elementFactory(this.domainStore.elementDomainService)(dto)
     }
 

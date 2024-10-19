@@ -13,7 +13,7 @@ import type { IModel } from '../shared/models/model.interface'
 import type { IInterfaceTypeModel } from '../type'
 
 export interface IPropModel
-  extends IModel<PropCreateInput, PropUpdateInput, void, IProp>,
+  extends IModel<IProp>,
     ICacheService<IPropDto, IPropModel> {
   api?: Nullable<Ref<IInterfaceTypeModel>>
   data: Frozen<Nullable<IPropData>>

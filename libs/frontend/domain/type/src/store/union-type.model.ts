@@ -50,17 +50,6 @@ export class UnionType
     return this
   }
 
-  toCreateInput() {
-    return {
-      ...super.toCreateInput(),
-      typesOfUnionType: makeAllTypes({
-        connect: this.typesOfUnionType.map(({ id }) => ({
-          where: { node: { id } },
-        })),
-      }),
-    }
-  }
-
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       oneOf: this.typesOfUnionType.map((innerType) => {

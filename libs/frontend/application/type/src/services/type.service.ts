@@ -2,7 +2,7 @@ import type {
   GetDataFn,
   ITypeService,
 } from '@codelab/frontend/abstract/application'
-import type { ICreateTypeDto, IRef } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData, IRef } from '@codelab/shared/abstract/core'
 
 import {
   type ITypeModel,
@@ -46,7 +46,7 @@ export const useTypeService = (): ITypeService => {
     return { items, totalItems }
   }
 
-  const create = async (data: ICreateTypeDto) => {
+  const create = async (data: ITypeCreateFormData) => {
     const type = typeDomainService.hydrate(TypeFactory.mapDataToDTO(data))
 
     await typeRepository.add(type)

@@ -1,5 +1,5 @@
 import type {
-  ICreateTypeDto,
+  ITypeCreateFormData,
   IPrimitiveTypeKind,
   ITypeDto,
 } from '@codelab/shared/abstract/core'
@@ -15,7 +15,7 @@ export interface ITypeDomainService extends IHydrateable<ITypeDto, ITypeModel> {
   typesList: Array<ITypeModel>
 
   getType(id: string): Maybe<ITypeModel>
-  hydrateInterface(data: ICreateTypeDto): IInterfaceTypeModel
+  hydrateInterface(data: ITypeCreateFormData): IInterfaceTypeModel
   hydrateTypes(types: Partial<GetTypesQuery>): void
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
 }

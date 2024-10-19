@@ -55,7 +55,7 @@ export class PageRepository extends AbstractRepository<
             urlPattern,
           }) => ({
             app: connectNodeId(app.id),
-            compositeKey: PageProperties.pageCompositeKey(name, app),
+            compositeKey: PageProperties.pageCompositeKey({ name }, app),
             id,
             kind,
             pageContentContainer: connectNodeId(pageContentContainer?.id),
@@ -95,7 +95,7 @@ export class PageRepository extends AbstractRepository<
       ).update({
         update: {
           app: reconnectNodeId(app.id),
-          compositeKey: PageProperties.pageCompositeKey(name, app),
+          compositeKey: PageProperties.pageCompositeKey({ name }, app),
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
           rootElement: reconnectNodeId(rootElement.id),
           urlPattern,

@@ -1,6 +1,6 @@
 'use client'
 
-import type { ICreatePageData } from '@codelab/shared/abstract/core'
+import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import {
@@ -42,7 +42,7 @@ export const CreatePageForm = observer<IFormController>(
 
     const closeForm = () => createPageForm.close()
 
-    const onSubmit = async (data: ICreatePageData) => {
+    const onSubmit = async (data: IPageCreateFormData) => {
       await pageService.create(data)
 
       closeForm()
@@ -52,7 +52,7 @@ export const CreatePageForm = observer<IFormController>(
     }
 
     return (
-      <Form<ICreatePageData>
+      <Form<IPageCreateFormData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

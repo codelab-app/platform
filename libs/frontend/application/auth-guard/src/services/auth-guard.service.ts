@@ -7,17 +7,24 @@ import type {
 import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
 import type { AuthGuardWhere } from '@codelab/shared/infra/gql'
 
-import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
+import {
+  AuthGuardMapper,
+  authGuardRepository,
+} from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useAuthGuardService = (): IAuthGuardService => {
-  const { authGuardDomainService, resourceDomainService } = useDomainStore()
+  const { authGuardDomainService, resourceDomainService, userDomainService } =
+    useDomainStore()
+
+  const authGuardMapper = new AuthGuardMapper(userDomainService.user)
 
   const create = async (data: ICreateAuthGuardData) => {
     const { config } = data
 
+    const input = authGuardMapper.
     const configDto: IPropDto = {
       data: JSON.stringify(config.data),
       id: v4(),

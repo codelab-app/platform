@@ -48,7 +48,7 @@ export class AppRepository extends AbstractRepository<
       ).create({
         input: apps.map(({ id, name, pages }) => ({
           compositeKey: AppProperties.appCompositeKey(
-            { slug: slugify(name) },
+            { name },
             this.authService.currentUser,
           ),
           id,
@@ -82,7 +82,7 @@ export class AppRepository extends AbstractRepository<
       ).update({
         update: {
           compositeKey: AppProperties.appCompositeKey(
-            { slug: slugify(name) },
+            { name },
             this.authService.currentUser,
           ),
           pages: reconnectNodeIds(pages?.map((page) => page.id)).map(

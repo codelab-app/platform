@@ -14,12 +14,3 @@ export const AuthGuardDtoSchema = Type.Object({
 })
 
 export type IAuthGuardDto = Static<typeof AuthGuardDtoSchema>
-
-export const AuthGuardSchema = Typebox.Overwrite(
-  AuthGuardDtoSchema,
-  Type.Object({
-    config: PropSchema,
-  }),
-)
-
-export type IAuthGuard = Static<typeof AuthGuardSchema>

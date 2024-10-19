@@ -1,5 +1,5 @@
 'use client'
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import {
@@ -30,7 +30,7 @@ export const CreateTypeForm = observer<IFormController>(
     const createTypeForm = useCreateTypeForm()
     const closeForm = () => createTypeForm.close()
 
-    const onSubmit = async (data: ICreateTypeDto) => {
+    const onSubmit = async (data: ITypeCreateFormData) => {
       const input = {
         ...data,
         allowedValues: data.allowedValues?.map((val) => ({
@@ -47,7 +47,7 @@ export const CreateTypeForm = observer<IFormController>(
     }
 
     return (
-      <Form<ICreateTypeDto>
+      <Form<ITypeCreateFormData>
         model={{
           id: v4(),
         }}

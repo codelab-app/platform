@@ -21,10 +21,7 @@ import type {
 } from '../type'
 
 export interface IFieldModel<T extends ITypeModel = ITypeModel>
-  extends Omit<
-      IModel<FieldCreateInput, FieldUpdateInput, FieldDeleteInput, IField>,
-      'toDeleteInput'
-    >,
+  extends Omit<IModel<IField>, 'toDeleteInput'>,
     ICacheService<IFieldDto, IFieldModel> {
   api: Ref<IInterfaceTypeModel>
   defaultValues: Nullish<IFieldDefaultValue>

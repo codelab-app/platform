@@ -43,10 +43,7 @@ export interface RenderingMetadata {
 }
 
 export interface IElementModel
-  extends Omit<
-      IModel<ElementCreateInput, ElementUpdateInput, void, IElement>,
-      'toDeleteInput'
-    >,
+  extends Omit<IModel<IElement>, 'toDeleteInput'>,
     ICacheService<IElementDto, IElementModel> {
   _modified: boolean
   ancestorError: Nullish<RenderingError>

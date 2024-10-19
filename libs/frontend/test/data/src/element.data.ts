@@ -1,10 +1,10 @@
-import type { ICreateElementDto } from '@codelab/shared/abstract/core'
+import type { IElementCreateDto } from '@codelab/shared/abstract/core'
 
 import { v4 } from 'uuid'
 
 import { atomReactFragmentDto } from './atom.data'
 
-export const elementDto: ICreateElementDto = {
+export const elementDto: IElementCreateDto = {
   closestContainerNode: {
     id: v4(),
   },

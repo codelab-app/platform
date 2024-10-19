@@ -1,10 +1,10 @@
 import type * as cg from '@codelab/shared/infra/gql'
 
-export interface IUpdateTypeArgs {
-  connect?: IConnectNodeInput
-  delete?: IDeleteTypeInput
-  disconnect?: IDisconnectNodeInput
-  update: IUpdateTypeInput
+export interface ITypeUpdateArgs {
+  connect?: ITypeConnectInput
+  delete?: ITypeDeleteInput
+  disconnect?: ITypeDisconnectInput
+  update: ITypeUpdateInput
   where: ITypeWhere
 }
 
@@ -24,7 +24,7 @@ type ITypeWhere =
   | cg.RichTextType
   | cg.UnionTypeWhere
 
-export type IUpdateTypeVars =
+export type ITypeUpdateVars =
   | cg.UpdateActionTypesMutationVariables
   | cg.UpdateAppTypesMutationVariables
   | cg.UpdateArrayTypesMutationVariables
@@ -40,7 +40,7 @@ export type IUpdateTypeVars =
   | cg.UpdateRichTextTypesMutationVariables
   | cg.UpdateUnionTypesMutationVariables
 
-export type ICreateTypeInput =
+export type ITypeCreateInput =
   | cg.ActionTypeCreateInput
   | cg.AppTypeCreateInput
   | cg.ArrayTypeCreateInput
@@ -56,7 +56,7 @@ export type ICreateTypeInput =
   | cg.RichTextTypeCreateInput
   | cg.UnionTypeCreateInput
 
-export type IUpdateTypeInput =
+export type ITypeUpdateInput =
   | cg.AppTypeUpdateInput
   | cg.ArrayTypeUpdateInput
   | cg.CodeMirrorTypeUpdateInput
@@ -75,7 +75,7 @@ export type IUpdateTypeInput =
  * Connect
  */
 
-export type IConnectNodeInput =
+export type ITypeConnectInput =
   | cg.AppTypeConnectInput
   | cg.ArrayTypeConnectInput
   | cg.CodeMirrorTypeConnectInput
@@ -93,7 +93,7 @@ export type IConnectNodeInput =
 /**
  * Disconnect
  */
-export type IDisconnectNodeInput =
+export type ITypeDisconnectInput =
   | cg.AppTypeDisconnectInput
   | cg.ArrayTypeDisconnectInput
   | cg.CodeMirrorTypeDisconnectInput
@@ -112,7 +112,7 @@ export type IDisconnectNodeInput =
  * Delete
  */
 
-export type IDeleteTypeInput =
+export type ITypeDeleteInput =
   | cg.AppTypeDeleteInput
   | cg.ArrayTypeDeleteInput
   | cg.CodeMirrorTypeDeleteInput

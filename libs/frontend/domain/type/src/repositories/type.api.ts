@@ -1,7 +1,7 @@
 import type {
-  ICreateTypeInput,
+  ITypeCreateInput,
+  ITypeUpdateVars,
   ITypeWhere,
-  IUpdateTypeVars,
 } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type {
@@ -69,7 +69,7 @@ import {
 
 type CreateTypesRecord = Record<
   ITypeKind,
-  (input: Array<ICreateTypeInput>) => Promise<Array<IRef>>
+  (input: Array<ITypeCreateInput>) => Promise<Array<IRef>>
 >
 
 export const createTypeApi: CreateTypesRecord = {
@@ -156,7 +156,7 @@ export const getAllTypes = async (
 
 type UpdateTypesRecord = Record<
   ITypeKind,
-  (vars: IUpdateTypeVars) => Promise<Array<IRef>>
+  (vars: ITypeUpdateVars) => Promise<Array<IRef>>
 >
 
 export const updateTypeApi: UpdateTypesRecord = {

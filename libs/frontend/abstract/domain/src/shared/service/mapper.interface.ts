@@ -1,7 +1,8 @@
 import type { IUserDto } from '@codelab/shared/abstract/core'
 
-export interface IMapper<Dto, CreateInput, UpdateInput> {
+export interface IMapper<CreateDto, CreateInput, UpdateInput, DeleteInput> {
   owner: IUserDto
-  toCreateInput(dto: Dto): CreateInput
-  toUpdateInput(dto: Dto): UpdateInput
+  toCreateInput(dto: CreateDto, ...args: Array<unknown>): CreateInput
+  toDeleteInput(): DeleteInput
+  toUpdateInput(dto: CreateDto): UpdateInput
 }

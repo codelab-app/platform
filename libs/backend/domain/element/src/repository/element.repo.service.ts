@@ -3,7 +3,7 @@ import type {
   ElementOptions,
   ElementWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { ICreateElementDto } from '@codelab/shared/abstract/core'
+import type { IElementCreateDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -24,7 +24,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ElementRepository extends AbstractRepository<
-  ICreateElementDto,
+  IElementCreateDto,
   Element,
   ElementWhere,
   ElementOptions
@@ -47,7 +47,7 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(elements: Array<ICreateElementDto>) {
+  protected async _addMany(elements: Array<IElementCreateDto>) {
     return (
       await this.ogmService.Element.create({
         input: elements.map(
@@ -138,7 +138,7 @@ export class ElementRepository extends AbstractRepository<
       name,
       props,
       renderType,
-    }: ICreateElementDto,
+    }: IElementCreateDto,
     where: ElementWhere,
   ) {
     return (

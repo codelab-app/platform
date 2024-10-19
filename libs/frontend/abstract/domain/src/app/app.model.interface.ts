@@ -15,7 +15,7 @@ import type { IModel } from '../shared/models/model.interface'
  */
 
 export interface IAppModel
-  extends IModel<AppCreateInput, AppUpdateInput, AppDeleteInput, IApp>,
+  extends IModel<IApp>,
     ICacheService<IAppDto, IAppModel> {
   domains: Array<IDomainModel>
   name: string

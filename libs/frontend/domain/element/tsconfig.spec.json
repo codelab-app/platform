@@ -21,7 +21,6 @@
     "**/*.spec.js",
     "**/*.test.jsx",
     "**/*.spec.jsx",
-    "**/*.d.ts",
-    "src/test/root.test.store.ts"
+    "**/*.d.ts"
   ]
 }

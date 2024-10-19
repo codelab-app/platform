@@ -1,20 +1,26 @@
 import type {
+  IAppCreateFormData,
   IAppModel,
-  ICreateAppData,
-  IUpdateAppData,
+  IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef, IUpdatePageData } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  IPageUpdateFormData,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gql'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
 import { usePageService } from '@codelab/frontend-application-page/services'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import {
+  AppMapper,
   appRepository,
   invalidateAppListQuery,
 } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
+import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import {
   useDomainStore,
   useUndoManager,
@@ -25,31 +31,36 @@ import { computed, type IComputedValueOptions } from 'mobx'
 import { type DependencyList, useMemo } from 'react'
 
 export const useAppService = (): IAppService => {
-  const { appDomainService, pageDomainService, userDomainService } =
-    useDomainStore()
+  const {
+    appDomainService,
+    atomDomainService,
+    pageDomainService,
+    userDomainService,
+  } = useDomainStore()
 
   const pageService = usePageService()
   const undoManager = useUndoManager()
+  const pageFactory = new PageDomainFactory(userDomainService.user)
+  const appMapper = new AppMapper(userDomainService.user)
+  const owner = userDomainService.user
 
-  const create = async ({ id, name }: ICreateAppData) => {
-    const app = appDomainService.create({
-      id,
-      name,
-      owner: userDomainService.user,
-      pages: [],
-    })
-
+  const create = async ({ id, name }: IAppCreateFormData) => {
     try {
-      await appRepository.add(app)
+      const renderType = atomDomainService.defaultRenderType
+      const pages = pageFactory.addSystemPages({ id, name }, renderType)
+      const appCreateInput = appMapper.toCreateInput({ id, name, owner, pages })
+      const app = await appRepository.add(appCreateInput)
+
+      Validator.assertsDefined(app)
+
+      return app
     } catch (error) {
       undoManager.undo()
 
       throw error
+    } finally {
+      await invalidateAppListQuery()
     }
-
-    await invalidateAppListQuery()
-
-    return app
   }
 
   const removeMany = async (apps: Array<IAppModel>): Promise<number> => {
@@ -77,7 +88,7 @@ export const useAppService = (): IAppService => {
 
       await pageService.removeMany(pages)
 
-      await appRepository.delete([app])
+      await appRepository.delete([app], appMapper.toDeleteInput())
 
       await invalidateAppListQuery()
 
@@ -138,37 +149,17 @@ export const useAppService = (): IAppService => {
   //   })
   // }
 
-  const update = async ({ id, name }: IUpdateAppData) => {
-    const app = appDomainService.apps.get(id)
-
-    Validator.assertsDefined(app)
-
-    app.writeCache({ name })
-
-    await appRepository.update(app)
+  const update = async ({ id, name }: IAppUpdateFormData) => {
+    const app = await appRepository.update({
+      update: appMapper.toUpdateInput({ id, name }),
+      where: { id },
+    })
 
     await invalidateAppListQuery()
 
+    Validator.assertsDefined(app)
+
     return app
-  }
-
-  const updatePage = async (data: IUpdatePageData) => {
-    const app = appDomainService.apps.get(data.app.id)
-    const page = app?.page(data.id)
-    const { name, pageContentContainer, urlPattern } = data
-
-    page?.writeCache({
-      app,
-      name,
-      pageContentContainer,
-      urlPattern,
-    })
-
-    if (page) {
-      await pageRepository.update(page)
-    }
-
-    return
   }
 
   const regeneratePagesForApp = async (
@@ -206,7 +197,6 @@ export const useAppService = (): IAppService => {
     regeneratePages: regeneratePagesForApp,
     removeMany: withAsyncSpanFunc({ name: 'AppRemoveMany' }, removeMany),
     update,
-    updatePage,
   }
 }
 

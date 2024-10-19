@@ -2,8 +2,10 @@ import type {
   IAtomModel,
   IAtomRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   AtomCreateInput,
+  AtomDeleteInput,
   AtomOptions,
   AtomUniqueWhere,
   AtomUpdateInput,
@@ -38,13 +40,11 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     return createdAtom
   },
 
-  delete: async (atoms: Array<IAtomModel>) => {
+  delete: async (atoms: Array<IRef>, input: AtomDeleteInput) => {
     const {
       deleteAtoms: { nodesDeleted },
     } = await DeleteAtoms({
-      delete: {
-        api: {},
-      },
+      delete: input,
       where: { id_IN: atoms.map(({ id }) => id) },
     })
 

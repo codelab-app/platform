@@ -1,3 +1,3 @@
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/shared/abstract/core'
 
-export type IUpdateTypeDto = ICreateTypeDto
+export type IUpdateTypeDto = ITypeCreateFormData

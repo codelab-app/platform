@@ -1,5 +1,5 @@
 import type { IFormController } from '@codelab/frontend/abstract/types'
-import type { IUpdatePageData } from '@codelab/shared/abstract/core'
+import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
@@ -24,7 +24,7 @@ export const UpdatePageForm = observer<IFormController>(
     const pageToUpdate = updatePageForm.data?.current
     const closeForm = () => updatePageForm.close()
 
-    const onSubmit = (data: IUpdatePageData) => {
+    const onSubmit = (data: IPageUpdateFormData) => {
       void pageService.update(data)
       closeForm()
       onSubmitSuccess?.()
@@ -32,7 +32,7 @@ export const UpdatePageForm = observer<IFormController>(
       return Promise.resolve()
     }
 
-    const model: Partial<IUpdatePageData> = {
+    const model: Partial<IPageUpdateFormData> = {
       app: pageToUpdate?.app,
       id: pageToUpdate?.id,
       name: pageToUpdate?.name,

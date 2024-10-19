@@ -2,10 +2,13 @@ import type {
   IPageModel,
   IPageRepository,
 } from '@codelab/frontend/abstract/domain'
-import type { IPage } from '@codelab/shared/abstract/core'
+import type { IPage, IRef } from '@codelab/shared/abstract/core'
 import type {
+  PageCreateInput,
+  PageDeleteInput,
   PageOptions,
   PageUniqueWhere,
+  PageUpdateInput,
   PageWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -20,10 +23,10 @@ import {
 } from './page.api.graphql.gen'
 
 export const pageRepository: IPageRepository = {
-  add: async (page: IPageModel) => {
+  add: async (input: PageCreateInput) => {
     const {
       createPages: { pages },
-    } = await CreatePages({ input: page.toCreateInput() })
+    } = await CreatePages({ input })
 
     const createdPage = pages[0]
 
@@ -32,11 +35,11 @@ export const pageRepository: IPageRepository = {
     return createdPage
   },
 
-  delete: async (pages: Array<IPage>) => {
+  delete: async (pages: Array<IRef>, input: PageDeleteInput) => {
     const {
       deletePages: { nodesDeleted },
     } = await DeletePages({
-      delete: Page.toDeleteInput(),
+      delete: input,
       where: { id_IN: pages.map((page) => page.id) },
     })
 
@@ -51,12 +54,18 @@ export const pageRepository: IPageRepository = {
     return (await pageRepository.find(where)).items[0]
   },
 
-  update: async (page: IPageModel) => {
+  update: async ({
+    update,
+    where,
+  }: {
+    update: PageUpdateInput
+    where: PageWhere
+  }) => {
     const {
       updatePages: { pages },
     } = await UpdatePages({
-      update: page.toUpdateInput(),
-      where: { id: page.id },
+      update,
+      where,
     })
 
     const updatedPage = pages[0]

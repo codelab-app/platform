@@ -3,9 +3,9 @@ import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   getUserDomainService,
   type IBaseTypeModel,
-  type ICreateTypeInput,
+  type ITypeCreateInput,
   ITypeTransformContext,
-  type IUpdateTypeVars,
+  type ITypeUpdateVars,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import { connectOwner } from '@codelab/shared/domain-old'
@@ -21,7 +21,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       kind: prop<T>(() => typeKind),
       name: prop<string>(),
     })
-    implements IBaseTypeModel<IBaseTypeDto, ICreateTypeInput, IUpdateTypeVars>
+    implements IBaseTypeModel<IBaseTypeDto, ITypeCreateInput, ITypeUpdateVars>
   {
     @computed
     get toJson() {

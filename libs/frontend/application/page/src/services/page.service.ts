@@ -1,9 +1,9 @@
 import type {
-  ICreatePageData,
+  IPageCreateFormData,
   IElementDto,
   IPropDto,
   IRef,
-  IUpdatePageData,
+  IPageUpdateFormData,
 } from '@codelab/shared/abstract/core'
 import type { PageWhere } from '@codelab/shared/infra/gql'
 
@@ -86,7 +86,7 @@ export const usePageService = (): IPageService => {
     })
   }
 
-  const create = async ({ app, id, name, urlPattern }: ICreatePageData) => {
+  const create = async ({ app, id, name, urlPattern }: IPageCreateFormData) => {
     const rootElementProps: IPropDto = {
       data: '{}',
       id: v4(),
@@ -168,7 +168,7 @@ export const usePageService = (): IPageService => {
     // TODO: refresh pages
   }
 
-  const update = async (data: IUpdatePageData) => {
+  const update = async (data: IPageUpdateFormData) => {
     const app = appDomainService.apps.get(data.app.id)
     const page = app?.page(data.id)
     const { name, pageContentContainer, urlPattern } = data

@@ -131,17 +131,4 @@ export class Prop
   get(key: string) {
     return rProp(this.values, key)
   }
-
-  toCreateInput(): PropCreateInput {
-    return {
-      data: JSON.stringify(this.data.data ?? {}),
-      id: this.id,
-    }
-  }
-
-  toUpdateInput(): PropUpdateInput {
-    return {
-      data: JSON.stringify(this.data.data ?? {}),
-    }
-  }
 }

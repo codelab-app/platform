@@ -1,6 +1,10 @@
+import type { IRef } from '@codelab/shared/abstract/core'
 import type {
+  AppCreateInput,
+  AppDeleteInput,
   AppOptions,
   AppUniqueWhere,
+  AppUpdateInput,
   AppWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -21,11 +25,11 @@ import {
 } from './app.api.graphql.gen'
 
 export const appRepository: IAppRepository = withTracingMethods('app', {
-  add: async (app: IAppModel) => {
+  add: async (input: AppCreateInput) => {
     const {
       createApps: { apps },
     } = await CreateApps({
-      input: [app.toCreateInput()],
+      input,
     })
 
     const createdApp = apps[0]
@@ -35,11 +39,11 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     return createdApp
   },
 
-  delete: async (apps: Array<IAppModel>) => {
+  delete: async (apps: Array<IRef>, input: AppDeleteInput) => {
     const {
       deleteApps: { nodesDeleted },
     } = await DeleteApps({
-      delete: App.toDeleteInput(),
+      delete: input,
       where: { id_IN: apps.map((app) => app.id) },
     })
 
@@ -60,12 +64,18 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     return (await appRepository.find(where)).items[0]
   },
 
-  update: async (app: IAppModel) => {
+  update: async ({
+    update,
+    where,
+  }: {
+    update: AppUpdateInput
+    where: AppWhere
+  }) => {
     const {
       updateApps: { apps },
     } = await UpdateApps({
-      update: app.toUpdateInput(),
-      where: { id: app.id },
+      update,
+      where,
     })
 
     const updatedApp = apps[0]

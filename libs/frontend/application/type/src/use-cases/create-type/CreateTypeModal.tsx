@@ -1,6 +1,6 @@
 'use client'
 
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -22,7 +22,7 @@ export const CreateTypeModal = observer(() => {
   const isOpen = createTypeModal.isOpen
   const closeModal = () => createTypeModal.close()
 
-  const onSubmit = async (data: ICreateTypeDto) => {
+  const onSubmit = async (data: ITypeCreateFormData) => {
     const input = {
       ...data,
       allowedValues: data.allowedValues?.map((val) => ({
@@ -42,7 +42,7 @@ export const CreateTypeModal = observer(() => {
       title={<span className="font-semibold">Create type</span>}
       uiKey={UiKey.TypeModalCreate}
     >
-      <ModalForm.Form<ICreateTypeDto>
+      <ModalForm.Form<ITypeCreateFormData>
         model={{
           id: v4(),
         }}

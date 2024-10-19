@@ -8,6 +8,10 @@ export type IActionUpdateInput =
   | cg.ApiActionUpdateInput
   | cg.CodeActionUpdateInput
 
+export type IActionDeleteInput =
+  | cg.ApiActionDeleteInput
+  | cg.CodeActionDeleteInput
+
 export type IActionConnectInput =
   | cg.ApiActionConnectInput
   | cg.CodeActionConnectInput
@@ -15,7 +19,3 @@ export type IActionConnectInput =
 export type IActionDisconnectInput =
   | cg.ApiActionDisconnectInput
   | cg.CodeActionDisconnectInput
-
-export type IActionDeleteInput =
-  | cg.ApiActionDeleteInput
-  | cg.CodeActionDeleteInput

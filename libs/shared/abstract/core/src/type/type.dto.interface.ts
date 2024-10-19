@@ -1,57 +1,61 @@
+import type {
+  ActionTypeCreateInput,
+  AppTypeCreateInput,
+  ArrayTypeCreateInput,
+  CodeMirrorTypeCreateInput,
+  ElementTypeCreateInput,
+  EnumTypeCreateInput,
+  InterfaceTypeCreateInput,
+  LambdaTypeCreateInput,
+  PageTypeCreateInput,
+  PrimitiveTypeCreateInput,
+  ReactNodeTypeCreateInput,
+  RenderPropTypeCreateInput,
+  RichTextTypeCreateInput,
+  UnionTypeCreateInput,
+} from '@codelab/shared/infra/gql'
 import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import type { ICodeMirrorLanguage } from '../code-mirror-language.enum'
 import type { IElementTypeKind } from '../element'
-import type { IPrimitiveTypeKind } from './primitive-type.enum'
+import type { ICodeMirrorLanguage } from './code-mirror-type/code-mirror-language.enum'
+import type { IPrimitiveTypeKind } from './primitive-type/primitive-type.enum'
 import type { ITypeKind } from './type-kind.enum'
 
+import { ActionTypeDtoSchema, ActionTypeSchema } from './action-type'
 import {
-  ActionTypeDtoSchema,
-  ActionTypeSchema,
-} from './action-type.dto.interface'
-import { AppTypeDtoSchema, AppTypeSchema } from './app-type.dto.interface'
-import { ArrayTypeDtoSchema, ArrayTypeSchema } from './array-type.dto.interface'
+  AppTypeDtoSchema,
+  AppTypeSchema,
+} from './app-type/app-type.dto.interface'
+import { ArrayTypeDtoSchema, ArrayTypeSchema } from './array-type'
 import {
   CodeMirrorTypeDtoSchema,
   CodeMirrorTypeSchema,
-} from './code-mirror-type.dto.interface'
-import {
-  ElementTypeDtoSchema,
-  ElementTypeSchema,
-} from './element-type.dto.interface'
+} from './code-mirror-type/code-mirror-type.dto.interface'
+import { ElementTypeDtoSchema, ElementTypeSchema } from './element-type'
 import {
   EnumTypeDtoSchema,
   EnumTypeSchema,
   type IEnumTypeValueDto,
-} from './enum-type.dto.interface'
-import {
-  InterfaceTypeDtoSchema,
-  InterfaceTypeSchema,
-} from './interface-type.dto.interface'
+} from './enum-type'
+import { InterfaceTypeDtoSchema, InterfaceTypeSchema } from './interface-type'
 import {
   LambdaTypeDtoSchema,
   LambdaTypeSchema,
-} from './lambda-type.dto.interface'
-import { PageTypeDtoSchema, PageTypeSchema } from './page-type.dto.interface'
+} from './lambda-type/lambda-type.dto.interface'
+import { PageTypeDtoSchema, PageTypeSchema } from './page-type'
 import {
   PrimitiveTypeDtoSchema,
   PrimitiveTypeSchema,
-} from './primitive-type.dto.interface'
-import {
-  ReactNodeTypeDtoSchema,
-  ReactNodeTypeSchema,
-} from './react-node-type.dto.interface'
+} from './primitive-type/primitive-type.dto.interface'
+import { ReactNodeTypeDtoSchema, ReactNodeTypeSchema } from './react-node-type'
 import {
   RenderPropTypeDtoSchema,
   RenderPropTypeSchema,
-} from './render-prop-type.dto.interface'
-import {
-  RichTextTypeDtoSchema,
-  RichTextTypeSchema,
-} from './rich-text-type.dto.interface'
-import { UnionTypeDtoSchema, UnionTypeSchema } from './union-type.dto.interface'
+} from './render-prop-type/render-prop-type.dto.interface'
+import { RichTextTypeDtoSchema, RichTextTypeSchema } from './rich-text-type'
+import { UnionTypeDtoSchema, UnionTypeSchema } from './union-type'
 
 export const TypeDtoSchema = Type.Union(
   [
@@ -102,9 +106,9 @@ export type IType = Static<typeof TypeSchema>
  *
  * For the backend, we'll create a type for each sub-type.
  */
-export interface ICreateTypeDto {
+export interface ITypeCreateFormData {
   allowedValues?: Array<IEnumTypeValueDto>
-  arrayTypeId?: string
+  arrayItemTypeId?: string
   elementKind?: IElementTypeKind
   id: string
   kind: ITypeKind
@@ -113,3 +117,5 @@ export interface ICreateTypeDto {
   primitiveKind?: IPrimitiveTypeKind
   unionTypeIds?: Array<string>
 }
+
+export type ITypeCreateDto = ITypeCreateFormData

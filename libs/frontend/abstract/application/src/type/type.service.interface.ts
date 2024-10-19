@@ -3,7 +3,7 @@ import type {
   ITypeModel,
   IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/shared/abstract/core'
 import type {
   IBaseType,
   IBaseTypeOptions,
@@ -13,7 +13,7 @@ import type {
 import type { ICRUDService, IPaginateable, IQueryService } from '../services'
 
 export interface ITypeService
-  extends ICRUDService<ITypeModel, ICreateTypeDto, IUpdateTypeDto>,
+  extends ICRUDService<ITypeModel, ITypeCreateFormData, IUpdateTypeDto>,
     Omit<IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>, 'getAll'>,
     IPaginateable<ITypeModel> {
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>

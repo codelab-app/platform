@@ -1,6 +1,6 @@
 import type {
   IAppDto,
-  ICreatePageData,
+  IPageCreateFormData,
   IUserDto,
 } from '@codelab/shared/abstract/core'
 
@@ -29,7 +29,7 @@ export class PageDomainService {
   ) {}
 
   async createPage(
-    page: ICreatePageData,
+    page: IPageCreateFormData,
     user: ICreatePageUserDto,
     app: ICreatePageAppDto,
   ) {
@@ -47,7 +47,7 @@ export class PageDomainService {
   }
 
   private async addDefaultPage(
-    { id, kind, name, urlPattern }: ICreatePageData,
+    { id, kind, name, urlPattern }: IPageCreateFormData,
     app: ICreatePageAppDto,
   ) {
     const user = this.authService.currentUser

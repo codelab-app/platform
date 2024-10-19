@@ -7,8 +7,6 @@ import type {
 
 import type { IModel } from '../shared'
 
-export interface IUserModel
-  extends IUserDto,
-    IModel<UserCreateInput, UserUpdateInput, UserDeleteInput, IUser> {
+export interface IUserModel extends IUserDto, IModel<IUser> {
   setId(id: string): void
 }

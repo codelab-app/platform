@@ -12,12 +12,7 @@ import type { IModel } from '../shared/models/model.interface'
 
 export interface IDomainModel
   extends ICacheService<IDomainDto, IDomainModel>,
-    IModel<
-      DomainCreateInput,
-      DomainUpdateInput,
-      DeleteDomainsMutationVariables,
-      IDomain
-    > {
+    IModel<IDomain> {
   app: IRef
   domainConfig: Maybe<ProductionDomainConfig>
   id: string

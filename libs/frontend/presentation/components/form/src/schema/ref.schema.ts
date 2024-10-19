@@ -6,13 +6,17 @@ import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
  */
 export const refSchema = <T extends string>(
   key: T,
-  { disabled, label }: { label?: string; disabled?: boolean },
+  options?: { label?: string; disabled?: boolean },
 ) => {
   return {
     [key]: {
       type: 'object',
       properties: {
-        id: { type: 'string', label, disabled },
+        id: {
+          type: 'string',
+          label: options?.label,
+          disabled: options?.disabled,
+        },
       },
       required: ['id'],
     },
