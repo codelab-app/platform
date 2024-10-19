@@ -11,9 +11,11 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { v4 } from 'uuid'
 
+import { seedAppData } from '../builder/builder.data'
+
 export const componentName = 'Component Name'
-export const spaceElementName = IAtomType.AntDesignSpace
-export const typographyElementName = IAtomType.AntDesignTypographyText
+export const spaceElementName = 'Space Item'
+export const typographyElementName = 'Typography Item'
 export const spaceElementId = v4()
 export const componentId = v4()
 export const pageId = v4()
@@ -54,8 +56,7 @@ export const builderElements = [
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const appResponse = await request.post('/api/v1/app/seed-cypress-app')
-  const app = await appResponse.json()
+  const app = await seedAppData(request)
 
   await request.post('/api/v1/page/create-page', {
     data: regularPageCreateData(app),

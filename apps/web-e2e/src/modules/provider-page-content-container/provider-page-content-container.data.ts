@@ -11,6 +11,8 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
+import { seedAppData } from '../builder/builder.data'
+
 export const pageId = v4()
 export const pageName = 'Test Page'
 export const pageContentContainerName = 'Provider Card'
@@ -42,8 +44,7 @@ export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
 })
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const appResponse = await request.post('/api/v1/app/seed-cypress-app')
-  const app = await appResponse.json()
+  const app = await seedAppData(request)
 
   const regularPageResponse = await request.post('/api/v1/page/create-page', {
     data: regularPageCreateData(app),

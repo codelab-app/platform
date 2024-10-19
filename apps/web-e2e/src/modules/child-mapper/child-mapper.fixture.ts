@@ -160,19 +160,6 @@ export class ChildMapperPage extends BuilderPage {
       await expect(renderedElement).toContainText(content!)
     }
   }
-
-  private async checkElementTreeStructure(expectedTreeElements: Array<string>) {
-    const elementsTree = this.getElementsTree()
-    const treeElements = elementsTree.locator('.ant-tree-treenode')
-
-    await expect(treeElements).toHaveCount(expectedTreeElements.length + 1)
-
-    for (let i = 0; i < expectedTreeElements.length; i++) {
-      await expect(treeElements.nth(i + 1)).toContainText(
-        expectedTreeElements[i]!,
-      )
-    }
-  }
 }
 
 export const test = base.extend<{ builderPage: ChildMapperPage }>({

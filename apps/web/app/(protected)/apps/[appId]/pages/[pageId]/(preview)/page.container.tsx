@@ -14,7 +14,7 @@ export const PagePreviewPageContainer = observer(
       <PageBuilder
         RootRenderer={RootRenderer}
         page={page}
-        rendererType={RendererType.PageBuilder}
+        rendererType={RendererType.Preview}
       />
     )
   },

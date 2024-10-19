@@ -1,5 +1,4 @@
 import type {
-  IApp,
   IAppDto,
   ICreateElementData,
   ICreatePageData,
@@ -10,6 +9,8 @@ import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
+
+import { seedAppData } from '../builder/builder.data'
 
 export const testUrlProps = {
   subtestId: 'second-url-segment',
@@ -93,8 +94,7 @@ export const buildTestPages = (app: IAppDto) => {
 }
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const appResponse = await request.post('/api/v1/app/seed-cypress-app')
-  const app: IApp = await appResponse.json()
+  const app = await seedAppData(request)
   const pages = buildTestPages(app)
 
   const page: IPage = findOrFail(

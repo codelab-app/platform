@@ -14,13 +14,8 @@ export const useOverrideAtomProps = (
   props: IPropData,
   atomType?: IAtomType,
 ): IPropData => {
-  const isPreviewMode = RendererType.Preview === renderer.rendererType
-
-  const inBuilderMode = [
-    RendererType.ComponentBuilder,
-    RendererType.PageBuilder,
-  ].includes(renderer.rendererType)
-
+  const inPreviewMode = RendererType.Preview === renderer.rendererType
+  const inBuilderMode = renderer.isBuilder
   const builderOverrideProps: IPropData = {}
 
   // Disables any in-app navigation in builder mode
@@ -28,7 +23,7 @@ export const useOverrideAtomProps = (
     builderOverrideProps['href'] = '#'
   }
 
-  if (isPreviewMode && !isNullish(props['href'])) {
+  if (inPreviewMode && !isNullish(props['href'])) {
     const page = renderer.runtimePage?.page.maybeCurrent
     const app = page?.app.maybeCurrent
     const pages = app?.pages ?? []

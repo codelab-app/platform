@@ -1,4 +1,7 @@
-import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
+import type {
+  IApp,
+  ICreateCypressElementData,
+} from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
 
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -70,8 +73,8 @@ export const builderElements = [
   elementColC,
 ]
 
-export const seedTestData = async (request: APIRequestContext) => {
+export const seedAppData = async (request: APIRequestContext) => {
   const result = await request.post('/api/v1/app/seed-cypress-app')
 
-  return result.json()
+  return result.json() as Promise<IApp>
 }

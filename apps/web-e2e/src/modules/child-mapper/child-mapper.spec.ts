@@ -79,3 +79,7 @@ test('should not render instances when the prop is not an array', async ({
 
   await expect(page.getNotification()).toBeHidden()
 })
+
+test.afterAll('cleanup created components', async ({ request }) => {
+  await request.post('/api/v1/admin/setup-e2e-data')
+})

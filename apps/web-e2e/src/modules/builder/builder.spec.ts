@@ -7,7 +7,7 @@ import {
   elementColA,
   elementColB,
   elementColC,
-  seedTestData,
+  seedAppData,
 } from './builder.data'
 import { test } from './builder.fixture'
 
@@ -19,7 +19,7 @@ test.beforeAll(async ({ request }, testInfo) => {
   // db reset, app seed and test data seed may sometimes take longer than default 60s
   test.setTimeout(testInfo.timeout + 30000)
 
-  app = await seedTestData(request)
+  app = await seedAppData(request)
 })
 
 test.beforeEach(async ({ builderPage: page }) => {
@@ -27,6 +27,7 @@ test.beforeEach(async ({ builderPage: page }) => {
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getFormFieldSpinner()).toHaveCount(0)
 })
 
 test('should be able to create element tree', async ({ builderPage: page }) => {

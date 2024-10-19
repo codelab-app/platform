@@ -9,7 +9,10 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
+import { seedAppData } from '../builder/builder.data'
+
 export const componentName = 'Container'
+export const textContent = 'Text Element Content'
 
 export const elementContainer = {
   atom: IAtomType.ReactFragment,
@@ -36,6 +39,13 @@ export const elementTextCreateData = {
   id: v4(),
   name: 'Text',
   parentElement: elementColCreateData,
+  propsData: `{
+    "children": {
+      "kind": "RichTextType",
+      "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+      "value": "<p class=\\"editor-paragraph\\">${textContent}</p>"     
+    }
+  }`,
 }
 
 export const providerPageElements = (
@@ -51,8 +61,7 @@ export const providerPageElements = (
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const appResponse = await request.post('/api/v1/app/seed-cypress-app')
-  const app = await appResponse.json()
+  const app = await seedAppData(request)
 
   const page: IPage = findOrFail(
     app.pages,

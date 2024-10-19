@@ -1,10 +1,3 @@
-import type {
-  IAtomModel,
-  IComponentModel,
-  ITagModel,
-  ITypeModel,
-} from '@codelab/frontend/abstract/domain'
-
 import {
   builderServiceContext,
   type IApplicationStore,
@@ -21,6 +14,14 @@ import {
   runtimeElementServiceContext,
   runtimePageServiceContext,
 } from '@codelab/frontend/abstract/application'
+import {
+  type IAtomModel,
+  type IComponentModel,
+  type IDomainStore,
+  type ITagModel,
+  type ITypeModel,
+  preferenceDomainServiceContext,
+} from '@codelab/frontend/abstract/domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
   RendererService,
@@ -38,7 +39,7 @@ export const createApplicationStore = withSpanFunc(
     name: 'createApplicationStore',
     op: 'codelab.mobx',
   },
-  (router: IRouterProps) => {
+  (router: IRouterProps, domainStore: IDomainStore) => {
     @model('@codelab/ApplicationIStore')
     class ApplicationStore
       extends Model({
@@ -74,6 +75,10 @@ export const createApplicationStore = withSpanFunc(
         runtimePageServiceContext.set(this, this.runtimePageService)
         routerServiceContext.set(this, this.routerService)
         builderServiceContext.set(this, this.builderService)
+        preferenceDomainServiceContext.set(
+          this,
+          domainStore.preferenceDomainService,
+        )
       }
     }
 

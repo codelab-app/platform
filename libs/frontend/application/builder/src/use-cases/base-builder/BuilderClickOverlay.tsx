@@ -122,20 +122,11 @@ export const BuilderClickOverlay = observer<{
               `}
               style={{ backgroundColor: '#375583', color: 'white' }}
             >
-              <div
-                aria-label="Toggle Content Editing"
-                className={`
-                  flex size-5 items-center
-                  justify-center rounded-full align-middle
-                `}
-                style={{ backgroundColor: '#375583', color: 'white' }}
-              >
-                {element.isTextContentEditable ? (
-                  <CheckOutlined />
-                ) : (
-                  <EditOutlined />
-                )}
-              </div>
+              {element.isTextContentEditable ? (
+                <CheckOutlined />
+              ) : (
+                <EditOutlined />
+              )}
             </div>
           </div>
         )}

@@ -101,14 +101,12 @@ export const useCloneElementService = ({
 
     builderService.setSelectedNode(null)
 
-    const createdComponent: IComponentModel = await componentService.create({
-      id: v4(),
-      name,
-      rootElement: { id: element.id },
-    })
+    const createdComponent = await componentService.create({ id: v4(), name })
 
     await cloneElementStore(element, createdComponent)
+
     element.detachFromTree()
+    element.attachAsFirstChild(createdComponent.rootElement.current)
     element.setParentComponent(componentRef(createdComponent.id))
 
     await elementService.syncModifiedElements()

@@ -77,7 +77,7 @@ export const Dashboard = withProfiler(
                 <ProgressBar />
                 {/* We want the popover to overlay on top of the main, so we put it inside here */}
                 {SecondaryPopover}
-                <div className="w-full p-3">{children}</div>
+                <div className="size-full p-3">{children}</div>
               </CuiPanel>
 
               {ConfigPane && (

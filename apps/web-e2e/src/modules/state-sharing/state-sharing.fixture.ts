@@ -1,4 +1,5 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { test as base, expect } from '@playwright/test'
 
 import { BuilderPage } from '../builder/builder.fixture'
@@ -6,7 +7,6 @@ import {
   componentId,
   spaceElementName,
   typographyElement,
-  typographyElementName,
 } from './state-sharing.data'
 
 /**
@@ -17,11 +17,11 @@ export class StateSharingPage extends BuilderPage {
     const stateAccordion = this.getStateAccordion()
 
     const createVariable = stateAccordion.getByTestId(
-      'cui-toolbar-item-CreateFieldToolbarItem',
+      'cui-toolbar-item-create-field-toolbar-item',
     )
 
     const submitButton = this.getButton({ text: 'Create' })
-    const modal = this.getModalForm(UiKey.CreateElementPopover)
+    const modal = this.getModalForm(UiKey.ElementPopoverCreate)
 
     await createVariable.click()
     await this.setFormFieldValue('Key', 'name')
@@ -37,8 +37,15 @@ export class StateSharingPage extends BuilderPage {
   }
 
   async expandElementsTree() {
-    const space = this.getTreeElement(spaceElementName)
-    const typography = this.getTreeElement(typographyElementName)
+    const space = this.getTreeElement(
+      spaceElementName,
+      IAtomType.AntDesignSpace,
+    )
+
+    const typography = this.getTreeElement(
+      typographyElement.name,
+      typographyElement.atom,
+    )
 
     await this.page.getByLabel('plus-square').click()
     await expect(space).toBeVisible()

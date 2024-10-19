@@ -4,6 +4,7 @@ import type {
   IMoveElementContext,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
@@ -33,6 +34,8 @@ export type UpdateElementProperties = {
 
 export interface IElementService {
   // Moved from element model to decouple renderer
+
+  createPopover: IPopover
 
   createElement(data: IElementDto): Promise<IElementModel>
   deleteElement(subRoot: IElementModel): Promise<void>

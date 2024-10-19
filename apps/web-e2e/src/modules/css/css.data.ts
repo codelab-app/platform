@@ -15,10 +15,3 @@ export const buttonElement = {
   parentElement: ROOT_ELEMENT_NAME,
 }
 export const providerPageElements = [buttonElement]
-
-export const seedTestData = async (request: APIRequestContext) => {
-  const appResponse = await request.post('/api/v1/app/seed-cypress-app')
-  const app = await appResponse.json()
-
-  return app
-}

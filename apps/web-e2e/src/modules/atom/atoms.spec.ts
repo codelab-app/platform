@@ -77,3 +77,7 @@ test('it should be able to create the same atom again', async ({
 
   await expect(page.getAtomName()).toBeVisible()
 })
+
+test.afterAll('cleanup created atoms', async ({ request }) => {
+  await request.post('/api/v1/admin/setup-e2e-data')
+})

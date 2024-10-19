@@ -40,6 +40,21 @@ export class BuilderPage extends BasePage {
     await expect(thirdColTypography).toContainText('Ant Design Text Element')
   }
 
+  async checkElementTreeStructure(expectedTreeElements: Array<string>) {
+    const elementsTree = this.getElementsTree()
+    const treeElements = elementsTree.locator('.ant-tree-treenode')
+
+    for (let i = 0; i < expectedTreeElements.length; i++) {
+      await expect(treeElements.nth(i + 1)).toContainText(
+        expectedTreeElements[i]!,
+      )
+
+      if (await this.page.getByLabel('plus-square').isVisible()) {
+        await this.page.getByLabel('plus-square').click()
+      }
+    }
+  }
+
   async checkPageHeaderTitle(items: Array<string>) {
     const pageHeaderClass = CuiTestId.cuiHeader()
 
@@ -177,7 +192,7 @@ export class BuilderPage extends BasePage {
   }
 
   getUpdateElementForm() {
-    return this.page.getByTestId('cui-form-UpdateElementForm')
+    return this.page.getByTestId('cui-form-update-element-form')
   }
 
   async goto(appId: string, pageId: string) {
@@ -188,11 +203,11 @@ export class BuilderPage extends BasePage {
 
   async openBuilder() {
     const openPreviewButton = this.page.getByTestId(
-      'cui-toolbar-item-OpenPreviewBuilderToolbarItem',
+      'cui-toolbar-item-open-preview-builder-toolbar-item',
     )
 
     const openBuilderButton = this.page.getByTestId(
-      'cui-toolbar-item-OpenBuilderBuilderToolbarItem',
+      'cui-toolbar-item-open-builder-builder-toolbar-item',
     )
 
     await openBuilderButton.click()
@@ -203,11 +218,11 @@ export class BuilderPage extends BasePage {
 
   async openPreview() {
     const openPreviewButton = this.page.getByTestId(
-      'cui-toolbar-item-OpenPreviewBuilderToolbarItem',
+      'cui-toolbar-item-open-preview-builder-toolbar-item',
     )
 
     const openBuilderButton = this.page.getByTestId(
-      'cui-toolbar-item-OpenBuilderBuilderToolbarItem',
+      'cui-toolbar-item-open-builder-builder-toolbar-item',
     )
 
     await openPreviewButton.click()

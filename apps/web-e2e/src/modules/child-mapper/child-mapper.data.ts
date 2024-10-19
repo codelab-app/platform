@@ -1,5 +1,4 @@
 import type {
-  IApp,
   ICreateComponentData,
   ICreateElementData,
   IPageDto,
@@ -8,6 +7,8 @@ import type {
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
+
+import { seedAppData } from '../builder/builder.data'
 
 export const childMapperComponent: ICreateComponentData = {
   id: v4(),
@@ -59,8 +60,7 @@ export const providerPageElements = (
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const appResponse = await request.post('/api/v1/app/seed-cypress-app')
-  const app: IApp = await appResponse.json()
+  const app = await seedAppData(request)
   const page = app.pages[0]!
 
   await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {

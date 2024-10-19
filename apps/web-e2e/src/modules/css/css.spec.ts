@@ -1,13 +1,13 @@
 import { type IApp } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
 
+import { seedAppData } from '../builder/builder.data'
 import {
   backgroundColor1,
   backgroundColor2,
   buttonElement,
   defaultColor,
   displayNone,
-  seedTestData,
 } from './css.data'
 import { test } from './css.fixture'
 
@@ -19,7 +19,7 @@ test.beforeAll(async ({ request }, testInfo) => {
   // db reset, app seed and test data seed may sometimes take longer than default 60s
   test.setTimeout(testInfo.timeout + 30000)
 
-  app = await seedTestData(request)
+  app = await seedAppData(request)
 })
 
 test.beforeEach(async ({ builderPage: page }) => {

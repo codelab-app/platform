@@ -3,11 +3,10 @@
 import type { UiKey } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
-import { useMemo, useRef } from 'react'
+import { useRef } from 'react'
 
 import type { CuiSidebarToolbarProps } from '../../views'
 
-import { CuiSidebarPopoverLayout } from '../CuiSidebarPopover'
 import { CuiSidebarLayout } from './layout/CuiSidebarLayout'
 import { CuiSidebarBody } from './views/CuiSidebarBody'
 import { CuiSidebarHeader } from './views/CuiSidebarHeader'
@@ -46,20 +45,18 @@ export interface CuiSidebarProps {
 export const CuiSidebar = ({
   defaultActiveViewKeys,
   label,
-  popover,
   uiKey,
   views,
 }: CuiSidebarProps) => {
   const popoverAnchorRef = useRef<HTMLDivElement>(null)
   const toolbar = views.length === 1 ? views[0]?.toolbar : undefined
-  const memoizedViews = useMemo(() => views, [])
 
   return (
     <CuiSidebarLayout popoverAnchorRef={popoverAnchorRef} uiKey={uiKey}>
       <CuiSidebarHeader label={label} toolbar={toolbar} />
       <CuiSidebarBody
         defaultActiveViewKeys={defaultActiveViewKeys}
-        views={memoizedViews}
+        views={views}
       />
     </CuiSidebarLayout>
   )

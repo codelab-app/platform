@@ -7,8 +7,11 @@ import type {
   IFieldDto,
   IRef,
 } from '@codelab/shared/abstract/core'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { type IFieldService } from '@codelab/frontend/abstract/application'
+import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -18,6 +21,7 @@ import { v4 } from 'uuid'
 import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
+  const { appId, componentId, pageId } = useUrlPathParams()
   const { fieldDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
@@ -198,9 +202,24 @@ export const useFieldService = (): IFieldService => {
     return filter(affectedNodeIds, isTruthy)
   }
 
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/create-field`)
+    },
+  }
+
   return {
     cloneField,
     create,
+    createPopover,
     moveFieldAsNextSibling,
     moveFieldAsPrevSibling,
     removeMany,

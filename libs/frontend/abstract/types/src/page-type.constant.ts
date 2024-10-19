@@ -31,7 +31,7 @@ export const PageType = {
   },
   AuthGuards: () => '/auth-guards',
   ComponentBuilder: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
-    `/components/${componentId}/builder/component`,
+    `/components/${componentId}/builder`,
   ComponentCreate: () => {
     return `${PageType.Components()}/create`
   },
