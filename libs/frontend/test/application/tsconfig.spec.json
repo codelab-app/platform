@@ -5,6 +5,7 @@
     "types": ["jest", "node", "@testing-library/jest-dom"]
   },
   "include": [
+    "jest.mocks.ts",
     "vite.config.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
