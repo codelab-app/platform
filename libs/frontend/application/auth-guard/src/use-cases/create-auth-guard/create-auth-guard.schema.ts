@@ -1,6 +1,6 @@
 import type { JSONSchemaType } from 'ajv'
 
-import { type ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import { type IAuthGuardCreateFormData } from '@codelab/frontend/abstract/domain'
 import { SelectResource } from '@codelab/frontend/presentation/components/interface-form'
 import {
   CodeMirrorField,
@@ -9,15 +9,17 @@ import {
 import {
   idSchema,
   nonEmptyString,
+  ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { keys } from 'remeda'
 
-export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
+export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
   properties: {
     ...idSchema(),
+    ...ownerSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,

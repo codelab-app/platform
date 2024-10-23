@@ -1,6 +1,6 @@
 'use client'
 
-import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardUpdateFormData } from '@codelab/frontend/abstract/domain'
 import type { Context } from 'uniforms'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
@@ -42,13 +42,13 @@ export const UpdateAuthGuardForm = observer(() => {
     responseTransformer: authGuard.responseTransformer,
   }
 
-  const onSubmit = (authGuardDto: IUpdateAuthGuardData) => {
+  const onSubmit = (authGuardDto: IAuthGuardUpdateFormData) => {
     void authGuardService.update(authGuardDto)
 
     return Promise.resolve()
   }
 
-  const getResource = (context: Context<IUpdateAuthGuardData>) => {
+  const getResource = (context: Context<IAuthGuardUpdateFormData>) => {
     const resourceId = context.model.resource?.id
 
     return resourceId
@@ -57,7 +57,7 @@ export const UpdateAuthGuardForm = observer(() => {
   }
 
   return (
-    <Form<IUpdateAuthGuardData>
+    <Form<IAuthGuardUpdateFormData>
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createFormErrorNotificationHandler({

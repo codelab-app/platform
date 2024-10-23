@@ -1,4 +1,5 @@
 import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { IAuthGuardDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   AuthGuardCreateInput,
   AuthGuardDeleteInput,
@@ -12,9 +13,7 @@ import type { IRepository } from '../shared'
 import type { IAuthGuardModel } from './auth-guard.model.interface'
 
 export type IAuthGuardRepository = IRepository<
-  AuthGuardCreateInput,
-  AuthGuardUpdateInput,
-  AuthGuardDeleteInput,
+  IAuthGuardDto,
   AuthGuardFragment,
   AuthGuardWhere,
   AuthGuardOptions

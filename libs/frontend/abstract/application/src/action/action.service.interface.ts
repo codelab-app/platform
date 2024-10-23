@@ -3,17 +3,17 @@ import type {
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
 import type {
+  IActionDto,
   ICreateActionData,
+  IRef,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import type { ApiActionOptions } from '@codelab/shared/infra/gql'
 
-import type { ICRUDService, IQueryService } from '../services'
+import type { ICrudService, IQueryService } from '../services'
 
 export interface IActionService
-  extends ICRUDService<IActionModel, ICreateActionData, IUpdateActionData>,
+  extends ICrudService<IRef, ICreateActionData, IUpdateActionData>,
     IQueryService<IActionModel, IActionWhere, ApiActionOptions> {
-  // createForm: IEntityFormService<Ref<IStoreModel>, { store?: IStoreModel }>
-
-  cloneAction(action: IActionModel, storeId: string): Promise<IActionModel>
+  cloneAction(action: IActionModel, storeId: string): Promise<IRef>
 }

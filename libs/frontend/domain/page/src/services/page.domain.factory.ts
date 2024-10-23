@@ -11,7 +11,7 @@ import type {
   IInterfaceTypeDto,
   IPageCreateFormData,
   IStoreDto,
-  ITypeCreateFormData,
+  ITypeDto,
   IUserDto,
 } from '@codelab/shared/abstract/core'
 
@@ -55,7 +55,9 @@ export class PageDomainFactory implements IPageDomainFactory {
   ) {
     const userName = this.owner.username
 
-    const pageStoreApi: ITypeCreateFormData = {
+    const pageStoreApi: IInterfaceTypeDto = {
+      __typename: 'InterfaceType',
+      fields: [],
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${app.name}(${userName}) ${name} Store`),
@@ -67,7 +69,7 @@ export class PageDomainFactory implements IPageDomainFactory {
       name: Store.createName({ name }),
     }
 
-    const pageRootElement: IElementCreateDto = {
+    const pageRootElement: IElementDto = {
       closestContainerNode: {
         id,
       },

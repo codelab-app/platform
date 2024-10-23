@@ -35,8 +35,7 @@ export interface IComponentModel
    * keeps track of source component in case this is a duplicate
    */
   sourceComponent?: Nullable<IRef>
-  store: Ref<IStoreModel>
-
+  store: Ref<IStoreModel> & { api: Ref<IInterfaceTypeModel> }
   setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: IPropModel): void
   setSourceComponent(entity: IRef): void

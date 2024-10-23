@@ -18,12 +18,6 @@ import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import {
-  connectNodeId,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeIds,
-} from '@codelab/shared/domain-old'
 import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
 import {
   antdAtoms,
@@ -143,26 +137,6 @@ export class Atom
   }
 
   @modelAction
-  toUpdateInput(): AtomUpdateInput {
-    return {
-      api: this.api.id ? connectNodeId(this.api.id) : undefined,
-      externalCssSource: this.externalCssSource,
-      externalJsSource: this.externalJsSource,
-      externalSourceType: this.externalSourceType,
-      id: this.id,
-      name: this.name,
-      requiredParents: reconnectNodeIds(
-        this.requiredParents.map((parent) => parent.current.id),
-      ),
-      suggestedChildren: reconnectNodeIds(
-        this.suggestedChildren.map((child) => child.current.id),
-      ),
-      tags: reconnectNodeIds(this.tags.map((tag) => tag.current.id)),
-      type: this.type,
-    }
-  }
-
-  @modelAction
   writeCache(
     {
       api,
@@ -191,10 +165,5 @@ export class Atom
     this.requiredParents = requiredParents.map((child) => atomRef(child.id))
 
     return this
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }

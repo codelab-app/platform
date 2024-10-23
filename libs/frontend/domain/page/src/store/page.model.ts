@@ -85,18 +85,6 @@ export class Page
 {
   static create = create
 
-  static toDeleteInput(): PageDeleteInput {
-    return {
-      redirect: { where: {} },
-      // pageContentContainer: { delete: {}, where: {} },
-      rootElement: {},
-      store: {
-        delete: Store.toDeleteInput(),
-        where: {},
-      },
-    }
-  }
-
   /**
    * /home /apps/codelab/test/pages/home?primarySidebarKey=explorer
    */

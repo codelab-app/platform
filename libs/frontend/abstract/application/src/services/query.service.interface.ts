@@ -1,7 +1,7 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
-export interface ICRUDService<
+export interface ICrudService<
   Entity extends IRef,
   CreateData,
   UpdateData extends IRef,

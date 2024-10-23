@@ -59,12 +59,6 @@ export class ApiAction
 {
   static create = create
 
-  static toDeleteInput(): ApiActionDeleteInput {
-    return {
-      config: { where: {} },
-    }
-  }
-
   @computed
   get toJson() {
     return {
@@ -98,59 +92,5 @@ export class ApiAction
       : this.successAction
 
     return this
-  }
-
-  toCreateInput(): ApiActionCreateInput {
-    return {
-      config: {
-        create: {
-          node: this.config.toCreateInput(),
-        },
-      },
-      // empty object errorAction: {} causes validation error
-      errorAction: this.errorAction?.id
-        ? {
-            ApiAction: connectNodeId(this.errorAction.id),
-            CodeAction: connectNodeId(this.errorAction.id),
-          }
-        : undefined,
-      id: this.id,
-      name: this.name,
-      resource: connectNodeId(this.resource.id),
-      store: connectNodeId(this.store.id),
-      // empty object successAction: {} causes validation error
-      successAction: this.successAction?.id
-        ? {
-            ApiAction: connectNodeId(this.successAction.id),
-            CodeAction: connectNodeId(this.successAction.id),
-          }
-        : undefined,
-    }
-  }
-
-  toUpdateInput(): ApiActionUpdateInput {
-    return {
-      config: {
-        update: {
-          node: this.config.toUpdateInput(),
-        },
-      },
-      // empty object errorAction: {} causes validation error
-      errorAction: this.errorAction?.id
-        ? {
-            ApiAction: connectNodeId(this.errorAction.id),
-            CodeAction: connectNodeId(this.errorAction.id),
-          }
-        : undefined,
-      name: this.name,
-      resource: { ...connectNodeId(this.resource.id), ...disconnectAll() },
-      // empty object successAction: {} causes validation error
-      successAction: this.successAction?.id
-        ? {
-            ApiAction: connectNodeId(this.successAction.id),
-            CodeAction: connectNodeId(this.successAction.id),
-          }
-        : undefined,
-    }
   }
 }

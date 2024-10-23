@@ -1,32 +1,23 @@
+import type { IMapper, IUserDto } from '@codelab/shared/abstract/core'
+
+import { ITypeKind } from '@codelab/shared/abstract/core'
+
 import type {
-  IMapper,
   ITypeCreateInput,
   ITypeDeleteInput,
   ITypeUpdateInput,
-} from '@codelab/frontend/abstract/domain'
-import type { ITypeCreateDto, IUserDto } from '@codelab/shared/abstract/core'
+} from './type.input.interface'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import {
-  connectNodeId,
-  connectOwner,
-  makeAllTypes,
-} from '@codelab/shared/domain-old'
+import { connectNodeId, connectOwner } from '../orm'
+import { makeAllTypes } from './type-input.factory'
 
-import { createTypeApi } from './type.api'
-
-export class TypeMapper
-  implements
-    IMapper<
-      ITypeCreateDto,
-      ITypeCreateInput,
-      ITypeUpdateInput,
-      ITypeDeleteInput
-    >
-{
-  constructor(private owner: IUserDto) {}
-
-  toCreateInput(
+export const typeMapper: IMapper<
+  ITypeCreateDto,
+  ITypeCreateInput,
+  ITypeUpdateInput,
+  ITypeDeleteInput
+> = {
+  toCreateInput: (
     {
       allowedValues,
       arrayItemTypeId,
@@ -38,13 +29,14 @@ export class TypeMapper
       primitiveKind,
       unionTypeIds,
     }: ITypeCreateDto,
+    owner: IUserDto,
     ...args: Array<unknown>
-  ): ITypeCreateInput {
+  ): ITypeCreateInput => {
     const baseType = {
       id,
       kind,
       name,
-      owner: connectOwner(this.owner),
+      owner: connectOwner(owner),
     }
 
     switch (kind) {
@@ -103,5 +95,43 @@ export class TypeMapper
       default:
         throw new Error('Unsupported type kind')
     }
-  }
+  },
+
+  toDeleteInput: (kind: ITypeKind): ITypeDeleteInput => {
+    const baseType = {}
+
+    switch (kind) {
+      case ITypeKind.ActionType:
+      case ITypeKind.AppType:
+      case ITypeKind.CodeMirrorType:
+      case ITypeKind.ElementType:
+      case ITypeKind.InterfaceType:
+      case ITypeKind.LambdaType:
+      case ITypeKind.PageType:
+      case ITypeKind.PrimitiveType:
+      case ITypeKind.ReactNodeType:
+      case ITypeKind.RenderPropType:
+      case ITypeKind.RichTextType:
+      case ITypeKind.UnionType:
+        return baseType
+
+      case ITypeKind.ArrayType:
+        return {
+          ...baseType,
+          itemType: { where: {} },
+        }
+      case ITypeKind.EnumType:
+        return {
+          ...baseType,
+          allowedValues: [{ where: {} }],
+        }
+
+      default:
+        throw new Error('Unsupported type kind')
+    }
+  },
+
+  toUpdateInput: (dto: ITypeUpdateDto): ITypeUpdateInput => {
+    return {}
+  },
 }

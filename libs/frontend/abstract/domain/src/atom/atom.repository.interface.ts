@@ -13,9 +13,7 @@ import type { IRepository } from '../shared'
 import type { IAtomModel } from './atom.model.interface'
 
 export type IAtomRepository = IRepository<
-  AtomCreateInput,
-  AtomUpdateInput,
-  AtomDeleteInput,
+  IAtomDto,
   AtomFragment,
   AtomWhere,
   AtomOptions

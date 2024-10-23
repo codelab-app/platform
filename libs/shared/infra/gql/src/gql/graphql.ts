@@ -289,6 +289,7 @@ export type ActionTypeUniqueWhere = {
 
 export type ActionTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -2303,6 +2304,7 @@ export type AppTypeSubscriptionWhere = {
 
 export type AppTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -2364,7 +2366,6 @@ export type AppUniqueWhere = {
 export type AppUpdateInput = {
   compositeKey?: InputMaybe<Scalars['String']['input']>
   domains?: InputMaybe<Array<AppDomainsUpdateFieldInput>>
-  id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
 }
@@ -3037,6 +3038,7 @@ export type ArrayTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
   itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -4774,7 +4776,6 @@ export type AtomUpdateInput = {
   externalJsSource?: InputMaybe<Scalars['String']['input']>
   externalSourceType?: InputMaybe<Scalars['String']['input']>
   icon?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   requiredParents?: InputMaybe<Array<AtomRequiredParentsUpdateFieldInput>>
@@ -5491,7 +5492,6 @@ export type AuthGuardUniqueWhere = {
 
 export type AuthGuardUpdateInput = {
   config?: InputMaybe<AuthGuardConfigUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
@@ -6720,6 +6720,7 @@ export type CodeMirrorTypeSubscriptionWhere = {
 
 export type CodeMirrorTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   language?: InputMaybe<CodeMirrorLanguage>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
@@ -7708,7 +7709,6 @@ export type ComponentUniqueWhere = {
 export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   compositeKey?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
@@ -8268,7 +8268,6 @@ export type DomainUniqueWhere = {
 
 export type DomainUpdateInput = {
   app?: InputMaybe<DomainAppUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -10987,6 +10986,7 @@ export type ElementTypeSubscriptionWhere = {
 export type ElementTypeUpdateInput = {
   elementKind?: InputMaybe<ElementTypeKind>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -11054,7 +11054,6 @@ export type ElementUpdateInput = {
   compositeKey?: InputMaybe<Scalars['String']['input']>
   expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   page?: InputMaybe<ElementPageUpdateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentUpdateFieldInput>
@@ -11851,6 +11850,7 @@ export type EnumTypeUpdateInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -13117,7 +13117,6 @@ export type FieldUpdateInput = {
   defaultValues?: InputMaybe<Scalars['String']['input']>
   description?: InputMaybe<Scalars['String']['input']>
   fieldType?: InputMaybe<FieldFieldTypeUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   key?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   nextSibling?: InputMaybe<FieldNextSiblingUpdateFieldInput>
@@ -13799,7 +13798,6 @@ export type HookSubscriptionWhere = {
 export type HookUpdateInput = {
   config?: InputMaybe<HookConfigUpdateFieldInput>
   element?: InputMaybe<HookElementUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<AtomType>
 }
 
@@ -14176,6 +14174,7 @@ export type IBaseTypeSubscriptionWhere = {
 export type IBaseTypeUpdateInput = {
   _on?: InputMaybe<IBaseTypeImplementationsUpdateInput>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -15134,6 +15133,7 @@ export type InterfaceTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -15477,6 +15477,7 @@ export type LambdaTypeSubscriptionWhere = {
 
 export type LambdaTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -17624,6 +17625,7 @@ export type PageTypeSubscriptionWhere = {
 
 export type PageTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -17685,7 +17687,6 @@ export type PageUniqueWhere = {
 export type PageUpdateInput = {
   app?: InputMaybe<PageAppUpdateFieldInput>
   compositeKey?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<PageKind>
   pageContentContainer?: InputMaybe<PagePageContentContainerUpdateFieldInput>
   redirect?: InputMaybe<PageRedirectUpdateFieldInput>
@@ -18010,7 +18011,6 @@ export type PreferenceUpdateInput = {
   builderWidth_DIVIDE?: InputMaybe<Scalars['Float']['input']>
   builderWidth_MULTIPLY?: InputMaybe<Scalars['Float']['input']>
   builderWidth_SUBTRACT?: InputMaybe<Scalars['Float']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
 }
 
@@ -18331,6 +18331,7 @@ export type PrimitiveTypeUniqueWhere = {
 
 export type PrimitiveTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
   primitiveKind?: InputMaybe<PrimitiveTypeKind>
@@ -18507,7 +18508,6 @@ export type PropUniqueWhere = {
 
 export type PropUpdateInput = {
   data?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type PropUpdatedEvent = {
@@ -19524,6 +19524,7 @@ export type ReactNodeTypeUniqueWhere = {
 
 export type ReactNodeTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -20241,7 +20242,6 @@ export type RedirectUniqueWhere = {
 
 export type RedirectUpdateInput = {
   authGuard?: InputMaybe<RedirectAuthGuardUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   source?: InputMaybe<RedirectSourceUpdateFieldInput>
   targetPage?: InputMaybe<RedirectTargetPageUpdateFieldInput>
   targetType?: InputMaybe<RedirectTargetType>
@@ -20588,6 +20588,7 @@ export type RenderPropTypeUniqueWhere = {
 
 export type RenderPropTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -21043,7 +21044,6 @@ export type ResourceUniqueWhere = {
 
 export type ResourceUpdateInput = {
   config?: InputMaybe<ResourceConfigUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   type?: InputMaybe<ResourceType>
@@ -21342,6 +21342,7 @@ export type RichTextTypeSubscriptionWhere = {
 
 export type RichTextTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -21859,7 +21860,6 @@ export type StoreUniqueWhere = {
 export type StoreUpdateInput = {
   actions?: InputMaybe<StoreActionsUpdateInput>
   api?: InputMaybe<StoreApiUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -23619,7 +23619,6 @@ export type TagUniqueWhere = {
 export type TagUpdateInput = {
   atoms?: InputMaybe<Array<TagAtomsUpdateFieldInput>>
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<TagOwnerUpdateFieldInput>
   parent?: InputMaybe<TagParentUpdateFieldInput>
@@ -25307,6 +25306,7 @@ export type UnionTypeUniqueWhere = {
 
 export type UnionTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateInput>
@@ -26886,7 +26886,6 @@ export type UserUpdateInput = {
   components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
   elements?: InputMaybe<Array<UserElementsUpdateFieldInput>>
   email?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   preferences?: InputMaybe<UserPreferencesUpdateFieldInput>
   roles?: InputMaybe<Array<Role>>
   tags?: InputMaybe<Array<UserTagsUpdateFieldInput>>
@@ -27241,6 +27240,7 @@ export type AtomFragment = {
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
   tags: Array<TagFragment>
+  owner: { id: string }
 }
 
 export type AtomBuilderFragment = {
@@ -27274,6 +27274,7 @@ export type AuthGuardFragment = {
   responseTransformer: string
   config: PropFragment
   resource: ResourceFragment
+  owner: { id: string }
 }
 
 export type ComponentFragment = {
@@ -27931,7 +27932,7 @@ export type CreateComponentsMutationVariables = Exact<{
 }>
 
 export type CreateComponentsMutation = {
-  createComponents: { components: Array<{ id: string }> }
+  createComponents: { components: Array<{ id: string; store: { id: string } }> }
 }
 
 export type DeleteComponentsMutationVariables = Exact<{
@@ -32360,6 +32361,9 @@ export const AtomFragmentDoc = new TypedDocumentString(
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
     fragment Tag on Tag {
   children {
@@ -32435,6 +32439,9 @@ export const AuthGuardFragmentDoc = new TypedDocumentString(
     ...Resource
   }
   responseTransformer
+  owner {
+    id
+  }
 }
     fragment Prop on Prop {
   data
@@ -33339,6 +33346,9 @@ fragment AuthGuard on AuthGuard {
     ...Resource
   }
   responseTransformer
+  owner {
+    id
+  }
 }
 fragment ComponentBuilder on Component {
   __typename
@@ -34406,6 +34416,9 @@ export const GetAuthGuardsDocument = new TypedDocumentString(`
     ...Resource
   }
   responseTransformer
+  owner {
+    id
+  }
 }
 fragment Prop on Prop {
   data
@@ -34801,6 +34814,9 @@ export const CreateComponentsDocument = new TypedDocumentString(`
   createComponents(input: $input) {
     components {
       id
+      store {
+        id
+      }
     }
   }
 }
@@ -39181,6 +39197,9 @@ export const AtomListDocument = new TypedDocumentString(`
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Tag on Tag {
   children {

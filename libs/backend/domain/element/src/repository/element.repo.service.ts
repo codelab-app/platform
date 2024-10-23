@@ -14,12 +14,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  connectNodeId,
-  disconnectAll,
-  ElementProperties,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
+import { elementMapper } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -50,63 +45,7 @@ export class ElementRepository extends AbstractRepository<
   protected async _addMany(elements: Array<IElementCreateDto>) {
     return (
       await this.ogmService.Element.create({
-        input: elements.map(
-          ({
-            childMapperComponent,
-            childMapperPreviousSibling,
-            childMapperPropKey,
-            closestContainerNode,
-            compositeKey,
-            expanded,
-            firstChild,
-            id,
-            name,
-            nextSibling,
-            parentElement,
-            postRenderAction,
-            preRenderAction,
-            prevSibling,
-            props,
-            renderForEachPropKey,
-            renderIfExpression,
-            renderType,
-            style,
-            tailwindClassNames,
-          }) => ({
-            childMapperComponent: connectNodeId(childMapperComponent?.id),
-            childMapperPreviousSibling: connectNodeId(
-              childMapperPreviousSibling?.id,
-            ),
-            childMapperPropKey,
-            compositeKey:
-              compositeKey ??
-              ElementProperties.elementCompositeKey(name, closestContainerNode),
-            expanded,
-            // We only need to do one way
-            // firstChild: connectNodeId(firstChild?.id),
-            id,
-            nextSibling: connectNodeId(nextSibling?.id),
-            parentElement: connectNodeId(parentElement?.id),
-            postRenderAction: connectNodeId(postRenderAction?.id),
-            preRenderAction: connectNodeId(preRenderAction?.id),
-            prevSibling: connectNodeId(prevSibling?.id),
-            props: connectNodeId(props.id),
-            renderForEachPropKey,
-            renderIfExpression,
-            renderType: {
-              Atom:
-                renderType.__typename === 'Atom'
-                  ? connectNodeId(renderType.id)
-                  : undefined,
-              Component:
-                renderType.__typename === 'Component'
-                  ? connectNodeId(renderType.id)
-                  : undefined,
-            },
-            style,
-            tailwindClassNames,
-          }),
-        ),
+        input: elements.map((element) => elementMapper.toCreateInput(element)),
       })
     ).elements
   }
@@ -127,46 +66,12 @@ export class ElementRepository extends AbstractRepository<
     })
   }
 
-  protected async _update(
-    {
-      childMapperComponent,
-      childMapperPreviousSibling,
-      childMapperPropKey,
-      closestContainerNode,
-      compositeKey,
-      id,
-      name,
-      props,
-      renderType,
-    }: IElementCreateDto,
-    where: ElementWhere,
-  ) {
+  protected async _update(element: IElementCreateDto, where: ElementWhere) {
     return (
       await (
         await this.ogmService.Element
       ).update({
-        update: {
-          childMapperComponent: connectNodeId(childMapperComponent?.id),
-          childMapperPreviousSibling: connectNodeId(
-            childMapperPreviousSibling?.id,
-          ),
-          childMapperPropKey,
-          compositeKey:
-            compositeKey ??
-            ElementProperties.elementCompositeKey(name, closestContainerNode),
-          id,
-          props: reconnectNodeId(props.id),
-          renderType: {
-            Atom:
-              renderType.__typename === 'Atom'
-                ? connectNodeId(renderType.id)
-                : disconnectAll(),
-            Component:
-              renderType.__typename === 'Component'
-                ? connectNodeId(renderType.id)
-                : disconnectAll(),
-          },
-        },
+        update: elementMapper.toUpdateInput(element),
         where,
       })
     ).elements[0]

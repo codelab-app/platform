@@ -66,9 +66,4 @@ export class AuthGuardModel
 
     return this
   }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
-  }
 }

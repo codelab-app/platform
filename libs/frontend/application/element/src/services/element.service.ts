@@ -36,7 +36,7 @@ export const useElementService = (): IElementService => {
       element.parentElement.current.setExpanded(true)
     }
 
-    await elementRepository.add(element)
+    await elementRepository.add(data)
     await syncModifiedElements()
 
     return element
@@ -87,14 +87,14 @@ export const useElementService = (): IElementService => {
     const oldRenderTypeId = currentElement.renderType.id
 
     if (newRenderTypeId !== oldRenderTypeId) {
-      propService.reset(currentElement.props)
+      propService.reset(currentElement.props.toJson)
 
       await atomService.loadApi(newRenderTypeId)
     }
 
     currentElement.writeCache(newElement)
 
-    await elementRepository.update(currentElement)
+    await elementRepository.update({ id: currentElement.id }, newElement)
 
     return currentElement
   }

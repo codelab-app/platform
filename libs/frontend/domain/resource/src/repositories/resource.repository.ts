@@ -2,6 +2,7 @@ import type {
   IResourceModel,
   IResourceRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef, IResourceDto } from '@codelab/shared/abstract/core'
 import type {
   ResourceOptions,
   ResourceUniqueWhere,
@@ -18,7 +19,7 @@ import {
 } from './resource.api.graphql.gen'
 
 export const resourceRepository: IResourceRepository = {
-  add: async (resource: IResourceModel) => {
+  add: async (resource: IResourceDto) => {
     const {
       createResources: { resources },
     } = await CreateResources({ input: [resource.toCreateInput()] })
@@ -49,7 +50,7 @@ export const resourceRepository: IResourceRepository = {
     return (await resourceRepository.find(where)).items[0]
   },
 
-  update: async (resource: IResourceModel) => {
+  update: async (where: IRef, dto: IResourceDto) => {
     const {
       updateResources: { resources },
     } = await UpdateResource({

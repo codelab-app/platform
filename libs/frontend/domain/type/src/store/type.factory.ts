@@ -1,8 +1,8 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import type {
   IArrayTypeDto,
-  ITypeCreateFormData,
   IInterfaceTypeDto,
+  ITypeCreateFormData,
   ITypeDto,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'

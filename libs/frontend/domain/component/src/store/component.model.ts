@@ -72,15 +72,6 @@ export class Component
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
 
-  static toDeleteInput(): ComponentDeleteInput {
-    return {
-      api: { delete: InterfaceType.toDeleteInput(), where: {} },
-      props: { where: {} },
-      rootElement: { where: {} },
-      store: { delete: Store.toDeleteInput(), where: {} },
-    }
-  }
-
   @computed
   get __typename() {
     return IElementRenderTypeKind.Component as const

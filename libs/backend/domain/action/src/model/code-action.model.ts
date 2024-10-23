@@ -13,6 +13,8 @@ export class CodeAction implements ICodeActionDto {
 
   store: IRef
 
+  type: IActionKind.CodeAction = IActionKind.CodeAction
+
   constructor({ code, id, name, store }: ICodeActionDto) {
     this.id = id
     this.name = name

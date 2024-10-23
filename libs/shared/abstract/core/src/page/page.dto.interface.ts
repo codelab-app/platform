@@ -25,13 +25,3 @@ export const PageDtoSchema = Type.Object({
 })
 
 export type IPageDto = Static<typeof PageDtoSchema>
-
-export const PageCreateDtoSchema = Typebox.Overwrite(
-  PageDtoSchema,
-  Type.Object({
-    rootElement: ElementCreateDtoSchema,
-    store: StoreCreateDtoSchema,
-  }),
-)
-
-export type IPageCreateDto = Static<typeof PageCreateDtoSchema>

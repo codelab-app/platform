@@ -1,8 +1,8 @@
 import type { IRedirectService } from '@codelab/frontend/abstract/application'
 import type {
-  ICreateRedirectData,
+  IRedirectCreateFormData,
   IRedirectModel,
-  IUpdateRedirectData,
+  IRedirectUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { RedirectWhere } from '@codelab/shared/infra/gql'
@@ -14,12 +14,10 @@ import { Validator } from '@codelab/shared/infra/schema'
 export const useRedirectService = (): IRedirectService => {
   const { redirectDomainService } = useDomainStore()
 
-  const create = async (redirectDto: ICreateRedirectData) => {
-    const redirect = redirectDomainService.hydrate(redirectDto)
+  const create = async (data: IRedirectCreateFormData) => {
+    // const redirect = redirectDomainService.hydrate(redirectDto)
 
-    await redirectRepository.add(redirect)
-
-    return redirect
+    return await redirectRepository.add(data)
   }
 
   const removeMany = async (redirectsModel: Array<IRedirectModel>) => {
@@ -42,16 +40,14 @@ export const useRedirectService = (): IRedirectService => {
     return redirects[0]
   }
 
-  const update = async (redirectDto: IUpdateRedirectData) => {
-    const redirect = redirectDomainService.redirects.get(redirectDto.id)
+  const update = async (data: IRedirectUpdateFormData) => {
+    // const redirect = redirectDomainService.redirects.get(redirectDto.id)
 
-    Validator.assertsDefined(redirect)
+    // Validator.assertsDefined(redirect)
 
-    redirect.writeCache(redirectDto)
+    // redirect.writeCache(redirectDto)
 
-    await redirectRepository.update(redirect)
-
-    return redirect
+    return await redirectRepository.update({ id: data.id }, data)
   }
 
   const getOneFromCache = (ref: IRef) => {

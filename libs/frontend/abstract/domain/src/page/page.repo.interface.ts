@@ -1,3 +1,4 @@
+import type { IPageDto } from '@codelab/shared/abstract/core'
 import type {
   PageCreateInput,
   PageDeleteInput,
@@ -11,9 +12,7 @@ import type { IRepository } from '../shared'
 import type { IPageModel } from './page.model.interface'
 
 export type IPageRepository = IRepository<
-  PageCreateInput,
-  PageUpdateInput,
-  PageDeleteInput,
+  IPageDto,
   PageFragment,
   PageWhere,
   PageOptions

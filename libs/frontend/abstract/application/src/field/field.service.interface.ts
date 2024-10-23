@@ -6,7 +6,7 @@ import type {
   IUpdateFieldData,
 } from '@codelab/shared/abstract/core'
 
-import type { ICRUDService } from '../services'
+import type { ICrudService } from '../services'
 
 export interface IFieldService
   extends ICRUDService<IFieldModel, ICreateFieldData, IUpdateFieldData> {

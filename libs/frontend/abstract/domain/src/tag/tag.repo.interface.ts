@@ -1,3 +1,4 @@
+import type { ITagDto } from '@codelab/shared/abstract/core'
 import type {
   TagCreateInput,
   TagDeleteInput,
@@ -11,9 +12,7 @@ import type { IRepository } from '../shared'
 import type { ITagModel } from './tag.model.interface'
 
 export type ITagRepository = IRepository<
-  TagCreateInput,
-  TagUpdateInput,
-  TagDeleteInput,
+  ITagDto,
   TagFragment,
   TagWhere,
   TagOptions

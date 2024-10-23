@@ -5,7 +5,7 @@ import { Type } from '@sinclair/typebox'
 import { ComponentAggregateSchema } from '../component'
 import { PageAggregateSchema } from '../page'
 import { ResourceSchema } from '../resource/resource.dto.interface'
-import { AppSchema } from './app.dto.interface'
+import { AppSchema } from './app.model.interface'
 
 export const AppAggregateSchema = Type.Object({
   app: AppSchema,

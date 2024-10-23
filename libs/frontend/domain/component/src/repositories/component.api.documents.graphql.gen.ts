@@ -8,6 +8,9 @@ export const CreateComponentsDocument = graphql(`
     createComponents(input: $input) {
       components {
         id
+        store {
+          id
+        }
       }
     }
   }

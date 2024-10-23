@@ -14,7 +14,6 @@ import { type IAppService } from '@codelab/frontend/abstract/application'
 import { usePageService } from '@codelab/frontend-application-page/services'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import {
-  AppMapper,
   appRepository,
   invalidateAppListQuery,
 } from '@codelab/frontend-domain-app/repositories'
@@ -30,6 +29,8 @@ import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 import { computed, type IComputedValueOptions } from 'mobx'
 import { type DependencyList, useMemo } from 'react'
 
+import { createAppAction } from '../use-cases/create-app'
+
 export const useAppService = (): IAppService => {
   const {
     appDomainService,
@@ -41,15 +42,18 @@ export const useAppService = (): IAppService => {
   const pageService = usePageService()
   const undoManager = useUndoManager()
   const pageFactory = new PageDomainFactory(userDomainService.user)
-  const appMapper = new AppMapper(userDomainService.user)
   const owner = userDomainService.user
 
   const create = async ({ id, name }: IAppCreateFormData) => {
     try {
       const renderType = atomDomainService.defaultRenderType
       const pages = pageFactory.addSystemPages({ id, name }, renderType)
-      const appCreateInput = appMapper.toCreateInput({ id, name, owner, pages })
-      const app = await appRepository.add(appCreateInput)
+
+      const app = await createAppAction(
+        { id, name, owner },
+        pages,
+        pages.flatMap((page) => page.rootElement),
+      )
 
       Validator.assertsDefined(app)
 
@@ -88,7 +92,7 @@ export const useAppService = (): IAppService => {
 
       await pageService.removeMany(pages)
 
-      await appRepository.delete([app], appMapper.toDeleteInput())
+      await appRepository.delete([app])
 
       await invalidateAppListQuery()
 
@@ -150,10 +154,7 @@ export const useAppService = (): IAppService => {
   // }
 
   const update = async ({ id, name }: IAppUpdateFormData) => {
-    const app = await appRepository.update({
-      update: appMapper.toUpdateInput({ id, name }),
-      where: { id },
-    })
+    const app = await appRepository.update({ id }, { id, name })
 
     await invalidateAppListQuery()
 

@@ -44,30 +44,6 @@ export class CodeAction
   }
 
   @modelAction
-  toCreateInput(): CodeActionCreateInput {
-    return {
-      code: this.code,
-      id: this.id,
-      name: this.name,
-      store: connectNodeId(this.store.id),
-      type: IActionKind.CodeAction,
-    }
-  }
-
-  @modelAction
-  static toDeleteInput(): CodeActionDeleteInput {
-    return {}
-  }
-
-  @modelAction
-  toUpdateInput(): CodeActionUpdateInput {
-    return {
-      code: this.code,
-      name: this.name,
-    }
-  }
-
-  @modelAction
   writeCache({ code, name }: Partial<ICodeActionDto>) {
     this.name = name ?? this.name
     this.code = code ?? this.code

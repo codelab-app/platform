@@ -2,10 +2,11 @@ import type {
   IPreferenceModel,
   IUpdatePreferenceData,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
 
-import type { ICRUDService } from '../services'
+import type { ICrudService } from '../services'
 
 export type IPreferenceService = Pick<
-  ICRUDService<IPreferenceModel, undefined, IUpdatePreferenceData>,
+  ICrudService<IRef, undefined, IUpdatePreferenceData>,
   'update'
 >

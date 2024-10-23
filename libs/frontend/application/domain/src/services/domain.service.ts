@@ -54,19 +54,8 @@ export const useDomainService = (): IDomainService => {
     return domains.map((domain) => domainDomainService.hydrate(domain))
   }
 
-  const update = async ({ id, name }: IUpdateDomainData) => {
-    const domain = domainDomainService.domains.get(id)
-
-    Validator.assertsDefined(domain)
-
-    domain.writeCache({ name })
-    await domainRepository.update(domain)
-
-    // Fetching again to get the backend-generated domainConfig
-
-    const [updatedDomain] = await getAll({ id: domain.id })
-
-    return updatedDomain || domain
+  const update = async (domain: IUpdateDomainData) => {
+    return await domainRepository.update({ id: domain.id }, domain)
   }
 
   const getOneFromCache = (ref: IRef) => {

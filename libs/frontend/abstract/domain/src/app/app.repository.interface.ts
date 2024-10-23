@@ -1,3 +1,4 @@
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import type {
   AppCreateInput,
   AppDeleteInput,
@@ -11,9 +12,7 @@ import type { IRepository } from '../shared'
 import type { IAppModel } from './app.model.interface'
 
 export type IAppRepository = IRepository<
-  AppCreateInput,
-  AppUpdateInput,
-  AppDeleteInput,
+  IAppDto,
   AppFragment,
   AppWhere,
   AppOptions

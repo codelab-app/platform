@@ -3,10 +3,12 @@ import type {
   ITypeModel,
   ITypeRepository,
   ITypeUpdateInput,
+  ITypeUpdateVars,
 } from '@codelab/frontend/abstract/domain'
 import type {
   IRef,
   ITypeCreateDto,
+  ITypeDto,
   ITypeKind,
   ITypeRef,
 } from '@codelab/shared/abstract/core'
@@ -32,7 +34,7 @@ import {
 } from './type.api'
 
 export const typeRepository: ITypeRepository = {
-  add: async (input: ITypeCreateInput) => {
+  add: async (input: ITypeDto) => {
     Validator.assertsDefined(input.kind)
 
     const createdTypes = await createTypeApi[input.kind]([input])
@@ -127,9 +129,13 @@ export const typeRepository: ITypeRepository = {
     return sortBy(typeFragments, ({ name }) => name.toLowerCase())
   },
 
-  update: async (input: ITypeUpdateInput, typekind: ITypeKind) => {
-    const updatedType = await updateTypeApi[typekind](input)
+  update: async (variables: ITypeUpdateVars) => {
+    const kind = variables.update?.kind
 
-    return updatedType[0]!
+    Validator.assertsDefined(kind)
+
+    const updatedType = await updateTypeApi[kind](variables)
+
+    return updatedType[0]
   },
 }

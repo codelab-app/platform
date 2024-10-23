@@ -16,6 +16,7 @@ import {
   CACHE_TAGS,
   filterNotHookType,
 } from '@codelab/frontend/abstract/domain'
+import { atomMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import {
   AtomList,
@@ -28,10 +29,10 @@ import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { prop, sortBy } from 'remeda'
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
-  add: async (input: AtomCreateInput) => {
+  add: async (input: IAtomDto) => {
     const {
       createAtoms: { atoms },
-    } = await CreateAtoms({ input }, { revalidateTag: CACHE_TAGS.ATOM_LIST })
+    } = await CreateAtoms({ input: atomMapper.toCreateInput(input) }, { revalidateTag: CACHE_TAGS.ATOM_LIST })
 
     const createdAtom = atoms[0]
 
@@ -40,11 +41,10 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     return createdAtom
   },
 
-  delete: async (atoms: Array<IRef>, input: AtomDeleteInput) => {
+  delete: async (atoms: Array<IRef>) => {
     const {
       deleteAtoms: { nodesDeleted },
     } = await DeleteAtoms({
-      delete: input,
       where: { id_IN: atoms.map(({ id }) => id) },
     })
 
@@ -68,19 +68,13 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     )
   },
 
-  update: async ({
-    update,
-    where,
-  }: {
-    where: AtomWhere
-    update: AtomUpdateInput
-  }) => {
+  update: async ({ id }: IRef, input: IAtomDto) => {
     const {
       updateAtoms: { atoms },
     } = await UpdateAtoms(
       {
-        update,
-        where,
+        update: atomMapper.toUpdateInput(input),
+        where: { id },
       },
       {
         revalidateTag: CACHE_TAGS.ATOM_LIST,

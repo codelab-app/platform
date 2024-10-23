@@ -14,6 +14,7 @@ import {
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
+  atomMapper,
   connectNodeId,
   connectNodeIds,
   connectOwner,
@@ -47,38 +48,7 @@ export class AtomRepository extends AbstractRepository<
       await (
         await this.ogmService.Atom
       ).create({
-        input: atoms.map(
-          ({
-            api,
-            externalCssSource,
-            externalJsSource,
-            externalSourceType,
-            icon,
-            id,
-            name,
-            requiredParents = [],
-            suggestedChildren = [],
-            tags,
-            type,
-          }) => ({
-            api: connectNodeId(api.id),
-            externalCssSource,
-            externalJsSource,
-            externalSourceType,
-            icon,
-            id,
-            name,
-            owner: connectOwner(this.authService.currentUser),
-            requiredParents: connectNodeIds(
-              requiredParents.map((parent) => parent.id),
-            ),
-            suggestedChildren: connectNodeIds(
-              suggestedChildren.map((child) => child.id),
-            ),
-            tags: connectNodeIds(tags?.map((tag) => tag.id)),
-            type,
-          }),
-        ),
+        input: atoms.map((atom) => atomMapper.toCreateInput(atom)),
       })
     ).atoms
   }
@@ -97,24 +67,12 @@ export class AtomRepository extends AbstractRepository<
     ).find({ options, selectionSet, where })
   }
 
-  protected async _update(
-    { api, requiredParents = [], suggestedChildren = [], tags }: IAtomDto,
-    where: AtomWhere,
-  ) {
+  protected async _update(atom: IAtomDto, where: AtomWhere) {
     return (
       await (
         await this.ogmService.Atom
       ).update({
-        update: {
-          api: reconnectNodeId(api.id),
-          requiredParents: whereNodeIds(
-            requiredParents.map((parent) => parent.id),
-          ),
-          suggestedChildren: whereNodeIds(
-            suggestedChildren.map((child) => child.id),
-          ),
-          tags: reconnectNodeIds(tags?.map((tag) => tag.id)),
-        },
+        update: atomMapper.toUpdateInput(atom),
         where,
       })
     ).atoms[0]

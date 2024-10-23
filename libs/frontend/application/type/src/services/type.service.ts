@@ -2,11 +2,11 @@ import type {
   GetDataFn,
   ITypeService,
 } from '@codelab/frontend/abstract/application'
-import type { ITypeCreateFormData, IRef } from '@codelab/shared/abstract/core'
+import type { IRef, ITypeCreateFormData } from '@codelab/shared/abstract/core'
 
 import {
   type ITypeModel,
-  type IUpdateTypeDto,
+  type ITypeUpdateDto,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
@@ -136,7 +136,7 @@ export const useTypeService = (): ITypeService => {
     return options
   }
 
-  const update = async (data: IUpdateTypeDto) => {
+  const update = async (data: ITypeUpdateDto) => {
     const type = typeDomainService.types.get(data.id)
 
     Validator.assertsDefined(type)

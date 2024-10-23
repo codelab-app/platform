@@ -7,18 +7,17 @@ import type { ActionFragment } from '@codelab/shared/infra/gql'
 
 import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
+import { actionFactory } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { unique } from 'remeda'
 
-import { ActionFactory } from '../store/action.factory'
 import { ApiAction } from '../store/api-action.model'
 import { CodeAction } from '../store/code-action.model'
 
 @model('@codelab/ActionDomainService')
 export class ActionDomainService
   extends Model({
-    actionFactory: prop(() => new ActionFactory({})),
     actions: prop(() => objectMap<IActionModel>()),
   })
   implements IActionDomainService
@@ -83,7 +82,7 @@ export class ActionDomainService
   @modelAction
   load(actions: Array<ActionFragment>) {
     return actions.map((action) =>
-      this.hydrate(this.actionFactory.fromActionFragment(action)),
+      this.hydrate(actionFactory.fromActionFragment(action)),
     )
   }
 

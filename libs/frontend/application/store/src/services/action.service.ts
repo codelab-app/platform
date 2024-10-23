@@ -10,10 +10,10 @@ import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { ActionFactory } from '@codelab/frontend-domain-action/store'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { actionFactory } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
@@ -25,11 +25,10 @@ export const useActionService = (): IActionService => {
   }
 
   const create = async (data: ICreateActionData) => {
-    const action = actionDomainService.hydrate(ActionFactory.mapDataToDto(data))
+    // const action = actionDomainService.hydrate(ActionFactory.mapDataToDto(data))
+    const action = actionFactory.mapDataToDto(data)
 
-    await actionRepository.add(action)
-
-    return action
+    return await actionRepository.add(action)
   }
 
   const removeMany = async (actions: Array<IActionModel>) => {
@@ -59,17 +58,17 @@ export const useActionService = (): IActionService => {
 
     Validator.assertsDefined(action)
 
-    const actionDto = ActionFactory.mapDataToDto(data)
+    const actionDto = actionFactory.mapDataToDto(data)
 
-    ActionFactory.writeCache(actionDto, action)
+    // ActionFactory.writeCache(actionDto, action)
 
-    await actionRepository.update(action)
+    await actionRepository.update({ id: action.id }, actionDto)
 
     return action
   }
 
   const recursiveClone = async (action: IActionModel, storeId: string) => {
-    const actionDto = ActionFactory.mapActionToDto(action)
+    const actionDto = action.toJson
 
     let newActionDto: IActionDto = {
       ...actionDto,
@@ -105,9 +104,7 @@ export const useActionService = (): IActionService => {
 
     const newAction = actionDomainService.hydrate(newActionDto)
 
-    await actionRepository.add(newAction)
-
-    return newAction
+    return await actionRepository.add(newActionDto)
   }
 
   const getOneFromCache = (ref: IRef) => {

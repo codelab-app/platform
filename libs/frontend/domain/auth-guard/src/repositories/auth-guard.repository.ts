@@ -2,9 +2,13 @@ import type {
   IAuthGuardModel,
   IAuthGuardRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardDto, IRef } from '@codelab/shared/abstract/core'
 import type {
+  AuthGuardCreateInput,
+  AuthGuardDeleteInput,
   AuthGuardOptions,
   AuthGuardUniqueWhere,
+  AuthGuardUpdateInput,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -16,13 +20,14 @@ import {
   GetAuthGuards,
   UpdateAuthGuard,
 } from './auth-guard.api.graphql.gen'
+import { authGuardMapper } from './auth-guard.mapper'
 
 export const authGuardRepository: IAuthGuardRepository = {
-  add: async (authGuard: IAuthGuardModel) => {
+  add: async (input: IAuthGuardDto) => {
     const {
       createAuthGuards: { authGuards },
     } = await CreateAuthGuards({
-      input: [authGuard.toCreateInput()],
+      input: authGuardMapper.toCreateInput(input),
     })
 
     const createdAuthGuard = authGuards[0]
@@ -32,12 +37,12 @@ export const authGuardRepository: IAuthGuardRepository = {
     return createdAuthGuard
   },
 
-  delete: async (authGuards: Array<IAuthGuardModel>) => {
+  delete: async (refs: Array<IRef>) => {
     const {
       deleteAuthGuards: { nodesDeleted },
     } = await DeleteAuthGuards({
-      delete: { config: { where: {} } },
-      where: { id_IN: authGuards.map((authGuard) => authGuard.id) },
+      delete: authGuardMapper.toDeleteInput(),
+      where: { id_IN: refs.map(({ id }) => id) },
     })
 
     return nodesDeleted
@@ -60,12 +65,12 @@ export const authGuardRepository: IAuthGuardRepository = {
     }))
   },
 
-  update: async (authGuard: IAuthGuardModel) => {
+  update: async ({ id }: IRef, input: IAuthGuardDto) => {
     const {
       updateAuthGuards: { authGuards },
     } = await UpdateAuthGuard({
-      update: authGuard.toUpdateInput(),
-      where: { id: authGuard.id },
+      update: authGuardMapper.toUpdateInput(input),
+      where: { id },
     })
 
     const updatedAuthGuard = authGuards[0]

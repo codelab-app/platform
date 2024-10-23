@@ -1,4 +1,4 @@
-import type { ICreateRedirectData } from '@codelab/frontend/abstract/domain'
+import type { IRedirectCreateFormData } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import {
@@ -28,7 +28,7 @@ export const CreateRedirectForm = observer<IFormController>(
     const createRedirectForm = useCreateRedirectForm()
     const closeForm = () => createRedirectForm.close()
 
-    const onSubmit = async (redirectDTO: ICreateRedirectData) => {
+    const onSubmit = async (redirectDTO: IRedirectCreateFormData) => {
       await redirectService.create(redirectDTO)
 
       closeForm()
@@ -45,7 +45,7 @@ export const CreateRedirectForm = observer<IFormController>(
     }
 
     return (
-      <Form<ICreateRedirectData>
+      <Form<IRedirectCreateFormData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -58,7 +58,7 @@ export const CreateRedirectForm = observer<IFormController>(
       >
         <AutoFields omitFields={['targetPage', 'targetUrl']} />
 
-        <DisplayIfField<ICreateRedirectData>
+        <DisplayIfField<IRedirectCreateFormData>
           condition={(context) =>
             context.model.targetType === IRedirectTargetType.Page
           }
@@ -66,7 +66,7 @@ export const CreateRedirectForm = observer<IFormController>(
           <AutoField name="targetPage" />
         </DisplayIfField>
 
-        <DisplayIfField<ICreateRedirectData>
+        <DisplayIfField<IRedirectCreateFormData>
           condition={(context) =>
             context.model.targetType === IRedirectTargetType.Url
           }

@@ -1,3 +1,4 @@
+import type { IPreferenceDto } from '@codelab/shared/abstract/core'
 import type {
   PreferenceCreateInput,
   PreferenceDeleteInput,
@@ -11,9 +12,7 @@ import type { IRepository } from '../shared'
 import type { IPreferenceModel } from './preference.model.interface'
 
 export type IPreferenceRepository = IRepository<
-  PreferenceCreateInput,
-  PreferenceUpdateInput,
-  PreferenceDeleteInput,
+  IPreferenceDto,
   PreferenceFragment,
   PreferenceWhere,
   PreferenceOptions

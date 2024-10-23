@@ -1,16 +1,13 @@
 import type { IAuthGuardService } from '@codelab/frontend/abstract/application'
 import type {
+  IAuthGuardCreateFormData,
   IAuthGuardModel,
-  ICreateAuthGuardData,
-  IUpdateAuthGuardData,
+  IAuthGuardUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
 import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
 import type { AuthGuardWhere } from '@codelab/shared/infra/gql'
 
-import {
-  AuthGuardMapper,
-  authGuardRepository,
-} from '@codelab/frontend-domain-auth-guard/repositories'
+import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
@@ -19,23 +16,16 @@ export const useAuthGuardService = (): IAuthGuardService => {
   const { authGuardDomainService, resourceDomainService, userDomainService } =
     useDomainStore()
 
-  const authGuardMapper = new AuthGuardMapper(userDomainService.user)
-
-  const create = async (data: ICreateAuthGuardData) => {
-    const { config } = data
-
-    const input = authGuardMapper.
-    const configDto: IPropDto = {
-      data: JSON.stringify(config.data),
-      id: v4(),
-    }
-
-    const authGuard = authGuardDomainService.hydrate({
+  const create = async (data: IAuthGuardCreateFormData) => {
+    const authGuard = await authGuardRepository.add({
       ...data,
-      config: configDto,
+      config: {
+        data: JSON.stringify(data.config.data),
+        id: data.config.id,
+      },
     })
 
-    await authGuardRepository.add(authGuard)
+    Validator.assertsDefined(authGuard)
 
     return authGuard
   }
@@ -64,24 +54,17 @@ export const useAuthGuardService = (): IAuthGuardService => {
     return authGuard
   }
 
-  const update = async ({
-    config: configData,
-    id,
-    name,
-    resource,
-    responseTransformer,
-  }: IUpdateAuthGuardData) => {
-    const authGuard = authGuardDomainService.authGuards.get(id)
-
-    Validator.assertsDefined(authGuard)
-
-    const config = authGuard.config
-
-    config.writeCache({ data: JSON.stringify(configData.data) })
-
-    authGuard.writeCache({ name, resource, responseTransformer })
-
-    await authGuardRepository.update(authGuard)
+  const update = async (authGuard: IAuthGuardUpdateFormData) => {
+    await authGuardRepository.update(
+      { id: authGuard.id },
+      {
+        ...authGuard,
+        config: {
+          data: JSON.stringify(authGuard.config.data),
+          id: authGuard.config.id,
+        },
+      },
+    )
 
     return authGuard
   }

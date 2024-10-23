@@ -1,14 +1,17 @@
 import type {
+  IComponentCreateResults,
+  IComponentRepository,
+} from '@codelab/frontend/abstract/domain'
+import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
+import type {
+  ComponentDeleteInput,
   ComponentOptions,
   ComponentUniqueWhere,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'
 
-import {
-  CACHE_TAGS,
-  type IComponentModel,
-  type IComponentRepository,
-} from '@codelab/frontend/abstract/domain'
+import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { componentMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import { Component } from '../store'
@@ -20,11 +23,11 @@ import {
 } from './component.api.graphql.gen'
 
 export const componentRepository: IComponentRepository = {
-  add: async (component: IComponentModel) => {
+  add: async (input: IComponentDto) => {
     const {
       createComponents: { components },
     } = await CreateComponents({
-      input: component.toCreateInput(),
+      input: componentMapper.toCreateInput(input),
     })
 
     const createdComponent = components[0]
@@ -34,20 +37,25 @@ export const componentRepository: IComponentRepository = {
     return createdComponent
   },
 
-  delete: async (components: Array<IComponentModel>) => {
+  delete: async (refs: Array<IRef>) => {
     const {
       deleteComponents: { nodesDeleted },
     } = await DeleteComponents({
-      delete: Component.toDeleteInput(),
-      where: { id_IN: components.map((component) => component.id) },
+      delete: componentMapper.toDeleteInput(),
+      where: {
+        id_IN: refs.map(({ id }) => id),
+      },
     })
 
     return nodesDeleted
   },
 
-  find: async (where: ComponentWhere, options?: ComponentOptions) => {
+  find: async (where?: ComponentWhere, options?: ComponentOptions) => {
     return await ComponentList(
-      { options, where },
+      {
+        options,
+        where,
+      },
       { tags: [CACHE_TAGS.COMPONENTS_LIST] },
     )
   },
@@ -56,13 +64,11 @@ export const componentRepository: IComponentRepository = {
     return (await componentRepository.find(where)).items[0]
   },
 
-  update: async (component: IComponentModel) => {
-    const { id } = component
-
+  update: async ({ id }: IRef, input: IComponentDto) => {
     const {
       updateComponents: { components },
     } = await UpdateComponents({
-      update: component.toUpdateInput(),
+      update: componentMapper.toUpdateInput(input),
       where: { id },
     })
 

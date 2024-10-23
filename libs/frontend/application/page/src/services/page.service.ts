@@ -1,9 +1,9 @@
 import type {
-  IPageCreateFormData,
   IElementDto,
+  IPageCreateFormData,
+  IPageUpdateFormData,
   IPropDto,
   IRef,
-  IPageUpdateFormData,
 } from '@codelab/shared/abstract/core'
 import type { PageWhere } from '@codelab/shared/infra/gql'
 
@@ -93,6 +93,9 @@ export const usePageService = (): IPageService => {
     }
 
     const rootElement = elementDomainService.hydrate({
+      closestContainerNode: {
+        id,
+      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id },

@@ -1,35 +1,38 @@
-import type { IMapper } from '@codelab/frontend/abstract/domain'
-import type { IAuthGuardDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { IAuthGuardUpdateFormData } from '@codelab/frontend/abstract/domain'
+import type {
+  IAuthGuardDto,
+  IMapper,
+  IUserDto,
+} from '@codelab/shared/abstract/core'
 import type {
   AuthGuardCreateInput,
   AuthGuardDeleteInput,
   AuthGuardUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import { connectNodeId, connectOwner } from '@codelab/shared/domain-old'
+import {
+  connectNodeId,
+  connectOwner,
+  propMapper,
+} from '@codelab/shared/domain-old'
 
-export class AuthGuardMapper
-  implements
-    IMapper<
-      IAuthGuardDto,
-      AuthGuardCreateInput,
-      AuthGuardUpdateInput,
-      AuthGuardDeleteInput
-    >
-{
-  constructor(private owner: IUserDto) {}
-
-  toCreateInput({
+export const authGuardMapper: IMapper<
+  IAuthGuardDto,
+  AuthGuardCreateInput,
+  AuthGuardUpdateInput,
+  AuthGuardDeleteInput
+> = {
+  toCreateInput: ({
     config,
     id,
     name,
     resource,
     responseTransformer,
-  }: IAuthGuardDto): AuthGuardCreateInput {
+  }: IAuthGuardDto): AuthGuardCreateInput => {
     return {
       config: {
         create: {
-          node: config.toCreateInput(),
+          node: propMapper.toCreateInput(config),
         },
       },
       id,
@@ -38,16 +41,27 @@ export class AuthGuardMapper
       resource: connectNodeId(resource.id),
       responseTransformer,
     }
-  }
+  },
 
-  toUpdateInput(): AuthGuardUpdateInput {
+  toDeleteInput: (): AuthGuardDeleteInput => {
+    return {
+      config: { where: {} },
+    }
+  },
+
+  toUpdateInput: ({
+    config,
+    name,
+    resource,
+    responseTransformer,
+  }: IAuthGuardDto): AuthGuardUpdateInput => {
     return {
       config: {
-        update: { node: this.config.toUpdateInput() },
+        update: { node: propMapper.toUpdateInput(config) },
       },
-      name: this.name,
-      resource: connectNodeId(this.resource.id),
-      responseTransformer: this.responseTransformer,
+      name,
+      resource: connectNodeId(resource.id),
+      responseTransformer,
     }
-  }
+  },
 }

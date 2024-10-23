@@ -8,7 +8,7 @@ export const domainSchema = gql`
   }
 
   type Domain {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     # appId-name format to make it unique across apps
     # compositeKey: String! @unique
     name: String!

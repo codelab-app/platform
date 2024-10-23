@@ -37,7 +37,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     const onSubmit = async (data: IPropData) => {
       const filteredData = filterEmptyStrings(data)
 
-      return propService.update(component.props, {
+      return propService.update({
         data: JSON.stringify(filteredData),
         id: component.props.id,
       })

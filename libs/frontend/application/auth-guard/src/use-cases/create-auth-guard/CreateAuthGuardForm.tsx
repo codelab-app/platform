@@ -1,4 +1,4 @@
-import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardCreateFormData } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import {
@@ -30,7 +30,7 @@ export const CreateAuthGuardForm = observer<IFormController>(
     const createAuthGuardForm = useCreateAuthGuardForm()
     const closeForm = () => createAuthGuardForm.close()
 
-    const onSubmit = (authGuardData: ICreateAuthGuardData) => {
+    const onSubmit = (authGuardData: IAuthGuardCreateFormData) => {
       void authGuardService.create(authGuardData)
 
       closeForm()
@@ -40,7 +40,7 @@ export const CreateAuthGuardForm = observer<IFormController>(
     }
 
     return (
-      <Form<ICreateAuthGuardData>
+      <Form<IAuthGuardCreateFormData>
         model={{ id: v4() }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

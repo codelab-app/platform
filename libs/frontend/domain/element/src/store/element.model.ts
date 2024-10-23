@@ -611,29 +611,6 @@ export class Element
   }
 
   @modelAction
-  toUpdateNodesInput(): Pick<
-    ElementUpdateInput,
-    | 'compositeKey'
-    | 'expanded'
-    | 'firstChild'
-    | 'nextSibling'
-    | 'parentElement'
-    | 'prevSibling'
-  > {
-    return {
-      compositeKey: ElementProperties.elementCompositeKey(
-        this.name,
-        this.closestContainerNode,
-      ),
-      expanded: this.expanded,
-      firstChild: reconnectNodeId(this.firstChild?.id),
-      nextSibling: reconnectNodeId(this.nextSibling?.id),
-      parentElement: reconnectNodeId(this.parentElement?.id),
-      prevSibling: reconnectNodeId(this.prevSibling?.id),
-    }
-  }
-
-  @modelAction
   writeCache({
     childMapperComponent,
     childMapperPreviousSibling,

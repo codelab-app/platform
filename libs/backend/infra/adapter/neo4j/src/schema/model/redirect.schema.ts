@@ -13,7 +13,7 @@ export const redirectSchema = gql`
   }
 
   type Redirect {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     source: Page!
       @relationship(type: "REDIRECT_FROM_PROTECTED_PAGE", direction: IN)
     targetType: RedirectTargetType!

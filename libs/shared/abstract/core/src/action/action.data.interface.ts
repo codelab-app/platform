@@ -1,39 +1,40 @@
-import type { IRef } from '../model/ref.interface'
+import type { IRef } from '../model'
 import type { IResourceFetchConfig } from '../resource'
+import type { IActionRef } from './action-entity.dto.interface'
 import type { IActionKind } from './action-kind.enum'
 
 /**
  * Base
  */
-export interface ICreateBaseActionData {
+export interface IBaseActionCreateFormData {
   id: string
   name: string
-  storeId: string
+  store: IRef
   type: IActionKind
 }
 
-export interface ICreateApiActionData extends ICreateBaseActionData {
+export interface IApiActionCreateFormData extends IBaseActionCreateFormData {
   config: {
     id: string
     data: IResourceFetchConfig
   }
-  errorActionId?: string
+  errorAction?: IRef
   id: string
   name: string
   resource: IRef
-  successActionId?: string
+  successAction?: IRef
   // Can't use here, enum type field in uniform will complain
   // type: IActionKind.ApiAction
 }
 
-export interface ICreateCodeActionData extends ICreateBaseActionData {
+export interface ICodeActionCreateFormData extends IBaseActionCreateFormData {
   code: string
-  // type: IActionKind.CodeAction
 }
 
 /**
  * Need to use & since uniform doesn't handle union type.
  */
-export type ICreateActionData = ICreateApiActionData & ICreateCodeActionData
+export type ICreateActionData = IApiActionCreateFormData &
+  ICodeActionCreateFormData
 
 export type IUpdateActionData = ICreateActionData

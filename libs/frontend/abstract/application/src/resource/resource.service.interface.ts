@@ -2,13 +2,14 @@ import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
 import type {
   ICreateResourceData,
+  IRef,
   IResourceDto,
   IResourceType,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
 import type { ResourceOptions, ResourceWhere } from '@codelab/shared/infra/gql'
 
-import type { ICRUDService, IQueryService } from '../services'
+import type { ICrudService, IQueryService } from '../services'
 
 export interface CreateResourceData {
   type?: IResourceType
@@ -19,11 +20,7 @@ export interface CreateResourceProperties {
 }
 
 export interface IResourceService
-  extends ICRUDService<
-      IResourceModel,
-      ICreateResourceData,
-      IUpdateResourceData
-    >,
+  extends ICrudService<IRef, ICreateResourceData, IUpdateResourceData>,
     IQueryService<IResourceModel, ResourceWhere, ResourceOptions> {
   createPopover: IPopover
   updatePopover: IPopover

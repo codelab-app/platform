@@ -1,3 +1,4 @@
+import type { IStoreDto } from '@codelab/shared/abstract/core'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
@@ -11,9 +12,7 @@ import type { IRepository } from '../shared'
 import type { IStoreModel } from './store.model.interface'
 
 export type IStoreRepository = IRepository<
-  StoreCreateInput,
-  StoreUpdateInput,
-  StoreDeleteInput,
+  IStoreDto,
   StoreFragment,
   StoreWhere,
   StoreOptions

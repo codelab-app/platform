@@ -63,7 +63,7 @@ export const userSchema = gql`
   }
 
   type User {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     auth0Id: String! @unique
     email: String! @unique
     username: String! @unique

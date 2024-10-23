@@ -16,8 +16,10 @@ export const ElementDtoSchema = Type.Object({
    * This is not used for creation, but rather a computed value
    *
    * `Page` or `Component`
+   *
+   * Used for composite key, could be `Page` or `Component` type. This key is only needed for creation so we know how to make the connection
    */
-  // closestContainerNode: IRef,
+  closestContainerNode: Typebox.Ref,
   compositeKey: Typebox.Nullish(Type.String()),
   expanded: Typebox.Nullish(Type.Boolean()),
   firstChild: Typebox.Nullish(Typebox.Ref),
@@ -53,9 +55,6 @@ export type IElement = Static<typeof ElementSchema>
 export const ElementCreateDtoSchema = Type.Composite([
   ElementDtoSchema,
   Type.Object({
-    /**
-     * Used for composite key, could be `Page` or `Component` type. This key is only needed for creation so we know how to make the connection
-     */
     closestContainerNode: Typebox.Ref,
   }),
 ])

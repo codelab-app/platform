@@ -8,4 +8,7 @@ fragment AuthGuard on AuthGuard {
     ...Resource
   }
   responseTransformer
+  owner {
+    id
+  }
 }

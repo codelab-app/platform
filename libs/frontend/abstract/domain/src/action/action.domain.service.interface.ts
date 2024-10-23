@@ -7,15 +7,9 @@ import type { ObjectMap } from 'mobx-keystone'
 import type { IStoreModel } from '../store'
 import type { IActionModel } from './action.model.interface'
 
-export interface IActionFactory {
-  fromActionFragment(fragment: ActionFragment): IActionDto
-}
-
 export interface IActionDomainService {
-  actionFactory: IActionFactory
   actions: ObjectMap<IActionModel>
   actionsList: Array<IActionModel>
-
   action(id: string): Maybe<IActionModel>
   getSelectActionOptions(
     selectedNodeStore: IStoreModel,

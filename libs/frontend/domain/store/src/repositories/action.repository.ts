@@ -4,9 +4,13 @@ import type {
   IActionRepository,
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
+import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
+import type { CodeActionCreateInput } from '@codelab/shared/infra/gql'
 
 import { ApiAction, CodeAction } from '@codelab/frontend-domain-action/store'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { actionMapper } from '@codelab/shared/domain-old'
+import { Validator } from '@codelab/shared/infra/schema'
 
 import {
   CreateApiActions,
@@ -23,14 +27,20 @@ import {
 } from './update-action.api.graphql.gen'
 
 export const actionRepository: IActionRepository = {
-  add: async (action: IActionModel) => {
-    switch (action.type) {
+  add: async (action: IActionDto) => {
+    switch (action.__typename) {
       case IActionKind.CodeAction: {
+        const input = actionMapper.toCreateInput(
+          action,
+        ) as CodeActionCreateInput
+
         const {
           createCodeActions: { codeActions },
         } = await CreateCodeActions({
-          input: action.toCreateInput(),
+          input,
         })
+
+        Validator.assertsDefined(codeActions[0])
 
         return codeActions[0]
       }
@@ -39,11 +49,16 @@ export const actionRepository: IActionRepository = {
         const {
           createApiActions: { apiActions },
         } = await CreateApiActions({
-          input: action.toCreateInput(),
+          input: actionMapper.toCreateInput(action),
         })
+
+        Validator.assertsDefined(apiActions[0])
 
         return apiActions[0]
       }
+
+      default:
+        throw new Error(`Unknown action type: ${action.__typename}`)
     }
   },
 
@@ -56,7 +71,7 @@ export const actionRepository: IActionRepository = {
           const {
             deleteCodeActions: { nodesDeleted: deleted },
           } = await DeleteCodeActions({
-            delete: CodeAction.toDeleteInput(),
+            delete: actionMapper.toDeleteInput(),
             where: { id: action.id },
           })
 
@@ -68,7 +83,7 @@ export const actionRepository: IActionRepository = {
           const {
             deleteApiActions: { nodesDeleted: deleted },
           } = await DeleteApiActions({
-            delete: ApiAction.toDeleteInput(),
+            delete: actionMapper.toDeleteInput(),
             where: { id: action.id },
           })
 
@@ -103,15 +118,17 @@ export const actionRepository: IActionRepository = {
     return result.items[0]
   },
 
-  update: async (action: IActionModel) => {
-    switch (action.type) {
+  update: async ({ id }: IRef, dto: IActionDto) => {
+    switch (dto.__typename) {
       case IActionKind.CodeAction: {
         const {
           updateCodeActions: { codeActions },
         } = await UpdateCodeActions({
-          update: action.toUpdateInput(),
-          where: { id: action.id },
+          update: actionMapper.toUpdateInput(dto),
+          where: { id },
         })
+
+        Validator.assertsDefined(codeActions[0])
 
         return codeActions[0]
       }
@@ -120,12 +137,17 @@ export const actionRepository: IActionRepository = {
         const {
           updateApiActions: { apiActions },
         } = await UpdateApiActions({
-          update: action.toUpdateInput(),
-          where: { id: action.id },
+          update: actionMapper.toUpdateInput(dto),
+          where: { id },
         })
+
+        Validator.assertsDefined(apiActions[0])
 
         return apiActions[0]
       }
+
+      default:
+        throw new Error('Unknown action type: ' + dto.__typename)
     }
   },
 }

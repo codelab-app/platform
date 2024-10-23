@@ -39,7 +39,7 @@ export class PropRepository extends AbstractRepository<
         await this.ogmService.Prop
       ).create({
         input: props.map(({ data = '', id }) => ({
-          data,
+          data: JSON.stringify(data),
           id,
         })),
       })
@@ -68,7 +68,7 @@ export class PropRepository extends AbstractRepository<
         await this.ogmService.Prop
       ).update({
         update: {
-          data,
+          data: JSON.stringify(data),
         },
         where,
       })

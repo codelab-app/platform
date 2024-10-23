@@ -2,12 +2,14 @@ import type {
   IElementModel,
   IElementRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import type {
   ElementOptions,
   ElementUniqueWhere,
   ElementWhere,
 } from '@codelab/shared/infra/gql'
 
+import { elementMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -18,11 +20,11 @@ import {
 } from './element.api.graphql.gen'
 
 export const elementRepository: IElementRepository = {
-  add: async (element: IElementModel) => {
+  add: async (element: IElementDto) => {
     const {
       createElements: { elements },
     } = await CreateElements({
-      input: element.toCreateInput(),
+      input: elementMapper.toCreateInput(element),
     })
 
     const createdElement = elements[0]
@@ -38,9 +40,7 @@ export const elementRepository: IElementRepository = {
     const {
       deleteElements: { nodesDeleted },
     } = await DeleteElements({
-      delete: {
-        props: {},
-      },
+      delete: elementMapper.toDeleteInput(),
       where: {
         id_IN: elements.map((element) => element.id),
       },
@@ -57,11 +57,11 @@ export const elementRepository: IElementRepository = {
     return (await elementRepository.find(where)).items[0]
   },
 
-  update: async (element: IElementModel) => {
+  update: async (element: IElementDto) => {
     const {
       updateElements: { elements },
     } = await UpdateElements({
-      update: element.toUpdateInput(),
+      update: elementMapper.toUpdateInput(element),
       where: { id: element.id },
     })
 
@@ -76,7 +76,7 @@ export const elementRepository: IElementRepository = {
     const {
       updateElements: { elements },
     } = await UpdateElements({
-      update: element.toUpdateNodesInput(),
+      update: elementMapper.toUpdateNodesInput(element),
       where: { id: element.id },
     })
 

@@ -104,7 +104,6 @@ export interface IElementModel
     primary: string
     secondary: string | undefined
   }
-
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
@@ -127,8 +126,4 @@ export interface IElementModel
   setStyle(style: string): void
   setTailwindClassNames(tailwindClassNames: Array<string>): void
   set_modified(modified: boolean): void
-  toUpdateNodesInput(): Pick<
-    ElementUpdateInput,
-    'firstChild' | 'nextSibling' | 'parentElement' | 'prevSibling'
-  >
 }

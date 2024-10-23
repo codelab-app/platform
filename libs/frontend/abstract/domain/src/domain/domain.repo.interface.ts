@@ -1,3 +1,4 @@
+import type { IDomainDto } from '@codelab/shared/abstract/core'
 import type {
   DomainCreateInput,
   DomainDeleteInput,
@@ -11,9 +12,7 @@ import type { IRepository } from '../shared'
 import type { IDomainModel } from './domain.model.interface'
 
 export type IDomainRepository = IRepository<
-  DomainCreateInput,
-  DomainUpdateInput,
-  DomainDeleteInput,
+  IDomainDto,
   DomainFragment,
   DomainWhere,
   DomainOptions

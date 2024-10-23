@@ -1,3 +1,5 @@
+'use client'
+
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { LoaderComponent } from 'next/dynamic'
 

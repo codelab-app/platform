@@ -1,3 +1,4 @@
+import type { ITypeDto } from '@codelab/shared/abstract/core'
 import type {
   BaseTypeFragment,
   GetBaseTypesOptions,
@@ -7,18 +8,11 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import type { IRepository } from '../shared'
-import type {
-  ITypeCreateInput,
-  ITypeDeleteInput,
-  ITypeUpdateInput,
-} from './type.input.interface'
 import type { ITypeModel } from './types'
 
 export interface ITypeRepository
   extends IRepository<
-    ITypeCreateInput,
-    ITypeUpdateInput,
-    ITypeDeleteInput,
+    ITypeDto,
     TypeFragment,
     IBaseTypeWhere,
     IBaseTypeOptions

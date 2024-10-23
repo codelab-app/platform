@@ -1,4 +1,4 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   FieldCreateInput,
   FieldDeleteInput,
@@ -12,9 +12,7 @@ import type { IRepository } from '../shared'
 import type { IFieldModel } from './field.model.interface'
 
 export type IFieldRepository = IRepository<
-  FieldCreateInput,
-  FieldUpdateInput,
-  FieldDeleteInput,
+  IFieldDto,
   FieldFragment,
   FieldWhere,
   FieldOptions

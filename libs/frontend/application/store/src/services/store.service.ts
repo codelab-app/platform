@@ -13,9 +13,7 @@ export const useStoreService = (): IStoreService => {
   const create = async (data: IStoreDto) => {
     const store = storeDomainService.hydrate(data)
 
-    await storeRepository.add(store)
-
-    return store
+    return await storeRepository.add(data)
   }
 
   const removeMany = async (stores: Array<IStoreModel>) => {
@@ -47,9 +45,8 @@ export const useStoreService = (): IStoreService => {
 
     Validator.assertsDefined(store)
     store.writeCache({ name: data.name })
-    await storeRepository.update(store)
 
-    return store
+    return await storeRepository.update({ id: store.id }, data)
   }
 
   const load = (stores: Array<StoreFragment>) => {
