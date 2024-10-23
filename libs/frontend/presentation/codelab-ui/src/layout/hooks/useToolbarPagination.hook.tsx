@@ -70,6 +70,7 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
               onChange={(value) => {
                 if (typeof value === 'number' && value > 0) {
                   routerService.setQueryParams({
+                    ...routerService.queryParams,
                     page: value,
                   })
                 }
@@ -103,6 +104,7 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
             onChange={(value) => {
               if (typeof value === 'number' && value > 0) {
                 routerService.setQueryParams({
+                  ...routerService.queryParams,
                   pageSize: value,
                 })
               }

@@ -26,6 +26,7 @@ import type {
   RedirectFragment,
   ResourceFragment,
   StoreFragment,
+  TagFragment,
   TypeFragment,
 } from '@codelab/shared/infra/gql'
 

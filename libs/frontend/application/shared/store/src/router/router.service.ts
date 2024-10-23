@@ -1,21 +1,13 @@
-import type {
-  IRouterService,
-  SupportedPaginationModel,
-} from '@codelab/frontend/abstract/application'
+import type { IRouterService } from '@codelab/frontend/abstract/application'
 import type {
   UrlPathParamsProps,
   UrlQueryParamsProps,
 } from '@codelab/frontend/abstract/types'
-import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import {
-  IPaginationService,
-  IRouterProps,
-} from '@codelab/frontend/abstract/application'
+import { IRouterProps } from '@codelab/frontend/abstract/application'
 import { Validator } from '@codelab/shared/infra/schema'
-import { computed, set } from 'mobx'
-import { Model, model, modelAction, prop } from 'mobx-keystone'
-import queryString from 'query-string'
+import { computed } from 'mobx'
+import { Model, model, prop } from 'mobx-keystone'
 
 import { parseQueryParamPageProps } from './query-params'
 

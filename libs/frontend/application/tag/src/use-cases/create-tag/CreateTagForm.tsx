@@ -1,14 +1,8 @@
 'use client'
 
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
@@ -21,51 +15,35 @@ import { v4 } from 'uuid'
 
 import { useTagService } from '../../services'
 import { createTagSchema } from './create.tag.schema'
-import { useCreateTagForm } from './create-tag.data'
 
 export const CreateTagForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const tagService = useTagService()
     const { tagDomainService } = useDomainStore()
-    const createTagForm = useCreateTagForm()
-
-    const onSubmit = (input: ICreateTagData) => {
-      void tagService.create(input)
-
-      closeForm()
-      onSubmitSuccess?.()
-
-      return Promise.resolve()
-    }
-
+    const onSubmit = (input: ICreateTagData) => tagService.create(input)
     const selectedOption = tagDomainService.selectedOption
-    const closeForm = () => createTagForm.close()
 
     const model = {
       id: v4(),
       parent: selectedOption
-        ? {
-            id: selectedOption.value.toString(),
-          }
+        ? { id: selectedOption.value.toString() }
         : undefined,
     }
 
     return (
       <Form<ICreateTagData>
+        errorMessage="Error while creating tag"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating tag',
-        })}
-        onSubmitSuccess={closeForm}
+        onSubmitSuccess={onSubmitSuccess}
         schema={createTagSchema}
         submitRef={submitRef}
         uiKey={UiKey.TagFormCreate}
       >
         <AutoFields omitFields={['parent']} />
-        <AutoField label="Parent Tag" name="parent.id" />
+        {model.parent && <AutoField label="Parent Tag" name="parent.id" />}
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Tag" />
+          <FormController submitLabel="Create Tag" />
         </DisplayIf>
       </Form>
     )

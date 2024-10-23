@@ -74,5 +74,10 @@ export const PageType = {
   ResourcesUpdate: (id: string) => `${PageType.Resources()}/update/${id}`,
   Storybook: () => '/storybook',
   Tags: () => '/tags' as const,
+  TagsCreate: () => '/tags/create' as const,
+  TagsDelete: (ids: Array<string>) => {
+    return `${PageType.Tags()}/delete/${ids.join(',')}`
+  },
+  TagsUpdate: ({ id }: IRef) => `/tags/update/${id}` as const,
   Type: () => '/types' as const,
 }

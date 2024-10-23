@@ -98,7 +98,7 @@ export const CuiTree = observer(
       () =>
         new CuiTreeStore({
           autoExpandParent,
-          expandedKeys: [],
+          expandedKeys,
           filterOptions: {},
           treeData,
         }),
@@ -150,7 +150,7 @@ export const CuiTree = observer(
         )}
         <div className="overflow-auto">
           <CuiSkeletonWrapper isLoading={isLoading}>
-            {treeData?.length === 0 ? (
+            {!isLoading && treeData?.length === 0 ? (
               <Empty style={{ marginTop: '10%' }} />
             ) : (
               <DirectoryTree<T>
