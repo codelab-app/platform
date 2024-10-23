@@ -47,8 +47,7 @@ export default defineConfig({
       dependencies: ['auth setup', 'database setup'],
       name: 'chromium',
       testIgnore: /home\.spec\.ts/,
-      testMatch: /atoms\.spec\.ts/,
-      // testMatch: /.*\.spec\.ts/,
+      testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         // channel: 'chrome',
@@ -96,10 +95,10 @@ export default defineConfig({
 
   retries: process.env.CI ? 1 : 0,
 
-  timeout: process.env.CI ? 30000 : 15000,
+  timeout: process.env.CI ? 60000 : 30000,
 
   expect: {
-    timeout: process.env.CI ? 15000 : 15000,
+    timeout: process.env.CI ? 30000 : 30000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

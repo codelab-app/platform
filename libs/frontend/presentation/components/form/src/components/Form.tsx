@@ -4,7 +4,6 @@ import type { FormProps } from '@codelab/frontend/abstract/types'
 import type { ReactElement } from 'react'
 
 import {
-  callbackWithParams,
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
@@ -19,23 +18,24 @@ import { AutoForm, ErrorsField } from 'uniforms-antd'
 import { usePostSubmit, useSubmit } from './utils'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
-  const Form = <TData, TResponse = unknown>({
-    autosave = false,
-    children,
-    cssString,
-    model,
-    modelTransform,
-    onChange,
-    onChangeModel,
-    onSubmit,
-    onSubmitError = [],
-    onSubmitSuccess = [],
-    schema,
-    submitField,
-    submitRef,
-    uiKey,
-  }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
-    const { setLoading } = useLoading()
+  const Form = <TData, TResponse = unknown>(
+    props: React.PropsWithChildren<FormProps<TData, TResponse>>,
+  ): ReactElement => {
+    const {
+      autosave = false,
+      children,
+      cssString,
+      model,
+      modelTransform,
+      onChange,
+      onChangeModel,
+      onSubmit,
+      onSubmitOptimistic = [],
+      schema,
+      submitField,
+      submitRef,
+      uiKey,
+    } = props
 
     const [bridge, setBridge] = useState(
       schema instanceof Bridge ? schema : createBridge(schema),
@@ -46,18 +46,9 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     }, [schema])
 
     const modelRef = useRef(model)
-
-    const postSubmit = usePostSubmit<TData, TResponse>({
-      onSubmitError,
-      onSubmitSuccess,
-    })
-
-    const submit = useSubmit<TData, TResponse>(
-      onSubmit,
-      (isLoading: boolean) => {
-        setLoading(isLoading)
-      },
-    )
+    const { setLoading } = useLoading()
+    const postSubmit = usePostSubmit<TData, TResponse>(props)
+    const submit = useSubmit(onSubmit, setLoading, onSubmitOptimistic)
 
     return (
       <div

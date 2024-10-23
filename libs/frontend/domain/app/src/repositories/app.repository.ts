@@ -11,7 +11,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
-import { revalidateTag } from 'next/cache'
 
 import { App } from '../store'
 import {
@@ -76,5 +75,3 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     return updatedApp
   },
 })
-
-export const invalidateAppListQuery = () => revalidateTag(CACHE_TAGS.APP_LIST)

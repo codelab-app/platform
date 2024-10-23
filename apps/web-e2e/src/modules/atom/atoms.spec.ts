@@ -3,6 +3,8 @@ import { expect } from '@playwright/test'
 
 import { test } from './atom.fixture'
 
+test.describe.configure({ mode: 'serial' })
+
 test.beforeEach(async ({ atomPage: page }) => {
   await page.goto()
 
@@ -36,7 +38,7 @@ test('it should be able to update an atom name', async ({ atomPage: page }) => {
 
   await expect(page.getAtomName()).toBeHidden()
 
-  await expect(page.getUpdatedAtomName()).toBeHidden()
+  await expect(page.getUpdatedAtomName()).toBeVisible()
 })
 
 test('should be able to delete an atom', async ({ atomPage: page }) => {
@@ -74,4 +76,8 @@ test('it should be able to create the same atom again', async ({
   await page.expectGlobalProgressBarToBeHidden()
 
   await expect(page.getAtomName()).toBeVisible()
+})
+
+test.afterAll('cleanup created atoms', async ({ request }) => {
+  await request.post('/api/v1/admin/setup-e2e-data')
 })

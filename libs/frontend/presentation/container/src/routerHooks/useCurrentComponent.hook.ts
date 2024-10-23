@@ -7,6 +7,8 @@ export const useCurrentComponent = () => {
   const { componentId } = useUrlPathParams()
 
   return useMemo(() => {
-    return componentId ? componentDomainService.component(componentId) : null
+    return componentId
+      ? componentDomainService.components.get(componentId)
+      : null
   }, [componentId, componentDomainService])
 }

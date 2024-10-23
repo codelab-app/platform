@@ -109,7 +109,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    ...refSchema('resource'),
+    ...refSchema('resource', {}),
     storeId: {
       disabled: true,
       type: 'string',

@@ -58,7 +58,7 @@ export const PageTreeItem = observer(
     const updatePageForm = useUpdatePageForm()
     const { popover } = useCui()
     const router = useRouter()
-    const { appId, pageId } = useUrlPathParams()
+    const { appId } = useUrlPathParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
@@ -68,7 +68,7 @@ export const PageTreeItem = observer(
           const url = PageType.PageBuilder(
             {
               appId,
-              pageId,
+              pageId: page.id,
             },
             PrimarySidebar.ElementTree,
           )

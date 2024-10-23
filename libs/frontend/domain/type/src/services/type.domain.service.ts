@@ -6,7 +6,7 @@ import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
 import {
-  ICreateTypeDto,
+  IInterfaceType,
   ITypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -51,7 +51,7 @@ export class TypeDomainService
   }
 
   @modelAction
-  hydrateInterface(data: ICreateTypeDto) {
+  hydrateInterface(data: IInterfaceType) {
     let interfaceType = this.types.get(data.id) as InterfaceType | undefined
 
     if (interfaceType) {
@@ -62,6 +62,7 @@ export class TypeDomainService
       id: data.id,
       name: data.name,
     })
+    interfaceType.writeFieldCache(data.fields)
 
     this.types.set(interfaceType.id, interfaceType)
 

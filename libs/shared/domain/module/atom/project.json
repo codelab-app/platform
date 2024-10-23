@@ -1,9 +1,14 @@
 {
   "name": "shared-domain-module-atom",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/domain/module/atom/src",
   "projectType": "library",
-  "tags": ["scope:shared"],
+  "sourceRoot": "libs/shared/domain/module/atom/src",
+  "tags": [
+    "projectName:shared-domain-module-atom",
+    "projectType:library",
+    "type:concrete",
+    "scope:shared"
+  ],
   "// targets": "to see all targets run: nx show project shared-domain-module-atom --web",
   "targets": {}
 }

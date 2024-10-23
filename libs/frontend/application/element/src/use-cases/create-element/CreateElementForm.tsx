@@ -14,7 +14,6 @@ import {
   SelectActionField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -115,11 +114,9 @@ export const CreateElementForm = observer<CreateElementFormProps>(
     return (
       <Form<ICreateElementDto>
         cssString="position: relative;"
+        errorMessage="Error while creating element"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating element',
-        })}
         onSubmitSuccess={closeForm}
         schema={createElementSchema}
         submitRef={submitRef}
@@ -153,7 +150,6 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         <SelectLinkElement
           allElementOptions={elementOptions}
           name="prevSibling.id"
-          required={false}
         />
         <RenderTypeField name="renderType" parentAtom={parentAtom} />
         <SelectActionField name="preRenderAction" selectedNode={selectedNode} />

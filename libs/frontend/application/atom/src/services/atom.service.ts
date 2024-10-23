@@ -45,8 +45,12 @@ export const useAtomService = (): IAtomService => {
     pagination: { atomPagination },
   } = useApplicationStore()
 
-  const { atomDomainService, typeDomainService, userDomainService } =
-    useDomainStore()
+  const {
+    atomDomainService,
+    fieldDomainService,
+    typeDomainService,
+    userDomainService,
+  } = useDomainStore()
 
   const typeService = useTypeService()
   const atomMapper = new AtomMapper(userDomainService.user)
@@ -66,6 +70,7 @@ export const useAtomService = (): IAtomService => {
     )
 
     const atoms = items.map((atom) => {
+      atom.api.fields.forEach((field) => fieldDomainService.hydrate(field))
       typeDomainService.hydrateInterface(atom.api)
 
       return atomDomainService.hydrate(atom)
@@ -151,7 +156,7 @@ export const useAtomService = (): IAtomService => {
   }
 
   const loadApi = async (id: string) => {
-    const atom = atomDomainService.atoms.get(id)
+    const atom = atomDomainService.atoms.get(id) ?? (await getOne(id))
 
     if (atom?.api) {
       await typeService.getInterface(atom.api.id)

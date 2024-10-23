@@ -50,7 +50,7 @@ export class ComponentListPage extends BasePage {
   async openDeleteComponentModal() {
     const card = this.getCard({ name: this.componentName })
 
-    await card.locator(this.getButton({ label: 'Delete' })).click()
+    await this.getButton({ title: 'Delete' }, card).click()
 
     await expect(this.getModal()).toBeVisible()
   }

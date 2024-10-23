@@ -9,19 +9,19 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-  useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
 const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
   ({ treeNode }) => {
+    const router = useRouter()
     const elementService = useElementService()
     const createElementForm = useCreateElementForm()
-    const { popover } = useCui()
 
     if (!treeNode.element) {
       return
@@ -30,7 +30,7 @@ const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
     const element = elementService.getElement(treeNode.element.id)
 
     const onClick = () => {
-      popover.open(UiKey.ElementPopoverCreate)
+      elementService.createPopover.open(router)
       createElementForm.open({
         elementOptions:
           element.closestContainerNode.elements.map(mapElementOption),
@@ -41,7 +41,7 @@ const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
 
     const items = [
       {
-        cuiKey: `${UiKey.ElementToolbarItemCreate}-${element.id}` as UiKey,
+        cuiKey: UiKey.ElementToolbarItemCreate,
         icon: <PlusOutlined />,
         onClick,
         title: 'Add Child',

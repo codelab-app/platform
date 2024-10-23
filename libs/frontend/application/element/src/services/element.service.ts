@@ -1,20 +1,23 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
   type IElementModel,
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
+import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 import { uniqueBy } from 'remeda'
 
 export const useElementService = (): IElementService => {
+  const { appId, componentId, pageId } = useUrlPathParams()
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
@@ -26,6 +29,12 @@ export const useElementService = (): IElementService => {
     }
 
     const element = elementDomainService.addTreeNode(data)
+
+    // when new element is inserted into elements tree -
+    // auto-expand parent node, so that new one becomes visible
+    if (element.parentElement?.maybeCurrent?.expanded === false) {
+      element.parentElement.current.setExpanded(true)
+    }
 
     await elementRepository.add(element)
     await syncModifiedElements()
@@ -110,8 +119,23 @@ export const useElementService = (): IElementService => {
     return Array.from(elementDomainService.elements.values())
   }
 
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/create-element`)
+    },
+  }
+
   return {
     createElement,
+    createPopover,
     deleteElement,
     // getAllFromCache,
     getElement,

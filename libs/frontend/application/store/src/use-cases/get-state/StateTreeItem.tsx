@@ -14,10 +14,12 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useRouter } from 'next/navigation'
 
 interface StateTreeItemProps {
   data: ITreeNode<IFieldNodeData>
@@ -29,6 +31,8 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const createFieldForm = useCreateFieldForm()
   const { popover } = useCui()
   const { fieldDomainService } = useDomainStore()
+  const { createPopover } = useFieldService()
+  const router = useRouter()
 
   const onEdit = () => {
     updateFieldForm.open(data.extraData.node)
@@ -43,7 +47,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     createFieldForm.open(
       data.extraData.node.type.current as IInterfaceTypeModel,
     )
-    popover.open(UiKey.FieldPopoverUpdate)
+    createPopover.open(router)
   }
 
   const toolbarItems: Array<ToolbarItem> = [

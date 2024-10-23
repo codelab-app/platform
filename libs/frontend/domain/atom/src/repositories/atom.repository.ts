@@ -2,7 +2,6 @@ import type {
   IAtomModel,
   IAtomRepository,
 } from '@codelab/frontend/abstract/domain'
-import type { IAtomDto } from '@codelab/shared/abstract/core'
 import type {
   AtomCreateInput,
   AtomOptions,
@@ -24,14 +23,13 @@ import {
   UpdateAtoms,
 } from '@codelab/shared-domain-module-atom/server'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
-import { revalidateTag } from 'next/cache'
 import { prop, sortBy } from 'remeda'
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   add: async (input: AtomCreateInput) => {
     const {
       createAtoms: { atoms },
-    } = await CreateAtoms({ input })
+    } = await CreateAtoms({ input }, { revalidateTag: CACHE_TAGS.ATOM_LIST })
 
     const createdAtom = atoms[0]
 

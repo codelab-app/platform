@@ -38,8 +38,8 @@ export class PageDomainService
     }
   }
 
-  findBySlug(slug: string) {
-    const found = this.pagesList.find((page) => page.slug === slug)
+  findById(id: string) {
+    const found = this.pages.get(id)
 
     Validator.assertsDefined(found)
 

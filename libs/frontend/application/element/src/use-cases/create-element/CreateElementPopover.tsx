@@ -6,13 +6,12 @@ import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
+import { useElementService } from '../../services/element.service'
 import { useCreateElementForm } from './create-element.state'
 import { CreateElementForm } from './CreateElementForm'
 
@@ -20,12 +19,13 @@ export const CreateElementPopover = observer<{
   // Prevent builder ciricular dep
   selectedNode?: Nullable<IRuntimeModel>
 }>(({ selectedNode }) => {
+  const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>()
   const createElementForm = useCreateElementForm()
-  const { popover } = useCui()
+  const { createPopover } = useElementService()
 
   return (
-    <CuiSidebarPopover
+    <CuiSidebarSecondary
       id={UiKey.ElementPopoverCreate}
       toolbar={{
         items: [
@@ -44,7 +44,7 @@ export const CreateElementPopover = observer<{
             label: 'Cancel',
             onClick: () => {
               createElementForm.close()
-              popover.close()
+              createPopover.close(router)
             },
             title: 'Cancel',
           },
@@ -53,11 +53,11 @@ export const CreateElementPopover = observer<{
       }}
     >
       <CreateElementForm
-        onSubmitSuccess={() => popover.close()}
+        onSubmitSuccess={() => createPopover.close(router)}
         selectedNode={selectedNode}
         showFormControl={false}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

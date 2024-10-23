@@ -69,12 +69,15 @@ export const usePostSubmit = <TData, TResponse>({
   errorMessage = 'Error submitting form',
   onSubmitError = [],
   onSubmitSuccess = [],
-  successMessage = 'Form submitted successfully',
+  successMessage = '',
 }: PostSubmitProps<TData, TResponse>) => {
   const notifyError = useErrorNotify({ title: errorMessage })
   const notifySuccess = useSuccessNotify({ title: successMessage })
   const errorHandlers = [console.error, notifyError, onSubmitError].flat()
-  const successHandlers = [notifySuccess, onSubmitSuccess].flat()
+
+  const successHandlers = successMessage
+    ? [notifySuccess, onSubmitSuccess].flat()
+    : onSubmitSuccess
 
   return {
     onSubmitError: (error: unknown) => callbackWithParams(errorHandlers, error),

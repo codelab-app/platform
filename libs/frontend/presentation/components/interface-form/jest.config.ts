@@ -32,4 +32,5 @@ export default {
       },
     ],
   ],
+  setupFilesAfterEnv: ['./jest.mocks.ts'],
 }

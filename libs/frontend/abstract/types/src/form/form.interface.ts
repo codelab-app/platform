@@ -48,6 +48,12 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      */
     schema: Bridge | JSONSchemaType<TData> | TSchema
 
+    errorMessage?: string
+
+    onSubmitOptimistic?: ArrayOrSingle<VoidCallback<Promise<TResponse>>>
+
+    successMessage?: string
+
     /**
      * Don't use `DeepPartial` even Uniform uses it
      */

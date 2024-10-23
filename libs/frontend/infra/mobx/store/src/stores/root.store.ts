@@ -30,7 +30,7 @@ export const createRootStore = withSpanFunc(
     })
 
     const domainStore = createDomainStore(user, preference)
-    const applicationStore = createApplicationStore(routerProps)
+    const applicationStore = createApplicationStore(routerProps, domainStore)
 
     @model('@codelab/RootStore')
     class RootStore

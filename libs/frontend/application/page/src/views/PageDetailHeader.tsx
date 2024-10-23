@@ -2,7 +2,7 @@
 
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import {
   useCurrentApp,
   useCurrentPage,
@@ -24,14 +24,14 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
   ({ appId, BuilderResizeMenu, pageId }) => {
     const router = useRouter()
     const currentPathname = usePathname()
-    const isBuilder = currentPathname.endsWith('/builder')
+    const isBuilder = currentPathname.includes('/builder')
     const app = useCurrentApp()
     const page = useCurrentPage()
 
     const togglePreviewMode = () => {
       const url = isBuilder
         ? PageType.PageDetail({ appId, pageId })
-        : PageType.PageList({ appId, pageId })
+        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
 
       return router.push(url)
     }
