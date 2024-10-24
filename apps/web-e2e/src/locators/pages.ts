@@ -39,6 +39,18 @@ export class BasePage {
     this.page = page
   }
 
+  async checkPageHeaderTitle(items: Array<string>) {
+    const pageHeaderClass = CuiTestId.cuiHeader()
+
+    const titleBreadcrumb = this.page.locator(
+      `.${pageHeaderClass} .ant-breadcrumb`,
+    )
+
+    for (const label of items) {
+      await expect(titleBreadcrumb.getByText(label)).toBeVisible()
+    }
+  }
+
   /**
    * Can take a while on CI, so add long timeout
    */
@@ -201,7 +213,7 @@ export class BasePage {
     const page = this.locator ?? this.page
 
     const treeItem = page.getByTestId(CuiTestId.cuiTreeItem()).filter({
-      has: page.getByTestId(CuiTestId.cuiTreeItemPrimaryTitle(label)),
+      has: this.page.getByTestId(CuiTestId.cuiTreeItemPrimaryTitle(label)),
     })
 
     this.locator = treeItem
@@ -213,7 +225,7 @@ export class BasePage {
     const page = this.locator ?? this.page
 
     return page.getByTestId(CuiTestId.cuiTreeItem()).filter({
-      has: page.getByTestId(CuiTestId.cuiTreeItemPrimaryTitle(label)),
+      has: this.page.getByTestId(CuiTestId.cuiTreeItemPrimaryTitle(label)),
     })
   }
 

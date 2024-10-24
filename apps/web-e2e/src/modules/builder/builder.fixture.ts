@@ -55,18 +55,6 @@ export class BuilderPage extends BasePage {
     }
   }
 
-  async checkPageHeaderTitle(items: Array<string>) {
-    const pageHeaderClass = CuiTestId.cuiHeader()
-
-    const titleBreadcrumb = this.page.locator(
-      `.${pageHeaderClass} .ant-breadcrumb`,
-    )
-
-    for (const label of items) {
-      await expect(titleBreadcrumb.getByText(label)).toBeVisible()
-    }
-  }
-
   async checkRootElementExists() {
     const explorerTree = this.getElementsTree()
 
