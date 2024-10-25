@@ -8,7 +8,9 @@ import type {
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
 import type { ResourceWhere } from '@codelab/shared/infra/gql'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import { PageType } from '@codelab/frontend/abstract/types'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -101,8 +103,27 @@ export const useResourceService = (): IResourceService => {
     return Array.from(resourceDomainService.resources.values())
   }
 
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.Resources())
+    },
+    open: (router: AppRouterInstance) => {
+      router.push(PageType.ResourcesCreate())
+    },
+  }
+
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.Resources())
+    },
+    open: (router: AppRouterInstance) => {
+      router.push(PageType.Resources())
+    },
+  }
+
   return {
     create,
+    createPopover,
     getAll,
     getAllFromCache,
     getOne,
@@ -111,5 +132,6 @@ export const useResourceService = (): IResourceService => {
     load,
     removeMany,
     update,
+    updatePopover,
   }
 }

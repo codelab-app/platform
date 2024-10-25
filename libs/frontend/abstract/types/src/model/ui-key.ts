@@ -177,14 +177,15 @@ export enum UiKey {
    */
   ResourceFormCreate = 'ResourceFormCreate',
   ResourceFormUpdate = 'ResourceFormUpdate',
-  ResourceModalCreate = 'ResourceModalCreate',
   ResourceModalDelete = 'ResourceModalDelete',
-  ResourceModalUpdate = 'ResourceModalUpdate',
   ResourcePopoverCreate = 'ResourcePopoverCreate',
+  ResourcePopoverUpdate = 'ResourcePopoverUpdate',
   ResourceSidebar = 'ResourceSidebar',
   ResourceToolbarItemCreate = 'ResourceToolbarItemCreate',
   ResourceToolbarItemCreateCancel = 'ResourceToolbarItemCreateCancel',
   ResourceToolbarItemDelete = 'ResourceToolbarItemDelete',
+  ResourceToolbarItemUpdate = 'ResourceToolbarItemUpdate',
+  ResourceToolbarItemUpdateCancel = 'ResourceToolbarItemUpdateCancel',
   /**
    * Tag
    */

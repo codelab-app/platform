@@ -409,17 +409,14 @@ const UiDataRecord = {
   [UiKey.ResourceFormUpdate]: {
     label: 'Update Resource Form',
   },
-  [UiKey.ResourceModalCreate]: {
-    label: 'Create Resource Modal',
-  },
   [UiKey.ResourceModalDelete]: {
     label: 'Delete Resource Modal',
   },
-  [UiKey.ResourceModalUpdate]: {
-    label: 'Update Resource Modal',
-  },
   [UiKey.ResourcePopoverCreate]: {
-    label: 'Create Resource Popover',
+    label: 'Resource',
+  },
+  [UiKey.ResourcePopoverUpdate]: {
+    label: 'Resource',
   },
   [UiKey.ResourceSidebar]: {
     label: 'Resource Sidebar',
@@ -432,6 +429,12 @@ const UiDataRecord = {
   },
   [UiKey.ResourceToolbarItemDelete]: {
     label: 'Delete Resource Toolbar Item',
+  },
+  [UiKey.ResourceToolbarItemUpdate]: {
+    label: 'Update Resource Toolbar Item',
+  },
+  [UiKey.ResourceToolbarItemUpdateCancel]: {
+    label: 'Cancel Update Resource Toolbar Item',
   },
   /**
    * Tag

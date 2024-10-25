@@ -1,50 +1,55 @@
 'use client'
 
+import type { IResourceModel } from '@codelab/frontend/abstract/domain'
+import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 
 import { useResourceService } from '../../services'
 import { updateResourceSchema } from './update-resource.schema'
-import { useUpdateResourceForm } from './update-resource.state'
 
-export const UpdateResourceForm = observer(() => {
-  const resourceService = useResourceService()
-  const updateResourceForm = useUpdateResourceForm()
-  const resource = updateResourceForm.data
+interface UpdateResourceFormProps extends IFormController {
+  resource: IResourceModel
+}
 
-  const model = {
-    config: resource?.config.values,
-    id: resource?.id,
-    name: resource?.name,
-    type: resource?.type,
-  }
+export const UpdateResourceForm = observer<UpdateResourceFormProps>(
+  ({ onSubmitSuccess, resource, showFormControl = false, submitRef }) => {
+    const resourceService = useResourceService()
 
-  const onSubmit = (resourceDTO: IUpdateResourceData) => {
-    void resourceService.update(resourceDTO)
+    const model = {
+      config: resource.config.values,
+      id: resource.id,
+      name: resource.name,
+      type: resource.type,
+    }
 
-    return Promise.resolve()
-  }
+    const onSubmit = (resourceDTO: IUpdateResourceData) =>
+      resourceService.update(resourceDTO)
 
-  return (
-    <Form<IUpdateResourceData>
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={createFormErrorNotificationHandler({
-        title: 'Error while updating resource',
-      })}
-      schema={updateResourceSchema}
-      uiKey={UiKey.ResourceFormUpdate}
-    >
-      <AutoFields />
-      <FormController submitLabel="Update Resource" />
-    </Form>
-  )
-})
+    return (
+      <Form<IUpdateResourceData>
+        errorMessage="Error while updating resource"
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitSuccess={onSubmitSuccess}
+        schema={updateResourceSchema}
+        submitRef={submitRef}
+        uiKey={UiKey.ResourceFormUpdate}
+      >
+        <AutoFields />
+
+        <DisplayIf condition={showFormControl}>
+          <FormController submitLabel="Update Resource" />
+        </DisplayIf>
+      </Form>
+    )
+  },
+)
