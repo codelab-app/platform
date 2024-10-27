@@ -9235,6 +9235,7 @@ export type AppConnectWhere = {
 }
 
 export type AppCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   pages?: InputMaybe<AppPagesFieldInput>
   domains?: InputMaybe<AppDomainsFieldInput>
@@ -9392,6 +9393,7 @@ export type AppDomainsUpdateFieldInput = {
 }
 
 export type AppOnCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
 }
 
@@ -10083,6 +10085,7 @@ export type AppUniqueWhere = {
 }
 
 export type AppUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
   domains?: InputMaybe<Array<AppDomainsUpdateFieldInput>>
@@ -11075,6 +11078,7 @@ export type AtomConnectWhere = {
 }
 
 export type AtomCreateInput = {
+  id: Scalars['ID']['input']
   type: AtomType
   name: Scalars['String']['input']
   icon?: InputMaybe<Scalars['String']['input']>
@@ -11482,6 +11486,7 @@ export type AtomElementsUpdateFieldInput = {
 }
 
 export type AtomOnCreateInput = {
+  id: Scalars['ID']['input']
   type: AtomType
   name: Scalars['String']['input']
   icon?: InputMaybe<Scalars['String']['input']>
@@ -12576,6 +12581,7 @@ export type AtomUniqueWhere = {
 }
 
 export type AtomUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<AtomType>
   name?: InputMaybe<Scalars['String']['input']>
   icon?: InputMaybe<Scalars['String']['input']>
@@ -12975,6 +12981,7 @@ export type AuthGuardConnectWhere = {
 }
 
 export type AuthGuardCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
   responseTransformer: Scalars['String']['input']
   resource?: InputMaybe<AuthGuardResourceFieldInput>
@@ -12995,6 +13002,7 @@ export type AuthGuardDisconnectInput = {
 }
 
 export type AuthGuardOnCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
   responseTransformer: Scalars['String']['input']
 }
@@ -13347,6 +13355,7 @@ export type AuthGuardUniqueWhere = {
 }
 
 export type AuthGuardUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   responseTransformer?: InputMaybe<Scalars['String']['input']>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
@@ -15021,6 +15030,7 @@ export type ComponentConnectWhere = {
 }
 
 export type ComponentCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   rootElement?: InputMaybe<ComponentRootElementFieldInput>
   api?: InputMaybe<ComponentApiFieldInput>
@@ -15046,6 +15056,7 @@ export type ComponentDisconnectInput = {
 }
 
 export type ComponentOnCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
 }
 
@@ -15906,6 +15917,7 @@ export type ComponentUniqueWhere = {
 }
 
 export type ComponentUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
   api?: InputMaybe<ComponentApiUpdateFieldInput>
@@ -16131,6 +16143,7 @@ export type DomainConnectWhere = {
 }
 
 export type DomainCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
   app?: InputMaybe<DomainAppFieldInput>
 }
@@ -16144,6 +16157,7 @@ export type DomainDisconnectInput = {
 }
 
 export type DomainOnCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
 
@@ -16169,6 +16183,7 @@ export type DomainUniqueWhere = {
 }
 
 export type DomainUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   app?: InputMaybe<DomainAppUpdateFieldInput>
 }
@@ -16767,6 +16782,7 @@ export type ElementConnectWhere = {
 }
 
 export type ElementCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   style?: InputMaybe<Scalars['String']['input']>
   tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
@@ -17563,6 +17579,7 @@ export type ElementNextSiblingUpdateFieldInput = {
 }
 
 export type ElementOnCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   style?: InputMaybe<Scalars['String']['input']>
   tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
@@ -19374,6 +19391,7 @@ export type ElementUniqueWhere = {
 }
 
 export type ElementUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
   style?: InputMaybe<Scalars['String']['input']>
   tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
@@ -20843,6 +20861,7 @@ export type FieldConnectWhere = {
 }
 
 export type FieldCreateInput = {
+  id: Scalars['ID']['input']
   key: Scalars['String']['input']
   name?: InputMaybe<Scalars['String']['input']>
   description?: InputMaybe<Scalars['String']['input']>
@@ -21277,6 +21296,7 @@ export type FieldNextSiblingUpdateFieldInput = {
 }
 
 export type FieldOnCreateInput = {
+  id: Scalars['ID']['input']
   key: Scalars['String']['input']
   name?: InputMaybe<Scalars['String']['input']>
   description?: InputMaybe<Scalars['String']['input']>
@@ -21671,6 +21691,7 @@ export type FieldUniqueWhere = {
 }
 
 export type FieldUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   key?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   description?: InputMaybe<Scalars['String']['input']>
@@ -21994,6 +22015,7 @@ export type HookConnectOrCreateInput = {
 }
 
 export type HookCreateInput = {
+  id: Scalars['ID']['input']
   type: AtomType
   config?: InputMaybe<HookConfigFieldInput>
   element?: InputMaybe<HookElementFieldInput>
@@ -22400,6 +22422,7 @@ export type HookSort = {
 }
 
 export type HookUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<AtomType>
   config?: InputMaybe<HookConfigUpdateFieldInput>
   element?: InputMaybe<HookElementUpdateFieldInput>
@@ -24797,6 +24820,7 @@ export type PageConnectWhere = {
 }
 
 export type PageCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   kind: PageKind
   urlPattern: Scalars['String']['input']
@@ -24824,6 +24848,7 @@ export type PageDisconnectInput = {
 }
 
 export type PageOnCreateInput = {
+  id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   kind: PageKind
   urlPattern: Scalars['String']['input']
@@ -26163,6 +26188,7 @@ export type PageUniqueWhere = {
 }
 
 export type PageUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
   kind?: InputMaybe<PageKind>
   urlPattern?: InputMaybe<Scalars['String']['input']>
@@ -26274,6 +26300,7 @@ export type PreferenceConnectWhere = {
 }
 
 export type PreferenceCreateInput = {
+  id: Scalars['ID']['input']
   builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
@@ -26288,6 +26315,7 @@ export type PreferenceDisconnectInput = {
 }
 
 export type PreferenceOnCreateInput = {
+  id: Scalars['ID']['input']
   builderBreakpointType: BreakpointType
   builderWidth: Scalars['Float']['input']
 }
@@ -26500,6 +26528,7 @@ export type PreferenceUniqueWhere = {
 }
 
 export type PreferenceUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   builderBreakpointType?: InputMaybe<BreakpointType>
   builderWidth?: InputMaybe<Scalars['Float']['input']>
   builderWidth_ADD?: InputMaybe<Scalars['Float']['input']>
@@ -26899,10 +26928,12 @@ export type PropConnectWhere = {
 }
 
 export type PropCreateInput = {
+  id: Scalars['ID']['input']
   data: Scalars['String']['input']
 }
 
 export type PropOnCreateInput = {
+  id: Scalars['ID']['input']
   data: Scalars['String']['input']
 }
 
@@ -26924,6 +26955,7 @@ export type PropUniqueWhere = {
 }
 
 export type PropUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   data?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -27487,6 +27519,7 @@ export type RedirectConnectWhere = {
 }
 
 export type RedirectCreateInput = {
+  id: Scalars['ID']['input']
   targetType: RedirectTargetType
   targetUrl?: InputMaybe<Scalars['String']['input']>
   source?: InputMaybe<RedirectSourceFieldInput>
@@ -27507,6 +27540,7 @@ export type RedirectDisconnectInput = {
 }
 
 export type RedirectOnCreateInput = {
+  id: Scalars['ID']['input']
   targetType: RedirectTargetType
   targetUrl?: InputMaybe<Scalars['String']['input']>
 }
@@ -27922,6 +27956,7 @@ export type RedirectUniqueWhere = {
 }
 
 export type RedirectUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   targetType?: InputMaybe<RedirectTargetType>
   targetUrl?: InputMaybe<Scalars['String']['input']>
   source?: InputMaybe<RedirectSourceUpdateFieldInput>
@@ -28440,6 +28475,7 @@ export type ResourceConnectWhere = {
 }
 
 export type ResourceCreateInput = {
+  id: Scalars['ID']['input']
   type: ResourceType
   name: Scalars['String']['input']
   config?: InputMaybe<ResourceConfigFieldInput>
@@ -28457,6 +28493,7 @@ export type ResourceDisconnectInput = {
 }
 
 export type ResourceOnCreateInput = {
+  id: Scalars['ID']['input']
   type: ResourceType
   name: Scalars['String']['input']
 }
@@ -28670,6 +28707,7 @@ export type ResourceUniqueWhere = {
 }
 
 export type ResourceUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<ResourceType>
   name?: InputMaybe<Scalars['String']['input']>
   config?: InputMaybe<ResourceConfigUpdateFieldInput>
@@ -29282,6 +29320,7 @@ export type StoreConnectWhere = {
 }
 
 export type StoreCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
   api?: InputMaybe<StoreApiFieldInput>
   actions?: InputMaybe<StoreActionsCreateInput>
@@ -29298,6 +29337,7 @@ export type StoreDisconnectInput = {
 }
 
 export type StoreOnCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
 
@@ -29324,6 +29364,7 @@ export type StoreUniqueWhere = {
 }
 
 export type StoreUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   api?: InputMaybe<StoreApiUpdateFieldInput>
   actions?: InputMaybe<StoreActionsUpdateInput>
@@ -29904,6 +29945,7 @@ export type TagConnectWhere = {
 }
 
 export type TagCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
   parent?: InputMaybe<TagParentFieldInput>
   children?: InputMaybe<TagChildrenFieldInput>
@@ -29926,6 +29968,7 @@ export type TagDisconnectInput = {
 }
 
 export type TagOnCreateInput = {
+  id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
 
@@ -30341,6 +30384,7 @@ export type TagUniqueWhere = {
 }
 
 export type TagUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   parent?: InputMaybe<TagParentUpdateFieldInput>
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
@@ -32619,6 +32663,7 @@ export type UserConnectWhere = {
 }
 
 export type UserCreateInput = {
+  id: Scalars['ID']['input']
   auth0Id: Scalars['String']['input']
   email: Scalars['String']['input']
   username: Scalars['String']['input']
@@ -33025,6 +33070,7 @@ export type UserElementsUpdateFieldInput = {
 }
 
 export type UserOnCreateInput = {
+  id: Scalars['ID']['input']
   auth0Id: Scalars['String']['input']
   email: Scalars['String']['input']
   username: Scalars['String']['input']
@@ -33365,6 +33411,7 @@ export type UserUniqueWhere = {
 }
 
 export type UserUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
   auth0Id?: InputMaybe<Scalars['String']['input']>
   email?: InputMaybe<Scalars['String']['input']>
   username?: InputMaybe<Scalars['String']['input']>
