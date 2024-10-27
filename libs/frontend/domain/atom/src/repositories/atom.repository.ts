@@ -32,7 +32,10 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   add: async (input: IAtomDto) => {
     const {
       createAtoms: { atoms },
-    } = await CreateAtoms({ input: atomMapper.toCreateInput(input) }, { revalidateTag: CACHE_TAGS.ATOM_LIST })
+    } = await CreateAtoms(
+      { input: atomMapper.toCreateInput(input) },
+      { revalidateTag: CACHE_TAGS.ATOM_LIST },
+    )
 
     const createdAtom = atoms[0]
 
