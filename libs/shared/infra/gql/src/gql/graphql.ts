@@ -27253,6 +27253,7 @@ export type AtomBuilderFragment = {
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
   tags: Array<TagFragment>
+  owner: { id: string }
 }
 
 export type AtomProductionFragment = {
@@ -27497,6 +27498,7 @@ export type ResourceFragment = {
   name: string
   type: ResourceType
   config: PropFragment
+  owner: { id: string }
 }
 
 export type StoreFragment = {
@@ -27515,9 +27517,9 @@ export type ProductionStoreFragment = {
 export type TagFragment = {
   id: string
   name: string
-  children: Array<{ id: string; name: string }>
+  children: Array<{ id: string; name: string; owner: { id: string } }>
   descendants: Array<{ id: string; name: string }>
-  owner: OwnerFragment
+  owner: { id: string }
   parent?: { id: string } | null
 }
 
@@ -29657,6 +29659,9 @@ export const TagFragmentDoc = new TypedDocumentString(
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -29665,15 +29670,13 @@ export const TagFragmentDoc = new TypedDocumentString(
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
   }
 }
-    fragment Owner on User {
-  id
-}`,
+    `,
   { fragmentName: 'Tag' },
 ) as unknown as TypedDocumentString<TagFragment, unknown>
 export const AtomBuilderFragmentDoc = new TypedDocumentString(
@@ -29700,11 +29703,17 @@ export const AtomBuilderFragmentDoc = new TypedDocumentString(
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
     fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -29713,7 +29722,7 @@ export const AtomBuilderFragmentDoc = new TypedDocumentString(
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -29757,9 +29766,6 @@ fragment InterfaceType on InterfaceType {
   fields {
     ...Field
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'AtomBuilder' },
 ) as unknown as TypedDocumentString<AtomBuilderFragment, unknown>
@@ -29847,6 +29853,9 @@ export const ElementFragmentDoc = new TypedDocumentString(
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Prop on Prop {
   data
@@ -29856,6 +29865,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -29864,7 +29876,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -29986,9 +29998,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'Element' },
 ) as unknown as TypedDocumentString<ElementFragment, unknown>
@@ -30034,6 +30043,9 @@ export const ResourceFragmentDoc = new TypedDocumentString(
   id
   name
   type
+  owner {
+    id
+  }
 }
     fragment Prop on Prop {
   data
@@ -30080,6 +30092,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ApiAction' },
 ) as unknown as TypedDocumentString<ApiActionFragment, unknown>
@@ -30135,6 +30150,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'Action' },
 ) as unknown as TypedDocumentString<ActionFragment, unknown>
@@ -30200,6 +30218,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment BaseType on IBaseType {
   __typename
@@ -30329,6 +30350,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -30401,6 +30425,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -30416,6 +30443,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -30424,7 +30454,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -30546,9 +30576,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'Page' },
 ) as unknown as TypedDocumentString<PageFragment, unknown>
@@ -30629,6 +30656,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Domain on Domain {
   app {
@@ -30735,6 +30765,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -30750,6 +30783,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -30758,7 +30794,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -30973,6 +31009,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -31045,6 +31084,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -31060,6 +31102,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -31068,7 +31113,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -31190,9 +31235,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'PageDevelopment' },
 ) as unknown as TypedDocumentString<PageDevelopmentFragment, unknown>
@@ -31272,6 +31314,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -31368,6 +31413,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -31383,6 +31431,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -31391,7 +31442,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -31904,6 +31955,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32201,6 +32255,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32369,6 +32426,9 @@ export const AtomFragmentDoc = new TypedDocumentString(
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -32377,7 +32437,7 @@ export const AtomFragmentDoc = new TypedDocumentString(
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -32421,9 +32481,6 @@ fragment InterfaceType on InterfaceType {
   fields {
     ...Field
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'Atom' },
 ) as unknown as TypedDocumentString<AtomFragment, unknown>
@@ -32454,6 +32511,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'AuthGuard' },
 ) as unknown as TypedDocumentString<AuthGuardFragment, unknown>
@@ -32530,6 +32590,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32673,6 +32736,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -32745,6 +32811,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32760,6 +32829,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -32768,7 +32840,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -32966,6 +33038,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -33127,6 +33202,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ProductionStore' },
 ) as unknown as TypedDocumentString<ProductionStoreFragment, unknown>
@@ -33335,6 +33413,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment AuthGuard on AuthGuard {
   config {
@@ -33484,6 +33565,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -33499,6 +33583,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -33507,7 +33594,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -33814,6 +33901,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Domain on Domain {
   app {
@@ -33920,6 +34010,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -33935,6 +34028,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -33943,7 +34039,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -34246,6 +34342,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -34431,6 +34530,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<
   GetAuthGuardsQuery,
   GetAuthGuardsQueryVariables
@@ -34560,6 +34662,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment ComponentBuilder on Component {
   __typename
@@ -34657,6 +34762,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -34672,6 +34780,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -34680,7 +34791,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -34926,6 +35037,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -35100,6 +35214,9 @@ export const ElementListDocument = new TypedDocumentString(`
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -35169,6 +35286,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -35177,7 +35297,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -35299,9 +35419,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<
   ElementListQuery,
   ElementListQueryVariables
@@ -35446,6 +35563,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -35542,6 +35662,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -35557,6 +35680,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -35565,7 +35691,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -35687,9 +35813,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<PageListQuery, PageListQueryVariables>
 export const GetRenderedPageDocument = new TypedDocumentString(`
     query GetRenderedPage($pageId: ID!) {
@@ -35758,6 +35881,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -35854,6 +35980,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -35869,6 +35998,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -35877,7 +36009,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -35999,9 +36131,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<
   GetRenderedPageQuery,
   GetRenderedPageQueryVariables
@@ -36191,6 +36320,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<
   ResourceListQuery,
   ResourceListQueryVariables
@@ -36334,6 +36466,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<GetActionsQuery, GetActionsQueryVariables>
 export const CreateStoresDocument = new TypedDocumentString(`
     mutation CreateStores($input: [StoreCreateInput!]!) {
@@ -36420,6 +36555,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -36567,6 +36705,9 @@ export const GetTagsDocument = new TypedDocumentString(`
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -36575,14 +36716,11 @@ export const GetTagsDocument = new TypedDocumentString(`
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<GetTagsQuery, GetTagsQueryVariables>
 export const CreatePrimitiveTypesDocument = new TypedDocumentString(`
     mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
@@ -39205,6 +39343,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -39213,7 +39354,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -39257,9 +39398,6 @@ fragment InterfaceType on InterfaceType {
   fields {
     ...Field
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
 export const UpdateAtomsDocument = new TypedDocumentString(`
     mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {

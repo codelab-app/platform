@@ -22,5 +22,8 @@ export interface IRepository<
     options?: Option,
   ): Promise<{ items: Array<ModelFragment>; aggregate: { count: number } }>
   findOne(where: Where): Promise<ModelFragment | undefined>
+  /**
+   * Considered using only dto, but for backend sometimes we upsert by name
+   */
   update(where: IRef, dto: Partial<Dto>): Promise<IRef>
 }

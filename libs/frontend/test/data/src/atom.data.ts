@@ -6,7 +6,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const atomReactFragmentDto: IAtomDto = {
+export const atomReactFragmentDto: Omit<IAtomDto, 'owner'> = {
   __typename: IElementRenderTypeKind.Atom,
   api: {
     id: v4(),

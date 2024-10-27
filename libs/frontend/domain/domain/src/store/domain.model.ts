@@ -55,26 +55,4 @@ export class Domain
 
     return this
   }
-
-  toCreateInput() {
-    return {
-      app: connectNodeId(this.app.id),
-      id: this.id,
-      name: this.name,
-    }
-  }
-
-  toDeleteInput(): DeleteDomainsMutationVariables {
-    return {
-      where: {
-        id: this.id,
-      },
-    }
-  }
-
-  toUpdateInput() {
-    return {
-      name: this.name,
-    }
-  }
 }

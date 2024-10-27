@@ -35,12 +35,11 @@ export interface IComponentModel
    * keeps track of source component in case this is a duplicate
    */
   sourceComponent?: Nullable<IRef>
-  store: Ref<IStoreModel> & { api: Ref<IInterfaceTypeModel> }
+  store: Ref<IStoreModel>
   setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: IPropModel): void
   setSourceComponent(entity: IRef): void
   setStore(props: Nullable<Ref<IStoreModel>>): void
-  toCreateInput(): ComponentCreateInput
 }
 
 export type IComponentRef = string

@@ -1,15 +1,12 @@
 import type {
+  ITypeCreateFormData,
   ITypeDomainService,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import {
-  ITypeCreateFormData,
-  ITypeDto,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

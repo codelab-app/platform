@@ -17,15 +17,12 @@ import type { IRepository } from '../shared'
 import type { IElementModel } from './element.model.interface'
 import type { IElementTree } from './element-tree.interface.model'
 
-export interface IElementRepository
-  extends IRepository<
-    IElementDto,
-    ElementFragment,
-    ElementWhere,
-    DomainOptions
-  > {
-  updateNodes(element: IElementModel): Promise<IRef>
-}
+export type IElementRepository = IRepository<
+  IElementDto,
+  ElementFragment,
+  ElementWhere,
+  DomainOptions
+>
 
 export interface SelectElementOption extends SelectOption {
   childrenIds?: Array<string>

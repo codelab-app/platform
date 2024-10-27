@@ -148,22 +148,6 @@ export class Page
     return this
   }
 
-  toUpdateInput(): PageUpdateInput {
-    return {
-      app: connectNodeId(this.app.id),
-      compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
-      pageContentContainer: reconnectNodeId(
-        this.pageContentContainer?.current.id,
-      ),
-      urlPattern: this.urlPattern,
-    }
-  }
-
-  @computed
-  private get redirectDomainService() {
-    return getRedirectDomainService(this)
-  }
-
   @computed
   private get userDomainService() {
     return getUserDomainService(this)

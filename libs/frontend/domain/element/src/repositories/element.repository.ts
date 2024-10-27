@@ -71,19 +71,4 @@ export const elementRepository: IElementRepository = {
 
     return updatedElement
   },
-
-  updateNodes: async (element: IElementModel) => {
-    const {
-      updateElements: { elements },
-    } = await UpdateElements({
-      update: elementMapper.toUpdateNodesInput(element),
-      where: { id: element.id },
-    })
-
-    const updatedNode = elements[0]
-
-    Validator.assertsDefined(updatedNode)
-
-    return updatedNode
-  },
 }

@@ -9,6 +9,8 @@ export class Tag implements ITagDto {
 
   name: string
 
+  owner: IRef
+
   parent?: IRef | null
 
   constructor({
@@ -16,6 +18,7 @@ export class Tag implements ITagDto {
     descendants = [],
     id,
     name,
+    owner,
     parent = null,
   }: ITagDto) {
     this.id = id
@@ -23,5 +26,6 @@ export class Tag implements ITagDto {
     this.children = children
     this.parent = parent
     this.descendants = descendants
+    this.owner = owner
   }
 }

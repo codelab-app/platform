@@ -102,7 +102,7 @@ export const useElementService = (): IElementService => {
   const updateElements = async (elements: Array<IElementModel>) => {
     await Promise.all(
       uniqueBy(elements, (element) => element.id).map((element) =>
-        elementRepository.updateNodes(element),
+        elementRepository.update({ id: element.id }, element.toJson),
       ),
     )
   }

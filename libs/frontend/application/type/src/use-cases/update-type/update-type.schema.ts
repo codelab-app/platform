@@ -37,9 +37,7 @@ export const updateTypeSchema: JSONSchemaType<
       nullable: true,
       type: 'array',
     },
-
-    arrayTypeId: { nullable: true, type: 'string' },
-
+    arrayItemTypeId: { nullable: true, type: 'string' },
     elementKind: {
       enum: Object.values(IElementTypeKind),
       nullable: true,

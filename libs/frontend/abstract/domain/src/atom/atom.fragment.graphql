@@ -50,6 +50,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 
 fragment AtomProduction on Atom {

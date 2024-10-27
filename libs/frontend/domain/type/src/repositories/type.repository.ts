@@ -1,22 +1,20 @@
 import type {
-  ITypeCreateInput,
   ITypeModel,
   ITypeRepository,
-  ITypeUpdateInput,
-  ITypeUpdateVars,
 } from '@codelab/frontend/abstract/domain'
 import type {
   IRef,
-  ITypeCreateDto,
   ITypeDto,
   ITypeKind,
   ITypeRef,
 } from '@codelab/shared/abstract/core'
+import type { ITypeUpdateInput } from '@codelab/shared/domain-old'
 import type {
   GetBaseTypesOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
 
+import { ITypeUpdateVars } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { prop, sortBy } from 'remeda'
 import { ValidatedForm } from 'uniforms'
@@ -38,6 +36,8 @@ export const typeRepository: ITypeRepository = {
     Validator.assertsDefined(input.kind)
 
     const createdTypes = await createTypeApi[input.kind]([input])
+
+    Validator.assertsDefined(createdTypes[0])
 
     return createdTypes[0]
   },
@@ -129,12 +129,17 @@ export const typeRepository: ITypeRepository = {
     return sortBy(typeFragments, ({ name }) => name.toLowerCase())
   },
 
-  update: async (variables: ITypeUpdateVars) => {
-    const kind = variables.update?.kind
+  update: async ({ id }: IRef, input: ITypeUpdateInput) => {
+    const kind = input.kind
 
     Validator.assertsDefined(kind)
 
-    const updatedType = await updateTypeApi[kind](variables)
+    const updatedType = await updateTypeApi[kind]({
+      update: input,
+      where: { id },
+    })
+
+    Validator.assertsDefined(updatedType[0])
 
     return updatedType[0]
   },

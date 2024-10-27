@@ -1,7 +1,10 @@
 import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
+import {
+  idSchema,
+  refSchema,
+} from '@codelab/frontend-presentation-components-form/schema'
 
 export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
   properties: {
@@ -18,8 +21,9 @@ export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
       required: [],
       type: 'object',
     },
+    ...refSchema('owner'),
   },
-  required: ['name'],
+  required: ['name', 'owner'],
   title: 'Update Tag Input',
   type: 'object',
 } as const

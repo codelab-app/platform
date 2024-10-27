@@ -11,7 +11,9 @@ import Html5Outlined from '@ant-design/icons/Html5Outlined'
 import {
   atomRef,
   getUserDomainService,
+  IUserModel,
   typeRef,
+  userRef,
 } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import {
@@ -45,6 +47,7 @@ const create = ({
   icon,
   id,
   name,
+  owner,
   requiredParents,
   suggestedChildren,
   tags,
@@ -58,6 +61,7 @@ const create = ({
     icon,
     id,
     name,
+    owner: userRef(owner.id),
     requiredParents: requiredParents?.map((child) => atomRef(child.id)),
     suggestedChildren: suggestedChildren?.map((child) => atomRef(child.id)),
     tags: tags?.map((tag) => tagRef(tag.id)),
@@ -75,6 +79,7 @@ export class Atom
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
+    owner: prop<Ref<IUserModel>>(),
     requiredParents: prop<Array<Ref<IAtomModel>>>(() => []),
     suggestedChildren: prop<Array<Ref<IAtomModel>>>(() => []),
     tags: prop<Array<Ref<ITagModel>>>(() => []),
@@ -129,6 +134,7 @@ export class Atom
       icon: this.icon,
       id: this.id,
       name: this.name,
+      owner: this.owner,
       requiredParents: this.requiredParents,
       suggestedChildren: this.suggestedChildren,
       tags: this.tags,

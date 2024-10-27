@@ -79,47 +79,40 @@ export const elementMapper: IMapper<
     return {}
   },
 
-  // toUpdateNodesInput: ({
-  //   name,
-  //   expanded,
-  //   closestContainerNode,
-  //   firstChild,
-  //   nextSibling,
-  //   parentElement,
-  //   prevSibling,
-  // }: IElementDto): ElementUpdateInput => {
-  //   return {
-  //     compositeKey: ElementProperties.elementCompositeKey(
-  //       name,
-  //       closestContainerNode,
-  //     ),
-  //     expanded,
-  //     firstChild: connectNodeId(firstChild?.id),
-  //     nextSibling: connectNodeId(nextSibling?.id),
-  //     parentElement: connectNodeId(parentElement?.id),
-  //     prevSibling: connectNodeId(prevSibling?.id),
-  //   }
-  // },
-
   toUpdateInput: ({
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
     closestContainerNode,
     compositeKey,
-    id,
+    expanded,
     name,
+    postRenderAction,
+    preRenderAction,
     props,
+    renderForEachPropKey,
+    renderIfExpression,
     renderType,
+    style,
+    tailwindClassNames,
   }: IElementCreateDto): ElementUpdateInput => {
+    // We need to disconnect the component if render type changed to atom or empty
+
     return {
-      childMapperComponent: connectNodeId(childMapperComponent?.id),
-      childMapperPreviousSibling: connectNodeId(childMapperPreviousSibling?.id),
+      childMapperComponent: reconnectNodeId(childMapperComponent?.id),
+      childMapperPreviousSibling: reconnectNodeId(
+        childMapperPreviousSibling?.id,
+      ),
       childMapperPropKey,
       compositeKey:
         compositeKey ??
         ElementProperties.elementCompositeKey(name, closestContainerNode),
+      expanded,
+      postRenderAction: reconnectNodeId(postRenderAction?.id),
+      preRenderAction: reconnectNodeId(preRenderAction?.id),
       props: reconnectNodeId(props.id),
+      renderForEachPropKey,
+      renderIfExpression,
       renderType: {
         Atom:
           renderType.__typename === 'Atom'
@@ -130,6 +123,8 @@ export const elementMapper: IMapper<
             ? connectNodeId(renderType.id)
             : disconnectAll({ omitId: renderType.id }),
       },
+      style,
+      tailwindClassNames,
     }
   },
 }

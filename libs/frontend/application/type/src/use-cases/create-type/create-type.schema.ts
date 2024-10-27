@@ -1,4 +1,4 @@
-import type { ITypeCreateFormData } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -45,7 +45,7 @@ export const createTypeSchema: JSONSchemaType<ITypeCreateFormData> = {
       nullable: true,
       type: 'array',
     },
-    arrayTypeId: { nullable: true, type: 'string' },
+    arrayItemTypeId: { nullable: true, type: 'string' },
     elementKind: {
       enum: Object.values(IElementTypeKind),
       nullable: true,

@@ -1,13 +1,10 @@
-import type {
-  IMapper,
-  IPropCreateDto,
-  IPropDto,
-  IUserDto,
-} from '@codelab/shared/abstract/core'
+import type { IMapper, IPropDto, IUserDto } from '@codelab/shared/abstract/core'
 import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/infra/gql'
+
+import { connectNodeId } from '../orm'
 
 export const propMapper: IMapper<
   IPropDto,
@@ -15,7 +12,7 @@ export const propMapper: IMapper<
   PropUpdateInput,
   unknown
 > = {
-  toCreateInput: ({ data, id }: IPropCreateDto): PropCreateInput => {
+  toCreateInput: ({ data, id }: IPropDto): PropCreateInput => {
     return {
       data: JSON.stringify(data),
       id,

@@ -22,7 +22,7 @@ export class ResourceDomainService
   }
 
   @modelAction
-  hydrate({ config, id, name, type }: IResourceDto) {
+  hydrate({ config, id, name, owner, type }: IResourceDto) {
     let resource = this.resources.get(id)
 
     if (resource) {
@@ -32,6 +32,7 @@ export class ResourceDomainService
         config,
         id,
         name,
+        owner,
         type,
       })
     }

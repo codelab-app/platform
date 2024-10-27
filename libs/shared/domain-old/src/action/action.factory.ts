@@ -52,7 +52,7 @@ export const actionFactory = {
   },
 
   mapDataToDto: (data: ICreateActionData): IActionDto => {
-    switch (data.__typename) {
+    switch (data.type) {
       case IActionKind.CodeAction:
         return {
           ...data,
@@ -76,7 +76,7 @@ export const actionFactory = {
         }
 
       default:
-        throw new Error(`Unknown action type : ${data.__typename}`)
+        throw new Error(`Unknown action type : ${data.type}`)
     }
   },
 

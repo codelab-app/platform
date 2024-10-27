@@ -45,12 +45,15 @@ export class TagRepository extends AbstractRepository<
       await (
         await this.ogmService.Tag
       ).create({
-        input: tags.map(({ children, descendants, parent, ...tag }) => ({
-          ...tag,
-          children: connectNodeIds(children?.map((child) => child.id)),
-          owner: connectOwner(this.authService.currentUser),
-          // parent: connectNodeId(parent?.id),
-        })),
+        input: tags.map(
+          ({ children, descendants, id, isRoot, name, owner, parent }) => ({
+            children: connectNodeIds(children?.map((child) => child.id)),
+            id,
+            isRoot,
+            name,
+            owner: connectOwner(owner),
+          }),
+        ),
       })
     ).tags
   }
@@ -72,7 +75,7 @@ export class TagRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { children, descendants, id, parent, ...tag }: ITagDto,
+    { children, descendants, id, owner, parent, ...tag }: ITagDto,
     where: TagWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect

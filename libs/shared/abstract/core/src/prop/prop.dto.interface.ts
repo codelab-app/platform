@@ -11,9 +11,5 @@ export const PropDtoSchema = Type.Object({
 
 export type IPropDto = Static<typeof PropDtoSchema>
 
-export const PropCreateDtoSchema = Type.Pick(PropDtoSchema, ['id', 'data'])
-
-export type IPropCreateDto = Static<typeof PropCreateDtoSchema>
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
 export type IPropData = Record<string, any>

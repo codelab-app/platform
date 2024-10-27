@@ -12,7 +12,9 @@ import type { Ref } from 'mobx-keystone'
 
 import {
   getUserDomainService,
+  IUserModel,
   resourceRef,
+  userRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain-old'
@@ -23,6 +25,7 @@ const create = ({
   config,
   id,
   name,
+  owner,
   resource,
   responseTransformer,
 }: IAuthGuardDto) =>
@@ -30,6 +33,7 @@ const create = ({
     config: Prop.create(config),
     id,
     name,
+    owner: userRef(owner.id),
     resource: resourceRef(resource.id),
     responseTransformer,
   })
@@ -40,6 +44,7 @@ export class AuthGuardModel
     config: prop<IPropModel>(),
     id: idProp,
     name: prop<string>(),
+    owner: prop<Ref<IUserModel>>(),
     resource: prop<Ref<IResourceModel>>(),
     responseTransformer: prop<string>(),
   }))
@@ -53,6 +58,7 @@ export class AuthGuardModel
       config: this.config.toJson,
       id: this.id,
       name: this.name,
+      owner: this.owner,
       resource: this.resource,
       responseTransformer: this.responseTransformer,
     }

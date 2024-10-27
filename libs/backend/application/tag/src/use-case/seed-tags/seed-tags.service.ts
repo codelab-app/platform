@@ -1,6 +1,7 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
 import type { ITagDto } from '@codelab/shared/abstract/core'
 
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -15,6 +16,7 @@ export class SeedTagsService {
   constructor(
     private tagRepository: TagRepository,
     private commandBus: CommandBus,
+    private authService: AuthDomainService,
   ) {}
 
   /* *
@@ -56,6 +58,7 @@ export class SeedTagsService {
         descendants: [],
         id: tag.id,
         name: tag.name,
+        owner: this.authService.currentUser,
         parent: parent ? { id: parent.id, name: parent.name } : undefined,
       }
     })

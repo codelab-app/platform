@@ -14,25 +14,19 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.format.enable": true,
   "eslint.probe": [
-    "less",
     "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact",
     "html",
-    "vue",
     "markdown",
     "graphql"
   ],
-  "eslint.run": "onSave",
-  "eslint.validate": ["json"],
+  // "eslint.run": "onSave",
+  // "eslint.validate": ["json"],
   "json.format.enable": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform"
-  },
-  // https://github.com/microsoft/playwright/issues/23924
-  "playwright.env": {
-    // "NODE_OPTIONS": "-r ../../.pnp.cjs"
   }
 }

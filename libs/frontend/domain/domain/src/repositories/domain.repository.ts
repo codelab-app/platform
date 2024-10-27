@@ -1,3 +1,4 @@
+import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   DomainOptions,
   DomainUniqueWhere,
@@ -9,6 +10,7 @@ import {
   type IDomainModel,
   type IDomainRepository,
 } from '@codelab/frontend/abstract/domain'
+import { domainMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { revalidateTag } from 'next/cache'
 
@@ -20,11 +22,11 @@ import {
 } from './domain.api.graphql.gen'
 
 export const domainRepository: IDomainRepository = {
-  add: async (domain: IDomainModel) => {
+  add: async (domain: IDomainDto) => {
     const {
       createDomains: { domains },
     } = await CreateDomains({
-      input: domain.toCreateInput(),
+      input: domainMapper.toCreateInput(domain),
     })
 
     const createdDomain = domains[0]
@@ -54,12 +56,12 @@ export const domainRepository: IDomainRepository = {
     return (await domainRepository.find(where)).items[0]
   },
 
-  update: async (domain: IDomainModel) => {
+  update: async ({ id }: IRef, domain: IDomainDto) => {
     const {
       updateDomains: { domains },
     } = await UpdateDomains({
-      update: domain.toUpdateInput(),
-      where: { id: domain.id },
+      update: domainMapper.toUpdateInput(domain),
+      where: { id },
     })
 
     const updatedDomain = domains[0]

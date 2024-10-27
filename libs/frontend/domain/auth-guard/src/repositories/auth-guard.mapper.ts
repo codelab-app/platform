@@ -26,6 +26,7 @@ export const authGuardMapper: IMapper<
     config,
     id,
     name,
+    owner,
     resource,
     responseTransformer,
   }: IAuthGuardDto): AuthGuardCreateInput => {
@@ -37,7 +38,7 @@ export const authGuardMapper: IMapper<
       },
       id,
       name,
-      owner: connectOwner(this.owner),
+      owner: connectOwner(owner),
       resource: connectNodeId(resource.id),
       responseTransformer,
     }

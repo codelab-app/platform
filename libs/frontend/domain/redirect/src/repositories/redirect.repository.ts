@@ -2,8 +2,10 @@ import type {
   IRedirectModel,
   IRedirectRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IRedirectDto, IRef } from '@codelab/shared/abstract/core'
 import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
 
+import { redirectMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -14,10 +16,10 @@ import {
 } from './redirect.api.graphql.gen'
 
 export const redirectRepository: IRedirectRepository = {
-  add: async (redirect: IRedirectModel) => {
+  add: async (redirect: IRedirectDto) => {
     const {
       createRedirects: { redirects },
-    } = await CreateRedirects({ input: redirect.toCreateInput() })
+    } = await CreateRedirects({ input: redirectMapper.toCreateInput(redirect) })
 
     const createdRedirect = redirects[0]
 
@@ -44,12 +46,12 @@ export const redirectRepository: IRedirectRepository = {
     return (await redirectRepository.find(where)).items[0]
   },
 
-  update: async (redirect: IRedirectModel) => {
+  update: async ({ id }: IRef, redirect: IRedirectDto) => {
     const {
       updateRedirects: { redirects },
     } = await UpdateRedirects({
-      update: redirect.toUpdateInput(),
-      where: { id: redirect.id },
+      update: redirectMapper.toUpdateInput(redirect),
+      where: { id },
     })
 
     const updatedRedirect = redirects[0]

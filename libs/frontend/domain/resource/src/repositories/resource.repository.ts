@@ -9,6 +9,7 @@ import type {
   ResourceWhere,
 } from '@codelab/shared/infra/gql'
 
+import { resourceMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -22,7 +23,9 @@ export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceDto) => {
     const {
       createResources: { resources },
-    } = await CreateResources({ input: [resource.toCreateInput()] })
+    } = await CreateResources({
+      input: [resourceMapper.toCreateInput(resource)],
+    })
 
     const createdResource = resources[0]
 
@@ -50,12 +53,12 @@ export const resourceRepository: IResourceRepository = {
     return (await resourceRepository.find(where)).items[0]
   },
 
-  update: async (where: IRef, dto: IResourceDto) => {
+  update: async ({ id }: IRef, dto: IResourceDto) => {
     const {
       updateResources: { resources },
     } = await UpdateResource({
-      update: resource.toUpdateInput(),
-      where: { id: resource.id },
+      update: resourceMapper.toUpdateInput(dto),
+      where: { id },
     })
 
     const updatedResource = resources[0]

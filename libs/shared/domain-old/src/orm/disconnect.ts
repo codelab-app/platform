@@ -20,12 +20,12 @@ export const disconnectNode = (key: string, value: Nullish<string>) => ({
 /**
  * Disconnect all
  */
-export const disconnectAll = ({ omitId }: { omitId: Nullish<string> }) => ({
+export const disconnectAll = (options?: { omitId: Nullish<string> }) => ({
   disconnect: {
     where: {
       NOT: {
         node: {
-          id: omitId,
+          id: options?.omitId,
         },
       },
     },

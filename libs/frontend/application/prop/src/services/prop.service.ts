@@ -2,7 +2,6 @@ import type { IPropService } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type {
   IPropCreateData,
-  IPropCreateDto,
   IPropData,
   IPropDto,
   IPropUpdateData,

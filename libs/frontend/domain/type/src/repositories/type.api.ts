@@ -1,9 +1,9 @@
+import type { ITypeWhere } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   ITypeCreateInput,
   ITypeUpdateVars,
-  ITypeWhere,
-} from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/domain-old'
 import type {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,

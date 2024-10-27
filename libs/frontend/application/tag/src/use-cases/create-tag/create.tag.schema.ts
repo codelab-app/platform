@@ -4,6 +4,7 @@ import type { JSONSchemaType } from 'ajv'
 import {
   idSchema,
   nonEmptyString,
+  refSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 
 export const createTagSchema: JSONSchemaType<ICreateTagData> = {
@@ -24,8 +25,9 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
       required: [],
       type: 'object',
     },
+    ...refSchema('owner'),
   },
-  required: ['id', 'name'],
+  required: ['id', 'name', 'owner'],
   title: 'Create Tag Input',
   type: 'object',
 } as const

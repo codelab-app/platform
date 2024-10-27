@@ -90,10 +90,9 @@ export class ComponentDomainService
     const rootElementModel: IElementModel = rootElement
       ? this.elementDomainService.element(rootElement.id)
       : this.elementDomainService.hydrate({
-          // Doesn't seem needed in hydrate
-          // closestContainerNode: {
-          //   id,
-          // },
+          closestContainerNode: {
+            id,
+          },
           id: v4(),
           // we don't append 'Root' here to include the case of existing element
           name,

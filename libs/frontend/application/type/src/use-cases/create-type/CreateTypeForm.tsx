@@ -1,5 +1,5 @@
 'use client'
-import type { ITypeCreateFormData } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import {

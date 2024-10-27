@@ -1,5 +1,6 @@
 import type {
   IProp,
+  IRef,
   IResource,
   IResourceDto,
   IResourceType,
@@ -15,14 +16,17 @@ export class Resource extends IModel implements IResource {
 
   name: string
 
+  owner: IRef
+
   type: IResourceType
 
-  constructor({ config, id, name, type }: IResourceDto) {
+  constructor({ config, id, name, owner, type }: IResourceDto) {
     super()
 
     this.id = id
     this.config = new Prop(config)
     this.name = name
     this.type = type
+    this.owner = owner
   }
 }

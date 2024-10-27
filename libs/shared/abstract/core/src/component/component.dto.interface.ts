@@ -14,10 +14,7 @@ export const ComponentDtoSchema = Type.Object({
   owner: Typebox.Ref,
   props: PropDtoSchema,
   rootElement: Typebox.Ref,
-  store: Type.Object({
-    api: Typebox.Ref,
-    id: Type.String(),
-  }),
+  store: Typebox.Ref,
 })
 
 export type IComponentDto = Static<typeof ComponentDtoSchema>

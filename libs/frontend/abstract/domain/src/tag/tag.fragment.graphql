@@ -2,6 +2,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -11,7 +14,7 @@ fragment Tag on Tag {
   # isRoot
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id

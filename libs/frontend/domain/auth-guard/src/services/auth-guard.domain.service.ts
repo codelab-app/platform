@@ -16,7 +16,14 @@ export class AuthGuardDomainService
   implements IAuthGuardDomainService
 {
   @modelAction
-  hydrate({ config, id, name, resource, responseTransformer }: IAuthGuardDto) {
+  hydrate({
+    config,
+    id,
+    name,
+    owner,
+    resource,
+    responseTransformer,
+  }: IAuthGuardDto) {
     let authGuard = this.authGuards.get(id)
 
     if (authGuard) {
@@ -31,6 +38,7 @@ export class AuthGuardDomainService
         config,
         id,
         name,
+        owner,
         resource,
         responseTransformer,
       })
