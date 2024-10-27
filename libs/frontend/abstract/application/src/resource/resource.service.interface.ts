@@ -1,5 +1,5 @@
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
-import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
 import type {
   ICreateResourceData,
   IResourceDto,
@@ -25,6 +25,8 @@ export interface IResourceService
       IUpdateResourceData
     >,
     IQueryService<IResourceModel, ResourceWhere, ResourceOptions> {
+  createPopover: IPopover
+  updatePopover: IPopover
   getSelectResourceOptions(): Promise<Array<SelectOption>>
   load(resources: Array<IResourceDto>): void
 }

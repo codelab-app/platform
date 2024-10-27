@@ -3,18 +3,18 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
 import { ResourceIcon } from '../../views'
-import { useDeleteResourceModal } from '../delete-resource/delete-resource.state'
-import { useUpdateResourceForm } from '../update-resource'
 
 interface ResourcesTreeItemProps {
   data: ITreeNode<IResourceNodeData>
@@ -22,16 +22,13 @@ interface ResourcesTreeItemProps {
 
 export const ResourcesTreeItem = observer(
   ({ data }: ResourcesTreeItemProps) => {
-    const updateResourceForm = useUpdateResourceForm()
+    const router = useRouter()
     const resource = data.extraData.node
-    const deleteResourceModal = useDeleteResourceModal()
+    const onEdit = () => router.push(PageType.ResourcesUpdate(resource.id))
 
-    const onEdit = () => {
-      updateResourceForm.open(resource)
-    }
-
-    const onDelete = () => {
-      deleteResourceModal.open(resource)
+    const onDelete = (event: SyntheticEvent) => {
+      event.stopPropagation()
+      router.push(PageType.ResourcesDelete(resource.id))
     }
 
     const toolbarItems: Array<ToolbarItem> = [

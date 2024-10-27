@@ -5,23 +5,21 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
-import { useCreateResourceForm } from './create-resource.state'
+import { useResourceService } from '../../services/resource.service'
 import { CreateResourceForm } from './CreateResourceForm'
 
 export const CreateResourcePopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createResourceForm = useCreateResourceForm()
-  const { popover } = useCui()
+  const { createPopover } = useResourceService()
+  const router = useRouter()
 
   return (
-    <CuiSidebarPopover
+    <CuiSidebarSecondary
       id={UiKey.ResourcePopoverCreate}
       toolbar={{
         items: [
@@ -29,19 +27,14 @@ export const CreateResourcePopover = observer(() => {
             cuiKey: UiKey.ResourceToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
+            onClick: () => submitRef.current?.submit(),
             title: 'Create',
           },
           {
             cuiKey: UiKey.ResourceToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => {
-              popover.close()
-              createResourceForm.close()
-            },
+            onClick: () => createPopover.close(router),
             title: 'Cancel',
           },
         ],
@@ -49,10 +42,10 @@ export const CreateResourcePopover = observer(() => {
       }}
     >
       <CreateResourceForm
-        onSubmitSuccess={() => popover.close()}
+        onSubmitSuccess={() => createPopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

@@ -69,6 +69,9 @@ export const PageType = {
   PropsInterface: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
     `/apps/${appId}/props`,
   Resources: () => '/resources',
+  ResourcesCreate: () => `${PageType.Resources()}/create`,
+  ResourcesDelete: (id: string) => `${PageType.Resources()}/delete/${id}`,
+  ResourcesUpdate: (id: string) => `${PageType.Resources()}/update/${id}`,
   Storybook: () => '/storybook',
   Tags: () => '/tags' as const,
   Type: () => '/types' as const,

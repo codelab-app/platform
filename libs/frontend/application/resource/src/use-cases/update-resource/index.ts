@@ -1,5 +1,3 @@
 export * from './update-resource.schema'
-export * from './update-resource.state'
-export * from './UpdateResourceButton'
 export * from './UpdateResourceForm'
-export * from './UpdateResourceModal'
+export * from './UpdateResourcePopover'
