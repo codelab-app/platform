@@ -1,12 +1,10 @@
 'use server'
 
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
-import type { SpanAttributeValue } from '@sentry/types'
 
 import { getEnv } from '@codelab/shared/config'
-import { getActiveSpan, withServerActionInstrumentation } from '@sentry/nextjs'
+import { withServerActionInstrumentation } from '@sentry/nextjs'
 import { revalidateTag } from 'next/cache'
-import { ObjectTyped } from 'object-typed'
 
 import { fetchWithAuth } from './fetch-with-auth'
 
@@ -19,14 +17,6 @@ export const gqlFetch = async <TResult, TVariables>(
    */
   next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => {
-  const span = getActiveSpan()
-
-  // if (span && variables) {
-  //   ObjectTyped.entries(variables).forEach(([key, value]) => {
-  //     span.setAttributes({ [key]: value as SpanAttributeValue })
-  //   })
-  // }
-
   const response = await withServerActionInstrumentation(
     document.toString(),
     {},
