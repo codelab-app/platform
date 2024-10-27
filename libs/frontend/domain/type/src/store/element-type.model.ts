@@ -44,13 +44,6 @@ export class ElementType
     return this
   }
 
-  toCreateInput() {
-    return {
-      ...super.toCreateInput(),
-      elementKind: this.elementKind,
-    }
-  }
-
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }

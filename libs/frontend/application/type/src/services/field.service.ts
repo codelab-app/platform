@@ -42,7 +42,7 @@ export const useFieldService = (): IFieldService => {
       fields: [{ id: newField.id }],
     })
 
-    await fieldRepository.add(newField)
+    await fieldRepository.add(fieldDto)
 
     return newField
   }
@@ -50,9 +50,8 @@ export const useFieldService = (): IFieldService => {
   const create = async (createFieldData: ICreateFieldData) => {
     await typeService.getOne(createFieldData.fieldType)
 
-    const field = fieldDomainService.hydrate(
-      fieldService.mapDataToDto(createFieldData),
-    )
+    const fieldDto = fieldService.mapDataToDto(createFieldData)
+    const field = fieldDomainService.hydrate(fieldDto)
 
     const interfaceType = typeDomainService.getType(
       field.api.id,
@@ -62,7 +61,7 @@ export const useFieldService = (): IFieldService => {
       fields: [{ id: field.id }],
     })
 
-    await fieldRepository.add(field)
+    await fieldRepository.add(fieldDto)
 
     return field
   }
@@ -130,9 +129,11 @@ export const useFieldService = (): IFieldService => {
 
     Validator.assertsDefined(field)
 
-    field.writeCache(fieldService.mapDataToDto(updateFieldData))
+    const updateFieldDto = fieldService.mapDataToDto(updateFieldData)
 
-    await fieldRepository.update(field)
+    field.writeCache(updateFieldDto)
+
+    await fieldRepository.update({ id: updateFieldData.id }, updateFieldDto)
 
     return field
   }

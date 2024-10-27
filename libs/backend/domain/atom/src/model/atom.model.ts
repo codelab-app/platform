@@ -41,6 +41,8 @@ export class Atom implements IAtom {
 
   name: string
 
+  owner: IRef
+
   requiredParents: Array<IRef>
 
   suggestedChildren: Array<IRef>
@@ -58,6 +60,7 @@ export class Atom implements IAtom {
     icon,
     id,
     name,
+    owner,
     requiredParents = [],
     suggestedChildren = [],
     tags = [],
@@ -69,6 +72,7 @@ export class Atom implements IAtom {
     this.externalSourceType = externalSourceType
     this.name = name
     this.icon = icon
+    this.owner = owner
     this.type = type
     this.api = api
     this.tags = tags

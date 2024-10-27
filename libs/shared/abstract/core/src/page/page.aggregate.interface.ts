@@ -4,7 +4,7 @@ import { Type } from '@sinclair/typebox'
 
 import { ElementSchema } from '../element'
 import { StoreAggregateSchema } from '../store'
-import { PageSchema } from './page.dto.interface'
+import { PageSchema } from './page.model.interface'
 
 export const PageAggregateSchema = Type.Object({
   elements: Type.Array(ElementSchema),

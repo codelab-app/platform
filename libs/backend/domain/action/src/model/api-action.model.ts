@@ -24,6 +24,8 @@ export class ApiAction implements IApiActionDto {
 
   successAction?: IActionRef | null
 
+  type: IActionKind.ApiAction = IActionKind.ApiAction
+
   constructor({
     config,
     errorAction,

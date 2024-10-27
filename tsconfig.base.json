@@ -536,9 +536,6 @@
       "@codelab/frontend-application-shared-store/pagination": [
         "libs/frontend/application/shared/store/src/pagination/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/repository": [
-        "libs/frontend/application/shared/store/src/repository/index.ts"
-      ],
       "@codelab/frontend-application-shared-store/router": [
         "libs/frontend/application/shared/store/src/router/index.ts"
       ],
@@ -914,7 +911,6 @@
       "@codelab/frontend/infra/graphql/client": [
         "libs/frontend/infra/graphql/src/client/index.ts"
       ],
-      "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/infra/shared": [
         "libs/frontend/infra/shared/src/index.ts"
       ],
@@ -970,7 +966,6 @@
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
-      "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
       "@codelab/shared/infra/schema": ["libs/shared/infra/schema/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],

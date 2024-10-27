@@ -22,7 +22,7 @@ export interface IComponentModel
   extends ICacheService<IComponentDto, IComponentModel>,
     IElementTree,
     Omit<IComponentDto, 'props' | 'rootElement'>,
-    IModel<ComponentCreateInput, ComponentUpdateInput, void, IComponent> {
+    IModel<IComponent> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceTypeModel>
   descendantComponents: Array<IComponentModel>
@@ -36,12 +36,10 @@ export interface IComponentModel
    */
   sourceComponent?: Nullable<IRef>
   store: Ref<IStoreModel>
-
   setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: IPropModel): void
   setSourceComponent(entity: IRef): void
   setStore(props: Nullable<Ref<IStoreModel>>): void
-  toCreateInput(): ComponentCreateInput
 }
 
 export type IComponentRef = string

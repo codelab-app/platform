@@ -1,8 +1,11 @@
 import type { IPropService } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type {
+  IPropCreateData,
   IPropData,
-  IUpdatePropData,
+  IPropDto,
+  IPropUpdateData,
+  IRef,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/shared/abstract/core'
 
@@ -11,28 +14,27 @@ import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 
 export const usePropService = (): IPropService => {
-  const create = async (props: IPropModel) => {
+  const create = async (props: IPropCreateData) => {
     await propRepository.add(props)
 
     return props
   }
 
-  const deleteProp = async (props: Array<IPropModel>) => {
-    await propRepository.delete(props)
+  const removeMany = async (props: Array<IRef>) => {
+    return await propRepository.delete(props)
   }
 
-  const reset = async (props: IPropModel) => {
-    props.writeCache({ data: '{}' })
-    await propRepository.update(props)
+  const reset = async (props: IPropDto) => {
+    // props.writeCache({ data: '{}' })
+    await update({ ...props, data: '{}' })
 
     return props
   }
 
-  const update = async (props: IPropModel, data: IUpdatePropData) => {
-    props.writeCache(data)
-    await propRepository.update(props)
+  const update = async (dto: IPropUpdateData) => {
+    await propRepository.update({ id: dto.id }, dto)
 
-    return props
+    return dto
   }
 
   const updateWithDefaultValuesApplied = async (
@@ -46,7 +48,8 @@ export const usePropService = (): IPropService => {
       filteredData,
     )
 
-    return await update(props, {
+    return await update({
+      ...props.toJson,
       data: JSON.stringify(mergedWithDefaultValues),
       id,
     })
@@ -54,7 +57,7 @@ export const usePropService = (): IPropService => {
 
   return {
     create,
-    delete: deleteProp,
+    removeMany,
     reset,
     update,
     updateWithDefaultValuesApplied,

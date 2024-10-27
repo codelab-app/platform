@@ -47,13 +47,6 @@ export class ArrayType
     return this
   }
 
-  toCreateInput() {
-    return {
-      ...super.toCreateInput(),
-      itemType: connectNodeId(this.itemType?.id),
-    }
-  }
-
   toJsonSchema({
     defaultValues,
     fieldName,

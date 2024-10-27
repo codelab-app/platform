@@ -188,19 +188,6 @@ export class Field
     return this
   }
 
-  toCreateInput() {
-    return {
-      api: connectNodeId(this.api.id),
-      defaultValues: JSON.stringify(this.defaultValues),
-      description: this.description,
-      fieldType: connectNodeId(this.type.id),
-      id: this.id,
-      key: this.key,
-      name: this.name,
-      validationRules: JSON.stringify(this.validationRules),
-    }
-  }
-
   // TODO: figure out how to use context
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
@@ -212,18 +199,6 @@ export class Field
       }),
       ...(this.description ? { help: this.description } : {}),
       label: this.name || titleCase(this.key),
-    }
-  }
-
-  toUpdateInput() {
-    return {
-      defaultValues: JSON.stringify(this.defaultValues),
-      description: this.description,
-      fieldType: reconnectNodeId(this.type.id),
-      id: this.id,
-      key: this.key,
-      name: this.name,
-      validationRules: JSON.stringify(this.validationRules),
     }
   }
 

@@ -5,4 +5,7 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }

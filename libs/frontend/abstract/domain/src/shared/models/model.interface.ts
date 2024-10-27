@@ -4,11 +4,6 @@ import type { AnyModel } from 'mobx-keystone'
 /**
  * Extended by our domain models
  */
-export interface IModel<CreateInput, UpdateInput, DeleteInput, ISerialized>
-  extends AnyModel,
-    IRef {
+export interface IModel<ISerialized> extends AnyModel, IRef {
   toJson: ISerialized
-
-  toCreateInput(): CreateInput
-  toUpdateInput(): UpdateInput
 }

@@ -11,7 +11,7 @@ export const atomSchema = gql`
   ${atomTypeEnum}
 
   type Atom implements WithOwner ${authOwnerOrAdmin} {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     owner: User!
     type: AtomType! @unique
     name: String! @unique

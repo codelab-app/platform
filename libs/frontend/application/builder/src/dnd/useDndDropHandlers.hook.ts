@@ -1,5 +1,5 @@
 import type { CollisionData } from '@codelab/frontend-application-dnd/collision-detection'
-import type { ICreateElementDto } from '@codelab/shared/abstract/core'
+import type { IElementCreateDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 
@@ -55,7 +55,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
 
     const parentElement = elementService.getElement(parentElementId)
 
-    const createElementDto: ICreateElementDto = {
+    const createElementDto: IElementCreateDto = {
       closestContainerNode: {
         id: parentElement.closestContainerNode.id,
       },

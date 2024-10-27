@@ -7,7 +7,7 @@ export const resourceSchema = gql`
   }
 
   type Resource implements WithOwner {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     type: ResourceType!
     name: String!
     config: Prop! @relationship(type: "RESOURCE_CONFIG", direction: OUT)

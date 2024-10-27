@@ -63,7 +63,7 @@ export const useTagService = (): ITagService => {
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
 
-    await tagRepository.add(tag)
+    await tagRepository.add(data)
 
     tagPagination.dataRefs.set(tag.id, tagRef(tag))
 
@@ -122,7 +122,7 @@ export const useTagService = (): ITagService => {
 
     tag.writeCache({ name, parent })
 
-    await tagRepository.update(tag)
+    await tagRepository.update({ id: tag.id }, tag)
 
     return tag
   }

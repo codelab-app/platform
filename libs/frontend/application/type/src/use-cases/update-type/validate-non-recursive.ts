@@ -1,8 +1,8 @@
-import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
+import type { ITypeUpdateDto } from '@codelab/frontend/abstract/domain'
 
 import { IsTypeDescendantOf } from '@codelab/frontend-domain-type/repositories'
 
-const getInnerTypeIds = (submitData: IUpdateTypeDto) => [
+const getInnerTypeIds = (submitData: ITypeUpdateDto) => [
   ...(submitData.unionTypeIds ?? []),
 ]
 
@@ -10,7 +10,7 @@ const getInnerTypeIds = (submitData: IUpdateTypeDto) => [
 // because this would cause a circular dependency between them and
 export const validateNonRecursive = async (
   updateId: string | undefined,
-  submitData: IUpdateTypeDto,
+  submitData: ITypeUpdateDto,
 ) => {
   if (!updateId) {
     throw new Error('Missing type id')

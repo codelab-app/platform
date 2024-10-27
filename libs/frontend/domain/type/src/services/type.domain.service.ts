@@ -1,4 +1,5 @@
 import type {
+  ITypeCreateFormData,
   ITypeDomainService,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
@@ -6,7 +7,7 @@ import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
 import {
-  IInterfaceType,
+  IInterfaceTypeDto,
   ITypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -51,7 +52,7 @@ export class TypeDomainService
   }
 
   @modelAction
-  hydrateInterface(data: IInterfaceType) {
+  hydrateInterface(data: IInterfaceTypeDto) {
     let interfaceType = this.types.get(data.id) as InterfaceType | undefined
 
     if (interfaceType) {

@@ -5,6 +5,7 @@ import { CodeMirrorField } from '@codelab/frontend-presentation-components-form'
 import {
   idSchema,
   nonEmptyString,
+  refSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IResourceType } from '@codelab/shared/abstract/core'
@@ -40,8 +41,9 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
       showSearch: true,
       type: 'string',
     },
+    ...refSchema('owner'),
   },
-  required: ['name', 'type'],
+  required: ['name', 'type', 'owner'],
   title: 'Create Resource',
   type: 'object',
 } as const

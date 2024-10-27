@@ -38,7 +38,7 @@ import { propSafeStringify } from '../utils/prop-safe-stringify'
 const create = ({ api, data, id }: IPropDto) => {
   return new Prop({
     api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
-    data: frozen(JSON.parse(data || '{}')),
+    data: frozen(JSON.parse(data)),
     id,
   })
 }
@@ -130,18 +130,5 @@ export class Prop
 
   get(key: string) {
     return rProp(this.values, key)
-  }
-
-  toCreateInput(): PropCreateInput {
-    return {
-      data: JSON.stringify(this.data.data ?? {}),
-      id: this.id,
-    }
-  }
-
-  toUpdateInput(): PropUpdateInput {
-    return {
-      data: JSON.stringify(this.data.data ?? {}),
-    }
   }
 }

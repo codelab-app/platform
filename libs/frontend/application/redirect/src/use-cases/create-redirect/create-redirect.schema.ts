@@ -1,4 +1,4 @@
-import type { ICreateRedirectData } from '@codelab/frontend/abstract/domain'
+import type { IRedirectCreateFormData } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -8,7 +8,7 @@ import {
 import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 
-export const createRedirectSchema: JSONSchemaType<ICreateRedirectData> = {
+export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
   properties: {
     ...idSchema(),
     source: {

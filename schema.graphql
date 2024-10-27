@@ -257,6 +257,7 @@ input ActionTypeUniqueWhere {
 
 input ActionTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -2222,6 +2223,7 @@ input AppTypeSubscriptionWhere {
 
 input AppTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -2283,7 +2285,6 @@ input AppUniqueWhere {
 input AppUpdateInput {
   compositeKey: String
   domains: [AppDomainsUpdateFieldInput!]
-  id: ID
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
 }
@@ -2955,6 +2956,7 @@ input ArrayTypeUpdateInput {
   fieldRefs: [ArrayTypeFieldRefsUpdateFieldInput!]
   id: ID
   itemType: ArrayTypeItemTypeUpdateFieldInput
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -4654,7 +4656,6 @@ input AtomUpdateInput {
   externalJsSource: String
   externalSourceType: String
   icon: String
-  id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   requiredParents: [AtomRequiredParentsUpdateFieldInput!]
@@ -5447,7 +5448,6 @@ input AuthGuardUniqueWhere {
 
 input AuthGuardUpdateInput {
   config: AuthGuardConfigUpdateFieldInput
-  id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   resource: AuthGuardResourceUpdateFieldInput
@@ -6642,6 +6642,7 @@ input CodeMirrorTypeSubscriptionWhere {
 
 input CodeMirrorTypeUpdateInput {
   id: ID
+  kind: TypeKind
   language: CodeMirrorLanguage
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
@@ -7594,7 +7595,6 @@ input ComponentUniqueWhere {
 input ComponentUpdateInput {
   api: ComponentApiUpdateFieldInput
   compositeKey: String
-  id: ID
   owner: WithOwnerOwnerUpdateFieldInput
   props: ComponentPropsUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput
@@ -8160,7 +8160,6 @@ input DomainUniqueWhere {
 
 input DomainUpdateInput {
   app: DomainAppUpdateFieldInput
-  id: ID
   name: String
 }
 
@@ -10722,6 +10721,7 @@ input ElementTypeSubscriptionWhere {
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -10789,7 +10789,6 @@ input ElementUpdateInput {
   compositeKey: String
   expanded: Boolean
   firstChild: ElementFirstChildUpdateFieldInput
-  id: ID
   nextSibling: ElementNextSiblingUpdateFieldInput
   page: ElementPageUpdateFieldInput
   parentComponent: ElementParentComponentUpdateFieldInput
@@ -11520,6 +11519,7 @@ input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
   fieldRefs: [EnumTypeFieldRefsUpdateFieldInput!]
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -12828,7 +12828,6 @@ input FieldUpdateInput {
   defaultValues: String
   description: String
   fieldType: FieldFieldTypeUpdateFieldInput
-  id: ID
   key: String
   name: String
   nextSibling: FieldNextSiblingUpdateFieldInput
@@ -13499,7 +13498,6 @@ input HookSubscriptionWhere {
 input HookUpdateInput {
   config: HookConfigUpdateFieldInput
   element: HookElementUpdateFieldInput
-  id: ID
   type: AtomType
 }
 
@@ -13876,6 +13874,7 @@ input IBaseTypeSubscriptionWhere {
 input IBaseTypeUpdateInput {
   _on: IBaseTypeImplementationsUpdateInput
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -14793,6 +14792,7 @@ input InterfaceTypeUpdateInput {
   fieldRefs: [InterfaceTypeFieldRefsUpdateFieldInput!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -15202,6 +15202,7 @@ input LambdaTypeSubscriptionWhere {
 
 input LambdaTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -17030,6 +17031,7 @@ input PageTypeSubscriptionWhere {
 
 input PageTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -17091,7 +17093,6 @@ input PageUniqueWhere {
 input PageUpdateInput {
   app: PageAppUpdateFieldInput
   compositeKey: String
-  id: ID
   kind: PageKind
   pageContentContainer: PagePageContentContainerUpdateFieldInput
   redirect: PageRedirectUpdateFieldInput
@@ -17411,7 +17412,6 @@ input PreferenceUpdateInput {
   builderWidth_DIVIDE: Float
   builderWidth_MULTIPLY: Float
   builderWidth_SUBTRACT: Float
-  id: ID
   owner: WithOwnerOwnerUpdateFieldInput
 }
 
@@ -17726,6 +17726,7 @@ input PrimitiveTypeUniqueWhere {
 
 input PrimitiveTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
   primitiveKind: PrimitiveTypeKind
@@ -17907,7 +17908,6 @@ input PropUniqueWhere {
 
 input PropUpdateInput {
   data: String
-  id: ID
 }
 
 type PropUpdatedEvent {
@@ -18557,6 +18557,7 @@ input ReactNodeTypeUniqueWhere {
 
 input ReactNodeTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -19271,7 +19272,6 @@ input RedirectUniqueWhere {
 
 input RedirectUpdateInput {
   authGuard: RedirectAuthGuardUpdateFieldInput
-  id: ID
   source: RedirectSourceUpdateFieldInput
   targetPage: RedirectTargetPageUpdateFieldInput
   targetType: RedirectTargetType
@@ -19580,6 +19580,7 @@ input RenderPropTypeUniqueWhere {
 
 input RenderPropTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -20026,7 +20027,6 @@ input ResourceUniqueWhere {
 
 input ResourceUpdateInput {
   config: ResourceConfigUpdateFieldInput
-  id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   type: ResourceType
@@ -20319,6 +20319,7 @@ input RichTextTypeSubscriptionWhere {
 
 input RichTextTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
@@ -20841,7 +20842,6 @@ input StoreUniqueWhere {
 input StoreUpdateInput {
   actions: StoreActionsUpdateInput
   api: StoreApiUpdateFieldInput
-  id: ID
   name: String
 }
 
@@ -22102,7 +22102,6 @@ input TagUniqueWhere {
 input TagUpdateInput {
   atoms: [TagAtomsUpdateFieldInput!]
   children: [TagChildrenUpdateFieldInput!]
-  id: ID
   name: String
   owner: TagOwnerUpdateFieldInput
   parent: TagParentUpdateFieldInput
@@ -23535,6 +23534,7 @@ input UnionTypeUniqueWhere {
 
 input UnionTypeUpdateInput {
   id: ID
+  kind: TypeKind
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeUpdateInput
@@ -25089,7 +25089,6 @@ input UserUpdateInput {
   components: [UserComponentsUpdateFieldInput!]
   elements: [UserElementsUpdateFieldInput!]
   email: String
-  id: ID
   preferences: UserPreferencesUpdateFieldInput
   roles: [Role!]
   tags: [UserTagsUpdateFieldInput!]

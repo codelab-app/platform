@@ -20,12 +20,7 @@ import type { IBaseAction } from '../base-action.interface'
 export interface IApiActionModel
   extends IBaseAction,
     ICacheService<IApiActionDto, IApiActionModel>,
-    IModel<
-      ApiActionCreateInput,
-      ApiActionUpdateInput,
-      ApiActionDeleteInput,
-      IApiAction
-    > {
+    IModel<IApiAction> {
   config: IPropModel
   errorAction?: Nullish<Ref<IActionModel>>
   resource: Ref<IResourceModel>

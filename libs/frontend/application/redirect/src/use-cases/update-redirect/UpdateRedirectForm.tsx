@@ -1,4 +1,4 @@
-import type { IUpdateRedirectData } from '@codelab/frontend/abstract/domain'
+import type { IRedirectUpdateFormData } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import {
@@ -38,7 +38,7 @@ export const UpdateRedirectForm = observer<IFormController>(
       targetUrl: redirect?.targetUrl,
     }
 
-    const onSubmit = async (redirectDTO: IUpdateRedirectData) => {
+    const onSubmit = async (redirectDTO: IRedirectUpdateFormData) => {
       await redirectService.update(redirectDTO)
 
       closeForm()
@@ -49,7 +49,7 @@ export const UpdateRedirectForm = observer<IFormController>(
 
     return (
       <>
-        <Form<IUpdateRedirectData>
+        <Form<IRedirectUpdateFormData>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({
@@ -61,7 +61,7 @@ export const UpdateRedirectForm = observer<IFormController>(
         >
           <AutoFields omitFields={['targetPage', 'targetUrl']} />
 
-          <DisplayIfField<IUpdateRedirectData>
+          <DisplayIfField<IRedirectUpdateFormData>
             condition={(context) =>
               context.model.targetType === IRedirectTargetType.Page
             }
@@ -69,7 +69,7 @@ export const UpdateRedirectForm = observer<IFormController>(
             <AutoField name="targetPage" />
           </DisplayIfField>
 
-          <DisplayIfField<IUpdateRedirectData>
+          <DisplayIfField<IRedirectUpdateFormData>
             condition={(context) =>
               context.model.targetType === IRedirectTargetType.Url
             }

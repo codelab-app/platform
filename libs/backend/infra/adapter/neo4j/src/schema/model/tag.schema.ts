@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const tagSchema = gql`
   type Tag {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     name: String! @unique
     parent: Tag @relationship(type: "CHILDREN", direction: IN)
     children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)

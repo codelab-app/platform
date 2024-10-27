@@ -2,7 +2,7 @@ import type {
   IComponentAggregate,
   IComponentDto,
   ICreateComponentData,
-  ICreateInterfaceTypeDto,
+  IInterfaceTypeCreateDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
@@ -32,7 +32,7 @@ export class ComponentApplicationService {
   ) {}
 
   async createComponent(createComponentData: ICreateComponentData) {
-    const api: ICreateInterfaceTypeDto = {
+    const api: IInterfaceTypeCreateDto = {
       id: v4(),
       name: InterfaceType.createName(`${createComponentData.name} Store`),
     }

@@ -8,9 +8,12 @@ import {
   pageUrlSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { type ICreatePageData, IPageKind } from '@codelab/shared/abstract/core'
+import {
+  type IPageCreateFormData,
+  IPageKind,
+} from '@codelab/shared/abstract/core'
 
-export const createPageSchema: JSONSchemaType<ICreatePageData> = {
+export const createPageSchema: JSONSchemaType<IPageCreateFormData> = {
   properties: {
     ...idSchema(),
     ...appSchema,

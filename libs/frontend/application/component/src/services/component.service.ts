@@ -17,6 +17,7 @@ import {
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
+import { componentFactory } from '@codelab/frontend-domain-component/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   useApplicationStore,
@@ -33,24 +34,30 @@ import { componentBuilderQuery } from '../use-cases/component-builder'
 import { revalidateComponentListOperation } from '../use-cases/component-list'
 
 export const useComponentService = (): IComponentService => {
-  const { componentDomainService } = useDomainStore()
+  const { atomDomainService, componentDomainService, userDomainService } =
+    useDomainStore()
+
   const elementService = useElementService()
+  const owner = userDomainService.user
 
   const {
     pagination: { componentPagination },
     rendererService,
   } = useApplicationStore()
 
-  const create = async ({ id, name, rootElement }: ICreateComponentData) => {
-    const component = componentDomainService.add({ id, name, rootElement })
+  const create = async (data: ICreateComponentData) => {
+    const { component } = componentFactory(
+      data,
+      atomDomainService.defaultRenderType,
+    )
 
-    await componentRepository.add(component)
+    const results = await componentRepository.add({ ...component, owner })
 
     await revalidateComponentListOperation()
 
-    componentPagination.dataRefs.set(component.id, componentRef(component))
+    // componentPagination.dataRefs.set(component.id, componentRef(component))
 
-    return component
+    return results
   }
 
   const removeMany = async (components: Array<IComponentModel>) => {
@@ -116,18 +123,8 @@ export const useComponentService = (): IComponentService => {
     return Promise.resolve(undefined)
   }
 
-  const update = async ({ id, name }: IUpdateComponentData) => {
-    const component = componentDomainService.components.get(id)
-
-    if (!component) {
-      throw new Error('ID not found')
-    }
-
-    component.writeCache({ name })
-
-    await componentRepository.update(component)
-
-    return component
+  const update = async (data: IUpdateComponentData) => {
+    return await componentRepository.update({ id: data.id }, data)
   }
 
   const previewComponent = (id: string) => {

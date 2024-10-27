@@ -8,6 +8,7 @@ import {
 import {
   idSchema,
   nonEmptyString,
+  refMaybeSchema,
   refSchema,
   showFieldOnDev,
 } from '@codelab/frontend-presentation-components-form/schema'
@@ -100,32 +101,22 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
       required: [],
       type: 'object',
     },
-    errorActionId: {
-      label: 'Error Action',
-      nullable: true,
-      type: 'string',
-    },
     name: {
       autoFocus: true,
       ...nonEmptyString,
     },
-    ...refSchema('resource', {}),
-    storeId: {
-      disabled: true,
-      type: 'string',
-      ...showFieldOnDev(),
-    },
-    successActionId: {
+    ...refSchema('resource'),
+    ...refSchema('store', { disabled: true }),
+    ...refMaybeSchema('errorAction', { label: 'Error Action' }),
+    ...refMaybeSchema('successAction', {
       label: 'Success Action',
-      nullable: true,
-      type: 'string',
-    },
+    }),
     type: {
       enum: Object.values(IActionKind),
       type: 'string',
     },
   },
-  required: ['name', 'type', 'storeId'],
+  required: ['name', 'type', 'store'],
   title: 'Create Action',
   type: 'object',
 }

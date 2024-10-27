@@ -1,16 +1,19 @@
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type {
-  IUpdatePropData,
+  IPropCreateData,
+  IPropDto,
+  IPropUpdateData,
+  IRef,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/shared/abstract/core'
 
-export interface IPropService {
-  create(props: IPropModel): Promise<IPropModel>
-  delete(props: Array<IPropModel>): Promise<void>
-  reset(props: IPropModel): void
-  update(props: IPropModel, data: IUpdatePropData): Promise<IPropModel>
+import type { ICrudService } from '../services'
+
+export interface IPropService
+  extends ICrudService<IRef, IPropCreateData, IPropUpdateData> {
+  reset(props: IPropDto): void
   updateWithDefaultValuesApplied(
     props: IPropModel,
     data: IUpdatePropDataWithDefaultValues,
-  ): Promise<IPropModel>
+  ): Promise<IRef>
 }

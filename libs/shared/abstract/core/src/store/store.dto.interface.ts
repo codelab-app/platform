@@ -4,6 +4,7 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { ActionDtoSchema, ActionSchema } from '../action'
+import { InterfaceTypeCreateDtoSchema } from '../type'
 
 export const StoreDtoSchema = Type.Object({
   actions: Type.Optional(Type.Array(ActionDtoSchema)),
@@ -17,12 +18,11 @@ export const StoreDtoSchema = Type.Object({
 
 export type IStoreDto = Static<typeof StoreDtoSchema>
 
-export const StoreSchema = Typebox.Overwrite(
+export const StoreCreateDtoSchema = Typebox.Overwrite(
   StoreDtoSchema,
   Type.Object({
-    actions: Type.Array(ActionSchema),
-    api: Typebox.Ref,
+    api: InterfaceTypeCreateDtoSchema,
   }),
 )
 
-export type IStore = Static<typeof StoreSchema>
+export type IStoreCreateDto = Static<typeof StoreCreateDtoSchema>

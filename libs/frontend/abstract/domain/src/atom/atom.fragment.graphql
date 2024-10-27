@@ -23,6 +23,9 @@ fragment Atom on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 
 fragment AtomBuilder on Atom {
@@ -47,6 +50,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 
 fragment AtomProduction on Atom {

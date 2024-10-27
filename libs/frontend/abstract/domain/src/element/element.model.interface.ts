@@ -43,10 +43,7 @@ export interface RenderingMetadata {
 }
 
 export interface IElementModel
-  extends Omit<
-      IModel<ElementCreateInput, ElementUpdateInput, void, IElement>,
-      'toDeleteInput'
-    >,
+  extends Omit<IModel<IElement>, 'toDeleteInput'>,
     ICacheService<IElementDto, IElementModel> {
   _modified: boolean
   ancestorError: Nullish<RenderingError>
@@ -107,7 +104,6 @@ export interface IElementModel
     primary: string
     secondary: string | undefined
   }
-
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
@@ -130,8 +126,4 @@ export interface IElementModel
   setStyle(style: string): void
   setTailwindClassNames(tailwindClassNames: Array<string>): void
   set_modified(modified: boolean): void
-  toUpdateNodesInput(): Pick<
-    ElementUpdateInput,
-    'firstChild' | 'nextSibling' | 'parentElement' | 'prevSibling'
-  >
 }

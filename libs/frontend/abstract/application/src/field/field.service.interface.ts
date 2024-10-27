@@ -6,10 +6,10 @@ import type {
   IUpdateFieldData,
 } from '@codelab/shared/abstract/core'
 
-import type { ICRUDService } from '../services'
+import type { ICrudService } from '../services'
 
 export interface IFieldService
-  extends ICRUDService<IFieldModel, ICreateFieldData, IUpdateFieldData> {
+  extends ICrudService<IFieldModel, ICreateFieldData, IUpdateFieldData> {
   createPopover: IPopover
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   moveFieldAsNextSibling(props: {

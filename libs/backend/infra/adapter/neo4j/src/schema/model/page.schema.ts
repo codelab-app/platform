@@ -15,7 +15,7 @@ export const pageSchema = gql`
   ${pageKindSchema}
 
   type Page {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     # appId-name format to make it unique across apps
     compositeKey: String! @unique
     name: String! @customResolver(requires: "app { id } compositeKey")

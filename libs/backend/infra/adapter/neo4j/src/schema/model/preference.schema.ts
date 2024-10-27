@@ -12,7 +12,7 @@ export const preferenceSchema = gql`
 
 
   type Preference implements WithOwner ${authOwnerOrAdmin}{
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     builderBreakpointType: BreakpointType!
     builderWidth: Float!
     owner: User!

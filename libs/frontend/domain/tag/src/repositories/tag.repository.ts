@@ -1,5 +1,7 @@
 import type { ITagRepository } from '@codelab/frontend/abstract/domain'
+import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
 
+import { tagMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -10,11 +12,11 @@ import {
 } from './tag.api.graphql.gen'
 
 export const tagRepository: ITagRepository = {
-  add: async (tag) => {
+  add: async (tag: ITagDto) => {
     const {
       createTags: { tags },
     } = await CreateTags({
-      input: [tag.toCreateInput()],
+      input: tagMapper.toCreateInput(tag),
     })
 
     const createdTag = tags[0]
@@ -45,12 +47,12 @@ export const tagRepository: ITagRepository = {
     return (await tagRepository.find(where)).items[0]
   },
 
-  update: async (tag) => {
+  update: async ({ id }: IRef, tag: ITagDto) => {
     const {
       updateTags: { tags },
     } = await UpdateTags({
-      update: tag.toUpdateInput(),
-      where: { id: tag.id },
+      update: tagMapper.toUpdateInput(tag),
+      where: { id },
     })
 
     const updatedTag = tags[0]

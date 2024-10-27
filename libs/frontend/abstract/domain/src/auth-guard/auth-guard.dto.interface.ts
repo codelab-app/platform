@@ -3,11 +3,11 @@ import type {
   IResourceFetchConfig,
 } from '@codelab/shared/abstract/core'
 
-export type ICreateAuthGuardData = Omit<IAuthGuardDto, 'config'> & {
+export type IAuthGuardCreateFormData = Omit<IAuthGuardDto, 'config'> & {
   config: {
     id: string
     data: IResourceFetchConfig
   }
 }
 
-export type IUpdateAuthGuardData = ICreateAuthGuardData
+export type IAuthGuardUpdateFormData = IAuthGuardCreateFormData

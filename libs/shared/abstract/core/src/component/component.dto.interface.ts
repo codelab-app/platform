@@ -4,7 +4,8 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { IElementRenderTypeKind } from '../element'
-import { PropDtoSchema, PropSchema } from '../prop/prop.dto.interface'
+import { PropSchema } from '../prop'
+import { PropDtoSchema } from '../prop/prop.dto.interface'
 
 export const ComponentDtoSchema = Type.Object({
   api: Typebox.Ref,

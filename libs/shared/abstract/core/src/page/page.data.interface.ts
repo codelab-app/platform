@@ -1,14 +1,14 @@
-import type { IPage } from './page.dto.interface'
+import type { IPageDto } from './page.dto.interface'
 
-export type IUpdatePageData = Pick<
-  IPage,
+export type IPageUpdateFormData = Pick<
+  IPageDto,
   'app' | 'id' | 'name' | 'pageContentContainer' | 'urlPattern'
 >
 
 /**
  * IOwnerSchema is required for store api
  */
-export type ICreatePageData = Pick<
-  IPage,
+export type IPageCreateFormData = Pick<
+  IPageDto,
   'app' | 'id' | 'kind' | 'name' | 'urlPattern'
 >

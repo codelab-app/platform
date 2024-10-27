@@ -1,6 +1,6 @@
 'use client'
 
-import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
+import type { IAppCreateFormData } from '@codelab/frontend/abstract/domain'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
@@ -26,7 +26,7 @@ export const CreateAppModal = () => {
       title="Some Title"
       uiKey={UiKey.AppModalCreate}
     >
-      <ModalForm.Form<ICreateAppData>
+      <ModalForm.Form<IAppCreateFormData>
         errorMessage="Error while creating app"
         model={model}
         onSubmit={appService.create}

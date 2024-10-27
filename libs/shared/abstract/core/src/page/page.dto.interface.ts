@@ -3,6 +3,8 @@ import type { Static } from '@sinclair/typebox'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
+import { ElementCreateDtoSchema } from '../element'
+import { StoreCreateDtoSchema } from '../store'
 import { IPageKind } from './page-kind.enum'
 
 export const PageDtoSchema = Type.Object({
@@ -23,14 +25,3 @@ export const PageDtoSchema = Type.Object({
 })
 
 export type IPageDto = Static<typeof PageDtoSchema>
-
-export const PageSchema = Type.Composite([
-  PageDtoSchema,
-  Type.Object({
-    slug: Type.String(),
-  }),
-])
-
-export type IPage = Static<typeof PageSchema>
-
-// export type ICreatePageDto = Omit<IPageDto, 'rootElement' | 'store'>

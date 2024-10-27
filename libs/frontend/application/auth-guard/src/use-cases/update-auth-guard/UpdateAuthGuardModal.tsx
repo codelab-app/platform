@@ -1,6 +1,6 @@
 'use client'
 
-import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardUpdateFormData } from '@codelab/frontend/abstract/domain'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -25,7 +25,7 @@ export const UpdateAuthGuardModal = observer(() => {
 
   const closeModal = () => updateAuthGuardModal.close()
 
-  const onSubmit = (authGuardDTO: IUpdateAuthGuardData) => {
+  const onSubmit = (authGuardDTO: IAuthGuardUpdateFormData) => {
     void authGuardService.update(authGuardDTO)
 
     closeModal()
@@ -40,7 +40,7 @@ export const UpdateAuthGuardModal = observer(() => {
       open={updateAuthGuardModal.isOpen}
       uiKey={UiKey.AuthGuardModalUpdate}
     >
-      <ModalForm.Form<IUpdateAuthGuardData>
+      <ModalForm.Form<IAuthGuardUpdateFormData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

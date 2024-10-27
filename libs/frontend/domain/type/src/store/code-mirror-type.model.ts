@@ -47,13 +47,6 @@ export class CodeMirrorType
     return this
   }
 
-  toCreateInput() {
-    return {
-      ...super.toCreateInput(),
-      language: this.language,
-    }
-  }
-
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
   }

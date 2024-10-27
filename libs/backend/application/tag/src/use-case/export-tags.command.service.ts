@@ -1,5 +1,5 @@
 import type { TagWhere } from '@codelab/backend/abstract/codegen'
-import type { ITag } from '@codelab/shared/abstract/core'
+import type { ITag, ITagExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { SortDirection } from '@codelab/backend/abstract/codegen'
@@ -12,7 +12,7 @@ export class ExportTagsCommand {
 
 @CommandHandler(ExportTagsCommand)
 export class ExportTagsHandler
-  implements ICommandHandler<ExportTagsCommand, Array<ITag>>
+  implements ICommandHandler<ExportTagsCommand, Array<ITagExport>>
 {
   constructor(private readonly tagRepository: TagRepository) {}
 

@@ -72,15 +72,6 @@ export class Component
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
 
-  static toDeleteInput(): ComponentDeleteInput {
-    return {
-      api: { delete: InterfaceType.toDeleteInput(), where: {} },
-      props: { where: {} },
-      rootElement: { where: {} },
-      store: { delete: Store.toDeleteInput(), where: {} },
-    }
-  }
-
   @computed
   get __typename() {
     return IElementRenderTypeKind.Component as const
@@ -133,32 +124,7 @@ export class Component
   }
 
   @modelAction
-  toCreateInput(): ComponentCreateInput {
-    return {
-      api: { create: { node: this.api.current.toCreateInput() } },
-      compositeKey: `${this.userDomainService.user.id}-${this.name}`,
-      id: this.id,
-      owner: connectOwner(this.userDomainService.user),
-      props: { create: { node: this.props.toCreateInput() } },
-      rootElement: {
-        create: {
-          node: this.rootElement.current.toCreateInput(),
-        },
-        // connectOrCreate: {
-        //   onCreate: {
-        //     node: this.rootElement.current.toCreateInput(),
-        //   },
-        //   where: {
-        //     node: { id: this.rootElement.id },
-        //   },
-        // },
-      },
-      store: { create: { node: this.store.current.toCreateInput() } },
-    }
-  }
-
-  @modelAction
-  writeCache({ api, name, props, rootElement }: Partial<IComponentDto>) {
+  writeCache({ api, name, props, rootElement, store }: Partial<IComponentDto>) {
     const apiRef = api?.id ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     this.name = name ?? this.name
@@ -169,21 +135,5 @@ export class Component
     this.props = props ? Prop.create(props) : this.props
 
     return this
-  }
-
-  toUpdateInput(): ComponentUpdateInput {
-    return {
-      compositeKey: ComponentProperties.componentCompositeKey(
-        { slug: this.slug },
-        {
-          id: this.owner.id,
-        },
-      ),
-    }
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }

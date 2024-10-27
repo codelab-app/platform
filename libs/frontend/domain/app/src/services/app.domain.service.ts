@@ -20,22 +20,12 @@ import { App } from '../store/app.model'
 export class AppDomainService
   extends Model({
     apps: prop(() => objectMap<IAppModel>()),
-    pageFactory: prop(() => new PageDomainFactory({})),
   })
   implements IAppDomainService
 {
   @computed
   get appsList() {
     return [...this.apps.values()]
-  }
-
-  @modelAction
-  create = (appDto: IAppDto) => {
-    const app = this.hydrate(appDto)
-    const renderType = this.atomDomainService.defaultRenderType
-    const pages = this.pageFactory.addSystemPages(app, renderType)
-
-    return app.writeCache({ pages })
   }
 
   @modelAction

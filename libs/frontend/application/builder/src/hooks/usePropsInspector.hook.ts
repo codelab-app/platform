@@ -100,7 +100,7 @@ export const usePropsInspector = (
 
     setIsLoading(true)
 
-    await propService.update(node.current.props, {
+    await propService.update({
       data,
       id: node.current.props.id,
     })

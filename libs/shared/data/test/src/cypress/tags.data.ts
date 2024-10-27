@@ -34,7 +34,7 @@ export enum DeleteTreeData {
 /**
  * Order in a way such that they can be connected
  */
-export const createTagsData: Array<ITagDto> = [
+export const createTagsData: Array<Omit<ITagDto, 'owner'>> = [
   {
     id: delete_tree_tag_0_0_0_id,
     name: DeleteTreeData['tag_0_0_0'],

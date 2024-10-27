@@ -1,14 +1,22 @@
+import type { IRef, IStoreDto } from '@codelab/shared/abstract/core'
 import type {
-  IStoreModel,
-  IStoreRepository,
-} from '@codelab/frontend/abstract/domain'
-import type {
+  StoreCreateInput,
+  StoreDeleteInput,
   StoreOptions,
   StoreUniqueWhere,
+  StoreUpdateInput,
   StoreWhere,
 } from '@codelab/shared/infra/gql'
 
+import {
+  CACHE_TAGS,
+  type IStoreModel,
+  type IStoreRepository,
+} from '@codelab/frontend/abstract/domain'
+import { storeMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { revalidateTag } from 'next/cache'
 
 import { Store } from '../store/store.model'
 import {
@@ -18,12 +26,12 @@ import {
   UpdateStores,
 } from './store.api.graphql.gen'
 
-export const storeRepository: IStoreRepository = {
-  add: async (store: IStoreModel) => {
+export const storeRepository: IStoreRepository = withTracingMethods('store', {
+  add: async (input: IStoreDto) => {
     const {
       createStores: { stores },
     } = await CreateStores({
-      input: [store.toCreateInput()],
+      input: storeMapper.toCreateInput(input),
     })
 
     const createdStore = stores[0]
@@ -33,31 +41,34 @@ export const storeRepository: IStoreRepository = {
     return createdStore
   },
 
-  delete: async (stores: Array<IStoreModel>) => {
+  delete: async (refs: Array<IRef>) => {
     const {
       deleteStores: { nodesDeleted },
     } = await DeleteStores({
-      delete: Store.toDeleteInput(),
-      where: { id_IN: stores.map((store) => store.id) },
+      delete: storeMapper.toDeleteInput(),
+      where: { id_IN: refs.map(({ id }) => id) },
     })
 
     return nodesDeleted
   },
 
   find: async (where?: StoreWhere, options?: StoreOptions) => {
-    return await GetStores({ options, where })
+    return await GetStores(
+      { options, where },
+      { tags: [CACHE_TAGS.STORE_LIST] },
+    )
   },
 
   findOne: async (where: StoreUniqueWhere) => {
     return (await storeRepository.find(where)).items[0]
   },
 
-  update: async (store: IStoreModel) => {
+  update: async ({ id }: IRef, input: IStoreDto) => {
     const {
       updateStores: { stores },
     } = await UpdateStores({
-      update: store.toUpdateInput(),
-      where: { id: store.id },
+      update: storeMapper.toUpdateInput(input),
+      where: { id },
     })
 
     const updatedStore = stores[0]
@@ -66,4 +77,7 @@ export const storeRepository: IStoreRepository = {
 
     return updatedStore
   },
-}
+})
+
+export const invalidateStoreListQuery = () =>
+  revalidateTag(CACHE_TAGS.STORE_LIST)

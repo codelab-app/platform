@@ -289,6 +289,7 @@ export type ActionTypeUniqueWhere = {
 
 export type ActionTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -2303,6 +2304,7 @@ export type AppTypeSubscriptionWhere = {
 
 export type AppTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -2364,7 +2366,6 @@ export type AppUniqueWhere = {
 export type AppUpdateInput = {
   compositeKey?: InputMaybe<Scalars['String']['input']>
   domains?: InputMaybe<Array<AppDomainsUpdateFieldInput>>
-  id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
 }
@@ -3037,6 +3038,7 @@ export type ArrayTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
   itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -4774,7 +4776,6 @@ export type AtomUpdateInput = {
   externalJsSource?: InputMaybe<Scalars['String']['input']>
   externalSourceType?: InputMaybe<Scalars['String']['input']>
   icon?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   requiredParents?: InputMaybe<Array<AtomRequiredParentsUpdateFieldInput>>
@@ -5491,7 +5492,6 @@ export type AuthGuardUniqueWhere = {
 
 export type AuthGuardUpdateInput = {
   config?: InputMaybe<AuthGuardConfigUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
@@ -6720,6 +6720,7 @@ export type CodeMirrorTypeSubscriptionWhere = {
 
 export type CodeMirrorTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   language?: InputMaybe<CodeMirrorLanguage>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
@@ -7708,7 +7709,6 @@ export type ComponentUniqueWhere = {
 export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   compositeKey?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
@@ -8268,7 +8268,6 @@ export type DomainUniqueWhere = {
 
 export type DomainUpdateInput = {
   app?: InputMaybe<DomainAppUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -10987,6 +10986,7 @@ export type ElementTypeSubscriptionWhere = {
 export type ElementTypeUpdateInput = {
   elementKind?: InputMaybe<ElementTypeKind>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -11054,7 +11054,6 @@ export type ElementUpdateInput = {
   compositeKey?: InputMaybe<Scalars['String']['input']>
   expanded?: InputMaybe<Scalars['Boolean']['input']>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   page?: InputMaybe<ElementPageUpdateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentUpdateFieldInput>
@@ -11851,6 +11850,7 @@ export type EnumTypeUpdateInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -13117,7 +13117,6 @@ export type FieldUpdateInput = {
   defaultValues?: InputMaybe<Scalars['String']['input']>
   description?: InputMaybe<Scalars['String']['input']>
   fieldType?: InputMaybe<FieldFieldTypeUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   key?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   nextSibling?: InputMaybe<FieldNextSiblingUpdateFieldInput>
@@ -13799,7 +13798,6 @@ export type HookSubscriptionWhere = {
 export type HookUpdateInput = {
   config?: InputMaybe<HookConfigUpdateFieldInput>
   element?: InputMaybe<HookElementUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<AtomType>
 }
 
@@ -14176,6 +14174,7 @@ export type IBaseTypeSubscriptionWhere = {
 export type IBaseTypeUpdateInput = {
   _on?: InputMaybe<IBaseTypeImplementationsUpdateInput>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -15134,6 +15133,7 @@ export type InterfaceTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -15477,6 +15477,7 @@ export type LambdaTypeSubscriptionWhere = {
 
 export type LambdaTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -17624,6 +17625,7 @@ export type PageTypeSubscriptionWhere = {
 
 export type PageTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -17685,7 +17687,6 @@ export type PageUniqueWhere = {
 export type PageUpdateInput = {
   app?: InputMaybe<PageAppUpdateFieldInput>
   compositeKey?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<PageKind>
   pageContentContainer?: InputMaybe<PagePageContentContainerUpdateFieldInput>
   redirect?: InputMaybe<PageRedirectUpdateFieldInput>
@@ -18010,7 +18011,6 @@ export type PreferenceUpdateInput = {
   builderWidth_DIVIDE?: InputMaybe<Scalars['Float']['input']>
   builderWidth_MULTIPLY?: InputMaybe<Scalars['Float']['input']>
   builderWidth_SUBTRACT?: InputMaybe<Scalars['Float']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
 }
 
@@ -18331,6 +18331,7 @@ export type PrimitiveTypeUniqueWhere = {
 
 export type PrimitiveTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
   primitiveKind?: InputMaybe<PrimitiveTypeKind>
@@ -18507,7 +18508,6 @@ export type PropUniqueWhere = {
 
 export type PropUpdateInput = {
   data?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type PropUpdatedEvent = {
@@ -19524,6 +19524,7 @@ export type ReactNodeTypeUniqueWhere = {
 
 export type ReactNodeTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -20241,7 +20242,6 @@ export type RedirectUniqueWhere = {
 
 export type RedirectUpdateInput = {
   authGuard?: InputMaybe<RedirectAuthGuardUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   source?: InputMaybe<RedirectSourceUpdateFieldInput>
   targetPage?: InputMaybe<RedirectTargetPageUpdateFieldInput>
   targetType?: InputMaybe<RedirectTargetType>
@@ -20588,6 +20588,7 @@ export type RenderPropTypeUniqueWhere = {
 
 export type RenderPropTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -21043,7 +21044,6 @@ export type ResourceUniqueWhere = {
 
 export type ResourceUpdateInput = {
   config?: InputMaybe<ResourceConfigUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   type?: InputMaybe<ResourceType>
@@ -21342,6 +21342,7 @@ export type RichTextTypeSubscriptionWhere = {
 
 export type RichTextTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -21859,7 +21860,6 @@ export type StoreUniqueWhere = {
 export type StoreUpdateInput = {
   actions?: InputMaybe<StoreActionsUpdateInput>
   api?: InputMaybe<StoreApiUpdateFieldInput>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -23619,7 +23619,6 @@ export type TagUniqueWhere = {
 export type TagUpdateInput = {
   atoms?: InputMaybe<Array<TagAtomsUpdateFieldInput>>
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<TagOwnerUpdateFieldInput>
   parent?: InputMaybe<TagParentUpdateFieldInput>
@@ -25307,6 +25306,7 @@ export type UnionTypeUniqueWhere = {
 
 export type UnionTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
+  kind?: InputMaybe<TypeKind>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateInput>
@@ -26886,7 +26886,6 @@ export type UserUpdateInput = {
   components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
   elements?: InputMaybe<Array<UserElementsUpdateFieldInput>>
   email?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['ID']['input']>
   preferences?: InputMaybe<UserPreferencesUpdateFieldInput>
   roles?: InputMaybe<Array<Role>>
   tags?: InputMaybe<Array<UserTagsUpdateFieldInput>>
@@ -27241,6 +27240,7 @@ export type AtomFragment = {
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
   tags: Array<TagFragment>
+  owner: { id: string }
 }
 
 export type AtomBuilderFragment = {
@@ -27253,6 +27253,7 @@ export type AtomBuilderFragment = {
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
   tags: Array<TagFragment>
+  owner: { id: string }
 }
 
 export type AtomProductionFragment = {
@@ -27274,6 +27275,7 @@ export type AuthGuardFragment = {
   responseTransformer: string
   config: PropFragment
   resource: ResourceFragment
+  owner: { id: string }
 }
 
 export type ComponentFragment = {
@@ -27496,6 +27498,7 @@ export type ResourceFragment = {
   name: string
   type: ResourceType
   config: PropFragment
+  owner: { id: string }
 }
 
 export type StoreFragment = {
@@ -27514,9 +27517,9 @@ export type ProductionStoreFragment = {
 export type TagFragment = {
   id: string
   name: string
-  children: Array<{ id: string; name: string }>
+  children: Array<{ id: string; name: string; owner: { id: string } }>
   descendants: Array<{ id: string; name: string }>
-  owner: OwnerFragment
+  owner: { id: string }
   parent?: { id: string } | null
 }
 
@@ -27931,7 +27934,7 @@ export type CreateComponentsMutationVariables = Exact<{
 }>
 
 export type CreateComponentsMutation = {
-  createComponents: { components: Array<{ id: string }> }
+  createComponents: { components: Array<{ id: string; store: { id: string } }> }
 }
 
 export type DeleteComponentsMutationVariables = Exact<{
@@ -29656,6 +29659,9 @@ export const TagFragmentDoc = new TypedDocumentString(
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -29664,15 +29670,13 @@ export const TagFragmentDoc = new TypedDocumentString(
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
   }
 }
-    fragment Owner on User {
-  id
-}`,
+    `,
   { fragmentName: 'Tag' },
 ) as unknown as TypedDocumentString<TagFragment, unknown>
 export const AtomBuilderFragmentDoc = new TypedDocumentString(
@@ -29699,11 +29703,17 @@ export const AtomBuilderFragmentDoc = new TypedDocumentString(
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
     fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -29712,7 +29722,7 @@ export const AtomBuilderFragmentDoc = new TypedDocumentString(
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -29756,9 +29766,6 @@ fragment InterfaceType on InterfaceType {
   fields {
     ...Field
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'AtomBuilder' },
 ) as unknown as TypedDocumentString<AtomBuilderFragment, unknown>
@@ -29846,6 +29853,9 @@ export const ElementFragmentDoc = new TypedDocumentString(
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Prop on Prop {
   data
@@ -29855,6 +29865,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -29863,7 +29876,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -29985,9 +29998,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'Element' },
 ) as unknown as TypedDocumentString<ElementFragment, unknown>
@@ -30033,6 +30043,9 @@ export const ResourceFragmentDoc = new TypedDocumentString(
   id
   name
   type
+  owner {
+    id
+  }
 }
     fragment Prop on Prop {
   data
@@ -30079,6 +30092,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ApiAction' },
 ) as unknown as TypedDocumentString<ApiActionFragment, unknown>
@@ -30134,6 +30150,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'Action' },
 ) as unknown as TypedDocumentString<ActionFragment, unknown>
@@ -30199,6 +30218,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment BaseType on IBaseType {
   __typename
@@ -30328,6 +30350,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -30400,6 +30425,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -30415,6 +30443,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -30423,7 +30454,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -30545,9 +30576,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'Page' },
 ) as unknown as TypedDocumentString<PageFragment, unknown>
@@ -30628,6 +30656,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Domain on Domain {
   app {
@@ -30734,6 +30765,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -30749,6 +30783,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -30757,7 +30794,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -30972,6 +31009,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -31044,6 +31084,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -31059,6 +31102,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -31067,7 +31113,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -31189,9 +31235,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'PageDevelopment' },
 ) as unknown as TypedDocumentString<PageDevelopmentFragment, unknown>
@@ -31271,6 +31314,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -31367,6 +31413,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -31382,6 +31431,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -31390,7 +31442,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -31903,6 +31955,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32200,6 +32255,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32360,11 +32418,17 @@ export const AtomFragmentDoc = new TypedDocumentString(
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
     fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -32373,7 +32437,7 @@ export const AtomFragmentDoc = new TypedDocumentString(
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -32417,9 +32481,6 @@ fragment InterfaceType on InterfaceType {
   fields {
     ...Field
   }
-}
-fragment Owner on User {
-  id
 }`,
   { fragmentName: 'Atom' },
 ) as unknown as TypedDocumentString<AtomFragment, unknown>
@@ -32435,6 +32496,9 @@ export const AuthGuardFragmentDoc = new TypedDocumentString(
     ...Resource
   }
   responseTransformer
+  owner {
+    id
+  }
 }
     fragment Prop on Prop {
   data
@@ -32447,6 +32511,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'AuthGuard' },
 ) as unknown as TypedDocumentString<AuthGuardFragment, unknown>
@@ -32523,6 +32590,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32666,6 +32736,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -32738,6 +32811,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -32753,6 +32829,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -32761,7 +32840,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -32959,6 +33038,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -33120,6 +33202,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ProductionStore' },
 ) as unknown as TypedDocumentString<ProductionStoreFragment, unknown>
@@ -33328,6 +33413,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment AuthGuard on AuthGuard {
   config {
@@ -33339,6 +33427,9 @@ fragment AuthGuard on AuthGuard {
     ...Resource
   }
   responseTransformer
+  owner {
+    id
+  }
 }
 fragment ComponentBuilder on Component {
   __typename
@@ -33474,6 +33565,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -33489,6 +33583,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -33497,7 +33594,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -33804,6 +33901,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Domain on Domain {
   app {
@@ -33910,6 +34010,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -33925,6 +34028,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -33933,7 +34039,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -34236,6 +34342,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -34406,6 +34515,9 @@ export const GetAuthGuardsDocument = new TypedDocumentString(`
     ...Resource
   }
   responseTransformer
+  owner {
+    id
+  }
 }
 fragment Prop on Prop {
   data
@@ -34418,6 +34530,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<
   GetAuthGuardsQuery,
   GetAuthGuardsQueryVariables
@@ -34547,6 +34662,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment ComponentBuilder on Component {
   __typename
@@ -34644,6 +34762,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -34659,6 +34780,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -34667,7 +34791,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -34801,6 +34925,9 @@ export const CreateComponentsDocument = new TypedDocumentString(`
   createComponents(input: $input) {
     components {
       id
+      store {
+        id
+      }
     }
   }
 }
@@ -34910,6 +35037,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -35084,6 +35214,9 @@ export const ElementListDocument = new TypedDocumentString(`
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -35153,6 +35286,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -35161,7 +35297,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -35283,9 +35419,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<
   ElementListQuery,
   ElementListQueryVariables
@@ -35430,6 +35563,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -35526,6 +35662,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -35541,6 +35680,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -35549,7 +35691,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -35671,9 +35813,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<PageListQuery, PageListQueryVariables>
 export const GetRenderedPageDocument = new TypedDocumentString(`
     query GetRenderedPage($pageId: ID!) {
@@ -35742,6 +35881,9 @@ fragment AtomBuilder on Atom {
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Element on Element {
   __typename
@@ -35838,6 +35980,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -35853,6 +35998,9 @@ fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -35861,7 +36009,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -35983,9 +36131,6 @@ fragment UnionType on UnionType {
       ...BaseType
     }
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<
   GetRenderedPageQuery,
   GetRenderedPageQueryVariables
@@ -36175,6 +36320,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<
   ResourceListQuery,
   ResourceListQueryVariables
@@ -36318,6 +36466,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<GetActionsQuery, GetActionsQueryVariables>
 export const CreateStoresDocument = new TypedDocumentString(`
     mutation CreateStores($input: [StoreCreateInput!]!) {
@@ -36404,6 +36555,9 @@ fragment Resource on Resource {
   id
   name
   type
+  owner {
+    id
+  }
 }
 fragment Store on Store {
   actions {
@@ -36551,6 +36705,9 @@ export const GetTagsDocument = new TypedDocumentString(`
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -36559,14 +36716,11 @@ export const GetTagsDocument = new TypedDocumentString(`
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<GetTagsQuery, GetTagsQueryVariables>
 export const CreatePrimitiveTypesDocument = new TypedDocumentString(`
     mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
@@ -39181,11 +39335,17 @@ export const AtomListDocument = new TypedDocumentString(`
     ...Tag
   }
   type
+  owner {
+    id
+  }
 }
 fragment Tag on Tag {
   children {
     id
     name
+    owner {
+      id
+    }
   }
   descendants {
     id
@@ -39194,7 +39354,7 @@ fragment Tag on Tag {
   id
   name
   owner {
-    ...Owner
+    id
   }
   parent {
     id
@@ -39238,9 +39398,6 @@ fragment InterfaceType on InterfaceType {
   fields {
     ...Field
   }
-}
-fragment Owner on User {
-  id
 }`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>
 export const UpdateAtomsDocument = new TypedDocumentString(`
     mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {

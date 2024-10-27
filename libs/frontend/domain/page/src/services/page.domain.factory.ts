@@ -1,7 +1,19 @@
 import type {
+  IAppModel,
   IInterfaceTypeModel,
   IPageDomainFactory,
 } from '@codelab/frontend/abstract/domain'
+import type {
+  IAppDto,
+  IElementCreateDto,
+  IElementDto,
+  IElementRenderTypeDto,
+  IInterfaceTypeDto,
+  IPageCreateFormData,
+  IStoreDto,
+  ITypeDto,
+  IUserDto,
+} from '@codelab/shared/abstract/core'
 
 import {
   getElementDomainService,
@@ -9,14 +21,11 @@ import {
   getStoreDomainService,
   getTypeDomainService,
   getUserDomainService,
-  IAppModel,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
-  ICreatePageData,
-  IElementRenderTypeDto,
   IPageKind,
   IPageKindName,
   ITypeKind,
@@ -26,10 +35,12 @@ import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
-@model('@codelab/PageFactory')
-export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
-  @modelAction
-  addSystemPages(app: IAppModel, renderType: IElementRenderTypeDto) {
+type IAppNode = Pick<IAppDto, 'id' | 'name'>
+
+export class PageDomainFactory implements IPageDomainFactory {
+  constructor(private owner: IUserDto) {}
+
+  addSystemPages(app: IAppNode, renderType: IElementRenderTypeDto) {
     return [
       this.addProviderPage(app, renderType),
       this.addNotFoundPage(app, renderType),
@@ -37,28 +48,31 @@ export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
     ]
   }
 
-  @modelAction
   private addDefaultPage(
-    app: IAppModel,
-    { id, kind, name, urlPattern }: ICreatePageData,
+    app: IAppNode,
+    { id, kind, name, urlPattern }: IPageCreateFormData,
     renderType: IElementRenderTypeDto,
   ) {
-    const { user } = this.userDomainService
-    const userName = user.username
+    const userName = this.owner.username
 
-    const pageStoreApi = this.typeDomainService.hydrateInterface({
+    const pageStoreApi: IInterfaceTypeDto = {
+      __typename: 'InterfaceType',
+      fields: [],
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${app.name}(${userName}) ${name} Store`),
-    })
+    }
 
-    const pageStore = this.storeDomainService.hydrate({
-      api: typeRef<IInterfaceTypeModel>(pageStoreApi.id),
+    const pageStore: IStoreDto = {
+      api: { id: pageStoreApi.id },
       id: v4(),
       name: Store.createName({ name }),
-    })
+    }
 
-    const pageRootElement = this.elementDomainService.hydrate({
+    const pageRootElement: IElementDto = {
+      closestContainerNode: {
+        id,
+      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id },
@@ -67,12 +81,12 @@ export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
         id: v4(),
       },
       renderType,
-    })
+    }
 
     const pageContentContainer =
       kind === IPageKind.Provider ? { id: pageRootElement.id } : null
 
-    return this.pageDomainService.hydrate({
+    return {
       app,
       id,
       kind,
@@ -81,12 +95,11 @@ export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
       rootElement: pageRootElement,
       store: pageStore,
       urlPattern,
-    })
+    }
   }
 
-  @modelAction
   private addInternalServerErrorPage(
-    app: IAppModel,
+    app: IAppNode,
     renderType: IElementRenderTypeDto,
   ) {
     return this.addDefaultPage(
@@ -102,8 +115,7 @@ export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
     )
   }
 
-  @modelAction
-  private addNotFoundPage(app: IAppModel, renderType: IElementRenderTypeDto) {
+  private addNotFoundPage(app: IAppNode, renderType: IElementRenderTypeDto) {
     return this.addDefaultPage(
       app,
       {
@@ -117,8 +129,7 @@ export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
     )
   }
 
-  @modelAction
-  private addProviderPage(app: IAppModel, renderType: IElementRenderTypeDto) {
+  private addProviderPage(app: IAppNode, renderType: IElementRenderTypeDto) {
     return this.addDefaultPage(
       app,
       {
@@ -130,30 +141,5 @@ export class PageDomainFactory extends Model({}) implements IPageDomainFactory {
       },
       renderType,
     )
-  }
-
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
-  }
-
-  @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
-  }
-
-  @computed
-  private get typeDomainService() {
-    return getTypeDomainService(this)
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }

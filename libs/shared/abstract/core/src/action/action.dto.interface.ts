@@ -6,10 +6,13 @@ import {
   CodeActionSchema,
 } from './code-action.dto.interface'
 
-export const ActionDtoSchema = Type.Union([
-  ApiActionDtoSchema,
-  CodeActionDtoSchema,
-])
+export const ActionDtoSchema = Type.Union(
+  [ApiActionDtoSchema, CodeActionDtoSchema],
+  {
+    discriminantKey: '__typename',
+    errorMessage: 'Unknown type',
+  },
+)
 
 export type IActionDto = Static<typeof ActionDtoSchema>
 

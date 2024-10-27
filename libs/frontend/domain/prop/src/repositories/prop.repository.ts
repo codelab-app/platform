@@ -2,12 +2,15 @@ import type {
   IPropModel,
   IPropRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   PropOptions,
   PropUniqueWhere,
   PropWhere,
+  UpdatePropsMutationVariables,
 } from '@codelab/shared/infra/gql'
 
+import { propMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -18,11 +21,11 @@ import {
 } from './prop.api.graphql.gen'
 
 export const propRepository: IPropRepository = {
-  add: async (prop: IPropModel) => {
+  add: async (input: IPropDto) => {
     const {
       createProps: { props },
     } = await CreateProps({
-      input: [prop.toCreateInput()],
+      input: propMapper.toCreateInput(input),
     })
 
     const createdProp = props[0]
@@ -32,11 +35,11 @@ export const propRepository: IPropRepository = {
     return createdProp
   },
 
-  delete: async (props: Array<IPropModel>) => {
+  delete: async (refs: Array<IRef>) => {
     const {
       deleteProps: { nodesDeleted },
     } = await DeleteProps({
-      where: { id_IN: props.map((prop) => prop.id) },
+      where: { id_IN: refs.map((prop) => prop.id) },
     })
 
     return nodesDeleted
@@ -50,15 +53,17 @@ export const propRepository: IPropRepository = {
     return (await propRepository.find(where)).items[0]
   },
 
-  update: async (prop: IPropModel) => {
+  update: async ({ id }: IRef, prop: IPropDto) => {
     const {
       updateProps: { props },
     } = await UpdateProps({
-      update: prop.toUpdateInput(),
-      where: { id: prop.id },
+      update: propMapper.toUpdateInput(prop),
+      where: { id },
     })
 
     const updatedProp = props[0]
+
+    Validator.assertsDefined(updatedProp)
 
     return updatedProp
   },

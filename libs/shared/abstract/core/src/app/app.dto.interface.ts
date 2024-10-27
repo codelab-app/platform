@@ -21,14 +21,3 @@ export const AppDtoSchema = Type.Composite([
 ])
 
 export type IAppDto = Static<typeof AppDtoSchema>
-
-export const AppSchema = Typebox.Overwrite(
-  AppDtoSchema,
-  Type.Object({
-    domains: Type.Array(DomainSchema),
-    pages: Type.Array(PageSchema),
-    slug: Type.String(),
-  }),
-)
-
-export type IApp = Static<typeof AppSchema>

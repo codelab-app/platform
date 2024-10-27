@@ -2,6 +2,9 @@ mutation CreateComponents($input: [ComponentCreateInput!]!) {
   createComponents(input: $input) {
     components {
       id
+      store {
+        id
+      }
     }
   }
 }

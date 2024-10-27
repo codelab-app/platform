@@ -48,21 +48,6 @@ export class EnumType
     return this
   }
 
-  toCreateInput() {
-    return {
-      ...super.toCreateInput(),
-      allowedValues: {
-        create: this.allowedValues.map((value) => ({
-          node: {
-            id: value.id,
-            key: value.key,
-            value: value.value,
-          },
-        })),
-      },
-    }
-  }
-
   toJsonSchema({
     defaultValues,
     uniformSchema,

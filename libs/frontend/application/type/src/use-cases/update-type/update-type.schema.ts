@@ -1,4 +1,4 @@
-import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
+import type { ITypeUpdateDto } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -16,7 +16,7 @@ import {
 import { TypeSelect } from '../select-types/TypeSelect'
 
 export const updateTypeSchema: JSONSchemaType<
-  Omit<IUpdateTypeDto, 'defaultValue'>
+  Omit<ITypeUpdateDto, 'defaultValue'>
 > = {
   properties: {
     allowedValues: {
@@ -37,9 +37,7 @@ export const updateTypeSchema: JSONSchemaType<
       nullable: true,
       type: 'array',
     },
-
-    arrayTypeId: { nullable: true, type: 'string' },
-
+    arrayItemTypeId: { nullable: true, type: 'string' },
     elementKind: {
       enum: Object.values(IElementTypeKind),
       nullable: true,

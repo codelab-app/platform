@@ -85,18 +85,6 @@ export class Page
 {
   static create = create
 
-  static toDeleteInput(): PageDeleteInput {
-    return {
-      redirect: { where: {} },
-      // pageContentContainer: { delete: {}, where: {} },
-      rootElement: {},
-      store: {
-        delete: Store.toDeleteInput(),
-        where: {},
-      },
-    }
-  }
-
   /**
    * /home /apps/codelab/test/pages/home?primarySidebarKey=explorer
    */
@@ -158,45 +146,6 @@ export class Page
     this.urlPattern = urlPattern ?? ''
 
     return this
-  }
-
-  toCreateInput(): PageCreateInput {
-    return {
-      app: connectNodeId(this.app.id),
-      compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
-      id: this.id,
-      kind: this.kind,
-      pageContentContainer: connectNodeId(
-        this.pageContentContainer?.current.id,
-      ),
-      rootElement: {
-        create: {
-          node: this.rootElement.current.toCreateInput(),
-        },
-      },
-      store: {
-        create: {
-          node: this.store.current.toCreateInput(),
-        },
-      },
-      urlPattern: this.urlPattern,
-    }
-  }
-
-  toUpdateInput(): PageUpdateInput {
-    return {
-      app: connectNodeId(this.app.id),
-      compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
-      pageContentContainer: reconnectNodeId(
-        this.pageContentContainer?.current.id,
-      ),
-      urlPattern: this.urlPattern,
-    }
-  }
-
-  @computed
-  private get redirectDomainService() {
-    return getRedirectDomainService(this)
   }
 
   @computed

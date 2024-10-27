@@ -2,11 +2,15 @@ import type {
   IFieldModel,
   IFieldRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   FieldOptions,
   FieldUniqueWhere,
   FieldWhere,
 } from '@codelab/shared/infra/gql'
+
+import { fieldMapper } from '@codelab/shared/domain-old'
+import { Validator } from '@codelab/shared/infra/schema'
 
 import {
   CreateFields,
@@ -16,14 +20,16 @@ import {
 } from './field.api.graphql.gen'
 
 export const fieldRepository: IFieldRepository = {
-  add: async (field: IFieldModel) => {
+  add: async (field: IFieldDto) => {
     const {
       createFields: {
         fields: [fieldFragment],
       },
     } = await CreateFields({
-      input: field.toCreateInput(),
+      input: fieldMapper.toCreateInput(field),
     })
+
+    Validator.assertsDefined(fieldFragment)
 
     return fieldFragment
   },
@@ -48,17 +54,19 @@ export const fieldRepository: IFieldRepository = {
     return (await fieldRepository.find(where)).items[0]
   },
 
-  update: async (field: IFieldModel) => {
+  update: async ({ id }: IRef, field: IFieldDto) => {
     const {
       updateFields: {
         fields: [fieldFragment],
       },
     } = await UpdateFields({
-      update: field.toUpdateInput(),
+      update: fieldMapper.toUpdateInput(field),
       where: {
-        id: field.id,
+        id,
       },
     })
+
+    Validator.assertsDefined(fieldFragment)
 
     return fieldFragment
   },

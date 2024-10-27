@@ -49,16 +49,6 @@ export class Store
 
   static createName = createStoreName
 
-  static toDeleteInput(): StoreDeleteInput {
-    return {
-      actions: {
-        ApiAction: [{ where: {} }],
-        CodeAction: [{ where: {} }],
-      },
-      api: { delete: InterfaceType.toDeleteInput(), where: {} },
-    }
-  }
-
   @computed
   get actions() {
     return this.actionsDomainService.actionsList.filter(
@@ -108,19 +98,5 @@ export class Store
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceTypeModel>) : this.api
 
     return this
-  }
-
-  toCreateInput(): StoreCreateInput {
-    const api = this.api.current
-
-    return {
-      api: { create: { node: api.toCreateInput() } },
-      id: this.id,
-      name: this.name,
-    }
-  }
-
-  toUpdateInput(): StoreUpdateInput {
-    return { name: this.name }
   }
 }

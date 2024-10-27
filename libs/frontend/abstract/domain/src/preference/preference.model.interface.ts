@@ -15,12 +15,7 @@ import type { ICacheService, IModel } from '../shared'
 import type { IUserModel } from '../user'
 
 export interface IPreferenceModel
-  extends IModel<
-      PreferenceCreateInput,
-      PreferenceUpdateInput,
-      PreferenceDeleteInput,
-      IPreference
-    >,
+  extends IModel<IPreference>,
     ICacheService<IPreferenceDto, IPreferenceModel> {
   builderBreakpoint: IBreakpoint
   builderBreakpointType: IBreakpointType

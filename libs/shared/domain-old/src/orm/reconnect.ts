@@ -1,17 +1,14 @@
+import type { Nullish } from '@codelab/shared/abstract/types'
+
 import { connectNode, connectNodeId, connectNodeIds } from './connect'
 import { disconnectAll, disconnectManyAll } from './disconnect'
 
 /**
  * This disconnects all edges first
  */
-export const reconnectNodeId = (id: string | null | undefined) => ({
-  ...disconnectAll(),
+export const reconnectNodeId = (id: Nullish<string>) => ({
+  ...disconnectAll({ omitId: id }),
   ...connectNodeId(id),
-})
-
-export const reconnectNode = (key: string, id: string | null | undefined) => ({
-  ...disconnectAll(),
-  ...connectNode(key, id),
 })
 
 export const reconnectNodeIds = (ids: Array<string> | undefined) => {
@@ -19,5 +16,5 @@ export const reconnectNodeIds = (ids: Array<string> | undefined) => {
     ...connectNodeIds([id]),
   }))
 
-  return [disconnectManyAll(), ...(connects ?? [])]
+  return [disconnectManyAll({ omitIds: ids }), ...(connects ?? [])]
 }

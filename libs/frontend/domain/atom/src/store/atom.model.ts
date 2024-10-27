@@ -11,19 +11,15 @@ import Html5Outlined from '@ant-design/icons/Html5Outlined'
 import {
   atomRef,
   getUserDomainService,
+  IUserModel,
   typeRef,
+  userRef,
 } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import {
-  connectNodeId,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeIds,
-} from '@codelab/shared/domain-old'
 import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
 import {
   antdAtoms,
@@ -51,6 +47,7 @@ const create = ({
   icon,
   id,
   name,
+  owner,
   requiredParents,
   suggestedChildren,
   tags,
@@ -64,6 +61,7 @@ const create = ({
     icon,
     id,
     name,
+    owner: userRef(owner.id),
     requiredParents: requiredParents?.map((child) => atomRef(child.id)),
     suggestedChildren: suggestedChildren?.map((child) => atomRef(child.id)),
     tags: tags?.map((tag) => tagRef(tag.id)),
@@ -81,6 +79,7 @@ export class Atom
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
+    owner: prop<Ref<IUserModel>>(),
     requiredParents: prop<Array<Ref<IAtomModel>>>(() => []),
     suggestedChildren: prop<Array<Ref<IAtomModel>>>(() => []),
     tags: prop<Array<Ref<ITagModel>>>(() => []),
@@ -135,29 +134,10 @@ export class Atom
       icon: this.icon,
       id: this.id,
       name: this.name,
+      owner: this.owner,
       requiredParents: this.requiredParents,
       suggestedChildren: this.suggestedChildren,
       tags: this.tags,
-      type: this.type,
-    }
-  }
-
-  @modelAction
-  toUpdateInput(): AtomUpdateInput {
-    return {
-      api: this.api.id ? connectNodeId(this.api.id) : undefined,
-      externalCssSource: this.externalCssSource,
-      externalJsSource: this.externalJsSource,
-      externalSourceType: this.externalSourceType,
-      id: this.id,
-      name: this.name,
-      requiredParents: reconnectNodeIds(
-        this.requiredParents.map((parent) => parent.current.id),
-      ),
-      suggestedChildren: reconnectNodeIds(
-        this.suggestedChildren.map((child) => child.current.id),
-      ),
-      tags: reconnectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }
   }
@@ -191,10 +171,5 @@ export class Atom
     this.requiredParents = requiredParents.map((child) => atomRef(child.id))
 
     return this
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }

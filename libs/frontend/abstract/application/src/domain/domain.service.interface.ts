@@ -2,10 +2,11 @@ import type {
   ICreateDomainData,
   IDomainModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gql'
 
-import type { ICRUDService, IQueryService } from '../services'
+import type { ICrudService, IQueryService } from '../services'
 
 export interface IDomainService
-  extends ICRUDService<IDomainModel, ICreateDomainData, ICreateDomainData>,
+  extends ICrudService<IRef, ICreateDomainData, ICreateDomainData>,
     Omit<IQueryService<IDomainModel, DomainWhere, DomainOptions>, 'getOne'> {}

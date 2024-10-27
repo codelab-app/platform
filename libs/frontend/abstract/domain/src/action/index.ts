@@ -1,6 +1,5 @@
 export * from './action.domain.service.context'
 export * from './action.domain.service.interface'
-export * from './action.input.interface'
 export * from './action.model.interface'
 export * from './action.node.interface'
 export * from './action.ref'

@@ -4,7 +4,7 @@ import { authOwnerOrAdmin } from './user.schema'
 
 export const componentSchema = gql`
   type Component implements WithOwner ${authOwnerOrAdmin} {
-    id: ID! @unique
+    id: ID! @unique @settable(onUpdate: false)
     # userId-name
     compositeKey: String! @unique
     name: String! @customResolver(requires: "owner { id } compositeKey")

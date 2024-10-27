@@ -2,12 +2,14 @@ import type {
   IResourceModel,
   IResourceRepository,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef, IResourceDto } from '@codelab/shared/abstract/core'
 import type {
   ResourceOptions,
   ResourceUniqueWhere,
   ResourceWhere,
 } from '@codelab/shared/infra/gql'
 
+import { resourceMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -18,10 +20,12 @@ import {
 } from './resource.api.graphql.gen'
 
 export const resourceRepository: IResourceRepository = {
-  add: async (resource: IResourceModel) => {
+  add: async (resource: IResourceDto) => {
     const {
       createResources: { resources },
-    } = await CreateResources({ input: [resource.toCreateInput()] })
+    } = await CreateResources({
+      input: [resourceMapper.toCreateInput(resource)],
+    })
 
     const createdResource = resources[0]
 
@@ -49,12 +53,12 @@ export const resourceRepository: IResourceRepository = {
     return (await resourceRepository.find(where)).items[0]
   },
 
-  update: async (resource: IResourceModel) => {
+  update: async ({ id }: IRef, dto: IResourceDto) => {
     const {
       updateResources: { resources },
     } = await UpdateResource({
-      update: resource.toUpdateInput(),
-      where: { id: resource.id },
+      update: resourceMapper.toUpdateInput(dto),
+      where: { id },
     })
 
     const updatedResource = resources[0]

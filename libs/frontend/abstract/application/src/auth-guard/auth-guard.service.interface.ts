@@ -1,19 +1,20 @@
 import type {
+  IAuthGuardCreateFormData,
   IAuthGuardModel,
-  ICreateAuthGuardData,
-  IUpdateAuthGuardData,
+  IAuthGuardUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
 
-import type { ICRUDService, IQueryService } from '../services'
+import type { ICrudService, IQueryService } from '../services'
 
 export interface IAuthGuardService
-  extends ICRUDService<
-      IAuthGuardModel,
-      ICreateAuthGuardData,
-      IUpdateAuthGuardData
+  extends ICrudService<
+      IRef,
+      IAuthGuardCreateFormData,
+      IAuthGuardUpdateFormData
     >,
     IQueryService<IAuthGuardModel, AuthGuardWhere, AuthGuardOptions> {}

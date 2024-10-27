@@ -1,17 +1,20 @@
 import type {
+  IAppCreateFormData,
   IAppModel,
-  ICreateAppData,
-  IUpdateAppData,
+  IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { IUpdatePageData } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  IPageUpdateFormData,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { AppOptions, AppWhere } from '@codelab/shared/infra/gql'
 
-import type { ICRUDService, IQueryService } from '../services'
+import type { ICrudService, IQueryService } from '../services'
 
 export interface IAppService
-  extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
+  extends ICrudService<IRef, IAppCreateFormData, IAppUpdateFormData>,
     IQueryService<IAppModel, AppWhere, AppOptions> {
   appList: Array<IAppModel>
   regeneratePages(app: IAppModel, pagesUrls?: Array<string>): Promise<void>
-  updatePage(data: IUpdatePageData): Promise<void>
 }

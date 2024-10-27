@@ -1,6 +1,6 @@
 'use client'
 
-import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
+import type { ITypeUpdateDto } from '@codelab/frontend/abstract/domain'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -28,7 +28,7 @@ export const UpdateTypeModal = observer(() => {
     updateTypeModal.data?.id ?? '',
   )
 
-  const handleSubmit = async (submitData: IUpdateTypeDto) => {
+  const handleSubmit = async (submitData: ITypeUpdateDto) => {
     const data = {
       ...submitData,
       allowedValues: submitData.allowedValues?.map((val) => ({
@@ -86,7 +86,7 @@ export const UpdateTypeModal = observer(() => {
       title={<span className="font-semibold">Update type</span>}
       uiKey={UiKey.TypeModalUpdate}
     >
-      <ModalForm.Form<IUpdateTypeDto>
+      <ModalForm.Form<ITypeUpdateDto>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createFormErrorNotificationHandler({

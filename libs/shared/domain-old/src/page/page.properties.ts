@@ -1,4 +1,4 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
 import type { Page } from '@codelab/shared/infra/gql'
 import type { DeepPick } from 'ts-essentials'
 
@@ -9,8 +9,8 @@ interface PageData {
   compositeKey: never
 }
 
-const pageCompositeKey = (pageName: string, app: IRef) => {
-  return `${app.id}-${pageName}`
+const pageCompositeKey = (page: Pick<IPageDto, 'name'>, app: IRef) => {
+  return `${app.id}-${page.name}`
 }
 
 const pageNameFromCompositeKey = (page: DeepPick<Page, PageData>) =>

@@ -30,7 +30,6 @@ export class RedirectRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -93,7 +92,7 @@ export class RedirectRepository extends AbstractRepository<
           targetPage:
             targetType === IRedirectTargetType.Page
               ? reconnectNodeId(targetPage?.id)
-              : disconnectAll(),
+              : disconnectAll({ omitId: targetPage?.id }),
           targetType,
           targetUrl:
             targetType === IRedirectTargetType.Url ? targetUrl : undefined,

@@ -13,7 +13,11 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain-old'
+import {
+  componentMapper,
+  connectNodeId,
+  connectOwner,
+} from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -37,16 +41,8 @@ export class ComponentRepository extends AbstractRepository<
       await (
         await this.ogmService.Component
       ).create({
-        input: components.map(
-          ({ api, id, name, owner, props, rootElement, store }) => ({
-            api: connectNodeId(api.id),
-            compositeKey: `${owner.id}-${name}`,
-            id,
-            owner: connectOwner(this.authService.currentUser),
-            props: connectNodeId(props.id),
-            rootElement: connectNodeId(rootElement.id),
-            store: connectNodeId(store.id),
-          }),
+        input: components.map((component) =>
+          componentMapper.toCreateInput(component),
         ),
         selectionSet: `{ components { ${componentSelectionSet} } }`,
       })
@@ -69,21 +65,12 @@ export class ComponentRepository extends AbstractRepository<
     })
   }
 
-  protected async _update(
-    { api, id, props, rootElement, store }: IComponentDto,
-    where: ComponentWhere,
-  ) {
+  protected async _update(component: IComponentDto, where: ComponentWhere) {
     return (
       await (
         await this.ogmService.Component
       ).update({
-        update: {
-          api: connectNodeId(api.id),
-          id,
-          props: connectNodeId(props.id),
-          rootElement: connectNodeId(rootElement.id),
-          store: connectNodeId(store.id),
-        },
+        update: componentMapper.toUpdateInput(component),
         where,
       })
     ).components[0]

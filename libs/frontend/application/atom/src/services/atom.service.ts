@@ -16,14 +16,12 @@ import {
 import { PageType } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
-import {
-  AtomMapper,
-  atomRepository,
-} from '@codelab/frontend-domain-atom/repositories'
+import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
   filterAtoms,
   mapEntitySelectOptions,
 } from '@codelab/frontend-domain-atom/store'
+import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import {
   useApplicationStore,
   useDomainStore,
@@ -52,8 +50,8 @@ export const useAtomService = (): IAtomService => {
     userDomainService,
   } = useDomainStore()
 
+  const owner = userDomainService.user
   const typeService = useTypeService()
-  const atomMapper = new AtomMapper(userDomainService.user)
 
   const getDataFn: GetDataFn<IAtomModel> = async (
     page,
@@ -80,30 +78,24 @@ export const useAtomService = (): IAtomService => {
   }
 
   const create = async (data: ICreateAtomData) => {
-    const input = atomMapper.toCreateInput(data)
-    // const api = typeDomainService.hydrateInterface({
-    //   id: v4(),
-    //   kind: ITypeKind.InterfaceType,
-    //   name: `${name} API`,
-    // })
-    // const atom = atomDomainService.hydrate({
-    //   __typename: IElementRenderTypeKind.Atom,
-    //   api,
-    //   externalCssSource,
-    //   externalJsSource,
-    //   externalSourceType,
-    //   id,
-    //   name,
-    //   tags,
-    //   type,
-    // })
-    const atom = await atomRepository.add(input)
+    const api = await typeRepository.add({
+      __typename: ITypeKind.InterfaceType,
+      fields: [],
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: `${data.name} API`,
+    })
+
+    const atom = await atomRepository.add({
+      ...data,
+      __typename: 'Atom',
+      api,
+      owner,
+    })
 
     Validator.assertsDefined(atom)
 
     return atom
-
-    // atomPagination.dataRefs.set(atom.id, atomRef(atom))
   }
 
   const removeMany = async (items: Array<IAtomModel>) => {
@@ -164,14 +156,12 @@ export const useAtomService = (): IAtomService => {
   }
 
   const update = async (data: IUpdateAtomData) => {
-    // const atom = atomDomainService.atoms.get(id)
-
-    // Validator.assertsDefined(atom)
-
-    const atom = await atomRepository.update({
-      update: atomMapper.toUpdateInput(data),
-      where: { id: data.id },
-    })
+    const atom = await atomRepository.update(
+      {
+        id: data.id,
+      },
+      data,
+    )
 
     Validator.assertsDefined(atom)
 

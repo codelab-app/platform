@@ -16,7 +16,7 @@ import type { IModel } from '../shared/models/model.interface'
 import type { IInterfaceTypeModel } from '../type'
 
 export interface IStoreModel
-  extends IModel<StoreCreateInput, StoreUpdateInput, StoreDeleteInput, IStore>,
+  extends IModel<IStore>,
     ICacheService<IStoreDto, IStoreModel> {
   actions: Array<IActionModel>
   actionsTree: Array<ITreeNode<IActionNodeData>>

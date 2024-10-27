@@ -7,10 +7,7 @@ import type { IModel } from '../shared/models/model.interface'
 import type { ITagNodeData } from './tag.node.interface'
 
 export interface ITagModel
-  extends Omit<
-      IModel<TagCreateInput, TagUpdateInput, void, ITag>,
-      'toDeleteInput'
-    >,
+  extends Omit<IModel<ITag>, 'toDeleteInput'>,
     ICacheService<ITagDto, ITagModel> {
   children: Array<Ref<ITagModel>>
   descendants: Array<Ref<ITagModel>>

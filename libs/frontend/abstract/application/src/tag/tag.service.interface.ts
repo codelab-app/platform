@@ -6,10 +6,10 @@ import type {
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
-import type { ICRUDService, IPaginateable, IQueryService } from '../services'
+import type { ICrudService, IPaginateable, IQueryService } from '../services'
 
 export interface ITagService
-  extends ICRUDService<ITagModel, ICreateTagData, IUpdateTagData>,
+  extends ICrudService<ITagModel, ICreateTagData, IUpdateTagData>,
     Omit<IQueryService<ITagModel, TagWhere, TagOptions>, 'getOne'>,
     IPaginateable<ITagModel> {
   checkedTags: Array<Ref<ITagModel>>

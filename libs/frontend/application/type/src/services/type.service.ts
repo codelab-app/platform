@@ -2,13 +2,14 @@ import type {
   GetDataFn,
   ITypeService,
 } from '@codelab/frontend/abstract/application'
-import type { ICreateTypeDto, IRef } from '@codelab/shared/abstract/core'
-
-import {
-  type ITypeModel,
-  type IUpdateTypeDto,
-  typeRef,
+import type {
+  ITypeCreateFormData,
+  ITypeModel,
+  ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
+
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
@@ -46,10 +47,11 @@ export const useTypeService = (): ITypeService => {
     return { items, totalItems }
   }
 
-  const create = async (data: ICreateTypeDto) => {
-    const type = typeDomainService.hydrate(TypeFactory.mapDataToDTO(data))
+  const create = async (data: ITypeCreateFormData) => {
+    const typeDto = TypeFactory.mapDataToDTO(data)
+    const type = typeDomainService.hydrate(typeDto)
 
-    await typeRepository.add(type)
+    await typeRepository.add(typeDto)
 
     typePagination.dataRefs.set(type.id, typeRef(type))
 
@@ -136,7 +138,7 @@ export const useTypeService = (): ITypeService => {
     return options
   }
 
-  const update = async (data: IUpdateTypeDto) => {
+  const update = async (data: ITypeUpdateDto) => {
     const type = typeDomainService.types.get(data.id)
 
     Validator.assertsDefined(type)
@@ -145,7 +147,7 @@ export const useTypeService = (): ITypeService => {
 
     TypeFactory.writeCache(typeDto, type)
 
-    await typeRepository.update(type)
+    await typeRepository.update({ id: type.id }, typeDto)
 
     return type
   }

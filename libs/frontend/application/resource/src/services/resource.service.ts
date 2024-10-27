@@ -19,27 +19,16 @@ import { v4 } from 'uuid'
 export const useResourceService = (): IResourceService => {
   const { resourceDomainService } = useDomainStore()
 
-  const create = async ({
-    config: configData,
-    id,
-    name,
-    type,
-  }: ICreateResourceData) => {
-    const configProps: IPropDto = {
-      data: JSON.stringify(configData),
+  const create = async (data: ICreateResourceData) => {
+    const config: IPropDto = {
+      data: JSON.stringify(data.config),
       id: v4(),
     }
 
-    const resource = resourceDomainService.hydrate({
-      config: configProps,
-      id,
-      name,
-      type,
+    return await resourceRepository.add({
+      ...data,
+      config,
     })
-
-    await resourceRepository.add(resource)
-
-    return resource
   }
 
   const removeMany = async (resources: Array<IResourceModel>) => {
@@ -71,24 +60,24 @@ export const useResourceService = (): IResourceService => {
     }))
   }
 
-  const update = async ({
-    config: configData,
-    id,
-    name,
-    type,
-  }: IUpdateResourceData) => {
-    const resource = resourceDomainService.resources.get(id)
+  const update = async (data: IUpdateResourceData) => {
+    // const resource = resourceDomainService.resources.get(id)
 
-    Validator.assertsDefined(resource)
+    // Validator.assertsDefined(resource)
 
-    const config = resource.config
+    // config.writeCache({ data: JSON.stringify(configData) })
+    // resource.writeCache({ name, type })
 
-    config.writeCache({ data: JSON.stringify(configData) })
-    resource.writeCache({ name, type })
-
-    await resourceRepository.update(resource)
-
-    return resource
+    return await resourceRepository.update(
+      { id: data.id },
+      {
+        ...data,
+        config: {
+          data: JSON.stringify(data.config),
+          id: v4(),
+        },
+      },
+    )
   }
 
   const load = (resources: Array<IResourceDto>) => {

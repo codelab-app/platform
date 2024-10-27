@@ -15,12 +15,7 @@ import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 
 export interface IResourceModel
-  extends IModel<
-      ResourceCreateInput,
-      ResourceUpdateInput,
-      DeleteResourcesMutationVariables,
-      IResource
-    >,
+  extends IModel<IResource>,
     ICacheService<IResourceDto, IResourceModel> {
   client: IResourceClient
   config: IPropModel

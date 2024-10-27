@@ -15,7 +15,7 @@ export const usePreferenceService = (): IPreferenceService => {
 
     preference.writeCache({ builderBreakpointType, builderWidth })
 
-    await preferenceRepository.update(preference)
+    await preferenceRepository.update({ id: preference.id }, preference)
 
     return preference
   }

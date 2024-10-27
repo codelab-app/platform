@@ -1,9 +1,13 @@
 import type {
+  IAppCreateFormData,
   IAppModel,
-  ICreateAppData,
-  IUpdateAppData,
+  IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef, IUpdatePageData } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  IPageUpdateFormData,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gql'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
@@ -15,6 +19,7 @@ import {
 } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
+import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import {
   useDomainStore,
   useUndoManager,
@@ -24,32 +29,42 @@ import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 import { computed, type IComputedValueOptions } from 'mobx'
 import { type DependencyList, useMemo } from 'react'
 
+import { createAppAction } from '../use-cases/create-app'
+
 export const useAppService = (): IAppService => {
-  const { appDomainService, pageDomainService, userDomainService } =
-    useDomainStore()
+  const {
+    appDomainService,
+    atomDomainService,
+    pageDomainService,
+    userDomainService,
+  } = useDomainStore()
 
   const pageService = usePageService()
   const undoManager = useUndoManager()
+  const pageFactory = new PageDomainFactory(userDomainService.user)
+  const owner = userDomainService.user
 
-  const create = async ({ id, name }: ICreateAppData) => {
-    const app = appDomainService.create({
-      id,
-      name,
-      owner: userDomainService.user,
-      pages: [],
-    })
-
+  const create = async ({ id, name }: IAppCreateFormData) => {
     try {
-      await appRepository.add(app)
+      const renderType = atomDomainService.defaultRenderType
+      const pages = pageFactory.addSystemPages({ id, name }, renderType)
+
+      const app = await createAppAction(
+        { id, name, owner },
+        pages,
+        pages.flatMap((page) => page.rootElement),
+      )
+
+      Validator.assertsDefined(app)
+
+      return app
     } catch (error) {
       undoManager.undo()
 
       throw error
+    } finally {
+      await invalidateAppListQuery()
     }
-
-    await invalidateAppListQuery()
-
-    return app
   }
 
   const removeMany = async (apps: Array<IAppModel>): Promise<number> => {
@@ -138,37 +153,14 @@ export const useAppService = (): IAppService => {
   //   })
   // }
 
-  const update = async ({ id, name }: IUpdateAppData) => {
-    const app = appDomainService.apps.get(id)
-
-    Validator.assertsDefined(app)
-
-    app.writeCache({ name })
-
-    await appRepository.update(app)
+  const update = async ({ id, name }: IAppUpdateFormData) => {
+    const app = await appRepository.update({ id }, { id, name })
 
     await invalidateAppListQuery()
 
+    Validator.assertsDefined(app)
+
     return app
-  }
-
-  const updatePage = async (data: IUpdatePageData) => {
-    const app = appDomainService.apps.get(data.app.id)
-    const page = app?.page(data.id)
-    const { name, pageContentContainer, urlPattern } = data
-
-    page?.writeCache({
-      app,
-      name,
-      pageContentContainer,
-      urlPattern,
-    })
-
-    if (page) {
-      await pageRepository.update(page)
-    }
-
-    return
   }
 
   const regeneratePagesForApp = async (
@@ -206,7 +198,6 @@ export const useAppService = (): IAppService => {
     regeneratePages: regeneratePagesForApp,
     removeMany: withAsyncSpanFunc({ name: 'AppRemoveMany' }, removeMany),
     update,
-    updatePage,
   }
 }
 

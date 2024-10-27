@@ -77,19 +77,4 @@ export class Preference
 
     return this
   }
-
-  toCreateInput(): PreferenceCreateInput {
-    return {
-      builderBreakpointType: this.builderBreakpointType,
-      builderWidth: this.builderWidth,
-      id: this.id,
-    }
-  }
-
-  toUpdateInput(): PreferenceUpdateInput {
-    return {
-      builderBreakpointType: this.builderBreakpointType,
-      builderWidth: this.builderWidth,
-    }
-  }
 }

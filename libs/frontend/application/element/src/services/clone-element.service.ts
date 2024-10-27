@@ -5,10 +5,18 @@ import type {
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type {
+  IComponentCreateResults,
   IComponentModel,
   IElementModel,
+  IStoreModel,
 } from '@codelab/frontend/abstract/domain'
-import type { ICreateElementDto, IPropDto } from '@codelab/shared/abstract/core'
+import type {
+  IComponentDto,
+  IElementCreateDto,
+  IElementDto,
+  IPropDto,
+  IRef,
+} from '@codelab/shared/abstract/core'
 
 import {
   isRuntimeElement,
@@ -101,12 +109,20 @@ export const useCloneElementService = ({
 
     builderService.setSelectedNode(null)
 
-    const createdComponent = await componentService.create({ id: v4(), name })
+    const createdComponent = await componentService.create({
+      id: v4(),
+      name,
+      rootElement: { id: element.id },
+    })
 
-    await cloneElementStore(element, createdComponent)
-
+    await cloneElementStore(
+      element,
+      createdComponent.store,
+      createdComponent.store,
+    )
     element.detachFromTree()
-    element.attachAsFirstChild(createdComponent.rootElement.current)
+    // TODO: Refactor to non-optimistic
+    // element.attachAsFirstChild(createdComponent.rootElement.current)
     element.setParentComponent(componentRef(createdComponent.id))
 
     await elementService.syncModifiedElements()
@@ -153,15 +169,14 @@ export const useCloneElementService = ({
 
   const cloneElementStore = async (
     element: IElementModel,
-    component: IComponentModel,
+    componentStore: IRef,
+    componentStoreApi: IRef,
   ) => {
     const elementStore = element.store.current
-    const componentStore = component.store.current
-    const componentStoreId = componentStore.api.current.id
 
     await Promise.all(
       elementStore.api.current.fields.map((field) =>
-        fieldService.cloneField(field, componentStoreId),
+        fieldService.cloneField(field, componentStoreApi.id),
       ),
     )
 
@@ -207,7 +222,9 @@ export const useCloneElementService = ({
     })
 
     await Promise.all(
-      updatedElementProps.map((props) => propRepository.update(props)),
+      updatedElementProps.map((props) =>
+        propRepository.update({ id: props.id }, props.toJson),
+      ),
     )
 
     await storeService.getOne(componentStore.id)
@@ -231,7 +248,7 @@ export const useCloneElementService = ({
 
     const lastChild = parentElement.children[parentElement.children.length - 1]
 
-    const cloneElementDto: ICreateElementDto = {
+    const cloneElementDto: IElementDto = {
       childMapperComponent: element.childMapperComponent
         ? { id: element.childMapperComponent.id }
         : null,
@@ -247,7 +264,6 @@ export const useCloneElementService = ({
         ? { id: element.parentComponent.id }
         : null,
       parentElement: !lastChild ? parentElement : undefined,
-
       prevSibling: isRoot ? element : lastChild,
       props: propsDto,
       renderForEachPropKey: element.renderForEachPropKey,
@@ -258,7 +274,7 @@ export const useCloneElementService = ({
 
     const elementCloneModel = elementDomainService.addTreeNode(cloneElementDto)
 
-    await elementRepository.add(elementCloneModel)
+    await elementRepository.add(cloneElementDto)
 
     const children = await Promise.all(
       element.children.map((child) =>

@@ -3,11 +3,21 @@ import type {
   ITypeRepository,
 } from '@codelab/frontend/abstract/domain'
 import type {
+  IRef,
+  ITypeDto,
+  ITypeKind,
+  ITypeRef,
+} from '@codelab/shared/abstract/core'
+import type { ITypeUpdateInput } from '@codelab/shared/domain-old'
+import type {
   GetBaseTypesOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
 
+import { ITypeUpdateVars } from '@codelab/shared/domain-old'
+import { Validator } from '@codelab/shared/infra/schema'
 import { prop, sortBy } from 'remeda'
+import { ValidatedForm } from 'uniforms'
 
 import {
   GetBaseTypes,
@@ -22,15 +32,21 @@ import {
 } from './type.api'
 
 export const typeRepository: ITypeRepository = {
-  add: async (type: ITypeModel) => {
-    const createdTypes = await createTypeApi[type.kind]([type.toCreateInput()])
+  add: async (input: ITypeDto) => {
+    Validator.assertsDefined(input.kind)
+
+    const createdTypes = await createTypeApi[input.kind]([input])
+
+    Validator.assertsDefined(createdTypes[0])
 
     return createdTypes[0]
   },
 
-  delete: async (types: Array<ITypeModel>) => {
+  delete: async (types: Array<ITypeRef>) => {
     const results = await Promise.all(
-      types.map((type) => deleteTypeApi[type.kind]({ where: { id: type.id } })),
+      types.map((type) =>
+        deleteTypeApi[type.__typename]({ where: { id: type.id } }),
+      ),
     )
 
     const nodesDeleted = results.reduce(
@@ -113,9 +129,18 @@ export const typeRepository: ITypeRepository = {
     return sortBy(typeFragments, ({ name }) => name.toLowerCase())
   },
 
-  update: async (type: ITypeModel) => {
-    const updatedType = await updateTypeApi[type.kind](type.toUpdateInput())
+  update: async ({ id }: IRef, input: ITypeUpdateInput) => {
+    const kind = input.kind
 
-    return updatedType[0]!
+    Validator.assertsDefined(kind)
+
+    const updatedType = await updateTypeApi[kind]({
+      update: input,
+      where: { id },
+    })
+
+    Validator.assertsDefined(updatedType[0])
+
+    return updatedType[0]
   },
 }

@@ -1,4 +1,8 @@
-import type { ITagModel, ITagNodeData } from '@codelab/frontend/abstract/domain'
+import type {
+  ITagModel,
+  ITagNodeData,
+  IUserModel,
+} from '@codelab/frontend/abstract/domain'
 import type { ITagDto } from '@codelab/shared/abstract/core'
 import type { TagCreateInput, TagUpdateInput } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
@@ -6,6 +10,7 @@ import type { Ref } from 'mobx-keystone'
 import {
   getUserDomainService,
   ITreeNode,
+  userRef,
 } from '@codelab/frontend/abstract/domain'
 import {
   connectNodeId,
@@ -23,12 +28,20 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({ children, descendants, id, name, parent }: ITagDto) => {
+const create = ({
+  children,
+  descendants,
+  id,
+  name,
+  owner,
+  parent,
+}: ITagDto) => {
   return new Tag({
     children: children?.map((child) => tagRef(child.id)),
     descendants: descendants?.map((descendant) => tagRef(descendant.id)),
     id,
     name,
+    owner: userRef(owner.id),
     parent: parent ? tagRef(parent.id) : undefined,
   })
 }
@@ -40,6 +53,7 @@ export class Tag
     descendants: prop<Array<Ref<ITagModel>>>(() => []),
     id: idProp,
     name: prop<string>(),
+    owner: prop<Ref<IUserModel>>(),
     parent: prop<Ref<ITagModel> | undefined>(undefined),
   })
   implements ITagModel
@@ -63,6 +77,7 @@ export class Tag
       descendants: this.descendants,
       id: this.id,
       name: this.name,
+      owner: this.owner,
       parent: this.parent,
     }
   }

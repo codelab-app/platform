@@ -14,7 +14,7 @@ import type { ICacheService, IModel } from '../shared'
 import type { IStoreModel } from '../store'
 
 export interface IPageModel
-  extends IModel<PageCreateInput, PageUpdateInput, PageDeleteInput, IPage>,
+  extends IModel<IPage>,
     ICacheService<IPageDto, IPageModel>,
     IElementTree {
   app: Ref<IAppModel>

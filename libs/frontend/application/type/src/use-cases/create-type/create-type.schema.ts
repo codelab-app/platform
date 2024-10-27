@@ -1,4 +1,4 @@
-import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -19,7 +19,7 @@ import { TypeSelect } from '../select-types/TypeSelect'
  *
  * https://github.com/ajv-validator/ajv/issues/1838
  */
-export const createTypeSchema: JSONSchemaType<ICreateTypeDto> = {
+export const createTypeSchema: JSONSchemaType<ITypeCreateFormData> = {
   properties: {
     ...idSchema(),
     allowedValues: {
@@ -45,7 +45,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDto> = {
       nullable: true,
       type: 'array',
     },
-    arrayTypeId: { nullable: true, type: 'string' },
+    arrayItemTypeId: { nullable: true, type: 'string' },
     elementKind: {
       enum: Object.values(IElementTypeKind),
       nullable: true,

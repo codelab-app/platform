@@ -1,7 +1,13 @@
+import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
 import type {
+  AppCreateInput,
+  AppDeleteInput,
   AppOptions,
   AppUniqueWhere,
+  AppUpdateInput,
   AppWhere,
+  CreateAppsMutationVariables,
+  DeleteAppTypesMutationVariables,
 } from '@codelab/shared/infra/gql'
 
 import {
@@ -9,8 +15,11 @@ import {
   type IAppModel,
   type IAppRepository,
 } from '@codelab/frontend/abstract/domain'
+import { appMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { IsRef } from '@sinclair/typebox/build/cjs/type/guard/kind'
+import { revalidateTag } from 'next/cache'
 
 import { App } from '../store'
 import {
@@ -21,11 +30,11 @@ import {
 } from './app.api.graphql.gen'
 
 export const appRepository: IAppRepository = withTracingMethods('app', {
-  add: async (app: IAppModel) => {
+  add: async (input: IAppDto) => {
     const {
       createApps: { apps },
     } = await CreateApps({
-      input: [app.toCreateInput()],
+      input: appMapper.toCreateInput(input),
     })
 
     const createdApp = apps[0]
@@ -35,12 +44,14 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     return createdApp
   },
 
-  delete: async (apps: Array<IAppModel>) => {
+  delete: async (refs: Array<IRef>) => {
     const {
       deleteApps: { nodesDeleted },
     } = await DeleteApps({
-      delete: App.toDeleteInput(),
-      where: { id_IN: apps.map((app) => app.id) },
+      delete: appMapper.toDeleteInput(),
+      where: {
+        id_IN: refs.map(({ id }) => id),
+      },
     })
 
     return nodesDeleted
@@ -60,12 +71,12 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     return (await appRepository.find(where)).items[0]
   },
 
-  update: async (app: IAppModel) => {
+  update: async ({ id }: IRef, input: IAppDto) => {
     const {
       updateApps: { apps },
     } = await UpdateApps({
-      update: app.toUpdateInput(),
-      where: { id: app.id },
+      update: appMapper.toUpdateInput(input),
+      where: { id },
     })
 
     const updatedApp = apps[0]

@@ -3,12 +3,14 @@ import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   getUserDomainService,
   type IBaseTypeModel,
-  type ICreateTypeInput,
   ITypeTransformContext,
-  type IUpdateTypeVars,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import { connectOwner } from '@codelab/shared/domain-old'
+import {
+  connectOwner,
+  ITypeCreateInput,
+  ITypeUpdateVars,
+} from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -21,7 +23,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       kind: prop<T>(() => typeKind),
       name: prop<string>(),
     })
-    implements IBaseTypeModel<IBaseTypeDto, ICreateTypeInput, IUpdateTypeVars>
+    implements IBaseTypeModel<IBaseTypeDto, ITypeCreateInput, ITypeUpdateVars>
   {
     @computed
     get toJson() {

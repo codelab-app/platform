@@ -56,10 +56,7 @@ export interface IBaseTypeModel<
   Dto extends IBaseTypeDto,
   CreateInput,
   UpdateInput,
-> extends Omit<
-      IModel<CreateInput, UpdateInput, void, IBaseType>,
-      'toDeleteInput'
-    >,
+> extends Omit<IModel<IBaseType>, 'toDeleteInput'>,
     ICacheService<Dto, IBaseTypeModel<Dto, CreateInput, UpdateInput>> {
   __typename: `${ITypeKind}`
   kind: ITypeKind

@@ -10,6 +10,7 @@ export const TagDtoSchema = Type.Object({
   id: Type.String(),
   isRoot: Typebox.Nullish(Type.Boolean()),
   name: Type.String(),
+  owner: Typebox.Ref,
   parent: Typebox.Nullish(Typebox.Ref),
 })
 
@@ -18,3 +19,5 @@ export type ITagDto = Static<typeof TagDtoSchema>
 export const TagSchema = TagDtoSchema
 
 export type ITag = Static<typeof TagSchema>
+
+export type ITagExport = Omit<ITag, 'owner'>

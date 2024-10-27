@@ -90,38 +90,4 @@ export class RedirectModel
 
     return this
   }
-
-  toCreateInput(): RedirectCreateInput {
-    return {
-      authGuard: connectNodeId(this.authGuard.id),
-      id: this.id,
-      source: connectNodeId(this.source.id),
-      targetPage:
-        this.targetType === IRedirectTargetType.Page
-          ? connectNodeId(this.targetPage?.id)
-          : undefined,
-      targetType: this.targetType,
-      targetUrl:
-        this.targetType === IRedirectTargetType.Url
-          ? this.targetUrl
-          : undefined,
-    }
-  }
-
-  toUpdateInput(): RedirectUpdateInput {
-    return {
-      authGuard: reconnectNodeId(this.authGuard.id),
-      id: this.id,
-      source: reconnectNodeId(this.source.id),
-      targetPage:
-        this.targetType === IRedirectTargetType.Page
-          ? reconnectNodeId(this.targetPage?.id)
-          : disconnectAll(),
-      targetType: this.targetType,
-      targetUrl:
-        this.targetType === IRedirectTargetType.Url
-          ? this.targetUrl
-          : undefined,
-    }
-  }
 }

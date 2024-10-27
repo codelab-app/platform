@@ -46,28 +46,6 @@ export class App
   })
   implements IAppModel
 {
-  static toDeleteInput(): AppDeleteInput {
-    return {
-      domains: [
-        {
-          delete: Domain.toDeleteInput(),
-          where: {},
-        },
-      ],
-      pages: [
-        {
-          delete: Page.toDeleteInput(),
-          where: {},
-        },
-      ],
-    }
-  }
-
-  // @computed
-  // get pageRootElements() {
-  //   return this.pages.map((page) => page.rootElement)
-  // }
-
   @computed
   get pages() {
     return this.pageDomainService.pagesList.filter(
@@ -135,31 +113,6 @@ export class App
     this.owner = owner?.id ? userRef(owner.id) : this.owner
 
     return this
-  }
-
-  toCreateInput(): AppCreateInput {
-    return {
-      compositeKey: AppProperties.appCompositeKey(
-        this,
-        this.userDomainService.user,
-      ),
-      id: this.id,
-      owner: connectOwner(this.userDomainService.user),
-      pages: {
-        create: this.pages.map((page) => ({
-          node: page.toCreateInput(),
-        })),
-      },
-    }
-  }
-
-  toUpdateInput(): AppUpdateInput {
-    return {
-      compositeKey: AppProperties.appCompositeKey(
-        this,
-        this.userDomainService.user,
-      ),
-    }
   }
 
   @computed

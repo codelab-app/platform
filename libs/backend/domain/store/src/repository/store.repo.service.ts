@@ -12,7 +12,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeId } from '@codelab/shared/domain-old'
+import { storeMapper } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -24,9 +24,8 @@ export class StoreRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
     protected override validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
+    protected override loggerService: CodelabLoggerService,
   ) {
     super(validationService, loggerService)
   }
@@ -39,11 +38,7 @@ export class StoreRepository extends AbstractRepository<
       await (
         await this.ogmService.Store
       ).create({
-        input: stores.map(({ api, id, name }) => ({
-          api: connectNodeId(api.id),
-          id,
-          name,
-        })),
+        input: stores.map((store) => storeMapper.toCreateInput(store)),
       })
     ).stores
   }
@@ -64,14 +59,12 @@ export class StoreRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ api, id, name }: IStoreDto, where: StoreWhere) {
+  protected async _update(store: IStoreDto, where: StoreWhere) {
     return (
       await (
         await this.ogmService.Store
       ).update({
-        update: {
-          name,
-        },
+        update: storeMapper.toUpdateInput(store),
         where,
       })
     ).stores[0]

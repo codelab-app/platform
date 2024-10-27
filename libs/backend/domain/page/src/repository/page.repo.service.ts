@@ -14,6 +14,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   connectNodeId,
+  pageMapper,
   PageProperties,
   reconnectNodeId,
 } from '@codelab/shared/domain-old'
@@ -43,27 +44,7 @@ export class PageRepository extends AbstractRepository<
       await (
         await this.ogmService.Page
       ).create({
-        input: pages.map(
-          ({
-            app,
-            id,
-            kind,
-            name,
-            pageContentContainer,
-            rootElement,
-            store,
-            urlPattern,
-          }) => ({
-            app: connectNodeId(app.id),
-            compositeKey: PageProperties.pageCompositeKey(name, app),
-            id,
-            kind,
-            pageContentContainer: connectNodeId(pageContentContainer?.id),
-            rootElement: connectNodeId(rootElement.id),
-            store: connectNodeId(store.id),
-            urlPattern,
-          }),
-        ),
+        input: pages.map((page) => pageMapper.toCreateInput(page)),
         selectionSet: `{ pages { ${pageSelectionSet} } }`,
       })
     ).pages
@@ -85,21 +66,12 @@ export class PageRepository extends AbstractRepository<
     })
   }
 
-  protected async _update(
-    { app, name, pageContentContainer, rootElement, urlPattern }: IPageDto,
-    where: PageWhere,
-  ) {
+  protected async _update(page: IPageDto, where: PageWhere) {
     return (
       await (
         await this.ogmService.Page
       ).update({
-        update: {
-          app: reconnectNodeId(app.id),
-          compositeKey: PageProperties.pageCompositeKey(name, app),
-          pageContentContainer: reconnectNodeId(pageContentContainer?.id),
-          rootElement: reconnectNodeId(rootElement.id),
-          urlPattern,
-        },
+        update: pageMapper.toUpdateInput(page),
         where,
       })
     ).pages[0]

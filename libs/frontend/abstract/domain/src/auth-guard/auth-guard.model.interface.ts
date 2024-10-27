@@ -11,12 +11,7 @@ import type { IResourceModel } from '../resource'
 import type { ICacheService, IModel } from '../shared'
 
 export interface IAuthGuardModel
-  extends IModel<
-      AuthGuardCreateInput,
-      AuthGuardUpdateInput,
-      AuthGuardDeleteInput,
-      IAuthGuard
-    >,
+  extends IModel<IAuthGuard>,
     ICacheService<IAuthGuardDto, IAuthGuardModel> {
   config: IPropModel
   id: string
