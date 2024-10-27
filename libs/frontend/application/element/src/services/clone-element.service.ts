@@ -121,7 +121,8 @@ export const useCloneElementService = ({
       createdComponent.store,
     )
     element.detachFromTree()
-    element.attachAsFirstChild(createdComponent.rootElement.current)
+    // TODO: Refactor to non-optimistic
+    // element.attachAsFirstChild(createdComponent.rootElement.current)
     element.setParentComponent(componentRef(createdComponent.id))
 
     await elementService.syncModifiedElements()

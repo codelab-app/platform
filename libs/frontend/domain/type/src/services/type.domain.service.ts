@@ -6,7 +6,11 @@ import type {
 import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import { ITypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IInterfaceTypeDto,
+  ITypeDto,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
