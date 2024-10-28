@@ -1,4 +1,5 @@
 import { UserDomainModule } from '@codelab/backend/domain/user'
+import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { initUserContext } from '@codelab/backend/test'
 import { v4 } from 'uuid'
 
@@ -7,6 +8,7 @@ import { TagRepository } from './tag.repo.service'
 
 describe('Tag repository.', () => {
   let tagRepository: TagRepository
+  let ogmService: OgmService
 
   const context = initUserContext({
     imports: [UserDomainModule],
@@ -19,6 +21,7 @@ describe('Tag repository.', () => {
 
     await ctx.beforeAll()
 
+    ogmService = module.get(OgmService)
     tagRepository = module.get<TagRepository>(TagRepository)
   })
 
@@ -29,6 +32,19 @@ describe('Tag repository.', () => {
   })
 
   it('can create a tag', async () => {
+    const owner = (
+      await ogmService.User.create({
+        input: [
+          {
+            auth0Id: 'something',
+            email: 'something@some.thing',
+            id: v4(),
+            username: 'someusername',
+          },
+        ],
+      })
+    ).users[0]!
+
     // Parent
     const parentTagId = v4()
     const parentTagName = 'Parent Tag'
@@ -44,12 +60,14 @@ describe('Tag repository.', () => {
       ],
       id: parentTagId,
       name: parentTagName,
+      owner,
     })
 
     const childTag = new Tag({
       children: [],
       id: childTagId,
       name: childTagName,
+      owner,
       // parent: parentTag,
     })
 
