@@ -48,6 +48,9 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     const {
       deleteAtoms: { nodesDeleted },
     } = await DeleteAtoms({
+      delete: {
+        api: {},
+      },
       where: { id_IN: atoms.map(({ id }) => id) },
     })
 

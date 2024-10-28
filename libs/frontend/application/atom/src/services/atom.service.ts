@@ -8,7 +8,6 @@ import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
-  atomRef,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
@@ -26,15 +25,8 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import {
-  IElementRenderTypeKind,
-  type IRef,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
-import { untracked } from 'mobx'
-import { untrackedStart } from 'mobx/dist/internal'
-import { runUnprotected } from 'mobx-keystone'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
@@ -50,7 +42,8 @@ export const useAtomService = (): IAtomService => {
     userDomainService,
   } = useDomainStore()
 
-  const owner = userDomainService.user
+  const user = userDomainService.user
+  const owner = { id: user.id }
   const typeService = useTypeService()
 
   const getDataFn: GetDataFn<IAtomModel> = async (
@@ -78,13 +71,16 @@ export const useAtomService = (): IAtomService => {
   }
 
   const create = async (data: ICreateAtomData) => {
-    const api = await typeRepository.add({
-      __typename: ITypeKind.InterfaceType,
-      fields: [],
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: `${data.name} API`,
-    })
+    const api = await typeRepository.add(
+      {
+        __typename: ITypeKind.InterfaceType,
+        fields: [],
+        id: v4(),
+        kind: ITypeKind.InterfaceType,
+        name: `${data.name} API`,
+      },
+      owner,
+    )
 
     const atom = await atomRepository.add({
       ...data,

@@ -26,7 +26,11 @@ export const useTypeService = (): ITypeService => {
     pagination: { typePagination },
   } = useApplicationStore()
 
-  const { fieldDomainService, typeDomainService } = useDomainStore()
+  const { fieldDomainService, typeDomainService, userDomainService } =
+    useDomainStore()
+
+  const user = userDomainService.user
+  const owner = { id: user.id }
 
   const getDataFn: GetDataFn<ITypeModel> = async (
     page,
@@ -51,7 +55,7 @@ export const useTypeService = (): ITypeService => {
     const typeDto = TypeFactory.mapDataToDTO(data)
     const type = typeDomainService.hydrate(typeDto)
 
-    await typeRepository.add(typeDto)
+    await typeRepository.add(typeDto, owner)
 
     typePagination.dataRefs.set(type.id, typeRef(type))
 
