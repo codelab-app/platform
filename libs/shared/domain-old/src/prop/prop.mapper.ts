@@ -1,10 +1,8 @@
-import type { IMapper, IPropDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { IMapper, IPropDto } from '@codelab/shared/abstract/core'
 import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/infra/gql'
-
-import { connectNodeId } from '../orm'
 
 export const propMapper: IMapper<
   IPropDto,

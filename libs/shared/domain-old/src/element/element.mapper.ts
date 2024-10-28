@@ -1,9 +1,4 @@
-import type {
-  ICreateElementData,
-  IElementCreateDto,
-  IElementDto,
-  IMapper,
-} from '@codelab/shared/abstract/core'
+import type { IElementCreateDto, IMapper } from '@codelab/shared/abstract/core'
 import type {
   ElementCreateInput,
   ElementDeleteInput,
@@ -11,6 +6,7 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { connectNodeId, disconnectAll, reconnectNodeId } from '../orm'
+import { propMapper } from '../prop'
 import { ElementProperties } from './element.properties'
 
 export const elementMapper: IMapper<
@@ -57,7 +53,11 @@ export const elementMapper: IMapper<
       postRenderAction: connectNodeId(postRenderAction?.id),
       preRenderAction: connectNodeId(preRenderAction?.id),
       prevSibling: connectNodeId(prevSibling?.id),
-      props: connectNodeId(props.id),
+      props: {
+        create: {
+          node: propMapper.toCreateInput(props),
+        },
+      },
       renderForEachPropKey,
       renderIfExpression,
       renderType: {

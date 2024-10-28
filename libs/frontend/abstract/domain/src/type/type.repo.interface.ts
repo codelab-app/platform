@@ -1,4 +1,4 @@
-import type { ITypeDto } from '@codelab/shared/abstract/core'
+import type { IRef, ITypeDto } from '@codelab/shared/abstract/core'
 import type {
   BaseTypeFragment,
   GetBaseTypesOptions,
@@ -8,7 +8,6 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import type { IRepository } from '../shared'
-import type { ITypeModel } from './types'
 
 export interface ITypeRepository
   extends IRepository<
@@ -17,6 +16,7 @@ export interface ITypeRepository
     IBaseTypeWhere,
     IBaseTypeOptions
   > {
+  add(dto: ITypeDto, owner?: IRef): Promise<IRef>
   findBaseTypes(options: GetBaseTypesOptions): Promise<{
     items: Array<BaseTypeFragment>
     totalCount: number

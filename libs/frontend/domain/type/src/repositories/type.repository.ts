@@ -1,23 +1,14 @@
-import type {
-  ITypeModel,
-  ITypeRepository,
-} from '@codelab/frontend/abstract/domain'
-import type {
-  IRef,
-  ITypeDto,
-  ITypeKind,
-  ITypeRef,
-} from '@codelab/shared/abstract/core'
+import type { ITypeRepository } from '@codelab/frontend/abstract/domain'
+import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type { ITypeUpdateInput } from '@codelab/shared/domain-old'
 import type {
   GetBaseTypesOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
 
-import { ITypeUpdateVars } from '@codelab/shared/domain-old'
+import { typeMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { prop, sortBy } from 'remeda'
-import { ValidatedForm } from 'uniforms'
 
 import {
   GetBaseTypes,
@@ -32,10 +23,12 @@ import {
 } from './type.api'
 
 export const typeRepository: ITypeRepository = {
-  add: async (input: ITypeDto) => {
+  add: async (input: ITypeDto, owner?: IRef) => {
     Validator.assertsDefined(input.kind)
 
-    const createdTypes = await createTypeApi[input.kind]([input])
+    const createdTypes = await createTypeApi[input.kind]([
+      typeMapper.toCreateInput(input, owner),
+    ])
 
     Validator.assertsDefined(createdTypes[0])
 

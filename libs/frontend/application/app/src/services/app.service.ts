@@ -42,17 +42,24 @@ export const useAppService = (): IAppService => {
   const pageService = usePageService()
   const undoManager = useUndoManager()
   const pageFactory = new PageDomainFactory(userDomainService.user)
-  const owner = userDomainService.user
+  const user = userDomainService.user
+  const owner = { id: user.id }
 
   const create = async ({ id, name }: IAppCreateFormData) => {
     try {
       const renderType = atomDomainService.defaultRenderType
-      const pages = pageFactory.addSystemPages({ id, name }, renderType)
+
+      const pages = pageFactory.addSystemPages(
+        { id, name },
+        { __typename: renderType.__typename, id: renderType.id },
+      )
 
       const app = await createAppAction(
         { id, name, owner },
         pages,
         pages.flatMap((page) => page.rootElement),
+        pages.flatMap((page) => page.store),
+        pages.flatMap((page) => page.storeApi),
       )
 
       Validator.assertsDefined(app)
@@ -154,7 +161,7 @@ export const useAppService = (): IAppService => {
   // }
 
   const update = async ({ id, name }: IAppUpdateFormData) => {
-    const app = await appRepository.update({ id }, { id, name })
+    const app = await appRepository.update({ id }, { id, name, owner })
 
     await invalidateAppListQuery()
 
