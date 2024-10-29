@@ -108,15 +108,13 @@ export class ExportApiHandler
           continue
         }
 
-        const { owner, ...rest } = type
-
         if (type.__typename === ITypeKind.InterfaceType) {
           dependentTypes.push({
-            ...rest,
+            ...type,
             fields: type.fields,
-          } as IType)
+          })
         } else {
-          dependentTypes.push(rest)
+          dependentTypes.push(type)
         }
       }
     }

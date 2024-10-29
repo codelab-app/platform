@@ -1,3 +1,4 @@
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   InterfaceType,
   InterfaceTypeRepository,
@@ -16,7 +17,10 @@ export class SeedEmptyApiCommand {
 export class SeedEmptyApiHandler
   implements ICommandHandler<SeedEmptyApiCommand>
 {
-  constructor(private interfaceTypeRepository: InterfaceTypeRepository) {}
+  constructor(
+    private interfaceTypeRepository: InterfaceTypeRepository,
+    private authDomainService: AuthDomainService,
+  ) {}
 
   /**
    * Create empty interfaces from Ant Design atom name
@@ -32,8 +36,10 @@ export class SeedEmptyApiHandler
     await Promise.all(
       atoms.map(async (name) => {
         // Create empty api from atom name
-        const { fields, ...interfaceType } =
-          InterfaceType.createFromAtomName(name)
+        const { fields, ...interfaceType } = InterfaceType.createFromAtomName(
+          name,
+          this.authDomainService.currentUser,
+        )
 
         // Search existing interface type
         const existingInterfaceType = existingInterfaceTypes.get(

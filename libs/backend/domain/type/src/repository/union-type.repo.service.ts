@@ -54,7 +54,6 @@ export class UnionTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }
@@ -65,7 +64,7 @@ export class UnionTypeRepository extends AbstractRepository<
         await this.ogmService.UnionType
       ).create({
         input: unionTypes.map(
-          ({ __typename, id, kind, name, typesOfUnionType }) => {
+          ({ __typename, id, kind, name, owner, typesOfUnionType }) => {
             const {
               arrayTypeIds,
               codeMirrorTypeIds,
@@ -81,7 +80,7 @@ export class UnionTypeRepository extends AbstractRepository<
               id,
               kind,
               name,
-              owner: connectOwner(this.authService.currentUser),
+              owner: connectOwner(owner),
               typesOfUnionType: {
                 ArrayType: connectNodeIds(arrayTypeIds),
                 CodeMirrorType: connectNodeIds(codeMirrorTypeIds),

@@ -31,7 +31,6 @@ export class AuthGuardRepository extends AbstractRepository<
     private ogmService: OgmService,
     override loggerService: CodelabLoggerService,
     protected override validationService: ValidationService,
-    private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }
@@ -42,11 +41,11 @@ export class AuthGuardRepository extends AbstractRepository<
         await this.ogmService.AuthGuard
       ).create({
         input: authGuards.map(
-          ({ config, id, name, resource, responseTransformer }) => ({
+          ({ config, id, name, owner, resource, responseTransformer }) => ({
             config: connectNodeId(config.id),
             id,
             name,
-            owner: connectOwner(this.authService.currentUser),
+            owner: connectOwner(owner),
             resource: connectNodeId(resource.id),
             responseTransformer,
           }),

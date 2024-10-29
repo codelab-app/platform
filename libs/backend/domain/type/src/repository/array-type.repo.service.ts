@@ -29,10 +29,8 @@ export class ArrayTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
     super(validationService, loggerService)
   }
@@ -58,11 +56,13 @@ export class ArrayTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ArrayType
       ).create({
-        input: primitiveTypes.map(({ __typename, itemType, ...type }) => ({
-          ...type,
-          itemType: connectNodeId(itemType?.id),
-          owner: connectOwner(this.authService.currentUser),
-        })),
+        input: primitiveTypes.map(
+          ({ __typename, itemType, owner, ...type }) => ({
+            ...type,
+            itemType: connectNodeId(itemType?.id),
+            owner: connectOwner(owner),
+          }),
+        ),
       })
     ).arrayTypes
   }

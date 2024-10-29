@@ -73,12 +73,14 @@ export class Tag
   @computed
   get toJson() {
     return {
-      children: this.children,
-      descendants: this.descendants,
+      children: this.children.map((child) => child.current.toJson),
+      descendants: this.descendants.map(
+        (descendant) => descendant.current.toJson,
+      ),
       id: this.id,
       name: this.name,
-      owner: this.owner,
-      parent: this.parent,
+      owner: this.owner.current.toJson,
+      parent: this.parent?.current.toJson,
     }
   }
 

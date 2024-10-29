@@ -6,6 +6,7 @@ import type {
   IPageDto,
   IPropDto,
   IStoreDto,
+  IUserDto,
 } from '@codelab/shared/abstract/core'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
@@ -22,15 +23,16 @@ export const createPageAction = async (
   storeApi: IInterfaceTypeDto,
   rootElement: IElementDto,
   rootElementProps: IPropDto,
+  owner: IUserDto,
 ) => {
-  await elementRepository.add(rootElement)
-  await propRepository.add(rootElementProps)
-  await typeRepository.add(storeApi)
-  await storeRepository.add(store)
+  // await propRepository.add(rootElementProps)
+  await typeRepository.add(storeApi, owner)
+  // await storeRepository.add(store)
+  // await elementRepository.add(rootElement)
 
-  const page = await pageRepository.add(pageDto)
+  // const page = await pageRepository.add(pageDto)
 
-  revalidateTag(CACHE_TAGS.PAGE_LIST)
+  // revalidateTag(CACHE_TAGS.PAGE_LIST)
 
-  return page
+  // return page
 }

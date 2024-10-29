@@ -25,6 +25,7 @@ export abstract class AbstractRepository<
    */
   public async add(data: Model): Promise<ModelData> {
     console.log('add', data)
+
     this.loggerService.log(data, `${this.constructor.name}.add()`)
 
     const results = await this._addMany([data])

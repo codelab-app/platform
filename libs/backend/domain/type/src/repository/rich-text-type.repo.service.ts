@@ -25,7 +25,6 @@ export class RichTextTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    private authService: AuthDomainService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -37,9 +36,9 @@ export class RichTextTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.RichTextType
       ).create({
-        input: richTextTypes.map(({ __typename, ...richTextType }) => ({
+        input: richTextTypes.map(({ __typename, owner, ...richTextType }) => ({
           ...richTextType,
-          owner: connectOwner(this.authService.currentUser),
+          owner: connectOwner(owner),
         })),
       })
     ).richTextTypes

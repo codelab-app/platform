@@ -7,11 +7,12 @@ import { BaseType } from './base-type.model'
 export class ActionType extends BaseType implements IActionTypeDto {
   __typename: `${ITypeKind.ActionType}` = ITypeKind.ActionType
 
-  constructor({ id }: IActionTypeDto) {
+  constructor({ id, owner }: IActionTypeDto) {
     super({
       id,
       kind: ITypeKind.ActionType,
       name: ITypeKind.ActionType,
+      owner,
     })
   }
 }

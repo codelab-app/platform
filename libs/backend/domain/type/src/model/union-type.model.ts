@@ -22,8 +22,8 @@ export class UnionType extends BaseType implements IUnionTypeDto {
 
   typesOfUnionType: Array<ITypeMaybeRef>
 
-  constructor({ id, name, typesOfUnionType }: IUnionTypeDto) {
-    super({ id, kind: ITypeKind.UnionType, name })
+  constructor({ id, name, owner, typesOfUnionType }: IUnionTypeDto) {
+    super({ id, kind: ITypeKind.UnionType, name, owner })
 
     this.typesOfUnionType = typesOfUnionType
   }

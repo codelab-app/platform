@@ -25,10 +25,8 @@ export class RenderPropTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
     super(validationService, loggerService)
   }
@@ -38,10 +36,12 @@ export class RenderPropTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.RenderPropType
       ).create({
-        input: renderPropTypes.map(({ __typename, ...renderPropType }) => ({
-          ...renderPropType,
-          owner: connectOwner(this.authService.currentUser),
-        })),
+        input: renderPropTypes.map(
+          ({ __typename, owner, ...renderPropType }) => ({
+            ...renderPropType,
+            owner: connectOwner(owner),
+          }),
+        ),
       })
     ).renderPropTypes
   }

@@ -28,7 +28,6 @@ export class ComponentRepository extends AbstractRepository<
   ComponentOptions
 > {
   constructor(
-    private authService: AuthDomainService,
     private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,

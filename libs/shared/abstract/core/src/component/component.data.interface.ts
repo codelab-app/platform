@@ -1,7 +1,10 @@
 import type { IRef } from '../model/ref.interface'
 import type { IComponentDto } from './component.dto.interface'
 
-export type ICreateComponentData = Pick<IComponentDto, 'id' | 'name'> & {
+export type ICreateComponentData = Pick<
+  IComponentDto,
+  'id' | 'name' | 'owner'
+> & {
   rootElement?: IRef
 }
 

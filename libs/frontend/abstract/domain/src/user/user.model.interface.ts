@@ -5,8 +5,10 @@ import type {
   UserUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import type { IModel } from '../shared'
+import type { ICacheService, IModel } from '../shared'
 
-export interface IUserModel extends IUserDto, IModel<IUser> {
+export interface IUserModel
+  extends ICacheService<IUserDto, IUserModel>,
+    IModel<IUser> {
   setId(id: string): void
 }

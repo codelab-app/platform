@@ -28,7 +28,6 @@ export class ResourceRepository extends AbstractRepository<
 
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }
@@ -38,11 +37,11 @@ export class ResourceRepository extends AbstractRepository<
       await (
         await this.ogmService.Resource
       ).create({
-        input: resources.map(({ config, id, name, type }) => ({
+        input: resources.map(({ config, id, name, owner, type }) => ({
           config: connectNodeId(config.id),
           id,
           name,
-          owner: connectOwner(this.authService.currentUser),
+          owner: connectOwner(owner),
           type,
         })),
       })

@@ -25,10 +25,8 @@ export class ReactNodeTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
     super(validationService, loggerService)
   }
@@ -38,10 +36,12 @@ export class ReactNodeTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ReactNodeType
       ).create({
-        input: reactNodeTypes.map(({ __typename, ...reactNodeType }) => ({
-          ...reactNodeType,
-          owner: connectOwner(this.authService.currentUser),
-        })),
+        input: reactNodeTypes.map(
+          ({ __typename, owner, ...reactNodeType }) => ({
+            ...reactNodeType,
+            owner: connectOwner(owner),
+          }),
+        ),
       })
     ).reactNodeTypes
   }

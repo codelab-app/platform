@@ -14,8 +14,6 @@ export const fetchWithAuth = async (
     'X-ID-TOKEN': session?.idToken ?? '',
   }
 
-  console.log(init)
-
   const response = await fetch(endpoint, {
     ...init,
     headers,

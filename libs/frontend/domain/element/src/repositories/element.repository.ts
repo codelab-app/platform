@@ -35,8 +35,6 @@ export const elementRepository: IElementRepository = {
   },
 
   delete: async (elements: Array<IElementModel>) => {
-    console.debug('ElementRepository.delete()', elements)
-
     const {
       deleteElements: { nodesDeleted },
     } = await DeleteElements({

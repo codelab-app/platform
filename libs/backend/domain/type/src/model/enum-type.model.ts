@@ -22,8 +22,8 @@ export class EnumType extends BaseType implements IEnumTypeDto {
 
   allowedValues: Array<IEnumTypeValueDto>
 
-  constructor({ allowedValues, id, name }: IEnumTypeDto) {
-    super({ id, kind: ITypeKind.EnumType, name })
+  constructor({ allowedValues, id, name, owner }: IEnumTypeDto) {
+    super({ id, kind: ITypeKind.EnumType, name, owner })
 
     this.allowedValues = allowedValues
   }

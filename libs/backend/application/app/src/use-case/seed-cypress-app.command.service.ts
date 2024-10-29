@@ -50,6 +50,7 @@ export class SeedCypressAppHandler
   ) {}
 
   async execute() {
+    const owner = this.authDomainService.currentUser
     /**
      * Create props
      */
@@ -120,18 +121,19 @@ export class SeedCypressAppHandler
     /**
      * Create app
      */
-    const app = new App(appData(this.authDomainService.currentUser))
+    const app = new App(appData(owner))
 
     await this.appRepository.add(app)
 
     /**
      * Create pages
      */
-    const providerPageStore = Store.create(IPageKindName.Provider)
-    const notFoundPageStore = Store.create(IPageKindName.NotFound)
+    const providerPageStore = Store.create(IPageKindName.Provider, owner)
+    const notFoundPageStore = Store.create(IPageKindName.NotFound, owner)
 
     const internalServerErrorPageStore = Store.create(
       IPageKindName.InternalServerError,
+      owner,
     )
 
     await this.interfaceTypeRepository.addMany([

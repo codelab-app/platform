@@ -44,9 +44,11 @@ export const usePageService = (): IPageService => {
     atomDomainService,
     elementDomainService,
     pageDomainService,
+    userDomainService,
   } = useDomainStore()
 
   const { rendererService } = useApplicationStore()
+  const owner = userDomainService.user
 
   const getAll = async (where: PageWhere) => {
     const { items: pages } = await pageRepository.find(where)
@@ -86,9 +88,9 @@ export const usePageService = (): IPageService => {
     })
   }
 
-  const create = async (pageData: IPageCreateFormData) => {
+  const create = async (data: IPageCreateFormData) => {
     const { page, rootElement, rootElementProps, store, storeApi } =
-      await createPageFactory(pageData, atomDomainService.defaultRenderType)
+      await createPageFactory(data, atomDomainService.defaultRenderType.toJson)
 
     return await createPageAction(
       page,
@@ -96,6 +98,7 @@ export const usePageService = (): IPageService => {
       storeApi,
       rootElement,
       rootElementProps,
+      owner.toJson,
     )
 
     // revalidateTag(CACHE_TAGS.PAGE_LIST)

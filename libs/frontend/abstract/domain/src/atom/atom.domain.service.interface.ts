@@ -12,7 +12,7 @@ import type { IAtomModel } from './atom.model.interface'
 export interface IAtomDomainService extends IHydrateable<IAtomDto, IAtomModel> {
   atoms: ObjectMap<IAtomModel>
   atomsList: Array<IAtomModel>
-  defaultRenderType: IAtom
+  defaultRenderType: IAtomModel
   dynamicComponents: Record<string, IComponentType>
   loadedExternalCssSources: ArraySet<string>
   loadedExternalJsSources: ArraySet<string>

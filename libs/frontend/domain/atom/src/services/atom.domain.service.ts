@@ -43,7 +43,7 @@ export class AtomDomainService
   get defaultRenderType() {
     const renderType = this.atomsList.find(
       (atom) => atom.type === IAtomType.ReactFragment,
-    )?.toJson
+    )
 
     return Validator.parseDefined(renderType)
   }

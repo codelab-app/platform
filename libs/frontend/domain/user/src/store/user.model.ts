@@ -4,7 +4,7 @@ import { type IUserModel } from '@codelab/frontend/abstract/domain'
 import { IRole } from '@codelab/shared/abstract/core'
 import { UserCreateInput, UserUpdateInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = (user: IUserDto) => {
   return new User({
@@ -40,9 +40,19 @@ export class User
       auth0Id: this.auth0Id,
       email: this.email,
       id: this.id,
-      roles: this.roles,
+      roles: [...this.roles],
       username: this.username,
     }
+  }
+
+  @modelAction
+  writeCache({ auth0Id, email, id, username }: Partial<IUserDto>) {
+    this.email = email ?? this.email
+    this.auth0Id = auth0Id ?? this.auth0Id
+    this.id = id ?? this.id
+    this.username = username ?? this.username
+
+    return this
   }
 
   toCreateInput(): UserCreateInput {

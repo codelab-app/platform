@@ -14,6 +14,7 @@ import type {
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   ActionTypeRepository,
   CodeMirrorTypeRepository,
@@ -89,6 +90,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     private codeMirrorTypeRepository: CodeMirrorTypeRepository,
     private richTextTypeRepository: RichTextTypeRepository,
     private typeFactory: TypeFactory,
+    private authDomainService: AuthDomainService,
   ) {}
 
   async execute(request: Request): Promise<IType | undefined> {
@@ -206,6 +208,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       id: v4(),
       kind: ITypeKind.EnumType,
       name: EnumType.compositeName(atom, field),
+      owner: this.authDomainService.currentUser,
     }
 
     return await this.typeFactory.save<IEnumType>(enumType)
@@ -232,6 +235,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       name: InterfaceType.getApiName(atom, {
         key: field.key,
       }),
+      owner: this.authDomainService.currentUser,
     }
 
     return await this.typeFactory.save<IInterfaceType>(interfaceType)
@@ -318,6 +322,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       id: v4(),
       kind: ITypeKind.UnionType,
       name: UnionType.compositeName(atom, field),
+      owner: this.authDomainService.currentUser,
       // These need to exist already
       typesOfUnionType: mappedTypesOfUnionType,
     }
