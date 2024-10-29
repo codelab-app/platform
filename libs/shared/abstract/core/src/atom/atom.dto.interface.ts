@@ -26,12 +26,3 @@ export const AtomDtoSchema = Type.Composite([
 ])
 
 export type IAtomDto = Static<typeof AtomDtoSchema>
-
-export const AtomSchema = Type.Composite([
-  Type.Object({
-    __typename: Type.Literal(`${IElementRenderTypeKind.Atom}`),
-  }),
-  AtomDtoSchema,
-])
-
-export type IAtom = Static<typeof AtomSchema>

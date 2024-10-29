@@ -5,7 +5,7 @@ import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
   ApiExportSchema,
-  AtomSchema,
+  AtomExportSchema,
   type IApi,
   type IAtom,
   type IAtomAggregate,
@@ -41,11 +41,9 @@ export class ExportAtomHandler
       tags: existingAtom.tags.map((tag) => ({ id: tag.id })),
     }
 
-    // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
-
     return {
       api: Validator.validateAndClean(ApiExportSchema, api),
-      atom: Validator.validateAndClean(AtomSchema, atom),
+      atom: Validator.validateAndClean(AtomExportSchema, atom),
     }
   }
 }
