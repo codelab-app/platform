@@ -31,11 +31,9 @@ export class InterfaceTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
     private neo4jService: Neo4jService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }
@@ -72,11 +70,11 @@ export class InterfaceTypeRepository extends AbstractRepository<
         await this.ogmService.InterfaceType
       ).create({
         input: interfaceTypes.map(
-          ({ __typename, fields, ...interfaceType }) => ({
+          ({ __typename, fields, owner, ...interfaceType }) => ({
             ...interfaceType,
             // fields: this.mapCreateFields(fields),
             fields: connectNodeIds(fields?.map(({ id }) => id)),
-            owner: connectOwner(this.authService.currentUser),
+            owner: connectOwner(owner),
           }),
         ),
       })

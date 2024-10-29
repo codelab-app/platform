@@ -1,4 +1,4 @@
-import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
+import type { IPageCreateFormData, IRef } from '@codelab/shared/abstract/core'
 
 import { ElementApplicationService } from '@codelab/backend/application/element'
 import { AppRepository } from '@codelab/backend/domain/app'
@@ -21,6 +21,8 @@ export class PageApplicationService {
   ) {}
 
   async createPage(createPageDto: IPageCreateFormData) {
+    const owner = this.authDomainService.currentUser
+
     const app = await this.appRepository.findOneOrFail({
       where: { id: createPageDto.app.id },
     })
@@ -33,8 +35,9 @@ export class PageApplicationService {
     const api = await this.typeDomainService.createInterface({
       id: v4(),
       name: InterfaceType.createName(
-        `${app.name}(${this.authDomainService.currentUser}) ${createPageDto.name} Store`,
+        `${app.name}(${owner}) ${createPageDto.name} Store`,
       ),
+      owner,
     })
 
     const store = await this.storeDomainService.create({

@@ -9,11 +9,12 @@ export class ArrayType extends BaseType implements IArrayTypeDto {
 
   itemType?: IRef
 
-  constructor({ id, itemType, name }: IArrayTypeDto) {
+  constructor({ id, itemType, name, owner }: IArrayTypeDto) {
     super({
       id,
       kind: ITypeKind.ArrayType,
       name,
+      owner,
     })
 
     this.itemType = itemType

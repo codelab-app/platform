@@ -22,6 +22,8 @@ export class ImportTagsHandler
      * Omit parent and children since they need to be created first
      */
     for (const tag of tags) {
+      console.log(tag)
+
       const { children, descendants, isRoot, parent, ...createTagData } = tag
 
       await this.tagRepository.save(createTagData)

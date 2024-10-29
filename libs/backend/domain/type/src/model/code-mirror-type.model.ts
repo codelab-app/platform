@@ -12,11 +12,12 @@ export class CodeMirrorType extends BaseType implements ICodeMirrorTypeDto {
 
   language: ICodeMirrorLanguage
 
-  constructor({ id, language, name }: ICodeMirrorTypeDto) {
+  constructor({ id, language, name, owner }: ICodeMirrorTypeDto) {
     super({
       id,
       kind: ITypeKind.CodeMirrorType,
       name,
+      owner,
     })
 
     this.language = language

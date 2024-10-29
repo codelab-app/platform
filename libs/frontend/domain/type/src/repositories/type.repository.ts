@@ -8,6 +8,7 @@ import type {
 
 import { typeMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { cLog } from '@codelab/shared/utils'
 import { prop, sortBy } from 'remeda'
 
 import {
@@ -23,12 +24,11 @@ import {
 } from './type.api'
 
 export const typeRepository: ITypeRepository = {
-  add: async (input: ITypeDto, owner?: IRef) => {
+  add: async (input: ITypeDto, owner: IRef) => {
     Validator.assertsDefined(input.kind)
 
-    const createdTypes = await createTypeApi[input.kind]([
-      typeMapper.toCreateInput(input, owner),
-    ])
+    const data = typeMapper.toCreateInput(input, owner)
+    const createdTypes = await createTypeApi[input.kind]([data])
 
     Validator.assertsDefined(createdTypes[0])
 

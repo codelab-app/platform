@@ -33,12 +33,16 @@ export class ImportAdminDataHandler
     /**
      * System types must be seeded first, so other types can reference it
      */
+    console.log('ImportAdminDataHandler.importSystemTypes()')
     await this.importSystemTypes()
 
+    console.log('ImportAdminDataHandler.importTags()')
     await this.importTags()
 
+    console.log('ImportAdminDataHandler.importAtoms()')
     await this.importAtoms()
 
+    console.log('ImportAdminDataHandler.importComponents()')
     await this.importComponents()
   }
 
@@ -62,7 +66,7 @@ export class ImportAdminDataHandler
       await this.importAtom({
         api,
         atom: atomWithoutSuggestedChildren,
-      } as IAtomAggregate)
+      })
     }
 
     /**

@@ -1,6 +1,7 @@
-import {
-  type IBaseTypeDto,
-  type ITypeKind,
+import type {
+  IBaseTypeDto,
+  IRef,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 
 export abstract class BaseType implements Omit<IBaseTypeDto, '__typename'> {
@@ -10,10 +11,13 @@ export abstract class BaseType implements Omit<IBaseTypeDto, '__typename'> {
 
   name: string
 
-  constructor({ id, kind, name }: Omit<IBaseTypeDto, '__typename'>) {
+  owner: IRef
+
+  constructor({ id, kind, name, owner }: Omit<IBaseTypeDto, '__typename'>) {
     this.id = id
     this.name = name
     this.kind = kind
+    this.owner = owner
   }
 
   assertCreateFailed<Model>(data: Array<Model>) {

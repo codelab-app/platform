@@ -19,7 +19,10 @@ export const InterfaceTypeCreateDtoSchema = Type.Pick(InterfaceTypeDtoSchema, [
   'id',
   'name',
 ])
-export type IInterfaceTypeCreateDto = Pick<IInterfaceTypeDto, 'id' | 'name'>
+export type IInterfaceTypeCreateDto = Pick<
+  IInterfaceTypeDto,
+  'id' | 'name' | 'owner'
+>
 
 /**
  * Entity

@@ -127,17 +127,21 @@ export class Atom
   get toJson() {
     return {
       __typename: this.__typename,
-      api: this.api,
+      api: this.api.current.toJson,
       externalCssSource: this.externalCssSource,
       externalJsSource: this.externalJsSource,
       externalSourceType: this.externalSourceType,
       icon: this.icon,
       id: this.id,
       name: this.name,
-      owner: this.owner,
-      requiredParents: this.requiredParents,
-      suggestedChildren: this.suggestedChildren,
-      tags: this.tags,
+      owner: this.owner.current.toJson,
+      requiredParents: this.requiredParents.map(
+        (parent) => parent.current.toJson,
+      ),
+      suggestedChildren: this.suggestedChildren.map(
+        (child) => child.current.toJson,
+      ),
+      tags: this.tags.map((tag) => tag.current.toJson),
       type: this.type,
     }
   }

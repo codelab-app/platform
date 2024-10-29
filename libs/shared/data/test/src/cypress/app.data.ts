@@ -16,6 +16,9 @@ export const storeApiData = (): IInterfaceTypeDto => ({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Test Store API',
+  owner: {
+    id: v4(),
+  },
 })
 
 export const storeData = (api: IInterfaceTypeRef): IStoreDto => ({

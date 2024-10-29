@@ -16,13 +16,14 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDto {
   /**
    * Make create data from atom name
    */
-  static createFromAtomName(name: string) {
+  static createFromAtomName(name: string, owner: IRef) {
     return new InterfaceType({
       __typename: ITypeKind.InterfaceType,
       fields: [],
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.getApiName({ name }),
+      owner,
     })
   }
 
@@ -39,11 +40,12 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDto {
 
   fields: Array<IRef>
 
-  constructor({ fields = [], id, name }: IInterfaceTypeDto) {
+  constructor({ fields = [], id, name, owner }: IInterfaceTypeDto) {
     super({
       id,
       kind: ITypeKind.InterfaceType,
       name,
+      owner,
     })
 
     this.fields = fields

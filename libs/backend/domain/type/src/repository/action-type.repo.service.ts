@@ -28,7 +28,6 @@ export class ActionTypeRepository extends AbstractRepository<
 
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }
@@ -54,9 +53,9 @@ export class ActionTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ActionType
       ).create({
-        input: actionTypes.map(({ __typename, ...actionType }) => ({
+        input: actionTypes.map(({ __typename, owner, ...actionType }) => ({
           ...actionType,
-          owner: connectOwner(this.authService.currentUser),
+          owner: connectOwner(owner),
         })),
       })
     ).actionTypes

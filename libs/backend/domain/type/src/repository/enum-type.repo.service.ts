@@ -30,10 +30,8 @@ export class EnumTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
     super(validationService, loggerService)
   }
@@ -43,11 +41,13 @@ export class EnumTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.EnumType
       ).create({
-        input: enumTypes.map(({ __typename, allowedValues, ...enumType }) => ({
-          ...enumType,
-          allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-          owner: connectOwner(this.authService.currentUser),
-        })),
+        input: enumTypes.map(
+          ({ __typename, allowedValues, owner, ...enumType }) => ({
+            ...enumType,
+            allowedValues: this.mapCreateEnumTypeValues(allowedValues),
+            owner: connectOwner(owner),
+          }),
+        ),
       })
     ).enumTypes
   }

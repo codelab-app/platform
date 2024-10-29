@@ -34,7 +34,6 @@ export class AppRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
-    private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }

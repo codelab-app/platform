@@ -14,7 +14,7 @@ import { v4 } from 'uuid'
 
 import { PageRepository } from '../repository'
 
-type ICreatePageAppDto = Pick<IAppDto, 'id' | 'name'>
+type ICreatePageAppDto = Pick<IAppDto, 'id' | 'name' | 'owner'>
 
 type ICreatePageUserDto = Pick<IUserDto, 'username'>
 
@@ -57,6 +57,7 @@ export class PageDomainService {
       name: InterfaceType.createName(
         `${app.name}(${user.username}) ${name} Store`,
       ),
+      owner: app.owner,
     })
 
     const pageStore = await this.storeDomainService.create({

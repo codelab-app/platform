@@ -35,6 +35,7 @@ export class ComponentApplicationService {
     const api: IInterfaceTypeCreateDto = {
       id: v4(),
       name: InterfaceType.createName(`${createComponentData.name} Store`),
+      owner: createComponentData.owner,
     }
 
     const storeDto: IStoreDto = {
