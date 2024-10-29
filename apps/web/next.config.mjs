@@ -76,16 +76,16 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    // increase timeout for long-running proxxy request,
-    // e.g. request from admin to seed the db; request to seed database in e2e
-    proxyTimeout: 120000,
-
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
     // forceSwcTransforms: true,
     // typedRoutes: true,
     instrumentationHook: enableInstrumentation,
+
+    // increase timeout for long-running proxxy request,
+    // e.g. request from admin to seed the db; request to seed database in e2e
+    proxyTimeout: 120000,
   },
   nx: { svgr: true },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js

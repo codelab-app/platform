@@ -22,14 +22,12 @@ import { v4 } from 'uuid'
 
 import { usePageService } from '../../services'
 import { createPageSchema } from './create-page.schema'
-import { useCreatePageForm } from './create-page.state'
 
 export const CreatePageForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const user = useUser()
     const app = useCurrentApp()
     const pageService = usePageService()
-    const createPageForm = useCreatePageForm()
 
     const model = {
       app: { id: app?.id },
@@ -40,7 +38,7 @@ export const CreatePageForm = observer<IFormController>(
       },
     }
 
-    const closeForm = () => createPageForm.close()
+    const closeForm = () => null
 
     const onSubmit = async (data: IPageCreateFormData) => {
       await pageService.create(data)

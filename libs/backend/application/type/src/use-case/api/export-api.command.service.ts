@@ -55,7 +55,7 @@ export class ExportApiHandler
         sort: [{ key: SortDirection.Asc }],
       },
       schema: FieldDtoSchema,
-      where: { id_IN: interfaceType.fields.map(({ id }) => id) },
+      where: { id_IN: interfaceType.fields?.map(({ id }) => id) },
     })
 
     /**

@@ -25,9 +25,9 @@ const PrimarySidebar = observer(
       return <Spinner isLoading />
     }
 
-    if (primarySidebarKey === ExplorerPaneType.PageList) {
-      return <PagesPrimarySidebar />
-    }
+    // if (primarySidebarKey === ExplorerPaneType.PageList) {
+    //   return <PagesPrimarySidebar />
+    // }
 
     if (primarySidebarKey === ExplorerPaneType.Components) {
       return <ComponentsPrimarySidebar />

@@ -35,15 +35,15 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
+import { createPageAction } from '../use-cases/create-page'
+import { createPageFactory } from '../use-cases/create-page/create-page.factory'
+
 export const usePageService = (): IPageService => {
   const {
     appDomainService,
     atomDomainService,
     elementDomainService,
     pageDomainService,
-    storeDomainService,
-    typeDomainService,
-    userDomainService,
   } = useDomainStore()
 
   const { rendererService } = useApplicationStore()
@@ -86,58 +86,17 @@ export const usePageService = (): IPageService => {
     })
   }
 
-  const create = async ({ app, id, name, urlPattern }: IPageCreateFormData) => {
-    const rootElementProps: IPropDto = {
-      data: '{}',
-      id: v4(),
-    }
+  const create = async (pageData: IPageCreateFormData) => {
+    const { page, rootElement, rootElementProps, store, storeApi } =
+      await createPageFactory(pageData, atomDomainService.defaultRenderType)
 
-    const rootElement = elementDomainService.hydrate({
-      closestContainerNode: {
-        id,
-      },
-      id: v4(),
-      name: ROOT_ELEMENT_NAME,
-      page: { id },
-      props: rootElementProps,
-      renderType: atomDomainService.defaultRenderType,
-    })
-
-    const appModel = appDomainService.apps.get(app.id)
-
-    Validator.assertsDefined(appModel)
-
-    const userName = userDomainService.user.username
-
-    const interfaceType = typeDomainService.hydrateInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(
-        `${appModel.name}(${userName}) ${name} Store`,
-      ),
-    })
-
-    const store = storeDomainService.hydrate({
-      api: typeRef<IInterfaceTypeModel>(interfaceType.id),
-      id: v4(),
-      name: Store.createName({ name }),
-    })
-
-    const page = pageDomainService.hydrate({
-      app,
-      id,
-      kind: IPageKind.Regular,
-      name,
-      rootElement: elementRef(rootElement.id),
+    return await createPageAction(
+      page,
       store,
-      // for new pages we allow user to omit url, in this case we autogenerate it
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      urlPattern: urlPattern ?? `/${slugify(name)}`,
-    })
-
-    await pageRepository.add(page)
-
-    return page
+      storeApi,
+      rootElement,
+      rootElementProps,
+    )
 
     // revalidateTag(CACHE_TAGS.PAGE_LIST)
   }
@@ -167,8 +126,6 @@ export const usePageService = (): IPageService => {
     await elementRepository.delete(elements)
 
     return await pageRepository.delete([pageModel])
-
-    // TODO: refresh pages
   }
 
   const update = async (data: IPageUpdateFormData) => {
