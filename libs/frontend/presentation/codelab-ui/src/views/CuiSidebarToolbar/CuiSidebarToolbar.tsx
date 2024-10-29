@@ -14,7 +14,7 @@ export const CuiSidebarToolbar = ({ items }: CuiSidebarToolbarProps) => {
 
   return (
     <div
-      className="flex grow flex-row items-start justify-end"
+      className="flex flex-row items-start justify-end"
       data-testid={CuiTestId.cuiToolbar()}
       ref={listRef}
     >

@@ -55,8 +55,7 @@ export const useAppService = (): IAppService => {
       )
 
       const app = await createAppAction(
-        { id, name, owner },
-        pages,
+        { id, name, owner, pages },
         pages.flatMap((page) => page.rootElement),
         pages.flatMap((page) => page.store),
         pages.flatMap((page) => page.storeApi),

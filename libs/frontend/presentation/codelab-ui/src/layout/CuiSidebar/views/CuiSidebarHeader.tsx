@@ -20,11 +20,12 @@ export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
         flex h-10 w-full
         flex-row items-center justify-between
         border-0 border-b-2 border-solid
-        border-gray-300 bg-neutral-100
+        border-gray-300 bg-neutral-100 pl-4
+        pr-2
       `}
       data-testid={CuiTestId.cuiSidebarHeader()}
     >
-      <Typography className="pl-4">{label}</Typography>
+      <Typography>{label}</Typography>
       {toolbar && (
         <CuiSidebarToolbar items={toolbar.items} title={toolbar.title} />
       )}

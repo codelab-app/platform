@@ -15,13 +15,12 @@ const PrimarySidebar = observer(
   ({ params: { appId, pageId } }: { params: PageContextParams }) => {
     const { pageDomainService } = useDomainStore()
     const page = pageDomainService.pages.get(pageId)
-    const { primarySidebarKey } = useUrlQueryParams()
 
     if (!page) {
       return <Spinner isLoading />
     }
 
-    return <PagesPrimarySidebar />
+    return <PagesPrimarySidebar appId={appId} pageId={pageId} />
   },
 )
 

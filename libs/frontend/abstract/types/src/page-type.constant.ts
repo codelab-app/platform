@@ -57,7 +57,7 @@ export const PageType = {
   PageCreate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
       { appId, pageId },
-      PrimarySidebar.PageList,
+      PrimarySidebar.ElementTree,
     )
 
     return `${pageBuilder}/create-page`

@@ -320,10 +320,10 @@ const UiDataRecord = {
     label: 'Delete Page Modal',
   },
   [UiKey.PagePopoverCreate]: {
-    label: 'Create Page Popover',
+    label: 'Create Page',
   },
   [UiKey.PagePopoverUpdate]: {
-    label: 'Update Page Popover',
+    label: 'Update Page',
   },
   [UiKey.PageSidebar]: {
     label: 'Page Sidebar',

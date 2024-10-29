@@ -75,7 +75,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
           ({ __typename, fields, ...interfaceType }) => ({
             ...interfaceType,
             // fields: this.mapCreateFields(fields),
-            fields: connectNodeIds(fields.map(({ id }) => id)),
+            fields: connectNodeIds(fields?.map(({ id }) => id)),
             owner: connectOwner(this.authService.currentUser),
           }),
         ),

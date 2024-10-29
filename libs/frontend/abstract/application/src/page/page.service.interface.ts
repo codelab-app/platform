@@ -8,6 +8,7 @@ import type {
   IPageCreateFormData,
   IPageDto,
   IPageUpdateFormData,
+  IRef,
 } from '@codelab/shared/abstract/core'
 import type {
   GetRenderedPageQuery,
@@ -23,7 +24,7 @@ export interface ICreatePageUseCase {
 
 export interface IPageService
   extends IQueryService<IPageModel, PageWhere, PageOptions>,
-    ICrudService<IPageDto, IPageCreateFormData, IPageUpdateFormData> {
+    ICrudService<IRef, IPageCreateFormData, IPageUpdateFormData> {
   getPagesByApp(appId: string): Array<IPageModel>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   getSelectPageOptions(appId?: string): Promise<Array<SelectOption>>

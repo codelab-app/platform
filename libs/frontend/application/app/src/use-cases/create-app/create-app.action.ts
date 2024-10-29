@@ -16,18 +16,20 @@ import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 
 export const createAppAction = async (
   appDto: IAppDto,
-  pages: Array<IPageDto>,
   elements: Array<IElementDto>,
   stores: Array<IStoreDto>,
   storeApis: Array<IInterfaceTypeDto>,
 ) => {
-  const { owner } = appDto
+  const { owner, pages } = appDto
   const app = await appRepository.add(appDto)
 
   await Promise.all(elements.map((element) => elementRepository.add(element)))
   await Promise.all(storeApis.map((api) => typeRepository.add(api, owner)))
   await Promise.all(stores.map((store) => storeRepository.add(store)))
-  await Promise.all(pages.map((page) => pageRepository.add(page)))
+
+  if (pages) {
+    await Promise.all(pages.map((page) => pageRepository.add(page)))
+  }
 
   return app
 }

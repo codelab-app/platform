@@ -9,7 +9,7 @@ import { ITypeKind } from '../type-kind.enum'
 export const InterfaceTypeDtoSchema = Type.Composite([
   BaseTypeDtoSchema(`${ITypeKind.InterfaceType}`),
   Type.Object({
-    fields: Type.Array(Typebox.Ref, { default: [] }),
+    fields: Type.Optional(Type.Array(Typebox.Ref, { default: [] })),
   }),
 ])
 
