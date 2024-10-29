@@ -46,10 +46,9 @@ export class TagRepository extends AbstractRepository<
         await this.ogmService.Tag
       ).create({
         input: tags.map(
-          ({ children, descendants, id, isRoot, name, owner, parent }) => ({
+          ({ children, descendants, id, name, owner, parent }) => ({
             children: connectNodeIds(children?.map((child) => child.id)),
             id,
-            isRoot,
             name,
             owner: connectOwner(owner),
           }),

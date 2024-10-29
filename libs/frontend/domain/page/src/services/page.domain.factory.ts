@@ -94,6 +94,7 @@ export class PageDomainFactory implements IPageDomainFactory {
       pageContentContainer,
       rootElement: pageRootElement,
       store: pageStore,
+      storeApi: pageStoreApi,
       urlPattern,
     }
   }

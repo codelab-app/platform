@@ -61,7 +61,7 @@ describe('ComponentResolvers', () => {
         input: [
           {
             compositeKey: AppProperties.appCompositeKey(
-              { slug: 'my-app' },
+              { name: 'my-app' },
               owner,
             ),
             id: v4(),
@@ -206,7 +206,7 @@ describe('ComponentResolvers', () => {
           {
             app: connectNodeId(testApp.id),
             compositeKey: PageProperties.pageCompositeKey(
-              IPageKindName.Provider,
+              { name: IPageKindName.Provider },
               testApp,
             ),
             id: v4(),

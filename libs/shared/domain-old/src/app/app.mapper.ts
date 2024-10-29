@@ -46,9 +46,15 @@ export const appMapper: IMapper<
   },
 
   toUpdateInput: ({ name, owner, pages }: IAppDto): AppUpdateInput => {
+    const compositeKey = AppProperties.appCompositeKey({ name }, owner)
+
+    if (!pages) {
+      return { compositeKey }
+    }
+
     return {
-      compositeKey: AppProperties.appCompositeKey({ name }, owner),
-      pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
+      compositeKey,
+      pages: reconnectNodeIds(pages.map((page) => page.id)).map(
         (input) => input,
       ),
     }

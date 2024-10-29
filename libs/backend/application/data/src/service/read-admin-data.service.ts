@@ -3,6 +3,7 @@ import type {
   IComponentAggregate,
 } from '@codelab/shared/abstract/core'
 
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import {
   AtomAggregateSchema,
@@ -22,6 +23,7 @@ export class ReadAdminDataService {
   constructor(
     public migrationDataService: MigrationDataService,
     private validationService: ValidationService,
+    private authService: AuthDomainService,
   ) {}
 
   get atomNames() {
@@ -39,11 +41,15 @@ export class ReadAdminDataService {
         'utf8',
       )
 
-      const atomExport = JSON.parse(content.toString())
+      const { api, atom } = JSON.parse(content.toString())
+      const owner = this.authService.currentUser
 
       const data: IAtomAggregate = this.validationService.validateAndClean(
         AtomAggregateSchema,
-        atomExport,
+        {
+          api,
+          atom: { ...atom, owner },
+        },
       )
 
       return data
