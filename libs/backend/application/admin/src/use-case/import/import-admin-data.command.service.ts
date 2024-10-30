@@ -97,12 +97,7 @@ export class ImportAdminDataHandler
     const { tags } = this.readAdminDataService
 
     return this.commandBus.execute<ImportTagsCommand>(
-      new ImportTagsCommand(
-        tags.map((tag) => ({
-          ...tag,
-          owner: this.authDomainService.currentUser,
-        })),
-      ),
+      new ImportTagsCommand(tags.map((tag) => tag)),
     )
   }
 }

@@ -29,6 +29,8 @@ export class ImportComponentsHandler
   async execute(command: ImportComponentsCommand) {
     const { api, component, elements, store } = command.componentImport
 
+    console.log('Importing component...', component.name)
+
     await this.propRepository.save(component.props)
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))

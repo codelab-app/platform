@@ -67,7 +67,11 @@ export class ReadAdminDataService implements IReadAdminDataService {
       const data: IAtomImport = this.validationService.validateAndClean(
         AtomImportSchema,
         {
-          api,
+          api: {
+            ...api,
+            owner,
+            types: api.types.map((type) => ({ ...type, owner })),
+          },
           atom: { ...atom, owner },
         },
       )

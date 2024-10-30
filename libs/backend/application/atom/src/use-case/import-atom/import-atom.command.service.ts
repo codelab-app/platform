@@ -17,13 +17,14 @@ export class ImportAtomHandler
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
-    private authDomainService: AuthDomainService,
   ) {}
 
   async execute(command: ImportAtomCommand) {
     const {
       atomImport: { api, atom },
     } = command
+
+    console.log('Importing atom...', atom.name)
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
