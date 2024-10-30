@@ -1,4 +1,4 @@
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
+import type { IAppExport, IAppImport } from '@codelab/shared/abstract/core'
 
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'
@@ -10,7 +10,7 @@ import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
-  constructor(public readonly appAggregate: IAppAggregate) {}
+  constructor(public readonly appImport: IAppImport) {}
 }
 
 @CommandHandler(ImportAppCommand)
@@ -25,7 +25,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
   ) {}
 
   async execute(command: ImportAppCommand) {
-    const { app, components, pages, resources } = command.appAggregate
+    const { app, components, pages, resources } = command.appImport
 
     await this.appRepository.save(app)
 

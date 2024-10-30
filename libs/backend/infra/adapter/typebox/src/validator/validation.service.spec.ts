@@ -3,7 +3,7 @@ import type { TestingModule } from '@nestjs/testing'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   ActionTypeSchema,
-  AtomAggregateSchema,
+  AtomExportSchema,
   PrimitiveTypeSchema,
 } from '@codelab/shared/abstract/core'
 import { Test } from '@nestjs/testing'
@@ -28,7 +28,7 @@ describe('ValidationService', () => {
   describe('validateAndClean', () => {
     it('should validate and clean the input correctly', () => {
       const result = validationService.validateAndClean(
-        AtomAggregateSchema,
+        AtomExportSchema,
         affixJson,
       )
 

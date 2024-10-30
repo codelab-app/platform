@@ -4,11 +4,10 @@ import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
-  ApiExportSchema,
-  AtomSchema,
-  type IApi,
+  AtomExportSchema,
+  type IApiExport,
   type IAtom,
-  type IAtomAggregate,
+  type IAtomExport,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -19,18 +18,18 @@ export class ExportAtomCommand {
 
 @CommandHandler(ExportAtomCommand)
 export class ExportAtomHandler
-  implements ICommandHandler<ExportAtomCommand, IAtomAggregate>
+  implements ICommandHandler<ExportAtomCommand, IAtomExport>
 {
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
   ) {}
 
-  async execute(command: ExportAtomCommand): Promise<IAtomAggregate> {
+  async execute(command: ExportAtomCommand): Promise<IAtomExport> {
     const { where } = command
     const existingAtom = await this.atomRepository.findOneOrFail({ where })
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApi>(
+    const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(
       new ExportApiCommand(existingAtom.api),
     )
 
@@ -41,11 +40,6 @@ export class ExportAtomHandler
       tags: existingAtom.tags.map((tag) => ({ id: tag.id })),
     }
 
-    // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
-
-    return {
-      api: Validator.validateAndClean(ApiExportSchema, api),
-      atom: Validator.validateAndClean(AtomSchema, atom),
-    }
+    return Validator.validateAndClean(AtomExportSchema, { api, atom })
   }
 }

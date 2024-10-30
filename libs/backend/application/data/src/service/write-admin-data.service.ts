@@ -1,4 +1,4 @@
-import type { IAdminAggregate } from '@codelab/shared/abstract/core'
+import type { IAdminExport } from '@codelab/shared/abstract/core'
 
 import {
   formatToPrettifiedJson,
@@ -17,7 +17,7 @@ export class WriteAdminDataService {
   /**
    * Write data to the volume
    */
-  async saveData(data: IAdminAggregate) {
+  async saveData(data: IAdminExport) {
     const { atoms, components, systemTypes, tags } = deepSortKeys(data)
 
     await this.writeAtomsData(atoms)
@@ -28,7 +28,7 @@ export class WriteAdminDataService {
     return { atoms, components, systemTypes, tags }
   }
 
-  private async writeAtomsData(atoms: IAdminAggregate['atoms']) {
+  private async writeAtomsData(atoms: IAdminExport['atoms']) {
     for (const { api, atom } of atoms) {
       const outputPath = path.resolve(
         this.migrationDataService.atomsPath,
@@ -44,7 +44,7 @@ export class WriteAdminDataService {
     }
   }
 
-  private async writeComponentsData(components: IAdminAggregate['components']) {
+  private async writeComponentsData(components: IAdminExport['components']) {
     for (const { api, component, elements, store } of components) {
       // Component name can have spaces, which can cause issues with file names
       const name = component.name.replace(/ /g, '')
@@ -65,9 +65,7 @@ export class WriteAdminDataService {
     }
   }
 
-  private async writeSystemTypesData(
-    systemTypes: IAdminAggregate['systemTypes'],
-  ) {
+  private async writeSystemTypesData(systemTypes: IAdminExport['systemTypes']) {
     const stringData = await formatToPrettifiedJson(systemTypes)
 
     writeFileSyncWithDirs(
@@ -76,7 +74,7 @@ export class WriteAdminDataService {
     )
   }
 
-  private async writeTagsData(tags: IAdminAggregate['tags']) {
+  private async writeTagsData(tags: IAdminExport['tags']) {
     const stringData = await formatToPrettifiedJson(tags)
 
     writeFileSyncWithDirs(this.migrationDataService.tagsFilePath, stringData)

@@ -1,14 +1,26 @@
 import type {
-  IAtomAggregate,
-  IComponentAggregate,
+  IApiImport,
+  IAtomExport,
+  IAtomImport,
+  IComponent,
+  IComponentExport,
+  IComponentImport,
+  IStoreImport,
+  ITagDto,
+  ITagExport,
+  ITypeDto,
+  ITypeExport,
 } from '@codelab/shared/abstract/core'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import {
-  AtomAggregateSchema,
+  AtomExportSchema,
+  AtomImportSchema,
+  ComponentExportSchema,
+  TagExportSchema,
   TagSchema,
-  TypeSchema,
+  TypeExportSchema,
 } from '@codelab/shared/abstract/core'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
@@ -16,10 +28,17 @@ import path from 'path'
 
 import { MigrationDataService } from './migration-data.service'
 
+interface IReadAdminDataService {
+  atoms: Array<IAtomImport>
+  components: Array<IComponentImport>
+  systemTypes: Array<ITypeDto>
+  tags: Array<ITagDto>
+}
+
 @Injectable({
   scope: Scope.TRANSIENT,
 })
-export class ReadAdminDataService {
+export class ReadAdminDataService implements IReadAdminDataService {
   constructor(
     public migrationDataService: MigrationDataService,
     private validationService: ValidationService,
@@ -36,18 +55,23 @@ export class ReadAdminDataService {
 
   get atoms() {
     return this.atomNames.map((filename) => {
-      const content = fs.readFileSync(
-        `${this.migrationDataService.atomsPath}/${filename}`,
-        'utf8',
-      )
+      const { api, atom } = JSON.parse(
+        fs.readFileSync(
+          `${this.migrationDataService.atomsPath}/${filename}`,
+          'utf8',
+        ),
+      ) as IAtomExport
 
-      const { api, atom } = JSON.parse(content.toString())
       const owner = this.authService.currentUser
 
-      const data: IAtomAggregate = this.validationService.validateAndClean(
-        AtomAggregateSchema,
+      const data: IAtomImport = this.validationService.validateAndClean(
+        AtomImportSchema,
         {
-          api,
+          api: {
+            ...api,
+            owner,
+            types: api.types.map((type) => ({ ...type, owner })),
+          },
           atom: { ...atom, owner },
         },
       )
@@ -56,7 +80,9 @@ export class ReadAdminDataService {
     })
   }
 
-  get components(): Array<IComponentAggregate> {
+  get components() {
+    const owner = this.authService.currentUser
+
     const componentFilenames = fs.existsSync(
       this.migrationDataService.componentsPath,
     )
@@ -66,12 +92,43 @@ export class ReadAdminDataService {
       : []
 
     return componentFilenames.map((filename) => {
-      const content = fs.readFileSync(
-        path.resolve(this.migrationDataService.componentsPath, filename),
-        'utf8',
+      const componentExport = JSON.parse(
+        fs.readFileSync(
+          path.resolve(this.migrationDataService.componentsPath, filename),
+          'utf8',
+        ),
       )
 
-      return JSON.parse(content)
+      const { api, component, elements, store } =
+        this.validationService.validateAndClean(
+          ComponentExportSchema,
+          componentExport,
+        )
+
+      const apiImport: IApiImport = {
+        ...api,
+        owner,
+        types: api.types.map((type) => ({ ...type, owner })),
+      }
+
+      const componentImport: IComponentImport = {
+        api: apiImport,
+        component,
+        elements,
+        store: {
+          api: {
+            ...store.api,
+            owner,
+            types: store.api.types.map((type) => ({
+              ...type,
+              owner,
+            })),
+          },
+          store: store.store,
+        },
+      }
+
+      return componentImport
     })
   }
 
@@ -79,26 +136,42 @@ export class ReadAdminDataService {
    * Data
    */
   get systemTypes() {
+    const owner = this.authService.currentUser
+
     const types = JSON.parse(
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
-    )
+    ) as Array<ITypeExport>
 
-    return types.map((type: unknown) =>
-      this.validationService.validateAndClean(TypeSchema, type),
-    )
+    return types.map((type: unknown) => {
+      const typeExport = this.validationService.validateAndClean(
+        TypeExportSchema,
+        type,
+      )
+
+      const typeImport: ITypeDto = { ...typeExport, owner }
+
+      return typeImport
+    })
   }
 
   /**
    * Extract all the api's from atom file
    */
   get tags() {
+    const owner = this.authService.currentUser
+
     // Tag data is all in single file
     const tags = JSON.parse(
       fs.readFileSync(this.migrationDataService.tagsFilePath, 'utf8'),
-    )
+    ) as Array<ITagExport>
 
-    return tags.map((tag: unknown) =>
-      this.validationService.validateAndClean(TagSchema, tag),
-    )
+    return tags.map((tag: unknown) => {
+      const tagExport: ITagExport = this.validationService.validateAndClean(
+        TagExportSchema,
+        tag,
+      )
+
+      return { ...tagExport, owner }
+    })
   }
 }

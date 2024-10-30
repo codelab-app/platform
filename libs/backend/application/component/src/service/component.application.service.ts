@@ -1,6 +1,6 @@
 import type {
-  IComponentAggregate,
   IComponentDto,
+  IComponentExport,
   ICreateComponentData,
   IInterfaceTypeCreateDto,
   IStoreDto,
@@ -73,7 +73,7 @@ export class ComponentApplicationService {
   /**
    * Export all components owned by admins
    */
-  async exportComponentsForAdmin(): Promise<Array<IComponentAggregate>> {
+  async exportComponentsForAdmin(): Promise<Array<IComponentExport>> {
     const components = await this.componentRepository.find({
       where: {
         owner: {
@@ -82,12 +82,12 @@ export class ComponentApplicationService {
       },
     })
 
-    const results: Array<IComponentAggregate> = []
+    const results: Array<IComponentExport> = []
 
     for (const component of components) {
       const result = await this.commandBus.execute<
         ExportComponentCommand,
-        IComponentAggregate
+        IComponentExport
       >(new ExportComponentCommand(component.id))
 
       results.push(result)

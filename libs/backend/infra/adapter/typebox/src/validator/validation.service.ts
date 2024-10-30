@@ -1,4 +1,10 @@
-import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'
+import type {
+  Static,
+  TAnySchema,
+  TObject,
+  TSchema,
+  TUnion,
+} from '@sinclair/typebox'
 import type { ValidationException } from 'typebox-validators'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -49,8 +55,9 @@ export class ValidationService {
       }
 
       console.log('-------------------')
-      console.log(values)
-      cLog(cleanedErrors)
+      console.log('Schema', anySchema)
+      console.log('Values', values)
+      cLog('Errors', cleanedErrors)
 
       /**
        * Remove schema as it can get very long

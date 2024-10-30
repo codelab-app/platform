@@ -1,6 +1,7 @@
 import type {
   IElementCreateDto,
-  IPageAggregate,
+  IPageExport,
+  IPageImport,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
@@ -11,7 +12,7 @@ import { PropRepository } from '@codelab/backend/domain/prop'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportPageCommand {
-  constructor(public pageAggregate: IPageAggregate) {}
+  constructor(public pageImport: IPageImport) {}
 }
 
 @CommandHandler(ImportPageCommand)
@@ -24,7 +25,7 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
   ) {}
 
   async execute(command: ImportPageCommand) {
-    const { elements, page, store } = command.pageAggregate
+    const { elements, page, store } = command.pageImport
 
     await this.commandBus.execute<ImportStoreCommand>(
       new ImportStoreCommand(store),

@@ -1,4 +1,4 @@
-import type { IAtomAggregate } from '@codelab/shared/abstract/core'
+import type { IAtomExport } from '@codelab/shared/abstract/core'
 
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -15,7 +15,7 @@ export class AtomApplicationService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  async exportAtomsForAdmin(): Promise<Array<IAtomAggregate>> {
+  async exportAtomsForAdmin(): Promise<Array<IAtomExport>> {
     /**
      * Get all atoms first
      */

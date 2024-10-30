@@ -1,3 +1,3 @@
-export * from './admin.aggregate.interface'
-export * from './export.dto.interface'
+export * from './admin.io.interface'
+export * from './export.io.interface'
 export * from './import.dto.interface'

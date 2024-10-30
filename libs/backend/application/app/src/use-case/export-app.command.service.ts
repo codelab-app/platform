@@ -1,10 +1,10 @@
 import type { AppWhere, Element } from '@codelab/backend/abstract/codegen'
 import type {
   IApiAction,
-  IAppAggregate,
-  IComponentAggregate,
+  IAppExport,
+  IComponentExport,
   IElement,
-  IPageAggregate,
+  IPageExport,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -30,7 +30,7 @@ export class ExportAppCommand {
 
 @CommandHandler(ExportAppCommand)
 export class ExportAppHandler
-  implements ICommandHandler<ExportAppCommand, IAppAggregate>
+  implements ICommandHandler<ExportAppCommand, IAppExport>
 {
   constructor(
     private readonly appRepository: AppRepository,
@@ -45,7 +45,7 @@ export class ExportAppHandler
 
     const pages = await this.commandBus.execute<
       ExportPageCommand,
-      Array<IPageAggregate>
+      Array<IPageExport>
     >(new ExportPageCommand({ id_IN: app.pages.map((page) => page.id) }))
 
     const pageStoresContexts = pages.map((pageContext) => pageContext.store)
@@ -79,7 +79,7 @@ export class ExportAppHandler
       where: { id_IN: pageResourceRefs.map((ref) => ref.id) },
     })
 
-    const components: Array<IComponentAggregate> = []
+    const components: Array<IComponentExport> = []
 
     for (const { page } of pages) {
       const elements = (
@@ -124,7 +124,7 @@ export class ExportAppHandler
         for (const currentComponent of currentComponents) {
           const component = await this.commandBus.execute<
             ExportComponentCommand,
-            IComponentAggregate
+            IComponentExport
           >(new ExportComponentCommand(currentComponent.id))
 
           components.push(component)

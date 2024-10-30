@@ -1,4 +1,7 @@
-import type { IComponentAggregate } from '@codelab/shared/abstract/core'
+import type {
+  IComponentExport,
+  IComponentImport,
+} from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportStoreCommand } from '@codelab/backend/application/store'
@@ -9,7 +12,7 @@ import { PropRepository } from '@codelab/backend/domain/prop'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(public readonly componentAggregate: IComponentAggregate) {}
+  constructor(public readonly componentImport: IComponentImport) {}
 }
 
 @CommandHandler(ImportComponentsCommand)
@@ -24,7 +27,9 @@ export class ImportComponentsHandler
   ) {}
 
   async execute(command: ImportComponentsCommand) {
-    const { api, component, elements, store } = command.componentAggregate
+    const { api, component, elements, store } = command.componentImport
+
+    console.log('Importing component...', component.name)
 
     await this.propRepository.save(component.props)
 
