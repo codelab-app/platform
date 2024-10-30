@@ -1,8 +1,8 @@
 import type { IBaseDataPaths } from '@codelab/backend/application/data'
 import type {
-  IAdminAggregate,
+  IAdminExport,
   ITag,
-  IType,
+  ITypeExport,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
@@ -22,7 +22,7 @@ export class ExportAdminDataCommand implements IBaseDataPaths {
  */
 @CommandHandler(ExportAdminDataCommand)
 export class ExportAdminDataHandler
-  implements ICommandHandler<ExportAdminDataCommand, IAdminAggregate>
+  implements ICommandHandler<ExportAdminDataCommand, IAdminExport>
 {
   constructor(
     private writeAdminDataService: WriteAdminDataService,
@@ -38,7 +38,7 @@ export class ExportAdminDataHandler
 
     const systemTypes = await this.commandBus.execute<
       ExportSystemTypesCommand,
-      Array<IType>
+      Array<ITypeExport>
     >(new ExportSystemTypesCommand())
 
     const atoms = await this.atomApplicationService.exportAtomsForAdmin()
@@ -50,7 +50,7 @@ export class ExportAdminDataHandler
     const components =
       await this.componentApplicationService.exportComponentsForAdmin()
 
-    const data: IAdminAggregate = {
+    const data: IAdminExport = {
       atoms,
       components,
       systemTypes,

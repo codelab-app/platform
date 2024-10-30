@@ -13,8 +13,7 @@ import type {
 } from '@codelab/shared/abstract/types'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 
-import type { ICacheService } from '../../shared'
-import type { IModel } from '../../shared/models/model.interface'
+import type { ICacheService, IModel } from '../../shared'
 import type { IActionTypeModel } from './action-type.model.interface'
 import type { IAppTypeModel } from './app-type.model.interface'
 import type { IArrayTypeModel } from './array-type.model.interface'
@@ -79,9 +78,3 @@ export type ITypeModel =
   | IRenderPropTypeModel
   | IRichTextTypeModel
   | IUnionTypeModel
-
-export type ITypeOf<TKind extends ITypeKind> = ITypeModel extends {
-  typeKind: TKind
-}
-  ? ITypeModel
-  : never

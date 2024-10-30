@@ -14,17 +14,24 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { FieldSchema } from '../field/field.dto.interface'
-import { BaseTypeExportSchema } from './base-type.dto.interface'
-import { TypeSchema } from './type.dto.interface'
+import { TypeDtoSchema } from '../type.dto.interface'
+import { TypeExportSchema } from '../type.io.interface'
+import { InterfaceTypeSchema } from './interface-type.model.interface'
 
-export const ApiSchema = Type.Object({
-  fields: Type.Array(FieldSchema),
-  // This refers to the root interface type
-  id: Type.String(),
-  types: Type.Array(TypeSchema),
-})
+export const ApiExportSchema = Type.Composite([
+  Type.Object({
+    types: Type.Array(TypeExportSchema),
+  }),
+  Type.Omit(InterfaceTypeSchema, ['owner']),
+])
 
-export const ApiExportSchema = Type.Composite([BaseTypeExportSchema, ApiSchema])
+export type IApiExport = Static<typeof ApiExportSchema>
 
-export type IApi = Static<typeof ApiSchema>
+export const ApiImportSchema = Type.Composite([
+  Type.Object({
+    types: Type.Array(TypeDtoSchema),
+  }),
+  InterfaceTypeSchema,
+])
+
+export type IApiImport = Static<typeof ApiImportSchema>

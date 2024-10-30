@@ -17,6 +17,7 @@ import {
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
+  tagMapper,
 } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
@@ -43,14 +44,7 @@ export class TagRepository extends AbstractRepository<
       await (
         await this.ogmService.Tag
       ).create({
-        input: tags.map(
-          ({ children, descendants, id, name, owner, parent }) => ({
-            children: connectNodeIds(children?.map((child) => child.id)),
-            id,
-            name,
-            owner: connectOwner(owner),
-          }),
-        ),
+        input: tags.map((tag) => tagMapper.toCreateInput(tag)),
       })
     ).tags
   }
@@ -71,37 +65,12 @@ export class TagRepository extends AbstractRepository<
     })
   }
 
-  protected async _update(
-    { children, descendants, id, owner, parent, ...tag }: ITagDto,
-    where: TagWhere,
-  ) {
-    // Get existing tag so we know what to connect/disconnect
-    // const existing = await this.findOne(where)
-
-    // if (!existing) {
-    //   return undefined
-    // }
-
-    /**
-     * Parent
-     */
-    // const parentTagToConnect = parent?.id
-    const childrenTagsToConnect = children?.map((child) => child.id)
-
+  protected async _update(tag: ITagDto, where: TagWhere) {
     return (
       await (
         await this.ogmService.Tag
       ).update({
-        update: {
-          ...tag,
-          /**
-           * This causes a bug where some nodes aren't connected, can't figure out why maybe race condition
-           *
-           * It is also unnecessary to have both.
-           */
-          children: reconnectNodeIds(childrenTagsToConnect),
-          // parent: reconnectNodeId(parentTagToConnect),
-        },
+        update: tagMapper.toUpdateInput(tag),
         where,
       })
     ).tags[0]

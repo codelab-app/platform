@@ -1,4 +1,4 @@
-import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
+import type { IApp, IAppExport } from '@codelab/shared/abstract/core'
 
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
@@ -33,7 +33,7 @@ export class AppApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    return this.commandBus.execute<SeedCypressAppCommand, IAppAggregate>(
+    return this.commandBus.execute<SeedCypressAppCommand, IAppExport>(
       new ExportAppCommand({ id: req.query['id'] as string }),
     )
   }

@@ -19,5 +19,3 @@ export type ITagDto = Static<typeof TagDtoSchema>
 export const TagSchema = TagDtoSchema
 
 export type ITag = Static<typeof TagSchema>
-
-export type ITagExport = Omit<ITag, 'owner'>

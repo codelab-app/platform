@@ -44,7 +44,13 @@ export const tagMapper: IMapper<
     parent,
   }: ITagDto): TagUpdateInput => {
     return {
+      /**
+       * This causes a bug where some nodes aren't connected, can't figure out why maybe race condition
+       *
+       * It is also unnecessary to have both.
+       */
       children: reconnectNodeIds(children?.map((child) => child.id)),
+      // parent: reconnectNodeId(parentTagToConnect),
       name,
     }
   },

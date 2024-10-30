@@ -2,10 +2,10 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { AtomAggregateSchema } from '../atom'
-import { ComponentAggregateSchema } from '../component'
-import { TagSchema } from '../tag/tag.dto.interface'
-import { TypeSchema } from '../type'
+import { AtomExportSchema } from '../atom'
+import { ComponentExportSchema } from '../component'
+import { TagSchema } from '../tag'
+import { TypeExportSchema } from '../type'
 
 /**
  * When we export data, we should keep a file for each atom, this way it makes it easier to look at diff.
@@ -22,12 +22,12 @@ import { TypeSchema } from '../type'
 /**
  * This is the final complete data that is passed into our import function
  */
-export const AdminAggregateSchema = Type.Object({
-  atoms: Type.Array(AtomAggregateSchema),
-  components: Type.Array(ComponentAggregateSchema),
+export const AdminExportSchema = Type.Object({
+  atoms: Type.Array(AtomExportSchema),
+  components: Type.Array(ComponentExportSchema),
   // resources: Array<IResourceOutputDto>
-  systemTypes: Type.Array(TypeSchema),
+  systemTypes: Type.Array(TypeExportSchema),
   tags: Type.Array(TagSchema),
 })
 
-export type IAdminAggregate = Static<typeof AdminAggregateSchema>
+export type IAdminExport = Static<typeof AdminExportSchema>

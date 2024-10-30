@@ -1,4 +1,4 @@
-import type { IType } from '@codelab/shared/abstract/core'
+import type { ITypeExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { SortDirection } from '@codelab/backend/abstract/codegen'
@@ -39,7 +39,7 @@ export class ExportSystemTypesCommand {}
  */
 @CommandHandler(ExportSystemTypesCommand)
 export class ExportSystemTypesHandler
-  implements ICommandHandler<ExportSystemTypesCommand, Array<IType>>
+  implements ICommandHandler<ExportSystemTypesCommand, Array<ITypeExport>>
 {
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,

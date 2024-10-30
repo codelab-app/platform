@@ -5,13 +5,6 @@ import { Type } from '@sinclair/typebox'
 
 import { ITypeKind } from './type-kind.enum'
 
-export const BaseTypeSchema = Type.Object({
-  __typename: Type.Literal(`${ITypeKind}`),
-  id: Type.String(),
-  kind: Type.Enum(ITypeKind),
-  name: Type.String(),
-})
-
 /**
  * JSON export
  */
@@ -21,8 +14,6 @@ export const BaseTypeExportSchema = Type.Object({
   kind: Type.String(),
   name: Type.String(),
 })
-
-export type IBaseType = Static<typeof BaseTypeSchema>
 
 export type IBaseTypeDto<T extends `${ITypeKind}` = `${ITypeKind}`> = Static<
   ReturnType<typeof BaseTypeDtoSchema<T>>

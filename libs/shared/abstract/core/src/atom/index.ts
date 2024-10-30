@@ -1,6 +1,5 @@
-export * from './atom.aggregate.interface'
 export * from './atom.dto.interface'
-export * from './atom.export.interface'
 export * from './atom.interface'
+export * from './atom.io.interface'
 export * from './atom.model.interface'
 export * from './atom-type.enum'

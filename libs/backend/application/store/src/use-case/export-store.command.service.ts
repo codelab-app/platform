@@ -1,5 +1,5 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
-import type { IStoreAggregate } from '@codelab/shared/abstract/core'
+import type { IStoreExport } from '@codelab/shared/abstract/core'
 import type { ApiAction } from '@codelab/shared/infra/gql'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
@@ -14,7 +14,7 @@ export class ExportStoreCommand {
 
 @CommandHandler(ExportStoreCommand)
 export class ExportStoreHandler
-  implements ICommandHandler<ExportStoreCommand, IStoreAggregate>
+  implements ICommandHandler<ExportStoreCommand, IStoreExport>
 {
   constructor(
     private readonly storeRepository: StoreRepository,

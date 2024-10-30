@@ -1,4 +1,4 @@
-import type { IAtomAggregate } from '@codelab/shared/abstract/core'
+import type { IAtomExport, IAtomImport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportApiCommand } from '@codelab/backend/application/type'
@@ -7,7 +7,7 @@ import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportAtomCommand {
-  constructor(public atomAggregate: IAtomAggregate) {}
+  constructor(public atomImport: IAtomImport) {}
 }
 
 @CommandHandler(ImportAtomCommand)
@@ -22,14 +22,11 @@ export class ImportAtomHandler
 
   async execute(command: ImportAtomCommand) {
     const {
-      atomAggregate: { api, atom },
+      atomImport: { api, atom },
     } = command
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
-    await this.atomRepository.save({
-      ...atom,
-      owner: this.authDomainService.currentUser,
-    })
+    await this.atomRepository.save(atom)
   }
 }

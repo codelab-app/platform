@@ -1,11 +1,12 @@
 import type { IBaseDataPaths } from '@codelab/backend/application/data'
-import type { IAtomAggregate } from '@codelab/shared/abstract/core'
+import type { IAtomExport, IAtomImport } from '@codelab/shared/abstract/core'
 
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { omit } from 'radash'
 
@@ -23,6 +24,7 @@ export class ImportAdminDataHandler
   constructor(
     private readonly commandBus: CommandBus,
     private readonly readAdminDataService: ReadAdminDataService,
+    private readonly authDomainService: AuthDomainService,
   ) {}
 
   async execute({ baseDataPaths }: ImportAdminDataCommand) {
@@ -46,7 +48,7 @@ export class ImportAdminDataHandler
     await this.importComponents()
   }
 
-  private async importAtom(atom: IAtomAggregate) {
+  private async importAtom(atom: IAtomImport) {
     await this.commandBus.execute<ImportAtomCommand>(
       new ImportAtomCommand(atom),
     )
@@ -59,8 +61,6 @@ export class ImportAdminDataHandler
      * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
      */
     for (const { api, atom } of this.readAdminDataService.atoms) {
-      console.log(atom)
-
       const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
 
       await this.importAtom({
@@ -97,7 +97,12 @@ export class ImportAdminDataHandler
     const { tags } = this.readAdminDataService
 
     return this.commandBus.execute<ImportTagsCommand>(
-      new ImportTagsCommand(tags),
+      new ImportTagsCommand(
+        tags.map((tag) => ({
+          ...tag,
+          owner: this.authDomainService.currentUser,
+        })),
+      ),
     )
   }
 }

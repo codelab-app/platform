@@ -41,24 +41,24 @@ import {
 import { RichTextTypeDtoSchema, RichTextTypeSchema } from './rich-text-type'
 import { UnionTypeDtoSchema, UnionTypeSchema } from './union-type'
 
-export const TypeDtoSchema = Type.Union(
+export const TypeExportSchema = Type.Union(
   [
-    ActionTypeDtoSchema,
-    AppTypeDtoSchema,
-    ArrayTypeDtoSchema,
-    CodeMirrorTypeDtoSchema,
-    ElementTypeDtoSchema,
-    EnumTypeDtoSchema,
-    InterfaceTypeDtoSchema,
-    LambdaTypeDtoSchema,
-    PageTypeDtoSchema,
-    PrimitiveTypeDtoSchema,
-    ReactNodeTypeDtoSchema,
-    RenderPropTypeDtoSchema,
-    RichTextTypeDtoSchema,
-    UnionTypeDtoSchema,
+    Type.Omit(ActionTypeDtoSchema, ['owner']),
+    Type.Omit(AppTypeDtoSchema, ['owner']),
+    Type.Omit(ArrayTypeDtoSchema, ['owner']),
+    Type.Omit(CodeMirrorTypeDtoSchema, ['owner']),
+    Type.Omit(ElementTypeDtoSchema, ['owner']),
+    Type.Omit(EnumTypeDtoSchema, ['owner']),
+    Type.Omit(InterfaceTypeDtoSchema, ['owner']),
+    Type.Omit(LambdaTypeDtoSchema, ['owner']),
+    Type.Omit(PageTypeDtoSchema, ['owner']),
+    Type.Omit(PrimitiveTypeDtoSchema, ['owner']),
+    Type.Omit(ReactNodeTypeDtoSchema, ['owner']),
+    Type.Omit(RenderPropTypeDtoSchema, ['owner']),
+    Type.Omit(RichTextTypeDtoSchema, ['owner']),
+    Type.Omit(UnionTypeDtoSchema, ['owner']),
   ],
   { discriminantKey: '__typename', errorMessage: 'Unknown type' },
 )
 
-export type ITypeDto = Static<typeof TypeDtoSchema>
+export type ITypeExport = Static<typeof TypeExportSchema>
