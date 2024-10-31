@@ -1,3 +1,5 @@
+'use client'
+
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon'
 import type { IResourceType } from '@codelab/shared/abstract/core'
 

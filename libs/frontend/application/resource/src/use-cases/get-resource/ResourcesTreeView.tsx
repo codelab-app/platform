@@ -3,24 +3,18 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 
-import {
-  CuiSkeletonWrapper,
-  CuiTree,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
-import { useAsyncFn, useMount } from 'react-use'
 
 import { useResourceService } from '../../services'
 import { ResourcesTreeItem } from './ResourcesTreeItem'
 
 export const ResourcesTreeView = observer(() => {
   const resourceService = useResourceService()
-  const { resourceDomainService } = useDomainStore()
-  const [{ loading }, getResources] = useAsyncFn(() => resourceService.getAll())
 
-  const resourceList: Array<ITreeNode<IResourceNodeData>> =
-    resourceDomainService.resourceList.map((resource) => ({
+  const resourceList: Array<ITreeNode<IResourceNodeData>> = resourceService
+    .getAllFromCache()
+    .map((resource) => ({
       extraData: {
         node: resource,
         type: 'resource',
@@ -30,18 +24,10 @@ export const ResourcesTreeView = observer(() => {
       title: resource.name,
     }))
 
-  useMount(() => {
-    void getResources()
-  })
-
   return (
-    <CuiSkeletonWrapper isLoading={loading}>
-      <CuiTree
-        titleRender={(node) => {
-          return <ResourcesTreeItem data={node} />
-        }}
-        treeData={resourceList}
-      />
-    </CuiSkeletonWrapper>
+    <CuiTree
+      titleRender={(node) => <ResourcesTreeItem data={node} />}
+      treeData={resourceList}
+    />
   )
 })

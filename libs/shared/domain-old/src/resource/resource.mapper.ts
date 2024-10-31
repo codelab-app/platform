@@ -27,7 +27,9 @@ export const resourceMapper: IMapper<
     type,
   }: IResourceDto): ResourceCreateInput => {
     return {
-      config: connectNodeId(config.id),
+      config: {
+        create: { node: propMapper.toCreateInput(config) },
+      },
       id,
       name,
       owner: connectOwner(owner),

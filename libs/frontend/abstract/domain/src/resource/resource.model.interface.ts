@@ -1,14 +1,10 @@
 import type {
+  IRef,
   IResource,
   IResourceClient,
   IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
-import type {
-  DeleteResourcesMutationVariables,
-  ResourceCreateInput,
-  ResourceUpdateInput,
-} from '@codelab/shared/infra/gql'
 
 import type { IPropModel } from '../prop'
 import type { ICacheService } from '../shared'
@@ -21,6 +17,7 @@ export interface IResourceModel
   config: IPropModel
   id: string
   name: string
+  owner: IRef
   type: IResourceType
 }
 
