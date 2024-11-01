@@ -9,7 +9,7 @@ import { ComponentDtoSchema } from './component.dto.interface'
 
 export const ComponentExportSchema = Type.Object({
   api: ApiExportSchema,
-  component: ComponentDtoSchema,
+  component: Type.Omit(ComponentDtoSchema, ['owner']),
   elements: Type.Array(ElementDtoSchema),
   store: StoreExportSchema,
 })

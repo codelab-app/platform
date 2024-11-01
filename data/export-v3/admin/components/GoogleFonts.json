@@ -3294,9 +3294,6 @@
     },
     "id": "417cba0d-a781-485d-82d5-cb3672efe555",
     "name": "Google Fonts",
-    "owner": {
-      "id": "b2af137f-d3f9-41d8-bb27-d5843f93dad1"
-    },
     "props": {
       "data": "{\"fonts\":[]}",
       "id": "7e8d336a-65b3-47cd-9a44-2bb446155210"
@@ -3313,6 +3310,9 @@
       "childMapperComponent": null,
       "childMapperPreviousSibling": null,
       "childMapperPropKey": null,
+      "closestContainerNode": {
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555"
+      },
       "compositeKey": "417cba0d-a781-485d-82d5-cb3672efe555-Google Fonts",
       "firstChild": null,
       "id": "562984ba-3c4a-41df-8375-21dbc750915c",

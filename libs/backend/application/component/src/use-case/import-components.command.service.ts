@@ -29,7 +29,7 @@ export class ImportComponentsHandler
   async execute(command: ImportComponentsCommand) {
     const { api, component, elements, store } = command.componentImport
 
-    console.log('Importing component...', component.name)
+    console.log('Importing component...', component)
 
     await this.propRepository.save(component.props)
 
