@@ -7,7 +7,7 @@ import type {
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
-import { typeRef } from '@codelab/frontend/abstract/domain'
+import { typeRef, userRef } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain-old'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -16,13 +16,14 @@ import { mergeDeep } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, kind, name, typesOfUnionType }: IUnionTypeDto) => {
+const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)
 
   return new UnionType({
     id,
     kind,
     name,
+    owner: userRef(owner.id),
     typesOfUnionType: typesOfUnionType.map((typeOfUnionType) =>
       typeRef(typeOfUnionType.id),
     ),
@@ -70,27 +71,5 @@ export class UnionType
       }),
       ...(context.uniformSchema?.(this) ?? {}),
     }
-  }
-
-  toUpdateInput() {
-    return mergeDeep(
-      {
-        disconnect: {
-          typesOfUnionType: makeAllTypes({
-            where: {
-              node: { id_NOT_IN: this.typesOfUnionType.map(({ id }) => id) },
-            },
-          }),
-        },
-        update: {
-          typesOfUnionType: makeAllTypes({
-            connect: this.typesOfUnionType.map(({ id }) => ({
-              where: { node: { id } },
-            })),
-          }),
-        },
-      },
-      super.toUpdateInput(),
-    )
   }
 }

@@ -27552,6 +27552,7 @@ type BaseType_ActionType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_AppType_Fragment = {
@@ -27559,6 +27560,7 @@ type BaseType_AppType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_ArrayType_Fragment = {
@@ -27566,6 +27568,7 @@ type BaseType_ArrayType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_CodeMirrorType_Fragment = {
@@ -27573,6 +27576,7 @@ type BaseType_CodeMirrorType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_ElementType_Fragment = {
@@ -27580,6 +27584,7 @@ type BaseType_ElementType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_EnumType_Fragment = {
@@ -27587,6 +27592,7 @@ type BaseType_EnumType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_InterfaceType_Fragment = {
@@ -27594,6 +27600,7 @@ type BaseType_InterfaceType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_LambdaType_Fragment = {
@@ -27601,6 +27608,7 @@ type BaseType_LambdaType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_PageType_Fragment = {
@@ -27608,6 +27616,7 @@ type BaseType_PageType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_PrimitiveType_Fragment = {
@@ -27615,6 +27624,7 @@ type BaseType_PrimitiveType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_ReactNodeType_Fragment = {
@@ -27622,6 +27632,7 @@ type BaseType_ReactNodeType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_RenderPropType_Fragment = {
@@ -27629,6 +27640,7 @@ type BaseType_RenderPropType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_RichTextType_Fragment = {
@@ -27636,6 +27648,7 @@ type BaseType_RichTextType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 type BaseType_UnionType_Fragment = {
@@ -27643,6 +27656,7 @@ type BaseType_UnionType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  owner: { id: string }
 }
 
 export type BaseTypeFragment =
@@ -29242,6 +29256,9 @@ export const BaseTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }
     `,
   { fragmentName: 'BaseType' },
@@ -29256,6 +29273,9 @@ export const ActionTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ActionType' },
 ) as unknown as TypedDocumentString<ActionTypeFragment, unknown>
@@ -29269,6 +29289,9 @@ export const AppTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'AppType' },
 ) as unknown as TypedDocumentString<AppTypeFragment, unknown>
@@ -29289,6 +29312,9 @@ export const ArrayTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ArrayType' },
 ) as unknown as TypedDocumentString<ArrayTypeFragment, unknown>
@@ -29303,6 +29329,9 @@ export const CodeMirrorTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'CodeMirrorType' },
 ) as unknown as TypedDocumentString<CodeMirrorTypeFragment, unknown>
@@ -29317,6 +29346,9 @@ export const ElementTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ElementType' },
 ) as unknown as TypedDocumentString<ElementTypeFragment, unknown>
@@ -29343,6 +29375,9 @@ export const EnumTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment EnumTypeValue on EnumTypeValue {
   id
@@ -29396,6 +29431,9 @@ export const InterfaceTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -29436,6 +29474,9 @@ export const LambdaTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'LambdaType' },
 ) as unknown as TypedDocumentString<LambdaTypeFragment, unknown>
@@ -29449,6 +29490,9 @@ export const PageTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'PageType' },
 ) as unknown as TypedDocumentString<PageTypeFragment, unknown>
@@ -29463,6 +29507,9 @@ export const PrimitiveTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'PrimitiveType' },
 ) as unknown as TypedDocumentString<PrimitiveTypeFragment, unknown>
@@ -29476,6 +29523,9 @@ export const ReactNodeTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'ReactNodeType' },
 ) as unknown as TypedDocumentString<ReactNodeTypeFragment, unknown>
@@ -29489,6 +29539,9 @@ export const RenderPropTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'RenderPropType' },
 ) as unknown as TypedDocumentString<RenderPropTypeFragment, unknown>
@@ -29502,6 +29555,9 @@ export const RichTextTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'RichTextType' },
 ) as unknown as TypedDocumentString<RichTextTypeFragment, unknown>
@@ -29520,6 +29576,9 @@ export const UnionTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  owner {
+    id
+  }
 }`,
   { fragmentName: 'UnionType' },
 ) as unknown as TypedDocumentString<UnionTypeFragment, unknown>
@@ -29562,6 +29621,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -29733,6 +29795,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -29903,6 +29968,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -30227,6 +30295,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -30481,6 +30552,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -30821,6 +30895,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -31140,6 +31217,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -31469,6 +31549,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -31701,6 +31784,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -31990,6 +32076,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -32290,6 +32379,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -32448,6 +32540,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -32609,6 +32704,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -32867,6 +32965,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -33057,6 +33158,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -33621,6 +33725,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -34066,6 +34173,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -34377,6 +34487,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -34818,6 +34931,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -35056,6 +35172,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -35324,6 +35443,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -35718,6 +35840,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -36036,6 +36161,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -36574,6 +36702,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {
@@ -37131,6 +37262,9 @@ export const GetBaseTypesDocument = new TypedDocumentString(`
   id
   kind
   name
+  owner {
+    id
+  }
 }`) as unknown as TypedDocumentString<
   GetBaseTypesQuery,
   GetBaseTypesQueryVariables
@@ -37201,6 +37335,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37340,6 +37477,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37466,6 +37606,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37592,6 +37735,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37718,6 +37864,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37844,6 +37993,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37970,6 +38122,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38080,6 +38235,9 @@ export const GetReactNodeTypesDocument = new TypedDocumentString(`
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment ReactNodeType on ReactNodeType {
   ...BaseType
@@ -38098,6 +38256,9 @@ export const GetRichTextTypesDocument = new TypedDocumentString(`
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment RichTextType on RichTextType {
   ...BaseType
@@ -38132,6 +38293,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38258,6 +38422,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38384,6 +38551,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38510,6 +38680,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38636,6 +38809,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38762,6 +38938,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -39365,6 +39544,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }
 fragment Field on Field {
   api {

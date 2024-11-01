@@ -5,7 +5,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type {
   IAppDto,
-  IElementCreateDto,
   IElementDto,
   IElementRenderTypeDto,
   IInterfaceTypeDto,
@@ -53,14 +52,17 @@ export class PageDomainFactory implements IPageDomainFactory {
     { id, kind, name, urlPattern }: IPageCreateFormData,
     renderType: IElementRenderTypeDto,
   ) {
-    const userName = this.owner.username
+    const owner = this.owner
 
     const pageStoreApi: IInterfaceTypeDto = {
       __typename: 'InterfaceType',
       fields: [],
       id: v4(),
       kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${app.name}(${userName}) ${name} Store`),
+      name: InterfaceType.createName(
+        `${app.name}(${owner.username}) ${name} Store`,
+      ),
+      owner,
     }
 
     const pageStore: IStoreDto = {

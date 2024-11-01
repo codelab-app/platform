@@ -49,6 +49,7 @@ export const elementSchema = gql`
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
     # This is a custom field resolver
     descendantElements: [Element!]!
+    # Pre-compute to savetime during rendering
     closestContainerNode: ContainerNode!
     dependantTypes: [AnyType!]! @customResolver(requires: "id")
     expanded: Boolean

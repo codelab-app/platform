@@ -6,6 +6,7 @@ import type {
   ITypeCreateInput,
   ITypeDeleteInput,
   ITypeUpdateInput,
+  ITypeUpdateVars,
 } from './type.input.interface'
 
 import { connectNodeId, connectOwner } from '../orm'
@@ -14,19 +15,15 @@ import { makeAllTypes } from './type-input.factory'
 export const typeMapper: IMapper<
   ITypeDto,
   ITypeCreateInput,
-  ITypeUpdateInput,
+  ITypeUpdateVars,
   ITypeDeleteInput
 > = {
-  toCreateInput: (
-    dto: ITypeDto,
-    owner: IUserDto,
-    ...args: Array<unknown>
-  ): ITypeCreateInput => {
+  toCreateInput: (dto: ITypeDto): ITypeCreateInput => {
     const baseType = {
       id: dto.id,
       kind: dto.kind,
       name: dto.name,
-      owner: connectOwner(owner),
+      owner: connectOwner(dto.owner),
     }
 
     switch (dto.__typename) {
@@ -121,7 +118,120 @@ export const typeMapper: IMapper<
     }
   },
 
-  toUpdateInput: (dto: ITypeDto): ITypeUpdateInput => {
-    return {}
+  /**
+   * Where is mapped in later
+   */
+  toUpdateInput: (dto: ITypeDto): ITypeUpdateVars => {
+    const baseType = {
+      id: dto.id,
+      kind: dto.kind,
+      name: dto.name,
+      owner: connectOwner(dto.owner),
+    }
+
+    switch (dto.__typename) {
+      case ITypeKind.ActionType:
+      case ITypeKind.AppType:
+      case ITypeKind.InterfaceType:
+      case ITypeKind.LambdaType:
+      case ITypeKind.PageType:
+      case ITypeKind.ReactNodeType:
+      case ITypeKind.RenderPropType:
+      case ITypeKind.RichTextType:
+        return {
+          update: baseType,
+        }
+      case ITypeKind.UnionType:
+        return {
+          disconnect: {
+            typesOfUnionType: makeAllTypes({
+              where: {
+                node: { id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id) },
+              },
+            }),
+          },
+          update: {
+            typesOfUnionType: makeAllTypes({
+              connect: dto.typesOfUnionType.map(({ id }) => ({
+                where: { node: { id } },
+              })),
+            }),
+          },
+        }
+      case ITypeKind.PrimitiveType:
+        return {
+          update: {
+            primitiveKind: dto.primitiveKind,
+          },
+        }
+      case ITypeKind.ElementType:
+        return {
+          update: {
+            ...baseType,
+            elementKind: dto.elementKind,
+          },
+        }
+      case ITypeKind.CodeMirrorType:
+        return {
+          update: {
+            ...baseType,
+            language: dto.language,
+          },
+        }
+      case ITypeKind.ArrayType:
+        return {
+          disconnect: dto.itemType?.id
+            ? {
+                itemType: {
+                  where: {
+                    NOT: {
+                      node: {
+                        id: dto.itemType.id,
+                      },
+                    },
+                  },
+                },
+              }
+            : undefined,
+          update: dto.itemType?.id
+            ? {
+                itemType: connectNodeId(dto.itemType.id),
+              }
+            : undefined,
+        }
+      case ITypeKind.EnumType:
+        return {
+          // For some reason if the disconnect and delete are in the update section it throws an error
+          delete: {
+            allowedValues: [
+              {
+                where: {
+                  node: {
+                    NOT: {
+                      id_IN: dto.allowedValues.map((av) => av.id),
+                    },
+                  },
+                },
+              },
+            ],
+          },
+          update: {
+            allowedValues: [
+              {
+                create: dto.allowedValues.map((value) => ({
+                  node: {
+                    id: value.id,
+                    key: value.key,
+                    value: value.value,
+                  },
+                })),
+              },
+            ],
+          },
+        }
+
+      default:
+        throw new Error('Unsupported type kind')
+    }
   },
 }

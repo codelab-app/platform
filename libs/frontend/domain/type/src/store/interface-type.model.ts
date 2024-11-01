@@ -4,10 +4,13 @@ import type {
   ITypeTransformContext,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type {
+  IInterfaceTypeCreateDto,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
-import { fieldRef } from '@codelab/frontend/abstract/domain'
+import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'
 import {
   assertIsTypeKind,
   IInterfaceTypeDto,
@@ -32,15 +35,16 @@ import { createBaseType } from './base-type.model'
 const create = ({
   fields,
   id,
-  kind,
   name,
-}: IInterfaceTypeDto): InterfaceType => {
-  assertIsTypeKind(kind, ITypeKind.InterfaceType)
+  owner,
+}: IInterfaceTypeCreateDto): InterfaceType => {
+  // assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({
     id,
-    kind,
+    kind: ITypeKind.InterfaceType,
     name,
+    owner: userRef(owner.id),
   })
 
   interfaceType.writeFieldCache(fields)

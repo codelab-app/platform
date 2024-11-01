@@ -1,10 +1,11 @@
-import type {
-  IPrimitiveTypeModel,
-  ITypeTransformContext,
-  JsonSchema,
-} from '@codelab/frontend/abstract/domain'
 import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
 
+import {
+  type IPrimitiveTypeModel,
+  type ITypeTransformContext,
+  type JsonSchema,
+  userRef,
+} from '@codelab/frontend/abstract/domain'
 import {
   assertIsTypeKind,
   IPrimitiveTypeKind,
@@ -23,13 +24,20 @@ export const primitives = {
   [PrimitiveTypeKind.String]: 'string' as const,
 }
 
-const create = ({ id, kind, name, primitiveKind }: IPrimitiveTypeDto) => {
+const create = ({
+  id,
+  kind,
+  name,
+  owner,
+  primitiveKind,
+}: IPrimitiveTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.PrimitiveType)
 
   return new PrimitiveType({
     id,
     kind,
     name,
+    owner: userRef(owner.id),
     primitiveKind,
   })
 }
@@ -76,16 +84,5 @@ export class PrimitiveType
       ...(uniformSchema?.(this) ?? {}),
       type: primitives[this.primitiveKind],
     }
-  }
-
-  toUpdateInput() {
-    return mergeDeep(
-      {
-        update: {
-          primitiveKind: this.primitiveKind,
-        },
-      },
-      super.toUpdateInput(),
-    )
   }
 }

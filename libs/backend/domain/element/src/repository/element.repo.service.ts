@@ -3,7 +3,6 @@ import type {
   ElementOptions,
   ElementWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { IElementCreateDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
@@ -14,12 +13,13 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
+import { IElementDto } from '@codelab/shared/abstract/core'
 import { elementMapper } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ElementRepository extends AbstractRepository<
-  IElementCreateDto,
+  IElementDto,
   Element,
   ElementWhere,
   ElementOptions
@@ -42,7 +42,7 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(elements: Array<IElementCreateDto>) {
+  protected async _addMany(elements: Array<IElementDto>) {
     return (
       await this.ogmService.Element.create({
         input: elements.map((element) => elementMapper.toCreateInput(element)),
@@ -66,7 +66,7 @@ export class ElementRepository extends AbstractRepository<
     })
   }
 
-  protected async _update(element: IElementCreateDto, where: ElementWhere) {
+  protected async _update(element: IElementDto, where: ElementWhere) {
     return (
       await (
         await this.ogmService.Element

@@ -28,6 +28,8 @@ import type { IReactNodeTypeModel } from './react-node-type.model.interface'
 import type { IRenderPropTypeModel } from './render-prop-type.model.interface'
 import type { IRichTextTypeModel } from './rich-text-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
+import { Ref } from 'mobx-keystone'
+import { IUserModel } from '../../user'
 
 export interface JsonSchema extends JSONSchema7 {
   autocomplete?: IPropData
@@ -60,6 +62,7 @@ export interface IBaseTypeModel<
   __typename: `${ITypeKind}`
   kind: ITypeKind
   name: string
+  owner: Ref<IUserModel>
   toJsonSchema(context: ITypeTransformContext): JsonSchema
 }
 

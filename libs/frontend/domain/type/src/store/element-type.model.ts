@@ -1,13 +1,14 @@
 import type {
-  IElementTypeModel,
-  ITypeTransformContext,
-  JsonSchema,
-} from '@codelab/frontend/abstract/domain'
-import type {
   IElementTypeDto,
   IElementTypeKind,
 } from '@codelab/shared/abstract/core'
 
+import {
+  type IElementTypeModel,
+  type ITypeTransformContext,
+  type JsonSchema,
+  userRef,
+} from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
@@ -15,7 +16,7 @@ import { mergeDeep } from 'remeda'
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
-const create = ({ elementKind, id, kind, name }: IElementTypeDto) => {
+const create = ({ elementKind, id, kind, name, owner }: IElementTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.ElementType)
 
   return new ElementType({
@@ -23,6 +24,7 @@ const create = ({ elementKind, id, kind, name }: IElementTypeDto) => {
     id,
     kind,
     name,
+    owner: userRef(owner.id),
   })
 }
 
@@ -46,17 +48,5 @@ export class ElementType
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
-  }
-
-  toUpdateInput() {
-    return mergeDeep(
-      {
-        ...super.toUpdateInput(),
-        update: {
-          elementKind: this.elementKind,
-        },
-      },
-      super.toUpdateInput(),
-    )
   }
 }

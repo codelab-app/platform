@@ -5,6 +5,7 @@ import type {
 import type {
   IArrayTypeDto,
   IInterfaceTypeDto,
+  IRef,
   ITypeDto,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
@@ -77,13 +78,14 @@ export class TypeFactory {
     }
   }
 
-  static mapDataToDTO(data: ITypeCreateFormData): ITypeDto {
+  static mapDataToDto(data: ITypeCreateFormData, owner: IRef): ITypeDto {
     switch (data.kind) {
       case ITypeKind.InterfaceType:
         return {
           ...data,
           __typename: data.kind,
           fields: [],
+          owner,
         } as IInterfaceTypeDto
 
       case ITypeKind.ArrayType:

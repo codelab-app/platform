@@ -4,6 +4,7 @@ import type {
   IInterfaceTypeDto,
   IPageCreateFormData,
   IPropDto,
+  IRef,
   IStoreDto,
   IUserDto,
 } from '@codelab/shared/abstract/core'
@@ -20,6 +21,7 @@ import { v4 } from 'uuid'
 export const createPageFactory = async (
   data: IPageCreateFormData,
   defaultRenderType: IElementRenderTypeDto,
+  owner: IRef,
 ) => {
   const { app, id, name, urlPattern } = data
 
@@ -44,6 +46,7 @@ export const createPageFactory = async (
     id: v4(),
     kind: ITypeKind.InterfaceType,
     name: InterfaceType.createName(`${name} Store`),
+    owner,
   }
 
   const store: IStoreDto = {

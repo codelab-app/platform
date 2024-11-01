@@ -1,4 +1,4 @@
-import type { IElementCreateDto, IMapper } from '@codelab/shared/abstract/core'
+import type { IElementDto, IMapper } from '@codelab/shared/abstract/core'
 import type {
   ElementCreateInput,
   ElementDeleteInput,
@@ -10,7 +10,7 @@ import { propMapper } from '../prop'
 import { ElementProperties } from './element.properties'
 
 export const elementMapper: IMapper<
-  IElementCreateDto,
+  IElementDto,
   ElementCreateInput,
   ElementUpdateInput,
   ElementDeleteInput
@@ -36,7 +36,7 @@ export const elementMapper: IMapper<
     renderType,
     style,
     tailwindClassNames,
-  }: IElementCreateDto): ElementCreateInput => {
+  }: IElementDto): ElementCreateInput => {
     return {
       childMapperComponent: connectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: connectNodeId(childMapperPreviousSibling?.id),
@@ -91,7 +91,7 @@ export const elementMapper: IMapper<
     renderType,
     style,
     tailwindClassNames,
-  }: IElementCreateDto): ElementUpdateInput => {
+  }: IElementDto): ElementUpdateInput => {
     // We need to disconnect the component if render type changed to atom or empty
 
     return {

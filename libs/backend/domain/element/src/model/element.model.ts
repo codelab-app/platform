@@ -1,5 +1,4 @@
 import type {
-  IElementCreateDto,
   IElementDto,
   IElementRenderTypeDto,
   IPropDto,
@@ -55,7 +54,7 @@ export class Element implements IElementDto {
     name,
     props,
     renderType,
-  }: IElementCreateDto) {
+  }: IElementDto) {
     this.id = id
     this.props = props
     this.expanded = expanded

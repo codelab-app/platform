@@ -113,7 +113,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
       const componentImport: IComponentImport = {
         api: apiImport,
-        component,
+        component: { ...component, owner },
         elements,
         store: {
           api: {

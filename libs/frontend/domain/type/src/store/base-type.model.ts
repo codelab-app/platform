@@ -4,6 +4,7 @@ import {
   getUserDomainService,
   type IBaseTypeModel,
   ITypeTransformContext,
+  IUserModel,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -12,7 +13,7 @@ import {
   ITypeUpdateVars,
 } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
   @model(`@codelab/BaseType${typeKind}`)
@@ -22,6 +23,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       id: idProp,
       kind: prop<T>(() => typeKind),
       name: prop<string>(),
+      owner: prop<Ref<IUserModel>>(),
     })
     implements IBaseTypeModel<IBaseTypeDto, ITypeCreateInput, ITypeUpdateVars>
   {
@@ -32,6 +34,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
         id: this.id,
         kind: this.kind,
         name: this.name,
+        owner: this.owner,
       }
     }
 
@@ -47,26 +50,12 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
         id: this.id,
         kind: this.kind,
         name: this.name,
-        owner: connectOwner(this.userDomainService.user),
+        owner: this.owner,
       }
     }
 
     toJsonSchema(context: ITypeTransformContext): JsonSchema {
       return {}
-    }
-
-    toUpdateInput() {
-      return {
-        update: {
-          name: this.name,
-        },
-        where: { id: this.id },
-      }
-    }
-
-    @computed
-    private get userDomainService() {
-      return getUserDomainService(this)
     }
   }
 

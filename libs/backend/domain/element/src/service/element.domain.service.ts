@@ -1,4 +1,4 @@
-import type { IElementCreateDto } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 
 import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -15,7 +15,7 @@ export class ElementDomainService {
   ) {}
 
   async createRootElement(
-    dto: Omit<IElementCreateDto, 'name' | 'props' | 'renderType'>,
+    dto: Omit<IElementDto, 'name' | 'props' | 'renderType'>,
   ) {
     return this.elementRepository.add({
       ...dto,
