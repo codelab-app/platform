@@ -13,10 +13,10 @@ export const AppDtoSchema = Type.Composite([
    */
   OwnerSchema,
   Type.Object({
-    domains: Type.Optional(Type.Array(DomainDtoSchema)),
+    domains: Type.Optional(Type.Array(Typebox.Ref)),
     id: Type.String(),
     name: Type.String(),
-    pages: Type.Optional(Type.Array(PageDtoSchema)),
+    pages: Type.Optional(Type.Array(Typebox.Ref)),
   }),
 ])
 

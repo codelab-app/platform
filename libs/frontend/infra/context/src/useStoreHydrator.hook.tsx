@@ -8,20 +8,7 @@ import { useCallback, useEffect, useState } from 'react'
 /**
  * A previous version of this called the hydrate synchronously without useEffect, but this causes delay and doesn't render immediately
  */
-export const useHydrateStore = ({
-  actionsDto,
-  appsDto,
-  atomsDto,
-  authGuardsDto,
-  componentsDto,
-  elementsDto,
-  fieldsDto,
-  pagesDto,
-  redirectsDto,
-  resourcesDto,
-  storesDto,
-  typesDto,
-}: IDomainStoreDto) => {
+export const useHydrateStore = () => {
   const {
     actionDomainService,
     appDomainService,
@@ -35,102 +22,87 @@ export const useHydrateStore = ({
     redirectDomainService,
     resourceDomainService,
     storeDomainService,
+    tagDomainService,
     typeDomainService,
   } = useDomainStore()
 
-  const [isHydrated, setIsHydrated] = useState(false)
-
-  useEffect(() => {
-    hydrate()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    actionsDto,
-    appsDto,
-    atomsDto,
-    authGuardsDto,
-    componentsDto,
-    elementsDto,
-    fieldsDto,
-    pagesDto,
-    redirectsDto,
-    resourcesDto,
-    storesDto,
-    typesDto,
-  ])
-
-  const hydrate = useCallback(() => {
-    appsDto?.forEach((app) => {
-      appDomainService.hydrate(app)
-      app.pages?.forEach((page) => {
-        pageDomainService.hydrate(page)
+  const hydrate = useCallback(
+    ({
+      actionsDto,
+      appsDto,
+      atomsDto,
+      authGuardsDto,
+      componentsDto,
+      domainsDto,
+      elementsDto,
+      fieldsDto,
+      pagesDto,
+      redirectsDto,
+      resourcesDto,
+      storesDto,
+      tagsDto,
+      typesDto,
+    }: IDomainStoreDto) => {
+      appsDto?.forEach((app) => {
+        appDomainService.hydrate(app)
       })
-      app.domains?.forEach((domain) => {
+
+      domainsDto?.forEach((domain) => {
         domainDomainService.hydrate(domain)
       })
-    })
 
-    atomsDto?.forEach((atom) => {
-      atomDomainService.hydrate(atom)
-    })
+      atomsDto?.forEach((atom) => {
+        atomDomainService.hydrate(atom)
+      })
 
-    typesDto?.forEach((type) => {
-      typeDomainService.hydrate(type)
-    })
+      typesDto?.forEach((type) => {
+        typeDomainService.hydrate(type)
+      })
 
-    fieldsDto?.forEach((field) => {
-      fieldDomainService.hydrate(field)
-    })
+      fieldsDto?.forEach((field) => {
+        fieldDomainService.hydrate(field)
+      })
 
-    elementsDto?.forEach((element) => {
-      elementDomainService.hydrate(element)
-    })
+      elementsDto?.forEach((element) => {
+        elementDomainService.hydrate(element)
+      })
 
-    componentsDto?.forEach((component) => {
-      componentDomainService.hydrate(component)
-    })
+      componentsDto?.forEach((component) => {
+        componentDomainService.hydrate(component)
+      })
 
-    storesDto?.forEach((store) => {
-      storeDomainService.hydrate(store)
-    })
+      tagsDto?.forEach((tag) => {
+        tagDomainService.hydrate(tag)
+      })
 
-    actionsDto?.forEach((action) => {
-      actionDomainService.hydrate(action)
-    })
+      storesDto?.forEach((store) => {
+        storeDomainService.hydrate(store)
+      })
 
-    resourcesDto?.forEach((resource) => {
-      resourceDomainService.hydrate(resource)
-    })
+      actionsDto?.forEach((action) => {
+        actionDomainService.hydrate(action)
+      })
 
-    authGuardsDto?.forEach((authGuard) => {
-      authGuardDomainService.hydrate(authGuard)
-    })
+      resourcesDto?.forEach((resource) => {
+        resourceDomainService.hydrate(resource)
+      })
 
-    redirectsDto?.forEach((redirect) => {
-      redirectDomainService.hydrate(redirect)
-    })
+      authGuardsDto?.forEach((authGuard) => {
+        authGuardDomainService.hydrate(authGuard)
+      })
 
-    pagesDto?.forEach((page) => {
-      pageDomainService.hydrate(page)
-    })
+      redirectsDto?.forEach((redirect) => {
+        redirectDomainService.hydrate(redirect)
+      })
 
-    setIsHydrated(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    actionsDto,
-    appsDto,
-    atomsDto,
-    authGuardsDto,
-    componentsDto,
-    elementsDto,
-    fieldsDto,
-    pagesDto,
-    redirectsDto,
-    resourcesDto,
-    storesDto,
-    typesDto,
-  ])
+      pagesDto?.forEach((page) => {
+        pageDomainService.hydrate(page)
+      })
 
-  return {
-    apps: appDomainService.appsList,
-  }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [],
+  )
+
+  return hydrate
 }

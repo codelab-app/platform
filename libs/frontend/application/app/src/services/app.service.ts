@@ -11,6 +11,7 @@ import type {
 import type { AppWhere } from '@codelab/shared/infra/gql'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
+import { useHydrateStore } from '@codelab/frontend/infra/context'
 import { usePageService } from '@codelab/frontend-application-page/services'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import {
@@ -27,9 +28,10 @@ import {
 import { Validator } from '@codelab/shared/infra/schema'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 import { computed, type IComputedValueOptions } from 'mobx'
-import { type DependencyList, useMemo } from 'react'
+import { type DependencyList, use, useMemo } from 'react'
 
 import { createAppAction } from '../use-cases/create-app'
+import { AppFactory } from './app.factory'
 
 export const useAppService = (): IAppService => {
   const {
@@ -41,31 +43,27 @@ export const useAppService = (): IAppService => {
 
   const pageService = usePageService()
   const undoManager = useUndoManager()
-  const pageFactory = new PageDomainFactory(userDomainService.user)
-  const user = userDomainService.user
-  const owner = { id: user.id }
+  const pageFactory = new PageDomainFactory(userDomainService.user.toJson)
+  const user = userDomainService.user.toJson
+  const owner = user
+  const appFactory = new AppFactory(pageFactory)
+  const defaultRenderType = atomDomainService.defaultRenderType
+  const hydrate = useHydrateStore()
 
-  const create = async ({ id, name }: IAppCreateFormData) => {
+  const create = async (data: IAppCreateFormData) => {
     try {
-      const renderType = atomDomainService.defaultRenderType
+      const appAggregate = appFactory.create(data, defaultRenderType, owner)
 
-      const pages = pageFactory.addSystemPages(
-        { id, name },
-        { __typename: renderType.__typename, id: renderType.id },
-      )
+      hydrate(appAggregate)
 
-      const app = await createAppAction(
-        { id, name, owner, pages },
-        pages.flatMap((page) => page.rootElement),
-        pages.flatMap((page) => page.store),
-        pages.flatMap((page) => page.storeApi),
-      )
+      const app = await createAppAction(appAggregate)
 
       Validator.assertsDefined(app)
 
       return app
     } catch (error) {
-      undoManager.undo()
+      console.log(error)
+      // undoManager.undo()
 
       throw error
     } finally {
@@ -178,7 +176,8 @@ export const useAppService = (): IAppService => {
     })
 
     for (const domain of domains) {
-      const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)
+      const pages =
+        pagesUrls ?? app.pages.map((page) => page.current.urlPattern)
 
       await regeneratePages(pages, domain.name)
     }

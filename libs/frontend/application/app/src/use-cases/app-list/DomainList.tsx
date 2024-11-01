@@ -16,7 +16,7 @@ export const DomainList = ({ app }: DomainListProps) => {
   return (
     <>
       {domains.map((domain) => (
-        <DomainListItem domain={domain} key={domain.id} />
+        <DomainListItem domain={domain.current} key={domain.id} />
       ))}
     </>
   )

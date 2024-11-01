@@ -4,6 +4,7 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
 
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
@@ -17,10 +18,9 @@ import type { IModel } from '../shared/models/model.interface'
 export interface IAppModel
   extends IModel<IApp>,
     ICacheService<IAppDto, IAppModel> {
-  domains: Array<IDomainModel>
+  domains: Array<Ref<IDomainModel>>
   name: string
-  // pageRootElements: Array<Ref<IElementModel>>
-  pages: Array<IPageModel>
+  pages: Array<Ref<IPageModel>>
   /**
    * The `_app.tsx` equivalent of pages
    */

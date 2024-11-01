@@ -1,8 +1,20 @@
 import type {
+  IActionDto,
   IAppDto,
+  IAtomDto,
+  IAuthGuardDto,
   IComponentDto,
+  IDomainDto,
+  IElementDto,
+  IFieldDto,
   IPageDto,
+  IPropDto,
+  IRedirectDto,
   IRef,
+  IResourceDto,
+  IStoreDto,
+  ITagDto,
+  ITypeDto,
 } from '@codelab/shared/abstract/core'
 import type {
   AtomBuilderFragment,
@@ -36,22 +48,21 @@ export interface IHydrateable<Dto, Model> {
 }
 
 export interface IDomainStoreDto {
-  actionsDto?: StoreFragment['actions']
+  actionsDto?: Array<IActionDto>
   appsDto?: Array<IAppDto>
-  atomsDto?: Array<AtomBuilderFragment>
-  authGuardsDto?: Array<AuthGuardFragment>
-  componentsDto?: Array<ComponentBuilderFragment | IComponentDto>
-  elementsDto?: Array<
-    ElementFragment & { closestContainerNode: { id: string } }
-  >
-  fieldsDto?: Array<FieldFragment>
-  // pages?: Array<PageDevelopmentFragment>
+  atomsDto?: Array<IAtomDto>
+  authGuardsDto?: Array<IAuthGuardDto>
+  componentsDto?: Array<IComponentDto>
+  domainsDto?: Array<IDomainDto>
+  elementsDto?: Array<IElementDto>
+  fieldsDto?: Array<IFieldDto>
   pagesDto?: Array<IPageDto>
-  propsDto?: Array<PropFragment>
-  redirectsDto?: Array<RedirectFragment>
-  resourcesDto?: Array<ResourceFragment>
-  storesDto?: Array<StoreFragment & { component?: IRef; page?: IRef }>
-  typesDto?: Array<TypeFragment>
+  propsDto?: Array<IPropDto>
+  redirectsDto?: Array<IRedirectDto>
+  resourcesDto?: Array<IResourceDto>
+  storesDto?: Array<IStoreDto>
+  tagsDto?: Array<ITagDto>
+  typesDto?: Array<ITypeDto>
 }
 
 export interface IDomainStoreModel {
@@ -65,8 +76,6 @@ export interface IDomainStoreModel {
   elements: Array<IElementModel>
   fields: Array<IFieldModel>
   pages: Array<IPageModel>
-
-  // props: Array<IPropModel>
   redirects: Array<IRedirectModel>
   resources: Array<IResourceModel>
   stores: Array<IStoreModel>

@@ -14,15 +14,17 @@ interface PageListProps {
 }
 
 export const PageList = observer(({ app }: PageListProps) => {
-  const treeData: Array<ITreeNode<IPageNodeData>> = app.pages.map((page) => ({
-    extraData: {
-      node: page,
-      type: 'page',
-    },
-    key: page.slug,
-    primaryTitle: page.name,
-    title: page.slug,
-  }))
+  const treeData: Array<ITreeNode<IPageNodeData>> = app.pages
+    .map((page) => page.current)
+    .map((page) => ({
+      extraData: {
+        node: page,
+        type: 'page',
+      },
+      key: page.slug,
+      primaryTitle: page.name,
+      title: page.slug,
+    }))
 
   return (
     <CuiTree

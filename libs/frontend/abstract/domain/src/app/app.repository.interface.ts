@@ -4,11 +4,12 @@ import type {
   AppDeleteInput,
   AppFragment,
   AppOptions,
+  AppPreviewFragment,
   AppUpdateInput,
   AppWhere,
 } from '@codelab/shared/infra/gql'
 
-import type { IRepository } from '../shared'
+import type { IFindResults, IRepository } from '../shared'
 import type { IAppModel } from './app.model.interface'
 
 export type IAppRepository = IRepository<
@@ -16,4 +17,9 @@ export type IAppRepository = IRepository<
   AppFragment,
   AppWhere,
   AppOptions
->
+> & {
+  findPreview(
+    where: AppWhere,
+    options?: AppOptions,
+  ): Promise<IFindResults<AppPreviewFragment>>
+}

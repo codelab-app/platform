@@ -24,10 +24,10 @@ import {
 } from './type.api'
 
 export const typeRepository: ITypeRepository = {
-  add: async (input: ITypeDto, owner: IRef) => {
+  add: async (input: ITypeDto) => {
     Validator.assertsDefined(input.kind)
 
-    const data = typeMapper.toCreateInput(input, owner)
+    const data = typeMapper.toCreateInput(input)
     const createdTypes = await createTypeApi[input.kind]([data])
 
     Validator.assertsDefined(createdTypes[0])

@@ -54,7 +54,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const menuItems: MenuProps['items'] = [
     {
       disabled: !app.domains.some(
-        (domain) => !domain.domainConfig?.misconfigured,
+        (domain) => !domain.current.domainConfig?.misconfigured,
       ),
       icon: <ToolOutlined style={menuItemIconStyle} />,
       key: 'build',

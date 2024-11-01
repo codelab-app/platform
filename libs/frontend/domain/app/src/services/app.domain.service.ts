@@ -30,18 +30,11 @@ export class AppDomainService
 
   @modelAction
   hydrate = ({ domains, id, name, owner }: IAppDto) => {
-    const app =
-      this.apps.get(id) ??
-      App.create({
-        domains,
-        id,
-        name,
-        owner,
-      })
-
-    app.writeCache({
+    const app = App.create({
       domains,
+      id,
       name,
+      owner,
     })
 
     this.apps.set(app.id, app)
@@ -51,35 +44,5 @@ export class AppDomainService
 
   app(id: string) {
     return this.apps.get(id)
-  }
-
-  @computed
-  private get atomDomainService() {
-    return getAtomDomainService(this)
-  }
-
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
-  }
-
-  @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
-  }
-
-  @computed
-  private get typeDomainService() {
-    return getTypeDomainService(this)
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }

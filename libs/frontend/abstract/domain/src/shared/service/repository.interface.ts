@@ -17,13 +17,15 @@ export interface IRepository<
 > {
   add(dto: Dto, ...args: Array<unknown>): Promise<IRef>
   delete(where: Array<IRef>): Promise<number>
-  find(
-    where?: Where,
-    options?: Option,
-  ): Promise<{ items: Array<ModelFragment>; aggregate: { count: number } }>
+  find(where?: Where, options?: Option): Promise<IFindResults<ModelFragment>>
   findOne(where: Where): Promise<ModelFragment | undefined>
   /**
    * Considered using only dto, but for backend sometimes we upsert by name
    */
   update(where: IRef, dto: Partial<Dto>): Promise<IRef>
+}
+
+export interface IFindResults<ModelFragment> {
+  aggregate: { count: number }
+  items: Array<ModelFragment>
 }

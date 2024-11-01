@@ -24,6 +24,7 @@ import { revalidateTag } from 'next/cache'
 import { App } from '../store'
 import {
   AppList,
+  AppListPreview,
   CreateApps,
   DeleteApps,
   UpdateApps,
@@ -69,6 +70,16 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
 
   findOne: async (where: AppUniqueWhere) => {
     return (await appRepository.find(where)).items[0]
+  },
+
+  findPreview: async (where?: AppWhere, options?: AppOptions) => {
+    return await AppListPreview(
+      {
+        options,
+        where,
+      },
+      { tags: [CACHE_TAGS.APP_LIST] },
+    )
   },
 
   update: async ({ id }: IRef, input: IAppDto) => {

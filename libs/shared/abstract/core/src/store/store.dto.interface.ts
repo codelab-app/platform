@@ -7,7 +7,7 @@ import { ActionDtoSchema, ActionSchema } from '../action'
 import { InterfaceTypeCreateDtoSchema } from '../type'
 
 export const StoreDtoSchema = Type.Object({
-  actions: Type.Optional(Type.Array(ActionDtoSchema)),
+  actions: Type.Optional(Type.Array(Typebox.Ref)),
   api: Typebox.Ref,
   component: Typebox.Nullish(Typebox.Ref),
   id: Type.String(),

@@ -16,7 +16,6 @@ export interface ITypeRepository
     IBaseTypeWhere,
     IBaseTypeOptions
   > {
-  add(dto: ITypeDto, owner: IRef): Promise<IRef>
   findBaseTypes(options: GetBaseTypesOptions): Promise<{
     items: Array<BaseTypeFragment>
     totalCount: number

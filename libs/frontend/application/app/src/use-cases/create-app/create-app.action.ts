@@ -13,22 +13,18 @@ import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 
-export const createAppAction = async (
-  appDto: IAppDto,
-  elements: Array<IElementDto>,
-  stores: Array<IStoreDto>,
-  storeApis: Array<IInterfaceTypeDto>,
-) => {
-  const { owner, pages } = appDto
-  const app = await appRepository.add(appDto)
+import type { IAppAggregate } from '../../services/app.factory'
 
-  await Promise.all(elements.map((element) => elementRepository.add(element)))
-  await Promise.all(storeApis.map((api) => typeRepository.add(api, owner)))
-  await Promise.all(stores.map((store) => storeRepository.add(store)))
+export const createAppAction = async (appAggregate: IAppAggregate) => {
+  const { appsDto, elementsDto, pagesDto, storesDto, typesDto } = appAggregate
 
-  if (pages) {
-    await Promise.all(pages.map((page) => pageRepository.add(page)))
-  }
+  await Promise.all(
+    elementsDto.map((element) => elementRepository.add(element)),
+  )
+  await Promise.all(typesDto.map((type) => typeRepository.add(type)))
+  await Promise.all(storesDto.map((store) => storeRepository.add(store)))
+  await Promise.all(pagesDto.map((page) => pageRepository.add(page)))
+  await Promise.all(appsDto.map((appDto) => appRepository.add(appDto)))
 
-  return app
+  return appsDto[0]
 }

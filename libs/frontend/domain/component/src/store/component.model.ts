@@ -112,14 +112,14 @@ export class Component
   get toJson() {
     return {
       __typename: this.__typename,
-      api: this.api,
+      api: this.api.current.toJson,
       id: this.id,
       name: this.name,
-      owner: this.owner,
+      owner: this.owner.current.toJson,
       props: this.props.toJson,
       rootElement: this.rootElement,
       slug: this.slug,
-      store: this.store,
+      store: this.store.current.toJson,
     }
   }
 

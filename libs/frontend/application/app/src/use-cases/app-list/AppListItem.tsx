@@ -14,7 +14,7 @@ export interface AppListItemProps {
 
 export const AppListItem = observer(({ app }: AppListItemProps) => {
   const providerPage = app.pages.find(
-    (page) => page.kind === IPageKind.Provider,
+    (page) => page.current.kind === IPageKind.Provider,
   )
 
   if (!providerPage) {

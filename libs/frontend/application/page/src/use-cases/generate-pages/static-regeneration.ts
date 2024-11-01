@@ -50,7 +50,8 @@ export const useRegeneratePages = () => {
       })
 
       for (const domain of domains) {
-        const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)
+        const pages =
+          pagesUrls ?? app.pages.map((page) => page.current.urlPattern)
 
         await regeneratePages(pages, domain.name)
       }

@@ -24,11 +24,15 @@ export const useOverrideAtomProps = (
   }
 
   if (inPreviewMode && !isNullish(props['href'])) {
-    const page = renderer.runtimePage?.page.maybeCurrent
-    const app = page?.app.maybeCurrent
+    const rendererPage = renderer.runtimePage?.page.maybeCurrent
+    const app = rendererPage?.app.maybeCurrent
     const pages = app?.pages ?? []
     const appId = app?.id
-    const { pageId, query } = extractPathParamsFromUrl(pages, props['href'])
+
+    const { pageId, query } = extractPathParamsFromUrl(
+      pages.map((page) => page.current),
+      props['href'],
+    )
 
     if (pageId && appId) {
       const href = PageType.PageDetail({ appId, pageId })
