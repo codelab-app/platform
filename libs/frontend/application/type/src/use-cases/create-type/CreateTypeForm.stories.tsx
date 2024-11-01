@@ -1,8 +1,8 @@
 import type { Meta } from '@storybook/react'
 
-import { CuiForm } from '@codelab/frontend/presentation/codelab-ui'
+// import { CuiForm } from '@codelab/frontend/presentation/codelab-ui'
 
-import { createRjsfTypeSchema } from './create-type.rjsf.schema'
+// import { createRjsfTypeSchema } from './create-type.rjsf.schema'
 import { CreateTypeForm } from './CreateTypeForm'
 
 const meta: Meta<typeof CreateTypeForm> = {
@@ -12,18 +12,18 @@ const meta: Meta<typeof CreateTypeForm> = {
 
 export default meta
 
-export const TypeForm = {
-  render: () => (
-    <CuiForm
-      schema={createRjsfTypeSchema}
-      // uiSchema={{
-      //   __typename: {
-      //     'ui:widget': 'hidden',
-      //   },
-      // }}
-    />
-  ),
-}
+// export const TypeForm = {
+//   render: () => (
+//     <CuiForm
+//       schema={createRjsfTypeSchema}
+// uiSchema={{
+//   __typename: {
+//     'ui:widget': 'hidden',
+//   },
+// }}
+//     />
+//   ),
+// }
 
 export const UniformCreateTypeForm = {
   render: () => <CreateTypeForm />,
