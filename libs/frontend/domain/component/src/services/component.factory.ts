@@ -19,7 +19,6 @@ import { v4 } from 'uuid'
 export const componentFactory = (
   componentData: ICreateComponentData,
   defaultRenderType: IElementRenderTypeDto,
-  owner: IRef,
 ) => {
   const { id, name, owner, rootElement } = componentData
 

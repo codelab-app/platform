@@ -46,7 +46,6 @@ export const useComponentService = (): IComponentService => {
     const { component, storeApi } = componentFactory(
       { ...data, owner },
       atomDomainService.defaultRenderType,
-      owner,
     )
 
     await typeRepository.add(component.api, owner)

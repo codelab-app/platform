@@ -12,7 +12,6 @@ import { createComponentSchema } from './create-component.schema'
 
 export const CreateComponentForm = observer<IFormController & { owner: IRef }>(
   ({ onSubmitSuccess, owner, submitRef }) => {
-    const createForm = useCreateComponentForm()
     const componentService = useComponentService()
 
     const onSubmit = (componentData: ICreateComponentData) =>
