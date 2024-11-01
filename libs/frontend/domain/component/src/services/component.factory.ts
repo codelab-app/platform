@@ -19,9 +19,8 @@ import { v4 } from 'uuid'
 export const componentFactory = (
   componentData: ICreateComponentData,
   defaultRenderType: IElementRenderTypeDto,
-  owner: IRef,
 ) => {
-  const { id, name, rootElement } = componentData
+  const { id, name, owner, rootElement } = componentData
 
   const storeApi: IInterfaceTypeDto = {
     __typename: ITypeKind.InterfaceType,
@@ -84,5 +83,6 @@ export const componentFactory = (
       rootElement: rootElementDto,
       store,
     },
+    storeApi,
   }
 }

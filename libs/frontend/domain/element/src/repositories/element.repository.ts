@@ -55,12 +55,12 @@ export const elementRepository: IElementRepository = {
     return (await elementRepository.find(where)).items[0]
   },
 
-  update: async (element: IElementDto) => {
+  update: async (where: ElementUniqueWhere, element: IElementDto) => {
     const {
       updateElements: { elements },
     } = await UpdateElements({
       update: elementMapper.toUpdateInput(element),
-      where: { id: element.id },
+      where,
     })
 
     const updatedElement = elements[0]

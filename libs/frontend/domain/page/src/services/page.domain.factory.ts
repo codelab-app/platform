@@ -1,8 +1,4 @@
-import type {
-  IAppModel,
-  IInterfaceTypeModel,
-  IPageDomainFactory,
-} from '@codelab/frontend/abstract/domain'
+import type { IPageDomainFactory } from '@codelab/frontend/abstract/domain'
 import type {
   IAppDto,
   IElementDto,
@@ -10,18 +6,9 @@ import type {
   IInterfaceTypeDto,
   IPageCreateFormData,
   IStoreDto,
-  ITypeDto,
   IUserDto,
 } from '@codelab/shared/abstract/core'
 
-import {
-  getElementDomainService,
-  getPageDomainService,
-  getStoreDomainService,
-  getTypeDomainService,
-  getUserDomainService,
-  typeRef,
-} from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
@@ -30,8 +17,6 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { computed } from 'mobx'
-import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
 type IAppNode = Pick<IAppDto, 'id' | 'name'>

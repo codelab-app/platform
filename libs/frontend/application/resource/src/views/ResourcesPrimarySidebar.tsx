@@ -8,10 +8,9 @@ import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { useRouter } from 'next/navigation'
 
 import { useResourceService } from '../services'
-import { CreateResourcePopover } from '../use-cases/create-resource'
 import { ResourcesTreeView } from '../use-cases/get-resource'
 
-export const ResourcesPrimarySidebar = () => {
+export const ResourcesPrimarySidebar = ({ isLoading = false }) => {
   const { createPopover } = useResourceService()
   const router = useRouter()
 
@@ -27,11 +26,11 @@ export const ResourcesPrimarySidebar = () => {
   return (
     <CuiSidebar
       label="Resources"
-      popover={<CreateResourcePopover />}
       uiKey={UiKey.ResourceSidebar}
       views={[
         {
           content: <ResourcesTreeView />,
+          isLoading,
           key: 'resources',
           label: 'Resources',
           toolbar: { items, title: 'Resources toolbar' },

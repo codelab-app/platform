@@ -10,15 +10,14 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import {
-  componentRef,
-  type IComponentModel,
-} from '@codelab/frontend/abstract/domain'
+import { type IComponentModel } from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { componentFactory } from '@codelab/frontend-domain-component/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import { storeRepository } from '@codelab/frontend-domain-store/repositories'
+import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import {
   useApplicationStore,
   useDomainStore,
@@ -28,10 +27,8 @@ import {
   type IRef,
   type IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
 
 import { componentBuilderQuery } from '../use-cases/component-builder'
-import { revalidateComponentListOperation } from '../use-cases/component-list'
 
 export const useComponentService = (): IComponentService => {
   const { atomDomainService, componentDomainService, userDomainService } =
@@ -46,19 +43,17 @@ export const useComponentService = (): IComponentService => {
   } = useApplicationStore()
 
   const create = async (data: ICreateComponentData) => {
-    const { component } = componentFactory(
-      data,
+    const { component, storeApi } = componentFactory(
+      { ...data, owner },
       atomDomainService.defaultRenderType,
-      owner,
     )
 
-    const results = await componentRepository.add({ ...component, owner })
+    await typeRepository.add(component.api, owner)
+    await typeRepository.add(storeApi, owner)
+    await storeRepository.add(component.store)
+    await elementRepository.add(component.rootElement)
 
-    await revalidateComponentListOperation()
-
-    // componentPagination.dataRefs.set(component.id, componentRef(component))
-
-    return results
+    return await componentRepository.add(component)
   }
 
   const removeMany = async (components: Array<IComponentModel>) => {
@@ -89,8 +84,6 @@ export const useComponentService = (): IComponentService => {
     const operations = await Promise.all(
       components.map((component) => deleteComponent(component)),
     )
-
-    await revalidateComponentListOperation()
 
     return operations.length
   }

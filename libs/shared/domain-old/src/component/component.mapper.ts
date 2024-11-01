@@ -1,18 +1,16 @@
-import type {
-  IComponentDto,
-  IMapper,
-  IUserDto,
-} from '@codelab/shared/abstract/core'
+import type { IComponentDto, IMapper } from '@codelab/shared/abstract/core'
 import type {
   ComponentCreateInput,
   ComponentDeleteInput,
   ComponentUpdateInput,
 } from '@codelab/shared/infra/gql'
 
+import { ITypeKind } from '@codelab/shared/abstract/core'
+
 import { connectNodeId, connectOwner } from '../orm'
+import { propMapper } from '../prop'
 import { storeMapper } from '../store'
 import { typeMapper } from '../type'
-import { ComponentProperties } from './component.properties'
 
 export const componentMapper: IMapper<
   IComponentDto,
@@ -34,7 +32,9 @@ export const componentMapper: IMapper<
       compositeKey: `${owner.id}-${name}`,
       id,
       owner: connectOwner(owner),
-      props: connectNodeId(props.id),
+      props: {
+        create: { node: propMapper.toCreateInput(props) },
+      },
       rootElement: connectNodeId(rootElement.id),
       store: connectNodeId(store.id),
     }
@@ -42,10 +42,16 @@ export const componentMapper: IMapper<
 
   toDeleteInput: (): ComponentDeleteInput => {
     return {
-      api: { delete: typeMapper.toDeleteInput(), where: {} },
+      api: {
+        delete: typeMapper.toDeleteInput(ITypeKind.InterfaceType),
+        where: {},
+      },
       props: { where: {} },
       rootElement: { where: {} },
-      store: { delete: storeMapper.toDeleteInput(), where: {} },
+      store: {
+        delete: storeMapper.toDeleteInput(ITypeKind.InterfaceType),
+        where: {},
+      },
     }
   },
 

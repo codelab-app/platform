@@ -200,7 +200,7 @@ const UiDataRecord = {
     label: 'Update Component Modal',
   },
   [UiKey.ComponentPopoverCreate]: {
-    label: 'Create Component Popover',
+    label: 'Component',
   },
   [UiKey.ComponentSidebar]: {
     label: 'Component Sidebar',

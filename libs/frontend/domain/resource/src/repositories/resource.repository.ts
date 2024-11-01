@@ -1,7 +1,3 @@
-import type {
-  IResourceModel,
-  IResourceRepository,
-} from '@codelab/frontend/abstract/domain'
 import type { IRef, IResourceDto } from '@codelab/shared/abstract/core'
 import type {
   ResourceOptions,
@@ -9,6 +5,11 @@ import type {
   ResourceWhere,
 } from '@codelab/shared/infra/gql'
 
+import {
+  CACHE_TAGS,
+  type IResourceModel,
+  type IResourceRepository,
+} from '@codelab/frontend/abstract/domain'
 import { resourceMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
@@ -23,9 +24,10 @@ export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceDto) => {
     const {
       createResources: { resources },
-    } = await CreateResources({
-      input: [resourceMapper.toCreateInput(resource)],
-    })
+    } = await CreateResources(
+      { input: [resourceMapper.toCreateInput(resource)] },
+      { revalidateTag: CACHE_TAGS.RESOURCE_LIST },
+    )
 
     const createdResource = resources[0]
 
@@ -37,16 +39,22 @@ export const resourceRepository: IResourceRepository = {
   delete: async (resources: Array<IResourceModel>) => {
     const {
       deleteResources: { nodesDeleted },
-    } = await DeleteResources({
-      delete: { config: { where: {} } },
-      where: { id_IN: resources.map((resource) => resource.id) },
-    })
+    } = await DeleteResources(
+      {
+        delete: { config: { where: {} } },
+        where: { id_IN: resources.map((resource) => resource.id) },
+      },
+      { revalidateTag: CACHE_TAGS.RESOURCE_LIST },
+    )
 
     return nodesDeleted
   },
 
   find: async (where?: ResourceWhere, options?: ResourceOptions) => {
-    return await ResourceList({ options, where })
+    return await ResourceList(
+      { options, where },
+      { tags: [CACHE_TAGS.RESOURCE_LIST] },
+    )
   },
 
   findOne: async (where: ResourceUniqueWhere) => {
@@ -56,10 +64,13 @@ export const resourceRepository: IResourceRepository = {
   update: async ({ id }: IRef, dto: IResourceDto) => {
     const {
       updateResources: { resources },
-    } = await UpdateResource({
-      update: resourceMapper.toUpdateInput(dto),
-      where: { id },
-    })
+    } = await UpdateResource(
+      {
+        update: resourceMapper.toUpdateInput(dto),
+        where: { id },
+      },
+      { revalidateTag: CACHE_TAGS.RESOURCE_LIST },
+    )
 
     const updatedResource = resources[0]
 

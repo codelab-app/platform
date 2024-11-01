@@ -1,6 +1,7 @@
 import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -16,7 +17,10 @@ import { createResourceSchema } from './create-resource.schema'
 export const CreateResourceForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const resourceService = useResourceService()
-    const model = { id: v4() }
+    const { userDomainService } = useDomainStore()
+    const user = userDomainService.user
+    const owner = { id: user.id }
+    const model = { config: {}, id: v4(), owner }
     const onSubmit = (data: ICreateResourceData) => resourceService.create(data)
 
     return (

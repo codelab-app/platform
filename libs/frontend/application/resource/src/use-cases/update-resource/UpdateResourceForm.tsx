@@ -28,6 +28,7 @@ export const UpdateResourceForm = observer<UpdateResourceFormProps>(
       config: resource.config.values,
       id: resource.id,
       name: resource.name,
+      owner: resource.owner,
       type: resource.type,
     }
 

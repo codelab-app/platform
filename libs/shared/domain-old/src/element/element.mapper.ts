@@ -53,7 +53,9 @@ export const elementMapper: IMapper<
       postRenderAction: connectNodeId(postRenderAction?.id),
       preRenderAction: connectNodeId(preRenderAction?.id),
       prevSibling: connectNodeId(prevSibling?.id),
-      props: connectNodeId(props.id),
+      props: {
+        create: { node: propMapper.toCreateInput(props) },
+      },
       renderForEachPropKey,
       renderIfExpression,
       renderType: {
