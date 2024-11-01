@@ -57,7 +57,7 @@ export const syncModifiedElements = async (
   const elements = elementDomainService.modifiedElements
 
   const updates = elements.map((element) =>
-    elementRepository.update(element, { id: element.id }),
+    elementRepository.update({ id: element.id }, element.toJson),
   )
 
   await Promise.all(updates)
