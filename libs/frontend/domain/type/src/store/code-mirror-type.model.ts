@@ -1,10 +1,11 @@
-import type {
-  ICodeMirrorTypeModel,
-  ITypeTransformContext,
-  JsonSchema,
-} from '@codelab/frontend/abstract/domain'
 import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
 
+import {
+  type ICodeMirrorTypeModel,
+  type ITypeTransformContext,
+  type JsonSchema,
+  userRef,
+} from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -18,6 +19,7 @@ const create = ({
   kind,
   language,
   name,
+  owner,
 }: ICodeMirrorTypeDto): CodeMirrorType => {
   assertIsTypeKind(kind, ITypeKind.CodeMirrorType)
 
@@ -26,6 +28,7 @@ const create = ({
     kind,
     language,
     name,
+    owner: userRef(owner.id),
   })
 }
 
@@ -49,16 +52,5 @@ export class CodeMirrorType
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
-  }
-
-  toUpdateInput() {
-    return mergeDeep(
-      {
-        update: {
-          language: this.language,
-        },
-      },
-      super.toUpdateInput(),
-    )
   }
 }

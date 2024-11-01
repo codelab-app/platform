@@ -1,11 +1,12 @@
-import type {
-  IEnumType,
-  IEnumTypeValue,
-  ITypeTransformContext,
-  JsonSchema,
-} from '@codelab/frontend/abstract/domain'
 import type { IEnumTypeDto } from '@codelab/shared/abstract/core'
 
+import {
+  type IEnumType,
+  type IEnumTypeValue,
+  type ITypeTransformContext,
+  type JsonSchema,
+  userRef,
+} from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
@@ -13,7 +14,7 @@ import { mergeDeep } from 'remeda'
 import { createBaseType } from './base-type.model'
 import { EnumTypeValue } from './enum-type-value.model'
 
-const create = ({ allowedValues, id, kind, name }: IEnumTypeDto) => {
+const create = ({ allowedValues, id, kind, name, owner }: IEnumTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({
@@ -23,6 +24,7 @@ const create = ({ allowedValues, id, kind, name }: IEnumTypeDto) => {
     id,
     kind,
     name,
+    owner: userRef(owner.id),
   })
 }
 
@@ -63,40 +65,5 @@ export class EnumType
       // instead, the default value should be "undefined" to allow optional enums
       default: defaultValues ?? undefined,
     }
-  }
-
-  toUpdateInput() {
-    return mergeDeep(
-      {
-        // For some reason if the disconnect and delete are in the update section it throws an error
-        delete: {
-          allowedValues: [
-            {
-              where: {
-                node: {
-                  NOT: {
-                    id_IN: this.allowedValues.map((av) => av.id),
-                  },
-                },
-              },
-            },
-          ],
-        },
-        update: {
-          allowedValues: [
-            {
-              create: this.allowedValues.map((value) => ({
-                node: {
-                  id: value.id,
-                  key: value.key,
-                  value: value.value,
-                },
-              })),
-            },
-          ],
-        },
-      },
-      super.toUpdateInput(),
-    )
   }
 }

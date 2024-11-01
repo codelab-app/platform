@@ -4,6 +4,7 @@ import type {
   IElementRenderTypeDto,
   IInterfaceTypeDto,
   IPropDto,
+  IRef,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
@@ -18,6 +19,7 @@ import { v4 } from 'uuid'
 export const componentFactory = (
   componentData: ICreateComponentData,
   defaultRenderType: IElementRenderTypeDto,
+  owner: IRef,
 ) => {
   const { id, name, rootElement } = componentData
 
@@ -27,6 +29,7 @@ export const componentFactory = (
     id: v4(),
     kind: ITypeKind.InterfaceType,
     name: InterfaceType.createName(`${name} Store`),
+    owner,
   }
 
   const store: IStoreDto = {
@@ -41,6 +44,7 @@ export const componentFactory = (
     id: v4(),
     kind: ITypeKind.InterfaceType,
     name: InterfaceType.createName(name),
+    owner,
   }
 
   const componentProps: IPropDto = {

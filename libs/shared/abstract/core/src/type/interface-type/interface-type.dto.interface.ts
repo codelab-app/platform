@@ -15,13 +15,14 @@ export const InterfaceTypeDtoSchema = Type.Composite([
 
 export type IInterfaceTypeDto = Static<typeof InterfaceTypeDtoSchema>
 
-export const InterfaceTypeCreateDtoSchema = Type.Pick(InterfaceTypeDtoSchema, [
-  'id',
-  'name',
+export const InterfaceTypeCreateDtoSchema = Type.Omit(InterfaceTypeDtoSchema, [
+  '__typename',
+  'type',
+  'kind',
 ])
-export type IInterfaceTypeCreateDto = Pick<
-  IInterfaceTypeDto,
-  'id' | 'name' | 'owner'
+
+export type IInterfaceTypeCreateDto = Static<
+  typeof InterfaceTypeCreateDtoSchema
 >
 
 /**

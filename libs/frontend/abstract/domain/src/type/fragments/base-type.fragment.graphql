@@ -4,4 +4,7 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  owner {
+    id
+  }
 }

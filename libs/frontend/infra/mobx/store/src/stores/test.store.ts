@@ -10,13 +10,14 @@ import type {
   ICodeActionDto,
   ICodeMirrorType,
   IComponentDto,
-  IElementCreateDto,
+  IElementDto,
   IFieldDto,
   IInterfaceTypeDto,
   IPageDto,
   IPrimitiveTypeDto,
   IPropDto,
   IReactNodeType,
+  IRef,
   IRenderPropTypeDto,
   IRichTextType,
   IStoreDto,
@@ -159,7 +160,7 @@ export const createTestStore = () => {
     }
 
     @modelAction
-    addElement(dto: Partial<IElementCreateDto>) {
+    addElement(dto: Partial<IElementDto>) {
       return elementFactory(this.domainStore.elementDomainService)(dto)
     }
 
@@ -337,6 +338,8 @@ export const createTestStore = () => {
       const component = this.domainStore.componentDomainService.add({
         id: v4(),
         name: 'Component',
+        // Mock this here
+        owner: { id: v4() },
       })
 
       const runtimeRootElement = runtimePage?.runtimeRootElement

@@ -78,6 +78,7 @@ export const useAtomService = (): IAtomService => {
         id: v4(),
         kind: ITypeKind.InterfaceType,
         name: `${data.name} API`,
+        owner,
       },
       owner,
     )

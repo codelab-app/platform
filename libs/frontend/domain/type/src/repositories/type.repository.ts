@@ -122,14 +122,16 @@ export const typeRepository: ITypeRepository = {
     return sortBy(typeFragments, ({ name }) => name.toLowerCase())
   },
 
-  update: async ({ id }: IRef, input: ITypeUpdateInput) => {
+  update: async ({ id }: IRef, input: ITypeDto) => {
     const kind = input.kind
 
     Validator.assertsDefined(kind)
 
+    const variables = typeMapper.toUpdateInput(input)
+
     const updatedType = await updateTypeApi[kind]({
-      update: input,
       where: { id },
+      ...variables,
     })
 
     Validator.assertsDefined(updatedType[0])

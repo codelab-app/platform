@@ -3,6 +3,7 @@ import type { JSONSchemaType } from 'ajv'
 
 import {
   idSchema,
+  refSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 
@@ -11,13 +12,14 @@ export const createComponentSchema: JSONSchemaType<
 > = {
   properties: {
     ...idSchema(),
+    ...refSchema('owner'),
     name: {
       type: 'string',
       autoFocus: true,
       ...titleCaseValidation,
     },
   },
-  required: ['name', 'id'],
+  required: ['name', 'id', 'owner'],
   title: 'Create Component Input',
   type: 'object',
 }

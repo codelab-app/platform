@@ -87,7 +87,7 @@ const documents = {
     types.AppTypeFragmentDoc,
   '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        id\n        kind\n        name\n      }\n    }\n  }\n':
     types.ArrayTypeFragmentDoc,
-  '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n':
+  '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n':
     types.BaseTypeFragmentDoc,
   '\n  fragment CodeMirrorType on CodeMirrorType {\n    ...BaseType\n    language\n  }\n':
     types.CodeMirrorTypeFragmentDoc,
@@ -636,8 +636,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n',
-): (typeof documents)['\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n']
+  source: '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

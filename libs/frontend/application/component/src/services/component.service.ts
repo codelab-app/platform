@@ -49,6 +49,7 @@ export const useComponentService = (): IComponentService => {
     const { component } = componentFactory(
       data,
       atomDomainService.defaultRenderType,
+      owner,
     )
 
     const results = await componentRepository.add({ ...component, owner })

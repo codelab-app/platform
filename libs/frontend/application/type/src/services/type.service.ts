@@ -52,7 +52,7 @@ export const useTypeService = (): ITypeService => {
   }
 
   const create = async (data: ITypeCreateFormData) => {
-    const typeDto = TypeFactory.mapDataToDTO(data)
+    const typeDto = TypeFactory.mapDataToDto(data, owner)
     const type = typeDomainService.hydrate(typeDto)
 
     await typeRepository.add(typeDto, owner)
@@ -147,7 +147,7 @@ export const useTypeService = (): ITypeService => {
 
     Validator.assertsDefined(type)
 
-    const typeDto = TypeFactory.mapDataToDTO(data)
+    const typeDto = TypeFactory.mapDataToDto(data, owner)
 
     TypeFactory.writeCache(typeDto, type)
 

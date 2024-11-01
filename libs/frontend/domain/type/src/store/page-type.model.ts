@@ -1,20 +1,21 @@
-import type {
-  IPageTypeModel,
-  ITypeTransformContext,
-  JsonSchema,
-} from '@codelab/frontend/abstract/domain'
 import type { IPageTypeDto } from '@codelab/shared/abstract/core'
 
+import {
+  type IPageTypeModel,
+  type ITypeTransformContext,
+  type JsonSchema,
+  userRef,
+} from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, kind, name }: IPageTypeDto) => {
+const create = ({ id, kind, name, owner }: IPageTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.PageType)
 
-  return new PageType({ id, kind, name })
+  return new PageType({ id, kind, name, owner: userRef(owner.id) })
 }
 
 @model('@codelab/PageType')

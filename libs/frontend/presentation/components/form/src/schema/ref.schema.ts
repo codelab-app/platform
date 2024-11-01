@@ -4,7 +4,7 @@ import type {
   PropertiesSchema,
 } from 'ajv/dist/types/json-schema'
 
-import { showFieldOnDev as showField } from './show-field-on-dev'
+import { showFieldOnDev } from './show-field-on-dev'
 
 /**
  * This is used to allow user to assign reference
@@ -14,7 +14,6 @@ export const refSchema = <T extends string>(
   options?: {
     label?: string
     disabled?: boolean
-    showFieldOnDev?: boolean
   },
 ) => {
   const disabled = options?.disabled ?? false
@@ -28,7 +27,7 @@ export const refSchema = <T extends string>(
           type: 'string',
           label,
           disabled,
-          ...(options?.showFieldOnDev ? showField() : {}),
+          ...showFieldOnDev(),
         },
       },
       required: ['id'],
@@ -62,7 +61,7 @@ export const refMaybeSchema = <T extends string>(
           label,
           disabled,
           nullable,
-          ...(options?.showFieldOnDev ? showField() : {}),
+          ...showFieldOnDev(),
         },
       },
       required: ['id'],

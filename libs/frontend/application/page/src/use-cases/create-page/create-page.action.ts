@@ -30,9 +30,9 @@ export const createPageAction = async (
   // await storeRepository.add(store)
   // await elementRepository.add(rootElement)
 
-  // const page = await pageRepository.add(pageDto)
+  const page = await pageRepository.add(pageDto)
 
-  // revalidateTag(CACHE_TAGS.PAGE_LIST)
+  revalidateTag(CACHE_TAGS.PAGE_LIST)
 
-  // return page
+  return page
 }

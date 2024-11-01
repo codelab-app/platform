@@ -1,8 +1,4 @@
-import type {
-  IElementCreateDto,
-  IPageExport,
-  IPageImport,
-} from '@codelab/shared/abstract/core'
+import type { IPageExport, IPageImport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportStoreCommand } from '@codelab/backend/application/store'
@@ -33,7 +29,7 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
 
     for (const element of elements) {
       await this.propRepository.save(element.props)
-      await this.elementRepository.save(element as IElementCreateDto)
+      await this.elementRepository.save(element)
     }
 
     await this.pageRepository.save(page)

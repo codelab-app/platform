@@ -1,4 +1,4 @@
-import type { ICreateComponentData } from '@codelab/shared/abstract/core'
+import type { ICreateComponentData, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import {
@@ -16,8 +16,8 @@ import { useComponentService } from '../../services'
 import { createComponentSchema } from './create-component.schema'
 import { useCreateComponentForm } from './create-component.state'
 
-export const CreateComponentForm = observer(
-  ({ onSubmitSuccess, submitRef }: IFormController) => {
+export const CreateComponentForm = observer<IFormController & { owner: IRef }>(
+  ({ onSubmitSuccess, owner, submitRef }) => {
     const createForm = useCreateComponentForm()
     const componentService = useComponentService()
 
@@ -30,6 +30,7 @@ export const CreateComponentForm = observer(
     const model = {
       id: v4(),
       name: '',
+      owner,
     }
 
     return (

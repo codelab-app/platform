@@ -8,7 +8,7 @@ import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
-import { typeRef } from '@codelab/frontend/abstract/domain'
+import { typeRef, userRef } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain-old'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -16,7 +16,13 @@ import { mergeDeep } from 'remeda'
 
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, itemType, kind, name }: IArrayTypeDto): ArrayType => {
+const create = ({
+  id,
+  itemType,
+  kind,
+  name,
+  owner,
+}: IArrayTypeDto): ArrayType => {
   assertIsTypeKind(kind, ITypeKind.ArrayType)
 
   return new ArrayType({
@@ -24,6 +30,7 @@ const create = ({ id, itemType, kind, name }: IArrayTypeDto): ArrayType => {
     itemType: itemType ? typeRef(itemType.id) : null,
     kind,
     name,
+    owner: userRef(owner.id),
   })
 }
 
@@ -70,28 +77,25 @@ export class ArrayType
   }
 
   toUpdateInput() {
-    return mergeDeep(
-      {
-        disconnect: this.itemType?.id
-          ? {
-              itemType: {
-                where: {
-                  NOT: {
-                    node: {
-                      id: this.itemType.id,
-                    },
+    return mergeDeep({
+      disconnect: this.itemType?.id
+        ? {
+            itemType: {
+              where: {
+                NOT: {
+                  node: {
+                    id: this.itemType.id,
                   },
                 },
               },
-            }
-          : undefined,
-        update: this.itemType?.id
-          ? {
-              itemType: connectNodeId(this.itemType.id),
-            }
-          : undefined,
-      },
-      super.toUpdateInput(),
-    )
+            },
+          }
+        : undefined,
+      update: this.itemType?.id
+        ? {
+            itemType: connectNodeId(this.itemType.id),
+          }
+        : undefined,
+    })
   }
 }

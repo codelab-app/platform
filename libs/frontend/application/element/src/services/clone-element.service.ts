@@ -12,7 +12,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type {
   IComponentDto,
-  IElementCreateDto,
   IElementDto,
   IPropDto,
   IRef,
@@ -54,11 +53,12 @@ export const useCloneElementService = ({
   componentService,
 }: ICloneElementProps): ICloneElementService => {
   const { rendererService, runtimeElementService } = useApplicationStore()
-  const { elementDomainService } = useDomainStore()
+  const { elementDomainService, userDomainService } = useDomainStore()
   const actionService = useActionService()
   const elementService = useElementService()
   const fieldService = useFieldService()
   const storeService = useStoreService()
+  const owner = userDomainService.user
 
   const cloneElement = async (
     targetElement: IElementModel,
@@ -112,6 +112,7 @@ export const useCloneElementService = ({
     const createdComponent = await componentService.create({
       id: v4(),
       name,
+      owner,
       rootElement: { id: element.id },
     })
 

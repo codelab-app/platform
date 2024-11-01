@@ -18,6 +18,8 @@ export const ElementDtoSchema = Type.Object({
    * `Page` or `Component`
    *
    * Used for composite key, could be `Page` or `Component` type. This key is only needed for creation so we know how to make the connection
+   *
+   * Instead of mapping value in, we put together in dto structure
    */
   closestContainerNode: Typebox.Ref,
   compositeKey: Typebox.Nullish(Type.String()),
@@ -42,21 +44,3 @@ export const ElementDtoSchema = Type.Object({
 })
 
 export type IElementDto = Static<typeof ElementDtoSchema>
-
-export const ElementSchema = Typebox.Overwrite(
-  ElementDtoSchema,
-  Type.Object({
-    props: PropSchema,
-  }),
-)
-
-export type IElement = Static<typeof ElementSchema>
-
-export const ElementCreateDtoSchema = Type.Composite([
-  ElementDtoSchema,
-  Type.Object({
-    closestContainerNode: Typebox.Ref,
-  }),
-])
-
-export type IElementCreateDto = Static<typeof ElementCreateDtoSchema>
