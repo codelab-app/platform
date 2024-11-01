@@ -9,9 +9,8 @@ import {
   ImportDtoSchema,
 } from '@codelab/shared/abstract/core'
 import { AutoFields } from 'uniforms-antd'
-
+import { importAdminDataService } from './import-admin-data.service'
 import { useImportAdminDataModal } from './import-admin-data.state'
-import { importAdminDataUseCase } from './import-admin-data.use-case'
 
 export const ImportAdminDataModal = () => {
   const importDataModal = useImportAdminDataModal()
@@ -26,9 +25,10 @@ export const ImportAdminDataModal = () => {
       <ModalForm.Form<IImportDto>
         errorMessage="Error while importing data"
         model={importDtoDefault}
-        onSubmit={importAdminDataUseCase}
+        onSubmit={importAdminDataService}
         onSubmitSuccess={importDataModal.close}
         schema={ImportDtoSchema}
+        successMessage="Data imported successfully"
       >
         <AutoFields />
       </ModalForm.Form>

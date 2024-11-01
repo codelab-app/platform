@@ -76,6 +76,8 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    // 20 min
+    proxyTimeout: 1200_000,
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
