@@ -12,6 +12,7 @@ export const renderPropsTypeFactory =
       id: dto.id ?? v4(),
       kind: TypeKind.RenderPropType,
       name: dto.name ?? 'renderPropsType',
+      owner: { id: v4() },
     }
 
     return typeDomainService.hydrate(renderPropsType)

@@ -1,26 +1,25 @@
-import { appDto, atomReactFragmentDto } from '@codelab/frontend/test/data'
+import {
+  appDto,
+  atomReactFragmentDto,
+  userDto,
+} from '@codelab/frontend/test/data'
+import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 
 import { rootDomainStore } from '../test/root.test.store'
 
 describe('App domain', () => {
+  const pageFactory = new PageDomainFactory(userDto)
   const { appDomainService, atomDomainService } = rootDomainStore
 
   it('can add an app', async () => {
     const reactFragment = atomDomainService.hydrate(atomReactFragmentDto)
-    const app = appDomainService.create(appDto)
+    const pages = pageFactory.addSystemPages(appDto, reactFragment)
+    const app = appDomainService.hydrate(appDto)
 
     // App
     expect(app.toJson).toMatchObject(appDto)
-
-    // Page
-    const pages = app.pages.map((page) => {
-      return {
-        name: page.name,
-      }
-    })
-
     expect(pages).toEqual(
       expect.arrayContaining([
         expect.objectContaining({

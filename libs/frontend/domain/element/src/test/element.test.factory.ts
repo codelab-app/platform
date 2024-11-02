@@ -10,6 +10,7 @@ export const elementFactory =
   (elementDomainService: IElementDomainService) =>
   (dto: Partial<IElementDto> = {}) => {
     const element: IElementDto = {
+      closestContainerNode: { id: v4() },
       firstChild: dto.firstChild ? { id: dto.firstChild.id } : null,
       id: dto.id ?? v4(),
       name: dto.name ?? chance.word({ capitalize: true }),

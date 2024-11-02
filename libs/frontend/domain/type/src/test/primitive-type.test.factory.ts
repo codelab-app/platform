@@ -16,6 +16,7 @@ export const primitiveTypeFactory =
       id: dto.id ?? v4(),
       kind: ITypeKind.PrimitiveType,
       name: dto.name ?? chance.word({ capitalize: true }),
+      owner: { id: v4() },
       primitiveKind: dto.primitiveKind ?? PrimitiveTypeKind.String,
     }
 

@@ -36,6 +36,7 @@ import {
   domainDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
+  IAppModel,
   IDomainStore,
   pageDomainServiceContext,
   redirectDomainServiceContext,
@@ -151,6 +152,7 @@ export const createTestStore = () => {
         ...dto,
         api: dto.api ?? this.addInterfaceType({}),
         id,
+        owner: { id },
         rootElement: this.addElement({
           parentComponent: { id },
           renderType: this.getAtomByType(IAtomType.ReactFragment),
@@ -179,6 +181,26 @@ export const createTestStore = () => {
       // console.log('addPage', dto)
 
       return pageFactory(this.domainStore.pageDomainService)(dto)
+    }
+
+    @modelAction
+    addPageProvider(app: IAppModel, id = v4(), name = 'provider') {
+      return this.addPage({
+        app,
+        id,
+        kind: IPageKind.Provider,
+        name,
+        rootElement: this.addElement({
+          closestContainerNode: { id },
+          name: ROOT_ELEMENT_NAME,
+          page: { id },
+          renderType: this.getAtomByType(IAtomType.HtmlDiv),
+        }),
+        store: this.addStore({
+          name: Store.createName({ name }),
+          page: { id },
+        }),
+      })
     }
 
     @modelAction
@@ -267,6 +289,7 @@ export const createTestStore = () => {
       const component = this.addComponent({
         id: componentId,
         name: componentName,
+        owner: { id: v4() },
         rootElement: this.addElement({
           closestContainerNode: { id: componentId },
           name: ROOT_ELEMENT_NAME,
@@ -295,11 +318,12 @@ export const createTestStore = () => {
       pageKind: IPageKind = IPageKind.Regular,
     ) {
       const app = this.addApp({})
+      const providerPage = this.addPageProvider(app)
 
       const page =
         pageKind === IPageKind.Regular
           ? this.addPageRegular({ app })
-          : app.providerPage
+          : providerPage
 
       // page.rootElement.current.writeCache({ renderType: this.getDivAtom() })
 

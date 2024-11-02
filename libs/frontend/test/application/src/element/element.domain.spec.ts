@@ -5,22 +5,31 @@ import {
   atomReactFragmentDto,
   elementDto,
   pageDto,
+  userDto,
 } from '@codelab/frontend/test/data'
+import { createTestStore } from '@codelab/frontend-infra-mobx/store'
 import { Validator } from '@codelab/shared/infra/schema'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
-import { rootDomainStore } from './root.test.store'
-
 describe('Element domain', () => {
   const rootElementDto = { ...elementDto, name: 'Root Element' }
+  const { rootStore } = createTestStore()
 
-  const { atomDomainService, elementDomainService, pageDomainService } =
-    rootDomainStore
+  const {
+    atomDomainService,
+    elementDomainService,
+    pageDomainService,
+    typeDomainService,
+  } = rootStore.domainStore
 
   pageDomainService.hydrate(pageDto)
 
   rootElementDto.renderType.id = atomReactFragmentDto.id
+  typeDomainService.hydrateInterface({
+    ...atomReactFragmentDto.api,
+    owner: userDto,
+  })
   elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
   atomDomainService.hydrate(atomReactFragmentDto)
 
