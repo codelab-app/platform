@@ -3,11 +3,7 @@ import type {
   IAppModel,
   IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IAppDto,
-  IPageUpdateFormData,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gql'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
@@ -21,14 +17,11 @@ import {
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
-import {
-  useDomainStore,
-  useUndoManager,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 import { computed, type IComputedValueOptions } from 'mobx'
-import { type DependencyList, use, useMemo } from 'react'
+import { type DependencyList, useMemo } from 'react'
 
 import { createAppAction } from '../use-cases/create-app'
 import { AppFactory } from './app.factory'
@@ -42,7 +35,6 @@ export const useAppService = (): IAppService => {
   } = useDomainStore()
 
   const pageService = usePageService()
-  const undoManager = useUndoManager()
   const pageFactory = new PageDomainFactory(userDomainService.user.toJson)
   const user = userDomainService.user.toJson
   const owner = user
@@ -52,7 +44,10 @@ export const useAppService = (): IAppService => {
 
   const create = async (data: IAppCreateFormData) => {
     try {
-      const appAggregate = appFactory.create(data, defaultRenderType, owner)
+      // render type should be plain object, not MobX model,
+      // otherwise would fail to be passed to server action.
+      const { __typename, id } = defaultRenderType
+      const appAggregate = appFactory.create(data, { __typename, id }, owner)
 
       hydrate(appAggregate)
 

@@ -4,18 +4,15 @@ import type { Neo4jService, OgmService } from '../../../../infra'
 
 import { getElementDependantTypes } from '../../../../cypher'
 import {
+  arrayTypeSelectionSet,
+  baseTypeSelection,
+  codeMirrorTypeSelectionSet,
   elementSelectionSet,
-  exportActionTypeSelectionSet,
-  exportArrayTypeSelectionSet,
-  exportCodeMirrorTypeSelectionSet,
-  exportEnumTypeSelectionSet,
-  exportInterfaceTypeWithFieldsSelectionSet,
-  exportPrimitiveTypeSelectionSet,
-  exportReactNodeTypeSelectionSet,
-  exportRenderPropTypeSelectionSet,
-  exportRichTextTypeSelectionSet,
-  exportUnionTypeSelectionSet,
+  enumTypeSelectionSet,
   fieldSelectionSet,
+  interfaceTypeSelectionSet,
+  primitiveTypeSelectionSet,
+  unionTypeSelectionSet,
 } from '../../../../selectionSet'
 
 /**
@@ -67,70 +64,70 @@ const fetchTypes = async (
 
   promises.push(
     ogmService.ArrayType.find({
-      selectionSet: `{ ${exportArrayTypeSelectionSet} }`,
+      selectionSet: `{ ${arrayTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.ArrayType, types) },
     }),
   )
 
   promises.push(
     ogmService.EnumType.find({
-      selectionSet: `{ ${exportEnumTypeSelectionSet} }`,
+      selectionSet: `{ ${enumTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.EnumType, types) },
     }),
   )
 
   promises.push(
     ogmService.InterfaceType.find({
-      selectionSet: `{ ${exportInterfaceTypeWithFieldsSelectionSet} }`,
+      selectionSet: `{ ${interfaceTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.InterfaceType, types) },
     }),
   )
 
   promises.push(
     ogmService.UnionType.find({
-      selectionSet: `{ ${exportUnionTypeSelectionSet} }`,
+      selectionSet: `{ ${unionTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.UnionType, types) },
     }),
   )
 
   promises.push(
     ogmService.PrimitiveType.find({
-      selectionSet: `{ ${exportPrimitiveTypeSelectionSet} }`,
+      selectionSet: `{ ${primitiveTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.PrimitiveType, types) },
     }),
   )
 
   promises.push(
     ogmService.ReactNodeType.find({
-      selectionSet: `{ ${exportReactNodeTypeSelectionSet} }`,
+      selectionSet: `{ ${baseTypeSelection} }`,
       where: { id_IN: filterByType(ITypeKind.ReactNodeType, types) },
     }),
   )
 
   promises.push(
     ogmService.RichTextType.find({
-      selectionSet: `{ ${exportRichTextTypeSelectionSet} }`,
+      selectionSet: `{ ${baseTypeSelection} }`,
       where: { id_IN: filterByType(ITypeKind.RichTextType, types) },
     }),
   )
 
   promises.push(
     ogmService.CodeMirrorType.find({
-      selectionSet: `{ ${exportCodeMirrorTypeSelectionSet} }`,
+      selectionSet: `{ ${codeMirrorTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.CodeMirrorType, types) },
     }),
   )
 
   promises.push(
     ogmService.RenderPropType.find({
-      selectionSet: `{ ${exportRenderPropTypeSelectionSet} }`,
+      selectionSet: `{ ${baseTypeSelection} }`,
       where: { id_IN: filterByType(ITypeKind.RenderPropType, types) },
     }),
   )
 
   promises.push(
     ogmService.ActionType.find({
-      selectionSet: `{ ${exportActionTypeSelectionSet} }`,
+      selectionSet: `{ ${baseTypeSelection} }`,
       where: { id_IN: filterByType(ITypeKind.ActionType, types) },
     }),
   )

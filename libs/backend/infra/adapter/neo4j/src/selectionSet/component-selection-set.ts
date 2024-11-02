@@ -1,7 +1,7 @@
 import { exportElementSelectionSet } from './element-selection-set'
 import { propSelectionSet } from './prop-selection-set'
 import { exportStoreSelectionSet } from './store-selection-set'
-import { exportInterfaceTypeWithFieldsSelectionSet } from './type-selection-set'
+import { interfaceTypeSelectionSet } from './type-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
 export const componentSelectionSet = `
@@ -37,6 +37,6 @@ export const exportComponentSelectionSet = `
     ${exportStoreSelectionSet}
   }
   api {
-    ${exportInterfaceTypeWithFieldsSelectionSet}
+    ${interfaceTypeSelectionSet}
   }
 `

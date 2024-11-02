@@ -5,10 +5,9 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  exportArrayTypeSelectionSet,
+  arrayTypeSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -46,7 +45,7 @@ export class ArrayTypeRepository extends AbstractRepository<
       await this.ogmService.ArrayType
     ).find({
       options,
-      selectionSet: `{ ${exportArrayTypeSelectionSet} }`,
+      selectionSet: `{ ${arrayTypeSelectionSet} }`,
       where,
     })
   }

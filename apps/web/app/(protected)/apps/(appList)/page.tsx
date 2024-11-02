@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { AppList } from '@codelab/frontend-application-app/use-cases/app-list'
 import { BuildAppModal } from '@codelab/frontend-application-app/use-cases/build-app'
 import { CreateAppModal } from '@codelab/frontend-application-app/use-cases/create-app'
 import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/delete-app'
@@ -30,21 +29,21 @@ const AppsRoute = async () => {
   ])
 
   return (
-    <>
-      <CreateAppModal />
-      <DeleteAppModal />
-      <UpdateAppModal />
-      <BuildAppModal />
-      <ContentSection>
-        <DomainStoreHydrator
-          appsDto={appsDto}
-          atomsDto={atomsDto}
-          fallback={<Spinner />}
-        >
-          <AppListContainer />
-        </DomainStoreHydrator>
-      </ContentSection>
-    </>
+    <ContentSection>
+      <DomainStoreHydrator
+        appsDto={appsDto}
+        atomsDto={atomsDto}
+        fallback={<Spinner />}
+        pagesDto={appsDto.flatMap((app) => app.pages)}
+      >
+        <CreateAppModal />
+        <DeleteAppModal />
+        <UpdateAppModal />
+        <BuildAppModal />
+
+        <AppListContainer />
+      </DomainStoreHydrator>
+    </ContentSection>
   )
 }
 

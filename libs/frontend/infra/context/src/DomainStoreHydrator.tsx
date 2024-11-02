@@ -3,10 +3,9 @@
 import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { withProfiler } from '@sentry/react'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useHydrateStore } from './useStoreHydrator.hook'
 
@@ -37,7 +36,7 @@ export const DomainStoreHydrator = withProfiler(
     useEffect(() => {
       hydrate(data)
       setIsHydrated(true)
-    }, [hydrate])
+    }, [hydrate, data])
 
     // do not render children untill the store is hydrated with all the
     // specified entities. Othervise `assertIsDefined` may break the application

@@ -29,12 +29,13 @@ export class AppDomainService
   }
 
   @modelAction
-  hydrate = ({ domains, id, name, owner }: IAppDto) => {
+  hydrate = ({ domains, id, name, owner, pages }: IAppDto) => {
     const app = App.create({
       domains,
       id,
       name,
       owner,
+      pages,
     })
 
     this.apps.set(app.id, app)
