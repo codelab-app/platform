@@ -35,7 +35,11 @@ describe('Runtime Element', () => {
   })
 
   it('should create children with text injection', async () => {
-    const { renderer, rootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement } = testStore.setupRuntimeElement(
+      RendererType.Preview,
+      IPageKind.Provider,
+    )
+
     const richTextType = testStore.addRichTextType({})
 
     rootElement.writeCache({

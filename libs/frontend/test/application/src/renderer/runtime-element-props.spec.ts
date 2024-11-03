@@ -331,7 +331,7 @@ describe('Runtime Element props', () => {
         const isProviderPage = pageKind === IPageKind.Provider
 
         const { page, rendered, rootElement, runtimeRootElement } =
-          testStore.setupRuntimeElement(RendererType.Preview)
+          testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
         const runtimeProps = runtimeRootElement.runtimeProps
         const propKey = 'propKey'
@@ -350,27 +350,23 @@ describe('Runtime Element props', () => {
         })
 
         expect(runtimeProps.evaluatedProps).toMatchObject({
-          [propKey]: isProviderPage
-            ? {
-                // eslint-disable-next-line jest/no-conditional-expect
-                current: expect.any(HTMLDivElement),
-              }
-            : undefined,
-        })
-
-        const atom = testStore.addAtom({
-          __typename: 'Atom',
-          name: 'HtmlSpan',
-          type: IAtomType.HtmlSpan,
-        })
-
-        const targetElement = isProviderPage ? rootElement : providerRootElement
-
-        targetElement?.writeCache({
-          renderType: atom,
+          [propKey]: undefined,
         })
 
         await act(async () => {
+          const atom = testStore.addAtom({
+            name: 'HtmlSpan',
+            type: IAtomType.HtmlSpan,
+          })
+
+          const targetElement = isProviderPage
+            ? rootElement
+            : providerRootElement
+
+          targetElement?.writeCache({
+            renderType: atom,
+          })
+
           render(
             createElement(
               RootStoreProvider,
