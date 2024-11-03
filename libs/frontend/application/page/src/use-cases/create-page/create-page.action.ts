@@ -12,7 +12,6 @@ import type {
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
-import { propRepository } from '@codelab/frontend-domain-prop/repositories'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { revalidateTag } from 'next/cache'
@@ -25,10 +24,9 @@ export const createPageAction = async (
   rootElementProps: IPropDto,
   owner: IUserDto,
 ) => {
-  // await propRepository.add(rootElementProps)
   await typeRepository.add(storeApi, owner)
-  // await storeRepository.add(store)
-  // await elementRepository.add(rootElement)
+  await storeRepository.add(store)
+  await elementRepository.add(rootElement)
 
   const page = await pageRepository.add(pageDto)
 

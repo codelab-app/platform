@@ -2,38 +2,23 @@ import type {
   IElementDto,
   IPageCreateFormData,
   IPageUpdateFormData,
-  IPropDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { PageWhere } from '@codelab/shared/infra/gql'
 
 import { type IPageService } from '@codelab/frontend/abstract/application'
-import {
-  elementRef,
-  type IInterfaceTypeModel,
-  type IPageModel,
-  typeRef,
-} from '@codelab/frontend/abstract/domain'
+import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   GetRenderedPage,
   pageRepository,
 } from '@codelab/frontend-domain-page/repositories'
-import { Store } from '@codelab/frontend-domain-store/store'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import {
-  IElementRenderTypeKind,
-  IPageKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
-import { slugify } from '@codelab/shared/utils'
-import { v4 } from 'uuid'
 
 import { createPageAction } from '../use-cases/create-page'
 import { createPageFactory } from '../use-cases/create-page/create-page.factory'
@@ -90,10 +75,10 @@ export const usePageService = (): IPageService => {
 
   const create = async (data: IPageCreateFormData) => {
     const { page, rootElement, rootElementProps, store, storeApi } =
-      await createPageFactory(
+      createPageFactory(
         data,
         atomDomainService.defaultRenderType.toJson,
-        owner,
+        owner.toJson,
       )
 
     return await createPageAction(

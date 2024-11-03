@@ -184,7 +184,7 @@ export const createTestStore = () => {
     }
 
     @modelAction
-    addPageProvider(app: IAppModel, id = v4(), name = 'provider') {
+    addPageProvider(app: IRef, id = v4(), name = 'provider') {
       return this.addPage({
         app,
         id,
@@ -194,7 +194,7 @@ export const createTestStore = () => {
           closestContainerNode: { id },
           name: ROOT_ELEMENT_NAME,
           page: { id },
-          renderType: this.getAtomByType(IAtomType.HtmlDiv),
+          renderType: this.getAtomByType(IAtomType.ReactFragment),
         }),
         store: this.addStore({
           name: Store.createName({ name }),
@@ -317,13 +317,18 @@ export const createTestStore = () => {
       rendererType: RendererType = RendererType.Preview,
       pageKind: IPageKind = IPageKind.Regular,
     ) {
-      const app = this.addApp({})
-      const providerPage = this.addPageProvider(app)
+      const appId = v4()
+      const providerPage = this.addPageProvider({ id: appId })
 
       const page =
         pageKind === IPageKind.Regular
-          ? this.addPageRegular({ app })
+          ? this.addPageRegular({ app: { id: appId } })
           : providerPage
+
+      const pages =
+        pageKind === IPageKind.Regular ? [providerPage, page] : [page]
+
+      const app = this.addApp({ id: appId, pages })
 
       // page.rootElement.current.writeCache({ renderType: this.getDivAtom() })
 
