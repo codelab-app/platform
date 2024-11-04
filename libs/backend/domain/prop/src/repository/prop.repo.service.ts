@@ -12,6 +12,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
+import { propMapper } from '@codelab/shared/domain-old'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -38,10 +39,7 @@ export class PropRepository extends AbstractRepository<
       await (
         await this.ogmService.Prop
       ).create({
-        input: props.map(({ data = '', id }) => ({
-          data: JSON.stringify(data),
-          id,
-        })),
+        input: props.map((prop) => propMapper.toCreateInput(prop)),
       })
     ).props
   }
@@ -62,14 +60,12 @@ export class PropRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ data, id }: IPropDto, where: PropWhere) {
+  protected async _update(props: IPropDto, where: PropWhere) {
     return (
       await (
         await this.ogmService.Prop
       ).update({
-        update: {
-          data: JSON.stringify(data),
-        },
+        update: propMapper.toUpdateInput(props),
         where,
       })
     ).props[0]

@@ -89,6 +89,7 @@ export const elementMapper: IMapper<
     closestContainerNode,
     compositeKey,
     expanded,
+    firstChild,
     name,
     postRenderAction,
     preRenderAction,
@@ -111,6 +112,7 @@ export const elementMapper: IMapper<
         compositeKey ??
         ElementProperties.elementCompositeKey(name, closestContainerNode),
       expanded,
+      firstChild: reconnectNodeId(firstChild?.id),
       postRenderAction: reconnectNodeId(postRenderAction?.id),
       preRenderAction: reconnectNodeId(preRenderAction?.id),
       props: reconnectNodeId(props.id),
