@@ -340,6 +340,7 @@ export class Element
       childMapperPreviousSibling: this.childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
       closestContainerNode: this.closestContainerNode,
+      expanded: this.expanded,
       firstChild: this.firstChild,
       id: this.id,
       // isRoot: this.isRoot,

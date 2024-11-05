@@ -1,7 +1,4 @@
-import type {
-  IComponentExport,
-  IComponentImport,
-} from '@codelab/shared/abstract/core'
+import type { IComponentImport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportStoreCommand } from '@codelab/backend/application/store'

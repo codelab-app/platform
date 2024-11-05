@@ -1,9 +1,8 @@
 import type {
   IApiExport,
   IEnumTypeDto,
-  IInterfaceType,
   IInterfaceTypeRef,
-  ITypeDto,
+  ITypeExport,
   ITypeRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
@@ -17,10 +16,12 @@ import {
 } from '@codelab/backend/domain/type'
 import {
   FieldDtoSchema,
-  InterfaceTypeDtoSchema,
+  InterfaceTypeSchema,
   ITypeKind,
+  TypeExportSchema,
 } from '@codelab/shared/abstract/core'
 import { CommandHandler } from '@nestjs/cqrs'
+import { Type } from '@sinclair/typebox'
 
 export class ExportApiCommand {
   constructor(public api: IInterfaceTypeRef) {}
@@ -44,7 +45,7 @@ export class ExportApiHandler
      * (1) Get itself
      */
     const interfaceType = await this.interfaceTypeRepository.findOneOrFail({
-      schema: InterfaceTypeDtoSchema,
+      schema: Type.Omit(InterfaceTypeSchema, ['owner']),
       where: {
         id: api.id,
       },
@@ -55,7 +56,7 @@ export class ExportApiHandler
         sort: [{ key: SortDirection.Asc }],
       },
       schema: FieldDtoSchema,
-      where: { id_IN: interfaceType.fields?.map(({ id }) => id) },
+      where: { id_IN: interfaceType.fields.map(({ id }) => id) },
     })
 
     /**
@@ -86,7 +87,7 @@ export class ExportApiHandler
     const apiInterfaceForExport = {
       ...interfaceType,
       fields: [],
-    } as IInterfaceType
+    }
 
     return {
       ...interfaceType,
@@ -96,13 +97,16 @@ export class ExportApiHandler
   }
 
   private async getTypeItemsFromIds(dependentTypesIds: Array<ITypeRef>) {
-    const dependentTypes: Array<ITypeDto> = []
+    const dependentTypes: Array<ITypeExport> = []
 
     for (const dependentType of dependentTypesIds) {
       if (
         Object.values(ITypeKind).includes(dependentType.__typename as ITypeKind)
       ) {
-        const type = await this.typeFactory.findOne(dependentType)
+        const type = await this.typeFactory.findOne(
+          dependentType,
+          TypeExportSchema,
+        )
 
         if (!type) {
           continue
@@ -122,7 +126,7 @@ export class ExportApiHandler
     return this.sortTypesBeforeExport(dependentTypes)
   }
 
-  private sortEnumValuesBeforeExport(dependentTypes: Array<ITypeDto>) {
+  private sortEnumValuesBeforeExport(dependentTypes: Array<ITypeExport>) {
     dependentTypes
       .filter((type) => type.__typename === ITypeKind.EnumType)
       .forEach((unionType) =>
@@ -132,12 +136,12 @@ export class ExportApiHandler
       )
   }
 
-  private sortTypesBeforeExport(dependentTypes: Array<ITypeDto>) {
+  private sortTypesBeforeExport(dependentTypes: Array<ITypeExport>) {
     dependentTypes.sort((a, b) => a.name.localeCompare(b.name))
 
-    const interfaces: Array<ITypeDto> = []
-    const unions: Array<ITypeDto> = []
-    const remainingTypes: Array<ITypeDto> = []
+    const interfaces: Array<ITypeExport> = []
+    const unions: Array<ITypeExport> = []
+    const remainingTypes: Array<ITypeExport> = []
 
     dependentTypes.forEach((type) => {
       switch (type.__typename) {
@@ -155,7 +159,7 @@ export class ExportApiHandler
     return [...interfaces, ...unions, ...remainingTypes]
   }
 
-  private sortUnionTypesBeforeExport(dependentTypes: Array<ITypeDto>) {
+  private sortUnionTypesBeforeExport(dependentTypes: Array<ITypeExport>) {
     dependentTypes
       .filter((type) => type.__typename === ITypeKind.UnionType)
       .forEach((unionType) =>
