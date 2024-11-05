@@ -9,11 +9,6 @@ import type { IBaseTypeModel } from './base-type.model.interface'
 /**
  * Prop values for this type have the shape of {@see TypedProp} in order to
  */
-export interface IRichTextTypeModel
-  extends IBaseTypeModel<
-    IRichTextTypeDto,
-    RichTextTypeCreateInput,
-    UpdateRichTextTypesMutationVariables
-  > {
+export interface IRichTextTypeModel extends IBaseTypeModel<IRichTextTypeDto> {
   kind: ITypeKind.RichTextType
 }

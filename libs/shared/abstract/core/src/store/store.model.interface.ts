@@ -9,7 +9,7 @@ import { StoreDtoSchema } from './store.dto.interface'
 export const StoreSchema = Typebox.Overwrite(
   StoreDtoSchema,
   Type.Object({
-    actions: Type.Array(ActionSchema),
+    actions: Type.Array(Typebox.Ref),
     api: Typebox.Ref,
   }),
 )

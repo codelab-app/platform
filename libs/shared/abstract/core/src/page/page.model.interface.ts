@@ -1,4 +1,4 @@
-import type { Static } from '@sinclair/typebox'
+import type { Static, StaticDecode, StaticEncode } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 

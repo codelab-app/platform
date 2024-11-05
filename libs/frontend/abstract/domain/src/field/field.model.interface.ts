@@ -12,7 +12,7 @@ import type {
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
-import type { ICacheService, IModel } from '../shared'
+import type { IModel } from '../shared'
 import type {
   IInterfaceTypeModel,
   ITypeModel,
@@ -21,11 +21,11 @@ import type {
 } from '../type'
 
 export interface IFieldModel<T extends ITypeModel = ITypeModel>
-  extends Omit<IModel<IField>, 'toDeleteInput'>,
-    ICacheService<IFieldDto, IFieldModel> {
+  extends IModel<IField, IFieldModel<T>> {
   api: Ref<IInterfaceTypeModel>
   defaultValues: Nullish<IFieldDefaultValue>
   description: Nullish<string>
+  id: string
   key: string
   /**
    * Allows default to null
@@ -35,7 +35,6 @@ export interface IFieldModel<T extends ITypeModel = ITypeModel>
   prevSibling?: Nullish<Ref<IFieldModel>>
   type: Ref<T>
   validationRules: Nullish<IValidationRules>
-
   attachAsNextSibling(sibling: IFieldModel): void
   attachAsPrevSibling(sibling: IFieldModel): void
   changePrev(sibling: IFieldModel): void

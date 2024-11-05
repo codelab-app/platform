@@ -16,7 +16,6 @@ export interface IElementTree {
   elements: Array<IElementModel>
   id: string
   rootElement: Ref<IElementModel>
-
   descendants(subRoot: Ref<IElementModel>): Array<IElementModel>
   element(id: string): Maybe<IElementModel>
   setRootElement(elementRef: Ref<IElementModel>): void

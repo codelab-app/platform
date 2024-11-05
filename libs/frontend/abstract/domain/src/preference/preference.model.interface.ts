@@ -11,12 +11,11 @@ import type {
 } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
-import type { ICacheService, IModel } from '../shared'
+import type { IModel } from '../shared'
 import type { IUserModel } from '../user'
 
 export interface IPreferenceModel
-  extends IModel<IPreference>,
-    ICacheService<IPreferenceDto, IPreferenceModel> {
+  extends IModel<IPreference, IPreferenceModel> {
   builderBreakpoint: IBreakpoint
   builderBreakpointType: IBreakpointType
   builderWidth: number

@@ -8,18 +8,15 @@ import type { Frozen, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import type { IElementModel } from '../element'
-import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IInterfaceTypeModel } from '../type'
 
-export interface IPropModel
-  extends IModel<IProp>,
-    ICacheService<IPropDto, IPropModel> {
+export interface IPropModel extends IModel<IProp, IPropModel> {
   api?: Nullable<Ref<IInterfaceTypeModel>>
   data: Frozen<Nullable<IPropData>>
+  id: string
   jsonString: string
   values: IPropData
-
   clone(): IPropModel
   delete(key: string): void
   get(key: string): unknown

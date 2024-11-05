@@ -12,13 +12,13 @@ import { Page } from '@codelab/backend/domain/page'
 import { slugify } from '@codelab/shared/utils'
 import { Expose } from 'class-transformer'
 
-export class App extends IModel implements IApp {
+export class App extends IModel implements IAppDto {
   @Expose()
   get slug() {
     return slugify(this.name)
   }
 
-  domains: Array<IDomain>
+  domains: Array<IRef>
 
   id: string
 
@@ -26,15 +26,15 @@ export class App extends IModel implements IApp {
 
   owner: IRef
 
-  pages: Array<IPage>
+  pages: Array<IRef>
 
   constructor({ domains = [], id, name, owner, pages = [] }: IAppDto) {
     super()
 
     this.id = id
     this.name = name
-    this.domains = domains.map((domain) => new Domain(domain))
-    this.pages = pages.map((page) => new Page(page))
+    this.domains = domains
+    this.pages = pages
     this.owner = owner
   }
 }

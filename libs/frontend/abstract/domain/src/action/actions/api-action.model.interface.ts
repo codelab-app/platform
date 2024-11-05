@@ -1,5 +1,6 @@
 import type {
   IActionKind,
+  IActionRef,
   IApiAction,
   IApiActionDto,
 } from '@codelab/shared/abstract/core'
@@ -13,17 +14,20 @@ import type { Ref } from 'mobx-keystone'
 
 import type { IPropModel } from '../../prop'
 import type { IResourceModel } from '../../resource'
-import type { ICacheService, IModel } from '../../shared'
+import type { IModel } from '../../shared'
+import type { IStoreModel } from '../../store'
 import type { IActionModel } from '../action.model.interface'
 import type { IBaseAction } from '../base-action.interface'
 
 export interface IApiActionModel
-  extends IBaseAction,
-    ICacheService<IApiActionDto, IApiActionModel>,
-    IModel<IApiAction> {
+  extends IModel<IApiActionDto, IApiActionModel> {
+  __typename: IActionKind.ApiAction
   config: IPropModel
   errorAction?: Nullish<Ref<IActionModel>>
+  id: string
+  name: string
   resource: Ref<IResourceModel>
+  store: Ref<IStoreModel>
   successAction?: Nullish<Ref<IActionModel>>
   type: IActionKind.ApiAction
 }

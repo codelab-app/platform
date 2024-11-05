@@ -13,11 +13,9 @@ import type { Ref } from 'mobx-keystone'
 
 import type { IAuthGuardModel } from '../auth-guard'
 import type { IPageModel } from '../page'
-import type { ICacheService, IModel } from '../shared'
+import type { IModel } from '../shared'
 
-export interface IRedirectModel
-  extends Omit<IModel<IRedirect>, 'toDeleteInput'>,
-    ICacheService<IRedirectDto, IRedirectModel> {
+export interface IRedirectModel extends IModel<IRedirect, IRedirectModel> {
   authGuard: Ref<IAuthGuardModel>
   id: string
   source: Ref<IPageModel>

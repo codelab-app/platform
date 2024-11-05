@@ -6,7 +6,6 @@ import type { IElementModel } from '../element'
 import type { IStoreModel } from '../store'
 
 export interface IBaseAction {
-  __typename: `${IActionKind}`
   element: Maybe<Ref<IElementModel>>
   id: string
   name: string

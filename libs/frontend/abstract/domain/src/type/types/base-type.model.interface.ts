@@ -12,8 +12,10 @@ import type {
   ObjectLike,
 } from '@codelab/shared/abstract/types'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
+import type { Ref } from 'mobx-keystone'
 
-import type { ICacheService, IModel } from '../../shared'
+import type { IModel } from '../../shared'
+import type { IUserModel } from '../../user'
 import type { IActionTypeModel } from './action-type.model.interface'
 import type { IAppTypeModel } from './app-type.model.interface'
 import type { IArrayTypeModel } from './array-type.model.interface'
@@ -28,8 +30,6 @@ import type { IReactNodeTypeModel } from './react-node-type.model.interface'
 import type { IRenderPropTypeModel } from './render-prop-type.model.interface'
 import type { IRichTextTypeModel } from './rich-text-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
-import { Ref } from 'mobx-keystone'
-import { IUserModel } from '../../user'
 
 export interface JsonSchema extends JSONSchema7 {
   autocomplete?: IPropData
@@ -53,17 +53,15 @@ export interface ITypeTransformContext {
   validationRules?: Nullish<IValidationRules>
   uniformSchema?(type: ITypeModel): ObjectLike
 }
-export interface IBaseTypeModel<
-  Dto extends IBaseTypeDto,
-  CreateInput,
-  UpdateInput,
-> extends Omit<IModel<IBaseType>, 'toDeleteInput'>,
-    ICacheService<Dto, IBaseTypeModel<Dto, CreateInput, UpdateInput>> {
+export interface IBaseTypeModel<Dto extends IBaseTypeDto>
+  extends IModel<IBaseType, IBaseTypeModel<Dto>> {
   __typename: `${ITypeKind}`
+  id: string
   kind: ITypeKind
   name: string
   owner: Ref<IUserModel>
   toJsonSchema(context: ITypeTransformContext): JsonSchema
+  writeCache(dto: Partial<Dto>): IBaseTypeModel<Dto>
 }
 
 export type ITypeModel =

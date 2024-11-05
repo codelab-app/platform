@@ -10,13 +10,10 @@ import type { Ref } from 'mobx-keystone'
 import type { IAppModel } from '../app'
 import type { IElementModel, IElementTree } from '../element'
 import type { IRedirectModel } from '../redirect'
-import type { ICacheService, IModel } from '../shared'
+import type { IModel } from '../shared'
 import type { IStoreModel } from '../store'
 
-export interface IPageModel
-  extends IModel<IPage>,
-    ICacheService<IPageDto, IPageModel>,
-    IElementTree {
+export interface IPageModel extends IModel<IPage, IPageModel>, IElementTree {
   app: Ref<IAppModel>
   /**
    * The platform URL

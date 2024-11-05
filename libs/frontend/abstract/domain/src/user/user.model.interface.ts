@@ -1,11 +1,13 @@
-import type { IUser, IUserDto } from '@codelab/shared/abstract/core'
+import type { IRole, IUser, IUserDto } from '@codelab/shared/abstract/core'
 
 import type { IAppModel } from '../app'
-import type { ICacheService, IModel } from '../shared'
+import type { IModel } from '../shared'
 
-export interface IUserModel
-  extends ICacheService<IUserDto, IUserModel>,
-    IModel<IUser>,
-    IUserDto {
+export interface IUserModel extends IModel<IUser, IUserModel> {
+  auth0Id: string
+  email: string
+  username: string
+  roles: Array<IRole>
+  id: string
   setId(id: string): void
 }

@@ -4,7 +4,7 @@ import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 export class Prop implements IPropDto {
   api?: Nullable<IRef> | undefined
 
-  data: string
+  data: ObjectLike
 
   id: string
 

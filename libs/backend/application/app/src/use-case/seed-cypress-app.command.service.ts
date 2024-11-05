@@ -1,5 +1,5 @@
 import type { InterfaceType } from '@codelab/backend/domain/type'
-import type { IApp } from '@codelab/shared/abstract/core'
+import type { IApp, IAppDto } from '@codelab/shared/abstract/core'
 
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -36,7 +36,7 @@ export class SeedCypressAppCommand {}
  */
 @CommandHandler(SeedCypressAppCommand)
 export class SeedCypressAppHandler
-  implements ICommandHandler<SeedCypressAppCommand, IApp>
+  implements ICommandHandler<SeedCypressAppCommand, IAppDto>
 {
   constructor(
     private readonly appRepository: AppRepository,
@@ -121,7 +121,7 @@ export class SeedCypressAppHandler
     /**
      * Create app
      */
-    const app = new App(appData(owner))
+    const app = appData(owner)
 
     await this.appRepository.add(app)
 

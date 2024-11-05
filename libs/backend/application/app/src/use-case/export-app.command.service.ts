@@ -13,6 +13,7 @@ import { ExportComponentCommand } from '@codelab/backend/application/component'
 import { ExportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { ComponentRepository } from '@codelab/backend/domain/component'
+import { DomainRepository } from '@codelab/backend/domain/domain'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
 import {
@@ -34,6 +35,7 @@ export class ExportAppHandler
 {
   constructor(
     private readonly appRepository: AppRepository,
+    private readonly domainRepository: DomainRepository,
     private readonly componentRepository: ComponentRepository,
     private readonly elementRepository: ElementRepository,
     private readonly resourceRepository: ResourceRepository,
@@ -43,16 +45,20 @@ export class ExportAppHandler
   async execute({ where }: ExportAppCommand) {
     const app = await this.appRepository.findOneOrFail({ where })
 
+    const domains = await this.domainRepository.find({
+      where: { app: { id: where.id } },
+    })
+
     const pages = await this.commandBus.execute<
       ExportPageCommand,
       Array<IPageExport>
     >(new ExportPageCommand({ id_IN: app.pages.map((page) => page.id) }))
 
-    const pageStoresContexts = pages.map((pageContext) => pageContext.store)
+    const pageStores = pages.map((page) => page.store)
 
-    const pageResourceRefs = pageStoresContexts.reduce<Array<IRef>>(
+    const pageResourceRefs = pageStores.reduce<Array<IRef>>(
       (acc, storeContext) => {
-        const { actions } = storeContext.store
+        const { actions } = storeContext
 
         const apiActions = actions.filter(
           (action) => action.__typename === IActionKind.ApiAction,
@@ -146,6 +152,7 @@ export class ExportAppHandler
     return {
       app,
       components,
+      domains,
       pages,
       resources,
     }

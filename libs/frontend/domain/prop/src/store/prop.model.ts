@@ -38,7 +38,7 @@ import { propSafeStringify } from '../utils/prop-safe-stringify'
 const create = ({ api, data, id }: IPropDto) => {
   return new Prop({
     api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
-    data: frozen(JSON.parse(data)),
+    data: frozen(data),
     id,
   })
 }
@@ -122,7 +122,7 @@ export class Prop
   @modelAction
   writeCache({ api, data, id }: Partial<IPropDto>) {
     this.id = id ?? this.id
-    this.data = data ? frozen(JSON.parse(data)) : this.data
+    this.data = data ? frozen(data) : this.data
     this.api = api ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     return this

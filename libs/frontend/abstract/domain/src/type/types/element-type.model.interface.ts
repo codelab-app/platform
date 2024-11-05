@@ -25,12 +25,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  * @property {ElementTypeKind} elementKind Allows scoping the type of element to only descendants, children or all elements
  *
  */
-export interface IElementTypeModel
-  extends IBaseTypeModel<
-    IElementTypeDto,
-    ElementTypeCreateInput,
-    UpdateElementTypesMutationVariables
-  > {
+export interface IElementTypeModel extends IBaseTypeModel<IElementTypeDto> {
   elementKind: IElementTypeKind
   kind: ITypeKind.ElementType
 }

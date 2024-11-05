@@ -7,12 +7,9 @@ import type {
   ProductionDomainConfig,
 } from '@codelab/shared/infra/gql'
 
-import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 
-export interface IDomainModel
-  extends ICacheService<IDomainDto, IDomainModel>,
-    IModel<IDomain> {
+export interface IDomainModel extends IModel<IDomain, IDomainModel> {
   app: IRef
   domainConfig: Maybe<ProductionDomainConfig>
   id: string

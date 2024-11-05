@@ -6,7 +6,11 @@ import type {
   IStoreModel,
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
+import type {
+  IComponent,
+  IComponentDto,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type {
   ComponentDeleteInput,

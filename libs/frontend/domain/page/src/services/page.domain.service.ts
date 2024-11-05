@@ -25,17 +25,11 @@ export class PageDomainService
 
   @modelAction
   hydrate(pageDto: IPageDto) {
-    const existingPage = this.pages.get(pageDto.id)
+    const page: IPageModel = Page.create(pageDto)
 
-    if (existingPage) {
-      return existingPage.writeCache(pageDto)
-    } else {
-      const page: IPageModel = Page.create(pageDto)
+    this.pages.set(page.id, page)
 
-      this.pages.set(page.id, page)
-
-      return page
-    }
+    return page
   }
 
   findById(id: string) {

@@ -13,22 +13,22 @@ import type { Ref } from 'mobx-keystone'
 
 import type { IElementModel, IElementTree } from '../element'
 import type { IPropModel } from '../prop'
-import type { ICacheService, IModel } from '../shared'
+import type { IModel } from '../shared'
 import type { IStoreModel } from '../store'
 import type { IInterfaceTypeModel } from '../type'
 import type { IUserModel } from '../user'
 
 export interface IComponentModel
-  extends ICacheService<IComponentDto, IComponentModel>,
-    IElementTree,
-    Omit<IComponentDto, 'props' | 'rootElement'>,
-    IModel<IComponent> {
+  extends IElementTree,
+    IModel<IComponent, IComponentModel> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceTypeModel>
   descendantComponents: Array<IComponentModel>
   instanceElement: Nullable<Ref<IElementModel>>
+  name: string
   owner: Ref<IUserModel>
   props: IPropModel
+  rootElement: Ref<IElementModel>
   slug: string
   /**
    * to render a component we create a duplicate for each instance
