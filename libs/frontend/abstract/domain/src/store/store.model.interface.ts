@@ -11,13 +11,11 @@ import type { IActionModel } from '../action'
 import type { IActionNodeData } from '../action/action.node.interface'
 import type { IComponentModel } from '../component'
 import type { IPageModel } from '../page'
-import type { ICacheService, ITreeNode } from '../shared'
+import type { ITreeNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IInterfaceTypeModel } from '../type'
 
-export interface IStoreModel
-  extends IModel<IStore>,
-    ICacheService<IStoreDto, IStoreModel> {
+export interface IStoreModel extends IModel<IStore, IStoreModel> {
   actions: Array<IActionModel>
   actionsTree: Array<ITreeNode<IActionNodeData>>
   api: Ref<IInterfaceTypeModel>

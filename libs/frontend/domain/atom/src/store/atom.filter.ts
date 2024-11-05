@@ -5,7 +5,7 @@ import type { AtomType } from '@codelab/shared/infra/gql'
 
 export const filterAtoms = (
   allAtoms: Array<
-    | IAtomModel
+    | IAtomDto
     | {
         id: string
         name: string
@@ -15,7 +15,7 @@ export const filterAtoms = (
   parent: IAtomModel,
 ) => {
   const atomsRequiringCurrentParent = allAtoms.filter((atom) => {
-    return atom.requiredParents.length
+    return atom.requiredParents?.length
       ? atom.requiredParents.some(
           (requiredParent) => requiredParent.id === parent.id,
         )
@@ -31,7 +31,7 @@ export const filterAtoms = (
   })
 
   const atomsWithNoRequiredParents = allAtoms.filter(
-    (atom) => atom.requiredParents.length === 0,
+    (atom) => atom.requiredParents?.length === 0,
   )
 
   if (atomsRequiringCurrentParent.length) {

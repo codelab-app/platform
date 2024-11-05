@@ -17,12 +17,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  *
  * @property fields {@link IField[]} - Fields of the object type
  */
-export interface IInterfaceTypeModel
-  extends IBaseTypeModel<
-    IInterfaceTypeDto,
-    InterfaceTypeCreateInput,
-    UpdateInterfaceTypesMutationVariables
-  > {
+export interface IInterfaceTypeModel extends IBaseTypeModel<IInterfaceTypeDto> {
   defaultValues: IPropData
   fields: Array<IFieldModel>
   fieldsTree: Array<ITreeNode<IFieldNodeData>>

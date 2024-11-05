@@ -8,11 +8,9 @@ import type { Ref } from 'mobx-keystone'
 
 import type { IPropModel } from '../prop'
 import type { IResourceModel } from '../resource'
-import type { ICacheService, IModel } from '../shared'
+import type { IModel } from '../shared'
 
-export interface IAuthGuardModel
-  extends IModel<IAuthGuard>,
-    ICacheService<IAuthGuardDto, IAuthGuardModel> {
+export interface IAuthGuardModel extends IModel<IAuthGuard, IAuthGuardModel> {
   config: IPropModel
   id: string
   name: string

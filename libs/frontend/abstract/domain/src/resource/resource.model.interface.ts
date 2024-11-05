@@ -7,12 +7,9 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import type { IPropModel } from '../prop'
-import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 
-export interface IResourceModel
-  extends IModel<IResource>,
-    ICacheService<IResourceDto, IResourceModel> {
+export interface IResourceModel extends IModel<IResource, IResourceModel> {
   client: IResourceClient
   config: IPropModel
   id: string

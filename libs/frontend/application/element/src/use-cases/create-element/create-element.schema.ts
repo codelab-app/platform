@@ -24,6 +24,10 @@ export type ICreateElementDto = Pick<
 export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
   properties: {
     ...idSchema(),
+    name: {
+      type: 'string',
+      ...titleCaseValidation,
+    },
     style: {
       nullable: true,
       type: 'string',
@@ -34,10 +38,6 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
       items: {
         type: 'string',
       },
-    },
-    name: {
-      type: 'string',
-      ...titleCaseValidation,
     },
     parentElement: {
       nullable: true,
@@ -95,7 +95,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         },
         data: {
           label: 'Props Data',
-          type: 'string',
+          type: 'object',
         },
       },
       type: 'object',

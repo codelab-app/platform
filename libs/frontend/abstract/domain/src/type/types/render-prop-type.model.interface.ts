@@ -19,10 +19,6 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  * - ElementType: Current tree element select box, results it `ReactNode` value
  */
 export interface IRenderPropTypeModel
-  extends IBaseTypeModel<
-    IRenderPropTypeDto,
-    RenderPropTypeCreateInput,
-    UpdateRenderPropTypesMutationVariables
-  > {
+  extends IBaseTypeModel<IRenderPropTypeDto> {
   kind: ITypeKind.RenderPropType
 }

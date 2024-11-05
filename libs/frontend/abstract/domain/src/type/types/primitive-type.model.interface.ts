@@ -16,12 +16,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  *
  * @property {PrimitiveTypeKind} primitiveKind - concrete primitive kind
  */
-export interface IPrimitiveTypeModel
-  extends IBaseTypeModel<
-    IPrimitiveTypeDto,
-    PrimitiveTypeCreateInput,
-    UpdatePrimitiveTypesMutationVariables
-  > {
+export interface IPrimitiveTypeModel extends IBaseTypeModel<IPrimitiveTypeDto> {
   kind: ITypeKind.PrimitiveType
   primitiveKind: IPrimitiveTypeKind
 }

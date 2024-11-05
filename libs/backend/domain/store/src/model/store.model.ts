@@ -32,7 +32,7 @@ export class Store implements IStore {
 
   static createName = createStoreName
 
-  actions: Array<IAction>
+  actions: Array<IRef>
 
   api: IInterfaceTypeRef
 
@@ -46,7 +46,7 @@ export class Store implements IStore {
       __typename: ITypeKind.InterfaceType,
     }
     this.id = id
-    this.actions = actions.map((action) => ActionModelFactory.create(action))
+    this.actions = actions
     this.name = name
   }
 }

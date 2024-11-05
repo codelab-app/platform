@@ -11,11 +11,7 @@ import type {
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 export interface ICodeMirrorTypeModel
-  extends IBaseTypeModel<
-    ICodeMirrorTypeDto,
-    CodeMirrorTypeCreateInput,
-    UpdateCodeMirrorTypesMutationVariables
-  > {
+  extends IBaseTypeModel<ICodeMirrorTypeDto> {
   kind: ITypeKind.CodeMirrorType
   language: CodeMirrorLanguage
 }

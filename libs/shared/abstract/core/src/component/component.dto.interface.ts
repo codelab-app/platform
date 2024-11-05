@@ -1,4 +1,5 @@
 import type { Static } from '@sinclair/typebox'
+import type { Ref } from 'mobx-keystone'
 
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'

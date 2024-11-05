@@ -116,6 +116,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
         component: { ...component, owner },
         elements,
         store: {
+          actions: store.actions,
           api: {
             ...store.api,
             owner,

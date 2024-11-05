@@ -20,11 +20,6 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  * - ReactNodeType: Component select box, results it `ReactNode` value
  * - ElementType: Current tree element select box, results it `ReactNode` value
  */
-export interface IReactNodeTypeModel
-  extends IBaseTypeModel<
-    IReactNodeTypeDto,
-    ReactNodeTypeCreateInput,
-    UpdateReactNodeTypesMutationVariables
-  > {
+export interface IReactNodeTypeModel extends IBaseTypeModel<IReactNodeTypeDto> {
   kind: ITypeKind.ReactNodeType
 }

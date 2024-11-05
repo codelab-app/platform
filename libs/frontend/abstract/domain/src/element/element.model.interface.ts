@@ -16,7 +16,6 @@ import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IPageModel } from '../page'
 import type { IPropModel } from '../prop'
-import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
 import type { IElementRenderTypeModel } from './render-type'
@@ -42,9 +41,7 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export interface IElementModel
-  extends Omit<IModel<IElement>, 'toDeleteInput'>,
-    ICacheService<IElementDto, IElementModel> {
+export interface IElementModel extends IModel<IElement, IElementModel> {
   _modified: boolean
   ancestorError: Nullish<RenderingError>
   atomName: string

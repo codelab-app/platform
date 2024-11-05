@@ -9,11 +9,6 @@ import type { IBaseTypeModel } from './base-type.model.interface'
 /**
  * Allows picking a lambda
  */
-export interface ILambdaTypeModel
-  extends IBaseTypeModel<
-    ILambdaTypeDto,
-    LambdaTypeCreateInput,
-    UpdateLambdaTypesMutationVariables
-  > {
+export interface ILambdaTypeModel extends IBaseTypeModel<ILambdaTypeDto> {
   kind: ITypeKind.LambdaType
 }

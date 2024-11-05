@@ -20,12 +20,7 @@ export interface IEnumTypeValue {
  *
  * @property {IEnumTypeValue[]} allowedValues - The list of allowed values.
  */
-export interface IEnumType
-  extends IBaseTypeModel<
-    IEnumTypeDto,
-    EnumTypeCreateInput,
-    UpdateEnumTypesMutationVariables
-  > {
+export interface IEnumType extends IBaseTypeModel<IEnumTypeDto> {
   allowedValues: Array<IEnumTypeValue>
   kind: ITypeKind.EnumType
 }

@@ -25,7 +25,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       name: prop<string>(),
       owner: prop<Ref<IUserModel>>(),
     })
-    implements IBaseTypeModel<IBaseTypeDto, ITypeCreateInput, ITypeUpdateVars>
+    implements IBaseTypeModel<IBaseTypeDto>
   {
     @computed
     get toJson() {
@@ -43,15 +43,6 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       this.name = name ?? this.name
 
       return this
-    }
-
-    toCreateInput() {
-      return {
-        id: this.id,
-        kind: this.kind,
-        name: this.name,
-        owner: this.owner,
-      }
     }
 
     toJsonSchema(context: ITypeTransformContext): JsonSchema {

@@ -25,9 +25,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
   ) {}
 
   async execute(command: ImportAppCommand) {
-    const { app, components, pages, resources } = command.appImport
-
-    await this.appRepository.save(app)
+    const { app, components, domains, pages, resources } = command.appImport
 
     for (const resource of resources) {
       await this.propRepository.save(resource.config)
@@ -40,7 +38,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
       )
     }
 
-    for (const domain of app.domains) {
+    for (const domain of domains) {
       // await this.digitaloceanService.createDomain(domain.name)
       await this.domainRepository.save(domain)
     }
@@ -50,6 +48,8 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
         new ImportPageCommand(page),
       )
     }
+
+    await this.appRepository.save(app)
 
     return app
   }
