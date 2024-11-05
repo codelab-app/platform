@@ -134,9 +134,7 @@ export const usePageService = (): IPageService => {
       urlPattern,
     })
 
-    await pageRepository.update(page, {
-      id: page.id,
-    })
+    await pageRepository.update({ id: page.id }, page)
 
     return page
   }
