@@ -6,13 +6,16 @@ import {
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const atomReactFragmentDto: Omit<IAtomDto, 'owner'> = {
+import { userDto } from './user.data'
+
+export const atomReactFragmentDto: IAtomDto = {
   __typename: IElementRenderTypeKind.Atom,
   api: {
     id: v4(),
   },
   id: v4(),
   name: IAtomType.ReactFragment,
+  owner: userDto,
   requiredParents: [],
   suggestedChildren: [],
   tags: [],

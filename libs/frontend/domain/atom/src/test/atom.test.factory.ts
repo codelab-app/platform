@@ -19,6 +19,7 @@ export const atomFactory =
       icon: dto.icon ?? null,
       id: dto.id ?? v4(),
       name: dto.name ?? chance.word({ capitalize: true }),
+      owner: { id: v4() },
       requiredParents: dto.requiredParents ?? [],
       suggestedChildren: dto.suggestedChildren ?? [],
       tags: dto.tags ?? [],

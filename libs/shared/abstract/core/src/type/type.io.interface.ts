@@ -23,7 +23,7 @@ import {
   EnumTypeSchema,
   type IEnumTypeValueDto,
 } from './enum-type'
-import { InterfaceTypeDtoSchema, InterfaceTypeSchema } from './interface-type'
+import { InterfaceTypeDtoSchema } from './interface-type/interface-type.dto.interface'
 import {
   LambdaTypeDtoSchema,
   LambdaTypeSchema,

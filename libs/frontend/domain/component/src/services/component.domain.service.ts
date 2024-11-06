@@ -55,9 +55,11 @@ export class ComponentDomainService
     const owner = this.userDomainService.user
 
     const storeApi = this.typeDomainService.hydrateInterface({
+      __typename: ITypeKind.InterfaceType,
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${name} Store`),
+      owner,
     })
 
     const store = this.storeDomainService.hydrate({
@@ -71,9 +73,11 @@ export class ComponentDomainService
     this.atomDomainService.hydrate({ ...fragmentAtom, owner })
 
     const api = this.typeDomainService.hydrateInterface({
+      __typename: ITypeKind.InterfaceType,
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(name),
+      owner,
     })
 
     const componentProps: IPropDto = {

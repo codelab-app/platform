@@ -2,32 +2,41 @@ import type { ITagDto } from '@codelab/shared/abstract/core'
 
 import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
+import {
+  AuthDomainModule,
+  AuthDomainService,
+} from '@codelab/backend/domain/shared/auth'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { TagDomainModule } from '@codelab/backend/domain/tag'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms } from '@codelab/shared-domain-module-atom'
 import { CqrsModule } from '@nestjs/cqrs'
-import { Test, type TestingModule } from '@nestjs/testing'
 
 import { SeedTagsService } from './seed-tags.service'
 import { TagTreeUtils } from './seed-tags.util'
 
 describe('Tag Parser', () => {
+  const context = initUserContext({
+    imports: [
+      SharedDomainModule,
+      TagDomainModule,
+      CqrsModule,
+      CodelabLoggerModule,
+    ],
+    providers: [SeedTagsService],
+  })
+
   let seedTagsService: SeedTagsService
   let antdTagTreeData: Array<ITagDto>
   let getIdFromName: (atomType: IAtomType) => string | undefined
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        SharedDomainModule,
-        TagDomainModule,
-        CqrsModule,
-        CodelabLoggerModule,
-      ],
-      providers: [SeedTagsService],
-    }).compile()
+    const ctx = await context
+    const module = ctx.module
+
+    await ctx.beforeAll()
 
     seedTagsService = module.get<SeedTagsService>(SeedTagsService)
     antdTagTreeData = await seedTagsService.createTagsData(antdTagTree)

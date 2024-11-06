@@ -12,6 +12,7 @@ export const reactNodeTypeFactory =
       id: dto.id ?? v4(),
       kind: TypeKind.ReactNodeType,
       name: dto.name ?? 'reactNodeType',
+      owner: { id: v4() },
     }
 
     return typeDomainService.hydrate(reactNodeType)

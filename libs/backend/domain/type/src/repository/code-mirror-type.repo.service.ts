@@ -9,7 +9,7 @@ import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  exportCodeMirrorTypeSelectionSet,
+  codeMirrorTypeSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -59,7 +59,7 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
       await this.ogmService.CodeMirrorType
     ).find({
       options,
-      selectionSet: `{ ${exportCodeMirrorTypeSelectionSet} }`,
+      selectionSet: `{ ${codeMirrorTypeSelectionSet} }`,
       where,
     })
   }

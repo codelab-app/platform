@@ -47,7 +47,7 @@ export class PageDomainFactory implements IPageDomainFactory {
       name: InterfaceType.createName(
         `${app.name}(${owner.username}) ${name} Store`,
       ),
-      owner,
+      owner: { id: owner.id },
     }
 
     const pageStore: IStoreDto = {

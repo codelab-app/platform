@@ -1,16 +1,6 @@
 import { fieldSelectionSet } from './field-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
-/**
- * We omit user during export, since this creates a non-reproducible file if exported from different accounts
- */
-const exportBaseTypeSelection = `
-  __typename
-  id
-  kind
-  name
-`
-
 export const baseTypeSelection = `
   __typename
   id
@@ -19,42 +9,27 @@ export const baseTypeSelection = `
   ${ownerFieldSelectionSet}
 `
 
-export const exportPrimitiveTypeSelectionSet = `
-  ${exportBaseTypeSelection}
+export const primitiveTypeSelectionSet = `
+  ${baseTypeSelection}
   primitiveKind
 `
 
-export const exportCodeMirrorTypeSelectionSet = `
-  ${exportBaseTypeSelection}
+export const codeMirrorTypeSelectionSet = `
+  ${baseTypeSelection}
   language
 `
 
-export const exportReactNodeTypeSelectionSet = `
-  ${exportBaseTypeSelection}
-`
-
-export const exportRenderPropTypeSelectionSet = `
-  ${exportBaseTypeSelection}
-`
-export const exportRichTextTypeSelectionSet = `
-  ${exportBaseTypeSelection}
-`
-
-export const exportActionTypeSelectionSet = `
-  ${exportBaseTypeSelection}
-`
-
-export const exportArrayTypeSelectionSet = `
-  ${exportBaseTypeSelection}
+export const arrayTypeSelectionSet = `
+  ${baseTypeSelection}
   itemType {
     ... on IBaseType {
-      ${exportBaseTypeSelection}
+      ${baseTypeSelection}
     }
   }
 `
 
-export const exportEnumTypeSelectionSet = `
-  ${exportBaseTypeSelection}
+export const enumTypeSelectionSet = `
+  ${baseTypeSelection}
   allowedValues {
     id
     key
@@ -62,31 +37,17 @@ export const exportEnumTypeSelectionSet = `
   }
 `
 
-export const exportInterfaceTypeSelectionSet = `
-  ${exportBaseTypeSelection}
-  fields {
-    id
-  }
-`
-
-export const exportUnionTypeSelectionSet = `
-  ${exportBaseTypeSelection}
+export const unionTypeSelectionSet = `
+  ${baseTypeSelection}
   typesOfUnionType {
     ... on IBaseType {
-      ${exportBaseTypeSelection}
+      ${baseTypeSelection}
     }
   }
 `
 
 export const interfaceTypeSelectionSet = `
   ${baseTypeSelection}
-  fields {
-    ${fieldSelectionSet}
-  }
-`
-
-export const exportInterfaceTypeWithFieldsSelectionSet = `
-  ${exportBaseTypeSelection}
   fields {
     ${fieldSelectionSet}
   }

@@ -19,6 +19,7 @@ import {
   RichTextTypeSchema,
 } from '@codelab/shared/abstract/core'
 import { CommandHandler } from '@nestjs/cqrs'
+import { Type } from '@sinclair/typebox'
 
 /**
  * Before we had 3 separate type exports (seed, user, admin). But we can combine into a single logic that takes type ids only
@@ -58,7 +59,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: PrimitiveTypeSchema,
+      schema: Type.Omit(PrimitiveTypeSchema, ['owner']),
     })
 
     /**
@@ -69,7 +70,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: ReactNodeTypeSchema,
+      schema: Type.Omit(ReactNodeTypeSchema, ['owner']),
     })
 
     /**
@@ -80,7 +81,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: RichTextTypeSchema,
+      schema: Type.Omit(RichTextTypeSchema, ['owner']),
     })
 
     /**
@@ -91,7 +92,7 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: RenderPropTypeSchema,
+      schema: Type.Omit(RenderPropTypeSchema, ['owner']),
     })
 
     /**
@@ -102,14 +103,14 @@ export class ExportSystemTypesHandler
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: ActionTypeSchema,
+      schema: Type.Omit(ActionTypeSchema, ['owner']),
     })
 
     const codeMirrorTypes = await this.codeMirrorTypeRepository.find({
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: CodeMirrorTypeSchema,
+      schema: Type.Omit(CodeMirrorTypeSchema, ['owner']),
     })
 
     /**

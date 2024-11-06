@@ -85,10 +85,10 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
   update: async ({ id }: IRef, input: IAppDto) => {
     const {
       updateApps: { apps },
-    } = await UpdateApps({
-      update: appMapper.toUpdateInput(input),
-      where: { id },
-    })
+    } = await UpdateApps(
+      { update: appMapper.toUpdateInput(input), where: { id } },
+      { revalidateTag: CACHE_TAGS.APP_LIST },
+    )
 
     const updatedApp = apps[0]
 

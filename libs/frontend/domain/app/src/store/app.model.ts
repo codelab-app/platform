@@ -5,11 +5,6 @@ import type {
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IAppDto } from '@codelab/shared/abstract/core'
-import type {
-  AppCreateInput,
-  AppDeleteInput,
-  AppUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -19,10 +14,7 @@ import {
   pageRef,
   userRef,
 } from '@codelab/frontend/abstract/domain'
-import { Domain } from '@codelab/frontend-domain-domain/store'
-import { Page } from '@codelab/frontend-domain-page/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { AppProperties, connectOwner } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'

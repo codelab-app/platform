@@ -5,10 +5,9 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  exportReactNodeTypeSelectionSet,
+  baseTypeSelection,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -57,7 +56,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
       await this.ogmService.ReactNodeType
     ).find({
       options,
-      selectionSet: `{ ${exportReactNodeTypeSelectionSet} }`,
+      selectionSet: `{ ${baseTypeSelection} }`,
       where,
     })
   }

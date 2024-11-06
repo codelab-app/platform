@@ -60,14 +60,13 @@ export const pageMapper: IMapper<
 
   toUpdateInput: ({
     app,
-    id,
     name,
     pageContentContainer,
     rootElement,
     urlPattern,
   }: IPageDto): PageUpdateInput => {
     return {
-      app: reconnectNodeId(id),
+      app: reconnectNodeId(app.id),
       compositeKey: PageProperties.pageCompositeKey({ name }, app),
       pageContentContainer: reconnectNodeId(pageContentContainer?.id),
       rootElement: reconnectNodeId(rootElement.id),

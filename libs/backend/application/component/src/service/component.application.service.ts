@@ -32,10 +32,12 @@ export class ComponentApplicationService {
   ) {}
 
   async createComponent(createComponentData: ICreateComponentData) {
+    const owner = this.authDomainService.currentUser
+
     const api: IInterfaceTypeCreateDto = {
       id: v4(),
       name: InterfaceType.createName(`${createComponentData.name} Store`),
-      owner: createComponentData.owner,
+      owner,
     }
 
     const storeDto: IStoreDto = {
@@ -59,7 +61,7 @@ export class ComponentApplicationService {
     const componentDto: IComponentDto = {
       ...createComponentData,
       api,
-      owner: this.authDomainService.currentUser,
+      owner,
       props,
       rootElement,
       store,

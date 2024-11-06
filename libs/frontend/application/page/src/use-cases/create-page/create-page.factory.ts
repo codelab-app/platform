@@ -6,19 +6,16 @@ import type {
   IPropDto,
   IRef,
   IStoreDto,
-  IUserDto,
 } from '@codelab/shared/abstract/core'
 
-import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { Validator } from '@codelab/shared/infra/schema'
 import { slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
-export const createPageFactory = async (
+export const createPageFactory = (
   data: IPageCreateFormData,
   defaultRenderType: IElementRenderTypeDto,
   owner: IRef,

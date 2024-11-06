@@ -10,10 +10,9 @@ import type {
   IEnumTypeValueDto,
 } from '@codelab/shared/abstract/core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  exportEnumTypeSelectionSet,
+  enumTypeSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -63,7 +62,7 @@ export class EnumTypeRepository extends AbstractRepository<
       await this.ogmService.EnumType
     ).find({
       options,
-      selectionSet: `{ ${exportEnumTypeSelectionSet} }`,
+      selectionSet: `{ ${enumTypeSelectionSet} }`,
       where,
     })
   }

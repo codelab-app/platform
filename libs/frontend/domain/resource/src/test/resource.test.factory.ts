@@ -15,6 +15,7 @@ export const resourceFactory =
       },
       id: dto.id ?? v4(),
       name: dto.name ?? `${chance.word({ capitalize: true })} Resource`,
+      owner: { id: v4() },
       type: dto.type ?? IResourceType.GraphQl,
     }
 

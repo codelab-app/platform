@@ -16,6 +16,7 @@ export const codeMirrorTypeFactory =
       kind: TypeKind.CodeMirrorType,
       language: dto.language ?? ICodeMirrorLanguage.Typescript,
       name: dto.name ?? 'codeMirrorType',
+      owner: { id: v4() },
     }
 
     return typeDomainService.hydrate(codeMirrorType)

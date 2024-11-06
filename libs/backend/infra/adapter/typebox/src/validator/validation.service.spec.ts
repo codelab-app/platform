@@ -89,6 +89,9 @@ describe('ValidationService', () => {
         id: '44c7df30-5f72-45ca-a3d1-d08f21ad34ba',
         kind: 'PrimitiveType',
         name: 'Boolean',
+        owner: {
+          id: '',
+        },
         primitiveKind: 'Boolean',
       }
 

@@ -53,7 +53,11 @@ const hydrateAppProductionData = (
 
   // use a dummy api to avoid typing issues
   data.atoms.forEach((atom) =>
-    domainStore.atomDomainService.hydrate({ ...atom, api: entity }),
+    domainStore.atomDomainService.hydrate({
+      ...atom,
+      api: entity,
+      owner: entity,
+    }),
   )
 
   data.components.forEach((component) =>
@@ -62,7 +66,10 @@ const hydrateAppProductionData = (
   )
 
   data.elements.forEach((element) =>
-    domainStore.elementDomainService.hydrate(element),
+    domainStore.elementDomainService.hydrate({
+      ...element,
+      closestContainerNode: entity,
+    }),
   )
 
   data.pages.forEach((page) => domainStore.pageDomainService.hydrate(page))

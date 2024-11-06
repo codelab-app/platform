@@ -2,10 +2,7 @@ import type {
   IApiImport,
   IAtomExport,
   IAtomImport,
-  IComponent,
-  IComponentExport,
   IComponentImport,
-  IStoreImport,
   ITagDto,
   ITagExport,
   ITypeDto,
@@ -15,12 +12,10 @@ import type {
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import {
-  AtomExportSchema,
   AtomImportSchema,
   ComponentExportSchema,
   TagExportSchema,
-  TagSchema,
-  TypeExportSchema,
+  TypeDtoSchema,
 } from '@codelab/shared/abstract/core'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
@@ -143,15 +138,11 @@ export class ReadAdminDataService implements IReadAdminDataService {
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
     ) as Array<ITypeExport>
 
-    return types.map((type: unknown) => {
-      const typeExport = this.validationService.validateAndClean(
-        TypeExportSchema,
-        type,
-      )
-
-      const typeImport: ITypeDto = { ...typeExport, owner }
-
-      return typeImport
+    return types.map((type: ITypeExport) => {
+      return this.validationService.validateAndClean(TypeDtoSchema, {
+        ...type,
+        owner,
+      })
     })
   }
 

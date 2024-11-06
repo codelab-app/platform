@@ -19,6 +19,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
+import { TAnySchema } from '@sinclair/typebox'
 import { Driver } from 'neo4j-driver'
 
 import {
@@ -85,46 +86,76 @@ export class TypeFactory {
     return sortedDescendants
   }
 
-  async findOne({ __typename, id }: ITypeMaybeRef) {
+  async findOne({ __typename, id }: ITypeMaybeRef, schema?: TAnySchema) {
     switch (__typename) {
       case ITypeKind.PrimitiveType: {
-        return (await this.primitiveTypeRepository).findOne({ where: { id } })
+        return (await this.primitiveTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.EnumType: {
-        return (await this.enumTypeRepository).findOne({ where: { id } })
+        return (await this.enumTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.InterfaceType: {
-        return (await this.interfaceTypeRepository).findOne({ where: { id } })
+        return (await this.interfaceTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.ReactNodeType: {
-        return (await this.reactNodeTypeRepository).findOne({ where: { id } })
+        return (await this.reactNodeTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.RichTextType: {
-        return (await this.richTextTypeRepository).findOne({ where: { id } })
+        return (await this.richTextTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.RenderPropType: {
-        return (await this.renderPropTypeRepository).findOne({ where: { id } })
+        return (await this.renderPropTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.ActionType: {
-        return (await this.actionTypeRepository).findOne({ where: { id } })
+        return (await this.actionTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.UnionType: {
-        return (await this.unionTypeRepository).findOne({ where: { id } })
+        return (await this.unionTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.CodeMirrorType: {
-        return (await this.codeMirrorRepository).findOne({ where: { id } })
+        return (await this.codeMirrorRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       case ITypeKind.ArrayType: {
-        return (await this.arrayTypeRepository).findOne({ where: { id } })
+        return (await this.arrayTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
       }
 
       default: {

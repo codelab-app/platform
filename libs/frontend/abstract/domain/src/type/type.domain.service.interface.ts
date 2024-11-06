@@ -1,4 +1,5 @@
 import type {
+  IInterfaceTypeDto,
   IPrimitiveTypeKind,
   ITypeDto,
 } from '@codelab/shared/abstract/core'
@@ -7,7 +8,6 @@ import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'
-import type { ITypeCreateFormData } from './type.dto.interface'
 import type { IInterfaceTypeModel, ITypeModel } from './types'
 
 export interface ITypeDomainService extends IHydrateable<ITypeDto, ITypeModel> {
@@ -15,7 +15,7 @@ export interface ITypeDomainService extends IHydrateable<ITypeDto, ITypeModel> {
   typesList: Array<ITypeModel>
 
   getType(id: string): Maybe<ITypeModel>
-  hydrateInterface(data: ITypeCreateFormData): IInterfaceTypeModel
+  hydrateInterface(data: IInterfaceTypeDto): IInterfaceTypeModel
   hydrateTypes(types: Partial<GetTypesQuery>): void
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
 }

@@ -5,12 +5,12 @@ import {
   elementDto,
   pageDto,
 } from '@codelab/frontend/test/data'
+import { createTestStore } from '@codelab/frontend-infra-mobx/store'
 import { v4 } from 'uuid'
 
-import { rootDomainStore } from './root.test.store'
-
 describe('Create element', () => {
-  const { elementDomainService, pageDomainService } = rootDomainStore
+  const { rootStore } = createTestStore()
+  const { elementDomainService, pageDomainService } = rootStore.domainStore
 
   const rootElementDto: IElementDto = {
     ...elementDto,

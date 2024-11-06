@@ -12,6 +12,7 @@ export const richTextTypeFactory =
       id: dto.id ?? v4(),
       kind: TypeKind.RichTextType,
       name: dto.name ?? 'richTextType',
+      owner: { id: v4() },
     }
 
     return typeDomainService.hydrate(richTextType)

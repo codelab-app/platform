@@ -5,12 +5,14 @@ import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
   AtomExportSchema,
+  AtomSchema,
   type IApiExport,
-  type IAtom,
   type IAtomExport,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
+import { Type } from '@sinclair/typebox'
 
 export class ExportAtomCommand {
   constructor(readonly where: AtomWhere) {}
@@ -27,17 +29,24 @@ export class ExportAtomHandler
 
   async execute(command: ExportAtomCommand): Promise<IAtomExport> {
     const { where } = command
-    const existingAtom = await this.atomRepository.findOneOrFail({ where })
+
+    const existingAtom = await this.atomRepository.findOneOrFail({
+      schema: Type.Omit(AtomSchema, ['owner']),
+      where,
+    })
 
     const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(
-      new ExportApiCommand(existingAtom.api),
+      new ExportApiCommand({
+        ...existingAtom.api,
+        __typename: ITypeKind.InterfaceType,
+      }),
     )
 
-    const atom: IAtom = {
+    const atom = {
       ...existingAtom,
       __typename: 'Atom' as const,
       api: { id: api.id },
-      tags: existingAtom.tags.map((tag) => ({ id: tag.id })),
+      tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
     return Validator.validateAndClean(AtomExportSchema, { api, atom })

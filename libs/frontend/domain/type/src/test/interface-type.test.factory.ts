@@ -14,6 +14,7 @@ export const interfaceTypeFactory =
       id: dto.id ?? v4(),
       kind: ITypeKind.InterfaceType,
       name: dto.name ?? `${chance.word({ capitalize: true })} API`,
+      owner: { id: v4() },
     }
 
     return typeDomainService.hydrateInterface(interfaceType)

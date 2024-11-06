@@ -15,7 +15,6 @@ export const rendererFactory =
       }) as IPageModel,
       id: dto.id ?? v4(),
       rendererType: dto.rendererType ?? RendererType.PageBuilder,
-      urlSegments: dto.urlSegments ?? undefined,
     }
 
     return rendererService.hydrate(renderer)

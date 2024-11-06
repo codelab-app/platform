@@ -14,5 +14,5 @@ export const appFactory =
       pages: dto.pages ?? [],
     }
 
-    return appDomainService.create(app)
+    return appDomainService.hydrate(app)
   }
