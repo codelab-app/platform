@@ -93,7 +93,7 @@ export const useAppService = (): IAppService => {
 
       await appRepository.delete([app])
 
-      await invalidateAppListQuery()
+      // await invalidateAppListQuery()
 
       return app
     }
@@ -153,9 +153,13 @@ export const useAppService = (): IAppService => {
   // }
 
   const update = async ({ id, name }: IAppUpdateFormData) => {
-    const app = await appRepository.update({ id }, { id, name, owner })
+    const app = appDomainService.apps.get(id)
 
-    await invalidateAppListQuery()
+    app?.writeCache({ name })
+
+    await appRepository.update({ id }, { id, name, owner })
+
+    // await invalidateAppListQuery()
 
     Validator.assertsDefined(app)
 

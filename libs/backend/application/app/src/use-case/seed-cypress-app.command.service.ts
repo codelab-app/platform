@@ -54,12 +54,9 @@ export class SeedCypressAppHandler
     /**
      * Create props
      */
-    const providerElementProps = new Prop(providerElementPropsData)
-    const notFoundElementProps = new Prop(notFoundElementPropsData)
-
-    const internalServerErrorElementProps = new Prop(
-      internalServerErrorPropsData,
-    )
+    const providerElementProps = providerElementPropsData
+    const notFoundElementProps = notFoundElementPropsData
+    const internalServerErrorElementProps = internalServerErrorPropsData
 
     await this.propRepository.addMany([
       providerElementProps,

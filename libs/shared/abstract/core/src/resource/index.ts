@@ -1,5 +1,6 @@
 export * from './resource.data.interface'
 export * from './resource.dto.interface'
+export * from './resource.io.interface'
 export * from './resource-client.interface'
 export * from './resource-config'
 export * from './resource-fetch-config'

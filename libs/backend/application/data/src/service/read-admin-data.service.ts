@@ -106,6 +106,8 @@ export class ReadAdminDataService implements IReadAdminDataService {
         types: api.types.map((type) => ({ ...type, owner })),
       }
 
+      // const parsePropsData = (props: IPropExport)
+
       const componentImport: IComponentImport = {
         api: apiImport,
         component: { ...component, owner },

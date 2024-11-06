@@ -5,7 +5,7 @@ import { Type } from '@sinclair/typebox'
 import { ComponentExportSchema, ComponentImportSchema } from '../component'
 import { DomainSchema } from '../domain/domain.dto.interface'
 import { PageExportSchema, PageImportSchema } from '../page'
-import { ResourceSchema } from '../resource'
+import { ResourceExportSchema, ResourceSchema } from '../resource'
 import { AppSchema } from './app.model.interface'
 
 export const AppExportSchema = Type.Object({
@@ -13,7 +13,7 @@ export const AppExportSchema = Type.Object({
   components: Type.Array(ComponentExportSchema),
   domains: Type.Array(DomainSchema),
   pages: Type.Array(PageExportSchema),
-  resources: Type.Array(ResourceSchema),
+  resources: Type.Array(ResourceExportSchema),
 })
 
 export type IAppExport = Static<typeof AppExportSchema>

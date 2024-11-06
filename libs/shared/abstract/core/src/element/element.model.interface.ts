@@ -6,11 +6,9 @@ import { Type } from '@sinclair/typebox'
 import { PropSchema } from '../prop'
 import { ElementDtoSchema } from './element.dto.interface'
 
-export const ElementSchema = Typebox.Overwrite(
-  ElementDtoSchema,
-  Type.Object({
-    props: PropSchema,
-  }),
-)
+export const ElementSchema = Type.Object({
+  ...ElementDtoSchema.properties,
+  props: PropSchema,
+})
 
 export type IElement = Static<typeof ElementSchema>
