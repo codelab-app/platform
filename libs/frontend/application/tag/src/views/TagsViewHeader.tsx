@@ -7,19 +7,10 @@ import {
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 
-import { useUpdateTagForm } from '../use-cases/update-tag'
-
 export const TagsViewHeader = observer(() => {
-  const updateTagForm = useUpdateTagForm()
-  const tag = updateTagForm.data
-
   return (
     <CuiHeader
-      direction={
-        <CuiHeaderBreadcrumb
-          items={[{ title: 'Tags' }, { title: tag?.name || '' }]}
-        />
-      }
+      direction={<CuiHeaderBreadcrumb items={[{ title: 'Tags' }]} />}
       logo={
         <Image
           alt="codelab logo"

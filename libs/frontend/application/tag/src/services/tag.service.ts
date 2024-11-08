@@ -10,7 +10,9 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import { PageType } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
@@ -21,7 +23,7 @@ import {
 import { Validator } from '@codelab/shared/infra/schema'
 import { atom, useAtom } from 'jotai'
 
-const checkedTagsAtom = atom<Array<Ref<ITagModel>>>([])
+const checkedTagsAtom = atom<Array<string>>([])
 
 export const useTagService = (): ITagService => {
   const {
@@ -29,7 +31,7 @@ export const useTagService = (): ITagService => {
   } = useApplicationStore()
 
   const { tagDomainService } = useDomainStore()
-  const [checkedTags, setCheckedTags] = useAtom(checkedTagsAtom)
+  const [checkedTagIds, setCheckedTagIds] = useAtom(checkedTagsAtom)
 
   const getDataFn: GetDataFn<ITagModel> = async (
     page,
@@ -77,7 +79,7 @@ export const useTagService = (): ITagService => {
 
     tagDomainService.setExpandedNodes([
       ...tagDomainService.expandedNodes,
-      tag.id,
+      tag.parent.id,
     ])
 
     return tag
@@ -106,7 +108,7 @@ export const useTagService = (): ITagService => {
       items: tags,
     } = await tagRepository.find(where, options)
 
-    tagPagination.totalItems = count
+    tagPagination.setTotalItems(count)
 
     return tags.map((tag) => {
       tag.children.forEach((child) => tagDomainService.hydrate(child))
@@ -128,8 +130,12 @@ export const useTagService = (): ITagService => {
   }
 
   const deleteCheckedTags = async () => {
-    await removeMany(checkedTags.map((tag) => tag.current))
-    setCheckedTags([])
+    const checkedTags = checkedTagIds
+      .map((id) => tagDomainService.tags.get(id))
+      .filter((tag): tag is ITagModel => Boolean(tag))
+
+    await removeMany(checkedTags)
+    setCheckedTagIds([])
   }
 
   const getOneFromCache = (ref: IRef) => {
@@ -140,9 +146,28 @@ export const useTagService = (): ITagService => {
     return Array.from(tagDomainService.tags.values())
   }
 
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.Tags())
+    },
+    open: (router: AppRouterInstance) => {
+      router.push(PageType.TagsCreate())
+    },
+  }
+
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.Tags())
+    },
+    open: (router: AppRouterInstance) => {
+      router.push(PageType.Tags())
+    },
+  }
+
   return {
-    checkedTags,
+    checkedTagIds,
     create,
+    createPopover,
     deleteCheckedTags,
     getAll,
     getAllFromCache,
@@ -150,7 +175,8 @@ export const useTagService = (): ITagService => {
     getOneFromCache,
     paginationService: tagPagination,
     removeMany,
-    setCheckedTags,
+    setCheckedTagIds,
     update,
+    updatePopover,
   }
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import type { UrlQueryParamsPageProps } from '@codelab/frontend/abstract/types'
 
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'

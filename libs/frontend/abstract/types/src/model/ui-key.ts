@@ -191,10 +191,9 @@ export enum UiKey {
    */
   TagFormCreate = 'TagFormCreate',
   TagFormUpdate = 'TagFormUpdate',
-  TagModalCreate = 'TagModalCreate',
   TagModalDelete = 'TagModalDelete',
-  TagModalUpdate = 'TagModalUpdate',
   TagPopoverCreate = 'TagPopoverCreate',
+  TagPopoverUpdate = 'TagPopoverUpdate',
   TagSidebar = 'TagSidebar',
   TagToolabarItemCreateCancel = 'TagToolabarItemCreateCancel',
   TagToolbarItemCreate = 'TagToolbarItemCreate',

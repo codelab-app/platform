@@ -50,37 +50,34 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     paginationContext.setDefault({
       getDataFn,
     })
-  }, [])
+  }, [getDataFn])
 
-  useEffect(
-    () => {
-      console.log({
-        filter: routerService.filter,
-        page: routerService.page,
-        pageSize: routerService.pageSize,
-        search: routerService.search,
-      })
-      void withAsyncSpanFunc(
-        {
-          attributes: {
-            filter: routerService.filter,
-            page: routerService.page,
-            pageSize: routerService.pageSize,
-            search: routerService.search,
-          },
-          name: 'paginationService.getData()',
-          op: 'codelab.pagination',
+  useEffect(() => {
+    console.log({
+      filter: routerService.filter,
+      page: routerService.page,
+      pageSize: routerService.pageSize,
+      search: routerService.search,
+    })
+    void withAsyncSpanFunc(
+      {
+        attributes: {
+          filter: routerService.filter,
+          page: routerService.page,
+          pageSize: routerService.pageSize,
+          search: routerService.search,
         },
-        () => paginationService.getData(),
-      )()
-    },
-    [
-      // routerService.page,
-      // routerService.pageSize,
-      // routerService.search,
-      // routerService.filter,
-    ],
-  )
+        name: 'paginationService.getData()',
+        op: 'codelab.pagination',
+      },
+      () => paginationService.getData(),
+    )()
+  }, [
+    routerService.page,
+    routerService.pageSize,
+    routerService.search,
+    routerService.filter,
+  ])
 
   const pagination: TablePaginationConfig = {
     current: routerService.page,
@@ -103,6 +100,7 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     isLoading: paginationService.isLoading,
     onSearch: (searchText: string) =>
       routerService.setQueryParams({
+        ...routerService.queryParams,
         search: searchText,
       }),
     pagination,

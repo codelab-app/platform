@@ -40,9 +40,12 @@ export const AtomsTreeView = observer(
       <div className="size-full">
         <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
-          onSearchKeywordChange={(keyword) =>
-            routerService.setQueryParams({ search: keyword })
-          }
+          onSearchKeywordChange={(keyword) => {
+            routerService.setQueryParams({
+              ...routerService.queryParams,
+              search: keyword,
+            })
+          }}
           searchKeyword={routerService.search}
           searcheable={showSearchBar ? { primaryTitle: true } : false}
           titleRender={(node) => <AtomsTreeItem data={node} />}

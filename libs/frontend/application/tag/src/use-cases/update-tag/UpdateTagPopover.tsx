@@ -1,5 +1,6 @@
 'use client'
 
+import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
@@ -11,42 +12,41 @@ import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useTagService } from '../../services/tag.service'
-import { CreateTagForm } from './CreateTagForm'
+import { UpdateTagForm } from './UpdateTagForm'
 
-export const CreateTagPopover = observer(() => {
+export const UpdateTagPopover = observer<{ tag: ITagModel }>(({ tag }) => {
   const submitRef = useRef<Maybe<SubmitController>>()
+  const { updatePopover } = useTagService()
   const router = useRouter()
-  const { createPopover } = useTagService()
 
   return (
     <CuiSidebarSecondary
-      id={UiKey.TagPopoverCreate}
+      id={UiKey.TagPopoverUpdate}
       toolbar={{
         items: [
           {
             cuiKey: UiKey.TagToolbarItemCreate,
             icon: <SaveOutlined />,
-            label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
-            title: 'Create',
+            label: 'Update',
+            onClick: () => submitRef.current?.submit(),
+            title: 'Update',
           },
           {
-            cuiKey: UiKey.TagToolabarItemCreateCancel,
+            cuiKey: UiKey.TagToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => createPopover.close(router),
+            onClick: () => updatePopover.close(router),
             title: 'Cancel',
           },
         ],
-        title: 'Create Tag toolbar',
+        title: 'Update Tag toolbar',
       }}
     >
-      <CreateTagForm
-        onSubmitSuccess={() => createPopover.close(router)}
+      <UpdateTagForm
+        onSubmitSuccess={() => updatePopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}
+        tag={tag}
       />
     </CuiSidebarSecondary>
   )

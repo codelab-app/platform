@@ -33,8 +33,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
   const { data, isLoading } = useTablePagination<ITagModel>({
     getDataFn,
     paginationService,
-    // pathname: PageType.Tags(),
-    pathname: PageType.Type(),
+    pathname: PageType.Tags(),
   })
 
   /**
@@ -56,23 +55,23 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
           title: `${tag.name}`,
         }))
 
-  const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
+  const onSelect: TreeProps['onSelect'] = (selectedKeys) => {
     if (selectedKeys[0]) {
       tagDomainService.setSelectedTag(tagRef(selectedKeys[0].toString()))
     }
   }
 
-  const onCheck: TreeProps['onCheck'] = (checkedKeys, info) => {
+  const onCheck: TreeProps['onCheck'] = (checkedKeys) => {
     const { checked } = checkedKeys as CheckedKeys
 
-    tagService.setCheckedTags(checked.map((check) => tagRef(check.toString())))
+    tagService.setCheckedTagIds(checked)
   }
 
   return (
     <CuiTree<ITreeNode<ITagNodeData>>
       checkStrictly
       checkable
-      checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
+      checkedKeys={tagService.checkedTagIds}
       expandedKeys={tagDomainService.expandedNodes}
       isLoading={isLoading}
       onCheck={onCheck}
@@ -82,7 +81,10 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         )
       }}
       onSearchKeywordChange={(keyword) => {
-        routerService.setQueryParams({ search: keyword })
+        routerService.setQueryParams({
+          ...routerService.queryParams,
+          search: keyword,
+        })
       }}
       onSelect={onSelect}
       searcheable={

@@ -445,17 +445,14 @@ const UiDataRecord = {
   [UiKey.TagFormUpdate]: {
     label: 'Update Tag Form',
   },
-  [UiKey.TagModalCreate]: {
-    label: 'Create Tag Modal',
-  },
   [UiKey.TagModalDelete]: {
-    label: 'Delete Tag Modal',
-  },
-  [UiKey.TagModalUpdate]: {
-    label: 'Update Tag Modal',
+    label: 'Delete Tag',
   },
   [UiKey.TagPopoverCreate]: {
-    label: 'Create Tag Popover',
+    label: 'Create Tag',
+  },
+  [UiKey.TagPopoverUpdate]: {
+    label: 'Update Tag',
   },
   [UiKey.TagSidebar]: {
     label: 'Tag Sidebar',
