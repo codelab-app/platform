@@ -11,7 +11,7 @@ export const propMapper: IMapper<
   unknown
 > = {
   toCreateInput: ({ data, id }: IPropDto): PropCreateInput => {
-    return { data: JSON.stringify(data), id }
+    return { data, id }
   },
 
   toDeleteInput: () => {
@@ -19,6 +19,6 @@ export const propMapper: IMapper<
   },
 
   toUpdateInput: ({ data }: IPropDto): PropUpdateInput => {
-    return { data: JSON.stringify(data) }
+    return { data }
   },
 }
