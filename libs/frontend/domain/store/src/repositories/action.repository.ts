@@ -29,6 +29,18 @@ import {
 export const actionRepository: IActionRepository = {
   add: async (action: IActionDto) => {
     switch (action.__typename) {
+      case IActionKind.ApiAction: {
+        const {
+          createApiActions: { apiActions },
+        } = await CreateApiActions({
+          input: actionMapper.toCreateInput(action),
+        })
+
+        Validator.assertsDefined(apiActions[0])
+
+        return apiActions[0]
+      }
+
       case IActionKind.CodeAction: {
         const input = actionMapper.toCreateInput(
           action,
@@ -45,18 +57,6 @@ export const actionRepository: IActionRepository = {
         return codeActions[0]
       }
 
-      case IActionKind.ApiAction: {
-        const {
-          createApiActions: { apiActions },
-        } = await CreateApiActions({
-          input: actionMapper.toCreateInput(action),
-        })
-
-        Validator.assertsDefined(apiActions[0])
-
-        return apiActions[0]
-      }
-
       default:
         throw new Error(`Unknown action type: ${action.__typename}`)
     }
@@ -67,10 +67,10 @@ export const actionRepository: IActionRepository = {
 
     for (const action of actions) {
       switch (action.type) {
-        case IActionKind.CodeAction: {
+        case IActionKind.ApiAction: {
           const {
-            deleteCodeActions: { nodesDeleted: deleted },
-          } = await DeleteCodeActions({
+            deleteApiActions: { nodesDeleted: deleted },
+          } = await DeleteApiActions({
             delete: actionMapper.toDeleteInput(),
             where: { id: action.id },
           })
@@ -79,10 +79,10 @@ export const actionRepository: IActionRepository = {
           break
         }
 
-        case IActionKind.ApiAction: {
+        case IActionKind.CodeAction: {
           const {
-            deleteApiActions: { nodesDeleted: deleted },
-          } = await DeleteApiActions({
+            deleteCodeActions: { nodesDeleted: deleted },
+          } = await DeleteCodeActions({
             delete: actionMapper.toDeleteInput(),
             where: { id: action.id },
           })
@@ -120,19 +120,6 @@ export const actionRepository: IActionRepository = {
 
   update: async ({ id }: IRef, dto: IActionDto) => {
     switch (dto.__typename) {
-      case IActionKind.CodeAction: {
-        const {
-          updateCodeActions: { codeActions },
-        } = await UpdateCodeActions({
-          update: actionMapper.toUpdateInput(dto),
-          where: { id },
-        })
-
-        Validator.assertsDefined(codeActions[0])
-
-        return codeActions[0]
-      }
-
       case IActionKind.ApiAction: {
         const {
           updateApiActions: { apiActions },
@@ -144,6 +131,19 @@ export const actionRepository: IActionRepository = {
         Validator.assertsDefined(apiActions[0])
 
         return apiActions[0]
+      }
+
+      case IActionKind.CodeAction: {
+        const {
+          updateCodeActions: { codeActions },
+        } = await UpdateCodeActions({
+          update: actionMapper.toUpdateInput(dto),
+          where: { id },
+        })
+
+        Validator.assertsDefined(codeActions[0])
+
+        return codeActions[0]
       }
 
       default:

@@ -53,10 +53,12 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
   const props = { ...fieldProps, label: null, name }
 
   switch (fieldProps.field.type) {
+    case 'array':
+      return <WrappedListField {...(props as ListFieldProps)} />
     case 'boolean':
       return <BoolField {...(props as FieldProps<boolean, InnerProps>)} />
-    case 'number':
     case 'integer':
+    case 'number':
       return (
         <NumField
           {...(props as FieldProps<number, InnerProps>)}
@@ -65,8 +67,6 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
       )
     case 'string':
       return <SelectField {...(props as SelectFieldProps)} />
-    case 'array':
-      return <WrappedListField {...(props as ListFieldProps)} />
     default:
       return null
   }

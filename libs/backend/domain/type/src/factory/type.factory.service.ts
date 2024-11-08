@@ -88,8 +88,22 @@ export class TypeFactory {
 
   async findOne({ __typename, id }: ITypeMaybeRef, schema?: TAnySchema) {
     switch (__typename) {
-      case ITypeKind.PrimitiveType: {
-        return (await this.primitiveTypeRepository).findOne({
+      case ITypeKind.ActionType: {
+        return (await this.actionTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
+      }
+
+      case ITypeKind.ArrayType: {
+        return (await this.arrayTypeRepository).findOne({
+          schema,
+          where: { id },
+        })
+      }
+
+      case ITypeKind.CodeMirrorType: {
+        return (await this.codeMirrorRepository).findOne({
           schema,
           where: { id },
         })
@@ -109,15 +123,15 @@ export class TypeFactory {
         })
       }
 
-      case ITypeKind.ReactNodeType: {
-        return (await this.reactNodeTypeRepository).findOne({
+      case ITypeKind.PrimitiveType: {
+        return (await this.primitiveTypeRepository).findOne({
           schema,
           where: { id },
         })
       }
 
-      case ITypeKind.RichTextType: {
-        return (await this.richTextTypeRepository).findOne({
+      case ITypeKind.ReactNodeType: {
+        return (await this.reactNodeTypeRepository).findOne({
           schema,
           where: { id },
         })
@@ -130,8 +144,8 @@ export class TypeFactory {
         })
       }
 
-      case ITypeKind.ActionType: {
-        return (await this.actionTypeRepository).findOne({
+      case ITypeKind.RichTextType: {
+        return (await this.richTextTypeRepository).findOne({
           schema,
           where: { id },
         })
@@ -139,20 +153,6 @@ export class TypeFactory {
 
       case ITypeKind.UnionType: {
         return (await this.unionTypeRepository).findOne({
-          schema,
-          where: { id },
-        })
-      }
-
-      case ITypeKind.CodeMirrorType: {
-        return (await this.codeMirrorRepository).findOne({
-          schema,
-          where: { id },
-        })
-      }
-
-      case ITypeKind.ArrayType: {
-        return (await this.arrayTypeRepository).findOne({
           schema,
           where: { id },
         })
@@ -170,12 +170,30 @@ export class TypeFactory {
      * Type narrow using discriminated union
      */
     switch (type.__typename) {
-      case ITypeKind.PrimitiveType: {
-        const primitiveType = new PrimitiveType(type)
+      case ITypeKind.ActionType: {
+        const actionType = new ActionType(type)
 
-        return (await this.primitiveTypeRepository.save(
-          primitiveType,
-          where as PrimitiveTypeWhere,
+        return (await this.actionTypeRepository.save(
+          actionType,
+          where as ActionTypeWhere,
+        )) as T
+      }
+
+      case ITypeKind.ArrayType: {
+        const arrayType = new ArrayType(type)
+
+        return (await this.arrayTypeRepository.save(
+          arrayType,
+          where as ArrayTypeWhere,
+        )) as T
+      }
+
+      case ITypeKind.CodeMirrorType: {
+        const codeMirrorType = new CodeMirrorType(type)
+
+        return (await this.codeMirrorRepository.save(
+          codeMirrorType,
+          where as CodeMirrorTypeWhere,
         )) as T
       }
 
@@ -194,6 +212,15 @@ export class TypeFactory {
         return (await this.interfaceTypeRepository.save(
           interfaceType,
           where as InterfaceTypeWhere,
+        )) as T
+      }
+
+      case ITypeKind.PrimitiveType: {
+        const primitiveType = new PrimitiveType(type)
+
+        return (await this.primitiveTypeRepository.save(
+          primitiveType,
+          where as PrimitiveTypeWhere,
         )) as T
       }
 
@@ -224,39 +251,12 @@ export class TypeFactory {
         )) as T
       }
 
-      case ITypeKind.ActionType: {
-        const actionType = new ActionType(type)
-
-        return (await this.actionTypeRepository.save(
-          actionType,
-          where as ActionTypeWhere,
-        )) as T
-      }
-
       case ITypeKind.UnionType: {
         const unionType = new UnionType(type)
 
         return (await this.unionTypeRepository.save(
           unionType,
           where as UnionTypeWhere,
-        )) as T
-      }
-
-      case ITypeKind.CodeMirrorType: {
-        const codeMirrorType = new CodeMirrorType(type)
-
-        return (await this.codeMirrorRepository.save(
-          codeMirrorType,
-          where as CodeMirrorTypeWhere,
-        )) as T
-      }
-
-      case ITypeKind.ArrayType: {
-        const arrayType = new ArrayType(type)
-
-        return (await this.arrayTypeRepository.save(
-          arrayType,
-          where as ArrayTypeWhere,
         )) as T
       }
 

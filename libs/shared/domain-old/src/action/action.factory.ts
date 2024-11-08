@@ -53,13 +53,6 @@ export const actionFactory = {
 
   mapDataToDto: (data: ICreateActionData): IActionDto => {
     switch (data.type) {
-      case IActionKind.CodeAction:
-        return {
-          ...data,
-          __typename: IActionKind.CodeAction,
-          store: { id: data.store.id },
-        }
-
       case IActionKind.ApiAction:
         return {
           ...data,
@@ -73,6 +66,13 @@ export const actionFactory = {
           successAction: data.successAction?.id
             ? { __typename: IActionKind.ApiAction, id: data.successAction.id }
             : undefined,
+        }
+
+      case IActionKind.CodeAction:
+        return {
+          ...data,
+          __typename: IActionKind.CodeAction,
+          store: { id: data.store.id },
         }
 
       default:

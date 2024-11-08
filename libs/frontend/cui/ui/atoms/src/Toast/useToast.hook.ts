@@ -79,14 +79,6 @@ export const reducer = (state: State, action: Action): State => {
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
       }
 
-    case 'UPDATE_TOAST':
-      return {
-        ...state,
-        toasts: state.toasts.map((item) =>
-          item.id === action.toast.id ? { ...item, ...action.toast } : item,
-        ),
-      }
-
     case 'DISMISS_TOAST': {
       const { toastId } = action
 
@@ -124,6 +116,14 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         toasts: state.toasts.filter((item) => item.id !== action.toastId),
+      }
+
+    case 'UPDATE_TOAST':
+      return {
+        ...state,
+        toasts: state.toasts.map((item) =>
+          item.id === action.toast.id ? { ...item, ...action.toast } : item,
+        ),
       }
   }
 }
