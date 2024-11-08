@@ -9,6 +9,7 @@ import { PropSchema } from '../prop'
 import { PropDtoSchema } from '../prop/prop.dto.interface'
 
 export const ComponentDtoSchema = Type.Object({
+  __typename: Type.Literal(`${IElementRenderTypeKind.Component}`),
   api: Typebox.Ref,
   id: Type.String(),
   name: Type.String(),

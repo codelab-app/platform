@@ -21,7 +21,7 @@ import type {
 } from '../type'
 
 export interface IFieldModel<T extends ITypeModel = ITypeModel>
-  extends IModel<IField, IFieldModel<T>> {
+  extends IModel<IFieldDto, IFieldModel<T>> {
   api: Ref<IInterfaceTypeModel>
   defaultValues: Nullish<IFieldDefaultValue>
   description: Nullish<string>

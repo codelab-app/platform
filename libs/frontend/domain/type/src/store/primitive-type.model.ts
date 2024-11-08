@@ -12,6 +12,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { isBoolean, mergeDeep } from 'remeda'
 
@@ -50,6 +51,18 @@ export class PrimitiveType
   implements IPrimitiveTypeModel
 {
   public static create = create
+
+  @computed
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      id: this.id,
+      kind: this.kind,
+      name: this.name,
+      owner: this.owner.current.toJson,
+      primitiveKind: this.primitiveKind,
+    }
+  }
 
   @modelAction
   writeCache(primitiveTypeDto: Partial<IPrimitiveTypeDto>) {

@@ -10,6 +10,7 @@ import type { Ref } from 'mobx-keystone'
 import { typeRef, userRef } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain-old'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 
@@ -38,6 +39,18 @@ export class UnionType
   implements IUnionTypeModel
 {
   public static create = create
+
+  @computed
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      id: this.id,
+      kind: this.kind,
+      name: this.name,
+      owner: this.owner.current.toJson,
+      typesOfUnionType: this.typesOfUnionType.map((type) => type.current),
+    }
+  }
 
   @modelAction
   writeCache(unionTypeDto: Partial<IUnionTypeDto>) {

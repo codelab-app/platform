@@ -9,7 +9,7 @@ import type {
 
 import type { IModel } from '../shared/models/model.interface'
 
-export interface IDomainModel extends IModel<IDomain, IDomainModel> {
+export interface IDomainModel extends IModel<IDomainDto, IDomainModel> {
   app: IRef
   domainConfig: Maybe<ProductionDomainConfig>
   id: string

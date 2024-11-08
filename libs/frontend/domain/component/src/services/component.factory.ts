@@ -1,4 +1,5 @@
 import type {
+  IComponentDto,
   ICreateComponentData,
   IElementDto,
   IElementRenderTypeDto,
@@ -75,10 +76,19 @@ export const componentFactory = (
     },
   }
 
+  const component: IComponentDto = {
+    ...componentData,
+    __typename: IElementRenderTypeKind.Component,
+    api,
+    props: componentProps,
+    rootElement: rootElementDto,
+    store,
+  }
+
   return {
     component: {
-      ...componentData,
       api,
+      component,
       props: componentProps,
       rootElement: rootElementDto,
       store,

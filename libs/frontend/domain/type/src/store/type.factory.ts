@@ -31,14 +31,17 @@ import { UnionType } from './union-type.model'
 export class TypeFactory {
   static create(typeDto: ITypeDto): ITypeModel {
     switch (typeDto.__typename) {
-      case ITypeKind.AppType:
-        return AppType.create(typeDto)
-
       case ITypeKind.ActionType:
         return ActionType.create(typeDto)
 
-      case ITypeKind.RichTextType:
-        return RichTextType.create(typeDto)
+      case ITypeKind.AppType:
+        return AppType.create(typeDto)
+
+      case ITypeKind.ArrayType:
+        return ArrayType.create(typeDto)
+
+      case ITypeKind.CodeMirrorType:
+        return CodeMirrorType.create(typeDto)
 
       case ITypeKind.ElementType:
         return ElementType.create(typeDto)
@@ -48,9 +51,6 @@ export class TypeFactory {
 
       case ITypeKind.LambdaType:
         return LambdaType.create(typeDto)
-
-      case ITypeKind.CodeMirrorType:
-        return CodeMirrorType.create(typeDto)
 
       case ITypeKind.PageType:
         return PageType.create(typeDto)
@@ -64,8 +64,8 @@ export class TypeFactory {
       case ITypeKind.RenderPropType:
         return RenderPropType.create(typeDto)
 
-      case ITypeKind.ArrayType:
-        return ArrayType.create(typeDto)
+      case ITypeKind.RichTextType:
+        return RichTextType.create(typeDto)
 
       case TypeKind.InterfaceType:
         return InterfaceType.create(typeDto)
@@ -80,14 +80,6 @@ export class TypeFactory {
 
   static mapDataToDto(data: ITypeCreateFormData, owner: IRef): ITypeDto {
     switch (data.kind) {
-      case ITypeKind.InterfaceType:
-        return {
-          ...data,
-          __typename: data.kind,
-          fields: [],
-          owner,
-        } as IInterfaceTypeDto
-
       case ITypeKind.ArrayType:
         return {
           ...data,
@@ -96,6 +88,14 @@ export class TypeFactory {
             id: data.arrayItemTypeId as string,
           },
         } as IArrayTypeDto
+
+      case ITypeKind.InterfaceType:
+        return {
+          ...data,
+          __typename: data.kind,
+          fields: [],
+          owner,
+        } as IInterfaceTypeDto
 
       case ITypeKind.UnionType:
         return {
@@ -113,13 +113,23 @@ export class TypeFactory {
 
   static writeCache(typeDto: ITypeDto, model: ITypeModel): ITypeModel {
     switch (typeDto.__typename) {
+      case ITypeKind.ActionType:
+        model.kind === ITypeKind.ActionType && model.writeCache(typeDto)
+
+        return model
+
       case ITypeKind.AppType:
         model.kind === ITypeKind.AppType && model.writeCache(typeDto)
 
         return model
 
-      case ITypeKind.ActionType:
-        model.kind === ITypeKind.ActionType && model.writeCache(typeDto)
+      case ITypeKind.ArrayType:
+        model.kind === ITypeKind.ArrayType && model.writeCache(typeDto)
+
+        return model
+
+      case ITypeKind.CodeMirrorType:
+        model.kind === ITypeKind.CodeMirrorType && model.writeCache(typeDto)
 
         return model
 
@@ -138,11 +148,6 @@ export class TypeFactory {
 
         return model
 
-      case ITypeKind.CodeMirrorType:
-        model.kind === ITypeKind.CodeMirrorType && model.writeCache(typeDto)
-
-        return model
-
       case ITypeKind.PageType:
         model.kind === ITypeKind.PageType && model.writeCache(typeDto)
 
@@ -158,18 +163,13 @@ export class TypeFactory {
 
         return model
 
-      case ITypeKind.RichTextType:
-        model.kind === ITypeKind.RichTextType && model.writeCache(typeDto)
-
-        return model
-
       case ITypeKind.RenderPropType:
         model.kind === ITypeKind.RenderPropType && model.writeCache(typeDto)
 
         return model
 
-      case ITypeKind.ArrayType:
-        model.kind === ITypeKind.ArrayType && model.writeCache(typeDto)
+      case ITypeKind.RichTextType:
+        model.kind === ITypeKind.RichTextType && model.writeCache(typeDto)
 
         return model
 

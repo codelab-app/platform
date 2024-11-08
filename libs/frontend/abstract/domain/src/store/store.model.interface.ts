@@ -15,7 +15,7 @@ import type { ITreeNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IInterfaceTypeModel } from '../type'
 
-export interface IStoreModel extends IModel<IStore, IStoreModel> {
+export interface IStoreModel extends IModel<IStoreDto, IStoreModel> {
   actions: Array<IActionModel>
   actionsTree: Array<ITreeNode<IActionNodeData>>
   api: Ref<IInterfaceTypeModel>

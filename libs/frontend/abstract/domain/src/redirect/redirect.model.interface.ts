@@ -15,7 +15,7 @@ import type { IAuthGuardModel } from '../auth-guard'
 import type { IPageModel } from '../page'
 import type { IModel } from '../shared'
 
-export interface IRedirectModel extends IModel<IRedirect, IRedirectModel> {
+export interface IRedirectModel extends IModel<IRedirectDto, IRedirectModel> {
   authGuard: Ref<IAuthGuardModel>
   id: string
   source: Ref<IPageModel>

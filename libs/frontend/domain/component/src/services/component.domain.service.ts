@@ -114,6 +114,7 @@ export class ComponentDomainService
     rootElementModel.writeCache({ name: `${name} Root` })
 
     const component = this.hydrate({
+      __typename: IElementRenderTypeKind.Component,
       api,
       id,
       name,

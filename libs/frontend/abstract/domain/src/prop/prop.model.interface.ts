@@ -11,7 +11,7 @@ import type { IElementModel } from '../element'
 import type { IModel } from '../shared/models/model.interface'
 import type { IInterfaceTypeModel } from '../type'
 
-export interface IPropModel extends IModel<IProp, IPropModel> {
+export interface IPropModel extends IModel<IPropDto, IPropModel> {
   api?: Nullable<Ref<IInterfaceTypeModel>>
   data: Frozen<Nullable<IPropData>>
   id: string

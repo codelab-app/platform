@@ -13,7 +13,7 @@ import type { IRedirectModel } from '../redirect'
 import type { IModel } from '../shared'
 import type { IStoreModel } from '../store'
 
-export interface IPageModel extends IModel<IPage, IPageModel>, IElementTree {
+export interface IPageModel extends IModel<IPageDto, IPageModel>, IElementTree {
   app: Ref<IAppModel>
   /**
    * The platform URL

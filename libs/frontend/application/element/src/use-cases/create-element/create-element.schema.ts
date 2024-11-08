@@ -95,7 +95,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         },
         data: {
           label: 'Props Data',
-          type: 'object',
+          type: 'string',
         },
       },
       type: 'object',

@@ -1,10 +1,10 @@
-import type { IEnumType } from '@codelab/frontend/abstract/domain'
+import type { IEnumTypeModel } from '@codelab/frontend/abstract/domain'
 import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
 
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
 
 export const enumTypeUniformSchema: ITypeModelUniformSchemaBuilder<
-  IEnumType
+  IEnumTypeModel
 > = (type, autocomplete) => {
   return {
     enum: type.allowedValues.map((allowedValue) => allowedValue.value),

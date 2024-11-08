@@ -41,7 +41,7 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export interface IElementModel extends IModel<IElement, IElementModel> {
+export interface IElementModel extends IModel<IElementDto, IElementModel> {
   _modified: boolean
   ancestorError: Nullish<RenderingError>
   atomName: string

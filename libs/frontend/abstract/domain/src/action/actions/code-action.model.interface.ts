@@ -15,7 +15,7 @@ import type { IStoreModel } from '../../store'
 import type { IBaseAction } from '../base-action.interface'
 
 export interface ICodeActionModel
-  extends IModel<ICodeAction, ICodeActionModel> {
+  extends IModel<ICodeActionDto, ICodeActionModel> {
   __typename: IActionKind.CodeAction
   code: string
   id: string

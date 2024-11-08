@@ -8,6 +8,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 
@@ -40,6 +41,18 @@ export class CodeMirrorType
   implements ICodeMirrorTypeModel
 {
   public static create = create
+
+  @computed
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      id: this.id,
+      kind: this.kind,
+      language: this.language,
+      name: this.name,
+      owner: this.owner.current.toJson,
+    }
+  }
 
   @modelAction
   writeCache(codeMirrorTypeDto: Partial<ICodeMirrorTypeDto>) {
