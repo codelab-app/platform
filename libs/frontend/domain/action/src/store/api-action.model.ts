@@ -59,7 +59,6 @@ export class ApiAction
 {
   static create = create
 
-  @computed
   get toJson() {
     return {
       __typename: IActionKind.ApiAction as const,

@@ -38,7 +38,6 @@ export class EnumType
 {
   public static create = create
 
-  @computed
   get toJson() {
     return {
       __typename: this.__typename,
