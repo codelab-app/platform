@@ -17,7 +17,7 @@ import type { IModel } from '../shared/models/model.interface'
 import type { ITagModel } from '../tag'
 import type { IInterfaceTypeModel } from '../type'
 
-export interface IAtomModel extends IModel<IAtom, IAtomModel> {
+export interface IAtomModel extends IModel<IAtomDto, IAtomModel> {
   __typename: IElementRenderTypeKind.Atom
   api: Ref<IInterfaceTypeModel>
   externalCssSource?: Nullish<string>

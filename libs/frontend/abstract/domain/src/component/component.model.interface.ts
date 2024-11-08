@@ -20,7 +20,7 @@ import type { IUserModel } from '../user'
 
 export interface IComponentModel
   extends IElementTree,
-    IModel<IComponent, IComponentModel> {
+    IModel<IComponentDto, IComponentModel> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceTypeModel>
   descendantComponents: Array<IComponentModel>

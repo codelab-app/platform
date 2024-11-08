@@ -15,7 +15,7 @@ import type { IModel } from '../shared'
 import type { IUserModel } from '../user'
 
 export interface IPreferenceModel
-  extends IModel<IPreference, IPreferenceModel> {
+  extends IModel<IPreferenceDto, IPreferenceModel> {
   builderBreakpoint: IBreakpoint
   builderBreakpointType: IBreakpointType
   builderWidth: number

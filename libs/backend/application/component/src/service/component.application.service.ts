@@ -13,7 +13,7 @@ import { PropDomainService } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store } from '@codelab/backend/domain/store'
 import { InterfaceType } from '@codelab/backend/domain/type'
-import { IRole } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind, IRole } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
@@ -60,6 +60,7 @@ export class ComponentApplicationService {
 
     const componentDto: IComponentDto = {
       ...createComponentData,
+      __typename: IElementRenderTypeKind.Component,
       api,
       owner,
       props,

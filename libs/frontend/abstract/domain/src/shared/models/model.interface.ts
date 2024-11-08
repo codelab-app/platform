@@ -4,23 +4,6 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { OmitByValue, PickByValue } from 'utility-types'
 
-type Primitives = boolean | number | string | null | undefined
-
-/**
- * Pick everything except refs
- */
-type PickPrimitives<T> = PickByValue<T, Primitives>
-
-type PickRefs<T> = PickByValue<T, IRef>
-
-type ToRefType<T extends ObjectLike> = T extends Array<T>
-  ? Array<Ref<T>>
-  : Ref<T>
-
-type MappedRefs<T> = {
-  [K in keyof PickRefs<T>]: ToRefType<T[K] extends IRef ? object : never>
-}
-
 /**
  * Extended by our domain models
  *

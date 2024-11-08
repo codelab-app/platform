@@ -6,7 +6,7 @@ import type { ITreeNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { ITagNodeData } from './tag.node.interface'
 
-export interface ITagModel extends IModel<ITag, ITagModel> {
+export interface ITagModel extends IModel<ITagDto, ITagModel> {
   children: Array<Ref<ITagModel>>
   descendants: Array<Ref<ITagModel>>
   id: string

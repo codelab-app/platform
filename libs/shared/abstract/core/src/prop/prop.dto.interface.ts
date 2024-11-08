@@ -6,7 +6,7 @@ import { Type } from '@sinclair/typebox'
 
 export const PropDtoSchema = Type.Object({
   api: Typebox.Nullish(Typebox.Ref),
-  data: Type.Object({}, { additionalProperties: true }),
+  data: Type.String(),
   id: Type.String(),
 })
 

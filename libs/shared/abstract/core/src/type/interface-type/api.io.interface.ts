@@ -27,11 +27,9 @@ export const ApiExportSchema = Type.Composite([
 
 export type IApiExport = Static<typeof ApiExportSchema>
 
-export const ApiImportSchema = Type.Composite([
-  Type.Object({
-    types: Type.Array(TypeDtoSchema),
-  }),
-  InterfaceTypeSchema,
-])
+export const ApiImportSchema = Type.Object({
+  ...InterfaceTypeSchema.properties,
+  types: Type.Array(TypeDtoSchema),
+})
 
 export type IApiImport = Static<typeof ApiImportSchema>

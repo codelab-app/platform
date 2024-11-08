@@ -2,7 +2,7 @@
 
 import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
-import LinearProgress from '@mui/material/LinearProgress'
+// import LinearProgress from '@mui/material/LinearProgress'
 
 /**
  * Meant to be used as a global loading bar
@@ -14,7 +14,8 @@ export const ProgressBar = () => {
   return (
     <div className="h-1">
       {isLoading ? (
-        <LinearProgress aria-label={label} className="h-full" />
+        // <LinearProgress aria-label={label} className="h-full" />
+        <></>
       ) : null}
     </div>
   )

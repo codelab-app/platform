@@ -10,7 +10,8 @@ import type { IPropModel } from '../prop'
 import type { IResourceModel } from '../resource'
 import type { IModel } from '../shared'
 
-export interface IAuthGuardModel extends IModel<IAuthGuard, IAuthGuardModel> {
+export interface IAuthGuardModel
+  extends IModel<IAuthGuardDto, IAuthGuardModel> {
   config: IPropModel
   id: string
   name: string

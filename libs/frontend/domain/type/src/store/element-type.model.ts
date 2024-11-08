@@ -10,6 +10,7 @@ import {
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 
@@ -36,6 +37,18 @@ export class ElementType
   implements IElementTypeModel
 {
   public static create = create
+
+  @computed
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      elementKind: this.elementKind,
+      id: this.id,
+      kind: this.kind,
+      name: this.name,
+      owner: this.owner.current.toJson,
+    }
+  }
 
   @modelAction
   writeCache(elementTypeDto: Partial<IElementTypeDto>) {

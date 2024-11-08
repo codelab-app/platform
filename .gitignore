@@ -61,3 +61,5 @@ Thumbs.db
 out
 # Sentry Config File
 .env.sentry-build-plugin
+
+vite.config.*.timestamp*

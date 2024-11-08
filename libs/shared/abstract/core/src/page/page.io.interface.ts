@@ -2,12 +2,12 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { ElementSchema } from '../element'
+import { ElementExportSchema, ElementSchema } from '../element'
 import { StoreExportSchema, StoreImportSchema } from '../store'
 import { PageSchema } from './page.model.interface'
 
 export const PageExportSchema = Type.Object({
-  elements: Type.Array(ElementSchema),
+  elements: Type.Array(ElementExportSchema),
   page: PageSchema,
   store: StoreExportSchema,
 })
@@ -15,7 +15,7 @@ export const PageExportSchema = Type.Object({
 export type IPageExport = Static<typeof PageExportSchema>
 
 export const PageImportSchema = Type.Object({
-  elements: Type.Array(ElementSchema),
+  elements: Type.Array(ElementExportSchema),
   page: PageSchema,
   store: StoreImportSchema,
 })

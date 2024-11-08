@@ -4,6 +4,7 @@ import type {
   IAppExport,
   IComponentExport,
   IElement,
+  IElementExport,
   IPageExport,
   IRef,
 } from '@codelab/shared/abstract/core'
@@ -100,7 +101,7 @@ export class ExportAppHandler
         },
       }))
 
-      let elementsCurrentBatch: Array<IElement> = elements
+      let elementsCurrentBatch: Array<IElementExport> = elements
 
       // get all components and nested components that are used in the page including their elements
       do {

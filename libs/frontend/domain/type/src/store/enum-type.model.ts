@@ -1,13 +1,14 @@
 import type { IEnumTypeDto } from '@codelab/shared/abstract/core'
 
 import {
-  type IEnumType,
+  type IEnumTypeModel,
   type IEnumTypeValue,
   type ITypeTransformContext,
   type JsonSchema,
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 
@@ -33,9 +34,21 @@ export class EnumType
   extends ExtendedModel(createBaseType(ITypeKind.EnumType), {
     allowedValues: prop<Array<IEnumTypeValue>>(() => []),
   })
-  implements IEnumType
+  implements IEnumTypeModel
 {
   public static create = create
+
+  @computed
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      allowedValues: this.allowedValues,
+      id: this.id,
+      kind: this.kind,
+      name: this.name,
+      owner: this.owner.current.toJson,
+    }
+  }
 
   @modelAction
   writeCache(enumTypeDto: Partial<IEnumTypeDto>) {

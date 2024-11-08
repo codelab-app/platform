@@ -15,7 +15,7 @@ import type { IUserModel } from '../user'
  * IModelData
  */
 
-export interface IAppModel extends IModel<IApp, IAppModel> {
+export interface IAppModel extends IModel<IAppDto, IAppModel> {
   domains: Array<Ref<IDomainModel>>
   id: string
   name: string

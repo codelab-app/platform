@@ -9,7 +9,7 @@ import type {
 import type { IPropModel } from '../prop'
 import type { IModel } from '../shared/models/model.interface'
 
-export interface IResourceModel extends IModel<IResource, IResourceModel> {
+export interface IResourceModel extends IModel<IResourceDto, IResourceModel> {
   client: IResourceClient
   config: IPropModel
   id: string

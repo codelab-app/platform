@@ -53,7 +53,7 @@ export const useComponentService = (): IComponentService => {
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
 
-    return await componentRepository.add(component)
+    return await componentRepository.add(component.component)
   }
 
   const removeMany = async (components: Array<IComponentModel>) => {

@@ -21,7 +21,7 @@ import type { IAppTypeModel } from './app-type.model.interface'
 import type { IArrayTypeModel } from './array-type.model.interface'
 import type { ICodeMirrorTypeModel } from './code-mirror-type.model.interface'
 import type { IElementTypeModel } from './element-type.model.interface'
-import type { IEnumType } from './enum-type.interface'
+import type { IEnumTypeModel } from './enum-type.model.interface'
 import type { IInterfaceTypeModel } from './interface-type.model.interface'
 import type { ILambdaTypeModel } from './lambda-type.model.interface'
 import type { IPageTypeModel } from './page-type.model.interface'
@@ -53,15 +53,15 @@ export interface ITypeTransformContext {
   validationRules?: Nullish<IValidationRules>
   uniformSchema?(type: ITypeModel): ObjectLike
 }
-export interface IBaseTypeModel<Dto extends IBaseTypeDto>
-  extends IModel<IBaseType, IBaseTypeModel<Dto>> {
+export interface IBaseTypeModel<IDto extends IBaseTypeDto>
+  extends IModel<IDto, IBaseTypeModel<IDto>> {
   __typename: `${ITypeKind}`
   id: string
   kind: ITypeKind
   name: string
   owner: Ref<IUserModel>
   toJsonSchema(context: ITypeTransformContext): JsonSchema
-  writeCache(dto: Partial<Dto>): IBaseTypeModel<Dto>
+  writeCache(dto: Partial<IDto>): IBaseTypeModel<IDto>
 }
 
 export type ITypeModel =
@@ -70,7 +70,7 @@ export type ITypeModel =
   | IArrayTypeModel
   | ICodeMirrorTypeModel
   | IElementTypeModel
-  | IEnumType
+  | IEnumTypeModel
   | IInterfaceTypeModel
   | ILambdaTypeModel
   | IPageTypeModel

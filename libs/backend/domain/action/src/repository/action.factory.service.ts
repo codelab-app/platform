@@ -20,11 +20,9 @@ export class ActionFactory {
   async save(action: IActionDto) {
     switch (action.__typename) {
       case IActionKind.ApiAction: {
-        const apiAction = new ApiAction(action)
-
         await this.propRepository.save(action.config)
 
-        return await this.apiActionRepository.save(apiAction)
+        return await this.apiActionRepository.save(action)
       }
 
       case IActionKind.CodeAction: {
