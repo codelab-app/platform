@@ -15,6 +15,8 @@ export class AuthGuard extends IModel implements IAuthGuard {
 
   name: string
 
+  owner: IRef
+
   resource: IRef
 
   responseTransformer: string
@@ -23,6 +25,7 @@ export class AuthGuard extends IModel implements IAuthGuard {
     config,
     id,
     name,
+    owner,
     resource,
     responseTransformer,
   }: IAuthGuardDto) {
@@ -33,5 +36,6 @@ export class AuthGuard extends IModel implements IAuthGuard {
     this.name = name
     this.resource = resource
     this.responseTransformer = responseTransformer
+    this.owner = owner
   }
 }

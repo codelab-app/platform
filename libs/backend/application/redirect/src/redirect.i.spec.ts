@@ -4,9 +4,7 @@ import type {
   IRestFetchConfigData,
 } from '@codelab/shared/abstract/core'
 
-import { AuthGuard } from '@codelab/backend/domain/auth-guard'
 import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
-import { Resource } from '@codelab/backend/domain/resource'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   HttpMethod,
@@ -79,11 +77,12 @@ describe('Redirect', () => {
   })
 
   it('should authorize page access when auth api return true', async () => {
+    const owner = { id: v4() }
     const domain = 'http://test.com'
     const pageUrlPattern = '/page-url'
     const authorization = 'authorization-token'
 
-    const resource = new Resource({
+    const resource = {
       config: {
         data: JSON.stringify({
           url: 'resource-url',
@@ -92,10 +91,11 @@ describe('Redirect', () => {
       },
       id: v4(),
       name: 'Resource',
+      owner,
       type: IResourceType.Rest,
-    })
+    }
 
-    const authGuard = new AuthGuard({
+    const authGuard = {
       config: {
         data: JSON.stringify({
           headers: {},
@@ -108,9 +108,10 @@ describe('Redirect', () => {
       },
       id: v4(),
       name: 'Auth Guard',
+      owner,
       resource,
       responseTransformer: 'return response.data.isLoggedIn;',
-    })
+    }
 
     const redirect = new Redirect({
       authGuard,
@@ -142,11 +143,12 @@ describe('Redirect', () => {
   })
 
   it('should prevent page access when auth api return false', async () => {
+    const owner = { id: v4() }
     const domain = 'http://test.com'
     const pageUrlPattern = '/page-url'
     const authorization = 'authorization-token'
 
-    const resource = new Resource({
+    const resource = {
       config: {
         data: JSON.stringify({
           url: 'resource-url',
@@ -155,10 +157,11 @@ describe('Redirect', () => {
       },
       id: v4(),
       name: 'Resource',
+      owner,
       type: IResourceType.Rest,
-    })
+    }
 
-    const authGuard = new AuthGuard({
+    const authGuard = {
       config: {
         data: JSON.stringify({
           headers: {},
@@ -171,9 +174,10 @@ describe('Redirect', () => {
       },
       id: v4(),
       name: 'Auth Guard',
+      owner,
       resource,
       responseTransformer: 'return response.data.isLoggedIn;',
-    })
+    }
 
     const redirect = new Redirect({
       authGuard,
