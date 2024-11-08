@@ -132,9 +132,9 @@ export const useTagService = (): ITagService => {
   const deleteCheckedTags = async () => {
     const checkedTags = checkedTagIds
       .map((id) => tagDomainService.tags.get(id))
-      .filter(Boolean)
+      .filter((tag): tag is ITagModel => Boolean(tag))
 
-    await removeMany(checkedTags as Array<ITagModel>)
+    await removeMany(checkedTags)
     setCheckedTagIds([])
   }
 
