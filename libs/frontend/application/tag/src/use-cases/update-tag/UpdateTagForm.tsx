@@ -33,6 +33,7 @@ export const UpdateTagForm = observer((props: IUpdateTagFormProps) => {
   const model = {
     id: tag.id,
     name: tag.name,
+    owner: tag.owner,
     parent: tag.parent ? { id: tag.parent.id } : undefined,
   }
 
@@ -48,7 +49,7 @@ export const UpdateTagForm = observer((props: IUpdateTagFormProps) => {
       submitRef={submitRef}
       uiKey={UiKey.TagFormUpdate}
     >
-      <AutoFields omitFields={['id', 'parent']} />
+      <AutoFields omitFields={['id', 'parent', 'owner']} />
 
       {model.parent && (
         <SelectField
