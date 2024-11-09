@@ -74,7 +74,7 @@ export const Dashboard = withProfiler(
               )}
 
               <CuiPanel className="relative" defaultSize={80} order={3}>
-                {/* <ProgressBar /> */}
+                <ProgressBar />
                 {/* We want the popover to overlay on top of the main, so we put it inside here */}
                 {SecondaryPopover}
                 <div className="size-full p-3">{children}</div>
