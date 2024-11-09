@@ -5,7 +5,9 @@ import type { ReactNode } from 'react'
 
 import { withProfiler } from '@sentry/react'
 import { observer } from 'mobx-react-lite'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useCustomCompareEffect } from 'react-use'
+import { isDeepEqual } from 'remeda'
 
 import { useHydrateStore } from './useStoreHydrator.hook'
 
@@ -33,10 +35,14 @@ export const DomainStoreHydrator = withProfiler(
     //   atomDomainService.hydrate(atom)
     // })
 
-    useEffect(() => {
-      hydrate(data)
-      setIsHydrated(true)
-    }, [hydrate, data])
+    useCustomCompareEffect(
+      () => {
+        hydrate(data)
+        setIsHydrated(true)
+      },
+      [hydrate, data],
+      isDeepEqual,
+    )
 
     // do not render children untill the store is hydrated with all the
     // specified entities. Othervise `assertIsDefined` may break the application

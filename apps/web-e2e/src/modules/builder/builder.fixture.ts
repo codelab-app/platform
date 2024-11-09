@@ -85,13 +85,19 @@ export class BuilderPage extends BasePage {
       const modal = this.getModalForm(UiKey.ElementPopoverCreate)
 
       await parentElement.click()
+      await expect(parentElement).toHaveClass(/ant-tree-node-selected/)
+
       await parentElementToolbar.getByLabel('plus').click()
 
       await expect(this.getFormFieldSpinner()).toHaveCount(0)
 
       await this.setFormFieldValue('Name', name)
       await this.setFormFieldValue('Render Type', atom)
-      await this.setFormFieldValue('Props Data', propsData ?? '{}')
+
+      if (propsData) {
+        await this.setFormFieldValue('Props Data', propsData)
+      }
+
       await this.getModal().locator(submitButton).click()
 
       await expect(this.getModal()).toBeHidden()
