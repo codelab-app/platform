@@ -52,7 +52,6 @@ export class PrimitiveType
 {
   public static create = create
 
-  @computed
   get toJson() {
     return {
       __typename: this.__typename,

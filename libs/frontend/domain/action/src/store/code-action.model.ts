@@ -32,7 +32,6 @@ export class CodeAction
 {
   static create = create
 
-  @computed
   get toJson() {
     return {
       __typename: IActionKind.CodeAction as const,

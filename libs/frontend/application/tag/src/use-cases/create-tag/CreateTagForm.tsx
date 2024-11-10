@@ -3,6 +3,7 @@
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { useUser } from '@codelab/frontend-application-user/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
@@ -18,6 +19,7 @@ import { createTagSchema } from './create.tag.schema'
 
 export const CreateTagForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+    const user = useUser()
     const tagService = useTagService()
     const { tagDomainService } = useDomainStore()
     const onSubmit = (input: ICreateTagData) => tagService.create(input)
@@ -25,6 +27,7 @@ export const CreateTagForm = observer<IFormController>(
 
     const model = {
       id: v4(),
+      owner: { id: user.id },
       parent: selectedOption
         ? { id: selectedOption.value.toString() }
         : undefined,
@@ -40,7 +43,7 @@ export const CreateTagForm = observer<IFormController>(
         submitRef={submitRef}
         uiKey={UiKey.TagFormCreate}
       >
-        <AutoFields omitFields={['parent']} />
+        <AutoFields omitFields={['parent', 'owner']} />
         {model.parent && <AutoField label="Parent Tag" name="parent.id" />}
         <DisplayIf condition={showFormControl}>
           <FormController submitLabel="Create Tag" />

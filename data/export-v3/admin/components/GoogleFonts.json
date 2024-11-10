@@ -3343,6 +3343,7 @@
     }
   ],
   "store": {
+    "actions": [],
     "api": {
       "__typename": "InterfaceType",
       "fields": [],

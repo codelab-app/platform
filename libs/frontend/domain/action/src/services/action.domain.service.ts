@@ -64,11 +64,11 @@ export class ActionDomainService
     let action: IActionModel
 
     switch (actionDto.__typename) {
-      case IActionKind.CodeAction:
-        action = CodeAction.create(actionDto)
-        break
       case IActionKind.ApiAction:
         action = ApiAction.create(actionDto)
+        break
+      case IActionKind.CodeAction:
+        action = CodeAction.create(actionDto)
         break
       default:
         throw new Error(`Unsupported action kind: ${actionDto.__typename}`)

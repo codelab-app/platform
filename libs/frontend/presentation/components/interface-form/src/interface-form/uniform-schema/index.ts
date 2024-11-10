@@ -34,32 +34,32 @@ export const uniformSchemaFactory = (
   const autocomplete = createAutoCompleteOptions(runtimeContext)
 
   switch (type.kind) {
-    case ITypeKind.UnionType:
-      return unionTypeUniformSchema(type, autocomplete)
+    case ITypeKind.ActionType:
+      return actionTypeUniformSchema(type, autocomplete)
+    case ITypeKind.AppType:
+      return appTypeUniformSchema(type, autocomplete)
+    case ITypeKind.ArrayType:
+      return arrayTypeUniformSchema(type, autocomplete)
+    case ITypeKind.CodeMirrorType:
+      return codeMirrorTypeUniformSchema(type, autocomplete)
+    case ITypeKind.ElementType:
+      return elementTypeUniformSchema(type, autocomplete)
+    case ITypeKind.EnumType:
+      return enumTypeUniformSchema(type, autocomplete)
+    case ITypeKind.LambdaType:
+      return lambdaTypeUniformSchema(type, autocomplete)
+    case ITypeKind.PageType:
+      return pageTypeUniformSchema(type, autocomplete)
+    case ITypeKind.PrimitiveType:
+      return primitiveTypeUniformSchema(type, autocomplete)
     case ITypeKind.ReactNodeType:
       return selectComponentUniformSchema(type, autocomplete)
     case ITypeKind.RenderPropType:
       return selectComponentUniformSchema(type, autocomplete)
-    case ITypeKind.ElementType:
-      return elementTypeUniformSchema(type, autocomplete)
-    case ITypeKind.CodeMirrorType:
-      return codeMirrorTypeUniformSchema(type, autocomplete)
-    case ITypeKind.PrimitiveType:
-      return primitiveTypeUniformSchema(type, autocomplete)
-    case ITypeKind.LambdaType:
-      return lambdaTypeUniformSchema(type, autocomplete)
-    case ITypeKind.AppType:
-      return appTypeUniformSchema(type, autocomplete)
-    case ITypeKind.ActionType:
-      return actionTypeUniformSchema(type, autocomplete)
-    case ITypeKind.PageType:
-      return pageTypeUniformSchema(type, autocomplete)
-    case ITypeKind.EnumType:
-      return enumTypeUniformSchema(type, autocomplete)
-    case ITypeKind.ArrayType:
-      return arrayTypeUniformSchema(type, autocomplete)
     case ITypeKind.RichTextType:
       return richTextTypeUniformSchema(type, autocomplete)
+    case ITypeKind.UnionType:
+      return unionTypeUniformSchema(type, autocomplete)
     default:
       throw Error(`Unknown type kind ${type.kind}`)
   }

@@ -69,8 +69,9 @@ export class ComponentDomainService
     })
 
     const fragmentAtom = this.atomDomainService.defaultRenderType
+    const fragmentApi = { id: fragmentAtom.api.id }
 
-    this.atomDomainService.hydrate({ ...fragmentAtom, owner })
+    this.atomDomainService.hydrate({ ...fragmentAtom, api: fragmentApi, owner })
 
     const api = this.typeDomainService.hydrateInterface({
       __typename: ITypeKind.InterfaceType,

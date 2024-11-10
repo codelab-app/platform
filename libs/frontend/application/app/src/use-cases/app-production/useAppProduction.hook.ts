@@ -62,7 +62,11 @@ const hydrateAppProductionData = (
 
   data.components.forEach((component) =>
     // use a dummy api to avoid typing issues
-    domainStore.componentDomainService.hydrate({ ...component, api: entity }),
+    domainStore.componentDomainService.hydrate({
+      __typename: 'Component',
+      ...component,
+      api: entity,
+    }),
   )
 
   data.elements.forEach((element) =>

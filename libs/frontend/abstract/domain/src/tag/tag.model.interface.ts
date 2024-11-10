@@ -1,5 +1,4 @@
-import type { ITag, ITagDto } from '@codelab/shared/abstract/core'
-import type { TagCreateInput, TagUpdateInput } from '@codelab/shared/infra/gql'
+import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import type { ITreeNode } from '../shared'
@@ -15,6 +14,7 @@ export interface ITagModel extends IModel<ITagDto, ITagModel> {
    */
   isRoot: boolean
   name: string
+  owner: IRef
   parent?: Ref<ITagModel>
   treeNode: ITreeNode<ITagNodeData>
 }

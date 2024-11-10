@@ -141,43 +141,6 @@ export const typeMapper: IMapper<
         return {
           update: baseType,
         }
-      case ITypeKind.UnionType:
-        return {
-          disconnect: {
-            typesOfUnionType: makeAllTypes({
-              where: {
-                node: { id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id) },
-              },
-            }),
-          },
-          update: {
-            typesOfUnionType: makeAllTypes({
-              connect: dto.typesOfUnionType.map(({ id }) => ({
-                where: { node: { id } },
-              })),
-            }),
-          },
-        }
-      case ITypeKind.PrimitiveType:
-        return {
-          update: {
-            primitiveKind: dto.primitiveKind,
-          },
-        }
-      case ITypeKind.ElementType:
-        return {
-          update: {
-            ...baseType,
-            elementKind: dto.elementKind,
-          },
-        }
-      case ITypeKind.CodeMirrorType:
-        return {
-          update: {
-            ...baseType,
-            language: dto.language,
-          },
-        }
       case ITypeKind.ArrayType:
         return {
           disconnect: dto.itemType?.id
@@ -198,6 +161,20 @@ export const typeMapper: IMapper<
                 itemType: connectNodeId(dto.itemType.id),
               }
             : undefined,
+        }
+      case ITypeKind.CodeMirrorType:
+        return {
+          update: {
+            ...baseType,
+            language: dto.language,
+          },
+        }
+      case ITypeKind.ElementType:
+        return {
+          update: {
+            ...baseType,
+            elementKind: dto.elementKind,
+          },
         }
       case ITypeKind.EnumType:
         return {
@@ -227,6 +204,29 @@ export const typeMapper: IMapper<
                 })),
               },
             ],
+          },
+        }
+      case ITypeKind.PrimitiveType:
+        return {
+          update: {
+            primitiveKind: dto.primitiveKind,
+          },
+        }
+      case ITypeKind.UnionType:
+        return {
+          disconnect: {
+            typesOfUnionType: makeAllTypes({
+              where: {
+                node: { id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id) },
+              },
+            }),
+          },
+          update: {
+            typesOfUnionType: makeAllTypes({
+              connect: dto.typesOfUnionType.map(({ id }) => ({
+                where: { node: { id } },
+              })),
+            }),
           },
         }
 
