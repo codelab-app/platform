@@ -68,7 +68,10 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   },
 
   getSelectAtomOptions: async () => {
-    const { atoms } = await GetSelectAtomOptions({})
+    const { atoms } = await GetSelectAtomOptions(
+      {},
+      { tags: [CACHE_TAGS.ATOM_LIST] },
+    )
 
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),
