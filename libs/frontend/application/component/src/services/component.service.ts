@@ -31,8 +31,14 @@ import {
 import { componentBuilderQuery } from '../use-cases/component-builder'
 
 export const useComponentService = (): IComponentService => {
-  const { atomDomainService, componentDomainService, userDomainService } =
-    useDomainStore()
+  const {
+    atomDomainService,
+    componentDomainService,
+    elementDomainService,
+    storeDomainService,
+    typeDomainService,
+    userDomainService,
+  } = useDomainStore()
 
   const elementService = useElementService()
   const owner = userDomainService.user
@@ -48,12 +54,19 @@ export const useComponentService = (): IComponentService => {
       atomDomainService.defaultRenderType,
     )
 
+    typeDomainService.hydrate(component.api)
+    typeDomainService.hydrate(storeApi)
+    storeDomainService.hydrate(component.store)
+    elementDomainService.hydrate(component.rootElement)
+    componentDomainService.hydrate(component.component)
+
     await typeRepository.add(component.api)
     await typeRepository.add(storeApi)
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
+    await componentRepository.add(component.component)
 
-    return await componentRepository.add(component.component)
+    return componentDomainService.component(data.id)
   }
 
   const removeMany = async (components: Array<IComponentModel>) => {
