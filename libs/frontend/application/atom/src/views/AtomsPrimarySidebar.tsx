@@ -70,8 +70,6 @@ export const AtomsPrimarySidebar = observer(() => {
     ],
     [data, isLoading],
     ([prevData], [nextData]) => {
-      console.log(isArrayEqual(prevData, nextData))
-
       return (
         prevData.length !== 0 &&
         nextData.length !== 0 &&

@@ -24,8 +24,7 @@ interface ApplicationStoreHydratorProps {
    *
    * In that case we'll need some override to disable loader
    */
-  disableLoader?: boolean
-  fallback: ReactNode
+  fallback?: ReactNode
   pathParams?: UrlPathParams
   queryParams?: UrlQueryParamsPageProps
 }
@@ -33,7 +32,6 @@ interface ApplicationStoreHydratorProps {
 export const ApplicationStoreHydrator = observer(
   ({
     children,
-    disableLoader,
     fallback,
     pathParams,
     queryParams,
@@ -56,6 +54,10 @@ export const ApplicationStoreHydrator = observer(
       setIsHydrated(true)
     }, [])
 
-    return isHydrated || disableLoader ? <>{children}</> : <>{fallback}</>
+    if (!fallback) {
+      return <>{children}</>
+    }
+
+    return isHydrated ? <>{children}</> : <>{fallback}</>
   },
 )

@@ -24,7 +24,6 @@ interface AtomsTreeViewProps {
 export const AtomsTreeView = observer(
   ({ data, isLoading, showSearchBar }: AtomsTreeViewProps) => {
     const { routerService } = useApplicationStore()
-    const [selectedNode, setSelectedNode] = useState(routerService.node)
 
     const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({
       children: atom.api.current.fieldsTree,
@@ -44,24 +43,9 @@ export const AtomsTreeView = observer(
               search: keyword,
             })
           }}
-          /**
-           * Push the selected node id to url state
-           */
-          onSelect={(selectedKeys) => {
-            const selectedKey = selectedKeys[0]
-
-            if (selectedKey) {
-              setSelectedNode(selectedKey.toString())
-
-              const params = new URLSearchParams(window.location.search)
-
-              params.set('node', selectedKey.toString())
-              window.history.replaceState({}, '', `?${params.toString()}`)
-            }
-          }}
           searchKeyword={routerService.search}
           searcheable={showSearchBar ? { primaryTitle: true } : false}
-          selectedKeys={selectedNode ? [selectedNode] : []}
+          selectedKeys={routerService.node ? [routerService.node] : []}
           titleRender={(node) => <AtomsTreeItem data={node} />}
           treeData={treeData}
         />

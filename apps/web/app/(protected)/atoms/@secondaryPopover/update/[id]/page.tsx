@@ -19,22 +19,16 @@ const Page = async ({
 }) => {
   const atomDto = await atomRepository.findOne({ id })
   const atomsDto = atomDto ? [atomDto] : []
-  const tagsDto = atomDto?.tags
+  const tagsDto = atomDto?.tags ?? []
 
   return (
     <DashboardPopover>
-      <ApplicationStoreHydrator
-        fallback={<Spinner />}
-        queryParams={searchParams}
-      >
-        <DomainStoreHydrator
-          atomsDto={atomsDto}
-          fallback={<Spinner />}
-          tagsDto={tagsDto}
-        >
-          <UpdateAtomContainer id={id} />
-        </DomainStoreHydrator>
-      </ApplicationStoreHydrator>
+      <UpdateAtomContainer
+        atomsDto={atomsDto}
+        id={id}
+        searchParams={searchParams}
+        tagsDto={tagsDto}
+      />
     </DashboardPopover>
   )
 }

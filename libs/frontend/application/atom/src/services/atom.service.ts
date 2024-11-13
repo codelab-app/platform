@@ -27,6 +27,8 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
+import { unsetSearchParam } from '@codelab/shared/utils'
+import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
@@ -180,7 +182,16 @@ export const useAtomService = (): IAtomService => {
 
   const atomPopoverUpdate = {
     close: (router: AppRouterInstance) => {
-      router.push(`${PageType.Atoms()}${window.location.search}`)
+      const searchParams = new URLSearchParams(window.location.search)
+
+      searchParams.delete('node')
+
+      const url = queryString.stringifyUrl({
+        query: Object.fromEntries(searchParams.entries()),
+        url: PageType.Atoms(),
+      })
+
+      router.push(url)
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.AtomCreate())

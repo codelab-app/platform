@@ -20,39 +20,12 @@ export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
   const router = useRouter()
 
   return (
-    <CuiSidebarSecondary
-      id={UiKey.AtomPopoverUpdate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.AtomToolbarItemCreate,
-            icon: <SaveOutlined />,
-            label: 'Update',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
-            title: 'Update',
-          },
-          {
-            cuiKey: UiKey.AtomToolbarItemCreateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: () => {
-              atomPopoverUpdate.close(router)
-            },
-            title: 'Cancel',
-          },
-        ],
-        title: 'Update Atom toolbar',
-      }}
-    >
-      <UpdateAtomForm
-        atom={atom}
-        onSubmitSuccess={() => atomPopoverUpdate.close(router)}
-        showFormControl={false}
-        submitRef={submitRef}
-      />
-    </CuiSidebarSecondary>
+    <UpdateAtomForm
+      atom={atom}
+      onSubmitSuccess={() => atomPopoverUpdate.close(router)}
+      showFormControl={false}
+      submitRef={submitRef}
+    />
   )
 })
 
