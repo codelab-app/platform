@@ -11,7 +11,7 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { usePathname, useRouter } from 'next/navigation'
 import queryString from 'query-string'
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import type { ToolbarItem } from '../../abstract'
 
@@ -26,11 +26,23 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   paginationService: IPaginationService<T>,
 ) => {
   const { routerService } = useApplicationStore()
+  // console.log('useToolbarPagination render', {
+  //   page: routerService.page,
+  //   pageSize: routerService.pageSize,
+  // })
   const router = useRouter()
   const pathname = usePathname()
   const [showSearchBar, setShowSearchBar] = useState(false)
 
-  const goToNextPage = () => {
+  // Track state changes
+  // useEffect(() => {
+  //   console.log('Toolbar pagination state changed', {
+  //     page: routerService.page,
+  //     pageSize: routerService.pageSize,
+  //   })
+  // }, [routerService.page, routerService.pageSize])
+
+  const goToNextPage = useCallback(() => {
     const totalPages = paginationService.totalPages
 
     const url = queryString.stringifyUrl({
@@ -41,9 +53,9 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
     })
 
     router.push(url)
-  }
+  }, [paginationService.totalPages, routerService.page, pathname])
 
-  const goToPreviousPage = () => {
+  const goToPreviousPage = useCallback(() => {
     const url = queryString.stringifyUrl({
       query: {
         page: Math.max(routerService.page - 1, 1),
@@ -52,82 +64,91 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
     })
 
     router.push(url)
-  }
+  }, [pathname, routerService.page])
 
-  const toolbarItems: Array<ToolbarItem> = [
-    {
-      cuiKey: UiKey.PaginationToolbarItemPreviousPage,
-      icon: <LeftOutlined />,
-      onClick: goToPreviousPage,
-      title: 'Previous',
-    },
-    {
-      cuiKey: UiKey.PaginationToolbarItemCurrentPage,
-      icon: (
-        <div className="flex flex-row grow">
-          <div className="w-10">
+  const handlePageChange = useCallback((value: unknown) => {
+    if (typeof value === 'number' && value > 0) {
+      routerService.setQueryParams({
+        ...routerService.queryParams,
+        page: value,
+      })
+    }
+  }, [])
+
+  const handlePageSizeChange = useCallback((value: unknown) => {
+    if (typeof value === 'number' && value > 0) {
+      routerService.setQueryParams({
+        ...routerService.queryParams,
+        pageSize: value,
+      })
+    }
+  }, [])
+
+  const handleSearchBarToggle = useCallback(() => {
+    setShowSearchBar(!showSearchBar)
+  }, [])
+
+  const toolbarItems: Array<ToolbarItem> = useMemo(
+    () => [
+      {
+        cuiKey: UiKey.PaginationToolbarItemPreviousPage,
+        icon: <LeftOutlined />,
+        onClick: goToPreviousPage,
+        title: 'Previous',
+      },
+      {
+        cuiKey: UiKey.PaginationToolbarItemCurrentPage,
+        icon: (
+          <div className="flex flex-row grow">
+            <div className="w-10">
+              <CuiInput
+                onChange={handlePageChange}
+                selectAllOnClick
+                type="number"
+                value={routerService.page}
+              />
+            </div>
+            <span className="text-center text-sm">/</span>
+            <span className="text-center text-sm">{`${paginationService.totalPages}`}</span>
+          </div>
+        ),
+        title: `Current page: ${routerService.page} / ${paginationService.totalPages}`,
+      },
+      {
+        cuiKey: UiKey.PaginationToolbarItemNextPage,
+        icon: (
+          <div className="flex">
+            <RightOutlined />
+          </div>
+        ),
+        onClick: goToNextPage,
+        title: 'Next',
+      },
+      {
+        cuiKey: UiKey.PaginationToolbarItemPageSize,
+        icon: (
+          <div className="flex flex-row items-center justify-between">
             <CuiInput
-              onChange={(value) => {
-                if (typeof value === 'number' && value > 0) {
-                  routerService.setQueryParams({
-                    ...routerService.queryParams,
-                    page: value,
-                  })
-                }
-              }}
+              onChange={handlePageSizeChange}
               selectAllOnClick
               type="number"
-              value={routerService.page}
+              value={routerService.pageSize}
             />
+            <span className="text-sm">/</span>
+            <span className="text-sm">Page</span>
           </div>
-          <span className="text-center text-sm">/</span>
-          <span className="text-center text-sm">{`${paginationService.totalPages}`}</span>
-        </div>
-      ),
-      title: `Current page: ${routerService.page} / ${paginationService.totalPages}`,
-    },
-    {
-      cuiKey: UiKey.PaginationToolbarItemNextPage,
-      icon: (
-        <div className="flex">
-          <RightOutlined />
-        </div>
-      ),
-      onClick: goToNextPage,
-      title: 'Next',
-    },
-    {
-      cuiKey: UiKey.PaginationToolbarItemPageSize,
-      icon: (
-        <div className="flex flex-row items-center justify-between">
-          <CuiInput
-            onChange={(value) => {
-              if (typeof value === 'number' && value > 0) {
-                routerService.setQueryParams({
-                  ...routerService.queryParams,
-                  pageSize: value,
-                })
-              }
-            }}
-            selectAllOnClick
-            type="number"
-            value={routerService.pageSize}
-          />
-          <span className="text-sm">/</span>
-          <span className="text-sm">Page</span>
-        </div>
-      ),
-      title: `${routerService.pageSize} items per page`,
-    },
-    {
-      cuiKey: UiKey.PaginationToobarItemSearch,
-      icon: <SearchOutlined />,
-      onClick: () => {
-        setShowSearchBar(!showSearchBar)
+        ),
+        title: `${routerService.pageSize} items per page`,
       },
-      title: 'Search',
-    },
-  ]
+      {
+        cuiKey: UiKey.PaginationToobarItemSearch,
+        icon: <SearchOutlined />,
+        onClick: handleSearchBarToggle,
+        title: 'Search',
+      },
+    ],
+    [],
+  )
 
   return { showSearchBar, toolbarItems }
 }

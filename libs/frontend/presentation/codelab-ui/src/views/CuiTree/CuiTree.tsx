@@ -46,35 +46,15 @@ export type WithChildren<T> = T & {
   children?: Array<WithChildren<T>>
 }
 
-export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>> {
-  allowDrop?: DirectoryTreeProps<T>['allowDrop']
-  autoExpandParent?: DirectoryTreeProps<T>['autoExpandParent']
-  checkStrictly?: DirectoryTreeProps<T>['checkStrictly']
-  checkable?: DirectoryTreeProps<T>['checkable']
-  checkedKeys?: DirectoryTreeProps<T>['checkedKeys']
-  defaultExpandAll?: DirectoryTreeProps<T>['defaultExpandAll']
-  disabled?: DirectoryTreeProps<T>['disabled']
+export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>>
+  extends DirectoryTreeProps<T> {
   draggable?: boolean
-  expandedKeys?: DirectoryTreeProps<T>['expandedKeys']
   isLoading?: boolean
-  loadData?: DirectoryTreeProps<T>['loadData']
-  multiple?: DirectoryTreeProps<T>['multiple']
-  onCheck?: DirectoryTreeProps<T>['onCheck']
-  onClick?: DirectoryTreeProps<T>['onClick']
-  onDragStart?: DirectoryTreeProps<T>['onDragStart']
-  onDrop?: DirectoryTreeProps<T>['onDrop']
-  onExpand?: DirectoryTreeProps<T>['onExpand']
-  onMouseEnter?: DirectoryTreeProps<T>['onMouseEnter']
-  onMouseLeave?: DirectoryTreeProps<T>['onMouseLeave']
-  onSelect?: DirectoryTreeProps<T>['onSelect']
   searchKeyword?: string
   searcheable?: boolean | { primaryTitle?: boolean; secondaryTitle?: boolean }
-  selectedKeys?: DirectoryTreeProps<T>['selectedKeys']
-  titleRender?: DirectoryTreeProps<T>['titleRender']
   treeData?: Array<T>
   onSearchKeywordChange?(keyword: string): void
 }
-
 export const CuiTree = observer(
   <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
     props: CuiTreeProps<T>,
@@ -88,7 +68,11 @@ export const CuiTree = observer(
       onMouseEnter,
       onMouseLeave,
       onSearchKeywordChange,
+      onSelect,
       searcheable = false,
+      /**
+       * Allow redirect back from popover to keep selected node
+       */
       searchKeyword = '',
       titleRender,
       treeData,

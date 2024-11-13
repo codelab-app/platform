@@ -15,7 +15,7 @@ export interface IRepository<
   Where extends { id?: number | string | null },
   Option extends { limit?: number | null; offset?: number | null },
 > {
-  add(dto: Dto, ...args: Array<unknown>): Promise<IRef>
+  add(dto: Dto): Promise<IRef>
   delete(where: Array<IRef>): Promise<number>
   find(where?: Where, options?: Option): Promise<IFindResults<ModelFragment>>
   findOne(where: Where): Promise<ModelFragment | undefined>

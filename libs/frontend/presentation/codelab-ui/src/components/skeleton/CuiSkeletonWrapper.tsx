@@ -10,20 +10,22 @@ interface CuiSkeletonWrapperProps {
 export const CuiSkeletonWrapper = ({
   children,
   isLoading,
-}: CuiSkeletonWrapperProps) => (
-  <div className="size-full">
-    <div
-      className={clsx(
-        'size-full',
-        isLoading ? 'block' : 'hidden',
-        CuiTestId.cuiSkeleton(),
-      )}
-      data-testid={CuiTestId.cuiSkeleton()}
-    >
-      <Skeleton active loading style={{ padding: 5 }} />
+}: CuiSkeletonWrapperProps) => {
+  return (
+    <div className="size-full">
+      <div
+        className={clsx(
+          'size-full',
+          isLoading ? 'block' : 'hidden',
+          CuiTestId.cuiSkeleton(),
+        )}
+        data-testid={CuiTestId.cuiSkeleton()}
+      >
+        <Skeleton active loading style={{ padding: 5 }} />
+      </div>
+      <div className={`size-full ${isLoading ? 'hidden' : 'block'}`}>
+        {children}
+      </div>
     </div>
-    <div className={`size-full ${isLoading ? 'hidden' : 'block'}`}>
-      {children}
-    </div>
-  </div>
-)
+  )
+}

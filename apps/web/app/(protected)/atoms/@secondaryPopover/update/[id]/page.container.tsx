@@ -14,4 +14,6 @@ const UpdateAtomContainer = observer(({ id }: { id: string }) => {
   return <UpdateAtomPopover atom={atom} />
 })
 
+UpdateAtomContainer.displayName = 'UpdateAtomContainer'
+
 export default UpdateAtomContainer

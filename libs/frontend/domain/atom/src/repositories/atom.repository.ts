@@ -3,6 +3,7 @@ import type {
   IAtomRepository,
 } from '@codelab/frontend/abstract/domain'
 import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/infra/fetch'
 import type {
   AtomCreateInput,
   AtomDeleteInput,
@@ -29,12 +30,13 @@ import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { prop, sortBy } from 'remeda'
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
-  add: async (input: IAtomDto) => {
+  add: async (input: IAtomDto, options?: NextFetchOptions) => {
     const {
       createAtoms: { atoms },
     } = await CreateAtoms(
       { input: atomMapper.toCreateInput(input) },
-      { revalidateTag: CACHE_TAGS.ATOM_LIST },
+      options,
+      // { revalidateTag: CACHE_TAGS.ATOM_LIST },
     )
 
     const createdAtom = atoms[0]
@@ -74,7 +76,7 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     )
   },
 
-  update: async ({ id }: IRef, input: IAtomDto) => {
+  update: async ({ id }: IRef, input: IAtomDto, options?: NextFetchOptions) => {
     const {
       updateAtoms: { atoms },
     } = await UpdateAtoms(
@@ -82,9 +84,10 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
         update: atomMapper.toUpdateInput(input),
         where: { id },
       },
-      {
-        revalidateTag: CACHE_TAGS.ATOM_LIST,
-      },
+      options,
+      // {
+      //   revalidateTag: CACHE_TAGS.ATOM_LIST,
+      // },
     )
 
     const updatedAtom = atoms[0]

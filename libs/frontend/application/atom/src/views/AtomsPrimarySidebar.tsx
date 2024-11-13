@@ -1,23 +1,84 @@
 'use client'
 
+import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
+import { isEqual } from 'radash'
+import { useMemo } from 'react'
+import { isDeepEqual, map, pick, pipe } from 'remeda'
+import { useCustomCompareMemo } from 'use-custom-compare'
 
 import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
+const pickIds = (items: Array<IAtomModel>) => pipe(items, map(pick(['id'])))
+
+const isArrayEqual = (prev: Array<IAtomModel>, next: Array<IAtomModel>) =>
+  isDeepEqual(pickIds(prev), pickIds(next))
+
 export const AtomsPrimarySidebar = observer(() => {
-  const { atomPopoverCreate, paginationService } = useAtomService()
+  const { atomPopoverCreate, getDataFn, paginationService } = useAtomService()
   const router = useRouter()
 
   const { showSearchBar, toolbarItems } =
     useToolbarPagination(paginationService)
+
+  const { data, isLoading } = useTablePagination<IAtomModel>({
+    getDataFn,
+    paginationService,
+    pathname: PageType.Atoms(),
+  })
+
+  /**
+   * We don't re-render if the data are the same id's. This prevents re-render from updates, since we use optimistic cache. We only re-render when we fetch different sets of id's
+   */
+  const memoizedViews = useCustomCompareMemo(
+    () => [
+      {
+        content: (
+          <AtomsTreeView
+            data={data}
+            isLoading={isLoading}
+            showSearchBar={showSearchBar}
+          />
+        ),
+        key: 'atoms-view',
+        label: 'Atoms',
+        toolbar: {
+          items: [
+            ...toolbarItems,
+            {
+              cuiKey: UiKey.AtomToolbarItemCreate,
+              icon: <PlusOutlined />,
+              onClick: () => {
+                atomPopoverCreate.open(router)
+              },
+              title: 'Create Atom',
+            },
+          ],
+          title: 'atoms-tree-toolbar',
+        },
+      },
+    ],
+    [data, isLoading],
+    ([prevData], [nextData]) => {
+      console.log(isArrayEqual(prevData, nextData))
+
+      return (
+        prevData.length !== 0 &&
+        nextData.length !== 0 &&
+        isArrayEqual(prevData, nextData)
+      )
+    },
+  )
 
   return (
     <CuiSidebar
@@ -25,27 +86,9 @@ export const AtomsPrimarySidebar = observer(() => {
       label="Atoms"
       // popover={<CreateFieldPopover />}
       uiKey={UiKey.AtomSidebar}
-      views={[
-        {
-          content: <AtomsTreeView showSearchBar={showSearchBar} />,
-          key: 'atoms-view',
-          label: 'Atoms',
-          toolbar: {
-            items: [
-              ...toolbarItems,
-              {
-                cuiKey: UiKey.AtomToolbarItemCreate,
-                icon: <PlusOutlined />,
-                onClick: () => {
-                  atomPopoverCreate.open(router)
-                },
-                title: 'Create Atom',
-              },
-            ],
-            title: 'atoms-tree-toolbar',
-          },
-        },
-      ]}
+      views={memoizedViews}
     />
   )
 })
+
+AtomsPrimarySidebar.displayName = 'AtomsPrimarySidebar'

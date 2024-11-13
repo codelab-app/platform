@@ -24,7 +24,7 @@ export const createPageAction = async (
   rootElementProps: IPropDto,
   owner: IUserDto,
 ) => {
-  await typeRepository.add(storeApi, owner)
+  await typeRepository.add(storeApi)
   await storeRepository.add(store)
   await elementRepository.add(rootElement)
 

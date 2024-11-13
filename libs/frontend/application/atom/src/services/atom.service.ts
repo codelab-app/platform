@@ -71,17 +71,14 @@ export const useAtomService = (): IAtomService => {
   }
 
   const create = async (data: ICreateAtomData) => {
-    const api = await typeRepository.add(
-      {
-        __typename: ITypeKind.InterfaceType,
-        fields: [],
-        id: v4(),
-        kind: ITypeKind.InterfaceType,
-        name: `${data.name} API`,
-        owner,
-      },
+    const api = await typeRepository.add({
+      __typename: ITypeKind.InterfaceType,
+      fields: [],
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: `${data.name} API`,
       owner,
-    )
+    })
 
     const atom = await atomRepository.add({
       ...data,
@@ -128,10 +125,6 @@ export const useAtomService = (): IAtomService => {
   }
 
   const getOne = async (id: string) => {
-    if (atomDomainService.atoms.has(id)) {
-      return atomDomainService.atoms.get(id)
-    }
-
     const all = await getAll({ id })
 
     return all[0]
@@ -152,10 +145,14 @@ export const useAtomService = (): IAtomService => {
     }
   }
 
-  const update = async (data: IUpdateAtomData) => {
-    const atom = await atomRepository.update(
+  const update = async ({ id, ...data }: IUpdateAtomData) => {
+    const atom = atomDomainService.atoms.get(id)
+
+    atom?.writeCache(data)
+
+    await atomRepository.update(
       {
-        id: data.id,
+        id,
       },
       data,
     )

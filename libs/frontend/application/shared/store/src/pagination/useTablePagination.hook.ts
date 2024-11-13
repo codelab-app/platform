@@ -53,25 +53,14 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
   }, [getDataFn])
 
   useEffect(() => {
-    console.log({
+    console.log('Get data!', {
       filter: routerService.filter,
       page: routerService.page,
       pageSize: routerService.pageSize,
       search: routerService.search,
     })
-    void withAsyncSpanFunc(
-      {
-        attributes: {
-          filter: routerService.filter,
-          page: routerService.page,
-          pageSize: routerService.pageSize,
-          search: routerService.search,
-        },
-        name: 'paginationService.getData()',
-        op: 'codelab.pagination',
-      },
-      () => paginationService.getData(),
-    )()
+
+    void paginationService.getData()
   }, [
     routerService.page,
     routerService.pageSize,

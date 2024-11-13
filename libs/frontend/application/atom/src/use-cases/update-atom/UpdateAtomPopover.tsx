@@ -55,3 +55,5 @@ export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
     </CuiSidebarSecondary>
   )
 })
+
+UpdateAtomPopover.displayName = 'UpdateAtomPopover'

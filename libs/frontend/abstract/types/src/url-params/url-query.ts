@@ -10,6 +10,10 @@ export interface UrlQueryParamsPageProps {
    * @param filter - `?key=value` will become `string`, while `?key=value1&key=value2` will become `Array<string>`
    */
   filter?: string | Array<string>
+  /**
+   * For the directory tree, useful when redirecting back
+   */
+  node?: string
   page?: string
   pageSize?: string
   primarySidebarKey?: string
