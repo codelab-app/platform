@@ -5,7 +5,12 @@ import type {
   TagUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import { connectNodeIds, connectOwner, reconnectNodeIds } from '../orm'
+import {
+  connectNodeId,
+  connectNodeIds,
+  connectOwner,
+  reconnectNodeIds,
+} from '../orm'
 
 export const tagMapper: IMapper<
   ITagDto,
@@ -15,9 +20,7 @@ export const tagMapper: IMapper<
 > = {
   toCreateInput: ({
     children,
-    descendants,
     id,
-    isRoot,
     name,
     owner,
     parent,
@@ -27,6 +30,7 @@ export const tagMapper: IMapper<
       id,
       name,
       owner: connectOwner(owner),
+      parent: connectNodeId(parent?.id),
     }
   },
 
