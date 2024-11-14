@@ -178,7 +178,7 @@
     "graphql-tag": "2.12.6",
     "graphql-ws": "5.16.0",
     "input-otp": "^1.2.4",
-    "isolated-vm": "4.6.0",
+    "isolated-vm": "5.0.1",
     "jest-text-transformer": "1.0.4",
     "jotai": "2.9.3",
     "jquery": "3.6.4",
