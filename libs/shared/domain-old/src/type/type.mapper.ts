@@ -143,22 +143,22 @@ export const typeMapper: IMapper<
         }
       case ITypeKind.ArrayType:
         return {
-          disconnect: dto.itemType?.id
-            ? {
-                itemType: {
-                  where: {
-                    NOT: {
-                      node: {
-                        id: dto.itemType.id,
-                      },
-                    },
-                  },
-                },
-              }
-            : undefined,
           update: dto.itemType?.id
             ? {
-                itemType: connectNodeId(dto.itemType.id),
+                itemType: {
+                  ...connectNodeId(dto.itemType.id),
+                  disconnect: dto.itemType.id
+                    ? {
+                        where: {
+                          NOT: {
+                            node: {
+                              id: dto.itemType.id,
+                            },
+                          },
+                        },
+                      }
+                    : undefined,
+                },
               }
             : undefined,
         }
@@ -178,22 +178,22 @@ export const typeMapper: IMapper<
         }
       case ITypeKind.EnumType:
         return {
-          // For some reason if the disconnect and delete are in the update section it throws an error
-          delete: {
-            allowedValues: [
-              {
-                where: {
-                  node: {
-                    NOT: {
-                      id_IN: dto.allowedValues.map((av) => av.id),
-                    },
-                  },
-                },
-              },
-            ],
-          },
           update: {
             allowedValues: [
+              {
+                // For some reason if the disconnect and delete are in the update section it throws an error
+                delete: [
+                  {
+                    where: {
+                      node: {
+                        NOT: {
+                          id_IN: dto.allowedValues.map((av) => av.id),
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
               {
                 create: dto.allowedValues.map((value) => ({
                   node: {
@@ -214,18 +214,20 @@ export const typeMapper: IMapper<
         }
       case ITypeKind.UnionType:
         return {
-          disconnect: {
-            typesOfUnionType: makeAllTypes({
-              where: {
-                node: { id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id) },
-              },
-            }),
-          },
           update: {
             typesOfUnionType: makeAllTypes({
               connect: dto.typesOfUnionType.map(({ id }) => ({
                 where: { node: { id } },
               })),
+              disconnect: {
+                typesOfUnionType: makeAllTypes({
+                  where: {
+                    node: {
+                      id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id),
+                    },
+                  },
+                }),
+              },
             }),
           },
         }

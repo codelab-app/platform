@@ -1,19 +1,8 @@
 mutation UpdatePrimitiveTypes(
-  $connect: PrimitiveTypeConnectInput
-  $create: PrimitiveTypeRelationInput
-  $delete: PrimitiveTypeDeleteInput
-  $disconnect: PrimitiveTypeDisconnectInput
   $update: PrimitiveTypeUpdateInput
   $where: PrimitiveTypeWhere
 ) {
-  types: updatePrimitiveTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updatePrimitiveTypes(update: $update, where: $where) {
     types: primitiveTypes {
       id
     }
@@ -21,21 +10,10 @@ mutation UpdatePrimitiveTypes(
 }
 
 mutation UpdateArrayTypes(
-  $connect: ArrayTypeConnectInput
-  $create: ArrayTypeRelationInput
-  $delete: ArrayTypeDeleteInput
-  $disconnect: ArrayTypeDisconnectInput
   $update: ArrayTypeUpdateInput
   $where: ArrayTypeWhere
 ) {
-  types: updateArrayTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateArrayTypes(update: $update, where: $where) {
     types: arrayTypes {
       id
     }
@@ -43,21 +21,10 @@ mutation UpdateArrayTypes(
 }
 
 mutation UpdateUnionTypes(
-  $connect: UnionTypeConnectInput
-  $create: UnionTypeRelationInput
-  $delete: UnionTypeDeleteInput
-  $disconnect: UnionTypeDisconnectInput
   $update: UnionTypeUpdateInput
   $where: UnionTypeWhere
 ) {
-  types: updateUnionTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateUnionTypes(update: $update, where: $where) {
     types: unionTypes {
       id
     }
@@ -65,21 +32,10 @@ mutation UpdateUnionTypes(
 }
 
 mutation UpdateInterfaceTypes(
-  $connect: InterfaceTypeConnectInput
-  $create: InterfaceTypeRelationInput
-  $delete: InterfaceTypeDeleteInput
-  $disconnect: InterfaceTypeDisconnectInput
   $update: InterfaceTypeUpdateInput
   $where: InterfaceTypeWhere
 ) {
-  types: updateInterfaceTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateInterfaceTypes(update: $update, where: $where) {
     types: interfaceTypes {
       id
     }
@@ -87,42 +43,21 @@ mutation UpdateInterfaceTypes(
 }
 
 mutation UpdateReactNodeTypes(
-  $connect: ReactNodeTypeConnectInput
-  $create: ReactNodeTypeRelationInput
-  $delete: ReactNodeTypeDeleteInput
-  $disconnect: ReactNodeTypeDisconnectInput
   $update: ReactNodeTypeUpdateInput
   $where: ReactNodeTypeWhere
 ) {
-  types: updateReactNodeTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateReactNodeTypes(update: $update, where: $where) {
     types: reactNodeTypes {
       id
     }
   }
 }
+
 mutation UpdateElementTypes(
-  $connect: ElementTypeConnectInput
-  $create: ElementTypeRelationInput
-  $delete: ElementTypeDeleteInput
-  $disconnect: ElementTypeDisconnectInput
   $update: ElementTypeUpdateInput
   $where: ElementTypeWhere
 ) {
-  types: updateElementTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateElementTypes(update: $update, where: $where) {
     types: elementTypes {
       id
     }
@@ -130,43 +65,18 @@ mutation UpdateElementTypes(
 }
 
 mutation UpdateRenderPropTypes(
-  $connect: RenderPropTypeConnectInput
-  $create: RenderPropTypeRelationInput
-  $delete: RenderPropTypeDeleteInput
-  $disconnect: RenderPropTypeDisconnectInput
   $update: RenderPropTypeUpdateInput
   $where: RenderPropTypeWhere
 ) {
-  types: updateRenderPropTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateRenderPropTypes(update: $update, where: $where) {
     types: renderPropTypes {
       id
     }
   }
 }
 
-mutation UpdateEnumTypes(
-  $connect: EnumTypeConnectInput
-  $create: EnumTypeRelationInput
-  $delete: EnumTypeDeleteInput
-  $disconnect: EnumTypeDisconnectInput
-  $update: EnumTypeUpdateInput
-  $where: EnumTypeWhere
-) {
-  types: updateEnumTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+mutation UpdateEnumTypes($update: EnumTypeUpdateInput, $where: EnumTypeWhere) {
+  types: updateEnumTypes(update: $update, where: $where) {
     types: enumTypes {
       id
     }
@@ -174,107 +84,48 @@ mutation UpdateEnumTypes(
 }
 
 mutation UpdateLambdaTypes(
-  $connect: LambdaTypeConnectInput
-  $create: LambdaTypeRelationInput
-  $delete: LambdaTypeDeleteInput
-  $disconnect: LambdaTypeDisconnectInput
   $update: LambdaTypeUpdateInput
   $where: LambdaTypeWhere
 ) {
-  types: updateLambdaTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateLambdaTypes(update: $update, where: $where) {
     types: lambdaTypes {
       id
     }
   }
 }
 
-mutation UpdatePageTypes(
-  $connect: PageTypeConnectInput
-  $create: PageTypeRelationInput
-  $delete: PageTypeDeleteInput
-  $disconnect: PageTypeDisconnectInput
-  $update: PageTypeUpdateInput
-  $where: PageTypeWhere
-) {
-  types: updatePageTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+mutation UpdatePageTypes($update: PageTypeUpdateInput, $where: PageTypeWhere) {
+  types: updatePageTypes(update: $update, where: $where) {
     types: pageTypes {
       id
     }
   }
 }
 
-mutation UpdateAppTypes(
-  $connect: AppTypeConnectInput
-  $create: AppTypeRelationInput
-  $delete: AppTypeDeleteInput
-  $disconnect: AppTypeDisconnectInput
-  $update: AppTypeUpdateInput
-  $where: AppTypeWhere
-) {
-  types: updateAppTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+mutation UpdateAppTypes($update: AppTypeUpdateInput, $where: AppTypeWhere) {
+  types: updateAppTypes(update: $update, where: $where) {
     types: appTypes {
       id
     }
   }
 }
+
 mutation UpdateRichTextTypes(
-  $connect: RichTextTypeConnectInput
-  $create: RichTextTypeRelationInput
-  $delete: RichTextTypeDeleteInput
-  $disconnect: RichTextTypeDisconnectInput
   $update: RichTextTypeUpdateInput
   $where: RichTextTypeWhere
 ) {
-  types: updateRichTextTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateRichTextTypes(update: $update, where: $where) {
     types: richTextTypes {
       id
     }
   }
 }
+
 mutation UpdateActionTypes(
-  $connect: ActionTypeConnectInput
-  $create: ActionTypeRelationInput
-  $delete: ActionTypeDeleteInput
-  $disconnect: ActionTypeDisconnectInput
   $update: ActionTypeUpdateInput
   $where: ActionTypeWhere
 ) {
-  types: updateActionTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateActionTypes(update: $update, where: $where) {
     types: actionTypes {
       id
     }
@@ -282,21 +133,10 @@ mutation UpdateActionTypes(
 }
 
 mutation UpdateCodeMirrorTypes(
-  $connect: CodeMirrorTypeConnectInput
-  $create: CodeMirrorTypeRelationInput
-  $delete: CodeMirrorTypeDeleteInput
-  $disconnect: CodeMirrorTypeDisconnectInput
   $update: CodeMirrorTypeUpdateInput
   $where: CodeMirrorTypeWhere
 ) {
-  types: updateCodeMirrorTypes(
-    connect: $connect
-    create: $create
-    delete: $delete
-    disconnect: $disconnect
-    update: $update
-    where: $where
-  ) {
+  types: updateCodeMirrorTypes(update: $update, where: $where) {
     types: codeMirrorTypes {
       id
     }
