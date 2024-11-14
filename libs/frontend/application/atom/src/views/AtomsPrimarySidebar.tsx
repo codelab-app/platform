@@ -43,6 +43,9 @@ export const AtomsPrimarySidebar = observer(() => {
       routerService,
     })
 
+  /**
+   * Let this component re-render itself, we disable loading instead of memoizing on the data
+   */
   const atomsTreeView = (
     <AtomsTreeView
       data={data}
@@ -55,7 +58,7 @@ export const AtomsPrimarySidebar = observer(() => {
   /**
    * We don't re-render if the data are the same id's. This prevents re-render from updates, since we use optimistic cache. We only re-render when we fetch different sets of id's
    */
-  const memoizedViews = useMemo(
+  const views = useMemo(
     () => [
       {
         content: atomsTreeView,
@@ -86,7 +89,7 @@ export const AtomsPrimarySidebar = observer(() => {
       label="Atoms"
       // popover={<CreateFieldPopover />}
       uiKey={UiKey.AtomSidebar}
-      views={memoizedViews}
+      views={views}
     />
   )
 })

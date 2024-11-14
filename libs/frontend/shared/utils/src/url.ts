@@ -1,3 +1,5 @@
+'use client'
+
 import { useSearchParams } from 'next/navigation'
 
 export const useUpdateSearchParams = () => {
@@ -20,4 +22,10 @@ export const useUpdateSearchParams = () => {
   return {
     updateParams,
   }
+}
+
+export const searchParamsAsObject = (keys?: Array<string>) => {
+  const searchParams = new URLSearchParams(window.location.search)
+
+  return Object.fromEntries(searchParams.entries())
 }

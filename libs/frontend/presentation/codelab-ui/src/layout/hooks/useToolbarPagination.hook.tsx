@@ -38,9 +38,7 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   //   page: routerService.page,
   //   pageSize: routerService.pageSize,
   // })
-  const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [showSearchBar, setShowSearchBar] = useState(false)
   const { updateParams } = useUpdateSearchParams()
 

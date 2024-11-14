@@ -29,6 +29,7 @@ export const TypesTreeView = observer(
       getDataFn,
       paginationService,
       pathname: PageType.Type(),
+      routerService,
     })
 
     const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({

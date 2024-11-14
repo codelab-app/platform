@@ -28,7 +28,6 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
-import { unsetSearchParam } from '@codelab/shared/utils'
 import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'

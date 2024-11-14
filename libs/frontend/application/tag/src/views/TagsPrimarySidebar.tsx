@@ -9,6 +9,7 @@ import {
   CuiSidebar,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
@@ -19,9 +20,12 @@ import { TagsTreeView } from '../use-cases/get-tags'
 export const TagsPrimarySidebar = observer(() => {
   const router = useRouter()
   const { checkedTagIds, createPopover, paginationService } = useTagService()
+  const { routerService } = useApplicationStore()
 
-  const { showSearchBar, toolbarItems } =
-    useToolbarPagination(paginationService)
+  const { showSearchBar, toolbarItems } = useToolbarPagination(
+    paginationService,
+    routerService,
+  )
 
   const items: Array<ToolbarItem> = [
     {

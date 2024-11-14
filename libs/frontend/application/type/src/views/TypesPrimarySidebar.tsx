@@ -7,6 +7,7 @@ import {
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 
 import { useTypeService } from '../services'
 import { CreateFieldPopover } from '../use-cases/create-field'
@@ -17,10 +18,13 @@ import { TypesTreeView } from '../use-cases/get-types'
 export const TypesPrimarySidebar = () => {
   const { paginationService } = useTypeService()
   const createTypeForm = useCreateTypeForm()
+  const { routerService } = useApplicationStore()
   const { popover } = useCui()
 
-  const { showSearchBar, toolbarItems } =
-    useToolbarPagination(paginationService)
+  const { showSearchBar, toolbarItems } = useToolbarPagination(
+    paginationService,
+    routerService,
+  )
 
   return (
     <CuiSidebar
