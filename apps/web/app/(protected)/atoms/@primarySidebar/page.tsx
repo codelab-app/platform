@@ -6,11 +6,6 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { headers } from 'next/headers'
 
 const Page = ({ searchParams }: { searchParams: UrlQueryParamsPageProps }) => {
-  const headersList = headers()
-  const referer = headersList.get('referer')
-
-  console.log({ referer })
-
   return (
     <ApplicationStoreHydrator fallback={<Spinner />} queryParams={searchParams}>
       <AtomsPrimarySidebar />
