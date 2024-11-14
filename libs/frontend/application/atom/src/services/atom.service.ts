@@ -13,6 +13,7 @@ import {
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useUpdateSearchParams } from '@codelab/frontend/shared/utils'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -47,6 +48,7 @@ export const useAtomService = (): IAtomService => {
   const user = userDomainService.user
   const owner = { id: user.id }
   const typeService = useTypeService()
+  const { updateParams } = useUpdateSearchParams()
 
   const getDataFn: GetDataFn<IAtomModel> = async (
     page,

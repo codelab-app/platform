@@ -34,7 +34,11 @@ export class PaginationService<T1 extends SupportedPaginationModel>
   extends Model(<T2 extends SupportedPaginationModel>() => ({
     dataRefs: prop(() => objectMap<Ref<T2>>()),
     // Make initial true so we know data is not there yet
-    isLoading: prop(true),
+    isLoading: prop(true).withSetter(),
+    /**
+     * We want to conditionally show a loader when transitioning between pages
+     */
+    isLoadingBetweenPages: prop(false).withSetter(),
     totalItems: prop<number>(0).withSetter(),
   }))<T1>
   implements IPaginationService<T1>
@@ -55,7 +59,7 @@ export class PaginationService<T1 extends SupportedPaginationModel>
   getData = _async(function* (
     this: PaginationService<T1>,
   ): Generator<unknown, Array<T1>, unknown> {
-    this.isLoading = true
+    this.setIsLoading(true)
 
     const context = paginationContext.get(this)
 
@@ -82,7 +86,8 @@ export class PaginationService<T1 extends SupportedPaginationModel>
       this.dataRefs.set(item.id, paginationServiceRef(item.id) as Ref<T1>)
     })
 
-    this.isLoading = false
+    this.setIsLoading(false)
+    this.setIsLoadingBetweenPages(false)
 
     return items as Array<T1>
   })

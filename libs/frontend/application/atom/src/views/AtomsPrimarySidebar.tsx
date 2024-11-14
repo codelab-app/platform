@@ -13,7 +13,7 @@ import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { isEqual } from 'radash'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { isDeepEqual, map, pick, pipe } from 'remeda'
 import { useCustomCompareMemo } from 'use-custom-compare'
 
@@ -35,26 +35,19 @@ export const AtomsPrimarySidebar = observer(() => {
     routerService,
   )
 
-  const { data, isLoading } = useTablePagination<IAtomModel>({
-    getDataFn,
-    paginationService,
-    pathname: PageType.Atoms(),
-    routerService,
-  })
+  const { data, isLoading, isLoadingBetweenPages } =
+    useTablePagination<IAtomModel>({
+      getDataFn,
+      paginationService,
+      pathname: PageType.Atoms(),
+      routerService,
+    })
 
-  console.log(isLoading)
-
-  /**
-   * Call on initial page load
-   */
-  useEffect(() => {
-    void paginationService.getData()
-  }, [])
-
-  const atomsTreeViewOriginal = (
+  const atomsTreeView = (
     <AtomsTreeView
       data={data}
-      isLoading={isLoading}
+      // This takes care of initial load and loading between pages
+      isLoading={isLoadingBetweenPages && isLoading}
       showSearchBar={showSearchBar}
     />
   )
@@ -62,27 +55,30 @@ export const AtomsPrimarySidebar = observer(() => {
   /**
    * We don't re-render if the data are the same id's. This prevents re-render from updates, since we use optimistic cache. We only re-render when we fetch different sets of id's
    */
-  const memoizedViews = [
-    {
-      content: atomsTreeViewOriginal,
-      key: 'atoms-view',
-      label: 'Atoms',
-      toolbar: {
-        items: [
-          ...toolbarItems,
-          {
-            cuiKey: UiKey.AtomToolbarItemCreate,
-            icon: <PlusOutlined />,
-            onClick: () => {
-              atomPopoverCreate.open(router)
+  const memoizedViews = useMemo(
+    () => [
+      {
+        content: atomsTreeView,
+        key: 'atoms-view',
+        label: 'Atoms',
+        toolbar: {
+          items: [
+            ...toolbarItems,
+            {
+              cuiKey: UiKey.AtomToolbarItemCreate,
+              icon: <PlusOutlined />,
+              onClick: () => {
+                atomPopoverCreate.open(router)
+              },
+              title: 'Create Atom',
             },
-            title: 'Create Atom',
-          },
-        ],
-        title: 'atoms-tree-toolbar',
+          ],
+          title: 'atoms-tree-toolbar',
+        },
       },
-    },
-  ]
+    ],
+    [atomsTreeView],
+  )
 
   return (
     <CuiSidebar

@@ -10,8 +10,9 @@ import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useUpdateSearchParams } from '@codelab/frontend/shared/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import queryString from 'query-string'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -39,7 +40,9 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   // })
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [showSearchBar, setShowSearchBar] = useState(false)
+  const { updateParams } = useUpdateSearchParams()
 
   // Track state changes
   // useEffect(() => {
@@ -50,6 +53,8 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   // }, [routerService.page, routerService.pageSize])
 
   const getNextPageUrl = (page: number, totalPages: number) => {
+    paginationService.setIsLoadingBetweenPages(true)
+
     const url = queryString.stringifyUrl({
       query: {
         page: getNextPage(page, totalPages),
@@ -61,6 +66,8 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   }
 
   const getPrevPageUrl = (page: number) => {
+    paginationService.setIsLoadingBetweenPages(true)
+
     const url = queryString.stringifyUrl({
       query: {
         page: getPrevPage(page),
@@ -72,33 +79,29 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   }
 
   const goToNextPage = useCallback(() => {
+    const page = getNextPage(routerService.page, paginationService.totalPages)
+
+    updateParams((params) => params.set('page', page.toString()))
+
+    routerService.setQueryParams({
+      ...routerService.queryParams,
+      page,
+    })
+
     const url = getNextPageUrl(routerService.page, paginationService.totalPages)
-
-    console.log('go to next', Date.now())
-    router.push(url)
-
-    /**
-     * Prefetch prev and next page
-     */
-
-    const prevPageUrl = getPrevPageUrl(routerService.page)
-
-    const nextPageUrl = getNextPageUrl(
-      routerService.page,
-      paginationService.totalPages,
-    )
-
-    router.prefetch(prevPageUrl)
-    router.prefetch(nextPageUrl)
-
-    void paginationService.getData()
   }, [paginationService.totalPages, routerService.page, pathname])
 
   const goToPreviousPage = useCallback(() => {
-    const url = getPrevPageUrl(routerService.page)
+    const page = getPrevPage(routerService.page)
 
-    router.push(url)
-    void paginationService.getData()
+    updateParams((params) => params.set('page', page.toString()))
+
+    routerService.setQueryParams({
+      ...routerService.queryParams,
+      page,
+    })
+
+    const url = getPrevPageUrl(routerService.page)
   }, [pathname, routerService.page])
 
   const handlePageChange = useCallback((value: unknown) => {

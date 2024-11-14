@@ -54,21 +54,21 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     })
   }, [getDataFn])
 
-  // useEffect(() => {
-  //   console.log('Get data!', {
-  //     filter: routerService.filter,
-  //     page: routerService.page,
-  //     pageSize: routerService.pageSize,
-  //     search: routerService.search,
-  //   })
+  useEffect(() => {
+    console.log('Get data!', {
+      filter: routerService.filter,
+      page: routerService.page,
+      pageSize: routerService.pageSize,
+      search: routerService.search,
+    })
 
-  //   void paginationService.getData()
-  // }, [
-  //   routerService.page,
-  //   routerService.pageSize,
-  //   routerService.search,
-  //   routerService.filter,
-  // ])
+    void paginationService.getData()
+  }, [
+    routerService.page,
+    routerService.pageSize,
+    routerService.search,
+    routerService.filter,
+  ])
 
   const pagination: TablePaginationConfig = {
     current: routerService.page,
@@ -90,6 +90,7 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     data: paginationService.data,
     getData: paginationService.getData,
     isLoading: paginationService.isLoading,
+    isLoadingBetweenPages: paginationService.isLoadingBetweenPages,
     onSearch: (searchText: string) =>
       routerService.setQueryParams({
         ...routerService.queryParams,
