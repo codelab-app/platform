@@ -16,9 +16,11 @@ export const parseQueryParams = (
   const filter = searchParams.getAll('filter')
   const primarySidebarKey = searchParams.get('primarySidebarKey') ?? undefined
   const search = searchParams.get('search') ?? undefined
+  const node = searchParams.get('node') ?? undefined
 
   return {
     filter,
+    node,
     page,
     pageSize,
     primarySidebarKey,
@@ -32,10 +34,11 @@ export const parseQueryParams = (
 export const parseQueryParamPageProps = (
   params: UrlQueryParamsPageProps,
 ): UrlQueryParamsProps => {
-  const { filter, page, pageSize, primarySidebarKey, search } = params
+  const { filter, node, page, pageSize, primarySidebarKey, search } = params
 
   return {
     filter: filter ? (Array.isArray(filter) ? filter : [filter]) : undefined,
+    node,
     page: page ? parseInt(page, 10) : undefined,
     pageSize: pageSize ? parseInt(pageSize, 10) : undefined,
     primarySidebarKey: primarySidebarKey ?? undefined,

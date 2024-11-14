@@ -13,7 +13,7 @@ import { useHydrateStore } from './useStoreHydrator.hook'
 
 type DomainStoreHydratorProps = IDomainStoreDto & {
   children: ReactNode
-  fallback: ReactNode
+  fallback?: ReactNode
 }
 
 /**
@@ -25,15 +25,10 @@ type DomainStoreHydratorProps = IDomainStoreDto & {
  *
  * Client components with `useEffect` will still render on server! This can be confusing
  */
-export const DomainStoreHydrator = withProfiler(
-  observer<DomainStoreHydratorProps>(({ children, fallback, ...data }) => {
+export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
+  ({ children, fallback, ...data }) => {
     const hydrate = useHydrateStore()
     const [isHydrated, setIsHydrated] = useState(false)
-
-    // atomsDto?.forEach((atom) => {
-    //   typeDomainService.hydrateInterface(atom.api)
-    //   atomDomainService.hydrate(atom)
-    // })
 
     useCustomCompareEffect(
       () => {
@@ -44,9 +39,12 @@ export const DomainStoreHydrator = withProfiler(
       isDeepEqual,
     )
 
+    if (!fallback) {
+      return <>{children}</>
+    }
+
     // do not render children untill the store is hydrated with all the
     // specified entities. Othervise `assertIsDefined` may break the application
     return isHydrated ? <>{children}</> : <>{fallback}</>
-  }),
-  { name: 'DomainStoreHydrator' },
+  },
 )

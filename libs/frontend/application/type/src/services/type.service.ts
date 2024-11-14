@@ -55,7 +55,7 @@ export const useTypeService = (): ITypeService => {
     const typeDto = TypeFactory.mapDataToDto(data, owner)
     const type = typeDomainService.hydrate(typeDto)
 
-    await typeRepository.add(typeDto, owner)
+    await typeRepository.add(typeDto)
 
     typePagination.dataRefs.set(type.id, typeRef(type))
 

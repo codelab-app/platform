@@ -48,8 +48,8 @@ export const useComponentService = (): IComponentService => {
       atomDomainService.defaultRenderType,
     )
 
-    await typeRepository.add(component.api, owner)
-    await typeRepository.add(storeApi, owner)
+    await typeRepository.add(component.api)
+    await typeRepository.add(storeApi)
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
 

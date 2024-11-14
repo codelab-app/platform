@@ -34,6 +34,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
     getDataFn,
     paginationService,
     pathname: PageType.Tags(),
+    routerService,
   })
 
   /**

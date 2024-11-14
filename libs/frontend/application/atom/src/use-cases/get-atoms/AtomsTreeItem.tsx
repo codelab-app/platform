@@ -15,6 +15,7 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { searchParamsAsObject } from '@codelab/frontend/shared/utils'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useRouter } from 'next/navigation'
@@ -36,7 +37,12 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onEdit = () => {
     if (type === 'atom') {
-      router.push(PageType.AtomUpdate(node))
+      router.push(
+        PageType.AtomUpdate(node, {
+          ...searchParamsAsObject(),
+          node: node.id,
+        }),
+      )
     } else {
       router.push(PageType.FieldUpdate())
     }

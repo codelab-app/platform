@@ -76,8 +76,6 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    // 20 min
-    proxyTimeout: 1200_000,
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
@@ -85,9 +83,10 @@ const nextConfig = {
     // typedRoutes: true,
     instrumentationHook: enableInstrumentation,
 
-    // increase timeout for long-running proxxy request,
+    // 20 min
+    // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
-    proxyTimeout: 120000,
+    proxyTimeout: 1200_000,
   },
   nx: { svgr: true },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js

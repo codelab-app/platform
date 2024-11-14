@@ -3,7 +3,7 @@
 import type { UiKey } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 
 import type { CuiSidebarToolbarProps } from '../../views'
 
@@ -46,6 +46,9 @@ export const CuiSidebar = ({
   defaultActiveViewKeys,
   label,
   uiKey,
+  /**
+   * Need memoize views at the parent level before passing down, since array spread creates a new item each time. Memoize at this level only helps a little bit
+   */
   views,
 }: CuiSidebarProps) => {
   const popoverAnchorRef = useRef<HTMLDivElement>(null)

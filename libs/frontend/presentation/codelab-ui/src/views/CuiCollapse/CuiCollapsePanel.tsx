@@ -44,25 +44,27 @@ export const CuiCollapsePanel = ({
   return (
     <div className="flex size-full flex-col overflow-y-auto overflow-x-hidden">
       <div className="flex size-full flex-col py-1">
-        {items.map((view) => (
-          <Fragment key={view.key}>
-            <CuiCollapsePanelHeader
-              defaultExpand={activePanels[view.key]}
-              label={view.label}
-              onExpand={(expanded) => {
-                updateActivePanel(view.key, expanded)
-              }}
-              toolbar={view.toolbar}
-            />
-            {activePanels[view.key] && (
-              <CuiCollapsePanelContent
-                content={view.content}
-                isLoading={view.isLoading}
+        {items.map((view) => {
+          return (
+            <Fragment key={view.key}>
+              <CuiCollapsePanelHeader
+                defaultExpand={activePanels[view.key]}
                 label={view.label}
+                onExpand={(expanded) => {
+                  updateActivePanel(view.key, expanded)
+                }}
+                toolbar={view.toolbar}
               />
-            )}
-          </Fragment>
-        ))}
+              {activePanels[view.key] && (
+                <CuiCollapsePanelContent
+                  content={view.content}
+                  isLoading={view.isLoading}
+                  label={view.label}
+                />
+              )}
+            </Fragment>
+          )
+        })}
       </div>
     </div>
   )

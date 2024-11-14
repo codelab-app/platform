@@ -41,8 +41,10 @@ export interface IPaginationService<T extends SupportedPaginationModel> {
   data: Array<T>
   dataRefs: Map<string, Ref<T>>
   isLoading: boolean
+  isLoadingBetweenPages: boolean
   totalItems: number
   totalPages: number
   getData(): Promise<Array<T>>
+  setIsLoadingBetweenPages(loading: boolean): void
   setTotalItems(totalPages: number): void
 }

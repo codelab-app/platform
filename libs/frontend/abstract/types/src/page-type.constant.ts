@@ -1,6 +1,12 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 
-import type { PageContextParams, UrlPathParams } from './url-params'
+import queryString from 'query-string'
+
+import type {
+  PageContextParams,
+  UrlPathParams,
+  UrlQueryParams,
+} from './url-params'
 
 /**
  * The values are the path
@@ -26,8 +32,11 @@ export const PageType = {
   },
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
-  AtomUpdate: ({ id }: IRef) => {
-    return `${PageType.Atoms()}/update/${id}`
+  AtomUpdate: ({ id }: IRef, queryParams?: Partial<UrlQueryParams>) => {
+    return queryString.stringifyUrl({
+      query: queryParams,
+      url: `${PageType.Atoms()}/update/${id}`,
+    })
   },
   AuthGuards: () => '/auth-guards',
   ComponentBuilder: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>

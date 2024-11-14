@@ -3,6 +3,7 @@
 import type {
   GetDataFn,
   IPaginationService,
+  IRouterService,
   SupportedPaginationModel,
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
@@ -24,14 +25,15 @@ interface TablePaginationProps<T extends SupportedPaginationModel> {
   getDataFn: GetDataFn<T>
   paginationService: IPaginationService<T>
   pathname: SupportedPaginationModelPage
+  routerService: IRouterService
 }
 
 export const useTablePagination = <T extends SupportedPaginationModel>({
   getDataFn,
   paginationService,
   pathname,
+  routerService,
 }: TablePaginationProps<T>) => {
-  const { routerService } = useApplicationStore()
   const router = useRouter()
 
   const onChange = (page: number, pageSize: number) => {
@@ -53,25 +55,14 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
   }, [getDataFn])
 
   useEffect(() => {
-    console.log({
+    console.log('Get data!', {
       filter: routerService.filter,
       page: routerService.page,
       pageSize: routerService.pageSize,
       search: routerService.search,
     })
-    void withAsyncSpanFunc(
-      {
-        attributes: {
-          filter: routerService.filter,
-          page: routerService.page,
-          pageSize: routerService.pageSize,
-          search: routerService.search,
-        },
-        name: 'paginationService.getData()',
-        op: 'codelab.pagination',
-      },
-      () => paginationService.getData(),
-    )()
+
+    void paginationService.getData()
   }, [
     routerService.page,
     routerService.pageSize,
@@ -97,7 +88,9 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
 
   return {
     data: paginationService.data,
+    getData: paginationService.getData,
     isLoading: paginationService.isLoading,
+    isLoadingBetweenPages: paginationService.isLoadingBetweenPages,
     onSearch: (searchText: string) =>
       routerService.setQueryParams({
         ...routerService.queryParams,

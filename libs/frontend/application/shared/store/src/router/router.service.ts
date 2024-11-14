@@ -38,6 +38,7 @@ export class RouterService
     })).withSetter(),
     queryParams: prop<UrlQueryParamsProps>(() => ({
       filter: [],
+      node: undefined,
       /**
        * Placeholder value to satisfy interface, will be synced to url before useing
        */
@@ -94,6 +95,11 @@ export class RouterService
     Validator.assertsDefined(interfaceId)
 
     return interfaceId
+  }
+
+  @computed
+  get node() {
+    return this.queryParams.node
   }
 
   @computed

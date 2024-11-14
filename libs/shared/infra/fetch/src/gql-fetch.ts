@@ -8,6 +8,8 @@ import { cLog } from '@codelab/shared/utils'
 import { withServerActionInstrumentation } from '@sentry/nextjs'
 import { revalidateTag } from 'next/cache'
 
+import type { NextFetchOptions } from './options'
+
 import { fetchWithAuth } from './fetch-with-auth'
 
 export const gqlFetch = async <TResult, TVariables extends ObjectLike>(
@@ -17,7 +19,7 @@ export const gqlFetch = async <TResult, TVariables extends ObjectLike>(
   /**
    * Place where we can call `revalidateTag` on the server side
    */
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
+  next?: NextFetchOptions,
 ) => {
   const response = await withServerActionInstrumentation(
     document.toString(),
