@@ -9,7 +9,7 @@ networks:
 services:
   # Best practices https://assets.neo4j.com/Official-Materials/Neo4j+Monitoring+Best+Practices.pdf
   neo4j:
-    image: neo4j:5.11.0
+    image: neo4j:5.25.1
     container_name: neo4j
     networks:
       - codelab

@@ -14,7 +14,6 @@ import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
-import { debug } from 'console'
 
 import { GraphqlService } from './graphql.service'
 

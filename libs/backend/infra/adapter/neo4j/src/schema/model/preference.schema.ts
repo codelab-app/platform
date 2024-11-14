@@ -10,11 +10,10 @@ export const preferenceSchema = gql`
     Tablet
   }
 
-
   type Preference implements WithOwner ${authOwnerOrAdmin}{
     id: ID! @unique @settable(onUpdate: false)
     builderBreakpointType: BreakpointType!
     builderWidth: Float!
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 `

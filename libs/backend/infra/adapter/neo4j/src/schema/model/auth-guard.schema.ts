@@ -6,12 +6,9 @@ export const authGuardSchema = gql`
     name: String!
     resource: Resource!
       @relationship(type: "RESOURCE_OF_AUTH_GUARD", direction: OUT)
-
     config: Prop! @relationship(type: "AUTH_GUARD_CONFIG", direction: OUT)
-
     responseTransformer: String!
-
     # redirect to another page inside the app or to a given url
-    owner: User!
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 `

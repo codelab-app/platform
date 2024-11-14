@@ -60,15 +60,28 @@ export const TypeResolverProvider: FactoryProvider<
         }
       })
 
+    const descendantTypesIds = (node: IBaseType) => {
+      return []
+    }
+
     return {
       AnyType: {
         __resolveType: (type: AnyType) => type.kind,
       },
+      ArrayType: {
+        descendantTypesIds,
+      },
       IBaseType: {
         __resolveType: (type: IBaseType) => type.kind,
       },
+      InterfaceType: {
+        descendantTypesIds,
+      },
       Query: {
-        baseTypes: baseTypes,
+        baseTypes,
+      },
+      UnionType: {
+        descendantTypesIds,
       },
     }
   },
