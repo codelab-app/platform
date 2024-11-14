@@ -5,4 +5,5 @@ jest.mock('@codelab/shared/infra/fetch', () => ({
 // mock hooks that are not supported in jsdom env
 jest.mock('next/navigation', () => ({
   useParams: jest.fn().mockReturnValue({}),
+  useSearchParams: jest.fn().mockReturnValue({}),
 }))
