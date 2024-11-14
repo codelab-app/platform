@@ -40,8 +40,8 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     if (type === 'atom') {
       router.push(
         PageType.AtomUpdate(node, {
-          node: node.id,
           ...searchParamsAsObject(),
+          node: node.id,
         }),
       )
     } else {

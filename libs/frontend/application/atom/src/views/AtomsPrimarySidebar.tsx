@@ -30,8 +30,10 @@ export const AtomsPrimarySidebar = observer(() => {
   const router = useRouter()
   const { routerService } = useApplicationStore()
 
-  const { showSearchBar, toolbarItems } =
-    useToolbarPagination(paginationService)
+  const { showSearchBar, toolbarItems } = useToolbarPagination(
+    paginationService,
+    routerService,
+  )
 
   const { data, isLoading } = useTablePagination<IAtomModel>({
     getDataFn,
@@ -40,19 +42,31 @@ export const AtomsPrimarySidebar = observer(() => {
     routerService,
   })
 
+  const atomsTreeView = useCustomCompareMemo(
+    () => (
+      <AtomsTreeView
+        data={data}
+        isLoading={isLoading}
+        showSearchBar={showSearchBar}
+      />
+    ),
+    [data, isLoading],
+    ([prevData], [nextData]) => {
+      return (
+        prevData.length !== 0 &&
+        nextData.length !== 0 &&
+        isArrayEqual(prevData, nextData)
+      )
+    },
+  )
+
   /**
    * We don't re-render if the data are the same id's. This prevents re-render from updates, since we use optimistic cache. We only re-render when we fetch different sets of id's
    */
-  const memoizedViews = useCustomCompareMemo(
+  const memoizedViews = useMemo(
     () => [
       {
-        content: (
-          <AtomsTreeView
-            data={data}
-            isLoading={isLoading}
-            showSearchBar={showSearchBar}
-          />
-        ),
+        content: atomsTreeView,
         key: 'atoms-view',
         label: 'Atoms',
         toolbar: {
@@ -71,14 +85,7 @@ export const AtomsPrimarySidebar = observer(() => {
         },
       },
     ],
-    [data, isLoading],
-    ([prevData], [nextData]) => {
-      return (
-        prevData.length !== 0 &&
-        nextData.length !== 0 &&
-        isArrayEqual(prevData, nextData)
-      )
-    },
+    [toolbarItems, atomsTreeView],
   )
 
   return (

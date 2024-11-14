@@ -1,12 +1,14 @@
 'use client'
 
+import type {
+  IPaginationService,
+  IRouterService,
+  SupportedPaginationModel,
+} from '@codelab/frontend/abstract/application'
+
 import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
-import {
-  type IPaginationService,
-  type SupportedPaginationModel,
-} from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { usePathname, useRouter } from 'next/navigation'
@@ -24,8 +26,8 @@ import { CuiInput } from '../../components'
  */
 export const useToolbarPagination = <T extends SupportedPaginationModel>(
   paginationService: IPaginationService<T>,
+  routerService: IRouterService,
 ) => {
-  const { routerService } = useApplicationStore()
   // console.log('useToolbarPagination render', {
   //   page: routerService.page,
   //   pageSize: routerService.pageSize,
@@ -147,7 +149,7 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
         title: 'Search',
       },
     ],
-    [],
+    [routerService.page, paginationService.totalPages],
   )
 
   return { showSearchBar, toolbarItems }
