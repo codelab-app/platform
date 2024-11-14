@@ -2,6 +2,7 @@
 
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { MutableRefObject } from 'react'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
@@ -14,8 +15,10 @@ import { useRef } from 'react'
 import { useAtomService } from '../../services'
 import { UpdateAtomForm } from './UpdateAtomForm'
 
-export const UpdateAtomPopover = observer<{ atom: IAtomModel }>(({ atom }) => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+export const UpdateAtomPopover = observer<{
+  atom: IAtomModel
+  submitRef: MutableRefObject<Maybe<SubmitController>>
+}>(({ atom, submitRef }) => {
   const { atomPopoverUpdate } = useAtomService()
   const router = useRouter()
 

@@ -9,6 +9,7 @@ import {
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { isEqual } from 'radash'
@@ -27,6 +28,7 @@ const isArrayEqual = (prev: Array<IAtomModel>, next: Array<IAtomModel>) =>
 export const AtomsPrimarySidebar = observer(() => {
   const { atomPopoverCreate, getDataFn, paginationService } = useAtomService()
   const router = useRouter()
+  const { routerService } = useApplicationStore()
 
   const { showSearchBar, toolbarItems } =
     useToolbarPagination(paginationService)
@@ -35,6 +37,7 @@ export const AtomsPrimarySidebar = observer(() => {
     getDataFn,
     paginationService,
     pathname: PageType.Atoms(),
+    routerService,
   })
 
   /**

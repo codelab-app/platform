@@ -3,6 +3,7 @@
 import type {
   GetDataFn,
   IPaginationService,
+  IRouterService,
   SupportedPaginationModel,
   SupportedPaginationModelPage,
 } from '@codelab/frontend/abstract/application'
@@ -24,14 +25,15 @@ interface TablePaginationProps<T extends SupportedPaginationModel> {
   getDataFn: GetDataFn<T>
   paginationService: IPaginationService<T>
   pathname: SupportedPaginationModelPage
+  routerService: IRouterService
 }
 
 export const useTablePagination = <T extends SupportedPaginationModel>({
   getDataFn,
   paginationService,
   pathname,
+  routerService,
 }: TablePaginationProps<T>) => {
-  const { routerService } = useApplicationStore()
   const router = useRouter()
 
   const onChange = (page: number, pageSize: number) => {

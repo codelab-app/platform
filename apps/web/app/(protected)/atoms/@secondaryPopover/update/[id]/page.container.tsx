@@ -74,7 +74,7 @@ const UpdateAtomContainer = observer<UpdateAtomContainerProps>(
             fallback={<Spinner />}
             tagsDto={tagsDto}
           >
-            {atom && <UpdateAtomPopover atom={atom} />}
+            {atom && <UpdateAtomPopover atom={atom} submitRef={submitRef} />}
           </DomainStoreHydrator>
         </ApplicationStoreHydrator>
       </CuiSidebarSecondary>

@@ -28,6 +28,7 @@ export const AtomsTable = () => {
       getDataFn,
       paginationService,
       pathname: PageType.Atoms(),
+      routerService,
     })
 
   const nameColumnSearchProps = useColumnSearchProps<IAtomModel>({

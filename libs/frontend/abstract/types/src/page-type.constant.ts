@@ -32,9 +32,9 @@ export const PageType = {
   },
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
-  AtomUpdate: ({ id }: IRef, { node }: Pick<UrlQueryParams, 'node'>) => {
+  AtomUpdate: ({ id }: IRef, queryParams?: Partial<UrlQueryParams>) => {
     return queryString.stringifyUrl({
-      query: { node },
+      query: queryParams,
       url: `${PageType.Atoms()}/update/${id}`,
     })
   },

@@ -10,3 +10,9 @@ export const unsetSearchParam = (key: string) => {
     url: window.location.pathname,
   })
 }
+
+export const searchParamsAsObject = (keys?: Array<string>) => {
+  const searchParams = new URLSearchParams(window.location.search)
+
+  return Object.fromEntries(searchParams.entries())
+}

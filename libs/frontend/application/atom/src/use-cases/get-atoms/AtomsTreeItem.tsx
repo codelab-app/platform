@@ -17,6 +17,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
+import { searchParamsAsObject } from '@codelab/shared/utils'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 
@@ -37,7 +38,12 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onEdit = () => {
     if (type === 'atom') {
-      router.push(PageType.AtomUpdate(node, { node: node.id }))
+      router.push(
+        PageType.AtomUpdate(node, {
+          node: node.id,
+          ...searchParamsAsObject(),
+        }),
+      )
     } else {
       router.push(PageType.FieldUpdate())
     }
