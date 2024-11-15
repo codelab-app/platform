@@ -6358,10 +6358,6 @@ export type BaseActionsConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export type BaseTypesWhere = {
-  name_MATCHES?: InputMaybe<Scalars['String']['input']>
-}
-
 export enum BreakpointType {
   Desktop = 'Desktop',
   MobileLandscape = 'MobileLandscape',
@@ -8610,11 +8606,6 @@ export type CreateEnumTypesMutationResponse = {
 
 export type CreateFieldsMutationResponse = {
   fields: Array<Field>
-  info: CreateInfo
-}
-
-export type CreateGetBaseTypesReturnsMutationResponse = {
-  getBaseTypesReturns: Array<GetBaseTypesReturn>
   info: CreateInfo
 }
 
@@ -14187,102 +14178,6 @@ export type FloatAggregateSelection = {
   sum?: Maybe<Scalars['Float']['output']>
 }
 
-export type GetBaseTypesOptions = {
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<BaseTypesWhere>
-}
-
-export type GetBaseTypesReturn = {
-  items: Array<IBaseType>
-  totalCount: Scalars['Int']['output']
-}
-
-export type GetBaseTypesReturnAggregateSelection = {
-  count: Scalars['Int']['output']
-  totalCount: IntAggregateSelection
-}
-
-export type GetBaseTypesReturnCreateInput = {
-  totalCount: Scalars['Int']['input']
-}
-
-export type GetBaseTypesReturnCreatedEvent = {
-  createdGetBaseTypesReturn: GetBaseTypesReturnEventPayload
-  event: EventType
-  timestamp: Scalars['Float']['output']
-}
-
-export type GetBaseTypesReturnDeletedEvent = {
-  deletedGetBaseTypesReturn: GetBaseTypesReturnEventPayload
-  event: EventType
-  timestamp: Scalars['Float']['output']
-}
-
-export type GetBaseTypesReturnEdge = {
-  cursor: Scalars['String']['output']
-  node: GetBaseTypesReturn
-}
-
-export type GetBaseTypesReturnEventPayload = {
-  totalCount: Scalars['Int']['output']
-}
-
-export type GetBaseTypesReturnOptions = {
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  /** Specify one or more GetBaseTypesReturnSort objects to sort GetBaseTypesReturns by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<GetBaseTypesReturnSort>>
-}
-
-/** Fields to sort GetBaseTypesReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypesReturnSort object. */
-export type GetBaseTypesReturnSort = {
-  totalCount?: InputMaybe<SortDirection>
-}
-
-export type GetBaseTypesReturnSubscriptionWhere = {
-  AND?: InputMaybe<Array<GetBaseTypesReturnSubscriptionWhere>>
-  NOT?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
-  OR?: InputMaybe<Array<GetBaseTypesReturnSubscriptionWhere>>
-  totalCount?: InputMaybe<Scalars['Int']['input']>
-  totalCount_GT?: InputMaybe<Scalars['Int']['input']>
-  totalCount_GTE?: InputMaybe<Scalars['Int']['input']>
-  totalCount_IN?: InputMaybe<Array<Scalars['Int']['input']>>
-  totalCount_LT?: InputMaybe<Scalars['Int']['input']>
-  totalCount_LTE?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type GetBaseTypesReturnUpdateInput = {
-  totalCount?: InputMaybe<Scalars['Int']['input']>
-  totalCount_DECREMENT?: InputMaybe<Scalars['Int']['input']>
-  totalCount_INCREMENT?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type GetBaseTypesReturnUpdatedEvent = {
-  event: EventType
-  previousState: GetBaseTypesReturnEventPayload
-  timestamp: Scalars['Float']['output']
-  updatedGetBaseTypesReturn: GetBaseTypesReturnEventPayload
-}
-
-export type GetBaseTypesReturnWhere = {
-  AND?: InputMaybe<Array<GetBaseTypesReturnWhere>>
-  NOT?: InputMaybe<GetBaseTypesReturnWhere>
-  OR?: InputMaybe<Array<GetBaseTypesReturnWhere>>
-  totalCount?: InputMaybe<Scalars['Int']['input']>
-  totalCount_GT?: InputMaybe<Scalars['Int']['input']>
-  totalCount_GTE?: InputMaybe<Scalars['Int']['input']>
-  totalCount_IN?: InputMaybe<Array<Scalars['Int']['input']>>
-  totalCount_LT?: InputMaybe<Scalars['Int']['input']>
-  totalCount_LTE?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type GetBaseTypesReturnsConnection = {
-  edges: Array<GetBaseTypesReturnEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']['output']
-}
-
 export type Hook = {
   config: Prop
   configAggregate?: Maybe<HookPropConfigAggregationSelection>
@@ -15113,13 +15008,6 @@ export type IBaseTypesConnection = {
 export type IdAggregateSelection = {
   longest?: Maybe<Scalars['ID']['output']>
   shortest?: Maybe<Scalars['ID']['output']>
-}
-
-export type IntAggregateSelection = {
-  average?: Maybe<Scalars['Float']['output']>
-  max?: Maybe<Scalars['Int']['output']>
-  min?: Maybe<Scalars['Int']['output']>
-  sum?: Maybe<Scalars['Int']['output']>
 }
 
 /** Represents an object type with multiple fields */
@@ -16535,7 +16423,6 @@ export type Mutation = {
   createEnumTypeValues: CreateEnumTypeValuesMutationResponse
   createEnumTypes: CreateEnumTypesMutationResponse
   createFields: CreateFieldsMutationResponse
-  createGetBaseTypesReturns: CreateGetBaseTypesReturnsMutationResponse
   createHooks: CreateHooksMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
@@ -16570,7 +16457,6 @@ export type Mutation = {
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
   deleteFields: DeleteInfo
-  deleteGetBaseTypesReturns: DeleteInfo
   deleteHooks: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
@@ -16605,7 +16491,6 @@ export type Mutation = {
   updateEnumTypeValues: UpdateEnumTypeValuesMutationResponse
   updateEnumTypes: UpdateEnumTypesMutationResponse
   updateFields: UpdateFieldsMutationResponse
-  updateGetBaseTypesReturns: UpdateGetBaseTypesReturnsMutationResponse
   updateHooks: UpdateHooksMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
@@ -16688,10 +16573,6 @@ export type MutationCreateEnumTypesArgs = {
 
 export type MutationCreateFieldsArgs = {
   input: Array<FieldCreateInput>
-}
-
-export type MutationCreateGetBaseTypesReturnsArgs = {
-  input: Array<GetBaseTypesReturnCreateInput>
 }
 
 export type MutationCreateHooksArgs = {
@@ -16844,10 +16725,6 @@ export type MutationDeleteEnumTypesArgs = {
 export type MutationDeleteFieldsArgs = {
   delete?: InputMaybe<FieldDeleteInput>
   where?: InputMaybe<FieldWhere>
-}
-
-export type MutationDeleteGetBaseTypesReturnsArgs = {
-  where?: InputMaybe<GetBaseTypesReturnWhere>
 }
 
 export type MutationDeleteHooksArgs = {
@@ -17016,11 +16893,6 @@ export type MutationUpdateEnumTypesArgs = {
 export type MutationUpdateFieldsArgs = {
   update?: InputMaybe<FieldUpdateInput>
   where?: InputMaybe<FieldWhere>
-}
-
-export type MutationUpdateGetBaseTypesReturnsArgs = {
-  update?: InputMaybe<GetBaseTypesReturnUpdateInput>
-  where?: InputMaybe<GetBaseTypesReturnWhere>
 }
 
 export type MutationUpdateHooksArgs = {
@@ -19753,7 +19625,6 @@ export type Query = {
   baseActions: Array<BaseAction>
   baseActionsAggregate: BaseActionAggregateSelection
   baseActionsConnection: BaseActionsConnection
-  baseTypes: GetBaseTypesReturn
   codeActions: Array<CodeAction>
   codeActionsAggregate: CodeActionAggregateSelection
   codeActionsConnection: CodeActionsConnection
@@ -19783,9 +19654,6 @@ export type Query = {
   fields: Array<Field>
   fieldsAggregate: FieldAggregateSelection
   fieldsConnection: FieldsConnection
-  getBaseTypesReturns: Array<GetBaseTypesReturn>
-  getBaseTypesReturnsAggregate: GetBaseTypesReturnAggregateSelection
-  getBaseTypesReturnsConnection: GetBaseTypesReturnsConnection
   /**
    * Returns a list of all Type and Atom entities that reference the type with the given id
    * This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
@@ -19996,10 +19864,6 @@ export type QueryBaseActionsConnectionArgs = {
   where?: InputMaybe<BaseActionWhere>
 }
 
-export type QueryBaseTypesArgs = {
-  options?: InputMaybe<GetBaseTypesOptions>
-}
-
 export type QueryCodeActionsArgs = {
   options?: InputMaybe<CodeActionOptions>
   where?: InputMaybe<CodeActionWhere>
@@ -20152,22 +20016,6 @@ export type QueryFieldsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<InputMaybe<FieldSort>>>
   where?: InputMaybe<FieldWhere>
-}
-
-export type QueryGetBaseTypesReturnsArgs = {
-  options?: InputMaybe<GetBaseTypesReturnOptions>
-  where?: InputMaybe<GetBaseTypesReturnWhere>
-}
-
-export type QueryGetBaseTypesReturnsAggregateArgs = {
-  where?: InputMaybe<GetBaseTypesReturnWhere>
-}
-
-export type QueryGetBaseTypesReturnsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  sort?: InputMaybe<Array<InputMaybe<GetBaseTypesReturnSort>>>
-  where?: InputMaybe<GetBaseTypesReturnWhere>
 }
 
 export type QueryGetTypeReferencesArgs = {
@@ -23444,9 +23292,6 @@ export type Subscription = {
   fieldRelationshipCreated: FieldRelationshipCreatedEvent
   fieldRelationshipDeleted: FieldRelationshipDeletedEvent
   fieldUpdated: FieldUpdatedEvent
-  getBaseTypesReturnCreated: GetBaseTypesReturnCreatedEvent
-  getBaseTypesReturnDeleted: GetBaseTypesReturnDeletedEvent
-  getBaseTypesReturnUpdated: GetBaseTypesReturnUpdatedEvent
   hookCreated: HookCreatedEvent
   hookDeleted: HookDeletedEvent
   hookRelationshipCreated: HookRelationshipCreatedEvent
@@ -23856,18 +23701,6 @@ export type SubscriptionFieldRelationshipDeletedArgs = {
 
 export type SubscriptionFieldUpdatedArgs = {
   where?: InputMaybe<FieldSubscriptionWhere>
-}
-
-export type SubscriptionGetBaseTypesReturnCreatedArgs = {
-  where?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
-}
-
-export type SubscriptionGetBaseTypesReturnDeletedArgs = {
-  where?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
-}
-
-export type SubscriptionGetBaseTypesReturnUpdatedArgs = {
-  where?: InputMaybe<GetBaseTypesReturnSubscriptionWhere>
 }
 
 export type SubscriptionHookCreatedArgs = {
@@ -26913,11 +26746,6 @@ export type UpdateFieldsMutationResponse = {
   info: UpdateInfo
 }
 
-export type UpdateGetBaseTypesReturnsMutationResponse = {
-  getBaseTypesReturns: Array<GetBaseTypesReturn>
-  info: UpdateInfo
-}
-
 export type UpdateHooksMutationResponse = {
   hooks: Array<Hook>
   info: UpdateInfo
@@ -29193,6 +29021,7 @@ type BaseType_ActionType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29201,6 +29030,7 @@ type BaseType_AppType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29209,6 +29039,7 @@ type BaseType_ArrayType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29217,6 +29048,7 @@ type BaseType_CodeMirrorType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29225,6 +29057,7 @@ type BaseType_ElementType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29233,6 +29066,7 @@ type BaseType_EnumType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29241,6 +29075,7 @@ type BaseType_InterfaceType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29249,6 +29084,7 @@ type BaseType_LambdaType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29257,6 +29093,7 @@ type BaseType_PageType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29265,6 +29102,7 @@ type BaseType_PrimitiveType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29273,6 +29111,7 @@ type BaseType_ReactNodeType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29281,6 +29120,7 @@ type BaseType_RenderPropType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29289,6 +29129,7 @@ type BaseType_RichTextType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -29297,6 +29138,7 @@ type BaseType_UnionType_Fragment = {
   id: string
   kind: TypeKind
   name: string
+  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -30286,29 +30128,27 @@ export type GetFieldsQuery = {
 }
 
 export type GetBaseTypesQueryVariables = Exact<{
-  options?: InputMaybe<GetBaseTypesOptions>
+  where?: InputMaybe<IBaseTypeWhere>
+  options?: InputMaybe<IBaseTypeOptions>
 }>
 
 export type GetBaseTypesQuery = {
-  baseTypes: {
-    totalCount: number
-    items: Array<
-      | BaseType_ActionType_Fragment
-      | BaseType_AppType_Fragment
-      | BaseType_ArrayType_Fragment
-      | BaseType_CodeMirrorType_Fragment
-      | BaseType_ElementType_Fragment
-      | BaseType_EnumType_Fragment
-      | BaseType_InterfaceType_Fragment
-      | BaseType_LambdaType_Fragment
-      | BaseType_PageType_Fragment
-      | BaseType_PrimitiveType_Fragment
-      | BaseType_ReactNodeType_Fragment
-      | BaseType_RenderPropType_Fragment
-      | BaseType_RichTextType_Fragment
-      | BaseType_UnionType_Fragment
-    >
-  }
+  iBaseTypes: Array<
+    | BaseType_ActionType_Fragment
+    | BaseType_AppType_Fragment
+    | BaseType_ArrayType_Fragment
+    | BaseType_CodeMirrorType_Fragment
+    | BaseType_ElementType_Fragment
+    | BaseType_EnumType_Fragment
+    | BaseType_InterfaceType_Fragment
+    | BaseType_LambdaType_Fragment
+    | BaseType_PageType_Fragment
+    | BaseType_PrimitiveType_Fragment
+    | BaseType_ReactNodeType_Fragment
+    | BaseType_RenderPropType_Fragment
+    | BaseType_RichTextType_Fragment
+    | BaseType_UnionType_Fragment
+  >
 }
 
 export type GetTypesQueryVariables = Exact<{
@@ -30446,29 +30286,6 @@ export type GetCodeMirrorTypesQueryVariables = Exact<{
 
 export type GetCodeMirrorTypesQuery = {
   types: Array<Type_CodeMirrorType_Fragment>
-}
-
-export type GetTypeOptionsQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetTypeOptionsQuery = {
-  baseTypes: {
-    items: Array<
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-      | { id: string; kind: TypeKind; name: string }
-    >
-  }
 }
 
 export type InterfaceForm_GetAppsQueryVariables = Exact<{
@@ -30845,6 +30662,9 @@ export const BaseTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -30862,6 +30682,9 @@ export const ActionTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -30878,6 +30701,9 @@ export const AppTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -30901,6 +30727,9 @@ export const ArrayTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -30918,6 +30747,9 @@ export const CodeMirrorTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -30935,6 +30767,9 @@ export const ElementTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -30964,6 +30799,9 @@ export const EnumTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31020,6 +30858,9 @@ export const InterfaceTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31063,6 +30904,9 @@ export const LambdaTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31079,6 +30923,9 @@ export const PageTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31096,6 +30943,9 @@ export const PrimitiveTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31112,6 +30962,9 @@ export const ReactNodeTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31128,6 +30981,9 @@ export const RenderPropTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31144,6 +31000,9 @@ export const RichTextTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31165,6 +31024,9 @@ export const UnionTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31210,6 +31072,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31356,6 +31221,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31515,6 +31383,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -31842,6 +31713,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -32085,6 +31959,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -32414,6 +32291,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -32722,6 +32602,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -33040,6 +32923,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -33275,6 +33161,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -33567,6 +33456,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -33870,6 +33762,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -34017,6 +33912,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -34181,6 +34079,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -34428,6 +34329,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -34621,6 +34525,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -35191,6 +35098,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -35625,6 +35535,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -35939,6 +35852,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -36369,6 +36285,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -36610,6 +36529,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -36867,6 +36789,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -37250,6 +37175,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -37557,6 +37485,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -38098,6 +38029,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -38631,12 +38565,9 @@ export const GetFieldsDocument = new TypedDocumentString(`
   validationRules
 }`) as unknown as TypedDocumentString<GetFieldsQuery, GetFieldsQueryVariables>
 export const GetBaseTypesDocument = new TypedDocumentString(`
-    query GetBaseTypes($options: GetBaseTypesOptions) {
-  baseTypes(options: $options) {
-    items {
-      ...BaseType
-    }
-    totalCount
+    query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
+  iBaseTypes(where: $where, options: $options) {
+    ...BaseType
   }
 }
     fragment BaseType on IBaseType {
@@ -38644,6 +38575,9 @@ export const GetBaseTypesDocument = new TypedDocumentString(`
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -38717,6 +38651,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -38859,6 +38796,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -38988,6 +38928,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39117,6 +39060,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39246,6 +39192,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39375,6 +39324,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39504,6 +39456,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39617,6 +39572,9 @@ export const GetReactNodeTypesDocument = new TypedDocumentString(`
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39638,6 +39596,9 @@ export const GetRichTextTypesDocument = new TypedDocumentString(`
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39675,6 +39636,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39804,6 +39768,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -39933,6 +39900,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -40062,6 +40032,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -40191,6 +40164,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -40320,6 +40296,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }
@@ -40421,20 +40400,6 @@ fragment UnionType on UnionType {
 }`) as unknown as TypedDocumentString<
   GetCodeMirrorTypesQuery,
   GetCodeMirrorTypesQueryVariables
->
-export const GetTypeOptionsDocument = new TypedDocumentString(`
-    query GetTypeOptions {
-  baseTypes {
-    items {
-      id
-      kind
-      name
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  GetTypeOptionsQuery,
-  GetTypeOptionsQueryVariables
 >
 export const InterfaceForm_GetAppsDocument = new TypedDocumentString(`
     query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {
@@ -40827,6 +40792,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }

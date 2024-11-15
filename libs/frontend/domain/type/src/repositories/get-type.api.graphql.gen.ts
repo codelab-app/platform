@@ -27,7 +27,6 @@ import {
   type GetAppTypesQueryVariables,
   type GetActionTypesQueryVariables,
   type GetCodeMirrorTypesQueryVariables,
-  type GetTypeOptionsQueryVariables,
 } from '@codelab/shared/infra/gql'
 import {
   GetBaseTypesDocument,
@@ -47,7 +46,6 @@ import {
   GetAppTypesDocument,
   GetActionTypesDocument,
   GetCodeMirrorTypesDocument,
-  GetTypeOptionsDocument,
 } from './get-type.api.documents.graphql.gen'
 
 export const GetBaseTypes = (
@@ -134,8 +132,3 @@ export const GetCodeMirrorTypes = (
   variables: GetCodeMirrorTypesQueryVariables,
   next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlFetch(GetCodeMirrorTypesDocument.toString(), variables, next)
-
-export const GetTypeOptions = (
-  variables: GetTypeOptionsQueryVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlFetch(GetTypeOptionsDocument.toString(), variables, next)

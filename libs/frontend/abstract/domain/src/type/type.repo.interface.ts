@@ -1,7 +1,6 @@
 import type { IRef, ITypeDto } from '@codelab/shared/abstract/core'
 import type {
   BaseTypeFragment,
-  GetBaseTypesOptions,
   IBaseTypeOptions,
   IBaseTypeWhere,
   TypeFragment,
@@ -16,11 +15,16 @@ export interface ITypeRepository
     IBaseTypeWhere,
     IBaseTypeOptions
   > {
-  findBaseTypes(options: GetBaseTypesOptions): Promise<{
+  findBaseTypes({
+    options,
+    where,
+  }?: {
+    where: IBaseTypeWhere
+    options: IBaseTypeOptions
+  }): Promise<{
     items: Array<BaseTypeFragment>
     totalCount: number
   }>
   findDescendants(parentIds: Array<string>): Promise<Array<TypeFragment>>
-  findOptions(): Promise<Array<Pick<BaseTypeFragment, 'id' | 'kind' | 'name'>>>
   getAll(ids?: Array<string>): Promise<Array<TypeFragment>>
 }

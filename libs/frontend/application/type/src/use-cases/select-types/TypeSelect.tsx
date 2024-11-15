@@ -18,7 +18,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
   const [fieldProps] = useField<{ value?: string }>(name, {})
 
   const [{ error, loading, value: result = [] }, getTypes] = useAsyncFn(() =>
-    typeService.getOptions(),
+    typeService.getSelectOptions(),
   )
 
   // On update mode, the current selected type can be used

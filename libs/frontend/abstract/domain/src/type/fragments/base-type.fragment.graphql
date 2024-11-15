@@ -4,6 +4,9 @@ fragment BaseType on IBaseType {
   id
   kind
   name
+  ownerConnection {
+    totalCount
+  }
   owner {
     id
   }

@@ -14,6 +14,8 @@ export const TagResolverProvider: FactoryProvider<
   inject: [OgmService, Neo4jService],
   provide: TAG_RESOLVER_PROVIDER,
   useFactory: async (ogmService: OgmService, neo4jService: Neo4jService) => {
+    console.log('WTF')
+
     const descendants: IFieldResolver<IRef, unknown> = (parent) =>
       neo4jService.withReadTransaction(async (txn) => {
         /**

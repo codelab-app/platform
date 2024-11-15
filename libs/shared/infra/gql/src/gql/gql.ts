@@ -87,7 +87,7 @@ const documents = {
     types.AppTypeFragmentDoc,
   '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        id\n        kind\n        name\n      }\n    }\n  }\n':
     types.ArrayTypeFragmentDoc,
-  '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n':
+  '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    ownerConnection {\n      totalCount\n    }\n    owner {\n      id\n    }\n  }\n':
     types.BaseTypeFragmentDoc,
   '\n  fragment CodeMirrorType on CodeMirrorType {\n    ...BaseType\n    language\n  }\n':
     types.CodeMirrorTypeFragmentDoc,
@@ -310,7 +310,7 @@ const documents = {
     types.DeleteFieldsDocument,
   '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n':
     types.GetFieldsDocument,
-  '\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n':
+  '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n  }\n':
     types.GetBaseTypesDocument,
   '\n  query GetTypes($ids: [ID!]) {\n    actionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    appTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    arrayTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    codeMirrorTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    elementTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    enumTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    lambdaTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    pageTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    primitiveTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    reactNodeTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    renderPropTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    richTextTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n  }\n':
     types.GetTypesDocument,
@@ -344,8 +344,6 @@ const documents = {
     types.GetActionTypesDocument,
   '\n  query GetCodeMirrorTypes(\n    $options: CodeMirrorTypeOptions\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: codeMirrorTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
     types.GetCodeMirrorTypesDocument,
-  '\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n':
-    types.GetTypeOptionsDocument,
   '\n  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n':
     types.InterfaceForm_GetAppsDocument,
   '\n  query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      id\n      name\n      type\n    }\n  }\n':
@@ -638,8 +636,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n',
-): (typeof documents)['\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n']
+  source: '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    ownerConnection {\n      totalCount\n    }\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    ownerConnection {\n      totalCount\n    }\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1310,8 +1308,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n',
-): (typeof documents)['\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n']
+  source: '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n  }\n',
+): (typeof documents)['\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1408,12 +1406,6 @@ export function graphql(
 export function graphql(
   source: '\n  query GetCodeMirrorTypes(\n    $options: CodeMirrorTypeOptions\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: codeMirrorTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n',
 ): (typeof documents)['\n  query GetCodeMirrorTypes(\n    $options: CodeMirrorTypeOptions\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: codeMirrorTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

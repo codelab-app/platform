@@ -1,9 +1,6 @@
-query GetBaseTypes($options: GetBaseTypesOptions) {
-  baseTypes(options: $options) {
-    items {
-      ...BaseType
-    }
-    totalCount
+query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
+  iBaseTypes(where: $where, options: $options) {
+    ...BaseType
   }
 }
 
@@ -163,15 +160,5 @@ query GetCodeMirrorTypes(
 ) {
   types: codeMirrorTypes(options: $options, where: $where) {
     ...Type
-  }
-}
-
-query GetTypeOptions {
-  baseTypes {
-    items {
-      id
-      kind
-      name
-    }
   }
 }

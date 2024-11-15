@@ -9,12 +9,9 @@ import {
 } from '@codelab/shared/infra/gql'
 
 export const GetBaseTypesDocument = graphql(`
-  query GetBaseTypes($options: GetBaseTypesOptions) {
-    baseTypes(options: $options) {
-      items {
-        ...BaseType
-      }
-      totalCount
+  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
+    iBaseTypes(where: $where, options: $options) {
+      ...BaseType
     }
   }
 `)
@@ -209,18 +206,6 @@ export const GetCodeMirrorTypesDocument = graphql(`
   ) {
     types: codeMirrorTypes(options: $options, where: $where) {
       ...Type
-    }
-  }
-`)
-
-export const GetTypeOptionsDocument = graphql(`
-  query GetTypeOptions {
-    baseTypes {
-      items {
-        id
-        kind
-        name
-      }
     }
   }
 `)

@@ -6317,10 +6317,6 @@ type BaseActionsConnection {
   totalCount: Int!
 }
 
-input BaseTypesWhere {
-  name_MATCHES: String
-}
-
 enum BreakpointType {
   Desktop
   MobileLandscape
@@ -8525,11 +8521,6 @@ type CreateEnumTypesMutationResponse {
 
 type CreateFieldsMutationResponse {
   fields: [Field!]!
-  info: CreateInfo!
-}
-
-type CreateGetBaseTypesReturnsMutationResponse {
-  getBaseTypesReturns: [GetBaseTypesReturn!]!
   info: CreateInfo!
 }
 
@@ -13927,107 +13918,6 @@ type FloatAggregateSelection {
   sum: Float
 }
 
-input GetBaseTypesOptions {
-  limit: Int
-  offset: Int
-  where: BaseTypesWhere
-}
-
-type GetBaseTypesReturn {
-  items: [IBaseType!]!
-  totalCount: Int!
-}
-
-type GetBaseTypesReturnAggregateSelection {
-  count: Int!
-  totalCount: IntAggregateSelection!
-}
-
-input GetBaseTypesReturnCreateInput {
-  totalCount: Int!
-}
-
-type GetBaseTypesReturnCreatedEvent {
-  createdGetBaseTypesReturn: GetBaseTypesReturnEventPayload!
-  event: EventType!
-  timestamp: Float!
-}
-
-type GetBaseTypesReturnDeletedEvent {
-  deletedGetBaseTypesReturn: GetBaseTypesReturnEventPayload!
-  event: EventType!
-  timestamp: Float!
-}
-
-type GetBaseTypesReturnEdge {
-  cursor: String!
-  node: GetBaseTypesReturn!
-}
-
-type GetBaseTypesReturnEventPayload {
-  totalCount: Int!
-}
-
-input GetBaseTypesReturnOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more GetBaseTypesReturnSort objects to sort GetBaseTypesReturns by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [GetBaseTypesReturnSort!]
-}
-
-"""
-Fields to sort GetBaseTypesReturns by. The order in which sorts are applied is not guaranteed when specifying many fields in one GetBaseTypesReturnSort object.
-"""
-input GetBaseTypesReturnSort {
-  totalCount: SortDirection
-}
-
-input GetBaseTypesReturnSubscriptionWhere {
-  AND: [GetBaseTypesReturnSubscriptionWhere!]
-  NOT: GetBaseTypesReturnSubscriptionWhere
-  OR: [GetBaseTypesReturnSubscriptionWhere!]
-  totalCount: Int
-  totalCount_GT: Int
-  totalCount_GTE: Int
-  totalCount_IN: [Int!]
-  totalCount_LT: Int
-  totalCount_LTE: Int
-}
-
-input GetBaseTypesReturnUpdateInput {
-  totalCount: Int
-  totalCount_DECREMENT: Int
-  totalCount_INCREMENT: Int
-}
-
-type GetBaseTypesReturnUpdatedEvent {
-  event: EventType!
-  previousState: GetBaseTypesReturnEventPayload!
-  timestamp: Float!
-  updatedGetBaseTypesReturn: GetBaseTypesReturnEventPayload!
-}
-
-input GetBaseTypesReturnWhere {
-  AND: [GetBaseTypesReturnWhere!]
-  NOT: GetBaseTypesReturnWhere
-  OR: [GetBaseTypesReturnWhere!]
-  totalCount: Int
-  totalCount_GT: Int
-  totalCount_GTE: Int
-  totalCount_IN: [Int!]
-  totalCount_LT: Int
-  totalCount_LTE: Int
-}
-
-type GetBaseTypesReturnsConnection {
-  edges: [GetBaseTypesReturnEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 type Hook {
   config(
     directed: Boolean = true
@@ -14843,13 +14733,6 @@ type IBaseTypesConnection {
 type IDAggregateSelection {
   longest: ID
   shortest: ID
-}
-
-type IntAggregateSelection {
-  average: Float
-  max: Int
-  min: Int
-  sum: Int
 }
 
 """
@@ -16316,9 +16199,6 @@ type Mutation {
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
   createFields(input: [FieldCreateInput!]!): CreateFieldsMutationResponse!
-  createGetBaseTypesReturns(
-    input: [GetBaseTypesReturnCreateInput!]!
-  ): CreateGetBaseTypesReturnsMutationResponse!
   createHooks(input: [HookCreateInput!]!): CreateHooksMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
@@ -16407,7 +16287,6 @@ type Mutation {
     where: EnumTypeWhere
   ): DeleteInfo!
   deleteFields(delete: FieldDeleteInput, where: FieldWhere): DeleteInfo!
-  deleteGetBaseTypesReturns(where: GetBaseTypesReturnWhere): DeleteInfo!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
@@ -16523,10 +16402,6 @@ type Mutation {
     update: FieldUpdateInput
     where: FieldWhere
   ): UpdateFieldsMutationResponse!
-  updateGetBaseTypesReturns(
-    update: GetBaseTypesReturnUpdateInput
-    where: GetBaseTypesReturnWhere
-  ): UpdateGetBaseTypesReturnsMutationResponse!
   updateHooks(
     update: HookUpdateInput
     where: HookWhere
@@ -19251,7 +19126,6 @@ type Query {
     sort: [BaseActionSort]
     where: BaseActionWhere
   ): BaseActionsConnection!
-  baseTypes(options: GetBaseTypesOptions): GetBaseTypesReturn!
   codeActions(
     options: CodeActionOptions
     where: CodeActionWhere
@@ -19348,19 +19222,6 @@ type Query {
     sort: [FieldSort]
     where: FieldWhere
   ): FieldsConnection!
-  getBaseTypesReturns(
-    options: GetBaseTypesReturnOptions
-    where: GetBaseTypesReturnWhere
-  ): [GetBaseTypesReturn!]!
-  getBaseTypesReturnsAggregate(
-    where: GetBaseTypesReturnWhere
-  ): GetBaseTypesReturnAggregateSelection!
-  getBaseTypesReturnsConnection(
-    after: String
-    first: Int
-    sort: [GetBaseTypesReturnSort]
-    where: GetBaseTypesReturnWhere
-  ): GetBaseTypesReturnsConnection!
 
   """
   Returns a list of all Type and Atom entities that reference the type with the given id
@@ -22546,15 +22407,6 @@ type Subscription {
     where: FieldRelationshipDeletedSubscriptionWhere
   ): FieldRelationshipDeletedEvent!
   fieldUpdated(where: FieldSubscriptionWhere): FieldUpdatedEvent!
-  getBaseTypesReturnCreated(
-    where: GetBaseTypesReturnSubscriptionWhere
-  ): GetBaseTypesReturnCreatedEvent!
-  getBaseTypesReturnDeleted(
-    where: GetBaseTypesReturnSubscriptionWhere
-  ): GetBaseTypesReturnDeletedEvent!
-  getBaseTypesReturnUpdated(
-    where: GetBaseTypesReturnSubscriptionWhere
-  ): GetBaseTypesReturnUpdatedEvent!
   hookCreated(where: HookSubscriptionWhere): HookCreatedEvent!
   hookDeleted(where: HookSubscriptionWhere): HookDeletedEvent!
   hookRelationshipCreated(
@@ -25191,11 +25043,6 @@ type UpdateEnumTypesMutationResponse {
 
 type UpdateFieldsMutationResponse {
   fields: [Field!]!
-  info: UpdateInfo!
-}
-
-type UpdateGetBaseTypesReturnsMutationResponse {
-  getBaseTypesReturns: [GetBaseTypesReturn!]!
   info: UpdateInfo!
 }
 

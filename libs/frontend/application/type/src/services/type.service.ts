@@ -22,6 +22,7 @@ import {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { prop, sortBy } from 'remeda'
 
 export const useTypeService = (): ITypeService => {
   const {
@@ -42,8 +43,10 @@ export const useTypeService = (): ITypeService => {
   ) => {
     const { items: baseTypes, totalCount: totalItems } =
       await typeRepository.findBaseTypes({
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
+        options: {
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+        },
         where: graphqlFilterMatches(filter, search),
       })
 
@@ -138,10 +141,10 @@ export const useTypeService = (): ITypeService => {
     return all[0]
   }
 
-  const getOptions = async () => {
-    const options = await typeRepository.findOptions()
+  const getSelectOptions = async () => {
+    const { items } = await typeRepository.findBaseTypes()
 
-    return options
+    return sortBy(items, prop('name'))
   }
 
   const update = async (data: ITypeUpdateDto) => {
@@ -234,7 +237,7 @@ export const useTypeService = (): ITypeService => {
     getInterface,
     getOne,
     getOneFromCache,
-    getOptions,
+    getSelectOptions,
     paginationService: typePagination,
     removeMany: deleteType,
     update,
