@@ -1,6 +1,11 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
+/**
+ * Requires `noImplicityAbstractOverride' https://github.com/microsoft/TypeScript/issues/47250
+ *
+ * Move as interface for now
+ */
 export interface IRepository<
   Model extends IRef,
   ModelData,

@@ -173,11 +173,17 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Model, where?: Where): Promise<ModelData> {
+    console.log('save', data)
+
     const computedWhere = this.getWhere(data, where)
 
     if (await this.exists(computedWhere)) {
+      console.log('exists! updating...')
+
       return await this.update(data, computedWhere)
     }
+
+    console.log('Not exist, adding...')
 
     const results = await this.add(data)
 
@@ -190,6 +196,8 @@ export abstract class AbstractRepository<
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
   async update(data: Model, where?: Where): Promise<ModelData> {
+    console.log('update', data, where)
+
     const model = await this._update(data, where)
 
     if (!model) {
@@ -213,6 +221,7 @@ export abstract class AbstractRepository<
 
   protected abstract _update(
     data: Model,
+    // existing: Model,
     where?: Where,
   ): Promise<ModelData | undefined>
 
