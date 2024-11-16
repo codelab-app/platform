@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
@@ -16,6 +15,7 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
+import { useMemo } from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 
 import { useAtomService } from '../../services'
@@ -26,60 +26,51 @@ interface UpdateAtomFormProps extends IFormController {
   atom: IAtomModel
 }
 
+const omitFields = [
+  'tags',
+  'suggestedChildren',
+  'requiredParents',
+  'externalCssSource',
+  'externalJsSource',
+  'externalSourceType',
+]
+
 export const UpdateAtomForm = observer<UpdateAtomFormProps>(
   ({ atom, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const { tagDomainService } = useDomainStore()
     const atomService = useAtomService()
-
-    const onSubmit = (data: IUpdateAtomData) => {
-      const results = atomService.update(data)
-
-      onSubmitSuccess?.()
-
-      return results
-    }
-
-    const onSubmitError = createFormErrorNotificationHandler({
-      title: 'Error while updating atom',
-    })
-
-    const model = {
-      api: atom.api,
-      externalCssSource: atom.externalCssSource,
-      // `null` bypass the required condition if the field is originally nullable
-      externalJsSource: atom.externalJsSource ?? undefined,
-      externalSourceType: atom.externalSourceType ?? undefined,
-      id: atom.id,
-      name: atom.name,
-      requiredParents: atom.requiredParents.map((child) => child),
-      suggestedChildren: atom.suggestedChildren.map(
-        (suggestedChild) => suggestedChild,
-      ),
-      tags: atom.tags.map((tag) => tag.current),
-      type: atom.type,
-    }
-
     const tagListOption = tagDomainService.tagsSelectOptions
+
+    const model = useMemo(
+      () => ({
+        api: atom.api,
+        externalCssSource: atom.externalCssSource,
+        // `null` bypass the required condition if the field is originally nullable
+        externalJsSource: atom.externalJsSource ?? undefined,
+        externalSourceType: atom.externalSourceType ?? undefined,
+        id: atom.id,
+        name: atom.name,
+        requiredParents: atom.requiredParents.map((child) => child),
+        suggestedChildren: atom.suggestedChildren.map(
+          (suggestedChild) => suggestedChild,
+        ),
+        tags: atom.tags.map((tag) => tag.current),
+        type: atom.type,
+      }),
+      [atom],
+    )
 
     return (
       <Form<IUpdateAtomData>
+        errorMessage="Error while updating atom"
         model={model}
-        onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmit={atomService.update}
+        onSubmitSuccess={onSubmitSuccess}
         schema={updateAtomSchema}
         submitRef={submitRef}
         uiKey={UiKey.AtomFormUpdate}
       >
-        <AutoFields
-          omitFields={[
-            'tags',
-            'suggestedChildren',
-            'requiredParents',
-            'externalCssSource',
-            'externalJsSource',
-            'externalSourceType',
-          ]}
-        />
+        <AutoFields omitFields={omitFields} />
         <DisplayIfField<IUpdateAtomData>
           condition={(context) =>
             context.model.type === IAtomType.ExternalComponent
