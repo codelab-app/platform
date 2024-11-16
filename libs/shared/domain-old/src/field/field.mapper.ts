@@ -31,7 +31,10 @@ export const fieldMapper: IMapper<
   }: IFieldDto): FieldCreateInput => {
     return {
       api: connectNodeId(api.id),
-      defaultValues: JSON.stringify(defaultValues),
+      defaultValues:
+        typeof defaultValues === 'string'
+          ? defaultValues
+          : JSON.stringify(defaultValues),
       description,
       fieldType: connectNodeId(fieldType.id),
       id,

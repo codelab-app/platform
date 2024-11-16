@@ -35,8 +35,6 @@ export const useLoading = () => {
 
   return {
     ...loadingState,
-    // Override for now to disable
-    isLoading: false,
     reset,
     setError,
     setLoading,
