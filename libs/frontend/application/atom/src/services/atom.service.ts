@@ -8,6 +8,7 @@ import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
+  CACHE_TAGS,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
@@ -83,12 +84,15 @@ export const useAtomService = (): IAtomService => {
       owner,
     })
 
-    const atom = await atomRepository.add({
-      ...data,
-      __typename: 'Atom',
-      api,
-      owner,
-    })
+    const atom = await atomRepository.add(
+      {
+        ...data,
+        __typename: 'Atom',
+        api,
+        owner,
+      },
+      { revalidateTag: CACHE_TAGS.ATOM_LIST },
+    )
 
     Validator.assertsDefined(atom)
 
@@ -153,12 +157,9 @@ export const useAtomService = (): IAtomService => {
 
     atom?.writeCache(data)
 
-    await atomRepository.update(
-      {
-        id,
-      },
-      data,
-    )
+    await atomRepository.update({ id }, data, {
+      revalidateTag: CACHE_TAGS.ATOM_LIST,
+    })
 
     Validator.assertsDefined(atom)
 
