@@ -10,6 +10,8 @@ import {
 } from '@codelab/frontend-application-admin/use-cases/import-data'
 import { ResetDataButtons } from '@codelab/frontend-application-admin/use-cases/reset-data'
 import { AdminViewHeader } from '@codelab/frontend-application-admin/views'
+import { UsersTable } from '@codelab/frontend-application-user/use-cases/user-list'
+import { GetUsers } from '@codelab/frontend-domain-user/repositories'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { Dashboard } from '@codelab/frontend-presentation-view/templates'
 import { Space } from 'antd'
@@ -19,17 +21,21 @@ export const metadata: Metadata = {
 }
 
 const AdminView = async () => {
+  const { users } = await GetUsers({})
+
   return (
     <Dashboard Header={<AdminViewHeader />}>
       <ContentSection>
-        <Space>
-          <ExportAdminDataButton />
-          <ExportAdminDataModal />
+        <Space className="w-full" direction="vertical" size="large">
+          <Space>
+            <ExportAdminDataButton />
+            <ExportAdminDataModal />
+            <ImportAdminDataButton />
+            <ImportAdminDataModal />
+            <ResetDataButtons />
+          </Space>
 
-          <ImportAdminDataButton />
-          <ImportAdminDataModal />
-
-          <ResetDataButtons />
+          <UsersTable users={users} />
         </Space>
       </ContentSection>
     </Dashboard>

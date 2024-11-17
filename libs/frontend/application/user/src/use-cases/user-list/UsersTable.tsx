@@ -1,20 +1,12 @@
 'use client'
 
-import type { IUserModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { UserFragment } from '@codelab/shared/infra/gql'
 import type { ColumnsType } from 'antd/lib/table'
 
-import { Space, Table } from 'antd'
+import { Table } from 'antd'
 
-export const UsersTable = () => {
-  // const { data } = useGetUsersQuery()
-  const data = { users: [] }
-
-  const dataSource = data.users.map((user: IUserModel) => ({
-    id: user.id,
-    key: user.id,
-  }))
-
+export const UsersTable = ({ users }: { users: Array<UserFragment> }) => {
   const columns: ColumnsType<ObjectLike> = [
     {
       dataIndex: 'id',
@@ -22,20 +14,41 @@ export const UsersTable = () => {
       title: 'Id',
     },
     {
-      dataIndex: 'action',
-      key: 'action',
-      render: (text, record) => {
-        return (
-          <Space>
-            {/* <DeleteUserButton
-              payload={{ deleteIds: [record.id], userNames: record.email }}
-            /> */}
-          </Space>
-        )
-      },
-      title: 'Action',
+      dataIndex: 'auth0Id',
+      key: 'auth0Id',
+      title: 'Auth0Id',
     },
+    {
+      dataIndex: 'username',
+      key: 'username',
+      title: 'User Name',
+    },
+    {
+      dataIndex: 'email',
+      key: 'email',
+      title: 'Email',
+    },
+    {
+      dataIndex: 'roles',
+      key: 'roles',
+      render: (value) => value.join(', '),
+      title: 'Roles',
+    },
+    // {
+    //   dataIndex: 'action',
+    //   key: 'action',
+    //   render: (text, record) => {
+    //     return (
+    //       <Space>
+    //         <DeleteUserButton
+    //           payload={{ deleteIds: [record.id], userNames: record.email }}
+    //         />
+    //       </Space>
+    //     )
+    //   },
+    //   title: 'Action',
+    // },
   ]
 
-  return <Table columns={columns} dataSource={dataSource} />
+  return <Table columns={columns} dataSource={users} />
 }
