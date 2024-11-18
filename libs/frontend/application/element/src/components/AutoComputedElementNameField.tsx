@@ -45,22 +45,14 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
     const changedRenderTypeHandler = async (
       renderType?: Partial<IElementRenderTypeDto>,
     ) => {
-      const renderTypeId = renderType?.id
       let renderTypeName: Maybe<string>
 
-      if (!renderTypeId) {
+      if (!renderType || !renderType.id) {
         return
       }
 
       if (renderType.__typename === IElementRenderTypeKind.Atom) {
-        // trying to get atom from cache improves initial load time of Create Element From,
-        // since we do not need to send request for ReactFragment atom, it is always loaded.
-        // Potentially may improve performnace in other cases, when atoms already exist in cache.
-        const atom =
-          atomService.getOneFromCache({ id: renderTypeId }) ??
-          (await atomService.getOne(renderTypeId))
-
-        renderTypeName = atom?.name
+        renderTypeName = (await atomService.getOne(renderType.id))?.name
       }
 
       if (renderType.__typename === IElementRenderTypeKind.Component) {

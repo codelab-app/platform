@@ -91,6 +91,9 @@ export class BuilderPage extends BasePage {
       await parentElementToolbar.getByLabel('plus').click()
 
       await expect(this.getFormFieldSpinner()).toHaveCount(0)
+      await expect(modal.locator!.getByLabel('Name')).toHaveValue(
+        'React Fragment',
+      )
 
       await this.setFormFieldValue('Name', name)
       await this.setFormFieldValue('Render Type', atom)
