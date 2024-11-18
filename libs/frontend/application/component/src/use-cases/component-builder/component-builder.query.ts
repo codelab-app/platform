@@ -81,6 +81,7 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
   ]
 
   const fields = types.flatMap((type) => ('fields' in type ? type.fields : []))
+  const tags = atoms.flatMap((atom) => atom.tags)
 
   return {
     actions,
@@ -92,6 +93,7 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
     props,
     resources: data.resources,
     stores,
+    tags,
     types: [...types, ...elementsDependantTypes, ...systemTypes],
   }
 }

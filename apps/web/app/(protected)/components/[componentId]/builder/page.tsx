@@ -30,6 +30,7 @@ const ComponentBuilderPage = async ({
       propsDto={dto.props}
       resourcesDto={dto.resources}
       storesDto={dto.stores}
+      tagsDto={dto.tags}
       typesDto={dto.types}
     >
       <ComponentBuilderContainer componentId={componentId} />

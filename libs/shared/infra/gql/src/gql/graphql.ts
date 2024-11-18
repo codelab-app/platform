@@ -27252,7 +27252,7 @@ export type AtomBuilderFragment = {
   api: InterfaceTypeFragment
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
-  tags: Array<TagFragment>
+  tags: Array<TagPreviewFragment>
   owner: { id: string }
 }
 
@@ -27523,7 +27523,11 @@ export type TagFragment = {
   parent?: { id: string } | null
 }
 
-export type TagPreviewFragment = { id: string; name: string }
+export type TagPreviewFragment = {
+  id: string
+  name: string
+  owner: { id: string }
+}
 
 export type ActionTypeFragment = BaseType_ActionType_Fragment
 
@@ -29727,32 +29731,18 @@ export const PropFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'Prop' },
 ) as unknown as TypedDocumentString<PropFragment, unknown>
-export const TagFragmentDoc = new TypedDocumentString(
+export const TagPreviewFragmentDoc = new TypedDocumentString(
   `
-    fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+    fragment TagPreview on Tag {
   id
   name
   owner {
     id
   }
-  parent {
-    id
-  }
 }
     `,
-  { fragmentName: 'Tag' },
-) as unknown as TypedDocumentString<TagFragment, unknown>
+  { fragmentName: 'TagPreview' },
+) as unknown as TypedDocumentString<TagPreviewFragment, unknown>
 export const AtomBuilderFragmentDoc = new TypedDocumentString(
   `
     fragment AtomBuilder on Atom {
@@ -29774,31 +29764,17 @@ export const AtomBuilderFragmentDoc = new TypedDocumentString(
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
     id
   }
 }
-    fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+    fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -29927,7 +29903,7 @@ export const ElementFragmentDoc = new TypedDocumentString(
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -29938,24 +29914,10 @@ fragment Prop on Prop {
   data
   id
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -30430,7 +30392,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -30522,24 +30484,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -30739,7 +30687,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -30865,24 +30813,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -31095,7 +31029,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -31187,24 +31121,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -31403,7 +31323,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -31519,24 +31439,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -32495,6 +32401,32 @@ fragment Owner on User {
 }`,
   { fragmentName: 'AppProduction' },
 ) as unknown as TypedDocumentString<AppProductionFragment, unknown>
+export const TagFragmentDoc = new TypedDocumentString(
+  `
+    fragment Tag on Tag {
+  children {
+    id
+    name
+    owner {
+      id
+    }
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    id
+  }
+  parent {
+    id
+  }
+}
+    `,
+  { fragmentName: 'Tag' },
+) as unknown as TypedDocumentString<TagFragment, unknown>
 export const AtomFragmentDoc = new TypedDocumentString(
   `
     fragment Atom on Atom {
@@ -32843,7 +32775,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -32935,24 +32867,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -33324,15 +33242,6 @@ fragment Resource on Resource {
 }`,
   { fragmentName: 'ProductionStore' },
 ) as unknown as TypedDocumentString<ProductionStoreFragment, unknown>
-export const TagPreviewFragmentDoc = new TypedDocumentString(
-  `
-    fragment TagPreview on Tag {
-  id
-  name
-}
-    `,
-  { fragmentName: 'TagPreview' },
-) as unknown as TypedDocumentString<TagPreviewFragment, unknown>
 export const PreferenceFragmentDoc = new TypedDocumentString(
   `
     fragment Preference on Preference {
@@ -33526,7 +33435,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -33695,24 +33604,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -34017,7 +33912,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -34143,24 +34038,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -34784,7 +34665,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -34901,24 +34782,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -35342,7 +35209,7 @@ export const ElementListDocument = new TypedDocumentString(`
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -35413,24 +35280,10 @@ fragment Prop on Prop {
   data
   id
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -35694,7 +35547,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -35810,24 +35663,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -36015,7 +35854,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -36131,24 +35970,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }

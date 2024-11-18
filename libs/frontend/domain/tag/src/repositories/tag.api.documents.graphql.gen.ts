@@ -1,7 +1,10 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { TagFragmentDoc } from '@codelab/shared/infra/gql'
+import {
+  TagFragmentDoc,
+  TagPreviewFragmentDoc,
+} from '@codelab/shared/infra/gql'
 
 export const CreateTagsDocument = graphql(`
   mutation CreateTags($input: [TagCreateInput!]!) {

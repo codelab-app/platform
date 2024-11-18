@@ -7,6 +7,7 @@ import type {
   PropFragment,
   ResourceFragment,
   StoreFragment,
+  TagPreviewFragment,
   TypeFragment,
 } from '@codelab/shared/infra/gql'
 
@@ -26,6 +27,7 @@ export interface IComponentBuilderDto {
   props: Array<PropFragment>
   resources: Array<ResourceFragment>
   stores: Array<StoreFragment & { component?: IRef; page?: IRef }>
+  tags: Array<TagPreviewFragment>
   types: Array<TypeFragment>
 }
 

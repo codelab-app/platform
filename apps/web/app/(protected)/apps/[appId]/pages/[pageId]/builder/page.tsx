@@ -31,6 +31,7 @@ const Page = async ({
       redirectsDto={dto.redirects}
       resourcesDto={dto.resources}
       storesDto={dto.stores}
+      tagsDto={dto.tags}
       typesDto={dto.types}
     >
       <PageBuilderContainer pageId={pageId} />
