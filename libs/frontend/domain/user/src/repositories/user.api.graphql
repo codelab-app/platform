@@ -1,5 +1,8 @@
 query GetUsers($where: UserWhere) {
-  users(where: $where) {
+  aggregate: usersAggregate(where: $where) {
+    count
+  }
+  items: users(where: $where) {
     ...User
   }
 }
@@ -10,5 +13,11 @@ mutation CreateUser($input: [UserCreateInput!]!) {
       email
       id
     }
+  }
+}
+
+mutation DeleteUsers($where: UserWhere!) {
+  deleteUsers(where: $where) {
+    nodesDeleted
   }
 }

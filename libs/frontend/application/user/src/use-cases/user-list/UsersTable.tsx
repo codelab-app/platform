@@ -4,9 +4,16 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { UserFragment } from '@codelab/shared/infra/gql'
 import type { ColumnsType } from 'antd/lib/table'
 
-import { Table } from 'antd'
+import { userRepository } from '@codelab/frontend-domain-user/repositories'
+import { Button, Table } from 'antd'
 
-export const UsersTable = ({ users }: { users: Array<UserFragment> }) => {
+interface UserTableProps {
+  users: Array<UserFragment>
+}
+
+export const UsersTable = ({ users }: UserTableProps) => {
+  const onDeleteUser = (id: string) => userRepository.delete([{ id }])
+
   const columns: ColumnsType<ObjectLike> = [
     {
       dataIndex: 'id',
@@ -34,20 +41,18 @@ export const UsersTable = ({ users }: { users: Array<UserFragment> }) => {
       render: (value) => value.join(', '),
       title: 'Roles',
     },
-    // {
-    //   dataIndex: 'action',
-    //   key: 'action',
-    //   render: (text, record) => {
-    //     return (
-    //       <Space>
-    //         <DeleteUserButton
-    //           payload={{ deleteIds: [record.id], userNames: record.email }}
-    //         />
-    //       </Space>
-    //     )
-    //   },
-    //   title: 'Action',
-    // },
+    {
+      dataIndex: 'action',
+      key: 'action',
+      render: (text, record) => {
+        return (
+          <Button danger onClick={() => onDeleteUser(record.id)}>
+            Delete
+          </Button>
+        )
+      },
+      title: 'Action',
+    },
   ]
 
   return <Table columns={columns} dataSource={users} />

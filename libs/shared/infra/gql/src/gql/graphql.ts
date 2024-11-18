@@ -29091,7 +29091,10 @@ export type GetUsersQueryVariables = Exact<{
   where?: InputMaybe<UserWhere>
 }>
 
-export type GetUsersQuery = { users: Array<UserFragment> }
+export type GetUsersQuery = {
+  aggregate: { count: number }
+  items: Array<UserFragment>
+}
 
 export type CreateUserMutationVariables = Exact<{
   input: Array<UserCreateInput> | UserCreateInput
@@ -29100,6 +29103,12 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
 }
+
+export type DeleteUsersMutationVariables = Exact<{
+  where: UserWhere
+}>
+
+export type DeleteUsersMutation = { deleteUsers: { nodesDeleted: number } }
 
 export type CreateAtomsMutationVariables = Exact<{
   input: Array<AtomCreateInput> | AtomCreateInput
@@ -39418,7 +39427,10 @@ export const UpdateCodeMirrorTypesDocument = new TypedDocumentString(`
 >
 export const GetUsersDocument = new TypedDocumentString(`
     query GetUsers($where: UserWhere) {
-  users(where: $where) {
+  aggregate: usersAggregate(where: $where) {
+    count
+  }
+  items: users(where: $where) {
     ...User
   }
 }
@@ -39455,6 +39467,16 @@ export const CreateUserDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreateUserMutation,
   CreateUserMutationVariables
+>
+export const DeleteUsersDocument = new TypedDocumentString(`
+    mutation DeleteUsers($where: UserWhere!) {
+  deleteUsers(where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteUsersMutation,
+  DeleteUsersMutationVariables
 >
 export const CreateAtomsDocument = new TypedDocumentString(`
     mutation CreateAtoms($input: [AtomCreateInput!]!) {
