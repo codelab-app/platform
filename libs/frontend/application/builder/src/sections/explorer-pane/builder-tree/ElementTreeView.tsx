@@ -38,16 +38,16 @@ export const ElementTreeView = observer<{
       autoExpandParent={false}
       disabled={isMoving}
       draggable={true}
-      expandedKeys={runtimeElementService.expandedCompositeKeys}
+      expandedKeys={runtimeElementService.getExpandedCompositeKeys()}
       onClick={(event) => {
         event.stopPropagation()
       }}
       onDrop={handleDrop}
-      onExpand={(expandedKeys) => {
+      onExpand={(newExpandedKeys) => {
         runtimeElementService.elementsList.forEach((runtimeElement) => {
           // element will be marked modified automatically
           runtimeElement.element.current.setExpanded(
-            expandedKeys.includes(runtimeElement.compositeKey),
+            newExpandedKeys.includes(runtimeElement.compositeKey),
           )
         })
 

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-import type { ISpacingValues, SpacingProps } from './shared'
+import type { ISpacingValues, SpacingProps } from './spacing'
 
-import { MIN_DISPLAYABLE_VALUE, Spacing, SpacingValue } from './shared'
+import { MIN_DISPLAYABLE_VALUE, Spacing, SpacingValue } from './spacing'
 
 export const Margins = ({ values }: { values: ISpacingValues }) => {
   return (

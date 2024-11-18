@@ -38,7 +38,7 @@ describe('Runtime Element props', () => {
 
       expect(runtimeProps.props).toMatchObject({
         [DATA_ELEMENT_ID]: rootElement.id,
-        key: rootElement.id,
+        key: runtimeRootElement.compositeKey,
         ref: expect.any(Function),
       })
     })

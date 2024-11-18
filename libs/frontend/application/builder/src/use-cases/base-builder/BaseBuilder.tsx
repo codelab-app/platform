@@ -11,13 +11,13 @@ import {
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
 
+import { BuilderDndContext } from '../../dnd/index'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
-import { BuilderClickOverlay } from '../base-builder/BuilderClickOverlay'
-import { BuilderHoverOverlay } from '../base-builder/BuilderHoverOverlay'
 import { BuilderResizeHandle } from '../base-builder/BuilderResizeHandle'
+import { RenderBlueprint } from './RenderBlueprint'
 
 interface IBuilderProps {
   RootRenderer: IRootRenderer
@@ -32,8 +32,8 @@ export const BaseBuilder = observer<IBuilderProps>(
     const { builderService } = useApplicationStore()
     const elementService = useElementService()
     const { selectedNode } = builderService
-    const containerRef = useRef<HTMLDivElement>(null)
-    const ref = useRef<HTMLDivElement>(null)
+    const builderContainerRef = useRef<HTMLDivElement>(null)
+    const renderContainerRef = useRef<HTMLDivElement>(null)
 
     useBuilderHotkeys({
       deleteModal: elementService.deletePopover,
@@ -41,37 +41,24 @@ export const BaseBuilder = observer<IBuilderProps>(
       setSelectedNode: builderService.setSelectedNode.bind(builderService),
     })
 
-    useEffect(() => {
-      if (!containerRef.current) {
-        return
-      }
-
-      const resizeObserver = new ResizeObserver(() => {
-        if (!containerRef.current) {
-          return
-        }
-      })
-
-      resizeObserver.observe(containerRef.current)
-
-      return () => {
-        resizeObserver.disconnect()
-      }
-    }, [builderService])
-
     return (
-      <StyledBuilderContainer ref={containerRef}>
-        <BuilderResizeHandle>
-          <StyledBuilderResizeContainer
-            id={BUILDER_CONTAINER_ID}
-            key={renderer.id}
-          >
-            <RootRenderer ref={ref} renderer={renderer} />
-            <BuilderClickOverlay renderContainerRef={ref} />
-            <BuilderHoverOverlay renderContainerRef={ref} />
-          </StyledBuilderResizeContainer>
-        </BuilderResizeHandle>
-      </StyledBuilderContainer>
+      <BuilderDndContext>
+        <StyledBuilderContainer ref={builderContainerRef}>
+          <BuilderResizeHandle>
+            <StyledBuilderResizeContainer
+              id={BUILDER_CONTAINER_ID}
+              key={renderer.id}
+            >
+              <RootRenderer ref={renderContainerRef} renderer={renderer} />
+              <RenderBlueprint
+                builderContainerRef={builderContainerRef}
+                renderContainerRef={renderContainerRef}
+                renderer={renderer}
+              />
+            </StyledBuilderResizeContainer>
+          </BuilderResizeHandle>
+        </StyledBuilderContainer>
+      </BuilderDndContext>
     )
   },
 )

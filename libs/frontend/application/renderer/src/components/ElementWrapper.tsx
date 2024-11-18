@@ -1,8 +1,8 @@
 'use client'
 
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 
-import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -10,10 +10,11 @@ import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
+import { getAtom } from '../atoms'
 import { useSelectionHandlers } from '../hooks'
 import { useOverrideAtomProps } from '../hooks/useOverrideAtomProps.hook'
-import { DroppableStyledComponent } from './DroppableStyledComponent'
-import { generateTailwindClasses, getReactComponent } from './utils'
+import { StyledComponent } from './StyledComponent'
+import { generateTailwindClasses } from './utils'
 
 /**
  * An observer element wrapper - this makes sure that each element is self-contained and observes only the data it needs
@@ -35,11 +36,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const { atomDomainService } = useDomainStore()
 
-    const ReactComponent: IComponentType =
-      renderOutput.atomType &&
-      atomDomainService.dynamicComponents[renderOutput.atomType]
-        ? atomDomainService.dynamicComponents[renderOutput.atomType] ?? Fragment
-        : getReactComponent(renderOutput)
+    const getReactComponent = (atomType: IAtomType) =>
+      atomDomainService.dynamicComponents[atomType] ||
+      getAtom(atomType) ||
+      Fragment
+
+    const ReactComponent: IComponentType = renderOutput.atomType
+      ? getReactComponent(renderOutput.atomType)
+      : Fragment
 
     const tailwindClassNames = {
       className: generateTailwindClasses(
@@ -68,10 +72,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       propsOverrides,
     )
 
-    const isDroppable =
-      renderer.rendererType !== RendererType.Production &&
-      renderer.rendererType !== RendererType.Preview
-
     /**
      * children can be either
      *  - a sub tree of elements
@@ -89,15 +89,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         onReset={onReset}
         resetKeys={[renderOutput]}
       >
-        <DroppableStyledComponent
+        <StyledComponent
           ReactComponent={ReactComponent}
           componentProps={mergedProps}
-          id={runtimeElement.compositeKey}
-          isDroppable={isDroppable}
-          parentId={runtimeElement.parentElement?.compositeKey}
         >
           {children}
-        </DroppableStyledComponent>
+        </StyledComponent>
       </ErrorBoundary>
     )
   },

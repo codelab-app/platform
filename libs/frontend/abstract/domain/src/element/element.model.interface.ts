@@ -108,6 +108,7 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
     primary: string
     secondary: string | undefined
   }
+  attachAsComponentRoot(component: IRef): void
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
@@ -118,7 +119,6 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElementModel>): void
   setOrderInParent(order: number | null): void
-  setParentComponent(component: Ref<IComponentModel>): void
   setParentElement(parent: Ref<IElementModel>): void
   setPrevSibling(prevSibling: Ref<IElementModel>): void
   setProps(props: IPropModel): void

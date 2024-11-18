@@ -15,6 +15,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_ELEMENT_ID,
+  DATA_RUNTIME_ELEMENT_KEY,
   isAtom,
   isAtomRef,
   isComponentRef,
@@ -154,7 +155,8 @@ export class RuntimeElementPropsModel
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
       [DATA_ELEMENT_ID]: this.element.id,
-      key: this.element.id,
+      [DATA_RUNTIME_ELEMENT_KEY]: this.runtimeElement.current.compositeKey,
+      key: this.runtimeElement.current.compositeKey,
       ref: registerReference
         ? (node: HTMLElement) => {
             store.registerRef(slug, node)

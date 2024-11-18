@@ -25,7 +25,12 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    * The runtime model for IElementModel.closestContainerNode
    */
   closestContainerNode: Ref<IRuntimeComponentModel | IRuntimePageModel>
+
+  descendantElements: Array<IRuntimeElementModel>
+
   element: Ref<IElementModel>
+
+  mainTreeElement: IRuntimeElementModel
   parentElement: Maybe<IRuntimeElementModel>
   parentElementKey: Nullable<string>
   pathFromRoot: Array<IRuntimeElementModel>

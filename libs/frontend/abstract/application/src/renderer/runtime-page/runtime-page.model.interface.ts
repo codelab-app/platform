@@ -1,5 +1,6 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
+import type { Maybe } from '@codelab/shared/abstract/types'
 
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
@@ -12,6 +13,12 @@ export interface IRuntimePageModel extends IBaseRuntimeModel {
    * Regular page in case the current model is a provider page
    */
   childPage?: Ref<IRuntimePageModel>
+  elements: Array<IRuntimeElementModel>
+  /**
+   * When clicking an element from provider page while editing a regular page we should select root element of regular page
+   * This is the root element of the regular page
+   */
+  mainTreeElement: Maybe<IRuntimeElementModel>
   /**
    * Page domain model
    */

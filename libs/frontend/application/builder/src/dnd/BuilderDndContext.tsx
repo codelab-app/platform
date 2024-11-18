@@ -8,7 +8,6 @@ import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { HierarchicalCollisionDetector } from '@codelab/frontend-application-dnd/collision-detection'
 import {
   AutoDragOverlay,
-  DropIndicator,
   DropOverlay,
 } from '@codelab/frontend-application-dnd/components'
 import { useElementService } from '@codelab/frontend-application-element/services'
@@ -76,8 +75,6 @@ const BuilderDndContext = ({ children }: PropsWithChildren) => {
       sensors={sensors}
     >
       {children}
-
-      <DropIndicator />
       <DropOverlay />
       <AutoDragOverlay />
     </DndContext>

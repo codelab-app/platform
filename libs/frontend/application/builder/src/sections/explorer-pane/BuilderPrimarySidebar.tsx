@@ -7,6 +7,7 @@ import type {
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import { isComponent, isPage } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
@@ -32,10 +33,11 @@ export const BuilderPrimarySidebar = observer<{
 }>(({ containerNode, isLoading = false }) => {
   const router = useRouter()
   const { appId, componentId, pageId } = useUrlPathParams()
-  const { rendererService } = useApplicationStore()
+  const { rendererService,builderService } = useApplicationStore()
   const { createPopover: createElementPopover } = useElementService()
   const { createPopover: createFieldPopover } = useFieldService()
   const { createPopover: createActionPopover } = useActionService()
+  const selectedNode = builderService.selectedNode?.current
   const store = containerNode.store.maybeCurrent
   const renderer = rendererService.activeRenderer?.current
   const runtimeContainerNode = renderer?.runtimeContainerNode

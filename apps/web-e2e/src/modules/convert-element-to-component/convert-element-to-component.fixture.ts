@@ -15,13 +15,7 @@ export class ConvertElementToComponentPage extends BuilderPage {
   async checkComponentHasCorrectElements() {
     await expect(this.getBuilderRenderContainer()).toHaveText(textContent)
 
-    await this.checkElementTreeStructure([
-      'Container Root',
-      'Container',
-      'Row',
-      'Column',
-      'Text',
-    ])
+    await this.checkElementTreeStructure(['Container', 'Row', 'Column', 'Text'])
   }
 
   async convertElementToComponent() {

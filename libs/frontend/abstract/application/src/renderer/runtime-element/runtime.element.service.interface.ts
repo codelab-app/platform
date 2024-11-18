@@ -11,13 +11,14 @@ export interface IRuntimeElementService {
   currentStylePseudoClass: ElementStylePseudoClass
   elements: ObjectMap<IRuntimeElementModel>
   elementsList: Array<IRuntimeElementModel>
-  expandedCompositeKeys: Array<string>
   add(
     element: IElementModel,
     closestContainerNode: IRuntimeComponentModel | IRuntimePageModel,
     parentElement: Nullable<IRuntimeElementModel>,
     propKey?: string,
   ): IRuntimeElementModel
+  delete(runtimeElement: IRuntimeElementModel): void
+  getExpandedCompositeKeys(): Array<string>
   maybeRuntimeElement(compositeKey: string): Maybe<IRuntimeElementModel>
   remove(runtimeElement: IRuntimeElementModel): void
   runtimeElement(compositeKey: string): IRuntimeElementModel

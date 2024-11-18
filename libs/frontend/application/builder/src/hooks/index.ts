@@ -1,4 +1,5 @@
 export * from './useBuilderHotkeys.hook'
 export * from './useBuilderResizer.hook'
+export * from './useDropIndicator.hook'
 export * from './useElementTreeDrop.hook'
 export * from './usePropsInspector.hook'

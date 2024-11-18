@@ -4,14 +4,17 @@ import type {
   IComponentService,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IElementModel,
+  IPropModel,
+  IStoreModel,
+} from '@codelab/frontend/abstract/domain'
 import type { IElementDto, IPropDto, IRef } from '@codelab/shared/abstract/core'
 
 import {
   isRuntimeElement,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { componentRef } from '@codelab/frontend/abstract/domain'
 import {
   useActionService,
   useStoreService,
@@ -93,29 +96,35 @@ export const useCloneElementService = ({
     const {
       closestContainerNode,
       closestParentElement: parentElement,
+      descendantElements,
       name,
       prevSibling,
+      props,
+      store: storeRef,
     } = element
 
     builderService.setSelectedNode(null)
 
-    const createdComponent = await componentService.create({
-      id: v4(),
-      name,
-      owner,
-    })
+    // it is important to get store model before detaching element
+    const store = storeRef.current
 
-    await cloneElementStore(
+    const createdComponent = await componentService.createWithoutRoot(
+      {
+        id: v4(),
+        name,
+        owner,
+      },
       element,
+    )
+
+    // we need to clone before detaching element
+    await cloneElementStore(
+      store,
+      props,
+      descendantElements,
       createdComponent.store,
       createdComponent.store.current.api,
     )
-    element.detachFromTree()
-    // TODO: Refactor to non-optimistic
-    element.attachAsFirstChild(createdComponent.rootElement.current)
-    element.setParentComponent(componentRef(createdComponent.id))
-
-    await elementService.syncModifiedElements()
 
     const componentId = createdComponent.id
 
@@ -124,24 +133,21 @@ export const useCloneElementService = ({
       id: componentId,
     }
 
-    const props: IPropDto = {
-      data: '{}',
-      id: v4(),
-    }
-
-    const instanceElement = {
+    const instanceElement: IElementDto = {
       closestContainerNode,
       id: v4(),
       name,
-      parentElement,
-      props,
+      // only pass parentElement if prevSibling is not set
+      parentElement: prevSibling ? undefined : parentElement,
+      prevSibling,
+      props: {
+        data: '{}',
+        id: v4(),
+      },
       renderType,
     }
 
-    const createdElement = await elementService.create({
-      ...instanceElement,
-      prevSibling,
-    })
+    const createdElement = await elementService.create(instanceElement)
 
     const runtimeCreatedElement = runtimeParentElement?.children.find(
       (child): child is IRuntimeElementModel =>
@@ -158,12 +164,12 @@ export const useCloneElementService = ({
   }
 
   const cloneElementStore = async (
-    element: IElementModel,
+    elementStore: IStoreModel,
+    elementProps: IPropModel,
+    descendantElements: Array<IElementModel>,
     componentStore: IRef,
     componentStoreApi: IRef,
   ) => {
-    const elementStore = element.store.current
-
     await Promise.all(
       elementStore.api.current.fields.map((field) =>
         fieldService.cloneField(field, componentStoreApi.id),
@@ -189,14 +195,12 @@ export const useCloneElementService = ({
       new Map<string, string>(),
     )
 
-    const elementProps = [
-      element.props,
-      ...element.descendantElements.map(
-        (descendantElement) => descendantElement.props,
-      ),
+    const allProps = [
+      elementProps,
+      ...descendantElements.map((descendantElement) => descendantElement.props),
     ]
 
-    const updatedElementProps = elementProps.map((props) => {
+    const updatedElementProps = allProps.map((props) => {
       const updatedPropsData = mapDeep(props.data.data ?? {}, (value) => {
         if (
           value.kind === ITypeKind.ActionType &&

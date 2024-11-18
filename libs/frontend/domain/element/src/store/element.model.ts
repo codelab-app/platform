@@ -25,6 +25,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -115,7 +116,7 @@ export class Element
     // page which has this element as rootElement
     page: prop<Nullable<Ref<IPageModel>>>(null),
     // component which has this element as rootElement
-    parentComponent: prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
+    parentComponent: prop<Nullable<Ref<IComponentModel>>>(null),
     // Data used for tree initializing, before our Element model is ready
     parentElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     postRenderActions: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
@@ -372,6 +373,12 @@ export class Element
           ? titleCase(this.renderType.current.type)
           : undefined),
     }
+  }
+
+  @modelAction
+  attachAsComponentRoot(component: IRef) {
+    this.page = null
+    this.parentComponent = componentRef(component.id)
   }
 
   /**

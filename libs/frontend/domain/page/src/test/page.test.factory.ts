@@ -12,6 +12,7 @@ export const pageFactory =
       id: dto.id ?? v4(),
       kind: dto.kind ?? IPageKind.Regular,
       name: dto.name ?? chance.word(),
+      pageContentContainer: { id: dto.pageContentContainer?.id ?? v4() },
       rootElement: { id: dto.rootElement?.id ?? v4() },
       store: { id: dto.store?.id ?? v4() },
       urlPattern: chance.word(),

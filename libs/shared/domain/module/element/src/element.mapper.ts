@@ -92,7 +92,9 @@ export const elementMapper: IMapper<
   },
 
   toDeleteInput: (): ElementDeleteInput => {
-    return {}
+    return {
+      props: { where: {} },
+    }
   },
 
   toUpdateInput: ({
@@ -105,6 +107,8 @@ export const elementMapper: IMapper<
     firstChild,
     name,
     nextSibling,
+    page,
+    parentComponent,
     parentElement,
     postRenderActions,
     preRenderActions,
@@ -130,6 +134,8 @@ export const elementMapper: IMapper<
       expanded,
       firstChild: reconnectNodeId(firstChild?.id),
       nextSibling: reconnectNodeId(nextSibling?.id),
+      page: reconnectNodeId(page?.id),
+      parentComponent: reconnectNodeId(parentComponent?.id),
       parentElement: reconnectNodeId(parentElement?.id),
       /**
        * The generated cypher query has issues if we do both connect & disconnect, disconnect before here

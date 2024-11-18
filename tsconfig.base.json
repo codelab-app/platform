@@ -369,6 +369,9 @@
       "@codelab/frontend-application-dnd/components": [
         "libs/frontend/application/dnd/src/components/index.ts"
       ],
+      "@codelab/frontend-application-dnd/hooks": [
+        "libs/frontend/application/dnd/src/hooks/index.ts"
+      ],
       "@codelab/frontend-application-domain/services": [
         "libs/frontend/application/domain/src/services/index.ts"
       ],
