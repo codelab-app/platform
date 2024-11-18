@@ -24,6 +24,8 @@ export abstract class AbstractRepository<
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Model): Promise<ModelData> {
+    console.log(`${this.constructor.name}.add`, data)
+
     this.loggerService.log(data, `${this.constructor.name}.add()`)
 
     const results = await this._addMany([data])
@@ -41,6 +43,8 @@ export abstract class AbstractRepository<
   }
 
   async exists(where: Where) {
+    console.log('Exists', where)
+
     const results = await this.findOne({ where })
     const exists = Boolean(results)
 
@@ -115,6 +119,7 @@ export abstract class AbstractRepository<
     selectionSet?: string
     options: Options
   }): Promise<ModelData | Static<T> | undefined> {
+    console.log('Find one', where)
     // Don't use decorator since it doesn't give us the right name
 
     // So overload works

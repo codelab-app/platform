@@ -5,6 +5,9 @@ import { disconnectAll, disconnectManyAll } from './disconnect'
 
 /**
  * This disconnects all edges first
+ *
+ * https://github.com/neo4j/graphql/issues/3248
+ *
  */
 export const reconnectNodeId = (id: Nullish<string>) => ({
   ...disconnectAll({ omitId: id }),

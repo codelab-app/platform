@@ -14,6 +14,22 @@ enum ActionKind {
 Allows picking a action from the list of actions
 """
 type ActionType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): ActionTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -38,10 +54,12 @@ type ActionTypeAggregateSelection {
 }
 
 input ActionTypeConnectInput {
+  fieldRefs: [ActionTypeFieldRefsConnectFieldInput!]
   owner: ActionTypeOwnerConnectFieldInput
 }
 
 input ActionTypeConnectOrCreateInput {
+  fieldRefs: [ActionTypeFieldRefsConnectOrCreateFieldInput!]
   owner: ActionTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -54,10 +72,12 @@ input ActionTypeConnectWhere {
 }
 
 type ActionTypeConnectedRelationships {
+  fieldRefs: ActionTypeFieldRefsConnectedRelationship
   owner: ActionTypeOwnerConnectedRelationship
 }
 
 input ActionTypeCreateInput {
+  fieldRefs: ActionTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = ActionType
   name: String!
@@ -71,6 +91,7 @@ type ActionTypeCreatedEvent {
 }
 
 input ActionTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -81,6 +102,7 @@ type ActionTypeDeletedEvent {
 }
 
 input ActionTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -93,6 +115,164 @@ type ActionTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type ActionTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: ActionTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type ActionTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input ActionTypeFieldRefsAggregateInput {
+  AND: [ActionTypeFieldRefsAggregateInput!]
+  NOT: ActionTypeFieldRefsAggregateInput
+  OR: [ActionTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ActionTypeFieldRefsNodeAggregationWhereInput
+}
+
+input ActionTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input ActionTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: ActionTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input ActionTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type ActionTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input ActionTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input ActionTypeFieldRefsFieldInput {
+  connect: [ActionTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ActionTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [ActionTypeFieldRefsCreateFieldInput!]
+}
+
+input ActionTypeFieldRefsNodeAggregationWhereInput {
+  AND: [ActionTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: ActionTypeFieldRefsNodeAggregationWhereInput
+  OR: [ActionTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input ActionTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input ActionTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input ActionTypeFieldRefsUpdateFieldInput {
+  connect: [ActionTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ActionTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [ActionTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: ActionTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input ActionTypeOnCreateInput {
@@ -226,6 +406,7 @@ input ActionTypeOwnerUpdateFieldInput {
 }
 
 input ActionTypeRelationInput {
+  fieldRefs: [ActionTypeFieldRefsCreateFieldInput!]
   owner: ActionTypeOwnerCreateFieldInput
 }
 
@@ -262,6 +443,7 @@ input ActionTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input ActionTypeRelationshipsSubscriptionWhere {
+  fieldRefs: ActionTypeFieldRefsRelationshipSubscriptionWhere
   owner: ActionTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -298,6 +480,7 @@ input ActionTypeUniqueWhere {
 }
 
 input ActionTypeUpdateInput {
+  fieldRefs: [ActionTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -327,6 +510,47 @@ input ActionTypeWhere {
   AND: [ActionTypeWhere!]
   NOT: ActionTypeWhere
   OR: [ActionTypeWhere!]
+  fieldRefsAggregate: ActionTypeFieldRefsAggregateInput
+
+  """
+  Return ActionTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ActionTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ActionTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ActionTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ActionTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return ActionTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return ActionTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return ActionTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -2156,6 +2380,22 @@ input AppSubscriptionWhere {
 Allows picking a app from the list of apps
 """
 type AppType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): AppTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -2180,10 +2420,12 @@ type AppTypeAggregateSelection {
 }
 
 input AppTypeConnectInput {
+  fieldRefs: [AppTypeFieldRefsConnectFieldInput!]
   owner: AppTypeOwnerConnectFieldInput
 }
 
 input AppTypeConnectOrCreateInput {
+  fieldRefs: [AppTypeFieldRefsConnectOrCreateFieldInput!]
   owner: AppTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -2192,10 +2434,12 @@ input AppTypeConnectWhere {
 }
 
 type AppTypeConnectedRelationships {
+  fieldRefs: AppTypeFieldRefsConnectedRelationship
   owner: AppTypeOwnerConnectedRelationship
 }
 
 input AppTypeCreateInput {
+  fieldRefs: AppTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = AppType
   name: String!
@@ -2209,6 +2453,7 @@ type AppTypeCreatedEvent {
 }
 
 input AppTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -2219,6 +2464,7 @@ type AppTypeDeletedEvent {
 }
 
 input AppTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -2231,6 +2477,164 @@ type AppTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type AppTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: AppTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type AppTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input AppTypeFieldRefsAggregateInput {
+  AND: [AppTypeFieldRefsAggregateInput!]
+  NOT: AppTypeFieldRefsAggregateInput
+  OR: [AppTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AppTypeFieldRefsNodeAggregationWhereInput
+}
+
+input AppTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input AppTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: AppTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input AppTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type AppTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input AppTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input AppTypeFieldRefsFieldInput {
+  connect: [AppTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [AppTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [AppTypeFieldRefsCreateFieldInput!]
+}
+
+input AppTypeFieldRefsNodeAggregationWhereInput {
+  AND: [AppTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: AppTypeFieldRefsNodeAggregationWhereInput
+  OR: [AppTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input AppTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input AppTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input AppTypeFieldRefsUpdateFieldInput {
+  connect: [AppTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [AppTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [AppTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: AppTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input AppTypeOptions {
@@ -2358,6 +2762,7 @@ input AppTypeOwnerUpdateFieldInput {
 }
 
 input AppTypeRelationInput {
+  fieldRefs: [AppTypeFieldRefsCreateFieldInput!]
   owner: AppTypeOwnerCreateFieldInput
 }
 
@@ -2394,6 +2799,7 @@ input AppTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input AppTypeRelationshipsSubscriptionWhere {
+  fieldRefs: AppTypeFieldRefsRelationshipSubscriptionWhere
   owner: AppTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -2426,6 +2832,7 @@ input AppTypeSubscriptionWhere {
 }
 
 input AppTypeUpdateInput {
+  fieldRefs: [AppTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -2455,6 +2862,47 @@ input AppTypeWhere {
   AND: [AppTypeWhere!]
   NOT: AppTypeWhere
   OR: [AppTypeWhere!]
+  fieldRefsAggregate: AppTypeFieldRefsAggregateInput
+
+  """
+  Return AppTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return AppTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return AppTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return AppTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return AppTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return AppTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return AppTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return AppTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -2641,9 +3089,9 @@ type ArrayType implements IBaseType & WithDescendants {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ArrayTypeFieldRefsConnectionSort!]
-    where: ArrayTypeFieldRefsConnectionWhere
-  ): ArrayTypeFieldRefsConnection!
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   itemType(
     directed: Boolean = true
@@ -2720,7 +3168,7 @@ type ArrayTypeCreatedEvent {
 }
 
 input ArrayTypeDeleteInput {
-  fieldRefs: [ArrayTypeFieldRefsDeleteFieldInput!]
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   itemType: ArrayTypeItemTypeDeleteFieldInput
   owner: IBaseTypeOwnerDeleteFieldInput
 }
@@ -2732,7 +3180,7 @@ type ArrayTypeDeletedEvent {
 }
 
 input ArrayTypeDisconnectInput {
-  fieldRefs: [ArrayTypeFieldRefsDisconnectFieldInput!]
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   itemType: ArrayTypeItemTypeDisconnectFieldInput
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
@@ -2797,35 +3245,8 @@ type ArrayTypeFieldRefsConnectedRelationship {
   node: FieldEventPayload!
 }
 
-type ArrayTypeFieldRefsConnection {
-  edges: [ArrayTypeFieldRefsRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ArrayTypeFieldRefsConnectionSort {
-  node: FieldSort
-}
-
-input ArrayTypeFieldRefsConnectionWhere {
-  AND: [ArrayTypeFieldRefsConnectionWhere!]
-  NOT: ArrayTypeFieldRefsConnectionWhere
-  OR: [ArrayTypeFieldRefsConnectionWhere!]
-  node: FieldWhere
-}
-
 input ArrayTypeFieldRefsCreateFieldInput {
   node: FieldCreateInput!
-}
-
-input ArrayTypeFieldRefsDeleteFieldInput {
-  delete: FieldDeleteInput
-  where: ArrayTypeFieldRefsConnectionWhere
-}
-
-input ArrayTypeFieldRefsDisconnectFieldInput {
-  disconnect: FieldDisconnectInput
-  where: ArrayTypeFieldRefsConnectionWhere
 }
 
 input ArrayTypeFieldRefsFieldInput {
@@ -2915,11 +3336,6 @@ input ArrayTypeFieldRefsNodeAggregationWhereInput {
   validationRules_SHORTEST_LENGTH_LTE: Int
 }
 
-type ArrayTypeFieldRefsRelationship {
-  cursor: String!
-  node: Field!
-}
-
 input ArrayTypeFieldRefsRelationshipSubscriptionWhere {
   node: FieldSubscriptionWhere
 }
@@ -2932,10 +3348,10 @@ input ArrayTypeFieldRefsUpdateFieldInput {
   connect: [ArrayTypeFieldRefsConnectFieldInput!]
   connectOrCreate: [ArrayTypeFieldRefsConnectOrCreateFieldInput!]
   create: [ArrayTypeFieldRefsCreateFieldInput!]
-  delete: [ArrayTypeFieldRefsDeleteFieldInput!]
-  disconnect: [ArrayTypeFieldRefsDisconnectFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
   update: ArrayTypeFieldRefsUpdateConnectionInput
-  where: ArrayTypeFieldRefsConnectionWhere
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 type ArrayTypeIBaseTypeItemTypeAggregationSelection {
@@ -3279,24 +3695,24 @@ input ArrayTypeWhere {
   fieldRefsAggregate: ArrayTypeFieldRefsAggregateInput
 
   """
-  Return ArrayTypes where all of the related ArrayTypeFieldRefsConnections match this filter
+  Return ArrayTypes where all of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_ALL: ArrayTypeFieldRefsConnectionWhere
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return ArrayTypes where none of the related ArrayTypeFieldRefsConnections match this filter
+  Return ArrayTypes where none of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_NONE: ArrayTypeFieldRefsConnectionWhere
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return ArrayTypes where one of the related ArrayTypeFieldRefsConnections match this filter
+  Return ArrayTypes where one of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_SINGLE: ArrayTypeFieldRefsConnectionWhere
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return ArrayTypes where some of the related ArrayTypeFieldRefsConnections match this filter
+  Return ArrayTypes where some of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_SOME: ArrayTypeFieldRefsConnectionWhere
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
 
   """
   Return ArrayTypes where all of the related Fields match this filter
@@ -6847,6 +7263,22 @@ enum CodeMirrorLanguage {
 Allows editing the value using a code mirror editor
 """
 type CodeMirrorType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): CodeMirrorTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   language: CodeMirrorLanguage!
@@ -6872,10 +7304,12 @@ type CodeMirrorTypeAggregateSelection {
 }
 
 input CodeMirrorTypeConnectInput {
+  fieldRefs: [CodeMirrorTypeFieldRefsConnectFieldInput!]
   owner: CodeMirrorTypeOwnerConnectFieldInput
 }
 
 input CodeMirrorTypeConnectOrCreateInput {
+  fieldRefs: [CodeMirrorTypeFieldRefsConnectOrCreateFieldInput!]
   owner: CodeMirrorTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -6884,10 +7318,12 @@ input CodeMirrorTypeConnectWhere {
 }
 
 type CodeMirrorTypeConnectedRelationships {
+  fieldRefs: CodeMirrorTypeFieldRefsConnectedRelationship
   owner: CodeMirrorTypeOwnerConnectedRelationship
 }
 
 input CodeMirrorTypeCreateInput {
+  fieldRefs: CodeMirrorTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = CodeMirrorType
   language: CodeMirrorLanguage!
@@ -6902,6 +7338,7 @@ type CodeMirrorTypeCreatedEvent {
 }
 
 input CodeMirrorTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -6912,6 +7349,7 @@ type CodeMirrorTypeDeletedEvent {
 }
 
 input CodeMirrorTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -6925,6 +7363,164 @@ type CodeMirrorTypeEventPayload implements IBaseTypeEventPayload {
   kind: TypeKind!
   language: CodeMirrorLanguage!
   name: String!
+}
+
+type CodeMirrorTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: CodeMirrorTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type CodeMirrorTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input CodeMirrorTypeFieldRefsAggregateInput {
+  AND: [CodeMirrorTypeFieldRefsAggregateInput!]
+  NOT: CodeMirrorTypeFieldRefsAggregateInput
+  OR: [CodeMirrorTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: CodeMirrorTypeFieldRefsNodeAggregationWhereInput
+}
+
+input CodeMirrorTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input CodeMirrorTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: CodeMirrorTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input CodeMirrorTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type CodeMirrorTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input CodeMirrorTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input CodeMirrorTypeFieldRefsFieldInput {
+  connect: [CodeMirrorTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [CodeMirrorTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [CodeMirrorTypeFieldRefsCreateFieldInput!]
+}
+
+input CodeMirrorTypeFieldRefsNodeAggregationWhereInput {
+  AND: [CodeMirrorTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: CodeMirrorTypeFieldRefsNodeAggregationWhereInput
+  OR: [CodeMirrorTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input CodeMirrorTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input CodeMirrorTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input CodeMirrorTypeFieldRefsUpdateFieldInput {
+  connect: [CodeMirrorTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [CodeMirrorTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [CodeMirrorTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: CodeMirrorTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input CodeMirrorTypeOptions {
@@ -7052,6 +7648,7 @@ input CodeMirrorTypeOwnerUpdateFieldInput {
 }
 
 input CodeMirrorTypeRelationInput {
+  fieldRefs: [CodeMirrorTypeFieldRefsCreateFieldInput!]
   owner: CodeMirrorTypeOwnerCreateFieldInput
 }
 
@@ -7088,6 +7685,7 @@ input CodeMirrorTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input CodeMirrorTypeRelationshipsSubscriptionWhere {
+  fieldRefs: CodeMirrorTypeFieldRefsRelationshipSubscriptionWhere
   owner: CodeMirrorTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -7123,6 +7721,7 @@ input CodeMirrorTypeSubscriptionWhere {
 }
 
 input CodeMirrorTypeUpdateInput {
+  fieldRefs: [CodeMirrorTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   language: CodeMirrorLanguage
@@ -7153,6 +7752,47 @@ input CodeMirrorTypeWhere {
   AND: [CodeMirrorTypeWhere!]
   NOT: CodeMirrorTypeWhere
   OR: [CodeMirrorTypeWhere!]
+  fieldRefsAggregate: CodeMirrorTypeFieldRefsAggregateInput
+
+  """
+  Return CodeMirrorTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return CodeMirrorTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return CodeMirrorTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return CodeMirrorTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return CodeMirrorTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return CodeMirrorTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return CodeMirrorTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return CodeMirrorTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -11332,6 +11972,22 @@ type ElementType implements IBaseType {
   Allows scoping the type of element to only descendants, children or all elements
   """
   elementKind: ElementTypeKind!
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): ElementTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -11356,10 +12012,12 @@ type ElementTypeAggregateSelection {
 }
 
 input ElementTypeConnectInput {
+  fieldRefs: [ElementTypeFieldRefsConnectFieldInput!]
   owner: ElementTypeOwnerConnectFieldInput
 }
 
 input ElementTypeConnectOrCreateInput {
+  fieldRefs: [ElementTypeFieldRefsConnectOrCreateFieldInput!]
   owner: ElementTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -11368,11 +12026,13 @@ input ElementTypeConnectWhere {
 }
 
 type ElementTypeConnectedRelationships {
+  fieldRefs: ElementTypeFieldRefsConnectedRelationship
   owner: ElementTypeOwnerConnectedRelationship
 }
 
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
+  fieldRefs: ElementTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = ElementType
   name: String!
@@ -11386,6 +12046,7 @@ type ElementTypeCreatedEvent {
 }
 
 input ElementTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -11396,6 +12057,7 @@ type ElementTypeDeletedEvent {
 }
 
 input ElementTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -11412,6 +12074,164 @@ type ElementTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type ElementTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: ElementTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type ElementTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input ElementTypeFieldRefsAggregateInput {
+  AND: [ElementTypeFieldRefsAggregateInput!]
+  NOT: ElementTypeFieldRefsAggregateInput
+  OR: [ElementTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementTypeFieldRefsNodeAggregationWhereInput
+}
+
+input ElementTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input ElementTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: ElementTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input ElementTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type ElementTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input ElementTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input ElementTypeFieldRefsFieldInput {
+  connect: [ElementTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ElementTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [ElementTypeFieldRefsCreateFieldInput!]
+}
+
+input ElementTypeFieldRefsNodeAggregationWhereInput {
+  AND: [ElementTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: ElementTypeFieldRefsNodeAggregationWhereInput
+  OR: [ElementTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input ElementTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input ElementTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input ElementTypeFieldRefsUpdateFieldInput {
+  connect: [ElementTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ElementTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [ElementTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: ElementTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 enum ElementTypeKind {
@@ -11546,6 +12366,7 @@ input ElementTypeOwnerUpdateFieldInput {
 }
 
 input ElementTypeRelationInput {
+  fieldRefs: [ElementTypeFieldRefsCreateFieldInput!]
   owner: ElementTypeOwnerCreateFieldInput
 }
 
@@ -11582,6 +12403,7 @@ input ElementTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input ElementTypeRelationshipsSubscriptionWhere {
+  fieldRefs: ElementTypeFieldRefsRelationshipSubscriptionWhere
   owner: ElementTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -11618,6 +12440,7 @@ input ElementTypeSubscriptionWhere {
 
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
+  fieldRefs: [ElementTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -11649,6 +12472,47 @@ input ElementTypeWhere {
   OR: [ElementTypeWhere!]
   elementKind: ElementTypeKind
   elementKind_IN: [ElementTypeKind!]
+  fieldRefsAggregate: ElementTypeFieldRefsAggregateInput
+
+  """
+  Return ElementTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ElementTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ElementTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ElementTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ElementTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return ElementTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return ElementTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return ElementTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -11855,9 +12719,9 @@ type EnumType implements IBaseType {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [EnumTypeFieldRefsConnectionSort!]
-    where: EnumTypeFieldRefsConnectionWhere
-  ): EnumTypeFieldRefsConnection!
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -12039,7 +12903,7 @@ type EnumTypeCreatedEvent {
 
 input EnumTypeDeleteInput {
   allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
-  fieldRefs: [EnumTypeFieldRefsDeleteFieldInput!]
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -12051,7 +12915,7 @@ type EnumTypeDeletedEvent {
 
 input EnumTypeDisconnectInput {
   allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
-  fieldRefs: [EnumTypeFieldRefsDisconnectFieldInput!]
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -12126,35 +12990,8 @@ type EnumTypeFieldRefsConnectedRelationship {
   node: FieldEventPayload!
 }
 
-type EnumTypeFieldRefsConnection {
-  edges: [EnumTypeFieldRefsRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input EnumTypeFieldRefsConnectionSort {
-  node: FieldSort
-}
-
-input EnumTypeFieldRefsConnectionWhere {
-  AND: [EnumTypeFieldRefsConnectionWhere!]
-  NOT: EnumTypeFieldRefsConnectionWhere
-  OR: [EnumTypeFieldRefsConnectionWhere!]
-  node: FieldWhere
-}
-
 input EnumTypeFieldRefsCreateFieldInput {
   node: FieldCreateInput!
-}
-
-input EnumTypeFieldRefsDeleteFieldInput {
-  delete: FieldDeleteInput
-  where: EnumTypeFieldRefsConnectionWhere
-}
-
-input EnumTypeFieldRefsDisconnectFieldInput {
-  disconnect: FieldDisconnectInput
-  where: EnumTypeFieldRefsConnectionWhere
 }
 
 input EnumTypeFieldRefsFieldInput {
@@ -12244,11 +13081,6 @@ input EnumTypeFieldRefsNodeAggregationWhereInput {
   validationRules_SHORTEST_LENGTH_LTE: Int
 }
 
-type EnumTypeFieldRefsRelationship {
-  cursor: String!
-  node: Field!
-}
-
 input EnumTypeFieldRefsRelationshipSubscriptionWhere {
   node: FieldSubscriptionWhere
 }
@@ -12261,10 +13093,10 @@ input EnumTypeFieldRefsUpdateFieldInput {
   connect: [EnumTypeFieldRefsConnectFieldInput!]
   connectOrCreate: [EnumTypeFieldRefsConnectOrCreateFieldInput!]
   create: [EnumTypeFieldRefsCreateFieldInput!]
-  delete: [EnumTypeFieldRefsDeleteFieldInput!]
-  disconnect: [EnumTypeFieldRefsDisconnectFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
   update: EnumTypeFieldRefsUpdateConnectionInput
-  where: EnumTypeFieldRefsConnectionWhere
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input EnumTypeOptions {
@@ -12863,24 +13695,24 @@ input EnumTypeWhere {
   fieldRefsAggregate: EnumTypeFieldRefsAggregateInput
 
   """
-  Return EnumTypes where all of the related EnumTypeFieldRefsConnections match this filter
+  Return EnumTypes where all of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_ALL: EnumTypeFieldRefsConnectionWhere
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return EnumTypes where none of the related EnumTypeFieldRefsConnections match this filter
+  Return EnumTypes where none of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_NONE: EnumTypeFieldRefsConnectionWhere
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return EnumTypes where one of the related EnumTypeFieldRefsConnections match this filter
+  Return EnumTypes where one of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_SINGLE: EnumTypeFieldRefsConnectionWhere
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return EnumTypes where some of the related EnumTypeFieldRefsConnections match this filter
+  Return EnumTypes where some of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_SOME: EnumTypeFieldRefsConnectionWhere
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
 
   """
   Return EnumTypes where all of the related Fields match this filter
@@ -14442,6 +15274,13 @@ type HooksConnection {
 }
 
 interface IBaseType {
+  fieldRefs(options: FieldOptions, where: FieldWhere): [Field!]!
+  fieldRefsConnection(
+    after: String
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -14461,6 +15300,7 @@ type IBaseTypeAggregateSelection {
 }
 
 input IBaseTypeConnectInput {
+  fieldRefs: [IBaseTypeFieldRefsConnectFieldInput!]
   owner: IBaseTypeOwnerConnectFieldInput
 }
 
@@ -14486,10 +15326,12 @@ input IBaseTypeCreateInput {
 }
 
 input IBaseTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input IBaseTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -14502,6 +15344,168 @@ interface IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+input IBaseTypeFieldRefsAggregateInput {
+  AND: [IBaseTypeFieldRefsAggregateInput!]
+  NOT: IBaseTypeFieldRefsAggregateInput
+  OR: [IBaseTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: IBaseTypeFieldRefsNodeAggregationWhereInput
+}
+
+input IBaseTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input IBaseTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: IBaseTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input IBaseTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type IBaseTypeFieldRefsConnection {
+  edges: [IBaseTypeFieldRefsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input IBaseTypeFieldRefsConnectionSort {
+  node: FieldSort
+}
+
+input IBaseTypeFieldRefsConnectionWhere {
+  AND: [IBaseTypeFieldRefsConnectionWhere!]
+  NOT: IBaseTypeFieldRefsConnectionWhere
+  OR: [IBaseTypeFieldRefsConnectionWhere!]
+  node: FieldWhere
+}
+
+input IBaseTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input IBaseTypeFieldRefsDeleteFieldInput {
+  delete: FieldDeleteInput
+  where: IBaseTypeFieldRefsConnectionWhere
+}
+
+input IBaseTypeFieldRefsDisconnectFieldInput {
+  disconnect: FieldDisconnectInput
+  where: IBaseTypeFieldRefsConnectionWhere
+}
+
+input IBaseTypeFieldRefsNodeAggregationWhereInput {
+  AND: [IBaseTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: IBaseTypeFieldRefsNodeAggregationWhereInput
+  OR: [IBaseTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+type IBaseTypeFieldRefsRelationship {
+  cursor: String!
+  node: Field!
+}
+
+input IBaseTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input IBaseTypeFieldRefsUpdateFieldInput {
+  connect: [IBaseTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [IBaseTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [IBaseTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: IBaseTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 enum IBaseTypeImplementation {
@@ -14693,6 +15697,7 @@ input IBaseTypeSubscriptionWhere {
 }
 
 input IBaseTypeUpdateInput {
+  fieldRefs: [IBaseTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -14703,6 +15708,47 @@ input IBaseTypeWhere {
   AND: [IBaseTypeWhere!]
   NOT: IBaseTypeWhere
   OR: [IBaseTypeWhere!]
+  fieldRefsAggregate: IBaseTypeFieldRefsAggregateInput
+
+  """
+  Return IBaseTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return IBaseTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return IBaseTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return IBaseTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return IBaseTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return IBaseTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return IBaseTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return IBaseTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -14769,9 +15815,9 @@ type InterfaceType implements IBaseType & WithDescendants {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [InterfaceTypeFieldRefsConnectionSort!]
-    where: InterfaceTypeFieldRefsConnectionWhere
-  ): InterfaceTypeFieldRefsConnection!
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   fields(
     directed: Boolean = true
     options: FieldOptions
@@ -15044,7 +16090,7 @@ type InterfaceTypeCreatedEvent {
 
 input InterfaceTypeDeleteInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
-  fieldRefs: [InterfaceTypeFieldRefsDeleteFieldInput!]
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
@@ -15057,7 +16103,7 @@ type InterfaceTypeDeletedEvent {
 
 input InterfaceTypeDisconnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
-  fieldRefs: [InterfaceTypeFieldRefsDisconnectFieldInput!]
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   fields: [InterfaceTypeFieldsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
@@ -15136,35 +16182,8 @@ type InterfaceTypeFieldRefsConnectedRelationship {
   node: FieldEventPayload!
 }
 
-type InterfaceTypeFieldRefsConnection {
-  edges: [InterfaceTypeFieldRefsRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input InterfaceTypeFieldRefsConnectionSort {
-  node: FieldSort
-}
-
-input InterfaceTypeFieldRefsConnectionWhere {
-  AND: [InterfaceTypeFieldRefsConnectionWhere!]
-  NOT: InterfaceTypeFieldRefsConnectionWhere
-  OR: [InterfaceTypeFieldRefsConnectionWhere!]
-  node: FieldWhere
-}
-
 input InterfaceTypeFieldRefsCreateFieldInput {
   node: FieldCreateInput!
-}
-
-input InterfaceTypeFieldRefsDeleteFieldInput {
-  delete: FieldDeleteInput
-  where: InterfaceTypeFieldRefsConnectionWhere
-}
-
-input InterfaceTypeFieldRefsDisconnectFieldInput {
-  disconnect: FieldDisconnectInput
-  where: InterfaceTypeFieldRefsConnectionWhere
 }
 
 input InterfaceTypeFieldRefsFieldInput {
@@ -15254,11 +16273,6 @@ input InterfaceTypeFieldRefsNodeAggregationWhereInput {
   validationRules_SHORTEST_LENGTH_LTE: Int
 }
 
-type InterfaceTypeFieldRefsRelationship {
-  cursor: String!
-  node: Field!
-}
-
 input InterfaceTypeFieldRefsRelationshipSubscriptionWhere {
   node: FieldSubscriptionWhere
 }
@@ -15271,10 +16285,10 @@ input InterfaceTypeFieldRefsUpdateFieldInput {
   connect: [InterfaceTypeFieldRefsConnectFieldInput!]
   connectOrCreate: [InterfaceTypeFieldRefsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldRefsCreateFieldInput!]
-  delete: [InterfaceTypeFieldRefsDeleteFieldInput!]
-  disconnect: [InterfaceTypeFieldRefsDisconnectFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
   update: InterfaceTypeFieldRefsUpdateConnectionInput
-  where: InterfaceTypeFieldRefsConnectionWhere
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input InterfaceTypeFieldsAggregateInput {
@@ -15728,24 +16742,24 @@ input InterfaceTypeWhere {
   fieldRefsAggregate: InterfaceTypeFieldRefsAggregateInput
 
   """
-  Return InterfaceTypes where all of the related InterfaceTypeFieldRefsConnections match this filter
+  Return InterfaceTypes where all of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_ALL: InterfaceTypeFieldRefsConnectionWhere
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return InterfaceTypes where none of the related InterfaceTypeFieldRefsConnections match this filter
+  Return InterfaceTypes where none of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_NONE: InterfaceTypeFieldRefsConnectionWhere
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return InterfaceTypes where one of the related InterfaceTypeFieldRefsConnections match this filter
+  Return InterfaceTypes where one of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_SINGLE: InterfaceTypeFieldRefsConnectionWhere
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
 
   """
-  Return InterfaceTypes where some of the related InterfaceTypeFieldRefsConnections match this filter
+  Return InterfaceTypes where some of the related IBaseTypeFieldRefsConnections match this filter
   """
-  fieldRefsConnection_SOME: InterfaceTypeFieldRefsConnectionWhere
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
 
   """
   Return InterfaceTypes where all of the related Fields match this filter
@@ -15837,6 +16851,22 @@ type InterfaceTypesConnection {
 Allows picking a lambda
 """
 type LambdaType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): LambdaTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -15861,10 +16891,12 @@ type LambdaTypeAggregateSelection {
 }
 
 input LambdaTypeConnectInput {
+  fieldRefs: [LambdaTypeFieldRefsConnectFieldInput!]
   owner: LambdaTypeOwnerConnectFieldInput
 }
 
 input LambdaTypeConnectOrCreateInput {
+  fieldRefs: [LambdaTypeFieldRefsConnectOrCreateFieldInput!]
   owner: LambdaTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -15873,10 +16905,12 @@ input LambdaTypeConnectWhere {
 }
 
 type LambdaTypeConnectedRelationships {
+  fieldRefs: LambdaTypeFieldRefsConnectedRelationship
   owner: LambdaTypeOwnerConnectedRelationship
 }
 
 input LambdaTypeCreateInput {
+  fieldRefs: LambdaTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = LambdaType
   name: String!
@@ -15890,6 +16924,7 @@ type LambdaTypeCreatedEvent {
 }
 
 input LambdaTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -15900,6 +16935,7 @@ type LambdaTypeDeletedEvent {
 }
 
 input LambdaTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -15912,6 +16948,164 @@ type LambdaTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type LambdaTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: LambdaTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type LambdaTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input LambdaTypeFieldRefsAggregateInput {
+  AND: [LambdaTypeFieldRefsAggregateInput!]
+  NOT: LambdaTypeFieldRefsAggregateInput
+  OR: [LambdaTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: LambdaTypeFieldRefsNodeAggregationWhereInput
+}
+
+input LambdaTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input LambdaTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: LambdaTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input LambdaTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type LambdaTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input LambdaTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input LambdaTypeFieldRefsFieldInput {
+  connect: [LambdaTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [LambdaTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [LambdaTypeFieldRefsCreateFieldInput!]
+}
+
+input LambdaTypeFieldRefsNodeAggregationWhereInput {
+  AND: [LambdaTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: LambdaTypeFieldRefsNodeAggregationWhereInput
+  OR: [LambdaTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input LambdaTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input LambdaTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input LambdaTypeFieldRefsUpdateFieldInput {
+  connect: [LambdaTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [LambdaTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [LambdaTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: LambdaTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input LambdaTypeOptions {
@@ -16039,6 +17233,7 @@ input LambdaTypeOwnerUpdateFieldInput {
 }
 
 input LambdaTypeRelationInput {
+  fieldRefs: [LambdaTypeFieldRefsCreateFieldInput!]
   owner: LambdaTypeOwnerCreateFieldInput
 }
 
@@ -16075,6 +17270,7 @@ input LambdaTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input LambdaTypeRelationshipsSubscriptionWhere {
+  fieldRefs: LambdaTypeFieldRefsRelationshipSubscriptionWhere
   owner: LambdaTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -16107,6 +17303,7 @@ input LambdaTypeSubscriptionWhere {
 }
 
 input LambdaTypeUpdateInput {
+  fieldRefs: [LambdaTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -16136,6 +17333,47 @@ input LambdaTypeWhere {
   AND: [LambdaTypeWhere!]
   NOT: LambdaTypeWhere
   OR: [LambdaTypeWhere!]
+  fieldRefsAggregate: LambdaTypeFieldRefsAggregateInput
+
+  """
+  Return LambdaTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return LambdaTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return LambdaTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return LambdaTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return LambdaTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return LambdaTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return LambdaTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return LambdaTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -17745,6 +18983,22 @@ input PageSubscriptionWhere {
 Allows picking a page from the list of pages
 """
 type PageType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): PageTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -17769,10 +19023,12 @@ type PageTypeAggregateSelection {
 }
 
 input PageTypeConnectInput {
+  fieldRefs: [PageTypeFieldRefsConnectFieldInput!]
   owner: PageTypeOwnerConnectFieldInput
 }
 
 input PageTypeConnectOrCreateInput {
+  fieldRefs: [PageTypeFieldRefsConnectOrCreateFieldInput!]
   owner: PageTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -17781,10 +19037,12 @@ input PageTypeConnectWhere {
 }
 
 type PageTypeConnectedRelationships {
+  fieldRefs: PageTypeFieldRefsConnectedRelationship
   owner: PageTypeOwnerConnectedRelationship
 }
 
 input PageTypeCreateInput {
+  fieldRefs: PageTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = PageType
   name: String!
@@ -17798,6 +19056,7 @@ type PageTypeCreatedEvent {
 }
 
 input PageTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -17808,6 +19067,7 @@ type PageTypeDeletedEvent {
 }
 
 input PageTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -17820,6 +19080,164 @@ type PageTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type PageTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: PageTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type PageTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input PageTypeFieldRefsAggregateInput {
+  AND: [PageTypeFieldRefsAggregateInput!]
+  NOT: PageTypeFieldRefsAggregateInput
+  OR: [PageTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageTypeFieldRefsNodeAggregationWhereInput
+}
+
+input PageTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input PageTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: PageTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input PageTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type PageTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input PageTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input PageTypeFieldRefsFieldInput {
+  connect: [PageTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [PageTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [PageTypeFieldRefsCreateFieldInput!]
+}
+
+input PageTypeFieldRefsNodeAggregationWhereInput {
+  AND: [PageTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: PageTypeFieldRefsNodeAggregationWhereInput
+  OR: [PageTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input PageTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input PageTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input PageTypeFieldRefsUpdateFieldInput {
+  connect: [PageTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [PageTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [PageTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: PageTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input PageTypeOptions {
@@ -17947,6 +19365,7 @@ input PageTypeOwnerUpdateFieldInput {
 }
 
 input PageTypeRelationInput {
+  fieldRefs: [PageTypeFieldRefsCreateFieldInput!]
   owner: PageTypeOwnerCreateFieldInput
 }
 
@@ -17983,6 +19402,7 @@ input PageTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input PageTypeRelationshipsSubscriptionWhere {
+  fieldRefs: PageTypeFieldRefsRelationshipSubscriptionWhere
   owner: PageTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -18015,6 +19435,7 @@ input PageTypeSubscriptionWhere {
 }
 
 input PageTypeUpdateInput {
+  fieldRefs: [PageTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -18044,6 +19465,47 @@ input PageTypeWhere {
   AND: [PageTypeWhere!]
   NOT: PageTypeWhere
   OR: [PageTypeWhere!]
+  fieldRefsAggregate: PageTypeFieldRefsAggregateInput
+
+  """
+  Return PageTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PageTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PageTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PageTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PageTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return PageTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return PageTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return PageTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -18538,6 +20000,22 @@ type PreferencesConnection {
 Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
 """
 type PrimitiveType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): PrimitiveTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -18563,10 +20041,12 @@ type PrimitiveTypeAggregateSelection {
 }
 
 input PrimitiveTypeConnectInput {
+  fieldRefs: [PrimitiveTypeFieldRefsConnectFieldInput!]
   owner: PrimitiveTypeOwnerConnectFieldInput
 }
 
 input PrimitiveTypeConnectOrCreateInput {
+  fieldRefs: [PrimitiveTypeFieldRefsConnectOrCreateFieldInput!]
   owner: PrimitiveTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -18579,10 +20059,12 @@ input PrimitiveTypeConnectWhere {
 }
 
 type PrimitiveTypeConnectedRelationships {
+  fieldRefs: PrimitiveTypeFieldRefsConnectedRelationship
   owner: PrimitiveTypeOwnerConnectedRelationship
 }
 
 input PrimitiveTypeCreateInput {
+  fieldRefs: PrimitiveTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = PrimitiveType
   name: String!
@@ -18597,6 +20079,7 @@ type PrimitiveTypeCreatedEvent {
 }
 
 input PrimitiveTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -18607,6 +20090,7 @@ type PrimitiveTypeDeletedEvent {
 }
 
 input PrimitiveTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -18620,6 +20104,164 @@ type PrimitiveTypeEventPayload implements IBaseTypeEventPayload {
   kind: TypeKind!
   name: String!
   primitiveKind: PrimitiveTypeKind!
+}
+
+type PrimitiveTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: PrimitiveTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type PrimitiveTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input PrimitiveTypeFieldRefsAggregateInput {
+  AND: [PrimitiveTypeFieldRefsAggregateInput!]
+  NOT: PrimitiveTypeFieldRefsAggregateInput
+  OR: [PrimitiveTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PrimitiveTypeFieldRefsNodeAggregationWhereInput
+}
+
+input PrimitiveTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input PrimitiveTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: PrimitiveTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input PrimitiveTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type PrimitiveTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input PrimitiveTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input PrimitiveTypeFieldRefsFieldInput {
+  connect: [PrimitiveTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [PrimitiveTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [PrimitiveTypeFieldRefsCreateFieldInput!]
+}
+
+input PrimitiveTypeFieldRefsNodeAggregationWhereInput {
+  AND: [PrimitiveTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: PrimitiveTypeFieldRefsNodeAggregationWhereInput
+  OR: [PrimitiveTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input PrimitiveTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input PrimitiveTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input PrimitiveTypeFieldRefsUpdateFieldInput {
+  connect: [PrimitiveTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [PrimitiveTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [PrimitiveTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: PrimitiveTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 enum PrimitiveTypeKind {
@@ -18761,6 +20403,7 @@ input PrimitiveTypeOwnerUpdateFieldInput {
 }
 
 input PrimitiveTypeRelationInput {
+  fieldRefs: [PrimitiveTypeFieldRefsCreateFieldInput!]
   owner: PrimitiveTypeOwnerCreateFieldInput
 }
 
@@ -18797,6 +20440,7 @@ input PrimitiveTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input PrimitiveTypeRelationshipsSubscriptionWhere {
+  fieldRefs: PrimitiveTypeFieldRefsRelationshipSubscriptionWhere
   owner: PrimitiveTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -18837,6 +20481,7 @@ input PrimitiveTypeUniqueWhere {
 }
 
 input PrimitiveTypeUpdateInput {
+  fieldRefs: [PrimitiveTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -18867,6 +20512,47 @@ input PrimitiveTypeWhere {
   AND: [PrimitiveTypeWhere!]
   NOT: PrimitiveTypeWhere
   OR: [PrimitiveTypeWhere!]
+  fieldRefsAggregate: PrimitiveTypeFieldRefsAggregateInput
+
+  """
+  Return PrimitiveTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PrimitiveTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PrimitiveTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PrimitiveTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return PrimitiveTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return PrimitiveTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return PrimitiveTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return PrimitiveTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -19461,6 +21147,22 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
 type ReactNodeType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): ReactNodeTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -19485,10 +21187,12 @@ type ReactNodeTypeAggregateSelection {
 }
 
 input ReactNodeTypeConnectInput {
+  fieldRefs: [ReactNodeTypeFieldRefsConnectFieldInput!]
   owner: ReactNodeTypeOwnerConnectFieldInput
 }
 
 input ReactNodeTypeConnectOrCreateInput {
+  fieldRefs: [ReactNodeTypeFieldRefsConnectOrCreateFieldInput!]
   owner: ReactNodeTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -19501,10 +21205,12 @@ input ReactNodeTypeConnectWhere {
 }
 
 type ReactNodeTypeConnectedRelationships {
+  fieldRefs: ReactNodeTypeFieldRefsConnectedRelationship
   owner: ReactNodeTypeOwnerConnectedRelationship
 }
 
 input ReactNodeTypeCreateInput {
+  fieldRefs: ReactNodeTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = ReactNodeType
   name: String!
@@ -19518,6 +21224,7 @@ type ReactNodeTypeCreatedEvent {
 }
 
 input ReactNodeTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -19528,6 +21235,7 @@ type ReactNodeTypeDeletedEvent {
 }
 
 input ReactNodeTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -19540,6 +21248,164 @@ type ReactNodeTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type ReactNodeTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: ReactNodeTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type ReactNodeTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input ReactNodeTypeFieldRefsAggregateInput {
+  AND: [ReactNodeTypeFieldRefsAggregateInput!]
+  NOT: ReactNodeTypeFieldRefsAggregateInput
+  OR: [ReactNodeTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ReactNodeTypeFieldRefsNodeAggregationWhereInput
+}
+
+input ReactNodeTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input ReactNodeTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: ReactNodeTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input ReactNodeTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type ReactNodeTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input ReactNodeTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input ReactNodeTypeFieldRefsFieldInput {
+  connect: [ReactNodeTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ReactNodeTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [ReactNodeTypeFieldRefsCreateFieldInput!]
+}
+
+input ReactNodeTypeFieldRefsNodeAggregationWhereInput {
+  AND: [ReactNodeTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: ReactNodeTypeFieldRefsNodeAggregationWhereInput
+  OR: [ReactNodeTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input ReactNodeTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input ReactNodeTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input ReactNodeTypeFieldRefsUpdateFieldInput {
+  connect: [ReactNodeTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ReactNodeTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [ReactNodeTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: ReactNodeTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input ReactNodeTypeOnCreateInput {
@@ -19673,6 +21539,7 @@ input ReactNodeTypeOwnerUpdateFieldInput {
 }
 
 input ReactNodeTypeRelationInput {
+  fieldRefs: [ReactNodeTypeFieldRefsCreateFieldInput!]
   owner: ReactNodeTypeOwnerCreateFieldInput
 }
 
@@ -19709,6 +21576,7 @@ input ReactNodeTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input ReactNodeTypeRelationshipsSubscriptionWhere {
+  fieldRefs: ReactNodeTypeFieldRefsRelationshipSubscriptionWhere
   owner: ReactNodeTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -19745,6 +21613,7 @@ input ReactNodeTypeUniqueWhere {
 }
 
 input ReactNodeTypeUpdateInput {
+  fieldRefs: [ReactNodeTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -19774,6 +21643,47 @@ input ReactNodeTypeWhere {
   AND: [ReactNodeTypeWhere!]
   NOT: ReactNodeTypeWhere
   OR: [ReactNodeTypeWhere!]
+  fieldRefsAggregate: ReactNodeTypeFieldRefsAggregateInput
+
+  """
+  Return ReactNodeTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ReactNodeTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ReactNodeTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ReactNodeTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return ReactNodeTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return ReactNodeTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return ReactNodeTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return ReactNodeTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -20527,6 +22437,22 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
 type RenderPropType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): RenderPropTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -20551,10 +22477,12 @@ type RenderPropTypeAggregateSelection {
 }
 
 input RenderPropTypeConnectInput {
+  fieldRefs: [RenderPropTypeFieldRefsConnectFieldInput!]
   owner: RenderPropTypeOwnerConnectFieldInput
 }
 
 input RenderPropTypeConnectOrCreateInput {
+  fieldRefs: [RenderPropTypeFieldRefsConnectOrCreateFieldInput!]
   owner: RenderPropTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -20567,10 +22495,12 @@ input RenderPropTypeConnectWhere {
 }
 
 type RenderPropTypeConnectedRelationships {
+  fieldRefs: RenderPropTypeFieldRefsConnectedRelationship
   owner: RenderPropTypeOwnerConnectedRelationship
 }
 
 input RenderPropTypeCreateInput {
+  fieldRefs: RenderPropTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = RenderPropType
   name: String!
@@ -20584,6 +22514,7 @@ type RenderPropTypeCreatedEvent {
 }
 
 input RenderPropTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -20594,6 +22525,7 @@ type RenderPropTypeDeletedEvent {
 }
 
 input RenderPropTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -20606,6 +22538,164 @@ type RenderPropTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type RenderPropTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: RenderPropTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type RenderPropTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input RenderPropTypeFieldRefsAggregateInput {
+  AND: [RenderPropTypeFieldRefsAggregateInput!]
+  NOT: RenderPropTypeFieldRefsAggregateInput
+  OR: [RenderPropTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: RenderPropTypeFieldRefsNodeAggregationWhereInput
+}
+
+input RenderPropTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input RenderPropTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: RenderPropTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input RenderPropTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type RenderPropTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input RenderPropTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input RenderPropTypeFieldRefsFieldInput {
+  connect: [RenderPropTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [RenderPropTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [RenderPropTypeFieldRefsCreateFieldInput!]
+}
+
+input RenderPropTypeFieldRefsNodeAggregationWhereInput {
+  AND: [RenderPropTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: RenderPropTypeFieldRefsNodeAggregationWhereInput
+  OR: [RenderPropTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input RenderPropTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input RenderPropTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input RenderPropTypeFieldRefsUpdateFieldInput {
+  connect: [RenderPropTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [RenderPropTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [RenderPropTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: RenderPropTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input RenderPropTypeOnCreateInput {
@@ -20739,6 +22829,7 @@ input RenderPropTypeOwnerUpdateFieldInput {
 }
 
 input RenderPropTypeRelationInput {
+  fieldRefs: [RenderPropTypeFieldRefsCreateFieldInput!]
   owner: RenderPropTypeOwnerCreateFieldInput
 }
 
@@ -20775,6 +22866,7 @@ input RenderPropTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input RenderPropTypeRelationshipsSubscriptionWhere {
+  fieldRefs: RenderPropTypeFieldRefsRelationshipSubscriptionWhere
   owner: RenderPropTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -20811,6 +22903,7 @@ input RenderPropTypeUniqueWhere {
 }
 
 input RenderPropTypeUpdateInput {
+  fieldRefs: [RenderPropTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -20840,6 +22933,47 @@ input RenderPropTypeWhere {
   AND: [RenderPropTypeWhere!]
   NOT: RenderPropTypeWhere
   OR: [RenderPropTypeWhere!]
+  fieldRefsAggregate: RenderPropTypeFieldRefsAggregateInput
+
+  """
+  Return RenderPropTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RenderPropTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RenderPropTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RenderPropTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RenderPropTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return RenderPropTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return RenderPropTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return RenderPropTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -21366,6 +23500,22 @@ type ResourcesConnection {
 Allows picking a app from the list of apps
 """
 type RichTextType implements IBaseType {
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): RichTextTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -21390,10 +23540,12 @@ type RichTextTypeAggregateSelection {
 }
 
 input RichTextTypeConnectInput {
+  fieldRefs: [RichTextTypeFieldRefsConnectFieldInput!]
   owner: RichTextTypeOwnerConnectFieldInput
 }
 
 input RichTextTypeConnectOrCreateInput {
+  fieldRefs: [RichTextTypeFieldRefsConnectOrCreateFieldInput!]
   owner: RichTextTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -21402,10 +23554,12 @@ input RichTextTypeConnectWhere {
 }
 
 type RichTextTypeConnectedRelationships {
+  fieldRefs: RichTextTypeFieldRefsConnectedRelationship
   owner: RichTextTypeOwnerConnectedRelationship
 }
 
 input RichTextTypeCreateInput {
+  fieldRefs: RichTextTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = RichTextType
   name: String!
@@ -21419,6 +23573,7 @@ type RichTextTypeCreatedEvent {
 }
 
 input RichTextTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
@@ -21429,6 +23584,7 @@ type RichTextTypeDeletedEvent {
 }
 
 input RichTextTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -21441,6 +23597,164 @@ type RichTextTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type RichTextTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: RichTextTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type RichTextTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input RichTextTypeFieldRefsAggregateInput {
+  AND: [RichTextTypeFieldRefsAggregateInput!]
+  NOT: RichTextTypeFieldRefsAggregateInput
+  OR: [RichTextTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: RichTextTypeFieldRefsNodeAggregationWhereInput
+}
+
+input RichTextTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input RichTextTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: RichTextTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input RichTextTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type RichTextTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input RichTextTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input RichTextTypeFieldRefsFieldInput {
+  connect: [RichTextTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [RichTextTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [RichTextTypeFieldRefsCreateFieldInput!]
+}
+
+input RichTextTypeFieldRefsNodeAggregationWhereInput {
+  AND: [RichTextTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: RichTextTypeFieldRefsNodeAggregationWhereInput
+  OR: [RichTextTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input RichTextTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input RichTextTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input RichTextTypeFieldRefsUpdateFieldInput {
+  connect: [RichTextTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [RichTextTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [RichTextTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: RichTextTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input RichTextTypeOptions {
@@ -21568,6 +23882,7 @@ input RichTextTypeOwnerUpdateFieldInput {
 }
 
 input RichTextTypeRelationInput {
+  fieldRefs: [RichTextTypeFieldRefsCreateFieldInput!]
   owner: RichTextTypeOwnerCreateFieldInput
 }
 
@@ -21604,6 +23919,7 @@ input RichTextTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input RichTextTypeRelationshipsSubscriptionWhere {
+  fieldRefs: RichTextTypeFieldRefsRelationshipSubscriptionWhere
   owner: RichTextTypeOwnerRelationshipSubscriptionWhere
 }
 
@@ -21636,6 +23952,7 @@ input RichTextTypeSubscriptionWhere {
 }
 
 input RichTextTypeUpdateInput {
+  fieldRefs: [RichTextTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -21665,6 +23982,47 @@ input RichTextTypeWhere {
   AND: [RichTextTypeWhere!]
   NOT: RichTextTypeWhere
   OR: [RichTextTypeWhere!]
+  fieldRefsAggregate: RichTextTypeFieldRefsAggregateInput
+
+  """
+  Return RichTextTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RichTextTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RichTextTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RichTextTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return RichTextTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return RichTextTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return RichTextTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return RichTextTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -23681,6 +26039,22 @@ Allows picking one of a set of types
 """
 type UnionType implements IBaseType & WithDescendants {
   descendantTypesIds: [ID!]!
+  fieldRefs(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): [Field!]!
+  fieldRefsAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): UnionTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [IBaseTypeFieldRefsConnectionSort!]
+    where: IBaseTypeFieldRefsConnectionWhere
+  ): IBaseTypeFieldRefsConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -23716,11 +26090,13 @@ type UnionTypeAggregateSelection {
 }
 
 input UnionTypeConnectInput {
+  fieldRefs: [UnionTypeFieldRefsConnectFieldInput!]
   owner: UnionTypeOwnerConnectFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeConnectInput
 }
 
 input UnionTypeConnectOrCreateInput {
+  fieldRefs: [UnionTypeFieldRefsConnectOrCreateFieldInput!]
   owner: UnionTypeOwnerConnectOrCreateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeConnectOrCreateInput
 }
@@ -23734,11 +26110,13 @@ input UnionTypeConnectWhere {
 }
 
 type UnionTypeConnectedRelationships {
+  fieldRefs: UnionTypeFieldRefsConnectedRelationship
   owner: UnionTypeOwnerConnectedRelationship
   typesOfUnionType: UnionTypeTypesOfUnionTypeConnectedRelationship
 }
 
 input UnionTypeCreateInput {
+  fieldRefs: UnionTypeFieldRefsFieldInput
   id: ID!
   kind: TypeKind! = UnionType
   name: String!
@@ -23753,6 +26131,7 @@ type UnionTypeCreatedEvent {
 }
 
 input UnionTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeDeleteInput
 }
@@ -23764,6 +26143,7 @@ type UnionTypeDeletedEvent {
 }
 
 input UnionTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
   owner: IBaseTypeOwnerDisconnectFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeDisconnectInput
 }
@@ -23777,6 +26157,164 @@ type UnionTypeEventPayload implements IBaseTypeEventPayload {
   id: ID!
   kind: TypeKind!
   name: String!
+}
+
+type UnionTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: UnionTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type UnionTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection!
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input UnionTypeFieldRefsAggregateInput {
+  AND: [UnionTypeFieldRefsAggregateInput!]
+  NOT: UnionTypeFieldRefsAggregateInput
+  OR: [UnionTypeFieldRefsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UnionTypeFieldRefsNodeAggregationWhereInput
+}
+
+input UnionTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+input UnionTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: UnionTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input UnionTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
+type UnionTypeFieldRefsConnectedRelationship {
+  node: FieldEventPayload!
+}
+
+input UnionTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input UnionTypeFieldRefsFieldInput {
+  connect: [UnionTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [UnionTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [UnionTypeFieldRefsCreateFieldInput!]
+}
+
+input UnionTypeFieldRefsNodeAggregationWhereInput {
+  AND: [UnionTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: UnionTypeFieldRefsNodeAggregationWhereInput
+  OR: [UnionTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input UnionTypeFieldRefsRelationshipSubscriptionWhere {
+  node: FieldSubscriptionWhere
+}
+
+input UnionTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input UnionTypeFieldRefsUpdateFieldInput {
+  connect: [UnionTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [UnionTypeFieldRefsConnectOrCreateFieldInput!]
+  create: [UnionTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: UnionTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
 }
 
 input UnionTypeOnCreateInput {
@@ -23910,6 +26448,7 @@ input UnionTypeOwnerUpdateFieldInput {
 }
 
 input UnionTypeRelationInput {
+  fieldRefs: [UnionTypeFieldRefsCreateFieldInput!]
   owner: UnionTypeOwnerCreateFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeCreateFieldInput
 }
@@ -23947,6 +26486,7 @@ input UnionTypeRelationshipDeletedSubscriptionWhere {
 }
 
 input UnionTypeRelationshipsSubscriptionWhere {
+  fieldRefs: UnionTypeFieldRefsRelationshipSubscriptionWhere
   owner: UnionTypeOwnerRelationshipSubscriptionWhere
   typesOfUnionType: UnionTypeTypesOfUnionTypeRelationshipSubscriptionWhere
 }
@@ -24870,6 +27410,7 @@ input UnionTypeUniqueWhere {
 }
 
 input UnionTypeUpdateInput {
+  fieldRefs: [UnionTypeFieldRefsUpdateFieldInput!]
   id: ID
   kind: TypeKind
   name: String
@@ -24900,6 +27441,47 @@ input UnionTypeWhere {
   AND: [UnionTypeWhere!]
   NOT: UnionTypeWhere
   OR: [UnionTypeWhere!]
+  fieldRefsAggregate: UnionTypeFieldRefsAggregateInput
+
+  """
+  Return UnionTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return UnionTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return UnionTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return UnionTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return UnionTypes where all of the related Fields match this filter
+  """
+  fieldRefs_ALL: FieldWhere
+
+  """
+  Return UnionTypes where none of the related Fields match this filter
+  """
+  fieldRefs_NONE: FieldWhere
+
+  """
+  Return UnionTypes where one of the related Fields match this filter
+  """
+  fieldRefs_SINGLE: FieldWhere
+
+  """
+  Return UnionTypes where some of the related Fields match this filter
+  """
+  fieldRefs_SOME: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

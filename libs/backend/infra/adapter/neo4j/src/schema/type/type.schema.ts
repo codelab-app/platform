@@ -61,9 +61,10 @@ export const typeSchema = gql`
     # Disable @settable so we get a discriminated union
     kind: TypeKind!
     name: String!
-    # fields: [Field!]! @relationship(type: "FIELD_TYPE", direction: OUT)
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
     owner: User! @declareRelationship
+    # This means the type is used by a field
+    fieldRefs: [Field!]! @declareRelationship
   }
 
   interface WithDescendants {
@@ -80,6 +81,7 @@ export const typeSchema = gql`
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   enum PrimitiveTypeKind {
@@ -116,6 +118,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     descendantTypesIds: [ID!]! @customResolver(requires: "id")
     typesOfUnionType: [AnyType!]!
       @relationship(
@@ -164,6 +167,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ElementType)
     name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -186,6 +190,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: RenderPropType)
     name: String! @unique
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   """
@@ -203,6 +208,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ReactNodeType)
     name: String! @unique
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   ${elementTypeTypeKindSchema}
@@ -242,6 +248,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: LambdaType)
     name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   """
@@ -252,6 +259,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: PageType)
     name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   """
@@ -262,6 +270,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: AppType)
     name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   """
@@ -272,6 +281,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: RichTextType)
     name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   """
@@ -282,6 +292,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ActionType)
     name: String! @unique
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
   """
@@ -292,6 +303,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: CodeMirrorType)
     name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     language: CodeMirrorLanguage!
   }
 

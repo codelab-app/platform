@@ -13,6 +13,7 @@ import {
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain-old'
+import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -24,9 +25,8 @@ export class FieldRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
     super(validationService, loggerService)
   }
@@ -72,6 +72,10 @@ export class FieldRepository extends AbstractRepository<
     { api, fieldType, id, ...field }: IFieldDto,
     where: FieldWhere,
   ) {
+    cLog({
+      fieldType: reconnectNodeId(fieldType.id),
+    })
+
     return (
       await (
         await this.ogmService.Field

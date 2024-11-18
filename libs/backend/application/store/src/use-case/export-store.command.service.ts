@@ -30,11 +30,12 @@ export class ExportStoreHandler
 
     // put actions that are referenced from another action via field successAction or errorAction first
     // so that they are imported before the actions that reference them
-    const actions = store.actions.sort((a) => {
-      return a.type === IActionKind.ApiAction &&
-        ((a as ApiAction).successAction || (a as ApiAction).errorAction)
-        ? 1
-        : -1
+    const actions = store.actions.sort((action) => {
+      if (action.__typename === IActionKind.ApiAction) {
+        return action.successAction || action.errorAction ? 1 : -1
+      }
+
+      return -1
     })
 
     return {
