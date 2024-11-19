@@ -1,6 +1,9 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 
-import queryString from 'query-string'
+// playwright currently imports PageType in tests, and the "query-string"
+// is a ESM module that fails to be imported by playwright in CJS environment.
+// importing queryString here breaks all E2E tests. Commenting out until no solution.
+// import queryString from 'query-string'
 
 import type {
   PageContextParams,
@@ -33,10 +36,15 @@ export const PageType = {
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
   AtomUpdate: ({ id }: IRef, queryParams?: Partial<UrlQueryParams>) => {
-    return queryString.stringifyUrl({
-      query: queryParams,
-      url: `${PageType.Atoms()}/update/${id}`,
-    })
+    // return queryString.stringifyUrl({
+    //   query: queryParams,
+    //   url: `${PageType.Atoms()}/update/${id}`,
+    // })
+
+    const url = `${PageType.Atoms()}/update/${id}`
+    const params = new URLSearchParams(queryParams as URLSearchParams)
+
+    return `${url}?${params}`
   },
   AuthGuards: () => '/auth-guards',
   ComponentBuilder: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>

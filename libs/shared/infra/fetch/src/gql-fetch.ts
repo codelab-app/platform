@@ -1,14 +1,15 @@
 'use server'
 
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type {
+  NextFetchOptions,
+  ObjectLike,
+} from '@codelab/shared/abstract/types'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 import { getEnv } from '@codelab/shared/config'
 import { cLog } from '@codelab/shared/utils'
 import { withServerActionInstrumentation } from '@sentry/nextjs'
 import { revalidateTag } from 'next/cache'
-
-import type { NextFetchOptions } from './options'
 
 import { fetchWithAuth } from './fetch-with-auth'
 

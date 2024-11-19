@@ -11,6 +11,7 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import { type IComponentModel } from '@codelab/frontend/abstract/domain'
+import { useHydrateStore } from '@codelab/frontend/infra/context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
@@ -34,6 +35,7 @@ export const useComponentService = (): IComponentService => {
   const { atomDomainService, componentDomainService, userDomainService } =
     useDomainStore()
 
+  const hydrate = useHydrateStore()
   const elementService = useElementService()
   const owner = userDomainService.user
 
@@ -48,12 +50,20 @@ export const useComponentService = (): IComponentService => {
       atomDomainService.defaultRenderType,
     )
 
+    hydrate({
+      componentsDto: [component.component],
+      elementsDto: [component.rootElement],
+      storesDto: [component.store],
+      typesDto: [component.api, storeApi],
+    })
+
     await typeRepository.add(component.api)
     await typeRepository.add(storeApi)
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
+    await componentRepository.add(component.component)
 
-    return await componentRepository.add(component.component)
+    return componentDomainService.component(data.id)
   }
 
   const removeMany = async (components: Array<IComponentModel>) => {

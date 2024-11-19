@@ -1,15 +1,9 @@
-import type {
-  IAtomModel,
-  IAtomRepository,
-} from '@codelab/frontend/abstract/domain'
+import type { IAtomRepository } from '@codelab/frontend/abstract/domain'
 import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/infra/fetch'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type {
-  AtomCreateInput,
-  AtomDeleteInput,
   AtomOptions,
   AtomUniqueWhere,
-  AtomUpdateInput,
   AtomWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -68,7 +62,10 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   },
 
   getSelectAtomOptions: async () => {
-    const { atoms } = await GetSelectAtomOptions({})
+    const { atoms } = await GetSelectAtomOptions(
+      {},
+      { tags: [CACHE_TAGS.ATOM_LIST] },
+    )
 
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),

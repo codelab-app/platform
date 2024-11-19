@@ -48,11 +48,13 @@ export const usePropService = (): IPropService => {
       filteredData,
     )
 
-    return await update({
+    props.writeCache({
       ...props.toJson,
       data: JSON.stringify(mergedWithDefaultValues),
       id,
     })
+
+    return await update(props.toJson)
   }
 
   return {

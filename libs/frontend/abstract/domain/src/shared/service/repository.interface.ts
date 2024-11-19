@@ -1,4 +1,5 @@
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 
 /**
  * We have a repository for the frontend and the backend. The frontend repository should handle nested creates and updates. Since frontend API calls are more costly, we want to be able to update a graph of data in a single call
@@ -15,14 +16,18 @@ export interface IRepository<
   Where extends { id?: number | string | null },
   Option extends { limit?: number | null; offset?: number | null },
 > {
-  add(dto: Dto): Promise<IRef>
+  add(dto: Dto, options?: NextFetchOptions): Promise<IRef>
   delete(where: Array<IRef>): Promise<number>
   find(where?: Where, options?: Option): Promise<IFindResults<ModelFragment>>
   findOne(where: Where): Promise<ModelFragment | undefined>
   /**
    * Considered using only dto, but for backend sometimes we upsert by name
    */
-  update(where: IRef, dto: Partial<Dto>): Promise<IRef>
+  update(
+    where: IRef,
+    dto: Partial<Dto>,
+    options?: NextFetchOptions,
+  ): Promise<IRef>
 }
 
 export interface IFindResults<ModelFragment> {

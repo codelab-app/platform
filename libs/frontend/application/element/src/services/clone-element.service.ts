@@ -4,18 +4,8 @@ import type {
   IComponentService,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentCreateResults,
-  IComponentModel,
-  IElementModel,
-  IStoreModel,
-} from '@codelab/frontend/abstract/domain'
-import type {
-  IComponentDto,
-  IElementDto,
-  IPropDto,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementDto, IPropDto, IRef } from '@codelab/shared/abstract/core'
 
 import {
   isRuntimeElement,
@@ -52,7 +42,7 @@ export const useCloneElementService = ({
   builderService,
   componentService,
 }: ICloneElementProps): ICloneElementService => {
-  const { rendererService, runtimeElementService } = useApplicationStore()
+  const { rendererService } = useApplicationStore()
   const { elementDomainService, userDomainService } = useDomainStore()
   const actionService = useActionService()
   const elementService = useElementService()
@@ -113,17 +103,16 @@ export const useCloneElementService = ({
       id: v4(),
       name,
       owner,
-      rootElement: { id: element.id },
     })
 
     await cloneElementStore(
       element,
       createdComponent.store,
-      createdComponent.store,
+      createdComponent.store.current.api,
     )
     element.detachFromTree()
     // TODO: Refactor to non-optimistic
-    // element.attachAsFirstChild(createdComponent.rootElement.current)
+    element.attachAsFirstChild(createdComponent.rootElement.current)
     element.setParentComponent(componentRef(createdComponent.id))
 
     await elementService.syncModifiedElements()

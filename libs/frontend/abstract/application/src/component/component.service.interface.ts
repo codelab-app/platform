@@ -1,9 +1,5 @@
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type {
-  IComponentCreateResults,
-  IComponentModel,
-} from '@codelab/frontend/abstract/domain'
-import type {
-  IComponentDto,
   ICreateComponentData,
   IRef,
   IUpdateComponentData,
@@ -24,7 +20,7 @@ import type {
 export interface IComponentService
   extends Overwrite<
       ICrudService<IRef, ICreateComponentData, IUpdateComponentData>,
-      { create(data: ICreateComponentData): Promise<IComponentCreateResults> }
+      { create(data: ICreateComponentData): Promise<IComponentModel> }
     >,
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
     IPaginateable<IComponentModel> {
