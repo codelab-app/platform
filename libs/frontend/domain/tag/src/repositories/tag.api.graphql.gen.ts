@@ -2,10 +2,7 @@ import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
 import { gqlFetch } from '@codelab/shared/infra/fetch'
-import {
-  TagFragmentDoc,
-  TagPreviewFragmentDoc,
-} from '@codelab/shared/infra/gql'
+import { TagFragmentDoc } from '@codelab/shared/infra/gql'
 
 import {
   type CreateTagsMutationVariables,

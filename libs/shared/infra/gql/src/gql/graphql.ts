@@ -27239,7 +27239,7 @@ export type AtomFragment = {
   api: InterfaceTypeFragment
   requiredParents: Array<{ id: string; name: string; type: AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
-  tags: Array<TagFragment>
+  tags: Array<TagPreviewFragment>
   owner: { id: string }
 }
 
@@ -32401,32 +32401,6 @@ fragment Owner on User {
 }`,
   { fragmentName: 'AppProduction' },
 ) as unknown as TypedDocumentString<AppProductionFragment, unknown>
-export const TagFragmentDoc = new TypedDocumentString(
-  `
-    fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
-  id
-  name
-  owner {
-    id
-  }
-  parent {
-    id
-  }
-}
-    `,
-  { fragmentName: 'Tag' },
-) as unknown as TypedDocumentString<TagFragment, unknown>
 export const AtomFragmentDoc = new TypedDocumentString(
   `
     fragment Atom on Atom {
@@ -32451,31 +32425,17 @@ export const AtomFragmentDoc = new TypedDocumentString(
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
     id
   }
 }
-    fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+    fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
@@ -33242,6 +33202,32 @@ fragment Resource on Resource {
 }`,
   { fragmentName: 'ProductionStore' },
 ) as unknown as TypedDocumentString<ProductionStoreFragment, unknown>
+export const TagFragmentDoc = new TypedDocumentString(
+  `
+    fragment Tag on Tag {
+  children {
+    id
+    name
+    owner {
+      id
+    }
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    id
+  }
+  parent {
+    id
+  }
+}
+    `,
+  { fragmentName: 'Tag' },
+) as unknown as TypedDocumentString<TagFragment, unknown>
 export const PreferenceFragmentDoc = new TypedDocumentString(
   `
     fragment Preference on Preference {
@@ -39361,31 +39347,17 @@ export const AtomListDocument = new TypedDocumentString(`
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
     id
   }
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }

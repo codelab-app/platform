@@ -34,7 +34,7 @@ const documents = {
     types.AppBuilderFragmentDoc,
   '\n  fragment AppProduction on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }\n    ) {\n      ...PageProduction\n    }\n    slug\n  }\n':
     types.AppProductionFragmentDoc,
-  '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n':
+  '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n':
     types.AtomFragmentDoc,
   '\n  fragment AtomBuilder on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n':
     types.AtomBuilderFragmentDoc,
@@ -476,8 +476,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n',
-): (typeof documents)['\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n']
+  source: '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

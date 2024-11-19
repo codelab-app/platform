@@ -20,7 +20,7 @@ fragment Atom on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
