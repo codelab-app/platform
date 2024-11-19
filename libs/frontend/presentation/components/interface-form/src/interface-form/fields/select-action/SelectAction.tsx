@@ -9,6 +9,7 @@ import type {
 } from '@codelab/shared/abstract/types'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectActionProps = Pick<
@@ -25,8 +26,9 @@ export const SelectAction = ({
   selectedNode,
   ...fieldProps
 }: SelectActionProps) => {
+  const formContext = useFormContext()
   const { actionDomainService } = useDomainStore()
-  const runtimeStore = selectedNode?.runtimeStore
+  const runtimeStore = (selectedNode ?? formContext.selectedNode)?.runtimeStore
   const store = runtimeStore?.store.current
 
   const providerStore =
