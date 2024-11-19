@@ -17,7 +17,7 @@ import {
   DeleteFields,
   GetFields,
   UpdateFields,
-} from './field.api.graphql.gen'
+} from './field.api.graphql.web.gen'
 
 export const fieldRepository: IFieldRepository = {
   add: async (field: IFieldDto) => {

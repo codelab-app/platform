@@ -37,7 +37,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         (0, auto_bind_1.default)(this);
         this._additionalImports = [
             "import { graphql } from '@codelab/shared/infra/gql'",
-            "import { gqlFetch } from '@codelab/shared/infra/fetch'",
+            "import { gqlRequest } from '@codelab/shared/infra/fetch'",
         ];
         this._externalImportPrefix = this.config.importOperationTypesFrom
             ? `${this.config.importOperationTypesFrom}`
@@ -98,9 +98,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         const imports = [
             `import { ${typeImports} } from '${this._externalImportPrefix}'`,
             // Here we import the generated documents to use with our operations
-            `import { ${documentImports} } from './${this._outputFile
-                ?.replace('.api.', '.api.documents.')
-                .replace('.ts', '')}'`,
+            `import { ${documentImports} } from './${this._outputFile?.replace('.api.gen.ts', '.docs.gen')}'`,
             // ...this._additionalImports,
         ];
         const graphqlOperations = this._operationsToInclude.map((o) => {
@@ -109,14 +107,15 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
                 throw new Error('Missing operation name');
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-            // server actions must be exported individually
-            return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig & { revalidateTag?: string }) =>
-  gqlFetch(${o.documentVariableName}.toString(), variables, next)`;
+            return `${pascalCaseName}: (variables: ${o.operationVariablesTypes}) =>
+        gqlRequest(${o.documentVariableName}.toString(), variables)`;
         });
         return `
       ${imports.join('\n')}
 
-      ${graphqlOperations.join('\n\n')}`;
+      export const getSdk = () => ({
+        ${graphqlOperations.join(',\n')}
+      })`;
     }
 }
 exports.GraphQLRequestVisitor = GraphQLRequestVisitor;

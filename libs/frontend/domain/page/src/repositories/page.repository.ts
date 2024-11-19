@@ -21,7 +21,7 @@ import {
   DeletePages,
   PageList,
   UpdatePages,
-} from './page.api.graphql.gen'
+} from './page.api.graphql.web.gen'
 
 export const pageRepository: IPageRepository = {
   add: async (input: IPageDto) => {

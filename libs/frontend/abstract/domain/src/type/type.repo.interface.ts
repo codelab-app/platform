@@ -15,10 +15,7 @@ export interface ITypeRepository
     IBaseTypeWhere,
     IBaseTypeOptions
   > {
-  findBaseTypes({
-    options,
-    where,
-  }?: {
+  findBaseTypes(params?: {
     where: IBaseTypeWhere
     options: IBaseTypeOptions
   }): Promise<{

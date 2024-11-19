@@ -1,4 +1,4 @@
-import type { DomainDeletedSubscription } from '../graphql/domain.subscription.graphql.gen'
+import type { DomainDeletedSubscription } from '../graphql/domain.subscription.graphql.api.gen'
 
 export const DOMAIN_DELETED_EVENT = 'domain.deleted'
 

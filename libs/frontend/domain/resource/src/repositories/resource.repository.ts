@@ -18,7 +18,7 @@ import {
   DeleteResources,
   ResourceList,
   UpdateResource,
-} from './resource.api.graphql.gen'
+} from './resource.api.graphql.web.gen'
 
 export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceDto) => {

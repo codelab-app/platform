@@ -18,7 +18,7 @@ import {
   DeletePreferences,
   GetPreferences,
   UpdatePreferences,
-} from './preference.api.graphql.gen'
+} from './preference.api.graphql.web.gen'
 
 export const preferenceRepository: IPreferenceRepository = {
   add: async (preference: IPreferenceDto) => {

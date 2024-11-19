@@ -9,7 +9,7 @@ import type {
   DomainCreatedSubscription,
   DomainDeletedSubscription,
   DomainUpdatedSubscription,
-} from '../graphql/domain.subscription.graphql.gen'
+} from '../graphql/domain.subscription.graphql.api.gen'
 
 import {
   DOMAIN_CREATED_EVENT,
@@ -27,7 +27,7 @@ import {
   DomainCreatedDocument,
   DomainDeletedDocument,
   DomainUpdatedDocument,
-} from '../graphql/domain.subscription.graphql.gen'
+} from '../graphql/domain.subscription.graphql.api.gen'
 
 @Injectable()
 export class RegisterDomainListener implements BeforeApplicationShutdown {

@@ -1,2 +1,2 @@
-export * from './atom.api.documents.graphql.gen'
+export * from './atom.api.graphql.docs.gen'
 export * from './atoms'

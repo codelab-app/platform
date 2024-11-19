@@ -29,7 +29,7 @@ import {
   CreateRenderPropTypes,
   CreateRichTextTypes,
   CreateUnionTypes,
-} from './create-type.api.graphql.gen'
+} from './create-type.api.graphql.web.gen'
 import {
   DeleteActionTypes,
   DeleteAppTypes,
@@ -45,8 +45,8 @@ import {
   DeleteRenderPropTypes,
   DeleteRichTextTypes,
   DeleteUnionTypes,
-} from './delete-type.api.graphql.gen'
-import { GetTypes } from './get-type.api.graphql.gen'
+} from './delete-type.api.graphql.web.gen'
+import { GetTypes } from './get-type.api.graphql.web.gen'
 import {
   UpdateActionTypes,
   UpdateAppTypes,
@@ -62,7 +62,7 @@ import {
   UpdateRenderPropTypes,
   UpdateRichTextTypes,
   UpdateUnionTypes,
-} from './update-type.api.graphql.gen'
+} from './update-type.api.graphql.web.gen'
 
 // Neo4j provides us with a way to query/mutate each individual type but not all of them at once.
 // so here are a collection of helper functions that allow us to universally query/mutate a type, based on its type kind

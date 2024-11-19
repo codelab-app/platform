@@ -3,47 +3,17 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/external/codelab-codegen/typescript-fetch/src",
   "projectType": "library",
-  "release": {
-    "version": {
-      "generatorOptions": {
-        "packageRoot": "dist/{projectRoot}",
-        "currentVersionResolver": "git-tag"
-      }
-    }
-  },
-  "tags": [
-    "projectName:codelab-codegen-typescript-fetch",
-    "projectType:library",
-    "type:concrete"
-  ],
+  "tags": ["scope:shared"],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/external/codelab-codegen/typescript-fetch",
-        "tsConfig": "libs/external/codelab-codegen/typescript-fetch/tsconfig.lib.json",
-        "packageJson": "libs/external/codelab-codegen/typescript-fetch/package.json",
         "main": "libs/external/codelab-codegen/typescript-fetch/src/index.ts",
+        "tsConfig": "libs/external/codelab-codegen/typescript-fetch/tsconfig.lib.json",
         "assets": ["libs/external/codelab-codegen/typescript-fetch/*.md"]
       }
-    },
-    "nx-release-publish": {
-      "options": {
-        "packageRoot": "dist/{projectRoot}"
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/external/codelab-codegen/typescript-fetch/jest.config.ts",
-        "runInBand": true,
-        "reporters": ["default"]
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

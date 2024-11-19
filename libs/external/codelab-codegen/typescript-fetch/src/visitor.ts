@@ -59,7 +59,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
 
     this._additionalImports = [
       "import { graphql } from '@codelab/shared/infra/gql'",
-      "import { gqlFetch } from '@codelab/shared/infra/fetch'",
+      "import { gqlRequest } from '@codelab/shared/infra/fetch'",
     ]
 
     this._externalImportPrefix = this.config.importOperationTypesFrom
@@ -153,9 +153,10 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     const imports = [
       `import { ${typeImports} } from '${this._externalImportPrefix}'`,
       // Here we import the generated documents to use with our operations
-      `import { ${documentImports} } from './${this._outputFile
-        ?.replace('.api.', '.api.documents.')
-        .replace('.ts', '')}'`,
+      `import { ${documentImports} } from './${this._outputFile?.replace(
+        '.api.gen.ts',
+        '.docs.gen',
+      )}'`,
       // ...this._additionalImports,
     ]
 
@@ -169,14 +170,15 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       const pascalCaseName =
         operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
-      // server actions must be exported individually
-      return `export const ${pascalCaseName} = (variables: ${o.operationVariablesTypes}, next?: NextFetchRequestConfig & { revalidateTag?: string }) =>
-  gqlFetch(${o.documentVariableName}.toString(), variables, next)`
+      return `${pascalCaseName}: (variables: ${o.operationVariablesTypes}) =>
+        gqlRequest(${o.documentVariableName}.toString(), variables)`
     })
 
     return `
       ${imports.join('\n')}
 
-      ${graphqlOperations.join('\n\n')}`
+      export const getSdk = () => ({
+        ${graphqlOperations.join(',\n')}
+      })`
   }
 }

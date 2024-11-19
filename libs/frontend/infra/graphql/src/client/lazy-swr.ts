@@ -1,6 +1,6 @@
 import type { TypedDocumentString } from '@codelab/shared/infra/gql'
 
-import { gqlFetch } from '@codelab/shared/infra/fetch'
+import { gqlServerRequest } from '@codelab/shared/infra/fetch/use-server'
 import { useCallback, useState } from 'react'
 import useSWR, { type SWRResponse } from 'swr'
 
@@ -10,7 +10,7 @@ export const useLazySwr = <TResult, TVariables>(
 ): [() => void, SWRResponse<TResult, any>] => {
   const [enabled, setEnabled] = useState(false)
 
-  const swr = useSWR<TResult>(document, gqlFetch, {
+  const swr = useSWR<TResult>(document, gqlServerRequest, {
     isPaused: () => !enabled,
   })
 

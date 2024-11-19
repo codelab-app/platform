@@ -1,3 +1,4 @@
 /dist/libs/tools/workspace/
 /dist/libs/tools/eslint-plugin/
 /dist/libs/external/codelab-codegen/typescript-fetch
+/dist/libs/external/codelab-codegen/typescript-server-fetch

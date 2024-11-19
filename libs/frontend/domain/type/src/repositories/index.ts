@@ -1,4 +1,7 @@
-import { GetTypeReferences, IsTypeDescendantOf } from './type.api.graphql.gen'
+import {
+  GetTypeReferences,
+  IsTypeDescendantOf,
+} from './type.api.graphql.web.gen'
 
 export * from './field.repository'
 export * from './type.api'

@@ -12,7 +12,7 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { cLog } from '@codelab/shared/utils'
 import { prop, sortBy } from 'remeda'
 
-import { GetBaseTypes, GetDescendants } from './get-type.api.graphql.gen'
+import { GetBaseTypes, GetDescendants } from './get-type.api.graphql.web.gen'
 import {
   createTypeApi,
   deleteTypeApi,

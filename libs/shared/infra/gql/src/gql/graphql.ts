@@ -31806,58 +31806,6 @@ export type GetAppBuilderQuery = {
   richTextTypes: Array<RichTextTypeFragment>
 }
 
-export type CreateAppsMutationVariables = Exact<{
-  input: Array<AppCreateInput> | AppCreateInput
-}>
-
-export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
-
-export type UpdateAppsMutationVariables = Exact<{
-  where: AppWhere
-  update: AppUpdateInput
-}>
-
-export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
-
-export type DeleteAppsMutationVariables = Exact<{
-  where: AppWhere
-  delete?: InputMaybe<AppDeleteInput>
-}>
-
-export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
-
-export type AppListPreviewQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type AppListPreviewQuery = {
-  aggregate: { count: number }
-  items: Array<AppPreviewFragment>
-}
-
-export type AppListQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type AppListQuery = {
-  items: Array<AppFragment>
-  aggregate: { count: number }
-  atoms: Array<AtomBuilderFragment>
-}
-
-export type GetAppProductionQueryVariables = Exact<{
-  domain: Scalars['String']['input']
-  pageUrlPattern: Scalars['String']['input']
-}>
-
-export type GetAppProductionQuery = {
-  apps: Array<AppProductionFragment>
-  atoms: Array<AtomProductionFragment>
-  resources: Array<ResourceFragment>
-}
-
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
@@ -32992,11 +32940,57 @@ export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
 }
 
-export type DeleteUsersMutationVariables = Exact<{
-  where: UserWhere
+export type CreateAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
 }>
 
-export type DeleteUsersMutation = { deleteUsers: { nodesDeleted: number } }
+export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
+
+export type UpdateAppsMutationVariables = Exact<{
+  where: AppWhere
+  update: AppUpdateInput
+}>
+
+export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
+
+export type DeleteAppsMutationVariables = Exact<{
+  where: AppWhere
+  delete?: InputMaybe<AppDeleteInput>
+}>
+
+export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
+
+export type AppListPreviewQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type AppListPreviewQuery = {
+  aggregate: { count: number }
+  items: Array<AppPreviewFragment>
+}
+
+export type AppListQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type AppListQuery = {
+  items: Array<AppFragment>
+  aggregate: { count: number }
+  atoms: Array<AtomBuilderFragment>
+}
+
+export type GetAppProductionQueryVariables = Exact<{
+  domain: Scalars['String']['input']
+  pageUrlPattern: Scalars['String']['input']
+}>
+
+export type GetAppProductionQuery = {
+  apps: Array<AppProductionFragment>
+  atoms: Array<AtomProductionFragment>
+  resources: Array<ResourceFragment>
+}
 
 export type CreateAtomsMutationVariables = Exact<{
   input: Array<AtomCreateInput> | AtomCreateInput
@@ -37699,760 +37693,6 @@ fragment Owner on User {
 }`) as unknown as TypedDocumentString<
   GetAppBuilderQuery,
   GetAppBuilderQueryVariables
->
-export const CreateAppsDocument = new TypedDocumentString(`
-    mutation CreateApps($input: [AppCreateInput!]!) {
-  createApps(input: $input) {
-    apps {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateAppsMutation,
-  CreateAppsMutationVariables
->
-export const UpdateAppsDocument = new TypedDocumentString(`
-    mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
-  updateApps(update: $update, where: $where) {
-    apps {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateAppsMutation,
-  UpdateAppsMutationVariables
->
-export const DeleteAppsDocument = new TypedDocumentString(`
-    mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
-  deleteApps(delete: $delete, where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteAppsMutation,
-  DeleteAppsMutationVariables
->
-export const AppListPreviewDocument = new TypedDocumentString(`
-    query AppListPreview($options: AppOptions, $where: AppWhere) {
-  aggregate: appsAggregate(where: $where) {
-    count
-  }
-  items: apps(options: $options, where: $where) {
-    ...AppPreview
-  }
-}
-    fragment AppPreview on App {
-  domains {
-    ...Domain
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  pages {
-    ...PagePreview
-  }
-  slug
-}
-fragment Domain on Domain {
-  app {
-    id
-  }
-  domainConfig {
-    misconfigured
-  }
-  id
-  name
-}
-fragment PagePreview on Page {
-  app {
-    id
-  }
-  id
-  kind
-  name
-  rootElement {
-    id
-  }
-  elements {
-    id
-  }
-  store {
-    id
-  }
-  urlPattern
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<
-  AppListPreviewQuery,
-  AppListPreviewQueryVariables
->
-export const AppListDocument = new TypedDocumentString(`
-    query AppList($options: AppOptions, $where: AppWhere) {
-  items: apps(options: $options, where: $where) {
-    ...App
-  }
-  aggregate: appsAggregate(where: $where) {
-    count
-  }
-  atoms(where: {type: ReactFragment}) {
-    ...AtomBuilder
-  }
-}
-    fragment BaseAction on BaseAction {
-  __typename
-  id
-  name
-  store {
-    id
-    name
-  }
-  type
-}
-fragment Action on BaseAction {
-  ...BaseAction
-  ... on CodeAction {
-    ...CodeAction
-  }
-  ... on ApiAction {
-    ...ApiAction
-  }
-}
-fragment ApiAction on ApiAction {
-  ...BaseAction
-  config {
-    data
-    id
-  }
-  errorAction {
-    ...BaseAction
-  }
-  resource {
-    ...Resource
-  }
-  successAction {
-    ...BaseAction
-  }
-}
-fragment CodeAction on CodeAction {
-  ...BaseAction
-  code
-}
-fragment App on App {
-  domains {
-    ...Domain
-  }
-  id
-  name
-  owner {
-    ...Owner
-  }
-  pages {
-    ...Page
-  }
-  slug
-}
-fragment AtomBuilder on Atom {
-  __typename
-  api {
-    ...InterfaceType
-  }
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  tags {
-    ...TagPreview
-  }
-  type
-  owner {
-    id
-  }
-}
-fragment Domain on Domain {
-  app {
-    id
-  }
-  domainConfig {
-    misconfigured
-  }
-  id
-  name
-}
-fragment Element on Element {
-  __typename
-  childMapperComponent {
-    id
-    name
-  }
-  childMapperPreviousSibling {
-    id
-  }
-  childMapperPropKey
-  dependantTypes {
-    ...Type
-  }
-  firstChild {
-    id
-  }
-  id
-  name
-  nextSibling {
-    id
-  }
-  page {
-    id
-  }
-  parentComponent {
-    id
-  }
-  parentElement {
-    id
-  }
-  postRenderAction {
-    id
-    type
-  }
-  preRenderAction {
-    id
-    type
-  }
-  prevSibling {
-    id
-  }
-  props {
-    ...Prop
-  }
-  renderForEachPropKey
-  renderIfExpression
-  renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-    }
-  }
-  style
-  tailwindClassNames
-  expanded
-}
-fragment Page on Page {
-  app {
-    id
-  }
-  elements {
-    ...Element
-  }
-  id
-  kind
-  name
-  pageContentContainer {
-    id
-  }
-  redirect {
-    id
-  }
-  rootElement {
-    id
-  }
-  store {
-    ...Store
-  }
-  urlPattern
-}
-fragment Prop on Prop {
-  data
-  id
-}
-fragment Resource on Resource {
-  config {
-    ...Prop
-  }
-  id
-  name
-  type
-  owner {
-    id
-  }
-}
-fragment Store on Store {
-  actions {
-    ...Action
-  }
-  api {
-    ...InterfaceType
-  }
-  id
-  name
-}
-fragment TagPreview on Tag {
-  id
-  name
-  owner {
-    id
-  }
-}
-fragment ActionType on ActionType {
-  ...BaseType
-}
-fragment AppType on AppType {
-  ...BaseType
-}
-fragment ArrayType on ArrayType {
-  ...BaseType
-  itemType {
-    ... on IBaseType {
-      id
-      kind
-      name
-    }
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-  ownerConnection {
-    totalCount
-  }
-  owner {
-    id
-  }
-}
-fragment CodeMirrorType on CodeMirrorType {
-  ...BaseType
-  language
-}
-fragment ElementType on ElementType {
-  ...BaseType
-  elementKind
-}
-fragment EnumTypeValue on EnumTypeValue {
-  id
-  key
-  value
-}
-fragment EnumType on EnumType {
-  allowedValues {
-    ...EnumTypeValue
-  }
-  ...BaseType
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
-}
-fragment LambdaType on LambdaType {
-  ...BaseType
-}
-fragment PageType on PageType {
-  ...BaseType
-}
-fragment PrimitiveType on PrimitiveType {
-  ...BaseType
-  primitiveKind
-}
-fragment ReactNodeType on ReactNodeType {
-  ...BaseType
-}
-fragment RenderPropType on RenderPropType {
-  ...BaseType
-}
-fragment RichTextType on RichTextType {
-  ...BaseType
-}
-fragment Type on IBaseType {
-  ...ActionType
-  ...AppType
-  ...ArrayType
-  ...CodeMirrorType
-  ...ElementType
-  ...EnumType
-  ...InterfaceType
-  ...LambdaType
-  ...PageType
-  ...PrimitiveType
-  ...ReactNodeType
-  ...RenderPropType
-  ...RichTextType
-  ...UnionType
-}
-fragment UnionType on UnionType {
-  ...BaseType
-  typesOfUnionType {
-    ... on IBaseType {
-      ...BaseType
-    }
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<AppListQuery, AppListQueryVariables>
-export const GetAppProductionDocument = new TypedDocumentString(`
-    query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
-  apps(where: {domains_SOME: {name_IN: [$domain]}}) {
-    ...AppProduction
-  }
-  atoms(where: {type: ReactFragment}) {
-    ...AtomProduction
-  }
-  resources {
-    ...Resource
-  }
-}
-    fragment BaseAction on BaseAction {
-  __typename
-  id
-  name
-  store {
-    id
-    name
-  }
-  type
-}
-fragment Action on BaseAction {
-  ...BaseAction
-  ... on CodeAction {
-    ...CodeAction
-  }
-  ... on ApiAction {
-    ...ApiAction
-  }
-}
-fragment ApiAction on ApiAction {
-  ...BaseAction
-  config {
-    data
-    id
-  }
-  errorAction {
-    ...BaseAction
-  }
-  resource {
-    ...Resource
-  }
-  successAction {
-    ...BaseAction
-  }
-}
-fragment CodeAction on CodeAction {
-  ...BaseAction
-  code
-}
-fragment AppProduction on App {
-  id
-  name
-  owner {
-    ...Owner
-  }
-  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {
-    ...PageProduction
-  }
-  slug
-}
-fragment AtomProduction on Atom {
-  __typename
-  externalCssSource
-  externalJsSource
-  externalSourceType
-  icon
-  id
-  name
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
-  type
-}
-fragment ElementProduction on Element {
-  __typename
-  childMapperComponent {
-    id
-    name
-  }
-  childMapperPreviousSibling {
-    id
-  }
-  childMapperPropKey
-  dependantTypes {
-    ...Type
-  }
-  firstChild {
-    id
-  }
-  id
-  name
-  nextSibling {
-    id
-  }
-  page {
-    id
-  }
-  parentComponent {
-    id
-  }
-  parentElement {
-    id
-  }
-  postRenderAction {
-    id
-    type
-  }
-  preRenderAction {
-    id
-    type
-  }
-  prevSibling {
-    id
-  }
-  props {
-    ...Prop
-  }
-  renderForEachPropKey
-  renderIfExpression
-  renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
-  }
-  style
-  tailwindClassNames
-}
-fragment PageProduction on Page {
-  app {
-    id
-  }
-  elements {
-    ...ElementProduction
-  }
-  id
-  kind
-  name
-  pageContentContainer {
-    id
-  }
-  redirect {
-    id
-  }
-  rootElement {
-    id
-  }
-  slug
-  store {
-    ...Store
-  }
-  urlPattern
-}
-fragment Prop on Prop {
-  data
-  id
-}
-fragment Resource on Resource {
-  config {
-    ...Prop
-  }
-  id
-  name
-  type
-  owner {
-    id
-  }
-}
-fragment Store on Store {
-  actions {
-    ...Action
-  }
-  api {
-    ...InterfaceType
-  }
-  id
-  name
-}
-fragment ActionType on ActionType {
-  ...BaseType
-}
-fragment AppType on AppType {
-  ...BaseType
-}
-fragment ArrayType on ArrayType {
-  ...BaseType
-  itemType {
-    ... on IBaseType {
-      id
-      kind
-      name
-    }
-  }
-}
-fragment BaseType on IBaseType {
-  __typename
-  id
-  kind
-  name
-  ownerConnection {
-    totalCount
-  }
-  owner {
-    id
-  }
-}
-fragment CodeMirrorType on CodeMirrorType {
-  ...BaseType
-  language
-}
-fragment ElementType on ElementType {
-  ...BaseType
-  elementKind
-}
-fragment EnumTypeValue on EnumTypeValue {
-  id
-  key
-  value
-}
-fragment EnumType on EnumType {
-  allowedValues {
-    ...EnumTypeValue
-  }
-  ...BaseType
-}
-fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}
-fragment InterfaceType on InterfaceType {
-  ...BaseType
-  fields {
-    ...Field
-  }
-}
-fragment LambdaType on LambdaType {
-  ...BaseType
-}
-fragment PageType on PageType {
-  ...BaseType
-}
-fragment PrimitiveType on PrimitiveType {
-  ...BaseType
-  primitiveKind
-}
-fragment ReactNodeType on ReactNodeType {
-  ...BaseType
-}
-fragment RenderPropType on RenderPropType {
-  ...BaseType
-}
-fragment RichTextType on RichTextType {
-  ...BaseType
-}
-fragment Type on IBaseType {
-  ...ActionType
-  ...AppType
-  ...ArrayType
-  ...CodeMirrorType
-  ...ElementType
-  ...EnumType
-  ...InterfaceType
-  ...LambdaType
-  ...PageType
-  ...PrimitiveType
-  ...ReactNodeType
-  ...RenderPropType
-  ...RichTextType
-  ...UnionType
-}
-fragment UnionType on UnionType {
-  ...BaseType
-  typesOfUnionType {
-    ... on IBaseType {
-      ...BaseType
-    }
-  }
-}
-fragment Owner on User {
-  id
-}`) as unknown as TypedDocumentString<
-  GetAppProductionQuery,
-  GetAppProductionQueryVariables
 >
 export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
     query GetSelectAtomOptions {
@@ -43199,15 +42439,773 @@ export const CreateUserDocument = new TypedDocumentString(`
   CreateUserMutation,
   CreateUserMutationVariables
 >
-export const DeleteUsersDocument = new TypedDocumentString(`
-    mutation DeleteUsers($where: UserWhere!) {
-  deleteUsers(where: $where) {
+export const CreateAppsDocument = new TypedDocumentString(`
+    mutation CreateApps($input: [AppCreateInput!]!) {
+  createApps(input: $input) {
+    apps {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateAppsMutation,
+  CreateAppsMutationVariables
+>
+export const UpdateAppsDocument = new TypedDocumentString(`
+    mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
+  updateApps(update: $update, where: $where) {
+    apps {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateAppsMutation,
+  UpdateAppsMutationVariables
+>
+export const DeleteAppsDocument = new TypedDocumentString(`
+    mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
+  deleteApps(delete: $delete, where: $where) {
     nodesDeleted
   }
 }
     `) as unknown as TypedDocumentString<
-  DeleteUsersMutation,
-  DeleteUsersMutationVariables
+  DeleteAppsMutation,
+  DeleteAppsMutationVariables
+>
+export const AppListPreviewDocument = new TypedDocumentString(`
+    query AppListPreview($options: AppOptions, $where: AppWhere) {
+  aggregate: appsAggregate(where: $where) {
+    count
+  }
+  items: apps(options: $options, where: $where) {
+    ...AppPreview
+  }
+}
+    fragment AppPreview on App {
+  domains {
+    ...Domain
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages {
+    ...PagePreview
+  }
+  slug
+}
+fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
+}
+fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  elements {
+    id
+  }
+  store {
+    id
+  }
+  urlPattern
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  AppListPreviewQuery,
+  AppListPreviewQueryVariables
+>
+export const AppListDocument = new TypedDocumentString(`
+    query AppList($options: AppOptions, $where: AppWhere) {
+  items: apps(options: $options, where: $where) {
+    ...App
+  }
+  aggregate: appsAggregate(where: $where) {
+    count
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomBuilder
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment App on App {
+  domains {
+    ...Domain
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages {
+    ...Page
+  }
+  slug
+}
+fragment AtomBuilder on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
+  type
+  owner {
+    id
+  }
+}
+fragment Domain on Domain {
+  app {
+    id
+  }
+  domainConfig {
+    misconfigured
+  }
+  id
+  name
+}
+fragment Element on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomBuilder
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+  expanded
+}
+fragment Page on Page {
+  app {
+    id
+  }
+  elements {
+    ...Element
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+  owner {
+    id
+  }
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment Tag on Tag {
+  children {
+    id
+    name
+    owner {
+      id
+    }
+  }
+  descendants {
+    id
+    name
+  }
+  id
+  name
+  owner {
+    id
+  }
+  parent {
+    id
+  }
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  ownerConnection {
+    totalCount
+  }
+  owner {
+    id
+  }
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<AppListQuery, AppListQueryVariables>
+export const GetAppProductionDocument = new TypedDocumentString(`
+    query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
+  apps(where: {domains_SOME: {name_IN: [$domain]}}) {
+    ...AppProduction
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomProduction
+  }
+  resources {
+    ...Resource
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AppProduction on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {
+    ...PageProduction
+  }
+  slug
+}
+fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+fragment ElementProduction on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ... on Atom {
+      __typename
+      ...AtomProduction
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
+  style
+  tailwindClassNames
+}
+fragment PageProduction on Page {
+  app {
+    id
+  }
+  elements {
+    ...ElementProduction
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  slug
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+  owner {
+    id
+  }
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  ownerConnection {
+    totalCount
+  }
+  owner {
+    id
+  }
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}
+fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<
+  GetAppProductionQuery,
+  GetAppProductionQueryVariables
 >
 export const CreateAtomsDocument = new TypedDocumentString(`
     mutation CreateAtoms($input: [AtomCreateInput!]!) {
