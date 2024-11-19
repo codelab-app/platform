@@ -4,12 +4,16 @@ import type {
   IRef,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { type IActionService } from '@codelab/frontend/abstract/application'
 import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
+import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
+import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -18,15 +22,20 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useActionService = (): IActionService => {
+  const { appId, componentId, pageId } = useUrlPathParams()
   const { actionDomainService } = useDomainStore()
+  const hydrate = useHydrateStore()
 
   const cloneAction = async (action: IActionModel, storeId: string) => {
     return await recursiveClone(action, storeId)
   }
 
   const create = async (data: ICreateActionData) => {
-    // const action = actionDomainService.hydrate(ActionFactory.mapDataToDto(data))
     const action = actionFactory.mapDataToDto(data)
+
+    hydrate({
+      actionsDto: [action],
+    })
 
     return await actionRepository.add(action)
   }
@@ -115,9 +124,24 @@ export const useActionService = (): IActionService => {
     return Array.from(actionDomainService.actions.values())
   }
 
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/create-action`)
+    },
+  }
+
   return {
     cloneAction,
     create,
+    createPopover,
     getAll,
     getAllFromCache,
     getOne,

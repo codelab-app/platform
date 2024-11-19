@@ -9,7 +9,7 @@ import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { isComponent, isPage } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import {
@@ -17,6 +17,7 @@ import {
   useCreateElementForm,
 } from '@codelab/frontend-application-element/use-cases/create-element'
 import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useActionService } from '@codelab/frontend-application-store/services'
 import {
   CreateActionPopover,
   useCreateActionForm,
@@ -61,9 +62,9 @@ export const BuilderPrimarySidebar = observer<{
   const createFieldForm = useCreateFieldForm()
   const selectedNode = builderService.selectedNode?.current
   const createElementForm = useCreateElementForm()
-  const { popover } = useCui()
   const { createPopover: createElementPopover } = useElementService()
   const { createPopover: createFieldPopover } = useFieldService()
+  const { createPopover: createActionPopover } = useActionService()
   const store = containerNode.store.maybeCurrent
   const renderer = rendererService.activeRenderer?.current
   const runtimeContainerNode = renderer?.runtimeContainerNode
@@ -146,7 +147,7 @@ export const BuilderPrimarySidebar = observer<{
               }
 
               createActionForm.open(store)
-              popover.open(UiKey.ActionPopoverCreate)
+              createActionPopover.open(router)
             },
             title: 'Add Action',
           },

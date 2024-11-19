@@ -1,16 +1,10 @@
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectAction,
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import {
   DisplayIfField,
@@ -38,16 +32,8 @@ export const CreateActionForm = observer<IFormController>(
     const actionService = useActionService()
     const createActionForm = useCreateActionForm()
     const actionSchema = useActionSchema(createActionSchema)
-
-    const onSubmit = (actionDto: ICreateActionData) => {
-      const promise = actionService.create(actionDto)
-
-      onSubmitSuccess?.()
-
-      return promise
-    }
-
-    const closeForm = () => createActionForm.close()
+    const onSubmit = actionService.create
+    const closeForm = createActionForm.close
 
     const model = {
       code: CODE_ACTION,
@@ -64,17 +50,15 @@ export const CreateActionForm = observer<IFormController>(
         id: v4(),
       },
       id: v4(),
-      storeId: createActionForm.data?.id,
+      store: createActionForm.data,
     }
 
     return (
       <Form<ICreateActionData>
+        errorMessage="Error while creating action"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating action',
-        })}
-        onSubmitSuccess={closeForm}
+        onSubmitSuccess={onSubmitSuccess}
         schema={actionSchema}
         submitRef={submitRef}
         uiKey={UiKey.ActionFormCreate}
@@ -84,8 +68,8 @@ export const CreateActionForm = observer<IFormController>(
             'code',
             'resource',
             'config',
-            'successActionId',
-            'errorActionId',
+            'successAction',
+            'errorAction',
             'actionsIds',
           ]}
         />
@@ -102,8 +86,8 @@ export const CreateActionForm = observer<IFormController>(
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resource.id" />
-          <AutoField component={SelectAction} name="successActionId" />
-          <AutoField component={SelectAction} name="errorActionId" />
+          <AutoField component={SelectAction} name="successAction.id" />
+          <AutoField component={SelectAction} name="errorAction.id" />
           <ResourceFetchConfigField />
         </DisplayIfField>
 
