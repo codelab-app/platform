@@ -138,6 +138,20 @@ export const useActionService = (): IActionService => {
     },
   }
 
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/update-action`)
+    },
+  }
+
   return {
     cloneAction,
     create,
@@ -148,5 +162,6 @@ export const useActionService = (): IActionService => {
     getOneFromCache,
     removeMany,
     update,
+    updatePopover,
   }
 }

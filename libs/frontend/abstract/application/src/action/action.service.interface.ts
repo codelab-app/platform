@@ -17,5 +17,6 @@ export interface IActionService
   extends ICrudService<IRef, ICreateActionData, IUpdateActionData>,
     IQueryService<IActionModel, IActionWhere, ApiActionOptions> {
   createPopover: IPopover
+  updatePopover: IPopover
   cloneAction(action: IActionModel, storeId: string): Promise<IRef>
 }

@@ -12,10 +12,11 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-  useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { useRouter } from 'next/navigation'
 
+import { useActionService } from '../../services/action.service'
 import { useDeleteActionModal } from '../delete-action'
 import { useUpdateActionForm } from '../update-action'
 
@@ -25,8 +26,9 @@ interface ActionsTreeItemProps {
 
 export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   const deleteActionModal = useDeleteActionModal()
+  const { updatePopover } = useActionService()
   const updateActionForm = useUpdateActionForm()
-  const { popover } = useCui()
+  const router = useRouter()
 
   const onDelete = () => {
     deleteActionModal.open(data.extraData.node)
@@ -34,7 +36,7 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
 
   const onEdit = () => {
     updateActionForm.open(data.extraData.node)
-    popover.open(UiKey.ActionPopoverUpdate)
+    updatePopover.open(router)
   }
 
   const toolbarItems: Array<ToolbarItem> = [
