@@ -32536,39 +32536,6 @@ export type DeleteCodeMirrorTypesMutation = {
   deleteCodeMirrorTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
-export type CreateFieldsMutationVariables = Exact<{
-  input: Array<FieldCreateInput> | FieldCreateInput
-}>
-
-export type CreateFieldsMutation = {
-  createFields: { fields: Array<{ id: string }> }
-}
-
-export type UpdateFieldsMutationVariables = Exact<{
-  where: FieldWhere
-  update: FieldUpdateInput
-}>
-
-export type UpdateFieldsMutation = {
-  updateFields: { fields: Array<{ id: string }> }
-}
-
-export type DeleteFieldsMutationVariables = Exact<{
-  where: FieldWhere
-}>
-
-export type DeleteFieldsMutation = { deleteFields: { nodesDeleted: number } }
-
-export type GetFieldsQueryVariables = Exact<{
-  where?: InputMaybe<FieldWhere>
-  options?: InputMaybe<FieldOptions>
-}>
-
-export type GetFieldsQuery = {
-  aggregate: { count: number }
-  items: Array<FieldFragment>
-}
-
 export type GetBaseTypesQueryVariables = Exact<{
   where?: InputMaybe<IBaseTypeWhere>
   options?: InputMaybe<IBaseTypeOptions>
@@ -33035,6 +33002,39 @@ export type UpdateAtomsMutationVariables = Exact<{
 
 export type UpdateAtomsMutation = {
   updateAtoms: { atoms: Array<{ id: string }> }
+}
+
+export type CreateFieldsMutationVariables = Exact<{
+  input: Array<FieldCreateInput> | FieldCreateInput
+}>
+
+export type CreateFieldsMutation = {
+  createFields: { fields: Array<{ id: string }> }
+}
+
+export type UpdateFieldsMutationVariables = Exact<{
+  where: FieldWhere
+  update: FieldUpdateInput
+}>
+
+export type UpdateFieldsMutation = {
+  updateFields: { fields: Array<{ id: string }> }
+}
+
+export type DeleteFieldsMutationVariables = Exact<{
+  where: FieldWhere
+}>
+
+export type DeleteFieldsMutation = { deleteFields: { nodesDeleted: number } }
+
+export type GetFieldsQueryVariables = Exact<{
+  where?: InputMaybe<FieldWhere>
+  options?: InputMaybe<FieldOptions>
+}>
+
+export type GetFieldsQuery = {
+  aggregate: { count: number }
+  items: Array<FieldFragment>
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -40234,76 +40234,6 @@ export const DeleteCodeMirrorTypesDocument = new TypedDocumentString(`
   DeleteCodeMirrorTypesMutation,
   DeleteCodeMirrorTypesMutationVariables
 >
-export const CreateFieldsDocument = new TypedDocumentString(`
-    mutation CreateFields($input: [FieldCreateInput!]!) {
-  createFields(input: $input) {
-    fields {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  CreateFieldsMutation,
-  CreateFieldsMutationVariables
->
-export const UpdateFieldsDocument = new TypedDocumentString(`
-    mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
-  updateFields(update: $update, where: $where) {
-    fields {
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  UpdateFieldsMutation,
-  UpdateFieldsMutationVariables
->
-export const DeleteFieldsDocument = new TypedDocumentString(`
-    mutation DeleteFields($where: FieldWhere!) {
-  deleteFields(where: $where) {
-    nodesDeleted
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DeleteFieldsMutation,
-  DeleteFieldsMutationVariables
->
-export const GetFieldsDocument = new TypedDocumentString(`
-    query GetFields($where: FieldWhere, $options: FieldOptions) {
-  aggregate: fieldsAggregate(where: $where) {
-    count
-  }
-  items: fields(options: $options, where: $where) {
-    ...Field
-  }
-}
-    fragment Field on Field {
-  api {
-    ... on InterfaceType {
-      id
-    }
-  }
-  defaultValues
-  description
-  fieldType {
-    ... on IBaseType {
-      __typename
-      id
-      kind
-      name
-    }
-  }
-  id
-  key
-  name
-  nextSibling {
-    id
-  }
-  prevSibling {
-    id
-  }
-  validationRules
-}`) as unknown as TypedDocumentString<GetFieldsQuery, GetFieldsQueryVariables>
 export const GetBaseTypesDocument = new TypedDocumentString(`
     query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
   iBaseTypes(where: $where, options: $options) {
@@ -43352,3 +43282,73 @@ export const UpdateAtomsDocument = new TypedDocumentString(`
   UpdateAtomsMutation,
   UpdateAtomsMutationVariables
 >
+export const CreateFieldsDocument = new TypedDocumentString(`
+    mutation CreateFields($input: [FieldCreateInput!]!) {
+  createFields(input: $input) {
+    fields {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CreateFieldsMutation,
+  CreateFieldsMutationVariables
+>
+export const UpdateFieldsDocument = new TypedDocumentString(`
+    mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
+  updateFields(update: $update, where: $where) {
+    fields {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateFieldsMutation,
+  UpdateFieldsMutationVariables
+>
+export const DeleteFieldsDocument = new TypedDocumentString(`
+    mutation DeleteFields($where: FieldWhere!) {
+  deleteFields(where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteFieldsMutation,
+  DeleteFieldsMutationVariables
+>
+export const GetFieldsDocument = new TypedDocumentString(`
+    query GetFields($where: FieldWhere, $options: FieldOptions) {
+  aggregate: fieldsAggregate(where: $where) {
+    count
+  }
+  items: fields(options: $options, where: $where) {
+    ...Field
+  }
+}
+    fragment Field on Field {
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      __typename
+      id
+      kind
+      name
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}`) as unknown as TypedDocumentString<GetFieldsQuery, GetFieldsQueryVariables>
