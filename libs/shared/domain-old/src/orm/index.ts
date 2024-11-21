@@ -1,5 +1,4 @@
 export * from './connect'
 export * from './disconnect'
-export * from './node'
 export * from './reconnect'
 export * from './where'

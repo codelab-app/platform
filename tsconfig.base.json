@@ -936,6 +936,9 @@
       "@codelab/shared-domain-module-atom/server": [
         "libs/shared/domain/module/atom/src/server/index.ts"
       ],
+      "@codelab/shared-domain-module/field": [
+        "libs/shared/domain/module/field/src/index.ts"
+      ],
       "@codelab/shared-infra-auth0/client": [
         "libs/shared/infra/auth0/src/client/index.ts"
       ],
@@ -961,10 +964,10 @@
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain-old": ["libs/shared/domain-old/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
+      "@codelab/shared/infra/fetch": ["libs/shared/infra/fetch/src/index.ts"],
       "@codelab/shared/infra/fetch/use-server": [
         "libs/shared/infra/fetch/src/use-server/index.ts"
       ],
-      "@codelab/shared/infra/fetch": ["libs/shared/infra/fetch/src/index.ts"],
       "@codelab/shared/infra/gql": ["libs/shared/infra/gql/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"

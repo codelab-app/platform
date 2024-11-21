@@ -27,7 +27,6 @@ export const actionSchema = gql`
     type: ActionKind! @default(value: CodeAction)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
     element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
-
     """
     Code to run when action is triggered
     """

@@ -3,24 +3,31 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { ElementDtoSchema } from '../element'
-import { StoreExportSchema, StoreImportSchema } from '../store'
+import {
+  StoreAggregateExportSchema,
+  StoreAggregateImportSchema,
+} from '../store'
 import { ApiExportSchema, ApiImportSchema } from '../type'
 import { ComponentDtoSchema } from './component.dto.interface'
 
-export const ComponentExportSchema = Type.Object({
+export const ComponentAggregateExportSchema = Type.Object({
   api: ApiExportSchema,
   component: Type.Omit(ComponentDtoSchema, ['owner']),
   elements: Type.Array(ElementDtoSchema),
-  store: StoreExportSchema,
+  store: StoreAggregateExportSchema,
 })
 
-export type IComponentExport = Static<typeof ComponentExportSchema>
+export type IComponentAggregateExport = Static<
+  typeof ComponentAggregateExportSchema
+>
 
-export const ComponentImportSchema = Type.Object({
+export const ComponentAggregateImportSchema = Type.Object({
   api: ApiImportSchema,
   component: ComponentDtoSchema,
   elements: Type.Array(ElementDtoSchema),
-  store: StoreImportSchema,
+  store: StoreAggregateImportSchema,
 })
 
-export type IComponentImport = Static<typeof ComponentImportSchema>
+export type IComponentAggregateImport = Static<
+  typeof ComponentAggregateImportSchema
+>

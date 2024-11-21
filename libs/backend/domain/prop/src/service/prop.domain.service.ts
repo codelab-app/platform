@@ -13,10 +13,12 @@ export class PropDomainService {
     const data =
       propData instanceof Object ? JSON.stringify(propData) : propData
 
-    const props = await this.propRepository.add({
+    const { id } = await this.propRepository.add({
       data,
       id: v4(),
     })
+
+    const props = this.propRepository.findOneOrFail({ where: { id } })
 
     return props
   }

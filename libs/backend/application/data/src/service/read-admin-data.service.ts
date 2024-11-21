@@ -2,7 +2,7 @@ import type {
   IApiImport,
   IAtomExport,
   IAtomImport,
-  IComponentImport,
+  IComponentAggregateImport,
   ITagDto,
   ITagExport,
   ITypeDto,
@@ -13,7 +13,7 @@ import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import {
   AtomImportSchema,
-  ComponentExportSchema,
+  ComponentAggregateExportSchema,
   TagExportSchema,
   TypeDtoSchema,
 } from '@codelab/shared/abstract/core'
@@ -25,7 +25,7 @@ import { MigrationDataService } from './migration-data.service'
 
 interface IReadAdminDataService {
   atoms: Array<IAtomImport>
-  components: Array<IComponentImport>
+  components: Array<IComponentAggregateImport>
   systemTypes: Array<ITypeDto>
   tags: Array<ITagDto>
 }
@@ -96,7 +96,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
       const { api, component, elements, store } =
         this.validationService.validateAndClean(
-          ComponentExportSchema,
+          ComponentAggregateExportSchema,
           componentExport,
         )
 
@@ -108,7 +108,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
       // const parsePropsData = (props: IPropExport)
 
-      const componentImport: IComponentImport = {
+      const componentImport: IComponentAggregateImport = {
         api: apiImport,
         component: { ...component, owner },
         elements,

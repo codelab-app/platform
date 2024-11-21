@@ -13,7 +13,6 @@ import {
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain-old'
-import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -72,10 +71,6 @@ export class FieldRepository extends AbstractRepository<
     { api, fieldType, id, ...field }: IFieldDto,
     where: FieldWhere,
   ) {
-    cLog({
-      fieldType: reconnectNodeId(fieldType.id),
-    })
-
     return (
       await (
         await this.ogmService.Field
@@ -83,7 +78,10 @@ export class FieldRepository extends AbstractRepository<
         update: {
           ...field,
           api: reconnectNodeId(api.id),
-          fieldType: reconnectNodeId(fieldType.id),
+          /**
+           * Can't reconnect due to invariant
+           */
+          // fieldType: reconnectNodeId(fieldType.id),
           nextSibling: reconnectNodeId(field.nextSibling?.id),
           prevSibling: reconnectNodeId(field.prevSibling?.id),
         },

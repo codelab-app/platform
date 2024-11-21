@@ -13,7 +13,7 @@ export const gqlRequest = async <TResult, TVariables extends ObjectLike>(
   document: DocumentTypeDecoration<TResult, TVariables>,
   variables: TVariables,
 ) => {
-  const response = fetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
+  const response = fetchWithAuth(getEnv().endpoint.apiGraphqlUrl, {
     body: JSON.stringify({
       query: document,
       variables,

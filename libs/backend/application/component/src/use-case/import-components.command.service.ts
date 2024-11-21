@@ -1,4 +1,4 @@
-import type { IComponentImport } from '@codelab/shared/abstract/core'
+import type { IComponentAggregateImport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportStoreCommand } from '@codelab/backend/application/store'
@@ -9,7 +9,7 @@ import { PropRepository } from '@codelab/backend/domain/prop'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(public readonly componentImport: IComponentImport) {}
+  constructor(public readonly componentImport: IComponentAggregateImport) {}
 }
 
 @CommandHandler(ImportComponentsCommand)

@@ -17,10 +17,3 @@ export const StoreDtoSchema = Type.Object({
 })
 
 export type IStoreDto = Static<typeof StoreDtoSchema>
-
-export const StoreCreateDtoSchema = Type.Object({
-  ...StoreDtoSchema.properties,
-  api: InterfaceTypeCreateDtoSchema,
-})
-
-export type IStoreCreateDto = Static<typeof StoreCreateDtoSchema>

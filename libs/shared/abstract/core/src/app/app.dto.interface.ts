@@ -10,8 +10,6 @@ import type {
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
-import { DomainDtoSchema, DomainSchema } from '../domain/domain.dto.interface'
-import { PageDtoSchema, PageSchema } from '../page'
 import { OwnerSchema } from '../user'
 
 export const AppDtoSchema = Type.Object({

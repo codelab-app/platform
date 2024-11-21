@@ -75,7 +75,7 @@ export class ArrayTypeRepository extends AbstractRepository<
         await this.ogmService.ArrayType
       ).update({
         update: {
-          itemType: reconnectNodeId(itemType?.id),
+          // itemType: reconnectNodeId(itemType?.id),
           name,
         },
         where,

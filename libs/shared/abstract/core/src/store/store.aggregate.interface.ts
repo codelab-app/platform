@@ -4,18 +4,18 @@ import { ActionSchema } from '../action'
 import { ApiExportSchema, ApiImportSchema } from '../type'
 import { StoreSchema } from './store.model.interface'
 
-export const StoreExportSchema = Type.Object({
+export const StoreAggregateExportSchema = Type.Object({
   actions: Type.Array(ActionSchema),
   api: ApiExportSchema,
   store: StoreSchema,
 })
 
-export type IStoreExport = Static<typeof StoreExportSchema>
+export type IStoreAggregateExport = Static<typeof StoreAggregateExportSchema>
 
-export const StoreImportSchema = Type.Object({
+export const StoreAggregateImportSchema = Type.Object({
   actions: Type.Array(ActionSchema),
   api: ApiImportSchema,
   store: StoreSchema,
 })
 
-export type IStoreImport = Static<typeof StoreImportSchema>
+export type IStoreAggregateImport = Static<typeof StoreAggregateImportSchema>

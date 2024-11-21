@@ -1,8 +1,8 @@
 import type { Element } from '@codelab/backend/abstract/codegen'
 import type {
   IApiExport,
-  IComponentExport,
-  IStoreExport,
+  IComponentAggregateExport,
+  IStoreAggregateExport,
 } from '@codelab/shared/abstract/core'
 
 import { ExportStoreCommand } from '@codelab/backend/application/store'
@@ -17,7 +17,7 @@ export class ExportComponentCommand {
 
 @CommandHandler(ExportComponentCommand)
 export class ExportComponentHandler
-  implements ICommandHandler<ExportComponentCommand, IComponentExport>
+  implements ICommandHandler<ExportComponentCommand, IComponentAggregateExport>
 {
   constructor(
     private componentRepository: ComponentRepository,
@@ -46,7 +46,7 @@ export class ExportComponentHandler
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,
-      IStoreExport
+      IStoreAggregateExport
     >(new ExportStoreCommand({ id: component.store.id }))
 
     const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(

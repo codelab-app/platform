@@ -1,9 +1,4 @@
 fragment Action on BaseAction {
-  ...BaseAction
-  ... on CodeAction {
-    ...CodeAction
-  }
-  ... on ApiAction {
-    ...ApiAction
-  }
+  ...CodeAction
+  ...ApiAction
 }

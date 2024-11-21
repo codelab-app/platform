@@ -3,7 +3,6 @@ import type { Static } from '@sinclair/typebox'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
-import { StoreCreateDtoSchema } from '../store'
 import { IPageKind } from './page-kind.enum'
 
 export const PageDtoSchema = Type.Object({

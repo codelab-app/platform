@@ -11,13 +11,12 @@ import type {
 
 import { fieldMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
-
 import {
   CreateFields,
   DeleteFields,
   GetFields,
   UpdateFields,
-} from './field.api.graphql.web.gen'
+} from '@codelab/shared-domain-module/field'
 
 export const fieldRepository: IFieldRepository = {
   add: async (field: IFieldDto) => {

@@ -1,11 +1,12 @@
 import type { AppWhere, Element } from '@codelab/backend/abstract/codegen'
 import type {
   IApiAction,
-  IAppExport,
-  IComponentExport,
+  IAppAggregateExport,
+  IComponentAggregateExport,
   IElement,
   IElementExport,
-  IPageExport,
+  IPageAggregateExport,
+  IPageDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -21,6 +22,7 @@ import {
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
+import { Page, PageFragment } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 import { uuidRegex } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -32,7 +34,7 @@ export class ExportAppCommand {
 
 @CommandHandler(ExportAppCommand)
 export class ExportAppHandler
-  implements ICommandHandler<ExportAppCommand, IAppExport>
+  implements ICommandHandler<ExportAppCommand, IAppAggregateExport>
 {
   constructor(
     private readonly appRepository: AppRepository,
@@ -50,43 +52,22 @@ export class ExportAppHandler
       where: { app: { id: where.id } },
     })
 
-    const pages = await this.commandBus.execute<
+    const pages: Array<IPageAggregateExport> = await this.commandBus.execute<
       ExportPageCommand,
-      Array<IPageExport>
+      Array<IPageAggregateExport>
     >(new ExportPageCommand({ id_IN: app.pages.map((page) => page.id) }))
 
-    const pageStores = pages.map((page) => page.store)
+    return {
+      app,
+      components: await this.components(pages),
+      domains,
+      pages,
+      resources: await this.resources(pages),
+    }
+  }
 
-    const pageResourceRefs = pageStores.reduce<Array<IRef>>(
-      (acc, storeContext) => {
-        const { actions } = storeContext
-
-        const apiActions = actions.filter(
-          (action) => action.__typename === IActionKind.ApiAction,
-        ) as Array<IApiAction>
-
-        if (apiActions.length > 0) {
-          const apiActionResources = apiActions.map(
-            (apiAction) => apiAction.resource,
-          )
-
-          acc.push(
-            ...apiActionResources.filter(
-              (resource) => !acc.some((res) => res.id === resource.id),
-            ),
-          )
-        }
-
-        return acc
-      },
-      [],
-    )
-
-    const resources = await this.resourceRepository.find({
-      where: { id_IN: pageResourceRefs.map((ref) => ref.id) },
-    })
-
-    const components: Array<IComponentExport> = []
+  private async components(pages: Array<IPageAggregateExport>) {
+    const components: Array<IComponentAggregateExport> = []
 
     for (const { page } of pages) {
       const elements = (
@@ -131,7 +112,7 @@ export class ExportAppHandler
         for (const currentComponent of currentComponents) {
           const component = await this.commandBus.execute<
             ExportComponentCommand,
-            IComponentExport
+            IComponentAggregateExport
           >(new ExportComponentCommand(currentComponent.id))
 
           components.push(component)
@@ -150,12 +131,38 @@ export class ExportAppHandler
       })
     }
 
-    return {
-      app,
-      components,
-      domains,
-      pages,
-      resources,
-    }
+    return components
+  }
+
+  private async resources(pages: Array<IPageAggregateExport>) {
+    const pageStores = pages.map((page) => page.store)
+
+    const pageResourceRefs = pageStores.reduce<Array<IRef>>((acc, store) => {
+      const { actions } = store
+
+      const apiActions = actions.filter(
+        (action) => action.__typename === IActionKind.ApiAction,
+      )
+
+      if (apiActions.length > 0) {
+        const apiActionResources = apiActions.map(
+          (apiAction) => apiAction.resource,
+        )
+
+        acc.push(
+          ...apiActionResources.filter(
+            (resource) => !acc.some((res) => res.id === resource.id),
+          ),
+        )
+      }
+
+      return acc
+    }, [])
+
+    const resources = await this.resourceRepository.find({
+      where: { id_IN: pageResourceRefs.map((ref) => ref.id) },
+    })
+
+    return resources
   }
 }
