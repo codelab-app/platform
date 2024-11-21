@@ -1,12 +1,12 @@
 'use client'
 
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
@@ -15,14 +15,13 @@ import { useElementService } from '../../services/element.service'
 import { useCreateElementForm } from './create-element.state'
 import { CreateElementForm } from './CreateElementForm'
 
-export const CreateElementPopover = observer<{
-  // Prevent builder ciricular dep
-  selectedNode?: Nullable<IRuntimeModel>
-}>(({ selectedNode }) => {
+export const CreateElementPopover = observer(() => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>()
   const createElementForm = useCreateElementForm()
   const { createPopover } = useElementService()
+  const { builderService } = useApplicationStore()
+  const selectedNode = builderService.selectedNode?.maybeCurrent
 
   return (
     <CuiSidebarSecondary

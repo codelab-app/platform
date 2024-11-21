@@ -217,6 +217,20 @@ export const useFieldService = (): IFieldService => {
     },
   }
 
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/update-field`)
+    },
+  }
+
   return {
     cloneField,
     create,
@@ -225,6 +239,7 @@ export const useFieldService = (): IFieldService => {
     moveFieldAsPrevSibling,
     removeMany,
     update,
+    updatePopover,
   }
 }
 

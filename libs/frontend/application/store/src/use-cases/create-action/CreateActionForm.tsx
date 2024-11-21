@@ -2,10 +2,11 @@ import type { ICreateActionData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
-  SelectAction,
+  SelectActionField,
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
@@ -32,6 +33,8 @@ export const CreateActionForm = observer<IFormController>(
     const actionService = useActionService()
     const createActionForm = useCreateActionForm()
     const actionSchema = useActionSchema(createActionSchema)
+    const { builderService } = useApplicationStore()
+    const selectedNode = builderService.selectedNode?.maybeCurrent
     const onSubmit = actionService.create
     const closeForm = createActionForm.close
 
@@ -70,7 +73,6 @@ export const CreateActionForm = observer<IFormController>(
             'config',
             'successAction',
             'errorAction',
-            'actionsIds',
           ]}
         />
 
@@ -86,8 +88,8 @@ export const CreateActionForm = observer<IFormController>(
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
           <SelectResource name="resource.id" />
-          <AutoField component={SelectAction} name="successAction.id" />
-          <AutoField component={SelectAction} name="errorAction.id" />
+          <SelectActionField name="successAction" selectedNode={selectedNode} />
+          <SelectActionField name="errorAction" selectedNode={selectedNode} />
           <ResourceFetchConfigField />
         </DisplayIfField>
 

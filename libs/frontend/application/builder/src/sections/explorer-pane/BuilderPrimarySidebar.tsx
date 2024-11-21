@@ -12,31 +12,16 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import {
-  CreateElementPopover,
-  useCreateElementForm,
-} from '@codelab/frontend-application-element/use-cases/create-element'
+import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { useActionService } from '@codelab/frontend-application-store/services'
-import {
-  CreateActionPopover,
-  useCreateActionForm,
-} from '@codelab/frontend-application-store/use-cases/create-action'
+import { useCreateActionForm } from '@codelab/frontend-application-store/use-cases/create-action'
 import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
 import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
 import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
-import { UpdateActionPopover } from '@codelab/frontend-application-store/use-cases/update-action'
 import { useFieldService } from '@codelab/frontend-application-type/services'
-import {
-  CreateFieldModal,
-  CreateFieldPopover,
-  useCreateFieldForm,
-} from '@codelab/frontend-application-type/use-cases/create-field'
+import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
-import {
-  UpdateFieldModal,
-  UpdateFieldPopover,
-} from '@codelab/frontend-application-type/use-cases/update-field'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   useApplicationStore,
@@ -215,20 +200,9 @@ export const BuilderPrimarySidebar = observer<{
       <CuiSidebar
         defaultActiveViewKeys={['ElementTree']}
         label="Explorer"
-        popover={
-          <>
-            <UpdateFieldPopover />
-            <CreateFieldPopover />
-            <CreateElementPopover selectedNode={selectedNode} />
-            <CreateActionPopover />
-            <UpdateActionPopover />
-          </>
-        }
         uiKey={UiKey.BuilderSidebar}
         views={sidebarViews}
       />
-      <CreateFieldModal />
-      <UpdateFieldModal />
       <DeleteFieldModal />
       <DeleteComponentModal />
       <DeleteElementModal

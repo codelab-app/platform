@@ -1,14 +1,8 @@
 'use client'
 import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
@@ -41,7 +35,6 @@ export const UpdateFieldForm = observer<IFormController>(
     const updateFieldForm = useUpdateFieldForm()
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
-    const closeForm = () => updateFieldForm.close()
     const field = updateFieldForm.data
 
     const onSubmit = (input: IUpdateFieldData) => {
@@ -54,16 +47,12 @@ export const UpdateFieldForm = observer<IFormController>(
         typeDomainService.primitiveKind(input.fieldType),
       )
 
-      void fieldService.update({ ...input, validationRules })
-
-      closeForm()
-      onSubmitSuccess?.()
-
-      return Promise.resolve()
+      return fieldService.update({ ...input, validationRules })
     }
 
     return (
       <Form<IUpdateFieldData>
+        errorMessage="Error while updating field"
         model={{
           defaultValues: field?.defaultValues,
           description: field?.description,
@@ -72,7 +61,6 @@ export const UpdateFieldForm = observer<IFormController>(
           interfaceTypeId: field?.api.id,
           key: field?.key,
           name: field?.name,
-          validationRules: field?.validationRules,
         }}
         modelTransform={(mode, model) => {
           // This automatically sets the `defaultValue` to be nullable for types
@@ -95,10 +83,7 @@ export const UpdateFieldForm = observer<IFormController>(
           return model
         }}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while updating field',
-        })}
-        onSubmitSuccess={closeForm}
+        onSubmitSuccess={onSubmitSuccess}
         schema={fieldSchema}
         submitRef={submitRef}
         uiKey={UiKey.FieldFormUpdate}
@@ -156,7 +141,10 @@ export const UpdateFieldForm = observer<IFormController>(
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Update Field" />
+          <FormController
+            onCancel={onSubmitSuccess}
+            submitLabel="Update Field"
+          />
         </DisplayIf>
       </Form>
     )

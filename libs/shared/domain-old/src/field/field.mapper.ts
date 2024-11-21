@@ -5,13 +5,7 @@ import type {
   FieldUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import {
-  connectNodeId,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeId,
-  reconnectNodeIds,
-} from '../orm'
+import { connectNodeId, reconnectNodeId } from '../orm'
 
 export const fieldMapper: IMapper<
   IFieldDto,
@@ -52,13 +46,15 @@ export const fieldMapper: IMapper<
     defaultValues,
     description,
     fieldType,
-    id,
     key,
     name,
     validationRules,
   }: IFieldDto): FieldUpdateInput => {
     return {
-      defaultValues: JSON.stringify(defaultValues),
+      defaultValues:
+        typeof defaultValues === 'string'
+          ? defaultValues
+          : JSON.stringify(defaultValues),
       description,
       fieldType: reconnectNodeId(fieldType.id),
       key,

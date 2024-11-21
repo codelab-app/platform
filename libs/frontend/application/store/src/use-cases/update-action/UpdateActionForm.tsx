@@ -1,17 +1,13 @@
 import type { IUpdateActionData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
-import {
-  SelectAction,
+  SelectActionField,
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -31,16 +27,11 @@ export const UpdateActionForm = observer<IFormController>(
     const actionService = useActionService()
     const updateActionForm = useUpdateActionForm()
     const actionSchema = useActionSchema(updateActionSchema)
+    const { builderService } = useApplicationStore()
+    const selectedNode = builderService.selectedNode?.maybeCurrent
     const closeForm = () => updateActionForm.close()
     const actionToUpdate = updateActionForm.data
-
-    const onSubmit = (actionDTO: IUpdateActionData) => {
-      const promise = actionService.update(actionDTO)
-
-      onSubmitSuccess?.()
-
-      return promise
-    }
+    const onSubmit = actionService.update
 
     const onSubmitError = createFormErrorNotificationHandler({
       title: 'Error while updating action',
@@ -49,7 +40,7 @@ export const UpdateActionForm = observer<IFormController>(
     const baseModel = {
       id: actionToUpdate?.id,
       name: actionToUpdate?.name,
-      storeId: actionToUpdate?.store.current.id,
+      store: actionToUpdate?.store.current,
       type: actionToUpdate?.type,
     }
 
@@ -61,9 +52,9 @@ export const UpdateActionForm = observer<IFormController>(
               id: actionToUpdate.config.id,
             },
             ...baseModel,
-            errorActionId: actionToUpdate.errorAction?.id,
+            errorAction: actionToUpdate.errorAction ?? undefined,
             resource: actionToUpdate.resource,
-            successActionId: actionToUpdate.successAction?.id,
+            successAction: actionToUpdate.successAction ?? undefined,
           }
         : {
             ...baseModel,
@@ -75,7 +66,7 @@ export const UpdateActionForm = observer<IFormController>(
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
-        onSubmitSuccess={closeForm}
+        onSubmitSuccess={onSubmitSuccess}
         schema={actionSchema}
         submitRef={submitRef}
         uiKey={UiKey.ActionFormUpdate}
@@ -88,16 +79,8 @@ export const UpdateActionForm = observer<IFormController>(
 
         <DisplayIf condition={actionToUpdate?.type === IActionKind.ApiAction}>
           <SelectResource name="resource.id" />
-          <AutoField
-            component={SelectAction}
-            name="successActionId"
-            updatedAction={actionToUpdate}
-          />
-          <AutoField
-            component={SelectAction}
-            name="errorActionId"
-            updatedAction={actionToUpdate}
-          />
+          <SelectActionField name="successAction" selectedNode={selectedNode} />
+          <SelectActionField name="errorAction" selectedNode={selectedNode} />
           <ResourceFetchConfigField />
         </DisplayIf>
 
