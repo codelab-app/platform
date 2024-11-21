@@ -11,7 +11,6 @@ import {
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
 import { Provider } from 'jotai'
-import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { useMemo } from 'react'
 
 export const RootProviders = ({
@@ -37,9 +36,7 @@ export const RootProviders = ({
     <UserProvider>
       <CuiProvider>
         <Provider>
-          <NuqsAdapter>
-            <RootStoreProvider value={rootStore}>{children}</RootStoreProvider>
-          </NuqsAdapter>
+          <RootStoreProvider value={rootStore}>{children}</RootStoreProvider>
         </Provider>
       </CuiProvider>
     </UserProvider>

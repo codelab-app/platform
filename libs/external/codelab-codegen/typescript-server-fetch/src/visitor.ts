@@ -59,7 +59,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
 
     this._additionalImports = [
       "import { graphql } from '@codelab/shared/infra/gql'",
-      "import { gqlServerRequest } from '@codelab/shared/infra/fetch/use-server'",
+      "import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'",
     ]
 
     this._externalImportPrefix = this.config.importOperationTypesFrom

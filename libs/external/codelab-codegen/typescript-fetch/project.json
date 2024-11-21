@@ -3,7 +3,11 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/external/codelab-codegen/typescript-fetch/src",
   "projectType": "library",
-  "tags": ["scope:shared"],
+  "tags": [
+    "projectName:codelab-codegen-typescript-fetch",
+    "projectType:library",
+    "type:concrete"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",

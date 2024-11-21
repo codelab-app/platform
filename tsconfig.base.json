@@ -965,8 +965,8 @@
       "@codelab/shared/domain-old": ["libs/shared/domain-old/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/fetch": ["libs/shared/infra/fetch/src/index.ts"],
-      "@codelab/shared/infra/fetch/use-server": [
-        "libs/shared/infra/fetch/src/use-server/index.ts"
+      "@codelab/shared/infra/fetch-server": [
+        "libs/shared/infra/fetch-server/src/index.ts"
       ],
       "@codelab/shared/infra/gql": ["libs/shared/infra/gql/src/index.ts"],
       "@codelab/shared/infra/logging": [

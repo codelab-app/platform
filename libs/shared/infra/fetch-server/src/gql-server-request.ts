@@ -5,12 +5,9 @@ import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 import { getEnv } from '@codelab/shared/config'
 import { cLog } from '@codelab/shared/utils'
-import { withServerActionInstrumentation } from '@sentry/nextjs'
 import { revalidateTag } from 'next/cache'
 
 import type { NextFetchOptions } from './options'
-
-import { serverFetchWithAuth } from './fetch-with-auth'
 
 export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   // use `.toString()` version of `TypedDocumentString`
@@ -21,29 +18,29 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
    */
   next?: NextFetchOptions,
 ) => {
-  const response = await withServerActionInstrumentation(
-    document.toString(),
-    {},
-    async () =>
-      await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
-        body: JSON.stringify({
-          query: document,
-          variables,
-        }),
-        headers: {
-          Accept: 'application/graphql-response+json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        next,
-      }).then((res) => {
-        if (next?.revalidateTag) {
-          revalidateTag(next.revalidateTag)
-        }
+  /**
+   * Dynamic import here since nested auth0 requires Request to work
+   */
+  const { serverFetchWithAuth } = await import('./fetch-with-auth')
 
-        return res
-      }),
-  )
+  const response = await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
+    body: JSON.stringify({
+      query: document,
+      variables,
+    }),
+    headers: {
+      Accept: 'application/graphql-response+json',
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    next,
+  }).then((res) => {
+    if (next?.revalidateTag) {
+      revalidateTag(next.revalidateTag)
+    }
+
+    return res
+  })
 
   const { data, errors } = await response.json()
 

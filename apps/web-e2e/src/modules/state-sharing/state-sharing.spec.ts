@@ -45,7 +45,7 @@ test('should setup the pages that will share states', async ({
 test('should create a state variable in the provider page', async ({
   builderPage: page,
 }) => {
-  await page.goto(app.id, app.pages[0]!.id)
+  await page.goto(app.id, pageId)
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()

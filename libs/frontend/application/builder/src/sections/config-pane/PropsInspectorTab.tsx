@@ -15,7 +15,7 @@ import { useState } from 'react'
 
 import { usePropsInspector } from '../../hooks'
 
-const PropsInspectorTab = observer<{
+export const PropsInspectorTab = observer<{
   runtimeNode: IRuntimeComponentModel | IRuntimeElementModel
 }>(({ runtimeNode }) => {
   const { isLoading, lastRenderedProp, nodeLabel, save } =
@@ -62,5 +62,3 @@ const PropsInspectorTab = observer<{
     </div>
   )
 })
-
-export { PropsInspectorTab }

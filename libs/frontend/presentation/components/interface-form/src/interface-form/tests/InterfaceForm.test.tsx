@@ -13,12 +13,6 @@ import {
   stringType,
 } from './setup-store'
 
-// jest.mock('@auth0/nextjs-auth0/edge', () => ({
-//   initAuth0: jest.fn(() => ({
-//     //
-//   })),
-// }))
-
 describe('InterfaceForm', () => {
   test('interface form select enum field value', async () => {
     const mockSubmit = jest.fn()

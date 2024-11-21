@@ -23,7 +23,7 @@ export const useElementService = (): IElementService => {
   const propService = usePropService()
   const { elementDomainService } = useDomainStore()
 
-  const createElement = async (data: IElementDto) => {
+  const create = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
       await atomService.loadApi(data.renderType.id)
     }
@@ -134,14 +134,14 @@ export const useElementService = (): IElementService => {
   }
 
   return {
-    createElement,
+    create,
     createPopover,
-    deleteElement,
     // getAllFromCache,
     getElement,
     // getOneFromCache,
     loadDependantTypes,
     move,
+    remove: deleteElement,
     syncModifiedElements,
     update,
   }

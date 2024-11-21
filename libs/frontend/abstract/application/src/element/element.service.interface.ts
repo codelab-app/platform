@@ -34,20 +34,17 @@ export type UpdateElementProperties = {
 
 export interface IElementService {
   // Moved from element model to decouple renderer
-
   createPopover: IPopover
 
-  createElement(data: IElementDto): Promise<IElementModel>
-  deleteElement(subRoot: IElementModel): Promise<void>
+  create(data: IElementDto): Promise<IElementModel>
   getElement(id: string): IElementModel
-
   // loadComponentTree(component: ComponentDevelopmentFragment): {
   //   hydratedElements: Array<IElementModel>
   //   rootElement: IElementModel
   // }
-
   loadDependantTypes(element: IElementModel): void
   move(context: IMoveElementContext): Promise<void>
+  remove(subRoot: IElementModel): Promise<void>
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>
 }

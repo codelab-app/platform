@@ -74,7 +74,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         delete data.parentElement
       }
 
-      await elementService.createElement(data)
+      await elementService.create(data)
 
       onSubmitSuccess?.()
 

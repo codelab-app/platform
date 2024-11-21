@@ -31515,7 +31515,6 @@ type BaseType_ActionType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31524,7 +31523,6 @@ type BaseType_AppType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31533,7 +31531,6 @@ type BaseType_ArrayType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31542,7 +31539,6 @@ type BaseType_CodeMirrorType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31551,7 +31547,6 @@ type BaseType_ElementType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31560,7 +31555,6 @@ type BaseType_EnumType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31569,7 +31563,6 @@ type BaseType_InterfaceType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31578,7 +31571,6 @@ type BaseType_LambdaType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31587,7 +31579,6 @@ type BaseType_PageType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31596,7 +31587,6 @@ type BaseType_PrimitiveType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31605,7 +31595,6 @@ type BaseType_ReactNodeType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31614,7 +31603,6 @@ type BaseType_RenderPropType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31623,7 +31611,6 @@ type BaseType_RichTextType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -31632,7 +31619,6 @@ type BaseType_UnionType_Fragment = {
   id: string
   kind: TypeKind
   name: string
-  ownerConnection: { totalCount: number }
   owner: { id: string }
 }
 
@@ -32543,20 +32529,42 @@ export type GetBaseTypesQueryVariables = Exact<{
 
 export type GetBaseTypesQuery = {
   iBaseTypes: Array<
-    | BaseType_ActionType_Fragment
-    | BaseType_AppType_Fragment
-    | BaseType_ArrayType_Fragment
-    | BaseType_CodeMirrorType_Fragment
-    | BaseType_ElementType_Fragment
-    | BaseType_EnumType_Fragment
-    | BaseType_InterfaceType_Fragment
-    | BaseType_LambdaType_Fragment
-    | BaseType_PageType_Fragment
-    | BaseType_PrimitiveType_Fragment
-    | BaseType_ReactNodeType_Fragment
-    | BaseType_RenderPropType_Fragment
-    | BaseType_RichTextType_Fragment
-    | BaseType_UnionType_Fragment
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_ActionType_Fragment)
+    | ({ ownerConnection: { totalCount: number } } & BaseType_AppType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_ArrayType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_CodeMirrorType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_ElementType_Fragment)
+    | ({ ownerConnection: { totalCount: number } } & BaseType_EnumType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_InterfaceType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_LambdaType_Fragment)
+    | ({ ownerConnection: { totalCount: number } } & BaseType_PageType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_PrimitiveType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_ReactNodeType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_RenderPropType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_RichTextType_Fragment)
+    | ({
+        ownerConnection: { totalCount: number }
+      } & BaseType_UnionType_Fragment)
   >
 }
 
@@ -33156,9 +33164,6 @@ export const BaseTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33176,9 +33181,6 @@ export const ActionTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33195,9 +33197,6 @@ export const AppTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33221,9 +33220,6 @@ export const ArrayTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33241,9 +33237,6 @@ export const CodeMirrorTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33261,9 +33254,6 @@ export const ElementTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33293,9 +33283,6 @@ export const EnumTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33352,9 +33339,6 @@ export const InterfaceTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33398,9 +33382,6 @@ export const LambdaTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33417,9 +33398,6 @@ export const PageTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33437,9 +33415,6 @@ export const PrimitiveTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33456,9 +33431,6 @@ export const ReactNodeTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33475,9 +33447,6 @@ export const RenderPropTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33494,9 +33463,6 @@ export const RichTextTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33518,9 +33484,6 @@ export const UnionTypeFragmentDoc = new TypedDocumentString(
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33566,9 +33529,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33715,9 +33675,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -33877,9 +33834,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -34207,9 +34161,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -34453,9 +34404,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -34785,9 +34733,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -35096,9 +35041,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -35417,9 +35359,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -35655,9 +35594,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -35950,9 +35886,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -36256,9 +36189,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -36406,9 +36336,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -36573,9 +36500,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -36823,9 +36747,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -37019,9 +36940,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -37592,9 +37510,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -38025,9 +37940,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -38269,9 +38181,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -38529,9 +38438,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -38915,9 +38821,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -39225,9 +39128,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -39769,9 +39669,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -40238,6 +40135,9 @@ export const GetBaseTypesDocument = new TypedDocumentString(`
     query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
   iBaseTypes(where: $where, options: $options) {
     ...BaseType
+    ownerConnection {
+      totalCount
+    }
   }
 }
     fragment BaseType on IBaseType {
@@ -40245,9 +40145,6 @@ export const GetBaseTypesDocument = new TypedDocumentString(`
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -40321,9 +40218,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -40466,9 +40360,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -40598,9 +40489,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -40730,9 +40618,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -40862,9 +40747,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -40994,9 +40876,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41126,9 +41005,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41242,9 +41118,6 @@ export const GetReactNodeTypesDocument = new TypedDocumentString(`
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41266,9 +41139,6 @@ export const GetRichTextTypesDocument = new TypedDocumentString(`
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41306,9 +41176,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41438,9 +41305,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41570,9 +41434,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41702,9 +41563,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41834,9 +41692,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -41966,9 +41821,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -42728,9 +42580,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -43045,9 +42894,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }
@@ -43230,9 +43076,6 @@ fragment BaseType on IBaseType {
   id
   kind
   name
-  ownerConnection {
-    totalCount
-  }
   owner {
     id
   }

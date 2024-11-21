@@ -84,7 +84,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
       renderType,
     }
 
-    await elementService.createElement(createElementDto)
+    await elementService.create(createElementDto)
   }
 
   const handleMoveElement = async (event: DragEndEvent) => {

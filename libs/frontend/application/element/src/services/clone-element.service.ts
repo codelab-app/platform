@@ -138,7 +138,7 @@ export const useCloneElementService = ({
       renderType,
     }
 
-    const createdElement = await elementService.createElement({
+    const createdElement = await elementService.create({
       ...instanceElement,
       prevSibling,
     })

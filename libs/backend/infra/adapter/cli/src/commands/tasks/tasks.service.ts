@@ -148,7 +148,8 @@ export class TaskService implements CommandModule<unknown, unknown> {
                 }
 
                 try {
-                  await ogmService.generate()
+                  // await ogmService.generate()
+
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
 
                   const { unCommittedFiles } = await gitChangedFiles()

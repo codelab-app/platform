@@ -1,6 +1,6 @@
 import type { TypedDocumentString } from '@codelab/shared/infra/gql'
 
-import { gqlServerRequest } from '@codelab/shared/infra/fetch/use-server'
+import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
 import { useCallback, useState } from 'react'
 import useSWR, { type SWRResponse } from 'swr'
 

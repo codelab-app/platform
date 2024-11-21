@@ -74,7 +74,7 @@ export const useComponentService = (): IComponentService => {
       if (rootElement) {
         // means root element and the descendants were already requested
         // and hydrated to the store, so we can delete all of them right away
-        await elementService.deleteElement(rootElement)
+        await elementService.remove(rootElement)
       } else {
         // means we do not have root element and all the descendants on client side
         // need to get all descendant element IDs and delete them

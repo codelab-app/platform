@@ -54,18 +54,12 @@ export const typeRepository: ITypeRepository = {
     return { aggregate: { count: types.length }, items: types }
   },
 
-  findBaseTypes: async ({
-    options: { limit, offset },
-    where,
-  }: {
-    options: IBaseTypeOptions
-    where: IBaseTypeWhere
-  }) => {
+  findBaseTypes: async (params) => {
+    const where = params?.where ?? {}
+    const options = params?.options ?? {}
+
     const { iBaseTypes } = await GetBaseTypes({
-      options: {
-        limit,
-        offset,
-      },
+      options,
       where,
     })
 
