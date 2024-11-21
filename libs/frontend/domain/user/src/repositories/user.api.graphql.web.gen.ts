@@ -7,10 +7,12 @@ import { UserFragmentDoc } from '@codelab/shared/infra/gql'
 import {
   type GetUsersQueryVariables,
   type CreateUserMutationVariables,
+  type DeleteUsersMutationVariables,
 } from '@codelab/shared/infra/gql'
 import {
   GetUsersDocument,
   CreateUserDocument,
+  DeleteUsersDocument,
 } from './user.api.graphql.docs.gen'
 
 export const GetUsers = (
@@ -22,3 +24,8 @@ export const CreateUser = (
   variables: CreateUserMutationVariables,
   next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlServerRequest(CreateUserDocument.toString(), variables, next)
+
+export const DeleteUsers = (
+  variables: DeleteUsersMutationVariables,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
+) => gqlServerRequest(DeleteUsersDocument.toString(), variables, next)

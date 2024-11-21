@@ -5,7 +5,10 @@ import { UserFragmentDoc } from '@codelab/shared/infra/gql'
 
 export const GetUsersDocument = graphql(`
   query GetUsers($where: UserWhere) {
-    users(where: $where) {
+    aggregate: usersAggregate(where: $where) {
+      count
+    }
+    items: users(where: $where) {
       ...User
     }
   }
@@ -18,6 +21,14 @@ export const CreateUserDocument = graphql(`
         email
         id
       }
+    }
+  }
+`)
+
+export const DeleteUsersDocument = graphql(`
+  mutation DeleteUsers($where: UserWhere!) {
+    deleteUsers(where: $where) {
+      nodesDeleted
     }
   }
 `)

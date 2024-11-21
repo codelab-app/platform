@@ -32940,6 +32940,12 @@ export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
 }
 
+export type DeleteUsersMutationVariables = Exact<{
+  where: UserWhere
+}>
+
+export type DeleteUsersMutation = { deleteUsers: { nodesDeleted: number } }
+
 export type CreateAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput
 }>
@@ -42438,6 +42444,16 @@ export const CreateUserDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CreateUserMutation,
   CreateUserMutationVariables
+>
+export const DeleteUsersDocument = new TypedDocumentString(`
+    mutation DeleteUsers($where: UserWhere!) {
+  deleteUsers(where: $where) {
+    nodesDeleted
+  }
+}
+    `) as unknown as TypedDocumentString<
+  DeleteUsersMutation,
+  DeleteUsersMutationVariables
 >
 export const CreateAppsDocument = new TypedDocumentString(`
     mutation CreateApps($input: [AppCreateInput!]!) {
