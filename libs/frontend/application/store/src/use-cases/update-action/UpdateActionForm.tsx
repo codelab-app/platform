@@ -5,7 +5,6 @@ import {
   SelectActionField,
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import {
@@ -31,11 +30,12 @@ export const UpdateActionForm = observer<IFormController>(
     const selectedNode = builderService.selectedNode?.maybeCurrent
     const closeForm = () => updateActionForm.close()
     const actionToUpdate = updateActionForm.data
-    const onSubmit = actionService.update
 
-    const onSubmitError = createFormErrorNotificationHandler({
-      title: 'Error while updating action',
-    })
+    const onSubmit = (actionDTO: IUpdateActionData) => {
+      updateActionForm.close()
+
+      return actionService.update(actionDTO)
+    }
 
     const baseModel = {
       id: actionToUpdate?.id,
@@ -63,9 +63,9 @@ export const UpdateActionForm = observer<IFormController>(
 
     return (
       <Form<IUpdateActionData>
+        errorMessage="Error while updating action"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={actionSchema}
         submitRef={submitRef}

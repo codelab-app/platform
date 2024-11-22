@@ -33,9 +33,7 @@ export const useActionService = (): IActionService => {
   const create = async (data: ICreateActionData) => {
     const action = actionFactory.mapDataToDto(data)
 
-    hydrate({
-      actionsDto: [action],
-    })
+    hydrate({ actionsDto: [action] })
 
     return await actionRepository.add(action)
   }
@@ -69,7 +67,7 @@ export const useActionService = (): IActionService => {
 
     const actionDto = actionFactory.mapDataToDto(data)
 
-    // ActionFactory.writeCache(actionDto, action)
+    hydrate({ actionsDto: [actionDto] })
 
     await actionRepository.update({ id: action.id }, actionDto)
 
