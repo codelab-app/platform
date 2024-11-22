@@ -68,10 +68,23 @@ export class RuntimeStoreModel
 
   @computed
   get runtimeActionsList() {
-    const actions = [...this.runtimeActions.values()]
+    const runtimeActions = [...this.runtimeActions.values()]
+    const storeActions = this.store.current.actions
 
-    return this.store.current.actions.map((action) => {
-      const found = actions.find((existing) => existing.action.id === action.id)
+    runtimeActions.forEach((runtimeAction) => {
+      if (
+        !storeActions.find(
+          (storeAction) => storeAction.id === runtimeAction.action.id,
+        )
+      ) {
+        this.runtimeActions.delete(runtimeAction.id)
+      }
+    })
+
+    return storeActions.map((action) => {
+      const found = runtimeActions.find(
+        (existing) => existing.action.id === action.id,
+      )
 
       if (found) {
         return found
