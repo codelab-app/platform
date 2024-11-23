@@ -29,6 +29,7 @@ const PagePreviewPage = async ({
       redirectsDto={dto.redirects}
       resourcesDto={dto.resources}
       storesDto={dto.stores}
+      tagsDto={dto.tags}
       typesDto={dto.types}
     >
       {/* Decouple renderer from builder */}
