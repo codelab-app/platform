@@ -21,9 +21,10 @@ export const CuiSidebarSecondary = observer(
       <div
         aria-label={label}
         className={`
-          flex grow flex-col
-          justify-start border-0 border-r-2
-          border-solid border-gray-300 bg-white
+          flex w-full grow
+          flex-col justify-start border-0
+          border-r-2 border-solid border-gray-300
+          bg-white
         `}
         data-testid={id}
         role="dialog"
