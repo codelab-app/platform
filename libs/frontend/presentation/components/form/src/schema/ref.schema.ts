@@ -64,7 +64,8 @@ export const refMaybeSchema = <T extends string>(
           ...showFieldOnDev(),
         },
       },
-      required: ['id'],
+      nullable,
+      required: [],
     },
     // Cannot use [key: string], otherwise json schema spread won't work
   }
