@@ -43,18 +43,18 @@ export const builderComponentsMenuItem = ({
   componentId,
   pageId,
 }: Partial<ComponentContextParams & PageContextParams>): NavigationBarItem => {
-  const disabledBuilderComponentsMenuItem = {
-    disabled: true,
+  const componentsListMenuItem = {
     icon: <CodeSandboxOutlined title="Builder Components" />,
     key: 'components',
-    link: undefined,
+    link: {
+      href: PageType.Components(),
+    },
     title: 'Builder Components',
   }
 
   if (appId && pageId) {
     return {
-      ...disabledBuilderComponentsMenuItem,
-      disabled: false,
+      ...componentsListMenuItem,
       link: {
         href: PageType.PageBuilder(
           { appId, pageId },
@@ -66,15 +66,14 @@ export const builderComponentsMenuItem = ({
 
   if (componentId) {
     return {
-      ...disabledBuilderComponentsMenuItem,
-      disabled: false,
+      ...componentsListMenuItem,
       link: {
         href: PageType.ComponentBuilder({ componentId }),
       },
     }
   }
 
-  return disabledBuilderComponentsMenuItem
+  return componentsListMenuItem
 }
 
 export const commonMenuItems: Array<NavigationBarItem> = [
