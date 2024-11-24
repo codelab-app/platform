@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 
 import { useEffect, useMemo, useState } from 'react'
+import useResizeObserver from 'use-resize-observer/polyfilled'
 
 import type { MarginPaddingOverlayProps } from '../overlay.interface'
 import type { ISpacingValues } from './shared'
@@ -16,6 +17,7 @@ export const MarginPaddingOverlay = ({
     renderContainer.getBoundingClientRect(),
   )
 
+  const elementObserver = useResizeObserver({ ref: element })
   const [rect, setRect] = useState(() => element.getBoundingClientRect())
   const [margins, setMargins] = useState<ISpacingValues | null>(null)
   const [paddings, setPaddings] = useState<ISpacingValues | null>(null)
@@ -48,7 +50,7 @@ export const MarginPaddingOverlay = ({
       $right: paddingRight,
       $top: paddingTop,
     })
-  }, [element, renderContainer])
+  }, [element, renderContainer, elementObserver.height])
 
   const rootStyle: CSSProperties = useMemo(
     () => ({
