@@ -22,6 +22,14 @@ export const RichTextEditorWrapper = observer<{
   const propService = usePropService()
   const element = runtimeElement.element.current
   const editable = element.isTextContentEditable
+  const runtimeChildren = runtimeElement.runtimeProps.evaluatedProps['children']
+
+  const elementChildren = useMemo(
+    () => element.props.values['children']?.value,
+    [element, editable],
+  )
+
+  const value = editable ? elementChildren : runtimeChildren
 
   const richTextType = typeDomainService.typesList.find(
     (type) => type.kind === ITypeKind.RichTextType,
@@ -61,14 +69,6 @@ export const RichTextEditorWrapper = observer<{
       }
     },
     [],
-  )
-
-  const value = useMemo(
-    () =>
-      editable
-        ? element.props.values['children']?.value
-        : runtimeElement.runtimeProps.evaluatedProps['children'],
-    [element, runtimeElement, editable],
   )
 
   return (

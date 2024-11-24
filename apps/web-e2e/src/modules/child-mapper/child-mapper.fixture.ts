@@ -16,9 +16,7 @@ export class ChildMapperPage extends BuilderPage {
     const updateElementForm = this.getUpdateElementForm()
 
     await this.selectTreeElement(pageRowElement)
-    await updateElementForm
-      .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
-      .click()
+    await expect(this.getFormFieldSpinner()).toHaveCount(0)
 
     await this.setFormFieldValue(
       'Prop Key',

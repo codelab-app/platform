@@ -2,6 +2,8 @@ import { expect } from '@playwright/test'
 
 import { test } from './app.fixture'
 
+test.describe.configure({ mode: 'serial' })
+
 test.beforeEach(async ({ appListPage: page }) => {
   await page.goto()
 
@@ -53,4 +55,10 @@ test('should be able to delete app', async ({ appListPage: page }) => {
 
   await expect(page.getNotification()).toContainText('App deleted successfully')
   await expect(page.getUpdatedAppName()).toBeHidden()
+})
+
+// to provide clean environment for test re-run, in case
+// something goes wrong somewhere in the middle of test suit
+test.afterAll('cleanup created app', async ({ request }) => {
+  await request.post('/api/v1/admin/setup-e2e-data')
 })
