@@ -11,7 +11,7 @@ import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import { observer } from 'mobx-react-lite'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { debounce } from 'remeda'
 
 export const RichTextEditorWrapper = observer<{
@@ -63,9 +63,13 @@ export const RichTextEditorWrapper = observer<{
     [],
   )
 
-  const value = editable
-    ? element.props.values['children']?.value
-    : runtimeElement.runtimeProps.evaluatedProps['children']
+  const value = useMemo(
+    () =>
+      editable
+        ? element.props.values['children']?.value
+        : runtimeElement.runtimeProps.evaluatedProps['children'],
+    [element, runtimeElement, editable],
+  )
 
   return (
     <TextEditor
