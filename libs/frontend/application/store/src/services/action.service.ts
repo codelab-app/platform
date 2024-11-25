@@ -15,7 +15,10 @@ import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useHydrateStore } from '@codelab/frontend/infra/context'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { actionFactory } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -24,6 +27,7 @@ import { v4 } from 'uuid'
 export const useActionService = (): IActionService => {
   const { appId, componentId, pageId } = useUrlPathParams()
   const { actionDomainService } = useDomainStore()
+  const { builderService } = useApplicationStore()
   const hydrate = useHydrateStore()
 
   const cloneAction = async (action: IActionModel, storeId: string) => {
@@ -41,8 +45,17 @@ export const useActionService = (): IActionService => {
   const removeMany = async (actions: Array<IActionModel>) => {
     for (const action of actions) {
       const { id } = action
+      const { runtimeStore } = builderService.selectedNode?.current ?? {}
+
+      const foundRuntimeAction = runtimeStore?.runtimeActionsList.find(
+        (runtimeAction) => runtimeAction.action.id === id,
+      )
 
       actionDomainService.actions.delete(id)
+
+      if (runtimeStore && foundRuntimeAction) {
+        runtimeStore.runtimeActions.delete(foundRuntimeAction.id)
+      }
     }
 
     return await actionRepository.delete(actions)
