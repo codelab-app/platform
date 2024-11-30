@@ -203,6 +203,10 @@ export const useFieldService = (): IFieldService => {
     return filter(affectedNodeIds, isTruthy)
   }
 
+  const getOneFromCache = (ref: IRef) => {
+    return fieldDomainService.fields.get(ref.id)
+  }
+
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
@@ -221,13 +225,27 @@ export const useFieldService = (): IFieldService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance) => {
+    open: (router: AppRouterInstance, id: string) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/update-field`)
+      router.push(`${url}/update-field/${id}`)
+    },
+  }
+
+  const deletePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance, id: string) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/delete/field/${id}`)
     },
   }
 
@@ -235,6 +253,8 @@ export const useFieldService = (): IFieldService => {
     cloneField,
     create,
     createPopover,
+    deletePopover,
+    getOneFromCache,
     moveFieldAsNextSibling,
     moveFieldAsPrevSibling,
     removeMany,

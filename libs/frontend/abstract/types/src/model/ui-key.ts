@@ -151,11 +151,8 @@ export enum UiKey {
    * Pagination
    */
   PaginationToobarItemSearch = 'PaginationToobarItemSearch',
-  PaginationToolbarItemCurrentPage = 'PaginationToolbarItemCurrentPage',
-  PaginationToolbarItemNextPage = 'PaginationToolbarItemNextPage',
-  PaginationToolbarItemPageSize = 'PaginationToolbarItemPageSize',
-  PaginationToolbarItemPreviousPage = 'PaginationToolbarItemPreviousPage',
   PaginationToolbarItemSearch = 'PaginationToolbarItemSearch',
+  PagintaionControl = 'PagintaionControl',
   /**
    * Progress Bar
    */
@@ -208,6 +205,7 @@ export enum UiKey {
   TypeModalDelete = 'TypeModalDelete',
   TypeModalUpdate = 'TypeModalUpdate',
   TypePopoverCreate = 'TypePopoverCreate',
+  TypePopoverUpdate = 'TypePopoverUpdate',
   TypeSidebar = 'TypeSidebar',
   TypeToolbarItemCreate = 'TypeToolbarItemCreate',
   TypeToolbarItemCreateCancel = 'TypeToolbarItemCreateCancel',

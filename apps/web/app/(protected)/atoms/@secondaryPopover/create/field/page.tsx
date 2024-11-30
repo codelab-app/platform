@@ -1,12 +1,12 @@
 'use client'
 
-import { UpdateFieldPopover } from '@codelab/frontend-application-type/use-cases/update-field'
+import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 const Page = () => {
   return (
     <DashboardPopover>
-      <UpdateFieldPopover />
+      <CreateFieldPopover />
     </DashboardPopover>
   )
 }

@@ -53,7 +53,7 @@ export const TagsPrimarySidebar = observer(() => {
           key: 'tags',
           label: 'Tags',
           toolbar: {
-            items: [...items, ...toolbarItems],
+            items: [...toolbarItems, ...items],
             title: 'Tags toolbar',
           },
         },

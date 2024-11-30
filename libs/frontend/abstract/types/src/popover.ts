@@ -5,5 +5,5 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
  */
 export interface IPopover {
   close(router: AppRouterInstance): void
-  open(router: AppRouterInstance): void
+  open(router: AppRouterInstance, args?: unknown): void
 }

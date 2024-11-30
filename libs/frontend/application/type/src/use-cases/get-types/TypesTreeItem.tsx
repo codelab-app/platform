@@ -4,23 +4,20 @@ import type {
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-  useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { useRouter } from 'next/navigation'
 
 import { useCreateFieldForm } from '../create-field'
-import { useDeleteFieldModal } from '../delete-field'
-import { useDeleteTypeModal } from '../delete-type'
-import { useUpdateFieldForm } from '../update-field'
-import { useUpdateTypeForm } from '../update-type'
 
 interface TypesTreeItemProps {
   data: ITreeNode<ITypeTreeNodeData>
@@ -28,32 +25,32 @@ interface TypesTreeItemProps {
 
 export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
   const createFieldForm = useCreateFieldForm()
-  const updateTypeForm = useUpdateTypeForm()
-  const updateFieldForm = useUpdateFieldForm()
-  const deleteFieldModal = useDeleteFieldModal()
-  const deleteTypeModal = useDeleteTypeModal()
   const { fieldDomainService } = useDomainStore()
-  const { popover } = useCui()
+  const router = useRouter()
 
   const onEdit = () => {
     if (data.extraData.type === 'type') {
-      updateTypeForm.open(data.extraData.node)
-      updateFieldForm.close()
+      router.push(PageType.TypeUpdate(data.extraData.node))
     } else {
-      updateFieldForm.open(data.extraData.node)
-      updateTypeForm.close()
+      router.push(PageType.TypeFieldUpdate(data.extraData.node))
     }
   }
 
-  const onDelete = () => {
+  const onDelete = (event: SyntheticEvent) => {
+    // Prevent triggering `onEdit`
+    event.stopPropagation()
+
     if (data.extraData.type === 'type') {
-      deleteTypeModal.open(data.extraData.node)
+      router.push(PageType.TypeDelete(data.extraData.node))
     } else {
-      deleteFieldModal.open(data.extraData.node)
+      router.push(PageType.TypeFieldDelete(data.extraData.node))
     }
   }
 
-  const onAddField = () => {
+  const onAddField = (event: SyntheticEvent) => {
+    // Prevent triggering `onEdit`
+    event.stopPropagation()
+
     if (
       data.extraData.type === 'type' &&
       data.extraData.node.kind !== ITypeKind.InterfaceType
@@ -75,7 +72,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
     createFieldForm.open(interfaceType as IInterfaceTypeModel)
 
-    popover.open(UiKey.FieldPopoverCreate)
+    router.push(PageType.TypeFieldCreate())
   }
 
   const toolbarItems: Array<ToolbarItem> = [

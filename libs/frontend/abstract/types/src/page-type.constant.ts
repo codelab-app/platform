@@ -27,12 +27,11 @@ export const PageType = {
   Admin: () => '/admin',
   AppDetail: ({ appId }: Pick<UrlPathParams, 'appId'>) => `/apps/${appId}`,
   AppList: () => '/apps',
-  AtomCreate: () => {
-    return `${PageType.Atoms()}/create`
-  },
-  AtomDelete: ({ id }: IRef) => {
-    return `${PageType.Atoms()}/delete/${id}`
-  },
+  AtomCreate: () => `${PageType.Atoms()}/create`,
+  AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/${id}`,
+  AtomFieldCreate: () => `${PageType.Atoms()}/create/field`,
+  AtomFieldDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/field/${id}`,
+  AtomFieldUpdate: ({ id }: IRef) => `${PageType.Atoms()}/update/field/${id}`,
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
   AtomUpdate: ({ id }: IRef, queryParams?: Partial<UrlQueryParams>) => {
@@ -97,4 +96,10 @@ export const PageType = {
   },
   TagsUpdate: ({ id }: IRef) => `/tags/update/${id}` as const,
   Type: () => '/types' as const,
+  TypeCreate: () => `${PageType.Type()}/create`,
+  TypeDelete: ({ id }: IRef) => `${PageType.Type()}/delete/${id}`,
+  TypeFieldCreate: () => `${PageType.Type()}/create/field`,
+  TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/delete/field/${id}`,
+  TypeFieldUpdate: ({ id }: IRef) => `${PageType.Type()}/update/field/${id}`,
+  TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/update/${id}`,
 }

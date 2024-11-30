@@ -1,6 +1,5 @@
 import type {
   IAtomTreeNodeData,
-  IInterfaceTypeModel,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
@@ -8,16 +7,13 @@ import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { typeRef } from '@codelab/frontend/abstract/domain'
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-  useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { searchParamsAsObject } from '@codelab/frontend/shared/utils'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
-import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../../services'
@@ -27,16 +23,15 @@ interface AtomsTreeItemProps {
 }
 
 export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
-  const { popover } = useCui()
   const { goToDeleteAtomPage } = useAtomService()
   const { node, type } = data.extraData
-  const deleteFieldModal = useDeleteFieldModal()
-  const icon = type === 'atom' ? node.library.icon : null
+  const isAtom = type === 'atom'
+  const icon = isAtom ? node.library.icon : null
   const createFieldForm = useCreateFieldForm()
   const router = useRouter()
 
   const onEdit = () => {
-    if (type === 'atom') {
+    if (isAtom) {
       router.push(
         PageType.AtomUpdate(node, {
           ...searchParamsAsObject(),
@@ -44,7 +39,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
         }),
       )
     } else {
-      router.push(PageType.FieldUpdate())
+      router.push(PageType.AtomFieldUpdate(node))
     }
   }
 
@@ -52,37 +47,33 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     // Prevent triggering `onEdit`
     event.stopPropagation()
 
-    if (type === 'atom') {
-      console.log('delete atom')
+    if (isAtom) {
       goToDeleteAtomPage(node, router)
     } else {
-      deleteFieldModal.open(node)
+      router.push(PageType.AtomFieldDelete(node))
     }
   }
 
-  const onAddField = () => {
-    const interfaceId = node.api.id
+  const onAddField = (event: SyntheticEvent) => {
+    // Prevent triggering `onEdit`
+    event.stopPropagation()
 
-    const interfaceRef = interfaceId
-      ? typeRef<IInterfaceTypeModel>(interfaceId)
-      : undefined
-
-    if (interfaceRef) {
-      createFieldForm.open(interfaceRef.current)
-      popover.open(UiKey.FieldPopoverCreate)
-    }
+    createFieldForm.open(node.api)
+    router.push(PageType.AtomFieldCreate())
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: UiKey.AtomsToolbarItemDelete,
+      cuiKey: isAtom
+        ? UiKey.AtomsToolbarItemDelete
+        : UiKey.FieldToolbarItemDelete,
       icon: <DeleteOutlined />,
       onClick: onDelete,
-      title: 'Delete atom',
+      title: isAtom ? 'Delete atom' : 'Delete field',
     },
   ]
 
-  if (type === 'atom') {
+  if (isAtom) {
     toolbarItems.push({
       cuiKey: UiKey.FieldToolbarItemCreate,
       icon: <PlusOutlined />,

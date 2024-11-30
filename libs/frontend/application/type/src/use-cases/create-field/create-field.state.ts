@@ -1,4 +1,4 @@
-import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -7,7 +7,7 @@ import {
 } from '@codelab/frontend-application-shared-store/ui'
 
 export const useCreateFieldForm = () =>
-  useFormState<IInterfaceTypeModel>(UiKey.FieldFormCreate)
+  useFormState<IRef>(UiKey.FieldFormCreate)
 
 export const useCreateFieldModal = () =>
-  useModalState<IInterfaceTypeModel>(UiKey.FieldModalCreate)
+  useModalState<IRef>(UiKey.FieldModalCreate)

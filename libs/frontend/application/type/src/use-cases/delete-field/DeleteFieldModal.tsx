@@ -1,23 +1,22 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   emptyJsonSchema,
   type EmptyJsonSchemaType,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { useFieldService } from '../../services'
-import { useDeleteFieldModal } from './delete-field.state'
 
-export const DeleteFieldModal = observer(() => {
-  const deleteFieldModal = useDeleteFieldModal()
+export const DeleteFieldModal = observer<{ id: string }>(({ id }) => {
+  const router = useRouter()
   const fieldService = useFieldService()
-  const closeModal = () => deleteFieldModal.close()
-  const field = deleteFieldModal.data
+  const closeModal = router.back
+  const field = fieldService.getOneFromCache({ id })
 
   if (!field) {
     return null
@@ -25,21 +24,16 @@ export const DeleteFieldModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      okButtonProps={{ danger: true }}
       okText="Delete"
       onCancel={closeModal}
-      open={deleteFieldModal.isOpen}
+      open={true}
       title={<span className="font-semibold">Delete field</span>}
       uiKey={UiKey.FieldModalDelete}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
+        errorMessage="Error while deleting field"
         model={{}}
-        onSubmit={(input) => {
-          return fieldService.removeMany([field])
-        }}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting field',
-        })}
+        onSubmit={() => fieldService.removeMany([field])}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >

@@ -5,23 +5,21 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
-import { useCreateTypeForm } from './create-type.state'
+import { useTypeService } from '../../services'
 import { CreateTypeForm } from './CreateTypeForm'
 
 export const CreateTypePopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createTypeForm = useCreateTypeForm()
-  const { popover } = useCui()
+  const { createPopover } = useTypeService()
+  const router = useRouter()
 
   return (
-    <CuiSidebarPopover
+    <CuiSidebarSecondary
       id={UiKey.TypePopoverCreate}
       toolbar={{
         items: [
@@ -29,19 +27,14 @@ export const CreateTypePopover = observer(() => {
             cuiKey: UiKey.TypeToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
+            onClick: () => submitRef.current?.submit(),
             title: 'Create',
           },
           {
             cuiKey: UiKey.TypeToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => {
-              popover.close()
-              createTypeForm.close()
-            },
+            onClick: () => createPopover.close(router),
             title: 'Cancel',
           },
         ],
@@ -49,10 +42,10 @@ export const CreateTypePopover = observer(() => {
       }}
     >
       <CreateTypeForm
-        onSubmitSuccess={() => popover.close()}
+        onSubmitSuccess={() => createPopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

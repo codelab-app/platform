@@ -12,11 +12,9 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-  useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
-import { useDeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
@@ -26,21 +24,12 @@ interface StateTreeItemProps {
 }
 
 export const StateTreeItem = ({ data }: StateTreeItemProps) => {
-  const updateFieldForm = useUpdateFieldForm()
-  const deleteFieldModal = useDeleteFieldModal()
   const createFieldForm = useCreateFieldForm()
   const { fieldDomainService } = useDomainStore()
-  const { createPopover, updatePopover } = useFieldService()
+  const { createPopover, deletePopover, updatePopover } = useFieldService()
   const router = useRouter()
-
-  const onEdit = () => {
-    updateFieldForm.open(data.extraData.node)
-    updatePopover.open(router)
-  }
-
-  const onDelete = () => {
-    deleteFieldModal.open(data.extraData.node)
-  }
+  const onEdit = () => updatePopover.open(router, data.extraData.node.id)
+  const onDelete = () => deletePopover.open(router, data.extraData.node.id)
 
   const onAddField = () => {
     createFieldForm.open(

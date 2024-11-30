@@ -21,7 +21,6 @@ import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/g
 import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
-import { DeleteFieldModal } from '@codelab/frontend-application-type/use-cases/delete-field'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   useApplicationStore,
@@ -203,7 +202,6 @@ export const BuilderPrimarySidebar = observer<{
         uiKey={UiKey.BuilderSidebar}
         views={sidebarViews}
       />
-      <DeleteFieldModal />
       <DeleteComponentModal />
       <DeleteElementModal
         selectPreviousElementOnDelete={() =>
