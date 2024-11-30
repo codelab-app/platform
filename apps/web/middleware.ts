@@ -20,7 +20,7 @@ import { isEqual } from 'radash'
  * https://stackoverflow.com/questions/76813923/how-to-avoid-warning-message-when-getting-user-information-on-next-js-13-server/77015385#77015385
  */
 
-const paginatedRoutes = [PageType.Atoms(), PageType.Tags()]
+const paginatedRoutes = [PageType.Atoms(), PageType.Tags(), PageType.Type()]
 const authenticatedRoutes = [PageType.AppList()]
 
 const middleware: NextMiddleware = async (

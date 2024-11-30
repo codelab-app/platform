@@ -5959,7 +5959,7 @@ input BaseActionWhere {
 }
 
 input BaseTypesWhere {
-  name: String
+  name_MATCHES: String
 }
 
 enum BreakpointType {

@@ -42,7 +42,7 @@ export const typeSchema = gql`
   }
 
   input BaseTypesWhere {
-    name: String
+    name_MATCHES: String
   }
 
   input GetBaseTypesOptions {
