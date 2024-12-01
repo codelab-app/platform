@@ -1,23 +1,15 @@
 'use client'
 
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { withProfiler } from '@sentry/nextjs'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/navigation'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
@@ -27,32 +19,17 @@ import { createAtomSchema } from './create-atom.schema'
 export const CreateAtomForm = observer<IFormController>(
   ({ onSubmitSuccess, submitRef }) => {
     const { tagDomainService } = useDomainStore()
-    const { create } = useAtomService()
-    const { back } = useRouter()
-    const closeForm = () => back()
-
-    const onSubmit = async (data: ICreateAtomData) => {
-      const results = await create(data)
-
-      onSubmitSuccess?.()
-
-      return results
-    }
-
-    const onSubmitError = createFormErrorNotificationHandler({
-      title: 'Error while creating atom',
-    })
-
+    const atomService = useAtomService()
     const tagsSelectionOptions = tagDomainService.tagsSelectOptions
 
     return (
       <Form<ICreateAtomData>
+        errorMessage="Error while creating atom"
         model={{
           id: v4(),
         }}
-        onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
-        onSubmitSuccess={closeForm}
+        onSubmit={atomService.create}
+        onSubmitSuccess={onSubmitSuccess}
         schema={createAtomSchema}
         submitRef={submitRef}
         uiKey={UiKey.AtomFormCreate}

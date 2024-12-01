@@ -152,7 +152,7 @@ const UiDataRecord = {
     label: 'Update Auth Guard Modal',
   },
   [UiKey.AuthGuardPopoverCreate]: {
-    label: 'Create Auth Guard Popover',
+    label: 'Auth Guard',
   },
   [UiKey.AuthGuardSidebar]: {
     label: 'Auth Guard Sidebar',

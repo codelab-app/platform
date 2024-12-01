@@ -4,13 +4,14 @@ import type {
   IAuthGuardModel,
   IAuthGuardUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { AuthGuardWhere } from '@codelab/shared/infra/gql'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import { PageType } from '@codelab/frontend/abstract/types'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'
-import { v4 } from 'uuid'
 
 export const useAuthGuardService = (): IAuthGuardService => {
   const { authGuardDomainService, resourceDomainService, userDomainService } =
@@ -77,13 +78,33 @@ export const useAuthGuardService = (): IAuthGuardService => {
     return [...authGuardDomainService.authGuards.values()]
   }
 
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.AuthGuards())
+    },
+    open: (router: AppRouterInstance, id: string) => {
+      router.push(PageType.AuthGuardsUpdate({ id }))
+    },
+  }
+
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.AuthGuards())
+    },
+    open: (router: AppRouterInstance) => {
+      router.push(PageType.AuthGuardsCreate())
+    },
+  }
+
   return {
     create,
+    createPopover,
     getAll,
     getAllFromCache,
     getOne,
     getOneFromCache,
     removeMany,
     update,
+    updatePopover,
   }
 }

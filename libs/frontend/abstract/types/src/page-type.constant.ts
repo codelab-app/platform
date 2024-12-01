@@ -46,6 +46,9 @@ export const PageType = {
     return `${url}?${params}`
   },
   AuthGuards: () => '/auth-guards',
+  AuthGuardsCreate: () => `${PageType.AuthGuards()}/create`,
+  AuthGuardsDelete: ({ id }: IRef) => `${PageType.AuthGuards()}/delete/${id}`,
+  AuthGuardsUpdate: ({ id }: IRef) => `${PageType.AuthGuards()}/update/${id}`,
   ComponentBuilder: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
     `/components/${componentId}/builder`,
   ComponentCreate: () => {
