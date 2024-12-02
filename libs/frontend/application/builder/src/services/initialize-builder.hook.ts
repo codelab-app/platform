@@ -36,9 +36,11 @@ export const useInitializeBuilder = ({
   useEffect(() => {
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 
-    builderService.setSelectedNode(
-      runtimeElementRef(renderer.runtimeRootContainerNode.runtimeRootElement),
-    )
+    const { runtimeContainerNode, runtimeRootContainerNode } = renderer
+    const runtimeContainer = runtimeContainerNode ?? runtimeRootContainerNode
+    const runtimeRootElement = runtimeContainer.runtimeRootElement
+
+    builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
 
     void renderer.expressionTransformer.init()
   }, [renderer.id])

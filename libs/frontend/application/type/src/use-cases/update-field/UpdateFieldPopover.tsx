@@ -5,23 +5,21 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
-import { useUpdateFieldForm } from './update-field.state'
+import { useFieldService } from '../../services/field.service'
 import { UpdateFieldForm } from './UpdateFieldForm'
 
 export const UpdateFieldPopover = observer(() => {
+  const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>()
-  const updateFieldForm = useUpdateFieldForm()
-  const { popover } = useCui()
+  const { updatePopover } = useFieldService()
 
   return (
-    <CuiSidebarPopover
+    <CuiSidebarSecondary
       id={UiKey.FieldPopoverUpdate}
       toolbar={{
         items: [
@@ -29,19 +27,14 @@ export const UpdateFieldPopover = observer(() => {
             cuiKey: UiKey.FieldToolbarItemUpdate,
             icon: <SaveOutlined />,
             label: 'Update',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
+            onClick: () => submitRef.current?.submit(),
             title: 'Update',
           },
           {
             cuiKey: UiKey.FieldToolbarItemUpdateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => {
-              popover.close()
-              updateFieldForm.close()
-            },
+            onClick: () => updatePopover.close(router),
             title: 'Cancel',
           },
         ],
@@ -49,10 +42,10 @@ export const UpdateFieldPopover = observer(() => {
       }}
     >
       <UpdateFieldForm
-        onSubmitSuccess={() => popover.close()}
+        onSubmitSuccess={() => updatePopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

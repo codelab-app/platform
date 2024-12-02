@@ -20,7 +20,7 @@ fragment Atom on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -47,7 +47,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {

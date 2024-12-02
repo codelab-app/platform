@@ -33,7 +33,7 @@ export const CreateResourceForm = observer<IFormController>(
         submitRef={submitRef}
         uiKey={UiKey.ResourceFormCreate}
       >
-        <AutoFields />
+        <AutoFields omitFields={['owner']} />
         <DisplayIf condition={showFormControl}>
           <FormController submitLabel="Create Type" />
         </DisplayIf>

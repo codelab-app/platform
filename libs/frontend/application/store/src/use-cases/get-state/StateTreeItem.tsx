@@ -29,14 +29,13 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const updateFieldForm = useUpdateFieldForm()
   const deleteFieldModal = useDeleteFieldModal()
   const createFieldForm = useCreateFieldForm()
-  const { popover } = useCui()
   const { fieldDomainService } = useDomainStore()
-  const { createPopover } = useFieldService()
+  const { createPopover, updatePopover } = useFieldService()
   const router = useRouter()
 
   const onEdit = () => {
     updateFieldForm.open(data.extraData.node)
-    popover.open(UiKey.FieldPopoverUpdate)
+    updatePopover.open(router)
   }
 
   const onDelete = () => {

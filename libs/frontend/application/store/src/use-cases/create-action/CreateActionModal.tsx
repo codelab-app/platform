@@ -78,7 +78,6 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
               'config',
               'successActionId',
               'errorActionId',
-              'actionsIds',
             ]}
           />
 

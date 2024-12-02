@@ -7,7 +7,6 @@ import type {
 import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
 import type { CodeActionCreateInput } from '@codelab/shared/infra/gql'
 
-import { ApiAction, CodeAction } from '@codelab/frontend-domain-action/store'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { actionMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -71,7 +70,7 @@ export const actionRepository: IActionRepository = {
           const {
             deleteApiActions: { nodesDeleted: deleted },
           } = await DeleteApiActions({
-            delete: actionMapper.toDeleteInput(),
+            delete: actionMapper.toDeleteInput(action.type),
             where: { id: action.id },
           })
 
@@ -83,7 +82,7 @@ export const actionRepository: IActionRepository = {
           const {
             deleteCodeActions: { nodesDeleted: deleted },
           } = await DeleteCodeActions({
-            delete: actionMapper.toDeleteInput(),
+            delete: actionMapper.toDeleteInput(action.type),
             where: { id: action.id },
           })
 

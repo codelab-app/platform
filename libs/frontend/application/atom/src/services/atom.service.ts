@@ -14,7 +14,7 @@ import {
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useUpdateSearchParams } from '@codelab/frontend/shared/utils'
+import { useHydrateStore } from '@codelab/frontend/infra/context'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -48,7 +48,7 @@ export const useAtomService = (): IAtomService => {
   const user = userDomainService.user
   const owner = { id: user.id }
   const typeService = useTypeService()
-  const { updateParams } = useUpdateSearchParams()
+  const hydrate = useHydrateStore()
 
   const getDataFn: GetDataFn<IAtomModel> = async (
     page,
@@ -123,8 +123,10 @@ export const useAtomService = (): IAtomService => {
     atomPagination.setTotalItems(count)
 
     if (!isEmpty(where ?? {}) || options?.limit) {
-      typeDomainService.hydrateTypes({
-        interfaceTypes: atoms.map((atom) => atom.api),
+      hydrate({
+        fieldsDto: atoms.flatMap((atom) => atom.api.fields),
+        tagsDto: atoms.flatMap((atom) => atom.tags),
+        typesDto: atoms.map((atom) => atom.api),
       })
     }
 

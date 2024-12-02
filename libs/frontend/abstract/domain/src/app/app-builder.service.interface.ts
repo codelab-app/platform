@@ -11,6 +11,7 @@ import type {
   RedirectFragment,
   ResourceFragment,
   StoreFragment,
+  TagPreviewFragment,
   TypeFragment,
 } from '@codelab/shared/infra/gql'
 
@@ -27,6 +28,7 @@ export interface IAppBuilderDto {
   redirects: Array<RedirectFragment>
   resources: Array<ResourceFragment>
   stores: Array<StoreFragment & { component?: IRef; page?: IRef }>
+  tags: Array<TagPreviewFragment>
   types: Array<TypeFragment>
 }
 

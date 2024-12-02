@@ -20,6 +20,7 @@ export const SelectResource = ({ name }: SelectResourcesProps) => {
     <SelectField
       error={queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
+      label="Resource"
       name={name}
       onDropdownVisibleChange={async (open) => {
         if (open && !selectResourceOptions) {

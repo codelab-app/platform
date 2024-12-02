@@ -24,4 +24,7 @@ fragment Tag on Tag {
 fragment TagPreview on Tag {
   id
   name
+  owner {
+    id
+  }
 }

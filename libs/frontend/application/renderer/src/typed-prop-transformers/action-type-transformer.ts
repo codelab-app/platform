@@ -55,10 +55,9 @@ export class ActionTypeTransformer
     })
 
     const name = runtimeAction?.action.current.name
+    const runtimeActionList = runtimeNode.runtimeStore.runtimeActionsList
 
-    return [...runtimeNode.runtimeStore.runtimeActions.values()].some(
-      (ra) => ra.action.id === actionId,
-    )
+    return runtimeActionList.some((ra) => ra.action.id === actionId)
       ? `{{actions['${name}']}}`
       : `{{rootActions['${name}']}}`
   }

@@ -34,9 +34,9 @@ const documents = {
     types.AppBuilderFragmentDoc,
   '\n  fragment AppProduction on App {\n    id\n    name\n    owner {\n      ...Owner\n    }\n    pages(\n      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }\n    ) {\n      ...PageProduction\n    }\n    slug\n  }\n':
     types.AppProductionFragmentDoc,
-  '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n':
+  '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n':
     types.AtomFragmentDoc,
-  '\n  fragment AtomBuilder on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n':
+  '\n  fragment AtomBuilder on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n':
     types.AtomBuilderFragmentDoc,
   '\n  fragment AtomProduction on Atom {\n    __typename\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    type\n  }\n':
     types.AtomProductionFragmentDoc,
@@ -79,7 +79,7 @@ const documents = {
     types.ProductionStoreFragmentDoc,
   '\n  fragment Tag on Tag {\n    children {\n      id\n      name\n      owner {\n        id\n      }\n    }\n    descendants {\n      id\n      name\n    }\n    id\n    name\n    owner {\n      id\n    }\n    parent {\n      id\n    }\n  }\n':
     types.TagFragmentDoc,
-  '\n  fragment TagPreview on Tag {\n    id\n    name\n  }\n':
+  '\n  fragment TagPreview on Tag {\n    id\n    name\n    owner {\n      id\n    }\n  }\n':
     types.TagPreviewFragmentDoc,
   '\n  fragment ActionType on ActionType {\n    ...BaseType\n  }\n':
     types.ActionTypeFragmentDoc,
@@ -476,14 +476,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n',
-): (typeof documents)['\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n']
+  source: '\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment Atom on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    externalCssSource\n    externalJsSource\n    externalSourceType\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment AtomBuilder on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n',
-): (typeof documents)['\n  fragment AtomBuilder on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...Tag\n    }\n    type\n    owner {\n      id\n    }\n  }\n']
+  source: '\n  fragment AtomBuilder on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment AtomBuilder on Atom {\n    __typename\n    api {\n      ...InterfaceType\n    }\n    icon\n    id\n    name\n    requiredParents {\n      id\n      name\n      type\n    }\n    suggestedChildren {\n      id\n      name\n      type\n    }\n    tags {\n      ...TagPreview\n    }\n    type\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -614,8 +614,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment TagPreview on Tag {\n    id\n    name\n  }\n',
-): (typeof documents)['\n  fragment TagPreview on Tag {\n    id\n    name\n  }\n']
+  source: '\n  fragment TagPreview on Tag {\n    id\n    name\n    owner {\n      id\n    }\n  }\n',
+): (typeof documents)['\n  fragment TagPreview on Tag {\n    id\n    name\n    owner {\n      id\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
