@@ -14067,7 +14067,7 @@ export type BaseActionWhere = {
 }
 
 export type BaseTypesWhere = {
-  name?: InputMaybe<Scalars['String']['input']>
+  name_MATCHES?: InputMaybe<Scalars['String']['input']>
 }
 
 export type CodeActionConnectInput = {
