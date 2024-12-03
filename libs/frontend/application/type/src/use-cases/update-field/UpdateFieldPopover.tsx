@@ -13,7 +13,7 @@ import { useRef } from 'react'
 import { useFieldService } from '../../services/field.service'
 import { UpdateFieldForm } from './UpdateFieldForm'
 
-export const UpdateFieldPopover = observer(() => {
+export const UpdateFieldPopover = observer<{ id: string }>(({ id }) => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>()
   const { updatePopover } = useFieldService()
@@ -42,6 +42,7 @@ export const UpdateFieldPopover = observer(() => {
       }}
     >
       <UpdateFieldForm
+        id={id}
         onSubmitSuccess={() => updatePopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}

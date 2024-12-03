@@ -55,5 +55,5 @@ export const UsersTable = ({ users }: UserTableProps) => {
     },
   ]
 
-  return <Table columns={columns} dataSource={users} />
+  return <Table columns={columns} dataSource={users} rowKey="id" />
 }

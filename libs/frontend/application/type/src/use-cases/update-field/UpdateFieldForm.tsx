@@ -27,15 +27,17 @@ import {
 } from '../create-field'
 import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
-import { useUpdateFieldForm } from './update-field.state'
 
-export const UpdateFieldForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+export interface UpdateFieldFormProps extends IFormController {
+  id: string
+}
+
+export const UpdateFieldForm = observer<UpdateFieldFormProps>(
+  ({ id, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const fieldSchema = useFieldSchema(createFieldSchema)
-    const updateFieldForm = useUpdateFieldForm()
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
-    const field = updateFieldForm.data
+    const field = fieldService.getOneFromCache({ id })
 
     const onSubmit = (input: IUpdateFieldData) => {
       if (!field) {

@@ -77,7 +77,13 @@ export const Dashboard = ({
               </CuiResizablePanel>
             )}
 
-            <CuiPanel className="relative" defaultSize={60} order={3}>
+            <CuiPanel
+              className="relative"
+              defaultSize={
+                60 + (PrimarySidebar ? 0 : 20) + (ConfigPane ? 0 : 20)
+              }
+              order={3}
+            >
               <ProgressBar />
               {/* We want the popover to overlay on top of the main, so we put it inside here */}
               {SecondaryPopover}

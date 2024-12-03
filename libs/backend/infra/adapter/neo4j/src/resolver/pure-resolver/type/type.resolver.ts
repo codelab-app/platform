@@ -29,7 +29,7 @@ export const TypeResolverProvider: FactoryProvider<
         const { options } = params
         const limit = options?.limit ?? 99999
         const skip = options?.offset ?? 0
-        const name = options?.where?.name ?? ''
+        const name = options?.where?.name_MATCHES ?? ''
 
         const { records: getTypesRecords } = await txn.run(getBaseTypes, {
           limit: int(limit),
@@ -45,12 +45,12 @@ export const TypeResolverProvider: FactoryProvider<
 
         const items = getTypesRecords.map((record) => {
           const type = record.get('type').properties
-          // const owner = record.get('owner').properties
+          const owner = record.get('owner').properties
 
           return {
             ...type,
             __typename: 'BaseType',
-            // owner,
+            owner,
           }
         })
 

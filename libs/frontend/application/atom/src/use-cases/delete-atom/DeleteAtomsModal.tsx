@@ -1,7 +1,5 @@
 'use client'
 
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -12,10 +10,14 @@ import { AutoFields } from 'uniforms-antd'
 
 import { useAtomService } from '../../services'
 
-export const DeleteAtomsModal = observer<{ atom: IAtomModel }>(({ atom }) => {
+export const DeleteAtomsModal = observer<{ id: string }>(({ id }) => {
   const { goToAtomsPage, removeMany } = useAtomService()
-  const onSubmit = () => removeMany([atom])
   const router = useRouter()
+  const atom = useAtomService().getOneFromCache({ id })
+
+  if (!atom) {
+    return null
+  }
 
   return (
     <ModalForm.Modal
@@ -27,7 +29,7 @@ export const DeleteAtomsModal = observer<{ atom: IAtomModel }>(({ atom }) => {
     >
       <ModalForm.Form
         model={{}}
-        onSubmit={onSubmit}
+        onSubmit={() => removeMany([atom])}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting atom',
         })}

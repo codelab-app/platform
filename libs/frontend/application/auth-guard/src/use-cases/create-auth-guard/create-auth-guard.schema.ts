@@ -1,3 +1,5 @@
+'use client'
+
 import type { JSONSchemaType } from 'ajv'
 
 import { type IAuthGuardCreateFormData } from '@codelab/frontend/abstract/domain'

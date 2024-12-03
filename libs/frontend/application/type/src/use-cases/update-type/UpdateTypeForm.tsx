@@ -1,12 +1,16 @@
-import type { ITypeUpdateDto } from '@codelab/frontend/abstract/domain'
+import type {
+  ITypeModel,
+  ITypeUpdateDto,
+} from '@codelab/frontend/abstract/domain'
+import type { IFormController } from '@codelab/frontend/abstract/types'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
+import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
@@ -16,18 +20,16 @@ import { useTypeService } from '../../services'
 import { DisplayIfKind } from '../create-type/DisplayIfKind'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { updateTypeSchema } from './update-type.schema'
-import { useUpdateTypeForm } from './update-type.state'
 import { validateNonRecursive } from './validate-non-recursive'
 
-export const UpdateTypeForm = observer(() => {
+interface UpdateAtomFormProps extends IFormController {
+  type: ITypeModel
+}
+
+export const UpdateTypeForm = observer<UpdateAtomFormProps>((props) => {
   const { typeDomainService } = useDomainStore()
   const typeService = useTypeService()
-  const updateTypeForm = useUpdateTypeForm()
-  const closeForm = () => updateTypeForm.close()
-
-  const typeToUpdate = typeDomainService.types.get(
-    updateTypeForm.data?.id ?? '',
-  )
+  const typeToUpdate = props.type
 
   const handleSubmit = async (submitData: ITypeUpdateDto) => {
     const data = {
@@ -38,14 +40,14 @@ export const UpdateTypeForm = observer(() => {
       })),
     }
 
-    await validateNonRecursive(typeToUpdate?.id, data)
+    await validateNonRecursive(typeToUpdate.id, data)
 
     await typeService.update(data)
   }
 
   const model = {
     allowedValues:
-      typeToUpdate?.kind === ITypeKind.EnumType
+      typeToUpdate.kind === ITypeKind.EnumType
         ? typeToUpdate.allowedValues.map((val) => ({
             // Convert allowedValues from mobx models to simple objects
             // otherwise uniform won't be able to update current values
@@ -55,49 +57,48 @@ export const UpdateTypeForm = observer(() => {
           }))
         : undefined,
     arrayTypeId:
-      typeToUpdate?.kind === ITypeKind.ArrayType
+      typeToUpdate.kind === ITypeKind.ArrayType
         ? typeToUpdate.itemType?.id
         : undefined,
     elementKind:
-      typeToUpdate?.kind === ITypeKind.ElementType
+      typeToUpdate.kind === ITypeKind.ElementType
         ? typeToUpdate.elementKind
         : undefined,
-    id: typeToUpdate?.id,
-    kind: typeToUpdate?.kind,
+    id: typeToUpdate.id,
+    kind: typeToUpdate.kind,
     language:
-      typeToUpdate?.kind === ITypeKind.CodeMirrorType
+      typeToUpdate.kind === ITypeKind.CodeMirrorType
         ? typeToUpdate.language
         : undefined,
-    name: typeToUpdate?.name,
+    name: typeToUpdate.name,
     primitiveKind:
-      typeToUpdate?.kind === ITypeKind.PrimitiveType
+      typeToUpdate.kind === ITypeKind.PrimitiveType
         ? typeToUpdate.primitiveKind
         : undefined,
     unionTypeIds:
-      typeToUpdate?.kind === ITypeKind.UnionType
+      typeToUpdate.kind === ITypeKind.UnionType
         ? typeToUpdate.typesOfUnionType.map(({ id }) => id)
         : undefined,
   }
 
   return (
     <Form<ITypeUpdateDto>
+      errorMessage="Error while updating type"
       model={model}
       onSubmit={handleSubmit}
-      onSubmitError={createFormErrorNotificationHandler({
-        title: 'Error while updating type',
-      })}
-      onSubmitSuccess={closeForm}
+      onSubmitSuccess={props.onSubmitSuccess}
       schema={updateTypeSchema}
+      submitRef={props.submitRef}
       uiKey={UiKey.TypeFormUpdate}
     >
       <AutoFields fields={['name']} />
-      {typeToUpdate?.kind === ITypeKind.UnionType && (
+      {typeToUpdate.kind === ITypeKind.UnionType && (
         <AutoField name="unionTypeIds" types={typeDomainService.typesList} />
       )}
-      {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
+      {typeToUpdate.kind === ITypeKind.PrimitiveType && (
         <AutoField name="primitiveKind" />
       )}
-      {typeToUpdate?.kind === ITypeKind.EnumType && (
+      {typeToUpdate.kind === ITypeKind.EnumType && (
         <AutoField name="allowedValues" />
       )}
       <DisplayIfKind kind={ITypeKind.ArrayType}>
@@ -110,7 +111,9 @@ export const UpdateTypeForm = observer(() => {
         <SelectField label="Element kind" name="elementKind" showSearch />
       </DisplayIfKind>
 
-      <FormController submitLabel="Update Type" />
+      <DisplayIf condition={props.showFormControl ?? true}>
+        <FormController submitLabel="Update Type" />
+      </DisplayIf>
     </Form>
   )
 })

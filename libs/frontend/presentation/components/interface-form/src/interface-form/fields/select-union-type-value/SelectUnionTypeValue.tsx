@@ -1,3 +1,5 @@
+'use client'
+
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 import type { HTMLFieldProps } from 'uniforms'

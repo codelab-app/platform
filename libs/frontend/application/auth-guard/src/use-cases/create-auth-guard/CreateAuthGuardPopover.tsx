@@ -5,23 +5,21 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
-import { useCreateAuthGuardForm } from './create-auth-guard.state'
+import { useAuthGuardService } from '../../services/auth-guard.service'
 import { CreateAuthGuardForm } from './CreateAuthGuardForm'
 
 export const CreateAuthGuardPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createAuthGuardForm = useCreateAuthGuardForm()
-  const { popover } = useCui()
+  const router = useRouter()
+  const { createPopover } = useAuthGuardService()
 
   return (
-    <CuiSidebarPopover
+    <CuiSidebarSecondary
       id={UiKey.AuthGuardPopoverCreate}
       toolbar={{
         items: [
@@ -29,30 +27,23 @@ export const CreateAuthGuardPopover = observer(() => {
             cuiKey: UiKey.AuthGuardToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
-            title: 'Create',
+            onClick: () => submitRef.current?.submit(),
           },
           {
             cuiKey: UiKey.AuthGuardToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => {
-              popover.close()
-              createAuthGuardForm.close()
-            },
-            title: 'Cancel',
+            onClick: () => createPopover.close(router),
           },
         ],
         title: 'Create AuthGuard toolbar',
       }}
     >
       <CreateAuthGuardForm
-        onSubmitSuccess={() => popover.close()}
+        onSubmitSuccess={() => createPopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

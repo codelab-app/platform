@@ -34,7 +34,10 @@ export const fieldMapper: IMapper<
       id,
       key,
       name,
-      validationRules: JSON.stringify(validationRules),
+      validationRules:
+        typeof validationRules === 'string'
+          ? validationRules
+          : JSON.stringify(validationRules),
     }
   },
 
@@ -59,7 +62,10 @@ export const fieldMapper: IMapper<
       fieldType: reconnectNodeId(fieldType.id),
       key,
       name,
-      validationRules: JSON.stringify(validationRules),
+      validationRules:
+        typeof validationRules === 'string'
+          ? validationRules
+          : JSON.stringify(validationRules),
     }
   },
 }

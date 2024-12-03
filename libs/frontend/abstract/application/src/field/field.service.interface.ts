@@ -11,8 +11,10 @@ import type { ICrudService } from '../services'
 export interface IFieldService
   extends ICrudService<IFieldModel, ICreateFieldData, IUpdateFieldData> {
   createPopover: IPopover
+  deletePopover: IPopover
   updatePopover: IPopover
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
+  getOneFromCache(ref: IRef): IFieldModel | undefined
   moveFieldAsNextSibling(props: {
     field: IRef
     targetField: IRef

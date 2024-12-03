@@ -17,11 +17,11 @@ export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
   return (
     <div
       className={`
-        flex h-10 w-full
-        flex-row items-center justify-between
-        border-0 border-b-2 border-solid
-        border-gray-300 bg-neutral-100 pl-4
-        pr-2
+        flex w-full flex-row
+        flex-wrap items-center justify-between
+        gap-1 border-0 border-b-2
+        border-solid border-gray-300 bg-neutral-100
+        p-1 pl-4
       `}
       data-testid={CuiTestId.cuiSidebarHeader()}
     >

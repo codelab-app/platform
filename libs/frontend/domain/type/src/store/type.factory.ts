@@ -87,6 +87,7 @@ export class TypeFactory {
           itemType: {
             id: data.arrayItemTypeId as string,
           },
+          owner,
         } as IArrayTypeDto
 
       case ITypeKind.InterfaceType:
@@ -101,13 +102,14 @@ export class TypeFactory {
         return {
           ...data,
           __typename: data.kind,
+          owner,
           typesOfUnionType: data.unionTypeIds?.map((id) => ({
             id,
           })),
         } as IUnionTypeDto
 
       default:
-        return { ...data, __typename: data.kind } as ITypeDto
+        return { ...data, __typename: data.kind, owner } as ITypeDto
     }
   }
 

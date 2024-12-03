@@ -4,6 +4,7 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type {
   IBaseType,
   IBaseTypeOptions,
@@ -16,6 +17,8 @@ export interface ITypeService
   extends ICrudService<ITypeModel, ITypeCreateFormData, ITypeUpdateDto>,
     Omit<IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>, 'getAll'>,
     IPaginateable<ITypeModel> {
+  createPopover: IPopover
+  updatePopover: IPopover
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>

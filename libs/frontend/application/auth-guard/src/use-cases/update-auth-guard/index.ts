@@ -1,5 +1,3 @@
 export * from './update-auth-guard.schema'
-export * from './update-auth-guard.state'
-export * from './UpdateAuthGuardButton'
 export * from './UpdateAuthGuardForm'
-export * from './UpdateAuthGuardModal'
+export * from './UpdateAuthGuardPopover'

@@ -6,7 +6,7 @@ export interface ToolbarItem {
   cuiKey: UiKey
   icon: React.ReactNode
   label?: string
-  title: string
+  title?: string
   onClick?(event: SyntheticEvent): void
 }
 

@@ -152,7 +152,7 @@ const UiDataRecord = {
     label: 'Update Auth Guard Modal',
   },
   [UiKey.AuthGuardPopoverCreate]: {
-    label: 'Create Auth Guard Popover',
+    label: 'Auth Guard',
   },
   [UiKey.AuthGuardSidebar]: {
     label: 'Auth Guard Sidebar',
@@ -349,20 +349,11 @@ const UiDataRecord = {
   [UiKey.PaginationToobarItemSearch]: {
     label: 'Search Pagination Toolbar Item',
   },
-  [UiKey.PaginationToolbarItemCurrentPage]: {
-    label: 'Current Page Pagination Toolbar Item',
-  },
-  [UiKey.PaginationToolbarItemNextPage]: {
-    label: 'Next Page Pagination Toolbar Item',
-  },
-  [UiKey.PaginationToolbarItemPageSize]: {
-    label: 'Page Size Pagination Toolbar Item',
-  },
-  [UiKey.PaginationToolbarItemPreviousPage]: {
-    label: 'Previous Page Pagination Toolbar Item',
-  },
   [UiKey.PaginationToolbarItemSearch]: {
     label: 'Search Pagination Toolbar Item',
+  },
+  [UiKey.PagintaionControl]: {
+    label: 'Pagination Control Toolbar Item',
   },
   /**
    * ProgressBar
@@ -488,7 +479,10 @@ const UiDataRecord = {
     label: 'Update Type Modal',
   },
   [UiKey.TypePopoverCreate]: {
-    label: 'Create Type Popover',
+    label: 'Create Type',
+  },
+  [UiKey.TypePopoverUpdate]: {
+    label: 'Update Type',
   },
   [UiKey.TypeSidebar]: {
     label: 'Type Sidebar',

@@ -1,13 +1,7 @@
 'use client'
 import type { ITypeCreateFormData } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
   Form,
   FormController,
@@ -21,16 +15,13 @@ import { v4 } from 'uuid'
 import { useTypeService } from '../../services'
 import { TypeSelect } from '../select-types/TypeSelect'
 import { createTypeSchema } from './create-type.schema'
-import { useCreateTypeForm } from './create-type.state'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const typeService = useTypeService()
-    const createTypeForm = useCreateTypeForm()
-    const closeForm = () => createTypeForm.close()
 
-    const onSubmit = async (data: ITypeCreateFormData) => {
+    const onSubmit = (data: ITypeCreateFormData) => {
       const input = {
         ...data,
         allowedValues: data.allowedValues?.map((val) => ({
@@ -39,23 +30,17 @@ export const CreateTypeForm = observer<IFormController>(
         })),
       }
 
-      const result = await typeService.create(input)
-
-      onSubmitSuccess?.()
-
-      return result
+      return typeService.create(input)
     }
 
     return (
       <Form<ITypeCreateFormData>
+        errorMessage="Error while creating type"
         model={{
           id: v4(),
         }}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating type',
-        })}
-        onSubmitSuccess={closeForm}
+        onSubmitSuccess={onSubmitSuccess}
         schema={createTypeSchema}
         submitRef={submitRef}
         uiKey={UiKey.TypeFormCreate}
@@ -88,7 +73,7 @@ export const CreateTypeForm = observer<IFormController>(
         </DisplayIfKind>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Type" />
+          <FormController submitLabel="Create Type" />
         </DisplayIf>
       </Form>
     )

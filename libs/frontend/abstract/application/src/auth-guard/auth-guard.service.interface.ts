@@ -3,6 +3,7 @@ import type {
   IAuthGuardModel,
   IAuthGuardUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   AuthGuardOptions,
@@ -17,4 +18,7 @@ export interface IAuthGuardService
       IAuthGuardCreateFormData,
       IAuthGuardUpdateFormData
     >,
-    IQueryService<IAuthGuardModel, AuthGuardWhere, AuthGuardOptions> {}
+    IQueryService<IAuthGuardModel, AuthGuardWhere, AuthGuardOptions> {
+  createPopover: IPopover
+  updatePopover: IPopover
+}

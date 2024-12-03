@@ -4,22 +4,19 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
-  useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
 import { useTypeService } from '../services'
-import { CreateFieldPopover } from '../use-cases/create-field'
-import { CreateTypePopover } from '../use-cases/create-type'
-import { useCreateTypeForm } from '../use-cases/create-type/create-type.state'
 import { TypesTreeView } from '../use-cases/get-types'
 
-export const TypesPrimarySidebar = () => {
-  const { paginationService } = useTypeService()
-  const createTypeForm = useCreateTypeForm()
+export const TypesPrimarySidebar = observer(() => {
+  const { createPopover, paginationService } = useTypeService()
   const { routerService } = useApplicationStore()
-  const { popover } = useCui()
+  const router = useRouter()
 
   const { showSearchBar, toolbarItems } = useToolbarPagination(
     paginationService,
@@ -30,12 +27,6 @@ export const TypesPrimarySidebar = () => {
     <CuiSidebar
       defaultActiveViewKeys={['types-view']}
       label="Types"
-      popover={
-        <>
-          <CreateTypePopover />
-          <CreateFieldPopover />
-        </>
-      }
       uiKey={UiKey.TypeSidebar}
       views={[
         {
@@ -48,10 +39,7 @@ export const TypesPrimarySidebar = () => {
               {
                 cuiKey: UiKey.TypeToolbarItemCreate,
                 icon: <PlusOutlined />,
-                onClick: () => {
-                  popover.open(UiKey.TypePopoverCreate)
-                  createTypeForm.open()
-                },
+                onClick: () => createPopover.open(router),
                 title: 'Create Type',
               },
             ],
@@ -61,4 +49,4 @@ export const TypesPrimarySidebar = () => {
       ]}
     />
   )
-}
+})

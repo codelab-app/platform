@@ -6,24 +6,13 @@ import type {
   SupportedPaginationModel,
 } from '@codelab/frontend/abstract/application'
 
-import LeftOutlined from '@ant-design/icons/LeftOutlined'
-import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useUpdateSearchParams } from '@codelab/frontend/shared/utils'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import queryString from 'query-string'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Pagination } from 'antd'
+import { useCallback, useState } from 'react'
 
 import type { ToolbarItem } from '../../abstract'
-
-import { CuiInput } from '../../components'
-
-const getNextPage = (page: number, totalPages: number) =>
-  Math.min(page + 1, totalPages)
-
-const getPrevPage = (page: number) => Math.max(page - 1, 1)
 
 /**
  *
@@ -34,146 +23,41 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
   paginationService: IPaginationService<T>,
   routerService: IRouterService,
 ) => {
-  // console.log('useToolbarPagination render', {
-  //   page: routerService.page,
-  //   pageSize: routerService.pageSize,
-  // })
-  const pathname = usePathname()
   const [showSearchBar, setShowSearchBar] = useState(false)
   const { updateParams } = useUpdateSearchParams()
 
-  // Track state changes
-  // useEffect(() => {
-  //   console.log('Toolbar pagination state changed', {
-  //     page: routerService.page,
-  //     pageSize: routerService.pageSize,
-  //   })
-  // }, [routerService.page, routerService.pageSize])
+  const handlePaginationChange = useCallback(
+    (page: number, pageSize: number) => {
+      updateParams((params) => params.set('page', page.toString()))
+      updateParams((params) => params.set('pageSize', pageSize.toString()))
 
-  const getNextPageUrl = (page: number, totalPages: number) => {
-    paginationService.setIsLoadingBetweenPages(true)
-
-    const url = queryString.stringifyUrl({
-      query: {
-        page: getNextPage(page, totalPages),
-      },
-      url: pathname,
-    })
-
-    return url
-  }
-
-  const getPrevPageUrl = (page: number) => {
-    paginationService.setIsLoadingBetweenPages(true)
-
-    const url = queryString.stringifyUrl({
-      query: {
-        page: getPrevPage(page),
-      },
-      url: pathname,
-    })
-
-    return url
-  }
-
-  const goToNextPage = useCallback(() => {
-    const page = getNextPage(routerService.page, paginationService.totalPages)
-
-    updateParams((params) => params.set('page', page.toString()))
-
-    routerService.setQueryParams({
-      ...routerService.queryParams,
-      page,
-    })
-
-    const url = getNextPageUrl(routerService.page, paginationService.totalPages)
-  }, [paginationService.totalPages, routerService.page, pathname])
-
-  const goToPreviousPage = useCallback(() => {
-    const page = getPrevPage(routerService.page)
-
-    updateParams((params) => params.set('page', page.toString()))
-
-    routerService.setQueryParams({
-      ...routerService.queryParams,
-      page,
-    })
-
-    const url = getPrevPageUrl(routerService.page)
-  }, [pathname, routerService.page])
-
-  const handlePageChange = useCallback((value: unknown) => {
-    if (typeof value === 'number' && value > 0) {
       routerService.setQueryParams({
         ...routerService.queryParams,
-        page: value,
+        page,
+        pageSize,
       })
-    }
-  }, [])
-
-  const handlePageSizeChange = useCallback((value: unknown) => {
-    if (typeof value === 'number' && value > 0) {
-      routerService.setQueryParams({
-        ...routerService.queryParams,
-        pageSize: value,
-      })
-    }
-  }, [])
+    },
+    [routerService, updateParams],
+  )
 
   const handleSearchBarToggle = useCallback(() => {
-    setShowSearchBar(!showSearchBar)
+    setShowSearchBar((showSearch) => !showSearch)
   }, [])
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: UiKey.PaginationToolbarItemPreviousPage,
-      icon: <LeftOutlined />,
-      onClick: goToPreviousPage,
-      title: 'Previous',
-    },
-    {
-      cuiKey: UiKey.PaginationToolbarItemCurrentPage,
+      cuiKey: UiKey.PagintaionControl,
       icon: (
-        <div className="flex flex-row grow">
-          <div className="w-10">
-            <CuiInput
-              onChange={handlePageChange}
-              selectAllOnClick
-              type="number"
-              value={routerService.page}
-            />
-          </div>
-          <span className="text-center text-sm">/</span>
-          <span className="text-center text-sm">{`${paginationService.totalPages}`}</span>
-        </div>
+        <Pagination
+          defaultCurrent={routerService.page}
+          defaultPageSize={routerService.pageSize}
+          onChange={handlePaginationChange}
+          showSizeChanger={true}
+          simple
+          size="small"
+          total={paginationService.totalItems}
+        />
       ),
-      title: `Current page: ${routerService.page} / ${paginationService.totalPages}`,
-    },
-    {
-      cuiKey: UiKey.PaginationToolbarItemNextPage,
-      icon: (
-        <div className="flex">
-          <RightOutlined />
-        </div>
-      ),
-      onClick: goToNextPage,
-      title: 'Next',
-    },
-    {
-      cuiKey: UiKey.PaginationToolbarItemPageSize,
-      icon: (
-        <div className="flex flex-row items-center justify-between">
-          <CuiInput
-            onChange={handlePageSizeChange}
-            selectAllOnClick
-            type="number"
-            value={routerService.pageSize}
-          />
-          <span className="text-sm">/</span>
-          <span className="text-sm">Page</span>
-        </div>
-      ),
-      title: `${routerService.pageSize} items per page`,
     },
     {
       cuiKey: UiKey.PaginationToobarItemSearch,

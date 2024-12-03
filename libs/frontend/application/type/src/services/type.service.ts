@@ -8,8 +8,10 @@ import type {
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { typeRef } from '@codelab/frontend/abstract/domain'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
@@ -205,8 +207,27 @@ export const useTypeService = (): ITypeService => {
     return Array.from(typeDomainService.types.values())
   }
 
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.Type())
+    },
+    open: (router: AppRouterInstance, id: string) => {
+      router.push(PageType.TypeUpdate({ id }))
+    },
+  }
+
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.push(PageType.Type())
+    },
+    open: (router: AppRouterInstance) => {
+      router.push(PageType.TypeCreate())
+    },
+  }
+
   return {
     create,
+    createPopover,
     getAll,
     getAllFromCache,
     getDataFn,
@@ -217,5 +238,6 @@ export const useTypeService = (): ITypeService => {
     paginationService: typePagination,
     removeMany: deleteType,
     update,
+    updatePopover,
   }
 }

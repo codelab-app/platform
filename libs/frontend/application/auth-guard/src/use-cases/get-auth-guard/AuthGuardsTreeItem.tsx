@@ -3,18 +3,18 @@ import type {
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { authGuardRef } from '@codelab/frontend/abstract/domain'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
-import { useDeleteAuthGuardModal } from '../delete-auth-guard/delete-auth-guard.state'
-import { useUpdateAuthGuardForm } from '../update-auth-guard'
+import { useAuthGuardService } from '../../services/auth-guard.service'
 
 interface AuthGuardsTreeItemProps {
   data: ITreeNode<IAuthGuardNodeData>
@@ -22,16 +22,16 @@ interface AuthGuardsTreeItemProps {
 
 export const AuthGuardsTreeItem = observer(
   ({ data }: AuthGuardsTreeItemProps) => {
-    const updateAuthGuardForm = useUpdateAuthGuardForm()
-    const deleteAuthGuardModal = useDeleteAuthGuardModal()
+    const { updatePopover } = useAuthGuardService()
+    const router = useRouter()
     const authGuard = data.extraData.node
+    const onEdit = () => updatePopover.open(router, authGuard.id)
 
-    const onEdit = () => {
-      updateAuthGuardForm.open(authGuardRef(authGuard.id))
-    }
+    const onDelete = (event: SyntheticEvent) => {
+      // Prevent triggering `onEdit`
+      event.stopPropagation()
 
-    const onDelete = () => {
-      deleteAuthGuardModal.open(authGuardRef(authGuard.id))
+      router.push(PageType.AuthGuardsDelete(authGuard))
     }
 
     const toolbarItems: Array<ToolbarItem> = [

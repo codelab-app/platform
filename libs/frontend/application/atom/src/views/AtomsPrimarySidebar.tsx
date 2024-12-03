@@ -12,18 +12,10 @@ import { useTablePagination } from '@codelab/frontend-application-shared-store/p
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { isEqual } from 'radash'
-import { useEffect, useMemo, useState } from 'react'
-import { isDeepEqual, map, pick, pipe } from 'remeda'
-import { useCustomCompareMemo } from 'use-custom-compare'
+import { useMemo } from 'react'
 
 import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
-
-const pickIds = (items: Array<IAtomModel>) => pipe(items, map(pick(['id'])))
-
-const isArrayEqual = (prev: Array<IAtomModel>, next: Array<IAtomModel>) =>
-  isDeepEqual(pickIds(prev), pickIds(next))
 
 export const AtomsPrimarySidebar = observer(() => {
   const { atomPopoverCreate, getDataFn, paginationService } = useAtomService()

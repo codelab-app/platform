@@ -1,17 +1,14 @@
-import type {
-  IAuthGuardModel,
-  IAuthGuardRepository,
-} from '@codelab/frontend/abstract/domain'
 import type { IAuthGuardDto, IRef } from '@codelab/shared/abstract/core'
 import type {
-  AuthGuardCreateInput,
-  AuthGuardDeleteInput,
   AuthGuardOptions,
   AuthGuardUniqueWhere,
-  AuthGuardUpdateInput,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
 
+import {
+  CACHE_TAGS,
+  type IAuthGuardRepository,
+} from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -26,9 +23,10 @@ export const authGuardRepository: IAuthGuardRepository = {
   add: async (input: IAuthGuardDto) => {
     const {
       createAuthGuards: { authGuards },
-    } = await CreateAuthGuards({
-      input: authGuardMapper.toCreateInput(input),
-    })
+    } = await CreateAuthGuards(
+      { input: authGuardMapper.toCreateInput(input) },
+      { revalidateTag: CACHE_TAGS.AUTH_GUARD_LIST },
+    )
 
     const createdAuthGuard = authGuards[0]
 
@@ -40,16 +38,22 @@ export const authGuardRepository: IAuthGuardRepository = {
   delete: async (refs: Array<IRef>) => {
     const {
       deleteAuthGuards: { nodesDeleted },
-    } = await DeleteAuthGuards({
-      delete: authGuardMapper.toDeleteInput(),
-      where: { id_IN: refs.map(({ id }) => id) },
-    })
+    } = await DeleteAuthGuards(
+      {
+        delete: authGuardMapper.toDeleteInput(),
+        where: { id_IN: refs.map(({ id }) => id) },
+      },
+      { revalidateTag: CACHE_TAGS.AUTH_GUARD_LIST },
+    )
 
     return nodesDeleted
   },
 
   find: async (where?: AuthGuardWhere, options?: AuthGuardOptions) => {
-    return await GetAuthGuards({ options, where })
+    return await GetAuthGuards(
+      { options, where },
+      { tags: [CACHE_TAGS.AUTH_GUARD_LIST] },
+    )
   },
 
   findOne: async (where: AuthGuardUniqueWhere) => {
@@ -68,10 +72,13 @@ export const authGuardRepository: IAuthGuardRepository = {
   update: async ({ id }: IRef, input: IAuthGuardDto) => {
     const {
       updateAuthGuards: { authGuards },
-    } = await UpdateAuthGuard({
-      update: authGuardMapper.toUpdateInput(input),
-      where: { id },
-    })
+    } = await UpdateAuthGuard(
+      {
+        update: authGuardMapper.toUpdateInput(input),
+        where: { id },
+      },
+      { revalidateTag: CACHE_TAGS.AUTH_GUARD_LIST },
+    )
 
     const updatedAuthGuard = authGuards[0]
 
