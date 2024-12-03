@@ -76,7 +76,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
           label: 'Prev Sibling',
         }),
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
     props: {

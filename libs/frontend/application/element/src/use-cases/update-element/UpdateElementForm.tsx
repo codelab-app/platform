@@ -111,7 +111,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
           autosave
-          model={element}
+          model={element.toJson}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({
             title: 'Error while updating element',

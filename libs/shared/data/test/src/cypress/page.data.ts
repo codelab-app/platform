@@ -3,9 +3,9 @@ import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const providerPageId = v4()
-export const notFoundPageId = v4()
-export const internalServerPageId = v4()
+export const providerPageId = 'b91c9256-da3e-4e16-b113-d0f2a173394b'
+export const notFoundPageId = '5bdbfb31-b9da-447b-a508-585aeecb33f2'
+export const internalServerPageId = '3c89fc6c-110d-4322-98da-0d949d408cbc'
 
 export const providerPageData = (
   id: string,
