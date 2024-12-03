@@ -25,19 +25,15 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      * For testing
      */
     uiKey: UiKey
-
     cssString?: string
-
     /**
      * Called after a failed submit, the input is unknown error
      */
-    onSubmitError?: ArrayOrSingle<VoidCallback<unknown>>
-
+    onSubmitError?: VoidCallback<unknown>
     /**
      * Called after a successful submit
      */
-    onSubmitSuccess?: ArrayOrSingle<VoidCallback<TResponse>>
-
+    onSubmitSuccess?: VoidCallback<TResponse>
     /**
      * Schema used for form generation.
      *
@@ -47,17 +43,13 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      *  Pass either schema or bridge
      */
     schema: Bridge | JSONSchemaType<TData> | TSchema
-
     errorMessage?: string
-
-    onSubmitOptimistic?: ArrayOrSingle<VoidCallback<Promise<TResponse>>>
-
     successMessage?: string
-
     /**
      * Don't use `DeepPartial` even Uniform uses it
      */
-    onSubmit(model: TData): Promise<TResponse | null>
+    onSubmit(model: TData): Promise<TResponse>
+    onSubmitOptimistic?(): void
   }
 
 // form Controller props

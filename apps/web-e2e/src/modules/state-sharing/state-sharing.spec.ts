@@ -1,4 +1,5 @@
 import { type IApp } from '@codelab/shared/abstract/core'
+import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import { builderElements, pageId, seedTestData } from './state-sharing.data'
@@ -42,7 +43,7 @@ test('should setup the pages that will share states', async ({
 test('should create a state variable in the provider page', async ({
   builderPage: page,
 }) => {
-  await page.goto(app.id, pageId)
+  await page.goto(app.id, providerPageId)
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
