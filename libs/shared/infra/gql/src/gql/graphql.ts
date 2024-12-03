@@ -42412,7 +42412,7 @@ fragment AtomBuilder on Atom {
     type
   }
   tags {
-    ...Tag
+    ...TagPreview
   }
   type
   owner {
@@ -42538,24 +42538,10 @@ fragment Store on Store {
   id
   name
 }
-fragment Tag on Tag {
-  children {
-    id
-    name
-    owner {
-      id
-    }
-  }
-  descendants {
-    id
-    name
-  }
+fragment TagPreview on Tag {
   id
   name
   owner {
-    id
-  }
-  parent {
     id
   }
 }
