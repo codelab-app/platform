@@ -13,6 +13,10 @@ import { seedAppData } from '../builder/builder.data'
 export const childMapperComponent: ICreateComponentData = {
   id: v4(),
   name: 'Component Name',
+  // Mocked here
+  owner: {
+    id: v4(),
+  },
 }
 
 export const childMapperComponentTypography = {
@@ -61,7 +65,7 @@ export const providerPageElements = (
 
 export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
-  const page = app.pages[0]!
+  const page = app.pages![0]!
 
   await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
     data: providerPageElements(page),

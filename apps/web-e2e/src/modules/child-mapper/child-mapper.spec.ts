@@ -1,4 +1,5 @@
 import { type IApp } from '@codelab/shared/abstract/core'
+import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import { seedTestData } from './child-mapper.data'
@@ -9,14 +10,11 @@ let app: IApp
 test.describe.configure({ mode: 'serial' })
 
 test.beforeAll(async ({ request }, testInfo) => {
-  // db reset, app seed and test data seed may sometimes take longer than default 60s
-  test.setTimeout(testInfo.timeout + 30000)
-
   app = await seedTestData(request)
 })
 
 test.beforeEach(async ({ builderPage: page }) => {
-  await page.goto(app.id, app.pages[0]!.id)
+  await page.goto(app.id, providerPageId)
 
   await expect(page.getSpinner()).toBeHidden()
   await expect(page.getFormFieldSpinner()).toHaveCount(0)

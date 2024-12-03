@@ -1,6 +1,11 @@
 import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
 
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
+
+export const providerPageId = v4()
+export const notFoundPageId = v4()
+export const internalServerPageId = v4()
 
 export const providerPageData = (
   id: string,

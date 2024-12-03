@@ -9,9 +9,6 @@ let app: IApp
 test.describe.configure({ mode: 'serial' })
 
 test.beforeAll(async ({ request }, testInfo) => {
-  // db reset, app seed and test data seed may sometimes take longer than default 60s
-  test.setTimeout(testInfo.timeout + 30000)
-
   app = await seedTestData(request)
 })
 
