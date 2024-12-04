@@ -32,14 +32,11 @@ export const useSubmit = <TData, TResponse>(
   return async (formData: DeepPartial<TData>) => {
     setIsLoading?.(true)
 
-    console.log('before submit', onSubmit)
-
     const submitPromise = onSubmit(formData as TData)
 
     onSubmitOptimistic()
 
     return submitPromise.finally(() => {
-      console.log('after submit')
       setIsLoading?.(false)
     })
   }
