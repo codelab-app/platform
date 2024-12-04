@@ -28,7 +28,7 @@ export class ChildMapperPage extends BuilderPage {
       pageRowChild2.name,
       updateElementForm,
     )
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 
   async checkBuilderOutput() {
@@ -118,7 +118,7 @@ export class ChildMapperPage extends BuilderPage {
       updateElementForm,
     )
 
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 
   async setEmptyChildMapperProperties() {
@@ -129,7 +129,7 @@ export class ChildMapperPage extends BuilderPage {
       .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
       .click()
     await this.setFormFieldValue('Prop Key', '{{[]}}', updateElementForm)
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 
   async setNonArrayChildMapperProperties() {
@@ -140,7 +140,7 @@ export class ChildMapperPage extends BuilderPage {
       .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
       .click()
     await this.setFormFieldValue('Prop Key', '{{false}}', updateElementForm)
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 
   private async checkBuilderOutputStructure(expectedContent: Array<string>) {

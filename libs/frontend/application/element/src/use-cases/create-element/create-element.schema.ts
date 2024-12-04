@@ -3,6 +3,7 @@ import type { JSONSchemaType } from 'ajv'
 
 import {
   idSchema,
+  nullableIdSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
@@ -72,7 +73,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
     prevSibling: {
       nullable: true,
       properties: {
-        ...idSchema({
+        ...nullableIdSchema({
           label: 'Prev Sibling',
         }),
       },

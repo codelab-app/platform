@@ -72,7 +72,7 @@ export class StateSharingPage extends BuilderPage {
     await this.getTextEditorInput().fill(
       'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
     await this.getToggleTextEditorButton().click()
   }
 }

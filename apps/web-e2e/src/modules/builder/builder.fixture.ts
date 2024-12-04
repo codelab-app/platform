@@ -263,14 +263,14 @@ export class BuilderPage extends BasePage {
       updateElementForm,
     )
 
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 
   /**
    * wait for progressbar to display after Form autosave delay,
    * and then disappear after the submit request finishes.
    */
-  async waitForSpinner() {
+  async waitForProgressBar() {
     // wait for spinner to appear with a custom polling interval of 50ms,
     // otherwise, spinner may appear and hide faster that playwright notices it
     await expect(async () => {
