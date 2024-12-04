@@ -40,7 +40,7 @@ export const nullableIdSchema = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: React.FunctionComponent<any>
   help?: string
-} = {}): PropertiesSchema<Maybe<IRef>> => ({
+} = {}): PropertiesSchema<IRef> => ({
   id: {
     help,
     type: 'string',
