@@ -2,7 +2,8 @@ import type { ITypeRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type { ITypeUpdateInput } from '@codelab/shared/domain-old'
 import type {
-  GetBaseTypesOptions,
+  GetBaseTypesQuery,
+  IBaseTypeOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
 
@@ -11,11 +12,7 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { cLog } from '@codelab/shared/utils'
 import { prop, sortBy } from 'remeda'
 
-import {
-  GetBaseTypes,
-  GetDescendants,
-  GetTypeOptions,
-} from './get-type.api.graphql.gen'
+import { GetBaseTypes, GetDescendants } from './get-type.api.graphql.web.gen'
 import {
   createTypeApi,
   deleteTypeApi,
@@ -57,20 +54,20 @@ export const typeRepository: ITypeRepository = {
     return { aggregate: { count: types.length }, items: types }
   },
 
-  findBaseTypes: async ({ limit, offset, where }: GetBaseTypesOptions) => {
-    const {
-      baseTypes: { items, totalCount },
-    } = await GetBaseTypes({
-      options: {
-        limit,
-        offset,
-        where,
-      },
+  findBaseTypes: async (params) => {
+    const where = params?.where ?? {}
+    const options = params?.options ?? {}
+
+    const { iBaseTypes } = await GetBaseTypes({
+      options,
+      where,
     })
 
     return {
-      items,
-      totalCount,
+      items: iBaseTypes,
+      totalCount: iBaseTypes.reduce((acc: number, type) => {
+        return acc + type.ownerConnection.totalCount
+      }, 0),
     }
   },
 
@@ -102,14 +99,6 @@ export const typeRepository: ITypeRepository = {
 
   findOne: async (where: IBaseTypeWhere) => {
     return (await typeRepository.find(where)).items[0]
-  },
-
-  findOptions: async () => {
-    const {
-      baseTypes: { items },
-    } = await GetTypeOptions({})
-
-    return sortBy(items, prop('name'))
   },
 
   getAll: async (ids?: Array<string>) => {

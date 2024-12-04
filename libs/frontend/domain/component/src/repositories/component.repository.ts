@@ -15,7 +15,7 @@ import {
   CreateComponents,
   DeleteComponents,
   UpdateComponents,
-} from './component.api.graphql.gen'
+} from './component.api.graphql.web.gen'
 
 export const componentRepository: IComponentRepository = {
   add: async (input: IComponentDto) => {

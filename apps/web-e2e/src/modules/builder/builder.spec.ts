@@ -1,5 +1,6 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
+import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import {
@@ -13,17 +14,14 @@ import { test } from './builder.fixture'
 
 let app: IAppDto
 
-test.describe.configure({ mode: 'serial' })
+test.describe.configure({ mode: 'serial', timeout: 60000 })
 
-test.beforeAll(async ({ request }, testInfo) => {
-  // db reset, app seed and test data seed may sometimes take longer than default 60s
-  test.setTimeout(testInfo.timeout + 30000)
-
+test.beforeAll(async ({ request }) => {
   app = await seedAppData(request)
 })
 
-test.beforeEach(async ({ builderPage: page }) => {
-  await page.goto(app.id, app.pages![0]!.id)
+test.beforeEach(async ({ builderPage: page }, testInfo) => {
+  await page.goto(app.id, providerPageId)
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()

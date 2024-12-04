@@ -14,9 +14,9 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       const request = host.switchToHttp().getRequest<Request>()
 
       // console.log(params, body)
-    } else {
-      console.error('AllExceptionsFilter', exception)
     }
+
+    console.error('AllExceptionsFilter', exception)
 
     super.catch(exception, host)
   }

@@ -17,18 +17,16 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { appMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
-import { withTracingMethods } from '@codelab/shared-infra-sentry'
-import { IsRef } from '@sinclair/typebox/build/cjs/type/guard/kind'
-import { revalidateTag } from 'next/cache'
-
-import { App } from '../store'
 import {
   AppList,
   AppListPreview,
   CreateApps,
   DeleteApps,
   UpdateApps,
-} from './app.api.graphql.gen'
+} from '@codelab/shared-domain-module-app'
+import { withTracingMethods } from '@codelab/shared-infra-sentry'
+
+import { App } from '../store'
 
 export const appRepository: IAppRepository = withTracingMethods('app', {
   add: async (input: IAppDto) => {

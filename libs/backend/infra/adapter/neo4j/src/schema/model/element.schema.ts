@@ -17,7 +17,6 @@ export const elementSchema = gql`
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
     props: Prop! @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
-
     # element is the rootElement for this component
     parentComponent: Component
       @relationship(type: "COMPONENT_ROOT", direction: IN)
@@ -47,8 +46,6 @@ export const elementSchema = gql`
       # There is bug for union type, need to use custom query
       # https://github.com/neo4j/graphql/issues/487
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
-    # This is a custom field resolver
-    descendantElements: [Element!]!
     # Pre-compute to savetime during rendering
     closestContainerNode: ContainerNode!
     dependantTypes: [AnyType!]! @customResolver(requires: "id")

@@ -81,7 +81,7 @@ export const CreateFieldForm = observer<IFormController>(
           return model
         }}
         onSubmit={onSubmit}
-        onSubmitOptimistic={() => {
+        onSubmitSuccess={() => {
           closeForm()
           onSubmitSuccess?.()
         }}

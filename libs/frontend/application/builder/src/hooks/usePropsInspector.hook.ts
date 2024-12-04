@@ -35,6 +35,9 @@ const validateJson = (value: string): Nullable<IPropData> => {
   }
 }
 
+/**
+ * This requires the full api
+ */
 const validateSchema = (node: IPageNodeRef) => {
   const interfaceType = isElementRef(node)
     ? node.current.renderType.current.api.current

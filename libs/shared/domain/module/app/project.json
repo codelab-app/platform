@@ -1,0 +1,14 @@
+{
+  "name": "shared-domain-module-app",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain/module/app/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:shared-domain-module-app",
+    "projectType:library",
+    "type:concrete",
+    "scope:shared"
+  ],
+  "// targets": "to see all targets run: nx show project shared-domain-module-app --web",
+  "targets": {}
+}

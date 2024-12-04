@@ -1,0 +1,14 @@
+{
+  "name": "field",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain/module/field/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:field",
+    "projectType:library",
+    "type:concrete",
+    "scope:shared"
+  ],
+  "// targets": "to see all targets run: nx show project field --web",
+  "targets": {}
+}

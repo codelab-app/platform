@@ -1,0 +1,38 @@
+import * as Types from '@codelab/shared/infra/gql'
+
+import { graphql } from '@codelab/shared/infra/gql'
+import { gqlRequest } from '@codelab/shared/infra/fetch'
+
+import {
+  type InterfaceForm_GetAppsQueryVariables,
+  type InterfaceForm_GetAtomsQueryVariables,
+  type InterfaceForm_GetActionsQueryVariables,
+  type InterfaceForm_GetStoresQueryVariables,
+  type InterfaceForm_GetResourceQueryVariables,
+  type InterfaceForm_GetPagesQueryVariables,
+} from '@codelab/shared/infra/gql'
+import {
+  InterfaceForm_GetAppsDocument,
+  InterfaceForm_GetAtomsDocument,
+  InterfaceForm_GetActionsDocument,
+  InterfaceForm_GetStoresDocument,
+  InterfaceForm_GetResourceDocument,
+  InterfaceForm_GetPagesDocument,
+} from './interface-form.api.graphql.docs.gen'
+
+export const getSdk = () => ({
+  InterfaceForm_GetApps: (variables: InterfaceForm_GetAppsQueryVariables) =>
+    gqlRequest(InterfaceForm_GetAppsDocument.toString(), variables),
+  InterfaceForm_GetAtoms: (variables: InterfaceForm_GetAtomsQueryVariables) =>
+    gqlRequest(InterfaceForm_GetAtomsDocument.toString(), variables),
+  InterfaceForm_GetActions: (
+    variables: InterfaceForm_GetActionsQueryVariables,
+  ) => gqlRequest(InterfaceForm_GetActionsDocument.toString(), variables),
+  InterfaceForm_GetStores: (variables: InterfaceForm_GetStoresQueryVariables) =>
+    gqlRequest(InterfaceForm_GetStoresDocument.toString(), variables),
+  InterfaceForm_GetResource: (
+    variables: InterfaceForm_GetResourceQueryVariables,
+  ) => gqlRequest(InterfaceForm_GetResourceDocument.toString(), variables),
+  InterfaceForm_GetPages: (variables: InterfaceForm_GetPagesQueryVariables) =>
+    gqlRequest(InterfaceForm_GetPagesDocument.toString(), variables),
+})

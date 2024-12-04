@@ -10,7 +10,7 @@ import {
   type DomainCreatedSubscription,
   type DomainDeletedSubscription,
   type DomainUpdatedSubscription,
-} from '../graphql/domain.subscription.graphql.gen'
+} from '../graphql/domain.subscription.graphql.api.gen'
 
 @Injectable()
 export class DomainListener {

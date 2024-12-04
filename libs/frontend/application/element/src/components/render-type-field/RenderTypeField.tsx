@@ -88,7 +88,6 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
         style={{ borderBottomRightRadius: 0, borderTopRightRadius: 0 }}
         value={props.value?.id}
       />
-
       <StyledButton
         onClick={() => {
           filters.atoms &&

@@ -19,7 +19,7 @@ import { v4 } from 'uuid'
 import type {
   TestCreateDomainAppsMutationVariables,
   TestUpdateDomainsMutationVariables,
-} from './domain.spec.graphql.gen'
+} from './domain.spec.graphql.api.gen'
 
 import { DomainApplicationModule } from '../domain.application.module'
 import { DomainListener } from '../listeners/domain.listener'
@@ -29,7 +29,7 @@ import {
   TestCreateDomainsDocument,
   TestDeleteDomainsDocument,
   TestUpdateDomainsDocument,
-} from './domain.spec.graphql.gen'
+} from './domain.spec.graphql.api.gen'
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
 

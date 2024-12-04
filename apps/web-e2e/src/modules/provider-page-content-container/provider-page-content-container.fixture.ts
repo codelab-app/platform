@@ -33,7 +33,7 @@ export class ProviderPageContentContainerPage extends BuilderPage {
       pageContentContainerName,
       pageSettingsTab,
     )
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 }
 

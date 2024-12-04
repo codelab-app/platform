@@ -24,9 +24,8 @@ export class FieldRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
     super(validationService, loggerService)
   }
@@ -79,7 +78,10 @@ export class FieldRepository extends AbstractRepository<
         update: {
           ...field,
           api: reconnectNodeId(api.id),
-          fieldType: reconnectNodeId(fieldType.id),
+          /**
+           * Can't reconnect due to invariant
+           */
+          // fieldType: reconnectNodeId(fieldType.id),
           nextSibling: reconnectNodeId(field.nextSibling?.id),
           prevSibling: reconnectNodeId(field.prevSibling?.id),
         },

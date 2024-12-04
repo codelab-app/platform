@@ -26,14 +26,14 @@ export class CssBuilderPage extends BuilderPage {
     )
 
     await displyNoneButton.click()
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 
   async typeIntoCssEditor(css: string) {
     const cssTab = this.page.locator('.ant-tabs-tabpane-active')
 
     await this.setFormFieldValue('CSS Editor', css, cssTab)
-    await this.waitForSpinner()
+    await this.waitForProgressBar()
   }
 }
 

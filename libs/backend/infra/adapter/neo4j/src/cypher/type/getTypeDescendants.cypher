@@ -10,7 +10,7 @@
 //
 // >FIELD_TYPE is so we can get the end node of the field
 CALL apoc.path.subgraphAll(
-  this,
+  $this,
   {
     relationshipFilter: '>ARRAY_ITEM_TYPE|>UNION_TYPE_CHILD|>INTERFACE_FIELD|>FIELD_TYPE',
     labelFilter: '>Type|>Field'

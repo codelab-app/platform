@@ -1,5 +1,5 @@
+export * from './page.aggregate.interface'
 export * from './page.data.interface'
 export * from './page.dto.interface'
-export * from './page.io.interface'
 export * from './page.model.interface'
 export * from './page-kind.enum'

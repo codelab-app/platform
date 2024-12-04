@@ -13,7 +13,7 @@ import { v4 } from 'uuid'
 
 import { OgmService } from '../../../../infra'
 import { setupTestingContext } from '../../../../test/setup'
-import { ElementDependentTypesDocument } from './element.spec.graphql.gen'
+import { ElementDependentTypesDocument } from './element.spec.graphql.api.gen'
 
 describe('ElementResolvers', () => {
   let app: INestApplication

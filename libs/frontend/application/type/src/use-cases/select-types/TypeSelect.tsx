@@ -17,8 +17,8 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
   const { typeDomainService } = useDomainStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
 
-  const [{ error, loading, value: result = [] }, getTypes] = useAsyncFn(() =>
-    typeService.getOptions(),
+  const [{ error, loading, value: data = [] }, getTypes] = useAsyncFn(() =>
+    typeService.getSelectOptions(),
   )
 
   // On update mode, the current selected type can be used
@@ -28,7 +28,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
     : undefined
 
   const typeOptions = pipe(
-    [currentType, ...result],
+    [currentType, ...data],
     filter(isTruthy),
     uniqueBy(prop('id')),
     map(({ id, name: optionLabel }) => ({
@@ -44,7 +44,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
       loading={loading}
       name={name}
       onDropdownVisibleChange={async (open) => {
-        if (open && !result.length) {
+        if (open && !data.length) {
           await getTypes()
         }
       }}

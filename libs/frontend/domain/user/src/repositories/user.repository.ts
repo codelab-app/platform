@@ -1,7 +1,7 @@
 import type { IUserRepository } from '@codelab/frontend/abstract/domain'
 import type { IUserDto } from '@codelab/shared/abstract/core'
 
-import { DeleteUsers, GetUsers } from './user.api.graphql.gen'
+import { DeleteUsers, GetUsers } from './user.api.graphql.web.gen'
 
 export const userRepository: IUserRepository = {
   add: async (user: IUserDto) => {

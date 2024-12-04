@@ -11,8 +11,8 @@ import { HealthcheckController } from './healthcheck.controller'
 @Module({
   controllers: [HealthcheckController],
   imports: [
-    AuthModule,
     GraphqlModule,
+    AuthModule,
     ApiModule,
     CodelabLoggerModule,
     EventEmitterModule.forRoot(),

@@ -14,7 +14,7 @@ import { v4 } from 'uuid'
 
 import { OgmService } from '../../../infra'
 import { setupTestingContext } from '../../../test/setup'
-import { ComponentResolverComponentsDocument } from './component.spec.graphql.gen'
+import { ComponentResolverComponentsDocument } from './component.spec.graphql.api.gen'
 
 describe('PageResolvers', () => {
   let app: INestApplication

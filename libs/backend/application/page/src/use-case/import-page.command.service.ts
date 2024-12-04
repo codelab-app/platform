@@ -1,4 +1,7 @@
-import type { IPageExport, IPageImport } from '@codelab/shared/abstract/core'
+import type {
+  IPageAggregateExport,
+  IPageAggregateImport,
+} from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportStoreCommand } from '@codelab/backend/application/store'
@@ -8,7 +11,7 @@ import { PropRepository } from '@codelab/backend/domain/prop'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportPageCommand {
-  constructor(public pageImport: IPageImport) {}
+  constructor(public pageImport: IPageAggregateImport) {}
 }
 
 @CommandHandler(ImportPageCommand)

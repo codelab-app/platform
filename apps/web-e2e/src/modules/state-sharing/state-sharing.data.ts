@@ -2,7 +2,7 @@ import type {
   IAppDto,
   ICreateComponentData,
   ICreateElementData,
-  ICreatePageData,
+  IPageCreateFormData,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
@@ -34,7 +34,7 @@ export const typographyElement = {
   parentElement: { id: spaceElementId },
 }
 
-export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
+export const regularPageCreateData = (app: IAppDto): IPageCreateFormData => ({
   app,
   id: pageId,
   kind: IPageKind.Regular,
@@ -45,6 +45,10 @@ export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
 export const componentData: ICreateComponentData = {
   id: componentId,
   name: componentName,
+  // Mock owner
+  owner: {
+    id: v4(),
+  },
 }
 
 export const builderElements = [

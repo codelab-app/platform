@@ -4,9 +4,8 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { AtomProductionFragment } from '@codelab/shared/infra/gql'
 
+import { GetAppProduction } from '@codelab/shared-domain-module-app'
 import { uniqueBy } from 'remeda'
-
-import { GetAppProduction } from './app.api.graphql.gen'
 
 //  In production we have domain and pageUrlPattern we filter app by domain and page by url
 

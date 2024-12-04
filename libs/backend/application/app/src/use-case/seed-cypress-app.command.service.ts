@@ -19,12 +19,15 @@ import {
   internalServerErrorElementData,
   internalServerErrorPageData,
   internalServerErrorPropsData,
+  internalServerPageId,
   notFoundElementData,
   notFoundElementPropsData,
   notFoundPageData,
+  notFoundPageId,
   providerElementData,
   providerElementPropsData,
   providerPageData,
+  providerPageId,
 } from '@codelab/shared/data/test'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
@@ -63,10 +66,6 @@ export class SeedCypressAppHandler
       notFoundElementProps,
       internalServerErrorElementProps,
     ])
-
-    const providerPageId = v4()
-    const notFoundPageId = v4()
-    const internalServerPageId = v4()
 
     const atomReactFragment = await this.atomRepository.findOneOrFail({
       where: {

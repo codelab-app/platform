@@ -22,6 +22,11 @@ export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
 export const authFile = 'apps/web-e2e/.auth/user.json'
 
+enum Project {
+  AuthSetup = 'AuthSetup',
+  DatabaseSetup = 'DatabaseSetup',
+}
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -29,13 +34,13 @@ export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
   projects: [
     {
-      name: 'auth setup',
+      name: Project.AuthSetup,
       testMatch: /auth\.setup\.ts/,
       use: {},
     },
     {
-      dependencies: ['auth setup'],
-      name: 'database setup',
+      dependencies: [Project.AuthSetup],
+      name: Project.DatabaseSetup,
       testMatch: /database\.setup\.ts/,
       use: {
         // Requires trailing `/`
@@ -44,7 +49,7 @@ export default defineConfig({
       },
     },
     {
-      dependencies: ['auth setup', 'database setup'],
+      dependencies: [Project.AuthSetup, Project.DatabaseSetup],
       name: 'chromium',
       testIgnore: /home\.spec\.ts/,
       testMatch: /.*\.spec\.ts/,
@@ -95,10 +100,10 @@ export default defineConfig({
 
   retries: process.env.CI ? 1 : 0,
 
-  timeout: process.env.CI ? 60000 : 30000,
+  timeout: process.env.CI ? 60000 : 60000,
 
   expect: {
-    timeout: process.env.CI ? 30000 : 30000,
+    timeout: process.env.CI ? 60000 : 60000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

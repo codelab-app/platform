@@ -3,7 +3,6 @@ import type { MouseEvent } from 'react'
 import type { DeepPartial } from 'uniforms'
 
 import {
-  callbackWithParams,
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
@@ -26,16 +25,20 @@ type OnSubmitOptimistic<TData, TResponse> = OptimisticFormProps<
 export const useSubmit = <TData, TResponse>(
   onSubmit: FormProps<TData, TResponse>['onSubmit'],
   setIsLoading?: SetIsLoading,
-  onSubmitOptimistic: OnSubmitOptimistic<TData, TResponse> = [],
+  onSubmitOptimistic: OnSubmitOptimistic<TData, TResponse> = () => {
+    return
+  },
 ) => {
   return async (formData: DeepPartial<TData>) => {
     setIsLoading?.(true)
 
-    const submitPromise = onSubmit(formData as TData) as Promise<TResponse>
+    const submitPromise = onSubmit(formData as TData)
 
-    callbackWithParams(onSubmitOptimistic, submitPromise)
+    onSubmitOptimistic()
 
-    return submitPromise.finally(() => setIsLoading?.(false))
+    return submitPromise.finally(() => {
+      setIsLoading?.(false)
+    })
   }
 }
 
@@ -67,8 +70,12 @@ type PostSubmitProps<TData, TResponse> = Pick<
 
 export const usePostSubmit = <TData, TResponse>({
   errorMessage = 'Error submitting form',
-  onSubmitError = [],
-  onSubmitSuccess = [],
+  onSubmitError = () => {
+    return
+  },
+  onSubmitSuccess = () => {
+    return
+  },
   successMessage = '',
 }: PostSubmitProps<TData, TResponse>) => {
   const notifyError = useErrorNotify({ title: errorMessage })
@@ -77,11 +84,12 @@ export const usePostSubmit = <TData, TResponse>({
 
   const successHandlers = successMessage
     ? [notifySuccess, onSubmitSuccess].flat()
-    : onSubmitSuccess
+    : [onSubmitSuccess]
 
   return {
-    onSubmitError: (error: unknown) => callbackWithParams(errorHandlers, error),
+    onSubmitError: (error: unknown) =>
+      Promise.all(errorHandlers.map((handler) => handler(error))),
     onSubmitSuccess: (result: TResponse) =>
-      callbackWithParams(successHandlers, result),
+      Promise.all(successHandlers.map((handler) => handler(result))),
   }
 }

@@ -13,7 +13,7 @@ import {
   DeleteRedirects,
   GetRedirects,
   UpdateRedirects,
-} from './redirect.api.graphql.gen'
+} from './redirect.api.graphql.web.gen'
 
 export const redirectRepository: IRedirectRepository = {
   add: async (redirect: IRedirectDto) => {

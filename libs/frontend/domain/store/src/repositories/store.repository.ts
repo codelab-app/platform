@@ -24,7 +24,7 @@ import {
   DeleteStores,
   GetStores,
   UpdateStores,
-} from './store.api.graphql.gen'
+} from './store.api.graphql.web.gen'
 
 export const storeRepository: IStoreRepository = withTracingMethods('store', {
   add: async (input: IStoreDto) => {

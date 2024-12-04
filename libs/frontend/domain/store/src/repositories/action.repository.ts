@@ -14,16 +14,16 @@ import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateApiActions,
   CreateCodeActions,
-} from './create-action.api.graphql.gen'
+} from './create-action.api.graphql.web.gen'
 import {
   DeleteApiActions,
   DeleteCodeActions,
-} from './delete-action.api.graphql.gen'
-import { GetActions } from './get-action.api.graphql.gen'
+} from './delete-action.api.graphql.web.gen'
+import { GetActions } from './get-action.api.graphql.web.gen'
 import {
   UpdateApiActions,
   UpdateCodeActions,
-} from './update-action.api.graphql.gen'
+} from './update-action.api.graphql.web.gen'
 
 export const actionRepository: IActionRepository = {
   add: async (action: IActionDto) => {

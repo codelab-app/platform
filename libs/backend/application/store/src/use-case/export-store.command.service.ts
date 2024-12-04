@@ -1,5 +1,5 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
-import type { IStoreExport } from '@codelab/shared/abstract/core'
+import type { IStoreAggregateExport } from '@codelab/shared/abstract/core'
 import type { ApiAction } from '@codelab/shared/infra/gql'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
@@ -14,7 +14,7 @@ export class ExportStoreCommand {
 
 @CommandHandler(ExportStoreCommand)
 export class ExportStoreHandler
-  implements ICommandHandler<ExportStoreCommand, IStoreExport>
+  implements ICommandHandler<ExportStoreCommand, IStoreAggregateExport>
 {
   constructor(
     private readonly storeRepository: StoreRepository,
@@ -30,11 +30,12 @@ export class ExportStoreHandler
 
     // put actions that are referenced from another action via field successAction or errorAction first
     // so that they are imported before the actions that reference them
-    const actions = store.actions.sort((a) => {
-      return a.type === IActionKind.ApiAction &&
-        ((a as ApiAction).successAction || (a as ApiAction).errorAction)
-        ? 1
-        : -1
+    const actions = store.actions.sort((action) => {
+      if (action.__typename === IActionKind.ApiAction) {
+        return action.successAction || action.errorAction ? 1 : -1
+      }
+
+      return -1
     })
 
     return {

@@ -13,7 +13,7 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
     prevSibling: {
@@ -24,7 +24,7 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
   },

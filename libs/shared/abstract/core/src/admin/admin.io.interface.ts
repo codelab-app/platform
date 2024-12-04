@@ -3,7 +3,7 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { AtomExportSchema } from '../atom'
-import { ComponentExportSchema } from '../component'
+import { ComponentAggregateExportSchema } from '../component'
 import { TagSchema } from '../tag'
 import { TypeExportSchema } from '../type'
 
@@ -24,7 +24,7 @@ import { TypeExportSchema } from '../type'
  */
 export const AdminExportSchema = Type.Object({
   atoms: Type.Array(AtomExportSchema),
-  components: Type.Array(ComponentExportSchema),
+  components: Type.Array(ComponentAggregateExportSchema),
   // resources: Array<IResourceOutputDto>
   systemTypes: Type.Array(TypeExportSchema),
   tags: Type.Array(TagSchema),

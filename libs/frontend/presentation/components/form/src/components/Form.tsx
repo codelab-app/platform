@@ -30,7 +30,9 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       onChange,
       onChangeModel,
       onSubmit,
-      onSubmitOptimistic = [],
+      onSubmitOptimistic = () => {
+        return
+      },
       schema,
       submitField,
       submitRef,

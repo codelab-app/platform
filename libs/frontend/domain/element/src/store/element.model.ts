@@ -308,6 +308,9 @@ export class Element
 
   @computed
   get propsHaveErrors() {
+    /**
+     * This is causing error since we haven't loaded the entire api fields type yet
+     */
     const schema = this.renderType.current.api.current.toJsonSchema({})
     const validate = createValidator(schema)
     const result = validate(this.props.values)

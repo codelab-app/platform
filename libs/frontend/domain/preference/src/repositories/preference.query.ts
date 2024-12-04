@@ -10,7 +10,7 @@ import { type IPreferenceDto } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import { revalidateTag } from 'next/cache'
 
-import { GetPreferences } from './preference.api.graphql.gen'
+import { GetPreferences } from './preference.api.graphql.web.gen'
 
 export const preferenceQuery = async (
   where?: PreferenceWhere,

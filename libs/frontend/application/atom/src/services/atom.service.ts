@@ -150,7 +150,14 @@ export const useAtomService = (): IAtomService => {
     const atom = atomDomainService.atoms.get(id) ?? (await getOne(id))
 
     if (atom?.api) {
-      await typeService.getInterface(atom.api.id)
+      const { fields } = await typeService.getInterface(atom.api.id)
+
+      for await (const field of fields) {
+        const fieldType = field.type.id
+
+        typeDomainService.types.get(fieldType) ??
+          (await typeService.getOne(fieldType))
+      }
     }
   }
 

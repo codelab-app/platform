@@ -1,4 +1,7 @@
-import type { IStoreExport, IStoreImport } from '@codelab/shared/abstract/core'
+import type {
+  IStoreAggregateExport,
+  IStoreAggregateImport,
+} from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportApiCommand } from '@codelab/backend/application/type'
@@ -7,7 +10,7 @@ import { StoreRepository } from '@codelab/backend/domain/store'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportStoreCommand {
-  constructor(public storeImport: IStoreImport) {}
+  constructor(public storeImport: IStoreAggregateImport) {}
 }
 
 @CommandHandler(ImportStoreCommand)

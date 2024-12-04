@@ -18,7 +18,7 @@ import {
   DeleteProps,
   GetProps,
   UpdateProps,
-} from './prop.api.graphql.gen'
+} from './prop.api.graphql.web.gen'
 
 export const propRepository: IPropRepository = {
   add: async (input: IPropDto) => {

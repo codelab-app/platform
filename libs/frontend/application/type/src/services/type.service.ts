@@ -13,7 +13,10 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
-import { typeRepository } from '@codelab/frontend-domain-type/repositories'
+import {
+  GetBaseTypes,
+  typeRepository,
+} from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import {
   useApplicationStore,
@@ -22,6 +25,7 @@ import {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { prop, sortBy } from 'remeda'
 
 export const useTypeService = (): ITypeService => {
   const {
@@ -42,8 +46,10 @@ export const useTypeService = (): ITypeService => {
   ) => {
     const { items: baseTypes, totalCount: totalItems } =
       await typeRepository.findBaseTypes({
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
+        options: {
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+        },
         where: graphqlFilterMatches(filter, search),
       })
 
@@ -108,6 +114,9 @@ export const useTypeService = (): ITypeService => {
     return ids ? types.filter((type) => ids.includes(type.id)) : types
   }
 
+  /**
+   * This needs to get the type of fields as well
+   */
   const getInterface = async (interfaceTypeId: string) => {
     const interfaceFromStore = typeDomainService.getType(interfaceTypeId)
 
@@ -138,10 +147,10 @@ export const useTypeService = (): ITypeService => {
     return all[0]
   }
 
-  const getOptions = async () => {
-    const options = await typeRepository.findOptions()
+  const getSelectOptions = async () => {
+    const { items } = await typeRepository.findBaseTypes()
 
-    return options
+    return sortBy(items, prop('name'))
   }
 
   const update = async (data: ITypeUpdateDto) => {
@@ -234,7 +243,7 @@ export const useTypeService = (): ITypeService => {
     getInterface,
     getOne,
     getOneFromCache,
-    getOptions,
+    getSelectOptions,
     paginationService: typePagination,
     removeMany: deleteType,
     update,

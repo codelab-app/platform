@@ -46,11 +46,14 @@ export const fieldMapper: IMapper<
   },
 
   toUpdateInput: ({
+    api,
     defaultValues,
     description,
     fieldType,
     key,
     name,
+    nextSibling,
+    prevSibling,
     validationRules,
   }: IFieldDto): FieldUpdateInput => {
     return {
@@ -59,7 +62,7 @@ export const fieldMapper: IMapper<
           ? defaultValues
           : JSON.stringify(defaultValues),
       description,
-      fieldType: reconnectNodeId(fieldType.id),
+      // fieldType: reconnectNodeId(fieldType.id),
       key,
       name,
       validationRules:

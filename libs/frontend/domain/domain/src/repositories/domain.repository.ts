@@ -19,7 +19,7 @@ import {
   DeleteDomains,
   DomainList,
   UpdateDomains,
-} from './domain.api.graphql.gen'
+} from './domain.api.graphql.web.gen'
 
 export const domainRepository: IDomainRepository = {
   add: async (domain: IDomainDto) => {

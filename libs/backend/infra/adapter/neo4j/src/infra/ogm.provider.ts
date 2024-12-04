@@ -13,9 +13,21 @@ export const OgmProvider: FactoryProvider<OGM> = {
   inject: [NEO4J_DRIVER_PROVIDER, PURE_RESOLVER_PROVIDER],
   provide: OGM_PROVIDER,
   useFactory: async (driver: Driver, pureResolvers: IResolvers) => {
+    /**
+     * Uses GraphQL under the hood, has some issues with typing for connect/disconnect
+     */
     const ogm = new OGM({
+      // debug: true,
       driver,
       features: {
+        excludeDeprecatedFields: {
+          aggregationFilters: true,
+          arrayFilters: true,
+          bookmark: true,
+          negationFilters: true,
+          nestedUpdateOperationsFields: true,
+          stringAggregation: true,
+        },
         filters: {
           String: {
             MATCHES: true,

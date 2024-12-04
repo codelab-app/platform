@@ -9,11 +9,11 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export abstract class AbstractRepository<
+  Dto extends IRef,
   Model extends IRef,
-  ModelData extends IRef,
   Where extends { id?: string | null },
   Options,
-> implements IRepository<Model, ModelData, Where, Options>
+> implements IRepository<Dto, Model, Where, Options>
 {
   constructor(
     protected validationService: ValidationService,
@@ -23,7 +23,9 @@ export abstract class AbstractRepository<
   /**
    * Array adds complexity, create an optional `addMany` if needed
    */
-  public async add(data: Model): Promise<ModelData> {
+  public async add(data: Dto): Promise<IRef> {
+    console.log(`${this.constructor.name}.add`, data)
+
     this.loggerService.log(data, `${this.constructor.name}.add()`)
 
     const results = await this._addMany([data])
@@ -36,18 +38,20 @@ export abstract class AbstractRepository<
     return result
   }
 
-  public async addMany(data: Array<Model>): Promise<Array<ModelData>> {
+  public async addMany(data: Array<Dto>): Promise<Array<IRef>> {
     return this._addMany(data)
   }
 
   async exists(where: Where) {
+    console.log('Exists', where)
+
     const results = await this.findOne({ where })
     const exists = Boolean(results)
 
     return exists
   }
 
-  find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
+  find(args?: { where?: Where; options?: Options }): Promise<Array<Model>>
 
   find<T extends TAnySchema>(args?: {
     where?: Where
@@ -72,7 +76,7 @@ export abstract class AbstractRepository<
     options?: Options
     selectionSet?: string
     schema?: T
-  } = {}): Promise<Array<ModelData> | Array<Static<T>>> {
+  } = {}): Promise<Array<Model> | Array<Static<T>>> {
     const results = await this._find({ options, selectionSet, where })
 
     if (schema) {
@@ -89,7 +93,7 @@ export abstract class AbstractRepository<
   async findOne(args?: {
     where: Where
     options?: Options
-  }): Promise<ModelData | undefined>
+  }): Promise<Model | undefined>
 
   async findOne<T extends TAnySchema>(args?: {
     where: Where
@@ -114,7 +118,8 @@ export abstract class AbstractRepository<
     schema?: T
     selectionSet?: string
     options: Options
-  }): Promise<ModelData | Static<T> | undefined> {
+  }): Promise<Model | Static<T> | undefined> {
+    console.log('Find one', where)
     // Don't use decorator since it doesn't give us the right name
 
     // So overload works
@@ -136,7 +141,7 @@ export abstract class AbstractRepository<
   async findOneOrFail(args?: {
     where: Where
     options?: Options
-  }): Promise<ModelData>
+  }): Promise<Model>
 
   async findOneOrFail<T extends TAnySchema>(args?: {
     where: Where
@@ -155,7 +160,7 @@ export abstract class AbstractRepository<
     schema?: T
     selectionSet?: string
     options: Options
-  }): Promise<ModelData | Static<T>> {
+  }): Promise<Model | Static<T>> {
     const found = await this.findOne({ options, schema, selectionSet, where })
 
     if (!found) {
@@ -172,12 +177,18 @@ export abstract class AbstractRepository<
    *
    * @param where
    */
-  async save(data: Model, where?: Where): Promise<ModelData> {
+  async save(data: Dto, where?: Where): Promise<IRef> {
+    console.log('save', data)
+
     const computedWhere = this.getWhere(data, where)
 
     if (await this.exists(computedWhere)) {
+      console.log('exists! updating...')
+
       return await this.update(data, computedWhere)
     }
+
+    console.log('Not exist, adding...')
 
     const results = await this.add(data)
 
@@ -189,8 +200,12 @@ export abstract class AbstractRepository<
    *
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
-  async update(data: Model, where?: Where): Promise<ModelData> {
-    const model = await this._update(data, where)
+  async update(data: Dto, where?: Where): Promise<IRef> {
+    console.log('update', data, where)
+
+    const computedWhere = this.getWhere(data, where)
+    const existing = await this.findOne({ where: computedWhere })
+    const model = await this._update(data, where, existing)
 
     if (!model) {
       throw new Error('Model not updated')
@@ -199,7 +214,7 @@ export abstract class AbstractRepository<
     return model
   }
 
-  protected abstract _addMany(data: Array<Model>): Promise<Array<ModelData>>
+  protected abstract _addMany(data: Array<Dto>): Promise<Array<IRef>>
 
   protected abstract _find({
     options,
@@ -209,17 +224,18 @@ export abstract class AbstractRepository<
     where?: Where
     options?: Options
     selectionSet?: string
-  }): Promise<Array<ModelData>>
+  }): Promise<Array<Model>>
 
   protected abstract _update(
-    data: Model,
+    data: Dto,
     where?: Where,
-  ): Promise<ModelData | undefined>
+    existing?: Model,
+  ): Promise<IRef | undefined>
 
   /**
    * Specifying a `where` clause overrides the  id
    */
-  private getWhere(data: Model, where?: Where) {
+  private getWhere(data: Dto, where?: Where) {
     return where ? where : ({ id: data.id } as Where)
   }
 }

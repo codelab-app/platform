@@ -1,12 +1,10 @@
-'use server'
-
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 
 export const fetchWithAuth = async (
   endpoint: string,
   init: RequestInit = {},
 ) => {
-  const session = await auth0ServerInstance.getSession()
+  const session = await auth0Instance.getSession()
 
   const headers = {
     ...init.headers,

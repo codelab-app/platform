@@ -17,7 +17,7 @@ import {
   DeleteElements,
   ElementList,
   UpdateElements,
-} from './element.api.graphql.gen'
+} from './element.api.graphql.web.gen'
 
 export const elementRepository: IElementRepository = {
   add: async (element: IElementDto) => {

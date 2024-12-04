@@ -21,5 +21,5 @@ export interface ITypeService
   updatePopover: IPopover
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
-  getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
+  getSelectOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
 }

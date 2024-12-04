@@ -16,7 +16,7 @@ import {
   DeleteAuthGuards,
   GetAuthGuards,
   UpdateAuthGuard,
-} from './auth-guard.api.graphql.gen'
+} from './auth-guard.api.graphql.web.gen'
 import { authGuardMapper } from './auth-guard.mapper'
 
 export const authGuardRepository: IAuthGuardRepository = {

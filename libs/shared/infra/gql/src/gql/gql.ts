@@ -122,18 +122,6 @@ const documents = {
     types.UserFragmentDoc,
   '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
     types.GetAppBuilderDocument,
-  '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
-    types.CreateAppsDocument,
-  '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
-    types.UpdateAppsDocument,
-  '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
-    types.DeleteAppsDocument,
-  '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
-    types.AppListPreviewDocument,
-  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n':
-    types.AppListDocument,
-  '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
-    types.GetAppProductionDocument,
   '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n':
     types.GetSelectAtomOptionsDocument,
   '\n  query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {\n    aggregate: authGuardsAggregate(where: $where) {\n      count\n    }\n    items: authGuards(options: $options, where: $where) {\n      ...AuthGuard\n    }\n  }\n':
@@ -234,9 +222,9 @@ const documents = {
     types.GetStoresDocument,
   '\n  mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {\n    updateStores(update: $update, where: $where) {\n      stores {\n        id\n      }\n    }\n  }\n':
     types.UpdateStoresDocument,
-  '\n  mutation UpdateCodeActions(\n    $connect: CodeActionConnectInput\n    $create: CodeActionRelationInput\n    $delete: CodeActionDeleteInput\n    $disconnect: CodeActionDisconnectInput\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      codeActions {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      codeActions {\n        id\n      }\n    }\n  }\n':
     types.UpdateCodeActionsDocument,
-  '\n  mutation UpdateApiActions(\n    $connect: ApiActionConnectInput\n    $create: ApiActionRelationInput\n    $delete: ApiActionDeleteInput\n    $disconnect: ApiActionDisconnectInput\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      apiActions {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      apiActions {\n        id\n      }\n    }\n  }\n':
     types.UpdateApiActionsDocument,
   '\n  mutation CreateTags($input: [TagCreateInput!]!) {\n    createTags(input: $input) {\n      tags {\n        id\n      }\n    }\n  }\n':
     types.CreateTagsDocument,
@@ -302,15 +290,7 @@ const documents = {
     types.DeleteActionTypesDocument,
   '\n  mutation DeleteCodeMirrorTypes(\n    $delete: CodeMirrorTypeDeleteInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    deleteCodeMirrorTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
     types.DeleteCodeMirrorTypesDocument,
-  '\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n':
-    types.CreateFieldsDocument,
-  '\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n':
-    types.UpdateFieldsDocument,
-  '\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n':
-    types.DeleteFieldsDocument,
-  '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n':
-    types.GetFieldsDocument,
-  '\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n':
+  '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n':
     types.GetBaseTypesDocument,
   '\n  query GetTypes($ids: [ID!]) {\n    actionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    appTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    arrayTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    codeMirrorTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    elementTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    enumTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    lambdaTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    pageTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    primitiveTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    reactNodeTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    renderPropTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    richTextTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n  }\n':
     types.GetTypesDocument,
@@ -344,8 +324,6 @@ const documents = {
     types.GetActionTypesDocument,
   '\n  query GetCodeMirrorTypes(\n    $options: CodeMirrorTypeOptions\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: codeMirrorTypes(options: $options, where: $where) {\n      ...Type\n    }\n  }\n':
     types.GetCodeMirrorTypesDocument,
-  '\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n':
-    types.GetTypeOptionsDocument,
   '\n  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n':
     types.InterfaceForm_GetAppsDocument,
   '\n  query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {\n    atoms(options: $options, where: $where) {\n      id\n      name\n      type\n    }\n  }\n':
@@ -362,33 +340,33 @@ const documents = {
     types.IsTypeDescendantOfDocument,
   '\n  query GetTypeReferences($typeId: ID!) {\n    getTypeReferences(typeId: $typeId) {\n      label\n      name\n    }\n  }\n':
     types.GetTypeReferencesDocument,
-  '\n  mutation UpdatePrimitiveTypes(\n    $connect: PrimitiveTypeConnectInput\n    $create: PrimitiveTypeRelationInput\n    $delete: PrimitiveTypeDeleteInput\n    $disconnect: PrimitiveTypeDisconnectInput\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdatePrimitiveTypes(\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(update: $update, where: $where) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdatePrimitiveTypesDocument,
-  '\n  mutation UpdateArrayTypes(\n    $connect: ArrayTypeConnectInput\n    $create: ArrayTypeRelationInput\n    $delete: ArrayTypeDeleteInput\n    $disconnect: ArrayTypeDisconnectInput\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateArrayTypes(\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(update: $update, where: $where) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateArrayTypesDocument,
-  '\n  mutation UpdateUnionTypes(\n    $connect: UnionTypeConnectInput\n    $create: UnionTypeRelationInput\n    $delete: UnionTypeDeleteInput\n    $disconnect: UnionTypeDisconnectInput\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateUnionTypes(\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(update: $update, where: $where) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateUnionTypesDocument,
-  '\n  mutation UpdateInterfaceTypes(\n    $connect: InterfaceTypeConnectInput\n    $create: InterfaceTypeRelationInput\n    $delete: InterfaceTypeDeleteInput\n    $disconnect: InterfaceTypeDisconnectInput\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateInterfaceTypes(\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(update: $update, where: $where) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateInterfaceTypesDocument,
-  '\n  mutation UpdateReactNodeTypes(\n    $connect: ReactNodeTypeConnectInput\n    $create: ReactNodeTypeRelationInput\n    $delete: ReactNodeTypeDeleteInput\n    $disconnect: ReactNodeTypeDisconnectInput\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateReactNodeTypes(\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(update: $update, where: $where) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateReactNodeTypesDocument,
-  '\n  mutation UpdateElementTypes(\n    $connect: ElementTypeConnectInput\n    $create: ElementTypeRelationInput\n    $delete: ElementTypeDeleteInput\n    $disconnect: ElementTypeDisconnectInput\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateElementTypes(\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(update: $update, where: $where) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateElementTypesDocument,
-  '\n  mutation UpdateRenderPropTypes(\n    $connect: RenderPropTypeConnectInput\n    $create: RenderPropTypeRelationInput\n    $delete: RenderPropTypeDeleteInput\n    $disconnect: RenderPropTypeDisconnectInput\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateRenderPropTypes(\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(update: $update, where: $where) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateRenderPropTypesDocument,
-  '\n  mutation UpdateEnumTypes(\n    $connect: EnumTypeConnectInput\n    $create: EnumTypeRelationInput\n    $delete: EnumTypeDeleteInput\n    $disconnect: EnumTypeDisconnectInput\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateEnumTypes(\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(update: $update, where: $where) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateEnumTypesDocument,
-  '\n  mutation UpdateLambdaTypes(\n    $connect: LambdaTypeConnectInput\n    $create: LambdaTypeRelationInput\n    $delete: LambdaTypeDeleteInput\n    $disconnect: LambdaTypeDisconnectInput\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateLambdaTypes(\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(update: $update, where: $where) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateLambdaTypesDocument,
-  '\n  mutation UpdatePageTypes(\n    $connect: PageTypeConnectInput\n    $create: PageTypeRelationInput\n    $delete: PageTypeDeleteInput\n    $disconnect: PageTypeDisconnectInput\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdatePageTypes(\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(update: $update, where: $where) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdatePageTypesDocument,
-  '\n  mutation UpdateAppTypes(\n    $connect: AppTypeConnectInput\n    $create: AppTypeRelationInput\n    $delete: AppTypeDeleteInput\n    $disconnect: AppTypeDisconnectInput\n    $update: AppTypeUpdateInput\n    $where: AppTypeWhere\n  ) {\n    types: updateAppTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateAppTypes($update: AppTypeUpdateInput, $where: AppTypeWhere) {\n    types: updateAppTypes(update: $update, where: $where) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateAppTypesDocument,
-  '\n  mutation UpdateRichTextTypes(\n    $connect: RichTextTypeConnectInput\n    $create: RichTextTypeRelationInput\n    $delete: RichTextTypeDeleteInput\n    $disconnect: RichTextTypeDisconnectInput\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateRichTextTypes(\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(update: $update, where: $where) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateRichTextTypesDocument,
-  '\n  mutation UpdateActionTypes(\n    $connect: ActionTypeConnectInput\n    $create: ActionTypeRelationInput\n    $delete: ActionTypeDeleteInput\n    $disconnect: ActionTypeDisconnectInput\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateActionTypes(\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(update: $update, where: $where) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateActionTypesDocument,
-  '\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateCodeMirrorTypes(\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(update: $update, where: $where) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n':
     types.UpdateCodeMirrorTypesDocument,
   '\n  query GetUsers($where: UserWhere) {\n    aggregate: usersAggregate(where: $where) {\n      count\n    }\n    items: users(where: $where) {\n      ...User\n    }\n  }\n':
     types.GetUsersDocument,
@@ -396,6 +374,18 @@ const documents = {
     types.CreateUserDocument,
   '\n  mutation DeleteUsers($where: UserWhere!) {\n    deleteUsers(where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteUsersDocument,
+  '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n':
+    types.CreateAppsDocument,
+  '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n':
+    types.UpdateAppsDocument,
+  '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteAppsDocument,
+  '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
+    types.AppListPreviewDocument,
+  '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n':
+    types.AppListDocument,
+  '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
+    types.GetAppProductionDocument,
   '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n':
     types.CreateAtomsDocument,
   '\n  mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {\n    deleteAtoms(where: $where, delete: $delete) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
@@ -404,6 +394,14 @@ const documents = {
     types.AtomListDocument,
   '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n':
     types.UpdateAtomsDocument,
+  '\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n':
+    types.CreateFieldsDocument,
+  '\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n':
+    types.UpdateFieldsDocument,
+  '\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n':
+    types.DeleteFieldsDocument,
+  '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n':
+    types.GetFieldsDocument,
 }
 
 /**
@@ -746,42 +744,6 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): (typeof documents)['\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
-): (typeof documents)['\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n',
-): (typeof documents)['\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n',
-): (typeof documents)['\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
   source: '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n',
 ): (typeof documents)['\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n']
 /**
@@ -1082,14 +1044,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateCodeActions(\n    $connect: CodeActionConnectInput\n    $create: CodeActionRelationInput\n    $delete: CodeActionDeleteInput\n    $disconnect: CodeActionDisconnectInput\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      codeActions {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateCodeActions(\n    $connect: CodeActionConnectInput\n    $create: CodeActionRelationInput\n    $delete: CodeActionDeleteInput\n    $disconnect: CodeActionDisconnectInput\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      codeActions {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      codeActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      codeActions {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateApiActions(\n    $connect: ApiActionConnectInput\n    $create: ApiActionRelationInput\n    $delete: ApiActionDeleteInput\n    $disconnect: ApiActionDisconnectInput\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      apiActions {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateApiActions(\n    $connect: ApiActionConnectInput\n    $create: ApiActionRelationInput\n    $delete: ApiActionDeleteInput\n    $disconnect: ApiActionDisconnectInput\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      apiActions {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      apiActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      apiActions {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1286,32 +1248,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n',
-): (typeof documents)['\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n',
-): (typeof documents)['\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n',
-): (typeof documents)['\n  query GetBaseTypes($options: GetBaseTypesOptions) {\n    baseTypes(options: $options) {\n      items {\n        ...BaseType\n      }\n      totalCount\n    }\n  }\n']
+  source: '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1412,12 +1350,6 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetTypeOptions {\n    baseTypes {\n      items {\n        id\n        kind\n        name\n      }\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
   source: '\n  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n',
 ): (typeof documents)['\n  query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {\n    apps(options: $options, where: $where) {\n      id\n      name\n    }\n  }\n']
 /**
@@ -1466,86 +1398,86 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdatePrimitiveTypes(\n    $connect: PrimitiveTypeConnectInput\n    $create: PrimitiveTypeRelationInput\n    $delete: PrimitiveTypeDeleteInput\n    $disconnect: PrimitiveTypeDisconnectInput\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdatePrimitiveTypes(\n    $connect: PrimitiveTypeConnectInput\n    $create: PrimitiveTypeRelationInput\n    $delete: PrimitiveTypeDeleteInput\n    $disconnect: PrimitiveTypeDisconnectInput\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdatePrimitiveTypes(\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(update: $update, where: $where) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdatePrimitiveTypes(\n    $update: PrimitiveTypeUpdateInput\n    $where: PrimitiveTypeWhere\n  ) {\n    types: updatePrimitiveTypes(update: $update, where: $where) {\n      types: primitiveTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateArrayTypes(\n    $connect: ArrayTypeConnectInput\n    $create: ArrayTypeRelationInput\n    $delete: ArrayTypeDeleteInput\n    $disconnect: ArrayTypeDisconnectInput\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateArrayTypes(\n    $connect: ArrayTypeConnectInput\n    $create: ArrayTypeRelationInput\n    $delete: ArrayTypeDeleteInput\n    $disconnect: ArrayTypeDisconnectInput\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateArrayTypes(\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(update: $update, where: $where) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateArrayTypes(\n    $update: ArrayTypeUpdateInput\n    $where: ArrayTypeWhere\n  ) {\n    types: updateArrayTypes(update: $update, where: $where) {\n      types: arrayTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateUnionTypes(\n    $connect: UnionTypeConnectInput\n    $create: UnionTypeRelationInput\n    $delete: UnionTypeDeleteInput\n    $disconnect: UnionTypeDisconnectInput\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateUnionTypes(\n    $connect: UnionTypeConnectInput\n    $create: UnionTypeRelationInput\n    $delete: UnionTypeDeleteInput\n    $disconnect: UnionTypeDisconnectInput\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateUnionTypes(\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(update: $update, where: $where) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateUnionTypes(\n    $update: UnionTypeUpdateInput\n    $where: UnionTypeWhere\n  ) {\n    types: updateUnionTypes(update: $update, where: $where) {\n      types: unionTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateInterfaceTypes(\n    $connect: InterfaceTypeConnectInput\n    $create: InterfaceTypeRelationInput\n    $delete: InterfaceTypeDeleteInput\n    $disconnect: InterfaceTypeDisconnectInput\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateInterfaceTypes(\n    $connect: InterfaceTypeConnectInput\n    $create: InterfaceTypeRelationInput\n    $delete: InterfaceTypeDeleteInput\n    $disconnect: InterfaceTypeDisconnectInput\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateInterfaceTypes(\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(update: $update, where: $where) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateInterfaceTypes(\n    $update: InterfaceTypeUpdateInput\n    $where: InterfaceTypeWhere\n  ) {\n    types: updateInterfaceTypes(update: $update, where: $where) {\n      types: interfaceTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateReactNodeTypes(\n    $connect: ReactNodeTypeConnectInput\n    $create: ReactNodeTypeRelationInput\n    $delete: ReactNodeTypeDeleteInput\n    $disconnect: ReactNodeTypeDisconnectInput\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateReactNodeTypes(\n    $connect: ReactNodeTypeConnectInput\n    $create: ReactNodeTypeRelationInput\n    $delete: ReactNodeTypeDeleteInput\n    $disconnect: ReactNodeTypeDisconnectInput\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateReactNodeTypes(\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(update: $update, where: $where) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateReactNodeTypes(\n    $update: ReactNodeTypeUpdateInput\n    $where: ReactNodeTypeWhere\n  ) {\n    types: updateReactNodeTypes(update: $update, where: $where) {\n      types: reactNodeTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateElementTypes(\n    $connect: ElementTypeConnectInput\n    $create: ElementTypeRelationInput\n    $delete: ElementTypeDeleteInput\n    $disconnect: ElementTypeDisconnectInput\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateElementTypes(\n    $connect: ElementTypeConnectInput\n    $create: ElementTypeRelationInput\n    $delete: ElementTypeDeleteInput\n    $disconnect: ElementTypeDisconnectInput\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateElementTypes(\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(update: $update, where: $where) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateElementTypes(\n    $update: ElementTypeUpdateInput\n    $where: ElementTypeWhere\n  ) {\n    types: updateElementTypes(update: $update, where: $where) {\n      types: elementTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateRenderPropTypes(\n    $connect: RenderPropTypeConnectInput\n    $create: RenderPropTypeRelationInput\n    $delete: RenderPropTypeDeleteInput\n    $disconnect: RenderPropTypeDisconnectInput\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateRenderPropTypes(\n    $connect: RenderPropTypeConnectInput\n    $create: RenderPropTypeRelationInput\n    $delete: RenderPropTypeDeleteInput\n    $disconnect: RenderPropTypeDisconnectInput\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateRenderPropTypes(\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(update: $update, where: $where) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateRenderPropTypes(\n    $update: RenderPropTypeUpdateInput\n    $where: RenderPropTypeWhere\n  ) {\n    types: updateRenderPropTypes(update: $update, where: $where) {\n      types: renderPropTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateEnumTypes(\n    $connect: EnumTypeConnectInput\n    $create: EnumTypeRelationInput\n    $delete: EnumTypeDeleteInput\n    $disconnect: EnumTypeDisconnectInput\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateEnumTypes(\n    $connect: EnumTypeConnectInput\n    $create: EnumTypeRelationInput\n    $delete: EnumTypeDeleteInput\n    $disconnect: EnumTypeDisconnectInput\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateEnumTypes(\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(update: $update, where: $where) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateEnumTypes(\n    $update: EnumTypeUpdateInput\n    $where: EnumTypeWhere\n  ) {\n    types: updateEnumTypes(update: $update, where: $where) {\n      types: enumTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateLambdaTypes(\n    $connect: LambdaTypeConnectInput\n    $create: LambdaTypeRelationInput\n    $delete: LambdaTypeDeleteInput\n    $disconnect: LambdaTypeDisconnectInput\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateLambdaTypes(\n    $connect: LambdaTypeConnectInput\n    $create: LambdaTypeRelationInput\n    $delete: LambdaTypeDeleteInput\n    $disconnect: LambdaTypeDisconnectInput\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateLambdaTypes(\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(update: $update, where: $where) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateLambdaTypes(\n    $update: LambdaTypeUpdateInput\n    $where: LambdaTypeWhere\n  ) {\n    types: updateLambdaTypes(update: $update, where: $where) {\n      types: lambdaTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdatePageTypes(\n    $connect: PageTypeConnectInput\n    $create: PageTypeRelationInput\n    $delete: PageTypeDeleteInput\n    $disconnect: PageTypeDisconnectInput\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdatePageTypes(\n    $connect: PageTypeConnectInput\n    $create: PageTypeRelationInput\n    $delete: PageTypeDeleteInput\n    $disconnect: PageTypeDisconnectInput\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdatePageTypes(\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(update: $update, where: $where) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdatePageTypes(\n    $update: PageTypeUpdateInput\n    $where: PageTypeWhere\n  ) {\n    types: updatePageTypes(update: $update, where: $where) {\n      types: pageTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateAppTypes(\n    $connect: AppTypeConnectInput\n    $create: AppTypeRelationInput\n    $delete: AppTypeDeleteInput\n    $disconnect: AppTypeDisconnectInput\n    $update: AppTypeUpdateInput\n    $where: AppTypeWhere\n  ) {\n    types: updateAppTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateAppTypes(\n    $connect: AppTypeConnectInput\n    $create: AppTypeRelationInput\n    $delete: AppTypeDeleteInput\n    $disconnect: AppTypeDisconnectInput\n    $update: AppTypeUpdateInput\n    $where: AppTypeWhere\n  ) {\n    types: updateAppTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateAppTypes($update: AppTypeUpdateInput, $where: AppTypeWhere) {\n    types: updateAppTypes(update: $update, where: $where) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateAppTypes($update: AppTypeUpdateInput, $where: AppTypeWhere) {\n    types: updateAppTypes(update: $update, where: $where) {\n      types: appTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateRichTextTypes(\n    $connect: RichTextTypeConnectInput\n    $create: RichTextTypeRelationInput\n    $delete: RichTextTypeDeleteInput\n    $disconnect: RichTextTypeDisconnectInput\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateRichTextTypes(\n    $connect: RichTextTypeConnectInput\n    $create: RichTextTypeRelationInput\n    $delete: RichTextTypeDeleteInput\n    $disconnect: RichTextTypeDisconnectInput\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateRichTextTypes(\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(update: $update, where: $where) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateRichTextTypes(\n    $update: RichTextTypeUpdateInput\n    $where: RichTextTypeWhere\n  ) {\n    types: updateRichTextTypes(update: $update, where: $where) {\n      types: richTextTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateActionTypes(\n    $connect: ActionTypeConnectInput\n    $create: ActionTypeRelationInput\n    $delete: ActionTypeDeleteInput\n    $disconnect: ActionTypeDisconnectInput\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateActionTypes(\n    $connect: ActionTypeConnectInput\n    $create: ActionTypeRelationInput\n    $delete: ActionTypeDeleteInput\n    $disconnect: ActionTypeDisconnectInput\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateActionTypes(\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(update: $update, where: $where) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateActionTypes(\n    $update: ActionTypeUpdateInput\n    $where: ActionTypeWhere\n  ) {\n    types: updateActionTypes(update: $update, where: $where) {\n      types: actionTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateCodeMirrorTypes(\n    $connect: CodeMirrorTypeConnectInput\n    $create: CodeMirrorTypeRelationInput\n    $delete: CodeMirrorTypeDeleteInput\n    $disconnect: CodeMirrorTypeDisconnectInput\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(\n      connect: $connect\n      create: $create\n      delete: $delete\n      disconnect: $disconnect\n      update: $update\n      where: $where\n    ) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateCodeMirrorTypes(\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(update: $update, where: $where) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateCodeMirrorTypes(\n    $update: CodeMirrorTypeUpdateInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    types: updateCodeMirrorTypes(update: $update, where: $where) {\n      types: codeMirrorTypes {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1564,6 +1496,42 @@ export function graphql(
 export function graphql(
   source: '\n  mutation DeleteUsers($where: UserWhere!) {\n    deleteUsers(where: $where) {\n      nodesDeleted\n    }\n  }\n',
 ): (typeof documents)['\n  mutation DeleteUsers($where: UserWhere!) {\n    deleteUsers(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateApps($input: [AppCreateInput!]!) {\n    createApps(input: $input) {\n      apps {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {\n    updateApps(update: $update, where: $where) {\n      apps {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
+): (typeof documents)['\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n',
+): (typeof documents)['\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n',
+): (typeof documents)['\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1588,6 +1556,30 @@ export function graphql(
 export function graphql(
   source: '\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {\n    updateAtoms(update: $update, where: $where) {\n      atoms {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateFields($input: [FieldCreateInput!]!) {\n    createFields(input: $input) {\n      fields {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {\n    updateFields(update: $update, where: $where) {\n      fields {\n        id\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n',
+): (typeof documents)['\n  mutation DeleteFields($where: FieldWhere!) {\n    deleteFields(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n',
+): (typeof documents)['\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

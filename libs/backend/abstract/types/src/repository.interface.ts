@@ -1,16 +1,24 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
+/**
+ * Requires `noImplicityAbstractOverride' https://github.com/microsoft/TypeScript/issues/47250
+ *
+ * Move as interface for now
+ */
 export interface IRepository<
+  Dto extends IRef,
   Model extends IRef,
-  ModelData,
   Where extends { id?: string | null },
   Options,
 > {
-  add(data: Model): Promise<ModelData>
-  addMany(data: Array<Model>): Promise<Array<ModelData>>
+  /**
+   * Return `IRef` since our mutations only return ID
+   */
+  add(data: Dto): Promise<IRef>
+  addMany(data: Array<Dto>): Promise<Array<IRef>>
   exists(where: Where): Promise<boolean>
-  find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
+  find(args?: { where?: Where; options?: Options }): Promise<Array<Model>>
   /**
    * We enforce schema validation if selectionSet is enabled
    */
@@ -27,7 +35,7 @@ export interface IRepository<
   findOne(args?: {
     where: Where
     options?: Options
-  }): Promise<ModelData | undefined>
+  }): Promise<Model | undefined>
 
   /**
    * Finds one with schema validation
@@ -39,9 +47,9 @@ export interface IRepository<
     schema: T
   }): Promise<Static<T> | undefined>
 
-  findOneOrFail(args?: { where: Where; options?: Options }): Promise<ModelData>
+  findOneOrFail(args?: { where: Where; options?: Options }): Promise<Model>
 
-  findOneOrFail(args?: { where: Where; options?: Options }): Promise<ModelData>
-  save(data: Model, where?: Where): Promise<ModelData | undefined>
-  update(data: Model, where: Where): Promise<IRef | undefined>
+  findOneOrFail(args?: { where: Where; options?: Options }): Promise<Model>
+  save(data: Dto, where?: Where): Promise<IRef | undefined>
+  update(data: Dto, where: Where): Promise<IRef | undefined>
 }

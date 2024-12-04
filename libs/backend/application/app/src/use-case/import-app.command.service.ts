@@ -1,4 +1,7 @@
-import type { IAppExport, IAppImport } from '@codelab/shared/abstract/core'
+import type {
+  IAppAggregateExport,
+  IAppAggregateImport,
+} from '@codelab/shared/abstract/core'
 
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'
@@ -10,7 +13,7 @@ import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
-  constructor(public readonly appImport: IAppImport) {}
+  constructor(public readonly appImport: IAppAggregateImport) {}
 }
 
 @CommandHandler(ImportAppCommand)
