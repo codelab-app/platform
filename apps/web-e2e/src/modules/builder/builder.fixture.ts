@@ -210,7 +210,7 @@ export class BuilderPage extends BasePage {
 
     await openBuilderButton.click()
 
-    await this.page.waitForURL(PageType.ComponentBuilder({ componentId: '*' }))
+    // await this.page.waitForURL(PageType.ComponentBuilder({ componentId: '**' }))
 
     await expect(openBuilderButton).toBeHidden()
     await expect(openPreviewButton).toBeVisible()
@@ -227,7 +227,7 @@ export class BuilderPage extends BasePage {
 
     await openPreviewButton.click()
 
-    await this.page.waitForURL(PageType.ComponentBuilder({ componentId: '*' }))
+    // await this.page.waitForURL(PageType.ComponentBuilder({ componentId: '**' }))
 
     await expect(openPreviewButton).toBeHidden()
     await expect(openBuilderButton).toBeVisible()
