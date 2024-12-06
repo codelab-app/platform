@@ -42,7 +42,7 @@ interface CreateElementFormProps {
   selectedNode?: Nullable<IRuntimeModel>
   showFormControl?: boolean
   submitRef: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(): void
+  onSubmitSuccess?(data: IElementDto): void
 }
 
 export const CreateElementForm = observer<CreateElementFormProps>(
@@ -76,7 +76,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
 
       await elementService.create(data)
 
-      onSubmitSuccess?.()
+      onSubmitSuccess?.(data)
 
       return Promise.resolve()
     }

@@ -89,7 +89,6 @@ export class RuntimeElementModel
   implements IRuntimeElementModel
 {
   static compositeKey = compositeKey
-
   static create = create
 
   @computed
