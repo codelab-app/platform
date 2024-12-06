@@ -3314,7 +3314,7 @@
         "id": "417cba0d-a781-485d-82d5-cb3672efe555"
       },
       "compositeKey": "417cba0d-a781-485d-82d5-cb3672efe555-Google Fonts",
-      "expanded": null,
+      "expanded": false,
       "firstChild": null,
       "id": "562984ba-3c4a-41df-8375-21dbc750915c",
       "name": "Google Fonts",
@@ -3328,7 +3328,7 @@
       "preRenderAction": null,
       "prevSibling": null,
       "props": {
-        "data": "{\"data-component-id\":\"4k-uUYE7rhaDUCucj_eePHqZ\",\"rel\":\"stylesheet\",\"href\":\"{{function run() {\\n  const { fonts } = props\\n  if (!fonts?.length) {\\n    return '#'\\n  }\\n\\n  const createFontLink = (fontDetails) => {\\n    const fontMap = new Map()\\n  \\n    for (let i = 0; i < fontDetails.length; i++) {\\n      const family = fontDetails[i].family\\n      const weight = fontDetails[i].weight\\n  \\n      if (fontMap.has(family)) {\\n        if (!fontMap.get(family).includes(weight)) {\\n          fontMap.get(family).push(weight)\\n        }\\n      } else {\\n        fontMap.set(family, [weight ?? 400])\\n      }\\n    }\\n  \\n    const fontParams = []\\n    fontMap.forEach((weights, family) => {\\n      const urlFamily = family.replace(/\\\\s/g, '+')\\n      // Apparently the weights should be sorted so that it's considered valid. \\n      // Otherwise a 400 bad request error is returned\\n      const urlWeights = weights.map(Number).sort((a, b) => a - b).join(';')\\n      fontParams.push(`${urlFamily}:wght@${urlWeights}`)\\n    })\\n  \\n    const href = `https://fonts.googleapis.com/css2?family=${fontParams.join('&family=')}&display=swap`\\n  \\n    return href\\n  }\\n\\n  try {\\n    return createFontLink(fonts)\\n  } catch (error) {\\n    console.error(error)\\n  }\\n  return '#'\\n}()\\n}}\"}",
+        "data": "{\"href\":\"{{function run() {\\n  const { fonts } = componentProps\\n  if (!fonts?.length) {\\n    return '#'\\n  }\\n\\n  const createFontLink = (fontDetails) => {\\n    const fontMap = new Map()\\n  \\n    for (let i = 0; i < fontDetails.length; i++) {\\n      const { family, weight } = fontDetails[i].value\\n  \\n      if (fontMap.has(family)) {\\n        if (!fontMap.get(family).includes(weight)) {\\n          fontMap.get(family).push(weight)\\n        }\\n      } else {\\n        fontMap.set(family, [weight ?? 400])\\n      }\\n    }\\n  \\n    const fontParams = []\\n    fontMap.forEach((weights, family) => {\\n      const urlFamily = family.replace(/\\\\s/g, '+')\\n      // Apparently the weights should be sorted so that it's considered valid. \\n      // Otherwise a 400 bad request error is returned\\n      const urlWeights = weights.map(Number).sort((a, b) => a - b).join(';')\\n      fontParams.push(`${urlFamily}:wght@${urlWeights}`)\\n    })\\n  \\n    const href = `https://fonts.googleapis.com/css2?family=${fontParams.join('&family=')}&display=swap`\\n  \\n    return href\\n  }\\n\\n  try {\\n    return createFontLink(fonts)\\n  } catch (error) {\\n    console.error(error)\\n  }\\n  return '#'\\n}()\\n}}\",\"rel\":\"stylesheet\",\"data-component-id\":\"4k-uUYE7rhaDUCucj_eePHqZ\"}",
         "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1"
       },
       "renderForEachPropKey": null,

@@ -17,13 +17,15 @@ export const useOverrideAtomProps = (
   const inPreviewMode = RendererType.Preview === renderer.rendererType
   const inBuilderMode = renderer.isBuilder
   const builderOverrideProps: IPropData = {}
+  const isHtmlLinkTag = atomType === IAtomType.HtmlLink
 
   // Disables any in-app navigation in builder mode
-  if (inBuilderMode && !isNullish(props['href'])) {
+  // (except resources, e.g. fonts, that are loaded as <link href="..." />)
+  if (inBuilderMode && !isNullish(props['href']) && !isHtmlLinkTag) {
     builderOverrideProps['href'] = '#'
   }
 
-  if (inPreviewMode && !isNullish(props['href'])) {
+  if (inPreviewMode && !isNullish(props['href']) && !isHtmlLinkTag) {
     const rendererPage = renderer.runtimePage?.page.maybeCurrent
     const app = rendererPage?.app.maybeCurrent
     const pages = app?.pages ?? []
