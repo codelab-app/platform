@@ -1,5 +1,3 @@
-'use client'
-
 import type { PropsWithChildren } from 'react'
 
 import { BreakpointSize } from '@codelab/frontend/abstract/types'
@@ -27,8 +25,6 @@ export type CuiResizablePanelProps = PropsWithChildren<
   }
 >
 
-export const minBuilderPaneWidthInPixels = 600
-
 export const useResizeHandler = ({
   breakpoints,
   children,
@@ -37,9 +33,9 @@ export const useResizeHandler = ({
   id,
   order,
   resizeDirection,
-  showCollapseButton = false,
+  showCollapseButton = true,
 }: CuiResizablePanelProps) => {
-  const [collapsed, setCollapsed] = useState(defaultCollapsed)
+  const [collapsed, setCollapsed] = useState(false)
   const panelHandler = useRef<ImperativePanelHandle>(null)
   const showCollapseControl = collapsible && (collapsed || showCollapseButton)
   const breakpoint = useBreakpoint(breakpoints)
@@ -59,12 +55,10 @@ export const useResizeHandler = ({
         collapsed={collapsed}
         onClick={() => {
           if (collapsed) {
-            panelHandler.current?.expand(defaultSizePercent)
+            panelHandler.current?.expand()
           } else {
             panelHandler.current?.collapse()
           }
-
-          setCollapsed(!collapsed)
         }}
         resizeDirection={resizeDirection}
       />
@@ -84,20 +78,11 @@ export const useResizeHandler = ({
         onExpand={() => {
           setCollapsed(false)
         }}
-        onResize={onResize}
+        onResize={(size, prevSize) => {
+          //
+        }}
         order={order}
         ref={panelHandler}
-        /**
-         * Use this instead of `minSize` & `maxSize` to prevent flicker while resizing
-         */
-        // style={
-        //   collapsed
-        //     ? {}
-        //     : {
-        //         maxWidth: maxSizePx,
-        //         minWidth: minSizePx,
-        //       }
-        // }
       >
         {children}
       </Panel>

@@ -46,10 +46,6 @@ export const Dashboard = ({
     [appId, componentId, pageId],
   )
 
-  const contentWidthPercent = useWidthInPercent(minBuilderPaneWidthInPixels)
-  const defaultOutsideAreaPercent = useWidthInPercent(320 + 320)
-  const mainWidthPercent = 100 - defaultOutsideAreaPercent
-
   return (
     <Layout className="h-full">
       {Header}
@@ -96,9 +92,6 @@ export const Dashboard = ({
               id={PaneSection.Builder}
               // defaultSize={mainWidthPercent}
               order={3}
-              style={{
-                minWidth: contentWidthPercent,
-              }}
             >
               <ProgressBar />
               {/* We want the popover to overlay on top of the main, so we put it inside here */}
