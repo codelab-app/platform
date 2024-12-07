@@ -1,6 +1,8 @@
+'use client'
+
 import type { PropsWithChildren } from 'react'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { type ImperativePanelHandle, Panel } from 'react-resizable-panels'
 
 import type { CuiPanelProps } from '../CuiPanel'
@@ -103,8 +105,8 @@ export const useResizeHandler = ({
         /**
          * This causes width to flicker
          */
-        // maxSize={maxSizePercent}
-        // minSize={minSizePercent}
+        maxSize={maxSizePercent}
+        minSize={minSizePercent}
         onCollapse={() => {
           setCollapsed(true)
         }}
@@ -117,14 +119,14 @@ export const useResizeHandler = ({
         /**
          * Use this instead of `minSize` & `maxSize` to prevent flicker while resizing
          */
-        style={
-          collapsed
-            ? {}
-            : {
-                maxWidth: maxSizePx,
-                minWidth: minSizePx,
-              }
-        }
+        // style={
+        //   collapsed
+        //     ? {}
+        //     : {
+        //         maxWidth: maxSizePx,
+        //         minWidth: minSizePx,
+        //       }
+        // }
       >
         {children}
       </Panel>
