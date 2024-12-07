@@ -1,83 +1,51 @@
-'use client'
-
 import type { PropsWithChildren } from 'react'
 
-import { useRef, useState } from 'react'
+import { BreakpointSize } from '@codelab/frontend/abstract/types'
+import { useEffect, useRef, useState } from 'react'
 import { type ImperativePanelHandle, Panel } from 'react-resizable-panels'
+import { useWindowSize } from 'react-use'
 
 import type { CuiPanelProps } from '../CuiPanel'
 
 import { CollapseControl, CuiResizeHandle } from '../components'
 import {
-  PaneSection,
-  usePanelWidth,
-  useWidthInPercent,
-} from './usePanelWidth.hook'
+  type ResponsiveBreakpoints,
+  useBreakpoint,
+} from './useBreakpoints.hook'
 
-export type CuiResizablePanelProps = Pick<CuiPanelProps, 'defaultSize'> &
-  PropsWithChildren<
-    Pick<
-      CuiPanelProps,
-      | 'collapsible'
-      | 'defaultSize'
-      | 'id'
-      | 'maxSize'
-      | 'minSize'
-      | 'onResize'
-      | 'order'
-    > & {
-      // Overrides the state
-      defaultCollapsed?: boolean
-      // can add support for top, buttom later on
-      resizeDirection: 'left' | 'right'
-      showCollapseButton?: boolean
-      className?: string
-      minSizePx?: number
-      maxSizePx?: number
-      defaultSizePx?: number
-    }
-  >
-
-export const minBuilderPaneWidthInPixels = 600
+export type CuiResizablePanelProps = PropsWithChildren<
+  Pick<CuiPanelProps, 'collapsible' | 'id' | 'order'> & {
+    // Overrides the state
+    collapsed?: boolean
+    // can add support for top, buttom later on
+    resizeDirection: 'left' | 'right'
+    showCollapseButton?: boolean
+    className?: string
+    breakpoints: ResponsiveBreakpoints
+  }
+>
 
 export const useResizeHandler = ({
+  breakpoints,
   children,
   className,
   collapsible,
-  defaultCollapsed = false,
-  defaultSize,
-  defaultSizePx,
   id,
-  maxSize,
-  maxSizePx,
-  minSize,
-  minSizePx,
-  onResize,
   order,
   resizeDirection,
-  showCollapseButton = false,
+  showCollapseButton = true,
 }: CuiResizablePanelProps) => {
-  const [collapsed, setCollapsed] = useState(defaultCollapsed)
+  const [collapsed, setCollapsed] = useState(false)
   const panelHandler = useRef<ImperativePanelHandle>(null)
   const showCollapseControl = collapsible && (collapsed || showCollapseButton)
-  const minSizePercent = useWidthInPercent(minSizePx)
-  const maxSizePercent = useWidthInPercent(maxSizePx)
-  const defaultSizePercent = useWidthInPercent(defaultSizePx)
-  /**
-   * Collapse both if content min is reached
-   */
-  // const builderWidth = usePanelWidth(PaneSection.Builder)
-  // useEffect(() => {
-  //   if (builderWidth === undefined) {
-  //     return
-  //   }
+  const breakpoint = useBreakpoint(breakpoints)
 
-  //   const shouldCollapse = builderWidth < minBuilderPaneWidthInPixels
+  useEffect(() => {
+    console.log('change breakpoint', breakpoint)
 
-  //   if (shouldCollapse) {
-  //     panelHandler.current?.collapse()
-  //   }
-  // }, [builderWidth])
+    // Handle breakpoint changes
+    panelHandler.current?.resize(breakpoint.default)
+  }, [breakpoint])
 
   return {
     collapseControl: showCollapseControl && (
@@ -85,12 +53,10 @@ export const useResizeHandler = ({
         collapsed={collapsed}
         onClick={() => {
           if (collapsed) {
-            panelHandler.current?.expand(defaultSizePercent)
+            panelHandler.current?.expand()
           } else {
             panelHandler.current?.collapse()
           }
-
-          setCollapsed(!collapsed)
         }}
         resizeDirection={resizeDirection}
       />
@@ -100,33 +66,21 @@ export const useResizeHandler = ({
       <Panel
         className={className}
         collapsible={collapsible}
-        defaultSize={defaultSizePercent}
+        defaultSize={breakpoint.default}
         id={id}
-        /**
-         * This causes width to flicker
-         */
-        maxSize={maxSizePercent}
-        minSize={minSizePercent}
+        maxSize={breakpoint.max}
+        minSize={breakpoint.min}
         onCollapse={() => {
           setCollapsed(true)
         }}
         onExpand={() => {
           setCollapsed(false)
         }}
-        onResize={onResize}
+        onResize={(size, prevSize) => {
+          //
+        }}
         order={order}
         ref={panelHandler}
-        /**
-         * Use this instead of `minSize` & `maxSize` to prevent flicker while resizing
-         */
-        // style={
-        //   collapsed
-        //     ? {}
-        //     : {
-        //         maxWidth: maxSizePx,
-        //         minWidth: minSizePx,
-        //       }
-        // }
       >
         {children}
       </Panel>

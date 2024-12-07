@@ -5,10 +5,8 @@ import {
   CuiPanel,
   CuiPanelGroup,
   CuiResizablePanel,
-  minBuilderPaneWidthInPixels,
+  panelBreakpoints,
   PaneSection,
-  usePanelWidth,
-  useWidthInPercent,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { isHiddenSlot } from '@codelab/frontend/shared/utils'
 import { withProfiler } from '@sentry/react'
@@ -48,10 +46,6 @@ export const Dashboard = ({
     [appId, componentId, pageId],
   )
 
-  const contentWidthPercent = useWidthInPercent(minBuilderPaneWidthInPixels)
-  const defaultOutsideAreaPercent = useWidthInPercent(320 + 320)
-  const mainWidthPercent = 100 - defaultOutsideAreaPercent
-
   return (
     <Layout className="h-full">
       {Header}
@@ -71,12 +65,12 @@ export const Dashboard = ({
           <CuiPanelGroup direction="horizontal">
             {PrimarySidebar && (
               <CuiResizablePanel
+                breakpoints={panelBreakpoints}
                 // Close the pane if main area is too crammed
                 collapsible
-                defaultSizePx={320}
                 id={PaneSection.Explorer}
-                maxSizePx={400}
-                minSizePx={280}
+                // maxSize={400}
+                // minSize={280}
                 order={1}
                 resizeDirection="right"
                 showCollapseButton={true}
@@ -92,12 +86,12 @@ export const Dashboard = ({
 
             <CuiPanel
               className="relative"
-              defaultSize={mainWidthPercent}
+              defaultSize={
+                60 + (PrimarySidebar ? 0 : 20) + (ConfigPane ? 0 : 20)
+              }
               id={PaneSection.Builder}
+              // defaultSize={mainWidthPercent}
               order={3}
-              style={{
-                minWidth: contentWidthPercent,
-              }}
             >
               <ProgressBar />
               {/* We want the popover to overlay on top of the main, so we put it inside here */}
@@ -107,12 +101,10 @@ export const Dashboard = ({
 
             {ConfigPane && (
               <CuiResizablePanel
+                breakpoints={panelBreakpoints}
                 // Close the pane if main area is too crammed
                 collapsible
-                defaultSizePx={320}
                 id={PaneSection.Config}
-                maxSizePx={400}
-                minSizePx={280}
                 order={4}
                 resizeDirection="left"
                 showCollapseButton={true}
