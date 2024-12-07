@@ -5,12 +5,17 @@ import {
   CuiPanel,
   CuiPanelGroup,
   CuiResizablePanel,
+  minBuilderPaneWidthInPixels,
+  PaneSection,
+  usePanelWidth,
+  useWidthInPercent,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { isHiddenSlot } from '@codelab/frontend/shared/utils'
 import { withProfiler } from '@sentry/react'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useWindowSize } from 'react-use'
 
 import type { DashboardProps } from './Types'
 
@@ -43,6 +48,10 @@ export const Dashboard = ({
     [appId, componentId, pageId],
   )
 
+  const contentWidthPercent = useWidthInPercent(minBuilderPaneWidthInPixels)
+  const defaultOutsideAreaPercent = useWidthInPercent(320 + 320)
+  const mainWidthPercent = 100 - defaultOutsideAreaPercent
+
   return (
     <Layout className="h-full">
       {Header}
@@ -62,11 +71,15 @@ export const Dashboard = ({
           <CuiPanelGroup direction="horizontal">
             {PrimarySidebar && (
               <CuiResizablePanel
+                // Close the pane if main area is too crammed
                 collapsible
-                defaultSize={20}
+                defaultSizePx={320}
+                id={PaneSection.Explorer}
+                maxSizePx={400}
+                minSizePx={280}
                 order={1}
                 resizeDirection="right"
-                showCollapseButton={false}
+                showCollapseButton={true}
               >
                 <div
                   className="relative size-full"
@@ -79,10 +92,12 @@ export const Dashboard = ({
 
             <CuiPanel
               className="relative"
-              defaultSize={
-                60 + (PrimarySidebar ? 0 : 20) + (ConfigPane ? 0 : 20)
-              }
+              defaultSize={mainWidthPercent}
+              id={PaneSection.Builder}
               order={3}
+              style={{
+                minWidth: contentWidthPercent,
+              }}
             >
               <ProgressBar />
               {/* We want the popover to overlay on top of the main, so we put it inside here */}
@@ -92,10 +107,15 @@ export const Dashboard = ({
 
             {ConfigPane && (
               <CuiResizablePanel
+                // Close the pane if main area is too crammed
                 collapsible
-                defaultSize={20}
+                defaultSizePx={320}
+                id={PaneSection.Config}
+                maxSizePx={400}
+                minSizePx={280}
                 order={4}
                 resizeDirection="left"
+                showCollapseButton={true}
               >
                 <div className="relative size-full overflow-y-auto bg-white">
                   {ConfigPane}
