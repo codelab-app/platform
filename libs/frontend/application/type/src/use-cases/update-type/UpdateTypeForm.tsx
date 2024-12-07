@@ -56,7 +56,7 @@ export const UpdateTypeForm = observer<UpdateAtomFormProps>((props) => {
             value: val.value,
           }))
         : undefined,
-    arrayTypeId:
+    arrayItemTypeId:
       typeToUpdate.kind === ITypeKind.ArrayType
         ? typeToUpdate.itemType?.id
         : undefined,
@@ -102,7 +102,7 @@ export const UpdateTypeForm = observer<UpdateAtomFormProps>((props) => {
         <AutoField name="allowedValues" />
       )}
       <DisplayIfKind kind={ITypeKind.ArrayType}>
-        <TypeSelect label="Array Item Type" name="arrayTypeId" />
+        <TypeSelect label="Array Item Type" name="arrayItemTypeId" />
       </DisplayIfKind>
       <DisplayIfKind kind={ITypeKind.CodeMirrorType}>
         <AutoField label="Language" name="language" />
