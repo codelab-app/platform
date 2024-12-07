@@ -41,11 +41,13 @@ export const useResizeHandler = ({
   const breakpoint = useBreakpoint(breakpoints)
 
   useEffect(() => {
-    console.log('change breakpoint', breakpoint)
-
-    // Handle breakpoint changes
-    panelHandler.current?.resize(breakpoint.default)
-  }, [breakpoint])
+    /**
+     * Only resize on window resize if not collapsed already
+     */
+    if (!collapsed) {
+      panelHandler.current?.resize(breakpoint.default)
+    }
+  }, [breakpoint, collapsed])
 
   return {
     collapseControl: showCollapseControl && (
