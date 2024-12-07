@@ -1,3 +1,5 @@
+'use client'
+
 import { useLayoutEffect, useState } from 'react'
 import { getPanelElement } from 'react-resizable-panels'
 import { useWindowSize } from 'react-use'

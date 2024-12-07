@@ -115,7 +115,7 @@ export const useResizeHandler = ({
         order={order}
         ref={panelHandler}
         /**
-         * Use this instead of `minSize` & `maxSize`
+         * Use this instead of `minSize` & `maxSize` to prevent flicker while resizing
          */
         style={
           collapsed
