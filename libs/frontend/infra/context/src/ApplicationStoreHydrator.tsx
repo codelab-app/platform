@@ -40,8 +40,6 @@ export const ApplicationStoreHydrator = observer(
     const [isHydrated, setIsHydrated] = useState(false)
 
     useEffect(() => {
-      console.log('setQueryParams', Date.now())
-
       if (queryParams) {
         console.log(parseQueryParamPageProps(queryParams))
         routerService.setQueryParams(parseQueryParamPageProps(queryParams))

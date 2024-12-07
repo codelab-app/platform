@@ -10,6 +10,7 @@ import { notify } from '@codelab/frontend/shared/utils'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useAsyncHandler } from '@codelab/frontend-presentation-components-form'
 
 import {
   shouldMoveElementAsFirstChild,
@@ -29,6 +30,7 @@ export const useElementTreeDrop = () => {
   const elementService = useElementService()
   const { runtimeElementService } = useApplicationStore()
   const { validateParentForMove } = useRequiredParentValidator()
+  const asyncHandler = useAsyncHandler()
 
   const handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop'] = async (
     info,
@@ -69,19 +71,27 @@ export const useElementTreeDrop = () => {
     }
 
     if (shouldMoveElementAsFirstChild(info)) {
-      void elementService.move({
-        element: draggedElement,
-        parentElement: dropElement,
-      })
+      const move = asyncHandler(() =>
+        elementService.move({
+          element: draggedElement,
+          parentElement: dropElement,
+        }),
+      )
+
+      void move()
 
       return
     }
 
     if (shouldMoveElementAsNextSibling(info)) {
-      void elementService.move({
-        element: draggedElement,
-        prevSibling: dropElement,
-      })
+      const move = asyncHandler(() =>
+        elementService.move({
+          element: draggedElement,
+          prevSibling: dropElement,
+        }),
+      )
+
+      void move()
     }
 
     // drop at the beginning of parent body

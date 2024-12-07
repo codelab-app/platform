@@ -51,7 +51,6 @@ const middleware: NextMiddleware = async (
 
     url.searchParams.set('page', newPage)
     url.searchParams.set('pageSize', newPageSize)
-
     url.searchParams.set('filter', newFilter.join(','))
 
     const hasChanged =

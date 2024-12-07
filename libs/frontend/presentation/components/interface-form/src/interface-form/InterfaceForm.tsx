@@ -15,7 +15,10 @@ import {
   type SubmitRef,
   UiKey,
 } from '@codelab/frontend/abstract/types'
-import { Form, useSubmit } from '@codelab/frontend-presentation-components-form'
+import {
+  Form,
+  useAsyncHandler,
+} from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
 import { mergeDeep } from 'remeda'
@@ -55,6 +58,8 @@ export const InterfaceForm = observer(
     submitField,
     submitRef,
   }: InterfaceFormProps<TData, TResponse>) => {
+    const asyncHandler = useAsyncHandler<TData, TResponse>(setIsLoading)
+
     const uniforms = (type: ITypeModel) =>
       uniformSchemaFactory(type, context?.autocomplete)
 
@@ -74,7 +79,7 @@ export const InterfaceForm = observer(
         autosave={autosave}
         model={model}
         onChange={onChange}
-        onSubmit={useSubmit<TData, TResponse>(onSubmit, setIsLoading)}
+        onSubmit={asyncHandler(onSubmit)}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={formSchema as JSONSchemaType<unknown>}

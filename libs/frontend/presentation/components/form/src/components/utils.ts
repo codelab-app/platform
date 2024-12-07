@@ -6,6 +6,7 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { throttle } from 'radash'
 import { debounce } from 'remeda'
 
@@ -19,27 +20,36 @@ type OnSubmitOptimistic<TData, TResponse> = OptimisticFormProps<
 >['onSubmitOptimistic']
 
 /**
- * Handles loading state and optimistic submit
+ * Handles loading state and optimistic submit for async functions
  */
-
-export const useSubmit = <TData, TResponse>(
-  onSubmit: FormProps<TData, TResponse>['onSubmit'],
+export const useAsyncHandler = <TData, TResponse>(
+  /**
+   * Additional loaders, we moved the built-in global loading here
+   */
   setIsLoading?: SetIsLoading,
-  onSubmitOptimistic: OnSubmitOptimistic<TData, TResponse> = () => {
-    return
-  },
 ) => {
-  return async (formData: DeepPartial<TData>) => {
-    setIsLoading?.(true)
+  const { setLoading } = useLoading()
 
-    const submitPromise = onSubmit(formData as TData)
-
-    onSubmitOptimistic()
-
-    return submitPromise.finally(() => {
-      setIsLoading?.(false)
-    })
+  const setAllLoadingState = (loading: boolean) => {
+    setIsLoading?.(loading)
+    setLoading(loading)
   }
+
+  return (
+      onSubmit: (data?: TData) => Promise<TResponse>,
+      onSubmitOptimistic: OnSubmitOptimistic<TData, TResponse> = () => {
+        return
+      },
+    ) =>
+    async (formData?: TData) => {
+      setAllLoadingState(true)
+
+      const submitPromise = onSubmit(formData)
+
+      onSubmitOptimistic()
+
+      return submitPromise.finally(() => setAllLoadingState(false))
+    }
 }
 
 export const handleSubmitRefModalOk = (

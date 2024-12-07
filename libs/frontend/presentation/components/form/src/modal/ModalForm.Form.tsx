@@ -13,7 +13,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 
-import { usePostSubmit, useSubmit } from '../components/utils'
+import { useAsyncHandler, usePostSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
 export type OptimisticFormProps<TData, TResponse> = React.PropsWithChildren<
@@ -36,17 +36,9 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
   } = props
 
   const { setIsLoading, submitRef } = useContext(ModalFormContext)
-  const { setLoading } = useLoading()
   const postSubmit = usePostSubmit<TData, TResponse>(props)
-
-  const submit = useSubmit<TData, TResponse>(
-    onSubmit,
-    (isLoading: boolean) => {
-      setIsLoading(isLoading)
-      setLoading(isLoading)
-    },
-    props.onSubmitOptimistic,
-  )
+  const asyncHandler = useAsyncHandler<TData, TResponse>(setIsLoading)
+  const submit = asyncHandler(onSubmit, props.onSubmitOptimistic)
 
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge<TData>(schema),
@@ -65,7 +57,7 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
       onChange={onChange}
       onChangeModel={onChangeModel}
       onSubmit={(formData) =>
-        submit(formData)
+        submit(formData as TData)
           .then(postSubmit.onSubmitSuccess)
           .catch(postSubmit.onSubmitError)
       }

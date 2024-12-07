@@ -5,12 +5,15 @@ import {
   CuiPanel,
   CuiPanelGroup,
   CuiResizablePanel,
+  panelBreakpoints,
+  PaneSection,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { isHiddenSlot } from '@codelab/frontend/shared/utils'
 import { withProfiler } from '@sentry/react'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useWindowSize } from 'react-use'
 
 import type { DashboardProps } from './Types'
 
@@ -62,11 +65,15 @@ export const Dashboard = ({
           <CuiPanelGroup direction="horizontal">
             {PrimarySidebar && (
               <CuiResizablePanel
+                breakpoints={panelBreakpoints}
+                // Close the pane if main area is too crammed
                 collapsible
-                defaultSize={20}
+                id={PaneSection.Explorer}
+                // maxSize={400}
+                // minSize={280}
                 order={1}
                 resizeDirection="right"
-                showCollapseButton={false}
+                showCollapseButton={true}
               >
                 <div
                   className="relative size-full"
@@ -82,6 +89,8 @@ export const Dashboard = ({
               defaultSize={
                 60 + (PrimarySidebar ? 0 : 20) + (ConfigPane ? 0 : 20)
               }
+              id={PaneSection.Builder}
+              // defaultSize={mainWidthPercent}
               order={3}
             >
               <ProgressBar />
@@ -92,10 +101,13 @@ export const Dashboard = ({
 
             {ConfigPane && (
               <CuiResizablePanel
+                breakpoints={panelBreakpoints}
+                // Close the pane if main area is too crammed
                 collapsible
-                defaultSize={20}
+                id={PaneSection.Config}
                 order={4}
                 resizeDirection="left"
+                showCollapseButton={true}
               >
                 <div className="relative size-full overflow-y-auto bg-white">
                   {ConfigPane}

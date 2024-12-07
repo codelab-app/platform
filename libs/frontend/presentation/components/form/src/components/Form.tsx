@@ -2,6 +2,7 @@
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import type { ReactElement } from 'react'
+import type { DeepPartial } from 'uniforms'
 
 import {
   connectUniformSubmitRef,
@@ -15,7 +16,7 @@ import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
 
-import { usePostSubmit, useSubmit } from './utils'
+import { useAsyncHandler, usePostSubmit } from './utils'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>(
@@ -48,9 +49,9 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     }, [schema])
 
     const modelRef = useRef(model)
-    const { setLoading } = useLoading()
     const postSubmit = usePostSubmit<TData, TResponse>(props)
-    const submit = useSubmit(onSubmit, setLoading, onSubmitOptimistic)
+    const asyncHandler = useAsyncHandler<TData, TResponse>()
+    const submit = asyncHandler(onSubmit, onSubmitOptimistic)
 
     return (
       <div
@@ -68,7 +69,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={throttle({ interval: 200 }, (formData) =>
-            submit(formData)
+            submit(formData as TData)
               .then(postSubmit.onSubmitSuccess)
               .catch(postSubmit.onSubmitError),
           )}

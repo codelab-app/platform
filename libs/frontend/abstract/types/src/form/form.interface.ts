@@ -46,9 +46,9 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     errorMessage?: string
     successMessage?: string
     /**
-     * Don't use `DeepPartial` even Uniform uses it
+     * Don't use `DeepPartial` even thought Uniform uses it
      */
-    onSubmit(model: TData): Promise<TResponse>
+    onSubmit(model?: TData): Promise<TResponse>
     onSubmitOptimistic?(): void
   }
 
