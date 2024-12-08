@@ -497,7 +497,7 @@
         "api": {
           "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -510,13 +510,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -529,13 +529,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -548,13 +548,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -567,13 +567,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -586,13 +586,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -605,13 +605,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -624,13 +624,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -643,13 +643,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -662,13 +662,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "ba311b82-869e-407d-9c8f-137138ab0868"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -681,13 +681,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -700,13 +700,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -719,13 +719,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -738,13 +738,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -757,13 +757,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -776,13 +776,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -795,13 +795,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -814,13 +814,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -833,13 +833,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -852,13 +852,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -871,13 +871,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -890,13 +890,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "3e20a519-4968-49ce-9663-6b5380707055"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -909,13 +909,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -928,13 +928,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -947,13 +947,13 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
         },
-        "defaultValues": "null",
+        "defaultValues": "\"400\"",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -966,7 +966,7 @@
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       }
     ],
     "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
@@ -987,7 +987,7 @@
             "api": {
               "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1000,7 +1000,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1033,7 +1033,7 @@
             "api": {
               "id": "3e20a519-4968-49ce-9663-6b5380707055"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1046,7 +1046,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1079,7 +1079,7 @@
             "api": {
               "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1092,7 +1092,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1125,7 +1125,7 @@
             "api": {
               "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1138,7 +1138,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1171,7 +1171,7 @@
             "api": {
               "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1184,7 +1184,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1217,7 +1217,7 @@
             "api": {
               "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1230,7 +1230,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1263,7 +1263,7 @@
             "api": {
               "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1276,7 +1276,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1309,7 +1309,7 @@
             "api": {
               "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1322,7 +1322,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1355,7 +1355,7 @@
             "api": {
               "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1368,7 +1368,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1401,7 +1401,7 @@
             "api": {
               "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1414,7 +1414,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1447,7 +1447,7 @@
             "api": {
               "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1460,7 +1460,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1493,7 +1493,7 @@
             "api": {
               "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1506,7 +1506,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1539,7 +1539,7 @@
             "api": {
               "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1552,7 +1552,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1585,7 +1585,7 @@
             "api": {
               "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1598,7 +1598,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1631,7 +1631,7 @@
             "api": {
               "id": "ba311b82-869e-407d-9c8f-137138ab0868"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1644,7 +1644,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1677,7 +1677,7 @@
             "api": {
               "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1690,7 +1690,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1723,7 +1723,7 @@
             "api": {
               "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1736,7 +1736,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1769,7 +1769,7 @@
             "api": {
               "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1782,7 +1782,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1815,7 +1815,7 @@
             "api": {
               "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1828,7 +1828,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1861,7 +1861,7 @@
             "api": {
               "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1874,7 +1874,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1907,7 +1907,7 @@
             "api": {
               "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1920,7 +1920,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1953,7 +1953,7 @@
             "api": {
               "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1966,7 +1966,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -1999,7 +1999,7 @@
             "api": {
               "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -2012,7 +2012,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -2045,7 +2045,7 @@
             "api": {
               "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -2058,7 +2058,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {
@@ -2091,7 +2091,7 @@
             "api": {
               "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
             },
-            "defaultValues": "null",
+            "defaultValues": "\"400\"",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -2104,7 +2104,7 @@
             "name": null,
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "validationRules": "{}"
           },
           {
             "api": {

@@ -9,7 +9,7 @@ import { Col } from 'antd'
 
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
-import { CssProperty } from '../css'
+import { CssProperty, DefaultCssProperties } from '../css'
 import { useStyle } from '../style.hook'
 import { extractFontDataFromUrl } from './typography.util'
 
@@ -49,7 +49,7 @@ const decorationOptions = [
   },
 ]
 
-const DEFAULT_FONT = 'Montserrat'
+const DEFAULT_FONT = DefaultCssProperties[CssProperty.FontFamily].defaultValue
 
 export const TypographyEditor = () => {
   const fonts = extractFontDataFromUrl()
@@ -85,7 +85,7 @@ export const TypographyEditor = () => {
             weight,
           value: weight,
         }
-      }) ?? []
+      }) ?? weightOptions
     )
   }
 
@@ -96,6 +96,13 @@ export const TypographyEditor = () => {
         label="Font"
         onChange={(val) => {
           setStyle(CssProperty.FontFamily, val)
+
+          const currentWeight = getCurrentStyle(CssProperty.FontWeight)
+          const currentFont = fonts.find((font) => font.family === val)
+
+          if (currentFont && !currentFont.weights.includes(currentWeight)) {
+            setStyle(CssProperty.FontWeight, currentFont.weights[0] ?? '')
+          }
         }}
         onReset={() => {
           resetStyle(CssProperty.FontFamily)

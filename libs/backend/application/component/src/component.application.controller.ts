@@ -1,3 +1,4 @@
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { type ICreateComponentData } from '@codelab/shared/abstract/core'
 import {
   Body,
@@ -21,6 +22,7 @@ export class ComponentApplicationController {
   constructor(
     private readonly commandBus: CommandBus,
     private componentApplicationService: ComponentApplicationService,
+    private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
   @Post('create-component')
@@ -43,5 +45,13 @@ export class ComponentApplicationController {
     const data = JSON.parse(json)
 
     return await this.commandBus.execute(new ImportComponentsCommand(data))
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('seed-system-components')
+  async seedSystemComponents() {
+    for (const component of this.readAdminDataService.components) {
+      await this.commandBus.execute(new ImportComponentsCommand(component))
+    }
   }
 }
