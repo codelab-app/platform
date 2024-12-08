@@ -35,7 +35,7 @@ FROM install as build
 # Put this separately for caching
 # The trailing / is required when copying from multiple sources
 
-COPY nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
+COPY nx.json tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 COPY apps/sites ./apps/sites
 COPY libs ./libs
 COPY types ./types

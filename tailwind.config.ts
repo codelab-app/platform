@@ -3,7 +3,7 @@ const path = require('path')
 import type { Config } from 'tailwindcss'
 // const { breakpoints } = require('./.codelab.js')
 
-import shadcnTailwindConfig from './shadcn.tailwind.config'
+import shadcnTailwindConfig from './scripts/tailwind/shadcn.tailwind.config'
 
 /**
  * This only works if `tailwind.config.js` & `postcss.config.js` are at the project root

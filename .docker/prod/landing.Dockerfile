@@ -36,7 +36,7 @@ RUN pnpm install --frozen-lockfile
 FROM install as build
 
 # The trailing / is required when copying from multiple sources
-COPY nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
+COPY nx.json tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 # Required for yarn workspaces
 COPY apps/landing ./apps/landing
 COPY libs ./libs

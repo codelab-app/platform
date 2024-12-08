@@ -1,10 +1,12 @@
-const { join } = require('path')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const rootPostCssConfig = require('../../postcss.config.cjs')
 
 module.exports = {
-  plugins: {
-    tailwindcss: {
-      config: join(__dirname, 'tailwind.config.ts'),
-    },
-    autoprefixer: {},
-  },
+  ...rootPostCssConfig,
+  // plugins: {
+  //   tailwindcss: {
+  //     config: join(__dirname, 'tailwind.config.ts'),
+  //   },
+  //   autoprefixer: {},
+  // },
 }
