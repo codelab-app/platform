@@ -105,11 +105,7 @@ export class BuilderPage extends BasePage {
       await this.getModal().locator(submitButton).click()
 
       await expect(this.getModal()).toBeHidden()
-      await expect(
-        this.getTreeElement(name, atom).or(
-          this.getTreeElement(name, `instance of ${atom}`),
-        ),
-      ).toBeVisible()
+      await expect(this.getTreeElement(name, atom)).toBeVisible()
     }
   }
 
@@ -186,7 +182,9 @@ export class BuilderPage extends BasePage {
   }
 
   getTreeElement(name: string, type?: string) {
-    return this.page.getByTitle(`${name} (${type ?? name})`)
+    return this.page
+      .getByTitle(`${name} (${type ?? name})`)
+      .or(this.page.getByTitle(`${name} (instance of ${type ?? name})`))
   }
 
   getUpdateElementForm() {
@@ -242,7 +240,9 @@ export class BuilderPage extends BasePage {
 
     await treeElement.click()
 
-    await expect(selectedTreeElement).toHaveText(`${name}${atom}`)
+    await expect(selectedTreeElement).toHaveText(
+      new RegExp(`^(${name}${atom}|${name}instance of ${atom})$`),
+    )
     await expect(this.getFormFieldSpinner()).toHaveCount(0)
 
     return treeElement
