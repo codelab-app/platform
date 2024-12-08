@@ -127,7 +127,8 @@ export const useTypeService = (): ITypeService => {
       (field) => field.type.id,
     )
 
-    const [interfaceType] = await getAll([interfaceTypeId, ...fieldTypeIds])
+    const loadedTypes = await getAll([interfaceTypeId, ...fieldTypeIds])
+    const interfaceType = loadedTypes.find(({ id }) => id === interfaceTypeId)
 
     if (!interfaceType) {
       throw new Error('Type not found')
