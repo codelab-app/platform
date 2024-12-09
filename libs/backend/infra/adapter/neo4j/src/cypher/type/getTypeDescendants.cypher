@@ -9,8 +9,11 @@
 // https://neo4j.com/labs/apoc/4.0/graph-querying/expand-subgraph/#expand-subgraph-relationship-filters
 //
 // >FIELD_TYPE is so we can get the end node of the field
+
+Match (type:Type {id: $this})
+
 CALL apoc.path.subgraphAll(
-  $this,
+  type,
   {
     relationshipFilter: '>ARRAY_ITEM_TYPE|>UNION_TYPE_CHILD|>INTERFACE_FIELD|>FIELD_TYPE',
     labelFilter: '>Type|>Field'

@@ -3,6 +3,7 @@ import type {
   ITypeService,
 } from '@codelab/frontend/abstract/application'
 import type {
+  IInterfaceTypeModel,
   ITypeCreateFormData,
   ITypeModel,
   ITypeUpdateDto,
@@ -13,10 +14,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
-import {
-  GetBaseTypes,
-  typeRepository,
-} from '@codelab/frontend-domain-type/repositories'
+import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import {
   useApplicationStore,
@@ -114,9 +112,6 @@ export const useTypeService = (): ITypeService => {
     return ids ? types.filter((type) => ids.includes(type.id)) : types
   }
 
-  /**
-   * This needs to get the type of fields as well
-   */
   const getInterface = async (interfaceTypeId: string) => {
     const interfaceFromStore = typeDomainService.getType(interfaceTypeId)
 
@@ -128,7 +123,12 @@ export const useTypeService = (): ITypeService => {
       return interfaceFromStore
     }
 
-    const [interfaceType] = await getAll([interfaceTypeId])
+    const fieldTypeIds = (interfaceFromStore as IInterfaceTypeModel).fields.map(
+      (field) => field.type.id,
+    )
+
+    const loadedTypes = await getAll([interfaceTypeId, ...fieldTypeIds])
+    const interfaceType = loadedTypes.find(({ id }) => id === interfaceTypeId)
 
     if (!interfaceType) {
       throw new Error('Type not found')

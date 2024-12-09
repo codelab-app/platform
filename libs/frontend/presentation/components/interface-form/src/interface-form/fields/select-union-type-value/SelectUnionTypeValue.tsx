@@ -47,7 +47,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   )
 
   const typeFieldName = joinName(name, 'type')
-  const valueFieldName = joinName(name, 'value')
+  const valueFieldName = joinName(fieldProps.name, 'value')
 
   // if no type is selected get the first schema by default
   const currentSchema = type
@@ -70,7 +70,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
           label=""
           name={typeFieldName}
           onChange={(newType) => {
-            context.onChange(name, {
+            context.onChange(fieldProps.name, {
               kind: typeToKind[newType],
               type: newType,
               value: undefined,

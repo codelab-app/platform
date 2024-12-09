@@ -25,6 +25,7 @@ test.beforeEach(async ({ builderPage: page }) => {
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getFormFieldSpinner()).toHaveCount(0)
 })
 
 test('should be able to set styling through css string and GUI', async ({

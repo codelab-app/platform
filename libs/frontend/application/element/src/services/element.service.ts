@@ -21,11 +21,15 @@ export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
-  const { elementDomainService } = useDomainStore()
+  const { componentDomainService, elementDomainService } = useDomainStore()
 
   const create = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
       await atomService.loadApi(data.renderType.id)
+    } else {
+      const component = componentDomainService.component(data.renderType.id)
+
+      await typeService.getInterface(component.api.id)
     }
 
     const element = elementDomainService.addTreeNode(data)

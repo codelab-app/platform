@@ -241,7 +241,7 @@ export const DefaultCssProperties: Record<
     key: CssProperty.FlexWrap,
   },
   [CssProperty.FontFamily]: {
-    defaultValue: 'Montserrat',
+    defaultValue: 'Arial',
     key: CssProperty.FontFamily,
   },
   [CssProperty.FontSize]: {

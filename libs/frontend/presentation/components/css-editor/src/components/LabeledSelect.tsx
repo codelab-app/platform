@@ -30,6 +30,7 @@ export const LabeledSelect = ({
       </Col>
       <Col className="w-full overflow-hidden">
         <Select
+          aria-label={label}
           className="w-full"
           onChange={onChange}
           options={options}

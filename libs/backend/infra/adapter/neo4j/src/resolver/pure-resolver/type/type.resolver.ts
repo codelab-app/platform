@@ -56,19 +56,15 @@ export const TypeResolverProvider: FactoryProvider<
     //     }
     //   })
 
-    // const descendantTypesIds = (node: IBaseType) => {
-    //   console.log(node)
+    const descendantTypesIds = (node: IBaseType) => {
+      return neo4jService.withReadTransaction(async (txn) => {
+        const { records } = await txn.run(getTypeDescendants, {
+          this: node.id,
+        })
 
-    //   return neo4jService.withReadTransaction(async (txn) => {
-    //     const { records } = await txn.run(getTypeDescendants, {
-    //       this: node.id,
-    //     })
-
-    //     return records[0]?.get(0) ?? []
-    //   })
-    // }
-
-    const descendantTypesIds = () => []
+        return records[0]?.get(0) ?? []
+      })
+    }
 
     return {
       AnyType: {

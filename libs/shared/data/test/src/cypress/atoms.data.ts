@@ -18,4 +18,5 @@ export const atomTypes = [
   IAtomType.AntDesignRadioGroup,
   IAtomType.AntDesignSelect,
   IAtomType.NextLink,
+  IAtomType.HtmlLink,
 ]
