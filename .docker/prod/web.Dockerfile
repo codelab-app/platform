@@ -10,7 +10,7 @@
 #
 # (1) install - using alias and having multiple steps can help with caching and build speed
 #
-FROM node:18.17-alpine AS base
+FROM node:18.18-alpine AS base
 
 WORKDIR /usr/src/codelab
 
@@ -27,23 +27,25 @@ FROM base AS install
 COPY package.json pnpm-lock.yaml .npmrc ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
+COPY dist/libs/external ./dist/libs/external
 RUN pnpm install --frozen-lockfile
 
 
-FROM install as build
+FROM install AS build
 
 # Put this separately for caching
 # The trailing / is required when copying from multiple sources
-
-COPY nx.json tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
+COPY nx.json .nxignore tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 COPY apps/web ./apps/web
 COPY libs ./libs
 COPY types ./types
+COPY scripts/tailwind ./scripts/tailwind
 
 # It's important to remember that for every --build-arg parameter used in the docker build command, there must be a corresponding ARG instruction in the Dockerfile
 ARG NEXT_PUBLIC_WEB_HOST
 ARG NEXT_PUBLIC_API_PORT
 ARG NEXT_PUBLIC_API_HOSTNAME
+ARG NEXT_PUBLIC_BASE_API_PATH
 ARG AUTH0_SECRET
 ARG AUTH0_DOMAIN
 ARG AUTH0_CLIENT_ID
@@ -57,6 +59,7 @@ ARG AUTH0_CLIENT_SECRET
 ENV NEXT_PUBLIC_WEB_HOST=$NEXT_PUBLIC_WEB_HOST
 ENV NEXT_PUBLIC_API_PORT=$NEXT_PUBLIC_API_PORT
 ENV NEXT_PUBLIC_API_HOSTNAME=$NEXT_PUBLIC_API_HOSTNAME
+ENV NEXT_PUBLIC_BASE_API_PATH=$NEXT_PUBLIC_BASE_API_PATH
 ENV AUTH0_SECRET=$AUTH0_SECRET
 ENV AUTH0_DOMAIN=$AUTH0_DOMAIN
 ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
@@ -66,12 +69,13 @@ ENV NEXT_TELEMETRY_DISABLED=1
 WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN pnpm nx build web --verbose --skip-nx-cache
 
 #
 # (2) Prod
 #
-FROM node:18.17-alpine AS prod
+FROM node:18.18-alpine AS prod
 
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 # RUN apk add curl

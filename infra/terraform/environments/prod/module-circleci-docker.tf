@@ -16,7 +16,7 @@ module "circleci" {
 
   docker_tag_version = var.DOCKER_TAG_VERSION
 
-  # terraform_token       = var.TERRAFORM_TOKEN
+  # terraform_user_token       = var.TERRAFORM_USER_TOKEN
 
   # dockerhub_username     = var.DOCKERHUB_USERNAME
   # dockerhub_access_token = var.DOCKERHUB_ACCESS_TOKEN

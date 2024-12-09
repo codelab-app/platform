@@ -11,7 +11,7 @@
 # (1) Build - using alias and having multiple steps can help with caching and build speed
 #
 #
-FROM node:18.17-alpine AS base
+FROM node:18.18-alpine AS base
 
 WORKDIR /usr/src/codelab
 
@@ -30,6 +30,7 @@ FROM base AS install
 COPY package.json pnpm-lock.yaml .npmrc ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
+COPY dist/libs/external ./dist/libs/external
 COPY data ./data
 RUN pnpm install --frozen-lockfile
 
@@ -37,7 +38,7 @@ RUN pnpm install --frozen-lockfile
 FROM install AS build
 
 # The trailing / is required when copying from multiple sources
-COPY nx.json tsconfig.base.json ./
+COPY nx.json .nxignore tsconfig.base.json ./
 COPY apps/api ./apps/api
 COPY libs ./libs
 COPY types ./types
@@ -45,12 +46,13 @@ COPY types ./types
 WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN pnpm nx build api --verbose --skip-nx-cache
 
 #
 # (2) Prod
 #
-FROM node:18.17-alpine AS prod
+FROM node:18.18-alpine AS prod
 
 # RUN apk add curl
 

@@ -1,23 +1,29 @@
 executor: docker-node
+
+parameters:
+  stage:
+    type: enum
+    enum: ['prod', 'ci']
+
 steps:
   - restore-infra-workspace
   - run:
       name: 'Create .terraformrc file locally'
       command: |
-        echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
+        echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_USER_TOKEN\"}" >> $HOME/.terraformrc
   - run: terraform --version
   - run:
       name: 'Terraform Format'
       command: terraform -chdir=infra/terraform fmt
   - run:
       name: 'Terraform Init'
-      command: pnpm cli terraform --stage prod init
+      command: pnpm cli terraform --stage << parameters.stage >> init
   - run:
       name: 'Terraform Validate'
-      command: pnpm cli terraform --stage prod validate
+      command: pnpm cli terraform --stage << parameters.stage >> validate
   - run:
       name: 'Terraform Plan'
-      command: pnpm cli terraform --stage prod plan
+      command: pnpm cli terraform --stage << parameters.stage >> plan
   - persist_to_workspace:
       root: ~/
       paths:

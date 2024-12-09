@@ -13,7 +13,7 @@ commands:
       - run:
           command: (./scripts/nx/reset-cache.sh)
       - run:
-          command: pnpm nx run-many --target=build --projects=cli,web,api --parallel=3 -c ci --nx-bail
+          command: pnpm nx run-many --target=build --projects=web,api --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache
@@ -26,6 +26,10 @@ commands:
       - run:
           command: |
             pnpm jest --clearCache
+  increment-docker-version:
+    description: Increment Docker Version
+    steps:
+      - run: ~/project/.circleci/config/commands/increment-docker-version.sh
   install-nvm:
     steps:
       - restore_cache:
@@ -174,16 +178,6 @@ executors:
     environment:
       TF_WORKSPACE: prod
 jobs:
-  apply:
-    executor: docker-node
-    steps:
-      - restore-infra-workspace
-      - run:
-          command: pnpm cli terraform --stage prod init
-          name: Terraform Init
-      - run:
-          command: pnpm cli terraform --stage prod apply
-          name: Terraform Apply
   codegen:
     executor: docker-node-neo4j
     parameters:
@@ -212,8 +206,10 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
           name: Push Docker Image
   docker-landing:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=6144
     executor: docker-node
-    resource_class: medium
+    resource_class: large
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -225,6 +221,8 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
   docker-sites:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=6144
     executor: docker-node
     resource_class: large
     steps:
@@ -238,8 +236,10 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push sites
           name: Push Docker Image
   docker-web:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=6144
     executor: docker-node
-    resource_class: medium
+    resource_class: large
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -425,37 +425,13 @@ jobs:
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
-  plan:
-    executor: docker-node
-    steps:
-      - restore-infra-workspace
-      - run:
-          command: |
-            echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
-          name: Create .terraformrc file locally
-      - run: terraform --version
-      - run:
-          command: terraform -chdir=infra/terraform fmt
-          name: Terraform Format
-      - run:
-          command: pnpm cli terraform --stage prod init
-          name: Terraform Init
-      - run:
-          command: pnpm cli terraform --stage prod validate
-          name: Terraform Validate
-      - run:
-          command: pnpm cli terraform --stage prod plan
-          name: Terraform Plan
-      - persist_to_workspace:
-          paths:
-            - .terraformrc
-            - project/terraform/.terraform
-          root: ~/
   setup-infra-workspace:
     executor: docker-node
     resource_class: large
     steps:
+      - checkout
       - install-terraform
+      - increment-docker-version
       - login-docker
       - persist_to_workspace:
           paths:
@@ -482,6 +458,54 @@ jobs:
           paths:
             - project/dist/apps/cli
             - project/dist/apps/web
+          root: ~/
+  tf-apply:
+    executor: docker-node
+    parameters:
+      stage:
+        enum:
+          - prod
+          - ci
+        type: enum
+    steps:
+      - restore-infra-workspace
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> init
+          name: Terraform Init
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> apply --autoApprove
+          name: Terraform Apply
+  tf-plan:
+    executor: docker-node
+    parameters:
+      stage:
+        enum:
+          - prod
+          - ci
+        type: enum
+    steps:
+      - restore-infra-workspace
+      - run:
+          command: |
+            echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_USER_TOKEN\"}" >> $HOME/.terraformrc
+          name: Create .terraformrc file locally
+      - run: terraform --version
+      - run:
+          command: terraform -chdir=infra/terraform fmt
+          name: Terraform Format
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> init
+          name: Terraform Init
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> validate
+          name: Terraform Validate
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> plan
+          name: Terraform Plan
+      - persist_to_workspace:
+          paths:
+            - .terraformrc
+            - project/terraform/.terraform
           root: ~/
   unit:
     executor: docker-node
@@ -524,6 +548,24 @@ workflows:
           requires:
             - setup-workspace
           type: approval
+      - tf-plan:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-plan-ci
+          requires:
+            - hold-deploy
+          stage: ci
+      - tf-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-apply-ci
+          requires:
+            - tf-plan-ci
+          stage: ci
       - setup-infra-workspace:
           filters:
             branches:
@@ -567,7 +609,7 @@ workflows:
                 - master
           requires:
             - setup-infra-workspace
-      - plan:
+      - tf-plan:
           filters:
             branches:
               only:
@@ -577,21 +619,23 @@ workflows:
             - docker-api
             - docker-sites
             - docker-landing
+          stage: prod
       - hold-apply:
           filters:
             branches:
               only:
                 - master
           requires:
-            - plan
+            - tf-plan
           type: approval
-      - apply:
+      - tf-apply:
           filters:
             branches:
               only:
                 - master
           requires:
             - hold-apply
+          stage: prod
   app-pr:
     jobs:
       - setup-workspace:
@@ -667,20 +711,29 @@ workflows:
           resource_class: medium
   infra-pr:
     jobs:
-      - setup-workspace:
-          filters:
-            branches:
-              only:
-                - staging
-          max_old_space_size: 6144
-          resource_class: large
       - setup-infra-workspace:
           filters:
             branches:
               only:
                 - staging
+      - tf-plan:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-plan-ci
           requires:
-            - setup-workspace
+            - setup-infra-workspace
+          stage: ci
+      - tf-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-apply-ci
+          requires:
+            - tf-plan-ci
+          stage: ci
       - docker-web:
           context:
             - prod
@@ -689,7 +742,7 @@ workflows:
               only:
                 - staging
           requires:
-            - setup-infra-workspace
+            - tf-apply-ci
       - docker-api:
           context:
             - prod
@@ -698,7 +751,7 @@ workflows:
               only:
                 - staging
           requires:
-            - setup-infra-workspace
+            - tf-apply-ci
       - docker-sites:
           context:
             - prod
@@ -707,7 +760,7 @@ workflows:
               only:
                 - staging
           requires:
-            - setup-infra-workspace
+            - tf-apply-ci
       - docker-landing:
           context:
             - prod
@@ -717,7 +770,7 @@ workflows:
                 - staging
           requires:
             - setup-infra-workspace
-      - plan:
+      - tf-plan:
           filters:
             branches:
               only:
@@ -727,19 +780,21 @@ workflows:
             - docker-api
             - docker-sites
             - docker-landing
+          stage: prod
       - hold-apply:
           filters:
             branches:
               only:
                 - staging
           requires:
-            - plan
+            - tf-plan
           type: approval
-      - apply:
+      - tf-apply:
           filters:
             branches:
               only:
                 - staging
           requires:
             - hold-apply
+          stage: prod
 working_directory: ~/project

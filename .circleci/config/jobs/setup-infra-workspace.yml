@@ -1,7 +1,9 @@
 executor: docker-node
 resource_class: large
 steps:
+  - checkout
   - install-terraform
+  - increment-docker-version
   # - install-packer
   - login-docker
   - persist_to_workspace:

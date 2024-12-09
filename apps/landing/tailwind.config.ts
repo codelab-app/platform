@@ -1,6 +1,6 @@
 import { join } from 'path'
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import rootTailwindConfig from '../../scripts/tailwind/tailwind.config'
+import rootTailwindConfig from '../../tailwind.config'
 
 module.exports = {
   content: [

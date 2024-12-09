@@ -67,16 +67,16 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command<StageParam>(
+        .command<StageParam & { autoApprove: boolean }>(
           'apply',
           'terraform apply',
           (argv) => argv,
-          ({ stage }) => {
-            const autoApprove = stage === Stage.Prod ? '-auto-approve' : ''
+          ({ autoApprove, stage }) => {
+            const autoApproveFlag = autoApprove ? '-auto-approve' : ''
 
             // Add export TF_LOG=DEBUG for verbose
             execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApprove}`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApproveFlag}`,
             )
           },
         )

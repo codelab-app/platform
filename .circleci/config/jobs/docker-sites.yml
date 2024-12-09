@@ -1,5 +1,10 @@
 executor: docker-node
+
 resource_class: large
+
+environment:
+  NODE_OPTIONS: --max-old-space-size=6144
+
 steps:
   - restore-workspace
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.

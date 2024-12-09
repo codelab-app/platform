@@ -13,6 +13,7 @@
 !/.env
 !/.npmrc
 !/nx.json
+!/.nxignore
 !/package.json
 !/pnpm-lock.yaml
 !/tsconfig.base.json
@@ -25,5 +26,7 @@
 !/apps/sites/
 !/apps/landing/
 !/dist/libs/tools/
+!/dist/libs/external/
 !/libs/
 !/data/
+!/scripts/tailwind/

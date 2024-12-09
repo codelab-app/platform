@@ -1,0 +1,15 @@
+executor: docker-node
+
+parameters:
+  stage:
+    type: enum
+    enum: ['prod', 'ci']
+
+steps:
+  - restore-infra-workspace
+  - run:
+      name: 'Terraform Init'
+      command: pnpm cli terraform --stage << parameters.stage >> init
+  - run:
+      name: 'Terraform Apply'
+      command: pnpm cli terraform --stage << parameters.stage >> apply --autoApprove
