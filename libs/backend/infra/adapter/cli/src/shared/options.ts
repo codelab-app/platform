@@ -2,14 +2,14 @@ import type { Options } from 'yargs'
 
 import { Stage } from '@codelab/shared/abstract/core'
 
-type GetStageOptions = (stages: Array<Stage>) => {
-  stage: Options
-}
-
 /**
  * Options used locally
  */
-export const getStageOptions: GetStageOptions = (stages) => ({
+export const getStageOptions = (
+  stages: Array<Stage>,
+): {
+  stage: Options
+} => ({
   stage: {
     choices: stages,
     default: Stage.Dev,
@@ -22,3 +22,10 @@ export const getStageOptions: GetStageOptions = (stages) => ({
 export interface StageParam {
   stage: Stage
 }
+
+export const getAutoApproveOptions = (): { autoApprove: Options } => ({
+  autoApprove: {
+    default: false,
+    type: 'boolean',
+  },
+})

@@ -12,4 +12,4 @@ steps:
       command: pnpm cli terraform --stage << parameters.stage >> init
   - run:
       name: 'Terraform Apply'
-      command: pnpm cli terraform --stage << parameters.stage >> apply --autoApprove
+      command: pnpm cli terraform --stage << parameters.stage >> --autoApprove apply

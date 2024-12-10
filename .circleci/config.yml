@@ -473,7 +473,7 @@ jobs:
           command: pnpm cli terraform --stage << parameters.stage >> init
           name: Terraform Init
       - run:
-          command: pnpm cli terraform --stage << parameters.stage >> apply --autoApprove
+          command: pnpm cli terraform --stage << parameters.stage >> --autoApprove apply
           name: Terraform Apply
   tf-plan:
     executor: docker-node
