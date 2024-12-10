@@ -1221,6 +1221,12 @@ const getStageOptions = (stages) => ({
         type: 'string',
     },
 });
+const getAutoApproveOptions = () => ({
+    autoApprove: {
+        default: false,
+        type: 'boolean',
+    },
+});
 
 ;// ../../libs/backend/infra/adapter/cli/src/commands/terraform/terraform.service.ts
 
@@ -1249,6 +1255,7 @@ let TerraformService = class TerraformService {
         return (yargv
             .options({
             ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
+            ...getAutoApproveOptions(),
         })
             .middleware([loadStageMiddleware])
             .command('init', 'terraform init', (argv) => argv, ({ stage }) => {

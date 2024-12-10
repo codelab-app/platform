@@ -69,7 +69,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 RUN pnpm nx build web --verbose --skip-nx-cache
 
 #
