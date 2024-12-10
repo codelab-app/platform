@@ -64,9 +64,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand(
-              'pnpm nx affected --target=test -c ci.unit --ci --verbose',
-            )
+            execCommand('pnpm nx affected --target=test -c ci.unit --ci')
           }
         }),
       )
@@ -83,7 +81,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1 --verbose',
+              'pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1',
             )
           }
         }),
@@ -112,7 +110,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             }
 
             execCommand(
-              'pnpm graphql-codegen --config ./scripts/codegen/codegen.ts --verbose',
+              'pnpm graphql-codegen --config ./scripts/codegen/codegen.ts',
             )
             // await ogmService.generate()
 
@@ -222,13 +220,11 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand(
-              'pnpm nx affected --target=lint --parallel=3 -c ci --verbose',
-            )
+            execCommand('pnpm nx affected --target=lint --parallel=3 -c ci')
 
             // Below breaks cache
             // execCommand(
-            //   'pnpm nx affected --target=lint --parallel=3 -c ci --rule "unused-imports/no-unused-imports: error" --verbose',
+            //   'pnpm nx affected --target=lint --parallel=3 -c ci --rule "unused-imports/no-unused-imports: error"',
             // )
 
             // https://github.com/nrwl/nx/discussions/8769

@@ -1414,7 +1414,7 @@ let TaskService = class TaskService {
                 execCommand('nx affected --target=test -c test.unit');
             }
             if (stage === Stage.CI) {
-                execCommand('pnpm nx affected --target=test -c ci.unit --ci --verbose');
+                execCommand('pnpm nx affected --target=test -c ci.unit --ci');
             }
         }))
             .command(Tasks.Int, 'Run integration tests', (argv) => argv, globalHandler(({ stage }) => {
@@ -1422,7 +1422,7 @@ let TaskService = class TaskService {
                 execCommand('nx affected --target=test -c test.integration --parallel=1');
             }
             if (stage === Stage.CI) {
-                execCommand('pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1 --verbose');
+                execCommand('pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1');
             }
         }))
             .command(Tasks.GraphqlCodegen, 'Run codegen', (argv) => argv, globalHandler(async ({ stage }) => {
@@ -1435,7 +1435,7 @@ let TaskService = class TaskService {
                     console.error('Please start server!');
                     process.exit(0);
                 }
-                execCommand('pnpm graphql-codegen --config ./scripts/codegen/codegen.ts --verbose');
+                execCommand('pnpm graphql-codegen --config ./scripts/codegen/codegen.ts');
                 // await ogmService.generate()
                 process.exit(0);
             }
@@ -1505,10 +1505,10 @@ let TaskService = class TaskService {
                 execCommand('pnpm ls-lint');
             }
             if (stage === Stage.CI) {
-                execCommand('pnpm nx affected --target=lint --parallel=3 -c ci --verbose');
+                execCommand('pnpm nx affected --target=lint --parallel=3 -c ci');
                 // Below breaks cache
                 // execCommand(
-                //   'pnpm nx affected --target=lint --parallel=3 -c ci --rule "unused-imports/no-unused-imports: error" --verbose',
+                //   'pnpm nx affected --target=lint --parallel=3 -c ci --rule "unused-imports/no-unused-imports: error"',
                 // )
                 // https://github.com/nrwl/nx/discussions/8769
                 execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"');
