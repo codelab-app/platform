@@ -15,7 +15,7 @@ export const CuiCollapsePanelContent = ({
 }: CuiCollapsePanelContentProps) => {
   return (
     <div
-      className="flex grow min-h-1/3 flex-col overflow-auto bg-white"
+      className="flex min-h-1/3 grow flex-col overflow-auto bg-white"
       data-testid={CuiTestId.cuiSidebarViewContent(label)}
     >
       <div className="flex-1 overflow-auto">
