@@ -14,8 +14,6 @@ steps:
   - run:
       name: 'Build landing Docker image'
       command: (./scripts/docker/prod/build-landing.sh)
-      # command: |
-      #   docker compose --verbose -f .docker/prod/build.docker-compose.yaml build landing
   - run:
       name: 'Push Docker Image'
       command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing

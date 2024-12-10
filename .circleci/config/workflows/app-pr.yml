@@ -25,7 +25,7 @@ jobs:
   #         ignore: /master/
   - lint:
       resource_class: large
-      max_old_space_size: 6144
+      max_old_space_size: 8192
       filters:
         branches:
           ignore:
