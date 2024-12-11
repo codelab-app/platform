@@ -11,7 +11,7 @@
 # (1) Build - using alias and having multiple steps can help with caching and build speed
 #
 #
-FROM node:18.17-alpine AS base
+FROM node:18.18-alpine AS base
 
 WORKDIR /usr/src/codelab
 
@@ -30,17 +30,19 @@ FROM base AS install
 COPY package.json pnpm-lock.yaml .npmrc ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
+COPY dist/libs/external ./dist/libs/external
 RUN pnpm install --frozen-lockfile
 
 
-FROM install as build
+FROM install AS build
 
 # The trailing / is required when copying from multiple sources
-COPY nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
+COPY nx.json .nxignore tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 # Required for yarn workspaces
 COPY apps/landing ./apps/landing
 COPY libs ./libs
 COPY types ./types
+COPY scripts/tailwind ./scripts/tailwind
 
 # ARG MAILCHIMP_LIST_ID
 # ARG MAILCHIMP_API_KEY
@@ -69,12 +71,13 @@ ENV MAILCHIMP_SERVER_PREFIX=$MAILCHIMP_SERVER_PREFIX
 WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN pnpm nx build landing --verbose --skip-nx-cache
 
 #
 # (2) Prod
 #
-FROM node:18.17-alpine AS prod
+FROM node:18.18-alpine AS prod
 
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 # RUN apk add curl

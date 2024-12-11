@@ -3,12 +3,13 @@ import type { Config } from 'tailwindcss'
 import { createGlobPatternsForDependencies } from '@nx/react/tailwind'
 import path from 'path'
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import rootTailwindConfig from '../../scripts/tailwind/tailwind.config'
+import rootTailwindConfig from '../../tailwind.config'
 
 const resolveWorkspaceAbsolutePath = (pattern: string) =>
   path.resolve(__dirname, '../../', pattern)
 
 const config: Config = {
+  presets: [rootTailwindConfig],
   content: [
     resolveWorkspaceAbsolutePath(
       '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
@@ -23,7 +24,6 @@ const config: Config = {
       'libs/frontend/**/src/**/*!(*.stories|*.spec).{tsx,ts,jsx,js,html}',
     ),
   ],
-  presets: [rootTailwindConfig],
 }
 
 export default config

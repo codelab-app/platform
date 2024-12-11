@@ -24,9 +24,11 @@ export abstract class AbstractRepository<
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Dto): Promise<IRef> {
-    console.log(`${this.constructor.name}.add`, data)
+    if (this.DEBUG) {
+      console.log(`${this.constructor.name}.add`, data)
 
-    this.loggerService.log(data, `${this.constructor.name}.add()`)
+      this.loggerService.log(data, `${this.constructor.name}.add()`)
+    }
 
     const results = await this._addMany([data])
     const result = results[0]
@@ -43,7 +45,9 @@ export abstract class AbstractRepository<
   }
 
   async exists(where: Where) {
-    console.log('Exists', where)
+    if (this.DEBUG) {
+      console.log('Exists', where)
+    }
 
     const results = await this.findOne({ where })
     const exists = Boolean(results)
@@ -119,7 +123,9 @@ export abstract class AbstractRepository<
     selectionSet?: string
     options: Options
   }): Promise<Model | Static<T> | undefined> {
-    console.log('Find one', where)
+    if (this.DEBUG) {
+      console.log('Find one', where)
+    }
     // Don't use decorator since it doesn't give us the right name
 
     // So overload works
@@ -178,17 +184,23 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Dto, where?: Where): Promise<IRef> {
-    console.log('save', data)
+    if (this.DEBUG) {
+      console.log('save', data)
+    }
 
     const computedWhere = this.getWhere(data, where)
 
     if (await this.exists(computedWhere)) {
-      console.log('exists! updating...')
+      if (this.DEBUG) {
+        console.log('exists! updating...')
+      }
 
       return await this.update(data, computedWhere)
     }
 
-    console.log('Not exist, adding...')
+    if (this.DEBUG) {
+      console.log('Not exist, adding...')
+    }
 
     const results = await this.add(data)
 
@@ -201,7 +213,9 @@ export abstract class AbstractRepository<
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
   async update(data: Dto, where?: Where): Promise<IRef> {
-    console.log('update', data, where)
+    if (this.DEBUG) {
+      console.log('update', data, where)
+    }
 
     const computedWhere = this.getWhere(data, where)
     const existing = await this.findOne({ where: computedWhere })
@@ -231,6 +245,8 @@ export abstract class AbstractRepository<
     where?: Where,
     existing?: Model,
   ): Promise<IRef | undefined>
+
+  private DEBUG = false
 
   /**
    * Specifying a `where` clause overrides the  id

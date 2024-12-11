@@ -3,9 +3,10 @@ import type { Config } from 'tailwindcss'
 import { createGlobPatternsForDependencies } from '@nx/react/tailwind'
 import path from 'path'
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import rootTailwindConfig from '../../scripts/tailwind/tailwind.config'
+import rootTailwindConfig from '../../tailwind.config'
 
 const config: Config = {
+  presets: [rootTailwindConfig],
   content: [
     path.join(
       __dirname,
@@ -13,7 +14,6 @@ const config: Config = {
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  resets: [rootTailwindConfig],
 }
 
 export default config

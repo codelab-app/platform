@@ -6,6 +6,7 @@ jobs:
         branches:
           only:
             - master
+  # Will increment docker tag in tf cloud
   - hold-deploy:
       # resource_class: medium
       filters:
@@ -15,6 +16,25 @@ jobs:
       type: approval
       requires:
         - setup-workspace
+  # Apply the new tf settings to ci
+  - tf-plan:
+      name: 'tf-plan-ci'
+      stage: ci
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - hold-deploy
+  - tf-apply:
+      name: 'tf-apply-ci'
+      stage: ci
+      filters:
+        branches:
+          only:
+            - staging
+      requires:
+        - tf-plan-ci
   - setup-infra-workspace:
       # resource_class: large
       filters:
@@ -63,11 +83,12 @@ jobs:
         - prod
       requires:
         - setup-infra-workspace
-  - plan:
+  - tf-plan:
       filters:
         branches:
           only:
             - master
+      stage: prod
       requires:
         - docker-web
         - docker-api
@@ -80,11 +101,12 @@ jobs:
             - master
       type: approval
       requires:
-        - plan
-  - apply:
+        - tf-plan
+  - tf-apply:
       filters:
         branches:
           only:
             - master
+      stage: prod
       requires:
         - hold-apply

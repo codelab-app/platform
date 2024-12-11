@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common'
 import type { StageParam } from '../../shared/options'
 
 import { loadStageMiddleware } from '../../shared/middleware'
-import { getStageOptions } from '../../shared/options'
+import { getAutoApproveOptions, getStageOptions } from '../../shared/options'
 
 @Injectable()
 export class TerraformService implements CommandModule<unknown, unknown> {
@@ -24,6 +24,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
       yargv
         .options({
           ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
+          ...getAutoApproveOptions(),
         })
         .middleware([loadStageMiddleware])
         .command<StageParam>(
@@ -67,16 +68,16 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command<StageParam>(
+        .command<StageParam & { autoApprove: boolean }>(
           'apply',
           'terraform apply',
           (argv) => argv,
-          ({ stage }) => {
-            const autoApprove = stage === Stage.Prod ? '-auto-approve' : ''
+          ({ autoApprove, stage }) => {
+            const autoApproveFlag = autoApprove ? '-auto-approve' : ''
 
             // Add export TF_LOG=DEBUG for verbose
             execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApprove}`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApproveFlag}`,
             )
           },
         )

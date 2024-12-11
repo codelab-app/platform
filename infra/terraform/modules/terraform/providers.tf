@@ -7,5 +7,5 @@ terraform {
 }
 
 provider "tfe" {
-  # token    = var.terraform_token
+  # token    = var.terraform_user_token
 }

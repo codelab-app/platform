@@ -41,8 +41,8 @@ const ResizableHandle = ({
         data-[panel-group-direction=vertical]:after:w-full
         data-[panel-group-direction=vertical]:after:-translate-y-1/2
         data-[panel-group-direction=vertical]:after:translate-x-0
-        focus-visible:outline-none focus-visible:ring-1
-        focus-visible:ring-offset-1 focus-visible:ring-ring
+        focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
+        focus-visible:ring-offset-1
       `,
       className,
     )}

@@ -1,5 +1,7 @@
 executor: docker-node
+
 resource_class: medium
+
 steps:
   - restore-workspace
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.

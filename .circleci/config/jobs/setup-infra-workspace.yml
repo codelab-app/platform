@@ -1,9 +1,12 @@
 executor: docker-node
 resource_class: large
 steps:
+  - checkout
   - install-terraform
+  - increment-docker-version
   # - install-packer
   - login-docker
+  - increment-docker-version
   - persist_to_workspace:
       root: ~/
       # Persists the docker login

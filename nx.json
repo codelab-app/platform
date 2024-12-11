@@ -11,15 +11,7 @@
     }
   },
   "defaultProject": "web",
-  "plugins": [
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "eslint:lint",
-        "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
-      }
-    }
-  ],
+  "plugins": [],
   "generators": {
     "@nx/workspace": {
       "library": {

@@ -15,8 +15,7 @@ steps:
   - run:
       command: (./scripts/nx/reset-cache.sh)
   - run:
-      #   command: pnpm nx affected --target=build --parallel=3 -c ci --nx-bail
-      command: pnpm nx run-many --target=build --projects=cli,web,api --parallel=3 -c ci --nx-bail
+      command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
   # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching
   - save_cache:
       name: 'Save NX Cache'

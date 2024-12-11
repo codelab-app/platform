@@ -13,21 +13,8 @@
         "project": ["apps/web/tsconfig(.*)?.json"]
       },
       "rules": {
-        "@next/next/no-html-link-for-pages": "error",
         "jsx-a11y/anchor-is-valid": "off",
         "react/jsx-no-useless-fragment": "off"
-      }
-    },
-    {
-      "files": ["_app.tsx"],
-      "rules": {
-        "react/jsx-props-no-spreading": "off"
-      }
-    },
-    {
-      "files": ["**/pages/api/*"],
-      "rules": {
-        "@nx/enforce-module-boundaries": "off"
       }
     },
     {
@@ -39,9 +26,6 @@
       "rules": {}
     }
   ],
-  "rules": {
-    "@next/next/no-html-link-for-pages": "off"
-  },
   "env": {
     "jest": true
   }

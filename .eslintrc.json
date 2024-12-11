@@ -44,7 +44,7 @@
   ],
   "settings": {
     "tailwindcss": {
-      "config": "./scripts/tailwind/tailwind.config.ts"
+      "config": "./tailwind.config.ts"
     },
     "react": {
       "version": "detect"

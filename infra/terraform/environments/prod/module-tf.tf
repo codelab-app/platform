@@ -1,7 +1,7 @@
 # module "terraform" {
 #   source = "../../modules/terraform"
 
-#   # terraform_token = var.TERRAFORM_TOKEN
+#   # terraform_user_token = var.TERRAFORM_USER_TOKEN
 # }
 
 # Import needs to be at root, need to sync since we created remote resources first
@@ -9,7 +9,7 @@
 # Need to explicity set token here even if we login using terraform CLI
 # Can also set using `TFE_TOKEN`
 provider "tfe" {
-  token = var.TERRAFORM_TOKEN
+  token = var.TERRAFORM_USER_TOKEN
 }
 
 resource "tfe_organization" "codelab" {

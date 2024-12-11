@@ -1,9 +1,0 @@
-executor: docker-node
-steps:
-  - restore-infra-workspace
-  - run:
-      name: 'Terraform Init'
-      command: pnpm cli terraform --stage prod init
-  - run:
-      name: 'Terraform Apply'
-      command: pnpm cli terraform --stage prod apply

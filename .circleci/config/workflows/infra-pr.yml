@@ -1,19 +1,35 @@
 # This runs on staging only for testing
 jobs:
-  - setup-workspace:
-      resource_class: large
-      max_old_space_size: 6144
-      filters:
-        branches:
-          only:
-            - staging
+  # - setup-workspace:
+  #     resource_class: large
+  #     max_old_space_size: 6144
+  #     filters:
+  #       branches:
+  #         only:
+  #           - staging
   - setup-infra-workspace:
       filters:
         branches:
           only:
             - staging
+  - tf-plan:
+      name: 'tf-plan-ci'
+      filters:
+        branches:
+          only:
+            - staging
+      stage: ci
       requires:
-        - setup-workspace
+        - setup-infra-workspace
+  - tf-apply:
+      name: 'tf-apply-ci'
+      filters:
+        branches:
+          only:
+            - staging
+      stage: ci
+      requires:
+        - tf-plan-ci
   # - packer-image:
   #     context:
   #       - prod
@@ -31,7 +47,7 @@ jobs:
       context:
         - prod
       requires:
-        - setup-infra-workspace
+        - tf-apply-ci
   - docker-api:
       filters:
         branches:
@@ -40,7 +56,7 @@ jobs:
       context:
         - prod
       requires:
-        - setup-infra-workspace
+        - tf-apply-ci
   - docker-sites:
       filters:
         branches:
@@ -49,7 +65,7 @@ jobs:
       context:
         - prod
       requires:
-        - setup-infra-workspace
+        - tf-apply-ci
   - docker-landing:
       filters:
         branches:
@@ -59,11 +75,12 @@ jobs:
         - prod
       requires:
         - setup-infra-workspace
-  - plan:
+  - tf-plan:
       filters:
         branches:
           only:
             - staging
+      stage: prod
       requires:
         - docker-web
         - docker-api
@@ -76,11 +93,12 @@ jobs:
             - staging
       type: approval
       requires:
-        - plan
-  - apply:
+        - tf-plan
+  - tf-apply:
       filters:
         branches:
           only:
             - staging
+      stage: prod
       requires:
         - hold-apply

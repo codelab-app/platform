@@ -13,11 +13,12 @@
 !/.env
 !/.npmrc
 !/nx.json
+!/.nxignore
 !/package.json
 !/pnpm-lock.yaml
 !/tsconfig.base.json
-!/postcss.config.js
-!/tailwind.config.js
+!/postcss.config.cjs
+!/tailwind.config.ts
 
 !/types
 !/apps/web/
@@ -25,5 +26,7 @@
 !/apps/sites/
 !/apps/landing/
 !/dist/libs/tools/
+!/dist/libs/external/
 !/libs/
 !/data/
+!/scripts/tailwind/

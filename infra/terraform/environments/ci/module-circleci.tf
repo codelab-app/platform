@@ -20,9 +20,10 @@ module "circleci" {
   circleci_token     = var.CIRCLECI_TOKEN
   cypress_record_key = var.CYPRESS_RECORD_KEY
 
-  slack_access_token    = var.SLACK_ACCESS_TOKEN
-  slack_default_channel = var.SLACK_DEFAULT_CHANNEL
-  terraform_token       = var.TERRAFORM_TOKEN
+  slack_access_token           = var.SLACK_ACCESS_TOKEN
+  slack_default_channel        = var.SLACK_DEFAULT_CHANNEL
+  terraform_user_token         = var.TERRAFORM_USER_TOKEN
+  terraform_organization_token = var.TERRAFORM_ORGANIZATION_TOKEN
 
   next_public_supabase_url = var.NEXT_PUBLIC_SUPABASE_URL
   next_public_supabase_key = var.NEXT_PUBLIC_SUPABASE_KEY
