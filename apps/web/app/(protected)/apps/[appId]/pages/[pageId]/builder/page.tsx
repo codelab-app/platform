@@ -16,6 +16,8 @@ const Page = async ({
 }) => {
   const dto = await appBuilderQuery({ appId })
 
+  console.log(dto)
+
   return (
     <DomainStoreHydrator
       actionsDto={dto.actions}
