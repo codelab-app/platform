@@ -56,6 +56,8 @@ export const elementRepository: IElementRepository = {
   },
 
   update: async (where: ElementUniqueWhere, element: IElementDto) => {
+    console.log(elementMapper.toUpdateInput(element))
+
     const {
       updateElements: { elements },
     } = await UpdateElements({

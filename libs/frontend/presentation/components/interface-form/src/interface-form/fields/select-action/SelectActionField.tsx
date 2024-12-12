@@ -10,20 +10,21 @@ import { connectField } from 'uniforms'
 
 import { SelectAction } from './SelectAction'
 
-export const SelectActionField = connectField<
-  GuaranteedProps<Nullable<IRef>> & {
-    selectedNode?: Nullable<IRuntimeModel>
-  }
->((fieldProps) => {
-  return (
-    <SelectAction
-      {...fieldProps}
-      name="id"
-      onChange={(value) =>
-        fieldProps.onChange((value ? { id: value } : null) as IRef)
-      }
-      required={false}
-      value={fieldProps.value?.id}
-    />
-  )
-})
+type SelectActionFieldProps = GuaranteedProps<Nullable<IRef>> & {
+  selectedNode?: Nullable<IRuntimeModel>
+}
+export const SelectActionField = connectField<SelectActionFieldProps>(
+  (fieldProps) => {
+    return (
+      <SelectAction
+        {...fieldProps}
+        name="id"
+        onChange={(value) =>
+          fieldProps.onChange((value ? { id: value } : null) as IRef)
+        }
+        required={false}
+        value={fieldProps.value?.id}
+      />
+    )
+  },
+)

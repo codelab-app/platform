@@ -9,6 +9,7 @@ import {
   connectNodeId,
   connectNodeIds,
   disconnectAll,
+  disconnectManyAll,
   reconnectNodeId,
   reconnectNodeIds,
 } from '../orm'
@@ -115,6 +116,8 @@ export const elementMapper: IMapper<
   }: IElementDto): ElementUpdateInput => {
     // We need to disconnect the component if render type changed to atom or empty
 
+    console.log(reconnectNodeIds(preRenderActions?.map((action) => action.id)))
+
     return {
       childMapperComponent: reconnectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: reconnectNodeId(
@@ -128,12 +131,12 @@ export const elementMapper: IMapper<
       firstChild: reconnectNodeId(firstChild?.id),
       nextSibling: reconnectNodeId(nextSibling?.id),
       parentElement: reconnectNodeId(parentElement?.id),
-      // postRenderActions: postRenderActions?.id
-      //   ? reconnectNodeIds([postRenderActions.id])
-      //   : undefined,
-      // preRenderActions: preRenderActions?.id
-      //   ? reconnectNodeIds([preRenderActions.id])
-      //   : undefined,
+      postRenderActions: reconnectNodeIds(
+        postRenderActions?.map((action) => action.id),
+      ),
+      preRenderActions: reconnectNodeIds(
+        preRenderActions?.map((action) => action.id),
+      ),
       prevSibling: reconnectNodeId(prevSibling?.id),
       props: reconnectNodeId(props.id),
       renderForEachPropKey,
