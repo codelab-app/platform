@@ -6,6 +6,8 @@ import { useParams } from 'next/navigation'
 
 /**
  * Make the return data lazy, so we have type safety while allowing un-used values to not throw error
+ *
+ * Only use this at top level
  */
 export const useUrlPathParams = (): UrlPathParams => {
   /**

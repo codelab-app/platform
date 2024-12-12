@@ -2242,11 +2242,11 @@ const ElementFragmentDoc = new TypedDocumentString(`
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -2796,11 +2796,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -3098,11 +3098,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -3427,11 +3427,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -3718,11 +3718,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -3980,11 +3980,11 @@ const ElementProductionFragmentDoc = new TypedDocumentString(`
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -4268,11 +4268,11 @@ fragment ElementProduction on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -4543,11 +4543,11 @@ fragment ElementProduction on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -5106,11 +5106,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -5796,11 +5796,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -6246,11 +6246,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -6732,11 +6732,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -7052,11 +7052,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -7359,11 +7359,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -10497,11 +10497,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -10818,11 +10818,11 @@ fragment ElementProduction on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -11731,9 +11731,9 @@ const elementSchema = (0,client_.gql) `
       @relationship(type: "CHILD_MAPPER_PREVIOUS_SIBLING", direction: IN)
     renderForEachPropKey: String
     renderIfExpression: String
-    preRenderAction: [BaseAction!]!
+    preRenderActions: [BaseAction!]!
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: OUT)
-    postRenderAction: [BaseAction!]!
+    postRenderActions: [BaseAction!]!
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
     renderType: ElementRenderType!
       # There is bug for union type, need to use custom query
@@ -12387,7 +12387,7 @@ const OgmProvider = {
             typeDefs: pureTypeDefs,
         });
         await ogm.init();
-        // await ogm.checkNeo4jCompat({ driver })
+        await ogm.checkNeo4jCompat({ driver });
         await ogm.assertIndexesAndConstraints({
             driver,
             options: { create: true },
@@ -13029,11 +13029,11 @@ const baseElementSelectionSet = `
     compositeKey
   }
   renderIfExpression
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
@@ -13421,7 +13421,7 @@ const GraphQLSchemaProvider = {
                 typeDefs: ogmTypeDefs,
             });
             const schema = await neo4jGraphQL.getSchema();
-            // await neo4jGraphQL.checkNeo4jCompat({ driver })
+            await neo4jGraphQL.checkNeo4jCompat({ driver });
             await neo4jGraphQL.assertIndexesAndConstraints({
                 driver,
                 // options: { create: true },

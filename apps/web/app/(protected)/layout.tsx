@@ -7,7 +7,7 @@ import { RootProviders } from '../../store/RootProviders'
 
 const ProtectedLayout = async ({ children }: { children: ReactNode }) => {
   const user = await getServerUser()
-  const preferenceDto = await preferenceQuery({ owner: user })
+  const preferenceDto = await preferenceQuery({ owner: { id: user.id } })
 
   return (
     <RootProviders preference={preferenceDto} user={user}>

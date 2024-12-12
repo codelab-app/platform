@@ -82,7 +82,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
     close: (router: AppRouterInstance) => {
       router.push(PageType.AuthGuards())
     },
-    open: (router: AppRouterInstance, id: string) => {
+    open: (router: AppRouterInstance, { id }: IRef) => {
       router.push(PageType.AuthGuardsUpdate({ id }))
     },
   }

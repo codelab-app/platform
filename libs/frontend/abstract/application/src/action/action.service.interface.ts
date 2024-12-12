@@ -2,7 +2,11 @@ import type {
   IActionModel,
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import type { IPopover } from '@codelab/frontend/abstract/types'
+import type {
+  ComponentContextParams,
+  IPopover,
+  PageContextParams,
+} from '@codelab/frontend/abstract/types'
 import type {
   IActionDto,
   ICreateActionData,
@@ -16,7 +20,7 @@ import type { ICrudService, IQueryService } from '../services'
 export interface IActionService
   extends ICrudService<IRef, ICreateActionData, IUpdateActionData>,
     IQueryService<IActionModel, IActionWhere, ApiActionOptions> {
-  createPopover: IPopover
-  updatePopover: IPopover
+  createPopover: IPopover<PageContextParams & ComponentContextParams>
+  updatePopover: IPopover<PageContextParams & ComponentContextParams>
   cloneAction(action: IActionModel, storeId: string): Promise<IRef>
 }

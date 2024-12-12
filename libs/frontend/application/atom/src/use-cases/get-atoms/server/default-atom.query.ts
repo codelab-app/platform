@@ -6,7 +6,7 @@ export const defaultAtomQuery = async () => {
   const owner = await getServerUser()
 
   return await atomRepository.find({
-    owner,
+    owner: { id: owner.id },
     type: AtomType.ReactFragment,
   })
 }

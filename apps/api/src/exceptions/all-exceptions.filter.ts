@@ -16,7 +16,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       // console.log(params, body)
     }
 
-    console.error('AllExceptionsFilter', exception)
+    console.log('AllExceptionsFilter', exception)
 
     super.catch(exception, host)
   }

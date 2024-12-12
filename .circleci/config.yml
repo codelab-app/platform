@@ -165,7 +165,7 @@ executors:
         environment:
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
-        image: neo4j:5.25.1
+        image: neo4j:5.26.0-enterprise
   machine-ubuntu:
     machine:
       image: ubuntu-2004:2022.04.1

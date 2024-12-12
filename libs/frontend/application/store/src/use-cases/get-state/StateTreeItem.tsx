@@ -13,6 +13,7 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
@@ -25,11 +26,26 @@ interface StateTreeItemProps {
 
 export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const createFieldForm = useCreateFieldForm()
+  const { appId, componentId, pageId } = useUrlPathParams()
   const { fieldDomainService } = useDomainStore()
   const { createPopover, deletePopover, updatePopover } = useFieldService()
   const router = useRouter()
-  const onEdit = () => updatePopover.open(router, data.extraData.node.id)
-  const onDelete = () => deletePopover.open(router, data.extraData.node.id)
+
+  const onEdit = () =>
+    updatePopover.open(router, {
+      appId,
+      componentId,
+      fieldId: data.extraData.node.id,
+      pageId,
+    })
+
+  const onDelete = () =>
+    deletePopover.open(router, {
+      appId,
+      componentId,
+      fieldId: data.extraData.node.id,
+      pageId,
+    })
 
   const onAddField = () => {
     createFieldForm.open(

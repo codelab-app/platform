@@ -14,6 +14,7 @@ import { DeleteComponentModal } from '@codelab/frontend-application-component/us
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useActionService } from '@codelab/frontend-application-store/services'
 import { useCreateActionForm } from '@codelab/frontend-application-store/use-cases/create-action'
 import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
@@ -40,6 +41,7 @@ export const BuilderPrimarySidebar = observer<{
   containerNode: IComponentModel | IPageModel
 }>(({ containerNode, isLoading = false }) => {
   const router = useRouter()
+  const { appId, componentId, pageId } = useUrlPathParams()
   const { elementDomainService } = useDomainStore()
   const { builderService, rendererService } = useApplicationStore()
   const createActionForm = useCreateActionForm()

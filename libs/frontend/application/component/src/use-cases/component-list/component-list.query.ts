@@ -6,10 +6,10 @@ import { ComponentList } from '@codelab/frontend-domain-component/repositories'
 import { revalidateTag } from 'next/cache'
 
 export const componentListQuery = async () => {
-  const owner = await getServerUser()
+  const { id } = await getServerUser()
 
   return await ComponentList({
-    where: { owner },
+    where: { owner: { id } },
   })
 }
 

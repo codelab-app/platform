@@ -19,20 +19,24 @@ export interface IComponentBuilderProps {
 
 /**
  * Generic builder used for both Component & Element
+ *
+ * Remove observable here, otherwise has loop
  */
-export const ComponentBuilder = observer<IComponentBuilderProps>(
-  ({ component, rendererType, RootRenderer }) => {
-    if (!component) {
-      throw new Error('Component model is missing')
-    }
+export const ComponentBuilder = ({
+  component,
+  rendererType,
+  RootRenderer,
+}: IComponentBuilderProps) => {
+  if (!component) {
+    throw new Error('Component model is missing')
+  }
 
-    const { renderer } = useInitializeBuilder({
-      containerNode: component,
-      rendererType,
-    })
+  const { renderer } = useInitializeBuilder({
+    containerNode: component,
+    rendererType,
+  })
 
-    return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
-  },
-)
+  return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
+}
 
-ComponentBuilder.displayName = 'Builder'
+ComponentBuilder.displayName = 'ComponentBuilder'

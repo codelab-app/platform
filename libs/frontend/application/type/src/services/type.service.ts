@@ -220,7 +220,7 @@ export const useTypeService = (): ITypeService => {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Type())
     },
-    open: (router: AppRouterInstance, id: string) => {
+    open: (router: AppRouterInstance, { id }: IRef) => {
       router.push(PageType.TypeUpdate({ id }))
     },
   }
