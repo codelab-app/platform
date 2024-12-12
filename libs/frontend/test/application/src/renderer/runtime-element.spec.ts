@@ -165,28 +165,32 @@ describe('Runtime Element', () => {
 
       if (preRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          preRenderActions: testStore.addCodeAction({
-            code: preRenderActionCode,
-            name: 'preRenderActions',
-            store: providerPage.store,
-          }),
+          preRenderActions: [
+            testStore.addCodeAction({
+              code: preRenderActionCode,
+              name: 'preRenderActions',
+              store: providerPage.store,
+            }),
+          ],
         })
       }
 
       if (postRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          postRenderActions: testStore.addCodeAction({
-            code: postRenderActionCode,
-            name: 'postRenderActions',
-            store: providerPage.store,
-          }),
+          postRenderActions: [
+            testStore.addCodeAction({
+              code: postRenderActionCode,
+              name: 'postRenderActions',
+              store: providerPage.store,
+            }),
+          ],
         })
       }
 
       expect(runtimeStore?.state[stateFieldKey]).toBe('default value')
 
       const reactElement = testStore.addRenderer({
-        containerNode: page,
+        containerNode: renderer.containerNode.current,
         id: renderer.id,
         rendererType: RendererType.Preview,
       }).render
