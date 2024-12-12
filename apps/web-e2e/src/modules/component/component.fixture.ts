@@ -1,9 +1,35 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { test as base, expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { BuilderPage } from '../builder/builder.fixture'
+import { COMPONENT_PROP_VALUE } from './component.data'
 
-export class ComponentListPage extends BasePage {
+export class ComponentListPage extends BuilderPage {
+  async addComponentProps() {
+    const componentTab = this.page.locator('.ant-tabs-tabpane-active')
+    const modal = this.getModalForm(UiKey.FieldPopoverCreate)
+    const submitButton = this.getButton({ text: 'Create' })
+
+    await componentTab.getByText('Add').click()
+
+    await this.setFormFieldValue('Key', this.componentPropName)
+    await this.setFormFieldValue('Type', IPrimitiveTypeKind.String)
+    await this.page.locator('[name="validationRules.general.nullable"]').click()
+
+    await this.getModal().locator(submitButton).click()
+    await this.waitForProgressBar()
+  }
+
+  async checkRootElementExists() {
+    const explorerTree = this.getElementsTree()
+
+    await expect(explorerTree).toBeVisible()
+    await expect(
+      this.getTreeElement(`${this.componentName} Root`, 'ReactFragment'),
+    ).toBeVisible()
+  }
+
   clickModalConfirmButton() {
     const modal = this.getModal()
     const button = this.getButton({ key: UiKey.ButtonConfirmation })
@@ -37,8 +63,30 @@ export class ComponentListPage extends BasePage {
     return this.page.getByRole('status')
   }
 
-  async goto() {
-    await this.page.goto(PageType.Components())
+  async goto(appId?: string, pageId?: string) {
+    if (appId && pageId) {
+      await super.goto(appId, pageId)
+    } else {
+      await this.page.goto(PageType.Components())
+    }
+  }
+
+  async openComponentBuilder() {
+    const card = this.getCard({ name: this.componentName })
+
+    await this.getButton({ title: 'Edit in Builder' }, card).click()
+
+    await this.checkRootElementExists()
+    await expect(this.getSpinner()).toBeHidden()
+    await expect(this.getFormFieldSpinner()).toHaveCount(0)
+  }
+
+  async openComponentPropsTab() {
+    const conponentTab = this.page.locator('[data-node-key="Component"]')
+
+    await conponentTab.click()
+
+    await expect(conponentTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
   }
 
   async openCreateComponentPanel() {
@@ -55,7 +103,17 @@ export class ComponentListPage extends BasePage {
     await expect(this.getModal()).toBeVisible()
   }
 
+  async setComponentPropValue() {
+    await this.page
+      .locator('.ant-form-item-control-input [contenteditable]')
+      .type(COMPONENT_PROP_VALUE)
+
+    await this.waitForProgressBar()
+  }
+
   private readonly componentName = 'New Component'
+
+  private readonly componentPropName = 'component_prop'
 }
 
 export const test = base.extend({

@@ -1,8 +1,24 @@
+import type { IAppDto } from '@codelab/shared/abstract/core'
+
+import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { seedAppData } from '../builder/builder.data'
+import {
+  COMPONENT_PROP_VALUE,
+  componentInstance,
+  componentInstanceChild,
+  componentTextElement,
+} from './component.data'
 import { test } from './component.fixture'
 
+let app: IAppDto
+
 test.describe.configure({ mode: 'serial' })
+
+test.beforeAll(async ({ request }) => {
+  app = await seedAppData(request)
+})
 
 test.beforeEach(async ({ componentListPage: page }) => {
   await page.goto()
@@ -20,6 +36,39 @@ test('should be able to create component', async ({
   await page.fillCreateComponentForm()
 
   await expect(page.getComponentName()).toBeVisible()
+})
+
+test('should be able to define api and elements on component', async ({
+  componentListPage: page,
+}) => {
+  await page.openComponentBuilder()
+  await page.openComponentPropsTab()
+  await page.addComponentProps()
+  await page.createElementTree([componentTextElement])
+
+  await expect(page.getBuilderRenderContainer()).toHaveText('text undefined')
+
+  await page.openPreview()
+
+  await expect(page.getBuilderRenderContainer()).toHaveText('text undefined')
+})
+
+test('should be able to create an instance of the component', async ({
+  componentListPage: page,
+}) => {
+  await page.goto(app.id, providerPageId)
+
+  await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getFormFieldSpinner()).toHaveCount(0)
+
+  await page.createElementTree([componentInstance, componentInstanceChild])
+  await page.selectTreeElement(componentInstance)
+  await page.openPropsTab()
+  await page.setComponentPropValue()
+
+  await expect(page.getBuilderRenderContainer()).toHaveText(
+    `text ${COMPONENT_PROP_VALUE}`,
+  )
 })
 
 test('should be able to delete component', async ({

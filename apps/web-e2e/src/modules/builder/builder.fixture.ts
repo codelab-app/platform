@@ -231,6 +231,15 @@ export class BuilderPage extends BasePage {
     await expect(openBuilderButton).toBeVisible()
   }
 
+  async openPropsTab() {
+    const cssTab = this.page.locator('[data-node-key="Props"]')
+
+    await cssTab.click()
+
+    await expect(cssTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+    await expect(this.getSpinner()).toBeHidden()
+  }
+
   async selectTreeElement(
     element: Pick<ICreateCypressElementData, 'atom' | 'name'>,
   ) {
