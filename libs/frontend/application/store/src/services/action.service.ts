@@ -1,4 +1,8 @@
 import type {
+  ComponentContextParams,
+  PageContextParams,
+} from '@codelab/frontend/abstract/types'
+import type {
   IActionDto,
   ICreateActionData,
   IRef,
@@ -25,7 +29,6 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useActionService = (): IActionService => {
-  const { appId, componentId, pageId } = useUrlPathParams()
   const { actionDomainService } = useDomainStore()
   const { builderService } = useApplicationStore()
   const hydrate = useHydrateStore()
@@ -139,7 +142,14 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance) => {
+    open: (
+      router: AppRouterInstance,
+      {
+        appId,
+        componentId,
+        pageId,
+      }: PageContextParams & ComponentContextParams,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
@@ -153,7 +163,14 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance) => {
+    open: (
+      router: AppRouterInstance,
+      {
+        appId,
+        componentId,
+        pageId,
+      }: PageContextParams & ComponentContextParams,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)

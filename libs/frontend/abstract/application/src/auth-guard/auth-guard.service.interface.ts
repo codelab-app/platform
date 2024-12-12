@@ -20,5 +20,5 @@ export interface IAuthGuardService
     >,
     IQueryService<IAuthGuardModel, AuthGuardWhere, AuthGuardOptions> {
   createPopover: IPopover
-  updatePopover: IPopover
+  updatePopover: IPopover<IRef>
 }

@@ -15,7 +15,6 @@ type SelectActionField = GuaranteedProps<Nullable<Array<IRef>>> & {
   selectedNode?: Nullable<IRuntimeModel>
   updatedAction?: IRef
 }
-
 export const SelectActionsField = connectField<SelectActionField>(
   ({ selectedNode, ...fieldProps }) => {
     const formContext = useFormContext()

@@ -12,6 +12,12 @@ const pathToTypescriptFetch =
 const pathToClientPresetDocuments =
   '../../node_modules/@codelab-codegen/client-preset-documents'
 
+/**
+ * `Field args marked as @deprecated are lost when getting schema over HTTP`
+ *
+ * https://github.com/dotansimha/graphql-code-generator/issues/9659
+ */
+
 const config: Types.Config = {
   debug: true,
   verbose: true,
@@ -45,6 +51,7 @@ const config: Types.Config = {
   // schema: 'schema.graphql',
   schema: getEnv().endpoint.apiGraphqlUrl,
   config: {
+    inputValueDeprecation: true,
     scalars: {
       // Uncomment to override scalar types
       // uuid: 'string',
@@ -211,6 +218,7 @@ const config: Types.Config = {
         strictScalars: true,
         defaultScalarType: 'unknown',
         // dedupeFragments: true, // Uncomment to deduplicate fragments
+        inputValueDeprecation: true,
       },
     },
   },

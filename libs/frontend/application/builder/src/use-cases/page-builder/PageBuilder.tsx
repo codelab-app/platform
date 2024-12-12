@@ -19,20 +19,24 @@ export interface IPageBuilderProps {
 
 /**
  * Generic builder used for both Component & Element
+ *
+ * Remove observable here, otherwise has loop
  */
-export const PageBuilder = observer<IPageBuilderProps>(
-  ({ page, rendererType, RootRenderer }) => {
-    if (!page) {
-      throw new Error('Missing page model')
-    }
+export const PageBuilder = ({
+  page,
+  rendererType,
+  RootRenderer,
+}: IPageBuilderProps) => {
+  if (!page) {
+    throw new Error('Missing page model')
+  }
 
-    const { renderer } = useInitializeBuilder({
-      containerNode: page,
-      rendererType,
-    })
+  const { renderer } = useInitializeBuilder({
+    containerNode: page,
+    rendererType,
+  })
 
-    return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
-  },
-)
+  return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
+}
 
-PageBuilder.displayName = 'Builder'
+PageBuilder.displayName = 'PageBuilder'

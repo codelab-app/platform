@@ -9,7 +9,7 @@ import type {
   ElementWhere,
 } from '@codelab/shared/infra/gql'
 
-import { elementMapper } from '@codelab/shared/domain-old'
+import { disconnectManyAll, elementMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
 import {
@@ -57,6 +57,25 @@ export const elementRepository: IElementRepository = {
 
   update: async (where: ElementUniqueWhere, element: IElementDto) => {
     console.log(elementMapper.toUpdateInput(element))
+
+    // Disconnect here first for pre/post, issue with generated cypher query
+    const update = {
+      postRenderActions: [
+        disconnectManyAll({
+          omitIds: element.postRenderActions?.map((action) => action.id),
+        }),
+      ],
+      preRenderActions: [
+        disconnectManyAll({
+          omitIds: element.preRenderActions?.map((action) => action.id),
+        }),
+      ],
+    }
+
+    await UpdateElements({
+      update,
+      where,
+    })
 
     const {
       updateElements: { elements },

@@ -74,7 +74,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
 
       await neo4jGraphQL.assertIndexesAndConstraints({
         driver,
-        options: { create: true },
+        // options: { create: true },
       })
 
       return schema

@@ -1,7 +1,15 @@
 import type {
+  IFieldService,
+  UpdatePopoverParamsContext,
+} from '@codelab/frontend/abstract/application'
+import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
+import type {
+  ComponentContextParams,
+  PageContextParams,
+} from '@codelab/frontend/abstract/types'
 import type {
   ICreateFieldData,
   IFieldDto,
@@ -9,7 +17,6 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IFieldService } from '@codelab/frontend/abstract/application'
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
@@ -21,7 +28,6 @@ import { v4 } from 'uuid'
 import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
-  const { appId, componentId, pageId } = useUrlPathParams()
   const { fieldDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
@@ -211,7 +217,14 @@ export const useFieldService = (): IFieldService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance) => {
+    open: (
+      router: AppRouterInstance,
+      {
+        appId,
+        componentId,
+        pageId,
+      }: PageContextParams & ComponentContextParams,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
@@ -225,13 +238,16 @@ export const useFieldService = (): IFieldService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance, id: string) => {
+    open: (
+      router: AppRouterInstance,
+      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/update-field/${id}`)
+      router.push(`${url}/update-field/${fieldId}`)
     },
   }
 
@@ -239,13 +255,16 @@ export const useFieldService = (): IFieldService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance, id: string) => {
+    open: (
+      router: AppRouterInstance,
+      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/delete/field/${id}`)
+      router.push(`${url}/delete/field/${fieldId}`)
     },
   }
 

@@ -25,7 +25,7 @@ export const AuthGuardsTreeItem = observer(
     const { updatePopover } = useAuthGuardService()
     const router = useRouter()
     const authGuard = data.extraData.node
-    const onEdit = () => updatePopover.open(router, authGuard.id)
+    const onEdit = () => updatePopover.open(router, { id: authGuard.id })
 
     const onDelete = (event: SyntheticEvent) => {
       // Prevent triggering `onEdit`

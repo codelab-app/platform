@@ -71,3 +71,4 @@ out
 .env.sentry-build-plugin
 
 vite.config.*.timestamp*
+.aider.tags.cache.v3/

@@ -3,7 +3,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 /**
  * Decouples router from services
  */
-export interface IPopover {
+export interface IPopover<TOpen = never> {
   close(router: AppRouterInstance): void
-  open(router: AppRouterInstance, ...args: Array<unknown>): void
+  open(router: AppRouterInstance, args?: TOpen): void
 }

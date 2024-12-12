@@ -6,7 +6,7 @@ docker:
     name: 127.0.0.1
   # https://circleci.com/docs/using-docker#using-multiple-docker-images
   # The `command` key is the command issued to the image
-  - image: neo4j:5.25.1
+  - image: neo4j:5.26.0-enterprise
     environment:
       NEO4J_AUTH: neo4j/password
       NEO4J_PLUGINS: '["apoc"]'

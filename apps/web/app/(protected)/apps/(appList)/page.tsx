@@ -24,7 +24,7 @@ const AppsRoute = async () => {
   const user = await getServerUser()
 
   const [{ items: appsDto }, { items: atomsDto }] = await Promise.all([
-    appRepository.findPreview({ owner: user }),
+    appRepository.findPreview({ owner: { id: user.id } }),
     defaultAtomQuery(),
   ])
 

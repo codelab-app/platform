@@ -46,7 +46,6 @@ export const actionSchema = gql`
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: IN)
     postRenderElement: Element
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: IN)
-
     """
     Response handlers
     """

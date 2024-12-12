@@ -1,4 +1,8 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
+import type {
+  ComponentContextParams,
+  PageContextParams,
+} from '@codelab/frontend/abstract/types'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -14,10 +18,9 @@ import { useUrlPathParams } from '@codelab/frontend-application-shared-store/rou
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { uniqueBy } from 'remeda'
+import { difference, uniqueBy } from 'remeda'
 
 export const useElementService = (): IElementService => {
-  const { appId, componentId, pageId } = useUrlPathParams()
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
@@ -127,7 +130,14 @@ export const useElementService = (): IElementService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance) => {
+    open: (
+      router: AppRouterInstance,
+      {
+        appId,
+        componentId,
+        pageId,
+      }: PageContextParams & ComponentContextParams,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
