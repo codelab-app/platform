@@ -46,8 +46,8 @@ commands:
             - ~/.nvm
       - run:
           command: |
-            nvm install 20.1.7
-            nvm alias default 20.1.7
+            nvm install 20.18.1
+            nvm alias default 20.18.1
             node -v
           name: Set Node Version
   install-packages:
