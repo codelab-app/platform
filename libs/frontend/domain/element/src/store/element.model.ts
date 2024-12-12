@@ -348,8 +348,12 @@ export class Element
       page: this.page,
       parentComponent: this.parentComponent,
       parentElement: this.parentElement,
-      postRenderActions: this.postRenderActions,
-      preRenderActions: this.preRenderActions,
+      postRenderActions: this.postRenderActions.map((action) => ({
+        id: action.id,
+      })),
+      preRenderActions: this.preRenderActions.map((action) => ({
+        id: action.id,
+      })),
       prevSibling: this.prevSibling,
       props: this.props.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
