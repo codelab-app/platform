@@ -59,8 +59,8 @@ export class RendererService
       // which causes re-rendering the root container node.
 
       this.runtimeElementService.elementsList.forEach((runtimeElement) => {
-        runtimeElement.setPreRenderActionDone(false)
-        runtimeElement.setPostRenderActionDone(false)
+        runtimeElement.setPreRenderActionsDone(false)
+        runtimeElement.setPostRenderActionsDone(false)
       })
     }
 

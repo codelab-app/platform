@@ -48,7 +48,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('renderer')
     }
 
-    if (element.postRenderAction ?? element.preRenderAction) {
+    if (element.postRenderActions ?? element.preRenderActions) {
       expandedFields.push('actions')
     }
 
@@ -90,8 +90,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       {
         children: (
           <>
-            <SelectActionField name="preRenderAction" />
-            <SelectActionField name="postRenderAction" />
+            <SelectActionField name="preRenderActions" />
+            <SelectActionField name="postRenderActions" />
           </>
         ),
         key: 'actions',
@@ -131,8 +131,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
               // We edit it in the css tab
               'style',
               'tailwindClassNames',
-              'preRenderAction',
-              'postRenderAction',
+              'preRenderActions',
+              'postRenderActions',
               'renderType',
               'name',
             ]}

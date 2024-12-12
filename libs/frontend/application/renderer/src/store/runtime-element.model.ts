@@ -8,7 +8,10 @@ import type {
   IRuntimeModel,
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IActionModel,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
@@ -80,8 +83,8 @@ export class RuntimeElementModel
     element: prop<Ref<IElementModel>>(),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
-    postRenderActionDone: prop(false).withSetter(),
-    preRenderActionDone: prop(false).withSetter(),
+    postRenderActionsDone: prop(false).withSetter(),
+    preRenderActionsDone: prop(false).withSetter(),
     propKey: prop<Maybe<string>>(),
     runtimeProps: prop<IRuntimeElementPropModel>(),
     style: prop<IRuntimeElementStyleModel>(),
@@ -213,7 +216,7 @@ export class RuntimeElementModel
       },
       key: this.compositeKey,
       onRendered: async () => {
-        await this.runPostRenderAction()
+        await this.runPostRenderActions()
       },
       renderer: this.renderer,
       renderOutput,
@@ -379,39 +382,35 @@ export class RuntimeElementModel
     }
   }
 
-  runPostRenderAction = () => {
-    if (this.postRenderActionDone) {
+  runPostRenderActions() {
+    if (this.postRenderActionsDone) {
       return
     }
 
-    const { postRenderAction } = this.element.current
-    const currentPostRenderAction = postRenderAction?.current
+    const { postRenderActions } = this.element.current
+    const actions = postRenderActions?.map((action) => action.current)
 
-    if (currentPostRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        currentPostRenderAction.name,
-      )
+    actions?.forEach((action) => this.runRenderAction(action))
 
-      runner()
-      this.setPostRenderActionDone(true)
-    }
+    this.setPostRenderActionsDone(true)
   }
 
-  runPreRenderAction = () => {
-    if (this.preRenderActionDone) {
+  runPreRenderActions() {
+    if (this.preRenderActionsDone) {
       return
     }
 
-    const { preRenderAction } = this.element.current
-    const currentPreRenderAction = preRenderAction?.current
+    const { preRenderActions } = this.element.current
+    const actions = preRenderActions?.map((action) => action.current)
 
-    if (currentPreRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        preRenderAction.current.name,
-      )
+    actions?.forEach((action) => this.runRenderAction(action))
 
-      runner()
-      this.setPreRenderActionDone(true)
-    }
+    this.setPreRenderActionsDone(true)
+  }
+
+  private runRenderAction(action: IActionModel) {
+    const runner = this.runtimeProps.getActionRunner(action.name)
+
+    runner()
   }
 }

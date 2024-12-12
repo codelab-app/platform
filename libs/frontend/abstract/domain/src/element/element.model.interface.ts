@@ -72,8 +72,8 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   // component that this element belongs to
   parentComponent?: Nullable<Ref<IComponentModel>>
   parentElement?: Nullable<Ref<IElementModel>>
-  postRenderAction?: Array<Ref<IActionModel>>
-  preRenderAction?: Array<Ref<IActionModel>>
+  postRenderActions?: Array<Ref<IActionModel>>
+  preRenderActions?: Array<Ref<IActionModel>>
   prevSibling?: Nullable<Ref<IElementModel>>
   props: IPropModel
   propsHaveErrors: boolean

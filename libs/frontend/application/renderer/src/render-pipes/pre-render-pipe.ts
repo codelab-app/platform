@@ -16,7 +16,7 @@ export class PreRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    runtimeElement.runPreRenderAction()
+    runtimeElement.runPreRenderActions()
 
     return this.next.render(runtimeElement)
   }

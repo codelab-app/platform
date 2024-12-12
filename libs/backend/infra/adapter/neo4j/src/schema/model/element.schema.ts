@@ -38,9 +38,9 @@ export const elementSchema = gql`
       @relationship(type: "CHILD_MAPPER_PREVIOUS_SIBLING", direction: IN)
     renderForEachPropKey: String
     renderIfExpression: String
-    preRenderAction: [BaseAction!]!
+    preRenderActions: [BaseAction!]!
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: OUT)
-    postRenderAction: [BaseAction!]!
+    postRenderActions: [BaseAction!]!
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
     renderType: ElementRenderType!
       # There is bug for union type, need to use custom query

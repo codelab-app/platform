@@ -32,8 +32,8 @@ export const CreateElementDataSchema = Type.Composite([
     'page',
     'parentComponent',
     'parentElement',
-    'postRenderAction',
-    'preRenderAction',
+    'postRenderActions',
+    'preRenderActions',
     'prevSibling',
   ]),
 ])

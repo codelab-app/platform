@@ -1,4 +1,7 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IActionModel,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
@@ -26,16 +29,13 @@ export interface IRuntimeElementModel extends AnyModel {
    * The runtime model for IElementModel.closestContainerNode
    */
   closestContainerNode: Ref<IRuntimeComponentModel | IRuntimePageModel>
-
   compositeKey: string
-
   element: Ref<IElementModel>
-
   parentElement: Maybe<IRuntimeElementModel>
   parentElementKey: Nullable<string>
   pathFromRoot: Array<IRuntimeElementModel>
-  postRenderActionDone: boolean
-  preRenderActionDone: boolean
+  postRenderActionsDone: boolean
+  preRenderActionsDone: boolean
   /**
    * keep track of prop key if we are rendering typedProp of type ElementType
    * to generate correct compositeKey for children too
@@ -58,11 +58,10 @@ export interface IRuntimeElementModel extends AnyModel {
   shouldRender: boolean
   style: IRuntimeElementStyleModel
   treeViewNode: IElementTreeViewDataNode
-
   cleanupChildMapperNodes(newKeys: Array<string>): void
   detach(): void
-  runPostRenderAction(): void
-  runPreRenderAction(): void
-  setPostRenderActionDone(value: boolean): void
-  setPreRenderActionDone(value: boolean): void
+  runPostRenderActions(): void
+  runPreRenderActions(): void
+  setPostRenderActionsDone(value: boolean): void
+  setPreRenderActionsDone(value: boolean): void
 }

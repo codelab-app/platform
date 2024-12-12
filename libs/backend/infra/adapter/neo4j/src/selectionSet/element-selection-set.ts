@@ -53,11 +53,11 @@ const baseElementSelectionSet = `
     compositeKey
   }
   renderIfExpression
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }

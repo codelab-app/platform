@@ -65,8 +65,8 @@ const create = (element: IElementDto): IElementModel => {
     page,
     parentComponent,
     parentElement,
-    postRenderAction,
-    preRenderAction,
+    postRenderActions,
+    preRenderActions,
     prevSibling,
     props,
     renderForEachPropKey,
@@ -94,8 +94,8 @@ const create = (element: IElementDto): IElementModel => {
     parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     // parent of first child
     parentElement: parentElement?.id ? elementRef(parentElement.id) : undefined,
-    postRenderAction: postRenderAction.map((action) => actionRef(action.id)),
-    preRenderAction: preRenderAction.map((action) => actionRef(action.id)),
+    postRenderActions: postRenderActions?.map((action) => actionRef(action.id)),
+    preRenderActions: preRenderActions?.map((action) => actionRef(action.id)),
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: Prop.create(props),
     renderForEachPropKey,
@@ -131,8 +131,8 @@ export class Element
     parentComponent: prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     // Data used for tree initializing, before our Element model is ready
     parentElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
-    postRenderAction: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
-    preRenderAction: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
+    postRenderActions: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
+    preRenderActions: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
     prevSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     props: prop<IPropModel>().withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
@@ -348,8 +348,8 @@ export class Element
       page: this.page,
       parentComponent: this.parentComponent,
       parentElement: this.parentElement,
-      postRenderAction: this.postRenderAction,
-      preRenderAction: this.preRenderAction,
+      postRenderActions: this.postRenderActions,
+      preRenderActions: this.preRenderActions,
       prevSibling: this.prevSibling,
       props: this.props.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
@@ -541,8 +541,8 @@ export class Element
     nextSibling,
     parentComponent,
     parentElement,
-    postRenderAction,
-    preRenderAction,
+    postRenderActions,
+    preRenderActions,
     prevSibling,
     props,
     renderForEachPropKey,
@@ -572,11 +572,11 @@ export class Element
     this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)
       : this.parentComponent
-    this.preRenderAction = preRenderAction
-      ? preRenderAction.map((action) => actionRef(action.id))
+    this.preRenderActions = preRenderActions
+      ? preRenderActions.map((action) => actionRef(action.id))
       : []
-    this.postRenderAction = postRenderAction
-      ? postRenderAction.map((action) => actionRef(action.id))
+    this.postRenderActions = postRenderActions
+      ? postRenderActions.map((action) => actionRef(action.id))
       : []
     this.childMapperComponent = childMapperComponent
       ? componentRef(childMapperComponent.id)
