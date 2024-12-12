@@ -11,30 +11,48 @@ import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
-type SelectActionField = GuaranteedProps<Nullable<Array<IRef>>>
+type SelectActionField = GuaranteedProps<Nullable<Array<IRef>>> & {
+  selectedNode?: Nullable<IRuntimeModel>
+  updatedAction?: IRef
+}
 
-/**
- * This happens because of how uniforms handles field nesting by default. When you use connectField, uniforms automatically tries to create a nested field structure by appending the field name to the parent field name
- */
 export const SelectActionsField = connectField<SelectActionField>(
-  ({ name, ...fieldProps }) => {
-    console.log(name)
+  ({ selectedNode, ...fieldProps }) => {
+    const formContext = useFormContext()
+    const { actionDomainService } = useDomainStore()
+
+    const runtimeStore = (selectedNode ?? formContext.selectedNode)
+      ?.runtimeStore
+
+    const store = runtimeStore?.store.current
+
+    const providerStore =
+      runtimeStore?.runtimeProviderStore?.current.store.current
+
+    const selectActionOptions = store
+      ? actionDomainService.getSelectActionOptions(
+          store,
+          providerStore,
+          fieldProps.updatedAction,
+        )
+      : []
 
     return (
       <SelectField
         mode="multiple"
-        name={name}
         {...fieldProps}
-        // getPopupContainer={(triggerNode) => triggerNode.parentElement}
-        // optionFilterProp="label"
-        options={[]}
+        getPopupContainer={(triggerNode) => triggerNode.parentElement}
+        onChange={(value: Array<string>) => {
+          const idFields = value.map((id) => ({ id }))
+
+          fieldProps.onChange(idFields)
+        }}
+        optionFilterProp="label"
+        options={selectActionOptions}
         showSearch
-        value={[]}
+        value={fieldProps.value?.map((ref) => ref.id)}
       />
     )
   },
-  {
-    // This tells uniforms not to nest the field name
-    kind: 'leaf',
-  },
+  { kind: 'leaf' },
 )

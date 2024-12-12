@@ -110,8 +110,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       })
     }
 
-    console.log(element.toJson)
-
     return (
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
