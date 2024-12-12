@@ -31,8 +31,8 @@ export const ElementDtoSchema = Type.Object({
   page: Typebox.Nullish(Typebox.Ref),
   parentComponent: Typebox.Nullish(Typebox.Ref),
   parentElement: Typebox.Nullish(Typebox.Ref),
-  postRenderAction: Typebox.Nullish(Typebox.Ref),
-  preRenderAction: Typebox.Nullish(Typebox.Ref),
+  postRenderAction: Typebox.Nullish(Type.Array(Typebox.Ref)),
+  preRenderAction: Typebox.Nullish(Type.Array(Typebox.Ref)),
   prevSibling: Typebox.Nullish(Typebox.Ref),
   // Treat element as aggregate, so we include prop data here
   props: PropDtoSchema,

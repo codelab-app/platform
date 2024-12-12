@@ -1436,7 +1436,7 @@ let TaskService = class TaskService {
                     process.exit(0);
                 }
                 execCommand('pnpm graphql-codegen --config ./scripts/codegen/codegen.ts');
-                // await ogmService.generate()
+                await ogmService.generate();
                 process.exit(0);
             }
             if (stage === Stage.CI) {

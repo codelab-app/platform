@@ -7,34 +7,36 @@ import { Type } from '@sinclair/typebox'
 
 import type { IPropData } from '../prop/prop.dto.interface'
 
+import { ElementDtoSchema } from './element.dto.interface'
+
 /**
  * This allows for a shortened object to be specified as input. Good for seeding data in cases where the input is manually specified (such as Cypress)
  */
-export const CreateElementDataSchema = Type.Object({
-  /**
-   * We have renderType here
-   */
-  // Can't use `IAtomType` due to circular import issue
-  atom: Type.Optional(Type.Enum(AtomType)),
-  childMapperComponent: Typebox.Nullish(Typebox.Ref),
-  childMapperPreviousSibling: Typebox.Nullish(Typebox.Ref),
-  childMapperPropKey: Typebox.Nullish(Type.String()),
-  // Name of the Component
-  component: Type.Optional(Type.String()),
-  id: Type.String(),
-  name: Type.String(),
-  page: Type.Optional(Typebox.Ref),
-  parentComponent: Type.Optional(Typebox.Ref),
-  parentElement: Type.Optional(Typebox.Ref),
-  postRenderAction: Typebox.Nullish(Typebox.Ref),
-  preRenderAction: Typebox.Nullish(Typebox.Ref),
-  prevSibling: Type.Optional(Typebox.Ref),
-  propsData: Type.Optional(Type.Object<IPropData>({})),
-  // atom?: IAtomType
-  // id: string
-  // name: string
-  // parentElement: IRef
-})
+export const CreateElementDataSchema = Type.Composite([
+  Type.Object({
+    /**
+     * We have renderType here
+     */
+    // Can't use `IAtomType` due to circular import issue
+    atom: Type.Optional(Type.Enum(AtomType)),
+    // Name of the Component
+    component: Type.Optional(Type.String()),
+    propsData: Type.Optional(Type.Object<IPropData>({})),
+  }),
+  Type.Pick(ElementDtoSchema, [
+    'childMapperComponent',
+    'childMapperPreviousSibling',
+    'childMapperPropKey',
+    'id',
+    'name',
+    'page',
+    'parentComponent',
+    'parentElement',
+    'postRenderAction',
+    'preRenderAction',
+    'prevSibling',
+  ]),
+])
 
 export type ICreateElementData = Static<typeof CreateElementDataSchema>
 

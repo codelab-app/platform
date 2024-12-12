@@ -94,12 +94,8 @@ const create = (element: IElementDto): IElementModel => {
     parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     // parent of first child
     parentElement: parentElement?.id ? elementRef(parentElement.id) : undefined,
-    postRenderAction: postRenderAction?.id
-      ? actionRef(postRenderAction.id)
-      : undefined,
-    preRenderAction: preRenderAction?.id
-      ? actionRef(preRenderAction.id)
-      : undefined,
+    postRenderAction: postRenderAction.map((action) => actionRef(action.id)),
+    preRenderAction: preRenderAction.map((action) => actionRef(action.id)),
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: Prop.create(props),
     renderForEachPropKey,
@@ -135,8 +131,8 @@ export class Element
     parentComponent: prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     // Data used for tree initializing, before our Element model is ready
     parentElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
-    postRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
-    preRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
+    postRenderAction: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
+    preRenderAction: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
     prevSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     props: prop<IPropModel>().withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
@@ -577,11 +573,11 @@ export class Element
       ? componentRef(parentComponent.id)
       : this.parentComponent
     this.preRenderAction = preRenderAction
-      ? actionRef(preRenderAction.id)
-      : null
+      ? preRenderAction.map((action) => actionRef(action.id))
+      : []
     this.postRenderAction = postRenderAction
-      ? actionRef(postRenderAction.id)
-      : null
+      ? postRenderAction.map((action) => actionRef(action.id))
+      : []
     this.childMapperComponent = childMapperComponent
       ? componentRef(childMapperComponent.id)
       : null

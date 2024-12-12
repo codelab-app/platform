@@ -20,14 +20,14 @@ export const OgmProvider: FactoryProvider<OGM> = {
       // debug: true,
       driver,
       features: {
-        excludeDeprecatedFields: {
-          aggregationFilters: true,
-          arrayFilters: true,
-          bookmark: true,
-          negationFilters: true,
-          nestedUpdateOperationsFields: true,
-          stringAggregation: true,
-        },
+        // excludeDeprecatedFields: {
+        //   aggregationFilters: true,
+        //   arrayFilters: true,
+        //   bookmark: true,
+        //   negationFilters: true,
+        //   nestedUpdateOperationsFields: true,
+        //   stringAggregation: true,
+        // },
         filters: {
           String: {
             MATCHES: true,
@@ -43,7 +43,7 @@ export const OgmProvider: FactoryProvider<OGM> = {
 
     await ogm.init()
 
-    // await ogm.checkNeo4jCompat({ driver })
+    await ogm.checkNeo4jCompat({ driver })
 
     await ogm.assertIndexesAndConstraints({
       driver,

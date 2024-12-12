@@ -70,7 +70,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
 
       const schema = await neo4jGraphQL.getSchema()
 
-      // await neo4jGraphQL.checkNeo4jCompat({ driver })
+      await neo4jGraphQL.checkNeo4jCompat({ driver })
 
       await neo4jGraphQL.assertIndexesAndConstraints({
         driver,
