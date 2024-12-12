@@ -73,7 +73,6 @@ export const ConfigPaneInspectorTabContainer = observer<{
             <UpdateElementForm
               key={`${selectedNode.compositeKey}_update_form`}
               runtimeElement={selectedNode}
-              runtimeElementProps={selectedNode.runtimeProps}
             />
             <MoveElementForm
               key={`${selectedNode.compositeKey}_move_form`}

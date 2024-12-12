@@ -34,7 +34,7 @@ interface UpdateAtomContainerProps {
 const UpdateAtomContainer = observer<UpdateAtomContainerProps>(
   ({ atomsDto, id, searchParams, tagsDto }) => {
     const submitRef = useRef<Maybe<SubmitController>>()
-    const { atomPopoverUpdate } = useAtomService()
+    const { updatePopover } = useAtomService()
     const router = useRouter()
     const atom = useAtomService().getOneFromCache({ id })
 
@@ -57,7 +57,7 @@ const UpdateAtomContainer = observer<UpdateAtomContainerProps>(
               icon: <CloseOutlined />,
               label: 'Cancel',
               onClick: () => {
-                atomPopoverUpdate.close(router)
+                updatePopover.close(router)
               },
               title: 'Cancel',
             },
