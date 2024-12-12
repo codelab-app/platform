@@ -8,7 +8,10 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { SelectActionField } from '@codelab/frontend/presentation/components/interface-form'
+import {
+  SelectActionField,
+  SelectActionsField,
+} from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
@@ -90,8 +93,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       {
         children: (
           <>
-            <SelectActionField name="preRenderActions" />
-            <SelectActionField name="postRenderActions" />
+            <SelectActionsField name="preRenderActions" />
+            <SelectActionsField name="postRenderActions" />
           </>
         ),
         key: 'actions',
@@ -106,6 +109,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         label: 'Child Mapper',
       })
     }
+
+    console.log(element.toJson)
 
     return (
       <div key={element.id}>
