@@ -131,8 +131,8 @@ export const CreateElementForm = observer<CreateElementFormProps>(
             'style',
             'propsData',
             'prevSibling',
-            'preRenderAction',
-            'postRenderAction',
+            'preRenderActions',
+            'postRenderActions',
             'renderType',
             'name',
             'tailwindClassNames',
@@ -155,9 +155,12 @@ export const CreateElementForm = observer<CreateElementFormProps>(
           name="prevSibling.id"
         />
         <RenderTypeField name="renderType" parentAtom={parentAtom} />
-        <SelectActionField name="preRenderAction" selectedNode={selectedNode} />
         <SelectActionField
-          name="postRenderAction"
+          name="preRenderActions"
+          selectedNode={selectedNode}
+        />
+        <SelectActionField
+          name="postRenderActions"
           selectedNode={selectedNode}
         />
         <Divider />

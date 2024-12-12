@@ -153,8 +153,8 @@ importers:
         specifier: 5.11.1
         version: 5.11.1(graphql@16.9.0)(neo4j-driver@5.26.0)
       '@neo4j/graphql-ogm':
-        specifier: 5.9.1
-        version: 5.9.1(graphql@16.9.0)(neo4j-driver@5.26.0)
+        specifier: 5.11.1
+        version: 5.11.1(graphql@16.9.0)(neo4j-driver@5.26.0)
       '@nestjs/apollo':
         specifier: 12.2.0
         version: 12.2.0(@apollo/server@4.7.2(graphql@16.9.0))(@apollo/subgraph@2.9.3(graphql@16.9.0))(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.1(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.1)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/graphql@12.2.0(@apollo/subgraph@2.9.3(graphql@16.9.0))(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.1(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.1)(reflect-metadata@0.1.13)(rxjs@7.8.0))(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.9.0)(reflect-metadata@0.1.13)(ts-morph@19.0.0))(graphql@16.9.0)
@@ -4117,8 +4117,8 @@ packages:
     resolution: {integrity: sha512-eMvwLybv7VWZsnuB6Hnf3FXAGoKVh+MuYE2uscImAaexXz8ZJ3FmZ4lAAaEjMV8ns91yDi92oqFey5i3Enzv9w==}
     engines: {node: '>=16.0.0'}
 
-  '@neo4j/graphql-ogm@5.9.1':
-    resolution: {integrity: sha512-Ck6EVbTt+uGfpiP9SbXad/P5oU6c43LBTHzBgvVlHwr8gM4elWDowpYkPO9l6eRJIExvqZuWN1k4OPu32VN2Kw==}
+  '@neo4j/graphql-ogm@5.11.1':
+    resolution: {integrity: sha512-Dkbt4L5UxuEClMf066J6Sv9y/qBGrzJoyApKPouC2G5eji5cx7/CTJ3+HwD+hDW1lBKOC1jsxOb+rnyqgQaRXA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^16.0.0
@@ -21079,7 +21079,7 @@ snapshots:
 
   '@neo4j/cypher-builder@1.22.3': {}
 
-  '@neo4j/graphql-ogm@5.9.1(graphql@16.9.0)(neo4j-driver@5.26.0)':
+  '@neo4j/graphql-ogm@5.11.1(graphql@16.9.0)(neo4j-driver@5.26.0)':
     dependencies:
       '@graphql-codegen/core': 4.0.2(graphql@16.9.0)
       '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.9.0)

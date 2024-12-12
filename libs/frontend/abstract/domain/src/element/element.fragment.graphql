@@ -28,11 +28,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -89,11 +89,11 @@ fragment ElementProduction on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }

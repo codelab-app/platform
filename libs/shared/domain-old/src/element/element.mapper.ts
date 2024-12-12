@@ -33,8 +33,8 @@ export const elementMapper: IMapper<
     name,
     nextSibling,
     parentElement,
-    postRenderAction,
-    preRenderAction,
+    postRenderActions,
+    preRenderActions,
     prevSibling,
     props,
     renderForEachPropKey,
@@ -56,11 +56,11 @@ export const elementMapper: IMapper<
       // firstChild: connectNodeId(firstChild?.id),
       nextSibling: connectNodeId(nextSibling?.id),
       parentElement: connectNodeId(parentElement?.id),
-      // postRenderAction: postRenderAction?.id
-      //   ? connectNodeIds([postRenderAction.id])
+      // postRenderActions: postRenderActions?.id
+      //   ? connectNodeIds([postRenderActions.id])
       //   : undefined,
-      // preRenderAction: preRenderAction?.id
-      //   ? connectNodeIds([preRenderAction.id])
+      // preRenderActions: preRenderActions?.id
+      //   ? connectNodeIds([preRenderActions.id])
       //   : undefined,
       prevSibling: connectNodeId(prevSibling?.id),
       props: {
@@ -103,8 +103,8 @@ export const elementMapper: IMapper<
     name,
     nextSibling,
     parentElement,
-    postRenderAction,
-    preRenderAction,
+    postRenderActions,
+    preRenderActions,
     prevSibling,
     props,
     renderForEachPropKey,
@@ -128,11 +128,11 @@ export const elementMapper: IMapper<
       firstChild: reconnectNodeId(firstChild?.id),
       nextSibling: reconnectNodeId(nextSibling?.id),
       parentElement: reconnectNodeId(parentElement?.id),
-      // postRenderAction: postRenderAction?.id
-      //   ? reconnectNodeIds([postRenderAction.id])
+      // postRenderActions: postRenderActions?.id
+      //   ? reconnectNodeIds([postRenderActions.id])
       //   : undefined,
-      // preRenderAction: preRenderAction?.id
-      //   ? reconnectNodeIds([preRenderAction.id])
+      // preRenderActions: preRenderActions?.id
+      //   ? reconnectNodeIds([preRenderActions.id])
       //   : undefined,
       prevSibling: reconnectNodeId(prevSibling?.id),
       props: reconnectNodeId(props.id),

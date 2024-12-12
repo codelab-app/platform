@@ -143,7 +143,7 @@ describe('Runtime Element', () => {
       'pre render value',
     ],
   ])(
-    'should run custom hooks that mutates state when in %s page - preRenderAction: `%s`, postRenderAction: `%s`, expectedValue: `%s`',
+    'should run custom hooks that mutates state when in %s page - preRenderActions: `%s`, postRenderActions: `%s`, expectedValue: `%s`',
     (pageKind, preRenderActionCode, postRenderActionCode, expectedValue) => {
       const { page, renderer, runtimeProviderPage } = testStore.setupPage(
         RendererType.Preview,
@@ -165,9 +165,9 @@ describe('Runtime Element', () => {
 
       if (preRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          preRenderAction: testStore.addCodeAction({
+          preRenderActions: testStore.addCodeAction({
             code: preRenderActionCode,
-            name: 'preRenderAction',
+            name: 'preRenderActions',
             store: providerPage.store,
           }),
         })
@@ -175,9 +175,9 @@ describe('Runtime Element', () => {
 
       if (postRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          postRenderAction: testStore.addCodeAction({
+          postRenderActions: testStore.addCodeAction({
             code: postRenderActionCode,
-            name: 'postRenderAction',
+            name: 'postRenderActions',
             store: providerPage.store,
           }),
         })

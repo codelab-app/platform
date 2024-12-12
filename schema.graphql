@@ -10278,38 +10278,38 @@ type Element {
     sort: [ElementParentElementConnectionSort!]
     where: ElementParentElementConnectionWhere
   ): ElementParentElementConnection!
-  postRenderAction(
+  postRenderActions(
     directed: Boolean = true
     options: BaseActionOptions
     where: BaseActionWhere
   ): [BaseAction!]!
-  postRenderActionAggregate(
+  postRenderActionsAggregate(
     directed: Boolean = true
     where: BaseActionWhere
-  ): ElementBaseActionPostRenderActionAggregationSelection
-  postRenderActionConnection(
+  ): ElementBaseActionPostRenderActionsAggregationSelection
+  postRenderActionsConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ElementPostRenderActionConnectionSort!]
-    where: ElementPostRenderActionConnectionWhere
-  ): ElementPostRenderActionConnection!
-  preRenderAction(
+    sort: [ElementPostRenderActionsConnectionSort!]
+    where: ElementPostRenderActionsConnectionWhere
+  ): ElementPostRenderActionsConnection!
+  preRenderActions(
     directed: Boolean = true
     options: BaseActionOptions
     where: BaseActionWhere
   ): [BaseAction!]!
-  preRenderActionAggregate(
+  preRenderActionsAggregate(
     directed: Boolean = true
     where: BaseActionWhere
-  ): ElementBaseActionPreRenderActionAggregationSelection
-  preRenderActionConnection(
+  ): ElementBaseActionPreRenderActionsAggregationSelection
+  preRenderActionsConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ElementPreRenderActionConnectionSort!]
-    where: ElementPreRenderActionConnectionWhere
-  ): ElementPreRenderActionConnection!
+    sort: [ElementPreRenderActionsConnectionSort!]
+    where: ElementPreRenderActionsConnectionWhere
+  ): ElementPreRenderActionsConnection!
   prevSibling(
     directed: Boolean = true
     options: ElementOptions
@@ -10366,22 +10366,22 @@ type ElementAggregateSelection {
   style: StringAggregateSelection!
 }
 
-type ElementBaseActionPostRenderActionAggregationSelection {
+type ElementBaseActionPostRenderActionsAggregationSelection {
   count: Int!
-  node: ElementBaseActionPostRenderActionNodeAggregateSelection
+  node: ElementBaseActionPostRenderActionsNodeAggregateSelection
 }
 
-type ElementBaseActionPostRenderActionNodeAggregateSelection {
+type ElementBaseActionPostRenderActionsNodeAggregateSelection {
   id: IDAggregateSelection!
   name: StringAggregateSelection!
 }
 
-type ElementBaseActionPreRenderActionAggregationSelection {
+type ElementBaseActionPreRenderActionsAggregationSelection {
   count: Int!
-  node: ElementBaseActionPreRenderActionNodeAggregateSelection
+  node: ElementBaseActionPreRenderActionsNodeAggregateSelection
 }
 
-type ElementBaseActionPreRenderActionNodeAggregateSelection {
+type ElementBaseActionPreRenderActionsNodeAggregateSelection {
   id: IDAggregateSelection!
   name: StringAggregateSelection!
 }
@@ -10706,8 +10706,8 @@ input ElementConnectInput {
   page: ElementPageConnectFieldInput
   parentComponent: ElementParentComponentConnectFieldInput
   parentElement: ElementParentElementConnectFieldInput
-  postRenderAction: [ElementPostRenderActionConnectFieldInput!]
-  preRenderAction: [ElementPreRenderActionConnectFieldInput!]
+  postRenderActions: [ElementPostRenderActionsConnectFieldInput!]
+  preRenderActions: [ElementPreRenderActionsConnectFieldInput!]
   prevSibling: ElementPrevSiblingConnectFieldInput
   props: ElementPropsConnectFieldInput
   renderType: ElementRenderTypeConnectInput
@@ -10742,8 +10742,8 @@ type ElementConnectedRelationships {
   page: ElementPageConnectedRelationship
   parentComponent: ElementParentComponentConnectedRelationship
   parentElement: ElementParentElementConnectedRelationship
-  postRenderAction: ElementPostRenderActionConnectedRelationship
-  preRenderAction: ElementPreRenderActionConnectedRelationship
+  postRenderActions: ElementPostRenderActionsConnectedRelationship
+  preRenderActions: ElementPreRenderActionsConnectedRelationship
   prevSibling: ElementPrevSiblingConnectedRelationship
   props: ElementPropsConnectedRelationship
   renderType: ElementRenderTypeConnectedRelationship
@@ -10761,8 +10761,8 @@ input ElementCreateInput {
   page: ElementPageFieldInput
   parentComponent: ElementParentComponentFieldInput
   parentElement: ElementParentElementFieldInput
-  postRenderAction: ElementPostRenderActionFieldInput
-  preRenderAction: ElementPreRenderActionFieldInput
+  postRenderActions: ElementPostRenderActionsFieldInput
+  preRenderActions: ElementPreRenderActionsFieldInput
   prevSibling: ElementPrevSiblingFieldInput
   props: ElementPropsFieldInput
   renderForEachPropKey: String
@@ -10786,8 +10786,8 @@ input ElementDeleteInput {
   page: ElementPageDeleteFieldInput
   parentComponent: ElementParentComponentDeleteFieldInput
   parentElement: ElementParentElementDeleteFieldInput
-  postRenderAction: [ElementPostRenderActionDeleteFieldInput!]
-  preRenderAction: [ElementPreRenderActionDeleteFieldInput!]
+  postRenderActions: [ElementPostRenderActionsDeleteFieldInput!]
+  preRenderActions: [ElementPreRenderActionsDeleteFieldInput!]
   prevSibling: ElementPrevSiblingDeleteFieldInput
   props: ElementPropsDeleteFieldInput
   renderType: ElementRenderTypeDeleteInput
@@ -10807,8 +10807,8 @@ input ElementDisconnectInput {
   page: ElementPageDisconnectFieldInput
   parentComponent: ElementParentComponentDisconnectFieldInput
   parentElement: ElementParentElementDisconnectFieldInput
-  postRenderAction: [ElementPostRenderActionDisconnectFieldInput!]
-  preRenderAction: [ElementPreRenderActionDisconnectFieldInput!]
+  postRenderActions: [ElementPostRenderActionsDisconnectFieldInput!]
+  preRenderActions: [ElementPreRenderActionsDisconnectFieldInput!]
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   props: ElementPropsDisconnectFieldInput
   renderType: ElementRenderTypeDisconnectInput
@@ -11707,67 +11707,67 @@ input ElementParentElementUpdateFieldInput {
   where: ElementParentElementConnectionWhere
 }
 
-input ElementPostRenderActionAggregateInput {
-  AND: [ElementPostRenderActionAggregateInput!]
-  NOT: ElementPostRenderActionAggregateInput
-  OR: [ElementPostRenderActionAggregateInput!]
+input ElementPostRenderActionsAggregateInput {
+  AND: [ElementPostRenderActionsAggregateInput!]
+  NOT: ElementPostRenderActionsAggregateInput
+  OR: [ElementPostRenderActionsAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: ElementPostRenderActionNodeAggregationWhereInput
+  node: ElementPostRenderActionsNodeAggregationWhereInput
 }
 
-input ElementPostRenderActionConnectFieldInput {
+input ElementPostRenderActionsConnectFieldInput {
   connect: BaseActionConnectInput
   where: BaseActionConnectWhere
 }
 
-type ElementPostRenderActionConnectedRelationship {
+type ElementPostRenderActionsConnectedRelationship {
   node: BaseActionEventPayload!
 }
 
-type ElementPostRenderActionConnection {
-  edges: [ElementPostRenderActionRelationship!]!
+type ElementPostRenderActionsConnection {
+  edges: [ElementPostRenderActionsRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementPostRenderActionConnectionSort {
+input ElementPostRenderActionsConnectionSort {
   node: BaseActionSort
 }
 
-input ElementPostRenderActionConnectionWhere {
-  AND: [ElementPostRenderActionConnectionWhere!]
-  NOT: ElementPostRenderActionConnectionWhere
-  OR: [ElementPostRenderActionConnectionWhere!]
+input ElementPostRenderActionsConnectionWhere {
+  AND: [ElementPostRenderActionsConnectionWhere!]
+  NOT: ElementPostRenderActionsConnectionWhere
+  OR: [ElementPostRenderActionsConnectionWhere!]
   node: BaseActionWhere
 }
 
-input ElementPostRenderActionCreateFieldInput {
+input ElementPostRenderActionsCreateFieldInput {
   node: BaseActionCreateInput!
 }
 
-input ElementPostRenderActionDeleteFieldInput {
+input ElementPostRenderActionsDeleteFieldInput {
   delete: BaseActionDeleteInput
-  where: ElementPostRenderActionConnectionWhere
+  where: ElementPostRenderActionsConnectionWhere
 }
 
-input ElementPostRenderActionDisconnectFieldInput {
+input ElementPostRenderActionsDisconnectFieldInput {
   disconnect: BaseActionDisconnectInput
-  where: ElementPostRenderActionConnectionWhere
+  where: ElementPostRenderActionsConnectionWhere
 }
 
-input ElementPostRenderActionFieldInput {
-  connect: [ElementPostRenderActionConnectFieldInput!]
-  create: [ElementPostRenderActionCreateFieldInput!]
+input ElementPostRenderActionsFieldInput {
+  connect: [ElementPostRenderActionsConnectFieldInput!]
+  create: [ElementPostRenderActionsCreateFieldInput!]
 }
 
-input ElementPostRenderActionNodeAggregationWhereInput {
-  AND: [ElementPostRenderActionNodeAggregationWhereInput!]
-  NOT: ElementPostRenderActionNodeAggregationWhereInput
-  OR: [ElementPostRenderActionNodeAggregationWhereInput!]
+input ElementPostRenderActionsNodeAggregationWhereInput {
+  AND: [ElementPostRenderActionsNodeAggregationWhereInput!]
+  NOT: ElementPostRenderActionsNodeAggregationWhereInput
+  OR: [ElementPostRenderActionsNodeAggregationWhereInput!]
   name_AVERAGE_LENGTH_EQUAL: Float
   name_AVERAGE_LENGTH_GT: Float
   name_AVERAGE_LENGTH_GTE: Float
@@ -11785,89 +11785,89 @@ input ElementPostRenderActionNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_LTE: Int
 }
 
-type ElementPostRenderActionRelationship {
+type ElementPostRenderActionsRelationship {
   cursor: String!
   node: BaseAction!
 }
 
-input ElementPostRenderActionRelationshipSubscriptionWhere {
+input ElementPostRenderActionsRelationshipSubscriptionWhere {
   node: BaseActionSubscriptionWhere
 }
 
-input ElementPostRenderActionUpdateConnectionInput {
+input ElementPostRenderActionsUpdateConnectionInput {
   node: BaseActionUpdateInput
 }
 
-input ElementPostRenderActionUpdateFieldInput {
-  connect: [ElementPostRenderActionConnectFieldInput!]
-  create: [ElementPostRenderActionCreateFieldInput!]
-  delete: [ElementPostRenderActionDeleteFieldInput!]
-  disconnect: [ElementPostRenderActionDisconnectFieldInput!]
-  update: ElementPostRenderActionUpdateConnectionInput
-  where: ElementPostRenderActionConnectionWhere
+input ElementPostRenderActionsUpdateFieldInput {
+  connect: [ElementPostRenderActionsConnectFieldInput!]
+  create: [ElementPostRenderActionsCreateFieldInput!]
+  delete: [ElementPostRenderActionsDeleteFieldInput!]
+  disconnect: [ElementPostRenderActionsDisconnectFieldInput!]
+  update: ElementPostRenderActionsUpdateConnectionInput
+  where: ElementPostRenderActionsConnectionWhere
 }
 
-input ElementPreRenderActionAggregateInput {
-  AND: [ElementPreRenderActionAggregateInput!]
-  NOT: ElementPreRenderActionAggregateInput
-  OR: [ElementPreRenderActionAggregateInput!]
+input ElementPreRenderActionsAggregateInput {
+  AND: [ElementPreRenderActionsAggregateInput!]
+  NOT: ElementPreRenderActionsAggregateInput
+  OR: [ElementPreRenderActionsAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: ElementPreRenderActionNodeAggregationWhereInput
+  node: ElementPreRenderActionsNodeAggregationWhereInput
 }
 
-input ElementPreRenderActionConnectFieldInput {
+input ElementPreRenderActionsConnectFieldInput {
   connect: BaseActionConnectInput
   where: BaseActionConnectWhere
 }
 
-type ElementPreRenderActionConnectedRelationship {
+type ElementPreRenderActionsConnectedRelationship {
   node: BaseActionEventPayload!
 }
 
-type ElementPreRenderActionConnection {
-  edges: [ElementPreRenderActionRelationship!]!
+type ElementPreRenderActionsConnection {
+  edges: [ElementPreRenderActionsRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementPreRenderActionConnectionSort {
+input ElementPreRenderActionsConnectionSort {
   node: BaseActionSort
 }
 
-input ElementPreRenderActionConnectionWhere {
-  AND: [ElementPreRenderActionConnectionWhere!]
-  NOT: ElementPreRenderActionConnectionWhere
-  OR: [ElementPreRenderActionConnectionWhere!]
+input ElementPreRenderActionsConnectionWhere {
+  AND: [ElementPreRenderActionsConnectionWhere!]
+  NOT: ElementPreRenderActionsConnectionWhere
+  OR: [ElementPreRenderActionsConnectionWhere!]
   node: BaseActionWhere
 }
 
-input ElementPreRenderActionCreateFieldInput {
+input ElementPreRenderActionsCreateFieldInput {
   node: BaseActionCreateInput!
 }
 
-input ElementPreRenderActionDeleteFieldInput {
+input ElementPreRenderActionsDeleteFieldInput {
   delete: BaseActionDeleteInput
-  where: ElementPreRenderActionConnectionWhere
+  where: ElementPreRenderActionsConnectionWhere
 }
 
-input ElementPreRenderActionDisconnectFieldInput {
+input ElementPreRenderActionsDisconnectFieldInput {
   disconnect: BaseActionDisconnectInput
-  where: ElementPreRenderActionConnectionWhere
+  where: ElementPreRenderActionsConnectionWhere
 }
 
-input ElementPreRenderActionFieldInput {
-  connect: [ElementPreRenderActionConnectFieldInput!]
-  create: [ElementPreRenderActionCreateFieldInput!]
+input ElementPreRenderActionsFieldInput {
+  connect: [ElementPreRenderActionsConnectFieldInput!]
+  create: [ElementPreRenderActionsCreateFieldInput!]
 }
 
-input ElementPreRenderActionNodeAggregationWhereInput {
-  AND: [ElementPreRenderActionNodeAggregationWhereInput!]
-  NOT: ElementPreRenderActionNodeAggregationWhereInput
-  OR: [ElementPreRenderActionNodeAggregationWhereInput!]
+input ElementPreRenderActionsNodeAggregationWhereInput {
+  AND: [ElementPreRenderActionsNodeAggregationWhereInput!]
+  NOT: ElementPreRenderActionsNodeAggregationWhereInput
+  OR: [ElementPreRenderActionsNodeAggregationWhereInput!]
   name_AVERAGE_LENGTH_EQUAL: Float
   name_AVERAGE_LENGTH_GT: Float
   name_AVERAGE_LENGTH_GTE: Float
@@ -11885,26 +11885,26 @@ input ElementPreRenderActionNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_LTE: Int
 }
 
-type ElementPreRenderActionRelationship {
+type ElementPreRenderActionsRelationship {
   cursor: String!
   node: BaseAction!
 }
 
-input ElementPreRenderActionRelationshipSubscriptionWhere {
+input ElementPreRenderActionsRelationshipSubscriptionWhere {
   node: BaseActionSubscriptionWhere
 }
 
-input ElementPreRenderActionUpdateConnectionInput {
+input ElementPreRenderActionsUpdateConnectionInput {
   node: BaseActionUpdateInput
 }
 
-input ElementPreRenderActionUpdateFieldInput {
-  connect: [ElementPreRenderActionConnectFieldInput!]
-  create: [ElementPreRenderActionCreateFieldInput!]
-  delete: [ElementPreRenderActionDeleteFieldInput!]
-  disconnect: [ElementPreRenderActionDisconnectFieldInput!]
-  update: ElementPreRenderActionUpdateConnectionInput
-  where: ElementPreRenderActionConnectionWhere
+input ElementPreRenderActionsUpdateFieldInput {
+  connect: [ElementPreRenderActionsConnectFieldInput!]
+  create: [ElementPreRenderActionsCreateFieldInput!]
+  delete: [ElementPreRenderActionsDeleteFieldInput!]
+  disconnect: [ElementPreRenderActionsDisconnectFieldInput!]
+  update: ElementPreRenderActionsUpdateConnectionInput
+  where: ElementPreRenderActionsConnectionWhere
 }
 
 input ElementPrevSiblingAggregateInput {
@@ -12213,8 +12213,8 @@ input ElementRelationInput {
   page: ElementPageCreateFieldInput
   parentComponent: ElementParentComponentCreateFieldInput
   parentElement: ElementParentElementCreateFieldInput
-  postRenderAction: [ElementPostRenderActionCreateFieldInput!]
-  preRenderAction: [ElementPreRenderActionCreateFieldInput!]
+  postRenderActions: [ElementPostRenderActionsCreateFieldInput!]
+  preRenderActions: [ElementPreRenderActionsCreateFieldInput!]
   prevSibling: ElementPrevSiblingCreateFieldInput
   props: ElementPropsCreateFieldInput
   renderType: ElementRenderTypeCreateFieldInput
@@ -12260,8 +12260,8 @@ input ElementRelationshipsSubscriptionWhere {
   page: ElementPageRelationshipSubscriptionWhere
   parentComponent: ElementParentComponentRelationshipSubscriptionWhere
   parentElement: ElementParentElementRelationshipSubscriptionWhere
-  postRenderAction: ElementPostRenderActionRelationshipSubscriptionWhere
-  preRenderAction: ElementPreRenderActionRelationshipSubscriptionWhere
+  postRenderActions: ElementPostRenderActionsRelationshipSubscriptionWhere
+  preRenderActions: ElementPreRenderActionsRelationshipSubscriptionWhere
   prevSibling: ElementPrevSiblingRelationshipSubscriptionWhere
   props: ElementPropsRelationshipSubscriptionWhere
   renderType: ElementRenderTypeRelationshipSubscriptionWhere
@@ -13109,8 +13109,8 @@ input ElementUpdateInput {
   page: ElementPageUpdateFieldInput
   parentComponent: ElementParentComponentUpdateFieldInput
   parentElement: ElementParentElementUpdateFieldInput
-  postRenderAction: [ElementPostRenderActionUpdateFieldInput!]
-  preRenderAction: [ElementPreRenderActionUpdateFieldInput!]
+  postRenderActions: [ElementPostRenderActionsUpdateFieldInput!]
+  preRenderActions: [ElementPreRenderActionsUpdateFieldInput!]
   prevSibling: ElementPrevSiblingUpdateFieldInput
   props: ElementPropsUpdateFieldInput
   renderForEachPropKey: String
@@ -13186,88 +13186,88 @@ input ElementWhere {
   parentElementConnection: ElementParentElementConnectionWhere
   parentElementConnection_NOT: ElementParentElementConnectionWhere
   parentElement_NOT: ElementWhere
-  postRenderActionAggregate: ElementPostRenderActionAggregateInput
+  postRenderActionsAggregate: ElementPostRenderActionsAggregateInput
 
   """
-  Return Elements where all of the related ElementPostRenderActionConnections match this filter
+  Return Elements where all of the related ElementPostRenderActionsConnections match this filter
   """
-  postRenderActionConnection_ALL: ElementPostRenderActionConnectionWhere
+  postRenderActionsConnection_ALL: ElementPostRenderActionsConnectionWhere
 
   """
-  Return Elements where none of the related ElementPostRenderActionConnections match this filter
+  Return Elements where none of the related ElementPostRenderActionsConnections match this filter
   """
-  postRenderActionConnection_NONE: ElementPostRenderActionConnectionWhere
+  postRenderActionsConnection_NONE: ElementPostRenderActionsConnectionWhere
 
   """
-  Return Elements where one of the related ElementPostRenderActionConnections match this filter
+  Return Elements where one of the related ElementPostRenderActionsConnections match this filter
   """
-  postRenderActionConnection_SINGLE: ElementPostRenderActionConnectionWhere
+  postRenderActionsConnection_SINGLE: ElementPostRenderActionsConnectionWhere
 
   """
-  Return Elements where some of the related ElementPostRenderActionConnections match this filter
+  Return Elements where some of the related ElementPostRenderActionsConnections match this filter
   """
-  postRenderActionConnection_SOME: ElementPostRenderActionConnectionWhere
-
-  """
-  Return Elements where all of the related BaseActions match this filter
-  """
-  postRenderAction_ALL: BaseActionWhere
-
-  """
-  Return Elements where none of the related BaseActions match this filter
-  """
-  postRenderAction_NONE: BaseActionWhere
-
-  """
-  Return Elements where one of the related BaseActions match this filter
-  """
-  postRenderAction_SINGLE: BaseActionWhere
-
-  """
-  Return Elements where some of the related BaseActions match this filter
-  """
-  postRenderAction_SOME: BaseActionWhere
-  preRenderActionAggregate: ElementPreRenderActionAggregateInput
-
-  """
-  Return Elements where all of the related ElementPreRenderActionConnections match this filter
-  """
-  preRenderActionConnection_ALL: ElementPreRenderActionConnectionWhere
-
-  """
-  Return Elements where none of the related ElementPreRenderActionConnections match this filter
-  """
-  preRenderActionConnection_NONE: ElementPreRenderActionConnectionWhere
-
-  """
-  Return Elements where one of the related ElementPreRenderActionConnections match this filter
-  """
-  preRenderActionConnection_SINGLE: ElementPreRenderActionConnectionWhere
-
-  """
-  Return Elements where some of the related ElementPreRenderActionConnections match this filter
-  """
-  preRenderActionConnection_SOME: ElementPreRenderActionConnectionWhere
+  postRenderActionsConnection_SOME: ElementPostRenderActionsConnectionWhere
 
   """
   Return Elements where all of the related BaseActions match this filter
   """
-  preRenderAction_ALL: BaseActionWhere
+  postRenderActions_ALL: BaseActionWhere
 
   """
   Return Elements where none of the related BaseActions match this filter
   """
-  preRenderAction_NONE: BaseActionWhere
+  postRenderActions_NONE: BaseActionWhere
 
   """
   Return Elements where one of the related BaseActions match this filter
   """
-  preRenderAction_SINGLE: BaseActionWhere
+  postRenderActions_SINGLE: BaseActionWhere
 
   """
   Return Elements where some of the related BaseActions match this filter
   """
-  preRenderAction_SOME: BaseActionWhere
+  postRenderActions_SOME: BaseActionWhere
+  preRenderActionsAggregate: ElementPreRenderActionsAggregateInput
+
+  """
+  Return Elements where all of the related ElementPreRenderActionsConnections match this filter
+  """
+  preRenderActionsConnection_ALL: ElementPreRenderActionsConnectionWhere
+
+  """
+  Return Elements where none of the related ElementPreRenderActionsConnections match this filter
+  """
+  preRenderActionsConnection_NONE: ElementPreRenderActionsConnectionWhere
+
+  """
+  Return Elements where one of the related ElementPreRenderActionsConnections match this filter
+  """
+  preRenderActionsConnection_SINGLE: ElementPreRenderActionsConnectionWhere
+
+  """
+  Return Elements where some of the related ElementPreRenderActionsConnections match this filter
+  """
+  preRenderActionsConnection_SOME: ElementPreRenderActionsConnectionWhere
+
+  """
+  Return Elements where all of the related BaseActions match this filter
+  """
+  preRenderActions_ALL: BaseActionWhere
+
+  """
+  Return Elements where none of the related BaseActions match this filter
+  """
+  preRenderActions_NONE: BaseActionWhere
+
+  """
+  Return Elements where one of the related BaseActions match this filter
+  """
+  preRenderActions_SINGLE: BaseActionWhere
+
+  """
+  Return Elements where some of the related BaseActions match this filter
+  """
+  preRenderActions_SOME: BaseActionWhere
   prevSibling: ElementWhere
   prevSiblingAggregate: ElementPrevSiblingAggregateInput
   prevSiblingConnection: ElementPrevSiblingConnectionWhere
