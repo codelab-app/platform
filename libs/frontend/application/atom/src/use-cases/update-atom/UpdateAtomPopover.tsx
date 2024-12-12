@@ -19,13 +19,13 @@ export const UpdateAtomPopover = observer<{
   atom: IAtomModel
   submitRef: MutableRefObject<Maybe<SubmitController>>
 }>(({ atom, submitRef }) => {
-  const { atomPopoverUpdate } = useAtomService()
+  const { updatePopover } = useAtomService()
   const router = useRouter()
 
   return (
     <UpdateAtomForm
       atom={atom}
-      onSubmitSuccess={() => atomPopoverUpdate.close(router)}
+      onSubmitSuccess={() => updatePopover.close(router)}
       showFormControl={false}
       submitRef={submitRef}
     />

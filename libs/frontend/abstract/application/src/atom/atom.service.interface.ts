@@ -14,8 +14,8 @@ export interface IAtomService
   extends ICrudService<IRef, ICreateAtomData, IUpdateAtomData>,
     IQueryService<IAtomModel, AtomWhere, AtomOptions>,
     IPaginateable<IAtomModel> {
-  atomPopoverCreate: IPopover
-  atomPopoverUpdate: IPopover
+  createPopover: IPopover
+  updatePopover: IPopover
   getSelectAtomOptions(
     parent: IAtomModel | undefined,
   ): Promise<Array<SelectOption>>

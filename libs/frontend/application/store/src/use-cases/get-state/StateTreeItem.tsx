@@ -51,7 +51,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     createFieldForm.open(
       data.extraData.node.type.current as IInterfaceTypeModel,
     )
-    createPopover.open(router)
+    createPopover.open(router, { appId, componentId, pageId })
   }
 
   const toolbarItems: Array<ToolbarItem> = [

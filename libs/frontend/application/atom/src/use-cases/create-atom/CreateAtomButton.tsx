@@ -6,14 +6,14 @@ import { useRouter } from 'next/navigation'
 import { useAtomService } from '../../services'
 
 export const CreateAtomButton = observer(() => {
-  const { atomPopoverCreate } = useAtomService()
+  const { createPopover } = useAtomService()
   const router = useRouter()
 
   return (
     <Button
       className="flex items-center justify-center"
       icon={<PlusOutlined />}
-      onClick={() => atomPopoverCreate.open(router)}
+      onClick={() => createPopover.open(router)}
       type="primary"
     >
       Create

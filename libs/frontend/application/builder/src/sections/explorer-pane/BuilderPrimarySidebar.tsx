@@ -81,7 +81,7 @@ export const BuilderPrimarySidebar = observer<{
                 elementTree: containerNode,
                 selectedElement,
               })
-              createElementPopover.open(router)
+              createElementPopover.open(router, { appId, componentId, pageId })
             },
             title: 'Add Element',
           },
@@ -107,7 +107,7 @@ export const BuilderPrimarySidebar = observer<{
 
               if (store.api.id) {
                 createFieldForm.open(store.api.current)
-                createFieldPopover.open(router)
+                createFieldPopover.open(router, { appId, componentId, pageId })
               }
             },
             title: 'Add Field',
@@ -133,7 +133,7 @@ export const BuilderPrimarySidebar = observer<{
               }
 
               createActionForm.open(store)
-              createActionPopover.open(router)
+              createActionPopover.open(router, { appId, componentId, pageId })
             },
             title: 'Add Action',
           },

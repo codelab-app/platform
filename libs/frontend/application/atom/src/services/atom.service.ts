@@ -184,7 +184,7 @@ export const useAtomService = (): IAtomService => {
     router.push(PageType.AtomDelete(ref))
   }
 
-  const atomPopoverUpdate = {
+  const updatePopover = {
     close: (router: AppRouterInstance) => {
       const searchParams = new URLSearchParams(window.location.search)
 
@@ -202,7 +202,7 @@ export const useAtomService = (): IAtomService => {
     },
   }
 
-  const atomPopoverCreate = {
+  const createPopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Atoms())
     },
@@ -212,9 +212,8 @@ export const useAtomService = (): IAtomService => {
   }
 
   return {
-    atomPopoverCreate,
-    atomPopoverUpdate,
     create,
+    createPopover,
     getAll,
     getAllFromCache,
     getDataFn,
@@ -227,5 +226,6 @@ export const useAtomService = (): IAtomService => {
     paginationService: atomPagination,
     removeMany,
     update,
+    updatePopover,
   }
 }
