@@ -5,7 +5,13 @@ import type {
   ElementUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import { connectNodeId, disconnectAll, reconnectNodeId } from '../orm'
+import {
+  connectNodeId,
+  connectNodeIds,
+  disconnectAll,
+  reconnectNodeId,
+  reconnectNodeIds,
+} from '../orm'
 import { propMapper } from '../prop'
 import { ElementProperties } from './element.properties'
 
@@ -50,8 +56,12 @@ export const elementMapper: IMapper<
       // firstChild: connectNodeId(firstChild?.id),
       nextSibling: connectNodeId(nextSibling?.id),
       parentElement: connectNodeId(parentElement?.id),
-      postRenderAction: connectNodeId(postRenderAction?.id),
-      preRenderAction: connectNodeId(preRenderAction?.id),
+      // postRenderAction: postRenderAction?.id
+      //   ? connectNodeIds([postRenderAction.id])
+      //   : undefined,
+      // preRenderAction: preRenderAction?.id
+      //   ? connectNodeIds([preRenderAction.id])
+      //   : undefined,
       prevSibling: connectNodeId(prevSibling?.id),
       props: {
         connectOrCreate: {
@@ -118,8 +128,12 @@ export const elementMapper: IMapper<
       firstChild: reconnectNodeId(firstChild?.id),
       nextSibling: reconnectNodeId(nextSibling?.id),
       parentElement: reconnectNodeId(parentElement?.id),
-      postRenderAction: reconnectNodeId(postRenderAction?.id),
-      preRenderAction: reconnectNodeId(preRenderAction?.id),
+      // postRenderAction: postRenderAction?.id
+      //   ? reconnectNodeIds([postRenderAction.id])
+      //   : undefined,
+      // preRenderAction: preRenderAction?.id
+      //   ? reconnectNodeIds([preRenderAction.id])
+      //   : undefined,
       prevSibling: reconnectNodeId(prevSibling?.id),
       props: reconnectNodeId(props.id),
       renderForEachPropKey,

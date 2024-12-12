@@ -150,8 +150,8 @@ importers:
         specifier: 3.0.80
         version: 3.0.80
       '@neo4j/graphql':
-        specifier: 5.9.1
-        version: 5.9.1(graphql@16.9.0)(neo4j-driver@5.26.0)
+        specifier: 5.11.1
+        version: 5.11.1(graphql@16.9.0)(neo4j-driver@5.26.0)
       '@neo4j/graphql-ogm':
         specifier: 5.9.1
         version: 5.9.1(graphql@16.9.0)(neo4j-driver@5.26.0)
@@ -4124,8 +4124,8 @@ packages:
       graphql: ^16.0.0
       neo4j-driver: ^5.8.0
 
-  '@neo4j/graphql@5.9.1':
-    resolution: {integrity: sha512-AfTa8ofIxcDioeXjSQ+bit4swMfD7+VyapfVPbJqKerO4MzpVK0RnNpNjB2tsz8jkqFHmzne37iXLDVM50uKfA==}
+  '@neo4j/graphql@5.11.1':
+    resolution: {integrity: sha512-rLcCwN9dX0nCw3PPM1NQKsj8u4eURFBY0BR84sTenRzIRHoSXS0BcXTHalaXmcqNwG44whf7tjqVWQsADzVfUA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^16.0.0
@@ -21085,7 +21085,7 @@ snapshots:
       '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.9.0)
       '@graphql-codegen/typescript': 4.0.9(graphql@16.9.0)
       '@graphql-tools/merge': 9.0.8(graphql@16.9.0)
-      '@neo4j/graphql': 5.9.1(graphql@16.9.0)(neo4j-driver@5.26.0)
+      '@neo4j/graphql': 5.11.1(graphql@16.9.0)(neo4j-driver@5.26.0)
       graphql: 16.9.0
       neo4j-driver: 5.26.0
       prettier: 2.8.8
@@ -21093,7 +21093,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@neo4j/graphql@5.9.1(graphql@16.9.0)(neo4j-driver@5.26.0)':
+  '@neo4j/graphql@5.11.1(graphql@16.9.0)(neo4j-driver@5.26.0)':
     dependencies:
       '@apollo/subgraph': 2.9.3(graphql@16.9.0)
       '@graphql-tools/merge': 9.0.8(graphql@16.9.0)

@@ -652,22 +652,6 @@ type ApiAction implements BaseAction {
     sort: [ApiActionConfigConnectionSort!]
     where: ApiActionConfigConnectionWhere
   ): ApiActionConfigConnection!
-  element(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element
-  elementAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): ApiActionElementElementAggregationSelection
-  elementConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [BaseActionElementConnectionSort!]
-    where: BaseActionElementConnectionWhere
-  ): BaseActionElementConnection!
   errorAction(
     directed: Boolean = true
     options: QueryOptions
@@ -681,6 +665,38 @@ type ApiAction implements BaseAction {
   ): ApiActionErrorActionConnection!
   id: ID!
   name: String!
+  postRenderElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  postRenderElementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): ApiActionElementPostRenderElementAggregationSelection
+  postRenderElementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [BaseActionPostRenderElementConnectionSort!]
+    where: BaseActionPostRenderElementConnectionWhere
+  ): BaseActionPostRenderElementConnection!
+  preRenderElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  preRenderElementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): ApiActionElementPreRenderElementAggregationSelection
+  preRenderElementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [BaseActionPreRenderElementConnectionSort!]
+    where: BaseActionPreRenderElementConnectionWhere
+  ): BaseActionPreRenderElementConnection!
 
   """
   Resource to fetch data from
@@ -855,8 +871,9 @@ input ApiActionConfigUpdateFieldInput {
 
 input ApiActionConnectInput {
   config: ApiActionConfigConnectFieldInput
-  element: ApiActionElementConnectFieldInput
   errorAction: ApiActionErrorActionConnectInput
+  postRenderElement: ApiActionPostRenderElementConnectFieldInput
+  preRenderElement: ApiActionPreRenderElementConnectFieldInput
   resource: ApiActionResourceConnectFieldInput
   store: ApiActionStoreConnectFieldInput
   successAction: ApiActionSuccessActionConnectInput
@@ -864,7 +881,8 @@ input ApiActionConnectInput {
 
 input ApiActionConnectOrCreateInput {
   config: ApiActionConfigConnectOrCreateFieldInput
-  element: ApiActionElementConnectOrCreateFieldInput
+  postRenderElement: ApiActionPostRenderElementConnectOrCreateFieldInput
+  preRenderElement: ApiActionPreRenderElementConnectOrCreateFieldInput
   resource: ApiActionResourceConnectOrCreateFieldInput
   store: ApiActionStoreConnectOrCreateFieldInput
 }
@@ -875,8 +893,9 @@ input ApiActionConnectWhere {
 
 type ApiActionConnectedRelationships {
   config: ApiActionConfigConnectedRelationship
-  element: ApiActionElementConnectedRelationship
   errorAction: ApiActionErrorActionConnectedRelationship
+  postRenderElement: ApiActionPostRenderElementConnectedRelationship
+  preRenderElement: ApiActionPreRenderElementConnectedRelationship
   resource: ApiActionResourceConnectedRelationship
   store: ApiActionStoreConnectedRelationship
   successAction: ApiActionSuccessActionConnectedRelationship
@@ -884,10 +903,11 @@ type ApiActionConnectedRelationships {
 
 input ApiActionCreateInput {
   config: ApiActionConfigFieldInput
-  element: ApiActionElementFieldInput
   errorAction: ApiActionErrorActionCreateInput
   id: ID!
   name: String!
+  postRenderElement: ApiActionPostRenderElementFieldInput
+  preRenderElement: ApiActionPreRenderElementFieldInput
   resource: ApiActionResourceFieldInput
   store: ApiActionStoreFieldInput
   successAction: ApiActionSuccessActionCreateInput
@@ -902,8 +922,9 @@ type ApiActionCreatedEvent {
 
 input ApiActionDeleteInput {
   config: ApiActionConfigDeleteFieldInput
-  element: BaseActionElementDeleteFieldInput
   errorAction: ApiActionErrorActionDeleteInput
+  postRenderElement: BaseActionPostRenderElementDeleteFieldInput
+  preRenderElement: BaseActionPreRenderElementDeleteFieldInput
   resource: ApiActionResourceDeleteFieldInput
   store: BaseActionStoreDeleteFieldInput
   successAction: ApiActionSuccessActionDeleteInput
@@ -917,8 +938,9 @@ type ApiActionDeletedEvent {
 
 input ApiActionDisconnectInput {
   config: ApiActionConfigDisconnectFieldInput
-  element: BaseActionElementDisconnectFieldInput
   errorAction: ApiActionErrorActionDisconnectInput
+  postRenderElement: BaseActionPostRenderElementDisconnectFieldInput
+  preRenderElement: BaseActionPreRenderElementDisconnectFieldInput
   resource: ApiActionResourceDisconnectFieldInput
   store: BaseActionStoreDisconnectFieldInput
   successAction: ApiActionSuccessActionDisconnectInput
@@ -929,51 +951,12 @@ type ApiActionEdge {
   node: ApiAction!
 }
 
-input ApiActionElementAggregateInput {
-  AND: [ApiActionElementAggregateInput!]
-  NOT: ApiActionElementAggregateInput
-  OR: [ApiActionElementAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ApiActionElementNodeAggregationWhereInput
-}
-
-input ApiActionElementConnectFieldInput {
-  connect: ElementConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-  where: ElementConnectWhere
-}
-
-input ApiActionElementConnectOrCreateFieldInput {
-  onCreate: ApiActionElementConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input ApiActionElementConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type ApiActionElementConnectedRelationship {
-  node: ElementEventPayload!
-}
-
-input ApiActionElementCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-type ApiActionElementElementAggregationSelection {
+type ApiActionElementPostRenderElementAggregationSelection {
   count: Int!
-  node: ApiActionElementElementNodeAggregateSelection
+  node: ApiActionElementPostRenderElementNodeAggregateSelection
 }
 
-type ApiActionElementElementNodeAggregateSelection {
+type ApiActionElementPostRenderElementNodeAggregateSelection {
   childMapperPropKey: StringAggregateSelection!
   compositeKey: StringAggregateSelection!
   id: IDAggregateSelection!
@@ -982,109 +965,18 @@ type ApiActionElementElementNodeAggregateSelection {
   style: StringAggregateSelection!
 }
 
-input ApiActionElementFieldInput {
-  connect: ApiActionElementConnectFieldInput
-  connectOrCreate: ApiActionElementConnectOrCreateFieldInput
-  create: ApiActionElementCreateFieldInput
+type ApiActionElementPreRenderElementAggregationSelection {
+  count: Int!
+  node: ApiActionElementPreRenderElementNodeAggregateSelection
 }
 
-input ApiActionElementNodeAggregationWhereInput {
-  AND: [ApiActionElementNodeAggregationWhereInput!]
-  NOT: ApiActionElementNodeAggregationWhereInput
-  OR: [ApiActionElementNodeAggregationWhereInput!]
-  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
-  childMapperPropKey_AVERAGE_LENGTH_GT: Float
-  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
-  childMapperPropKey_AVERAGE_LENGTH_LT: Float
-  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
-  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
-  childMapperPropKey_LONGEST_LENGTH_GT: Int
-  childMapperPropKey_LONGEST_LENGTH_GTE: Int
-  childMapperPropKey_LONGEST_LENGTH_LT: Int
-  childMapperPropKey_LONGEST_LENGTH_LTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
-  childMapperPropKey_SHORTEST_LENGTH_GT: Int
-  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_LT: Int
-  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  compositeKey_AVERAGE_LENGTH_GT: Float
-  compositeKey_AVERAGE_LENGTH_GTE: Float
-  compositeKey_AVERAGE_LENGTH_LT: Float
-  compositeKey_AVERAGE_LENGTH_LTE: Float
-  compositeKey_LONGEST_LENGTH_EQUAL: Int
-  compositeKey_LONGEST_LENGTH_GT: Int
-  compositeKey_LONGEST_LENGTH_GTE: Int
-  compositeKey_LONGEST_LENGTH_LT: Int
-  compositeKey_LONGEST_LENGTH_LTE: Int
-  compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  compositeKey_SHORTEST_LENGTH_GT: Int
-  compositeKey_SHORTEST_LENGTH_GTE: Int
-  compositeKey_SHORTEST_LENGTH_LT: Int
-  compositeKey_SHORTEST_LENGTH_LTE: Int
-  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
-  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_LONGEST_LENGTH_GT: Int
-  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
-  renderForEachPropKey_LONGEST_LENGTH_LT: Int
-  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
-  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
-  renderIfExpression_AVERAGE_LENGTH_GT: Float
-  renderIfExpression_AVERAGE_LENGTH_GTE: Float
-  renderIfExpression_AVERAGE_LENGTH_LT: Float
-  renderIfExpression_AVERAGE_LENGTH_LTE: Float
-  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
-  renderIfExpression_LONGEST_LENGTH_GT: Int
-  renderIfExpression_LONGEST_LENGTH_GTE: Int
-  renderIfExpression_LONGEST_LENGTH_LT: Int
-  renderIfExpression_LONGEST_LENGTH_LTE: Int
-  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
-  renderIfExpression_SHORTEST_LENGTH_GT: Int
-  renderIfExpression_SHORTEST_LENGTH_GTE: Int
-  renderIfExpression_SHORTEST_LENGTH_LT: Int
-  renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  style_AVERAGE_LENGTH_EQUAL: Float
-  style_AVERAGE_LENGTH_GT: Float
-  style_AVERAGE_LENGTH_GTE: Float
-  style_AVERAGE_LENGTH_LT: Float
-  style_AVERAGE_LENGTH_LTE: Float
-  style_LONGEST_LENGTH_EQUAL: Int
-  style_LONGEST_LENGTH_GT: Int
-  style_LONGEST_LENGTH_GTE: Int
-  style_LONGEST_LENGTH_LT: Int
-  style_LONGEST_LENGTH_LTE: Int
-  style_SHORTEST_LENGTH_EQUAL: Int
-  style_SHORTEST_LENGTH_GT: Int
-  style_SHORTEST_LENGTH_GTE: Int
-  style_SHORTEST_LENGTH_LT: Int
-  style_SHORTEST_LENGTH_LTE: Int
-}
-
-input ApiActionElementRelationshipSubscriptionWhere {
-  node: ElementSubscriptionWhere
-}
-
-input ApiActionElementUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input ApiActionElementUpdateFieldInput {
-  connect: ApiActionElementConnectFieldInput
-  connectOrCreate: ApiActionElementConnectOrCreateFieldInput
-  create: ApiActionElementCreateFieldInput
-  delete: BaseActionElementDeleteFieldInput
-  disconnect: BaseActionElementDisconnectFieldInput
-  update: ApiActionElementUpdateConnectionInput
-  where: BaseActionElementConnectionWhere
+type ApiActionElementPreRenderElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
 }
 
 input ApiActionErrorActionApiActionConnectFieldInput {
@@ -1254,6 +1146,294 @@ input ApiActionOptions {
   sort: [ApiActionSort!]
 }
 
+input ApiActionPostRenderElementAggregateInput {
+  AND: [ApiActionPostRenderElementAggregateInput!]
+  NOT: ApiActionPostRenderElementAggregateInput
+  OR: [ApiActionPostRenderElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ApiActionPostRenderElementNodeAggregationWhereInput
+}
+
+input ApiActionPostRenderElementConnectFieldInput {
+  connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input ApiActionPostRenderElementConnectOrCreateFieldInput {
+  onCreate: ApiActionPostRenderElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ApiActionPostRenderElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type ApiActionPostRenderElementConnectedRelationship {
+  node: ElementEventPayload!
+}
+
+input ApiActionPostRenderElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input ApiActionPostRenderElementFieldInput {
+  connect: ApiActionPostRenderElementConnectFieldInput
+  connectOrCreate: ApiActionPostRenderElementConnectOrCreateFieldInput
+  create: ApiActionPostRenderElementCreateFieldInput
+}
+
+input ApiActionPostRenderElementNodeAggregationWhereInput {
+  AND: [ApiActionPostRenderElementNodeAggregationWhereInput!]
+  NOT: ApiActionPostRenderElementNodeAggregationWhereInput
+  OR: [ApiActionPostRenderElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
+}
+
+input ApiActionPostRenderElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
+input ApiActionPostRenderElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ApiActionPostRenderElementUpdateFieldInput {
+  connect: ApiActionPostRenderElementConnectFieldInput
+  connectOrCreate: ApiActionPostRenderElementConnectOrCreateFieldInput
+  create: ApiActionPostRenderElementCreateFieldInput
+  delete: BaseActionPostRenderElementDeleteFieldInput
+  disconnect: BaseActionPostRenderElementDisconnectFieldInput
+  update: ApiActionPostRenderElementUpdateConnectionInput
+  where: BaseActionPostRenderElementConnectionWhere
+}
+
+input ApiActionPreRenderElementAggregateInput {
+  AND: [ApiActionPreRenderElementAggregateInput!]
+  NOT: ApiActionPreRenderElementAggregateInput
+  OR: [ApiActionPreRenderElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ApiActionPreRenderElementNodeAggregationWhereInput
+}
+
+input ApiActionPreRenderElementConnectFieldInput {
+  connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input ApiActionPreRenderElementConnectOrCreateFieldInput {
+  onCreate: ApiActionPreRenderElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ApiActionPreRenderElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type ApiActionPreRenderElementConnectedRelationship {
+  node: ElementEventPayload!
+}
+
+input ApiActionPreRenderElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input ApiActionPreRenderElementFieldInput {
+  connect: ApiActionPreRenderElementConnectFieldInput
+  connectOrCreate: ApiActionPreRenderElementConnectOrCreateFieldInput
+  create: ApiActionPreRenderElementCreateFieldInput
+}
+
+input ApiActionPreRenderElementNodeAggregationWhereInput {
+  AND: [ApiActionPreRenderElementNodeAggregationWhereInput!]
+  NOT: ApiActionPreRenderElementNodeAggregationWhereInput
+  OR: [ApiActionPreRenderElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
+}
+
+input ApiActionPreRenderElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
+input ApiActionPreRenderElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ApiActionPreRenderElementUpdateFieldInput {
+  connect: ApiActionPreRenderElementConnectFieldInput
+  connectOrCreate: ApiActionPreRenderElementConnectOrCreateFieldInput
+  create: ApiActionPreRenderElementCreateFieldInput
+  delete: BaseActionPreRenderElementDeleteFieldInput
+  disconnect: BaseActionPreRenderElementDisconnectFieldInput
+  update: ApiActionPreRenderElementUpdateConnectionInput
+  where: BaseActionPreRenderElementConnectionWhere
+}
+
 type ApiActionPropConfigAggregationSelection {
   count: Int!
   node: ApiActionPropConfigNodeAggregateSelection
@@ -1266,8 +1446,9 @@ type ApiActionPropConfigNodeAggregateSelection {
 
 input ApiActionRelationInput {
   config: ApiActionConfigCreateFieldInput
-  element: ApiActionElementCreateFieldInput
   errorAction: ApiActionErrorActionCreateFieldInput
+  postRenderElement: ApiActionPostRenderElementCreateFieldInput
+  preRenderElement: ApiActionPreRenderElementCreateFieldInput
   resource: ApiActionResourceCreateFieldInput
   store: ApiActionStoreCreateFieldInput
   successAction: ApiActionSuccessActionCreateFieldInput
@@ -1307,8 +1488,9 @@ input ApiActionRelationshipDeletedSubscriptionWhere {
 
 input ApiActionRelationshipsSubscriptionWhere {
   config: ApiActionConfigRelationshipSubscriptionWhere
-  element: ApiActionElementRelationshipSubscriptionWhere
   errorAction: ApiActionErrorActionRelationshipSubscriptionWhere
+  postRenderElement: ApiActionPostRenderElementRelationshipSubscriptionWhere
+  preRenderElement: ApiActionPreRenderElementRelationshipSubscriptionWhere
   resource: ApiActionResourceRelationshipSubscriptionWhere
   store: ApiActionStoreRelationshipSubscriptionWhere
   successAction: ApiActionSuccessActionRelationshipSubscriptionWhere
@@ -1715,10 +1897,11 @@ input ApiActionSuccessActionUpdateInput {
 
 input ApiActionUpdateInput {
   config: ApiActionConfigUpdateFieldInput
-  element: ApiActionElementUpdateFieldInput
   errorAction: ApiActionErrorActionUpdateInput
   id: ID
   name: String
+  postRenderElement: ApiActionPostRenderElementUpdateFieldInput
+  preRenderElement: ApiActionPreRenderElementUpdateFieldInput
   resource: ApiActionResourceUpdateFieldInput
   store: ApiActionStoreUpdateFieldInput
   successAction: ApiActionSuccessActionUpdateInput
@@ -1741,11 +1924,6 @@ input ApiActionWhere {
   configConnection: ApiActionConfigConnectionWhere
   configConnection_NOT: ApiActionConfigConnectionWhere
   config_NOT: PropWhere
-  element: ElementWhere
-  elementAggregate: ApiActionElementAggregateInput
-  elementConnection: BaseActionElementConnectionWhere
-  elementConnection_NOT: BaseActionElementConnectionWhere
-  element_NOT: ElementWhere
   errorAction: AnyActionWhere
   errorActionConnection: ApiActionErrorActionConnectionWhere
   errorActionConnection_NOT: ApiActionErrorActionConnectionWhere
@@ -1761,6 +1939,16 @@ input ApiActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  postRenderElement: ElementWhere
+  postRenderElementAggregate: ApiActionPostRenderElementAggregateInput
+  postRenderElementConnection: BaseActionPostRenderElementConnectionWhere
+  postRenderElementConnection_NOT: BaseActionPostRenderElementConnectionWhere
+  postRenderElement_NOT: ElementWhere
+  preRenderElement: ElementWhere
+  preRenderElementAggregate: ApiActionPreRenderElementAggregateInput
+  preRenderElementConnection: BaseActionPreRenderElementConnectionWhere
+  preRenderElementConnection_NOT: BaseActionPreRenderElementConnectionWhere
+  preRenderElement_NOT: ElementWhere
   resource: ResourceWhere
   resourceAggregate: ApiActionResourceAggregateInput
   resourceConnection: ApiActionResourceConnectionWhere
@@ -6322,15 +6510,22 @@ type AuthGuardsConnection {
 }
 
 interface BaseAction {
-  element(options: ElementOptions, where: ElementWhere): Element
-  elementConnection(
-    after: String
-    first: Int
-    sort: [BaseActionElementConnectionSort!]
-    where: BaseActionElementConnectionWhere
-  ): BaseActionElementConnection!
   id: ID!
   name: String!
+  postRenderElement(options: ElementOptions, where: ElementWhere): Element
+  postRenderElementConnection(
+    after: String
+    first: Int
+    sort: [BaseActionPostRenderElementConnectionSort!]
+    where: BaseActionPostRenderElementConnectionWhere
+  ): BaseActionPostRenderElementConnection!
+  preRenderElement(options: ElementOptions, where: ElementWhere): Element
+  preRenderElementConnection(
+    after: String
+    first: Int
+    sort: [BaseActionPreRenderElementConnectionSort!]
+    where: BaseActionPreRenderElementConnectionWhere
+  ): BaseActionPreRenderElementConnection!
   store(options: StoreOptions, where: StoreWhere): Store!
   storeConnection(
     after: String
@@ -6348,7 +6543,8 @@ type BaseActionAggregateSelection {
 }
 
 input BaseActionConnectInput {
-  element: BaseActionElementConnectFieldInput
+  postRenderElement: BaseActionPostRenderElementConnectFieldInput
+  preRenderElement: BaseActionPreRenderElementConnectFieldInput
   store: BaseActionStoreConnectFieldInput
 }
 
@@ -6362,12 +6558,14 @@ input BaseActionCreateInput {
 }
 
 input BaseActionDeleteInput {
-  element: BaseActionElementDeleteFieldInput
+  postRenderElement: BaseActionPostRenderElementDeleteFieldInput
+  preRenderElement: BaseActionPreRenderElementDeleteFieldInput
   store: BaseActionStoreDeleteFieldInput
 }
 
 input BaseActionDisconnectInput {
-  element: BaseActionElementDisconnectFieldInput
+  postRenderElement: BaseActionPostRenderElementDisconnectFieldInput
+  preRenderElement: BaseActionPreRenderElementDisconnectFieldInput
   store: BaseActionStoreDisconnectFieldInput
 }
 
@@ -6376,19 +6574,40 @@ type BaseActionEdge {
   node: BaseAction!
 }
 
-input BaseActionElementAggregateInput {
-  AND: [BaseActionElementAggregateInput!]
-  NOT: BaseActionElementAggregateInput
-  OR: [BaseActionElementAggregateInput!]
+interface BaseActionEventPayload {
+  id: ID!
+  name: String!
+  type: ActionKind!
+}
+
+enum BaseActionImplementation {
+  ApiAction
+  CodeAction
+}
+
+input BaseActionOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more BaseActionSort objects to sort BaseActions by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [BaseActionSort]
+}
+
+input BaseActionPostRenderElementAggregateInput {
+  AND: [BaseActionPostRenderElementAggregateInput!]
+  NOT: BaseActionPostRenderElementAggregateInput
+  OR: [BaseActionPostRenderElementAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: BaseActionElementNodeAggregationWhereInput
+  node: BaseActionPostRenderElementNodeAggregationWhereInput
 }
 
-input BaseActionElementConnectFieldInput {
+input BaseActionPostRenderElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
@@ -6398,50 +6617,50 @@ input BaseActionElementConnectFieldInput {
   where: ElementConnectWhere
 }
 
-input BaseActionElementConnectOrCreateFieldInput {
-  onCreate: BaseActionElementConnectOrCreateFieldInputOnCreate!
+input BaseActionPostRenderElementConnectOrCreateFieldInput {
+  onCreate: BaseActionPostRenderElementConnectOrCreateFieldInputOnCreate!
   where: ElementConnectOrCreateWhere!
 }
 
-input BaseActionElementConnectOrCreateFieldInputOnCreate {
+input BaseActionPostRenderElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
 }
 
-type BaseActionElementConnection {
-  edges: [BaseActionElementRelationship!]!
+type BaseActionPostRenderElementConnection {
+  edges: [BaseActionPostRenderElementRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input BaseActionElementConnectionSort {
+input BaseActionPostRenderElementConnectionSort {
   node: ElementSort
 }
 
-input BaseActionElementConnectionWhere {
-  AND: [BaseActionElementConnectionWhere!]
-  NOT: BaseActionElementConnectionWhere
-  OR: [BaseActionElementConnectionWhere!]
+input BaseActionPostRenderElementConnectionWhere {
+  AND: [BaseActionPostRenderElementConnectionWhere!]
+  NOT: BaseActionPostRenderElementConnectionWhere
+  OR: [BaseActionPostRenderElementConnectionWhere!]
   node: ElementWhere
 }
 
-input BaseActionElementCreateFieldInput {
+input BaseActionPostRenderElementCreateFieldInput {
   node: ElementCreateInput!
 }
 
-input BaseActionElementDeleteFieldInput {
+input BaseActionPostRenderElementDeleteFieldInput {
   delete: ElementDeleteInput
-  where: BaseActionElementConnectionWhere
+  where: BaseActionPostRenderElementConnectionWhere
 }
 
-input BaseActionElementDisconnectFieldInput {
+input BaseActionPostRenderElementDisconnectFieldInput {
   disconnect: ElementDisconnectInput
-  where: BaseActionElementConnectionWhere
+  where: BaseActionPostRenderElementConnectionWhere
 }
 
-input BaseActionElementNodeAggregationWhereInput {
-  AND: [BaseActionElementNodeAggregationWhereInput!]
-  NOT: BaseActionElementNodeAggregationWhereInput
-  OR: [BaseActionElementNodeAggregationWhereInput!]
+input BaseActionPostRenderElementNodeAggregationWhereInput {
+  AND: [BaseActionPostRenderElementNodeAggregationWhereInput!]
+  NOT: BaseActionPostRenderElementNodeAggregationWhereInput
+  OR: [BaseActionPostRenderElementNodeAggregationWhereInput!]
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -6519,44 +6738,185 @@ input BaseActionElementNodeAggregationWhereInput {
   style_SHORTEST_LENGTH_LTE: Int
 }
 
-type BaseActionElementRelationship {
+type BaseActionPostRenderElementRelationship {
   cursor: String!
   node: Element!
 }
 
-input BaseActionElementUpdateConnectionInput {
+input BaseActionPostRenderElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
 
-input BaseActionElementUpdateFieldInput {
-  connect: BaseActionElementConnectFieldInput
-  connectOrCreate: BaseActionElementConnectOrCreateFieldInput
-  create: BaseActionElementCreateFieldInput
-  delete: BaseActionElementDeleteFieldInput
-  disconnect: BaseActionElementDisconnectFieldInput
-  update: BaseActionElementUpdateConnectionInput
-  where: BaseActionElementConnectionWhere
+input BaseActionPostRenderElementUpdateFieldInput {
+  connect: BaseActionPostRenderElementConnectFieldInput
+  connectOrCreate: BaseActionPostRenderElementConnectOrCreateFieldInput
+  create: BaseActionPostRenderElementCreateFieldInput
+  delete: BaseActionPostRenderElementDeleteFieldInput
+  disconnect: BaseActionPostRenderElementDisconnectFieldInput
+  update: BaseActionPostRenderElementUpdateConnectionInput
+  where: BaseActionPostRenderElementConnectionWhere
 }
 
-interface BaseActionEventPayload {
-  id: ID!
-  name: String!
-  type: ActionKind!
+input BaseActionPreRenderElementAggregateInput {
+  AND: [BaseActionPreRenderElementAggregateInput!]
+  NOT: BaseActionPreRenderElementAggregateInput
+  OR: [BaseActionPreRenderElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: BaseActionPreRenderElementNodeAggregationWhereInput
 }
 
-enum BaseActionImplementation {
-  ApiAction
-  CodeAction
-}
-
-input BaseActionOptions {
-  limit: Int
-  offset: Int
+input BaseActionPreRenderElementConnectFieldInput {
+  connect: ElementConnectInput
 
   """
-  Specify one or more BaseActionSort objects to sort BaseActions by. The sorts will be applied in the order in which they are arranged in the array.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
-  sort: [BaseActionSort]
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input BaseActionPreRenderElementConnectOrCreateFieldInput {
+  onCreate: BaseActionPreRenderElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input BaseActionPreRenderElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type BaseActionPreRenderElementConnection {
+  edges: [BaseActionPreRenderElementRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input BaseActionPreRenderElementConnectionSort {
+  node: ElementSort
+}
+
+input BaseActionPreRenderElementConnectionWhere {
+  AND: [BaseActionPreRenderElementConnectionWhere!]
+  NOT: BaseActionPreRenderElementConnectionWhere
+  OR: [BaseActionPreRenderElementConnectionWhere!]
+  node: ElementWhere
+}
+
+input BaseActionPreRenderElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input BaseActionPreRenderElementDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: BaseActionPreRenderElementConnectionWhere
+}
+
+input BaseActionPreRenderElementDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: BaseActionPreRenderElementConnectionWhere
+}
+
+input BaseActionPreRenderElementNodeAggregationWhereInput {
+  AND: [BaseActionPreRenderElementNodeAggregationWhereInput!]
+  NOT: BaseActionPreRenderElementNodeAggregationWhereInput
+  OR: [BaseActionPreRenderElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
+}
+
+type BaseActionPreRenderElementRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input BaseActionPreRenderElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input BaseActionPreRenderElementUpdateFieldInput {
+  connect: BaseActionPreRenderElementConnectFieldInput
+  connectOrCreate: BaseActionPreRenderElementConnectOrCreateFieldInput
+  create: BaseActionPreRenderElementCreateFieldInput
+  delete: BaseActionPreRenderElementDeleteFieldInput
+  disconnect: BaseActionPreRenderElementDisconnectFieldInput
+  update: BaseActionPreRenderElementUpdateConnectionInput
+  where: BaseActionPreRenderElementConnectionWhere
 }
 
 """
@@ -6691,9 +7051,10 @@ input BaseActionSubscriptionWhere {
 }
 
 input BaseActionUpdateInput {
-  element: BaseActionElementUpdateFieldInput
   id: ID
   name: String
+  postRenderElement: BaseActionPostRenderElementUpdateFieldInput
+  preRenderElement: BaseActionPreRenderElementUpdateFieldInput
   store: BaseActionStoreUpdateFieldInput
 }
 
@@ -6701,11 +7062,6 @@ input BaseActionWhere {
   AND: [BaseActionWhere!]
   NOT: BaseActionWhere
   OR: [BaseActionWhere!]
-  element: ElementWhere
-  elementAggregate: BaseActionElementAggregateInput
-  elementConnection: BaseActionElementConnectionWhere
-  elementConnection_NOT: BaseActionElementConnectionWhere
-  element_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -6717,6 +7073,16 @@ input BaseActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  postRenderElement: ElementWhere
+  postRenderElementAggregate: BaseActionPostRenderElementAggregateInput
+  postRenderElementConnection: BaseActionPostRenderElementConnectionWhere
+  postRenderElementConnection_NOT: BaseActionPostRenderElementConnectionWhere
+  postRenderElement_NOT: ElementWhere
+  preRenderElement: ElementWhere
+  preRenderElementAggregate: BaseActionPreRenderElementAggregateInput
+  preRenderElementConnection: BaseActionPreRenderElementConnectionWhere
+  preRenderElementConnection_NOT: BaseActionPreRenderElementConnectionWhere
+  preRenderElement_NOT: ElementWhere
   store: StoreWhere
   storeAggregate: BaseActionStoreAggregateInput
   storeConnection: BaseActionStoreConnectionWhere
@@ -6745,24 +7111,40 @@ type CodeAction implements BaseAction {
   Code to run when action is triggered
   """
   code: String!
-  element(
+  id: ID!
+  name: String!
+  postRenderElement(
     directed: Boolean = true
     options: ElementOptions
     where: ElementWhere
   ): Element
-  elementAggregate(
+  postRenderElementAggregate(
     directed: Boolean = true
     where: ElementWhere
-  ): CodeActionElementElementAggregationSelection
-  elementConnection(
+  ): CodeActionElementPostRenderElementAggregationSelection
+  postRenderElementConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [BaseActionElementConnectionSort!]
-    where: BaseActionElementConnectionWhere
-  ): BaseActionElementConnection!
-  id: ID!
-  name: String!
+    sort: [BaseActionPostRenderElementConnectionSort!]
+    where: BaseActionPostRenderElementConnectionWhere
+  ): BaseActionPostRenderElementConnection!
+  preRenderElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  preRenderElementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): CodeActionElementPreRenderElementAggregationSelection
+  preRenderElementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [BaseActionPreRenderElementConnectionSort!]
+    where: BaseActionPreRenderElementConnectionWhere
+  ): BaseActionPreRenderElementConnection!
   store(
     directed: Boolean = true
     options: StoreOptions
@@ -6790,12 +7172,14 @@ type CodeActionAggregateSelection {
 }
 
 input CodeActionConnectInput {
-  element: CodeActionElementConnectFieldInput
+  postRenderElement: CodeActionPostRenderElementConnectFieldInput
+  preRenderElement: CodeActionPreRenderElementConnectFieldInput
   store: CodeActionStoreConnectFieldInput
 }
 
 input CodeActionConnectOrCreateInput {
-  element: CodeActionElementConnectOrCreateFieldInput
+  postRenderElement: CodeActionPostRenderElementConnectOrCreateFieldInput
+  preRenderElement: CodeActionPreRenderElementConnectOrCreateFieldInput
   store: CodeActionStoreConnectOrCreateFieldInput
 }
 
@@ -6804,15 +7188,17 @@ input CodeActionConnectWhere {
 }
 
 type CodeActionConnectedRelationships {
-  element: CodeActionElementConnectedRelationship
+  postRenderElement: CodeActionPostRenderElementConnectedRelationship
+  preRenderElement: CodeActionPreRenderElementConnectedRelationship
   store: CodeActionStoreConnectedRelationship
 }
 
 input CodeActionCreateInput {
   code: String!
-  element: CodeActionElementFieldInput
   id: ID!
   name: String!
+  postRenderElement: CodeActionPostRenderElementFieldInput
+  preRenderElement: CodeActionPreRenderElementFieldInput
   store: CodeActionStoreFieldInput
   type: ActionKind! = CodeAction
 }
@@ -6824,7 +7210,8 @@ type CodeActionCreatedEvent {
 }
 
 input CodeActionDeleteInput {
-  element: BaseActionElementDeleteFieldInput
+  postRenderElement: BaseActionPostRenderElementDeleteFieldInput
+  preRenderElement: BaseActionPreRenderElementDeleteFieldInput
   store: BaseActionStoreDeleteFieldInput
 }
 
@@ -6835,7 +7222,8 @@ type CodeActionDeletedEvent {
 }
 
 input CodeActionDisconnectInput {
-  element: BaseActionElementDisconnectFieldInput
+  postRenderElement: BaseActionPostRenderElementDisconnectFieldInput
+  preRenderElement: BaseActionPreRenderElementDisconnectFieldInput
   store: BaseActionStoreDisconnectFieldInput
 }
 
@@ -6844,19 +7232,67 @@ type CodeActionEdge {
   node: CodeAction!
 }
 
-input CodeActionElementAggregateInput {
-  AND: [CodeActionElementAggregateInput!]
-  NOT: CodeActionElementAggregateInput
-  OR: [CodeActionElementAggregateInput!]
+type CodeActionElementPostRenderElementAggregationSelection {
+  count: Int!
+  node: CodeActionElementPostRenderElementNodeAggregateSelection
+}
+
+type CodeActionElementPostRenderElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
+}
+
+type CodeActionElementPreRenderElementAggregationSelection {
+  count: Int!
+  node: CodeActionElementPreRenderElementNodeAggregateSelection
+}
+
+type CodeActionElementPreRenderElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelection!
+  compositeKey: StringAggregateSelection!
+  id: IDAggregateSelection!
+  renderForEachPropKey: StringAggregateSelection!
+  renderIfExpression: StringAggregateSelection!
+  style: StringAggregateSelection!
+}
+
+type CodeActionEventPayload implements BaseActionEventPayload {
+  """
+  Code to run when action is triggered
+  """
+  code: String!
+  id: ID!
+  name: String!
+  type: ActionKind!
+}
+
+input CodeActionOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more CodeActionSort objects to sort CodeActions by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [CodeActionSort!]
+}
+
+input CodeActionPostRenderElementAggregateInput {
+  AND: [CodeActionPostRenderElementAggregateInput!]
+  NOT: CodeActionPostRenderElementAggregateInput
+  OR: [CodeActionPostRenderElementAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: CodeActionElementNodeAggregationWhereInput
+  node: CodeActionPostRenderElementNodeAggregationWhereInput
 }
 
-input CodeActionElementConnectFieldInput {
+input CodeActionPostRenderElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
@@ -6866,47 +7302,33 @@ input CodeActionElementConnectFieldInput {
   where: ElementConnectWhere
 }
 
-input CodeActionElementConnectOrCreateFieldInput {
-  onCreate: CodeActionElementConnectOrCreateFieldInputOnCreate!
+input CodeActionPostRenderElementConnectOrCreateFieldInput {
+  onCreate: CodeActionPostRenderElementConnectOrCreateFieldInputOnCreate!
   where: ElementConnectOrCreateWhere!
 }
 
-input CodeActionElementConnectOrCreateFieldInputOnCreate {
+input CodeActionPostRenderElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
 }
 
-type CodeActionElementConnectedRelationship {
+type CodeActionPostRenderElementConnectedRelationship {
   node: ElementEventPayload!
 }
 
-input CodeActionElementCreateFieldInput {
+input CodeActionPostRenderElementCreateFieldInput {
   node: ElementCreateInput!
 }
 
-type CodeActionElementElementAggregationSelection {
-  count: Int!
-  node: CodeActionElementElementNodeAggregateSelection
+input CodeActionPostRenderElementFieldInput {
+  connect: CodeActionPostRenderElementConnectFieldInput
+  connectOrCreate: CodeActionPostRenderElementConnectOrCreateFieldInput
+  create: CodeActionPostRenderElementCreateFieldInput
 }
 
-type CodeActionElementElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelection!
-  compositeKey: StringAggregateSelection!
-  id: IDAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfExpression: StringAggregateSelection!
-  style: StringAggregateSelection!
-}
-
-input CodeActionElementFieldInput {
-  connect: CodeActionElementConnectFieldInput
-  connectOrCreate: CodeActionElementConnectOrCreateFieldInput
-  create: CodeActionElementCreateFieldInput
-}
-
-input CodeActionElementNodeAggregationWhereInput {
-  AND: [CodeActionElementNodeAggregationWhereInput!]
-  NOT: CodeActionElementNodeAggregationWhereInput
-  OR: [CodeActionElementNodeAggregationWhereInput!]
+input CodeActionPostRenderElementNodeAggregationWhereInput {
+  AND: [CodeActionPostRenderElementNodeAggregationWhereInput!]
+  NOT: CodeActionPostRenderElementNodeAggregationWhereInput
+  OR: [CodeActionPostRenderElementNodeAggregationWhereInput!]
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -6984,46 +7406,171 @@ input CodeActionElementNodeAggregationWhereInput {
   style_SHORTEST_LENGTH_LTE: Int
 }
 
-input CodeActionElementRelationshipSubscriptionWhere {
+input CodeActionPostRenderElementRelationshipSubscriptionWhere {
   node: ElementSubscriptionWhere
 }
 
-input CodeActionElementUpdateConnectionInput {
+input CodeActionPostRenderElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
 
-input CodeActionElementUpdateFieldInput {
-  connect: CodeActionElementConnectFieldInput
-  connectOrCreate: CodeActionElementConnectOrCreateFieldInput
-  create: CodeActionElementCreateFieldInput
-  delete: BaseActionElementDeleteFieldInput
-  disconnect: BaseActionElementDisconnectFieldInput
-  update: CodeActionElementUpdateConnectionInput
-  where: BaseActionElementConnectionWhere
+input CodeActionPostRenderElementUpdateFieldInput {
+  connect: CodeActionPostRenderElementConnectFieldInput
+  connectOrCreate: CodeActionPostRenderElementConnectOrCreateFieldInput
+  create: CodeActionPostRenderElementCreateFieldInput
+  delete: BaseActionPostRenderElementDeleteFieldInput
+  disconnect: BaseActionPostRenderElementDisconnectFieldInput
+  update: CodeActionPostRenderElementUpdateConnectionInput
+  where: BaseActionPostRenderElementConnectionWhere
 }
 
-type CodeActionEventPayload implements BaseActionEventPayload {
-  """
-  Code to run when action is triggered
-  """
-  code: String!
-  id: ID!
-  name: String!
-  type: ActionKind!
+input CodeActionPreRenderElementAggregateInput {
+  AND: [CodeActionPreRenderElementAggregateInput!]
+  NOT: CodeActionPreRenderElementAggregateInput
+  OR: [CodeActionPreRenderElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: CodeActionPreRenderElementNodeAggregationWhereInput
 }
 
-input CodeActionOptions {
-  limit: Int
-  offset: Int
+input CodeActionPreRenderElementConnectFieldInput {
+  connect: ElementConnectInput
 
   """
-  Specify one or more CodeActionSort objects to sort CodeActions by. The sorts will be applied in the order in which they are arranged in the array.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
-  sort: [CodeActionSort!]
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input CodeActionPreRenderElementConnectOrCreateFieldInput {
+  onCreate: CodeActionPreRenderElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input CodeActionPreRenderElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type CodeActionPreRenderElementConnectedRelationship {
+  node: ElementEventPayload!
+}
+
+input CodeActionPreRenderElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input CodeActionPreRenderElementFieldInput {
+  connect: CodeActionPreRenderElementConnectFieldInput
+  connectOrCreate: CodeActionPreRenderElementConnectOrCreateFieldInput
+  create: CodeActionPreRenderElementCreateFieldInput
+}
+
+input CodeActionPreRenderElementNodeAggregationWhereInput {
+  AND: [CodeActionPreRenderElementNodeAggregationWhereInput!]
+  NOT: CodeActionPreRenderElementNodeAggregationWhereInput
+  OR: [CodeActionPreRenderElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
+}
+
+input CodeActionPreRenderElementRelationshipSubscriptionWhere {
+  node: ElementSubscriptionWhere
+}
+
+input CodeActionPreRenderElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input CodeActionPreRenderElementUpdateFieldInput {
+  connect: CodeActionPreRenderElementConnectFieldInput
+  connectOrCreate: CodeActionPreRenderElementConnectOrCreateFieldInput
+  create: CodeActionPreRenderElementCreateFieldInput
+  delete: BaseActionPreRenderElementDeleteFieldInput
+  disconnect: BaseActionPreRenderElementDisconnectFieldInput
+  update: CodeActionPreRenderElementUpdateConnectionInput
+  where: BaseActionPreRenderElementConnectionWhere
 }
 
 input CodeActionRelationInput {
-  element: CodeActionElementCreateFieldInput
+  postRenderElement: CodeActionPostRenderElementCreateFieldInput
+  preRenderElement: CodeActionPreRenderElementCreateFieldInput
   store: CodeActionStoreCreateFieldInput
 }
 
@@ -7060,7 +7607,8 @@ input CodeActionRelationshipDeletedSubscriptionWhere {
 }
 
 input CodeActionRelationshipsSubscriptionWhere {
-  element: CodeActionElementRelationshipSubscriptionWhere
+  postRenderElement: CodeActionPostRenderElementRelationshipSubscriptionWhere
+  preRenderElement: CodeActionPreRenderElementRelationshipSubscriptionWhere
   store: CodeActionStoreRelationshipSubscriptionWhere
 }
 
@@ -7195,9 +7743,10 @@ input CodeActionSubscriptionWhere {
 
 input CodeActionUpdateInput {
   code: String
-  element: CodeActionElementUpdateFieldInput
   id: ID
   name: String
+  postRenderElement: CodeActionPostRenderElementUpdateFieldInput
+  preRenderElement: CodeActionPreRenderElementUpdateFieldInput
   store: CodeActionStoreUpdateFieldInput
   type: ActionKind
 }
@@ -7219,11 +7768,6 @@ input CodeActionWhere {
   code_IN: [String!]
   code_MATCHES: String
   code_STARTS_WITH: String
-  element: ElementWhere
-  elementAggregate: CodeActionElementAggregateInput
-  elementConnection: BaseActionElementConnectionWhere
-  elementConnection_NOT: BaseActionElementConnectionWhere
-  element_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -7235,6 +7779,16 @@ input CodeActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  postRenderElement: ElementWhere
+  postRenderElementAggregate: CodeActionPostRenderElementAggregateInput
+  postRenderElementConnection: BaseActionPostRenderElementConnectionWhere
+  postRenderElementConnection_NOT: BaseActionPostRenderElementConnectionWhere
+  postRenderElement_NOT: ElementWhere
+  preRenderElement: ElementWhere
+  preRenderElementAggregate: CodeActionPreRenderElementAggregateInput
+  preRenderElementConnection: BaseActionPreRenderElementConnectionWhere
+  preRenderElementConnection_NOT: BaseActionPreRenderElementConnectionWhere
+  preRenderElement_NOT: ElementWhere
   store: StoreWhere
   storeAggregate: CodeActionStoreAggregateInput
   storeConnection: BaseActionStoreConnectionWhere
@@ -9728,7 +10282,7 @@ type Element {
     directed: Boolean = true
     options: BaseActionOptions
     where: BaseActionWhere
-  ): BaseAction
+  ): [BaseAction!]!
   postRenderActionAggregate(
     directed: Boolean = true
     where: BaseActionWhere
@@ -9744,7 +10298,7 @@ type Element {
     directed: Boolean = true
     options: BaseActionOptions
     where: BaseActionWhere
-  ): BaseAction
+  ): [BaseAction!]!
   preRenderActionAggregate(
     directed: Boolean = true
     where: BaseActionWhere
@@ -10152,8 +10706,8 @@ input ElementConnectInput {
   page: ElementPageConnectFieldInput
   parentComponent: ElementParentComponentConnectFieldInput
   parentElement: ElementParentElementConnectFieldInput
-  postRenderAction: ElementPostRenderActionConnectFieldInput
-  preRenderAction: ElementPreRenderActionConnectFieldInput
+  postRenderAction: [ElementPostRenderActionConnectFieldInput!]
+  preRenderAction: [ElementPreRenderActionConnectFieldInput!]
   prevSibling: ElementPrevSiblingConnectFieldInput
   props: ElementPropsConnectFieldInput
   renderType: ElementRenderTypeConnectInput
@@ -10232,8 +10786,8 @@ input ElementDeleteInput {
   page: ElementPageDeleteFieldInput
   parentComponent: ElementParentComponentDeleteFieldInput
   parentElement: ElementParentElementDeleteFieldInput
-  postRenderAction: ElementPostRenderActionDeleteFieldInput
-  preRenderAction: ElementPreRenderActionDeleteFieldInput
+  postRenderAction: [ElementPostRenderActionDeleteFieldInput!]
+  preRenderAction: [ElementPreRenderActionDeleteFieldInput!]
   prevSibling: ElementPrevSiblingDeleteFieldInput
   props: ElementPropsDeleteFieldInput
   renderType: ElementRenderTypeDeleteInput
@@ -10253,8 +10807,8 @@ input ElementDisconnectInput {
   page: ElementPageDisconnectFieldInput
   parentComponent: ElementParentComponentDisconnectFieldInput
   parentElement: ElementParentElementDisconnectFieldInput
-  postRenderAction: ElementPostRenderActionDisconnectFieldInput
-  preRenderAction: ElementPreRenderActionDisconnectFieldInput
+  postRenderAction: [ElementPostRenderActionDisconnectFieldInput!]
+  preRenderAction: [ElementPreRenderActionDisconnectFieldInput!]
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   props: ElementPropsDisconnectFieldInput
   renderType: ElementRenderTypeDisconnectInput
@@ -11206,8 +11760,8 @@ input ElementPostRenderActionDisconnectFieldInput {
 }
 
 input ElementPostRenderActionFieldInput {
-  connect: ElementPostRenderActionConnectFieldInput
-  create: ElementPostRenderActionCreateFieldInput
+  connect: [ElementPostRenderActionConnectFieldInput!]
+  create: [ElementPostRenderActionCreateFieldInput!]
 }
 
 input ElementPostRenderActionNodeAggregationWhereInput {
@@ -11245,10 +11799,10 @@ input ElementPostRenderActionUpdateConnectionInput {
 }
 
 input ElementPostRenderActionUpdateFieldInput {
-  connect: ElementPostRenderActionConnectFieldInput
-  create: ElementPostRenderActionCreateFieldInput
-  delete: ElementPostRenderActionDeleteFieldInput
-  disconnect: ElementPostRenderActionDisconnectFieldInput
+  connect: [ElementPostRenderActionConnectFieldInput!]
+  create: [ElementPostRenderActionCreateFieldInput!]
+  delete: [ElementPostRenderActionDeleteFieldInput!]
+  disconnect: [ElementPostRenderActionDisconnectFieldInput!]
   update: ElementPostRenderActionUpdateConnectionInput
   where: ElementPostRenderActionConnectionWhere
 }
@@ -11306,8 +11860,8 @@ input ElementPreRenderActionDisconnectFieldInput {
 }
 
 input ElementPreRenderActionFieldInput {
-  connect: ElementPreRenderActionConnectFieldInput
-  create: ElementPreRenderActionCreateFieldInput
+  connect: [ElementPreRenderActionConnectFieldInput!]
+  create: [ElementPreRenderActionCreateFieldInput!]
 }
 
 input ElementPreRenderActionNodeAggregationWhereInput {
@@ -11345,10 +11899,10 @@ input ElementPreRenderActionUpdateConnectionInput {
 }
 
 input ElementPreRenderActionUpdateFieldInput {
-  connect: ElementPreRenderActionConnectFieldInput
-  create: ElementPreRenderActionCreateFieldInput
-  delete: ElementPreRenderActionDeleteFieldInput
-  disconnect: ElementPreRenderActionDisconnectFieldInput
+  connect: [ElementPreRenderActionConnectFieldInput!]
+  create: [ElementPreRenderActionCreateFieldInput!]
+  delete: [ElementPreRenderActionDeleteFieldInput!]
+  disconnect: [ElementPreRenderActionDisconnectFieldInput!]
   update: ElementPreRenderActionUpdateConnectionInput
   where: ElementPreRenderActionConnectionWhere
 }
@@ -11659,8 +12213,8 @@ input ElementRelationInput {
   page: ElementPageCreateFieldInput
   parentComponent: ElementParentComponentCreateFieldInput
   parentElement: ElementParentElementCreateFieldInput
-  postRenderAction: ElementPostRenderActionCreateFieldInput
-  preRenderAction: ElementPreRenderActionCreateFieldInput
+  postRenderAction: [ElementPostRenderActionCreateFieldInput!]
+  preRenderAction: [ElementPreRenderActionCreateFieldInput!]
   prevSibling: ElementPrevSiblingCreateFieldInput
   props: ElementPropsCreateFieldInput
   renderType: ElementRenderTypeCreateFieldInput
@@ -12555,8 +13109,8 @@ input ElementUpdateInput {
   page: ElementPageUpdateFieldInput
   parentComponent: ElementParentComponentUpdateFieldInput
   parentElement: ElementParentElementUpdateFieldInput
-  postRenderAction: ElementPostRenderActionUpdateFieldInput
-  preRenderAction: ElementPreRenderActionUpdateFieldInput
+  postRenderAction: [ElementPostRenderActionUpdateFieldInput!]
+  preRenderAction: [ElementPreRenderActionUpdateFieldInput!]
   prevSibling: ElementPrevSiblingUpdateFieldInput
   props: ElementPropsUpdateFieldInput
   renderForEachPropKey: String
@@ -12632,16 +13186,88 @@ input ElementWhere {
   parentElementConnection: ElementParentElementConnectionWhere
   parentElementConnection_NOT: ElementParentElementConnectionWhere
   parentElement_NOT: ElementWhere
-  postRenderAction: BaseActionWhere
   postRenderActionAggregate: ElementPostRenderActionAggregateInput
-  postRenderActionConnection: ElementPostRenderActionConnectionWhere
-  postRenderActionConnection_NOT: ElementPostRenderActionConnectionWhere
-  postRenderAction_NOT: BaseActionWhere
-  preRenderAction: BaseActionWhere
+
+  """
+  Return Elements where all of the related ElementPostRenderActionConnections match this filter
+  """
+  postRenderActionConnection_ALL: ElementPostRenderActionConnectionWhere
+
+  """
+  Return Elements where none of the related ElementPostRenderActionConnections match this filter
+  """
+  postRenderActionConnection_NONE: ElementPostRenderActionConnectionWhere
+
+  """
+  Return Elements where one of the related ElementPostRenderActionConnections match this filter
+  """
+  postRenderActionConnection_SINGLE: ElementPostRenderActionConnectionWhere
+
+  """
+  Return Elements where some of the related ElementPostRenderActionConnections match this filter
+  """
+  postRenderActionConnection_SOME: ElementPostRenderActionConnectionWhere
+
+  """
+  Return Elements where all of the related BaseActions match this filter
+  """
+  postRenderAction_ALL: BaseActionWhere
+
+  """
+  Return Elements where none of the related BaseActions match this filter
+  """
+  postRenderAction_NONE: BaseActionWhere
+
+  """
+  Return Elements where one of the related BaseActions match this filter
+  """
+  postRenderAction_SINGLE: BaseActionWhere
+
+  """
+  Return Elements where some of the related BaseActions match this filter
+  """
+  postRenderAction_SOME: BaseActionWhere
   preRenderActionAggregate: ElementPreRenderActionAggregateInput
-  preRenderActionConnection: ElementPreRenderActionConnectionWhere
-  preRenderActionConnection_NOT: ElementPreRenderActionConnectionWhere
-  preRenderAction_NOT: BaseActionWhere
+
+  """
+  Return Elements where all of the related ElementPreRenderActionConnections match this filter
+  """
+  preRenderActionConnection_ALL: ElementPreRenderActionConnectionWhere
+
+  """
+  Return Elements where none of the related ElementPreRenderActionConnections match this filter
+  """
+  preRenderActionConnection_NONE: ElementPreRenderActionConnectionWhere
+
+  """
+  Return Elements where one of the related ElementPreRenderActionConnections match this filter
+  """
+  preRenderActionConnection_SINGLE: ElementPreRenderActionConnectionWhere
+
+  """
+  Return Elements where some of the related ElementPreRenderActionConnections match this filter
+  """
+  preRenderActionConnection_SOME: ElementPreRenderActionConnectionWhere
+
+  """
+  Return Elements where all of the related BaseActions match this filter
+  """
+  preRenderAction_ALL: BaseActionWhere
+
+  """
+  Return Elements where none of the related BaseActions match this filter
+  """
+  preRenderAction_NONE: BaseActionWhere
+
+  """
+  Return Elements where one of the related BaseActions match this filter
+  """
+  preRenderAction_SINGLE: BaseActionWhere
+
+  """
+  Return Elements where some of the related BaseActions match this filter
+  """
+  preRenderAction_SOME: BaseActionWhere
   prevSibling: ElementWhere
   prevSiblingAggregate: ElementPrevSiblingAggregateInput
   prevSiblingConnection: ElementPrevSiblingConnectionWhere

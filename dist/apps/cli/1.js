@@ -943,7 +943,8 @@ const actionSchema = (0,external_graphql_request_.gql) `
     name: String!
     type: ActionKind! @settable(onUpdate: false)
     store: Store! @declareRelationship
-    element: Element @declareRelationship
+    preRenderElement: Element @declareRelationship
+    postRenderElement: Element @declareRelationship
   }
 
   type CodeAction implements BaseAction {
@@ -951,7 +952,10 @@ const actionSchema = (0,external_graphql_request_.gql) `
     name: String!
     type: ActionKind! @default(value: CodeAction)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
-    element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
+    preRenderElement: Element
+      @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: IN)
+    postRenderElement: Element
+      @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: IN)
     """
     Code to run when action is triggered
     """
@@ -963,7 +967,10 @@ const actionSchema = (0,external_graphql_request_.gql) `
     name: String!
     type: ActionKind! @default(value: ApiAction)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
-    element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
+    preRenderElement: Element
+      @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: IN)
+    postRenderElement: Element
+      @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: IN)
 
     """
     Response handlers
@@ -11724,9 +11731,9 @@ const elementSchema = (0,client_.gql) `
       @relationship(type: "CHILD_MAPPER_PREVIOUS_SIBLING", direction: IN)
     renderForEachPropKey: String
     renderIfExpression: String
-    preRenderAction: BaseAction
+    preRenderAction: [BaseAction!]!
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: OUT)
-    postRenderAction: BaseAction
+    postRenderAction: [BaseAction!]!
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
     renderType: ElementRenderType!
       # There is bug for union type, need to use custom query
@@ -12359,14 +12366,14 @@ const OgmProvider = {
             // debug: true,
             driver,
             features: {
-                excludeDeprecatedFields: {
-                    aggregationFilters: true,
-                    arrayFilters: true,
-                    bookmark: true,
-                    negationFilters: true,
-                    nestedUpdateOperationsFields: true,
-                    stringAggregation: true,
-                },
+                // excludeDeprecatedFields: {
+                //   aggregationFilters: true,
+                //   arrayFilters: true,
+                //   bookmark: true,
+                //   negationFilters: true,
+                //   nestedUpdateOperationsFields: true,
+                //   stringAggregation: true,
+                // },
                 filters: {
                     String: {
                         MATCHES: true,
@@ -13417,7 +13424,7 @@ const GraphQLSchemaProvider = {
             // await neo4jGraphQL.checkNeo4jCompat({ driver })
             await neo4jGraphQL.assertIndexesAndConstraints({
                 driver,
-                options: { create: true },
+                // options: { create: true },
             });
             return schema;
         }
