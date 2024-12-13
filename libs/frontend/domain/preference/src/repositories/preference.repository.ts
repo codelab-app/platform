@@ -9,8 +9,8 @@ import type {
   PreferenceWhere,
 } from '@codelab/shared/infra/gql'
 
-import { preferenceMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { preferenceMapper } from '@codelab/shared-domain-module/preference'
 
 import { Preference } from '../store/preference.model'
 import {

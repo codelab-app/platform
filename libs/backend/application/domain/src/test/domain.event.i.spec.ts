@@ -11,9 +11,10 @@ import {
 } from '@codelab/backend/infra/adapter/graphql'
 import { initUserContext } from '@codelab/backend/test'
 import { userDto } from '@codelab/shared/data/test'
-import { connectNodeId } from '@codelab/shared/domain-old'
+import { connectNodeId } from '@codelab/shared/domain/orm'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import * as env from 'env-var'
+import { sleep } from 'radash'
 import { v4 } from 'uuid'
 
 import type {
@@ -71,7 +72,7 @@ describe('Domain subscriptions', () => {
       domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
       domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
 
-      graphqlService.emitServerReady()
+      graphqlService.serverReadyHook()
     })
   })
 
@@ -85,6 +86,8 @@ describe('Domain subscriptions', () => {
   const domainId = v4()
 
   it('should call the domain created subscription handler', async () => {
+    await sleep(1000)
+
     const appInput: Array<AppCreateInput> = [
       {
         compositeKey: `${userDto.id}-demo-app`,

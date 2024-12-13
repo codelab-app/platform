@@ -5,7 +5,7 @@ import {
   connectNodeId,
   connectNodeIds,
   connectOwner,
-} from '@codelab/shared/domain-old'
+} from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/schema'
 import { print } from 'graphql'
 import request from 'supertest'

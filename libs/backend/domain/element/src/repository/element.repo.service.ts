@@ -14,7 +14,7 @@ import {
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { IElementDto } from '@codelab/shared/abstract/core'
-import { elementMapper } from '@codelab/shared/domain-old'
+import { elementMapper } from '@codelab/shared-domain-module/element'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

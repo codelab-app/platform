@@ -1,2 +1,3 @@
-// export * from './app.api'
-export * from './app.api.graphql.web.gen'
+export * from './api'
+export * from './app.mapper'
+export * from './app.properties'

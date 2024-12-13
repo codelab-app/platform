@@ -10,8 +10,8 @@ import type {
   UpdatePropsMutationVariables,
 } from '@codelab/shared/infra/gql'
 
-import { propMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { propMapper } from '@codelab/shared-domain-module/prop'
 
 import {
   CreateProps,

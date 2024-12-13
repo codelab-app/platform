@@ -13,12 +13,7 @@ import {
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { type ITagDto } from '@codelab/shared/abstract/core'
-import {
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeIds,
-  tagMapper,
-} from '@codelab/shared/domain-old'
+import { tagMapper } from '@codelab/shared-domain-module/tag'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

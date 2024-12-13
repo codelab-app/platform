@@ -24,8 +24,8 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { actionFactory } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { actionFactory } from '@codelab/shared-domain-module/action'
 import { v4 } from 'uuid'
 
 export const useActionService = (): IActionService => {

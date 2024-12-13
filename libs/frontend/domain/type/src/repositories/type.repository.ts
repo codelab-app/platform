@@ -1,15 +1,14 @@
 import type { ITypeRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
-import type { ITypeUpdateInput } from '@codelab/shared/domain-old'
 import type {
   GetBaseTypesQuery,
   IBaseTypeOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gql'
 
-import { typeMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import { cLog } from '@codelab/shared/utils'
+import { typeMapper } from '@codelab/shared-domain-module/type'
 import { prop, sortBy } from 'remeda'
 
 import { GetBaseTypes, GetDescendants } from './get-type.api.graphql.web.gen'

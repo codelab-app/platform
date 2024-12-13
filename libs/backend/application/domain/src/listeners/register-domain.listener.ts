@@ -35,7 +35,7 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
 
   @OnEvent('server.ready')
   registerCreatedSubscriptions() {
-    this.subscription = apolloClient
+    const subscription = apolloClient
       .subscribe<DomainCreatedSubscription>({
         query: DomainCreatedDocument,
       })
@@ -51,11 +51,13 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
           )
         },
       })
+
+    this.subscriptions?.push(subscription)
   }
 
   @OnEvent('server.ready')
   registerDeletedSubscriptions() {
-    this.subscription = apolloClient
+    const subscription = apolloClient
       .subscribe<DomainDeletedSubscription>({
         query: DomainDeletedDocument,
       })
@@ -71,11 +73,13 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
           )
         },
       })
+
+    this.subscriptions?.push(subscription)
   }
 
   @OnEvent('server.ready')
   registerUpdatedSubscriptions() {
-    this.subscription = apolloClient
+    const subscription = apolloClient
       .subscribe<DomainUpdatedSubscription>({
         query: DomainUpdatedDocument,
       })
@@ -91,19 +95,19 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
           )
         },
       })
+
+    this.subscriptions?.push(subscription)
   }
 
   beforeApplicationShutdown(signal: string) {
     this.unsubscribeFromServer()
   }
 
-  private subscription?: Subscription
+  private subscriptions?: Array<Subscription> = []
 
   private unsubscribeFromServer() {
     console.log('Unsubscribed from domain events')
 
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
+    this.subscriptions?.forEach((subscription) => subscription.unsubscribe())
   }
 }

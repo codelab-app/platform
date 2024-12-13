@@ -1,8 +1,8 @@
 import type { ITagRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
 
-import { tagMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { tagMapper } from '@codelab/shared-domain-module/tag'
 
 import {
   CreateTags,

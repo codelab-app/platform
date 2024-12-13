@@ -20,7 +20,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, disconnectAll } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 

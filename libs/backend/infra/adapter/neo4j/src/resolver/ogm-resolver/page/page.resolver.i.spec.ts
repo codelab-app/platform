@@ -3,14 +3,11 @@ import type { INestApplication } from '@nestjs/common'
 import { AtomType } from '@codelab/backend/abstract/codegen'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import {
-  AppProperties,
-  connectNodeId,
-  connectOwner,
-  ElementProperties,
-  PageProperties,
-} from '@codelab/shared/domain-old'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/schema'
+import { ElementProperties } from '@codelab/shared-domain-module/element'
+import { PageProperties } from '@codelab/shared-domain-module/page'
+import { AppProperties } from '@codelab/shared-domain-module-app'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

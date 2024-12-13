@@ -17,7 +17,7 @@ import {
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { connectOwner, getResourceClient } from '@codelab/shared/domain-old'
+import { getResourceClient } from '@codelab/shared-domain-module/resource'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 

@@ -13,15 +13,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  atomMapper,
-  connectNodeId,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeId,
-  reconnectNodeIds,
-  whereNodeIds,
-} from '@codelab/shared/domain-old'
+import { atomMapper } from '@codelab/shared-domain-module-atom'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

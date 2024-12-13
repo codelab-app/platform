@@ -7,8 +7,8 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import { componentMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { componentMapper } from '@codelab/shared-domain-module/component'
 
 import {
   ComponentList,

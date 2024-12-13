@@ -12,12 +12,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  connectNodeId,
-  pageMapper,
-  PageProperties,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
+import { pageMapper } from '@codelab/shared-domain-module/page'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -29,7 +24,6 @@ export class PageRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {

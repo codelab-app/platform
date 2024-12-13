@@ -25,11 +25,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import {
-  connectNodeId,
-  PageProperties,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

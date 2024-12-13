@@ -12,7 +12,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { storeMapper } from '@codelab/shared/domain-old'
+import { storeMapper } from '@codelab/shared-domain-module/store'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

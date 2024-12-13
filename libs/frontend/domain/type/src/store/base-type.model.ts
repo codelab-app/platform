@@ -7,11 +7,6 @@ import {
   IUserModel,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import {
-  connectOwner,
-  ITypeCreateInput,
-  ITypeUpdateVars,
-} from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 

@@ -8,8 +8,8 @@ import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
 import type { CodeActionCreateInput } from '@codelab/shared/infra/gql'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { actionMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { actionMapper } from '@codelab/shared-domain-module/action'
 
 import {
   CreateApiActions,

@@ -1,15 +1,15 @@
 import type { ITypeWhere } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type {
-  ITypeCreateInput,
-  ITypeUpdateVars,
-} from '@codelab/shared/domain-old'
-import type {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
 } from '@codelab/shared/infra/gql'
+import type {
+  ITypeCreateInput,
+  ITypeUpdateVars,
+} from '@codelab/shared-domain-module/type'
 import type { ArrayOrSingle } from 'ts-essentials'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'

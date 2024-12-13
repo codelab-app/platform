@@ -17,8 +17,8 @@ import {
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain-old'
 import { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
+import { createInterfaceTypeName } from '@codelab/shared-domain-module/type'
 import { computed } from 'mobx'
 import {
   ExtendedModel,

@@ -9,11 +9,11 @@ import type {
   FieldWhere,
 } from '@codelab/shared/infra/gql'
 
-import { fieldMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 import {
   CreateFields,
   DeleteFields,
+  fieldMapper,
   GetFields,
   UpdateFields,
 } from '@codelab/shared-domain-module/field'
