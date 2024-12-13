@@ -7,17 +7,18 @@ import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { HttpAdapterHost, NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { applyFormats, patchNestJsSwagger } from 'nestjs-typebox'
+import { configureNestJsTypebox } from 'nestjs-typebox'
 
 import { AllExceptionsFilter } from './exceptions/all-exceptions.filter'
 import { RootModule } from './root.module'
 
-// provide swagger OpenAPI generator support
-patchNestJsSwagger()
-
-// provide custom JSON schema string format support
-// currently only "email".
-applyFormats()
+configureNestJsTypebox({
+  // provide swagger OpenAPI generator support
+  patchSwagger: true,
+  // provide custom JSON schema string format support
+  // currently only "email".
+  setFormats: true,
+})
 
 const bootstrap = async () => {
   const app = await NestFactory.create(RootModule, {
@@ -73,7 +74,7 @@ const bootstrap = async () => {
   await app.listen(port).then(() => {
     const graphqlService = app.get(GraphqlService)
 
-    graphqlService.emitServerReady()
+    graphqlService.serverReadyHook()
   })
   Logger.log(
     `🚀 Application is running on: http://127.0.0.1:${port}${baseApiPath}`,
