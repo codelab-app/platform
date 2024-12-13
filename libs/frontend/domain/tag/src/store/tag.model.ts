@@ -16,7 +16,7 @@ import {
   connectNodeId,
   connectOwner,
   reconnectNodeId,
-} from '@codelab/shared/domain-old'
+} from '@codelab/shared/domain/orm'
 import { computed } from 'mobx'
 import {
   detach,

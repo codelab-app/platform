@@ -10,8 +10,8 @@ import {
   type IDomainModel,
   type IDomainRepository,
 } from '@codelab/frontend/abstract/domain'
-import { domainMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { domainMapper } from '@codelab/shared-domain-module/domain'
 import { revalidateTag } from 'next/cache'
 
 import {

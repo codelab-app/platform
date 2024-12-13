@@ -15,15 +15,15 @@ import {
   type IAppModel,
   type IAppRepository,
 } from '@codelab/frontend/abstract/domain'
-import { appMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { appMapper } from '@codelab/shared-domain-module-app'
 import {
   AppList,
   AppListPreview,
   CreateApps,
   DeleteApps,
   UpdateApps,
-} from '@codelab/shared-domain-module-app'
+} from '@codelab/shared-domain-module-app/server'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 
 import { App } from '../store'

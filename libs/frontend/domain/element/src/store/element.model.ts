@@ -27,13 +27,6 @@ import { createValidator } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
-  connectNodeId,
-  disconnectAll,
-  disconnectNodeId,
-  ElementProperties,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
-import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/infra/gql'

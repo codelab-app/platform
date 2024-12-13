@@ -1,8 +1,8 @@
-import { IPreferenceDto } from '@codelab/shared/abstract/core'
 import {
   breakpoints,
   DEFAULT_BUILDER_BREAKPOINT,
-} from '@codelab/shared/domain-old'
+} from '@codelab/frontend/shared/config'
+import { IPreferenceDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

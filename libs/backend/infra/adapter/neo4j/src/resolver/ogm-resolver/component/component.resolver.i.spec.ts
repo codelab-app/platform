@@ -1,13 +1,10 @@
 import type { INestApplication } from '@nestjs/common'
 
 import { AtomType } from '@codelab/backend/abstract/codegen'
-import {
-  ComponentProperties,
-  connectNodeId,
-  connectOwner,
-  ElementProperties,
-} from '@codelab/shared/domain-old'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/schema'
+import { ComponentProperties } from '@codelab/shared-domain-module/component'
+import { ElementProperties } from '@codelab/shared-domain-module/element'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

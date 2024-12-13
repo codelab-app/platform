@@ -920,6 +920,9 @@
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
       ],
+      "@codelab/frontend/shared/config": [
+        "libs/frontend/shared/config/src/index.ts"
+      ],
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
@@ -930,14 +933,56 @@
       "@codelab/shared-domain-module-app": [
         "libs/shared/domain/module/app/src/index.ts"
       ],
+      "@codelab/shared-domain-module-app/server": [
+        "libs/shared/domain/module/app/src/server/index.ts"
+      ],
       "@codelab/shared-domain-module-atom": [
         "libs/shared/domain/module/atom/src/index.ts"
       ],
       "@codelab/shared-domain-module-atom/server": [
         "libs/shared/domain/module/atom/src/server/index.ts"
       ],
+      "@codelab/shared-domain-module/action": [
+        "libs/shared/domain/module/action/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/component": [
+        "libs/shared/domain/module/component/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/domain": [
+        "libs/shared/domain/module/domain/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/element": [
+        "libs/shared/domain/module/element/src/index.ts"
+      ],
       "@codelab/shared-domain-module/field": [
         "libs/shared/domain/module/field/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/page": [
+        "libs/shared/domain/module/page/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/preference": [
+        "libs/shared/domain/module/preference/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/prop": [
+        "libs/shared/domain/module/prop/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/redirect": [
+        "libs/shared/domain/module/redirect/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/resource": [
+        "libs/shared/domain/module/resource/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/store": [
+        "libs/shared/domain/module/store/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/tag": [
+        "libs/shared/domain/module/tag/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/type": [
+        "libs/shared/domain/module/type/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/user": [
+        "libs/shared/domain/module/user/src/index.ts"
       ],
       "@codelab/shared-infra-auth0/client": [
         "libs/shared/infra/auth0/src/client/index.ts"
@@ -962,7 +1007,10 @@
       "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
-      "@codelab/shared/domain-old": ["libs/shared/domain-old/src/index.ts"],
+      "@codelab/shared/domain/errors": [
+        "libs/shared/domain/errors/src/index.ts"
+      ],
+      "@codelab/shared/domain/orm": ["libs/shared/domain/orm/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/fetch": ["libs/shared/infra/fetch/src/index.ts"],
       "@codelab/shared/infra/fetch-server": [

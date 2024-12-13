@@ -5,7 +5,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter'
 export class GraphqlService {
   constructor(private eventEmitter: EventEmitter2) {}
 
-  emitServerReady() {
+  serverReadyHook() {
     this.eventEmitter.emit('server.ready')
   }
 }

@@ -1,7 +1,7 @@
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined'
 import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
-import { breakpoints } from '@codelab/shared/domain-old'
+import { breakpoints } from '@codelab/frontend/shared/config'
 import { Button, Menu } from 'antd'
 import Link from 'next/link'
 import { useState } from 'react'

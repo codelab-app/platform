@@ -1,0 +1,17 @@
+{
+  "name": "shared-domain-orm",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain/orm/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:shared-domain-orm",
+    "projectType:library",
+    "type:concrete",
+    "scope:shared"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

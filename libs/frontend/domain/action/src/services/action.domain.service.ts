@@ -7,7 +7,6 @@ import type { ActionFragment } from '@codelab/shared/infra/gql'
 
 import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
-import { actionFactory } from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { unique } from 'remeda'

@@ -9,8 +9,9 @@ import type {
   ElementWhere,
 } from '@codelab/shared/infra/gql'
 
-import { disconnectManyAll, elementMapper } from '@codelab/shared/domain-old'
+import { disconnectManyAll } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/schema'
+import { elementMapper } from '@codelab/shared-domain-module/element'
 
 import {
   CreateElements,

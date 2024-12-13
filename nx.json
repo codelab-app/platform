@@ -73,10 +73,14 @@
     "@nx/js": {
       "library": {
         "unitTestRunner": "none",
+        "bundler": "none",
         "setParserOptionsProject": true,
+        "linter": "eslint",
         "strict": true,
         "importPath": "@codelab/frontend",
-        "tags": "scope:shared"
+        "tags": "scope:shared",
+        "useProjectJson": true,
+        "skipPackageJson": true
       }
     }
   },

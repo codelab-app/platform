@@ -12,8 +12,8 @@ import type {
   PageWhere,
 } from '@codelab/shared/infra/gql'
 
-import { pageMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
+import { pageMapper } from '@codelab/shared-domain-module/page'
 
 import { Page } from '../store'
 import {
