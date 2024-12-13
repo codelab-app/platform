@@ -26,7 +26,7 @@ export const useDomainService = (): IDomainService => {
     await domainRepository.add(domain)
 
     // Fetching again to get the backend-generated domainConfig
-    invalidateDomainListQuery()
+    // invalidateDomainListQuery()
 
     return domain
   }
