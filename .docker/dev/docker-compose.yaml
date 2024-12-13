@@ -87,7 +87,7 @@ services:
       timeout: 5s
       retries: 5
 
-  neo4j-test-init:
+  neo4j-test:
     container_name: codelab-neo4j-test-init
     image: neo4j:5.26.0-enterprise
     depends_on:
