@@ -7,7 +7,7 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { test as base, expect } from '@playwright/test'
 
 import { setFormFieldValue } from '../../commands'

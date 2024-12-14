@@ -5,7 +5,7 @@ import type {
 import type { APIRequestContext } from '@playwright/test'
 
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 
 export const elementRow: ICreateCypressElementData = {
   atom: IAtomType.AntDesignGridRow,
@@ -27,7 +27,7 @@ export const elementTextA: ICreateCypressElementData = {
     "children": {
       "kind": "RichTextType",
       "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">Ant Design Text Element</p>"     
+      "value": "<p class=\\"editor-paragraph\\">Ant Design Text Element</p>"
     }
   }`,
 }
@@ -58,7 +58,7 @@ export const elementButtonText: ICreateCypressElementData = {
     "children": {
       "kind": "RichTextType",
       "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">Click Me!</p>"     
+      "value": "<p class=\\"editor-paragraph\\">Click Me!</p>"
     }
   }`,
 }

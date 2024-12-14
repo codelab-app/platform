@@ -1,5 +1,5 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 
 export const ELEMENT_BUTTON = 'Button'
 export const defaultColor = 'rgb(255, 255, 255)'

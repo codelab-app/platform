@@ -2,7 +2,7 @@
 
 import type { IExportDto } from '@codelab/shared/abstract/core'
 
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 
 export const exportAdminDataService = async (dto: IExportDto) => {

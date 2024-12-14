@@ -1,4 +1,4 @@
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { useEffect } from 'react'
 import { hotjar } from 'react-hotjar'
 

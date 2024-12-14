@@ -10,7 +10,7 @@ import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropDomainService } from '@codelab/backend/domain/prop'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

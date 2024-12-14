@@ -2,7 +2,7 @@ import type { INestApplication } from '@nestjs/common'
 
 import { AtomType } from '@codelab/backend/abstract/codegen'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/schema'
 import { ElementProperties } from '@codelab/shared-domain-module/element'

@@ -16,7 +16,7 @@ import {
   IPageKindName,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { v4 } from 'uuid'
 
 type IAppNode = Pick<IAppDto, 'id' | 'name'>

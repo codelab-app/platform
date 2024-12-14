@@ -1,7 +1,7 @@
 import type { RequestMiddleware } from 'graphql-request'
 import type { GraphQLClientResponse } from 'graphql-request/build/cjs/types'
 
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { GraphQLClient } from 'graphql-request'
 
 export const graphqlClient = new GraphQLClient(
