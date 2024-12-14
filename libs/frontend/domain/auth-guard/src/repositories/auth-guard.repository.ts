@@ -10,14 +10,12 @@ import {
   type IAuthGuardRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
+import { authGuardServerActions } from '@codelab/shared-domain-module/auth-guard'
 
-import {
-  CreateAuthGuards,
-  DeleteAuthGuards,
-  GetAuthGuards,
-  UpdateAuthGuard,
-} from './auth-guard.api.graphql.web.gen'
 import { authGuardMapper } from './auth-guard.mapper'
+
+const { CreateAuthGuards, DeleteAuthGuards, GetAuthGuards, UpdateAuthGuard } =
+  authGuardServerActions()
 
 export const authGuardRepository: IAuthGuardRepository = {
   add: async (input: IAuthGuardDto) => {

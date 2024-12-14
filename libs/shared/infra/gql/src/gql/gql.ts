@@ -122,6 +122,10 @@ const documents = {
     types.UserFragmentDoc,
   '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
     types.GetAppBuilderDocument,
+  '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
+    types.AppListPreviewDocument,
+  '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
+    types.GetAppProductionDocument,
   '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n':
     types.GetSelectAtomOptionsDocument,
   '\n  query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {\n    aggregate: authGuardsAggregate(where: $where) {\n      count\n    }\n    items: authGuards(options: $options, where: $where) {\n      ...AuthGuard\n    }\n  }\n':
@@ -380,12 +384,8 @@ const documents = {
     types.UpdateAppsDocument,
   '\n  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {\n    deleteApps(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteAppsDocument,
-  '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n':
-    types.AppListPreviewDocument,
   '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n':
     types.AppListDocument,
-  '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n':
-    types.GetAppProductionDocument,
   '\n  mutation CreateAtoms($input: [AtomCreateInput!]!) {\n    createAtoms(input: $input) {\n      atoms {\n        id\n      }\n      info {\n        nodesCreated\n        relationshipsCreated\n      }\n    }\n  }\n':
     types.CreateAtomsDocument,
   '\n  mutation DeleteAtoms($where: AtomWhere!, $delete: AtomDeleteInput) {\n    deleteAtoms(where: $where, delete: $delete) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
@@ -740,6 +740,18 @@ export function graphql(
 export function graphql(
   source: '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
 ): (typeof documents)['\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
+): (typeof documents)['\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n',
+): (typeof documents)['\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1518,20 +1530,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n',
-): (typeof documents)['\n  query AppListPreview($options: AppOptions, $where: AppWhere) {\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    items: apps(options: $options, where: $where) {\n      ...AppPreview\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
   source: '\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n',
 ): (typeof documents)['\n  query AppList($options: AppOptions, $where: AppWhere) {\n    items: apps(options: $options, where: $where) {\n      ...App\n    }\n    aggregate: appsAggregate(where: $where) {\n      count\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n',
-): (typeof documents)['\n  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {\n    apps(where: { domains_SOME: { name_IN: [$domain] } }) {\n      ...AppProduction\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomProduction\n    }\n    resources {\n      ...Resource\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

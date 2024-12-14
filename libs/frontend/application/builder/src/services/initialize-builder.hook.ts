@@ -49,7 +49,7 @@ export const useInitializeBuilder = ({
    * Synchronize search params into router service for in-app routing
    */
   useEffect(() => {
-    const queryParams = Object.fromEntries(searchParams)
+    const queryParams = Object.fromEntries(searchParams.entries())
 
     routerService.setQueryParams(queryParams)
   }, [routerService, searchParams])

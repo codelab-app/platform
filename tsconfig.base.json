@@ -942,6 +942,9 @@
       "@codelab/shared-domain-module/action": [
         "libs/shared/domain/module/action/src/index.ts"
       ],
+      "@codelab/shared-domain-module/auth-guard": [
+        "libs/shared/domain/module/auth-guard/src/index.ts"
+      ],
       "@codelab/shared-domain-module/component": [
         "libs/shared/domain/module/component/src/index.ts"
       ],
@@ -1017,6 +1020,9 @@
         "libs/shared/infra/fetch-server/src/index.ts"
       ],
       "@codelab/shared/infra/gql": ["libs/shared/infra/gql/src/index.ts"],
+      "@codelab/shared/infra/gql-client": [
+        "libs/shared/infra/gql-client/src/index.ts"
+      ],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],

@@ -1,4 +1,3 @@
 export * from './apollo.client'
-export * from './graphql.client'
 export * from './graphql.module'
 export * from './graphql.service'

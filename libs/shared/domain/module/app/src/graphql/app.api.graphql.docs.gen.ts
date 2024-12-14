@@ -2,12 +2,9 @@ import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
 import {
-  AppPreviewFragmentDoc,
   AppFragmentDoc,
-  AppProductionFragmentDoc,
   AtomBuilderFragmentDoc,
   AtomProductionFragmentDoc,
-  ResourceFragmentDoc,
 } from '@codelab/shared/infra/gql'
 
 export const CreateAppsDocument = graphql(`
@@ -38,17 +35,6 @@ export const DeleteAppsDocument = graphql(`
   }
 `)
 
-export const AppListPreviewDocument = graphql(`
-  query AppListPreview($options: AppOptions, $where: AppWhere) {
-    aggregate: appsAggregate(where: $where) {
-      count
-    }
-    items: apps(options: $options, where: $where) {
-      ...AppPreview
-    }
-  }
-`)
-
 export const AppListDocument = graphql(`
   query AppList($options: AppOptions, $where: AppWhere) {
     items: apps(options: $options, where: $where) {
@@ -59,20 +45,6 @@ export const AppListDocument = graphql(`
     }
     atoms(where: { type: ReactFragment }) {
       ...AtomBuilder
-    }
-  }
-`)
-
-export const GetAppProductionDocument = graphql(`
-  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
-    apps(where: { domains_SOME: { name_IN: [$domain] } }) {
-      ...AppProduction
-    }
-    atoms(where: { type: ReactFragment }) {
-      ...AtomProduction
-    }
-    resources {
-      ...Resource
     }
   }
 `)

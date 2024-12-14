@@ -8,14 +8,13 @@ import type {
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
-import { componentMapper } from '@codelab/shared-domain-module/component'
-
 import {
-  ComponentList,
-  CreateComponents,
-  DeleteComponents,
-  UpdateComponents,
-} from './component.api.graphql.web.gen'
+  componentMapper,
+  componentServerActions,
+} from '@codelab/shared-domain-module/component'
+
+const { ComponentList, CreateComponents, DeleteComponents, UpdateComponents } =
+  componentServerActions()
 
 export const componentRepository: IComponentRepository = {
   add: async (input: IComponentDto) => {

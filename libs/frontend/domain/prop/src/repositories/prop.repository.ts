@@ -7,14 +7,12 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { Validator } from '@codelab/shared/infra/schema'
-import { propMapper } from '@codelab/shared-domain-module/prop'
-
 import {
-  CreateProps,
-  DeleteProps,
-  GetProps,
-  UpdateProps,
-} from './prop.api.graphql.web.gen'
+  propMapper,
+  propServerActions,
+} from '@codelab/shared-domain-module/prop'
+
+const { CreateProps, DeleteProps, GetProps, UpdateProps } = propServerActions()
 
 export const propRepository: IPropRepository = {
   add: async (input: IPropDto) => {

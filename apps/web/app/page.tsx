@@ -10,8 +10,8 @@ const HomeView = async () => {
   /**
    * This is called on server side, useful for getting tokens for playground testing
    */
-  // console.log('accessToken', session?.accessToken)
-  // console.log('idToken', session?.idToken)
+  console.log('accessToken', session?.accessToken)
+  console.log('idToken', session?.idToken)
 
   return (
     <div>
