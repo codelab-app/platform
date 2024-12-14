@@ -12,7 +12,6 @@ import type { Ref } from 'mobx-keystone'
 
 import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'
 import {
-  assertIsTypeKind,
   IInterfaceTypeDto,
   IPropData,
   ITypeKind,

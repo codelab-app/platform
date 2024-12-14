@@ -1,11 +1,7 @@
 import { gql } from '@apollo/client'
 import { __ElementTypeKind } from '@codelab/shared/abstract/core'
 
-import {
-  getTypeDescendants,
-  getTypeReferences,
-  isTypeDescendantOf,
-} from '../../cypher/type'
+import { getTypeReferences, isTypeDescendantOf } from '../../cypher/type'
 import { authOwnerOrAdmin } from '../model/user.schema'
 
 const elementTypeTypeKindSchema = `enum ElementTypeKind {

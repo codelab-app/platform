@@ -3,7 +3,7 @@
 import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 /**
  * A previous version of this called the hydrate synchronously without useEffect, but this causes delay and doesn't render immediately

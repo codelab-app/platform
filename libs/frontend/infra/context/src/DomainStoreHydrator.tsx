@@ -3,7 +3,6 @@
 import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
-import { withProfiler } from '@sentry/react'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { useCustomCompareEffect } from 'react-use'

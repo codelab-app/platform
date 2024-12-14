@@ -1,9 +1,4 @@
-import type { IAuthGuardUpdateFormData } from '@codelab/frontend/abstract/domain'
-import type {
-  IAuthGuardDto,
-  IMapper,
-  IUserDto,
-} from '@codelab/shared/abstract/core'
+import type { IAuthGuardDto, IMapper } from '@codelab/shared/abstract/core'
 import type {
   AuthGuardCreateInput,
   AuthGuardDeleteInput,

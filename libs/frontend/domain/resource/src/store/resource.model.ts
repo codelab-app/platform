@@ -4,14 +4,8 @@ import type {
   IResourceType,
   IUser,
 } from '@codelab/shared/abstract/core'
-import type {
-  ResourceCreateInput,
-  ResourceDeleteInput,
-  ResourceUpdateInput,
-} from '@codelab/shared/infra/gql'
 
 import {
-  getUserDomainService,
   type IPropModel,
   type IResourceModel,
   userRef,

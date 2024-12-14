@@ -5,9 +5,6 @@ import type {
   UrlQueryParamsPageProps,
   UrlQueryParamsProps,
 } from '@codelab/frontend/abstract/types'
-import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-
-import type { IPaginationService, SupportedPaginationModel } from '../services'
 
 /**
  * Props use the string version

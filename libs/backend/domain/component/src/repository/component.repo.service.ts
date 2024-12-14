@@ -5,7 +5,6 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   componentSelectionSet,

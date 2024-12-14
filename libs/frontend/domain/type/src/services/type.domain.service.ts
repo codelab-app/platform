@@ -1,5 +1,4 @@
 import type {
-  ITypeCreateFormData,
   ITypeDomainService,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'

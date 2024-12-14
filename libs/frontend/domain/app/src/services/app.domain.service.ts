@@ -1,16 +1,9 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
 import {
-  getAtomDomainService,
-  getElementDomainService,
-  getPageDomainService,
-  getStoreDomainService,
-  getTypeDomainService,
-  getUserDomainService,
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
-import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

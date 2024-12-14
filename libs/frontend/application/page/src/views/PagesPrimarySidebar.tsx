@@ -10,7 +10,7 @@ import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/us
 import { DeleteRedirectModal } from '@codelab/frontend-application-redirect/use-cases/delete-redirect'
 import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 import { observer } from 'mobx-react-lite'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 import { DeletePageModal } from '../use-cases/delete-page'
 import { useDeletePageModal } from '../use-cases/delete-page/delete-page.state'

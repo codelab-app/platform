@@ -8,7 +8,6 @@ import {
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'

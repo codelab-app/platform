@@ -8,9 +8,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
-import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { mergeDeep } from 'remeda'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'

@@ -4,20 +4,14 @@ import type {
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
-import type {
-  AuthGuardCreateInput,
-  AuthGuardUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import {
-  getUserDomainService,
   IUserModel,
   resourceRef,
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

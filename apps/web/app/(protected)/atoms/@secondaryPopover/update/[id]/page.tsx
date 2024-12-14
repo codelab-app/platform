@@ -1,11 +1,6 @@
 import type { UrlQueryParamsPageProps } from '@codelab/frontend/abstract/types'
 
-import {
-  ApplicationStoreHydrator,
-  DomainStoreHydrator,
-} from '@codelab/frontend/infra/context'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 import UpdateAtomContainer from './page.container'

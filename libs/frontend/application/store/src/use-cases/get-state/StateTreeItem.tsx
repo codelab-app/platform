@@ -16,7 +16,6 @@ import {
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
-import { useUpdateFieldForm } from '@codelab/frontend-application-type/use-cases/update-field'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
 

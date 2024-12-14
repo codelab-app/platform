@@ -2,7 +2,7 @@ import type {
   ICreateDomainData,
   IDomainModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gql'
 
 import type { ICrudService, IQueryService } from '../services'

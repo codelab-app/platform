@@ -1,13 +1,9 @@
-import type {
-  IPropModel,
-  IPropRepository,
-} from '@codelab/frontend/abstract/domain'
+import type { IPropRepository } from '@codelab/frontend/abstract/domain'
 import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   PropOptions,
   PropUniqueWhere,
   PropWhere,
-  UpdatePropsMutationVariables,
 } from '@codelab/shared/infra/gql'
 
 import { Validator } from '@codelab/shared/infra/schema'

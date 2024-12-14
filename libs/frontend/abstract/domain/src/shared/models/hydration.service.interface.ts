@@ -10,25 +10,11 @@ import type {
   IPageDto,
   IPropDto,
   IRedirectDto,
-  IRef,
   IResourceDto,
   IStoreDto,
   ITagDto,
   ITypeDto,
 } from '@codelab/shared/abstract/core'
-import type {
-  AtomBuilderFragment,
-  AuthGuardFragment,
-  ComponentBuilderFragment,
-  ElementFragment,
-  FieldFragment,
-  PropFragment,
-  RedirectFragment,
-  ResourceFragment,
-  StoreFragment,
-  TagFragment,
-  TypeFragment,
-} from '@codelab/shared/infra/gql'
 
 import type { IActionModel } from '../../action'
 import type { IAppModel } from '../../app'

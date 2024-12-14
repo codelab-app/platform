@@ -1,5 +1,5 @@
 import type { IBaseDataPaths } from '@codelab/backend/application/data'
-import type { IAtomExport, IAtomImport } from '@codelab/shared/abstract/core'
+import type { IAtomImport } from '@codelab/shared/abstract/core'
 
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'

@@ -1,6 +1,5 @@
 import type { Static } from '@sinclair/typebox'
 
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { ResourceDtoSchema } from './resource.dto.interface'

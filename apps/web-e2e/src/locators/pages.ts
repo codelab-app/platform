@@ -1,10 +1,6 @@
 import type { Locator, Page } from '@playwright/test'
 
-import {
-  getUiDataKey,
-  getUiDataLabel,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect } from '@playwright/test'
 

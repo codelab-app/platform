@@ -9,7 +9,6 @@ import type { RedirectWhere } from '@codelab/shared/infra/gql'
 
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 
 export const useRedirectService = (): IRedirectService => {
   const { redirectDomainService } = useDomainStore()

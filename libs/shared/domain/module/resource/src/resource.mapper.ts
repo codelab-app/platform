@@ -5,12 +5,7 @@ import type {
   ResourceUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import {
-  connectNodeId,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeIds,
-} from '@codelab/shared/domain/orm'
+import { connectOwner } from '@codelab/shared/domain/orm'
 import { propMapper } from '@codelab/shared-domain-module/prop'
 
 export const resourceMapper: IMapper<

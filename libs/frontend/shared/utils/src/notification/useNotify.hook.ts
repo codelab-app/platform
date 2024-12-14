@@ -1,5 +1,3 @@
-import { App } from 'antd'
-
 import { notify, type NotifyOptions } from './notify'
 
 export type UseNotifyReturnType<Event> = (event?: Event) => void

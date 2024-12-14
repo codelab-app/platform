@@ -1,7 +1,4 @@
-import type {
-  IActionModel,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'

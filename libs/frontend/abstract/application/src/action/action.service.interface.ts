@@ -8,7 +8,6 @@ import type {
   PageContextParams,
 } from '@codelab/frontend/abstract/types'
 import type {
-  IActionDto,
   ICreateActionData,
   IRef,
   IUpdateActionData,

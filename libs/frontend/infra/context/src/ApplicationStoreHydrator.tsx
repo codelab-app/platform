@@ -7,11 +7,8 @@ import type {
 
 import { parseQueryParamPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { withProfiler } from '@sentry/react'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useCallback, useEffect, useState } from 'react'
-import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
-import { isDeepEqual } from 'remeda'
+import { type ReactNode, useEffect, useState } from 'react'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode

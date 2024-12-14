@@ -1,5 +1,3 @@
-import type { APIRequestContext } from '@playwright/test'
-
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 

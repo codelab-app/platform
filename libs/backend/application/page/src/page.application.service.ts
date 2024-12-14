@@ -1,4 +1,4 @@
-import type { IPageCreateFormData, IRef } from '@codelab/shared/abstract/core'
+import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
 import { ElementApplicationService } from '@codelab/backend/application/element'
 import { AppRepository } from '@codelab/backend/domain/app'

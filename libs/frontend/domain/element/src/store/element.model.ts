@@ -20,16 +20,11 @@ import {
   IElementModel,
   isAtom,
   isAtomRef,
-  isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { createValidator } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { Nullish } from '@codelab/shared/abstract/types'
-import {
-  ElementCreateInput,
-  ElementUpdateInput,
-} from '@codelab/shared/infra/gql'
 import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {

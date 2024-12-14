@@ -2,12 +2,10 @@ import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type {
-  DeleteDomainsMutationVariables,
   DomainDeleteInput,
   ProductionDomainConfig,
 } from '@codelab/shared/infra/gql'
 
-import { connectNodeId } from '@codelab/shared/domain/orm'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

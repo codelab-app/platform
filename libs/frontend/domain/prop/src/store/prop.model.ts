@@ -4,10 +4,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IPropDto } from '@codelab/shared/abstract/core'
 import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
-import type {
-  PropCreateInput,
-  PropUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import { typeRef } from '@codelab/frontend/abstract/domain'

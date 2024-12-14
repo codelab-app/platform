@@ -12,9 +12,8 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
-import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { isBoolean, mergeDeep } from 'remeda'
+import { isBoolean } from 'remeda'
 
 import { createBaseType } from './base-type.model'
 

@@ -6,32 +6,20 @@ import type {
   IStoreModel,
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IComponent,
-  IComponentDto,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type {
-  ComponentDeleteInput,
-  ComponentUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import {
   elementRef,
   ElementTree,
-  getUserDomainService,
   isComponent,
   storeRef,
   typeRef,
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { Store } from '@codelab/frontend-domain-store/store'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { ComponentCreateInput } from '@codelab/shared/infra/gql'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

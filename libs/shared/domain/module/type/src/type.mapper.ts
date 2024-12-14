@@ -1,4 +1,4 @@
-import type { IMapper, ITypeDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { IMapper, ITypeDto } from '@codelab/shared/abstract/core'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
@@ -6,7 +6,6 @@ import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import type {
   ITypeCreateInput,
   ITypeDeleteInput,
-  ITypeUpdateInput,
   ITypeUpdateVars,
 } from './type.input.interface'
 

@@ -2,7 +2,7 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { ElementExportSchema, ElementSchema } from '../element'
+import { ElementExportSchema } from '../element'
 import {
   StoreAggregateExportSchema,
   StoreAggregateImportSchema,

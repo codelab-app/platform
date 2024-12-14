@@ -5,8 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 
 import { IDomainStore } from '@codelab/frontend/abstract/domain'
-import { withAsyncSpanFunc, withSpanFunc } from '@codelab/shared-infra-sentry'
-import { getActiveSpan } from '@sentry/nextjs'
+import { withSpanFunc } from '@codelab/shared-infra-sentry'
 import {
   Model,
   model,

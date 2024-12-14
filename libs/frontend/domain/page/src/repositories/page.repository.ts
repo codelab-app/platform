@@ -1,21 +1,14 @@
+import type { IPageRepository } from '@codelab/frontend/abstract/domain'
+import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
 import type {
-  IPageModel,
-  IPageRepository,
-} from '@codelab/frontend/abstract/domain'
-import type { IPage, IPageDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  PageCreateInput,
-  PageDeleteInput,
   PageOptions,
   PageUniqueWhere,
-  PageUpdateInput,
   PageWhere,
 } from '@codelab/shared/infra/gql'
 
 import { Validator } from '@codelab/shared/infra/schema'
 import { pageMapper } from '@codelab/shared-domain-module/page'
 
-import { Page } from '../store'
 import {
   CreatePages,
   DeletePages,

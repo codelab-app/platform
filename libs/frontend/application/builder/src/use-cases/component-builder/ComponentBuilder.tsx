@@ -6,8 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
-import { observer } from 'mobx-react-lite'
-
 import { useInitializeBuilder } from '../../services'
 import { BaseBuilder } from '../base-builder'
 

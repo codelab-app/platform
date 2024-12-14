@@ -1,6 +1,5 @@
 import type { IRef } from '../model'
 import type { IResourceFetchConfig } from '../resource'
-import type { IActionRef } from './action-entity.dto.interface'
 import type { IActionKind } from './action-kind.enum'
 
 /**

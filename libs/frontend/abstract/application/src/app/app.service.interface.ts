@@ -3,11 +3,7 @@ import type {
   IAppModel,
   IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IAppDto,
-  IPageUpdateFormData,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { AppOptions, AppWhere } from '@codelab/shared/infra/gql'
 
 import type { ICrudService, IQueryService } from '../services'

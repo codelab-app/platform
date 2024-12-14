@@ -1,6 +1,5 @@
 import type {
   IRef,
-  IResource,
   IResourceClient,
   IResourceDto,
   IResourceType,

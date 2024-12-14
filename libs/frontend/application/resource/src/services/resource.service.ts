@@ -13,7 +13,6 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { PageType } from '@codelab/frontend/abstract/types'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {

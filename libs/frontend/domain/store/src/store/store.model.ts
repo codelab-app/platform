@@ -6,11 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IStoreDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type {
-  StoreCreateInput,
-  StoreDeleteInput,
-  StoreUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -19,7 +14,6 @@ import {
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { createStoreName } from '@codelab/shared-domain-module/store'
 import { computed } from 'mobx'

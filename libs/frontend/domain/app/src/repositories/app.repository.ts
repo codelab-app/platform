@@ -1,18 +1,12 @@
 import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
 import type {
-  AppCreateInput,
-  AppDeleteInput,
   AppOptions,
   AppUniqueWhere,
-  AppUpdateInput,
   AppWhere,
-  CreateAppsMutationVariables,
-  DeleteAppTypesMutationVariables,
 } from '@codelab/shared/infra/gql'
 
 import {
   CACHE_TAGS,
-  type IAppModel,
   type IAppRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -25,8 +19,6 @@ import {
   UpdateApps,
 } from '@codelab/shared-domain-module-app/server'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
-
-import { App } from '../store'
 
 export const appRepository: IAppRepository = withTracingMethods('app', {
   add: async (input: IAppDto) => {

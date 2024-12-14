@@ -1,6 +1,5 @@
 'use client'
 
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
