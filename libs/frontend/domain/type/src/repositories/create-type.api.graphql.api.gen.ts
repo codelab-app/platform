@@ -35,34 +35,35 @@ import {
   CreateActionTypesDocument,
   CreateCodeMirrorTypesDocument,
 } from './create-type.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreatePrimitiveTypes: (variables: CreatePrimitiveTypesMutationVariables) =>
-    gqlRequest(CreatePrimitiveTypesDocument.toString(), variables),
+    gqlRequest(client, CreatePrimitiveTypesDocument.toString(), variables),
   CreateArrayTypes: (variables: CreateArrayTypesMutationVariables) =>
-    gqlRequest(CreateArrayTypesDocument.toString(), variables),
+    gqlRequest(client, CreateArrayTypesDocument.toString(), variables),
   CreateUnionTypes: (variables: CreateUnionTypesMutationVariables) =>
-    gqlRequest(CreateUnionTypesDocument.toString(), variables),
+    gqlRequest(client, CreateUnionTypesDocument.toString(), variables),
   CreateInterfaceTypes: (variables: CreateInterfaceTypesMutationVariables) =>
-    gqlRequest(CreateInterfaceTypesDocument.toString(), variables),
+    gqlRequest(client, CreateInterfaceTypesDocument.toString(), variables),
   CreateElementTypes: (variables: CreateElementTypesMutationVariables) =>
-    gqlRequest(CreateElementTypesDocument.toString(), variables),
+    gqlRequest(client, CreateElementTypesDocument.toString(), variables),
   CreateRenderPropTypes: (variables: CreateRenderPropTypesMutationVariables) =>
-    gqlRequest(CreateRenderPropTypesDocument.toString(), variables),
+    gqlRequest(client, CreateRenderPropTypesDocument.toString(), variables),
   CreateReactNodeTypes: (variables: CreateReactNodeTypesMutationVariables) =>
-    gqlRequest(CreateReactNodeTypesDocument.toString(), variables),
+    gqlRequest(client, CreateReactNodeTypesDocument.toString(), variables),
   CreateEnumTypes: (variables: CreateEnumTypesMutationVariables) =>
-    gqlRequest(CreateEnumTypesDocument.toString(), variables),
+    gqlRequest(client, CreateEnumTypesDocument.toString(), variables),
   CreateLambdaTypes: (variables: CreateLambdaTypesMutationVariables) =>
-    gqlRequest(CreateLambdaTypesDocument.toString(), variables),
+    gqlRequest(client, CreateLambdaTypesDocument.toString(), variables),
   CreatePageTypes: (variables: CreatePageTypesMutationVariables) =>
-    gqlRequest(CreatePageTypesDocument.toString(), variables),
+    gqlRequest(client, CreatePageTypesDocument.toString(), variables),
   CreateAppTypes: (variables: CreateAppTypesMutationVariables) =>
-    gqlRequest(CreateAppTypesDocument.toString(), variables),
+    gqlRequest(client, CreateAppTypesDocument.toString(), variables),
   CreateRichTextTypes: (variables: CreateRichTextTypesMutationVariables) =>
-    gqlRequest(CreateRichTextTypesDocument.toString(), variables),
+    gqlRequest(client, CreateRichTextTypesDocument.toString(), variables),
   CreateActionTypes: (variables: CreateActionTypesMutationVariables) =>
-    gqlRequest(CreateActionTypesDocument.toString(), variables),
+    gqlRequest(client, CreateActionTypesDocument.toString(), variables),
   CreateCodeMirrorTypes: (variables: CreateCodeMirrorTypesMutationVariables) =>
-    gqlRequest(CreateCodeMirrorTypesDocument.toString(), variables),
+    gqlRequest(client, CreateCodeMirrorTypesDocument.toString(), variables),
 })

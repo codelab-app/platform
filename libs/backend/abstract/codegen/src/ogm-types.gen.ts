@@ -4490,12 +4490,12 @@ export type Element = {
   childMapperPreviousSiblingAggregate?: Maybe<ElementElementChildMapperPreviousSiblingAggregationSelection>
   childMapperPreviousSibling?: Maybe<Element>
   childMapperPreviousSiblingConnection: ElementChildMapperPreviousSiblingConnection
-  preRenderActionAggregate?: Maybe<ElementBaseActionPreRenderActionAggregationSelection>
-  preRenderAction: Array<BaseAction>
-  preRenderActionConnection: ElementPreRenderActionConnection
-  postRenderActionAggregate?: Maybe<ElementBaseActionPostRenderActionAggregationSelection>
-  postRenderAction: Array<BaseAction>
-  postRenderActionConnection: ElementPostRenderActionConnection
+  preRenderActionsAggregate?: Maybe<ElementBaseActionPreRenderActionsAggregationSelection>
+  preRenderActions: Array<BaseAction>
+  preRenderActionsConnection: ElementPreRenderActionsConnection
+  postRenderActionsAggregate?: Maybe<ElementBaseActionPostRenderActionsAggregationSelection>
+  postRenderActions: Array<BaseAction>
+  postRenderActionsConnection: ElementPostRenderActionsConnection
   renderType: ElementRenderType
   renderTypeConnection: ElementRenderTypeConnection
 }
@@ -4671,42 +4671,42 @@ export type ElementChildMapperPreviousSiblingConnectionArgs = {
   sort?: InputMaybe<Array<ElementChildMapperPreviousSiblingConnectionSort>>
 }
 
-export type ElementPreRenderActionAggregateArgs = {
+export type ElementPreRenderActionsAggregateArgs = {
   where?: InputMaybe<BaseActionWhere>
   directed?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ElementPreRenderActionArgs = {
-  where?: InputMaybe<BaseActionWhere>
-  options?: InputMaybe<BaseActionOptions>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-}
-
-export type ElementPreRenderActionConnectionArgs = {
-  where?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  first?: InputMaybe<Scalars['Int']['input']>
-  after?: InputMaybe<Scalars['String']['input']>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  sort?: InputMaybe<Array<ElementPreRenderActionConnectionSort>>
-}
-
-export type ElementPostRenderActionAggregateArgs = {
-  where?: InputMaybe<BaseActionWhere>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-}
-
-export type ElementPostRenderActionArgs = {
+export type ElementPreRenderActionsArgs = {
   where?: InputMaybe<BaseActionWhere>
   options?: InputMaybe<BaseActionOptions>
   directed?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ElementPostRenderActionConnectionArgs = {
-  where?: InputMaybe<ElementPostRenderActionConnectionWhere>
+export type ElementPreRenderActionsConnectionArgs = {
+  where?: InputMaybe<ElementPreRenderActionsConnectionWhere>
   first?: InputMaybe<Scalars['Int']['input']>
   after?: InputMaybe<Scalars['String']['input']>
   directed?: InputMaybe<Scalars['Boolean']['input']>
-  sort?: InputMaybe<Array<ElementPostRenderActionConnectionSort>>
+  sort?: InputMaybe<Array<ElementPreRenderActionsConnectionSort>>
+}
+
+export type ElementPostRenderActionsAggregateArgs = {
+  where?: InputMaybe<BaseActionWhere>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ElementPostRenderActionsArgs = {
+  where?: InputMaybe<BaseActionWhere>
+  options?: InputMaybe<BaseActionOptions>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ElementPostRenderActionsConnectionArgs = {
+  where?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']['input']>
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  sort?: InputMaybe<Array<ElementPostRenderActionsConnectionSort>>
 }
 
 export type ElementRenderTypeArgs = {
@@ -4733,26 +4733,26 @@ export type ElementAggregateSelection = {
   renderIfExpression: StringAggregateSelection
 }
 
-export type ElementBaseActionPostRenderActionAggregationSelection = {
-  __typename: 'ElementBaseActionPostRenderActionAggregationSelection'
+export type ElementBaseActionPostRenderActionsAggregationSelection = {
+  __typename: 'ElementBaseActionPostRenderActionsAggregationSelection'
   count: Scalars['Int']['output']
-  node?: Maybe<ElementBaseActionPostRenderActionNodeAggregateSelection>
+  node?: Maybe<ElementBaseActionPostRenderActionsNodeAggregateSelection>
 }
 
-export type ElementBaseActionPostRenderActionNodeAggregateSelection = {
-  __typename: 'ElementBaseActionPostRenderActionNodeAggregateSelection'
+export type ElementBaseActionPostRenderActionsNodeAggregateSelection = {
+  __typename: 'ElementBaseActionPostRenderActionsNodeAggregateSelection'
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
 
-export type ElementBaseActionPreRenderActionAggregationSelection = {
-  __typename: 'ElementBaseActionPreRenderActionAggregationSelection'
+export type ElementBaseActionPreRenderActionsAggregationSelection = {
+  __typename: 'ElementBaseActionPreRenderActionsAggregationSelection'
   count: Scalars['Int']['output']
-  node?: Maybe<ElementBaseActionPreRenderActionNodeAggregateSelection>
+  node?: Maybe<ElementBaseActionPreRenderActionsNodeAggregateSelection>
 }
 
-export type ElementBaseActionPreRenderActionNodeAggregateSelection = {
-  __typename: 'ElementBaseActionPreRenderActionNodeAggregateSelection'
+export type ElementBaseActionPreRenderActionsNodeAggregateSelection = {
+  __typename: 'ElementBaseActionPreRenderActionsNodeAggregateSelection'
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -4971,28 +4971,28 @@ export type ElementParentElementRelationship = {
   node: Element
 }
 
-export type ElementPostRenderActionConnection = {
-  __typename: 'ElementPostRenderActionConnection'
-  edges: Array<ElementPostRenderActionRelationship>
+export type ElementPostRenderActionsConnection = {
+  __typename: 'ElementPostRenderActionsConnection'
+  edges: Array<ElementPostRenderActionsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
-export type ElementPostRenderActionRelationship = {
-  __typename: 'ElementPostRenderActionRelationship'
+export type ElementPostRenderActionsRelationship = {
+  __typename: 'ElementPostRenderActionsRelationship'
   cursor: Scalars['String']['output']
   node: BaseAction
 }
 
-export type ElementPreRenderActionConnection = {
-  __typename: 'ElementPreRenderActionConnection'
-  edges: Array<ElementPreRenderActionRelationship>
+export type ElementPreRenderActionsConnection = {
+  __typename: 'ElementPreRenderActionsConnection'
+  edges: Array<ElementPreRenderActionsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
-export type ElementPreRenderActionRelationship = {
-  __typename: 'ElementPreRenderActionRelationship'
+export type ElementPreRenderActionsRelationship = {
+  __typename: 'ElementPreRenderActionsRelationship'
   cursor: Scalars['String']['output']
   node: BaseAction
 }
@@ -20807,8 +20807,10 @@ export type ElementConnectInput = {
   parentComponent?: InputMaybe<ElementParentComponentConnectFieldInput>
   childMapperComponent?: InputMaybe<ElementChildMapperComponentConnectFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingConnectFieldInput>
-  preRenderAction?: InputMaybe<Array<ElementPreRenderActionConnectFieldInput>>
-  postRenderAction?: InputMaybe<Array<ElementPostRenderActionConnectFieldInput>>
+  preRenderActions?: InputMaybe<Array<ElementPreRenderActionsConnectFieldInput>>
+  postRenderActions?: InputMaybe<
+    Array<ElementPostRenderActionsConnectFieldInput>
+  >
   renderType?: InputMaybe<ElementRenderTypeConnectInput>
 }
 
@@ -20851,8 +20853,8 @@ export type ElementCreateInput = {
   parentComponent?: InputMaybe<ElementParentComponentFieldInput>
   childMapperComponent?: InputMaybe<ElementChildMapperComponentFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingFieldInput>
-  preRenderAction?: InputMaybe<ElementPreRenderActionFieldInput>
-  postRenderAction?: InputMaybe<ElementPostRenderActionFieldInput>
+  preRenderActions?: InputMaybe<ElementPreRenderActionsFieldInput>
+  postRenderActions?: InputMaybe<ElementPostRenderActionsFieldInput>
   renderType?: InputMaybe<ElementRenderTypeCreateInput>
 }
 
@@ -20866,8 +20868,10 @@ export type ElementDeleteInput = {
   parentComponent?: InputMaybe<ElementParentComponentDeleteFieldInput>
   childMapperComponent?: InputMaybe<ElementChildMapperComponentDeleteFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingDeleteFieldInput>
-  preRenderAction?: InputMaybe<Array<ElementPreRenderActionDeleteFieldInput>>
-  postRenderAction?: InputMaybe<Array<ElementPostRenderActionDeleteFieldInput>>
+  preRenderActions?: InputMaybe<Array<ElementPreRenderActionsDeleteFieldInput>>
+  postRenderActions?: InputMaybe<
+    Array<ElementPostRenderActionsDeleteFieldInput>
+  >
   renderType?: InputMaybe<ElementRenderTypeDeleteInput>
 }
 
@@ -20881,11 +20885,11 @@ export type ElementDisconnectInput = {
   parentComponent?: InputMaybe<ElementParentComponentDisconnectFieldInput>
   childMapperComponent?: InputMaybe<ElementChildMapperComponentDisconnectFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingDisconnectFieldInput>
-  preRenderAction?: InputMaybe<
-    Array<ElementPreRenderActionDisconnectFieldInput>
+  preRenderActions?: InputMaybe<
+    Array<ElementPreRenderActionsDisconnectFieldInput>
   >
-  postRenderAction?: InputMaybe<
-    Array<ElementPostRenderActionDisconnectFieldInput>
+  postRenderActions?: InputMaybe<
+    Array<ElementPostRenderActionsDisconnectFieldInput>
   >
   renderType?: InputMaybe<ElementRenderTypeDisconnectInput>
 }
@@ -22355,59 +22359,59 @@ export type ElementParentElementUpdateFieldInput = {
   delete?: InputMaybe<ElementParentElementDeleteFieldInput>
 }
 
-export type ElementPostRenderActionAggregateInput = {
+export type ElementPostRenderActionsAggregateInput = {
   count?: InputMaybe<Scalars['Int']['input']>
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   count_GT?: InputMaybe<Scalars['Int']['input']>
   count_GTE?: InputMaybe<Scalars['Int']['input']>
-  AND?: InputMaybe<Array<ElementPostRenderActionAggregateInput>>
-  OR?: InputMaybe<Array<ElementPostRenderActionAggregateInput>>
-  NOT?: InputMaybe<ElementPostRenderActionAggregateInput>
-  node?: InputMaybe<ElementPostRenderActionNodeAggregationWhereInput>
+  AND?: InputMaybe<Array<ElementPostRenderActionsAggregateInput>>
+  OR?: InputMaybe<Array<ElementPostRenderActionsAggregateInput>>
+  NOT?: InputMaybe<ElementPostRenderActionsAggregateInput>
+  node?: InputMaybe<ElementPostRenderActionsNodeAggregationWhereInput>
 }
 
-export type ElementPostRenderActionConnectFieldInput = {
+export type ElementPostRenderActionsConnectFieldInput = {
   where?: InputMaybe<BaseActionConnectWhere>
   connect?: InputMaybe<BaseActionConnectInput>
 }
 
-export type ElementPostRenderActionConnectionSort = {
+export type ElementPostRenderActionsConnectionSort = {
   node?: InputMaybe<BaseActionSort>
 }
 
-export type ElementPostRenderActionConnectionWhere = {
-  AND?: InputMaybe<Array<ElementPostRenderActionConnectionWhere>>
-  OR?: InputMaybe<Array<ElementPostRenderActionConnectionWhere>>
-  NOT?: InputMaybe<ElementPostRenderActionConnectionWhere>
+export type ElementPostRenderActionsConnectionWhere = {
+  AND?: InputMaybe<Array<ElementPostRenderActionsConnectionWhere>>
+  OR?: InputMaybe<Array<ElementPostRenderActionsConnectionWhere>>
+  NOT?: InputMaybe<ElementPostRenderActionsConnectionWhere>
   node?: InputMaybe<BaseActionWhere>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   node_NOT?: InputMaybe<BaseActionWhere>
 }
 
-export type ElementPostRenderActionCreateFieldInput = {
+export type ElementPostRenderActionsCreateFieldInput = {
   node: BaseActionCreateInput
 }
 
-export type ElementPostRenderActionDeleteFieldInput = {
-  where?: InputMaybe<ElementPostRenderActionConnectionWhere>
+export type ElementPostRenderActionsDeleteFieldInput = {
+  where?: InputMaybe<ElementPostRenderActionsConnectionWhere>
   delete?: InputMaybe<BaseActionDeleteInput>
 }
 
-export type ElementPostRenderActionDisconnectFieldInput = {
-  where?: InputMaybe<ElementPostRenderActionConnectionWhere>
+export type ElementPostRenderActionsDisconnectFieldInput = {
+  where?: InputMaybe<ElementPostRenderActionsConnectionWhere>
   disconnect?: InputMaybe<BaseActionDisconnectInput>
 }
 
-export type ElementPostRenderActionFieldInput = {
-  connect?: InputMaybe<Array<ElementPostRenderActionConnectFieldInput>>
-  create?: InputMaybe<Array<ElementPostRenderActionCreateFieldInput>>
+export type ElementPostRenderActionsFieldInput = {
+  connect?: InputMaybe<Array<ElementPostRenderActionsConnectFieldInput>>
+  create?: InputMaybe<Array<ElementPostRenderActionsCreateFieldInput>>
 }
 
-export type ElementPostRenderActionNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementPostRenderActionNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ElementPostRenderActionNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementPostRenderActionNodeAggregationWhereInput>
+export type ElementPostRenderActionsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementPostRenderActionsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementPostRenderActionsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<ElementPostRenderActionsNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
@@ -22467,72 +22471,72 @@ export type ElementPostRenderActionNodeAggregationWhereInput = {
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
-export type ElementPostRenderActionUpdateConnectionInput = {
+export type ElementPostRenderActionsUpdateConnectionInput = {
   node?: InputMaybe<BaseActionUpdateInput>
 }
 
-export type ElementPostRenderActionUpdateFieldInput = {
-  where?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  connect?: InputMaybe<Array<ElementPostRenderActionConnectFieldInput>>
-  disconnect?: InputMaybe<Array<ElementPostRenderActionDisconnectFieldInput>>
-  create?: InputMaybe<Array<ElementPostRenderActionCreateFieldInput>>
-  update?: InputMaybe<ElementPostRenderActionUpdateConnectionInput>
-  delete?: InputMaybe<Array<ElementPostRenderActionDeleteFieldInput>>
+export type ElementPostRenderActionsUpdateFieldInput = {
+  where?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  connect?: InputMaybe<Array<ElementPostRenderActionsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<ElementPostRenderActionsDisconnectFieldInput>>
+  create?: InputMaybe<Array<ElementPostRenderActionsCreateFieldInput>>
+  update?: InputMaybe<ElementPostRenderActionsUpdateConnectionInput>
+  delete?: InputMaybe<Array<ElementPostRenderActionsDeleteFieldInput>>
 }
 
-export type ElementPreRenderActionAggregateInput = {
+export type ElementPreRenderActionsAggregateInput = {
   count?: InputMaybe<Scalars['Int']['input']>
   count_LT?: InputMaybe<Scalars['Int']['input']>
   count_LTE?: InputMaybe<Scalars['Int']['input']>
   count_GT?: InputMaybe<Scalars['Int']['input']>
   count_GTE?: InputMaybe<Scalars['Int']['input']>
-  AND?: InputMaybe<Array<ElementPreRenderActionAggregateInput>>
-  OR?: InputMaybe<Array<ElementPreRenderActionAggregateInput>>
-  NOT?: InputMaybe<ElementPreRenderActionAggregateInput>
-  node?: InputMaybe<ElementPreRenderActionNodeAggregationWhereInput>
+  AND?: InputMaybe<Array<ElementPreRenderActionsAggregateInput>>
+  OR?: InputMaybe<Array<ElementPreRenderActionsAggregateInput>>
+  NOT?: InputMaybe<ElementPreRenderActionsAggregateInput>
+  node?: InputMaybe<ElementPreRenderActionsNodeAggregationWhereInput>
 }
 
-export type ElementPreRenderActionConnectFieldInput = {
+export type ElementPreRenderActionsConnectFieldInput = {
   where?: InputMaybe<BaseActionConnectWhere>
   connect?: InputMaybe<BaseActionConnectInput>
 }
 
-export type ElementPreRenderActionConnectionSort = {
+export type ElementPreRenderActionsConnectionSort = {
   node?: InputMaybe<BaseActionSort>
 }
 
-export type ElementPreRenderActionConnectionWhere = {
-  AND?: InputMaybe<Array<ElementPreRenderActionConnectionWhere>>
-  OR?: InputMaybe<Array<ElementPreRenderActionConnectionWhere>>
-  NOT?: InputMaybe<ElementPreRenderActionConnectionWhere>
+export type ElementPreRenderActionsConnectionWhere = {
+  AND?: InputMaybe<Array<ElementPreRenderActionsConnectionWhere>>
+  OR?: InputMaybe<Array<ElementPreRenderActionsConnectionWhere>>
+  NOT?: InputMaybe<ElementPreRenderActionsConnectionWhere>
   node?: InputMaybe<BaseActionWhere>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   node_NOT?: InputMaybe<BaseActionWhere>
 }
 
-export type ElementPreRenderActionCreateFieldInput = {
+export type ElementPreRenderActionsCreateFieldInput = {
   node: BaseActionCreateInput
 }
 
-export type ElementPreRenderActionDeleteFieldInput = {
-  where?: InputMaybe<ElementPreRenderActionConnectionWhere>
+export type ElementPreRenderActionsDeleteFieldInput = {
+  where?: InputMaybe<ElementPreRenderActionsConnectionWhere>
   delete?: InputMaybe<BaseActionDeleteInput>
 }
 
-export type ElementPreRenderActionDisconnectFieldInput = {
-  where?: InputMaybe<ElementPreRenderActionConnectionWhere>
+export type ElementPreRenderActionsDisconnectFieldInput = {
+  where?: InputMaybe<ElementPreRenderActionsConnectionWhere>
   disconnect?: InputMaybe<BaseActionDisconnectInput>
 }
 
-export type ElementPreRenderActionFieldInput = {
-  connect?: InputMaybe<Array<ElementPreRenderActionConnectFieldInput>>
-  create?: InputMaybe<Array<ElementPreRenderActionCreateFieldInput>>
+export type ElementPreRenderActionsFieldInput = {
+  connect?: InputMaybe<Array<ElementPreRenderActionsConnectFieldInput>>
+  create?: InputMaybe<Array<ElementPreRenderActionsCreateFieldInput>>
 }
 
-export type ElementPreRenderActionNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementPreRenderActionNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ElementPreRenderActionNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementPreRenderActionNodeAggregationWhereInput>
+export type ElementPreRenderActionsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementPreRenderActionsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementPreRenderActionsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<ElementPreRenderActionsNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
@@ -22592,17 +22596,17 @@ export type ElementPreRenderActionNodeAggregationWhereInput = {
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
-export type ElementPreRenderActionUpdateConnectionInput = {
+export type ElementPreRenderActionsUpdateConnectionInput = {
   node?: InputMaybe<BaseActionUpdateInput>
 }
 
-export type ElementPreRenderActionUpdateFieldInput = {
-  where?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  connect?: InputMaybe<Array<ElementPreRenderActionConnectFieldInput>>
-  disconnect?: InputMaybe<Array<ElementPreRenderActionDisconnectFieldInput>>
-  create?: InputMaybe<Array<ElementPreRenderActionCreateFieldInput>>
-  update?: InputMaybe<ElementPreRenderActionUpdateConnectionInput>
-  delete?: InputMaybe<Array<ElementPreRenderActionDeleteFieldInput>>
+export type ElementPreRenderActionsUpdateFieldInput = {
+  where?: InputMaybe<ElementPreRenderActionsConnectionWhere>
+  connect?: InputMaybe<Array<ElementPreRenderActionsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<ElementPreRenderActionsDisconnectFieldInput>>
+  create?: InputMaybe<Array<ElementPreRenderActionsCreateFieldInput>>
+  update?: InputMaybe<ElementPreRenderActionsUpdateConnectionInput>
+  delete?: InputMaybe<Array<ElementPreRenderActionsDeleteFieldInput>>
 }
 
 export type ElementPrevSiblingAggregateInput = {
@@ -23122,8 +23126,10 @@ export type ElementRelationInput = {
   parentComponent?: InputMaybe<ElementParentComponentCreateFieldInput>
   childMapperComponent?: InputMaybe<ElementChildMapperComponentCreateFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingCreateFieldInput>
-  preRenderAction?: InputMaybe<Array<ElementPreRenderActionCreateFieldInput>>
-  postRenderAction?: InputMaybe<Array<ElementPostRenderActionCreateFieldInput>>
+  preRenderActions?: InputMaybe<Array<ElementPreRenderActionsCreateFieldInput>>
+  postRenderActions?: InputMaybe<
+    Array<ElementPostRenderActionsCreateFieldInput>
+  >
   renderType?: InputMaybe<ElementRenderTypeCreateFieldInput>
 }
 
@@ -24027,8 +24033,10 @@ export type ElementUpdateInput = {
   parentComponent?: InputMaybe<ElementParentComponentUpdateFieldInput>
   childMapperComponent?: InputMaybe<ElementChildMapperComponentUpdateFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingUpdateFieldInput>
-  preRenderAction?: InputMaybe<Array<ElementPreRenderActionUpdateFieldInput>>
-  postRenderAction?: InputMaybe<Array<ElementPostRenderActionUpdateFieldInput>>
+  preRenderActions?: InputMaybe<Array<ElementPreRenderActionsUpdateFieldInput>>
+  postRenderActions?: InputMaybe<
+    Array<ElementPostRenderActionsUpdateFieldInput>
+  >
   renderType?: InputMaybe<ElementRenderTypeUpdateInput>
 }
 
@@ -24197,56 +24205,56 @@ export type ElementWhere = {
   childMapperPreviousSiblingConnection?: InputMaybe<ElementChildMapperPreviousSiblingConnectionWhere>
   childMapperPreviousSiblingConnection_NOT?: InputMaybe<ElementChildMapperPreviousSiblingConnectionWhere>
   childMapperPreviousSiblingAggregate?: InputMaybe<ElementChildMapperPreviousSiblingAggregateInput>
-  /** @deprecated Use `preRenderAction_SOME` instead. */
-  preRenderAction?: InputMaybe<BaseActionWhere>
-  /** @deprecated Use `preRenderAction_NONE` instead. */
-  preRenderAction_NOT?: InputMaybe<BaseActionWhere>
+  /** @deprecated Use `preRenderActions_SOME` instead. */
+  preRenderActions?: InputMaybe<BaseActionWhere>
+  /** @deprecated Use `preRenderActions_NONE` instead. */
+  preRenderActions_NOT?: InputMaybe<BaseActionWhere>
   /** Return Elements where all of the related BaseActions match this filter */
-  preRenderAction_ALL?: InputMaybe<BaseActionWhere>
+  preRenderActions_ALL?: InputMaybe<BaseActionWhere>
   /** Return Elements where none of the related BaseActions match this filter */
-  preRenderAction_NONE?: InputMaybe<BaseActionWhere>
+  preRenderActions_NONE?: InputMaybe<BaseActionWhere>
   /** Return Elements where one of the related BaseActions match this filter */
-  preRenderAction_SINGLE?: InputMaybe<BaseActionWhere>
+  preRenderActions_SINGLE?: InputMaybe<BaseActionWhere>
   /** Return Elements where some of the related BaseActions match this filter */
-  preRenderAction_SOME?: InputMaybe<BaseActionWhere>
-  /** @deprecated Use `preRenderActionConnection_SOME` instead. */
-  preRenderActionConnection?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  /** @deprecated Use `preRenderActionConnection_NONE` instead. */
-  preRenderActionConnection_NOT?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  /** Return Elements where all of the related ElementPreRenderActionConnections match this filter */
-  preRenderActionConnection_ALL?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  /** Return Elements where none of the related ElementPreRenderActionConnections match this filter */
-  preRenderActionConnection_NONE?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  /** Return Elements where one of the related ElementPreRenderActionConnections match this filter */
-  preRenderActionConnection_SINGLE?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  /** Return Elements where some of the related ElementPreRenderActionConnections match this filter */
-  preRenderActionConnection_SOME?: InputMaybe<ElementPreRenderActionConnectionWhere>
-  preRenderActionAggregate?: InputMaybe<ElementPreRenderActionAggregateInput>
-  /** @deprecated Use `postRenderAction_SOME` instead. */
-  postRenderAction?: InputMaybe<BaseActionWhere>
-  /** @deprecated Use `postRenderAction_NONE` instead. */
-  postRenderAction_NOT?: InputMaybe<BaseActionWhere>
+  preRenderActions_SOME?: InputMaybe<BaseActionWhere>
+  /** @deprecated Use `preRenderActionsConnection_SOME` instead. */
+  preRenderActionsConnection?: InputMaybe<ElementPreRenderActionsConnectionWhere>
+  /** @deprecated Use `preRenderActionsConnection_NONE` instead. */
+  preRenderActionsConnection_NOT?: InputMaybe<ElementPreRenderActionsConnectionWhere>
+  /** Return Elements where all of the related ElementPreRenderActionsConnections match this filter */
+  preRenderActionsConnection_ALL?: InputMaybe<ElementPreRenderActionsConnectionWhere>
+  /** Return Elements where none of the related ElementPreRenderActionsConnections match this filter */
+  preRenderActionsConnection_NONE?: InputMaybe<ElementPreRenderActionsConnectionWhere>
+  /** Return Elements where one of the related ElementPreRenderActionsConnections match this filter */
+  preRenderActionsConnection_SINGLE?: InputMaybe<ElementPreRenderActionsConnectionWhere>
+  /** Return Elements where some of the related ElementPreRenderActionsConnections match this filter */
+  preRenderActionsConnection_SOME?: InputMaybe<ElementPreRenderActionsConnectionWhere>
+  preRenderActionsAggregate?: InputMaybe<ElementPreRenderActionsAggregateInput>
+  /** @deprecated Use `postRenderActions_SOME` instead. */
+  postRenderActions?: InputMaybe<BaseActionWhere>
+  /** @deprecated Use `postRenderActions_NONE` instead. */
+  postRenderActions_NOT?: InputMaybe<BaseActionWhere>
   /** Return Elements where all of the related BaseActions match this filter */
-  postRenderAction_ALL?: InputMaybe<BaseActionWhere>
+  postRenderActions_ALL?: InputMaybe<BaseActionWhere>
   /** Return Elements where none of the related BaseActions match this filter */
-  postRenderAction_NONE?: InputMaybe<BaseActionWhere>
+  postRenderActions_NONE?: InputMaybe<BaseActionWhere>
   /** Return Elements where one of the related BaseActions match this filter */
-  postRenderAction_SINGLE?: InputMaybe<BaseActionWhere>
+  postRenderActions_SINGLE?: InputMaybe<BaseActionWhere>
   /** Return Elements where some of the related BaseActions match this filter */
-  postRenderAction_SOME?: InputMaybe<BaseActionWhere>
-  /** @deprecated Use `postRenderActionConnection_SOME` instead. */
-  postRenderActionConnection?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  /** @deprecated Use `postRenderActionConnection_NONE` instead. */
-  postRenderActionConnection_NOT?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  /** Return Elements where all of the related ElementPostRenderActionConnections match this filter */
-  postRenderActionConnection_ALL?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  /** Return Elements where none of the related ElementPostRenderActionConnections match this filter */
-  postRenderActionConnection_NONE?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  /** Return Elements where one of the related ElementPostRenderActionConnections match this filter */
-  postRenderActionConnection_SINGLE?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  /** Return Elements where some of the related ElementPostRenderActionConnections match this filter */
-  postRenderActionConnection_SOME?: InputMaybe<ElementPostRenderActionConnectionWhere>
-  postRenderActionAggregate?: InputMaybe<ElementPostRenderActionAggregateInput>
+  postRenderActions_SOME?: InputMaybe<BaseActionWhere>
+  /** @deprecated Use `postRenderActionsConnection_SOME` instead. */
+  postRenderActionsConnection?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  /** @deprecated Use `postRenderActionsConnection_NONE` instead. */
+  postRenderActionsConnection_NOT?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  /** Return Elements where all of the related ElementPostRenderActionsConnections match this filter */
+  postRenderActionsConnection_ALL?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  /** Return Elements where none of the related ElementPostRenderActionsConnections match this filter */
+  postRenderActionsConnection_NONE?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  /** Return Elements where one of the related ElementPostRenderActionsConnections match this filter */
+  postRenderActionsConnection_SINGLE?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  /** Return Elements where some of the related ElementPostRenderActionsConnections match this filter */
+  postRenderActionsConnection_SOME?: InputMaybe<ElementPostRenderActionsConnectionWhere>
+  postRenderActionsAggregate?: InputMaybe<ElementPostRenderActionsAggregateInput>
   renderType?: InputMaybe<ElementRenderTypeWhere>
   renderType_NOT?: InputMaybe<ElementRenderTypeWhere>
   renderTypeConnection?: InputMaybe<ElementRenderTypeConnectionWhere>

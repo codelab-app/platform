@@ -16,14 +16,15 @@ import {
   DeleteTagsDocument,
   GetTagsDocument,
 } from './tag.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateTags: (variables: CreateTagsMutationVariables) =>
-    gqlRequest(CreateTagsDocument.toString(), variables),
+    gqlRequest(client, CreateTagsDocument.toString(), variables),
   UpdateTags: (variables: UpdateTagsMutationVariables) =>
-    gqlRequest(UpdateTagsDocument.toString(), variables),
+    gqlRequest(client, UpdateTagsDocument.toString(), variables),
   DeleteTags: (variables: DeleteTagsMutationVariables) =>
-    gqlRequest(DeleteTagsDocument.toString(), variables),
+    gqlRequest(client, DeleteTagsDocument.toString(), variables),
   GetTags: (variables: GetTagsQueryVariables) =>
-    gqlRequest(GetTagsDocument.toString(), variables),
+    gqlRequest(client, GetTagsDocument.toString(), variables),
 })

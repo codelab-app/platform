@@ -11,10 +11,11 @@ import {
   CreateCodeActionsDocument,
   CreateApiActionsDocument,
 } from './create-action.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateCodeActions: (variables: CreateCodeActionsMutationVariables) =>
-    gqlRequest(CreateCodeActionsDocument.toString(), variables),
+    gqlRequest(client, CreateCodeActionsDocument.toString(), variables),
   CreateApiActions: (variables: CreateApiActionsMutationVariables) =>
-    gqlRequest(CreateApiActionsDocument.toString(), variables),
+    gqlRequest(client, CreateApiActionsDocument.toString(), variables),
 })

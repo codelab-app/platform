@@ -12,10 +12,11 @@ import {
   CreateHooksDocument,
   DeleteHooksDocument,
 } from './hook.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateHooks: (variables: CreateHooksMutationVariables) =>
-    gqlRequest(CreateHooksDocument.toString(), variables),
+    gqlRequest(client, CreateHooksDocument.toString(), variables),
   DeleteHooks: (variables: DeleteHooksMutationVariables) =>
-    gqlRequest(DeleteHooksDocument.toString(), variables),
+    gqlRequest(client, DeleteHooksDocument.toString(), variables),
 })

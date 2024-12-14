@@ -16,14 +16,15 @@ import {
   DeleteFieldsDocument,
   GetFieldsDocument,
 } from './field.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateFields: (variables: CreateFieldsMutationVariables) =>
-    gqlRequest(CreateFieldsDocument.toString(), variables),
+    gqlRequest(client, CreateFieldsDocument.toString(), variables),
   UpdateFields: (variables: UpdateFieldsMutationVariables) =>
-    gqlRequest(UpdateFieldsDocument.toString(), variables),
+    gqlRequest(client, UpdateFieldsDocument.toString(), variables),
   DeleteFields: (variables: DeleteFieldsMutationVariables) =>
-    gqlRequest(DeleteFieldsDocument.toString(), variables),
+    gqlRequest(client, DeleteFieldsDocument.toString(), variables),
   GetFields: (variables: GetFieldsQueryVariables) =>
-    gqlRequest(GetFieldsDocument.toString(), variables),
+    gqlRequest(client, GetFieldsDocument.toString(), variables),
 })

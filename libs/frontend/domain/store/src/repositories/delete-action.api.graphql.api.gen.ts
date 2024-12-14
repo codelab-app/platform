@@ -11,10 +11,11 @@ import {
   DeleteCodeActionsDocument,
   DeleteApiActionsDocument,
 } from './delete-action.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   DeleteCodeActions: (variables: DeleteCodeActionsMutationVariables) =>
-    gqlRequest(DeleteCodeActionsDocument.toString(), variables),
+    gqlRequest(client, DeleteCodeActionsDocument.toString(), variables),
   DeleteApiActions: (variables: DeleteApiActionsMutationVariables) =>
-    gqlRequest(DeleteApiActionsDocument.toString(), variables),
+    gqlRequest(client, DeleteApiActionsDocument.toString(), variables),
 })

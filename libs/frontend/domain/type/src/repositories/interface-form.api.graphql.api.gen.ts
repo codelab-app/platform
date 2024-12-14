@@ -19,20 +19,23 @@ import {
   InterfaceForm_GetResourceDocument,
   InterfaceForm_GetPagesDocument,
 } from './interface-form.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   InterfaceForm_GetApps: (variables: InterfaceForm_GetAppsQueryVariables) =>
-    gqlRequest(InterfaceForm_GetAppsDocument.toString(), variables),
+    gqlRequest(client, InterfaceForm_GetAppsDocument.toString(), variables),
   InterfaceForm_GetAtoms: (variables: InterfaceForm_GetAtomsQueryVariables) =>
-    gqlRequest(InterfaceForm_GetAtomsDocument.toString(), variables),
+    gqlRequest(client, InterfaceForm_GetAtomsDocument.toString(), variables),
   InterfaceForm_GetActions: (
     variables: InterfaceForm_GetActionsQueryVariables,
-  ) => gqlRequest(InterfaceForm_GetActionsDocument.toString(), variables),
+  ) =>
+    gqlRequest(client, InterfaceForm_GetActionsDocument.toString(), variables),
   InterfaceForm_GetStores: (variables: InterfaceForm_GetStoresQueryVariables) =>
-    gqlRequest(InterfaceForm_GetStoresDocument.toString(), variables),
+    gqlRequest(client, InterfaceForm_GetStoresDocument.toString(), variables),
   InterfaceForm_GetResource: (
     variables: InterfaceForm_GetResourceQueryVariables,
-  ) => gqlRequest(InterfaceForm_GetResourceDocument.toString(), variables),
+  ) =>
+    gqlRequest(client, InterfaceForm_GetResourceDocument.toString(), variables),
   InterfaceForm_GetPages: (variables: InterfaceForm_GetPagesQueryVariables) =>
-    gqlRequest(InterfaceForm_GetPagesDocument.toString(), variables),
+    gqlRequest(client, InterfaceForm_GetPagesDocument.toString(), variables),
 })

@@ -31,15 +31,15 @@ import { GraphQLClient } from 'graphql-request'
 
 export const getSdk = (client: GraphQLClient) => ({
   CreateApps: (variables: CreateAppsMutationVariables) =>
-    gqlRequest(CreateAppsDocument.toString(), variables),
+    gqlRequest(client, CreateAppsDocument.toString(), variables),
   UpdateApps: (variables: UpdateAppsMutationVariables) =>
-    gqlRequest(UpdateAppsDocument.toString(), variables),
+    gqlRequest(client, UpdateAppsDocument.toString(), variables),
   DeleteApps: (variables: DeleteAppsMutationVariables) =>
-    gqlRequest(DeleteAppsDocument.toString(), variables),
+    gqlRequest(client, DeleteAppsDocument.toString(), variables),
   AppListPreview: (variables: AppListPreviewQueryVariables) =>
-    gqlRequest(AppListPreviewDocument.toString(), variables),
+    gqlRequest(client, AppListPreviewDocument.toString(), variables),
   AppList: (variables: AppListQueryVariables) =>
-    gqlRequest(AppListDocument.toString(), variables),
+    gqlRequest(client, AppListDocument.toString(), variables),
   GetAppProduction: (variables: GetAppProductionQueryVariables) =>
-    gqlRequest(GetAppProductionDocument.toString(), variables),
+    gqlRequest(client, GetAppProductionDocument.toString(), variables),
 })

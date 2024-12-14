@@ -11,10 +11,11 @@ import {
   IsTypeDescendantOfDocument,
   GetTypeReferencesDocument,
 } from './type.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   IsTypeDescendantOf: (variables: IsTypeDescendantOfQueryVariables) =>
-    gqlRequest(IsTypeDescendantOfDocument.toString(), variables),
+    gqlRequest(client, IsTypeDescendantOfDocument.toString(), variables),
   GetTypeReferences: (variables: GetTypeReferencesQueryVariables) =>
-    gqlRequest(GetTypeReferencesDocument.toString(), variables),
+    gqlRequest(client, GetTypeReferencesDocument.toString(), variables),
 })

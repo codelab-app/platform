@@ -16,14 +16,15 @@ import {
   GetStoresDocument,
   UpdateStoresDocument,
 } from './store.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateStores: (variables: CreateStoresMutationVariables) =>
-    gqlRequest(CreateStoresDocument.toString(), variables),
+    gqlRequest(client, CreateStoresDocument.toString(), variables),
   DeleteStores: (variables: DeleteStoresMutationVariables) =>
-    gqlRequest(DeleteStoresDocument.toString(), variables),
+    gqlRequest(client, DeleteStoresDocument.toString(), variables),
   GetStores: (variables: GetStoresQueryVariables) =>
-    gqlRequest(GetStoresDocument.toString(), variables),
+    gqlRequest(client, GetStoresDocument.toString(), variables),
   UpdateStores: (variables: UpdateStoresMutationVariables) =>
-    gqlRequest(UpdateStoresDocument.toString(), variables),
+    gqlRequest(client, UpdateStoresDocument.toString(), variables),
 })

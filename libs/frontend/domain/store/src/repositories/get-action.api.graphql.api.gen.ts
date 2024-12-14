@@ -6,8 +6,9 @@ import { ActionFragmentDoc } from '@codelab/shared/infra/gql'
 
 import { type GetActionsQueryVariables } from '@codelab/shared/infra/gql'
 import { GetActionsDocument } from './get-action.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   GetActions: (variables: GetActionsQueryVariables) =>
-    gqlRequest(GetActionsDocument.toString(), variables),
+    gqlRequest(client, GetActionsDocument.toString(), variables),
 })

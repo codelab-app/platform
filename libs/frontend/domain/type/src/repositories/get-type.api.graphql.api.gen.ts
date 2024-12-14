@@ -47,40 +47,41 @@ import {
   GetActionTypesDocument,
   GetCodeMirrorTypesDocument,
 } from './get-type.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   GetBaseTypes: (variables: GetBaseTypesQueryVariables) =>
-    gqlRequest(GetBaseTypesDocument.toString(), variables),
+    gqlRequest(client, GetBaseTypesDocument.toString(), variables),
   GetTypes: (variables: GetTypesQueryVariables) =>
-    gqlRequest(GetTypesDocument.toString(), variables),
+    gqlRequest(client, GetTypesDocument.toString(), variables),
   GetDescendants: (variables: GetDescendantsQueryVariables) =>
-    gqlRequest(GetDescendantsDocument.toString(), variables),
+    gqlRequest(client, GetDescendantsDocument.toString(), variables),
   GetPrimitiveTypes: (variables: GetPrimitiveTypesQueryVariables) =>
-    gqlRequest(GetPrimitiveTypesDocument.toString(), variables),
+    gqlRequest(client, GetPrimitiveTypesDocument.toString(), variables),
   GetArrayTypes: (variables: GetArrayTypesQueryVariables) =>
-    gqlRequest(GetArrayTypesDocument.toString(), variables),
+    gqlRequest(client, GetArrayTypesDocument.toString(), variables),
   GetUnionTypes: (variables: GetUnionTypesQueryVariables) =>
-    gqlRequest(GetUnionTypesDocument.toString(), variables),
+    gqlRequest(client, GetUnionTypesDocument.toString(), variables),
   GetInterfaceTypes: (variables: GetInterfaceTypesQueryVariables) =>
-    gqlRequest(GetInterfaceTypesDocument.toString(), variables),
+    gqlRequest(client, GetInterfaceTypesDocument.toString(), variables),
   GetElementTypes: (variables: GetElementTypesQueryVariables) =>
-    gqlRequest(GetElementTypesDocument.toString(), variables),
+    gqlRequest(client, GetElementTypesDocument.toString(), variables),
   GetRenderPropTypes: (variables: GetRenderPropTypesQueryVariables) =>
-    gqlRequest(GetRenderPropTypesDocument.toString(), variables),
+    gqlRequest(client, GetRenderPropTypesDocument.toString(), variables),
   GetReactNodeTypes: (variables: GetReactNodeTypesQueryVariables) =>
-    gqlRequest(GetReactNodeTypesDocument.toString(), variables),
+    gqlRequest(client, GetReactNodeTypesDocument.toString(), variables),
   GetRichTextTypes: (variables: GetRichTextTypesQueryVariables) =>
-    gqlRequest(GetRichTextTypesDocument.toString(), variables),
+    gqlRequest(client, GetRichTextTypesDocument.toString(), variables),
   GetEnumTypes: (variables: GetEnumTypesQueryVariables) =>
-    gqlRequest(GetEnumTypesDocument.toString(), variables),
+    gqlRequest(client, GetEnumTypesDocument.toString(), variables),
   GetLambdaTypes: (variables: GetLambdaTypesQueryVariables) =>
-    gqlRequest(GetLambdaTypesDocument.toString(), variables),
+    gqlRequest(client, GetLambdaTypesDocument.toString(), variables),
   GetPageTypes: (variables: GetPageTypesQueryVariables) =>
-    gqlRequest(GetPageTypesDocument.toString(), variables),
+    gqlRequest(client, GetPageTypesDocument.toString(), variables),
   GetAppTypes: (variables: GetAppTypesQueryVariables) =>
-    gqlRequest(GetAppTypesDocument.toString(), variables),
+    gqlRequest(client, GetAppTypesDocument.toString(), variables),
   GetActionTypes: (variables: GetActionTypesQueryVariables) =>
-    gqlRequest(GetActionTypesDocument.toString(), variables),
+    gqlRequest(client, GetActionTypesDocument.toString(), variables),
   GetCodeMirrorTypes: (variables: GetCodeMirrorTypesQueryVariables) =>
-    gqlRequest(GetCodeMirrorTypesDocument.toString(), variables),
+    gqlRequest(client, GetCodeMirrorTypesDocument.toString(), variables),
 })

@@ -16,14 +16,15 @@ import {
   UpdateRedirectsDocument,
   GetRedirectsDocument,
 } from './redirect.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateRedirects: (variables: CreateRedirectsMutationVariables) =>
-    gqlRequest(CreateRedirectsDocument.toString(), variables),
+    gqlRequest(client, CreateRedirectsDocument.toString(), variables),
   DeleteRedirects: (variables: DeleteRedirectsMutationVariables) =>
-    gqlRequest(DeleteRedirectsDocument.toString(), variables),
+    gqlRequest(client, DeleteRedirectsDocument.toString(), variables),
   UpdateRedirects: (variables: UpdateRedirectsMutationVariables) =>
-    gqlRequest(UpdateRedirectsDocument.toString(), variables),
+    gqlRequest(client, UpdateRedirectsDocument.toString(), variables),
   GetRedirects: (variables: GetRedirectsQueryVariables) =>
-    gqlRequest(GetRedirectsDocument.toString(), variables),
+    gqlRequest(client, GetRedirectsDocument.toString(), variables),
 })
