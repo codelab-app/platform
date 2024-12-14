@@ -1,3 +1,4 @@
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect, type Locator, type Page } from '@playwright/test'
 
 export const getButton = (page: Page, options: { label: string | RegExp }) => {
@@ -39,4 +40,8 @@ export const getCuiTreeItemByPrimaryTitle = async (
   title: string,
 ) => {
   return page.getByTestId(`cui-tree-item-primary-title-${title}`)
+}
+
+export const getCuiTree = (page: Page) => {
+  return page.getByTestId(CuiTestId.cuiTree())
 }

@@ -81,10 +81,26 @@ export const PageType = {
 
     return `${pageBuilder}/create-page`
   },
+  PageDelete: ({ appId, pageId }: PageContextParams) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/delete/page`
+  },
   PageDetail: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}`,
   PageList: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}/builder/page`,
+  PageUpdate: ({ appId, pageId }: PageContextParams) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/update-page`
+  },
   PropsInterface: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
     `/apps/${appId}/props`,
   Resources: () => '/resources',

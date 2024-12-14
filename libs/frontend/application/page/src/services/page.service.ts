@@ -5,9 +5,11 @@ import type {
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { PageWhere } from '@codelab/shared/infra/gql'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { type IPageService } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import {
   GetRenderedPage,
@@ -81,14 +83,7 @@ export const usePageService = (): IPageService => {
         owner.toJson,
       )
 
-    return await createPageAction(
-      page,
-      store,
-      storeApi,
-      rootElement,
-      rootElementProps,
-      owner.toJson,
-    )
+    return await createPageAction(page, store, storeApi, rootElement)
 
     // revalidateTag(CACHE_TAGS.PAGE_LIST)
   }
@@ -147,8 +142,51 @@ export const usePageService = (): IPageService => {
     return Array.from(pageDomainService.pages.values())
   }
 
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance, appId: string, pageId: string) => {
+      router.push(PageType.PageCreate({ appId, pageId }))
+    },
+  }
+
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (
+      router: AppRouterInstance,
+      appId: string,
+      pageId: string,
+      id: string,
+    ) => {
+      const baseUrl = PageType.PageUpdate({ appId, pageId })
+
+      router.push(`${baseUrl}/${id}`)
+    },
+  }
+
+  const deletePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (
+      router: AppRouterInstance,
+      appId: string,
+      pageId: string,
+      id: string,
+    ) => {
+      const baseUrl = PageType.PageDelete({ appId, pageId })
+
+      router.push(`${baseUrl}/${id}`)
+    },
+  }
+
   return {
     create,
+    createPopover,
+    deletePopover,
     getAll,
     getAllFromCache,
     getOne,
@@ -159,5 +197,6 @@ export const usePageService = (): IPageService => {
     loadElements,
     removeMany,
     update,
+    updatePopover,
   }
 }

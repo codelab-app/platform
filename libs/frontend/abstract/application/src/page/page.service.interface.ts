@@ -2,7 +2,7 @@ import type {
   IDomainStore,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
 import type {
   IElementDto,
   IPageCreateFormData,
@@ -25,6 +25,10 @@ export interface ICreatePageUseCase {
 export interface IPageService
   extends IQueryService<IPageModel, PageWhere, PageOptions>,
     ICrudService<IRef, IPageCreateFormData, IPageUpdateFormData> {
+  createPopover: IPopover
+  deletePopover: IPopover
+  updatePopover: IPopover
+
   getPagesByApp(appId: string): Array<IPageModel>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   getSelectPageOptions(appId?: string): Promise<Array<SelectOption>>

@@ -1,21 +1,17 @@
+import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
 import type {
-  IPageModel,
-  IPageRepository,
-} from '@codelab/frontend/abstract/domain'
-import type { IPage, IPageDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  PageCreateInput,
-  PageDeleteInput,
   PageOptions,
   PageUniqueWhere,
-  PageUpdateInput,
   PageWhere,
 } from '@codelab/shared/infra/gql'
 
+import {
+  CACHE_TAGS,
+  type IPageRepository,
+} from '@codelab/frontend/abstract/domain'
 import { pageMapper } from '@codelab/shared/domain-old'
 import { Validator } from '@codelab/shared/infra/schema'
 
-import { Page } from '../store'
 import {
   CreatePages,
   DeletePages,
@@ -39,10 +35,13 @@ export const pageRepository: IPageRepository = {
   delete: async (pages: Array<IRef>) => {
     const {
       deletePages: { nodesDeleted },
-    } = await DeletePages({
-      delete: pageMapper.toDeleteInput(),
-      where: { id_IN: pages.map((page) => page.id) },
-    })
+    } = await DeletePages(
+      {
+        delete: pageMapper.toDeleteInput(),
+        where: { id_IN: pages.map((page) => page.id) },
+      },
+      { revalidateTag: CACHE_TAGS.PAGE_LIST },
+    )
 
     return nodesDeleted
   },
