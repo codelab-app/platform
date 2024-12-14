@@ -1,0 +1,12 @@
+{
+  "name": "shared-domain-module-auth-guard",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain/module/auth-guard/src",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

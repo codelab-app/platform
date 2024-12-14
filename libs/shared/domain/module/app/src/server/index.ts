@@ -1,1 +1,1 @@
-export * from '../api/app.api.graphql.web.gen'
+export * from '../graphql/app.api.graphql.web.gen'

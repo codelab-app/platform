@@ -6,14 +6,12 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { Validator } from '@codelab/shared/infra/schema'
-import { pageMapper } from '@codelab/shared-domain-module/page'
-
 import {
-  CreatePages,
-  DeletePages,
-  PageList,
-  UpdatePages,
-} from './page.api.graphql.web.gen'
+  pageMapper,
+  pageServerActions,
+} from '@codelab/shared-domain-module/page'
+
+const { CreatePages, DeletePages, PageList, UpdatePages } = pageServerActions()
 
 export const pageRepository: IPageRepository = {
   add: async (input: IPageDto) => {

@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { AtomProductionFragment } from '@codelab/shared/infra/gql'
 
-import { GetAppProduction } from '@codelab/shared-domain-module-app'
+import { GetAppProduction } from '@codelab/shared-domain-module-app/server'
 import { uniqueBy } from 'remeda'
 
 //  In production we have domain and pageUrlPattern we filter app by domain and page by url

@@ -11,15 +11,14 @@ import {
   type IDomainRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
-import { domainMapper } from '@codelab/shared-domain-module/domain'
+import {
+  domainMapper,
+  domainServerActions,
+} from '@codelab/shared-domain-module/domain'
 import { revalidateTag } from 'next/cache'
 
-import {
-  CreateDomains,
-  DeleteDomains,
-  DomainList,
-  UpdateDomains,
-} from './domain.api.graphql.web.gen'
+const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
+  domainServerActions()
 
 export const domainRepository: IDomainRepository = {
   add: async (domain: IDomainDto) => {

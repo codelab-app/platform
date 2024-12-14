@@ -18,7 +18,7 @@ const PrimarySidebar = observer(
     const { componentDomainService } = useDomainStore()
     const component = componentDomainService.components.get(componentId)
     const searchParams = useSearchParams()
-    const primarySidebarKey = searchParams.get('primarySidebarKey')
+    const primarySidebarKey = searchParams?.get('primarySidebarKey')
 
     if (!component) {
       return <Spinner isLoading />

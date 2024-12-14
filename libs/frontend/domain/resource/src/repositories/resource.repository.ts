@@ -11,14 +11,13 @@ import {
   type IResourceRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
-import { resourceMapper } from '@codelab/shared-domain-module/resource'
-
 import {
-  CreateResources,
-  DeleteResources,
-  ResourceList,
-  UpdateResource,
-} from './resource.api.graphql.web.gen'
+  resourceMapper,
+  resourceServerActions,
+} from '@codelab/shared-domain-module/resource'
+
+const { CreateResources, DeleteResources, ResourceList, UpdateResource } =
+  resourceServerActions()
 
 export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceDto) => {

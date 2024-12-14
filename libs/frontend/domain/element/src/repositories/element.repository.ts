@@ -11,14 +11,13 @@ import type {
 
 import { disconnectManyAll } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/schema'
-import { elementMapper } from '@codelab/shared-domain-module/element'
-
 import {
-  CreateElements,
-  DeleteElements,
-  ElementList,
-  UpdateElements,
-} from './element.api.graphql.web.gen'
+  elementMapper,
+  elementServerActions,
+} from '@codelab/shared-domain-module/element'
+
+const { CreateElements, DeleteElements, ElementList, UpdateElements } =
+  elementServerActions()
 
 export const elementRepository: IElementRepository = {
   add: async (element: IElementDto) => {
