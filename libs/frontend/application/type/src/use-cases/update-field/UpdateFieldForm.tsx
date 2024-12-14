@@ -88,6 +88,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
         onSubmitSuccess={onSubmitSuccess}
         schema={fieldSchema}
         submitRef={submitRef}
+        successMessage="Field updated successfully"
         uiKey={UiKey.FieldFormUpdate}
       >
         <AutoFields fields={['id', 'key', 'name', 'description']} />

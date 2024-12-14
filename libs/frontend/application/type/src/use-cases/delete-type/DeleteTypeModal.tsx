@@ -55,6 +55,7 @@ export const DeleteTypeModal = observer<{ id: string }>(({ id }) => {
         onSubmit={onSubmit}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        successMessage="Type deleted successfully"
       >
         <h4>Are you sure you want to delete type "{type.name}"?</h4>
       </ModalForm.Form>

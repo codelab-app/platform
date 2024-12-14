@@ -64,10 +64,13 @@ export class BasePage {
     // Fill
     await page.getByLabel(options.label).fill(value)
 
+    // wait for dynamic dropdowns to populate options
+    await expect(page.getByLabel('loading')).toHaveCount(0)
+
     // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
     await this.page
       .locator(
-        '.ant-select-dropdown.ant-slide-up-appear-active .ant-select-item',
+        '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
       )
       .first()
       .click()
