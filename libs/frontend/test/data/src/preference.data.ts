@@ -1,8 +1,8 @@
+import { type IPreferenceDto } from '@codelab/shared/abstract/core'
 import {
   breakpoints,
   DEFAULT_BUILDER_BREAKPOINT,
-} from '@codelab/frontend/shared/config'
-import { type IPreferenceDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/config/builder'
 import { v4 } from 'uuid'
 
 import { userDto } from './user.data'

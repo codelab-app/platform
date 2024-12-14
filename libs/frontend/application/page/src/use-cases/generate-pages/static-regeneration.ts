@@ -5,7 +5,7 @@ import {
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { useState } from 'react'
 
 // makes a call to the api backend where session is checked

@@ -1,4 +1,4 @@
-# shared-config
+# shared-config-env
 
 This library was generated with [Nx](https://nx.dev).
 

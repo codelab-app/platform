@@ -1,4 +1,4 @@
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { createClient } from '@supabase/supabase-js'
 
 const { key, url } = getEnv().supabase

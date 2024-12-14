@@ -1,7 +1,7 @@
 'use server'
 
 import { invalidateAppListQuery } from '@codelab/frontend-domain-app/repositories'
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 
 export const importAppService = async (formData: FormData) => {

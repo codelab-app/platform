@@ -3,7 +3,7 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { App } from '@codelab/shared/infra/gql'
 
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 
 export const exportAppService = async (app: IRef) => {

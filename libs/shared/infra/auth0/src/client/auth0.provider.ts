@@ -1,5 +1,5 @@
 import { initAuth0 } from '@auth0/nextjs-auth0'
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 
 export const auth0Instance = initAuth0({
   authorizationParams: {

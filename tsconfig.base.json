@@ -920,9 +920,6 @@
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
       ],
-      "@codelab/frontend/shared/config": [
-        "libs/frontend/shared/config/src/index.ts"
-      ],
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
@@ -1004,7 +1001,10 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
-      "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
+      "@codelab/shared/config/builder": [
+        "libs/shared/config/builder/src/index.ts"
+      ],
+      "@codelab/shared/config/env": ["libs/shared/config/env/src/index.ts"],
       "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain/errors": [

@@ -3,7 +3,7 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { cLog } from '@codelab/shared/utils'
 import { revalidateTag } from 'next/cache'
 

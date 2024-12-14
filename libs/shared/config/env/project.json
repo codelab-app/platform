@@ -1,10 +1,10 @@
 {
-  "name": "shared-config",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/config/src",
+  "name": "shared-config-env",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/config/env/src",
   "projectType": "library",
   "tags": [
-    "projectName:shared-config",
+    "projectName:shared-config-env",
     "projectType:library",
     "type:concrete",
     "scope:shared"

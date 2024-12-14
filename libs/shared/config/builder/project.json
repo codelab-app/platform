@@ -1,13 +1,12 @@
 {
-  "name": "frontend-shared-config",
+  "name": "shared-config-builder",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/shared/config/src",
+  "sourceRoot": "libs/shared/config/builder/src",
   "projectType": "library",
   "tags": [
-    "projectName:frontend-shared-config",
+    "projectName:shared-config-builder",
     "projectType:library",
     "type:concrete",
-    "scope:frontend",
     "scope:shared"
   ],
   "targets": {

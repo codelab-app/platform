@@ -1,7 +1,7 @@
 import type { Session } from '@auth0/nextjs-auth0'
 
 import { PageType } from '@codelab/frontend/abstract/types'
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import * as env from 'env-var'
 import { type NextRequest, NextResponse } from 'next/server'

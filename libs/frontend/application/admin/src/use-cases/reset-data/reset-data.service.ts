@@ -1,6 +1,6 @@
 'use server'
 
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 import { fetchWithAuth } from '@codelab/shared/infra/fetch'
 
 export const resetDatabaseService = async () => {
