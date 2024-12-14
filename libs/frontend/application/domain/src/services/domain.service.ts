@@ -7,12 +7,8 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { DomainWhere } from '@codelab/shared/infra/gql'
 
 import { type IDomainService } from '@codelab/frontend/abstract/application'
-import {
-  domainRepository,
-  invalidateDomainListQuery,
-} from '@codelab/frontend-domain-domain/repositories'
+import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 
 export const useDomainService = (): IDomainService => {
   const { domainDomainService } = useDomainStore()

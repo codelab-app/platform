@@ -6,7 +6,6 @@ import type {
   IAppDto,
   IElementDto,
   IElementRenderTypeDto,
-  IInterfaceTypeDto,
   IPageDto,
   IRef,
   IStoreDto,

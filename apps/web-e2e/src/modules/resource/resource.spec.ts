@@ -1,4 +1,3 @@
-import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 
 import { test } from './recource.fixture'

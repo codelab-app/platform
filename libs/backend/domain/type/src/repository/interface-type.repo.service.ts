@@ -9,7 +9,6 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   getDependentTypes,

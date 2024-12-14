@@ -6,7 +6,6 @@ import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import type {
   ITypeCreateInput,
   ITypeDeleteInput,
-  ITypeUpdateInput,
   ITypeUpdateVars,
 } from './type.input.interface'
 

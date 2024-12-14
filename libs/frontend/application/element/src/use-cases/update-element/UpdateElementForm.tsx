@@ -8,10 +8,7 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import {
-  SelectActionField,
-  SelectActionsField,
-} from '@codelab/frontend/presentation/components/interface-form'
+import { SelectActionsField } from '@codelab/frontend/presentation/components/interface-form'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {

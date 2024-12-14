@@ -1,5 +1,5 @@
 import type { TagWhere } from '@codelab/backend/abstract/codegen'
-import type { ITag, ITagExport } from '@codelab/shared/abstract/core'
+import type { ITagExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { SortDirection } from '@codelab/backend/abstract/codegen'

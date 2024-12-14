@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { IRef } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-import type { AnyModel, Ref } from 'mobx-keystone'
-import type { OmitByValue, PickByValue } from 'utility-types'
+import type { AnyModel } from 'mobx-keystone'
 
 /**
  * Extended by our domain models

@@ -1,16 +1,12 @@
 import type { IRef, IStoreDto } from '@codelab/shared/abstract/core'
 import type {
-  StoreCreateInput,
-  StoreDeleteInput,
   StoreOptions,
   StoreUniqueWhere,
-  StoreUpdateInput,
   StoreWhere,
 } from '@codelab/shared/infra/gql'
 
 import {
   CACHE_TAGS,
-  type IStoreModel,
   type IStoreRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
@@ -18,7 +14,6 @@ import { storeMapper } from '@codelab/shared-domain-module/store'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { revalidateTag } from 'next/cache'
 
-import { Store } from '../store/store.model'
 import {
   CreateStores,
   DeleteStores,

@@ -1,4 +1,3 @@
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import { type Static, Type } from '@sinclair/typebox'
 
 import { FieldSchema } from '../../field'

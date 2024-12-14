@@ -1,9 +1,4 @@
-import type {
-  IActionDto,
-  IActionType,
-  ICreateActionData,
-  IMapper,
-} from '@codelab/shared/abstract/core'
+import type { IActionDto, IMapper } from '@codelab/shared/abstract/core'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, disconnectAll } from '@codelab/shared/domain/orm'

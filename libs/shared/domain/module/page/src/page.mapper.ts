@@ -1,13 +1,4 @@
-import type {
-  ICreateElementData,
-  IElementDto,
-  IMapper,
-  IPageCreateFormData,
-  IPageDto,
-  IRef,
-  IStoreDto,
-  IUserDto,
-} from '@codelab/shared/abstract/core'
+import type { IMapper, IPageDto } from '@codelab/shared/abstract/core'
 import type {
   PageCreateInput,
   PageDeleteInput,

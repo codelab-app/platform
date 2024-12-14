@@ -1,15 +1,9 @@
-import type { IApp, IAppDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  AppCreateInput,
-  AppDeleteInput,
-  AppUpdateInput,
-} from '@codelab/shared/infra/gql'
+import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
 import type { IModel } from '../shared/models/model.interface'
-import type { IUserModel } from '../user'
 
 /**
  * IModelData

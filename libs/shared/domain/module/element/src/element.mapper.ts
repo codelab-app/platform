@@ -9,7 +9,6 @@ import {
   connectNodeId,
   connectNodeIds,
   disconnectAll,
-  disconnectManyAll,
   reconnectNodeId,
   reconnectNodeIds,
 } from '@codelab/shared/domain/orm'

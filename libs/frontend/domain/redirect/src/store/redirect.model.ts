@@ -5,10 +5,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type {
-  RedirectCreateInput,
-  RedirectUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import { authGuardRef, pageRef } from '@codelab/frontend/abstract/domain'

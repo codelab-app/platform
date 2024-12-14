@@ -11,7 +11,6 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { Model, model, modelAction } from 'mobx-keystone'
 
 export const actionFactory = {
   fromActionFragment(actionFragment: ActionFragment): IActionDto {

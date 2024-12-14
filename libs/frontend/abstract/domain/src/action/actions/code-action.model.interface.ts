@@ -1,18 +1,8 @@
-import type {
-  IActionKind,
-  ICodeAction,
-  ICodeActionDto,
-} from '@codelab/shared/abstract/core'
-import type {
-  CodeActionCreateInput,
-  CodeActionDeleteInput,
-  CodeActionUpdateInput,
-} from '@codelab/shared/infra/gql'
+import type { IActionKind, ICodeActionDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import type { IModel } from '../../shared'
 import type { IStoreModel } from '../../store'
-import type { IBaseAction } from '../base-action.interface'
 
 export interface ICodeActionModel
   extends IModel<ICodeActionDto, ICodeActionModel> {

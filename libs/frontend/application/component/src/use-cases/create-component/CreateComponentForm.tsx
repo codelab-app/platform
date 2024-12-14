@@ -1,5 +1,4 @@
 import type { ICreateComponentData, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { Form } from '@codelab/frontend-presentation-components-form'

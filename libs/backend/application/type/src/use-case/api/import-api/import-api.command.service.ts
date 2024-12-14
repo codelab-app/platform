@@ -1,4 +1,4 @@
-import type { IApiExport, IApiImport } from '@codelab/shared/abstract/core'
+import type { IApiImport } from '@codelab/shared/abstract/core'
 
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'

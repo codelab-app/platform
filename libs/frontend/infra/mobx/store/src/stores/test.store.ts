@@ -36,7 +36,6 @@ import {
   domainDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
-  IAppModel,
   IDomainStore,
   pageDomainServiceContext,
   redirectDomainServiceContext,

@@ -8,7 +8,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { use, useRef } from 'react'
 
 import { typedPropSchema } from '../shared'
 import { createBaseType } from './base-type.model'

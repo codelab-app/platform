@@ -9,7 +9,6 @@ import type {
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
-import type { Ref } from 'mobx-keystone'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { PageType } from '@codelab/frontend/abstract/types'

@@ -1,14 +1,8 @@
 import type {
   IBreakpoint,
   IBreakpointType,
-  IPreference,
   IPreferenceDto,
 } from '@codelab/shared/abstract/core'
-import type {
-  PreferenceCreateInput,
-  PreferenceDeleteInput,
-  PreferenceUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import type { IModel } from '../shared'

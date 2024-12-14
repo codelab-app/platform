@@ -14,11 +14,10 @@ import {
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { difference, uniqueBy } from 'remeda'
+import { uniqueBy } from 'remeda'
 
 export const useElementService = (): IElementService => {
   const atomService = useAtomService()

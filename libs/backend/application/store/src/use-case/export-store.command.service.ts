@@ -1,6 +1,5 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
 import type { IStoreAggregateExport } from '@codelab/shared/abstract/core'
-import type { ApiAction } from '@codelab/shared/infra/gql'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportApiCommand } from '@codelab/backend/application/type'

@@ -6,7 +6,6 @@ import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
 import type {
   IElementDto,
   IPageCreateFormData,
-  IPageDto,
   IPageUpdateFormData,
   IRef,
 } from '@codelab/shared/abstract/core'

@@ -1,4 +1,4 @@
-import type { IRef, ITypeDto } from '@codelab/shared/abstract/core'
+import type { ITypeDto } from '@codelab/shared/abstract/core'
 import type {
   BaseTypeFragment,
   IBaseTypeOptions,

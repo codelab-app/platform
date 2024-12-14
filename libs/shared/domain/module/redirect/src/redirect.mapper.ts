@@ -11,11 +11,8 @@ import {
 } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
-  connectNodeIds,
-  connectOwner,
   disconnectAll,
   reconnectNodeId,
-  reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
 
 export const redirectMapper: IMapper<

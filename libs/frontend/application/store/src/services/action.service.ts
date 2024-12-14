@@ -17,7 +17,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useHydrateStore } from '@codelab/frontend/infra/context'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import {
   useApplicationStore,

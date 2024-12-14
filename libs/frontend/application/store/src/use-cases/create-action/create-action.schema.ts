@@ -10,7 +10,6 @@ import {
   nonEmptyString,
   refMaybeSchema,
   refSchema,
-  showFieldOnDev,
 } from '@codelab/frontend-presentation-components-form/schema'
 import {
   HttpMethod,

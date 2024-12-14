@@ -1,7 +1,4 @@
-import type {
-  IAppAggregateExport,
-  IAppAggregateImport,
-} from '@codelab/shared/abstract/core'
+import type { IAppAggregateImport } from '@codelab/shared/abstract/core'
 
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'

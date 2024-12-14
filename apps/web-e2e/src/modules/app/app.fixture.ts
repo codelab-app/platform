@@ -1,8 +1,4 @@
-import {
-  getUiDataLabel,
-  PageType,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { test as base, expect } from '@playwright/test'
 
 import { BasePage } from '../../locators/pages'

@@ -1,6 +1,6 @@
 import type { Nullish } from '@codelab/shared/abstract/types'
 
-import { connectNode, connectNodeId, connectNodeIds } from './connect'
+import { connectNodeId, connectNodeIds } from './connect'
 import { disconnectAll, disconnectManyAll } from './disconnect'
 
 /**

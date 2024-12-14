@@ -1,5 +1,4 @@
 import type { IRef } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 
 import { showFieldOnDev } from './show-field-on-dev'

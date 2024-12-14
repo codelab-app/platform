@@ -8,7 +8,7 @@ import {
 } from '../component'
 import { DomainSchema } from '../domain/domain.dto.interface'
 import { PageAggregateExportSchema, PageAggregateImportSchema } from '../page'
-import { ResourceDtoSchema, ResourceSchema } from '../resource'
+import { ResourceDtoSchema } from '../resource'
 import { AppDtoSchema } from './app.dto.interface'
 
 export const AppAggregateExportSchema = Type.Object({

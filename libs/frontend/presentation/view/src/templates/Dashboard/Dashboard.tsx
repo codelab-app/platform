@@ -8,12 +8,9 @@ import {
   panelBreakpoints,
   PaneSection,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { isHiddenSlot } from '@codelab/frontend/shared/utils'
-import { withProfiler } from '@sentry/react'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
-import { useEffect, useMemo, useState } from 'react'
-import { useWindowSize } from 'react-use'
+import { useMemo } from 'react'
 
 import type { DashboardProps } from './Types'
 

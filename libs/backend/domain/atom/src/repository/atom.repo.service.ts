@@ -5,7 +5,6 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   atomSelectionSet,

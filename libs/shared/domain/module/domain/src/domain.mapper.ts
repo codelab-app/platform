@@ -5,12 +5,7 @@ import type {
   DomainUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import {
-  connectNodeId,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeIds,
-} from '@codelab/shared/domain/orm'
+import { connectNodeId } from '@codelab/shared/domain/orm'
 
 export const domainMapper: IMapper<
   IDomainDto,

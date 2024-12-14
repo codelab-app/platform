@@ -1,12 +1,9 @@
 import type { AppWhere, Element } from '@codelab/backend/abstract/codegen'
 import type {
-  IApiAction,
   IAppAggregateExport,
   IComponentAggregateExport,
-  IElement,
   IElementExport,
   IPageAggregateExport,
-  IPageDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -22,7 +19,6 @@ import {
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Page, PageFragment } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 import { uuidRegex } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'

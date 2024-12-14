@@ -3,9 +3,6 @@ import type { Static } from '@sinclair/typebox'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 
-import { ActionDtoSchema, ActionSchema } from '../action'
-import { InterfaceTypeCreateDtoSchema } from '../type'
-
 export const StoreDtoSchema = Type.Object({
   actions: Type.Optional(Type.Array(Typebox.Ref)),
   api: Typebox.Ref,

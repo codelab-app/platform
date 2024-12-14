@@ -2,10 +2,8 @@
 
 import type { PropsWithChildren } from 'react'
 
-import { BreakpointSize } from '@codelab/frontend/abstract/types'
 import { useEffect, useRef, useState } from 'react'
 import { type ImperativePanelHandle, Panel } from 'react-resizable-panels'
-import { useWindowSize } from 'react-use'
 
 import type { CuiPanelProps } from '../CuiPanel'
 

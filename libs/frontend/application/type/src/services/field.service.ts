@@ -18,7 +18,6 @@ import type {
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/schema'

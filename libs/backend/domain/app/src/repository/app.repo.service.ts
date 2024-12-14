@@ -1,20 +1,9 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  appSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  App,
-  AppFragment,
-  AppOptions,
-  AppWhere,
-} from '@codelab/shared/infra/gql'
-import { slugify } from '@codelab/shared/utils'
+import { AppFragment, AppOptions, AppWhere } from '@codelab/shared/infra/gql'
 import { appApi, appMapper } from '@codelab/shared-domain-module-app'
 import { Injectable } from '@nestjs/common'
 

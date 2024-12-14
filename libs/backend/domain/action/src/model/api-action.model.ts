@@ -1,4 +1,3 @@
-import type { Prop } from '@codelab/backend/domain/prop'
 import type {
   IActionRef,
   IApiActionDto,

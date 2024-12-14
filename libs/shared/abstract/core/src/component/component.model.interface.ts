@@ -1,5 +1,3 @@
-import type { Typebox } from '@codelab/shared/abstract/typebox'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'

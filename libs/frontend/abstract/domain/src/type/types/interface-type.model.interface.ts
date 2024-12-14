@@ -3,10 +3,6 @@ import type {
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type {
-  InterfaceTypeCreateInput,
-  UpdateInterfaceTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
 
 import type { IFieldModel, IFieldNodeData } from '../../field'
 import type { ITreeNode } from '../../shared'

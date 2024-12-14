@@ -2,7 +2,7 @@ import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
 import { cn } from '@cui/utils'
-import { getActiveSpan, withActiveSpan, withProfiler } from '@sentry/react'
+import { getActiveSpan } from '@sentry/react'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
 

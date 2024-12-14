@@ -1,7 +1,6 @@
 import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 
 import {
-  getUserDomainService,
   type IBaseTypeModel,
   ITypeTransformContext,
   IUserModel,

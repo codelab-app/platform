@@ -6,7 +6,6 @@ import type {
 import type { Completion } from '@codemirror/autocomplete'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'
-import type { ArrayOrSingle } from 'ts-essentials'
 import type { AutoFormProps, Bridge } from 'uniforms'
 
 import type { UiKey } from '../model'
