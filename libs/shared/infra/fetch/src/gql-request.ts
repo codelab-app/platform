@@ -1,5 +1,6 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
+import type { GraphQLClient } from 'graphql-request'
 
 import { getEnv } from '@codelab/shared/config/env'
 import { cLog } from '@codelab/shared/utils'
@@ -7,6 +8,7 @@ import { cLog } from '@codelab/shared/utils'
 import { fetchWithAuth } from './fetch-with-auth'
 
 export const gqlRequest = async <TResult, TVariables extends ObjectLike>(
+  client: GraphQLClient,
   // use `.toString()` version of `TypedDocumentString`
   document: DocumentTypeDecoration<TResult, TVariables>,
   variables: TVariables,

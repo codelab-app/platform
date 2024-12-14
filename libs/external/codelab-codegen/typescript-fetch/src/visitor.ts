@@ -157,7 +157,7 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
         '.api.gen.ts',
         '.docs.gen',
       )}'`,
-      // ...this._additionalImports,
+      "import { GraphQLClient } from 'graphql-request'",
     ]
 
     const graphqlOperations = this._operationsToInclude.map((o) => {
@@ -171,13 +171,13 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
         operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
       return `${pascalCaseName}: (variables: ${o.operationVariablesTypes}) =>
-        gqlRequest(${o.documentVariableName}.toString(), variables)`
+        gqlRequest(client, ${o.documentVariableName}.toString(), variables)`
     })
 
     return `
       ${imports.join('\n')}
 
-      export const getSdk = () => ({
+      export const getSdk = (client: GraphQLClient) => ({
         ${graphqlOperations.join(',\n')}
       })`
   }

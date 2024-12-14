@@ -1,21 +1,11 @@
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-
+/**
+ * Used by Nest.js
+ */
 export const fetchWithAuth = async (
   endpoint: string,
-  init: RequestInit = {},
+  options: RequestInit = {},
 ) => {
-  const session = await auth0Instance.getSession()
-
-  const headers = {
-    ...init.headers,
-    Authorization: `Bearer ${session?.accessToken}`,
-    'X-ID-TOKEN': session?.idToken ?? '',
-  }
-
-  const response = await fetch(endpoint, {
-    ...init,
-    headers,
-  })
+  const response = await fetch(endpoint, options)
 
   if (!response.ok) {
     throw new Error(await response.text())

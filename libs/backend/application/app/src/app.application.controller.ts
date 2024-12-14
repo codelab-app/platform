@@ -54,13 +54,19 @@ export class AppApplicationController {
   async seedApp() {
     await this.databaseService.resetUserData()
 
+    console.log('Seeding system types:')
+
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
 
+    console.log('Seeding atoms:')
+
     await this.commandBus.execute<ImportCypressAtomsCommand>(
       new ImportCypressAtomsCommand(),
     )
+
+    console.log('Seeding app:')
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new SeedCypressAppCommand(),

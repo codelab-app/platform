@@ -27,8 +27,9 @@ import {
   AppListDocument,
   GetAppProductionDocument,
 } from './app.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateApps: (variables: CreateAppsMutationVariables) =>
     gqlRequest(CreateAppsDocument.toString(), variables),
   UpdateApps: (variables: UpdateAppsMutationVariables) =>

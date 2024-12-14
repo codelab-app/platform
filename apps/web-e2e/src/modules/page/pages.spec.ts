@@ -1,13 +1,21 @@
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 
-import { test } from './page.fixture'
+import { PageListPage, test } from './page.fixture'
 
-test.beforeAll(async ({ pageListPage: page }) => {
-  await page.seedApp()
+test.describe.configure({ mode: 'serial' })
+
+test.beforeAll(async () => {
+  await PageListPage.seedApp()
 })
 
-test.skip('should be able to create page', async ({ pageListPage: page }) => {
+test.beforeEach(async ({ pageListPage: page }) => {
+  await page.goto()
+
+  await expect(page.getSpinner()).toBeHidden()
+})
+
+test('should be able to create page', async ({ pageListPage: page }) => {
   await page.expectSystemPagesToExist()
 
   await page.expectNoPreexistingPage()

@@ -99,7 +99,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             `import { ${typeImports} } from '${this._externalImportPrefix}'`,
             // Here we import the generated documents to use with our operations
             `import { ${documentImports} } from './${this._outputFile?.replace('.api.gen.ts', '.docs.gen')}'`,
-            // ...this._additionalImports,
+            "import { GraphQLClient } from 'graphql-request'",
         ];
         const graphqlOperations = this._operationsToInclude.map((o) => {
             const operationName = o.node.name?.value;
@@ -108,12 +108,12 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
             return `${pascalCaseName}: (variables: ${o.operationVariablesTypes}) =>
-        gqlRequest(${o.documentVariableName}.toString(), variables)`;
+        gqlRequest(client, ${o.documentVariableName}.toString(), variables)`;
         });
         return `
       ${imports.join('\n')}
 
-      export const getSdk = () => ({
+      export const getSdk = (client: GraphQLClient) => ({
         ${graphqlOperations.join(',\n')}
       })`;
     }

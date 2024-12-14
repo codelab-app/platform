@@ -31,6 +31,8 @@ export class AppRepository extends AbstractRepository<
       input: apps.map((app) => appMapper.toCreateInput(app)),
     })
 
+    console.log('createdApps', createdApps)
+
     return createdApps
   }
 
