@@ -11,8 +11,7 @@ import {
   connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
-
-import { propMapper } from '../prop'
+import { propMapper } from '@codelab/shared-domain-module/prop'
 
 export const resourceMapper: IMapper<
   IResourceDto,
