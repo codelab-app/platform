@@ -7,10 +7,9 @@ import type {
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
-
-import { propMapper } from '../prop'
-import { storeMapper } from '../store'
-import { typeMapper } from '../type'
+import { propMapper } from '@codelab/shared-domain-module/prop'
+import { storeMapper } from '@codelab/shared-domain-module/store'
+import { typeMapper } from '@codelab/shared-domain-module/type'
 
 export const componentMapper: IMapper<
   IComponentDto,

@@ -7,14 +7,13 @@ import type {
 
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, disconnectAll } from '@codelab/shared/domain/orm'
+import { propMapper } from '@codelab/shared-domain-module/prop'
 
 import type {
   IActionCreateInput,
   IActionDeleteInput,
   IActionUpdateInput,
 } from './action.input.interface'
-
-import { propMapper } from '../prop'
 
 export const actionMapper: IMapper<
   IActionDto,

@@ -15,8 +15,8 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/orm'
+import { storeMapper } from '@codelab/shared-domain-module/store'
 
-import { storeMapper } from '../store'
 import { PageProperties } from './page.properties'
 
 export const pageMapper: IMapper<
