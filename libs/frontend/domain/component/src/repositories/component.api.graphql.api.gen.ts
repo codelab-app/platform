@@ -16,14 +16,15 @@ import {
   UpdateComponentsDocument,
   ComponentListDocument,
 } from './component.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateComponents: (variables: CreateComponentsMutationVariables) =>
-    gqlRequest(CreateComponentsDocument.toString(), variables),
+    gqlRequest(client, CreateComponentsDocument.toString(), variables),
   DeleteComponents: (variables: DeleteComponentsMutationVariables) =>
-    gqlRequest(DeleteComponentsDocument.toString(), variables),
+    gqlRequest(client, DeleteComponentsDocument.toString(), variables),
   UpdateComponents: (variables: UpdateComponentsMutationVariables) =>
-    gqlRequest(UpdateComponentsDocument.toString(), variables),
+    gqlRequest(client, UpdateComponentsDocument.toString(), variables),
   ComponentList: (variables: ComponentListQueryVariables) =>
-    gqlRequest(ComponentListDocument.toString(), variables),
+    gqlRequest(client, ComponentListDocument.toString(), variables),
 })

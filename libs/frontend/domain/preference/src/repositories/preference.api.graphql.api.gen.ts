@@ -16,14 +16,15 @@ import {
   GetPreferencesDocument,
   UpdatePreferencesDocument,
 } from './preference.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreatePreferences: (variables: CreatePreferencesMutationVariables) =>
-    gqlRequest(CreatePreferencesDocument.toString(), variables),
+    gqlRequest(client, CreatePreferencesDocument.toString(), variables),
   DeletePreferences: (variables: DeletePreferencesMutationVariables) =>
-    gqlRequest(DeletePreferencesDocument.toString(), variables),
+    gqlRequest(client, DeletePreferencesDocument.toString(), variables),
   GetPreferences: (variables: GetPreferencesQueryVariables) =>
-    gqlRequest(GetPreferencesDocument.toString(), variables),
+    gqlRequest(client, GetPreferencesDocument.toString(), variables),
   UpdatePreferences: (variables: UpdatePreferencesMutationVariables) =>
-    gqlRequest(UpdatePreferencesDocument.toString(), variables),
+    gqlRequest(client, UpdatePreferencesDocument.toString(), variables),
 })

@@ -19,14 +19,15 @@ import {
   UpdateElementsDocument,
   ElementListDocument,
 } from './element.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateElements: (variables: CreateElementsMutationVariables) =>
-    gqlRequest(CreateElementsDocument.toString(), variables),
+    gqlRequest(client, CreateElementsDocument.toString(), variables),
   DeleteElements: (variables: DeleteElementsMutationVariables) =>
-    gqlRequest(DeleteElementsDocument.toString(), variables),
+    gqlRequest(client, DeleteElementsDocument.toString(), variables),
   UpdateElements: (variables: UpdateElementsMutationVariables) =>
-    gqlRequest(UpdateElementsDocument.toString(), variables),
+    gqlRequest(client, UpdateElementsDocument.toString(), variables),
   ElementList: (variables: ElementListQueryVariables) =>
-    gqlRequest(ElementListDocument.toString(), variables),
+    gqlRequest(client, ElementListDocument.toString(), variables),
 })

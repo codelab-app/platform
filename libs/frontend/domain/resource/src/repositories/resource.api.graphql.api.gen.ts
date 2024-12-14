@@ -16,14 +16,15 @@ import {
   UpdateResourceDocument,
   DeleteResourcesDocument,
 } from './resource.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   ResourceList: (variables: ResourceListQueryVariables) =>
-    gqlRequest(ResourceListDocument.toString(), variables),
+    gqlRequest(client, ResourceListDocument.toString(), variables),
   CreateResources: (variables: CreateResourcesMutationVariables) =>
-    gqlRequest(CreateResourcesDocument.toString(), variables),
+    gqlRequest(client, CreateResourcesDocument.toString(), variables),
   UpdateResource: (variables: UpdateResourceMutationVariables) =>
-    gqlRequest(UpdateResourceDocument.toString(), variables),
+    gqlRequest(client, UpdateResourceDocument.toString(), variables),
   DeleteResources: (variables: DeleteResourcesMutationVariables) =>
-    gqlRequest(DeleteResourcesDocument.toString(), variables),
+    gqlRequest(client, DeleteResourcesDocument.toString(), variables),
 })

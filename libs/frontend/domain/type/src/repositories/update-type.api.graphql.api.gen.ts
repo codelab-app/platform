@@ -35,34 +35,35 @@ import {
   UpdateActionTypesDocument,
   UpdateCodeMirrorTypesDocument,
 } from './update-type.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   UpdatePrimitiveTypes: (variables: UpdatePrimitiveTypesMutationVariables) =>
-    gqlRequest(UpdatePrimitiveTypesDocument.toString(), variables),
+    gqlRequest(client, UpdatePrimitiveTypesDocument.toString(), variables),
   UpdateArrayTypes: (variables: UpdateArrayTypesMutationVariables) =>
-    gqlRequest(UpdateArrayTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateArrayTypesDocument.toString(), variables),
   UpdateUnionTypes: (variables: UpdateUnionTypesMutationVariables) =>
-    gqlRequest(UpdateUnionTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateUnionTypesDocument.toString(), variables),
   UpdateInterfaceTypes: (variables: UpdateInterfaceTypesMutationVariables) =>
-    gqlRequest(UpdateInterfaceTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateInterfaceTypesDocument.toString(), variables),
   UpdateReactNodeTypes: (variables: UpdateReactNodeTypesMutationVariables) =>
-    gqlRequest(UpdateReactNodeTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateReactNodeTypesDocument.toString(), variables),
   UpdateElementTypes: (variables: UpdateElementTypesMutationVariables) =>
-    gqlRequest(UpdateElementTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateElementTypesDocument.toString(), variables),
   UpdateRenderPropTypes: (variables: UpdateRenderPropTypesMutationVariables) =>
-    gqlRequest(UpdateRenderPropTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateRenderPropTypesDocument.toString(), variables),
   UpdateEnumTypes: (variables: UpdateEnumTypesMutationVariables) =>
-    gqlRequest(UpdateEnumTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateEnumTypesDocument.toString(), variables),
   UpdateLambdaTypes: (variables: UpdateLambdaTypesMutationVariables) =>
-    gqlRequest(UpdateLambdaTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateLambdaTypesDocument.toString(), variables),
   UpdatePageTypes: (variables: UpdatePageTypesMutationVariables) =>
-    gqlRequest(UpdatePageTypesDocument.toString(), variables),
+    gqlRequest(client, UpdatePageTypesDocument.toString(), variables),
   UpdateAppTypes: (variables: UpdateAppTypesMutationVariables) =>
-    gqlRequest(UpdateAppTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateAppTypesDocument.toString(), variables),
   UpdateRichTextTypes: (variables: UpdateRichTextTypesMutationVariables) =>
-    gqlRequest(UpdateRichTextTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateRichTextTypesDocument.toString(), variables),
   UpdateActionTypes: (variables: UpdateActionTypesMutationVariables) =>
-    gqlRequest(UpdateActionTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateActionTypesDocument.toString(), variables),
   UpdateCodeMirrorTypes: (variables: UpdateCodeMirrorTypesMutationVariables) =>
-    gqlRequest(UpdateCodeMirrorTypesDocument.toString(), variables),
+    gqlRequest(client, UpdateCodeMirrorTypesDocument.toString(), variables),
 })

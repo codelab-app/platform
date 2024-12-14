@@ -16,14 +16,15 @@ import {
   UpdateAuthGuardDocument,
   DeleteAuthGuardsDocument,
 } from './auth-guard.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   GetAuthGuards: (variables: GetAuthGuardsQueryVariables) =>
-    gqlRequest(GetAuthGuardsDocument.toString(), variables),
+    gqlRequest(client, GetAuthGuardsDocument.toString(), variables),
   CreateAuthGuards: (variables: CreateAuthGuardsMutationVariables) =>
-    gqlRequest(CreateAuthGuardsDocument.toString(), variables),
+    gqlRequest(client, CreateAuthGuardsDocument.toString(), variables),
   UpdateAuthGuard: (variables: UpdateAuthGuardMutationVariables) =>
-    gqlRequest(UpdateAuthGuardDocument.toString(), variables),
+    gqlRequest(client, UpdateAuthGuardDocument.toString(), variables),
   DeleteAuthGuards: (variables: DeleteAuthGuardsMutationVariables) =>
-    gqlRequest(DeleteAuthGuardsDocument.toString(), variables),
+    gqlRequest(client, DeleteAuthGuardsDocument.toString(), variables),
 })

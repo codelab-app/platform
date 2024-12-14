@@ -1,7 +1,7 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
 import { preset } from '@codelab-app/client-preset'
 import { deleteSync } from 'del'
-import { getEnv } from '../../libs/shared/config/src/env/env'
+import { getEnv } from '../../libs/shared/config/env/src'
 
 const pathToTypescriptServerFetch =
   '../../node_modules/@codelab-codegen/typescript-server-fetch'

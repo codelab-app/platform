@@ -35,34 +35,35 @@ import {
   DeleteActionTypesDocument,
   DeleteCodeMirrorTypesDocument,
 } from './delete-type.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   DeletePrimitiveTypes: (variables: DeletePrimitiveTypesMutationVariables) =>
-    gqlRequest(DeletePrimitiveTypesDocument.toString(), variables),
+    gqlRequest(client, DeletePrimitiveTypesDocument.toString(), variables),
   DeleteArrayTypes: (variables: DeleteArrayTypesMutationVariables) =>
-    gqlRequest(DeleteArrayTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteArrayTypesDocument.toString(), variables),
   DeleteReactNodeTypes: (variables: DeleteReactNodeTypesMutationVariables) =>
-    gqlRequest(DeleteReactNodeTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteReactNodeTypesDocument.toString(), variables),
   DeleteUnionTypes: (variables: DeleteUnionTypesMutationVariables) =>
-    gqlRequest(DeleteUnionTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteUnionTypesDocument.toString(), variables),
   DeleteInterfaceTypes: (variables: DeleteInterfaceTypesMutationVariables) =>
-    gqlRequest(DeleteInterfaceTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteInterfaceTypesDocument.toString(), variables),
   DeleteElementTypes: (variables: DeleteElementTypesMutationVariables) =>
-    gqlRequest(DeleteElementTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteElementTypesDocument.toString(), variables),
   DeleteRenderPropTypes: (variables: DeleteRenderPropTypesMutationVariables) =>
-    gqlRequest(DeleteRenderPropTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteRenderPropTypesDocument.toString(), variables),
   DeleteRichTextTypes: (variables: DeleteRichTextTypesMutationVariables) =>
-    gqlRequest(DeleteRichTextTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteRichTextTypesDocument.toString(), variables),
   DeleteEnumTypes: (variables: DeleteEnumTypesMutationVariables) =>
-    gqlRequest(DeleteEnumTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteEnumTypesDocument.toString(), variables),
   DeleteLambdaTypes: (variables: DeleteLambdaTypesMutationVariables) =>
-    gqlRequest(DeleteLambdaTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteLambdaTypesDocument.toString(), variables),
   DeletePageTypes: (variables: DeletePageTypesMutationVariables) =>
-    gqlRequest(DeletePageTypesDocument.toString(), variables),
+    gqlRequest(client, DeletePageTypesDocument.toString(), variables),
   DeleteAppTypes: (variables: DeleteAppTypesMutationVariables) =>
-    gqlRequest(DeleteAppTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteAppTypesDocument.toString(), variables),
   DeleteActionTypes: (variables: DeleteActionTypesMutationVariables) =>
-    gqlRequest(DeleteActionTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteActionTypesDocument.toString(), variables),
   DeleteCodeMirrorTypes: (variables: DeleteCodeMirrorTypesMutationVariables) =>
-    gqlRequest(DeleteCodeMirrorTypesDocument.toString(), variables),
+    gqlRequest(client, DeleteCodeMirrorTypesDocument.toString(), variables),
 })

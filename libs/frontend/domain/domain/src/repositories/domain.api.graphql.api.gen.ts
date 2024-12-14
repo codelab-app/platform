@@ -16,14 +16,15 @@ import {
   UpdateDomainsDocument,
   DeleteDomainsDocument,
 } from './domain.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   DomainList: (variables: DomainListQueryVariables) =>
-    gqlRequest(DomainListDocument.toString(), variables),
+    gqlRequest(client, DomainListDocument.toString(), variables),
   CreateDomains: (variables: CreateDomainsMutationVariables) =>
-    gqlRequest(CreateDomainsDocument.toString(), variables),
+    gqlRequest(client, CreateDomainsDocument.toString(), variables),
   UpdateDomains: (variables: UpdateDomainsMutationVariables) =>
-    gqlRequest(UpdateDomainsDocument.toString(), variables),
+    gqlRequest(client, UpdateDomainsDocument.toString(), variables),
   DeleteDomains: (variables: DeleteDomainsMutationVariables) =>
-    gqlRequest(DeleteDomainsDocument.toString(), variables),
+    gqlRequest(client, DeleteDomainsDocument.toString(), variables),
 })

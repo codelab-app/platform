@@ -21,16 +21,17 @@ import {
   PageListDocument,
   GetRenderedPageDocument,
 } from './page.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreatePages: (variables: CreatePagesMutationVariables) =>
-    gqlRequest(CreatePagesDocument.toString(), variables),
+    gqlRequest(client, CreatePagesDocument.toString(), variables),
   DeletePages: (variables: DeletePagesMutationVariables) =>
-    gqlRequest(DeletePagesDocument.toString(), variables),
+    gqlRequest(client, DeletePagesDocument.toString(), variables),
   UpdatePages: (variables: UpdatePagesMutationVariables) =>
-    gqlRequest(UpdatePagesDocument.toString(), variables),
+    gqlRequest(client, UpdatePagesDocument.toString(), variables),
   PageList: (variables: PageListQueryVariables) =>
-    gqlRequest(PageListDocument.toString(), variables),
+    gqlRequest(client, PageListDocument.toString(), variables),
   GetRenderedPage: (variables: GetRenderedPageQueryVariables) =>
-    gqlRequest(GetRenderedPageDocument.toString(), variables),
+    gqlRequest(client, GetRenderedPageDocument.toString(), variables),
 })

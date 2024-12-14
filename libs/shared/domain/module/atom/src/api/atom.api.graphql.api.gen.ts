@@ -18,16 +18,17 @@ import {
   GetSelectAtomOptionsDocument,
   UpdateAtomsDocument,
 } from './atom.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   CreateAtoms: (variables: CreateAtomsMutationVariables) =>
-    gqlRequest(CreateAtomsDocument.toString(), variables),
+    gqlRequest(client, CreateAtomsDocument.toString(), variables),
   DeleteAtoms: (variables: DeleteAtomsMutationVariables) =>
-    gqlRequest(DeleteAtomsDocument.toString(), variables),
+    gqlRequest(client, DeleteAtomsDocument.toString(), variables),
   AtomList: (variables: AtomListQueryVariables) =>
-    gqlRequest(AtomListDocument.toString(), variables),
+    gqlRequest(client, AtomListDocument.toString(), variables),
   GetSelectAtomOptions: (variables: GetSelectAtomOptionsQueryVariables) =>
-    gqlRequest(GetSelectAtomOptionsDocument.toString(), variables),
+    gqlRequest(client, GetSelectAtomOptionsDocument.toString(), variables),
   UpdateAtoms: (variables: UpdateAtomsMutationVariables) =>
-    gqlRequest(UpdateAtomsDocument.toString(), variables),
+    gqlRequest(client, UpdateAtomsDocument.toString(), variables),
 })

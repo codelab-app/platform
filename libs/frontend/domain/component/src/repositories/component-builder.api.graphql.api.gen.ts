@@ -17,8 +17,9 @@ import {
 
 import { type GetComponentBuilderQueryVariables } from '@codelab/shared/infra/gql'
 import { GetComponentBuilderDocument } from './component-builder.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   GetComponentBuilder: (variables: GetComponentBuilderQueryVariables) =>
-    gqlRequest(GetComponentBuilderDocument.toString(), variables),
+    gqlRequest(client, GetComponentBuilderDocument.toString(), variables),
 })

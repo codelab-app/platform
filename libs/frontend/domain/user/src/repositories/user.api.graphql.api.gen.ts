@@ -14,12 +14,13 @@ import {
   CreateUserDocument,
   DeleteUsersDocument,
 } from './user.api.graphql.docs.gen'
+import { GraphQLClient } from 'graphql-request'
 
-export const getSdk = () => ({
+export const getSdk = (client: GraphQLClient) => ({
   GetUsers: (variables: GetUsersQueryVariables) =>
-    gqlRequest(GetUsersDocument.toString(), variables),
+    gqlRequest(client, GetUsersDocument.toString(), variables),
   CreateUser: (variables: CreateUserMutationVariables) =>
-    gqlRequest(CreateUserDocument.toString(), variables),
+    gqlRequest(client, CreateUserDocument.toString(), variables),
   DeleteUsers: (variables: DeleteUsersMutationVariables) =>
-    gqlRequest(DeleteUsersDocument.toString(), variables),
+    gqlRequest(client, DeleteUsersDocument.toString(), variables),
 })
