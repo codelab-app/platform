@@ -51,6 +51,9 @@ export class JwtStrategy
     payload: JwtPayload,
     done: VerifiedCallback,
   ): Promise<Auth0IdToken> {
+    /**
+     * We pass the id token in the header to the backend instead of calling the auth0 token endpoint
+     */
     const idToken = req.header('x-id-token')
 
     // if (!payload.aud.includes(this.config.audience.toString())) {

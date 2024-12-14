@@ -7,8 +7,6 @@ settings:
 overrides:
   '@types/react': 18.3.0
   '@types/react-dom': 18.3.0
-  '@neo4j/graphql': 6.2.1
-  neo4j-driver: 5.27.0
   oauth4webapi: npm:@awwong1/oauth4webapi@latest
 
 importers:
@@ -4111,6 +4109,10 @@ packages:
   '@napi-rs/wasm-runtime@0.2.5':
     resolution: {integrity: sha512-kwUxR7J9WLutBbulqg1dfOrMTwhMdXLdcGUhcbCcGwnPLt3gz19uHVdwH1syKVDbE022ZS2vZxOWflFLS0YTjw==}
 
+  '@neo4j/cypher-builder@1.22.4':
+    resolution: {integrity: sha512-bZUdCWBIcY3dEWUilVGahsNatdxrtZB4460Ipzao+kfa5wt7Vdj/lbv6ilwc1fJRiQlCOLHyepgjE9pouGQC/g==}
+    engines: {node: '>=16.0.0'}
+
   '@neo4j/cypher-builder@2.0.2':
     resolution: {integrity: sha512-ADFpLumipzwfysIE9u+Ue0eW9lNIp2j5wXKISqJTMcf7FZdbmS3KnEGpkkIFMatNafZTDfkVZbf4jODRlcp7XQ==}
     engines: {node: '>=16.0.0'}
@@ -4120,14 +4122,21 @@ packages:
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^16.0.0
-      neo4j-driver: 5.27.0
+      neo4j-driver: ^5.8.0
+
+  '@neo4j/graphql@5.11.1':
+    resolution: {integrity: sha512-rLcCwN9dX0nCw3PPM1NQKsj8u4eURFBY0BR84sTenRzIRHoSXS0BcXTHalaXmcqNwG44whf7tjqVWQsADzVfUA==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      graphql: ^16.0.0
+      neo4j-driver: ^5.8.0
 
   '@neo4j/graphql@6.2.1':
     resolution: {integrity: sha512-xSE8Zft9Vu4cBronBK3E8Di/Q1xbxt/jT/ateEWGX73YNnVMHtgkcOt9cRUwLAkZceifKSxJDwlkJQ5pFJ7RVQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       graphql: ^16.0.0
-      neo4j-driver: 5.27.0
+      neo4j-driver: ^5.8.0
 
   '@nestjs/apollo@12.2.2':
     resolution: {integrity: sha512-gsDqSfsmTSvF0k3XaRESRgM3uE/YFO+59txCsq7T1EadDOVOuoF3zVQiFmi6D50Rlnqohqs63qjjf46mgiiXgQ==}
@@ -21155,6 +21164,8 @@ snapshots:
       '@tybys/wasm-util': 0.9.0
     optional: true
 
+  '@neo4j/cypher-builder@1.22.4': {}
+
   '@neo4j/cypher-builder@2.0.2': {}
 
   '@neo4j/graphql-ogm@5.11.1(graphql@16.9.0)(neo4j-driver@5.27.0)':
@@ -21163,12 +21174,35 @@ snapshots:
       '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.9.0)
       '@graphql-codegen/typescript': 4.0.9(graphql@16.9.0)
       '@graphql-tools/merge': 9.0.8(graphql@16.9.0)
-      '@neo4j/graphql': 6.2.1(graphql@16.9.0)(neo4j-driver@5.27.0)
+      '@neo4j/graphql': 5.11.1(graphql@16.9.0)(neo4j-driver@5.27.0)
       graphql: 16.9.0
       neo4j-driver: 5.27.0
       prettier: 2.8.8
     transitivePeerDependencies:
       - encoding
+      - supports-color
+
+  '@neo4j/graphql@5.11.1(graphql@16.9.0)(neo4j-driver@5.27.0)':
+    dependencies:
+      '@apollo/subgraph': 2.9.3(graphql@16.9.0)
+      '@graphql-tools/merge': 9.0.11(graphql@16.9.0)
+      '@graphql-tools/resolvers-composition': 7.0.2(graphql@16.9.0)
+      '@graphql-tools/schema': 10.0.10(graphql@16.9.0)
+      '@graphql-tools/utils': 10.6.1(graphql@16.9.0)
+      '@neo4j/cypher-builder': 1.22.4
+      camelcase: 6.3.0
+      debug: 4.3.7(supports-color@8.1.1)
+      dot-prop: 6.0.1
+      graphql: 16.9.0
+      graphql-compose: 9.0.11(graphql@16.9.0)
+      graphql-parse-resolve-info: 4.13.0(graphql@16.9.0)
+      graphql-relay: 0.10.2(graphql@16.9.0)
+      jose: 5.9.6
+      neo4j-driver: 5.27.0
+      pluralize: 8.0.0
+      semver: 7.6.3
+      typescript-memoize: 1.1.1
+    transitivePeerDependencies:
       - supports-color
 
   '@neo4j/graphql@6.2.1(graphql@16.9.0)(neo4j-driver@5.27.0)':

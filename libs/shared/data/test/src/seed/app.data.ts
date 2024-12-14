@@ -27,8 +27,12 @@ export const storeData = (api: IInterfaceTypeRef): IStoreDto => ({
   name: 'Test Store',
 })
 
+export const appId = v4()
+/**
+ * Seed data for e2e app
+ */
 export const appData = (owner: IRef): IAppDto => ({
-  id: v4(),
+  id: appId,
   name: 'Codelab App',
   owner,
 })

@@ -29,6 +29,7 @@ const middleware: NextMiddleware = async (
 ) => {
   const response = NextResponse.next()
   const pathname = request.nextUrl.pathname
+  const auth0Session = await auth0ServerInstance.getSession()
 
   /**
    * Guard routes here

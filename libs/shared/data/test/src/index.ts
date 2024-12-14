@@ -1,1 +1,1 @@
-export * from './cypress'
+export * from './seed'
