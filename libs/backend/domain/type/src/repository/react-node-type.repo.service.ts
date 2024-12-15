@@ -1,9 +1,9 @@
+import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
 import type {
   ReactNodeType,
   ReactNodeTypeOptions,
   ReactNodeTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -34,7 +34,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   protected async _addMany(reactNodeTypes: Array<IReactNodeTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateReactNodeTypes({
+    } = await createTypeApi().CreateReactNodeTypes({
       input: reactNodeTypes.map((reactNodeType) =>
         reactNodeTypeMapper.toCreateInput(reactNodeType),
       ),
@@ -50,7 +50,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
     where?: ReactNodeTypeWhere
     options?: ReactNodeTypeOptions
   }) {
-    const { types } = await findTypeApi.GetReactNodeTypes({
+    const { types } = await findTypeApi().GetReactNodeTypes({
       options,
       where,
     })
@@ -64,7 +64,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   ) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateReactNodeTypes({
+    } = await updateTypeApi().UpdateReactNodeTypes({
       update: reactNodeTypeMapper.toUpdateInput(reactNodeType),
       where,
     })

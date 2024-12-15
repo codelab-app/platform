@@ -10,7 +10,7 @@ import { slug } from './field/element-slug'
 
 export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
 
-export const descendantElements =
+export const descendants =
   (neo4jService: Neo4jService) => (node: ContainerNode) => {
     return neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getElementDescendants, {
@@ -32,7 +32,7 @@ export const ElementResolverProvider: FactoryProvider<
         __typename: 'Element',
         // We only use the OGM resolver, but we set a dummy resolver here to hide the console errors
         dependantTypes: [],
-        descendantElements: descendantElements(neo4jService),
+        descendants: descendants(neo4jService),
         name,
         // renderType,
         slug,

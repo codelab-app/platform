@@ -1,25 +1,27 @@
+import type * as cg from '@codelab/shared/infra/gql'
+
 /**
  * Put all functions in same file so it's easier for LLM to refactor
  */
-import type {
-  IActionTypeDto,
-  IAppTypeDto,
-  IArrayTypeDto,
-  ICodeMirrorTypeDto,
-  IElementTypeDto,
-  IEnumTypeDto,
-  IInterfaceTypeDto,
-  ILambdaTypeDto,
-  IMapper,
-  IPageTypeDto,
-  IPrimitiveTypeDto,
-  IReactNodeTypeDto,
-  IRenderPropTypeDto,
-  IRichTextTypeDto,
-  IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
-import type * as cg from '@codelab/shared/infra/gql'
 
+import {
+  type IActionTypeDto,
+  type IAppTypeDto,
+  type IArrayTypeDto,
+  type ICodeMirrorTypeDto,
+  type IElementTypeDto,
+  type IEnumTypeDto,
+  type IInterfaceTypeDto,
+  type ILambdaTypeDto,
+  type IMapper,
+  type IPageTypeDto,
+  type IPrimitiveTypeDto,
+  type IReactNodeTypeDto,
+  type IRenderPropTypeDto,
+  type IRichTextTypeDto,
+  ITypeKind,
+  type IUnionTypeDto,
+} from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 
 import { makeAllTypes } from './type-input.factory'
@@ -347,4 +349,41 @@ export const unionTypeMapper: IMapper<
       },
     }),
   }),
+}
+
+/**
+ * Create a record with ITypeKind as key, and the mapper as value
+ */
+export const typeMapperRecord = {
+  [ITypeKind.ActionType]: actionTypeMapper,
+  [ITypeKind.AppType]: appTypeMapper,
+  [ITypeKind.ArrayType]: arrayTypeMapper,
+  [ITypeKind.CodeMirrorType]: codeMirrorTypeMapper,
+  [ITypeKind.ElementType]: elementTypeMapper,
+  [ITypeKind.EnumType]: enumTypeMapper,
+  [ITypeKind.InterfaceType]: interfaceTypeMapper,
+  [ITypeKind.LambdaType]: lambdaTypeMapper,
+  [ITypeKind.PageType]: pageTypeMapper,
+  [ITypeKind.PrimitiveType]: primitiveTypeMapper,
+  [ITypeKind.ReactNodeType]: reactNodeTypeMapper,
+  [ITypeKind.RenderPropType]: renderPropTypeMapper,
+  [ITypeKind.RichTextType]: richTextTypeMapper,
+  [ITypeKind.UnionType]: unionTypeMapper,
+}
+
+export interface TypeDtoByKind {
+  [ITypeKind.ActionType]: IActionTypeDto
+  [ITypeKind.AppType]: IAppTypeDto
+  [ITypeKind.ArrayType]: IArrayTypeDto
+  [ITypeKind.CodeMirrorType]: ICodeMirrorTypeDto
+  [ITypeKind.ElementType]: IElementTypeDto
+  [ITypeKind.EnumType]: IEnumTypeDto
+  [ITypeKind.InterfaceType]: IInterfaceTypeDto
+  [ITypeKind.LambdaType]: ILambdaTypeDto
+  [ITypeKind.PageType]: IPageTypeDto
+  [ITypeKind.PrimitiveType]: IPrimitiveTypeDto
+  [ITypeKind.ReactNodeType]: IReactNodeTypeDto
+  [ITypeKind.RenderPropType]: IRenderPropTypeDto
+  [ITypeKind.RichTextType]: IRichTextTypeDto
+  [ITypeKind.UnionType]: IUnionTypeDto
 }

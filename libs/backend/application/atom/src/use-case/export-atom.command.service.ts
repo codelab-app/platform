@@ -1,6 +1,5 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
@@ -10,6 +9,7 @@ import {
   type IAtomExport,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { type AtomWhere } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'

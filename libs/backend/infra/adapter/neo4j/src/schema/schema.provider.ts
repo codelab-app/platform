@@ -8,7 +8,7 @@ import { mergeResolvers } from '@graphql-tools/merge'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 
 import { NEO4J_DRIVER_PROVIDER } from '../infra/neo4j.constant'
-import { PURE_RESOLVER_PROVIDER } from '../resolver'
+import { RESOLVER_PROVIDER } from '../resolver'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 import { typeDefs } from './type-defs'
 
@@ -24,7 +24,7 @@ import { typeDefs } from './type-defs'
  * https://community.auth0.com/t/authenticating-users-and-m2m-with-same-middleware/77369/5
  */
 export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
-  inject: [NEO4J_DRIVER_PROVIDER, PURE_RESOLVER_PROVIDER],
+  inject: [NEO4J_DRIVER_PROVIDER, RESOLVER_PROVIDER],
   provide: GRAPHQL_SCHEMA_PROVIDER,
   useFactory: async (driver: Driver, pureResolvers: IResolvers) => {
     try {

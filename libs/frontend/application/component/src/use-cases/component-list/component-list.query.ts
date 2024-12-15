@@ -2,8 +2,10 @@
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
-import { ComponentList } from '@codelab/frontend-domain-component/repositories'
+import { componentServerActions } from '@codelab/shared-domain-module/component'
 import { revalidateTag } from 'next/cache'
+
+const { ComponentList } = await componentServerActions()
 
 export const componentListQuery = async () => {
   const { id } = await getServerUser()

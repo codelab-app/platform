@@ -2,6 +2,7 @@ fragment BaseAction on BaseAction {
   __typename
   id
   name
+  kind
   store {
     id
     name

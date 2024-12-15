@@ -1,4 +1,3 @@
-import type { AppWhere, Element } from '@codelab/backend/abstract/codegen'
 import type {
   IAppAggregateExport,
   IComponentAggregateExport,
@@ -7,6 +6,7 @@ import type {
   IPageAggregateExport,
   IRef,
 } from '@codelab/shared/abstract/core'
+import type { AppWhere, Element } from '@codelab/shared/infra/gql'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportComponentCommand } from '@codelab/backend/application/component'

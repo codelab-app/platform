@@ -1,9 +1,9 @@
+import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
 import type {
   RichTextType,
   RichTextTypeOptions,
   RichTextTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -34,7 +34,7 @@ export class RichTextTypeRepository extends AbstractRepository<
   protected async _addMany(richTextTypes: Array<IRichTextTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateRichTextTypes({
+    } = await createTypeApi().CreateRichTextTypes({
       input: richTextTypes.map((richTextType) =>
         richTextTypeMapper.toCreateInput(richTextType),
       ),
@@ -50,7 +50,7 @@ export class RichTextTypeRepository extends AbstractRepository<
     where?: RichTextTypeWhere
     options?: RichTextTypeOptions
   }) {
-    const { types } = await findTypeApi.GetRichTextTypes({
+    const { types } = await findTypeApi().GetRichTextTypes({
       options,
       where,
     })
@@ -64,7 +64,7 @@ export class RichTextTypeRepository extends AbstractRepository<
   ) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateRichTextTypes({
+    } = await updateTypeApi().UpdateRichTextTypes({
       update: richTextTypeMapper.toUpdateInput(richTextType),
       where,
     })

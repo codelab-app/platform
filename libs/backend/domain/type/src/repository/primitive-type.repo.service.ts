@@ -1,10 +1,10 @@
+import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
   PrimitiveType,
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
+} from '@codelab/shared/infra/gql'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -37,7 +37,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   protected async _addMany(primitiveTypes: Array<IPrimitiveTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreatePrimitiveTypes({
+    } = await createTypeApi().CreatePrimitiveTypes({
       input: primitiveTypes.map((primitiveType) =>
         primitiveTypeMapper.toCreateInput(primitiveType),
       ),
@@ -53,7 +53,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     where?: PrimitiveTypeWhere
     options?: PrimitiveTypeOptions
   }) {
-    const { types } = await findTypeApi.GetPrimitiveTypes({
+    const { types } = await findTypeApi().GetPrimitiveTypes({
       options,
       where,
     })
@@ -67,7 +67,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   ) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdatePrimitiveTypes({
+    } = await updateTypeApi().UpdatePrimitiveTypes({
       update: primitiveTypeMapper.toUpdateInput(primitiveType),
       where,
     })

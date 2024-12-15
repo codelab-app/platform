@@ -1,8 +1,3 @@
-import {
-  type Redirect,
-  type RedirectOptions,
-  type RedirectWhere,
-} from '@codelab/backend/abstract/codegen'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
@@ -15,6 +10,11 @@ import {
   disconnectAll,
   reconnectNodeId,
 } from '@codelab/shared/domain/orm'
+import {
+  type Redirect,
+  type RedirectOptions,
+  type RedirectWhere,
+} from '@codelab/shared/infra/gql'
 import { RedirectFragment } from '@codelab/shared/infra/gql'
 import {
   redirectApi,
@@ -39,7 +39,7 @@ export class RedirectRepository extends AbstractRepository<
   protected async _addMany(redirects: Array<IRedirectDto>) {
     const {
       createRedirects: { redirects: createdRedirects },
-    } = await redirectApi.CreateRedirects({
+    } = await redirectApi().CreateRedirects({
       input: redirects.map((redirect) => ({
         authGuard: connectNodeId(redirect.authGuard.id),
         id: redirect.id,
@@ -66,7 +66,7 @@ export class RedirectRepository extends AbstractRepository<
     where?: RedirectWhere
     options?: RedirectOptions
   }) {
-    const { items } = await redirectApi.GetRedirects({
+    const { items } = await redirectApi().GetRedirects({
       options,
       where,
     })
@@ -83,7 +83,7 @@ export class RedirectRepository extends AbstractRepository<
   }: IRedirectDto) {
     const {
       updateRedirects: { redirects },
-    } = await redirectApi.UpdateRedirects({
+    } = await redirectApi().UpdateRedirects({
       update: {
         authGuard: reconnectNodeId(authGuard.id),
         source: reconnectNodeId(source.id),

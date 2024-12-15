@@ -1,9 +1,9 @@
+import type { IDomainDto } from '@codelab/shared/abstract/core'
 import type {
   Domain,
   DomainOptions,
   DomainWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IDomainDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'

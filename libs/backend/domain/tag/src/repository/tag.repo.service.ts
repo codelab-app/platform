@@ -1,8 +1,4 @@
-import type {
-  Tag,
-  TagOptions,
-  TagWhere,
-} from '@codelab/backend/abstract/codegen'
+import type { Tag, TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -32,7 +28,7 @@ export class TagRepository extends AbstractRepository<
   protected async _addMany(tags: Array<ITagDto>) {
     const {
       createTags: { tags: createdTags },
-    } = await tagApi.CreateTags({
+    } = await tagApi().CreateTags({
       input: tags.map((tag) => tagMapper.toCreateInput(tag)),
     })
 
@@ -46,7 +42,7 @@ export class TagRepository extends AbstractRepository<
     where?: TagWhere
     options?: TagOptions
   }) {
-    const { items } = await tagApi.GetTags({
+    const { items } = await tagApi().GetTags({
       options,
       where,
     })
@@ -57,7 +53,7 @@ export class TagRepository extends AbstractRepository<
   protected async _update(tag: ITagDto, where: TagWhere) {
     const {
       updateTags: { tags },
-    } = await tagApi.UpdateTags({
+    } = await tagApi().UpdateTags({
       update: tagMapper.toUpdateInput(tag),
       where,
     })

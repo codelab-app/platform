@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { renderHook } from '@testing-library/react'
 import queryString from 'query-string'
 
@@ -8,7 +7,7 @@ describe('useUrlQueryParams', () => {
     jest.clearAllMocks()
   })
 
-  test('should return correct values from search params', () => {
+  test('should return correct values from search params', async () => {
     /**
      * https://stackoverflow.com/questions/69573545/mock-imported-function-in-jest
      */
@@ -30,8 +29,7 @@ describe('useUrlQueryParams', () => {
       ),
     }))
 
-    const { useUrlQueryParams } = require('./useUrlQueryParams.hook')
-
+    const { useUrlQueryParams } = await import('./useUrlQueryParams.hook')
     const { result } = renderHook(() => useUrlQueryParams())
 
     expect(result.current.filter).toStrictEqual(['tag1', 'tag2'])
@@ -41,15 +39,14 @@ describe('useUrlQueryParams', () => {
     expect(result.current.search).toBe('searchterm')
   })
 
-  test('should handle missing or undefined values', () => {
+  test('should handle missing or undefined values', async () => {
     jest.mock('next/navigation', () => ({
       useSearchParams: jest
         .fn()
         .mockImplementation(() => new URLSearchParams({})),
     }))
 
-    const { useUrlQueryParams } = require('./useUrlQueryParams.hook')
-
+    const { useUrlQueryParams } = await import('./useUrlQueryParams.hook')
     const { result } = renderHook(() => useUrlQueryParams())
 
     expect(result.current.filter).toStrictEqual([])

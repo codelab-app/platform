@@ -1,9 +1,9 @@
+import type { ICodeActionDto } from '@codelab/shared/abstract/core'
 import type {
   CodeAction,
   CodeActionOptions,
   CodeActionWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { ICodeActionDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'

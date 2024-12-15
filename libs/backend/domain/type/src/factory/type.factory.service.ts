@@ -1,23 +1,16 @@
 import type {
-  ActionTypeWhere,
-  ArrayTypeWhere,
-  CodeMirrorTypeWhere,
-  EnumTypeWhere,
-  InterfaceTypeWhere,
-  PrimitiveTypeWhere,
-  ReactNodeTypeWhere,
-  RenderPropTypeWhere,
-  RichTextTypeWhere,
-  UnionTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
-import type { ITypeDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
+  IRef,
+  ITypeDto,
+  ITypeMaybeRef,
+  ITypeRef,
+} from '@codelab/shared/abstract/core'
 
 import {
-  getTypeDescendantsOGM,
+  getTypeDescendants,
   NEO4J_DRIVER_PROVIDER,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeWhere, TypeCreateMap } from '@codelab/shared-domain-module/type'
 import { Inject, Injectable } from '@nestjs/common'
 import { TAnySchema } from '@sinclair/typebox'
 import { Driver } from 'neo4j-driver'
@@ -69,7 +62,7 @@ export class TypeFactory {
   async descendantEntities(typeId: string) {
     const session = this.driver.session()
 
-    const results = await session.run(getTypeDescendantsOGM, {
+    const results = await session.run(getTypeDescendants, {
       id: typeId,
     })
 
@@ -165,7 +158,10 @@ export class TypeFactory {
     }
   }
 
-  async save<T extends IType>(type: ITypeDto, where?: ITypeWhere): Promise<T> {
+  async save<T extends ITypeDto>(
+    type: TypeCreateMap[T['kind']]['dto'],
+    where?: TypeCreateMap[T['kind']]['where'],
+  ): Promise<IRef> {
     /**
      * Type narrow using discriminated union
      */
@@ -173,91 +169,61 @@ export class TypeFactory {
       case ITypeKind.ActionType: {
         const actionType = new ActionType(type)
 
-        return (await this.actionTypeRepository.save(
-          actionType,
-          where as ActionTypeWhere,
-        )) as T
+        return await this.actionTypeRepository.save(actionType, where)
       }
 
       case ITypeKind.ArrayType: {
         const arrayType = new ArrayType(type)
 
-        return (await this.arrayTypeRepository.save(
-          arrayType,
-          where as ArrayTypeWhere,
-        )) as T
+        return await this.arrayTypeRepository.save(arrayType, where)
       }
 
       case ITypeKind.CodeMirrorType: {
         const codeMirrorType = new CodeMirrorType(type)
 
-        return (await this.codeMirrorRepository.save(
-          codeMirrorType,
-          where as CodeMirrorTypeWhere,
-        )) as T
+        return await this.codeMirrorRepository.save(codeMirrorType, where)
       }
 
       case ITypeKind.EnumType: {
         const enumType = new EnumType(type)
 
-        return (await this.enumTypeRepository.save(
-          enumType,
-          where as EnumTypeWhere,
-        )) as T
+        return await this.enumTypeRepository.save(enumType, where)
       }
 
       case ITypeKind.InterfaceType: {
         const interfaceType = new InterfaceType(type)
 
-        return (await this.interfaceTypeRepository.save(
-          interfaceType,
-          where as InterfaceTypeWhere,
-        )) as T
+        return await this.interfaceTypeRepository.save(interfaceType, where)
       }
 
       case ITypeKind.PrimitiveType: {
         const primitiveType = new PrimitiveType(type)
 
-        return (await this.primitiveTypeRepository.save(
-          primitiveType,
-          where as PrimitiveTypeWhere,
-        )) as T
+        return await this.primitiveTypeRepository.save(primitiveType, where)
       }
 
       case ITypeKind.ReactNodeType: {
         const reactNodeType = new ReactNodeType(type)
 
-        return (await this.reactNodeTypeRepository.save(
-          reactNodeType,
-          where as ReactNodeTypeWhere,
-        )) as T
+        return await this.reactNodeTypeRepository.save(reactNodeType, where)
       }
 
       case ITypeKind.RenderPropType: {
         const renderPropType = new RenderPropType(type)
 
-        return (await this.renderPropTypeRepository.save(
-          renderPropType,
-          where as RenderPropTypeWhere,
-        )) as T
+        return await this.renderPropTypeRepository.save(renderPropType, where)
       }
 
       case ITypeKind.RichTextType: {
         const richTextType = new RichTextType(type)
 
-        return (await this.richTextTypeRepository.save(
-          richTextType,
-          where as RichTextTypeWhere,
-        )) as T
+        return await this.richTextTypeRepository.save(richTextType, where)
       }
 
       case ITypeKind.UnionType: {
         const unionType = new UnionType(type)
 
-        return (await this.unionTypeRepository.save(
-          unionType,
-          where as UnionTypeWhere,
-        )) as T
+        return await this.unionTypeRepository.save(unionType, where)
       }
 
       default: {

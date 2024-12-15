@@ -1,9 +1,9 @@
+import type { IPreferenceDto } from '@codelab/shared/abstract/core'
 import type {
   Preference,
   PreferenceOptions,
   PreferenceWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IPreferenceDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -35,7 +35,7 @@ export class PreferenceRepository extends AbstractRepository<
   protected async _addMany(preferences: Array<IPreferenceDto>) {
     const {
       createPreferences: { preferences: createdPreferences },
-    } = await preferenceApi.CreatePreferences({
+    } = await preferenceApi().CreatePreferences({
       input: preferences.map((preference) =>
         preferenceMapper.toCreateInput(preference),
       ),
@@ -51,7 +51,7 @@ export class PreferenceRepository extends AbstractRepository<
     where?: PreferenceWhere
     options?: PreferenceOptions
   }) {
-    const { items } = await preferenceApi.GetPreferences({
+    const { items } = await preferenceApi().GetPreferences({
       options,
       where,
     })
@@ -62,7 +62,7 @@ export class PreferenceRepository extends AbstractRepository<
   protected async _update(preference: IPreferenceDto, where: PreferenceWhere) {
     const {
       updatePreferences: { preferences },
-    } = await preferenceApi.UpdatePreferences({
+    } = await preferenceApi().UpdatePreferences({
       update: preferenceMapper.toUpdateInput(preference),
       where,
     })

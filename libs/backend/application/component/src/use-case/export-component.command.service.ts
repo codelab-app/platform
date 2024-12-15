@@ -1,10 +1,10 @@
-import type { Element } from '@codelab/backend/abstract/codegen'
 import type {
   IApiExport,
   IComponentAggregateExport,
   IElementExport,
   IStoreAggregateExport,
 } from '@codelab/shared/abstract/core'
+import type { Element } from '@codelab/shared/infra/gql'
 
 import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ExportApiCommand } from '@codelab/backend/application/type'

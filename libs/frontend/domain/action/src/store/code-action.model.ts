@@ -32,6 +32,7 @@ export class CodeAction
       id: this.id,
       name: this.name,
       store: this.store,
+      type: this.type,
     }
   }
 

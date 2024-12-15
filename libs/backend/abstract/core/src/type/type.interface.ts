@@ -19,32 +19,8 @@ import type {
   RichTextTypeWhere,
   UnionType,
   UnionTypeWhere,
-} from '@codelab/backend/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 
 export type TypeRef = {
   existingId: string
 } | null
-
-export type ITypeWhere =
-  | ActionTypeWhere
-  | ArrayTypeWhere
-  | CodeMirrorTypeWhere
-  | EnumTypeWhere
-  | InterfaceTypeWhere
-  | PrimitiveTypeWhere
-  | ReactNodeTypeWhere
-  | RenderPropTypeWhere
-  | RichTextTypeWhere
-  | UnionTypeWhere
-
-export type IType =
-  | ActionType
-  | ArrayType
-  | CodeMirrorType
-  | EnumType
-  | InterfaceType
-  | PrimitiveType
-  | ReactNodeType
-  | RenderPropType
-  | RichTextType
-  | UnionType

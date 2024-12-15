@@ -1,6 +1,7 @@
 mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
   types: createPrimitiveTypes(input: $input) {
     types: primitiveTypes {
+      __typename
       id
     }
   }
@@ -9,6 +10,7 @@ mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
 mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
   types: createArrayTypes(input: $input) {
     types: arrayTypes {
+      __typename
       id
     }
   }
@@ -17,6 +19,7 @@ mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
 mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
   types: createUnionTypes(input: $input) {
     types: unionTypes {
+      __typename
       id
     }
   }
@@ -26,6 +29,7 @@ mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
 mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
   types: createInterfaceTypes(input: $input) {
     types: interfaceTypes {
+      __typename
       id
     }
   }
@@ -34,6 +38,7 @@ mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
 mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
   types: createElementTypes(input: $input) {
     types: elementTypes {
+      __typename
       id
     }
   }
@@ -42,6 +47,7 @@ mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
 mutation CreateRenderPropTypes($input: [RenderPropTypeCreateInput!]!) {
   types: createRenderPropTypes(input: $input) {
     types: renderPropTypes {
+      __typename
       id
     }
   }
@@ -50,6 +56,7 @@ mutation CreateRenderPropTypes($input: [RenderPropTypeCreateInput!]!) {
 mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {
   types: createReactNodeTypes(input: $input) {
     types: reactNodeTypes {
+      __typename
       id
     }
   }
@@ -58,6 +65,7 @@ mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {
 mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
   types: createEnumTypes(input: $input) {
     types: enumTypes {
+      __typename
       id
     }
   }
@@ -66,6 +74,7 @@ mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
 mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
   types: createLambdaTypes(input: $input) {
     types: lambdaTypes {
+      __typename
       id
     }
   }
@@ -74,6 +83,7 @@ mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
 mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
   types: createPageTypes(input: $input) {
     types: pageTypes {
+      __typename
       id
     }
   }
@@ -82,6 +92,7 @@ mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
 mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
   types: createAppTypes(input: $input) {
     types: appTypes {
+      __typename
       id
     }
   }
@@ -90,6 +101,7 @@ mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
 mutation CreateRichTextTypes($input: [RichTextTypeCreateInput!]!) {
   types: createRichTextTypes(input: $input) {
     types: richTextTypes {
+      __typename
       id
     }
   }
@@ -98,6 +110,7 @@ mutation CreateRichTextTypes($input: [RichTextTypeCreateInput!]!) {
 mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {
   types: createActionTypes(input: $input) {
     types: actionTypes {
+      __typename
       id
     }
   }
@@ -106,6 +119,7 @@ mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {
 mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {
   types: createCodeMirrorTypes(input: $input) {
     types: codeMirrorTypes {
+      __typename
       id
     }
   }

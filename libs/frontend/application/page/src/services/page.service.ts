@@ -9,19 +9,19 @@ import type { PageWhere } from '@codelab/shared/infra/gql'
 import { type IPageService } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import {
-  GetRenderedPage,
-  pageRepository,
-} from '@codelab/frontend-domain-page/repositories'
+import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
+import { pageServerActions } from '@codelab/shared-domain-module/page'
 
 import { createPageAction } from '../use-cases/create-page'
 import { createPageFactory } from '../use-cases/create-page/create-page.factory'
+
+const { GetRenderedPage } = await pageServerActions()
 
 export const usePageService = (): IPageService => {
   const {

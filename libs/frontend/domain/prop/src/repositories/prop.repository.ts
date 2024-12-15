@@ -12,7 +12,8 @@ import {
   propServerActions,
 } from '@codelab/shared-domain-module/prop'
 
-const { CreateProps, DeleteProps, GetProps, UpdateProps } = propServerActions()
+const { CreateProps, DeleteProps, GetProps, UpdateProps } =
+  await propServerActions()
 
 export const propRepository: IPropRepository = {
   add: async (input: IPropDto) => {

@@ -5,4 +5,4 @@ import { getSdk } from './element.api.graphql.api.gen'
 export const elementApi = () => getSdk(graphqlClient)
 
 export const elementServerActions = () =>
-  require('./element.api.graphql.web.gen')
+  import('./element.api.graphql.web.gen')

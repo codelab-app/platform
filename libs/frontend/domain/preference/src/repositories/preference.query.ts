@@ -8,9 +8,10 @@ import type {
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { type IPreferenceDto } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
+import { preferenceServerActions } from '@codelab/shared-domain-module/preference'
 import { revalidateTag } from 'next/cache'
 
-import { GetPreferences } from './preference.api.graphql.web.gen'
+const { GetPreferences } = await preferenceServerActions()
 
 export const preferenceQuery = async (
   where?: PreferenceWhere,

@@ -1,7 +1,7 @@
 import type {
   AppCreateInput,
   DomainCreateInput,
-} from '@codelab/backend/abstract/codegen'
+} from '@codelab/shared/infra/gql'
 import type { INestApplication } from '@nestjs/common'
 
 import {

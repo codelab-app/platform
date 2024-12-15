@@ -1,12 +1,14 @@
 import type {
-  Element,
-  Page,
-  PageWhere,
-} from '@codelab/backend/abstract/codegen'
-import type {
   IPageAggregateExport,
   IStoreAggregateExport,
 } from '@codelab/shared/abstract/core'
+import type {
+  Element,
+  ElementFragment,
+  Page,
+  PageFragment,
+  PageWhere,
+} from '@codelab/shared/infra/gql'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportStoreCommand } from '@codelab/backend/application/store'
@@ -47,13 +49,14 @@ export class ExportPageHandler
     return pagesExport
   }
 
-  private async getPageData(page: Page) {
-    const elements = (
-      await this.elementRepository.getElementWithDescendants(
-        page.rootElement.id,
-      )
-    ).map((element: Element) => ({
+  private async getPageData(page: PageFragment) {
+    // TODO: use descendants
+    const elementDescendants: Array<ElementFragment> = []
+    // page.rootElement.descendants
+
+    const elements = elementDescendants.map((element: ElementFragment) => ({
       ...element,
+      closestContainerNode: { id: page.id },
       renderType: {
         __typename: Validator.parseDefined(element.renderType.__typename),
         id: element.renderType.id,

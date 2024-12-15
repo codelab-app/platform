@@ -1,9 +1,9 @@
+import type { IRenderPropTypeDto } from '@codelab/shared/abstract/core'
 import type {
   RenderPropType,
   RenderPropTypeOptions,
   RenderPropTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IRenderPropTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -34,7 +34,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
   protected async _addMany(renderPropTypes: Array<IRenderPropTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateRenderPropTypes({
+    } = await createTypeApi().CreateRenderPropTypes({
       input: renderPropTypes.map((renderPropType) =>
         renderPropTypeMapper.toCreateInput(renderPropType),
       ),
@@ -50,7 +50,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
     where?: RenderPropTypeWhere
     options?: RenderPropTypeOptions
   }) {
-    const { types } = await findTypeApi.GetRenderPropTypes({
+    const { types } = await findTypeApi().GetRenderPropTypes({
       options,
       where,
     })
@@ -64,7 +64,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
   ) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateRenderPropTypes({
+    } = await updateTypeApi().UpdateRenderPropTypes({
       update: renderPropTypeMapper.toUpdateInput(renderPropType),
       where,
     })
