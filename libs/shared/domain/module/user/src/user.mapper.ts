@@ -1,7 +1,13 @@
 import type { Claims } from '@auth0/nextjs-auth0'
+import type {
+  UserCreateInput,
+  UserDeleteInput,
+  UserUpdateInput,
+} from '@codelab/shared/infra/gql'
 
 import {
   type Auth0IdToken,
+  type IMapper,
   IRole,
   type IUserDto,
   JWT_CLAIMS,
@@ -35,4 +41,45 @@ export const mapClaimsToUserDto = (claims?: Claims): IUserDto => {
     roles: claims[JWT_CLAIMS].roles.map((role: IRole) => IRole[role]),
     username: claims['nickname'],
   }
+}
+
+export const userMapper: IMapper<
+  IUserDto,
+  UserCreateInput,
+  UserUpdateInput,
+  UserDeleteInput
+> = {
+  toCreateInput: ({
+    auth0Id,
+    email,
+    id,
+    roles,
+    username,
+  }: IUserDto): UserCreateInput => {
+    return {
+      auth0Id,
+      email,
+      id,
+      roles,
+      username,
+    }
+  },
+
+  toDeleteInput: () => {
+    return {}
+  },
+
+  toUpdateInput: ({
+    auth0Id,
+    email,
+    roles,
+    username,
+  }: IUserDto): UserUpdateInput => {
+    return {
+      auth0Id,
+      email,
+      roles,
+      username,
+    }
+  },
 }

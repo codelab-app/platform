@@ -12,24 +12,27 @@ import type { Static, TAnySchema } from '@sinclair/typebox'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   getDependentTypes,
-  interfaceTypeSelectionSet,
   Neo4jService,
-  OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeIds, connectOwner } from '@codelab/shared/domain/orm'
+import { InterfaceTypeFragment } from '@codelab/shared/infra/gql'
+import {
+  createTypeApi,
+  findTypeApi,
+  interfaceTypeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<
   IInterfaceTypeDto,
-  InterfaceType,
+  InterfaceTypeFragment,
   InterfaceTypeWhere,
   InterfaceTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
     private neo4jService: Neo4jService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
@@ -64,20 +67,15 @@ export class InterfaceTypeRepository extends AbstractRepository<
    * Even if interface was deleted & fields are not, it is no harm to leave those old fields un-attached. We could run a clean up process for un-attached fields
    */
   protected async _addMany(interfaceTypes: Array<IInterfaceTypeDto>) {
-    return (
-      await (
-        await this.ogmService.InterfaceType
-      ).create({
-        input: interfaceTypes.map(
-          ({ __typename, fields, owner, ...interfaceType }) => ({
-            ...interfaceType,
-            // fields: this.mapCreateFields(fields),
-            fields: connectNodeIds(fields?.map(({ id }) => id)),
-            owner: connectOwner(owner),
-          }),
-        ),
-      })
-    ).interfaceTypes
+    const {
+      types: { types },
+    } = await createTypeApi.CreateInterfaceTypes({
+      input: interfaceTypes.map((interfaceType) =>
+        interfaceTypeMapper.toCreateInput(interfaceType),
+      ),
+    })
+
+    return types
   }
 
   protected async _find({
@@ -87,13 +85,12 @@ export class InterfaceTypeRepository extends AbstractRepository<
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
   }) {
-    return await (
-      await this.ogmService.InterfaceType
-    ).find({
+    const { types } = await findTypeApi.GetInterfaceTypes({
       options,
-      selectionSet: `{ ${interfaceTypeSelectionSet} }`,
       where,
     })
+
+    return types
   }
 
   /**
@@ -101,20 +98,14 @@ export class InterfaceTypeRepository extends AbstractRepository<
    *
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
-  protected async _update(
-    { __typename, fields, id, name, ...data }: IInterfaceTypeDto,
-    where: InterfaceTypeWhere,
-  ) {
-    return (
-      await (
-        await this.ogmService.InterfaceType
-      ).update({
-        update: {
-          name,
-          // fields: this.mapUpdateFields(fields),
-        },
-        where,
-      })
-    ).interfaceTypes[0]
+  protected async _update(dto: IInterfaceTypeDto, where: InterfaceTypeWhere) {
+    const {
+      types: { types },
+    } = await updateTypeApi.UpdateInterfaceTypes({
+      update: interfaceTypeMapper.toUpdateInput(dto),
+      where,
+    })
+
+    return types[0]
   }
 }

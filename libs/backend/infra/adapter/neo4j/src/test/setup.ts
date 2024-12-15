@@ -9,7 +9,7 @@ import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
 
 import { GraphQLSchemaModule } from '../graphql-schema.module'
-import { DatabaseService, Neo4jModule, OgmModule, OgmService } from '../infra'
+import { DatabaseService, Neo4jModule } from '../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../schema'
 
 export const nestNeo4jGraphqlModule =
@@ -35,19 +35,13 @@ export const nestNeo4jGraphqlModule =
 
 export const setupTestingContext = async (metadata: ModuleMetadata = {}) => {
   const module: TestingModule = await Test.createTestingModule({
-    imports: [
-      nestNeo4jGraphqlModule,
-      Neo4jModule,
-      OgmModule,
-      ...(metadata.imports ?? []),
-    ],
+    imports: [nestNeo4jGraphqlModule, Neo4jModule, ...(metadata.imports ?? [])],
   })
     .overrideGuard(AuthGuard('jwt'))
     .useValue({ canActivate: () => true })
     .compile()
 
   const databaseService = module.get(DatabaseService)
-  const ogmService = module.get(OgmService)
   const nestApp = module.createNestApplication()
 
   const beforeAll = async () => {

@@ -9,7 +9,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import { propMapper } from '@codelab/shared-domain-module/prop'
 import { storeMapper } from '@codelab/shared-domain-module/store'
-import { typeMapper } from '@codelab/shared-domain-module/type'
+import { interfaceTypeMapper } from '@codelab/shared-domain-module/type'
 
 export const componentMapper: IMapper<
   IComponentDto,
@@ -45,7 +45,7 @@ export const componentMapper: IMapper<
   toDeleteInput: (): ComponentDeleteInput => {
     return {
       api: {
-        delete: typeMapper.toDeleteInput(ITypeKind.InterfaceType),
+        delete: interfaceTypeMapper.toDeleteInput(ITypeKind.InterfaceType),
         where: {},
       },
       props: { where: {} },

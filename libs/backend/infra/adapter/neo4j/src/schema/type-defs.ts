@@ -7,7 +7,6 @@ import { atomSchema } from './model/atom.schema'
 import { authGuardSchema } from './model/auth-guard.schema'
 import { componentSchema } from './model/component.schema'
 import { domainSchema } from './model/domain.schema'
-import { elementOgmSchema } from './model/element.ogm.schema'
 import { elementSchema } from './model/element.schema'
 import { hookSchema } from './model/hook.schema'
 import { pageSchema } from './model/page.schema'
@@ -20,10 +19,7 @@ import { tagSchema } from './model/tag.schema'
 import { userSchema } from './model/user.schema'
 import { fieldSchema, typeSchema } from './type'
 
-/**
- * `mergeTypeDefs` allow schema merging for type re-declaration
- */
-export const ogmTypeDefs = mergeTypeDefs([
+export const typeDefs = mergeTypeDefs([
   commonSchema,
   userSchema,
   appSchema,
@@ -33,8 +29,8 @@ export const ogmTypeDefs = mergeTypeDefs([
   typeSchema,
   tagSchema,
   elementSchema,
-  elementOgmSchema,
   propSchema,
+  preferenceSchema,
   hookSchema,
   componentSchema,
   storeSchema,
@@ -43,5 +39,4 @@ export const ogmTypeDefs = mergeTypeDefs([
   domainSchema,
   authGuardSchema,
   redirectSchema,
-  preferenceSchema,
 ])

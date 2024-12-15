@@ -31332,7 +31332,7 @@ export type ComponentFragment = {
   id: string
   name: string
   compositeKey: string
-  api: { id: string }
+  api: { id: string; __typename: 'InterfaceType' }
   owner: OwnerFragment
   props: PropFragment
   rootElement: { id: string }
@@ -31565,7 +31565,7 @@ export type TagFragment = {
   children: Array<{ id: string; name: string; owner: { id: string } }>
   descendants: Array<{ id: string; name: string }>
   owner: { id: string }
-  parent?: { id: string } | null
+  parent?: { id: string; name: string } | null
 }
 
 export type TagPreviewFragment = {

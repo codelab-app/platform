@@ -36,9 +36,6 @@
       "@codelab-codegen/typescript-server-fetch": [
         "libs/external/codelab-codegen/typescript-server-fetch/src/index.ts"
       ],
-      "@codelab/backend/abstract/codegen": [
-        "libs/backend/abstract/codegen/src/index.ts"
-      ],
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
       ],

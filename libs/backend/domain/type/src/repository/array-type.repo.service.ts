@@ -8,12 +8,11 @@ import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import { ArrayTypeFragment } from '@codelab/shared/infra/gql'
 import {
+  arrayTypeMapper,
   createTypeApi,
   findTypeApi,
-  typeMapper,
   updateTypeApi,
 } from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
@@ -51,21 +50,19 @@ export class ArrayTypeRepository extends AbstractRepository<
     const {
       types: { types },
     } = await createTypeApi.CreateArrayTypes({
-      input: arrayTypes.map((arrayType) => ({
-        ...typeMapper.toCreateInput(arrayType),
-        itemType: connectNodeId(arrayType.itemType?.id),
-        owner: connectOwner(arrayType.owner),
-      })),
+      input: arrayTypes.map((arrayType) =>
+        arrayTypeMapper.toCreateInput(arrayType),
+      ),
     })
 
     return types
   }
 
-  protected async _update(dto: IArrayTypeDto, where: ArrayTypeWhere) {
+  protected async _update(arrayType: IArrayTypeDto, where: ArrayTypeWhere) {
     const {
       types: { types },
     } = await updateTypeApi.UpdateArrayTypes({
-      update: typeMapper.toUpdateInput(dto),
+      update: arrayTypeMapper.toUpdateInput(arrayType),
       where,
     })
 

@@ -18,6 +18,7 @@ fragment Tag on Tag {
   }
   parent {
     id
+    name
   }
 }
 

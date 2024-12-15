@@ -1,30 +1,27 @@
 import type { IResourceDto } from '@codelab/shared/abstract/core'
 
-import {
-  type Resource,
-  type ResourceOptions,
-  type ResourceWhere,
-} from '@codelab/backend/abstract/codegen'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  resourceSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
+import {
+  ResourceFragment,
+  ResourceOptions,
+  ResourceWhere,
+} from '@codelab/shared/infra/gql'
+import {
+  resourceApi,
+  resourceMapper,
+} from '@codelab/shared-domain-module/resource'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ResourceRepository extends AbstractRepository<
   IResourceDto,
-  Resource,
+  ResourceFragment,
   ResourceWhere,
   ResourceOptions
 > {
   constructor(
-    private ogmService: OgmService,
-
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -32,46 +29,34 @@ export class ResourceRepository extends AbstractRepository<
   }
 
   protected async _addMany(resources: Array<IResourceDto>) {
-    return (
-      await (
-        await this.ogmService.Resource
-      ).create({
-        input: resources.map(({ config, id, name, owner, type }) => ({
-          config: connectNodeId(config.id),
-          id,
-          name,
-          owner: connectOwner(owner),
-          type,
-        })),
-      })
-    ).resources
+    const {
+      createResources: { resources: createdResources },
+    } = await resourceApi().CreateResources({
+      input: resources.map((resource) =>
+        resourceMapper.toCreateInput(resource),
+      ),
+    })
+
+    return createdResources
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
+  protected async _find(params: {
     where?: ResourceWhere
     options?: ResourceOptions
   }) {
-    return await (
-      await this.ogmService.Resource
-    ).find({
-      options,
-      selectionSet: `{ ${resourceSelectionSet} }`,
-      where,
-    })
+    const { items } = await resourceApi().ResourceList(params)
+
+    return items
   }
 
-  protected async _update({ name, type }: IResourceDto) {
-    return (
-      await (
-        await this.ogmService.Resource
-      ).update({
-        update: {
-          name,
-        },
-      })
-    ).resources[0]
+  protected async _update(resource: IResourceDto, where: ResourceWhere) {
+    const {
+      updateResources: { resources },
+    } = await resourceApi().UpdateResource({
+      update: resourceMapper.toUpdateInput(resource),
+      where,
+    })
+
+    return resources[0]
   }
 }

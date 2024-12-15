@@ -10,9 +10,9 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { ActionTypeFragment } from '@codelab/shared/infra/gql'
 import {
+  actionTypeMapper,
   createTypeApi,
   findTypeApi,
-  typeMapper,
   updateTypeApi,
 } from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
@@ -51,7 +51,7 @@ export class ActionTypeRepository extends AbstractRepository<
       types: { types },
     } = await createTypeApi.CreateActionTypes({
       input: actionTypes.map((actionType) =>
-        typeMapper.toCreateInput(actionType),
+        actionTypeMapper.toCreateInput(actionType),
       ),
     })
 
@@ -62,7 +62,7 @@ export class ActionTypeRepository extends AbstractRepository<
     const {
       types: { types },
     } = await updateTypeApi.UpdateActionTypes({
-      update: typeMapper.toUpdateInput(actionType),
+      update: actionTypeMapper.toUpdateInput(actionType),
       where,
     })
 

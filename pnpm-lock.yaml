@@ -151,9 +151,6 @@ importers:
       '@neo4j/graphql':
         specifier: 6.2.1
         version: 6.2.1(graphql@16.9.0)(neo4j-driver@5.27.0)
-      '@neo4j/graphql-ogm':
-        specifier: 5.11.1
-        version: 5.11.1(graphql@16.9.0)(neo4j-driver@5.27.0)
       '@nestjs/apollo':
         specifier: 12.2.2
         version: 12.2.2(@apollo/server@4.11.2(graphql@16.9.0))(@apollo/subgraph@2.9.3(graphql@16.9.0))(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.15(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.15)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/graphql@12.2.2(@apollo/subgraph@2.9.3(graphql@16.9.0))(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@10.4.15(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/platform-express@10.4.15)(reflect-metadata@0.1.13)(rxjs@7.8.0))(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.9.0)(reflect-metadata@0.1.13)(ts-morph@19.0.0))(graphql@16.9.0)
@@ -4109,27 +4106,9 @@ packages:
   '@napi-rs/wasm-runtime@0.2.5':
     resolution: {integrity: sha512-kwUxR7J9WLutBbulqg1dfOrMTwhMdXLdcGUhcbCcGwnPLt3gz19uHVdwH1syKVDbE022ZS2vZxOWflFLS0YTjw==}
 
-  '@neo4j/cypher-builder@1.22.4':
-    resolution: {integrity: sha512-bZUdCWBIcY3dEWUilVGahsNatdxrtZB4460Ipzao+kfa5wt7Vdj/lbv6ilwc1fJRiQlCOLHyepgjE9pouGQC/g==}
-    engines: {node: '>=16.0.0'}
-
   '@neo4j/cypher-builder@2.0.2':
     resolution: {integrity: sha512-ADFpLumipzwfysIE9u+Ue0eW9lNIp2j5wXKISqJTMcf7FZdbmS3KnEGpkkIFMatNafZTDfkVZbf4jODRlcp7XQ==}
     engines: {node: '>=16.0.0'}
-
-  '@neo4j/graphql-ogm@5.11.1':
-    resolution: {integrity: sha512-Dkbt4L5UxuEClMf066J6Sv9y/qBGrzJoyApKPouC2G5eji5cx7/CTJ3+HwD+hDW1lBKOC1jsxOb+rnyqgQaRXA==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      graphql: ^16.0.0
-      neo4j-driver: ^5.8.0
-
-  '@neo4j/graphql@5.11.1':
-    resolution: {integrity: sha512-rLcCwN9dX0nCw3PPM1NQKsj8u4eURFBY0BR84sTenRzIRHoSXS0BcXTHalaXmcqNwG44whf7tjqVWQsADzVfUA==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      graphql: ^16.0.0
-      neo4j-driver: ^5.8.0
 
   '@neo4j/graphql@6.2.1':
     resolution: {integrity: sha512-xSE8Zft9Vu4cBronBK3E8Di/Q1xbxt/jT/ateEWGX73YNnVMHtgkcOt9cRUwLAkZceifKSxJDwlkJQ5pFJ7RVQ==}
@@ -21164,46 +21143,7 @@ snapshots:
       '@tybys/wasm-util': 0.9.0
     optional: true
 
-  '@neo4j/cypher-builder@1.22.4': {}
-
   '@neo4j/cypher-builder@2.0.2': {}
-
-  '@neo4j/graphql-ogm@5.11.1(graphql@16.9.0)(neo4j-driver@5.27.0)':
-    dependencies:
-      '@graphql-codegen/core': 4.0.2(graphql@16.9.0)
-      '@graphql-codegen/plugin-helpers': 5.0.4(graphql@16.9.0)
-      '@graphql-codegen/typescript': 4.0.9(graphql@16.9.0)
-      '@graphql-tools/merge': 9.0.8(graphql@16.9.0)
-      '@neo4j/graphql': 5.11.1(graphql@16.9.0)(neo4j-driver@5.27.0)
-      graphql: 16.9.0
-      neo4j-driver: 5.27.0
-      prettier: 2.8.8
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
-  '@neo4j/graphql@5.11.1(graphql@16.9.0)(neo4j-driver@5.27.0)':
-    dependencies:
-      '@apollo/subgraph': 2.9.3(graphql@16.9.0)
-      '@graphql-tools/merge': 9.0.11(graphql@16.9.0)
-      '@graphql-tools/resolvers-composition': 7.0.2(graphql@16.9.0)
-      '@graphql-tools/schema': 10.0.10(graphql@16.9.0)
-      '@graphql-tools/utils': 10.6.1(graphql@16.9.0)
-      '@neo4j/cypher-builder': 1.22.4
-      camelcase: 6.3.0
-      debug: 4.3.7(supports-color@8.1.1)
-      dot-prop: 6.0.1
-      graphql: 16.9.0
-      graphql-compose: 9.0.11(graphql@16.9.0)
-      graphql-parse-resolve-info: 4.13.0(graphql@16.9.0)
-      graphql-relay: 0.10.2(graphql@16.9.0)
-      jose: 5.9.6
-      neo4j-driver: 5.27.0
-      pluralize: 8.0.0
-      semver: 7.6.3
-      typescript-memoize: 1.1.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@neo4j/graphql@6.2.1(graphql@16.9.0)(neo4j-driver@5.27.0)':
     dependencies:

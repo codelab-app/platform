@@ -1,10 +1,10 @@
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
-import { Neo4jModule, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
+import { Neo4jModule } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
 
 @Module({
-  exports: [AuthDomainModule, Neo4jModule, OgmModule, ValidationModule],
-  imports: [AuthDomainModule, Neo4jModule, OgmModule, ValidationModule],
+  exports: [AuthDomainModule, Neo4jModule, ValidationModule],
+  imports: [AuthDomainModule, Neo4jModule, ValidationModule],
 })
 export class SharedDomainModule {}

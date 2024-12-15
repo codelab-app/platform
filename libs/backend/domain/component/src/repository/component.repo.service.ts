@@ -32,7 +32,7 @@ export class ComponentRepository extends AbstractRepository<
   async _addMany(components: Array<IComponentDto>) {
     const {
       createComponents: { components: createdComponents },
-    } = await componentApi.CreateComponents({
+    } = await componentApi().CreateComponents({
       input: components.map((component) =>
         componentMapper.toCreateInput(component),
       ),
@@ -48,7 +48,7 @@ export class ComponentRepository extends AbstractRepository<
     where?: ComponentWhere
     options?: ComponentOptions
   }) {
-    const { items } = await componentApi.ComponentList({
+    const { items } = await componentApi().ComponentList({
       options,
       where,
     })
@@ -59,7 +59,7 @@ export class ComponentRepository extends AbstractRepository<
   protected async _update(component: IComponentDto, where: ComponentWhere) {
     const {
       updateComponents: { components },
-    } = await componentApi.UpdateComponents({
+    } = await componentApi().UpdateComponents({
       update: componentMapper.toUpdateInput(component),
       where,
     })
