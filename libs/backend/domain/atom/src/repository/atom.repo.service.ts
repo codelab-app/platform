@@ -6,24 +6,20 @@ import type {
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  atomSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { atomMapper } from '@codelab/shared-domain-module-atom'
+import { AtomFragment } from '@codelab/shared/infra/gql'
+import { atomApi, atomMapper } from '@codelab/shared-domain-module-atom'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AtomRepository extends AbstractRepository<
   IAtomDto,
-  Atom,
+  AtomFragment,
   AtomWhere,
   AtomOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -34,37 +30,38 @@ export class AtomRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(atoms: Array<IAtomDto>) {
-    return (
-      await (
-        await this.ogmService.Atom
-      ).create({
-        input: atoms.map((atom) => atomMapper.toCreateInput(atom)),
-      })
-    ).atoms
+    const {
+      createAtoms: { atoms: createdAtoms },
+    } = await atomApi.CreateAtoms({
+      input: atoms.map((atom) => atomMapper.toCreateInput(atom)),
+    })
+
+    return createdAtoms
   }
 
   protected async _find({
     options,
-    selectionSet = `{ ${atomSelectionSet} }`,
     where,
   }: {
     where?: AtomWhere
     options?: AtomOptions
-    selectionSet?: string
   }) {
-    return await (
-      await this.ogmService.Atom
-    ).find({ options, selectionSet, where })
+    const { items } = await atomApi.AtomList({
+      options,
+      where,
+    })
+
+    return items
   }
 
   protected async _update(atom: IAtomDto, where: AtomWhere) {
-    return (
-      await (
-        await this.ogmService.Atom
-      ).update({
-        update: atomMapper.toUpdateInput(atom),
-        where,
-      })
-    ).atoms[0]
+    const {
+      updateAtoms: { atoms },
+    } = await atomApi.UpdateAtoms({
+      update: atomMapper.toUpdateInput(atom),
+      where,
+    })
+
+    return atoms[0]
   }
 }

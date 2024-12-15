@@ -5,25 +5,21 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  tagSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { type ITagDto } from '@codelab/shared/abstract/core'
-import { tagMapper } from '@codelab/shared-domain-module/tag'
+import { TagFragment } from '@codelab/shared/infra/gql'
+import { tagApi, tagMapper } from '@codelab/shared-domain-module/tag'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class TagRepository extends AbstractRepository<
   ITagDto,
-  Tag,
+  TagFragment,
   TagWhere,
   TagOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -34,13 +30,13 @@ export class TagRepository extends AbstractRepository<
    * If parent or children exists, then we should connect them
    */
   protected async _addMany(tags: Array<ITagDto>) {
-    return (
-      await (
-        await this.ogmService.Tag
-      ).create({
-        input: tags.map((tag) => tagMapper.toCreateInput(tag)),
-      })
-    ).tags
+    const {
+      createTags: { tags: createdTags },
+    } = await tagApi.CreateTags({
+      input: tags.map((tag) => tagMapper.toCreateInput(tag)),
+    })
+
+    return createdTags
   }
 
   protected async _find({
@@ -50,23 +46,22 @@ export class TagRepository extends AbstractRepository<
     where?: TagWhere
     options?: TagOptions
   }) {
-    return await (
-      await this.ogmService.Tag
-    ).find({
+    const { items } = await tagApi.GetTags({
       options,
-      selectionSet: `{ ${tagSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update(tag: ITagDto, where: TagWhere) {
-    return (
-      await (
-        await this.ogmService.Tag
-      ).update({
-        update: tagMapper.toUpdateInput(tag),
-        where,
-      })
-    ).tags[0]
+    const {
+      updateTags: { tags },
+    } = await tagApi.UpdateTags({
+      update: tagMapper.toUpdateInput(tag),
+      where,
+    })
+
+    return tags[0]
   }
 }

@@ -11,7 +11,7 @@ import { ITypeKind } from './type-kind.enum'
 export const BaseTypeExportSchema = Type.Object({
   __typename: Type.String(),
   id: Type.String(),
-  kind: Type.String(),
+  kind: Type.Enum(ITypeKind),
   name: Type.String(),
 })
 
@@ -29,7 +29,6 @@ export const BaseTypeDtoSchema = <T extends `${ITypeKind}`>(kind: T) =>
      */
     __typename: Type.Literal<T>(kind),
     id: Type.String(),
-    // kind: ITypeKindTransform,
     kind: Type.Enum(ITypeKind),
     name: Type.String(),
     owner: Typebox.Ref,

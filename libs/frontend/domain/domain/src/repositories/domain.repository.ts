@@ -18,7 +18,7 @@ import {
 import { revalidateTag } from 'next/cache'
 
 const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
-  domainServerActions()
+  await domainServerActions()
 
 export const domainRepository: IDomainRepository = {
   add: async (domain: IDomainDto) => {

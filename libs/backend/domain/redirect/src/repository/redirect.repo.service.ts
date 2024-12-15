@@ -4,10 +4,6 @@ import {
   type RedirectWhere,
 } from '@codelab/backend/abstract/codegen'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  redirectSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
@@ -19,17 +15,21 @@ import {
   disconnectAll,
   reconnectNodeId,
 } from '@codelab/shared/domain/orm'
+import { RedirectFragment } from '@codelab/shared/infra/gql'
+import {
+  redirectApi,
+  redirectMapper,
+} from '@codelab/shared-domain-module/redirect'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RedirectRepository extends AbstractRepository<
   IRedirectDto,
-  Redirect,
+  RedirectFragment,
   RedirectWhere,
   RedirectOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -37,26 +37,26 @@ export class RedirectRepository extends AbstractRepository<
   }
 
   protected async _addMany(redirects: Array<IRedirectDto>) {
-    return (
-      await (
-        await this.ogmService.Redirect
-      ).create({
-        input: redirects.map((redirect) => ({
-          authGuard: connectNodeId(redirect.authGuard.id),
-          id: redirect.id,
-          source: connectNodeId(redirect.source.id),
-          targetPage:
-            redirect.targetType === IRedirectTargetType.Page
-              ? reconnectNodeId(redirect.targetPage?.id)
-              : undefined,
-          targetType: redirect.targetType,
-          targetUrl:
-            redirect.targetType === IRedirectTargetType.Url
-              ? redirect.targetType
-              : undefined,
-        })),
-      })
-    ).redirects
+    const {
+      createRedirects: { redirects: createdRedirects },
+    } = await redirectApi.CreateRedirects({
+      input: redirects.map((redirect) => ({
+        authGuard: connectNodeId(redirect.authGuard.id),
+        id: redirect.id,
+        source: connectNodeId(redirect.source.id),
+        targetPage:
+          redirect.targetType === IRedirectTargetType.Page
+            ? reconnectNodeId(redirect.targetPage?.id)
+            : undefined,
+        targetType: redirect.targetType,
+        targetUrl:
+          redirect.targetType === IRedirectTargetType.Url
+            ? redirect.targetType
+            : undefined,
+      })),
+    })
+
+    return createdRedirects
   }
 
   protected async _find({
@@ -66,13 +66,12 @@ export class RedirectRepository extends AbstractRepository<
     where?: RedirectWhere
     options?: RedirectOptions
   }) {
-    return await (
-      await this.ogmService.Redirect
-    ).find({
+    const { items } = await redirectApi.GetRedirects({
       options,
-      selectionSet: `{ ${redirectSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update({
@@ -82,22 +81,22 @@ export class RedirectRepository extends AbstractRepository<
     targetType,
     targetUrl,
   }: IRedirectDto) {
-    return (
-      await (
-        await this.ogmService.Redirect
-      ).update({
-        update: {
-          authGuard: reconnectNodeId(authGuard.id),
-          source: reconnectNodeId(source.id),
-          targetPage:
-            targetType === IRedirectTargetType.Page
-              ? reconnectNodeId(targetPage?.id)
-              : disconnectAll({ omitId: targetPage?.id }),
-          targetType,
-          targetUrl:
-            targetType === IRedirectTargetType.Url ? targetUrl : undefined,
-        },
-      })
-    ).redirects[0]
+    const {
+      updateRedirects: { redirects },
+    } = await redirectApi.UpdateRedirects({
+      update: {
+        authGuard: reconnectNodeId(authGuard.id),
+        source: reconnectNodeId(source.id),
+        targetPage:
+          targetType === IRedirectTargetType.Page
+            ? reconnectNodeId(targetPage?.id)
+            : disconnectAll({ omitId: targetPage?.id }),
+        targetType,
+        targetUrl:
+          targetType === IRedirectTargetType.Url ? targetUrl : undefined,
+      },
+    })
+
+    return redirects[0]
   }
 }

@@ -24,22 +24,6 @@ type ITypeWhere =
   | cg.RichTextType
   | cg.UnionTypeWhere
 
-export type ITypeUpdateVars =
-  | cg.UpdateActionTypesMutationVariables
-  | cg.UpdateAppTypesMutationVariables
-  | cg.UpdateArrayTypesMutationVariables
-  | cg.UpdateCodeMirrorTypesMutationVariables
-  | cg.UpdateElementTypesMutationVariables
-  | cg.UpdateEnumTypesMutationVariables
-  | cg.UpdateInterfaceTypesMutationVariables
-  | cg.UpdateLambdaTypesMutationVariables
-  | cg.UpdatePageTypesMutationVariables
-  | cg.UpdatePrimitiveTypesMutationVariables
-  | cg.UpdateReactNodeTypesMutationVariables
-  | cg.UpdateRenderPropTypesMutationVariables
-  | cg.UpdateRichTextTypesMutationVariables
-  | cg.UpdateUnionTypesMutationVariables
-
 export type ITypeCreateInput =
   | cg.ActionTypeCreateInput
   | cg.AppTypeCreateInput

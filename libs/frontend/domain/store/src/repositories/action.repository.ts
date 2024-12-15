@@ -4,27 +4,40 @@ import type {
   IActionRepository,
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
+import type {
+  IActionDto,
+  IActionRef,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { CodeActionCreateInput } from '@codelab/shared/infra/gql'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
-import { actionMapper } from '@codelab/shared-domain-module/action'
+import {
+  apiActionMapper,
+  codeActionMapper,
+} from '@codelab/shared-domain-module/action'
+import {
+  actionCreateServerActions,
+  actionDeleteServerActions,
+  actionGetApi,
+  actionUpdateServerActions,
+} from '@codelab/shared-domain-module/store'
 
-import {
-  CreateApiActions,
-  CreateCodeActions,
-} from './create-action.api.graphql.web.gen'
-import {
-  DeleteApiActions,
-  DeleteCodeActions,
-} from './delete-action.api.graphql.web.gen'
-import { GetActions } from './get-action.api.graphql.web.gen'
-import {
-  UpdateApiActions,
-  UpdateCodeActions,
-} from './update-action.api.graphql.web.gen'
+const { CreateApiActions, CreateCodeActions } =
+  await actionCreateServerActions()
 
+const { UpdateApiActions, UpdateCodeActions } =
+  await actionUpdateServerActions()
+
+const { DeleteApiActions, DeleteCodeActions } =
+  await actionDeleteServerActions()
+
+const { GetActions } = await actionGetApi()
+
+/**
+ * We can't use type api record approach since we need nested created for here, we need switch case to map the data
+ */
 export const actionRepository: IActionRepository = {
   add: async (action: IActionDto) => {
     switch (action.__typename) {
@@ -32,7 +45,7 @@ export const actionRepository: IActionRepository = {
         const {
           createApiActions: { apiActions },
         } = await CreateApiActions({
-          input: actionMapper.toCreateInput(action),
+          input: apiActionMapper.toCreateInput(action),
         })
 
         Validator.assertsDefined(apiActions[0])
@@ -41,14 +54,10 @@ export const actionRepository: IActionRepository = {
       }
 
       case IActionKind.CodeAction: {
-        const input = actionMapper.toCreateInput(
-          action,
-        ) as CodeActionCreateInput
-
         const {
           createCodeActions: { codeActions },
         } = await CreateCodeActions({
-          input,
+          input: codeActionMapper.toCreateInput(action),
         })
 
         Validator.assertsDefined(codeActions[0])
@@ -61,16 +70,16 @@ export const actionRepository: IActionRepository = {
     }
   },
 
-  delete: async (actions: Array<IActionModel>) => {
+  delete: async (actions: Array<IActionRef>) => {
     let nodesDeleted = 0
 
     for (const action of actions) {
-      switch (action.type) {
+      switch (action.__typename) {
         case IActionKind.ApiAction: {
           const {
             deleteApiActions: { nodesDeleted: deleted },
           } = await DeleteApiActions({
-            delete: actionMapper.toDeleteInput(action.type),
+            delete: apiActionMapper.toDeleteInput(action.__typename),
             where: { id: action.id },
           })
 
@@ -82,7 +91,7 @@ export const actionRepository: IActionRepository = {
           const {
             deleteCodeActions: { nodesDeleted: deleted },
           } = await DeleteCodeActions({
-            delete: actionMapper.toDeleteInput(action.type),
+            delete: codeActionMapper.toDeleteInput(action.__typename),
             where: { id: action.id },
           })
 
@@ -123,7 +132,7 @@ export const actionRepository: IActionRepository = {
         const {
           updateApiActions: { apiActions },
         } = await UpdateApiActions({
-          update: actionMapper.toUpdateInput(dto),
+          update: apiActionMapper.toUpdateInput(dto),
           where: { id },
         })
 
@@ -136,7 +145,7 @@ export const actionRepository: IActionRepository = {
         const {
           updateCodeActions: { codeActions },
         } = await UpdateCodeActions({
-          update: actionMapper.toUpdateInput(dto),
+          update: codeActionMapper.toUpdateInput(dto),
           where: { id },
         })
 

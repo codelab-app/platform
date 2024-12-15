@@ -3,19 +3,24 @@ import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type { IBaseTypeWhere } from '@codelab/shared/infra/gql'
 
 import { Validator } from '@codelab/shared/infra/schema'
-import { typeMapper } from '@codelab/shared-domain-module/type'
+import { createTypeApi, typeMapper } from '@codelab/shared-domain-module/type'
 import { sortBy } from 'remeda'
 
 import { GetBaseTypes, GetDescendants } from './get-type.api.graphql.web.gen'
 // const { createTypeApi, deleteTypeApi, getAllTypes, updateTypeApi } =
 //   './type.api'
 
+/**
+ * The record approach here has limitationg where we cannot create nested data.
+ *
+ * The input has optional nested data and we cast the input in the record, which makes it work if only have top level data
+ */
 export const typeRepository: ITypeRepository = {
   add: async (input: ITypeDto) => {
     Validator.assertsDefined(input.kind)
 
     const data = typeMapper.toCreateInput(input)
-    const createdTypes = await createTypeApi[input.kind]([data])
+    const createdTypes = await (await createTypeApi())[input.kind]([data])
 
     Validator.assertsDefined(createdTypes[0])
 

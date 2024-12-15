@@ -3,7 +3,7 @@ mutation UpdateCodeActions(
   $where: CodeActionWhere
 ) {
   updateCodeActions(update: $update, where: $where) {
-    codeActions {
+    actions: codeActions {
       id
     }
   }
@@ -14,7 +14,7 @@ mutation UpdateApiActions(
   $where: ApiActionWhere
 ) {
   updateApiActions(update: $update, where: $where) {
-    apiActions {
+    actions: apiActions {
       id
     }
   }

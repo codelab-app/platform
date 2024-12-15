@@ -14,7 +14,7 @@ import {
 } from '@codelab/shared-domain-module/component'
 
 const { ComponentList, CreateComponents, DeleteComponents, UpdateComponents } =
-  componentServerActions()
+  await componentServerActions()
 
 export const componentRepository: IComponentRepository = {
   add: async (input: IComponentDto) => {

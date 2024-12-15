@@ -6,24 +6,26 @@ import type {
 import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  arrayTypeSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
+import { ArrayTypeFragment } from '@codelab/shared/infra/gql'
+import {
+  createTypeApi,
+  findTypeApi,
+  typeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ArrayTypeRepository extends AbstractRepository<
   IArrayTypeDto,
-  ArrayType,
+  ArrayTypeFragment,
   ArrayTypeWhere,
   ArrayTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -37,45 +39,36 @@ export class ArrayTypeRepository extends AbstractRepository<
     where?: ArrayTypeWhere
     options?: ArrayTypeOptions
   }) {
-    return await (
-      await this.ogmService.ArrayType
-    ).find({
+    const { types } = await findTypeApi.GetArrayTypes({
       options,
-      selectionSet: `{ ${arrayTypeSelectionSet} }`,
       where,
     })
+
+    return types
   }
 
-  protected async _addMany(primitiveTypes: Array<IArrayTypeDto>) {
-    return (
-      await (
-        await this.ogmService.ArrayType
-      ).create({
-        input: primitiveTypes.map(
-          ({ __typename, itemType, owner, ...type }) => ({
-            ...type,
-            itemType: connectNodeId(itemType?.id),
-            owner: connectOwner(owner),
-          }),
-        ),
-      })
-    ).arrayTypes
+  protected async _addMany(arrayTypes: Array<IArrayTypeDto>) {
+    const {
+      types: { types },
+    } = await createTypeApi.CreateArrayTypes({
+      input: arrayTypes.map((arrayType) => ({
+        ...typeMapper.toCreateInput(arrayType),
+        itemType: connectNodeId(arrayType.itemType?.id),
+        owner: connectOwner(arrayType.owner),
+      })),
+    })
+
+    return types
   }
 
-  protected async _update(
-    { __typename, id, itemType, name, ...primitiveType }: IArrayTypeDto,
-    where: ArrayTypeWhere,
-  ) {
-    return (
-      await (
-        await this.ogmService.ArrayType
-      ).update({
-        update: {
-          // itemType: reconnectNodeId(itemType?.id),
-          name,
-        },
-        where,
-      })
-    ).arrayTypes[0]
+  protected async _update(dto: IArrayTypeDto, where: ArrayTypeWhere) {
+    const {
+      types: { types },
+    } = await updateTypeApi.UpdateArrayTypes({
+      update: typeMapper.toUpdateInput(dto),
+      where,
+    })
+
+    return types[0]
   }
 }
