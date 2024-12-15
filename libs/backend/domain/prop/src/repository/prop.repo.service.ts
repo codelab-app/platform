@@ -6,25 +6,20 @@ import type {
 import type { IPropDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  propSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { propMapper } from '@codelab/shared-domain-module/prop'
+import { PropFragment } from '@codelab/shared/infra/gql'
+import { propApi, propMapper } from '@codelab/shared-domain-module/prop'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PropRepository extends AbstractRepository<
   IPropDto,
-  Prop,
+  PropFragment,
   PropWhere,
   PropOptions
 > {
   constructor(
-    private ogmService: OgmService,
-
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -35,13 +30,13 @@ export class PropRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(props: Array<IPropDto>) {
-    return (
-      await (
-        await this.ogmService.Prop
-      ).create({
-        input: props.map((prop) => propMapper.toCreateInput(prop)),
-      })
-    ).props
+    const {
+      createProps: { props: createdProps },
+    } = await propApi.CreateProps({
+      input: props.map((prop) => propMapper.toCreateInput(prop)),
+    })
+
+    return createdProps
   }
 
   protected async _find({
@@ -51,23 +46,22 @@ export class PropRepository extends AbstractRepository<
     where?: PropWhere
     options?: PropOptions
   }) {
-    return await (
-      await this.ogmService.Prop
-    ).find({
+    const { items } = await propApi.GetProps({
       options,
-      selectionSet: `{${propSelectionSet}}`,
       where,
     })
+
+    return items
   }
 
   protected async _update(props: IPropDto, where: PropWhere) {
-    return (
-      await (
-        await this.ogmService.Prop
-      ).update({
-        update: propMapper.toUpdateInput(props),
-        where,
-      })
-    ).props[0]
+    const {
+      updateProps: { props: updatedProps },
+    } = await propApi.UpdateProps({
+      update: propMapper.toUpdateInput(props),
+      where,
+    })
+
+    return updatedProps[0]
   }
 }

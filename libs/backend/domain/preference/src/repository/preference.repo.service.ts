@@ -6,24 +6,23 @@ import type {
 import type { IPreferenceDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  preferenceSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner } from '@codelab/shared/domain/orm'
+import { PreferenceFragment } from '@codelab/shared/infra/gql'
+import {
+  preferenceApi,
+  preferenceMapper,
+} from '@codelab/shared-domain-module/preference'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PreferenceRepository extends AbstractRepository<
   IPreferenceDto,
-  Preference,
+  PreferenceFragment,
   PreferenceWhere,
   PreferenceOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -34,21 +33,15 @@ export class PreferenceRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(preferences: Array<IPreferenceDto>) {
-    return (
-      await (
-        await this.ogmService.Preference
-      ).create({
-        input: preferences.map(
-          ({ builderBreakpointType, builderWidth, id, owner }) => ({
-            builderBreakpointType,
-            builderWidth,
-            id,
-            owner: connectOwner(owner),
-          }),
-        ),
-        selectionSet: `{ preferences { ${preferenceSelectionSet} } }`,
-      })
-    ).preferences
+    const {
+      createPreferences: { preferences: createdPreferences },
+    } = await preferenceApi.CreatePreferences({
+      input: preferences.map((preference) =>
+        preferenceMapper.toCreateInput(preference),
+      ),
+    })
+
+    return createdPreferences
   }
 
   protected async _find({
@@ -58,29 +51,22 @@ export class PreferenceRepository extends AbstractRepository<
     where?: PreferenceWhere
     options?: PreferenceOptions
   }) {
-    return await (
-      await this.ogmService.Preference
-    ).find({
+    const { items } = await preferenceApi.GetPreferences({
       options,
-      selectionSet: `{ ${preferenceSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
-  protected async _update(
-    { builderBreakpointType, builderWidth }: IPreferenceDto,
-    where: PreferenceWhere,
-  ) {
-    return (
-      await (
-        await this.ogmService.Preference
-      ).update({
-        update: {
-          builderBreakpointType,
-          builderWidth,
-        },
-        where,
-      })
-    ).preferences[0]
+  protected async _update(preference: IPreferenceDto, where: PreferenceWhere) {
+    const {
+      updatePreferences: { preferences },
+    } = await preferenceApi.UpdatePreferences({
+      update: preferenceMapper.toUpdateInput(preference),
+      where,
+    })
+
+    return preferences[0]
   }
 }

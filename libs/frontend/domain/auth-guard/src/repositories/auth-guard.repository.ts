@@ -15,7 +15,7 @@ import { authGuardServerActions } from '@codelab/shared-domain-module/auth-guard
 import { authGuardMapper } from './auth-guard.mapper'
 
 const { CreateAuthGuards, DeleteAuthGuards, GetAuthGuards, UpdateAuthGuard } =
-  authGuardServerActions()
+  await authGuardServerActions()
 
 export const authGuardRepository: IAuthGuardRepository = {
   add: async (input: IAuthGuardDto) => {

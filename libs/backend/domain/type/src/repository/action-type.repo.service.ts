@@ -6,25 +6,25 @@ import type {
 import type { IActionTypeDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  baseTypeSelection,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner } from '@codelab/shared/domain/orm'
+import { ActionTypeFragment } from '@codelab/shared/infra/gql'
+import {
+  createTypeApi,
+  findTypeApi,
+  typeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ActionTypeRepository extends AbstractRepository<
   IActionTypeDto,
-  ActionType,
+  ActionTypeFragment,
   ActionTypeWhere,
   ActionTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
-
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -38,39 +38,34 @@ export class ActionTypeRepository extends AbstractRepository<
     where?: ActionTypeWhere
     options?: ActionTypeOptions
   }) {
-    return await (
-      await this.ogmService.ActionType
-    ).find({
+    const { types } = await findTypeApi.GetActionTypes({
       options,
-      selectionSet: `{ ${baseTypeSelection} }`,
       where,
     })
+
+    return types
   }
 
   protected async _addMany(actionTypes: Array<IActionTypeDto>) {
-    return (
-      await (
-        await this.ogmService.ActionType
-      ).create({
-        input: actionTypes.map(({ __typename, owner, ...actionType }) => ({
-          ...actionType,
-          owner: connectOwner(owner),
-        })),
-      })
-    ).actionTypes
+    const {
+      types: { types },
+    } = await createTypeApi.CreateActionTypes({
+      input: actionTypes.map((actionType) =>
+        typeMapper.toCreateInput(actionType),
+      ),
+    })
+
+    return types
   }
 
-  protected async _update(
-    { __typename, id, name, ...actionType }: IActionTypeDto,
-    where: ActionTypeWhere,
-  ) {
-    return (
-      await (
-        await this.ogmService.ActionType
-      ).update({
-        update: { name },
-        where,
-      })
-    ).actionTypes[0]
+  protected async _update(actionType: IActionTypeDto, where: ActionTypeWhere) {
+    const {
+      types: { types },
+    } = await updateTypeApi.UpdateActionTypes({
+      update: typeMapper.toUpdateInput(actionType),
+      where,
+    })
+
+    return types[0]
   }
 }

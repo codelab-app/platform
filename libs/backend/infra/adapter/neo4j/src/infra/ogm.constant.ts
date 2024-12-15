@@ -1,1 +1,0 @@
-export const OGM_PROVIDER = 'OGM_PROVIDER'

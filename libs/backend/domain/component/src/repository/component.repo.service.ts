@@ -6,24 +6,23 @@ import type {
 import type { IComponentDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  componentSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { componentMapper } from '@codelab/shared-domain-module/component'
+import { ComponentFragment } from '@codelab/shared/infra/gql'
+import {
+  componentApi,
+  componentMapper,
+} from '@codelab/shared-domain-module/component'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ComponentRepository extends AbstractRepository<
   IComponentDto,
-  Component,
+  ComponentFragment,
   ComponentWhere,
   ComponentOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -31,16 +30,15 @@ export class ComponentRepository extends AbstractRepository<
   }
 
   async _addMany(components: Array<IComponentDto>) {
-    return (
-      await (
-        await this.ogmService.Component
-      ).create({
-        input: components.map((component) =>
-          componentMapper.toCreateInput(component),
-        ),
-        selectionSet: `{ components { ${componentSelectionSet} } }`,
-      })
-    ).components
+    const {
+      createComponents: { components: createdComponents },
+    } = await componentApi.CreateComponents({
+      input: components.map((component) =>
+        componentMapper.toCreateInput(component),
+      ),
+    })
+
+    return createdComponents
   }
 
   protected async _find({
@@ -50,23 +48,22 @@ export class ComponentRepository extends AbstractRepository<
     where?: ComponentWhere
     options?: ComponentOptions
   }) {
-    return await (
-      await this.ogmService.Component
-    ).find({
+    const { items } = await componentApi.ComponentList({
       options,
-      selectionSet: `{ ${componentSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update(component: IComponentDto, where: ComponentWhere) {
-    return (
-      await (
-        await this.ogmService.Component
-      ).update({
-        update: componentMapper.toUpdateInput(component),
-        where,
-      })
-    ).components[0]
+    const {
+      updateComponents: { components },
+    } = await componentApi.UpdateComponents({
+      update: componentMapper.toUpdateInput(component),
+      where,
+    })
+
+    return components[0]
   }
 }

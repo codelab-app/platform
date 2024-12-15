@@ -6,24 +6,20 @@ import type {
 import type { IPageDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  pageSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { pageMapper } from '@codelab/shared-domain-module/page'
+import { PageFragment } from '@codelab/shared/infra/gql'
+import { pageApi, pageMapper } from '@codelab/shared-domain-module/page'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PageRepository extends AbstractRepository<
   IPageDto,
-  Page,
+  PageFragment,
   PageWhere,
   PageOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -34,14 +30,13 @@ export class PageRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(pages: Array<IPageDto>) {
-    return (
-      await (
-        await this.ogmService.Page
-      ).create({
-        input: pages.map((page) => pageMapper.toCreateInput(page)),
-        selectionSet: `{ pages { ${pageSelectionSet} } }`,
-      })
-    ).pages
+    const {
+      createPages: { pages: createdPages },
+    } = await pageApi.CreatePages({
+      input: pages.map((page) => pageMapper.toCreateInput(page)),
+    })
+
+    return createdPages
   }
 
   protected async _find({
@@ -51,23 +46,22 @@ export class PageRepository extends AbstractRepository<
     where?: PageWhere
     options?: PageOptions
   }) {
-    return await (
-      await this.ogmService.Page
-    ).find({
+    const { items } = await pageApi.PageList({
       options,
-      selectionSet: `{ ${pageSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update(page: IPageDto, where: PageWhere) {
-    return (
-      await (
-        await this.ogmService.Page
-      ).update({
-        update: pageMapper.toUpdateInput(page),
-        where,
-      })
-    ).pages[0]
+    const {
+      updatePages: { pages },
+    } = await pageApi.UpdatePages({
+      update: pageMapper.toUpdateInput(page),
+      where,
+    })
+
+    return pages[0]
   }
 }

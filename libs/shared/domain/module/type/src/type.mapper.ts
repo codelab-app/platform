@@ -6,7 +6,7 @@ import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import type {
   ITypeCreateInput,
   ITypeDeleteInput,
-  ITypeUpdateVars,
+  ITypeUpdateInput,
 } from './type.input.interface'
 
 import { makeAllTypes } from './type-input.factory'
@@ -14,7 +14,7 @@ import { makeAllTypes } from './type-input.factory'
 export const typeMapper: IMapper<
   ITypeDto,
   ITypeCreateInput,
-  ITypeUpdateVars,
+  ITypeUpdateInput,
   ITypeDeleteInput
 > = {
   toCreateInput: (dto: ITypeDto): ITypeCreateInput => {
@@ -120,7 +120,7 @@ export const typeMapper: IMapper<
   /**
    * Where is mapped in later
    */
-  toUpdateInput: (dto: ITypeDto): ITypeUpdateVars => {
+  toUpdateInput: (dto: ITypeDto): ITypeUpdateInput => {
     const baseType = {
       id: dto.id,
       kind: dto.kind,
@@ -137,9 +137,7 @@ export const typeMapper: IMapper<
       case ITypeKind.ReactNodeType:
       case ITypeKind.RenderPropType:
       case ITypeKind.RichTextType:
-        return {
-          update: baseType,
-        }
+        return baseType
       case ITypeKind.ArrayType:
         return {
           update: dto.itemType?.id
@@ -164,17 +162,13 @@ export const typeMapper: IMapper<
         }
       case ITypeKind.CodeMirrorType:
         return {
-          update: {
-            ...baseType,
-            language: dto.language,
-          },
+          ...baseType,
+          language: dto.language,
         }
       case ITypeKind.ElementType:
         return {
-          update: {
-            ...baseType,
-            elementKind: dto.elementKind,
-          },
+          ...baseType,
+          elementKind: dto.elementKind,
         }
       case ITypeKind.EnumType:
         return {
@@ -193,19 +187,19 @@ export const typeMapper: IMapper<
                       },
                     },
                   },
-                ],
-              },
-              {
-                create: dto.allowedValues.map((value) => ({
-                  node: {
-                    id: value.id,
-                    key: value.key,
-                    value: value.value,
-                  },
-                })),
-              },
-            ],
-          },
+                },
+              ],
+            },
+            {
+              create: dto.allowedValues.map((value) => ({
+                node: {
+                  id: value.id,
+                  key: value.key,
+                  value: value.value,
+                },
+              })),
+            },
+          ],
         }
       case ITypeKind.PrimitiveType:
         return {
@@ -229,12 +223,11 @@ export const typeMapper: IMapper<
                       id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id),
                     },
                   },
-                }),
-              },
-            }),
-          },
+                },
+              }),
+            },
+          }),
         }
-
       default:
         throw new Error('Unsupported type kind')
     }
