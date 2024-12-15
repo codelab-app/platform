@@ -48,7 +48,10 @@ export const elementSchema = gql`
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
     # Pre-compute to savetime during rendering
     closestContainerNode: ContainerNode!
-    dependantTypes: [AnyType!]! @customResolver(requires: "id")
     expanded: Boolean
+
+    # Moved from OGM to resolvers here, get all descendant elements of the current element
+    descendants: [Element!]! @customResolver(requires: "id")
+    dependantTypes: [AnyType!]! @customResolver(requires: "id")
   }
 `

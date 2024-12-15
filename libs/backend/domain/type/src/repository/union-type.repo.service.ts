@@ -9,18 +9,16 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  unionTypeSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { UnionTypeFragment } from '@codelab/shared/infra/gql'
 import {
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeIds,
-} from '@codelab/shared/domain/orm'
+  createTypeApi,
+  findTypeApi,
+  unionTypeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (
@@ -45,12 +43,11 @@ const getFilteredTypes = (typesOfUnionType: Array<ITypeMaybeRef>) => ({
 @Injectable()
 export class UnionTypeRepository extends AbstractRepository<
   IUnionTypeDto,
-  UnionType,
+  UnionTypeFragment,
   UnionTypeWhere,
   UnionTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -58,94 +55,34 @@ export class UnionTypeRepository extends AbstractRepository<
   }
 
   protected async _addMany(unionTypes: Array<IUnionTypeDto>) {
-    return (
-      await (
-        await this.ogmService.UnionType
-      ).create({
-        input: unionTypes.map(
-          ({ __typename, id, kind, name, owner, typesOfUnionType }) => {
-            const {
-              arrayTypeIds,
-              codeMirrorTypeIds,
-              enumTypeIds,
-              interfaceTypeIds,
-              primitiveTypeIds,
-              reactNodeTypeIds,
-              renderPropTypeIds,
-              richTextTypeIds,
-            } = getFilteredTypes(typesOfUnionType)
+    const {
+      types: { types },
+    } = await createTypeApi.CreateUnionTypes({
+      input: unionTypes.map((unionType) =>
+        unionTypeMapper.toCreateInput(unionType),
+      ),
+    })
 
-            return {
-              id,
-              kind,
-              name,
-              owner: connectOwner(owner),
-              typesOfUnionType: {
-                ArrayType: connectNodeIds(arrayTypeIds),
-                CodeMirrorType: connectNodeIds(codeMirrorTypeIds),
-                EnumType: connectNodeIds(enumTypeIds),
-                InterfaceType: connectNodeIds(interfaceTypeIds),
-                PrimitiveType: connectNodeIds(primitiveTypeIds),
-                ReactNodeType: connectNodeIds(reactNodeTypeIds),
-                RenderPropType: connectNodeIds(renderPropTypeIds),
-                RichTextType: connectNodeIds(richTextTypeIds),
-              },
-            }
-          },
-        ),
-      })
-    ).unionTypes
+    return types
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
+  protected async _find(args: {
     where?: UnionTypeWhere
     options?: UnionTypeOptions
   }) {
-    return await (
-      await this.ogmService.UnionType
-    ).find({
-      options,
-      selectionSet: `{ ${unionTypeSelectionSet} }`,
-      where,
-    })
+    const { types } = await findTypeApi.GetUnionTypes(args)
+
+    return types
   }
 
-  protected async _update(
-    { id, name, typesOfUnionType }: IUnionTypeDto,
-    where: UnionTypeWhere,
-  ) {
+  protected async _update(unionType: IUnionTypeDto, where: UnionTypeWhere) {
     const {
-      arrayTypeIds,
-      enumTypeIds,
-      interfaceTypeIds,
-      primitiveTypeIds,
-      reactNodeTypeIds,
-      renderPropTypeIds,
-      richTextTypeIds,
-    } = getFilteredTypes(typesOfUnionType)
+      types: { types },
+    } = await updateTypeApi.UpdateUnionTypes({
+      update: unionTypeMapper.toUpdateInput(unionType),
+      where,
+    })
 
-    return (
-      await (
-        await this.ogmService.UnionType
-      ).update({
-        update: {
-          id,
-          name,
-          typesOfUnionType: {
-            ArrayType: reconnectNodeIds(arrayTypeIds),
-            EnumType: reconnectNodeIds(enumTypeIds),
-            InterfaceType: reconnectNodeIds(interfaceTypeIds),
-            PrimitiveType: reconnectNodeIds(primitiveTypeIds),
-            ReactNodeType: reconnectNodeIds(reactNodeTypeIds),
-            RenderPropType: reconnectNodeIds(renderPropTypeIds),
-            RichTextType: reconnectNodeIds(richTextTypeIds),
-          },
-        },
-        where,
-      })
-    ).unionTypes[0]
+    return types[0]
   }
 }

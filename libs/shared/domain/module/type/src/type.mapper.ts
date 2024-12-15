@@ -1,223 +1,350 @@
-import type { IMapper, ITypeDto } from '@codelab/shared/abstract/core'
-
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
-
+/**
+ * Put all functions in same file so it's easier for LLM to refactor
+ */
 import type {
-  ITypeCreateInput,
-  ITypeDeleteInput,
-  ITypeUpdateInput,
-} from './type.input.interface'
+  IActionTypeDto,
+  IAppTypeDto,
+  IArrayTypeDto,
+  ICodeMirrorTypeDto,
+  IElementTypeDto,
+  IEnumTypeDto,
+  IInterfaceTypeDto,
+  ILambdaTypeDto,
+  IMapper,
+  IPageTypeDto,
+  IPrimitiveTypeDto,
+  IReactNodeTypeDto,
+  IRenderPropTypeDto,
+  IRichTextTypeDto,
+  IUnionTypeDto,
+} from '@codelab/shared/abstract/core'
+import type * as cg from '@codelab/shared/infra/gql'
+
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 
 import { makeAllTypes } from './type-input.factory'
 
-export const typeMapper: IMapper<
-  ITypeDto,
-  ITypeCreateInput,
-  ITypeUpdateInput,
-  ITypeDeleteInput
+const createOrUpdateActionType = (dto: IActionTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const actionTypeMapper: IMapper<
+  IActionTypeDto,
+  cg.ActionTypeCreateInput,
+  cg.ActionTypeUpdateInput,
+  cg.ActionTypeDeleteInput
 > = {
-  toCreateInput: (dto: ITypeDto): ITypeCreateInput => {
-    const baseType = {
-      id: dto.id,
-      kind: dto.kind,
-      name: dto.name,
-      owner: connectOwner(dto.owner),
-    }
+  toCreateInput: createOrUpdateActionType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateActionType,
+}
 
-    switch (dto.__typename) {
-      case ITypeKind.ActionType:
-      case ITypeKind.AppType:
-      case ITypeKind.InterfaceType:
-      case ITypeKind.LambdaType:
-      case ITypeKind.PageType:
-      case ITypeKind.ReactNodeType:
-      case ITypeKind.RenderPropType:
-      case ITypeKind.RichTextType:
-        return baseType
+const createOrUpdateAppType = (dto: IAppTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
 
-      case ITypeKind.ArrayType:
-        return {
-          ...baseType,
-          itemType: connectNodeId(dto.itemType?.id),
-        }
-      case ITypeKind.CodeMirrorType:
-        return {
-          ...baseType,
-          language: dto.language,
-        }
-      case ITypeKind.ElementType:
-        return {
-          ...baseType,
-          elementKind: dto.elementKind,
-        }
-      case ITypeKind.EnumType:
-        return {
-          ...baseType,
-          allowedValues: {
-            create: dto.allowedValues.map((value) => ({
-              node: {
-                id: value.id,
-                key: value.key,
-                value: value.value,
-              },
-            })),
-          },
-        }
-      case ITypeKind.PrimitiveType:
-        return {
-          ...baseType,
-          primitiveKind: dto.primitiveKind,
-        }
-      case ITypeKind.UnionType:
-        return {
-          ...baseType,
-          typesOfUnionType: makeAllTypes({
-            connect: dto.typesOfUnionType.map((unionTypeId) => ({
-              where: { node: { id: unionTypeId } },
-            })),
-          }),
-        }
-      default:
-        throw new Error('Unsupported type kind')
-    }
-  },
+export const appTypeMapper: IMapper<
+  IAppTypeDto,
+  cg.AppTypeCreateInput,
+  cg.AppTypeUpdateInput,
+  cg.AppTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateAppType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateAppType,
+}
 
-  toDeleteInput: (kind: ITypeKind): ITypeDeleteInput => {
-    const baseType = {}
-
-    switch (kind) {
-      case ITypeKind.ActionType:
-      case ITypeKind.AppType:
-      case ITypeKind.CodeMirrorType:
-      case ITypeKind.ElementType:
-      case ITypeKind.InterfaceType:
-      case ITypeKind.LambdaType:
-      case ITypeKind.PageType:
-      case ITypeKind.PrimitiveType:
-      case ITypeKind.ReactNodeType:
-      case ITypeKind.RenderPropType:
-      case ITypeKind.RichTextType:
-      case ITypeKind.UnionType:
-        return baseType
-
-      case ITypeKind.ArrayType:
-        return {
-          ...baseType,
-          itemType: { where: {} },
-        }
-      case ITypeKind.EnumType:
-        return {
-          ...baseType,
-          allowedValues: [{ where: {} }],
-        }
-
-      default:
-        throw new Error('Unsupported type kind')
-    }
-  },
-
-  /**
-   * Where is mapped in later
-   */
-  toUpdateInput: (dto: ITypeDto): ITypeUpdateInput => {
-    const baseType = {
-      id: dto.id,
-      kind: dto.kind,
-      name: dto.name,
-      owner: connectOwner(dto.owner),
-    }
-
-    switch (dto.__typename) {
-      case ITypeKind.ActionType:
-      case ITypeKind.AppType:
-      case ITypeKind.InterfaceType:
-      case ITypeKind.LambdaType:
-      case ITypeKind.PageType:
-      case ITypeKind.ReactNodeType:
-      case ITypeKind.RenderPropType:
-      case ITypeKind.RichTextType:
-        return baseType
-      case ITypeKind.ArrayType:
-        return dto.itemType?.id
-          ? {
-              itemType: {
-                ...connectNodeId(dto.itemType.id),
-                disconnect: dto.itemType.id
-                  ? {
-                      where: {
-                        NOT: {
-                          node: {
-                            id: dto.itemType.id,
-                          },
-                        },
-                      },
-                    }
-                  : undefined,
-              },
-            }
-          : {}
-      case ITypeKind.CodeMirrorType:
-        return {
-          ...baseType,
-          language: dto.language,
-        }
-      case ITypeKind.ElementType:
-        return {
-          ...baseType,
-          elementKind: dto.elementKind,
-        }
-      case ITypeKind.EnumType:
-        return {
-          allowedValues: [
-            {
-              // For some reason if the disconnect and delete are in the update section it throws an error
-              delete: [
-                {
-                  where: {
+export const arrayTypeMapper: IMapper<
+  IArrayTypeDto,
+  cg.ArrayTypeCreateInput,
+  cg.ArrayTypeUpdateInput,
+  cg.ArrayTypeDeleteInput
+> = {
+  toCreateInput: (dto) => ({
+    id: dto.id,
+    itemType: connectNodeId(dto.itemType?.id),
+    kind: dto.kind,
+    name: dto.name,
+    owner: connectOwner(dto.owner),
+  }),
+  toDeleteInput: () => ({
+    itemType: { where: {} },
+  }),
+  toUpdateInput: (dto) => ({
+    itemType: dto.itemType?.id
+      ? {
+          ...connectNodeId(dto.itemType.id),
+          disconnect: dto.itemType.id
+            ? {
+                where: {
+                  NOT: {
                     node: {
-                      NOT: {
-                        id_IN: dto.allowedValues.map((av) => av.id),
-                      },
+                      id: dto.itemType.id,
                     },
                   },
                 },
-              ],
-            },
-            {
-              create: dto.allowedValues.map((value) => ({
-                node: {
-                  id: value.id,
-                  key: value.key,
-                  value: value.value,
+              }
+            : undefined,
+        }
+      : {},
+  }),
+}
+
+const createOrUpdateCodeMirrorType = (dto: ICodeMirrorTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  language: dto.language,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const codeMirrorTypeMapper: IMapper<
+  ICodeMirrorTypeDto,
+  cg.CodeMirrorTypeCreateInput,
+  cg.CodeMirrorTypeUpdateInput,
+  cg.CodeMirrorTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateCodeMirrorType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateCodeMirrorType,
+}
+
+const createOrUpdateElementType = (dto: IElementTypeDto) => ({
+  elementKind: dto.elementKind,
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const elementTypeMapper: IMapper<
+  IElementTypeDto,
+  cg.ElementTypeCreateInput,
+  cg.ElementTypeUpdateInput,
+  cg.ElementTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateElementType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateElementType,
+}
+
+export const enumTypeMapper: IMapper<
+  IEnumTypeDto,
+  cg.EnumTypeCreateInput,
+  cg.EnumTypeUpdateInput,
+  cg.EnumTypeDeleteInput
+> = {
+  toCreateInput: (dto) => ({
+    allowedValues: {
+      create: dto.allowedValues.map((value) => ({
+        node: {
+          id: value.id,
+          key: value.key,
+          value: value.value,
+        },
+      })),
+    },
+    id: dto.id,
+    kind: dto.kind,
+    name: dto.name,
+    owner: connectOwner(dto.owner),
+  }),
+  toDeleteInput: () => ({
+    allowedValues: [{ where: {} }],
+  }),
+  toUpdateInput: (dto) => ({
+    allowedValues: [
+      {
+        delete: [
+          {
+            where: {
+              node: {
+                NOT: {
+                  id_IN: dto.allowedValues.map((av) => av.id),
                 },
-              })),
+              },
             },
-          ],
-        }
-      case ITypeKind.PrimitiveType:
-        return {
-          primitiveKind: dto.primitiveKind,
-        }
-      case ITypeKind.UnionType:
-        return {
-          typesOfUnionType: makeAllTypes({
-            connect: dto.typesOfUnionType.map(({ id }) => ({
-              where: { node: { id } },
-            })),
-            disconnect: {
-              typesOfUnionType: makeAllTypes({
-                where: {
-                  node: {
-                    id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id),
-                  },
-                },
-              }),
+          },
+        ],
+      },
+      {
+        create: dto.allowedValues.map((value) => ({
+          node: {
+            id: value.id,
+            key: value.key,
+            value: value.value,
+          },
+        })),
+      },
+    ],
+  }),
+}
+
+const createOrUpdateInterfaceType = (dto: IInterfaceTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const interfaceTypeMapper: IMapper<
+  IInterfaceTypeDto,
+  cg.InterfaceTypeCreateInput,
+  cg.InterfaceTypeUpdateInput,
+  cg.InterfaceTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateInterfaceType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateInterfaceType,
+}
+
+const createOrUpdateLambdaType = (dto: ILambdaTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const lambdaTypeMapper: IMapper<
+  ILambdaTypeDto,
+  cg.LambdaTypeCreateInput,
+  cg.LambdaTypeUpdateInput,
+  cg.LambdaTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateLambdaType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateLambdaType,
+}
+
+const createOrUpdatePageType = (dto: IPageTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const pageTypeMapper: IMapper<
+  IPageTypeDto,
+  cg.PageTypeCreateInput,
+  cg.PageTypeUpdateInput,
+  cg.PageTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdatePageType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdatePageType,
+}
+
+export const primitiveTypeMapper: IMapper<
+  IPrimitiveTypeDto,
+  cg.PrimitiveTypeCreateInput,
+  cg.PrimitiveTypeUpdateInput,
+  cg.PrimitiveTypeDeleteInput
+> = {
+  toCreateInput: (dto) => ({
+    id: dto.id,
+    kind: dto.kind,
+    name: dto.name,
+    owner: connectOwner(dto.owner),
+    primitiveKind: dto.primitiveKind,
+  }),
+  toDeleteInput: () => ({}),
+  toUpdateInput: (dto) => ({
+    primitiveKind: dto.primitiveKind,
+  }),
+}
+
+const createOrUpdateReactNodeType = (dto: IReactNodeTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const reactNodeTypeMapper: IMapper<
+  IReactNodeTypeDto,
+  cg.ReactNodeTypeCreateInput,
+  cg.ReactNodeTypeUpdateInput,
+  cg.ReactNodeTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateReactNodeType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateReactNodeType,
+}
+
+const createOrUpdateRenderPropType = (dto: IRenderPropTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const renderPropTypeMapper: IMapper<
+  IRenderPropTypeDto,
+  cg.RenderPropTypeCreateInput,
+  cg.RenderPropTypeUpdateInput,
+  cg.RenderPropTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateRenderPropType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateRenderPropType,
+}
+
+const createOrUpdateRichTextType = (dto: IRichTextTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const richTextTypeMapper: IMapper<
+  IRichTextTypeDto,
+  cg.RichTextTypeCreateInput,
+  cg.RichTextTypeUpdateInput,
+  cg.RichTextTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateRichTextType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateRichTextType,
+}
+
+export const unionTypeMapper: IMapper<
+  IUnionTypeDto,
+  cg.UnionTypeCreateInput,
+  cg.UnionTypeUpdateInput,
+  cg.UnionTypeDeleteInput
+> = {
+  toCreateInput: (dto) => ({
+    id: dto.id,
+    kind: dto.kind,
+    name: dto.name,
+    owner: connectOwner(dto.owner),
+    typesOfUnionType: makeAllTypes({
+      connect: dto.typesOfUnionType.map((unionTypeId) => ({
+        where: { node: { id: unionTypeId } },
+      })),
+    }),
+  }),
+  toDeleteInput: () => ({}),
+  toUpdateInput: (dto) => ({
+    typesOfUnionType: makeAllTypes({
+      connect: dto.typesOfUnionType.map(({ id }) => ({
+        where: { node: { id } },
+      })),
+      disconnect: {
+        typesOfUnionType: makeAllTypes({
+          where: {
+            node: {
+              id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id),
             },
-          }),
-        }
-      default:
-        throw new Error('Unsupported type kind')
-    }
-  },
+          },
+        }),
+      },
+    }),
+  }),
 }

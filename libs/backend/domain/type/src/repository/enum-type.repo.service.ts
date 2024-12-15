@@ -11,24 +11,25 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  enumTypeSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner, whereNodeId } from '@codelab/shared/domain/orm'
+import { EnumTypeFragment } from '@codelab/shared/infra/gql'
+import {
+  createTypeApi,
+  enumTypeMapper,
+  findTypeApi,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class EnumTypeRepository extends AbstractRepository<
   IEnumTypeDto,
-  EnumType,
+  EnumTypeFragment,
   EnumTypeWhere,
   EnumTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -36,19 +37,15 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   protected async _addMany(enumTypes: Array<IEnumTypeDto>) {
-    return (
-      await (
-        await this.ogmService.EnumType
-      ).create({
-        input: enumTypes.map(
-          ({ __typename, allowedValues, owner, ...enumType }) => ({
-            ...enumType,
-            allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-            owner: connectOwner(owner),
-          }),
-        ),
-      })
-    ).enumTypes
+    const {
+      types: { types },
+    } = await createTypeApi.CreateEnumTypes({
+      input: enumTypes.map((enumType) =>
+        enumTypeMapper.toCreateInput(enumType),
+      ),
+    })
+
+    return types
   }
 
   protected async _find({
@@ -58,52 +55,22 @@ export class EnumTypeRepository extends AbstractRepository<
     where?: EnumTypeWhere
     options?: EnumTypeOptions
   }) {
-    return await (
-      await this.ogmService.EnumType
-    ).find({
+    const { types } = await findTypeApi.GetEnumTypes({
       options,
-      selectionSet: `{ ${enumTypeSelectionSet} }`,
       where,
     })
+
+    return types
   }
 
-  protected async _update(
-    { __typename, allowedValues, id, name, ...enumType }: IEnumTypeDto,
-    where: EnumTypeWhere,
-  ) {
-    return (
-      await (
-        await this.ogmService.EnumType
-      ).update({
-        update: {
-          allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
-          name,
-        },
-        where,
-      })
-    ).enumTypes[0]
-  }
+  protected async _update(enumType: IEnumTypeDto, where: EnumTypeWhere) {
+    const {
+      types: { types },
+    } = await updateTypeApi.UpdateEnumTypes({
+      update: enumTypeMapper.toUpdateInput(enumType),
+      where,
+    })
 
-  private mapCreateEnumTypeValues(
-    enumTypeValues: Array<IEnumTypeValueDto>,
-  ): EnumTypeAllowedValuesFieldInput {
-    return {
-      create: enumTypeValues.map((enumTypeValue) => ({
-        node: {
-          ...enumTypeValue,
-        },
-      })),
-    }
-  }
-
-  private mapUpdateEnumTypeValues(
-    enumTypeValues: Array<IEnumTypeValueDto>,
-  ): Array<EnumTypeAllowedValuesUpdateFieldInput> {
-    return enumTypeValues.map(({ id, ...enumTypeValue }) => ({
-      ...whereNodeId(id),
-      update: {
-        node: enumTypeValue,
-      },
-    }))
+    return types[0]
   }
 }

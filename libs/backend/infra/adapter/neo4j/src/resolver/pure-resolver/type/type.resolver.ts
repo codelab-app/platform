@@ -14,46 +14,6 @@ export const TypeResolverProvider: FactoryProvider<
   inject: [Neo4jService],
   provide: TYPE_RESOLVER_PROVIDER,
   useFactory: async (neo4jService: Neo4jService) => {
-    // const baseTypes: IFieldResolver<
-    //   GraphQLRequestContext,
-    //   unknown,
-    //   QueryBaseTypesArgs
-    // > = (_, params) =>
-    //   neo4jService.withReadTransaction(async (txn) => {
-    //     const { options } = params
-    //     const limit = options?.limit ?? 99999
-    //     const skip = options?.offset ?? 0
-    //     const name = options?.where?.name ?? ''
-
-    //     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
-    //       limit: int(limit),
-    //       name,
-    //       skip: int(skip),
-    //     })
-
-    //     const totalCountRecord = getTypesRecords[0]?.get('totalCount')
-
-    //     const totalCount = totalCountRecord
-    //       ? int(totalCountRecord).toNumber()
-    //       : 0
-
-    //     const items = getTypesRecords.map((record) => {
-    //       const type = record.get('type').properties
-    //       // const owner = record.get('owner').properties
-
-    //       return {
-    //         ...type,
-    //         __typename: 'BaseType',
-    //         // owner,
-    //       }
-    //     })
-
-    //     return {
-    //       items,
-    //       totalCount,
-    //     }
-    //   })
-
     const descendantTypesIds = (node: IBaseType) => {
       return neo4jService.withReadTransaction(async (txn) => {
         const { records } = await txn.run(getTypeDescendants, {

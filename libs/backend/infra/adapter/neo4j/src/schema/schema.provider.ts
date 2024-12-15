@@ -9,9 +9,8 @@ import { Neo4jGraphQL } from '@neo4j/graphql'
 
 import { NEO4J_DRIVER_PROVIDER } from '../infra/neo4j.constant'
 import { PURE_RESOLVER_PROVIDER } from '../resolver'
-import { OGM_RESOLVER_PROVIDER } from '../resolver/ogm-resolver/ogm-resolver.constant'
-import { ogmTypeDefs } from './ogm.type-defs'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
+import { typeDefs } from './type-defs'
 
 /**
  * Your web app has a session (that’s the cookie) used to verify the user.
@@ -25,17 +24,9 @@ import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
  * https://community.auth0.com/t/authenticating-users-and-m2m-with-same-middleware/77369/5
  */
 export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
-  inject: [
-    NEO4J_DRIVER_PROVIDER,
-    PURE_RESOLVER_PROVIDER,
-    OGM_RESOLVER_PROVIDER,
-  ],
+  inject: [NEO4J_DRIVER_PROVIDER, PURE_RESOLVER_PROVIDER],
   provide: GRAPHQL_SCHEMA_PROVIDER,
-  useFactory: async (
-    driver: Driver,
-    pureResolvers: IResolvers,
-    ogmResolvers: IResolvers,
-  ) => {
+  useFactory: async (driver: Driver, pureResolvers: IResolvers) => {
     try {
       const neo4jGraphQL = new Neo4jGraphQL({
         driver,
@@ -64,8 +55,8 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
           },
           subscriptions: true,
         },
-        resolvers: mergeResolvers([pureResolvers, ogmResolvers]),
-        typeDefs: ogmTypeDefs,
+        resolvers: mergeResolvers([pureResolvers]),
+        typeDefs,
       })
 
       const schema = await neo4jGraphQL.getSchema()

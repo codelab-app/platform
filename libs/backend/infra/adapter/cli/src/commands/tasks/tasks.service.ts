@@ -91,18 +91,6 @@ export class TaskService implements CommandModule<unknown, unknown> {
         'Run codegen',
         (argv) => argv,
         globalHandler(async ({ stage }) => {
-          const { OgmModule } = await import(
-            '@codelab/backend/infra/adapter/neo4j'
-          )
-
-          const ogmModuleRef = await this.lazyModuleLoader.load(() => OgmModule)
-
-          const { OgmService } = await import(
-            '@codelab/backend/infra/adapter/neo4j'
-          )
-
-          const ogmService = ogmModuleRef.get(OgmService)
-
           if (stage === Stage.Dev) {
             if (!(await isPortReachable(4000, { host: '127.0.0.1' }))) {
               console.error('Please start server!')
@@ -112,7 +100,6 @@ export class TaskService implements CommandModule<unknown, unknown> {
             execCommand(
               'pnpm graphql-codegen --config ./scripts/codegen/codegen.ts',
             )
-            await ogmService.generate()
 
             process.exit(0)
           }
@@ -146,8 +133,6 @@ export class TaskService implements CommandModule<unknown, unknown> {
                 }
 
                 try {
-                  // await ogmService.generate()
-
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
 
                   const { unCommittedFiles } = await gitChangedFiles()

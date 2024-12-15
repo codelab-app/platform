@@ -8,44 +8,42 @@ import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  codeMirrorTypeSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner } from '@codelab/shared/domain/orm'
+import { CodeMirrorTypeFragment } from '@codelab/shared/infra/gql'
+import {
+  codeMirrorTypeMapper,
+  createTypeApi,
+  findTypeApi,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class CodeMirrorTypeRepository extends AbstractRepository<
   ICodeMirrorTypeDto,
-  CodeMirrorType,
+  CodeMirrorTypeFragment,
   CodeMirrorTypeWhere,
   CodeMirrorTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
-
     protected override loggerService: CodelabLoggerService,
     protected override validationService: ValidationService,
-
     protected authService: AuthDomainService,
   ) {
     super(validationService, loggerService)
   }
 
   protected async _addMany(codemirrorTypes: Array<ICodeMirrorTypeDto>) {
-    return (
-      await (
-        await this.ogmService.CodeMirrorType
-      ).create({
-        input: codemirrorTypes.map(({ __typename, ...type }) => ({
-          ...type,
-          owner: connectOwner(this.authService.currentUser),
-        })),
-      })
-    ).codeMirrorTypes
+    const {
+      types: { types },
+    } = await createTypeApi.CreateCodeMirrorTypes({
+      input: codemirrorTypes.map((codemirrorType) =>
+        codeMirrorTypeMapper.toCreateInput(codemirrorType),
+      ),
+    })
+
+    return types
   }
 
   protected async _find({
@@ -55,26 +53,25 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
     where?: CodeMirrorTypeWhere
     options?: CodeMirrorTypeOptions
   }) {
-    return await (
-      await this.ogmService.CodeMirrorType
-    ).find({
+    const { types } = await findTypeApi.GetCodeMirrorTypes({
       options,
-      selectionSet: `{ ${codeMirrorTypeSelectionSet} }`,
       where,
     })
+
+    return types
   }
 
   protected async _update(
-    { __typename, id, language, name }: ICodeMirrorTypeDto,
+    codemirrorType: ICodeMirrorTypeDto,
     where: BaseTypeUniqueWhere,
   ) {
-    return (
-      await (
-        await this.ogmService.CodeMirrorType
-      ).update({
-        update: { name },
-        where,
-      })
-    ).codeMirrorTypes[0]
+    const {
+      types: { types },
+    } = await updateTypeApi.UpdateCodeMirrorTypes({
+      update: codeMirrorTypeMapper.toUpdateInput(codemirrorType),
+      where,
+    })
+
+    return types[0]
   }
 }

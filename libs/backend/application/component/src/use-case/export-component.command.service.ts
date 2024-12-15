@@ -2,6 +2,7 @@ import type { Element } from '@codelab/backend/abstract/codegen'
 import type {
   IApiExport,
   IComponentAggregateExport,
+  IElementExport,
   IStoreAggregateExport,
 } from '@codelab/shared/abstract/core'
 
@@ -32,17 +33,7 @@ export class ExportComponentHandler
       },
     })
 
-    const elements = (
-      await this.elementRepository.getElementWithDescendants(
-        component.rootElement.id,
-      )
-    ).map((element: Element) => ({
-      ...element,
-      renderType: {
-        __typename: element.renderType.__typename,
-        id: element.renderType.id,
-      },
-    }))
+    const elements: Array<IElementExport> = []
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,

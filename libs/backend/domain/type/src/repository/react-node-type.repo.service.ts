@@ -6,24 +6,25 @@ import type {
 import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  baseTypeSelection,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner } from '@codelab/shared/domain/orm'
+import { ReactNodeTypeFragment } from '@codelab/shared/infra/gql'
+import {
+  createTypeApi,
+  findTypeApi,
+  reactNodeTypeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ReactNodeTypeRepository extends AbstractRepository<
   IReactNodeTypeDto,
-  ReactNodeType,
+  ReactNodeTypeFragment,
   ReactNodeTypeWhere,
   ReactNodeTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -31,18 +32,15 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   }
 
   protected async _addMany(reactNodeTypes: Array<IReactNodeTypeDto>) {
-    return (
-      await (
-        await this.ogmService.ReactNodeType
-      ).create({
-        input: reactNodeTypes.map(
-          ({ __typename, owner, ...reactNodeType }) => ({
-            ...reactNodeType,
-            owner: connectOwner(owner),
-          }),
-        ),
-      })
-    ).reactNodeTypes
+    const {
+      types: { types },
+    } = await createTypeApi.CreateReactNodeTypes({
+      input: reactNodeTypes.map((reactNodeType) =>
+        reactNodeTypeMapper.toCreateInput(reactNodeType),
+      ),
+    })
+
+    return types
   }
 
   protected async _find({
@@ -52,26 +50,25 @@ export class ReactNodeTypeRepository extends AbstractRepository<
     where?: ReactNodeTypeWhere
     options?: ReactNodeTypeOptions
   }) {
-    return await (
-      await this.ogmService.ReactNodeType
-    ).find({
+    const { types } = await findTypeApi.GetReactNodeTypes({
       options,
-      selectionSet: `{ ${baseTypeSelection} }`,
       where,
     })
+
+    return types
   }
 
   protected async _update(
-    { __typename, id, name }: IReactNodeTypeDto,
+    reactNodeType: IReactNodeTypeDto,
     where: ReactNodeTypeWhere,
   ) {
-    return (
-      await (
-        await this.ogmService.ReactNodeType
-      ).update({
-        update: { name },
-        where,
-      })
-    ).reactNodeTypes[0]
+    const {
+      types: { types },
+    } = await updateTypeApi.UpdateReactNodeTypes({
+      update: reactNodeTypeMapper.toUpdateInput(reactNodeType),
+      where,
+    })
+
+    return types[0]
   }
 }

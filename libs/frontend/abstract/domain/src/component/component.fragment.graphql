@@ -1,6 +1,7 @@
 fragment Component on Component {
   __typename
   api {
+    __typename
     id
   }
   id
