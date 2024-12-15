@@ -12,16 +12,20 @@ import {
   filterNotHookType,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
-import { atomMapper } from '@codelab/shared-domain-module-atom'
 import {
+  atomMapper,
+  atomServerActions,
+} from '@codelab/shared-domain-module-atom'
+import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { prop, sortBy } from 'remeda'
+
+const {
   AtomList,
   CreateAtoms,
   DeleteAtoms,
   GetSelectAtomOptions,
   UpdateAtoms,
-} from '@codelab/shared-domain-module-atom/server'
-import { withTracingMethods } from '@codelab/shared-infra-sentry'
-import { prop, sortBy } from 'remeda'
+} = await atomServerActions()
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   add: async (input: IAtomDto, options?: NextFetchOptions) => {

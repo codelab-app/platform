@@ -7,12 +7,8 @@ import { typeMapper } from '@codelab/shared-domain-module/type'
 import { sortBy } from 'remeda'
 
 import { GetBaseTypes, GetDescendants } from './get-type.api.graphql.web.gen'
-import {
-  createTypeApi,
-  deleteTypeApi,
-  getAllTypes,
-  updateTypeApi,
-} from './type.api'
+// const { createTypeApi, deleteTypeApi, getAllTypes, updateTypeApi } =
+//   './type.api'
 
 export const typeRepository: ITypeRepository = {
   add: async (input: ITypeDto) => {

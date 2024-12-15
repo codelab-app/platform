@@ -19,6 +19,7 @@
       "extends": ["plugin:import/typescript", "plugin:import/recommended"],
       "files": ["*.ts", "*.tsx", "*.ts", "*.jsx"],
       "rules": {
+        "@typescript-eslint/no-require-imports": "error",
         //
         // Custom import rules
         //
