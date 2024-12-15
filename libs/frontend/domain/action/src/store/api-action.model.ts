@@ -62,6 +62,7 @@ export class ApiAction
       resource: this.resource.current.toJson,
       store: this.store.current,
       successAction: this.successAction?.current,
+      type: this.type,
     }
   }
 

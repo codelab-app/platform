@@ -1,10 +1,10 @@
+import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
   CodeMirrorType,
   CodeMirrorTypeOptions,
   CodeMirrorTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
+} from '@codelab/shared/infra/gql'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -37,7 +37,7 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
   protected async _addMany(codemirrorTypes: Array<ICodeMirrorTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateCodeMirrorTypes({
+    } = await createTypeApi().CreateCodeMirrorTypes({
       input: codemirrorTypes.map((codemirrorType) =>
         codeMirrorTypeMapper.toCreateInput(codemirrorType),
       ),
@@ -53,7 +53,7 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
     where?: CodeMirrorTypeWhere
     options?: CodeMirrorTypeOptions
   }) {
-    const { types } = await findTypeApi.GetCodeMirrorTypes({
+    const { types } = await findTypeApi().GetCodeMirrorTypes({
       options,
       where,
     })
@@ -67,7 +67,7 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
   ) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateCodeMirrorTypes({
+    } = await updateTypeApi().UpdateCodeMirrorTypes({
       update: codeMirrorTypeMapper.toUpdateInput(codemirrorType),
       where,
     })

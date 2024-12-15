@@ -1,12 +1,12 @@
 import type {
-  UnionType,
-  UnionTypeOptions,
-  UnionTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type {
   ITypeMaybeRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
+import type {
+  UnionType,
+  UnionTypeOptions,
+  UnionTypeWhere,
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -57,7 +57,7 @@ export class UnionTypeRepository extends AbstractRepository<
   protected async _addMany(unionTypes: Array<IUnionTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateUnionTypes({
+    } = await createTypeApi().CreateUnionTypes({
       input: unionTypes.map((unionType) =>
         unionTypeMapper.toCreateInput(unionType),
       ),
@@ -70,7 +70,7 @@ export class UnionTypeRepository extends AbstractRepository<
     where?: UnionTypeWhere
     options?: UnionTypeOptions
   }) {
-    const { types } = await findTypeApi.GetUnionTypes(args)
+    const { types } = await findTypeApi().GetUnionTypes(args)
 
     return types
   }
@@ -78,7 +78,7 @@ export class UnionTypeRepository extends AbstractRepository<
   protected async _update(unionType: IUnionTypeDto, where: UnionTypeWhere) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateUnionTypes({
+    } = await updateTypeApi().UpdateUnionTypes({
       update: unionTypeMapper.toUpdateInput(unionType),
       where,
     })

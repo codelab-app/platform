@@ -1,9 +1,5 @@
-import type {
-  Store,
-  StoreOptions,
-  StoreWhere,
-} from '@codelab/backend/abstract/codegen'
 import type { IStoreDto } from '@codelab/shared/abstract/core'
+import type { Store, StoreOptions, StoreWhere } from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -32,7 +28,7 @@ export class StoreRepository extends AbstractRepository<
   protected async _addMany(stores: Array<IStoreDto>) {
     const {
       createStores: { stores: createdStores },
-    } = await storeApi.CreateStores({
+    } = await storeApi().CreateStores({
       input: stores.map((store) => storeMapper.toCreateInput(store)),
     })
 
@@ -46,7 +42,7 @@ export class StoreRepository extends AbstractRepository<
     where?: StoreWhere
     options?: StoreOptions
   }) {
-    const { items } = await storeApi.GetStores({
+    const { items } = await storeApi().GetStores({
       options,
       where,
     })
@@ -57,7 +53,7 @@ export class StoreRepository extends AbstractRepository<
   protected async _update(store: IStoreDto, where: StoreWhere) {
     const {
       updateStores: { stores },
-    } = await storeApi.UpdateStores({
+    } = await storeApi().UpdateStores({
       update: storeMapper.toUpdateInput(store),
       where,
     })

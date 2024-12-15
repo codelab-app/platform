@@ -6,7 +6,7 @@
     "module": "commonjs",
     "outDir": "../../../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"],
+    "types": ["node", "next"],
     "strict": true,
     "noImplicitReturns": true,
     "exactOptionalPropertyTypes": true,

@@ -1,9 +1,5 @@
-import type {
-  Atom,
-  AtomOptions,
-  AtomWhere,
-} from '@codelab/backend/abstract/codegen'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { Atom, AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -32,7 +28,7 @@ export class AtomRepository extends AbstractRepository<
   protected async _addMany(atoms: Array<IAtomDto>) {
     const {
       createAtoms: { atoms: createdAtoms },
-    } = await atomApi.CreateAtoms({
+    } = await atomApi().CreateAtoms({
       input: atoms.map((atom) => atomMapper.toCreateInput(atom)),
     })
 
@@ -46,7 +42,7 @@ export class AtomRepository extends AbstractRepository<
     where?: AtomWhere
     options?: AtomOptions
   }) {
-    const { items } = await atomApi.AtomList({
+    const { items } = await atomApi().AtomList({
       options,
       where,
     })
@@ -57,7 +53,7 @@ export class AtomRepository extends AbstractRepository<
   protected async _update(atom: IAtomDto, where: AtomWhere) {
     const {
       updateAtoms: { atoms },
-    } = await atomApi.UpdateAtoms({
+    } = await atomApi().UpdateAtoms({
       update: atomMapper.toUpdateInput(atom),
       where,
     })

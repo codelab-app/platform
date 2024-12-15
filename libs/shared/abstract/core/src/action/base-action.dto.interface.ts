@@ -13,9 +13,9 @@ export const BaseActionDtoSchema = Type.Object({
     ]),
   ),
   id: Type.String(),
-  kind: Type.Enum(IActionKind),
   name: Type.String(),
   store: Typebox.Ref,
+  type: Type.Enum(IActionKind),
 })
 
 export type IBaseActionDto = Static<typeof BaseActionDtoSchema>

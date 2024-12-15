@@ -3,7 +3,7 @@ import type { IUserDto } from '@codelab/shared/abstract/core'
 
 import { userServerActions } from '@codelab/shared-domain-module/user'
 
-const { DeleteUsers, GetUsers } = userServerActions()
+const { DeleteUsers, GetUsers } = await userServerActions()
 
 export const userRepository: IUserRepository = {
   add: async (user: IUserDto) => {

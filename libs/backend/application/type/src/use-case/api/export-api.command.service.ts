@@ -8,7 +8,6 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
   FieldRepository,
   InterfaceTypeRepository,
@@ -20,6 +19,7 @@ import {
   ITypeKind,
   TypeExportSchema,
 } from '@codelab/shared/abstract/core'
+import { SortDirection } from '@codelab/shared/infra/gql'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

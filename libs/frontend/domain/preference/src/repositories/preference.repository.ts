@@ -22,7 +22,7 @@ const {
   DeletePreferences,
   GetPreferences,
   UpdatePreferences,
-} = preferenceServerActions()
+} = await preferenceServerActions()
 
 export const preferenceRepository: IPreferenceRepository = {
   add: async (preference: IPreferenceDto) => {

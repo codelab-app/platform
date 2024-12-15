@@ -9,6 +9,7 @@ import type { ArrayOrSingle } from 'ts-essentials'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { graphqlClient } from '@codelab/shared/infra/gql-client'
+import { Get } from '@sinclair/typebox/build/cjs/type/registry/format'
 
 import type { ITypeCreateInput, ITypeUpdateVars } from '../type.input.interface'
 import type { ITypeWhere } from '../type.where.interface'
@@ -82,6 +83,13 @@ export const createTypeServerActions = async (): Promise<CreateTypes> => {
     [ITypeKind.UnionType]: (input) =>
       CreateUnionTypes({ input }).then(({ types }) => types.types),
   }
+}
+
+export const findTypeServerActions = async () => {
+  const GetTypes = await import('./get-type.api.graphql.web.gen')
+  const GetTypeReferences = await import('./type.api.graphql.web.gen')
+
+  return { ...GetTypes, ...GetTypeReferences }
 }
 
 export const getAllTypes = async (
@@ -255,7 +263,7 @@ export const deleteTypeServerActions = async (): Promise<DeleteTypesRecord> => {
   }
 }
 
-export const createTypeApi = getCreateSdk(graphqlClient)
-export const updateTypeApi = getUpdateSdk(graphqlClient)
-export const deleteTypeApi = getDeleteSdk(graphqlClient)
-export const findTypeApi = getFindSdk(graphqlClient)
+export const createTypeApi = () => getCreateSdk(graphqlClient)
+export const updateTypeApi = () => getUpdateSdk(graphqlClient)
+export const deleteTypeApi = () => getDeleteSdk(graphqlClient)
+export const findTypeApi = () => getFindSdk(graphqlClient)

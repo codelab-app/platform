@@ -1,12 +1,12 @@
 import type {
-  InterfaceType,
-  InterfaceTypeOptions,
-  InterfaceTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type {
   IInterfaceTypeDto,
   ITypeMaybeRef,
 } from '@codelab/shared/abstract/core'
+import type {
+  InterfaceType,
+  InterfaceTypeOptions,
+  InterfaceTypeWhere,
+} from '@codelab/shared/infra/gql'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -69,7 +69,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
   protected async _addMany(interfaceTypes: Array<IInterfaceTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateInterfaceTypes({
+    } = await createTypeApi().CreateInterfaceTypes({
       input: interfaceTypes.map((interfaceType) =>
         interfaceTypeMapper.toCreateInput(interfaceType),
       ),
@@ -85,7 +85,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
   }) {
-    const { types } = await findTypeApi.GetInterfaceTypes({
+    const { types } = await findTypeApi().GetInterfaceTypes({
       options,
       where,
     })
@@ -101,7 +101,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
   protected async _update(dto: IInterfaceTypeDto, where: InterfaceTypeWhere) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateInterfaceTypes({
+    } = await updateTypeApi().UpdateInterfaceTypes({
       update: interfaceTypeMapper.toUpdateInput(dto),
       where,
     })

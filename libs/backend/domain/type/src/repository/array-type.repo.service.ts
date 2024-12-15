@@ -1,9 +1,9 @@
+import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 import type {
   ArrayType,
   ArrayTypeOptions,
   ArrayTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -38,7 +38,7 @@ export class ArrayTypeRepository extends AbstractRepository<
     where?: ArrayTypeWhere
     options?: ArrayTypeOptions
   }) {
-    const { types } = await findTypeApi.GetArrayTypes({
+    const { types } = await findTypeApi().GetArrayTypes({
       options,
       where,
     })
@@ -49,7 +49,7 @@ export class ArrayTypeRepository extends AbstractRepository<
   protected async _addMany(arrayTypes: Array<IArrayTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateArrayTypes({
+    } = await createTypeApi().CreateArrayTypes({
       input: arrayTypes.map((arrayType) =>
         arrayTypeMapper.toCreateInput(arrayType),
       ),
@@ -61,7 +61,7 @@ export class ArrayTypeRepository extends AbstractRepository<
   protected async _update(arrayType: IArrayTypeDto, where: ArrayTypeWhere) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateArrayTypes({
+    } = await updateTypeApi().UpdateArrayTypes({
       update: arrayTypeMapper.toUpdateInput(arrayType),
       where,
     })

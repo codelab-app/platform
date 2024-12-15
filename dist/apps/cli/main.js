@@ -1,45 +1,385 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ([
-/* 0 */,
-/* 1 */
-/***/ ((module) => {
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
 
-module.exports = require("tslib");
+;// external "@nestjs/core"
+const core_namespaceObject = require("@nestjs/core");
+;// external "tslib"
+const external_tslib_namespaceObject = require("tslib");
+;// external "chalk"
+const external_chalk_namespaceObject = require("chalk");
+var external_chalk_default = /*#__PURE__*/__webpack_require__.n(external_chalk_namespaceObject);
+;// external "pino"
+const external_pino_namespaceObject = require("pino");
+var external_pino_default = /*#__PURE__*/__webpack_require__.n(external_pino_namespaceObject);
+;// external "pino-pretty"
+const external_pino_pretty_namespaceObject = require("pino-pretty");
+var external_pino_pretty_default = /*#__PURE__*/__webpack_require__.n(external_pino_pretty_namespaceObject);
+;// external "remeda"
+const external_remeda_namespaceObject = require("remeda");
+;// ../../libs/shared/utils/src/prettify/prettify.ts
+const prettifyForConsole = (object) => {
+    return JSON.stringify(object, null, 2);
+};
 
-/***/ }),
-/* 2 */
-/***/ ((module) => {
+;// external "@pinojs/json-colorizer"
+const json_colorizer_namespaceObject = require("@pinojs/json-colorizer");
+var json_colorizer_default = /*#__PURE__*/__webpack_require__.n(json_colorizer_namespaceObject);
+;// ../../libs/shared/infra/logging/src/pino/utils.ts
 
-module.exports = require("@nestjs/common");
 
-/***/ }),
-/* 3 */
-/***/ ((module) => {
+const formatNestLikeDate = (timestamp) => {
+    if (typeof timestamp !== 'number') {
+        throw new Error('Timestamp needs to be type number');
+    }
+    const date = new Date(timestamp);
+    const formattedDate = date.toLocaleString('en-US', {
+        day: '2-digit',
+        hour: 'numeric',
+        hour12: true,
+        minute: '2-digit',
+        month: '2-digit',
+        second: '2-digit',
+        year: 'numeric',
+    });
+    return formattedDate;
+};
+const colorize = (object) => {
+    // Assuming message is a JSON object. If it's a string, you may not need JSON.stringify
+    // Adjust this based on the actual data structure of your messages
+    const messageString = typeof object === 'object' ? prettifyForConsole(object) : object;
+    return json_colorizer_default()(messageString, {
+        colors: {
+            BOOLEAN_LITERAL: 'white',
+            BRACE: 'white',
+            BRACKET: 'white',
+            COLON: 'white',
+            COMMA: 'white',
+            NULL_LITERAL: 'white',
+            NUMBER_LITERAL: 'white',
+            STRING_KEY: 'white',
+            STRING_LITERAL: 'green',
+        },
+    });
+};
 
-module.exports = require("@nestjs/config");
+;// ../../libs/shared/infra/logging/src/pino/pino-transport.ts
 
-/***/ }),
-/* 4 */
-/***/ ((module) => {
 
-module.exports = require("path");
 
-/***/ }),
-/* 5 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  getEnv: () => (/* binding */ getEnv)
+const levelsLabels = (external_pino_default()).levels.labels;
+const pinoPrettyStream = external_pino_pretty_default()({
+    colorize: true,
+    // errorLikeObjectKeys: ['err', 'error'],
+    /**
+     * We hide them here, since can't control these order. Instead move them to the message
+     */
+    ignore: 'time,pid,hostname,context,req,res,responseTime,level',
+    // levelFirst: false,
+    // NestJS-like timestamp
+    /**
+     * This time appears in front of message, cannot find a way to move it.
+     */
+    // translateTime: 'SYS:mm/dd/yyyy hh:mm:ss TT',
+    messageFormat: (log, messageKey, levelLabel) => {
+        // console.log(log, messageKey, levelLabel)
+        const message = JSON.parse(log[messageKey]);
+        const level = log['level'];
+        const hostname = log['hostname'];
+        const time = log['time'];
+        const pid = log['pid'];
+        /**
+         * Be careful of `context` and `message`, since `LoggerService.info` has method override
+         */
+        // const context = log['context']
+        const context = message.context;
+        const object = message.object;
+        /**
+         * Pino combines all data into a single object, need to extract user data
+         */
+        const data = (0,external_remeda_namespaceObject.omit)(log, ['level', 'time', 'hostname', 'pid', 'req', 'msg']);
+        return `${external_chalk_default().green('[Pino]')} ${external_chalk_default().green(pid)}  ${external_chalk_default().green('-')} ${external_chalk_default().whiteBright(formatNestLikeDate(time))}     ${external_chalk_default().green(levelsLabels[level]?.toUpperCase())} ${external_chalk_default().yellow(`[${context}]`)}\n${colorize(object)}`;
+    },
+    // singleLine: false,
+    sync: true,
 });
 
-// EXTERNAL MODULE: external "env-var"
-var external_env_var_ = __webpack_require__(6);
-;// ../../libs/shared/config/src/env/services/auth0.ts
+;// external "@nestjs/common"
+const common_namespaceObject = require("@nestjs/common");
+;// external "@nestjs/config"
+const config_namespaceObject = require("@nestjs/config");
+;// external "nestjs-pino"
+const external_nestjs_pino_namespaceObject = require("nestjs-pino");
+;// external "env-var"
+const external_env_var_namespaceObject = require("env-var");
+;// ../../libs/backend/infra/adapter/logger/src/logger.config.ts
+
+
+const LOGGER_CONFIG_KEY = 'logger';
+const loggerConfig = (0,config_namespaceObject.registerAs)(LOGGER_CONFIG_KEY, () => {
+    return {
+        get level() {
+            return external_env_var_namespaceObject.get('API_LOG_LEVEL').default('debug').asString();
+        },
+    };
+});
+
+;// ../../libs/backend/infra/adapter/logger/src/nestjs.logger.service.ts
+
+
+let NestjsLoggerService = class NestjsLoggerService extends common_namespaceObject.Logger {
+};
+NestjsLoggerService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)()
+], NestjsLoggerService);
+
+
+;// ../../libs/backend/infra/adapter/logger/src/pino.logger.service.ts
+var _a, _b;
+
+
+
+let CodelabLoggerService = class CodelabLoggerService extends external_nestjs_pino_namespaceObject.Logger {
+    constructor(logger, params) {
+        super(logger, {
+            ...params,
+        });
+        Object.defineProperty(this, "logger", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: logger
+        });
+    }
+    /**
+     * We follow nestjs param order, which differs from pino param order
+     *
+     * Watch out for `info()` method override
+     */
+    log(object = {}, context) {
+        /**
+         * We can't use this, since cannot control how the object is colorized before printing
+         *
+         * We combine everything into an object, then convert to string, then recreate the object in the transport
+         */
+        // this.logger.info(object, message)
+        const pinoMessage = {
+            context,
+            object,
+        };
+        const message = JSON.stringify(pinoMessage);
+        this.logger.info(message);
+    }
+};
+CodelabLoggerService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__param)(1, (0,common_namespaceObject.Inject)(external_nestjs_pino_namespaceObject.PARAMS_PROVIDER_TOKEN)),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (_a = typeof external_nestjs_pino_namespaceObject.PinoLogger !== "undefined" && external_nestjs_pino_namespaceObject.PinoLogger) === "function" ? _a : Object, typeof (_b = typeof external_nestjs_pino_namespaceObject.Params !== "undefined" && external_nestjs_pino_namespaceObject.Params) === "function" ? _b : Object])
+], CodelabLoggerService);
+
+
+;// ../../libs/backend/infra/adapter/logger/src/logger.module.ts
+
+
+
+
+
+
+
+
+
+let CodelabLoggerModule = class CodelabLoggerModule {
+};
+CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Global)(),
+    (0,common_namespaceObject.Module)({
+        exports: [CodelabLoggerService, NestjsLoggerService],
+        imports: [
+            external_nestjs_pino_namespaceObject.LoggerModule.forRootAsync({
+                imports: [
+                    config_namespaceObject.ConfigModule.forRoot({
+                        ignoreEnvVars: true,
+                        load: [loggerConfig],
+                    }),
+                ],
+                inject: [loggerConfig.KEY],
+                useFactory: async (config) => {
+                    return {
+                        pinoHttp: {
+                            // Disable HTTP requests logging
+                            autoLogging: false,
+                            // Turn of using `API_LOG_LEVEL`
+                            enabled: true,
+                            level: config.level,
+                            /**
+                             * https://stackoverflow.com/a/74100511/2159920
+                             *
+                             * Enable synchronous logging
+                             */
+                            // stream: pino.destination({
+                            //   sync: true,
+                            //   // write: (message: string) => {
+                            //   //   console.log(colorizer(message))
+                            //   // },
+                            // }),
+                            // Doesn't prefix in front of date
+                            // msgPrefix: '[API]',
+                            // Set Pino to synchronous mode
+                            serializers: {
+                                req: (req) => {
+                                    // Do omission instead of pick as to document the keys
+                                    return (0,external_remeda_namespaceObject.omit)(req, ['id', 'headers']);
+                                },
+                                // res: (res) => {
+                                //   return {
+                                //     // Log only specific properties of the response, or return an empty object to exclude all
+                                //     statusCode: res.statusCode,
+                                //   }
+                                // },
+                            },
+                            stream: pinoPrettyStream,
+                            // Prettify and colorize log
+                            // transport:
+                            //   process.env['NODE_ENV'] !== 'production'
+                            //     ? {
+                            //         options: transportOptions,
+                            //         // target: 'pino-pretty',
+                            //         target: require.resolve('./pino-transport'),
+                            //       }
+                            //     : undefined,
+                        },
+                    };
+                },
+            }),
+        ],
+        providers: [CodelabLoggerService, NestjsLoggerService],
+    })
+], CodelabLoggerModule);
+
+
+;// ../../libs/shared/abstract/core/src/stage.enum.ts
+/**
+ * This is the script environment for running processes like CI/CD
+ */
+var Stage;
+(function (Stage) {
+    // Remote on CircleCi
+    Stage["CI"] = "ci";
+    // Local using primary port
+    Stage["Dev"] = "dev";
+    // DigitalOcean remote
+    Stage["Prod"] = "prod";
+    // Local using secondary port
+    Stage["Test"] = "test";
+})(Stage || (Stage = {}));
+
+;// external "path"
+const external_path_namespaceObject = require("path");
+var external_path_default = /*#__PURE__*/__webpack_require__.n(external_path_namespaceObject);
+;// ../../libs/backend/infra/adapter/cli/src/commands/seed/seed.service.ts
+
+
+let SeedService = class SeedService {
+    constructor() {
+        Object.defineProperty(this, "command", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'seed'
+        });
+        Object.defineProperty(this, "describe", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'Parse Ant Design scraped CSV files and seed to application as types'
+        });
+        this.builder = this.builder.bind(this);
+    }
+    builder(argv) {
+        return argv
+            .command('antd', 'Seed Ant Design framework', (_argv) => _argv, async ({ user }) => {
+            const owner = user;
+            // await new AdminSeederService(owner).seedAntDesign()
+        })
+            .command('html', 'Seed html', (_argv) => _argv, async ({ user }) => {
+            const owner = user;
+            // await new AdminSeederService(owner).seedHtml()
+        })
+            .demandCommand();
+    }
+    handler() {
+        // await new SeedDataService().execute(user)
+    }
+};
+SeedService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
+], SeedService);
+
+
+;// external "execa"
+const external_execa_namespaceObject = require("execa");
+var external_execa_default = /*#__PURE__*/__webpack_require__.n(external_execa_namespaceObject);
+;// ../../libs/backend/infra/adapter/shell/src/exec-command.ts
+
+const execCommand = (command) => {
+    console.log(`Executing: ${command}`);
+    try {
+        // Only use shell on CI
+        const shell = process.env['CI'] ? true : false;
+        return external_execa_default().commandSync(command, {
+            shell: true,
+            stdio: 'inherit',
+        });
+    }
+    catch (error) {
+        console.error(error);
+        /**
+         * Serve doesn't detect exit code
+         *
+         *  https://github.com/nrwl/nx/issues/9239
+         */
+        process.exit(1);
+    }
+};
+
+;// ../../libs/shared/config/env/src/services/auth0.ts
 /* eslint-disable @typescript-eslint/member-ordering */
 
 /* *
@@ -112,23 +452,23 @@ class Auth0EnvVars {
         return (this._audience ??= new URL('api/v2/', this.issuerBaseUrl).toString());
     }
     get domain() {
-        return (this._auth0Domain ??= external_env_var_.get('AUTH0_DOMAIN').required().asString());
+        return (this._auth0Domain ??= external_env_var_namespaceObject.get('AUTH0_DOMAIN').required().asString());
     }
     get clientId() {
-        return (this._clientId ??= external_env_var_.get('AUTH0_CLIENT_ID').required().asString());
+        return (this._clientId ??= external_env_var_namespaceObject.get('AUTH0_CLIENT_ID').required().asString());
     }
     get clientSecret() {
-        return (this._clientSecret ??= external_env_var_.get('AUTH0_CLIENT_SECRET')
+        return (this._clientSecret ??= external_env_var_namespaceObject.get('AUTH0_CLIENT_SECRET')
             .required()
             .asString());
     }
     get auth0Username() {
-        return (this._cypressUsername ??= external_env_var_.get('AUTH0_E2E_USERNAME')
+        return (this._cypressUsername ??= external_env_var_namespaceObject.get('AUTH0_E2E_USERNAME')
             .required()
             .asString());
     }
     get auth0Password() {
-        return (this._cypressPassword ??= external_env_var_.get('AUTH0_E2E_PASSWORD')
+        return (this._cypressPassword ??= external_env_var_namespaceObject.get('AUTH0_E2E_PASSWORD')
             .required()
             .asString());
     }
@@ -137,10 +477,10 @@ class Auth0EnvVars {
         return (this._issuerBaseUrl ??= issuerBaseUrl);
     }
     get secret() {
-        return (this._secret ??= external_env_var_.get('AUTH0_SECRET').required().asString());
+        return (this._secret ??= external_env_var_namespaceObject.get('AUTH0_SECRET').required().asString());
     }
     get sessionAutoSave() {
-        return (this._sessionAutoSave ??= external_env_var_.get('AUTH0_SESSION_AUTO_SAVE')
+        return (this._sessionAutoSave ??= external_env_var_namespaceObject.get('AUTH0_SESSION_AUTO_SAVE')
             .required()
             .asBool());
     }
@@ -150,7 +490,7 @@ class Auth0EnvVars {
     }
 }
 
-;// ../../libs/shared/config/src/env/services/circleci.ts
+;// ../../libs/shared/config/env/src/services/circleci.ts
 
 class CircleCIEnvVars {
     constructor() {
@@ -170,19 +510,19 @@ class CircleCIEnvVars {
         });
     }
     get ci() {
-        return (this._ci ??= external_env_var_.get('CI').default('false').asBool());
+        return (this._ci ??= external_env_var_namespaceObject.get('CI').default('false').asBool());
     }
     get circleCi() {
-        return (this._circleCi ??= external_env_var_.get('CIRCLE').default('false').asBool());
+        return (this._circleCi ??= external_env_var_namespaceObject.get('CIRCLE').default('false').asBool());
     }
 }
 
-;// ../../libs/shared/config/src/env/services/endpoint.ts
+;// ../../libs/shared/config/env/src/services/endpoint.ts
 
 /**
  * https://github.com/evanshortiss/env-var/issues/162
  */
-const { get } = external_env_var_.from({
+const { get } = external_env_var_namespaceObject.from({
     NEXT_PUBLIC_API_HOSTNAME: process.env['NEXT_PUBLIC_API_HOSTNAME'],
     NEXT_PUBLIC_API_PORT: process.env['NEXT_PUBLIC_API_PORT'],
     NEXT_PUBLIC_BASE_API_PATH: process.env['NEXT_PUBLIC_BASE_API_PATH'],
@@ -288,7 +628,7 @@ class EndpointEnvVars {
     }
 }
 
-;// ../../libs/shared/config/src/env/services/google-analytics.ts
+;// ../../libs/shared/config/env/src/services/google-analytics.ts
 
 class GoogleAnalyticsEnvVars {
     constructor() {
@@ -298,11 +638,11 @@ class GoogleAnalyticsEnvVars {
             writable: true,
             value: void 0
         });
-        this.id = external_env_var_.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
+        this.id = external_env_var_namespaceObject.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
     }
 }
 
-;// ../../libs/shared/config/src/env/services/hotjar.ts
+;// ../../libs/shared/config/env/src/services/hotjar.ts
 
 class HotjarEnvVars {
     constructor() {
@@ -318,12 +658,12 @@ class HotjarEnvVars {
             writable: true,
             value: void 0
         });
-        this.id = external_env_var_.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
-        this.version = external_env_var_.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
+        this.id = external_env_var_namespaceObject.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
+        this.version = external_env_var_namespaceObject.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
     }
 }
 
-;// ../../libs/shared/config/src/env/services/intercom.ts
+;// ../../libs/shared/config/env/src/services/intercom.ts
 
 class IntercomEnvVars {
     constructor() {
@@ -333,11 +673,11 @@ class IntercomEnvVars {
             writable: true,
             value: void 0
         });
-        this.appId = external_env_var_.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
+        this.appId = external_env_var_namespaceObject.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
     }
 }
 
-;// ../../libs/shared/config/src/env/services/mailchimp.ts
+;// ../../libs/shared/config/env/src/services/mailchimp.ts
 
 class MailchimpEnvVars {
     constructor() {
@@ -359,13 +699,13 @@ class MailchimpEnvVars {
             writable: true,
             value: void 0
         });
-        this.apiKey = external_env_var_.get('MAILCHIMP_API_KEY').required().asString();
-        this.listId = external_env_var_.get('MAILCHIMP_LIST_ID').required().asString();
-        this.serverPrefix = external_env_var_.get('MAILCHIMP_SERVER_PREFIX').required().asString();
+        this.apiKey = external_env_var_namespaceObject.get('MAILCHIMP_API_KEY').required().asString();
+        this.listId = external_env_var_namespaceObject.get('MAILCHIMP_LIST_ID').required().asString();
+        this.serverPrefix = external_env_var_namespaceObject.get('MAILCHIMP_SERVER_PREFIX').required().asString();
     }
 }
 
-;// ../../libs/shared/config/src/env/services/neo4j.ts
+;// ../../libs/shared/config/env/src/services/neo4j.ts
 
 class Neo4jEnvVars {
     constructor() {
@@ -389,17 +729,17 @@ class Neo4jEnvVars {
         });
     }
     get password() {
-        return (this._password ??= external_env_var_.get('NEO4J_PASSWORD').required().asString());
+        return (this._password ??= external_env_var_namespaceObject.get('NEO4J_PASSWORD').required().asString());
     }
     get uri() {
-        return (this._uri ??= external_env_var_.get('NEO4J_URI').required().asUrlString());
+        return (this._uri ??= external_env_var_namespaceObject.get('NEO4J_URI').required().asUrlString());
     }
     get user() {
-        return (this._user ??= external_env_var_.get('NEO4J_USER').required().asString());
+        return (this._user ??= external_env_var_namespaceObject.get('NEO4J_USER').required().asString());
     }
 }
 
-;// ../../libs/shared/config/src/env/services/node.ts
+;// ../../libs/shared/config/env/src/services/node.ts
 
 class NodeEnvVars {
     constructor() {
@@ -411,7 +751,7 @@ class NodeEnvVars {
         });
     }
     get isCi() {
-        return external_env_var_.get('CI').default('false').asBool();
+        return external_env_var_namespaceObject.get('CI').default('false').asBool();
     }
     get isDevelopment() {
         return this.nodeEnv === 'development';
@@ -423,13 +763,13 @@ class NodeEnvVars {
         return this.nodeEnv === 'test';
     }
     get nodeEnv() {
-        return (this._nodeEnv ??= external_env_var_.get('NODE_ENV')
+        return (this._nodeEnv ??= external_env_var_namespaceObject.get('NODE_ENV')
             .default('development')
             .asEnum(['development', 'production', 'test']));
     }
 }
 
-;// ../../libs/shared/config/src/env/services/supabase.ts
+;// ../../libs/shared/config/env/src/services/supabase.ts
 class SupabaseEnvVars {
     constructor() {
         Object.defineProperty(this, "key", {
@@ -449,7 +789,7 @@ class SupabaseEnvVars {
     }
 }
 
-;// ../../libs/shared/config/src/env/env.ts
+;// ../../libs/shared/config/env/src/env.ts
 
 
 
@@ -569,617 +909,6 @@ class EnvironmentVariables {
 }
 const getEnv = () => EnvironmentVariables.getInstance();
 
-
-/***/ }),
-/* 6 */
-/***/ ((module) => {
-
-module.exports = require("env-var");
-
-/***/ }),
-/* 7 */
-/***/ ((module) => {
-
-module.exports = require("remeda");
-
-/***/ }),
-/* 8 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   prettifyForConsole: () => (/* binding */ prettifyForConsole)
-/* harmony export */ });
-const prettifyForConsole = (object) => {
-    return JSON.stringify(object, null, 2);
-};
-
-
-/***/ }),
-/* 9 */,
-/* 10 */
-/***/ ((module) => {
-
-module.exports = require("neo4j-driver");
-
-/***/ }),
-/* 11 */
-/***/ ((module) => {
-
-module.exports = require("@neo4j/graphql-ogm");
-
-/***/ }),
-/* 12 */
-/***/ ((module) => {
-
-module.exports = require("@graphql-tools/merge");
-
-/***/ }),
-/* 13 */
-/***/ ((module) => {
-
-module.exports = require("change-case-all");
-
-/***/ }),
-/* 14 */
-/***/ ((module) => {
-
-module.exports = require("slugify");
-
-/***/ }),
-/* 15 */
-/***/ ((module) => {
-
-module.exports = require("dns");
-
-/***/ }),
-/* 16 */
-/***/ ((module) => {
-
-module.exports = require("util");
-
-/***/ }),
-/* 17 */
-/***/ ((module) => {
-
-module.exports = require("@apollo/client");
-
-/***/ }),
-/* 18 */
-/***/ ((module) => {
-
-module.exports = require("graphql-request");
-
-/***/ }),
-/* 19 */
-/***/ ((module) => {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 20 */
-/***/ ((module) => {
-
-module.exports = require("prettier");
-
-/***/ }),
-/* 21 */
-/***/ ((module) => {
-
-module.exports = require("dots-wrapper");
-
-/***/ }),
-/* 22 */
-/***/ ((module) => {
-
-module.exports = require("@neo4j/graphql");
-
-/***/ }),
-/* 23 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/apollo");
-
-/***/ }),
-/* 24 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/graphql");
-
-/***/ }),
-/* 25 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/passport");
-
-/***/ }),
-/* 26 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/testing");
-
-/***/ })
-/******/ 	]);
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/ensure chunk */
-/******/ 	(() => {
-/******/ 		__webpack_require__.f = {};
-/******/ 		// This file contains only the entry chunk.
-/******/ 		// The chunk loading function for additional chunks
-/******/ 		__webpack_require__.e = (chunkId) => {
-/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce((promises, key) => {
-/******/ 				__webpack_require__.f[key](chunkId, promises);
-/******/ 				return promises;
-/******/ 			}, []));
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/get javascript chunk filename */
-/******/ 	(() => {
-/******/ 		// This function allow to reference async chunks
-/******/ 		__webpack_require__.u = (chunkId) => {
-/******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".js";
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/require chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded chunks
-/******/ 		// "1" means "loaded", otherwise not loaded yet
-/******/ 		var installedChunks = {
-/******/ 			0: 1
-/******/ 		};
-/******/ 		
-/******/ 		// no on chunks loaded
-/******/ 		
-/******/ 		var installChunk = (chunk) => {
-/******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids, runtime = chunk.runtime;
-/******/ 			for(var moduleId in moreModules) {
-/******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 				}
-/******/ 			}
-/******/ 			if(runtime) runtime(__webpack_require__);
-/******/ 			for(var i = 0; i < chunkIds.length; i++)
-/******/ 				installedChunks[chunkIds[i]] = 1;
-/******/ 		
-/******/ 		};
-/******/ 		
-/******/ 		// require() chunk loading for javascript
-/******/ 		__webpack_require__.f.require = (chunkId, promises) => {
-/******/ 			// "1" is the signal for "already loaded"
-/******/ 			if(!installedChunks[chunkId]) {
-/******/ 				if(true) { // all chunks have JS
-/******/ 					installChunk(require("./" + __webpack_require__.u(chunkId)));
-/******/ 				} else installedChunks[chunkId] = 1;
-/******/ 			}
-/******/ 		};
-/******/ 		
-/******/ 		// no external install chunk
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
-(() => {
-
-;// external "@nestjs/core"
-const core_namespaceObject = require("@nestjs/core");
-// EXTERNAL MODULE: external "tslib"
-var external_tslib_ = __webpack_require__(1);
-;// external "chalk"
-const external_chalk_namespaceObject = require("chalk");
-var external_chalk_default = /*#__PURE__*/__webpack_require__.n(external_chalk_namespaceObject);
-;// external "pino"
-const external_pino_namespaceObject = require("pino");
-var external_pino_default = /*#__PURE__*/__webpack_require__.n(external_pino_namespaceObject);
-;// external "pino-pretty"
-const external_pino_pretty_namespaceObject = require("pino-pretty");
-var external_pino_pretty_default = /*#__PURE__*/__webpack_require__.n(external_pino_pretty_namespaceObject);
-// EXTERNAL MODULE: external "remeda"
-var external_remeda_ = __webpack_require__(7);
-// EXTERNAL MODULE: ../../libs/shared/utils/src/prettify/prettify.ts
-var prettify = __webpack_require__(8);
-;// external "@pinojs/json-colorizer"
-const json_colorizer_namespaceObject = require("@pinojs/json-colorizer");
-var json_colorizer_default = /*#__PURE__*/__webpack_require__.n(json_colorizer_namespaceObject);
-;// ../../libs/shared/infra/logging/src/pino/utils.ts
-
-
-const formatNestLikeDate = (timestamp) => {
-    if (typeof timestamp !== 'number') {
-        throw new Error('Timestamp needs to be type number');
-    }
-    const date = new Date(timestamp);
-    const formattedDate = date.toLocaleString('en-US', {
-        day: '2-digit',
-        hour: 'numeric',
-        hour12: true,
-        minute: '2-digit',
-        month: '2-digit',
-        second: '2-digit',
-        year: 'numeric',
-    });
-    return formattedDate;
-};
-const colorize = (object) => {
-    // Assuming message is a JSON object. If it's a string, you may not need JSON.stringify
-    // Adjust this based on the actual data structure of your messages
-    const messageString = typeof object === 'object' ? (0,prettify.prettifyForConsole)(object) : object;
-    return json_colorizer_default()(messageString, {
-        colors: {
-            BOOLEAN_LITERAL: 'white',
-            BRACE: 'white',
-            BRACKET: 'white',
-            COLON: 'white',
-            COMMA: 'white',
-            NULL_LITERAL: 'white',
-            NUMBER_LITERAL: 'white',
-            STRING_KEY: 'white',
-            STRING_LITERAL: 'green',
-        },
-    });
-};
-
-;// ../../libs/shared/infra/logging/src/pino/pino-transport.ts
-
-
-
-
-
-const levelsLabels = (external_pino_default()).levels.labels;
-const pinoPrettyStream = external_pino_pretty_default()({
-    colorize: true,
-    // errorLikeObjectKeys: ['err', 'error'],
-    /**
-     * We hide them here, since can't control these order. Instead move them to the message
-     */
-    ignore: 'time,pid,hostname,context,req,res,responseTime,level',
-    // levelFirst: false,
-    // NestJS-like timestamp
-    /**
-     * This time appears in front of message, cannot find a way to move it.
-     */
-    // translateTime: 'SYS:mm/dd/yyyy hh:mm:ss TT',
-    messageFormat: (log, messageKey, levelLabel) => {
-        // console.log(log, messageKey, levelLabel)
-        const message = JSON.parse(log[messageKey]);
-        const level = log['level'];
-        const hostname = log['hostname'];
-        const time = log['time'];
-        const pid = log['pid'];
-        /**
-         * Be careful of `context` and `message`, since `LoggerService.info` has method override
-         */
-        // const context = log['context']
-        const context = message.context;
-        const object = message.object;
-        /**
-         * Pino combines all data into a single object, need to extract user data
-         */
-        const data = (0,external_remeda_.omit)(log, ['level', 'time', 'hostname', 'pid', 'req', 'msg']);
-        return `${external_chalk_default().green('[Pino]')} ${external_chalk_default().green(pid)}  ${external_chalk_default().green('-')} ${external_chalk_default().whiteBright(formatNestLikeDate(time))}     ${external_chalk_default().green(levelsLabels[level]?.toUpperCase())} ${external_chalk_default().yellow(`[${context}]`)}\n${colorize(object)}`;
-    },
-    // singleLine: false,
-    sync: true,
-});
-
-// EXTERNAL MODULE: external "@nestjs/common"
-var common_ = __webpack_require__(2);
-// EXTERNAL MODULE: external "@nestjs/config"
-var config_ = __webpack_require__(3);
-;// external "nestjs-pino"
-const external_nestjs_pino_namespaceObject = require("nestjs-pino");
-// EXTERNAL MODULE: external "env-var"
-var external_env_var_ = __webpack_require__(6);
-;// ../../libs/backend/infra/adapter/logger/src/logger.config.ts
-
-
-const LOGGER_CONFIG_KEY = 'logger';
-const loggerConfig = (0,config_.registerAs)(LOGGER_CONFIG_KEY, () => {
-    return {
-        get level() {
-            return external_env_var_.get('API_LOG_LEVEL').default('debug').asString();
-        },
-    };
-});
-
-;// ../../libs/backend/infra/adapter/logger/src/nestjs.logger.service.ts
-
-
-let NestjsLoggerService = class NestjsLoggerService extends common_.Logger {
-};
-NestjsLoggerService = (0,external_tslib_.__decorate)([
-    (0,common_.Injectable)()
-], NestjsLoggerService);
-
-
-;// ../../libs/backend/infra/adapter/logger/src/pino.logger.service.ts
-var _a, _b;
-
-
-
-let CodelabLoggerService = class CodelabLoggerService extends external_nestjs_pino_namespaceObject.Logger {
-    constructor(logger, params) {
-        super(logger, {
-            ...params,
-        });
-        Object.defineProperty(this, "logger", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: logger
-        });
-    }
-    /**
-     * We follow nestjs param order, which differs from pino param order
-     *
-     * Watch out for `info()` method override
-     */
-    log(object = {}, context) {
-        /**
-         * We can't use this, since cannot control how the object is colorized before printing
-         *
-         * We combine everything into an object, then convert to string, then recreate the object in the transport
-         */
-        // this.logger.info(object, message)
-        const pinoMessage = {
-            context,
-            object,
-        };
-        const message = JSON.stringify(pinoMessage);
-        this.logger.info(message);
-    }
-};
-CodelabLoggerService = (0,external_tslib_.__decorate)([
-    (0,common_.Injectable)(),
-    (0,external_tslib_.__param)(1, (0,common_.Inject)(external_nestjs_pino_namespaceObject.PARAMS_PROVIDER_TOKEN)),
-    (0,external_tslib_.__metadata)("design:paramtypes", [typeof (_a = typeof external_nestjs_pino_namespaceObject.PinoLogger !== "undefined" && external_nestjs_pino_namespaceObject.PinoLogger) === "function" ? _a : Object, typeof (_b = typeof external_nestjs_pino_namespaceObject.Params !== "undefined" && external_nestjs_pino_namespaceObject.Params) === "function" ? _b : Object])
-], CodelabLoggerService);
-
-
-;// ../../libs/backend/infra/adapter/logger/src/logger.module.ts
-
-
-
-
-
-
-
-
-
-let CodelabLoggerModule = class CodelabLoggerModule {
-};
-CodelabLoggerModule = (0,external_tslib_.__decorate)([
-    (0,common_.Global)(),
-    (0,common_.Module)({
-        exports: [CodelabLoggerService, NestjsLoggerService],
-        imports: [
-            external_nestjs_pino_namespaceObject.LoggerModule.forRootAsync({
-                imports: [
-                    config_.ConfigModule.forRoot({
-                        ignoreEnvVars: true,
-                        load: [loggerConfig],
-                    }),
-                ],
-                inject: [loggerConfig.KEY],
-                useFactory: async (config) => {
-                    return {
-                        pinoHttp: {
-                            // Disable HTTP requests logging
-                            autoLogging: false,
-                            // Turn of using `API_LOG_LEVEL`
-                            enabled: true,
-                            level: config.level,
-                            /**
-                             * https://stackoverflow.com/a/74100511/2159920
-                             *
-                             * Enable synchronous logging
-                             */
-                            // stream: pino.destination({
-                            //   sync: true,
-                            //   // write: (message: string) => {
-                            //   //   console.log(colorizer(message))
-                            //   // },
-                            // }),
-                            // Doesn't prefix in front of date
-                            // msgPrefix: '[API]',
-                            // Set Pino to synchronous mode
-                            serializers: {
-                                req: (req) => {
-                                    // Do omission instead of pick as to document the keys
-                                    return (0,external_remeda_.omit)(req, ['id', 'headers']);
-                                },
-                                // res: (res) => {
-                                //   return {
-                                //     // Log only specific properties of the response, or return an empty object to exclude all
-                                //     statusCode: res.statusCode,
-                                //   }
-                                // },
-                            },
-                            stream: pinoPrettyStream,
-                            // Prettify and colorize log
-                            // transport:
-                            //   process.env['NODE_ENV'] !== 'production'
-                            //     ? {
-                            //         options: transportOptions,
-                            //         // target: 'pino-pretty',
-                            //         target: require.resolve('./pino-transport'),
-                            //       }
-                            //     : undefined,
-                        },
-                    };
-                },
-            }),
-        ],
-        providers: [CodelabLoggerService, NestjsLoggerService],
-    })
-], CodelabLoggerModule);
-
-
-;// ../../libs/shared/abstract/core/src/stage.enum.ts
-/**
- * This is the script environment for running processes like CI/CD
- */
-var Stage;
-(function (Stage) {
-    // Remote on CircleCi
-    Stage["CI"] = "ci";
-    // Local using primary port
-    Stage["Dev"] = "dev";
-    // DigitalOcean remote
-    Stage["Prod"] = "prod";
-    // Local using secondary port
-    Stage["Test"] = "test";
-})(Stage || (Stage = {}));
-
-// EXTERNAL MODULE: external "path"
-var external_path_ = __webpack_require__(4);
-var external_path_default = /*#__PURE__*/__webpack_require__.n(external_path_);
-;// ../../libs/backend/infra/adapter/cli/src/commands/seed/seed.service.ts
-
-
-let SeedService = class SeedService {
-    constructor() {
-        Object.defineProperty(this, "command", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: 'seed'
-        });
-        Object.defineProperty(this, "describe", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: 'Parse Ant Design scraped CSV files and seed to application as types'
-        });
-        this.builder = this.builder.bind(this);
-    }
-    builder(argv) {
-        return argv
-            .command('antd', 'Seed Ant Design framework', (_argv) => _argv, async ({ user }) => {
-            const owner = user;
-            // await new AdminSeederService(owner).seedAntDesign()
-        })
-            .command('html', 'Seed html', (_argv) => _argv, async ({ user }) => {
-            const owner = user;
-            // await new AdminSeederService(owner).seedHtml()
-        })
-            .demandCommand();
-    }
-    handler() {
-        // await new SeedDataService().execute(user)
-    }
-};
-SeedService = (0,external_tslib_.__decorate)([
-    (0,common_.Injectable)(),
-    (0,external_tslib_.__metadata)("design:paramtypes", [])
-], SeedService);
-
-
-;// external "execa"
-const external_execa_namespaceObject = require("execa");
-var external_execa_default = /*#__PURE__*/__webpack_require__.n(external_execa_namespaceObject);
-;// ../../libs/backend/infra/adapter/shell/src/exec-command.ts
-
-const execCommand = (command) => {
-    console.log(`Executing: ${command}`);
-    try {
-        // Only use shell on CI
-        const shell = process.env['CI'] ? true : false;
-        return external_execa_default().commandSync(command, {
-            shell: true,
-            stdio: 'inherit',
-        });
-    }
-    catch (error) {
-        console.error(error);
-        /**
-         * Serve doesn't detect exit code
-         *
-         *  https://github.com/nrwl/nx/issues/9239
-         */
-        process.exit(1);
-    }
-};
-
-// EXTERNAL MODULE: ../../libs/shared/config/src/env/env.ts + 10 modules
-var env = __webpack_require__(5);
 ;// external "dotenv"
 const external_dotenv_namespaceObject = require("dotenv");
 var external_dotenv_default = /*#__PURE__*/__webpack_require__.n(external_dotenv_namespaceObject);
@@ -1191,7 +920,7 @@ var external_dotenv_default = /*#__PURE__*/__webpack_require__.n(external_dotenv
  * Used locally to load env for other stages
  */
 const loadStageMiddleware = ({ stage }) => {
-    if ((0,env.getEnv)().circleci.ci) {
+    if (getEnv().circleci.ci) {
         return;
     }
     external_dotenv_default().config({ override: true, path: '.env' });
@@ -1308,9 +1037,9 @@ let TerraformService = class TerraformService {
         //
     }
 };
-TerraformService = (0,external_tslib_.__decorate)([
-    (0,common_.Injectable)(),
-    (0,external_tslib_.__metadata)("design:paramtypes", [])
+TerraformService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
 ], TerraformService);
 
 
@@ -1426,17 +1155,12 @@ let TaskService = class TaskService {
             }
         }))
             .command(Tasks.GraphqlCodegen, 'Run codegen', (argv) => argv, globalHandler(async ({ stage }) => {
-            const { OgmModule } = await __webpack_require__.e(/* import() */ 1).then(__webpack_require__.bind(__webpack_require__, 9));
-            const ogmModuleRef = await this.lazyModuleLoader.load(() => OgmModule);
-            const { OgmService } = await __webpack_require__.e(/* import() */ 1).then(__webpack_require__.bind(__webpack_require__, 9));
-            const ogmService = ogmModuleRef.get(OgmService);
             if (stage === Stage.Dev) {
                 if (!(await external_is_port_reachable_default()(4000, { host: '127.0.0.1' }))) {
                     console.error('Please start server!');
                     process.exit(0);
                 }
                 execCommand('pnpm graphql-codegen --config ./scripts/codegen/codegen.ts');
-                await ogmService.generate();
                 process.exit(0);
             }
             if (stage === Stage.CI) {
@@ -1459,7 +1183,6 @@ let TaskService = class TaskService {
                             return;
                         }
                         try {
-                            // await ogmService.generate()
                             process.kill(-startServerChildProcess.pid, 'SIGINT');
                             const { unCommittedFiles } = await external_git_changed_files_default()();
                             console.log('Un-committed files', unCommittedFiles);
@@ -1529,9 +1252,9 @@ let TaskService = class TaskService {
         //
     }
 };
-TaskService = (0,external_tslib_.__decorate)([
-    (0,common_.Injectable)(),
-    (0,external_tslib_.__metadata)("design:paramtypes", [typeof (tasks_service_a = typeof core_namespaceObject.LazyModuleLoader !== "undefined" && core_namespaceObject.LazyModuleLoader) === "function" ? tasks_service_a : Object])
+TaskService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (tasks_service_a = typeof core_namespaceObject.LazyModuleLoader !== "undefined" && core_namespaceObject.LazyModuleLoader) === "function" ? tasks_service_a : Object])
 ], TaskService);
 
 
@@ -1602,9 +1325,9 @@ let CommandService = class CommandService {
             .strict().argv;
     }
 };
-CommandService = (0,external_tslib_.__decorate)([
-    (0,common_.Injectable)(),
-    (0,external_tslib_.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object, typeof (_c = typeof SeedService !== "undefined" && SeedService) === "function" ? _c : Object])
+CommandService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object, typeof (_c = typeof SeedService !== "undefined" && SeedService) === "function" ? _c : Object])
 ], CommandService);
 
 
@@ -1627,13 +1350,10 @@ let CommandModule = class CommandModule {
         this.commandService.exec();
     }
 };
-CommandModule = (0,external_tslib_.__decorate)([
-    (0,common_.Module)({
+CommandModule = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Module)({
         exports: [CommandService],
-        imports: [
-        // Lazy load this when needed for codegen instead, since it requires docker connection
-        // OgmModule,
-        ],
+        imports: [],
         providers: [
             CommandService,
             SeedService,
@@ -1643,7 +1363,7 @@ CommandModule = (0,external_tslib_.__decorate)([
             TaskService,
         ],
     }),
-    (0,external_tslib_.__metadata)("design:paramtypes", [typeof (command_module_a = typeof CommandService !== "undefined" && CommandService) === "function" ? command_module_a : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_module_a = typeof CommandService !== "undefined" && CommandService) === "function" ? command_module_a : Object])
 ], CommandModule);
 
 
@@ -1674,11 +1394,11 @@ const getEnvFilePath = () => {
 };
 let CliModule = class CliModule {
 };
-CliModule = (0,external_tslib_.__decorate)([
-    (0,common_.Module)({
+CliModule = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Module)({
         controllers: [],
         imports: [
-            config_.ConfigModule.forRoot({
+            config_namespaceObject.ConfigModule.forRoot({
                 envFilePath: getEnvFilePath(),
             }),
             CommandModule,
@@ -1699,8 +1419,6 @@ const bootstrap = async () => {
     await app.init();
 };
 void bootstrap();
-
-})();
 
 var __webpack_export_target__ = exports;
 for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];

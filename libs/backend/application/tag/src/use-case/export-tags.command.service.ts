@@ -1,9 +1,8 @@
-import type { TagWhere } from '@codelab/backend/abstract/codegen'
 import type { ITagExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { TagRepository } from '@codelab/backend/domain/tag'
+import { SortDirection, TagWhere } from '@codelab/shared/infra/gql'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ExportTagsCommand {

@@ -1,10 +1,12 @@
 import type { ITypeUpdateDto } from '@codelab/frontend/abstract/domain'
 
-import { IsTypeDescendantOf } from '@codelab/frontend-domain-type/repositories'
+import { findTypeServerActions } from '@codelab/shared-domain-module/type'
 
 const getInnerTypeIds = (submitData: ITypeUpdateDto) => [
   ...(submitData.unionTypeIds ?? []),
 ]
+
+const { IsTypeDescendantOf } = await findTypeServerActions()
 
 // Check if the updated type is not a descendant of any of the inner types
 // because this would cause a circular dependency between them and

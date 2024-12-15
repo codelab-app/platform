@@ -1,8 +1,8 @@
 import type { IAtomExport } from '@codelab/shared/abstract/core'
 
-import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { EntitySchema } from '@codelab/shared/abstract/types'
+import { SortDirection } from '@codelab/shared/infra/gql'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 

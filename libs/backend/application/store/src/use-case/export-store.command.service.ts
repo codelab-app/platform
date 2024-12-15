@@ -1,5 +1,8 @@
-import type { StoreWhere } from '@codelab/backend/abstract/codegen'
-import type { IStoreAggregateExport } from '@codelab/shared/abstract/core'
+import type {
+  IApiExport,
+  IStoreAggregateExport,
+} from '@codelab/shared/abstract/core'
+import type { StoreWhere } from '@codelab/shared/infra/gql'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportApiCommand } from '@codelab/backend/application/type'
@@ -23,7 +26,7 @@ export class ExportStoreHandler
   async execute({ where }: ExportStoreCommand) {
     const store = await this.storeRepository.findOneOrFail({ where })
 
-    const api = await this.commandBus.execute<ExportApiCommand>(
+    const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(
       new ExportApiCommand(store.api),
     )
 

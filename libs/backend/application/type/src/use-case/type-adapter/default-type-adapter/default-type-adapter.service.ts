@@ -1,18 +1,20 @@
-/* eslint-disable @typescript-eslint/member-ordering */
-import type {
-  EnumType as IEnumType,
-  InterfaceType as IInterfaceType,
-  UnionType as IUnionType,
-} from '@codelab/backend/abstract/codegen'
-import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/types'
 import type {
   IAtomDto,
   IEnumTypeDto,
   IFieldDto,
   IInterfaceTypeDto,
+  IRef,
+  ITypeDto,
+  ITypeRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
+/* eslint-disable @typescript-eslint/member-ordering */
+import type {
+  EnumType as IEnumType,
+  InterfaceType as IInterfaceType,
+  UnionType as IUnionType,
+} from '@codelab/shared/infra/gql'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
@@ -28,6 +30,7 @@ import {
   UnionType,
 } from '@codelab/backend/domain/type'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeFragment } from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 
@@ -93,7 +96,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
     private authDomainService: AuthDomainService,
   ) {}
 
-  async execute(request: Request): Promise<IType | undefined> {
+  async execute(request: Request): Promise<ITypeDto | undefined> {
     const { atom, field, type } = request
 
     const typeChecks = [
@@ -165,7 +168,13 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       )
     }
 
-    return await matchingTypeChecks[0]?.transform(type, atom, field)
+    const results = await matchingTypeChecks[0]?.transform(type, atom, field)
+
+    if (!results) {
+      throw new Error('No matching type found')
+    }
+
+    return results
   }
 
   // async arrayType(type: string): Promise<IArrayType> {
@@ -211,7 +220,9 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       owner: this.authDomainService.currentUser,
     }
 
-    return await this.typeFactory.save<IEnumType>(enumType)
+    await this.typeFactory.save<IEnumTypeDto>(enumType)
+
+    return enumType
   }
 
   async integerType() {
@@ -238,7 +249,9 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       owner: this.authDomainService.currentUser,
     }
 
-    return await this.typeFactory.save<IInterfaceType>(interfaceType)
+    await this.typeFactory.save<IInterfaceTypeDto>(interfaceType)
+
+    return interfaceType
   }
 
   async numberType() {
@@ -306,7 +319,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
           })
         }),
       )
-    ).filter((typeOfUnionType): typeOfUnionType is IType =>
+    ).filter((typeOfUnionType): typeOfUnionType is ITypeFragment =>
       Boolean(typeOfUnionType),
     )
 
@@ -327,7 +340,9 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       typesOfUnionType: mappedTypesOfUnionType,
     }
 
-    return await this.typeFactory.save<IUnionType>(unionType)
+    await this.typeFactory.save(unionType)
+
+    return unionType
   }
 
   private isActionType(type: string) {

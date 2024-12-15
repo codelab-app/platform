@@ -1,9 +1,9 @@
+import type { IActionTypeDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   ActionType,
   ActionTypeOptions,
   ActionTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IActionTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -38,7 +38,7 @@ export class ActionTypeRepository extends AbstractRepository<
     where?: ActionTypeWhere
     options?: ActionTypeOptions
   }) {
-    const { types } = await findTypeApi.GetActionTypes({
+    const { types } = await findTypeApi().GetActionTypes({
       options,
       where,
     })
@@ -49,7 +49,7 @@ export class ActionTypeRepository extends AbstractRepository<
   protected async _addMany(actionTypes: Array<IActionTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateActionTypes({
+    } = await createTypeApi().CreateActionTypes({
       input: actionTypes.map((actionType) =>
         actionTypeMapper.toCreateInput(actionType),
       ),
@@ -61,7 +61,7 @@ export class ActionTypeRepository extends AbstractRepository<
   protected async _update(actionType: IActionTypeDto, where: ActionTypeWhere) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateActionTypes({
+    } = await updateTypeApi().UpdateActionTypes({
       update: actionTypeMapper.toUpdateInput(actionType),
       where,
     })

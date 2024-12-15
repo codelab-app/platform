@@ -1,3 +1,5 @@
 schema:
   - 'schema.graphql'
-documents: 'libs/frontend/domain/**/*.graphql'
+documents:
+  - 'libs/frontend/domain/**/*.graphql'
+  - 'libs/frontend/abstract/domain/**/*.graphql'

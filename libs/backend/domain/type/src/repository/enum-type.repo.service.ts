@@ -1,14 +1,14 @@
 import type {
+  IEnumTypeDto,
+  IEnumTypeValueDto,
+} from '@codelab/shared/abstract/core'
+import type {
   EnumType,
   EnumTypeAllowedValuesFieldInput,
   EnumTypeAllowedValuesUpdateFieldInput,
   EnumTypeOptions,
   EnumTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type {
-  IEnumTypeDto,
-  IEnumTypeValueDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -39,7 +39,7 @@ export class EnumTypeRepository extends AbstractRepository<
   protected async _addMany(enumTypes: Array<IEnumTypeDto>) {
     const {
       types: { types },
-    } = await createTypeApi.CreateEnumTypes({
+    } = await createTypeApi().CreateEnumTypes({
       input: enumTypes.map((enumType) =>
         enumTypeMapper.toCreateInput(enumType),
       ),
@@ -55,7 +55,7 @@ export class EnumTypeRepository extends AbstractRepository<
     where?: EnumTypeWhere
     options?: EnumTypeOptions
   }) {
-    const { types } = await findTypeApi.GetEnumTypes({
+    const { types } = await findTypeApi().GetEnumTypes({
       options,
       where,
     })
@@ -66,7 +66,7 @@ export class EnumTypeRepository extends AbstractRepository<
   protected async _update(enumType: IEnumTypeDto, where: EnumTypeWhere) {
     const {
       types: { types },
-    } = await updateTypeApi.UpdateEnumTypes({
+    } = await updateTypeApi().UpdateEnumTypes({
       update: enumTypeMapper.toUpdateInput(enumType),
       where,
     })

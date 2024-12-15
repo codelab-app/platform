@@ -1,4 +1,4 @@
-import type { UserOptions, UserWhere } from '@codelab/backend/abstract/codegen'
+import type { UserOptions, UserWhere } from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'

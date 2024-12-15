@@ -8,16 +8,16 @@ import { appResolver } from './app'
 import { atomResolver } from './atom/atom.resolver'
 import { componentResolver } from './component'
 import { domainResolver } from './domain'
-import { elementResolver } from './element'
+import { ELEMENT_RESOLVER_PROVIDER } from './element'
 import { pageResolver } from './page'
 import { TYPE_RESOLVER_PROVIDER } from './type'
 
-export const PURE_RESOLVER_PROVIDER = 'PURE_RESOLVER_PROVIDER'
+export const RESOLVER_PROVIDER = 'RESOLVER_PROVIDER'
 
-export const PureResolverProvider: FactoryProvider<Promise<IResolvers>> = {
-  inject: [TYPE_RESOLVER_PROVIDER],
-  provide: PURE_RESOLVER_PROVIDER,
-  useFactory: async (typeResolver: IResolvers) => {
+export const ResolverProvider: FactoryProvider<Promise<IResolvers>> = {
+  inject: [TYPE_RESOLVER_PROVIDER, ELEMENT_RESOLVER_PROVIDER],
+  provide: RESOLVER_PROVIDER,
+  useFactory: async (typeResolver: IResolvers, elementResolver: IResolvers) => {
     const pureResolvers: IResolvers = mergeResolvers([
       appResolver,
       componentResolver,

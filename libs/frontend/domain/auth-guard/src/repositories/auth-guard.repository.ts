@@ -10,9 +10,10 @@ import {
   type IAuthGuardRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
-import { authGuardServerActions } from '@codelab/shared-domain-module/auth-guard'
-
-import { authGuardMapper } from './auth-guard.mapper'
+import {
+  authGuardMapper,
+  authGuardServerActions,
+} from '@codelab/shared-domain-module/auth-guard'
 
 const { CreateAuthGuards, DeleteAuthGuards, GetAuthGuards, UpdateAuthGuard } =
   await authGuardServerActions()

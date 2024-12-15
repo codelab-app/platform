@@ -1,3 +1,20 @@
+import type {
+  IActionTypeDto,
+  IAppTypeDto,
+  IArrayTypeDto,
+  ICodeMirrorTypeDto,
+  IElementTypeDto,
+  IEnumTypeDto,
+  IInterfaceTypeDto,
+  ILambdaTypeDto,
+  IPageTypeDto,
+  IPrimitiveTypeDto,
+  IReactNodeTypeDto,
+  IRenderPropTypeDto,
+  IRichTextTypeDto,
+  ITypeKind,
+  IUnionTypeDto,
+} from '@codelab/shared/abstract/core'
 import type * as cg from '@codelab/shared/infra/gql'
 
 export interface ITypeUpdateArgs {
@@ -8,7 +25,7 @@ export interface ITypeUpdateArgs {
   where: ITypeWhere
 }
 
-type ITypeWhere =
+export type ITypeWhere =
   | cg.ActionTypeWhere
   | cg.AppTypeWhere
   | cg.ArrayTypeWhere
@@ -41,6 +58,7 @@ export type ITypeCreateInput =
   | cg.UnionTypeCreateInput
 
 export type ITypeUpdateInput =
+  | cg.ActionTypeUpdateInput
   | cg.AppTypeUpdateInput
   | cg.ArrayTypeUpdateInput
   | cg.CodeMirrorTypeUpdateInput
@@ -55,11 +73,28 @@ export type ITypeUpdateInput =
   | cg.RichTextTypeUpdateInput
   | cg.UnionTypeUpdateInput
 
+export type ITypeUpdateVars =
+  | cg.UpdateActionTypesMutationVariables
+  | cg.UpdateAppTypesMutationVariables
+  | cg.UpdateArrayTypesMutationVariables
+  | cg.UpdateCodeMirrorTypesMutationVariables
+  | cg.UpdateElementTypesMutationVariables
+  | cg.UpdateEnumTypesMutationVariables
+  | cg.UpdateInterfaceTypesMutationVariables
+  | cg.UpdateLambdaTypesMutationVariables
+  | cg.UpdatePageTypesMutationVariables
+  | cg.UpdatePrimitiveTypesMutationVariables
+  | cg.UpdateReactNodeTypesMutationVariables
+  | cg.UpdateRenderPropTypesMutationVariables
+  | cg.UpdateRichTextTypesMutationVariables
+  | cg.UpdateUnionTypesMutationVariables
+
 /**
  * Connect
  */
 
 export type ITypeConnectInput =
+  | cg.ActionTypeConnectInput
   | cg.AppTypeConnectInput
   | cg.ArrayTypeConnectInput
   | cg.CodeMirrorTypeConnectInput
@@ -78,6 +113,7 @@ export type ITypeConnectInput =
  * Disconnect
  */
 export type ITypeDisconnectInput =
+  | cg.ActionTypeDisconnectInput
   | cg.AppTypeDisconnectInput
   | cg.ArrayTypeDisconnectInput
   | cg.CodeMirrorTypeDisconnectInput
@@ -97,6 +133,7 @@ export type ITypeDisconnectInput =
  */
 
 export type ITypeDeleteInput =
+  | cg.ActionTypeDeleteInput
   | cg.AppTypeDeleteInput
   | cg.ArrayTypeDeleteInput
   | cg.CodeMirrorTypeDeleteInput
@@ -110,3 +147,41 @@ export type ITypeDeleteInput =
   | cg.RenderPropTypeDeleteInput
   | cg.RichTextTypeDeleteInput
   | cg.UnionTypeDeleteInput
+
+/**
+ * Type mapping for different types
+ */
+export interface TypeCreateMap {
+  [ITypeKind.ActionType]: { dto: IActionTypeDto; where: cg.ActionTypeWhere }
+  [ITypeKind.AppType]: { dto: IAppTypeDto; where: cg.AppTypeWhere }
+  [ITypeKind.ArrayType]: { dto: IArrayTypeDto; where: cg.ArrayTypeWhere }
+  [ITypeKind.CodeMirrorType]: {
+    dto: ICodeMirrorTypeDto
+    where: cg.CodeMirrorTypeWhere
+  }
+  [ITypeKind.ElementType]: { dto: IElementTypeDto; where: cg.ElementTypeWhere }
+  [ITypeKind.EnumType]: { dto: IEnumTypeDto; where: cg.EnumTypeWhere }
+  [ITypeKind.InterfaceType]: {
+    dto: IInterfaceTypeDto
+    where: cg.InterfaceTypeWhere
+  }
+  [ITypeKind.LambdaType]: { dto: ILambdaTypeDto; where: cg.LambdaTypeWhere }
+  [ITypeKind.PageType]: { dto: IPageTypeDto; where: cg.PageTypeWhere }
+  [ITypeKind.PrimitiveType]: {
+    dto: IPrimitiveTypeDto
+    where: cg.PrimitiveTypeWhere
+  }
+  [ITypeKind.ReactNodeType]: {
+    dto: IReactNodeTypeDto
+    where: cg.ReactNodeTypeWhere
+  }
+  [ITypeKind.RenderPropType]: {
+    dto: IRenderPropTypeDto
+    where: cg.RenderPropTypeWhere
+  }
+  [ITypeKind.RichTextType]: {
+    dto: IRichTextTypeDto
+    where: cg.RichTextTypeWhere
+  }
+  [ITypeKind.UnionType]: { dto: IUnionTypeDto; where: cg.UnionTypeWhere }
+}

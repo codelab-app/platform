@@ -11,12 +11,12 @@ import type {
 
 import { Validator } from '@codelab/shared/infra/schema'
 import {
-  CreateFields,
-  DeleteFields,
   fieldMapper,
-  GetFields,
-  UpdateFields,
+  fieldServerActions,
 } from '@codelab/shared-domain-module/field'
+
+const { CreateFields, DeleteFields, GetFields, UpdateFields } =
+  await fieldServerActions()
 
 export const fieldRepository: IFieldRepository = {
   add: async (field: IFieldDto) => {

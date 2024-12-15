@@ -1,9 +1,5 @@
-import type {
-  Page,
-  PageOptions,
-  PageWhere,
-} from '@codelab/backend/abstract/codegen'
 import type { IPageDto } from '@codelab/shared/abstract/core'
+import type { Page, PageOptions, PageWhere } from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -32,7 +28,7 @@ export class PageRepository extends AbstractRepository<
   protected async _addMany(pages: Array<IPageDto>) {
     const {
       createPages: { pages: createdPages },
-    } = await pageApi.CreatePages({
+    } = await pageApi().CreatePages({
       input: pages.map((page) => pageMapper.toCreateInput(page)),
     })
 
@@ -46,7 +42,7 @@ export class PageRepository extends AbstractRepository<
     where?: PageWhere
     options?: PageOptions
   }) {
-    const { items } = await pageApi.PageList({
+    const { items } = await pageApi().PageList({
       options,
       where,
     })
@@ -57,7 +53,7 @@ export class PageRepository extends AbstractRepository<
   protected async _update(page: IPageDto, where: PageWhere) {
     const {
       updatePages: { pages },
-    } = await pageApi.UpdatePages({
+    } = await pageApi().UpdatePages({
       update: pageMapper.toUpdateInput(page),
       where,
     })

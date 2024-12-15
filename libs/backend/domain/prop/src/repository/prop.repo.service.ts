@@ -1,9 +1,5 @@
-import type {
-  Prop,
-  PropOptions,
-  PropWhere,
-} from '@codelab/backend/abstract/codegen'
 import type { IPropDto } from '@codelab/shared/abstract/core'
+import type { Prop, PropOptions, PropWhere } from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -32,7 +28,7 @@ export class PropRepository extends AbstractRepository<
   protected async _addMany(props: Array<IPropDto>) {
     const {
       createProps: { props: createdProps },
-    } = await propApi.CreateProps({
+    } = await propApi().CreateProps({
       input: props.map((prop) => propMapper.toCreateInput(prop)),
     })
 
@@ -46,7 +42,7 @@ export class PropRepository extends AbstractRepository<
     where?: PropWhere
     options?: PropOptions
   }) {
-    const { items } = await propApi.GetProps({
+    const { items } = await propApi().GetProps({
       options,
       where,
     })
@@ -57,7 +53,7 @@ export class PropRepository extends AbstractRepository<
   protected async _update(props: IPropDto, where: PropWhere) {
     const {
       updateProps: { props: updatedProps },
-    } = await propApi.UpdateProps({
+    } = await propApi().UpdateProps({
       update: propMapper.toUpdateInput(props),
       where,
     })

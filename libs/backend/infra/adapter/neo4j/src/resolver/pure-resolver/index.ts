@@ -1,1 +1,1 @@
-export * from './pure-resolvers'
+export * from './resolvers'
