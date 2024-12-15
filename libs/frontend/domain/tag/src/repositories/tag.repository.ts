@@ -2,14 +2,9 @@ import type { ITagRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
 
 import { Validator } from '@codelab/shared/infra/schema'
-import { tagMapper } from '@codelab/shared-domain-module/tag'
+import { tagMapper, tagServerActions } from '@codelab/shared-domain-module/tag'
 
-import {
-  CreateTags,
-  DeleteTags,
-  GetTags,
-  UpdateTags,
-} from './tag.api.graphql.web.gen'
+const { CreateTags, DeleteTags, GetTags, UpdateTags } = tagServerActions()
 
 export const tagRepository: ITagRepository = {
   add: async (tag: ITagDto) => {

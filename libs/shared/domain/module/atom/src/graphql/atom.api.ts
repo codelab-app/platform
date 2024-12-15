@@ -4,4 +4,4 @@ import { getSdk } from './atom.api.graphql.api.gen'
 
 export const atomApi = getSdk(graphqlClient)
 
-export const atomServerActions = () => require('./atom.api.graphql.web.gen')
+export const atomServerActions = () => import('./atom.api.graphql.web.gen')

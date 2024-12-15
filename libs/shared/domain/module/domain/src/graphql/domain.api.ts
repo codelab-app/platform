@@ -4,4 +4,4 @@ import { getSdk } from './domain.api.graphql.api.gen'
 
 export const domainApi = getSdk(graphqlClient)
 
-export const domainServerActions = () => require('./domain.api.graphql.web.gen')
+export const domainServerActions = () => import('./domain.api.graphql.web.gen')

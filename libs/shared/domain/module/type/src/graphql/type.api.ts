@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import type { ITypeWhere } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type {
@@ -6,30 +7,12 @@ import type {
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
 } from '@codelab/shared/infra/gql'
-import type {
-  ITypeCreateInput,
-  ITypeUpdateVars,
-} from '@codelab/shared-domain-module/type'
 import type { ArrayOrSingle } from 'ts-essentials'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 
-import {
-  CreateActionTypes,
-  CreateAppTypes,
-  CreateArrayTypes,
-  CreateCodeMirrorTypes,
-  CreateElementTypes,
-  CreateEnumTypes,
-  CreateInterfaceTypes,
-  CreateLambdaTypes,
-  CreatePageTypes,
-  CreatePrimitiveTypes,
-  CreateReactNodeTypes,
-  CreateRenderPropTypes,
-  CreateRichTextTypes,
-  CreateUnionTypes,
-} from './create-type.api.graphql.web.gen'
+import type { ITypeCreateInput, ITypeUpdateVars } from '../type.input.interface'
+
 import {
   DeleteActionTypes,
   DeleteAppTypes,
@@ -72,43 +55,62 @@ type CreateTypesRecord = Record<
   (input: Array<ITypeCreateInput>) => Promise<Array<IRef>>
 >
 
-export const createTypeApi: CreateTypesRecord = {
-  [ITypeKind.ActionType]: (input) =>
-    CreateActionTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.AppType]: (input) =>
-    CreateAppTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.ArrayType]: (input) =>
-    CreateArrayTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.CodeMirrorType]: (input) =>
-    CreateCodeMirrorTypes({
-      input: input as ArrayOrSingle<CodeMirrorTypeCreateInput>,
-    }).then(({ types }) => types.types),
-  [ITypeKind.ElementType]: (input) =>
-    CreateElementTypes({
-      input: input as ArrayOrSingle<ElementTypeCreateInput>,
-    }).then(({ types }) => types.types),
-  [ITypeKind.EnumType]: (input) =>
-    CreateEnumTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.InterfaceType]: (input) =>
-    CreateInterfaceTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.LambdaType]: (input) =>
-    CreateLambdaTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.PageType]: (input) =>
-    CreatePageTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.PrimitiveType]: (input) =>
-    CreatePrimitiveTypes({
-      input: input as ArrayOrSingle<PrimitiveTypeCreateInput>,
-    }).then(({ types }) => types.types),
-  [ITypeKind.ReactNodeType]: (input) =>
-    CreateReactNodeTypes({
-      input: input as ArrayOrSingle<ReactNodeTypeCreateInput>,
-    }).then(({ types }) => types.types),
-  [ITypeKind.RenderPropType]: (input) =>
-    CreateRenderPropTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.RichTextType]: (input) =>
-    CreateRichTextTypes({ input }).then(({ types }) => types.types),
-  [ITypeKind.UnionType]: (input) =>
-    CreateUnionTypes({ input }).then(({ types }) => types.types),
+export const createTypeApi = async (): Promise<CreateTypesRecord> => {
+  const {
+    CreateActionTypes,
+    CreateAppTypes,
+    CreateArrayTypes,
+    CreateCodeMirrorTypes,
+    CreateElementTypes,
+    CreateEnumTypes,
+    CreateInterfaceTypes,
+    CreateLambdaTypes,
+    CreatePageTypes,
+    CreatePrimitiveTypes,
+    CreateReactNodeTypes,
+    CreateRenderPropTypes,
+    CreateRichTextTypes,
+    CreateUnionTypes,
+  } = await import('./create-type.api.graphql.web.gen')
+
+  return {
+    [ITypeKind.ActionType]: (input) =>
+      CreateActionTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.AppType]: (input) =>
+      CreateAppTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.ArrayType]: (input) =>
+      CreateArrayTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.CodeMirrorType]: (input) =>
+      CreateCodeMirrorTypes({
+        input: input as ArrayOrSingle<CodeMirrorTypeCreateInput>,
+      }).then(({ types }) => types.types),
+    [ITypeKind.ElementType]: (input) =>
+      CreateElementTypes({
+        input: input as ArrayOrSingle<ElementTypeCreateInput>,
+      }).then(({ types }) => types.types),
+    [ITypeKind.EnumType]: (input) =>
+      CreateEnumTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.InterfaceType]: (input) =>
+      CreateInterfaceTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.LambdaType]: (input) =>
+      CreateLambdaTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.PageType]: (input) =>
+      CreatePageTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.PrimitiveType]: (input) =>
+      CreatePrimitiveTypes({
+        input: input as ArrayOrSingle<PrimitiveTypeCreateInput>,
+      }).then(({ types }) => types.types),
+    [ITypeKind.ReactNodeType]: (input) =>
+      CreateReactNodeTypes({
+        input: input as ArrayOrSingle<ReactNodeTypeCreateInput>,
+      }).then(({ types }) => types.types),
+    [ITypeKind.RenderPropType]: (input) =>
+      CreateRenderPropTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.RichTextType]: (input) =>
+      CreateRichTextTypes({ input }).then(({ types }) => types.types),
+    [ITypeKind.UnionType]: (input) =>
+      CreateUnionTypes({ input }).then(({ types }) => types.types),
+  }
 }
 
 export const getAllTypes = async (
@@ -235,3 +237,5 @@ export const deleteTypeApi: DeleteTypesRecord = {
   [ITypeKind.UnionType]: (vars) =>
     DeleteUnionTypes(vars).then((results) => results.deleteUnionTypes),
 }
+
+export const typeServerActions = () => {}

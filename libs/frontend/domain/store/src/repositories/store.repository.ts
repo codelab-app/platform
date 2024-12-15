@@ -10,16 +10,15 @@ import {
   type IStoreRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
-import { storeMapper } from '@codelab/shared-domain-module/store'
+import {
+  storeMapper,
+  storeServerActions,
+} from '@codelab/shared-domain-module/store'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { revalidateTag } from 'next/cache'
 
-import {
-  CreateStores,
-  DeleteStores,
-  GetStores,
-  UpdateStores,
-} from './store.api.graphql.web.gen'
+const { CreateStores, DeleteStores, GetStores, UpdateStores } =
+  storeServerActions()
 
 export const storeRepository: IStoreRepository = withTracingMethods('store', {
   add: async (input: IStoreDto) => {
