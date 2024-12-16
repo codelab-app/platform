@@ -162,6 +162,8 @@ export class TypeFactory {
     type: TypeCreateMap[T['kind']]['dto'],
     where?: TypeCreateMap[T['kind']]['where'],
   ): Promise<IRef> {
+    console.log('Saving type', type, where)
+
     /**
      * Type narrow using discriminated union
      */

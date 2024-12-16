@@ -1,7 +1,6 @@
 import { graphqlClient } from '@codelab/shared/infra/gql-client'
 
 import { getSdk } from './component.api.graphql.api.gen'
-
 import {
   ComponentList,
   CreateComponents,

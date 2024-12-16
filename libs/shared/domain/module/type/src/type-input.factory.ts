@@ -3,10 +3,20 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { titleCase } from '@codelab/shared/utils'
 
-export const makeAllTypes = (input?: IPropData) =>
+export const typesOfUnionType = (input?: IPropData) =>
   Object.values(ITypeKind)
     .map((kind) => ({ [kind]: input }))
     .reduce((all, current) => ({ ...all, ...current }), {})
+
+export const typesOfUnionTypeDisconnect = (input?: IPropData) =>
+  Object.values(ITypeKind).map((kind) => ({
+    /**
+     *  ActionType?: InputMaybe<
+          Array<UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput>
+        >
+     */
+    [kind]: [input],
+  }))
 
 export const getApiName = (name: string) => {
   return `${name} API`

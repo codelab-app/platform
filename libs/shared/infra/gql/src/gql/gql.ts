@@ -402,6 +402,8 @@ const documents = {
     types.CreateUserDocument,
   '\n  mutation DeleteUsers($where: UserWhere!) {\n    deleteUsers(where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteUsersDocument,
+  '\n  mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        id\n      }\n    }\n  }\n':
+    types.UpdateUsersDocument,
 }
 
 /**
@@ -1580,6 +1582,12 @@ export function graphql(
 export function graphql(
   source: '\n  mutation DeleteUsers($where: UserWhere!) {\n    deleteUsers(where: $where) {\n      nodesDeleted\n    }\n  }\n',
 ): (typeof documents)['\n  mutation DeleteUsers($where: UserWhere!) {\n    deleteUsers(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {\n    updateUsers(update: $update, where: $where) {\n      users {\n        id\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

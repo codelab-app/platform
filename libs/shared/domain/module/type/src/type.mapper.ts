@@ -24,7 +24,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 
-import { makeAllTypes } from './type-input.factory'
+import { typesOfUnionType } from './type-input.factory'
 
 const createOrUpdateActionType = (dto: IActionTypeDto) => ({
   id: dto.id,
@@ -326,7 +326,7 @@ export const unionTypeMapper: IMapper<
     kind: dto.kind,
     name: dto.name,
     owner: connectOwner(dto.owner),
-    typesOfUnionType: makeAllTypes({
+    typesOfUnionType: typesOfUnionType({
       connect: dto.typesOfUnionType.map((unionTypeId) => ({
         where: { node: { id: unionTypeId } },
       })),
@@ -334,19 +334,21 @@ export const unionTypeMapper: IMapper<
   }),
   toDeleteInput: () => ({}),
   toUpdateInput: (dto) => ({
-    typesOfUnionType: makeAllTypes({
+    typesOfUnionType: typesOfUnionType({
       connect: dto.typesOfUnionType.map(({ id }) => ({
         where: { node: { id } },
       })),
-      disconnect: {
-        typesOfUnionType: makeAllTypes({
-          where: {
-            node: {
-              id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id),
-            },
-          },
-        }),
-      },
+      // disconnect: [
+      //   {
+      //     typesOfUnionType: typesOfUnionType({
+      //       where: {
+      //         node: {
+      //           id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id),
+      //         },
+      //       },
+      //     }),
+      //   },
+      // ],
     }),
   }),
 }

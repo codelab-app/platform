@@ -47,13 +47,13 @@ export class UserRepository extends AbstractRepository<
   }
 
   protected async _update(user: IUserDto, where: UserWhere) {
-    // const {
-    //   updateUsers: { users },
-    // } = await userApi().({
-    //   update: userMapper.toUpdateInput(user),
-    //   where,
-    // })
+    const {
+      updateUsers: { users },
+    } = await userApi().UpdateUsers({
+      update: userMapper.toUpdateInput(user),
+      where,
+    })
 
-    return undefined
+    return users[0]
   }
 }
