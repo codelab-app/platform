@@ -16,8 +16,7 @@ import {
   resourceServerActions,
 } from '@codelab/shared-domain-module/resource'
 
-const { CreateResources, DeleteResources, ResourceList, UpdateResource } =
-  await resourceServerActions()
+const { CreateResources, DeleteResources, ResourceList, UpdateResource } = resourceServerActions
 
 export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceDto) => {

@@ -11,8 +11,7 @@ import {
   redirectServerActions,
 } from '@codelab/shared-domain-module/redirect'
 
-const { CreateRedirects, DeleteRedirects, GetRedirects, UpdateRedirects } =
-  await redirectServerActions()
+const { CreateRedirects, DeleteRedirects, GetRedirects, UpdateRedirects } = redirectServerActions
 
 export const redirectRepository: IRedirectRepository = {
   add: async (redirect: IRedirectDto) => {

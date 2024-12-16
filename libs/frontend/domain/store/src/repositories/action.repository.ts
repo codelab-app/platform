@@ -24,16 +24,13 @@ import {
   actionUpdateServerActions,
 } from '@codelab/shared-domain-module/store'
 
-const { CreateApiActions, CreateCodeActions } =
-  await actionCreateServerActions()
+const { CreateApiActions, CreateCodeActions } = actionCreateServerActions
 
-const { UpdateApiActions, UpdateCodeActions } =
-  await actionUpdateServerActions()
+const { UpdateApiActions, UpdateCodeActions } = actionUpdateServerActions
 
-const { DeleteApiActions, DeleteCodeActions } =
-  await actionDeleteServerActions()
+const { DeleteApiActions, DeleteCodeActions } = actionDeleteServerActions
 
-const { GetActions } = await actionFindApi()
+const { GetActions } = actionFindApi
 
 /**
  * We can't use type api record approach since we need nested created for here, we need switch case to map the data

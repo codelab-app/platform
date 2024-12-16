@@ -9,7 +9,7 @@ import { uniqueBy } from 'remeda'
 
 //  In production we have domain and pageUrlPattern we filter app by domain and page by url
 
-const { GetAppProduction } = await appServerActions
+const { GetAppProduction } = appServerActions
 
 export const appProductionRepository = async ({
   domainSlug,
