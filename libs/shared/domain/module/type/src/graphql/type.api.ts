@@ -27,25 +27,24 @@ type CreateTypes = Record<
   (input: Array<ITypeCreateInput>) => Promise<Array<IRef>>
 >
 
-export const createTypeServerActions = async (): Promise<CreateTypes> => {
-  const {
-    CreateActionTypes,
-    CreateAppTypes,
-    CreateArrayTypes,
-    CreateCodeMirrorTypes,
-    CreateElementTypes,
-    CreateEnumTypes,
-    CreateInterfaceTypes,
-    CreateLambdaTypes,
-    CreatePageTypes,
-    CreatePrimitiveTypes,
-    CreateReactNodeTypes,
-    CreateRenderPropTypes,
-    CreateRichTextTypes,
-    CreateUnionTypes,
-  } = await import('./create-type.api.graphql.web.gen')
+import {
+  CreateActionTypes,
+  CreateAppTypes,
+  CreateArrayTypes,
+  CreateCodeMirrorTypes,
+  CreateElementTypes,
+  CreateEnumTypes,
+  CreateInterfaceTypes,
+  CreateLambdaTypes,
+  CreatePageTypes,
+  CreatePrimitiveTypes,
+  CreateReactNodeTypes,
+  CreateRenderPropTypes,
+  CreateRichTextTypes,
+  CreateUnionTypes,
+} from './create-type.api.graphql.web.gen'
 
-  return {
+export const createTypeServerActions: CreateTypes = {
     [ITypeKind.ActionType]: (input) =>
       CreateActionTypes({ input }).then(({ types }) => types.types),
     [ITypeKind.AppType]: (input) =>
@@ -85,11 +84,9 @@ export const createTypeServerActions = async (): Promise<CreateTypes> => {
   }
 }
 
-export const findTypeServerActions = async () => {
-  const GetTypes = await import('./get-type.api.graphql.web.gen')
-  const GetTypeReferences = await import('./type.api.graphql.web.gen')
-
-  return { ...GetTypes, ...GetTypeReferences }
+export const findTypeServerActions = {
+  ...GetTypes,
+  ...GetTypeReferences,
 }
 
 export const getAllTypes = async (
@@ -142,25 +139,24 @@ type UpdateTypesRecord = Record<
   (vars: ITypeUpdateVars) => Promise<Array<IRef>>
 >
 
-export const updateTypeServerActions = async (): Promise<UpdateTypesRecord> => {
-  const {
-    UpdateActionTypes,
-    UpdateAppTypes,
-    UpdateArrayTypes,
-    UpdateCodeMirrorTypes,
-    UpdateElementTypes,
-    UpdateEnumTypes,
-    UpdateInterfaceTypes,
-    UpdateLambdaTypes,
-    UpdatePageTypes,
-    UpdatePrimitiveTypes,
-    UpdateReactNodeTypes,
-    UpdateRenderPropTypes,
-    UpdateRichTextTypes,
-    UpdateUnionTypes,
-  } = await import('./update-type.api.graphql.web.gen')
+import {
+  UpdateActionTypes,
+  UpdateAppTypes,
+  UpdateArrayTypes,
+  UpdateCodeMirrorTypes,
+  UpdateElementTypes,
+  UpdateEnumTypes,
+  UpdateInterfaceTypes,
+  UpdateLambdaTypes,
+  UpdatePageTypes,
+  UpdatePrimitiveTypes,
+  UpdateReactNodeTypes,
+  UpdateRenderPropTypes,
+  UpdateRichTextTypes,
+  UpdateUnionTypes,
+} from './update-type.api.graphql.web.gen'
 
-  return {
+export const updateTypeServerActions: UpdateTypesRecord = {
     [ITypeKind.ActionType]: (vars) =>
       UpdateActionTypes(vars).then(({ types }) => types.types),
     [ITypeKind.AppType]: (vars) =>
@@ -203,25 +199,24 @@ type DeleteTypesRecord = Record<
   }) => Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
 >
 
-export const deleteTypeServerActions = async (): Promise<DeleteTypesRecord> => {
-  const {
-    DeleteActionTypes,
-    DeleteAppTypes,
-    DeleteArrayTypes,
-    DeleteCodeMirrorTypes,
-    DeleteElementTypes,
-    DeleteEnumTypes,
-    DeleteInterfaceTypes,
-    DeleteLambdaTypes,
-    DeletePageTypes,
-    DeletePrimitiveTypes,
-    DeleteReactNodeTypes,
-    DeleteRenderPropTypes,
-    DeleteRichTextTypes,
-    DeleteUnionTypes,
-  } = await import('./delete-type.api.graphql.web.gen')
+import {
+  DeleteActionTypes,
+  DeleteAppTypes,
+  DeleteArrayTypes,
+  DeleteCodeMirrorTypes,
+  DeleteElementTypes,
+  DeleteEnumTypes,
+  DeleteInterfaceTypes,
+  DeleteLambdaTypes,
+  DeletePageTypes,
+  DeletePrimitiveTypes,
+  DeleteReactNodeTypes,
+  DeleteRenderPropTypes,
+  DeleteRichTextTypes,
+  DeleteUnionTypes,
+} from './delete-type.api.graphql.web.gen'
 
-  return {
+export const deleteTypeServerActions: DeleteTypesRecord = {
     [ITypeKind.ActionType]: (vars) =>
       DeleteActionTypes(vars).then((results) => results.deleteActionTypes),
     [ITypeKind.AppType]: (vars) =>
