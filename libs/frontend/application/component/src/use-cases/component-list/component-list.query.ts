@@ -5,7 +5,7 @@ import { getServerUser } from '@codelab/frontend-application-user/use-cases/serv
 import { componentServerActions } from '@codelab/shared-domain-module/component'
 import { revalidateTag } from 'next/cache'
 
-const { ComponentList } = await componentServerActions()
+const { ComponentList } = componentServerActions
 
 export const componentListQuery = async () => {
   const { id } = await getServerUser()
