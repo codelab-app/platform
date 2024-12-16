@@ -4,5 +4,16 @@ import { getSdk } from './resource.api.graphql.api.gen'
 
 export const resourceApi = () => getSdk(graphqlClient)
 
-export const resourceServerActions = () =>
-  import('./resource.api.graphql.web.gen')
+import {
+  CreateResources,
+  DeleteResources,
+  GetResources,
+  UpdateResources,
+} from './resource.api.graphql.web.gen'
+
+export const resourceServerActions = {
+  CreateResources,
+  DeleteResources,
+  GetResources,
+  UpdateResources,
+}
