@@ -4,4 +4,18 @@ import { getSdk } from './page.api.graphql.api.gen'
 
 export const pageApi = () => getSdk(graphqlClient)
 
-export const pageServerActions = () => import('./page.api.graphql.web.gen')
+import {
+  CreatePages,
+  DeletePages,
+  GetRenderedPage,
+  PageList,
+  UpdatePages,
+} from './page.api.graphql.web.gen'
+
+export const pageServerActions = {
+  CreatePages,
+  DeletePages,
+  GetRenderedPage,
+  PageList,
+  UpdatePages,
+}

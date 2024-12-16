@@ -4,4 +4,14 @@ import { getSdk } from './user.api.graphql.api.gen'
 
 export const userApi = () => getSdk(graphqlClient)
 
-export const userServerActions = () => import('./user.api.graphql.web.gen')
+import {
+  CreateUser,
+  DeleteUsers,
+  GetUsers,
+} from './user.api.graphql.web.gen'
+
+export const userServerActions = {
+  CreateUser,
+  DeleteUsers,
+  GetUsers,
+}

@@ -4,5 +4,16 @@ import { getSdk } from './redirect.api.graphql.api.gen'
 
 export const redirectApi = () => getSdk(graphqlClient)
 
-export const redirectServerActions = () =>
-  import('./redirect.api.graphql.web.gen')
+import {
+  CreateRedirects,
+  DeleteRedirects,
+  GetRedirects,
+  UpdateRedirects,
+} from './redirect.api.graphql.web.gen'
+
+export const redirectServerActions = {
+  CreateRedirects,
+  DeleteRedirects,
+  GetRedirects,
+  UpdateRedirects,
+}
