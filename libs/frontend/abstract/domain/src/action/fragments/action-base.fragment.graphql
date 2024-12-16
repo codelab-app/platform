@@ -2,10 +2,9 @@ fragment BaseAction on BaseAction {
   __typename
   id
   name
-  kind
+  type
   store {
     id
     name
   }
-  type
 }

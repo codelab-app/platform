@@ -24,8 +24,11 @@ export const CreateResourcesDocument = graphql(`
   }
 `)
 
-export const UpdateResourceDocument = graphql(`
-  mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
+export const UpdateResourcesDocument = graphql(`
+  mutation UpdateResources(
+    $where: ResourceWhere
+    $update: ResourceUpdateInput
+  ) {
     updateResources(update: $update, where: $where) {
       resources {
         id

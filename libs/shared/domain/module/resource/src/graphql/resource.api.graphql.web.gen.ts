@@ -7,13 +7,13 @@ import { ResourceFragmentDoc } from '@codelab/shared/infra/gql'
 import {
   type ResourceListQueryVariables,
   type CreateResourcesMutationVariables,
-  type UpdateResourceMutationVariables,
+  type UpdateResourcesMutationVariables,
   type DeleteResourcesMutationVariables,
 } from '@codelab/shared/infra/gql'
 import {
   ResourceListDocument,
   CreateResourcesDocument,
-  UpdateResourceDocument,
+  UpdateResourcesDocument,
   DeleteResourcesDocument,
 } from './resource.api.graphql.docs.gen'
 
@@ -27,10 +27,10 @@ export const CreateResources = (
   next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlServerRequest(CreateResourcesDocument.toString(), variables, next)
 
-export const UpdateResource = (
-  variables: UpdateResourceMutationVariables,
+export const UpdateResources = (
+  variables: UpdateResourcesMutationVariables,
   next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(UpdateResourceDocument.toString(), variables, next)
+) => gqlServerRequest(UpdateResourcesDocument.toString(), variables, next)
 
 export const DeleteResources = (
   variables: DeleteResourcesMutationVariables,
