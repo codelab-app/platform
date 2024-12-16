@@ -32455,7 +32455,7 @@ export type UpdateCodeActionsMutationVariables = Exact<{
 }>
 
 export type UpdateCodeActionsMutation = {
-  updateCodeActions: { actions: Array<{ id: string }> }
+  updateCodeActions: { codeActions: Array<{ id: string }> }
 }
 
 export type UpdateApiActionsMutationVariables = Exact<{
@@ -32464,7 +32464,7 @@ export type UpdateApiActionsMutationVariables = Exact<{
 }>
 
 export type UpdateApiActionsMutation = {
-  updateApiActions: { actions: Array<{ id: string }> }
+  updateApiActions: { apiActions: Array<{ id: string }> }
 }
 
 export type CreateTagsMutationVariables = Exact<{
@@ -40757,7 +40757,7 @@ export const UpdateStoresDocument = new TypedDocumentString(`
 export const UpdateCodeActionsDocument = new TypedDocumentString(`
     mutation UpdateCodeActions($update: CodeActionUpdateInput, $where: CodeActionWhere) {
   updateCodeActions(update: $update, where: $where) {
-    actions: codeActions {
+    codeActions {
       id
     }
   }
@@ -40769,7 +40769,7 @@ export const UpdateCodeActionsDocument = new TypedDocumentString(`
 export const UpdateApiActionsDocument = new TypedDocumentString(`
     mutation UpdateApiActions($update: ApiActionUpdateInput, $where: ApiActionWhere) {
   updateApiActions(update: $update, where: $where) {
-    actions: apiActions {
+    apiActions {
       id
     }
   }

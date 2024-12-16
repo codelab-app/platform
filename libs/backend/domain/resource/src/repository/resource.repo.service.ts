@@ -52,7 +52,7 @@ export class ResourceRepository extends AbstractRepository<
   protected async _update(resource: IResourceDto, where: ResourceWhere) {
     const {
       updateResources: { resources },
-    } = await resourceApi().UpdateResource({
+    } = await resourceApi().UpdateResources({
       update: resourceMapper.toUpdateInput(resource),
       where,
     })

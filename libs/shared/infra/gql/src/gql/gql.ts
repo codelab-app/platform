@@ -250,9 +250,9 @@ const documents = {
     types.GetStoresDocument,
   '\n  mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {\n    updateStores(update: $update, where: $where) {\n      stores {\n        id\n      }\n    }\n  }\n':
     types.UpdateStoresDocument,
-  '\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      actions: codeActions {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      codeActions {\n        id\n      }\n    }\n  }\n':
     types.UpdateCodeActionsDocument,
-  '\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      actions: apiActions {\n        id\n      }\n    }\n  }\n':
+  '\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      apiActions {\n        id\n      }\n    }\n  }\n':
     types.UpdateApiActionsDocument,
   '\n  mutation CreateTags($input: [TagCreateInput!]!) {\n    createTags(input: $input) {\n      tags {\n        id\n      }\n    }\n  }\n':
     types.CreateTagsDocument,
@@ -1128,14 +1128,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      actions: codeActions {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      actions: codeActions {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      codeActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateCodeActions(\n    $update: CodeActionUpdateInput\n    $where: CodeActionWhere\n  ) {\n    updateCodeActions(update: $update, where: $where) {\n      codeActions {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      actions: apiActions {\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      actions: apiActions {\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      apiActions {\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateApiActions(\n    $update: ApiActionUpdateInput\n    $where: ApiActionWhere\n  ) {\n    updateApiActions(update: $update, where: $where) {\n      apiActions {\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
