@@ -10570,6 +10570,7 @@ type Element {
   closestContainerNode: ContainerNode!
   compositeKey: String!
   dependantTypes: [AnyType!]!
+  descendants: [Element!]!
   expanded: Boolean
   firstChild(
     directed: Boolean = true

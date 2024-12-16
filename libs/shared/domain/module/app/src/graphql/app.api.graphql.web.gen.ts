@@ -1,30 +1,31 @@
 import * as Types from '@codelab/shared/infra/gql'
 
-import {
-  AppListPreviewDocument,
-  AppListPreviewQueryVariables,
-  GetAppProductionDocument,
-  GetAppProductionQueryVariables,
-  graphql,
-} from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gql'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
 import {
+  AppPreviewFragmentDoc,
   AppFragmentDoc,
+  AppProductionFragmentDoc,
   AtomBuilderFragmentDoc,
   AtomProductionFragmentDoc,
+  ResourceFragmentDoc,
 } from '@codelab/shared/infra/gql'
 
 import {
   type CreateAppsMutationVariables,
   type UpdateAppsMutationVariables,
   type DeleteAppsMutationVariables,
+  type AppListPreviewQueryVariables,
   type AppListQueryVariables,
+  type GetAppProductionQueryVariables,
 } from '@codelab/shared/infra/gql'
 import {
   CreateAppsDocument,
   UpdateAppsDocument,
   DeleteAppsDocument,
+  AppListPreviewDocument,
   AppListDocument,
+  GetAppProductionDocument,
 } from './app.api.graphql.docs.gen'
 
 export const CreateApps = (

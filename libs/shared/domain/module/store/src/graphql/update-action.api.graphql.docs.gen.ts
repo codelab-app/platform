@@ -8,7 +8,7 @@ export const UpdateCodeActionsDocument = graphql(`
     $where: CodeActionWhere
   ) {
     updateCodeActions(update: $update, where: $where) {
-      codeActions {
+      actions: codeActions {
         id
       }
     }
@@ -21,7 +21,7 @@ export const UpdateApiActionsDocument = graphql(`
     $where: ApiActionWhere
   ) {
     updateApiActions(update: $update, where: $where) {
-      apiActions {
+      actions: apiActions {
         id
       }
     }
