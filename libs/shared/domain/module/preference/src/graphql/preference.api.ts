@@ -4,5 +4,16 @@ import { getSdk } from './preference.api.graphql.api.gen'
 
 export const preferenceApi = () => getSdk(graphqlClient)
 
-export const preferenceServerActions = () =>
-  import('./preference.api.graphql.web.gen')
+import {
+  CreatePreferences,
+  DeletePreferences,
+  GetPreferences,
+  UpdatePreferences,
+} from './preference.api.graphql.web.gen'
+
+export const preferenceServerActions = {
+  CreatePreferences,
+  DeletePreferences,
+  GetPreferences,
+  UpdatePreferences,
+}

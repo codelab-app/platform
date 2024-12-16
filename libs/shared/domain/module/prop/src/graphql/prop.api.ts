@@ -4,4 +4,16 @@ import { getSdk } from './prop.api.graphql.api.gen'
 
 export const propApi = () => getSdk(graphqlClient)
 
-export const propServerActions = () => import('./prop.api.graphql.web.gen')
+import {
+  CreateProps,
+  DeleteProps,
+  GetProps,
+  UpdateProps,
+} from './prop.api.graphql.web.gen'
+
+export const propServerActions = {
+  CreateProps,
+  DeleteProps,
+  GetProps,
+  UpdateProps,
+}

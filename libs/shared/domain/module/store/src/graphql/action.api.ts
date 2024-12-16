@@ -7,14 +7,38 @@ import { getSdk as getDeleteSdk } from './delete-action.api.graphql.api.gen'
 import { getSdk as getFindSdk } from './get-action.api.graphql.api.gen'
 import { getSdk as getUpdateSdk } from './update-action.api.graphql.api.gen'
 
-export const actionCreateServerActions = () =>
-  import('./create-action.api.graphql.web.gen')
+import {
+  CreateApiActions,
+  CreateCodeActions,
+} from './create-action.api.graphql.web.gen'
+import {
+  DeleteApiActions,
+  DeleteCodeActions,
+} from './delete-action.api.graphql.web.gen'
+import { GetActions } from './get-action.api.graphql.web.gen'
+import {
+  UpdateApiActions,
+  UpdateCodeActions,
+} from './update-action.api.graphql.web.gen'
 
-export const actionUpdateServerActions = () =>
-  import('./update-action.api.graphql.web.gen')
+export const actionCreateServerActions = {
+  CreateApiActions,
+  CreateCodeActions,
+}
 
-export const actionDeleteServerActions = () =>
-  import('./delete-action.api.graphql.web.gen')
+export const actionUpdateServerActions = {
+  UpdateApiActions,
+  UpdateCodeActions,
+}
+
+export const actionDeleteServerActions = {
+  DeleteApiActions,
+  DeleteCodeActions,
+}
+
+export const actionGetServerActions = {
+  GetActions,
+}
 
 export const actionCreateApi = () => getCreateSdk(graphqlClient)
 

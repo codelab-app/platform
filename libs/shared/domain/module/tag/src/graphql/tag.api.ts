@@ -4,4 +4,16 @@ import { getSdk } from './tag.api.graphql.api.gen'
 
 export const tagApi = () => getSdk(graphqlClient)
 
-export const tagServerActions = () => import('./tag.api.graphql.web.gen')
+import {
+  CreateTags,
+  DeleteTags,
+  GetTags,
+  UpdateTags,
+} from './tag.api.graphql.web.gen'
+
+export const tagServerActions = {
+  CreateTags,
+  DeleteTags,
+  GetTags,
+  UpdateTags,
+}
