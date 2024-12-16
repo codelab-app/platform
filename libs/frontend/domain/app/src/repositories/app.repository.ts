@@ -13,8 +13,7 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { appMapper, appServerActions } from '@codelab/shared-domain-module-app'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 
-const { AppList, AppListPreview, CreateApps, DeleteApps, UpdateApps } =
-  await appServerActions
+const { AppList, AppListPreview, CreateApps, DeleteApps, UpdateApps } = appServerActions
 
 export const appRepository: IAppRepository = withTracingMethods('app', {
   add: async (input: IAppDto) => {

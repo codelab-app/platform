@@ -17,8 +17,7 @@ import {
 } from '@codelab/shared-domain-module/domain'
 import { revalidateTag } from 'next/cache'
 
-const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
-  await domainServerActions()
+const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } = domainServerActions
 
 export const domainRepository: IDomainRepository = {
   add: async (domain: IDomainDto) => {
