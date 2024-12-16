@@ -33134,6 +33134,15 @@ export type DeleteUsersMutationVariables = Exact<{
 
 export type DeleteUsersMutation = { deleteUsers: { nodesDeleted: number } }
 
+export type UpdateUsersMutationVariables = Exact<{
+  where: UserWhere
+  update: UserUpdateInput
+}>
+
+export type UpdateUsersMutation = {
+  updateUsers: { users: Array<{ id: string }> }
+}
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -43287,4 +43296,16 @@ export const DeleteUsersDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   DeleteUsersMutation,
   DeleteUsersMutationVariables
+>
+export const UpdateUsersDocument = new TypedDocumentString(`
+    mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {
+  updateUsers(update: $update, where: $where) {
+    users {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  UpdateUsersMutation,
+  UpdateUsersMutationVariables
 >

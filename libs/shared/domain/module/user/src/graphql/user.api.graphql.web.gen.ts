@@ -8,11 +8,13 @@ import {
   type GetUsersQueryVariables,
   type CreateUserMutationVariables,
   type DeleteUsersMutationVariables,
+  type UpdateUsersMutationVariables,
 } from '@codelab/shared/infra/gql'
 import {
   GetUsersDocument,
   CreateUserDocument,
   DeleteUsersDocument,
+  UpdateUsersDocument,
 } from './user.api.graphql.docs.gen'
 
 export const GetUsers = (
@@ -29,3 +31,8 @@ export const DeleteUsers = (
   variables: DeleteUsersMutationVariables,
   next?: NextFetchRequestConfig & { revalidateTag?: string },
 ) => gqlServerRequest(DeleteUsersDocument.toString(), variables, next)
+
+export const UpdateUsers = (
+  variables: UpdateUsersMutationVariables,
+  next?: NextFetchRequestConfig & { revalidateTag?: string },
+) => gqlServerRequest(UpdateUsersDocument.toString(), variables, next)

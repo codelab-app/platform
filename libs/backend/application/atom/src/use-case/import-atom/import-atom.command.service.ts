@@ -27,6 +27,8 @@ export class ImportAtomHandler
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
+    console.log('Saving atom...')
+
     await this.atomRepository.save(atom)
   }
 }

@@ -32,3 +32,13 @@ export const DeleteUsersDocument = graphql(`
     }
   }
 `)
+
+export const UpdateUsersDocument = graphql(`
+  mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {
+    updateUsers(update: $update, where: $where) {
+      users {
+        id
+      }
+    }
+  }
+`)

@@ -21,3 +21,11 @@ mutation DeleteUsers($where: UserWhere!) {
     nodesDeleted
   }
 }
+
+mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {
+  updateUsers(update: $update, where: $where) {
+    users {
+      id
+    }
+  }
+}

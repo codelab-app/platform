@@ -246,7 +246,7 @@ export abstract class AbstractRepository<
     existing?: Model,
   ): Promise<IRef | undefined>
 
-  private DEBUG = false
+  private DEBUG = true
 
   /**
    * Specifying a `where` clause overrides the  id
