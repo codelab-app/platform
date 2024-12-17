@@ -31,7 +31,8 @@
     "cpack": "scripts/circleci/circleci-pack.sh",
     "git:prune": "git gc --aggressive --prune=now",
     "prepare": "husky",
-    "knip": "knip"
+    "knip": "knip",
+    "aider": "node scripts/aider/run.js"
   },
   "private": true,
   "dependencies": {
