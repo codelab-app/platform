@@ -26,7 +26,7 @@ const { GetBaseTypes, GetDescendants } = findTypeServerActions
 export const typeRepository: ITypeRepository = {
   add: async (input: ITypeDto) => {
     const createAction = async (type: ITypeKind) =>
-      (await createTypeServerActions())[type]
+      (await createTypeServerActions)[type]
 
     switch (input.__typename) {
       case ITypeKind.ActionType: {
@@ -134,7 +134,7 @@ export const typeRepository: ITypeRepository = {
 
   delete: async (types: Array<ITypeRef>) => {
     const deleteAction = async (type: ITypeKind) =>
-      (await deleteTypeServerActions())[type]
+      (await deleteTypeServerActions)[type]
 
     const results = await Promise.all(
       types.map(
@@ -221,7 +221,7 @@ export const typeRepository: ITypeRepository = {
     Validator.assertsDefined(input.__typename)
 
     const updateAction = async (type: ITypeKind) =>
-      (await updateTypeServerActions())[type]
+      (await updateTypeServerActions)[type]
 
     switch (input.__typename) {
       case ITypeKind.ActionType: {

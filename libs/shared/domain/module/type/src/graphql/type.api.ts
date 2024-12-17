@@ -49,7 +49,11 @@ import {
   DeleteUnionTypes,
 } from './delete-type.api.graphql.web.gen'
 import { getSdk as getFindSdk } from './get-type.api.graphql.api.gen'
-import { GetTypes } from './get-type.api.graphql.web.gen'
+import {
+  GetBaseTypes,
+  GetDescendants,
+  GetTypes,
+} from './get-type.api.graphql.web.gen'
 import {
   GetTypeReferences,
   IsTypeDescendantOf,
@@ -120,6 +124,8 @@ export const createTypeServerActions: CreateTypes = {
 }
 
 export const findTypeServerActions = {
+  GetBaseTypes,
+  GetDescendants,
   GetTypeReferences,
   GetTypes,
   IsTypeDescendantOf,
