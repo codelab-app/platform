@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 
 import { useTypeService } from '../../services'
 
-const { GetTypeReferences } = await findTypeServerActions()
+const { GetTypeReferences } = findTypeServerActions
 
 export const DeleteTypeModal = observer<{ id: string }>(({ id }) => {
   const typeService = useTypeService()

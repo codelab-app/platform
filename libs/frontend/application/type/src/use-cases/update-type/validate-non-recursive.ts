@@ -6,7 +6,7 @@ const getInnerTypeIds = (submitData: ITypeUpdateDto) => [
   ...(submitData.unionTypeIds ?? []),
 ]
 
-const { IsTypeDescendantOf } = await findTypeServerActions()
+const { IsTypeDescendantOf } = findTypeServerActions
 
 // Check if the updated type is not a descendant of any of the inner types
 // because this would cause a circular dependency between them and

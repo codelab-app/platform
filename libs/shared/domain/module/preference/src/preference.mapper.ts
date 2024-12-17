@@ -5,6 +5,8 @@ import type {
   PreferenceUpdateInput,
 } from '@codelab/shared/infra/gql'
 
+import { connectOwner } from '@codelab/shared/domain/orm'
+
 export const preferenceMapper: IMapper<
   IPreferenceDto,
   PreferenceCreateInput,
@@ -21,6 +23,7 @@ export const preferenceMapper: IMapper<
       builderBreakpointType,
       builderWidth,
       id,
+      owner: connectOwner(owner),
     }
   },
 

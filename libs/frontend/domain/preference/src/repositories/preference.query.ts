@@ -11,7 +11,7 @@ import { Validator } from '@codelab/shared/infra/schema'
 import { preferenceServerActions } from '@codelab/shared-domain-module/preference'
 import { revalidateTag } from 'next/cache'
 
-const { GetPreferences } = await preferenceServerActions()
+const { GetPreferences } = preferenceServerActions
 
 export const preferenceQuery = async (
   where?: PreferenceWhere,

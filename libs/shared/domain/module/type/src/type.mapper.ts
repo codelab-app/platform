@@ -327,8 +327,8 @@ export const unionTypeMapper: IMapper<
     name: dto.name,
     owner: connectOwner(dto.owner),
     typesOfUnionType: typesOfUnionType({
-      connect: dto.typesOfUnionType.map((unionTypeId) => ({
-        where: { node: { id: unionTypeId } },
+      connect: dto.typesOfUnionType.map(({ id }) => ({
+        where: { node: { id } },
       })),
     }),
   }),
