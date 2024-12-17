@@ -31,7 +31,14 @@ export const ElementResolverProvider: FactoryProvider<
       Element: {
         __typename: 'Element',
         // We only use the OGM resolver, but we set a dummy resolver here to hide the console errors
-        dependantTypes: [],
+        dependantTypes: (node) => {
+          console.warn(
+            'Fetching dependant types field resolver, not yet implemented!',
+            node,
+          )
+
+          return []
+        },
         descendants: descendants(neo4jService),
         name,
         // renderType,

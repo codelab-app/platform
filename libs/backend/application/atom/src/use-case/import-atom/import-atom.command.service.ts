@@ -30,5 +30,7 @@ export class ImportAtomHandler
     console.log('Saving atom...')
 
     await this.atomRepository.save(atom)
+
+    console.log('Atom saved')
   }
 }

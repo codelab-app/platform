@@ -22,10 +22,13 @@ export class ImportApiHandler
     } = command
 
     for (const type of types) {
+      console.log(`Importing type ${type.name}`)
       await this.typeFactory.save(type)
+      console.log('Type saved')
     }
 
     for (const field of fields) {
+      console.log(`Importing field ${field.name}`)
       await this.fieldRepository.save(field)
     }
   }
