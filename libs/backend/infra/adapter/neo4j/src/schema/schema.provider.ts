@@ -26,7 +26,7 @@ import { typeDefs } from './type-defs'
 export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
   inject: [NEO4J_DRIVER_PROVIDER, RESOLVER_PROVIDER],
   provide: GRAPHQL_SCHEMA_PROVIDER,
-  useFactory: async (driver: Driver, pureResolvers: IResolvers) => {
+  useFactory: async (driver: Driver, resolvers: IResolvers) => {
     try {
       const neo4jGraphQL = new Neo4jGraphQL({
         driver,
@@ -55,7 +55,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
           },
           subscriptions: true,
         },
-        resolvers: mergeResolvers([pureResolvers]),
+        resolvers: mergeResolvers([resolvers]),
         typeDefs,
       })
 
@@ -65,7 +65,6 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
 
       await neo4jGraphQL.assertIndexesAndConstraints({
         driver,
-        // options: { create: true },
       })
 
       return schema
