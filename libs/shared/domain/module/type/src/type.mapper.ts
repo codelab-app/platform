@@ -338,17 +338,15 @@ export const unionTypeMapper: IMapper<
       connect: dto.typesOfUnionType.map(({ id }) => ({
         where: { node: { id } },
       })),
-      // disconnect: [
-      //   {
-      //     typesOfUnionType: typesOfUnionType({
-      //       where: {
-      //         node: {
-      //           id_NOT_IN: dto.typesOfUnionType.map(({ id }) => id),
-      //         },
-      //       },
-      //     }),
-      //   },
-      // ],
+      disconnect: Object.values(ITypeKind).map((kind) => ({
+        where: {
+          node: {
+            NOT: {
+              id_IN: dto.typesOfUnionType.map(({ id }) => id),
+            },
+          },
+        },
+      })),
     }),
   }),
 }
