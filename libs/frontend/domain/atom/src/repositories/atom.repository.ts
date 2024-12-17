@@ -25,7 +25,7 @@ const {
   DeleteAtoms,
   GetSelectAtomOptions,
   UpdateAtoms,
-} = await atomServerActions()
+} = atomServerActions
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
   add: async (input: IAtomDto, options?: NextFetchOptions) => {

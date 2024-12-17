@@ -15,8 +15,7 @@ import {
   fieldServerActions,
 } from '@codelab/shared-domain-module/field'
 
-const { CreateFields, DeleteFields, GetFields, UpdateFields } =
-  await fieldServerActions()
+const { CreateFields, DeleteFields, GetFields, UpdateFields } = fieldServerActions
 
 export const fieldRepository: IFieldRepository = {
   add: async (field: IFieldDto) => {

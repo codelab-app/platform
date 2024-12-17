@@ -11,8 +11,7 @@ import {
   pageServerActions,
 } from '@codelab/shared-domain-module/page'
 
-const { CreatePages, DeletePages, PageList, UpdatePages } =
-  await pageServerActions()
+const { CreatePages, DeletePages, PageList, UpdatePages } = pageServerActions
 
 export const pageRepository: IPageRepository = {
   add: async (input: IPageDto) => {
