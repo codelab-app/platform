@@ -31,7 +31,13 @@ export class ImportCypressAtomsHandler
 
     const atomDtos = []
 
-    for (const atom of atoms) {
+    console.log(`Import cypress atoms, ${atoms.length} atoms`)
+
+    for (const [index, atom] of atoms.entries()) {
+      console.log(
+        `Importing atom ${atom.atom.name} (${index + 1}/${atoms.length})`,
+      )
+
       const atomDto = await this.commandBus.execute<
         ImportAtomCommand,
         IAtomDto

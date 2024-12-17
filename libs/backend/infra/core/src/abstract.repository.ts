@@ -141,6 +141,8 @@ export abstract class AbstractRepository<
       return this.validationService.validateAndClean(schema, results)
     }
 
+    console.log('Returning results...')
+
     return results
   }
 
