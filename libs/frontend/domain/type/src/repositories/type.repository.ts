@@ -16,7 +16,7 @@ import {
 } from '@codelab/shared-domain-module/type'
 import { sortBy } from 'remeda'
 
-const { GetBaseTypes, GetDescendants } = await findTypeServerActions()
+const { GetBaseTypes, GetDescendants } = findTypeServerActions
 
 /**
  * The record approach here has limitationg where we cannot create nested data.
