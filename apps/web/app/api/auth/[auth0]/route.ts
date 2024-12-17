@@ -17,6 +17,8 @@ export const GET = auth0Instance.handleAuth({
     afterCallback: async (req: NextRequest, session: Session) => {
       console.log('[auth0]/route.ts', process.env['NODE_ENV'])
 
+      return session
+
       /**
        * Only do this in development
        */

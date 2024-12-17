@@ -50,7 +50,10 @@ import {
 } from './delete-type.api.graphql.web.gen'
 import { getSdk as getFindSdk } from './get-type.api.graphql.api.gen'
 import { GetTypes } from './get-type.api.graphql.web.gen'
-import { GetTypeReferences } from './type.api.graphql.web.gen'
+import {
+  GetTypeReferences,
+  IsTypeDescendantOf,
+} from './type.api.graphql.web.gen'
 import { getSdk as getUpdateSdk } from './update-type.api.graphql.api.gen'
 import {
   UpdateActionTypes,
@@ -117,8 +120,9 @@ export const createTypeServerActions: CreateTypes = {
 }
 
 export const findTypeServerActions = {
-  ...GetTypes,
-  ...GetTypeReferences,
+  GetTypeReferences,
+  GetTypes,
+  IsTypeDescendantOf,
 }
 
 export const getAllTypes = async (
