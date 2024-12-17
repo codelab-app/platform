@@ -16,7 +16,8 @@ import {
   resourceServerActions,
 } from '@codelab/shared-domain-module/resource'
 
-const { CreateResources, DeleteResources, ResourceList, UpdateResource } = resourceServerActions
+const { CreateResources, DeleteResources, ResourceList, UpdateResources } =
+  resourceServerActions
 
 export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceDto) => {
@@ -62,7 +63,7 @@ export const resourceRepository: IResourceRepository = {
   update: async ({ id }: IRef, dto: IResourceDto) => {
     const {
       updateResources: { resources },
-    } = await UpdateResource(
+    } = await UpdateResources(
       {
         update: resourceMapper.toUpdateInput(dto),
         where: { id },

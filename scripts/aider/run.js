@@ -8,9 +8,8 @@ const args = process.argv.slice(2)
 
 // Spawn aider process with all arguments
 const { spawnSync } = require('child_process')
-const result = spawnSync('aider', args, { 
+const result = spawnSync('aider', args, {
   stdio: 'inherit',
-  shell: true 
 })
 
 // Exit with the same code as aider
