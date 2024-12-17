@@ -10,7 +10,7 @@ import {
   UpdateApps,
 } from './app.api.graphql.web.gen'
 
-export const appApi = getSdk(graphqlClient)
+export const appApi = () => getSdk(graphqlClient)
 
 export const appServerActions = {
   AppList,
