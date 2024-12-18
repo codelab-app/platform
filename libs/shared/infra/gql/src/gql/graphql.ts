@@ -31871,7 +31871,6 @@ export type UserFragment = {
 export type GetAppBuilderQueryVariables = Exact<{
   appId: Scalars['ID']['input']
   pageIds?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>
-  preview?: InputMaybe<Scalars['Boolean']['input']>
 }>
 
 export type GetAppBuilderQuery = {
@@ -37389,7 +37388,7 @@ export const DomainDeletedDocument = new TypedDocumentString(`
   DomainDeletedSubscriptionVariables
 >
 export const GetAppBuilderDocument = new TypedDocumentString(`
-    query GetAppBuilder($appId: ID!, $pageIds: [ID!], $preview: Boolean = true) {
+    query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
   actionTypes {
     ...ActionType
   }
